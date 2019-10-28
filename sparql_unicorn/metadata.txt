@@ -10,7 +10,7 @@ version=0.1
 author=SPARQL Unicorn
 email=rse@fthiery.de
 
-about=Add layer from Wikidata
+about=Add layer from Wikidata. This plugin needs the following external dependencies: geomet, sparqlwrapper, geojson. Just add a SPARQL query for Geo-Items in Wikipedia and add a new vector layer.
 repository=https://github.com/sparqlunicorn/sparqlunicornGoesGIS
 tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 

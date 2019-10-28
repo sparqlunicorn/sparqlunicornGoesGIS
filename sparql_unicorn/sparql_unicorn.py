@@ -33,7 +33,7 @@ from .resources import *
 from .sparql_unicorn_dialog import SPAQLunicornDialog
 import os.path
 
-# for SPARQL Unicorn
+# external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
 from geomet import wkt
@@ -186,11 +186,6 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
-    """def get_results(endpoint_url, query):
-        sparql = SPARQLWrapper(endpoint_url)
-        sparql.setQuery(query)
-        sparql.setReturnFormat(JSON)
-        return sparql.query().convert()"""
 
     def create_unicorn_layer(self):
         # SPARQL query
@@ -224,7 +219,7 @@ class SPAQLunicorn:
         if self.first_start == True:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
-            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
+            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
 
         # show the dialog
         self.dlg.show()
