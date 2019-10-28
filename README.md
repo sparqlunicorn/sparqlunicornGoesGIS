@@ -21,6 +21,8 @@ use the following commands in the `Administrator:OSGeo4W Shell` to install requi
 * ?geo
 * ?item
 
+### Ogham Stones
+
 ```sql
 SELECT ?label ?geo ?item WHERE {
   ?item wdt:P31 wd:Q2016147;
@@ -37,4 +39,16 @@ SELECT ?label ?geo ?item WHERE {
   }
 }
 ORDER BY (?label)
+```
+
+### Hospitals
+
+```sql
+SELECT * WHERE {
+  ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917;
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  FILTER((LANG(?label)) = "en")
+}
+LIMIT 5000
 ```
