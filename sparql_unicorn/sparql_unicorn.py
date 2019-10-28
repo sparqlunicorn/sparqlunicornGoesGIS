@@ -44,9 +44,15 @@ import numpy as np
 a = np.arange(15).reshape(3, 5)
 print(a)
 
+# for SPARQL Unicorn
+#from SPARQLWrapper import SPARQLWrapper, JSON
+#import geojson
+#from geomet import wkt
+#import json
+
 #sw.SPARQLWrapper("https://query.wikidata.org/sparql")
 
-wkt.loads("POINT(10 10)")
+#wkt.loads("POINT(10 10)")
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""

@@ -6,11 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-# for SPARQL Unicorn
-from SPARQLWrapper import SPARQLWrapper as sw, JSON
-import geojson
-from geomet import wkt
-import json
+import pip
+pip.main(['install', '--upgrade', 'geomet'])
 
 from PyQt5 import QtCore
 
