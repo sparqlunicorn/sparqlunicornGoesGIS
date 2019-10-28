@@ -12,13 +12,13 @@ email=rse@fthiery.de
 
 about=Add layer from Wikidata
 repository=https://github.com/sparqlunicorn/sparqlunicornGoesGIS
+tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 
 # End of mandatory metadata
 
 # Recommended items:
 
 hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
 # changelog=
 
 # Tags are comma separated with spaces allowed
