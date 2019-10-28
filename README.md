@@ -6,3 +6,9 @@
 * version=0.1
 * author=SPARQL Unicorn
 * email=rse@fthiery.de
+
+use the following commands in the `Administrator:OSGeo4W Shell` to install required libs:
+
+* python-gqis.bat -m pip install geomet
+* python-gqis.bat -m pip install sparqlwrapper
+* python-gqis.bat -m pip install geojson
