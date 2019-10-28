@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/plugins/save_attributes" >
-        <file>icon.png</file>
-    </qresource>
-</RCC>
