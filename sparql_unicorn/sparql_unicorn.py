@@ -34,25 +34,10 @@ from .sparql_unicorn_dialog import SPAQLunicornDialog
 import os.path
 
 # for SPARQL Unicorn
-#from SPARQLWrapper import SPARQLWrapper, JSON
-#import geojson
-#from geomet import wkt
-#import json
-#from SPARQLWrapper import SPARQLWrapper, JSON
-
-import numpy as np
-a = np.arange(15).reshape(3, 5)
-print(a)
-
-# for SPARQL Unicorn
-#from SPARQLWrapper import SPARQLWrapper, JSON
-#import geojson
-#from geomet import wkt
-#import json
-
-#sw.SPARQLWrapper("https://query.wikidata.org/sparql")
-
-#wkt.loads("POINT(10 10)")
+from SPARQLWrapper import SPARQLWrapper, JSON
+import geojson
+from geomet import wkt
+import json
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
@@ -211,40 +196,22 @@ class SPAQLunicorn:
         # SPARQL query
         endpoint_url = "https://query.wikidata.org/sparql"
         query = self.dlg.inp_sparql.toPlainText()
-
-        """
-
-        sparql = SPARQLWrapper(endpoint_url)
+        sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery(query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
+        print(results)
 
-
-
-        results = get_results(endpoint_url, query)
-
-        """
-
-        """
-
+        # geojson stuff
         features = []
-
         for result in results["results"]["bindings"]:
             feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             features.append(feature)
-
-        # geojson stuff
-
         geojson = {'type': 'FeatureCollection', 'features': features }
-
         print(json.dumps(geojson, sort_keys=True, indent=4))
 
-        """
-
-        print(query)
-
-        # dummy
-        vlayer = QgsVectorLayer("D:/src/sparqlunicornGoesGIS/ogham_test.json","SPARQL Unicorn Layer","ogr")
+        # add layer
+        vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)
 
