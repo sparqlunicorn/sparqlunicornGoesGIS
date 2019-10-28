@@ -1,0 +1,355 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.83,
+                    53.00444
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69377850",
+                "label": "CIIC 103"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.83,
+                    53.00444
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69377850",
+                "label": "CIIC 103"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794719444,
+                    51.8680611
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70382440",
+                "label": "CIIC 113"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794719444,
+                    51.8680611
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70382440",
+                "label": "CIIC 113"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -9.642777777,
+                    52.0611111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69383434",
+                "label": "CIIC 115"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -9.642777777,
+                    52.0611111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69383434",
+                "label": "CIIC 115"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794719444,
+                    51.8680611
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70382438",
+                "label": "CIIC 116"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794719444,
+                    51.8680611
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70382438",
+                "label": "CIIC 116"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794722222,
+                    51.8680556
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69385241",
+                "label": "CIIC 117"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.794722222,
+                    51.8680556
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69385241",
+                "label": "CIIC 117"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -10.388106111,
+                    52.1785111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q68002826",
+                "label": "CIIC 154"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -9.633466,
+                    52.060741
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67978531",
+                "label": "CIIC 203"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -9.633466111,
+                    52.0607411
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67978531",
+                "label": "CIIC 203"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -7.222584,
+                    52.470256
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67510124",
+                "label": "CIIC 38"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -7.222583888,
+                    52.4702561
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q67510124",
+                "label": "CIIC 38"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.765555555,
+                    53.7736111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70899515",
+                "label": "CIIC 4"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.66025,
+                    52.046444444
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69389329",
+                "label": "CIIC 426"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -3.950715,
+                    50.401753
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69389090",
+                "label": "CIIC 489"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.739661111,
+                    54.075501111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69388030",
+                "label": "CIIC 503"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.739661111,
+                    54.075501111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69388229",
+                "label": "CIIC 504"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -5.75,
+                    55.6833
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69386261",
+                "label": "CIIC 506"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.601944444,
+                    52.0811111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70892427",
+                "label": "CIIC 57"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.601944444,
+                    52.0811111
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q70892430",
+                "label": "CIIC 58"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.761666666,
+                    51.8163889
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69385424",
+                "label": "CIIC 81"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -8.761666666,
+                    51.8163889
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "item": "http://www.wikidata.org/entity/Q69385424",
+                "label": "CIIC 81"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}
