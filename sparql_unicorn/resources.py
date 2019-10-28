@@ -6,9 +6,6 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-import pip
-pip.main(['install', '--upgrade', 'geomet'])
-
 from PyQt5 import QtCore
 
 qt_resource_data = b"\
