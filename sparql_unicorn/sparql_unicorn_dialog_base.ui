@@ -45,21 +45,15 @@
     </font>
    </property>
    <property name="plainText">
-    <string>SELECT ?label ?geo ?item WHERE {
-  ?item wdt:P31 wd:Q2016147;
-    wdt:P361 wd:Q67978809;
-    wdt:P195 ?collection.
-  OPTIONAL { ?item wdt:P625 ?geo. }
-  OPTIONAL {
-    ?item rdfs:label ?label.
-    FILTER((LANG(?label)) = &quot;en&quot;)
-  }
-  OPTIONAL {
-    ?collection rdfs:label ?collectionLabel.
-    FILTER((LANG(?collectionLabel)) = &quot;en&quot;)
-  }
-}
-ORDER BY (?label)</string>
+    <string># Example: Airports in Germany
+
+SELECT ?label ?geo ?item WHERE {
+  ?item wdt:P31 wd:Q1248784; #Airport
+    ?range wd:Q183; #Germany
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  FILTER((LANG(?label)) = &quot;en&quot;)
+}</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
