@@ -7,18 +7,20 @@
 * author=SPARQL Unicorn
 * email=rse@fthiery.de
 
-use the following commands in the `Administrator:OSGeo4W Shell` to install required libs:
+use the following commands in the `Administrator:OSGeo4W Shell` to install required libs for python 2.7 and python 3.x
 
-* python-gqis.bat -m pip install geomet
-* python-gqis.bat -m pip install sparqlwrapper
-* python-gqis.bat -m pip install geojson
+* https://youtu.be/94W51WuDKzA
+ * install in py2: python -m pip install `package`
+ * switch from py2 to py3: py3_env
+ * install in py3: python -m pip install `package`
+* `geomet`, `geojson`, `SPARQLWrapper`
 
 ## Sample query
 
 *What is needed?*
 
 * ?label
-* ?geo
+* ?geo (lat/lon)
 * ?item
 
 ### Ogham Stones
