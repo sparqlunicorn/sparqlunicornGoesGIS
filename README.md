@@ -23,8 +23,31 @@ use the following commands in the `Administrator:OSGeo4W Shell` to install requi
 *What is needed?*
 
 * ?label
-* ?geo (lat/lon)
+* ?geo AS lat/lon
 * ?item
+
+### Hospitals
+
+```sql
+SELECT * WHERE {
+  ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917;
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  FILTER((LANG(?label)) = "en")
+}
+```
+
+### Castles as archaeological sites
+
+```sql
+SELECT * WHERE {
+  ?item wdt:P31 wd:Q839954;
+    (wdt:P31/(wdt:P279*)) wd:Q23413;
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  FILTER((LANG(?label)) = "en")
+}
+```
 
 ### Ogham Stones
 
@@ -42,17 +65,5 @@ SELECT ?label ?geo ?item WHERE {
     ?collection rdfs:label ?collectionLabel.
     FILTER((LANG(?collectionLabel)) = "en")
   }
-}
-ORDER BY (?label)
-```
-
-### Hospitals
-
-```sql
-SELECT * WHERE {
-  ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917;
-    wdt:P625 ?geo;
-    rdfs:label ?label.
-  FILTER((LANG(?label)) = "en")
 }
 ```
