@@ -26,11 +26,23 @@ use the following commands in the `Administrator:OSGeo4W Shell` to install requi
 * ?geo AS lat/lon
 * ?item
 
+### Airports in Germany
+
+```sql
+SELECT ?label ?geo ?item WHERE {
+  ?item wdt:P31 wd:Q1248784; #Airport
+    ?range wd:Q183; #Germany
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  FILTER((LANG(?label)) = "en")
+}
+```
+
 ### Hospitals
 
 ```sql
-SELECT * WHERE {
-  ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917;
+SELECT ?label ?geo ?item WHERE {
+  ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917; #Hospital
     wdt:P625 ?geo;
     rdfs:label ?label.
   FILTER((LANG(?label)) = "en")
@@ -40,9 +52,9 @@ SELECT * WHERE {
 ### Castles as archaeological sites
 
 ```sql
-SELECT * WHERE {
-  ?item wdt:P31 wd:Q839954;
-    (wdt:P31/(wdt:P279*)) wd:Q23413;
+SELECT ?label ?geo ?item WHERE {
+  ?item wdt:P31 wd:Q839954; #archaeologicalSite
+    (wdt:P31/(wdt:P279*)) wd:Q23413; #Castle
     wdt:P625 ?geo;
     rdfs:label ?label.
   FILTER((LANG(?label)) = "en")
@@ -53,7 +65,7 @@ SELECT * WHERE {
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
-  ?item wdt:P31 wd:Q2016147;
+  ?item wdt:P31 wd:Q2016147; #Ogham Stone
     wdt:P361 wd:Q67978809;
     wdt:P195 ?collection.
   OPTIONAL { ?item wdt:P625 ?geo. }
