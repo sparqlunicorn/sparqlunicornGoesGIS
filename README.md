@@ -7,6 +7,9 @@
 * author=SPARQL Unicorn
 * email=rse@fthiery.de
 
+* You have to install [`pip`](https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/sparql_unicorn/scripts/get-pip.py) first, save this file and run it on the console.
+
+
 use the following commands in the `Administrator:OSGeo4W Shell` to install required libs for python 2.7 and python 3.x
 
 * https://youtu.be/94W51WuDKzA
