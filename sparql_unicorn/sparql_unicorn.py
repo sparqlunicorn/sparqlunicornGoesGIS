@@ -21,6 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 """
+import sys
+import pip
+from qgis.utils import iface
+from qgis.core import Qgis
+
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
@@ -166,6 +171,8 @@ class SPAQLunicorn:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        #a = str('numpy' in sys.modules)
+        #iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
 
         icon_path = ':/plugins/sparql_unicorn/icon.png'
         self.add_action(
@@ -196,19 +203,23 @@ class SPAQLunicorn:
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         print(results)
-
         # geojson stuff
         features = []
         for result in results["results"]["bindings"]:
-            feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-            features.append(feature)
+            if "Point" in result["geo"]["value"]:
+                feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                features.append(feature)
         geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
-
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)
+        canvas = iface.mapCanvas()
+        canvas.setExtent(vlayer.extent())
+        iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+        #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
+        self.dlg.close()
 
 
     def run(self):
