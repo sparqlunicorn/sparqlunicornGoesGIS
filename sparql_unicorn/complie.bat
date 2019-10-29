@@ -5,6 +5,3 @@ call "C:\OSGeo4W64\bin\py3_env.bat"
 
 @echo on
 pyrcc5 -o resources.py resources.qrc
-python-gqis.bat -m pip install geomet
-python-gqis.bat -m pip install sparqlwrapper
-python-gqis.bat -m pip install geojson
