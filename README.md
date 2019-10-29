@@ -50,5 +50,5 @@ SELECT * WHERE {
     rdfs:label ?label.
   FILTER((LANG(?label)) = "en")
 }
-LIMIT 5000
+LIMIT
 ```
