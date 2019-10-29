@@ -1,0 +1,9 @@
+windows
+
+http://www.qgistutorials.com/de/docs/3/building_a_python_plugin.html
+
+https://www.howtogeek.com/197947/how-to-install-python-on-windows/
+
+https://www.liquidweb.com/kb/install-pip-windows/
+
+https://trac.osgeo.org/osgeo4w/
