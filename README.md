@@ -4,7 +4,7 @@
 
 * qgisMinimumVersion=3.0
 * version=0.3
-* author=SPARQL Unicorn
+* author=SPARQL Unicorn, Florian Thiery
 * email=rse@fthiery.de
 
 * You have to install [`pip`](https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/sparql_unicorn/scripts/get-pip.py) first, save this file and run it on the console.
