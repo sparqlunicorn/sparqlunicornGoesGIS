@@ -6,7 +6,7 @@
 name=SPARQL Unicorn Wikidata Plugin
 qgisMinimumVersion=3.0
 description=This plugin adds a GeoJSON layer from a Wikidata SPARQL query.
-version=0.2
+version=0.3
 author=SPARQL Unicorn, Florian Thiery
 email=rse@fthiery.de
 
@@ -19,7 +19,7 @@ tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 # Recommended items:
 
 hasProcessingProvider=no
-changelog=0.1: initial commit; 0.2: bugfixes and more user comfort;
+changelog=0.1: initial commit; 0.2: bugfixes and more user comfort; 0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint;
 
 # Tags are comma separated with spaces allowed
 tags=Wikidata,SPARQL
