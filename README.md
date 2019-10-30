@@ -3,7 +3,7 @@
 **This plugin adds a GeoJSON layer from a Wikidata SPARQL query.**
 
 * qgisMinimumVersion=3.0
-* version=0.3
+* version=0.4
 * author=SPARQL Unicorn, Florian Thiery
 * email=rse@fthiery.de
 
