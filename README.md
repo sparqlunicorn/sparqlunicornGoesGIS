@@ -3,7 +3,7 @@
 **This plugin adds a GeoJSON layer from a Wikidata SPARQL query.**
 
 * qgisMinimumVersion=3.0
-* version=0.4
+* version=0.5
 * author=SPARQL Unicorn, Florian Thiery
 * email=rse@fthiery.de
 
@@ -28,12 +28,15 @@ https://plugins.qgis.org/plugins/sparqlunicorn/
 * Wikidata: https://query.wikidata.org/sparql
 * Ordnance Survey UK: http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
 * Nomisma.org: http://nomisma.org/query
+* Kerameikos.org: http://kerameikos.org/query
 
 Prefixes are (mostly) included.
 
 For Wikidata queries geometries as `?geo` --> `Point (x y)` is needed.
 
 For OSUK queries the geom as `?easting` and `?northing` is needed.
+
+For Nomisma/Kerameikos queries the geom as `?lat` and `?long` is needed.
 
 ## Sample queries
 
@@ -132,6 +135,21 @@ SELECT ?mint ?label ?lat ?long WHERE {
    ?mint geo:location ?loc ;
          skos:prefLabel ?label ;
          a nmo:Mint
+  FILTER langMatches (lang(?label), 'en')
+}
+```
+
+### Kerameikos.org
+
+#### All Production Places
+
+```sql
+SELECT ?pp ?label ?lat ?long WHERE {
+   ?loc geo:lat ?lat ;
+        geo:long ?long .
+   ?pp geo:location ?loc ;
+         skos:prefLabel ?label ;
+         a kon:ProductionPlace
   FILTER langMatches (lang(?label), 'en')
 }
 ```
