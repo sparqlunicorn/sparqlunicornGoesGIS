@@ -77,11 +77,11 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
-#### Ogham Stones
+#### Ogam Stones
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
-  ?item wdt:P31 wd:Q2016147; #Ogham Stone
+  ?item wdt:P31 wd:Q2016147; #Ogam Stone
     wdt:P361 wd:Q67978809;
     wdt:P195 ?collection.
   OPTIONAL { ?item wdt:P625 ?geo. }
