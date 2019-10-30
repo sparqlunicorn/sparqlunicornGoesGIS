@@ -43,6 +43,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
 from geomet import wkt
 import json
+from convertbng.util import convert_bng, convert_lonlat
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
@@ -195,26 +196,47 @@ class SPAQLunicorn:
 
 
     def create_unicorn_layer(self):
+        endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
-        endpoint_url = "https://query.wikidata.org/sparql"
+        if endpointIndex == 0:
+            endpoint_url = "https://query.wikidata.org/sparql"
+        else:
+            endpoint_url = "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(query)
+        if endpointIndex == 0:
+            sparql.setQuery(query)
+        else:
+            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>" + query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         print(results)
         # geojson stuff
         features = []
-        for result in results["results"]["bindings"]:
-            properties = {}
-            for var in results["head"]["vars"]:
-                properties[var] = result[var]["value"]
-            #print(properties)
-            if "Point" in result["geo"]["value"]:
-                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+        if endpointIndex == 0:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                #print(properties)
+                if "Point" in result["geo"]["value"]:
+                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    features.append(feature)
+            geojson = {'type': 'FeatureCollection', 'features': features }
+        else:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                eastings = [float(result["easting"]["value"])]
+                northings = [float(result["northing"]["value"])]
+                res_list_en = convert_lonlat(eastings, northings)
+                point = "POINT("+str(res_list_en[0][0])+" "+str(res_list_en[1][0])+")"
+                #print(point)
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
                 features.append(feature)
-        geojson = {'type': 'FeatureCollection', 'features': features }
+            geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
@@ -235,6 +257,9 @@ class SPAQLunicorn:
         if self.first_start == True:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
+            self.dlg.comboBox.clear()
+            self.dlg.comboBox.addItem('Wikidata --> ?geo required!')
+            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!')
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
 
         # show the dialog
