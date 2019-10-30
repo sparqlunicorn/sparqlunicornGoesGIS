@@ -15,7 +15,7 @@ use the following commands in the `Administrator:OSGeo4W Shell` to install requi
   * install in py2: python -m pip install `package`
   * switch from py2 to py3: py3_env
   * install in py3: python -m pip install `package`
-* `geomet`, `geojson`, `SPARQLWrapper`
+* `geomet`, `geojson`, `SPARQLWrapper`, `convertbng`
 
 ## QGIS Plugin
 
