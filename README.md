@@ -3,7 +3,7 @@
 **This plugin adds a GeoJSON layer from a Wikidata SPARQL query.**
 
 * qgisMinimumVersion=3.0
-* version=0.2
+* version=0.3
 * author=SPARQL Unicorn
 * email=rse@fthiery.de
 
@@ -17,19 +17,28 @@ use the following commands in the `Administrator:OSGeo4W Shell` to install requi
  * install in py3: python -m pip install `package`
 * `geomet`, `geojson`, `SPARQLWrapper`
 
-## QGIS Plugins
+## QGIS Plugin
+
+This Plugin is listed under die experimentail QGIS Pluigins:
 
 https://plugins.qgis.org/plugins/sparqlunicorn/
 
-## Sample query
+## Supported SPARQL endpoints
 
-*What is needed?*
+* Wikidata: https://query.wikidata.org/sparql
+* Ordnance Survey UK: http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
 
-* ?label
-* ?geo AS lat/lon
-* ?item
+Prefixes are (mostly) included.
 
-### Airports in Germany
+For Wikidata queries geometries as `?geo` --> `Point (x y)` is needed.
+
+For OSUK queries the geom as `?easting` and `?northing` is needed.
+
+## Sample queries
+
+### Wikidata
+
+#### Airports in Germany
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
@@ -41,7 +50,7 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
-### Hospitals
+#### Hospitals
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
@@ -52,7 +61,7 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
-### Castles as archaeological sites
+#### Castles as archaeological sites
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
@@ -64,7 +73,7 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
-### Ogham Stones
+#### Ogham Stones
 
 ```sql
 SELECT ?label ?geo ?item WHERE {
@@ -80,5 +89,33 @@ SELECT ?label ?geo ?item WHERE {
     ?collection rdfs:label ?collectionLabel.
     FILTER((LANG(?collectionLabel)) = "en")
   }
+}
+```
+
+### Ordnance Survey UK
+
+#### Roman Antiquity Sites in UK
+
+```sql
+SELECT ?uri ?label ?easting ?northing
+WHERE {
+  ?uri
+    gaz:featureType gaz:RomanAntiquity;
+    rdfs:label ?label;
+    spatial:easting ?easting;
+    spatial:northing ?northing;
+}
+```
+
+#### Antiquity Sites in UK
+
+```sql
+SELECT ?uri ?label ?easting ?northing
+WHERE {
+  ?uri
+    gaz:featureType gaz:Antiquity;
+    rdfs:label ?label;
+    spatial:easting ?easting;
+    spatial:northing ?northing;
 }
 ```
