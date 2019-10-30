@@ -27,6 +27,7 @@ https://plugins.qgis.org/plugins/sparqlunicorn/
 
 * Wikidata: https://query.wikidata.org/sparql
 * Ordnance Survey UK: http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
+* Nomisma.org: http://nomisma.org/query
 
 Prefixes are (mostly) included.
 
@@ -117,5 +118,20 @@ WHERE {
     rdfs:label ?label;
     spatial:easting ?easting;
     spatial:northing ?northing;
+}
+```
+
+### Nomisma.org
+
+#### All Mints
+
+```sql
+SELECT ?mint ?label ?lat ?long WHERE {
+   ?loc geo:lat ?lat ;
+        geo:long ?long .
+   ?mint geo:location ?loc ;
+         skos:prefLabel ?label ;
+         a nmo:Mint
+  FILTER langMatches (lang(?label), 'en')
 }
 ```
