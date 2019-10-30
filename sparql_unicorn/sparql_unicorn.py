@@ -206,8 +206,13 @@ class SPAQLunicorn:
         # geojson stuff
         features = []
         for result in results["results"]["bindings"]:
+            properties = {}
+            for var in results["head"]["vars"]:
+                properties[var] = result[var]["value"]
+            #print(properties)
             if "Point" in result["geo"]["value"]:
-                feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 features.append(feature)
         geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
