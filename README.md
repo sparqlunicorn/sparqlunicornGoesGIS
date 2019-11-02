@@ -3,7 +3,7 @@
 **This plugin adds a GeoJSON layer from a Wikidata SPARQL query.**
 
 * qgisMinimumVersion=3.0
-* version=0.5
+* version=0.6
 * author=SPARQL Unicorn, Florian Thiery
 * email=rse@fthiery.de
 
@@ -29,6 +29,7 @@ https://plugins.qgis.org/plugins/sparqlunicorn/
 * Ordnance Survey UK: http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
 * Nomisma.org: http://nomisma.org/query
 * Kerameikos.org: http://kerameikos.org/query
+* LinkedGeodata.org: http://linkedgeodata.org/sparql
 
 Prefixes are (mostly) included.
 
@@ -37,6 +38,8 @@ For Wikidata queries geometries as `?geo` --> `Point (x y)` is needed.
 For OSUK queries the geom as `?easting` and `?northing` is needed.
 
 For Nomisma/Kerameikos queries the geom as `?lat` and `?long` is needed.
+
+For LinkedGeodata queries geometries as `?geo` --> `POINT (x y)` is needed.
 
 ## Sample queries
 
@@ -151,5 +154,43 @@ SELECT ?pp ?label ?lat ?long WHERE {
          skos:prefLabel ?label ;
          a kon:ProductionPlace
   FILTER langMatches (lang(?label), 'en')
+}
+```
+
+### LinkedGeodata.org
+
+#### Restaurants in Mainz, 500m around of the Mainzer Dom
+
+```sql
+SELECT ?item ?label ?geo
+FROM <http://linkedgeodata.org> {
+  ?item
+    a lgdo:Restaurant ;
+    rdfs:label ?label ;
+    geom:geometry [
+      ogc:asWKT ?geo
+    ] .
+
+  Filter (
+    bif:st_intersects (?geo, bif:st_point (8.274167,49.998889),0.5)
+  ) .
+}
+```
+
+#### Amenity in Cork, 1km around of the UCC
+
+```sql
+SELECT ?item ?label ?geo
+FROM <http://linkedgeodata.org> {
+  ?item
+    a lgdo:Amenity ;
+    rdfs:label ?label ;
+    geom:geometry [
+      ogc:asWKT ?geo
+    ] .
+
+  Filter (
+    bif:st_intersects (?geo, bif:st_point (-8.491873,51.893497),1.0)
+  ) .
 }
 ```
