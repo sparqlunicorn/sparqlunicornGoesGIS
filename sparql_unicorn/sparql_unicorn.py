@@ -208,6 +208,10 @@ class SPAQLunicorn:
             endpoint_url = "http://kerameikos.org/query"
         elif endpointIndex == 4:
             endpoint_url = "http://linkedgeodata.org/sparql"
+        elif endpointIndex== 5:
+            endpoint_url = "http://dbpedia.org/sparql"
+        elif endpointIndex==6:
+            endpoint_url = "http://factforge.net/repositories/ff-news"
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if endpointIndex == 0:
@@ -220,6 +224,10 @@ class SPAQLunicorn:
             sparql.setQuery("PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" + query)
         elif endpointIndex == 4:
             sparql.setQuery("Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
+        elif endpointIndex == 5:
+            sparql.setQuery("Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
+        elif endpointIndex == 6:
+            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>" + query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         print(results)
@@ -277,6 +285,27 @@ class SPAQLunicorn:
                 if "POINT" in result["geo"]["value"]:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                     features.append(feature)
+                elif "LINESTRING" in result["geo"]["value"]:
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("LineString", "LINESTRING")) }
+                    features.append(feature)
+            geojson = {'type': 'FeatureCollection', 'features': features }
+        elif endpointIndex == 5:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                if "lat" in properties and "lon" in properties:
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    features.append(feature)   
+            geojson = {'type': 'FeatureCollection', 'features': features }
+        elif endpointIndex == 6:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                if "lat" in properties and "lon" in properties:
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    features.append(feature)                        
             geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
         # add layer
@@ -304,6 +333,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!')
             self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!')
             self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo (POINT) required!')
+            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
+            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
 
         # show the dialog

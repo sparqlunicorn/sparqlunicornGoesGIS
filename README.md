@@ -194,3 +194,26 @@ FROM <http://linkedgeodata.org> {
   ) .
 }
 ```
+### DBPedia
+
+#### 10 Points from DBPedia
+
+```sql
+SELECT ?lat ?lon ?location WHERE { 
+  ?location geo:lat ?lat .
+  ?location geo:long ?lon . 
+}
+LIMIT 10
+```
+
+### Geonames
+
+#### 10 Points from Geonames
+
+```sql
+SELECT ?lat ?lon ?location WHERE { 
+  ?location geo:lat ?lat .
+  ?location geo:long ?lon . 
+}
+LIMIT 10
+```
