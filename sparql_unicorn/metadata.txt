@@ -5,12 +5,12 @@
 [general]
 name=SPARQL Unicorn Wikidata Plugin
 qgisMinimumVersion=3.0
-description=Adds a layer from Wikidata via a SPARQL query.<br>It needs the following python libs: geojson, geomet, SPARQLWrapper and convertbng.<br>Some more SPARQL endpoints are implemented: Ordnance Survey UK, Linked Geodata (OSM), Nomisma and Kerameikos.
-version=0.6
-author=SPARQL Unicorn, Florian Thiery
+description=This plugin adds a GeoJSON layer from SPARQL enpoint queries. It needs the following python libs: geojson, geomet, SPARQLWrapper and convertbng. These SPARQL endpoints are implemented: Wikidata, Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia and GeoNames.
+version=0.7
+author=SPARQL Unicorn, Florian Thiery, Timo Homburg
 email=rse@fthiery.de
 
-about=Adds a layer from Wikidata and other Linked Data SPARQL endpoints (Ordnance Survey UK, Linked Geodata (OSM), Nomisma and Kerameikos).<br>This plugin needs the following external dependencies: geojson, geomet, SPARQLWrapper and convertbng.<br>Just insert a SPARQL query for Geo-Items (have a look which kind of result you have to get from the SPARQL endpoint) and get a new vector layer into QGIS.
+about=Adds a layer from Wikidata and other Linked Data SPARQL endpoints (Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia, GeoNames). This plugin needs the following external dependencies: geojson, geomet, SPARQLWrapper and convertbng. Just insert a SPARQL query for Geo-Items (have a look which kind of result you have to get from the SPARQL endpoint) and get a new vector layer into QGIS.
 repository=https://github.com/sparqlunicorn/sparqlunicornGoesGIS
 tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 
@@ -19,10 +19,10 @@ tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 # Recommended items:
 
 hasProcessingProvider=no
-changelog=0.6: add support for linkedgeodata.org<br>0.5: add support for kerameikos.org<br>0.4: add support for nomisma.org<br>0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint<br>0.2: bugfixes and more user comfort<br>0.1: initial commit
+changelog=0.7: add support for DBpedia and GeoNames<br>0.6: add support for linkedgeodata.org<br>0.5: add support for kerameikos.org<br>0.4: add support for nomisma.org<br>0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint<br>0.2: bugfixes and more user comfort<br>0.1: initial commit
 
 # Tags are comma separated with spaces allowed
-tags=Wikidata,SPARQL,Nomisma,Kerameikos,Ordnance Survey,OpenStreetMap,LinkedGeodata
+tags=Wikidata,SPARQL,Nomisma,Kerameikos,Ordnance Survey,OpenStreetMap,LinkedGeodata,GeoNames,DBpedia
 
 homepage=http://sparqlunicorn.link
 category=Vector
@@ -36,7 +36,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-# plugin_dependencies=geojson,geomet,SPARQLWrapper,convertbng
+# plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
 #category=Vector

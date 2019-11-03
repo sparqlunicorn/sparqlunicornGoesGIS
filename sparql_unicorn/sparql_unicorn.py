@@ -296,7 +296,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
-                    features.append(feature)   
+                    features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 6:
             for result in results["results"]["bindings"]:
@@ -305,7 +305,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
-                    features.append(feature)                        
+                    features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
         # add layer

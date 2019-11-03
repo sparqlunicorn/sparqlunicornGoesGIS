@@ -1,10 +1,10 @@
-# SPARQL Unicorn Wikidata Plugin
+# SPARQL Unicorn Plugin
 
-**This plugin adds a GeoJSON layer from a Wikidata SPARQL query.**
+**This plugin adds a GeoJSON layer from SPARQL enpoint queries.**
 
 * qgisMinimumVersion=3.0
-* version=0.6
-* author=SPARQL Unicorn, Florian Thiery
+* version=0.7
+* author=SPARQL Unicorn, Florian Thiery, Timo Homburg
 * email=rse@fthiery.de
 
 * You have to install [`pip`](https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/sparql_unicorn/scripts/get-pip.py) first, save this file and run it on the console.
@@ -30,6 +30,8 @@ https://plugins.qgis.org/plugins/sparqlunicorn/
 * Nomisma.org: http://nomisma.org/query
 * Kerameikos.org: http://kerameikos.org/query
 * LinkedGeodata.org: http://linkedgeodata.org/sparql
+* DBPedia: http://dbpedia.org/sparql
+* GeoNames: http://factforge.net/repositories/ff-news
 
 Prefixes are (mostly) included.
 
@@ -40,6 +42,8 @@ For OSUK queries the geom as `?easting` and `?northing` is needed.
 For Nomisma/Kerameikos queries the geom as `?lat` and `?long` is needed.
 
 For LinkedGeodata queries geometries as `?geo` --> `POINT (x y)` is needed.
+
+For DBpedia/GeoNames queries the geom as `?lat` and `?lon` is needed.
 
 ## Sample queries
 
@@ -199,9 +203,9 @@ FROM <http://linkedgeodata.org> {
 #### 10 Points from DBPedia
 
 ```sql
-SELECT ?lat ?lon ?location WHERE { 
+SELECT ?lat ?lon ?location WHERE {
   ?location geo:lat ?lat .
-  ?location geo:long ?lon . 
+  ?location geo:long ?lon .
 }
 LIMIT 10
 ```
@@ -211,9 +215,9 @@ LIMIT 10
 #### 10 Points from Geonames
 
 ```sql
-SELECT ?lat ?lon ?location WHERE { 
+SELECT ?lat ?lon ?location WHERE {
   ?location geo:lat ?lat .
-  ?location geo:long ?lon . 
+  ?location geo:long ?lon .
 }
 LIMIT 10
 ```
