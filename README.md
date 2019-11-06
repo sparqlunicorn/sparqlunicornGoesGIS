@@ -1,4 +1,4 @@
-# SPARQL Unicorn Plugin
+# SPARQLing Unicorn QGIS Plugin
 
 **This plugin adds a GeoJSON layer from SPARQL enpoint queries.**
 
