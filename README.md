@@ -61,6 +61,21 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
+#### Airports in European countries
+
+```sql
+SELECT ?label ?geo ?item ?country ?labelC WHERE {
+  ?item wdt:P31 wd:Q1248784;
+    ?range ?country;
+    wdt:P625 ?geo;
+    rdfs:label ?label.
+  ?country rdfs:label ?labelC.
+  FILTER((LANG(?label)) = "en")
+  FILTER((LANG(?labelC)) = "en")
+  FILTER(?country IN(wd:Q183, wd:Q142, wd:Q145, wd:Q27, wd:Q29, wd:Q38, wd:Q35, wd:Q34, wd:Q20, wd:Q33, wd:Q45, wd:Q189))
+}
+```
+
 #### Hospitals
 
 ```sql
