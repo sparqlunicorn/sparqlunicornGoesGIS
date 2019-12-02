@@ -379,7 +379,7 @@ class SPAQLunicorn:
         return ttlstring
 
 
-    def loadGraph():
+    def loadGraph(self):
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.AnyFile)
         if dialog.exec_():
