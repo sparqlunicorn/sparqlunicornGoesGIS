@@ -41,7 +41,7 @@ import os.path
 # external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
-import rdflib
+#import rdflib
 from geomet import wkt
 import json
 from convertbng.util import convert_bng, convert_lonlat
@@ -377,8 +377,8 @@ class SPAQLunicorn:
             ttlstring+="<"+feature['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
             ttlstring+="<"+feature['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+wkt.dumps(feature['geometry'])+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
         return ttlstring
-		
-		
+
+
     def loadGraph():
         dialog = QFileDialog(self)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -398,7 +398,7 @@ class SPAQLunicorn:
             }""")
             return result
         return None
-		
+
     def run(self):
         """Run method that performs all the real work"""
 
