@@ -10,7 +10,6 @@
         git sha              : $Format:%H$
         copyright            : (C) 2019 by SPARQL Unicorn
         email                : rse@fthiery.de
-        developer(s)         : Florian Thiery,  Timo Homburg
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,7 +21,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-
 import sys
 import pip
 from qgis.utils import iface
@@ -33,6 +31,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
 from qgis.core import QgsVectorLayer, QgsProject
+import rdflib
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -51,6 +50,8 @@ from convertbng.util import convert_bng, convert_lonlat
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
+    loadedfromfile=False
+    
     def __init__(self, iface):
         """Constructor.
 
@@ -215,6 +216,8 @@ class SPAQLunicorn:
             endpoint_url = "http://dbpedia.org/sparql"
         elif endpointIndex==6:
             endpoint_url = "http://factforge.net/repositories/ff-news"
+        elif endpointIndex==7:
+            endpoint_url = "http://zbw.eu/beta/sparql/econ_pers/query"
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if endpointIndex == 0:
@@ -321,27 +324,27 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-    def getGeoConceptsFromGraph(graph):
+    def getGeoConceptsFromGraph(self,graph):
         viewlist=[]
         qres = graph.query(
         """SELECT DISTINCT ?a_class (count( ?a_class) as ?count)
         WHERE {
           ?a rdf:type ?a_class .
-          ?a geo:hasGeometry ?a_geom .
-          ?a_geom geo:asWKT ?a_wkt .
+          ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
+          ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?a_wkt .
         }""")
         print(qres)
         for row in qres:
             viewlist.append(str(row[0]))
         return viewlist
 
-    def getGeoJSONFromGeoConcept(graph,concept):
+    def getGeoJSONFromGeoConcept(self,graph,concept):
         qres = graph.query(
         """SELECT DISTINCT ?a ?rel ?val ?wkt
         WHERE {
           ?a rdf:type <"""+concept+"""> .
           ?a ?rel ?val .
-          OPTIONAL { ?val geo:asWKT ?wkt}
+          OPTIONAL { ?val <http://www.opengis.net/ont/geosparql#asWKT> ?wkt}
         }""")
         geos=[]
         geometries = {
@@ -387,9 +390,10 @@ class SPAQLunicorn:
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             g = rdflib.Graph()
-            splitted=fileNames[0].split(".")
-            result = g.parse(filepath, format=splitted[len(splitted)-1])
-            geoconcepts=getGeoConceptsFromGraph(g)
+            filepath=fileNames[0].split(".")
+            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
+            print(g)
+            geoconcepts=self.getGeoConceptsFromGraph(g)
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
             self.dlg.inp_sparql.setPlainText("""SELECT DISTINCT ?a ?rel ?val ?wkt
@@ -398,6 +402,7 @@ class SPAQLunicorn:
             ?a ?rel ?val .
             OPTIONAL { ?val geo:asWKT ?wkt}
             }""")
+            loadedfromfile=True
             return result
         return None
 
@@ -417,6 +422,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo (POINT) required!')
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
+            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')            
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
