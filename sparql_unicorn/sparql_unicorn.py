@@ -10,6 +10,7 @@
         git sha              : $Format:%H$
         copyright            : (C) 2019 by SPARQL Unicorn
         email                : rse@fthiery.de
+        developer(s)         : Florian Thiery,  Timo Homburg
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+
 import sys
 import pip
 from qgis.utils import iface
