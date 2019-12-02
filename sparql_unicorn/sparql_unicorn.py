@@ -380,7 +380,7 @@ class SPAQLunicorn:
 
 
     def loadGraph(self):
-        dialog = QFileDialog(self)
+        dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
