@@ -319,71 +319,71 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-	def getGeoConceptsFromGraph(graph):
-		viewlist=[]
-		qres = graph.query(
-		"""SELECT DISTINCT ?a_class (count( ?a_class) as ?count)
-		WHERE {
-          ?a rdf:type ?a_class .
-          ?a geo:hasGeometry ?a_geom .
-          ?a_geom geo:asWKT ?a_wkt .
-       }""")
-		print(qres)
-		for row in qres:
-			viewlist.append(str(row[0]))
-		return viewlist
+    def getGeoConceptsFromGraph(graph):
+        viewlist=[]
+        qres = graph.query(
+            """SELECT DISTINCT ?a_class (count( ?a_class) as ?count)
+            WHERE {
+            ?a rdf:type ?a_class .
+            ?a geo:hasGeometry ?a_geom .
+            ?a_geom geo:asWKT ?a_wkt .
+        }""")
+        print(qres)
+        for row in qres:
+            viewlist.append(str(row[0]))
+        return viewlist
 
-	def getGeoJSONFromGeoConcept(graph,concept):
-		qres = graph.query(
-		"""SELECT DISTINCT ?a ?rel ?val ?wkt
-		WHERE {
-          ?a rdf:type <"""+concept+"""> .
-          ?a ?rel ?val .
-          OPTIONAL { ?val geo:asWKT ?wkt}
-       }""")
-		geos=[]
-		geometries = {
-			'type': 'FeatureCollection',
-			'features': geos,
-			}
-		newfeature=False
-		lastfeature=""
-		currentgeo={}
-		for row in qres:
-			print(lastfeature+" - "+row[0]+" - "+str(len(row)))
-			print(row)
-			if(lastfeature=="" or lastfeature!=row[0]):
-				if(lastfeature!=""):
-					geos.append(currentgeo)
-				lastfeature=row[0]
-				currentgeo={'id':row[0],'geometry':{},'properties':{}}
-			if(row[3]!=None):
-				print(row[3])
-				if("<" in row[3]):
-					currentgeo['geometry']=wkt.loads(row[3].split(">")[1].strip())
-				else:
-					currentgeo['geometry']=wkt.loads(row[3])
-			else:
-				currentgeo['properties'][str(row[1])]=str(row[2])
-		return geometries
+    def getGeoJSONFromGeoConcept(graph,concept):
+        qres = graph.query(
+            """SELECT DISTINCT ?a ?rel ?val ?wkt
+            WHERE {
+            ?a rdf:type <"""+concept+"""> .
+            ?a ?rel ?val .
+            OPTIONAL { ?val geo:asWKT ?wkt}
+            }""")
+        geos=[]
+        geometries = {
+            'type': 'FeatureCollection',
+            'features': geos,
+        }
+        newfeature=False
+        lastfeature=""
+        currentgeo={}
+        for row in qres:
+            print(lastfeature+" - "+row[0]+" - "+str(len(row)))
+            print(row)
+            if(lastfeature=="" or lastfeature!=row[0]):
+                if(lastfeature!=""):
+                    geos.append(currentgeo)
+                    lastfeature=row[0]
+                    currentgeo={'id':row[0],'geometry':{},'properties':{}}
+                if(row[3]!=None):
+                    print(row[3])
+                if("<" in row[3]):
+                    currentgeo['geometry']=wkt.loads(row[3].split(">")[1].strip())
+                else:
+                    currentgeo['geometry']=wkt.loads(row[3])
+            else:
+                currentgeo['properties'][str(row[1])]=str(row[2])
+        return geometries
 
-	def geoJSONToRDF(geojson):
-		ttlstring=""
+    def geoJSONToRDF(geojson):
+        ttlstring=""
 		for feature in geojson['features']:
-			print(feature)
-			for prop in feature['properties']:
-				ttlstring+="<"+feature['id']+"> <"+prop+"> <"+feature['properties'][prop]+"> .\n"
-			ttlstring+="<"+feature['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+feature['id']+"_geom> .\n"
-			ttlstring+="<"+feature['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-			ttlstring+="<"+feature['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+wkt.dumps(feature['geometry'])+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
-		return ttlstring
-		
-		
+            print(feature)
+            for prop in feature['properties']:
+                ttlstring+="<"+feature['id']+"> <"+prop+"> <"+feature['properties'][prop]+"> .\n"
+                ttlstring+="<"+feature['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+feature['id']+"_geom> .\n"
+                ttlstring+="<"+feature['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
+                ttlstring+="<"+feature['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+wkt.dumps(feature['geometry'])+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+        return ttlstring
+
+
 	def loadGraph():
-		dialog = QFileDialog(self)
-		dialog.setFileMode(QFileDialog.AnyFile)
+        dialog = QFileDialog(self)
+        dialog.setFileMode(QFileDialog.AnyFile)
 		if dialog.exec_():
-			fileNames = dialog.selectedFiles()
+            fileNames = dialog.selectedFiles()
 			g = rdflib.Graph()
 			splitted=fileNames[0].split(".")
 			result = g.parse(filepath, format=splitted[len(splitted)-1])
@@ -398,7 +398,7 @@ class SPAQLunicorn:
 			}""")
 			return result
 		return None
-		
+
     def run(self):
         """Run method that performs all the real work"""
 
@@ -416,7 +416,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
-			self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
+            self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
         # show the dialog
         self.dlg.show()
