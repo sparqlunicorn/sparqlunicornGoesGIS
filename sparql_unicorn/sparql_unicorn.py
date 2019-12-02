@@ -52,6 +52,8 @@ class SPAQLunicorn:
 
     loadedfromfile=False
     
+    currentgraph=None
+    
     def __init__(self, iface):
         """Constructor.
 
@@ -202,7 +204,20 @@ class SPAQLunicorn:
     def create_unicorn_layer(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
-        if endpointIndex == 0:
+        print(self.loadedfromfile)
+        if self.loadedfromfile:
+            concept = self.dlg.layerconcepts.currentText()
+            geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
+            vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
+            print(vlayer.isValid())
+            QgsProject.instance().addMapLayer(vlayer)
+            canvas = iface.mapCanvas()
+            canvas.setExtent(vlayer.extent())
+            iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+            #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
+            self.dlg.close()
+            return
+        elif endpointIndex == 0:
             endpoint_url = "https://query.wikidata.org/sparql"
         elif endpointIndex == 1:
             endpoint_url = "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
@@ -339,6 +354,7 @@ class SPAQLunicorn:
         return viewlist
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
+        print(concept)
         qres = graph.query(
         """SELECT DISTINCT ?a ?rel ?val ?wkt
         WHERE {
@@ -393,6 +409,7 @@ class SPAQLunicorn:
             filepath=fileNames[0].split(".")
             result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
             print(g)
+            self.currentgraph=g
             geoconcepts=self.getGeoConceptsFromGraph(g)
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
@@ -402,7 +419,7 @@ class SPAQLunicorn:
             ?a ?rel ?val .
             OPTIONAL { ?val geo:asWKT ?wkt}
             }""")
-            loadedfromfile=True
+            self.loadedfromfile=True
             return result
         return None
 
