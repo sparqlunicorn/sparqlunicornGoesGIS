@@ -127,7 +127,7 @@ SELECT ?label ?geo ?item WHERE {
     <rect>
      <x>120</x>
      <y>50</y>
-     <width>341</width>
+     <width>601</width>
      <height>22</height>
     </rect>
    </property>
