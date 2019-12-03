@@ -413,6 +413,7 @@ class SPAQLunicorn:
             print(g)
             self.currentgraph=g
             geoconcepts=self.getGeoConceptsFromGraph(g)
+            self.dlg.layerconcepts.clear()
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
             self.dlg.inp_sparql.setPlainText("""SELECT DISTINCT ?a ?rel ?val ?wkt
