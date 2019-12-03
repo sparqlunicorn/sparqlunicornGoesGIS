@@ -33,6 +33,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
 from qgis.core import QgsVectorLayer, QgsProject
+from qgis.utils import iface
 import rdflib
 
 # Initialize Qt resources from file resources.py
@@ -40,6 +41,7 @@ from .resources import *
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
 import os.path
+import re
 
 # external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -55,6 +57,8 @@ class SPAQLunicorn:
     loadedfromfile=False
 
     currentgraph=None
+	
+    outputfile=""
 
     def __init__(self, iface):
         """Constructor.
@@ -390,18 +394,34 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
-    def geoJSONToRDF(geojson):
+    def exportLayer(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ","", '*.ttl')
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
         ttlstring=""
-        for feature in geojson['features']:
-            print(feature)
-            for prop in feature['properties']:
-                ttlstring+="<"+feature['id']+"> <"+prop+"> <"+feature['properties'][prop]+"> .\n"
-            ttlstring+="<"+feature['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+feature['id']+"_geom> .\n"
-            ttlstring+="<"+feature['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-            ttlstring+="<"+feature['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+wkt.dumps(feature['geometry'])+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
-        return ttlstring
-
-
+        for f in layer.getFeatures():
+            geom = f.geometry()
+            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            for prop in fieldnames:
+                if prop=="id":
+                    continue
+                elif f[prop].isdigit():
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                elif "http" in f[prop]:
+                    ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
+                else:
+                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+        with open(filename, 'w') as output_file:
+            output_file.write(ttlstring)
+		
+		
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -443,7 +463,11 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
+            self.dlg.loadedLayers.clear()
+            layers = QgsProject.instance().layerTreeRoot().children()
+            self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
+            self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
         # show the dialog
