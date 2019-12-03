@@ -10,6 +10,7 @@
         git sha              : $Format:%H$
         copyright            : (C) 2019 by SPARQL Unicorn
         email                : rse@fthiery.de
+        developer(s)         : Florian Thiery,  Timo Homburg
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+
 import sys
 import pip
 from qgis.utils import iface
@@ -51,9 +53,9 @@ class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
     loadedfromfile=False
-    
+
     currentgraph=None
-    
+
     def __init__(self, iface):
         """Constructor.
 
@@ -439,7 +441,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo (POINT) required!')
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
-            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')            
+            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
