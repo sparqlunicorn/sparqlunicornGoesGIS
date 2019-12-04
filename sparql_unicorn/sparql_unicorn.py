@@ -450,8 +450,12 @@ class SPAQLunicorn:
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
-        # Populate the comboBox with names of all the loaded layers
-        self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.dlg.loadedLayers.clear()
+        for layer in layers:
+            ucl = layer.name()
+            if "unicorn_" in ucl:
+                self.dlg.loadedLayers.addItem(layer.name())
 
 
     def run(self):
@@ -476,6 +480,10 @@ class SPAQLunicorn:
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
             self.dlg.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers) # load unicorn layers
+            self.loadUnicornLayers()
+
+        if self.first_start == False:
+            self.loadUnicornLayers()
 
         # show the dialog
         self.dlg.show()
