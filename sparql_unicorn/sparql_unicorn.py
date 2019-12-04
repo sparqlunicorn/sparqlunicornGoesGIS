@@ -420,6 +420,7 @@ class SPAQLunicorn:
                     ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
         with open(filename, 'w') as output_file:
             output_file.write(ttlstring)
+        iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
 
     def loadGraph(self):
@@ -446,6 +447,13 @@ class SPAQLunicorn:
             return result
         return None
 
+    def loadUnicornLayers(self):
+        # Fetch the currently loaded layers
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded layers
+        self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
+
+
     def run(self):
         """Run method that performs all the real work"""
 
@@ -464,11 +472,10 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
             self.dlg.loadedLayers.clear()
-            layers = QgsProject.instance().layerTreeRoot().children()
-            self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
+            self.dlg.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers) # load unicorn layers
 
         # show the dialog
         self.dlg.show()
