@@ -57,7 +57,7 @@ class SPAQLunicorn:
     loadedfromfile=False
 
     currentgraph=None
-	
+
     outputfile=""
 
     def __init__(self, iface):
@@ -404,24 +404,24 @@ class SPAQLunicorn:
         ttlstring=""
         for f in layer.getFeatures():
             geom = f.geometry()
-            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            ttlstring+="<"+f['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f['id']+"_geom> .\n"
+            ttlstring+="<"+f['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
+            ttlstring+="<"+f['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
-                if prop=="id":
+                if prop=='id':
                     continue
                 elif f[prop].isdigit():
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                 elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                 elif "http" in f[prop]:
                     ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
                 else:
                     ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
         with open(filename, 'w') as output_file:
             output_file.write(ttlstring)
-		
-		
+
+
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
