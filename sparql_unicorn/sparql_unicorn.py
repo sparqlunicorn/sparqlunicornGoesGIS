@@ -476,6 +476,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
             self.dlg.loadedLayers.clear()
+            self.dlg.layerconcepts.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
