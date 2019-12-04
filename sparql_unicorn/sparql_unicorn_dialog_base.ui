@@ -53,7 +53,7 @@ SELECT ?label ?geo ?item WHERE {
     wdt:P625 ?geo;
     rdfs:label ?label.
   FILTER((LANG(?label)) = &quot;en&quot;)
-}</string>
+} LIMIT 100</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
