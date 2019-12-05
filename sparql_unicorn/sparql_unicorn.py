@@ -209,7 +209,7 @@ class SPAQLunicorn:
     def create_unicorn_layer(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
-        print(self.loadedfromfile)
+        #print(self.loadedfromfile)
         if self.loadedfromfile:
             concept = self.dlg.layerconcepts.currentText()
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
@@ -238,6 +238,8 @@ class SPAQLunicorn:
             endpoint_url = "http://factforge.net/repositories/ff-news"
         elif endpointIndex==7:
             endpoint_url = "http://zbw.eu/beta/sparql/econ_pers/query"
+        elif endpointIndex==8:
+            endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if endpointIndex == 0:
@@ -254,9 +256,11 @@ class SPAQLunicorn:
             sparql.setQuery("Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
         elif endpointIndex == 6:
             sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>" + query)
+        elif endpointIndex == 8:
+            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> " + query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
-        print(results)
+        #print(results)
         # geojson stuff
         features = []
         if endpointIndex == 0:
@@ -331,6 +335,22 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
+                    features.append(feature)
+            geojson = {'type': 'FeatureCollection', 'features': features }
+        elif endpointIndex == 8:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                if result["geo"]["value"]:
+                    # transform from epsg:2157 to WGS84
+                    #print(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
+                    myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
+                    sourceCrs = QgsCoordinateReferenceSystem(2157)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         # add layer
@@ -476,14 +496,15 @@ class SPAQLunicorn:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             self.dlg.comboBox.clear()
-            self.dlg.comboBox.addItem('Wikidata --> ?geo (Point) required!')
-            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!')
-            self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!')
-            self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!')
-            self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo (POINT) required!')
-            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
-            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
-            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
+            self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #0
+            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!') #1
+            self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!') #2
+            self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!') #3
+            self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo required!') #4
+            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!') #5
+            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #6
+            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #7
+            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.loadedLayers.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
