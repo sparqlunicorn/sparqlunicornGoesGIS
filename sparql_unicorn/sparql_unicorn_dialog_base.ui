@@ -53,7 +53,7 @@ SELECT ?label ?geo ?item WHERE {
     wdt:P625 ?geo;
     rdfs:label ?label.
   FILTER((LANG(?label)) = &quot;en&quot;)
-}</string>
+} LIMIT 100</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -194,17 +194,17 @@ SELECT ?label ?geo ?item WHERE {
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QPushButton" name="btn_loadunicornlayers">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>620</y>
-     <width>91</width>
-     <height>20</height>
+     <width>111</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Loaded Layers:</string>
+    <string>load unicorn layers</string>
    </property>
   </widget>
  </widget>
