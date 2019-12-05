@@ -424,6 +424,7 @@ class SPAQLunicorn:
         splitted=filename.split(".")
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
+            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
 
     def loadGraph(self):
