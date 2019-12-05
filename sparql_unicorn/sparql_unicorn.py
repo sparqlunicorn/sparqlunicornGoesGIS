@@ -240,6 +240,17 @@ class SPAQLunicorn:
             endpoint_url = "http://zbw.eu/beta/sparql/econ_pers/query"
         elif endpointIndex==8:
             endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
+            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <http://ontologies.geohive.ie/osi#County>.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            }""")
+        # query
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if endpointIndex == 0:
@@ -366,7 +377,7 @@ class SPAQLunicorn:
     def getGeoConceptsFromGraph(self,graph):
         viewlist=[]
         qres = graph.query(
-        """SELECT DISTINCT ?a_class (count( ?a_class) as ?count)
+        """SELECT DISTINCT ?count (count(?a_class) as ?count)
         WHERE {
           ?a rdf:type ?a_class .
           ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
@@ -486,6 +497,32 @@ class SPAQLunicorn:
             if "unicorn_" in ucl:
                 self.dlg.loadedLayers.addItem(layer.name())
 
+    def endpointselectaction(self):
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        if endpointIndex==8:
+            self.dlg.layerconcepts.clear()
+            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            } LIMIT 10""")
+
+    def viewselectaction(self):
+        print("viewselectaction " + self.dlg.layerconcepts.currentText())
+        if endpointIndex==8:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            } LIMIT 10""")
 
     def run(self):
         """Run method that performs all the real work"""
@@ -505,8 +542,10 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #6
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #7
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
+            self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
             self.dlg.layerconcepts.clear()
+            self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
