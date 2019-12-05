@@ -56,7 +56,7 @@ class SPAQLunicorn:
     loadedfromfile=False
 
     currentgraph=None
-	
+
     outputfile=""
 
     def __init__(self, iface):
@@ -424,8 +424,8 @@ class SPAQLunicorn:
         splitted=filename.split(".")
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
-		
-		
+
+
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -452,7 +452,17 @@ class SPAQLunicorn:
 
     def exportGeoJSONLD(self):
         geojsonresult=""
-        
+
+    def loadUnicornLayers(self):
+        # Fetch the currently loaded layers
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.dlg.loadedLayers.clear()
+        for layer in layers:
+            ucl = layer.name()
+            if "unicorn_" in ucl:
+                self.dlg.loadedLayers.addItem(layer.name())
+
 
     def run(self):
         """Run method that performs all the real work"""
@@ -472,11 +482,13 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
             self.dlg.loadedLayers.clear()
-            layers = QgsProject.instance().layerTreeRoot().children()
-            self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
+            self.dlg.layerconcepts.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
+
+        if self.first_start == False:
+            self.loadUnicornLayers()
 
         # show the dialog
         self.dlg.show()
