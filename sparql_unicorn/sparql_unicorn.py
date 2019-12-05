@@ -32,7 +32,7 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry
 from qgis.utils import iface
 import rdflib
 
@@ -45,9 +45,8 @@ import re
 
 # external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
-import geojson
+#import geojson
 #import rdflib
-from geomet import wkt
 import json
 from convertbng.util import convert_bng, convert_lonlat
 
@@ -57,7 +56,7 @@ class SPAQLunicorn:
     loadedfromfile=False
 
     currentgraph=None
-
+	
     outputfile=""
 
     def __init__(self, iface):
@@ -268,7 +267,7 @@ class SPAQLunicorn:
                 #print(properties)
                 if "Point" in result["geo"]["value"]:
                     #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 1:
@@ -281,7 +280,7 @@ class SPAQLunicorn:
                 res_list_en = convert_lonlat(eastings, northings)
                 point = "POINT("+str(res_list_en[0][0])+" "+str(res_list_en[1][0])+")"
                 #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(QgsGeometry.fromWkt(point).asJson()) }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 2:
@@ -291,7 +290,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 3:
@@ -301,7 +300,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 4:
@@ -310,10 +309,10 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "POINT" in result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
                 elif "LINESTRING" in result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("LineString", "LINESTRING")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 5:
@@ -322,7 +321,7 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 6:
@@ -331,7 +330,7 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         print(json.dumps(geojson, sort_keys=True, indent=4))
@@ -387,16 +386,16 @@ class SPAQLunicorn:
             if(row[3]!=None):
                 print(row[3])
                 if("<" in row[3]):
-                    currentgeo['geometry']=wkt.loads(row[3].split(">")[1].strip())
+                    currentgeo['geometry']=json.loads(QgsGeometry.fromWkt(row[3].split(">")[1].strip()).asJson())
                 else:
-                    currentgeo['geometry']=wkt.loads(row[3])
+                    currentgeo['geometry']=json.loads(QgsGeometry.fromWkt(row[3]).asJson())
             else:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ","", '*.ttl')
+            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
@@ -404,25 +403,27 @@ class SPAQLunicorn:
         ttlstring=""
         for f in layer.getFeatures():
             geom = f.geometry()
-            ttlstring+="<"+f['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f['id']+"_geom> .\n"
-            ttlstring+="<"+f['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
-            ttlstring+="<"+f['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
-                if prop=='id':
+                if prop=="id":
                     continue
                 elif f[prop].isdigit():
-                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                 elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
-                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                 elif "http" in f[prop]:
                     ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
                 else:
                     ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+        g=rdflib.Graph()
+        g.parse(data=ttlstring, format="ttl")
+        splitted=filename.split(".")
         with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-        iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-
-
+            output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
+		
+		
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -447,17 +448,6 @@ class SPAQLunicorn:
             return result
         return None
 
-    def loadUnicornLayers(self):
-        # Fetch the currently loaded layers
-        layers = QgsProject.instance().layerTreeRoot().children()
-        # Populate the comboBox with names of all the loaded unicorn layers
-        self.dlg.loadedLayers.clear()
-        for layer in layers:
-            ucl = layer.name()
-            if "unicorn_" in ucl:
-                self.dlg.loadedLayers.addItem(layer.name())
-
-
     def run(self):
         """Run method that performs all the real work"""
 
@@ -476,15 +466,11 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!')
             self.dlg.loadedLayers.clear()
-            self.dlg.layerconcepts.clear()
+            layers = QgsProject.instance().layerTreeRoot().children()
+            self.dlg.loadedLayers.addItems([layer.name() for layer in layers])
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
-            self.dlg.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers) # load unicorn layers
-            self.loadUnicornLayers()
-
-        if self.first_start == False:
-            self.loadUnicornLayers()
 
         # show the dialog
         self.dlg.show()
