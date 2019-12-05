@@ -265,7 +265,8 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 #print(properties)
-                if "Point" in result["geo"]["value"]:
+                if result["geo"]["value"]:
+                    print(QgsGeometry.fromWkt(result["geo"]["value"]).asJson())
                     #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
@@ -308,10 +309,7 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                if "POINT" in result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
-                    features.append(feature)
-                elif "LINESTRING" in result["geo"]["value"]:
+                if result["geo"]["value"]:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
@@ -333,7 +331,6 @@ class SPAQLunicorn:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
-        print(json.dumps(geojson, sort_keys=True, indent=4))
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
@@ -400,11 +397,16 @@ class SPAQLunicorn:
         selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
-        ttlstring=""
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> ."
         for f in layer.getFeatures():
             geom = f.geometry()
             ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
             ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
             ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
                 if prop=="id":
@@ -447,6 +449,10 @@ class SPAQLunicorn:
             self.loadedfromfile=True
             return result
         return None
+
+    def exportGeoJSONLD(self):
+        geojsonresult=""
+        
 
     def run(self):
         """Run method that performs all the real work"""
