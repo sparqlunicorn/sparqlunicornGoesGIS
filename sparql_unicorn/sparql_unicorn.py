@@ -500,7 +500,11 @@ class SPAQLunicorn:
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.layerconcepts.clear()
-        if endpointIndex==2:
+        if endpointIndex==3:
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
+            self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
+            self.dlg.layerconcepts.addItem("http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression")
+        elif endpointIndex==2:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
             self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Mint")
@@ -530,6 +534,12 @@ class SPAQLunicorn:
     def viewselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==2:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            } LIMIT 10""")
+        elif endpointIndex==3:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
