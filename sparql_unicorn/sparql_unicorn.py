@@ -35,6 +35,7 @@ from qgis.core import QgsProject, Qgis
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 from qgis.utils import iface
 import rdflib
+import requests
 
 # Initialize Qt resources from file resources.py
 from .resources import *
