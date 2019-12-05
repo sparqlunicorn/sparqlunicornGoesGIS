@@ -495,7 +495,53 @@ class SPAQLunicorn:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
             iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
-
+    def exportLayerAsGeoJSONLD(self):
+        context={
+    "geojson": "https://purl.org/geojson/vocab#",
+    "Feature": "geojson:Feature",
+    "FeatureCollection": "geojson:FeatureCollection",
+    "GeometryCollection": "geojson:GeometryCollection",
+    "LineString": "geojson:LineString",
+    "MultiLineString": "geojson:MultiLineString",
+    "MultiPoint": "geojson:MultiPoint",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "Point": "geojson:Point",
+    "Polygon": "geojson:Polygon",
+    "bbox": {
+      "@container": "@list",
+      "@id": "geojson:bbox"
+    },
+    "coordinates": {
+      "@container": "@list",
+      "@id": "geojson:coordinates"
+    },
+    "features": {
+      "@container": "@set",
+      "@id": "geojson:features"
+    },
+    "geometry": "geojson:geometry",
+    "id": "@id",
+    "properties": "geojson:properties",
+    "type": "@type",
+    "description": "http://purl.org/dc/terms/description",
+    "title": "http://purl.org/dc/terms/title"
+  }
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        currentgeo={}
+        geos=[]
+        for f in layer.getFeatures():
+            geom = f.geometry()
+            currentgeo={'id':row[0],'geometry':json.loads(geom.asJson()),'properties':{}}
+            for prop in fieldnames:
+                if prop=="id":
+                    currentgeo["id"]=f[prop]
+                else:
+                    currentgeo["properties"][prop]=f[prop]
+            geos.append(currentgeo)
+        featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
+        return featurecollection	
+			
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -518,11 +564,8 @@ class SPAQLunicorn:
             }""")
             self.loadedfromfile=True
             return result
-        return None
-
-    def exportGeoJSONLD(self):
-        geojsonresult=""
-
+        return None      
+        
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
