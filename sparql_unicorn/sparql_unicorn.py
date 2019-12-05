@@ -10,6 +10,7 @@
         git sha              : $Format:%H$
         copyright            : (C) 2019 by SPARQL Unicorn
         email                : rse@fthiery.de
+        developer(s)         : Florian Thiery,  Timo Homburg
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,8 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 """
-import sys
-import pip
+
+#import sys
+#import pip
 from qgis.utils import iface
 from qgis.core import Qgis
 
@@ -30,24 +32,33 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.utils import iface
+import rdflib
+import requests
 
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
 import os.path
+import re
 
 # external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
-import geojson
-import rdflib
-from geomet import wkt
+#import geojson
+#import rdflib
 import json
-from convertbng.util import convert_bng, convert_lonlat
+#from convertbng.util import convert_bng, convert_lonlat
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
+
+    loadedfromfile=False
+
+    currentgraph=None
+
+    outputfile=""
 
     def __init__(self, iface):
         """Constructor.
@@ -199,7 +210,20 @@ class SPAQLunicorn:
     def create_unicorn_layer(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
-        if endpointIndex == 0:
+        #print(self.loadedfromfile)
+        if self.loadedfromfile:
+            concept = self.dlg.layerconcepts.currentText()
+            geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
+            vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
+            print(vlayer.isValid())
+            QgsProject.instance().addMapLayer(vlayer)
+            canvas = iface.mapCanvas()
+            canvas.setExtent(vlayer.extent())
+            iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+            #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
+            self.dlg.close()
+            return
+        elif endpointIndex == 0:
             endpoint_url = "https://query.wikidata.org/sparql"
         elif endpointIndex == 1:
             endpoint_url = "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
@@ -213,6 +237,21 @@ class SPAQLunicorn:
             endpoint_url = "http://dbpedia.org/sparql"
         elif endpointIndex==6:
             endpoint_url = "http://factforge.net/repositories/ff-news"
+        elif endpointIndex==7:
+            endpoint_url = "http://zbw.eu/beta/sparql/econ_pers/query"
+        elif endpointIndex==8:
+            endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
+            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <http://ontologies.geohive.ie/osi#County>.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            }""")
+        # query
         query = self.dlg.inp_sparql.toPlainText()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if endpointIndex == 0:
@@ -229,9 +268,11 @@ class SPAQLunicorn:
             sparql.setQuery("Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
         elif endpointIndex == 6:
             sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>" + query)
+        elif endpointIndex == 8:
+            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> " + query)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
-        print(results)
+        #print(results)
         # geojson stuff
         features = []
         if endpointIndex == 0:
@@ -240,9 +281,10 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 #print(properties)
-                if "Point" in result["geo"]["value"]:
+                if result["geo"]["value"]:
+                    print(QgsGeometry.fromWkt(result["geo"]["value"]).asJson())
                     #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 1:
@@ -250,12 +292,14 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                eastings = [float(result["easting"]["value"])]
-                northings = [float(result["northing"]["value"])]
-                res_list_en = convert_lonlat(eastings, northings)
-                point = "POINT("+str(res_list_en[0][0])+" "+str(res_list_en[1][0])+")"
-                #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                # transform from BNG to WGS84
+                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result["easting"]["value"]))+" "+str(float(result["northing"]["value"]))+")")
+                sourceCrs = QgsCoordinateReferenceSystem(27700)
+                destCrs = QgsCoordinateReferenceSystem(4326)
+                tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                myGeometryInstance.transform(tr)
+                print(myGeometryInstance.asJson())
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 2:
@@ -265,7 +309,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 3:
@@ -275,7 +319,7 @@ class SPAQLunicorn:
                     properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(point) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 4:
@@ -283,11 +327,8 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                if "POINT" in result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    features.append(feature)
-                elif "LINESTRING" in result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads(result["geo"]["value"].replace("LineString", "LINESTRING")) }
+                if result["geo"]["value"]:
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 5:
@@ -296,7 +337,7 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 6:
@@ -305,10 +346,25 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': wkt.loads("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")") }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
-        print(json.dumps(geojson, sort_keys=True, indent=4))
+        elif endpointIndex == 8:
+            for result in results["results"]["bindings"]:
+                properties = {}
+                for var in results["head"]["vars"]:
+                    properties[var] = result[var]["value"]
+                if result["geo"]["value"]:
+                    # transform from epsg:2157 to WGS84
+                    #print(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
+                    myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
+                    sourceCrs = QgsCoordinateReferenceSystem(2157)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
+                    features.append(feature)
+            geojson = {'type': 'FeatureCollection', 'features': features }
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
@@ -319,86 +375,227 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-	def getGeoConceptsFromGraph(graph):
-		viewlist=[]
-		qres = graph.query(
-		"""SELECT DISTINCT ?a_class (count( ?a_class) as ?count)
-		WHERE {
+    def getGeoConceptsFromGraph(self,graph):
+        viewlist=[]
+        qres = graph.query(
+        """SELECT DISTINCT ?count (count(?a_class) as ?count)
+        WHERE {
           ?a rdf:type ?a_class .
-          ?a geo:hasGeometry ?a_geom .
-          ?a_geom geo:asWKT ?a_wkt .
-       }""")
-		print(qres)
-		for row in qres:
-			viewlist.append(str(row[0]))
-		return viewlist
+          ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
+          ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?a_wkt .
+        }""")
+        print(qres)
+        for row in qres:
+            viewlist.append(str(row[0]))
+        return viewlist
 
-	def getGeoJSONFromGeoConcept(graph,concept):
-		qres = graph.query(
-		"""SELECT DISTINCT ?a ?rel ?val ?wkt
-		WHERE {
+    def getGeoConceptsFromWikidata(self):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?a <http://www.wikidata.org/prop/direct/P31> ?class .
+          ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .
+        } LIMIT 1000""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        print(viewlist)
+        labels=getWikidataLabelsForQIDs(self,viewlist)
+        print(labels)
+        i=0
+        for lab in labels:
+            resultlist.append(labels[i]+"("+viewlist[i]+")")
+            i=i+1			
+        return resultlist
+       
+    def getWikidataLabelsForQIDs(self,qids):
+        result={}
+        url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        for qid in qids:
+            url+=qid+"|"
+        url+="&languages=en&format=json"
+        myResponse = json.loads(requests.get(url))
+        for ent in myResponse["entitities"]:
+            result[myResponse["entities"][ent]]=myResponse["entities"][ent]["labels"]["en"]["value"]
+        return result
+       
+    def getGeoJSONFromGeoConcept(self,graph,concept):
+        print(concept)
+        qres = graph.query(
+        """SELECT DISTINCT ?a ?rel ?val ?wkt
+        WHERE {
           ?a rdf:type <"""+concept+"""> .
           ?a ?rel ?val .
-          OPTIONAL { ?val geo:asWKT ?wkt}
-       }""")
-		geos=[]
-		geometries = {
-			'type': 'FeatureCollection',
-			'features': geos,
-			}
-		newfeature=False
-		lastfeature=""
-		currentgeo={}
-		for row in qres:
-			print(lastfeature+" - "+row[0]+" - "+str(len(row)))
-			print(row)
-			if(lastfeature=="" or lastfeature!=row[0]):
-				if(lastfeature!=""):
-					geos.append(currentgeo)
-				lastfeature=row[0]
-				currentgeo={'id':row[0],'geometry':{},'properties':{}}
-			if(row[3]!=None):
-				print(row[3])
-				if("<" in row[3]):
-					currentgeo['geometry']=wkt.loads(row[3].split(">")[1].strip())
-				else:
-					currentgeo['geometry']=wkt.loads(row[3])
-			else:
-				currentgeo['properties'][str(row[1])]=str(row[2])
-		return geometries
+          OPTIONAL { ?val <http://www.opengis.net/ont/geosparql#asWKT> ?wkt}
+        }""")
+        geos=[]
+        geometries = {
+            'type': 'FeatureCollection',
+            'features': geos,
+            }
+        newfeature=False
+        lastfeature=""
+        currentgeo={}
+        for row in qres:
+            print(lastfeature+" - "+row[0]+" - "+str(len(row)))
+            print(row)
+            if(lastfeature=="" or lastfeature!=row[0]):
+                if(lastfeature!=""):
+                    geos.append(currentgeo)
+                lastfeature=row[0]
+                currentgeo={'id':row[0],'geometry':{},'properties':{}}
+            if(row[3]!=None):
+                print(row[3])
+                if("<" in row[3]):
+                    currentgeo['geometry']=json.loads(QgsGeometry.fromWkt(row[3].split(">")[1].strip()).asJson())
+                else:
+                    currentgeo['geometry']=json.loads(QgsGeometry.fromWkt(row[3]).asJson())
+            else:
+                currentgeo['properties'][str(row[1])]=str(row[2])
+        return geometries
 
-	def geoJSONToRDF(geojson):
-		ttlstring=""
-		for feature in geojson['features']:
-			print(feature)
-			for prop in feature['properties']:
-				ttlstring+="<"+feature['id']+"> <"+prop+"> <"+feature['properties'][prop]+"> .\n"
-			ttlstring+="<"+feature['id']+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+feature['id']+"_geom> .\n"
-			ttlstring+="<"+feature['id']+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-			ttlstring+="<"+feature['id']+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+wkt.dumps(feature['geometry'])+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
-		return ttlstring
-		
-		
-	def loadGraph():
-		dialog = QFileDialog(self)
-		dialog.setFileMode(QFileDialog.AnyFile)
-		if dialog.exec_():
-			fileNames = dialog.selectedFiles()
-			g = rdflib.Graph()
-			splitted=fileNames[0].split(".")
-			result = g.parse(filepath, format=splitted[len(splitted)-1])
-			geoconcepts=getGeoConceptsFromGraph(g)
-			for geo in geoconcepts:
-				self.dlg.layerconcepts.addItem(geo)
-			self.dlg.inp_sparql.setPlainText("""SELECT DISTINCT ?a ?rel ?val ?wkt
-			WHERE {
-			?a rdf:type <"""+geoconcepts[0]+"""> .
-			?a ?rel ?val .
-			OPTIONAL { ?val geo:asWKT ?wkt}
-			}""")
-			return result
-		return None
-		
+    def exportLayer(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> ."
+        for f in layer.getFeatures():
+            geom = f.geometry()
+            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            for prop in fieldnames:
+                if prop=="id":
+                    continue
+                elif f[prop].isdigit():
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                elif "http" in f[prop]:
+                    ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
+                else:
+                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+        g=rdflib.Graph()
+        g.parse(data=ttlstring, format="ttl")
+        splitted=filename.split(".")
+        with open(filename, 'w') as output_file:
+            output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
+            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+
+
+    def loadGraph(self):
+        dialog = QFileDialog(self.dlg)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        if dialog.exec_():
+            fileNames = dialog.selectedFiles()
+            g = rdflib.Graph()
+            filepath=fileNames[0].split(".")
+            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
+            print(g)
+            self.currentgraph=g
+            geoconcepts=self.getGeoConceptsFromGraph(g)
+            self.dlg.layerconcepts.clear()
+            for geo in geoconcepts:
+                self.dlg.layerconcepts.addItem(geo)
+            self.dlg.inp_sparql.setPlainText("""SELECT DISTINCT ?a ?rel ?val ?wkt
+            WHERE {
+            ?a rdf:type <"""+geoconcepts[0]+"""> .
+            ?a ?rel ?val .
+            OPTIONAL { ?val geo:asWKT ?wkt}
+            }""")
+            self.loadedfromfile=True
+            return result
+        return None
+
+    def exportGeoJSONLD(self):
+        geojsonresult=""
+
+    def loadUnicornLayers(self):
+        # Fetch the currently loaded layers
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.dlg.loadedLayers.clear()
+        for layer in layers:
+            ucl = layer.name()
+            if "unicorn_" in ucl:
+                self.dlg.loadedLayers.addItem(layer.name())
+
+    def endpointselectaction(self):
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        self.dlg.layerconcepts.clear()
+        if endpointIndex==1:
+            print("changing to wikidata")
+            conceptlist=self.getGeoConceptsFromWikidata()
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
+        elif endpointIndex==3:
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
+            self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
+            self.dlg.layerconcepts.addItem("http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression")
+        elif endpointIndex==2:
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
+            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Mint")
+            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Region")
+        elif endpointIndex==8:
+            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Council")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Townland")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#ElectoralDivision")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#GaeltachtRegion")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#LocalElectoralArea")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#MunicipalDistrict")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#NationalConstituency")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#CivilParish")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#RuralArea")
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            } LIMIT 10""")
+
+    def viewselectaction(self):
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        if endpointIndex==2:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            } LIMIT 10""")
+        elif endpointIndex==3:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            } LIMIT 10""")
+        elif endpointIndex==8:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item rdfs:label ?label.
+            FILTER (lang(?label) = 'en')
+            ?item ogc:hasGeometry [
+            ogc:asWKT ?geo
+            ] .
+            } LIMIT 10""")
+
     def run(self):
         """Run method that performs all the real work"""
 
@@ -408,15 +605,25 @@ class SPAQLunicorn:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             self.dlg.comboBox.clear()
-            self.dlg.comboBox.addItem('Wikidata --> ?geo (Point) required!')
-            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!')
-            self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!')
-            self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!')
-            self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo (POINT) required!')
-            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!')
-            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!')
+            self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #0
+            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!') #1
+            self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!') #2
+            self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!') #3
+            self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo required!') #4
+            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!') #5
+            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #6
+            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #7
+            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
+            self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
+            self.dlg.loadedLayers.clear()
+            self.dlg.layerconcepts.clear()
+            self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
-			self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
+            self.dlg.exportLayers.clicked.connect(self.exportLayer)
+            self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
+
+        if self.first_start == False:
+            self.loadUnicornLayers()
 
         # show the dialog
         self.dlg.show()

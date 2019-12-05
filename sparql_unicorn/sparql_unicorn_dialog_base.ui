@@ -127,7 +127,7 @@ SELECT ?label ?geo ?item WHERE {
     <rect>
      <x>120</x>
      <y>50</y>
-     <width>341</width>
+     <width>601</width>
      <height>22</height>
     </rect>
    </property>
@@ -169,6 +169,42 @@ SELECT ?label ?geo ?item WHERE {
    </property>
    <property name="text">
     <string>Or:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exportLayers">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>620</y>
+     <width>171</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Export Loaded Layer as TTL</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="loadedLayers">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>620</y>
+     <width>321</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>620</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Loaded Layers:</string>
    </property>
   </widget>
  </widget>
