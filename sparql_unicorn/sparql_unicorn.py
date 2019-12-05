@@ -503,6 +503,16 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Council")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Townland")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#ElectoralDivision")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#GaeltachtRegion")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#LocalElectoralArea")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#MunicipalDistrict")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#NationalConstituency")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#CivilParish")
+            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#RuralArea")
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
