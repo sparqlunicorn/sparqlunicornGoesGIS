@@ -387,7 +387,18 @@ class SPAQLunicorn:
         for row in qres:
             viewlist.append(str(row[0]))
         return viewlist
-
+       
+    def getWikidataLabelsForQIDs(self,qids):
+        result={}
+        url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        for qid in qids:
+            url+=qid+"|"
+        url+="&languages=en&format=json"
+        myResponse = json.loads(requests.get(url))
+        for ent in myResponse["entitities"]:
+            result[myResponse["entities"][ent]]=myResponse["entities"][ent]["labels"]["en"]["value"]
+        return result
+       
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
         qres = graph.query(
