@@ -23,8 +23,8 @@
  ***************************************************************************/
 """
 
-import sys
-import pip
+#import sys
+#import pip
 from qgis.utils import iface
 from qgis.core import Qgis
 
@@ -32,7 +32,7 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 from qgis.utils import iface
 import rdflib
 
@@ -48,7 +48,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 #import geojson
 #import rdflib
 import json
-from convertbng.util import convert_bng, convert_lonlat
+#from convertbng.util import convert_bng, convert_lonlat
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
@@ -276,12 +276,14 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                eastings = [float(result["easting"]["value"])]
-                northings = [float(result["northing"]["value"])]
-                res_list_en = convert_lonlat(eastings, northings)
-                point = "POINT("+str(res_list_en[0][0])+" "+str(res_list_en[1][0])+")"
-                #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(QgsGeometry.fromWkt(point).asJson()) }
+                # transform from BNG to WGS84
+                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result["easting"]["value"]))+" "+str(float(result["northing"]["value"]))+")")
+                sourceCrs = QgsCoordinateReferenceSystem(27700)
+                destCrs = QgsCoordinateReferenceSystem(4326)
+                tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                myGeometryInstance.transform(tr)
+                print(myGeometryInstance.asJson())
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 2:
