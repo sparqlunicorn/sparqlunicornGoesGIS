@@ -499,8 +499,13 @@ class SPAQLunicorn:
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==8:
-            self.dlg.layerconcepts.clear()
+        self.dlg.layerconcepts.clear()
+        if endpointIndex==2:
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
+            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Mint")
+            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Region")
+        elif endpointIndex==8:
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
@@ -523,8 +528,14 @@ class SPAQLunicorn:
             } LIMIT 10""")
 
     def viewselectaction(self):
-        print("viewselectaction " + self.dlg.layerconcepts.currentText())
-        if endpointIndex==8:
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        if endpointIndex==2:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            } LIMIT 10""")
+        elif endpointIndex==8:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
