@@ -46,7 +46,6 @@ import re
 
 # external libraires for SPARQL Unicorn
 from SPARQLWrapper import SPARQLWrapper, JSON
-#import geojson
 #import rdflib
 import json
 #from convertbng.util import convert_bng, convert_lonlat
@@ -405,7 +404,7 @@ class SPAQLunicorn:
         for result in results["results"]["bindings"]:
             viewlist.append(str(result["class"]["value"]))
         print(viewlist)
-        labels=getWikidataLabelsForQIDs(self,viewlist)
+        labels=self.getWikidataLabelsForQIDs(viewlist)
         print(labels)
         i=0
         for lab in labels:
@@ -416,12 +415,21 @@ class SPAQLunicorn:
     def getWikidataLabelsForQIDs(self,qids):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        i=0
+        qidquery=""
         for qid in qids:
-            url+=qid+"|"
-        url+="&languages=en&format=json"
-        myResponse = json.loads(requests.get(url))
-        for ent in myResponse["entitities"]:
-            result[myResponse["entities"][ent]]=myResponse["entities"][ent]["labels"]["en"]["value"]
+            qidquery+="Q"+qid.split("Q")[1]
+            if (i%50)==0:
+                print(url+qidquery+"&languages=en&format=json")
+                myResponse = json.loads(requests.get(url+qidquery+"&languages=en&format=json").text)
+                print(myResponse)
+                for ent in myResponse["entities"]:
+                    print(ent)
+                    result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
+                qidquery=""
+            else:
+                qidquery+="|"
+            i=i+1
         return result
        
     def getGeoJSONFromGeoConcept(self,graph,concept):
@@ -579,7 +587,7 @@ class SPAQLunicorn:
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.layerconcepts.clear()
-        if endpointIndex==1:
+        if endpointIndex==0:
             print("changing to wikidata")
             conceptlist=self.getGeoConceptsFromWikidata()
             for concept in conceptlist:
