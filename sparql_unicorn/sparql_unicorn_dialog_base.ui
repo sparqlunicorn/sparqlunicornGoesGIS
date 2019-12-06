@@ -127,7 +127,7 @@ SELECT ?label ?geo ?item WHERE {
     <rect>
      <x>120</x>
      <y>50</y>
-     <width>601</width>
+     <width>571</width>
      <height>22</height>
     </rect>
    </property>
@@ -205,6 +205,19 @@ SELECT ?label ?geo ?item WHERE {
    </property>
    <property name="text">
     <string>load unicorn layers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="layercount">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>50</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

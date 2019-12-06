@@ -384,6 +384,7 @@ class SPAQLunicorn:
           ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?a_wkt .
         }""")
         print(qres)
+        self.dlg.layercount.setText("["+str(len(qres))+"]")
         for row in qres:
             viewlist.append(str(row[0]))
         return viewlist
@@ -406,9 +407,11 @@ class SPAQLunicorn:
         print(viewlist)
         labels=self.getWikidataLabelsForQIDs(viewlist)
         print(labels)
+        self.dlg.layercount.setText("["+str(len(labels))+"]")
         i=0
-        for lab in labels:
-            resultlist.append(labels[i]+"("+viewlist[i]+")")
+        sorted_labels=sorted(labels.items(),key=lambda x:x[1])
+        for lab in sorted_labels:
+            resultlist.append(labels[lab[0]]+"("+lab[0]+")")
             i=i+1			
         return resultlist
        
@@ -425,7 +428,8 @@ class SPAQLunicorn:
                 print(myResponse)
                 for ent in myResponse["entities"]:
                     print(ent)
-                    result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
+                    if "en" in myResponse["entities"][ent]["labels"]:
+                        result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
                 qidquery=""
             else:
                 qidquery+="|"
@@ -625,7 +629,13 @@ class SPAQLunicorn:
 
     def viewselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==2:
+        if endpointIndex==0:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo {
+            ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")+""">.
+            ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
+			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            } LIMIT 10""")
+        elif endpointIndex==2:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
