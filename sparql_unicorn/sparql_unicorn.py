@@ -32,7 +32,7 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes
 from qgis.utils import iface
 import rdflib
 import requests
@@ -54,6 +54,8 @@ class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
     loadedfromfile=False
+	
+    justloadingfromfile=False
 
     currentgraph=None
 
@@ -377,7 +379,7 @@ class SPAQLunicorn:
     def getGeoConceptsFromGraph(self,graph):
         viewlist=[]
         qres = graph.query(
-        """SELECT DISTINCT ?count (count(?a_class) as ?count)
+        """SELECT DISTINCT ?a_class (count(?a_class) as ?count)
         WHERE {
           ?a rdf:type ?a_class .
           ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
@@ -478,28 +480,53 @@ class SPAQLunicorn:
         selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
-        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> ."
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        first=0
         for f in layer.getFeatures():
             geom = f.geometry()
             ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
-            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
+            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
             ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
+                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[prop]:
+                    ttlstring+="<"+f[prop]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
+                    ttlstring+="<"+f[prop]+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
                 if prop=="id":
                     continue
-                elif f[prop].isdigit():
+                elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
+                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop].replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"                    
+                elif not f[prop] or f[prop]==None or f[prop]=="":
+                    continue
+                elif re.match(r'^-?\d+$', f[prop]):
                     ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                 elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
                     ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                    if first:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                 elif "http" in f[prop]:
                     ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
                 else:
-                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop].replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+            if first<10:
+                first=first+1
+        with open(filename+"_temp", 'w') as output_file:
+            output_file.write(ttlstring)
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
@@ -557,6 +584,7 @@ class SPAQLunicorn:
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
+        self.justloadingfromfile=True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             g = rdflib.Graph()
@@ -575,6 +603,7 @@ class SPAQLunicorn:
             OPTIONAL { ?val geo:asWKT ?wkt}
             }""")
             self.loadedfromfile=True
+            self.justloadingfromfile=False
             return result
         return None      
         
@@ -628,6 +657,9 @@ class SPAQLunicorn:
             } LIMIT 10""")
 
     def viewselectaction(self):
+        if self.justloadingfromfile:
+            self.justloadingfromfile=False
+            return
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo {
