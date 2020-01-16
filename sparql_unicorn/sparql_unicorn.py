@@ -36,6 +36,7 @@ from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateRefe
 from qgis.utils import iface
 import rdflib
 import requests
+import uuid
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -488,13 +489,27 @@ class SPAQLunicorn:
         ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         first=0
+        namespace="http://www.github.com/sparqlunicorn#"
+        idcol="id"
+        classcol="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        curid=""
+        curclassid=namespace+str(uuid.uuid4())
         for f in layer.getFeatures():
             geom = f.geometry()
-            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
+            if not idcol in fieldnames:
+                curid=namespace+str(uuid.uuid4())
+            else:				 
+                curid=f[idcol]
+            if not classcol in fieldnames:
+                ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
+                if first==0:
+                    ttlstring+="<"+curclassid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
+                    ttlstring+="<"+curclassid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<"+curid+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+curid+"_geom> .\n"
+            ttlstring+="<"+curid+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            ttlstring+="<"+curid+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
                 if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[prop]:
                     ttlstring+="<"+f[prop]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -502,31 +517,31 @@ class SPAQLunicorn:
                 if prop=="id":
                     continue
                 elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop].replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"                    
                 elif not f[prop] or f[prop]==None or f[prop]=="":
                     continue
-                elif re.match(r'^-?\d+$', f[prop]):
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                elif re.match(r'^-?\d+$', str(f[prop])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
-                elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[prop])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                     if first:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                 elif "http" in f[prop]:
-                    ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[prop])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
                 else:
-                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop].replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
             if first<10:
                 first=first+1
-        with open(filename+"_temp", 'w') as output_file:
-            output_file.write(ttlstring)
+#        with open(filename+"_temp", 'w') as output_file:
+#            output_file.write(ttlstring)
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
@@ -614,8 +629,7 @@ class SPAQLunicorn:
         self.dlg.loadedLayers.clear()
         for layer in layers:
             ucl = layer.name()
-            if "unicorn_" in ucl:
-                self.dlg.loadedLayers.addItem(layer.name())
+            self.dlg.loadedLayers.addItem(layer.name())
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
