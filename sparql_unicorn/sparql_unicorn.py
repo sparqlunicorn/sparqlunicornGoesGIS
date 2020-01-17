@@ -549,6 +549,7 @@ class SPAQLunicorn:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        self.enrichedExport=False
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -624,8 +625,9 @@ class SPAQLunicorn:
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
-        exportNameSpace=""
-        exportSetClass=""
+        self.exportNameSpace=""
+        self.exportSetClass=""
+        self.exportIdCol=""
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
             iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
