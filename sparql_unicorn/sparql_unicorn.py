@@ -68,7 +68,11 @@ class SPAQLunicorn:
 	
     exportClassCol=""
 
+    exportSetClass=""
+
     exportColConfig={}
+
+    enrichedExport=False
 
     outputfile=""
 
@@ -492,19 +496,23 @@ class SPAQLunicorn:
         while self.dlg.interlinkTable.rowCount() > 0:
             self.dlg.interlinkTable.removeRow(0);
         row=0
-        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","Column","Concept","ValueConcepts"])
-        self.dlg.interlinkTable.setColumnCount(5)
+        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","Concept","ValueConcepts"])
+        self.dlg.interlinkTable.setColumnCount(6)
         for field in fieldnames:
             item=QTableWidgetItem(field)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
             item2=QTableWidgetItem()
             item2.setCheckState(True)
             item3=QTableWidgetItem()
             item3.setCheckState(False)
+            item4=QTableWidgetItem()
+            item4.setCheckState(False)
             currentRowCount = self.dlg.interlinkTable.rowCount() 
             self.dlg.interlinkTable.insertRow(row)
-            self.dlg.interlinkTable.setItem(row,2,item)
+            self.dlg.interlinkTable.setItem(row,3,item)
             self.dlg.interlinkTable.setItem(row,0,item2)
             self.dlg.interlinkTable.setItem(row,1,item3)
+            self.dlg.interlinkTable.setItem(row,2,item4)
             row+=1
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -515,14 +523,32 @@ class SPAQLunicorn:
         ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"		
 
     def exportEnrichedLayer(self):
-        exportIdCol=""
-        exportLayer(self)
+        self.exportIdCol=""
+        self.exportNameSpace=self.dlg.interlinkNameSpace.text()
+        self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
+        for row in range(self.dlg.interlinkTable.rowCount()):
+            item = self.dlg.interlinkTable.item(row, 0)
+            if item.checkState():
+                if self.dlg.interlinkTable.item(row, 1).checkState():
+                    self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
+                else:
+                    column = self.dlg.interlinkTable.item(row, 3).text()
+                    if self.dlg.interlinkTable.item(row, 4)!=None:
+                        concept = self.dlg.interlinkTable.item(row, 4).text()
+                        self.exportColConfig[column]=concept
+                    if self.dlg.interlinkTable.item(row, 5)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 5).text()
+        self.enrichedExport=True
+        self.exportLayer()
 
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        if self.enrichedExport:
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        else:
+            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -533,11 +559,20 @@ class SPAQLunicorn:
         ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         first=0
-        namespace="http://www.github.com/sparqlunicorn#"
-        idcol="id"
+        if self.exportNameSpace=="":
+            namespace="http://www.github.com/sparqlunicorn#"
+        else:
+            namespace=self.exportNameSpace
+        if self.exportIdCol=="":
+            idcol="id"
+        else:
+            idcol=self.exportIdCol
         classcol="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         curid=""
-        curclassid=namespace+str(uuid.uuid4())
+        if self.exportSetClass=="":
+            curclassid=namespace+str(uuid.uuid4())
+        else:
+            curclassid=self.exportSetClass
         for f in layer.getFeatures():
             geom = f.geometry()
             if not idcol in fieldnames:
@@ -589,6 +624,8 @@ class SPAQLunicorn:
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
+        exportNameSpace=""
+        exportSetClass=""
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
             iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
@@ -671,6 +708,7 @@ class SPAQLunicorn:
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
+        self.dlg.chooseLayerInterlink.clear()
         for layer in layers:
             ucl = layer.name()
             #if type(layer) == QgsMapLayer.VectorLayer:
