@@ -30,9 +30,9 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox
 from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.utils import iface
 import rdflib
 import requests
@@ -57,8 +57,18 @@ class SPAQLunicorn:
     loadedfromfile=False
 	
     justloadingfromfile=False
+	
+    tableCheckBoxes=[]
 
     currentgraph=None
+
+    exportNameSpace=""
+
+    exportIdCol=""
+	
+    exportClassCol=""
+
+    exportColConfig={}
 
     outputfile=""
 
@@ -474,6 +484,40 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
+    def loadLayerForInterlink(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        while self.dlg.interlinkTable.rowCount() > 0:
+            self.dlg.interlinkTable.removeRow(0);
+        row=0
+        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","Column","Concept","ValueConcepts"])
+        self.dlg.interlinkTable.setColumnCount(5)
+        for field in fieldnames:
+            item=QTableWidgetItem(field)
+            item2=QTableWidgetItem()
+            item2.setCheckState(True)
+            item3=QTableWidgetItem()
+            item3.setCheckState(False)
+            currentRowCount = self.dlg.interlinkTable.rowCount() 
+            self.dlg.interlinkTable.insertRow(row)
+            self.dlg.interlinkTable.setItem(row,2,item)
+            self.dlg.interlinkTable.setItem(row,0,item2)
+            self.dlg.interlinkTable.setItem(row,1,item3)
+            row+=1
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"		
+
+    def exportEnrichedLayer(self):
+        exportIdCol=""
+        exportLayer(self)
+
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
@@ -629,7 +673,9 @@ class SPAQLunicorn:
         self.dlg.loadedLayers.clear()
         for layer in layers:
             ucl = layer.name()
+            #if type(layer) == QgsMapLayer.VectorLayer:
             self.dlg.loadedLayers.addItem(layer.name())
+            self.dlg.chooseLayerInterlink.addItem(layer.name())
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -723,10 +769,14 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
+            self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
+            self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
+            self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+            self.dlg.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
         if self.first_start == False:
