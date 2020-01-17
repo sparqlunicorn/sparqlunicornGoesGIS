@@ -246,8 +246,8 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>30</x>
        <y>140</y>
-       <width>671</width>
-       <height>192</height>
+       <width>711</width>
+       <height>391</height>
       </rect>
      </property>
      <property name="baseSize">
@@ -260,7 +260,7 @@ SELECT ?label ?geo ?item WHERE {
       <bool>true</bool>
      </property>
      <property name="columnCount">
-      <number>5</number>
+      <number>6</number>
      </property>
      <column>
       <property name="text">
@@ -270,6 +270,11 @@ SELECT ?label ?geo ?item WHERE {
      <column>
       <property name="text">
        <string>IDColumn?</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>GeoColumn?</string>
       </property>
      </column>
      <column>
@@ -292,7 +297,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>360</y>
+       <y>560</y>
        <width>93</width>
        <height>28</height>
       </rect>
