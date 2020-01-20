@@ -544,12 +544,13 @@ class SPAQLunicorn:
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
+        if filename=="":
+             return
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
-        self.enrichedExport=False
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -625,9 +626,8 @@ class SPAQLunicorn:
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
-        self.exportNameSpace=""
-        self.exportSetClass=""
-        self.exportIdCol=""
+        exportNameSpace=""
+        exportSetClass=""
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
             iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
