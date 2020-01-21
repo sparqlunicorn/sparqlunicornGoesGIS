@@ -30,9 +30,10 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox
-from qgis.core import QgsProject, Qgis
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton
+from qgis.core import QgsProject, Qgis,QgsRasterLayer
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
+from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
 from qgis.utils import iface
 import rdflib
 import requests
@@ -756,6 +757,36 @@ class SPAQLunicorn:
             ] .
             } LIMIT 10""")
 
+    def getPointFromCanvas(self):
+        #new_dialog = QDialog()
+        d = QDialog()
+        map_canvas = QgsMapCanvas(d)
+        map_canvas.setMinimumSize(800, 600)
+        uri="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png&zmax=19&zmin=0&type=xyz"
+        mts_layer=QgsRasterLayer(uri,'OSM','wms')
+        if not mts_layer.isValid():
+            print ("Layer failed to load!")
+        #QgsProject.instance().addMapLayer(mts_layer)
+        map_canvas.setCurrentLayer( mts_layer )
+        #layers =  QgsProject.instance().mapLayers()
+        #map_canvas_layer_list = [l for l in layers.values()]
+        #map_canvas.setLayers(map_canvas_layer_list)
+        #map_canvas.setExtent(iface.mapCanvas().extent())
+        b1 = QPushButton("ok",d)
+        b1.move(50,50)
+        d.setWindowTitle("Pick Coordinate")
+        d.exec_()
+        #new_dialog.resize(800, 600)
+
+        #layers = QgsMapLayerRegistry.instance().mapLayers()
+        #map_canvas_layer_list = [QgsMapCanvasLayer(l) for l in layers.values()]
+        #map_canvas.setLayerSet(map_canvas_layer_list)
+        #map_canvas.setExtent(iface.mapCanvas().extent())
+        #new_dialog.show()
+
+    def display_point(self):
+        print("hallo")
+
     def viewselectaction(self):
         if self.justloadingfromfile:
             self.justloadingfromfile=False
@@ -809,6 +840,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
+            self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
