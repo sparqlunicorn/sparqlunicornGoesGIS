@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit
 from qgis.core import QgsProject, Qgis,QgsRasterLayer
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
@@ -260,7 +260,7 @@ class SPAQLunicorn:
             endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <http://ontologies.geohive.ie/osi#County>.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -416,7 +416,7 @@ class SPAQLunicorn:
         WHERE {
           ?a <http://www.wikidata.org/prop/direct/P31> ?class .
           ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .
-        } LIMIT 1000""")
+        } LIMIT 500""")
         print("now sending query")
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
@@ -705,7 +705,17 @@ class SPAQLunicorn:
             self.justloadingfromfile=False
             return result
         return None      
-        
+    
+    def getWikidataAreaConcepts(self):
+        resultlist=[]
+        resultlist.append("city"+" (Q515)")
+        resultlist.append("country"+" (Q6256)")		
+        return resultlist
+		
+    def loadAreas(self):
+        resultlist=[]
+        return resultlist
+    
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -726,6 +736,9 @@ class SPAQLunicorn:
             conceptlist=self.getGeoConceptsFromWikidata()
             for concept in conceptlist:
                 self.dlg.layerconcepts.addItem(concept)
+            conceptlist2=self.getWikidataAreaConcepts()
+            for concept in conceptlist2:
+                self.dlg.areaconcepts.addItem(concept)
         elif endpointIndex==3:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
@@ -748,7 +761,7 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#NationalConstituency")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#CivilParish")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#RuralArea")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -761,19 +774,43 @@ class SPAQLunicorn:
         #new_dialog = QDialog()
         d = QDialog()
         map_canvas = QgsMapCanvas(d)
-        map_canvas.setMinimumSize(800, 600)
+        map_canvas.setMinimumSize(500, 495)
         uri="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png&zmax=19&zmin=0&type=xyz"
         mts_layer=QgsRasterLayer(uri,'OSM','wms')
         if not mts_layer.isValid():
             print ("Layer failed to load!")
         #QgsProject.instance().addMapLayer(mts_layer)
-        map_canvas.setCurrentLayer( mts_layer )
+        #map_canvas.setExtent(mts_layer.extent())
+        map_canvas.setLayers( [mts_layer] )
+        #map_canvas.show()
+        #self.dlg.actionZoomIn = QAction("Zoom in", self)
+        #self.dlg.actionZoomOut = QAction("Zoom out", self)
+        #self.dlg.actionPan = QAction("Pan", self)
+
+        #self.dlg.actionZoomIn.setCheckable(True)
+        #self.dlg.actionZoomOut.setCheckable(True)
+        #self.dlg.actionPan.setCheckable(True)
+
+        #self.dlg.actionZoomIn.triggered.connect(self.zoomIn)
+        #self.dlg.actionZoomOut.triggered.connect(self.zoomOut)
+        #self.dlg.actionPan.triggered.connect(self.pan)
+
+        #self.dlg.toolbar = self.addToolBar("Canvas actions")
+        #self.dlg.toolbar.addAction(self.actionZoomIn)
+        #self.dlg.toolbar.addAction(self.actionZoomOut)
+        #self.dlg.toolbar.addAction(self.actionPan)
         #layers =  QgsProject.instance().mapLayers()
         #map_canvas_layer_list = [l for l in layers.values()]
         #map_canvas.setLayers(map_canvas_layer_list)
         #map_canvas.setExtent(iface.mapCanvas().extent())
-        b1 = QPushButton("ok",d)
-        b1.move(50,50)
+        bboxextent = QLineEdit(d)
+        bboxextent.move(80,500)
+        bboxextentLabel = QLabel("BBOX Extent:",d)
+        bboxextentLabel.move(0,505)
+        bboxextentLabel2 = QLabel("km",d)
+        bboxextentLabel2.move(200,505)
+        b1 = QPushButton("Apply",d)
+        b1.move(400,500)
         d.setWindowTitle("Pick Coordinate")
         d.exec_()
         #new_dialog.resize(800, 600)
@@ -793,25 +830,25 @@ class SPAQLunicorn:
             return
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo WHERE {
             ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")+""">.
             ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
         elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
             } LIMIT 10""")
         elif endpointIndex==3:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
             } LIMIT 10""")
         elif endpointIndex==8:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -844,6 +881,7 @@ class SPAQLunicorn:
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
+            self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
