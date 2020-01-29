@@ -541,6 +541,25 @@ class SPAQLunicorn:
                         valueconcept = self.dlg.interlinkTable.item(row, 5).text()
         self.enrichedExport=True
         self.exportLayer()
+		
+    def matchColumnValueFromTripleStore(self,toquery):
+        values="VALUES ?vals { "
+        for queryval in toquery:
+            values+="\""+queryval+"\""
+        values+="}"
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?a
+        WHERE {
+          ?a wdt:P31 ?class .
+          ?a ?label ?vals .
+        } """)
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["a"]["value"]))
+        return viewlist
+		
 
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
@@ -601,25 +620,33 @@ class SPAQLunicorn:
                 elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
-                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"                    
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  						
                 elif not f[prop] or f[prop]==None or f[prop]=="":
                     continue
                 elif re.match(r'^-?\d+$', str(f[prop])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n" 
                 elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[prop])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                     if first:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n" 
                 elif "http" in f[prop]:
                     ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[prop])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
                 else:
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n" 
             if first<10:
                 first=first+1
 #        with open(filename+"_temp", 'w') as output_file:
