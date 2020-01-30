@@ -249,7 +249,7 @@ SELECT ?label ?geo ?item WHERE {
       <string>Constraint By Area Type:</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="layerconcepts_2">
+    <widget class="QComboBox" name="areaconcepts">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -272,7 +272,7 @@ SELECT ?label ?geo ?item WHERE {
       <string>Constraint By BBOX</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="layerconcepts_3">
+    <widget class="QComboBox" name="areas">
      <property name="geometry">
       <rect>
        <x>350</x>
