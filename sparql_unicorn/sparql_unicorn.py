@@ -581,9 +581,14 @@ class SPAQLunicorn:
             conceptSearchLabel.move(0,10)
             findConcept = QRadioButton("Class",d)
             findConcept.move(230,15)
-            findConcept.setChecked(True)
+            if column!=4:
+                findConcept.setChecked(True)
             findProperty = QRadioButton("Property",d)
             findProperty.move(230,40)
+            if column==4:
+                findProperty.setChecked(True)
+            findProperty.setEnabled(False)
+            findConcept.setEnabled(False)
             tripleStoreEdit = QComboBox(d)
             tripleStoreEdit.move(100,40)
             tripleStoreLabel = QLabel("Triple Store:",d)
