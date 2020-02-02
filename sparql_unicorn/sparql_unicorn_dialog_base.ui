@@ -303,9 +303,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QTableWidget" name="interlinkTable">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>10</x>
        <y>140</y>
-       <width>711</width>
+       <width>731</width>
        <height>391</height>
       </rect>
      </property>
@@ -319,7 +319,7 @@ SELECT ?label ?geo ?item WHERE {
       <bool>true</bool>
      </property>
      <property name="columnCount">
-      <number>6</number>
+      <number>7</number>
      </property>
      <column>
       <property name="text">
@@ -343,7 +343,12 @@ SELECT ?label ?geo ?item WHERE {
      </column>
      <column>
       <property name="text">
-       <string>Concept</string>
+       <string>ColumnProperty</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>ColumnConcept</string>
       </property>
      </column>
      <column>

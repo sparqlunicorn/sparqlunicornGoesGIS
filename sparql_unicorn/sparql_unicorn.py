@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit, QListView, QComboBox, QRadioButton
 from qgis.core import QgsProject, Qgis,QgsRasterLayer
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
@@ -324,7 +324,7 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
+                point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
@@ -334,7 +334,7 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                point = "POINT("+str(float(result["long"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
+                point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
                 features.append(feature)
@@ -344,8 +344,11 @@ class SPAQLunicorn:
                 properties = {}
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
-                if result["geo"]["value"]:
+                if "geo" in result and result["geo"]["value"]:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
+                    features.append(feature)
+                if "lat" in properties and "lon" in properties:
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 5:
@@ -354,7 +357,7 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 6:
@@ -363,7 +366,7 @@ class SPAQLunicorn:
                 for var in results["head"]["vars"]:
                     properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lat"]["value"]+" "+result["lon"]["value"]+")").asJson()) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
                     features.append(feature)
             geojson = {'type': 'FeatureCollection', 'features': features }
         elif endpointIndex == 8:
@@ -392,6 +395,7 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
+    """Extracts geographic concepts from an rdf file."""
     def getGeoConceptsFromGraph(self,graph):
         viewlist=[]
         qres = graph.query(
@@ -399,7 +403,6 @@ class SPAQLunicorn:
         WHERE {
           ?a rdf:type ?a_class .
           ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
-          ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?a_wkt .
         }""")
         print(qres)
         self.dlg.layercount.setText("["+str(len(qres))+"]")
@@ -407,6 +410,7 @@ class SPAQLunicorn:
             viewlist.append(str(row[0]))
         return viewlist
 
+    """Extracts geographic WKT concepts from Wikidata."""
     def getGeoConceptsFromWikidata(self):
         viewlist=[]
         resultlist=[]
@@ -432,6 +436,84 @@ class SPAQLunicorn:
             resultlist.append(labels[lab[0]]+"("+lab[0]+")")
             i=i+1			
         return resultlist
+
+    """Extracts geographic concepts from a SPARQL endpoint."""
+    def getGeoConceptsFromGeoSPARQLTripleStore(self,triplestoreurl):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
+          ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom .
+        } LIMIT 500""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert().sort()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        print(viewlist)
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")			
+        return viewlist
+
+    """Extracts geographic concepts from a triplestore saving geoconcepts using lat lon properties."""
+    def getGeoConceptsFromLatLonTripleStore(self,triplestoreurl):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
+          ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+          ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+        }  LIMIT 500""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        print(viewlist)
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
+        return viewlist
+
+    """Returns classes for a given label from a triple store."""
+    def getClassesFromLabel(self,triplestoreurl,language,label):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+          ?class <http://www.w3.org/2000/01/rdf-schema#label> """+"\""+label+"\"@"+language+""" .
+        }  LIMIT 500""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        return viewlist
+		
+    """Returns properties for a given label from a triple store."""
+    def getPropertiesFromLabel(self,triplestoreurl,language,label):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Property> .
+          ?class <http://www.w3.org/2000/01/rdf-schema#label> """+"\""+label+"\"@"+language+""" .
+        }  LIMIT 500""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        return viewlist
+
        
     def getWikidataLabelsForQIDs(self,qids):
         result={}
@@ -489,6 +571,35 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
+    def createInterlinkSearchDialog(self, row, column):
+        if column>3:
+            d = QDialog()
+            d.setMinimumSize(350, 400)
+            conceptSearchEdit = QLineEdit(d)
+            conceptSearchEdit.move(100,10)
+            conceptSearchLabel = QLabel("Search Concept:",d)
+            conceptSearchLabel.move(0,10)
+            findConcept = QRadioButton("Class",d)
+            findConcept.move(230,15)
+            findConcept.setChecked(True)
+            findProperty = QRadioButton("Property",d)
+            findProperty.move(230,40)
+            tripleStoreEdit = QComboBox(d)
+            tripleStoreEdit.move(100,40)
+            tripleStoreLabel = QLabel("Triple Store:",d)
+            tripleStoreLabel.move(0,40)
+            searchButton = QPushButton("Search",d)
+            searchButton.move(10,70)
+            searchResultLabel = QLabel("Search Results",d)
+            searchResultLabel.move(100,100)
+            searchResult = QListView(d)
+            searchResult.move(30,120)
+            searchResult.setMinimumSize(300, 300)
+            applyButton = QPushButton("Apply",d)
+            applyButton.move(150,430)
+            d.setWindowTitle("Search Interlink Concept")
+            d.exec_()
+
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
@@ -497,8 +608,8 @@ class SPAQLunicorn:
         while self.dlg.interlinkTable.rowCount() > 0:
             self.dlg.interlinkTable.removeRow(0);
         row=0
-        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","Concept","ValueConcepts"])
-        self.dlg.interlinkTable.setColumnCount(6)
+        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","ColumnProperty","ColumnConcept","ValueConcepts"])
+        self.dlg.interlinkTable.setColumnCount(7)
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -515,13 +626,6 @@ class SPAQLunicorn:
             self.dlg.interlinkTable.setItem(row,1,item3)
             self.dlg.interlinkTable.setItem(row,2,item4)
             row+=1
-        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"		
 
     def exportEnrichedLayer(self):
         self.exportIdCol=""
@@ -534,11 +638,13 @@ class SPAQLunicorn:
                     self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
                 else:
                     column = self.dlg.interlinkTable.item(row, 3).text()
-                    if self.dlg.interlinkTable.item(row, 4)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 4).text()
-                        self.exportColConfig[column]=concept
+                    if self.dlg.interlinkTable.item(row,4)!=None:
+                        column=self.dlg.interlinkTable.item(row,4).text()
                     if self.dlg.interlinkTable.item(row, 5)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 5).text()
+                        concept = self.dlg.interlinkTable.item(row, 5).text()
+                        self.exportColConfig[column]=concept
+                    if self.dlg.interlinkTable.item(row, 6)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 6).text()
         self.enrichedExport=True
         self.exportLayer()
 		
@@ -766,15 +872,31 @@ class SPAQLunicorn:
             conceptlist2=self.getWikidataAreaConcepts()
             for concept in conceptlist2:
                 self.dlg.areaconcepts.addItem(concept)
-        elif endpointIndex==3:
-            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
-            self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
-            self.dlg.layerconcepts.addItem("http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression")
         elif endpointIndex==2:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
             self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Mint")
             self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Region")
+        elif endpointIndex==3:
+            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
+            self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
+            self.dlg.layerconcepts.addItem("http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression")
+        elif endpointIndex==4:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://linkedgeodata.org/sparql")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
+        elif endpointIndex==5:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://dbpedia.org/sparql")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
+        elif endpointIndex==6:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
+        elif endpointIndex==7:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==8:
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
@@ -863,17 +985,45 @@ class SPAQLunicorn:
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
         elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
         elif endpointIndex==3:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
+        elif endpointIndex==4:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
+            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
+            ?item rdfs:label ?label .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            FILTER(langMatches(lang(?label),'EN'))
+            } LIMIT 10""")
+        elif endpointIndex==5:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
+            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
+            ?item rdfs:label ?label .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            FILTER(langMatches(lang(?label),'EN'))
+            } LIMIT 10""")
+        elif endpointIndex==6:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <http://www.geonames.org/ontology#Feature>.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            } LIMIT 10""")    
+        elif endpointIndex==7:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            } LIMIT 10""") 					
         elif endpointIndex==8:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
@@ -905,6 +1055,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
+            self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
