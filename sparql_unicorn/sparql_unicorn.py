@@ -30,12 +30,14 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog
-from qgis.core import QgsProject, Qgis
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit
+from qgis.core import QgsProject, Qgis,QgsRasterLayer
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
+from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
 from qgis.utils import iface
 import rdflib
 import requests
+import uuid
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -54,8 +56,24 @@ class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
     loadedfromfile=False
+	
+    justloadingfromfile=False
+	
+    tableCheckBoxes=[]
 
     currentgraph=None
+
+    exportNameSpace=""
+
+    exportIdCol=""
+	
+    exportClassCol=""
+
+    exportSetClass=""
+
+    exportColConfig={}
+
+    enrichedExport=False
 
     outputfile=""
 
@@ -242,7 +260,7 @@ class SPAQLunicorn:
             endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <http://ontologies.geohive.ie/osi#County>.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -377,7 +395,7 @@ class SPAQLunicorn:
     def getGeoConceptsFromGraph(self,graph):
         viewlist=[]
         qres = graph.query(
-        """SELECT DISTINCT ?count (count(?a_class) as ?count)
+        """SELECT DISTINCT ?a_class (count(?a_class) as ?count)
         WHERE {
           ?a rdf:type ?a_class .
           ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
@@ -398,7 +416,7 @@ class SPAQLunicorn:
         WHERE {
           ?a <http://www.wikidata.org/prop/direct/P31> ?class .
           ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .
-        } LIMIT 1000""")
+        } LIMIT 500""")
         print("now sending query")
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
@@ -471,38 +489,173 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
+    def loadLayerForInterlink(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        while self.dlg.interlinkTable.rowCount() > 0:
+            self.dlg.interlinkTable.removeRow(0);
+        row=0
+        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","Concept","ValueConcepts"])
+        self.dlg.interlinkTable.setColumnCount(6)
+        for field in fieldnames:
+            item=QTableWidgetItem(field)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            item2=QTableWidgetItem()
+            item2.setCheckState(True)
+            item3=QTableWidgetItem()
+            item3.setCheckState(False)
+            item4=QTableWidgetItem()
+            item4.setCheckState(False)
+            currentRowCount = self.dlg.interlinkTable.rowCount() 
+            self.dlg.interlinkTable.insertRow(row)
+            self.dlg.interlinkTable.setItem(row,3,item)
+            self.dlg.interlinkTable.setItem(row,0,item2)
+            self.dlg.interlinkTable.setItem(row,1,item3)
+            self.dlg.interlinkTable.setItem(row,2,item4)
+            row+=1
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"		
+
+    def exportEnrichedLayer(self):
+        self.exportIdCol=""
+        self.exportNameSpace=self.dlg.interlinkNameSpace.text()
+        self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
+        for row in range(self.dlg.interlinkTable.rowCount()):
+            item = self.dlg.interlinkTable.item(row, 0)
+            if item.checkState():
+                if self.dlg.interlinkTable.item(row, 1).checkState():
+                    self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
+                else:
+                    column = self.dlg.interlinkTable.item(row, 3).text()
+                    if self.dlg.interlinkTable.item(row, 4)!=None:
+                        concept = self.dlg.interlinkTable.item(row, 4).text()
+                        self.exportColConfig[column]=concept
+                    if self.dlg.interlinkTable.item(row, 5)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 5).text()
+        self.enrichedExport=True
+        self.exportLayer()
+		
+    def matchColumnValueFromTripleStore(self,toquery):
+        values="VALUES ?vals { "
+        for queryval in toquery:
+            values+="\""+queryval+"\""
+        values+="}"
+        sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?a
+        WHERE {
+          ?a wdt:P31 ?class .
+          ?a ?label ?vals .
+        } """)
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["a"]["value"]))
+        return viewlist
+		
+
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
+        if filename=="":
+             return
         layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        if self.enrichedExport:
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        else:
+            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
-        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> ."
-        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> ."
+        ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
+        first=0
+        if self.exportNameSpace=="":
+            namespace="http://www.github.com/sparqlunicorn#"
+        else:
+            namespace=self.exportNameSpace
+        if self.exportIdCol=="":
+            idcol="id"
+        else:
+            idcol=self.exportIdCol
+        classcol="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        curid=""
+        if self.exportSetClass=="":
+            curclassid=namespace+str(uuid.uuid4())
+        else:
+            curclassid=self.exportSetClass
         for f in layer.getFeatures():
             geom = f.geometry()
-            ttlstring+="<"+f["id"]+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+f["id"]+"_geom> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> .\n"
-            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-            ttlstring+="<http://www.opengis.net/ont/geosparql#"+str(geom.type())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-            ttlstring+="<"+f["id"]+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            if not idcol in fieldnames:
+                curid=namespace+str(uuid.uuid4())
+            else:				 
+                curid=f[idcol]
+            if not classcol in fieldnames:
+                ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
+                if first==0:
+                    ttlstring+="<"+curclassid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
+                    ttlstring+="<"+curclassid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<"+curid+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+curid+"_geom> .\n"
+            ttlstring+="<"+curid+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
+            ttlstring+="<"+curid+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             for prop in fieldnames:
+                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[prop]:
+                    ttlstring+="<"+f[prop]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
+                    ttlstring+="<"+f[prop]+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
                 if prop=="id":
                     continue
-                elif f[prop].isdigit():
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
-                elif re.match(r'^-?\d+(?:\.\d+)?$', f[prop]):
-                    ttlstring+="<"+f["id"]+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  						
+                elif not f[prop] or f[prop]==None or f[prop]=="":
+                    continue
+                elif re.match(r'^-?\d+$', str(f[prop])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n" 
+                elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[prop])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                    if first:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n" 
                 elif "http" in f[prop]:
-                    ttlstring+="<"+f['id']+"> <"+prop+"> <"+f[prop]+"> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[prop])+"> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
                 else:
-                    ttlstring+="<"+f['id']+"> <"+prop+"> \""+f[prop]+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n" 
+            if first<10:
+                first=first+1
+#        with open(filename+"_temp", 'w') as output_file:
+#            output_file.write(ttlstring)
         g=rdflib.Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
+        exportNameSpace=""
+        exportSetClass=""
         with open(filename, 'w') as output_file:
             output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
             iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
@@ -557,6 +710,7 @@ class SPAQLunicorn:
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
+        self.justloadingfromfile=True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             g = rdflib.Graph()
@@ -575,18 +729,31 @@ class SPAQLunicorn:
             OPTIONAL { ?val geo:asWKT ?wkt}
             }""")
             self.loadedfromfile=True
+            self.justloadingfromfile=False
             return result
         return None      
-        
+    
+    def getWikidataAreaConcepts(self):
+        resultlist=[]
+        resultlist.append("city"+" (Q515)")
+        resultlist.append("country"+" (Q6256)")		
+        return resultlist
+		
+    def loadAreas(self):
+        resultlist=[]
+        return resultlist
+    
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
+        self.dlg.chooseLayerInterlink.clear()
         for layer in layers:
             ucl = layer.name()
-            if "unicorn_" in ucl:
-                self.dlg.loadedLayers.addItem(layer.name())
+            #if type(layer) == QgsMapLayer.VectorLayer:
+            self.dlg.loadedLayers.addItem(layer.name())
+            self.dlg.chooseLayerInterlink.addItem(layer.name())
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -596,6 +763,9 @@ class SPAQLunicorn:
             conceptlist=self.getGeoConceptsFromWikidata()
             for concept in conceptlist:
                 self.dlg.layerconcepts.addItem(concept)
+            conceptlist2=self.getWikidataAreaConcepts()
+            for concept in conceptlist2:
+                self.dlg.areaconcepts.addItem(concept)
         elif endpointIndex==3:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
@@ -618,7 +788,7 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#NationalConstituency")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#CivilParish")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#RuralArea")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -627,28 +797,85 @@ class SPAQLunicorn:
             ] .
             } LIMIT 10""")
 
+    def getPointFromCanvas(self):
+        #new_dialog = QDialog()
+        d = QDialog()
+        map_canvas = QgsMapCanvas(d)
+        map_canvas.setMinimumSize(500, 495)
+        uri="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png&zmax=19&zmin=0&type=xyz"
+        mts_layer=QgsRasterLayer(uri,'OSM','wms')
+        if not mts_layer.isValid():
+            print ("Layer failed to load!")
+        #QgsProject.instance().addMapLayer(mts_layer)
+        #map_canvas.setExtent(mts_layer.extent())
+        map_canvas.setLayers( [mts_layer] )
+        #map_canvas.show()
+        #self.dlg.actionZoomIn = QAction("Zoom in", self)
+        #self.dlg.actionZoomOut = QAction("Zoom out", self)
+        #self.dlg.actionPan = QAction("Pan", self)
+
+        #self.dlg.actionZoomIn.setCheckable(True)
+        #self.dlg.actionZoomOut.setCheckable(True)
+        #self.dlg.actionPan.setCheckable(True)
+
+        #self.dlg.actionZoomIn.triggered.connect(self.zoomIn)
+        #self.dlg.actionZoomOut.triggered.connect(self.zoomOut)
+        #self.dlg.actionPan.triggered.connect(self.pan)
+
+        #self.dlg.toolbar = self.addToolBar("Canvas actions")
+        #self.dlg.toolbar.addAction(self.actionZoomIn)
+        #self.dlg.toolbar.addAction(self.actionZoomOut)
+        #self.dlg.toolbar.addAction(self.actionPan)
+        #layers =  QgsProject.instance().mapLayers()
+        #map_canvas_layer_list = [l for l in layers.values()]
+        #map_canvas.setLayers(map_canvas_layer_list)
+        #map_canvas.setExtent(iface.mapCanvas().extent())
+        bboxextent = QLineEdit(d)
+        bboxextent.move(80,500)
+        bboxextentLabel = QLabel("BBOX Extent:",d)
+        bboxextentLabel.move(0,505)
+        bboxextentLabel2 = QLabel("km",d)
+        bboxextentLabel2.move(200,505)
+        b1 = QPushButton("Apply",d)
+        b1.move(400,500)
+        d.setWindowTitle("Pick Coordinate")
+        d.exec_()
+        #new_dialog.resize(800, 600)
+
+        #layers = QgsMapLayerRegistry.instance().mapLayers()
+        #map_canvas_layer_list = [QgsMapCanvasLayer(l) for l in layers.values()]
+        #map_canvas.setLayerSet(map_canvas_layer_list)
+        #map_canvas.setExtent(iface.mapCanvas().extent())
+        #new_dialog.show()
+
+    def display_point(self):
+        print("hallo")
+
     def viewselectaction(self):
+        if self.justloadingfromfile:
+            self.justloadingfromfile=False
+            return
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo WHERE {
             ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")+""">.
             ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
         elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
             } LIMIT 10""")
         elif endpointIndex==3:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?long WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
             } LIMIT 10""")
         elif endpointIndex==8:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
             FILTER (lang(?label) = 'en')
@@ -677,10 +904,16 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
+            self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
+            self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
+            self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
+            self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
+            self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+            self.dlg.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
         if self.first_start == False:
