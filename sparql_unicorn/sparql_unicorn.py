@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit, QListView, QComboBox, QRadioButton
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton
 from qgis.core import QgsProject, Qgis,QgsRasterLayer
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
@@ -62,6 +62,10 @@ class SPAQLunicorn:
     tableCheckBoxes=[]
 
     currentgraph=None
+	
+    currentcol=0
+
+    currentrow=0
 
     exportNameSpace=""
 
@@ -70,6 +74,14 @@ class SPAQLunicorn:
     exportClassCol=""
 
     exportSetClass=""
+
+    searchResult=""
+
+    tripleStoreEdit=""
+
+    conceptSearchEdit=""
+	
+    interlinkdialog=""
 
     exportColConfig={}
 
@@ -479,25 +491,22 @@ class SPAQLunicorn:
         return viewlist
 
     """Returns classes for a given label from a triple store."""
-    def getClassesFromLabel(self,triplestoreurl,language,label):
+    def getClassesFromLabel(self):
         viewlist=[]
         resultlist=[]
-        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        """SELECT DISTINCT ?class
-        WHERE {
-          ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-          ?class <http://www.w3.org/2000/01/rdf-schema#label> """+"\""+label+"\"@"+language+""" .
-        }  LIMIT 500""")
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
+        label=self.dlg.conceptSearchEdit.text()
+        language="en"
+        if self.dlg.currentcol==4:
+            results=self.getPIDsForLabels(label)
+        else:
+            results=self.getQIDsForLabels(label)
+        self.dlg.searchResult.clear()
+        for result in results:
+            self.dlg.searchResult.addItem(str(results[result]))
         return viewlist
 		
     """Returns properties for a given label from a triple store."""
-    def getPropertiesFromLabel(self,triplestoreurl,language,label):
+    def getPropertiesFromLabel(self):
         viewlist=[]
         resultlist=[]
         sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
@@ -511,7 +520,7 @@ class SPAQLunicorn:
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
+            self.dlg.searchResult.addItem(str(result["class"]["value"]))
         return viewlist
 
        
@@ -535,7 +544,27 @@ class SPAQLunicorn:
                 qidquery+="|"
             i=i+1
         return result
-       
+
+    def getQIDsForLabels(self,label):
+        result={}
+        url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=item"
+        myResponse = json.loads(requests.get(url).text)
+        for ent in myResponse["search"]:
+            qid=ent["url"]
+            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
+            result[qid]=label
+        return result
+		
+    def getPIDsForLabels(self,label):
+        result={}
+        url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=property"
+        myResponse = json.loads(requests.get(url).text)
+        for ent in myResponse["search"]:
+            qid=ent["url"]
+            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
+            result[qid]=label
+        return result
+
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
         qres = graph.query(
@@ -573,37 +602,46 @@ class SPAQLunicorn:
 
     def createInterlinkSearchDialog(self, row, column):
         if column>3:
-            d = QDialog()
-            d.setMinimumSize(350, 400)
-            conceptSearchEdit = QLineEdit(d)
-            conceptSearchEdit.move(100,10)
-            conceptSearchLabel = QLabel("Search Concept:",d)
+            self.dlg.currentcol=column
+            self.dlg.currentrow=row
+            self.dlg.interlinkdialog = QDialog()
+            self.dlg.interlinkdialog.setMinimumSize(650, 400)
+            self.dlg.conceptSearchEdit = QLineEdit(self.dlg.interlinkdialog)
+            self.dlg.conceptSearchEdit.move(100,10)
+            conceptSearchLabel = QLabel("Search Concept:",self.dlg.interlinkdialog)
             conceptSearchLabel.move(0,10)
-            findConcept = QRadioButton("Class",d)
+            findConcept = QRadioButton("Class",self.dlg.interlinkdialog)
             findConcept.move(230,15)
             if column!=4:
                 findConcept.setChecked(True)
-            findProperty = QRadioButton("Property",d)
+            findProperty = QRadioButton("Property",self.dlg.interlinkdialog)
             findProperty.move(230,40)
             if column==4:
                 findProperty.setChecked(True)
             findProperty.setEnabled(False)
             findConcept.setEnabled(False)
-            tripleStoreEdit = QComboBox(d)
-            tripleStoreEdit.move(100,40)
-            tripleStoreLabel = QLabel("Triple Store:",d)
+            self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
+            self.dlg.tripleStoreEdit.move(100,40)
+            tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
             tripleStoreLabel.move(0,40)
-            searchButton = QPushButton("Search",d)
+            searchButton = QPushButton("Search",self.dlg.interlinkdialog)
             searchButton.move(10,70)
-            searchResultLabel = QLabel("Search Results",d)
+            searchButton.clicked.connect(self.getClassesFromLabel)
+            searchResultLabel = QLabel("Search Results",self.dlg.interlinkdialog)
             searchResultLabel.move(100,100)
-            searchResult = QListView(d)
-            searchResult.move(30,120)
-            searchResult.setMinimumSize(300, 300)
-            applyButton = QPushButton("Apply",d)
+            self.dlg.searchResult = QListWidget(self.dlg.interlinkdialog)
+            self.dlg.searchResult.move(30,120)
+            self.dlg.searchResult.setMinimumSize(600, 300)
+            applyButton = QPushButton("Apply",self.dlg.interlinkdialog)
             applyButton.move(150,430)
-            d.setWindowTitle("Search Interlink Concept")
-            d.exec_()
+            applyButton.clicked.connect(self.applyConceptToColumn)
+            self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
+            self.dlg.interlinkdialog.exec_()
+
+    def applyConceptToColumn(self):
+        print("test")
+        self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,QTableWidgetItem(self.dlg.searchResult.currentItem().text()))
+        self.dlg.interlinkdialog.close()
 
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -929,14 +967,13 @@ class SPAQLunicorn:
         d = QDialog()
         map_canvas = QgsMapCanvas(d)
         map_canvas.setMinimumSize(500, 495)
-        uri="http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png&zmax=19&zmin=0&type=xyz"
+        uri="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         mts_layer=QgsRasterLayer(uri,'OSM','wms')
         if not mts_layer.isValid():
             print ("Layer failed to load!")
         #QgsProject.instance().addMapLayer(mts_layer)
-        #map_canvas.setExtent(mts_layer.extent())
+        map_canvas.setExtent(mts_layer.extent())
         map_canvas.setLayers( [mts_layer] )
-        #map_canvas.show()
         #self.dlg.actionZoomIn = QAction("Zoom in", self)
         #self.dlg.actionZoomOut = QAction("Zoom out", self)
         #self.dlg.actionPan = QAction("Pan", self)
