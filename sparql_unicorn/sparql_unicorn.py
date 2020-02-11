@@ -308,7 +308,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 #print(properties)
                 if result["geo"]["value"]:
                     print(QgsGeometry.fromWkt(result["geo"]["value"]).asJson())
@@ -320,7 +321,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 # transform from BNG to WGS84
                 myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result["easting"]["value"]))+" "+str(float(result["northing"]["value"]))+")")
                 sourceCrs = QgsCoordinateReferenceSystem(27700)
@@ -335,7 +337,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
@@ -345,7 +348,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
                 #print(point)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
@@ -355,7 +359,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 if "geo" in result and result["geo"]["value"]:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
                     features.append(feature)
@@ -367,7 +372,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
                     features.append(feature)
@@ -376,7 +382,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 if "lat" in properties and "lon" in properties:
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
                     features.append(feature)
@@ -385,7 +392,8 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 properties = {}
                 for var in results["head"]["vars"]:
-                    properties[var] = result[var]["value"]
+                    if var in result:
+                        properties[var] = result[var]["value"]
                 if result["geo"]["value"]:
                     # transform from epsg:2157 to WGS84
                     #print(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
