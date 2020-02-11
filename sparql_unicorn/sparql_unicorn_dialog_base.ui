@@ -141,9 +141,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
+       <y>130</y>
        <width>720</width>
-       <height>431</height>
+       <height>401</height>
       </rect>
      </property>
      <property name="font">
@@ -189,7 +189,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>0</x>
        <y>590</y>
-       <width>111</width>
+       <width>121</width>
        <height>28</height>
       </rect>
      </property>
@@ -200,7 +200,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="loadedLayers">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>590</y>
        <width>321</width>
        <height>21</height>
@@ -210,7 +210,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportLayers">
      <property name="geometry">
       <rect>
-       <x>450</x>
+       <x>460</x>
        <y>590</y>
        <width>171</width>
        <height>28</height>
@@ -293,6 +293,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Area:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="errorLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>105</y>
+       <width>701</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>

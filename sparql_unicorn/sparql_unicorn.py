@@ -28,14 +28,16 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp
+from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
 from qgis.core import QgsProject, Qgis,QgsRasterLayer
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
 from qgis.utils import iface
 import rdflib
+from rdflib.plugins.sparql import prepareQuery
+import sys
 import requests
 import uuid
 
@@ -51,6 +53,192 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 #import rdflib
 import json
 #from convertbng.util import convert_bng, convert_lonlat
+
+
+def format(color, style=''):
+    """Return a QTextCharFormat with the given attributes.
+    """
+    _color = QColor()
+    _color.setNamedColor(color)
+
+    _format = QTextCharFormat()
+    _format.setForeground(_color)
+    if 'bold' in style:
+        _format.setFontWeight(QFont.Bold)
+    if 'italic' in style:
+        _format.setFontItalic(True)
+ 
+    return _format
+
+STYLES = {
+    'keyword': format('#b32424'),
+    'operator': format('black'),
+    'error': format('red'),
+    'brace': format('black'),
+    'defclass': format('#14866d'),
+    'uri': format('#2a4b8d'),
+	'prefixcls': format('#14866d'),
+    'string': format('#ac6600'),
+    'string2': format('darkMagenta'),
+    'comment': format('#72777d'),
+    'self': format('blue', 'italic'),
+    'numbers': format('black'),
+}
+
+class SPARQLHighlighter (QSyntaxHighlighter):
+    """Syntax highlighter for the Python language.
+    """
+    # Python keywords
+    keywords = [
+        'SELECT', 'INSERT', 'WHERE', 'ORDER', 'BY', 'LIMIT',
+        'OFFSET', 'FROM', 'PREFIX', 'GRAPH', 'NAMED', 'BIND',
+        'VALUES', 'ASC', 'DESC', 'FILTER', 'DISTINCT', 'REDUCED',
+        'OPTIONAL', 'CONSTRUCT', 'ASK', 'DESCRIBE', 'BOUND', 'IF',
+        'EXISTS', 'NOT', 'IN', 'STR', 'AS','LANG','DELETE','CREATE','CLEAR','DROP','LOAD','COPY','MOVE','ADD'
+        'IRI', 'URI', 'False', 'a'
+    ]
+  
+    # Python operators
+    operators = [
+        '=',
+        # Comparison
+        '==', '!=', '<', '<=', '>', '>=',
+        # Arithmetic
+        '\+', '-', '\*', '/', '//', '\%', '\*\*',
+        # In-place
+        '\+=', '-=', '\*=', '/=', '\%=',
+        # Bitwise
+        '\^', '\|', '\&', '\~', '>>', '<<',
+    ]
+	
+    errorhighlightline=-1
+
+    currentline=0
+
+    errorhighlightcol=-1
+  
+    # Python braces
+    braces = [
+        '\{', '\}', '\(', '\)', '\[', '\]',
+    ]
+    def __init__(self, document,errorlabel):
+        QSyntaxHighlighter.__init__(self, document.document())
+        #msgBox=QMessageBox()
+        #msgBox.setText(document.toPlainText())
+        #msgBox.exec()
+        # Multi-line strings (expression, flag, style)
+        # FIXME: The triple-quotes in these two lines will mess up the
+        # syntax highlighting from this point onward
+        self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
+        self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
+  
+        rules = []
+  
+  
+          # All other rules
+        rules += [
+            # 'self'
+            (r'\bself\b', 0, STYLES['self']),
+  
+            # Double-quoted string, possibly containing escape sequences
+            (r'"[^"\\]*(\\.[^"\\]*)*"', 0, STYLES['string']),
+            # Single-quoted string, possibly containing escape sequences
+            (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
+  
+            # 'def' followed by an identifier
+            (r'([?]\w+)', 1, STYLES['defclass']),
+            (r'([<][h][t][t][p][:][/][/]\w+[>])', 0, STYLES['uri']),
+			# 'class' followed by an identifier
+            (r'(\w+[:]\w+)', 1, STYLES['uri']),
+			
+  
+            # From '#' until a newline
+            (r'#[^\n]*', 0, STYLES['comment']),
+  
+            # Numeric literals
+            (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
+            (r'\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b', 0, STYLES['numbers']),
+            (r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b', 0, STYLES['numbers']),
+        ]
+		        # Keyword, operator, and brace rules
+        rules += [(r'\b%s\b' % w, 0, STYLES['keyword'])
+            for w in SPARQLHighlighter.keywords]
+        rules += [(r'%s' % o, 0, STYLES['operator'])
+            for o in SPARQLHighlighter.operators]
+        rules += [(r'%s' % b, 0, STYLES['brace'])
+            for b in SPARQLHighlighter.braces]
+  
+        # Build a QRegExp for each pattern
+        self.rules = [(QRegExp(pat), index, fmt)
+            for (pat, index, fmt) in rules]
+  
+  
+    def highlightBlock(self, text):
+        """Apply syntax highlighting to the given block of text.
+        """
+        self.currentline+=1
+        #msgBox=QMessageBox()
+        #msgBox.setText(str(self.errorhighlightline))
+        #msgBox.exec()
+        #if self.errorhighlightline!=-1:
+        #    self.setFormat(0, len(text), STYLES['error'])
+        #else:
+		#    # Do other syntax formatting
+        for expression, nth, format in self.rules:
+            index = expression.indexIn(text, 0)
+            while index >= 0:
+                # We actually want the index of the nth match
+                index = expression.pos(nth)
+                length = expression.matchedLength()
+                self.setFormat(index, length, format)
+                index = expression.indexIn(text, index + length)
+  
+        self.setCurrentBlockState(0)
+        # Do multi-line strings
+        in_multiline = self.match_multiline(text, *self.tri_single)
+        if not in_multiline:
+            in_multiline = self.match_multiline(text, *self.tri_double)
+  
+  
+    def match_multiline(self, text, delimiter, in_state, style):
+        """Do highlighting of multi-line strings. ``delimiter`` should be a
+        ``QRegExp`` for triple-single-quotes or triple-double-quotes, and
+        ``in_state`` should be a unique integer to represent the corresponding
+        state changes when inside those strings. Returns True if we're still
+        inside a multi-line string when this function is finished.
+        """
+        # If inside triple-single quotes, start at 0
+        if self.previousBlockState() == in_state:
+            start = 0
+            add = 0
+        # Otherwise, look for the delimiter on this line
+        else:
+            start = delimiter.indexIn(text)
+            # Move past this match
+            add = delimiter.matchedLength()
+  
+        # As long as there's a delimiter match on this line...
+        while start >= 0:
+            # Look for the ending delimiter
+            end = delimiter.indexIn(text, start + add)
+            # Ending delimiter on this line?
+            if end >= add:
+                length = end - start + add + delimiter.matchedLength()
+                self.setCurrentBlockState(0)
+            # No; multi-line string
+            else:
+                self.setCurrentBlockState(in_state)
+                length = text.length() - start + add
+            # Apply formatting
+            self.setFormat(start, length, style)
+            # Look for the next match
+            start = delimiter.indexIn(text, start + length)
+  
+        # Return True if still inside a multi-line string, False otherwise
+        if self.currentBlockState() == in_state:
+            return True
+        else:
+            return False
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
@@ -81,13 +269,31 @@ class SPAQLunicorn:
 
     conceptSearchEdit=""
 	
+    sparqlhighlight=""
+	
     interlinkdialog=""
 
     exportColConfig={}
+	
+    errorline=-1
 
     enrichedExport=False
 
     outputfile=""
+	
+    prefixes=["PREFIX wd:<http://www.wikidata.org/entity/> PREFIX wdt:<http://www.wikidata.org/prop/direct/> PREFIX wikibase:<http://wikiba.se/ontology#>",
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
+    "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
+    "Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
+    "Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
+    "",
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
+    ]
+	
+    endpoints=["https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
+        "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
 
     def __init__(self, iface):
         """Constructor.
@@ -136,6 +342,28 @@ class SPAQLunicorn:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
 
+    def validateSPARQL(self):
+        try:
+            prepareQuery(self.prefixes[self.dlg.comboBox.currentIndex()]+"\n"+self.dlg.inp_sparql.toPlainText())
+            self.dlg.errorLabel.setText("Valid Query")
+            self.errorline=-1
+            self.sparqlhighlight.errorhighlightline=self.errorline
+            self.sparqlhighlight.currentline=0
+        except Exception as e:
+            self.dlg.errorLabel.setText(str(e))
+            if "line" in str(e):
+                ex=str(e)
+                start = ex.find('line:') + 5
+                end = ex.find(',', start)
+                start2 = ex.find('col:') + 4
+                end2 = ex.find(')', start2)
+                self.errorline=ex[start:end]
+                self.sparqlhighlight.errorhighlightcol=ex[start2:end2]
+                self.sparqlhighlight.errorhighlightline=self.errorline
+                self.sparqlhighlight.currentline=0
+                #msgBox=QMessageBox()
+                #msgBox.setText(str(self.errorline)+" "+str(self.sparqlhighlight.errorhighlightline)+" "+str(self.sparqlhighlight.errorhighlightcol))
+                #msgBox.exec()
 
     def add_action(
         self,
@@ -235,11 +463,73 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
+    def processResults(self,results,reproject,latval,lonval):
+        features = []
+        first=True
+        newobject=True
+        item=""
+        for result in results["results"]["bindings"]:
+            if "item" in result and "rel" in result and  "val" in result and (item=="" or result["item"]["value"]!=item):
+                if item!="":
+                    myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
+                    if reproject!="":
+                        sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                        destCrs = QgsCoordinateReferenceSystem(4326)
+                        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                        myGeometryInstance.transform(tr)
+                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                    features.append(feature)
+                properties = {}
+                item=result["item"]["value"]
+            if not "rel" in result and not "val" in result:
+                properties = {}
+            for var in results["head"]["vars"]:
+                if var in result:
+                    if var=="rel" and "val" in result:
+                        properties[result[var]["value"]] = result["val"]["value"]
+                    elif var!="val":
+                        properties[var] = result[var]["value"]
+            if not "rel" in result and not "val" in result and "geo" in result:
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
+                if reproject!="":
+                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                features.append(feature)
+            if not "rel" in result and not "val" in result and latval in result and lonval in result:
+                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
+                if reproject!="":
+                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                features.append(feature)
+            #print(properties)
+        if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
+            myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"])
+            if reproject!="":
+                sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                destCrs = QgsCoordinateReferenceSystem(4326)
+                tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                myGeometryInstance.transform(tr)
+            #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+            feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+            features.append(feature)
+        geojson = {'type': 'FeatureCollection', 'features': features }
+        return geojson
 
     def create_unicorn_layer(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
         #print(self.loadedfromfile)
+		# query
+        query = self.dlg.inp_sparql.toPlainText()
         if self.loadedfromfile:
             concept = self.dlg.layerconcepts.currentText()
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
@@ -252,159 +542,43 @@ class SPAQLunicorn:
             #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
             self.dlg.close()
             return
-        elif endpointIndex == 0:
-            endpoint_url = "https://query.wikidata.org/sparql"
-        elif endpointIndex == 1:
-            endpoint_url = "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"
-        elif endpointIndex == 2:
-            endpoint_url = "http://nomisma.org/query"
-        elif endpointIndex == 3:
-            endpoint_url = "http://kerameikos.org/query"
-        elif endpointIndex == 4:
-            endpoint_url = "http://linkedgeodata.org/sparql"
-        elif endpointIndex== 5:
-            endpoint_url = "http://dbpedia.org/sparql"
-        elif endpointIndex==6:
-            endpoint_url = "http://factforge.net/repositories/ff-news"
-        elif endpointIndex==7:
-            endpoint_url = "http://zbw.eu/beta/sparql/econ_pers/query"
-        elif endpointIndex==8:
-            endpoint_url = "http://sandbox.mainzed.org/osi/sparql"
-            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
-            ?item a <http://ontologies.geohive.ie/osi#County>.
-            ?item rdfs:label ?label.
-            FILTER (lang(?label) = 'en')
-            ?item ogc:hasGeometry [
-            ogc:asWKT ?geo
-            ] .
-            }""")
-        # query
-        query = self.dlg.inp_sparql.toPlainText()
+        else:
+            endpoint_url=self.endpoints[endpointIndex]
+        if "?rel" in query and "?val" in query and not "?item" in query: 
+            msgBox=QMessageBox()
+            msgBox.setText("A SPARQL query including the ?rel and ?val variable needs to include an ?item variable indicating the individual URI. ")
+            msgBox.exec()
+            return
+        if (endpointIndex==0 or endpointIndex==8) and not "?geo" in query: 
+            msgBox=QMessageBox()
+            msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
+            msgBox.exec()
+            return
+        if (endpointIndex==2 or endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7) and not "?lat" in query  and not "?lon" in query: 
+            msgBox=QMessageBox()
+            msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
+            msgBox.exec()
+            return
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        if endpointIndex == 0:
-            sparql.setQuery(query)
-        elif endpointIndex == 1:
-            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>" + query)
-        elif endpointIndex == 2:
-            sparql.setQuery("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" + query)
-        elif endpointIndex == 3:
-            sparql.setQuery("PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" + query)
-        elif endpointIndex == 4:
-            sparql.setQuery("Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
-        elif endpointIndex == 5:
-            sparql.setQuery("Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>" + query)
-        elif endpointIndex == 6:
-            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>" + query)
-        elif endpointIndex == 8:
-            sparql.setQuery("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> " + query)
+        sparql.setQuery(self.prefixes[endpointIndex] + query)
         sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
+        try:
+            results = sparql.query().convert()
+        except Exception as e:
+            msgBox=QMessageBox()
+            msgBox.setText("The following exception occurred: "+str(e))
+            msgBox.exec()
+            return            
         #print(results)
         # geojson stuff
-        features = []
         if endpointIndex == 0:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                #print(properties)
-                if result["geo"]["value"]:
-                    print(QgsGeometry.fromWkt(result["geo"]["value"]).asJson())
-                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
-                    features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
+            geojson=self.processResults(results,"","","")
         elif endpointIndex == 1:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                # transform from BNG to WGS84
-                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result["easting"]["value"]))+" "+str(float(result["northing"]["value"]))+")")
-                sourceCrs = QgsCoordinateReferenceSystem(27700)
-                destCrs = QgsCoordinateReferenceSystem(4326)
-                tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                myGeometryInstance.transform(tr)
-                print(myGeometryInstance.asJson())
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
-                features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
-        elif endpointIndex == 2:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
-                #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
-                features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
-        elif endpointIndex == 3:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                point = "POINT("+str(float(result["lon"]["value"]))+" "+str(float(result["lat"]["value"]))+")"
-                #print(point)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(point).asJson())  }
-                features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
-        elif endpointIndex == 4:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                if "geo" in result and result["geo"]["value"]:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt(result["geo"]["value"]).asJson()) }
-                    features.append(feature)
-                if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
-                    features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
-        elif endpointIndex == 5:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
-                    features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
-        elif endpointIndex == 6:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                if "lat" in properties and "lon" in properties:
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(QgsGeometry.fromWkt("POINT("+result["lon"]["value"]+" "+result["lat"]["value"]+")").asJson()) }
-                    features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
+            geojson=self.processResults(results,27700,"easting","northing")
+        elif endpointIndex == 2 or endpointIndex == 3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6:
+            geojson=self.processResults(results,"","lat","lon")
         elif endpointIndex == 8:
-            for result in results["results"]["bindings"]:
-                properties = {}
-                for var in results["head"]["vars"]:
-                    if var in result:
-                        properties[var] = result[var]["value"]
-                if result["geo"]["value"]:
-                    # transform from epsg:2157 to WGS84
-                    #print(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
-                    myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
-                    sourceCrs = QgsCoordinateReferenceSystem(2157)
-                    destCrs = QgsCoordinateReferenceSystem(4326)
-                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                    myGeometryInstance.transform(tr)
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstance.asJson()) }
-                    features.append(feature)
-            geojson = {'type': 'FeatureCollection', 'features': features }
+            geojson=self.processResults(results,2157,"","")
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
@@ -1092,6 +1266,7 @@ class SPAQLunicorn:
         if self.first_start == True:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
+            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
             self.dlg.comboBox.clear()
             self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #0
             self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!') #1
@@ -1104,8 +1279,10 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.loadedLayers.clear()
+            self.dlg.inp_sparql.textChanged.connect(self.validateSPARQL)
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
             self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
+            #self.dlg.searchClassButton.clicked.connect(self.createInterlinkSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
