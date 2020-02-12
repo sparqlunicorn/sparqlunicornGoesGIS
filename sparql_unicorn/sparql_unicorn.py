@@ -281,7 +281,7 @@ class SPAQLunicorn:
 
     outputfile=""
 	
-    prefixes=["PREFIX wd:<http://www.wikidata.org/entity/> PREFIX wdt:<http://www.wikidata.org/prop/direct/> PREFIX wikibase:<http://wikiba.se/ontology#>",
+    prefixes=["PREFIX wd:<http://www.wikidata.org/entity/> PREFIX wdt:<http://www.wikidata.org/prop/direct/> PREFIX wikibase:<http://wikiba.se/ontology#> PREFIX bd:<http://www.bigdata.com/rdf#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
