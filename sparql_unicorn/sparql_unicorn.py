@@ -825,6 +825,25 @@ class SPAQLunicorn:
         self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,QTableWidgetItem(self.dlg.searchResult.currentItem().text()))
         self.dlg.interlinkdialog.close()
 
+    def loadLayerForEnrichment(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        while self.dlg.enrichTable.rowCount() > 0:
+            self.dlg.enrichTable.removeRow(0);
+        row=0
+        self.dlg.enrichTable.setColumnCount(3)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore"])
+        for field in fieldnames:
+            item=QTableWidgetItem(field)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            currentRowCount = self.dlg.enrichTable.rowCount() 
+            self.dlg.enrichTable.insertRow(row)
+            self.dlg.enrichTable.setItem(row,0,item)
+            row+=1
+
+
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
@@ -1080,11 +1099,13 @@ class SPAQLunicorn:
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
         self.dlg.chooseLayerInterlink.clear()
+        self.dlg.chooseLayerEnrich.clear()
         for layer in layers:
             ucl = layer.name()
             #if type(layer) == QgsMapLayer.VectorLayer:
             self.dlg.loadedLayers.addItem(layer.name())
             self.dlg.chooseLayerInterlink.addItem(layer.name())
+            self.dlg.chooseLayerEnrich.addItem(layer.name())
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -1291,6 +1312,7 @@ class SPAQLunicorn:
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+            self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
             self.dlg.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 

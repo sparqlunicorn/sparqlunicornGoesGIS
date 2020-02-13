@@ -485,6 +485,106 @@ SELECT ?label ?geo ?item WHERE {
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Enrich</string>
+    </attribute>
+    <widget class="QPushButton" name="loadLayerEnrich">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>30</y>
+       <width>83</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Load Layer</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="refreshLayersEnrich">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Refresh Layers</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="chooseLayerEnrich">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>30</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ID Column:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="IDColumnEnrich">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>70</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="startEnrichment">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>570</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Enrichment</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addEnrichedLayer">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>570</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add enriched layer</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="enrichTable">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>111</y>
+       <width>671</width>
+       <height>441</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>
