@@ -83,7 +83,7 @@
       <rect>
        <x>100</x>
        <y>40</y>
-       <width>571</width>
+       <width>331</width>
        <height>22</height>
       </rect>
      </property>
@@ -130,7 +130,7 @@
     <widget class="QLineEdit" name="inp_label">
      <property name="geometry">
       <rect>
-       <x>550</x>
+       <x>560</x>
        <y>10</y>
        <width>161</width>
        <height>20</height>
@@ -262,7 +262,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="bboxButton">
      <property name="geometry">
       <rect>
-       <x>522</x>
+       <x>550</x>
        <y>70</y>
        <width>171</width>
        <height>21</height>
@@ -277,7 +277,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>350</x>
        <y>70</y>
-       <width>131</width>
+       <width>191</width>
        <height>22</height>
       </rect>
      </property>
@@ -307,6 +307,39 @@ SELECT ?label ?geo ?item WHERE {
      <property name="text">
       <string/>
      </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>40</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Query Templates:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="queryTemplates">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>40</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Item+Label</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>All Attributes</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
@@ -543,7 +576,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>120</x>
        <y>70</y>
-       <width>321</width>
+       <width>231</width>
        <height>21</height>
       </rect>
      </property>
@@ -578,9 +611,9 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>111</y>
+       <y>101</y>
        <width>671</width>
-       <height>441</height>
+       <height>451</height>
       </rect>
      </property>
     </widget>

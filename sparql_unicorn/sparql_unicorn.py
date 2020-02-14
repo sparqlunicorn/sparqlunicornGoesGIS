@@ -833,15 +833,55 @@ class SPAQLunicorn:
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(3)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore"])
+        self.dlg.enrichTable.setColumnCount(4)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             currentRowCount = self.dlg.enrichTable.rowCount() 
+            self.dlg.IDColumnEnrich.addItem(field)
             self.dlg.enrichTable.insertRow(row)
             self.dlg.enrichTable.setItem(row,0,item)
+            cbox=QComboBox()
+            cbox.addItem("No Enrichment")
+            cbox.addItem("Keep Local")
+            cbox.addItem("Keep Remote")
+            cbox.addItem("Merge")
+            cbox.addItem("Ask User")
+            self.dlg.enrichTable.setCellWidget(row,3,cbox)
+            #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
+
+    def enrichLayer(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        attlist={}
+        itemlist=[]
+        propertylist=[]
+        idfield=self.dlg.IDColumnEnrich.addItem(field)
+        for row in range(self.dlg.enrichTable.rowCount()):
+            item = self.dlg.enrichTable.item(row, 0)
+            if item!=idfield:
+                propertylist.append(self.dlg.enrichTable.item(row, 1))    
+            if item!="No Enrichment":
+                itemlist.append(item)
+                attlist[item]=[]
+                for f in layer.getFeatures():
+                    attlist[item].append(f[item])
+        queryPrefix="SELECT ?item "
+        for it in itemlist:
+            queryPrefix+="?"+it
+        queryPrefix+=" WHERE {\n VALUES { "
+        for it in attlist[idfield]:
+            queryPrefix+=it
+        queryPrefix+=" } AS ?item . \n"
+        query+="?item <"+property+"> ?res . ?res rdfs:label ?label . FILTER((LANG(?label)) = \"en\") "
+        for it in attlist:
+            query+=" VALUES{"
+            for att in it:
+                query+=att
+            query+="} AS ?"+it+" \n"
 
 
     def loadLayerForInterlink(self):
@@ -1105,7 +1145,7 @@ class SPAQLunicorn:
             #if type(layer) == QgsMapLayer.VectorLayer:
             self.dlg.loadedLayers.addItem(layer.name())
             self.dlg.chooseLayerInterlink.addItem(layer.name())
-            self.dlg.chooseLayerEnrich.addItem(layer.name())
+            self.dlg.chooseLayerEnrich.addItem(layer.name())       
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -1224,25 +1264,63 @@ class SPAQLunicorn:
             return
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo WHERE {
-            ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")+""">.
+            if self.dlg.layerconcepts.currentText()=="":
+                concept="1248784"
+            else:
+                concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
+            if self.dlg.queryTemplates.currentText()=="All Attributes":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
+            ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+concept+"""> .
+            ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
+            ?item ?rel ?val .
+			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            } LIMIT 100""")
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo WHERE {
+            ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+concept+""">.
             ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
         elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            if self.dlg.queryTemplates.currentText()=="All Attributes":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?rel ?val ?lat ?lon WHERE {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+			?item ?rel ?val .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            } LIMIT 100""")
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
         elif endpointIndex==3:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon WHERE {
+            if self.dlg.queryTemplates.currentText()=="All Attributes":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon WHERE {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item ?rel ?val .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            } LIMIT 10""")
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
         elif endpointIndex==4:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
+            if self.dlg.queryTemplates.currentText()=="All Attributes":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon  WHERE {
+            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
+            ?item rdfs:label ?label .
+            ?item ?rel ?val .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            FILTER(langMatches(lang(?label),'EN'))
+            } LIMIT 10""")
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
             ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
             ?item rdfs:label ?label .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
@@ -1299,6 +1377,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #7
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
+            self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
             self.dlg.inp_sparql.textChanged.connect(self.validateSPARQL)
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
