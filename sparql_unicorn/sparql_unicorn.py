@@ -829,6 +829,9 @@ class SPAQLunicorn:
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
         layer = layers[selectedLayerIndex].layer()
+        self.dlg.IDColumnEnrich.clear()
+        self.dlg.enrichTableResult.hide()
+        self.dlg.enrichTable.show()
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
@@ -859,29 +862,54 @@ class SPAQLunicorn:
         attlist={}
         itemlist=[]
         propertylist=[]
-        idfield=self.dlg.IDColumnEnrich.addItem(field)
+        idfield=self.dlg.IDColumnEnrich.currentText()
         for row in range(self.dlg.enrichTable.rowCount()):
-            item = self.dlg.enrichTable.item(row, 0)
+            item = self.dlg.enrichTable.item(row, 0).text()
+            property=self.dlg.enrichTable.item(row, 1)
+            strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             if item!=idfield:
                 propertylist.append(self.dlg.enrichTable.item(row, 1))    
-            if item!="No Enrichment":
+            if strategy!="No Enrichment" and property!=None:
                 itemlist.append(item)
                 attlist[item]=[]
                 for f in layer.getFeatures():
                     attlist[item].append(f[item])
-        queryPrefix="SELECT ?item "
-        for it in itemlist:
-            queryPrefix+="?"+it
-        queryPrefix+=" WHERE {\n VALUES { "
-        for it in attlist[idfield]:
-            queryPrefix+=it
-        queryPrefix+=" } AS ?item . \n"
-        query+="?item <"+property+"> ?res . ?res rdfs:label ?label . FILTER((LANG(?label)) = \"en\") "
-        for it in attlist:
-            query+=" VALUES{"
-            for att in it:
-                query+=att
-            query+="} AS ?"+it+" \n"
+                query="SELECT ?item ?val WHERE {\n VALUES ?item { "
+                for it in attlist[idfield]:
+                    query+=it
+                query+=" } . \n"
+                query+="?item <"+property+"> ?val . } ORDER BY ?item "
+                sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                sparql.setQuery(query)
+                print("now sending query")
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+                resultcounter=0
+                for f in layer.getFeatures():
+                    if strategy=="Keep Local" and f[item]=="" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
+                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                    elif strategy=="Keep Remote" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
+                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                    elif strategy=="Merge":
+                        f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
+                    elif strategy=="Ask User":
+                        print("Asking user")
+                    resultcounter+=1
+            row+=1
+        self.dlg.enrichTable.hide()
+        self.dlg.enrichTableResult.show()
+        fieldnames = [field.name() for field in layer.fields()]
+        self.dlg.enrichTableResult.setColumnCount(len(layer.fields()))
+        self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
+        row=0
+        for f in layer.getFeatures():
+            fieldcounter=0
+            for field in f:
+                item=QTableWidgetItem(field)
+                self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
+                fieldcounter+=1
+            row+=1
+
 
 
     def loadLayerForInterlink(self):
@@ -1385,13 +1413,19 @@ class SPAQLunicorn:
             #self.dlg.searchClassButton.clicked.connect(self.createInterlinkSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
+            #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+            self.dlg.enrichTableResult.hide()
+            #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
+            #self.dlg.loadLayerEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
