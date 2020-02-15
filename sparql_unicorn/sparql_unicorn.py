@@ -1375,7 +1375,7 @@ class SPAQLunicorn:
     }\n }"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
         elif endpointIndex==4:
-            curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?g, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
+            curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?geo, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
 
     def getPointFromCanvas(self):
