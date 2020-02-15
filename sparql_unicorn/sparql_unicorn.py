@@ -31,7 +31,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
-from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle
+from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
 from qgis.utils import iface
@@ -1353,6 +1353,13 @@ class SPAQLunicorn:
         pointt2.transform(tr)
         pointt3.transform(tr)
         pointt4.transform(tr)
+        polygon = QgsGeometry.fromPolylineXY( [pointt1.asPoint(),pointt2.asPoint(),pointt3.asPoint(),pointt4.asPoint()] )
+        center=polygon.centroid()
+        #distance = QgsDistanceArea()
+        #distance.setSourceCrs(destCrs)
+        #distance.setEllipsoidalMode(True)
+        #distance.setEllipsoid('WGS84')
+        widthm = 100 #distance.measureLine(pointt1, pointt2)
         self.curbbox=[]
         self.curbbox.append(pointt1)
         self.curbbox.append(pointt2)
@@ -1362,11 +1369,14 @@ class SPAQLunicorn:
         curquery=self.dlg.inp_sparql.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
-           curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
+            curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
       bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
       bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
     }\n }"""+curquery[curquery.rfind('}')+1:]
-           self.dlg.inp_sparql.setPlainText(curquery)
+            self.dlg.inp_sparql.setPlainText(curquery)
+        elif endpointIndex==4:
+            curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?g, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
+            self.dlg.inp_sparql.setPlainText(curquery)
 
     def getPointFromCanvas(self):
         self.d = QDialog()
