@@ -28,12 +28,12 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
-from qgis.core import QgsProject, Qgis,QgsRasterLayer
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
-from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas
+from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle
+from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
+from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
 from qgis.utils import iface
 import rdflib
 from rdflib.plugins.sparql import prepareQuery
@@ -85,6 +85,94 @@ STYLES = {
     'numbers': format('black'),
 }
 
+class RectangleMapTool(QgsMapToolEmitPoint):
+
+    rectangleCreated = pyqtSignal()
+    deactivated = pyqtSignal()
+	
+    point1=""
+    point2=""
+    point3=""
+    point4=""
+    chosen=False
+
+    def __init__(self, canvas):
+        self.canvas = canvas
+        QgsMapToolEmitPoint.__init__(self, self.canvas)
+
+        self.rubberBand = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
+        self.rubberBand.setColor(QColor(255, 0, 0, 100))
+        self.rubberBand.setWidth(2)
+
+        self.reset()
+
+    def reset(self):
+        self.startPoint = self.endPoint = None
+        self.isEmittingPoint = False
+        self.rubberBand.reset(QgsWkbTypes.PolygonGeometry)
+
+    def canvasPressEvent(self, e):
+        self.startPoint = self.toMapCoordinates(e.pos())
+        self.endPoint = self.startPoint
+        self.isEmittingPoint = True
+
+        self.showRect(self.startPoint, self.endPoint)
+
+    def canvasReleaseEvent(self, e):
+        self.isEmittingPoint = False
+        if self.rectangle() is not None:
+            self.rectangleCreated.emit()
+
+    def canvasMoveEvent(self, e):
+        if not self.isEmittingPoint:
+            return
+
+        self.endPoint = self.toMapCoordinates(e.pos())
+        self.showRect(self.startPoint, self.endPoint)
+
+    def showRect(self, startPoint, endPoint):
+        self.rubberBand.reset(QgsWkbTypes.PolygonGeometry)
+        if startPoint.x() == endPoint.x() or startPoint.y() == endPoint.y():
+            return
+
+        self.point1 = QgsPointXY(startPoint.x(), startPoint.y())
+        self.point2 = QgsPointXY(startPoint.x(), endPoint.y())
+        self.point3 = QgsPointXY(endPoint.x(), endPoint.y())
+        self.point4 = QgsPointXY(endPoint.x(), startPoint.y())
+
+        self.rubberBand.addPoint(self.point1, False)
+        self.rubberBand.addPoint(self.point2, False)
+        self.rubberBand.addPoint(self.point3, False)
+        # True to update canvas
+        self.rubberBand.addPoint(self.point4, True)
+        self.rubberBand.show()
+        chosen=True
+
+    def rectangle(self):
+        if self.startPoint is None or self.endPoint is None:
+            return None
+        elif self.startPoint.x() == self.endPoint.x() or \
+                self.startPoint.y() == self.endPoint.y():
+            return None
+
+        return QgsRectangle(self.startPoint, self.endPoint)
+
+    def setRectangle(self, rect):
+        if rect == self.rectangle():
+            return False
+
+        if rect is None:
+            self.reset()
+        else:
+            self.startPoint = QgsPointXY(rect.xMaximum(), rect.yMaximum())
+            self.endPoint = QgsPointXY(rect.xMinimum(), rect.yMinimum())
+            self.showRect(self.startPoint, self.endPoint)
+        return True
+
+    def deactivate(self):
+        QgsMapTool.deactivate(self)
+        self.deactivated.emit()
+
 class SPARQLHighlighter (QSyntaxHighlighter):
     """Syntax highlighter for the Python language.
     """
@@ -93,7 +181,7 @@ class SPARQLHighlighter (QSyntaxHighlighter):
         'SELECT', 'INSERT', 'WHERE', 'ORDER', 'BY', 'LIMIT',
         'OFFSET', 'FROM', 'PREFIX', 'GRAPH', 'NAMED', 'BIND',
         'VALUES', 'ASC', 'DESC', 'FILTER', 'DISTINCT', 'REDUCED',
-        'OPTIONAL', 'CONSTRUCT', 'ASK', 'DESCRIBE', 'BOUND', 'IF',
+        'OPTIONAL', 'CONSTRUCT', 'ASK', 'DESCRIBE', 'BOUND', 'IF','SERVICE',
         'EXISTS', 'NOT', 'IN', 'STR', 'AS','LANG','DELETE','CREATE','CLEAR','DROP','LOAD','COPY','MOVE','ADD'
         'IRI', 'URI', 'False', 'a'
     ]
@@ -252,12 +340,30 @@ class SPAQLunicorn:
     currentgraph=None
 	
     currentcol=0
+	
+    vl=""
+	
+    bboxbuffer=""
 
     currentrow=0
 
     exportNameSpace=""
+	
+    bboxextent=""
+	
+    rect_tool=""
+	
+    curbbox=[]
+	
+    bboxCoordinateLabelLon=""
+
+    bboxCoordinateLabelLat=""
 
     exportIdCol=""
+	
+    mts_layer=""
+	
+    map_canvas=""
 	
     exportClassCol=""
 
@@ -276,12 +382,14 @@ class SPAQLunicorn:
     exportColConfig={}
 	
     errorline=-1
+	 
+    d=""
 
     enrichedExport=False
 
     outputfile=""
 	
-    prefixes=["PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
+    prefixes=["PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
@@ -1233,55 +1341,63 @@ class SPAQLunicorn:
             ] .
             } LIMIT 10""")
 
+    def setBBOXInQuery(self):
+        pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
+        pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
+        pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
+        pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
+        sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
+        destCrs = QgsCoordinateReferenceSystem(4326)
+        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+        pointt1.transform(tr)
+        pointt2.transform(tr)
+        pointt3.transform(tr)
+        pointt4.transform(tr)
+        self.curbbox=[]
+        self.curbbox.append(pointt1)
+        self.curbbox.append(pointt2)
+        self.curbbox.append(pointt3)
+        self.curbbox.append(pointt4)
+        self.d.close()
+        curquery=self.dlg.inp_sparql.toPlainText()
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        if endpointIndex==0:
+           curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
+      bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
+      bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
+    }\n }"""+curquery[curquery.rfind('}')+1:]
+           self.dlg.inp_sparql.setPlainText(curquery)
+
     def getPointFromCanvas(self):
-        #new_dialog = QDialog()
-        d = QDialog()
-        map_canvas = QgsMapCanvas(d)
-        map_canvas.setMinimumSize(500, 495)
-        uri="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        mts_layer=QgsRasterLayer(uri,'OSM','wms')
-        if not mts_layer.isValid():
+        self.d = QDialog()
+        self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.map_canvas = QgsMapCanvas(self.d)
+        self.map_canvas.setMinimumSize(500, 475)
+        uri="url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz"
+        self.mts_layer=QgsRasterLayer(uri,'OSM','wms')
+        if not self.mts_layer.isValid():
             print ("Layer failed to load!")
-        #QgsProject.instance().addMapLayer(mts_layer)
-        map_canvas.setExtent(mts_layer.extent())
-        map_canvas.setLayers( [mts_layer] )
-        #self.dlg.actionZoomIn = QAction("Zoom in", self)
-        #self.dlg.actionZoomOut = QAction("Zoom out", self)
-        #self.dlg.actionPan = QAction("Pan", self)
-
-        #self.dlg.actionZoomIn.setCheckable(True)
-        #self.dlg.actionZoomOut.setCheckable(True)
-        #self.dlg.actionPan.setCheckable(True)
-
-        #self.dlg.actionZoomIn.triggered.connect(self.zoomIn)
-        #self.dlg.actionZoomOut.triggered.connect(self.zoomOut)
-        #self.dlg.actionPan.triggered.connect(self.pan)
-
-        #self.dlg.toolbar = self.addToolBar("Canvas actions")
-        #self.dlg.toolbar.addAction(self.actionZoomIn)
-        #self.dlg.toolbar.addAction(self.actionZoomOut)
-        #self.dlg.toolbar.addAction(self.actionPan)
-        #layers =  QgsProject.instance().mapLayers()
-        #map_canvas_layer_list = [l for l in layers.values()]
-        #map_canvas.setLayers(map_canvas_layer_list)
-        #map_canvas.setExtent(iface.mapCanvas().extent())
-        bboxextent = QLineEdit(d)
-        bboxextent.move(80,500)
-        bboxextentLabel = QLabel("BBOX Extent:",d)
-        bboxextentLabel.move(0,505)
-        bboxextentLabel2 = QLabel("km",d)
-        bboxextentLabel2.move(200,505)
-        b1 = QPushButton("Apply",d)
+        self.rect_tool = RectangleMapTool(self.map_canvas)
+        self.map_canvas.setMapTool(self.rect_tool)
+        #self.rect_tool.canvasClicked.connect( self.displaypoint )
+        self.map_canvas.setExtent(self.mts_layer.extent())
+        self.map_canvas.setLayers( [self.vl,self.mts_layer] )
+        self.map_canvas.setCurrentLayer(self.mts_layer)
+        #self.bboxextent = QLineEdit(self.d)
+        #self.bboxextent.move(80,500)
+        #self.bboxextent.setText("100")
+        #self.bboxCoordinateLabelLon=QLabel("Lon: ",self.d)
+        #self.bboxCoordinateLabelLon.move(0,470)
+        #self.bboxCoordinateLabelLon.setMinimumSize(500, 30)
+        #bboxextentLabel = QLabel("BBOX Extent:",self.d)
+        #bboxextentLabel.move(0,505)
+        #bboxextentLabel2 = QLabel("km",self.d)
+        #bboxextentLabel2.move(200,505)
+        b1 = QPushButton("Apply",self.d)
         b1.move(400,500)
-        d.setWindowTitle("Pick Coordinate")
-        d.exec_()
-        #new_dialog.resize(800, 600)
-
-        #layers = QgsMapLayerRegistry.instance().mapLayers()
-        #map_canvas_layer_list = [QgsMapCanvasLayer(l) for l in layers.values()]
-        #map_canvas.setLayerSet(map_canvas_layer_list)
-        #map_canvas.setExtent(iface.mapCanvas().extent())
-        #new_dialog.show()
+        b1.clicked.connect(self.setBBOXInQuery)
+        self.d.setWindowTitle("Pick Coordinate")
+        self.d.exec_()
 
     def display_point(self):
         print("hallo")
