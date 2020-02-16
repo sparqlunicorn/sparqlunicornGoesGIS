@@ -1409,7 +1409,7 @@ class SPAQLunicorn:
         b1 = QPushButton("Apply",self.d)
         b1.move(400,500)
         b1.clicked.connect(self.setBBOXInQuery)
-        self.d.setWindowTitle("Pick Coordinate")
+        self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
     def display_point(self):
