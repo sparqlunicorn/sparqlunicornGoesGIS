@@ -1377,6 +1377,9 @@ class SPAQLunicorn:
         elif endpointIndex==4:
             curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?geo, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
+        elif endpointIndex==5:
+            curquery=curquery[0:curquery.rfind('}')]+"""FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point("""+str(center.asPoint().x())+","+str(center.asPoint().y())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
+            self.dlg.inp_sparql.setPlainText(curquery)
 
     def getPointFromCanvas(self):
         self.d = QDialog()
