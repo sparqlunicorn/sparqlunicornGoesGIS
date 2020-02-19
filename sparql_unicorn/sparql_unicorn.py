@@ -398,12 +398,12 @@ class SPAQLunicorn:
     "Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
     "Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
-    "",
-    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> ", 
+	""
     ]
 
     endpoints=["","https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
-        "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
+        "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://sandbox.mainzed.org/osi/sparql","http://zbw.eu/beta/sparql/econ_pers/query"]
 
     def __init__(self, iface):
         """Constructor.
@@ -661,12 +661,12 @@ class SPAQLunicorn:
             msgBox.setText("A SPARQL query including the ?rel and ?val variable needs to include an ?item variable indicating the individual URI. ")
             msgBox.exec()
             return
-        if (endpointIndex==1 or endpointIndex==9) and not "?geo" in query:
+        if (endpointIndex==1 or endpointIndex==8) and not "?geo" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
             msgBox.exec()
             return
-        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8) and not "?lat" in query  and not "?lon" in query:
+        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9) and not "?lat" in query  and not "?lon" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
             msgBox.exec()
@@ -688,9 +688,9 @@ class SPAQLunicorn:
             geojson=self.processResults(results,"","","")
         elif endpointIndex == 2:
             geojson=self.processResults(results,27700,"easting","northing")
-        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8:
+        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9:
             geojson=self.processResults(results,"","lat","lon")
-        elif endpointIndex == 9:
+        elif endpointIndex == 8:
             geojson=self.processResults(results,2157,"","")
         if geojson==None:
             msgBox=QMessageBox()
@@ -1328,10 +1328,6 @@ class SPAQLunicorn:
             for concept in self.geonamesconcepts:
                 self.dlg.layerconcepts.addItem("Feature: "+concept)
         elif endpointIndex==8:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-        elif endpointIndex==9:
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
@@ -1352,6 +1348,10 @@ class SPAQLunicorn:
             ogc:asWKT ?geo
             ] .
             } LIMIT 10""")
+        elif endpointIndex==9:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
 
     def setBBOXInQuery(self):
         pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
@@ -1519,12 +1519,6 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
         elif endpointIndex==8:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
-        elif endpointIndex==9:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
@@ -1532,6 +1526,12 @@ class SPAQLunicorn:
             ?item ogc:hasGeometry [
             ogc:asWKT ?geo
             ] .
+            } LIMIT 10""")
+        elif endpointIndex==9:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
 
     def run(self):
@@ -1552,8 +1552,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo required!') #5
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!') #6
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #7
-            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #8
-            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #9
+            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
+            #self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #9
             self.dlg.comboBox.setCurrentIndex(1);
             self.dlg.label_11.hide()
             self.dlg.queryTemplates.hide()
