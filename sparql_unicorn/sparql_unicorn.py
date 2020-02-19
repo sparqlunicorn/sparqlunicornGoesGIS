@@ -610,7 +610,17 @@ class SPAQLunicorn:
                 #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
-            if not "rel" in result and not "val" in result and latval in result and lonval in result:
+            if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
+                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")")
+                if reproject!="":
+                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                features.append(feature)
+            if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject!=27700:
                 myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
