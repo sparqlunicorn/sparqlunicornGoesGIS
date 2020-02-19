@@ -1,49 +1,31 @@
 # SPARQLing Unicorn QGIS Plugin
 
-**This plugin adds a GeoJSON layer from SPARQL enpoint queries.**
+**This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs can be found here: https://github.com/sparqlunicorn/unicornQGISdepInstaller. These SPARQL endpoints are implemented: Wikidata, Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia and GeoNames.**
 
 * qgisMinimumVersion=3.0
-* version=0.7
+* version=0.8
 * author=SPARQL Unicorn, Florian Thiery, Timo Homburg
-* email=rse@fthiery.de
+* email=qgisplugin@sparqlunicorn.link
 
-* You have to install [`pip`](https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/sparql_unicorn/scripts/get-pip.py) first, save this file and run it on the console.
-
-use the following commands in the `Administrator:OSGeo4W Shell` to install required libs for python 2.7 and python 3.x
-
-* https://youtu.be/94W51WuDKzA
-  * install in py2: python -m pip install `package`
-  * switch from py2 to py3: py3_env
-  * install in py3: python -m pip install `package`
-* `geomet`, `geojson`, `SPARQLWrapper`, `convertbng`
+* You have to install [`the used dependencies`](https://github.com/sparqlunicorn/unicornQGISdepInstaller) first.
 
 ## QGIS Plugin
 
 This Plugin is listed under die experimentail QGIS Pluigins:
 
-https://plugins.qgis.org/plugins/sparqlunicorn/
+* https://plugins.qgis.org/plugins/sparqlunicorn/
 
 ## Supported SPARQL endpoints
 
 * Wikidata: https://query.wikidata.org/sparql
-* Ordnance Survey UK: http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
+* Ordnance Survey (OS): http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql
 * Nomisma.org: http://nomisma.org/query
 * Kerameikos.org: http://kerameikos.org/query
 * LinkedGeodata.org: http://linkedgeodata.org/sparql
 * DBPedia: http://dbpedia.org/sparql
 * GeoNames: http://factforge.net/repositories/ff-news
-
-Prefixes are (mostly) included.
-
-For Wikidata queries geometries as `?geo` --> `Point (x y)` is needed.
-
-For OSUK queries the geom as `?easting` and `?northing` is needed.
-
-For Nomisma/Kerameikos queries the geom as `?lat` and `?long` is needed.
-
-For LinkedGeodata queries geometries as `?geo` --> `POINT (x y)` is needed.
-
-For DBpedia/GeoNames queries the geom as `?lat` and `?lon` is needed.
+* GND: http://zbw.eu/beta/sparql/econ_pers/query
+* Ordnance Survey Ireland (OSi): http://sandbox.mainzed.org/osi/sparql
 
 ## Sample queries
 
@@ -118,7 +100,7 @@ SELECT ?label ?geo ?item WHERE {
 }
 ```
 
-### Ordnance Survey UK
+### Ordnance Survey (OS)
 
 #### Roman Antiquity Sites in UK
 
@@ -233,6 +215,22 @@ LIMIT 10
 SELECT ?lat ?lon ?location WHERE {
   ?location geo:lat ?lat .
   ?location geo:long ?lon .
+}
+LIMIT 10
+```
+
+### Ordnance Survey Ireland (OSi)
+
+#### 10 Points from OSi
+
+```sql
+SELECT ?item ?label ?geo WHERE {
+  ?item a <http://www.opengis.net/ont/geosparql#Feature>.
+  ?item rdfs:label ?label.
+  FILTER (lang(?label) = 'en')
+  ?item ogc:hasGeometry [
+    ogc:asWKT ?geo
+  ] .
 }
 LIMIT 10
 ```
