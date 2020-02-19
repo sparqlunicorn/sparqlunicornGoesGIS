@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SPARQL Unicorn Wikidata Plugin</string>
+   <string>SPARQLing Unicorn QGIS Plugin</string>
   </property>
   <widget class="QLabel" name="layercount">
    <property name="geometry">
