@@ -19,7 +19,7 @@ tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 # Recommended items:
 
 hasProcessingProvider=no
-changelog=0.8: n/a<br>0.7: add support for DBpedia and GeoNames<br>0.6: add support for linkedgeodata.org<br>0.5: add support for kerameikos.org<br>0.4: add support for nomisma.org<br>0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint<br>0.2: bugfixes and more user comfort<br>0.1: initial commit
+changelog=0.8: Syntax Highlighting and query validation, support for bbox queries, import and export of rdf files, Preloading of geoconcepts from triple stores<br>0.7: add support for DBpedia and GeoNames<br>0.6: add support for linkedgeodata.org<br>0.5: add support for kerameikos.org<br>0.4: add support for nomisma.org<br>0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint<br>0.2: bugfixes and more user comfort<br>0.1: initial commit
 
 # Tags are comma separated with spaces allowed
 tags=Wikidata,SPARQL,Nomisma,Kerameikos,Ordnance Survey,OpenStreetMap,LinkedGeodata,GeoNames,DBpedia
