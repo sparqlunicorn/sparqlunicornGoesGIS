@@ -599,7 +599,7 @@ class SPAQLunicorn:
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
                     destCrs = QgsCoordinateReferenceSystem(4326)
@@ -683,7 +683,7 @@ class SPAQLunicorn:
             geojson=self.processResults(results,"","","")
         elif endpointIndex == 2:
             geojson=self.processResults(results,27700,"easting","northing")
-        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7:
+        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8:
             geojson=self.processResults(results,"","lat","lon")
         elif endpointIndex == 9:
             geojson=self.processResults(results,2157,"","")
