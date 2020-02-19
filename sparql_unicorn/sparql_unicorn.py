@@ -789,6 +789,27 @@ class SPAQLunicorn:
         print(viewlist)
         self.dlg.layercount.setText("["+str(len(viewlist))+"]")
         return viewlist
+		
+    """Extracts geographic concepts from a triplestore saving geoconcepts using lat lon properties."""
+    def getGeoConceptsFromEastingNorthingTripleStore(self,triplestoreurl):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?lat .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?long .
+        }  LIMIT 100""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        print(viewlist)
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
+        return viewlist
 
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self):
@@ -1305,6 +1326,10 @@ class SPAQLunicorn:
             conceptlist2=self.getWikidataAreaConcepts()
             for concept in conceptlist2:
                 self.dlg.areaconcepts.addItem(concept)
+        elif endpointIndex==2:
+            conceptlist=self.getGeoConceptsFromEastingNorthingTripleStore("http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==3:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
@@ -1449,6 +1474,12 @@ class SPAQLunicorn:
             ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+concept+""">.
             ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            } LIMIT 10""")
+        elif endpointIndex==2:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?lat .
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?lon .
             } LIMIT 10""")
         elif endpointIndex==3:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
