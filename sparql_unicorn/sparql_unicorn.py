@@ -342,6 +342,8 @@ class SPAQLunicorn:
     currentcol=0
 
     vl=""
+	
+    geonamesconcepts=["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"]
 
     bboxbuffer=""
 
@@ -629,6 +631,8 @@ class SPAQLunicorn:
             #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
             features.append(feature)
+        if features==[]:
+            return None
         geojson = {'type': 'FeatureCollection', 'features': features }
         return geojson
 
@@ -679,6 +683,7 @@ class SPAQLunicorn:
             return
         #print(results)
         # geojson stuff
+        
         if endpointIndex == 1:
             geojson=self.processResults(results,"","","")
         elif endpointIndex == 2:
@@ -687,6 +692,11 @@ class SPAQLunicorn:
             geojson=self.processResults(results,"","lat","lon")
         elif endpointIndex == 9:
             geojson=self.processResults(results,2157,"","")
+        if geojson==None:
+            msgBox=QMessageBox()
+            msgBox.setText("The query yielded no results. Therefore no layer will be created!")
+            msgBox.exec()
+            return
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
@@ -1313,9 +1323,10 @@ class SPAQLunicorn:
             for concept in conceptlist:
                 self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==7:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
+            #conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
+            self.dlg.layerconcepts.addItem("Feature")
+            for concept in self.geonamesconcepts:
+                self.dlg.layerconcepts.addItem("Feature: "+concept)
         elif endpointIndex==8:
             conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
             for concept in conceptlist:
@@ -1494,8 +1505,16 @@ class SPAQLunicorn:
             FILTER(langMatches(lang(?label),'EN'))
             } LIMIT 10""")
         elif endpointIndex==7:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            if self.dlg.layerconcepts.currentText()=="Feature":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <http://www.geonames.org/ontology#Feature>.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
+            } LIMIT 10""")				
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <http://www.geonames.org/ontology#Feature>.
+            ?item <http://www.geonames.org/ontology#featureCode> <http://www.geonames.org/ontology#"""+self.dlg.layerconcepts.currentText()[9:]+"""> .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
