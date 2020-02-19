@@ -67,7 +67,7 @@ def format(color, style=''):
         _format.setFontWeight(QFont.Bold)
     if 'italic' in style:
         _format.setFontItalic(True)
- 
+
     return _format
 
 STYLES = {
@@ -89,7 +89,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
     rectangleCreated = pyqtSignal()
     deactivated = pyqtSignal()
-	
+
     point1=""
     point2=""
     point3=""
@@ -185,7 +185,7 @@ class SPARQLHighlighter (QSyntaxHighlighter):
         'EXISTS', 'NOT', 'IN', 'STR', 'AS','LANG','DELETE','CREATE','CLEAR','DROP','LOAD','COPY','MOVE','ADD'
         'IRI', 'URI', 'False', 'a'
     ]
-  
+
     # Python operators
     operators = [
         '=',
@@ -198,13 +198,13 @@ class SPARQLHighlighter (QSyntaxHighlighter):
         # Bitwise
         '\^', '\|', '\&', '\~', '>>', '<<',
     ]
-	
+
     errorhighlightline=-1
 
     currentline=0
 
     errorhighlightcol=-1
-  
+
     # Python braces
     braces = [
         '\{', '\}', '\(', '\)', '\[', '\]',
@@ -219,30 +219,30 @@ class SPARQLHighlighter (QSyntaxHighlighter):
         # syntax highlighting from this point onward
         self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
         self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
-  
+
         rules = []
-  
-  
+
+
           # All other rules
         rules += [
             # 'self'
             (r'\bself\b', 0, STYLES['self']),
-  
+
             # Double-quoted string, possibly containing escape sequences
             (r'"[^"\\]*(\\.[^"\\]*)*"', 0, STYLES['string']),
             # Single-quoted string, possibly containing escape sequences
             (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
-  
+
             # 'def' followed by an identifier
             (r'([?]\w+)', 1, STYLES['defclass']),
             (r'([<][h][t][t][p][:][/][/]\w+[>])', 0, STYLES['uri']),
 			# 'class' followed by an identifier
             (r'(\w+[:]\w+)', 1, STYLES['uri']),
-			
-  
+
+
             # From '#' until a newline
             (r'#[^\n]*', 0, STYLES['comment']),
-  
+
             # Numeric literals
             (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
             (r'\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b', 0, STYLES['numbers']),
@@ -255,12 +255,12 @@ class SPARQLHighlighter (QSyntaxHighlighter):
             for o in SPARQLHighlighter.operators]
         rules += [(r'%s' % b, 0, STYLES['brace'])
             for b in SPARQLHighlighter.braces]
-  
+
         # Build a QRegExp for each pattern
         self.rules = [(QRegExp(pat), index, fmt)
             for (pat, index, fmt) in rules]
-  
-  
+
+
     def highlightBlock(self, text):
         """Apply syntax highlighting to the given block of text.
         """
@@ -280,14 +280,14 @@ class SPARQLHighlighter (QSyntaxHighlighter):
                 length = expression.matchedLength()
                 self.setFormat(index, length, format)
                 index = expression.indexIn(text, index + length)
-  
+
         self.setCurrentBlockState(0)
         # Do multi-line strings
         in_multiline = self.match_multiline(text, *self.tri_single)
         if not in_multiline:
             in_multiline = self.match_multiline(text, *self.tri_double)
-  
-  
+
+
     def match_multiline(self, text, delimiter, in_state, style):
         """Do highlighting of multi-line strings. ``delimiter`` should be a
         ``QRegExp`` for triple-single-quotes or triple-double-quotes, and
@@ -304,7 +304,7 @@ class SPARQLHighlighter (QSyntaxHighlighter):
             start = delimiter.indexIn(text)
             # Move past this match
             add = delimiter.matchedLength()
-  
+
         # As long as there's a delimiter match on this line...
         while start >= 0:
             # Look for the ending delimiter
@@ -321,7 +321,7 @@ class SPARQLHighlighter (QSyntaxHighlighter):
             self.setFormat(start, length, style)
             # Look for the next match
             start = delimiter.indexIn(text, start + length)
-  
+
         # Return True if still inside a multi-line string, False otherwise
         if self.currentBlockState() == in_state:
             return True
@@ -332,39 +332,39 @@ class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
     loadedfromfile=False
-	
+
     justloadingfromfile=False
-	
+
     tableCheckBoxes=[]
 
     currentgraph=None
-	
+
     currentcol=0
-	
+
     vl=""
-	
+
     bboxbuffer=""
 
     currentrow=0
 
     exportNameSpace=""
-	
+
     bboxextent=""
-	
+
     rect_tool=""
-	
+
     curbbox=[]
-	
+
     bboxCoordinateLabelLon=""
 
     bboxCoordinateLabelLat=""
 
     exportIdCol=""
-	
+
     mts_layer=""
-	
+
     map_canvas=""
-	
+
     exportClassCol=""
 
     exportSetClass=""
@@ -374,22 +374,22 @@ class SPAQLunicorn:
     tripleStoreEdit=""
 
     conceptSearchEdit=""
-	
+
     sparqlhighlight=""
-	
+
     interlinkdialog=""
 
     exportColConfig={}
-	
+
     errorline=-1
-	 
+
     d=""
 
     enrichedExport=False
 
     outputfile=""
-	
-    prefixes=["PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
+
+    prefixes=["","PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
@@ -399,8 +399,8 @@ class SPAQLunicorn:
     "",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
     ]
-	
-    endpoints=["https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
+
+    endpoints=["","https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
         "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
 
     def __init__(self, iface):
@@ -652,17 +652,17 @@ class SPAQLunicorn:
             return
         else:
             endpoint_url=self.endpoints[endpointIndex]
-        if "?rel" in query and "?val" in query and not "?item" in query: 
+        if "?rel" in query and "?val" in query and not "?item" in query:
             msgBox=QMessageBox()
             msgBox.setText("A SPARQL query including the ?rel and ?val variable needs to include an ?item variable indicating the individual URI. ")
             msgBox.exec()
             return
-        if (endpointIndex==1 or endpointIndex==9) and not "?geo" in query: 
+        if (endpointIndex==1 or endpointIndex==9) and not "?geo" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
             msgBox.exec()
             return
-        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8) and not "?lat" in query  and not "?lon" in query: 
+        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8) and not "?lat" in query  and not "?lon" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
             msgBox.exec()
@@ -676,7 +676,7 @@ class SPAQLunicorn:
             msgBox=QMessageBox()
             msgBox.setText("The following exception occurred: "+str(e))
             msgBox.exec()
-            return            
+            return
         #print(results)
         # geojson stuff
         if endpointIndex == 1:
@@ -736,7 +736,7 @@ class SPAQLunicorn:
         sorted_labels=sorted(labels.items(),key=lambda x:x[1])
         for lab in sorted_labels:
             resultlist.append(labels[lab[0]]+"("+lab[0]+")")
-            i=i+1			
+            i=i+1
         return resultlist
 
     """Extracts geographic concepts from a SPARQL endpoint."""
@@ -756,7 +756,7 @@ class SPAQLunicorn:
         for result in results["results"]["bindings"]:
             viewlist.append(str(result["class"]["value"]))
         print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")			
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
         return viewlist
 
     """Extracts geographic concepts from a triplestore saving geoconcepts using lat lon properties."""
@@ -794,7 +794,7 @@ class SPAQLunicorn:
         for result in results:
             self.dlg.searchResult.addItem(str(results[result]))
         return viewlist
-		
+
     """Returns properties for a given label from a triple store."""
     def getPropertiesFromLabel(self):
         viewlist=[]
@@ -813,7 +813,7 @@ class SPAQLunicorn:
             self.dlg.searchResult.addItem(str(result["class"]["value"]))
         return viewlist
 
-       
+
     def getWikidataLabelsForQIDs(self,qids):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
@@ -828,7 +828,7 @@ class SPAQLunicorn:
                 for ent in myResponse["entities"]:
                     print(ent)
                     if "en" in myResponse["entities"][ent]["labels"]:
-                        result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
+                        result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]
                 qidquery=""
             else:
                 qidquery+="|"
@@ -844,7 +844,7 @@ class SPAQLunicorn:
             label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
             result[qid]=label
         return result
-		
+
     def getPIDsForLabels(self,label):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=property"
@@ -949,7 +949,7 @@ class SPAQLunicorn:
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
-            currentRowCount = self.dlg.enrichTable.rowCount() 
+            currentRowCount = self.dlg.enrichTable.rowCount()
             self.dlg.IDColumnEnrich.addItem(field)
             self.dlg.enrichTable.insertRow(row)
             self.dlg.enrichTable.setItem(row,0,item)
@@ -976,7 +976,7 @@ class SPAQLunicorn:
             property=self.dlg.enrichTable.item(row, 1)
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             if item!=idfield:
-                propertylist.append(self.dlg.enrichTable.item(row, 1))    
+                propertylist.append(self.dlg.enrichTable.item(row, 1))
             if strategy!="No Enrichment" and property!=None:
                 itemlist.append(item)
                 attlist[item]=[]
@@ -1039,7 +1039,7 @@ class SPAQLunicorn:
             item3.setCheckState(False)
             item4=QTableWidgetItem()
             item4.setCheckState(False)
-            currentRowCount = self.dlg.interlinkTable.rowCount() 
+            currentRowCount = self.dlg.interlinkTable.rowCount()
             self.dlg.interlinkTable.insertRow(row)
             self.dlg.interlinkTable.setItem(row,3,item)
             self.dlg.interlinkTable.setItem(row,0,item2)
@@ -1067,7 +1067,7 @@ class SPAQLunicorn:
                         valueconcept = self.dlg.interlinkTable.item(row, 6).text()
         self.enrichedExport=True
         self.exportLayer()
-		
+
     def matchColumnValueFromTripleStore(self,toquery):
         values="VALUES ?vals { "
         for queryval in toquery:
@@ -1085,7 +1085,7 @@ class SPAQLunicorn:
         for result in results["results"]["bindings"]:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
-		
+
 
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
@@ -1125,7 +1125,7 @@ class SPAQLunicorn:
             geom = f.geometry()
             if not idcol in fieldnames:
                 curid=namespace+str(uuid.uuid4())
-            else:				 
+            else:
                 curid=f[idcol]
             if not classcol in fieldnames:
                 ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
@@ -1146,33 +1146,33 @@ class SPAQLunicorn:
                 elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
-                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n" 
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  						
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
                 elif not f[prop] or f[prop]==None or f[prop]=="":
                     continue
                 elif re.match(r'^-?\d+$', str(f[prop])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n"
                 elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[prop])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                     if first:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n"
                 elif "http" in f[prop]:
                     ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[prop])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
                 else:
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n"
             if first<10:
                 first=first+1
 #        with open(filename+"_temp", 'w') as output_file:
@@ -1231,8 +1231,8 @@ class SPAQLunicorn:
                     currentgeo["properties"][prop]=f[prop]
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
-        return featurecollection	
-			
+        return featurecollection
+
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -1258,18 +1258,18 @@ class SPAQLunicorn:
             self.loadedfromfile=True
             self.justloadingfromfile=False
             return result
-        return None      
-    
+        return None
+
     def getWikidataAreaConcepts(self):
         resultlist=[]
         resultlist.append("city"+" (Q515)")
-        resultlist.append("country"+" (Q6256)")		
+        resultlist.append("country"+" (Q6256)")
         return resultlist
-		
+
     def loadAreas(self):
         resultlist=[]
         return resultlist
-    
+
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1282,7 +1282,7 @@ class SPAQLunicorn:
             #if type(layer) == QgsMapLayer.VectorLayer:
             self.dlg.loadedLayers.addItem(layer.name())
             self.dlg.chooseLayerInterlink.addItem(layer.name())
-            self.dlg.chooseLayerEnrich.addItem(layer.name())       
+            self.dlg.chooseLayerEnrich.addItem(layer.name())
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -1370,7 +1370,7 @@ class SPAQLunicorn:
         curquery=self.dlg.inp_sparql.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==1:
-            curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
+            curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n
       bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
       bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
     }\n }"""+curquery[curquery.rfind('}')+1:]
@@ -1498,13 +1498,13 @@ class SPAQLunicorn:
             ?item a <http://www.geonames.org/ontology#Feature>.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")    
+            } LIMIT 10""")
         elif endpointIndex==8:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""") 					
+            } LIMIT 10""")
         elif endpointIndex==9:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
