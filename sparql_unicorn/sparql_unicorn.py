@@ -389,7 +389,7 @@ class SPAQLunicorn:
 
     outputfile=""
 
-    prefixes=["PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
+    prefixes=["","PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
@@ -400,7 +400,7 @@ class SPAQLunicorn:
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
     ]
 
-    endpoints=["https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
+    endpoints=["","https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
         "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
 
     def __init__(self, iface):
@@ -1536,6 +1536,14 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #8
             self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #9
             self.dlg.comboBox.setCurrentIndex(1);
+            self.dlg.label_11.hide()
+            self.dlg.queryTemplates.hide()
+            self.dlg.areas.hide()
+            self.dlg.label_9.hide()
+            self.dlg.areaconcepts.hide()
+            self.dlg.label_8.hide()
+            self.dlg.tabWidget.removeTab(2)
+            self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
