@@ -1523,6 +1523,14 @@ class SPAQLunicorn:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
+            self.dlg.label_11.hide()
+            self.dlg.queryTemplates.hide()
+            self.dlg.areas.hide()
+            self.dlg.label_9.hide()
+            self.dlg.areaconcepts.hide()
+            self.dlg.label_8.hide()
+            self.dlg.tabWidget.removeTab(2)
+            self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.clear()
             self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #0
             self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!') #1

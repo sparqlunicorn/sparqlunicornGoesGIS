@@ -27,6 +27,9 @@
    </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -38,7 +41,13 @@
    <property name="currentIndex">
     <number>0</number>
    </property>
+   <property name="tabBarAutoHide">
+    <bool>false</bool>
+   </property>
    <widget class="QWidget" name="tab">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <attribute name="title">
      <string>Query</string>
     </attribute>
@@ -83,7 +92,7 @@
       <rect>
        <x>100</x>
        <y>40</y>
-       <width>331</width>
+       <width>441</width>
        <height>22</height>
       </rect>
      </property>
@@ -254,7 +263,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>170</x>
        <y>70</y>
-       <width>131</width>
+       <width>81</width>
        <height>22</height>
       </rect>
      </property>
@@ -263,7 +272,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>70</y>
+       <y>40</y>
        <width>171</width>
        <height>21</height>
       </rect>
@@ -275,9 +284,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="areas">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>300</x>
        <y>70</y>
-       <width>191</width>
+       <width>131</width>
        <height>22</height>
       </rect>
      </property>
@@ -285,7 +294,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>260</x>
        <y>70</y>
        <width>41</width>
        <height>20</height>
@@ -312,7 +321,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>440</x>
-       <y>40</y>
+       <y>70</y>
        <width>111</width>
        <height>20</height>
       </rect>
@@ -325,7 +334,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>40</y>
+       <y>70</y>
        <width>161</width>
        <height>22</height>
       </rect>
@@ -343,6 +352,9 @@ SELECT ?label ?geo ?item WHERE {
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <attribute name="title">
      <string>Interlink</string>
     </attribute>
@@ -519,6 +531,9 @@ SELECT ?label ?geo ?item WHERE {
     </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <attribute name="title">
      <string>Enrich</string>
     </attribute>
@@ -572,6 +587,9 @@ SELECT ?label ?geo ?item WHERE {
      </property>
     </widget>
     <widget class="QComboBox" name="IDColumnEnrich">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>120</x>
