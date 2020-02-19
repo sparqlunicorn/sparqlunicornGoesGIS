@@ -666,6 +666,11 @@ class SPAQLunicorn:
             msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
             msgBox.exec()
             return
+        if (endpointIndex==2) and not "?easting" in query and not "?northing" in query:
+            msgBox=QMessageBox()
+            msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
+            msgBox.exec()
+            return
         if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9) and not "?lat" in query  and not "?lon" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
@@ -799,8 +804,8 @@ class SPAQLunicorn:
         """SELECT DISTINCT ?class
         WHERE {
           ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
-          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?lat .
-          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?long .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
         }  LIMIT 100""")
         print("now sending query")
         sparql.setReturnFormat(JSON)
@@ -1327,9 +1332,10 @@ class SPAQLunicorn:
             for concept in conceptlist2:
                 self.dlg.areaconcepts.addItem(concept)
         elif endpointIndex==2:
-            conceptlist=self.getGeoConceptsFromEastingNorthingTripleStore("http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
+            self.dlg.layerconcepts.addItem("http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/NamedPlace")
+            #conceptlist=self.getGeoConceptsFromEastingNorthingTripleStore("http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql")
+            #for concept in conceptlist:
+                #self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==3:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
@@ -1476,10 +1482,10 @@ class SPAQLunicorn:
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
         elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon {
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?easting ?northing {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?lat .
-            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?lon .
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
             } LIMIT 10""")
         elif endpointIndex==3:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
