@@ -934,8 +934,8 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
-    def createInterlinkSearchDialog(self, row, column):
-        if column>3:
+    def createInterlinkSearchDialog(self, row=-1, column=-1):
+        if column>3 or column==-1:
             self.dlg.currentcol=column
             self.dlg.currentrow=row
             self.dlg.interlinkdialog = QDialog()
@@ -974,7 +974,10 @@ class SPAQLunicorn:
 
     def applyConceptToColumn(self):
         print("test")
-        self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,QTableWidgetItem(self.dlg.searchResult.currentItem().text()))
+        if self.dlg.currentrow==-1 and self.dlg.currentcol==-1:
+            self.dlg.interlinkOwlClassInput.setText(self.dlg.searchResult.currentItem().text())
+        else:
+            self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,QTableWidgetItem(self.dlg.searchResult.currentItem().text()))
         self.dlg.interlinkdialog.close()
 
     def loadLayerForEnrichment(self):
@@ -1639,6 +1642,7 @@ class SPAQLunicorn:
             #self.dlg.searchClassButton.clicked.connect(self.createInterlinkSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
+            self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
