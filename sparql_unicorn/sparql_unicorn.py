@@ -956,6 +956,7 @@ class SPAQLunicorn:
             findConcept.setEnabled(False)
             self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
             self.dlg.tripleStoreEdit.move(100,40)
+            self.dlg.tripleStoreEdit.addItem("Wikidata")
             tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
             tripleStoreLabel.move(0,40)
             searchButton = QPushButton("Search",self.dlg.interlinkdialog)
@@ -1004,6 +1005,7 @@ class SPAQLunicorn:
             cbox.addItem("No Enrichment")
             cbox.addItem("Keep Local")
             cbox.addItem("Keep Remote")
+            cbox.addItem("Replace Local")
             cbox.addItem("Merge")
             cbox.addItem("Ask User")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
@@ -1013,7 +1015,7 @@ class SPAQLunicorn:
     def enrichLayer(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+        self.enrichLayer = layers[selectedLayerIndex].layer().clone()
         attlist={}
         itemlist=[]
         propertylist=[]
@@ -1027,7 +1029,7 @@ class SPAQLunicorn:
             if strategy!="No Enrichment" and property!=None:
                 itemlist.append(item)
                 attlist[item]=[]
-                for f in layer.getFeatures():
+                for f in self.enrichLayer.getFeatures():
                     attlist[item].append(f[item])
                 query="SELECT ?item ?val WHERE {\n VALUES ?item { "
                 for it in attlist[idfield]:
@@ -1040,10 +1042,10 @@ class SPAQLunicorn:
                 sparql.setReturnFormat(JSON)
                 results = sparql.query().convert()
                 resultcounter=0
-                for f in layer.getFeatures():
+                for f in self.enrichLayer.getFeatures():
                     if strategy=="Keep Local" and f[item]=="" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
                         f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
-                    elif strategy=="Keep Remote" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
+                    elif strategy=="Replace Local" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
                         f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
                     elif strategy=="Merge":
                         f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
@@ -1052,20 +1054,29 @@ class SPAQLunicorn:
                     resultcounter+=1
             row+=1
         self.dlg.enrichTable.hide()
-        self.dlg.enrichTableResult.show()
-        fieldnames = [field.name() for field in layer.fields()]
-        self.dlg.enrichTableResult.setColumnCount(len(layer.fields()))
+        fieldnames = [field.name() for field in self.enrichLayer.fields()]
+        self.dlg.enrichTableResult.clear()
+        self.dlg.enrichTableResult.setRowCount(0)		
+        self.dlg.enrichTableResult.setColumnCount(4)
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
         row=0
-        for f in layer.getFeatures():
+        for f in self.enrichLayer.getFeatures():
             fieldcounter=0
+            self.dlg.enrichTableResult.insertRow(row)
             for field in f:
                 item=QTableWidgetItem(field)
                 self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
                 fieldcounter+=1
             row+=1
+        self.dlg.enrichTableResult.show()
 
-
+    def addEnrichedLayer(self):
+        QgsProject.instance().addMapLayer(self.enrichLayer)
+        canvas = iface.mapCanvas()
+        canvas.setExtent(self.enrichLayer.extent())
+        iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+        #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
+        self.dlg.close()
 
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1638,8 +1649,9 @@ class SPAQLunicorn:
             self.dlg.loadedLayers.clear()
             self.dlg.inp_sparql.textChanged.connect(self.validateSPARQL)
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
+            self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
             self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-            #self.dlg.searchClassButton.clicked.connect(self.createInterlinkSearchDialog)
+            #self.dlg.enrichTable.cellClicked.connect(self.createInterlinkSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
