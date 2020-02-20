@@ -1475,6 +1475,7 @@ class SPAQLunicorn:
                 concept="1248784"
             else:
                 concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
             if self.dlg.queryTemplates.currentText()=="All Attributes":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
             ?item <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/Q"""+concept+"""> .
@@ -1494,6 +1495,10 @@ class SPAQLunicorn:
             ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
             ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==3:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?rel ?val ?lat ?lon WHERE {
@@ -1508,6 +1513,10 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==4:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon WHERE {
@@ -1522,6 +1531,10 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==5:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon  WHERE {
@@ -1540,6 +1553,10 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             FILTER(langMatches(lang(?label),'EN'))
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==6:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
             ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
@@ -1548,6 +1565,10 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             FILTER(langMatches(lang(?label),'EN'))
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==7:
             if self.dlg.layerconcepts.currentText()=="Feature":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
@@ -1562,6 +1583,7 @@ class SPAQLunicorn:
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
+            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[9:].lower().replace(" ","_"))
         elif endpointIndex==8:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
@@ -1571,12 +1593,20 @@ class SPAQLunicorn:
             ogc:asWKT ?geo
             ] .
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
         elif endpointIndex==9:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
+            if "#" in self.dlg.layerconcepts.currentText():
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+            else:
+                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
 
     def run(self):
         """Run method that performs all the real work"""
