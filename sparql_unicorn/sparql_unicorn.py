@@ -601,7 +601,7 @@ class SPAQLunicorn:
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
                     destCrs = QgsCoordinateReferenceSystem(4326)
