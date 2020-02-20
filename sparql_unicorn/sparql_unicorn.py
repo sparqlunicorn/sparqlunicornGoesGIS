@@ -1057,7 +1057,7 @@ class SPAQLunicorn:
         fieldnames = [field.name() for field in self.enrichLayer.fields()]
         self.dlg.enrichTableResult.clear()
         self.dlg.enrichTableResult.setRowCount(0)		
-        self.dlg.enrichTableResult.setColumnCount(4)
+        self.dlg.enrichTableResult.setColumnCount(len(fieldnames))
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
         row=0
         for f in self.enrichLayer.getFeatures():
