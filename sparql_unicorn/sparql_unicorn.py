@@ -343,6 +343,8 @@ class SPAQLunicorn:
 	
     vl=""
 	
+    geonamesconcepts=["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"]
+
     bboxbuffer=""
 
     currentrow=0
@@ -389,7 +391,7 @@ class SPAQLunicorn:
 
     outputfile=""
 	
-    prefixes=["","PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
+    prefixes=["PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
@@ -400,7 +402,7 @@ class SPAQLunicorn:
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
     ]
 	
-    endpoints=["","https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
+    endpoints=["https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
         "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
 
     def __init__(self, iface):
@@ -608,7 +610,17 @@ class SPAQLunicorn:
                 #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
-            if not "rel" in result and not "val" in result and latval in result and lonval in result:
+            if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
+                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")")
+                if reproject!="":
+                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                    destCrs = QgsCoordinateReferenceSystem(4326)
+                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                    myGeometryInstance.transform(tr)
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                features.append(feature)
+            if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject!=27700:
                 myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
@@ -629,6 +641,8 @@ class SPAQLunicorn:
             #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
             features.append(feature)
+        if features==[]:
+            return None
         geojson = {'type': 'FeatureCollection', 'features': features }
         return geojson
 
@@ -652,17 +666,22 @@ class SPAQLunicorn:
             return
         else:
             endpoint_url=self.endpoints[endpointIndex]
-        if "?rel" in query and "?val" in query and not "?item" in query: 
+        if "?rel" in query and "?val" in query and not "?item" in query:
             msgBox=QMessageBox()
             msgBox.setText("A SPARQL query including the ?rel and ?val variable needs to include an ?item variable indicating the individual URI. ")
             msgBox.exec()
             return
-        if (endpointIndex==1 or endpointIndex==9) and not "?geo" in query: 
+        if (endpointIndex==1 or endpointIndex==8) and not "?geo" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
             msgBox.exec()
             return
-        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==8) and not "?lat" in query  and not "?lon" in query: 
+        if (endpointIndex==2) and not "?easting" in query and not "?northing" in query:
+            msgBox=QMessageBox()
+            msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
+            msgBox.exec()
+            return
+        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9) and not "?lat" in query  and not "?lon" in query:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
             msgBox.exec()
@@ -683,10 +702,15 @@ class SPAQLunicorn:
             geojson=self.processResults(results,"","","")
         elif endpointIndex == 2:
             geojson=self.processResults(results,27700,"easting","northing")
-        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7:
+        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9:
             geojson=self.processResults(results,"","lat","lon")
-        elif endpointIndex == 9:
+        elif endpointIndex == 8:
             geojson=self.processResults(results,2157,"","")
+        if geojson==None:
+            msgBox=QMessageBox()
+            msgBox.setText("The query yielded no results. Therefore no layer will be created!")
+            msgBox.exec()
+            return
         # add layer
         vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
         print(vlayer.isValid())
@@ -771,6 +795,26 @@ class SPAQLunicorn:
           ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
           ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
         }  LIMIT 500""")
+        print("now sending query")
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
+        for result in results["results"]["bindings"]:
+            viewlist.append(str(result["class"]["value"]))
+        print(viewlist)
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
+        return viewlist
+
+    def getGeoConceptsFromEastingNorthingTripleStore(self,triplestoreurl):
+        viewlist=[]
+        resultlist=[]
+        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(
+        """SELECT DISTINCT ?class
+        WHERE {
+          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
+          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
+        }  LIMIT 100""")
         print("now sending query")
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
@@ -1238,7 +1282,6 @@ class SPAQLunicorn:
         dialog.setFileMode(QFileDialog.AnyFile)
         self.justloadingfromfile=True
         if dialog.exec_():
-            self.dlg.comboBox.setCurrentIndex(0)
             fileNames = dialog.selectedFiles()
             g = rdflib.Graph()
             filepath=fileNames[0].split(".")
@@ -1295,6 +1338,11 @@ class SPAQLunicorn:
             conceptlist2=self.getWikidataAreaConcepts()
             for concept in conceptlist2:
                 self.dlg.areaconcepts.addItem(concept)
+        elif endpointIndex==2:
+            self.dlg.layerconcepts.addItem("http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/NamedPlace")
+            #conceptlist=self.getGeoConceptsFromEastingNorthingTripleStore("http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql")
+            #for concept in conceptlist:
+                #self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==3:
             self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
             self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
@@ -1313,14 +1361,11 @@ class SPAQLunicorn:
             for concept in conceptlist:
                 self.dlg.layerconcepts.addItem(concept)
         elif endpointIndex==7:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
+            #conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
+            self.dlg.layerconcepts.addItem("Feature")
+            for concept in self.geonamesconcepts:
+                self.dlg.layerconcepts.addItem("Feature: "+concept)
         elif endpointIndex==8:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-        elif endpointIndex==9:
             self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
             self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
@@ -1341,6 +1386,10 @@ class SPAQLunicorn:
             ogc:asWKT ?geo
             ] .
             } LIMIT 10""")
+        elif endpointIndex==9:
+            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
 
     def setBBOXInQuery(self):
         pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
@@ -1369,16 +1418,16 @@ class SPAQLunicorn:
         self.d.close()
         curquery=self.dlg.inp_sparql.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==1:
+        if endpointIndex==0:
             curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
       bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
       bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
     }\n }"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==5:
+        elif endpointIndex==4:
             curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?geo, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==6:
+        elif endpointIndex==5:
             curquery=curquery[0:curquery.rfind('}')]+"""FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point("""+str(center.asPoint().x())+","+str(center.asPoint().y())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
 
@@ -1439,6 +1488,12 @@ class SPAQLunicorn:
             ?item <http://www.wikidata.org/prop/direct/P625> ?geo .
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             } LIMIT 10""")
+        elif endpointIndex==2:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?easting ?northing {
+            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
+            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
+            } LIMIT 10""")
         elif endpointIndex==3:
             if self.dlg.queryTemplates.currentText()=="All Attributes":
                 self.dlg.inp_sparql.setPlainText("""SELECT ?item ?rel ?val ?lat ?lon WHERE {
@@ -1494,18 +1549,20 @@ class SPAQLunicorn:
             FILTER(langMatches(lang(?label),'EN'))
             } LIMIT 10""")
         elif endpointIndex==7:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            if self.dlg.layerconcepts.currentText()=="Feature":
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
             ?item a <http://www.geonames.org/ontology#Feature>.
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")    
-        elif endpointIndex==8:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
+            } LIMIT 10""")				
+            else:
+                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <http://www.geonames.org/ontology#Feature>.
+            ?item <http://www.geonames.org/ontology#featureCode> <http://www.geonames.org/ontology#"""+self.dlg.layerconcepts.currentText()[9:]+"""> .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
             ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""") 					
-        elif endpointIndex==9:
+            } LIMIT 10""")
+        elif endpointIndex==8:
             self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
             ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
             ?item rdfs:label ?label.
@@ -1513,6 +1570,12 @@ class SPAQLunicorn:
             ?item ogc:hasGeometry [
             ogc:asWKT ?geo
             ] .
+            } LIMIT 10""")
+        elif endpointIndex==9:
+            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
+            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
+            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
             } LIMIT 10""")
 
     def run(self):
@@ -1533,9 +1596,10 @@ class SPAQLunicorn:
             self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo required!') #5
             self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!') #6
             self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #7
-            self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #8
-            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #9
-            self.dlg.comboBox.setCurrentIndex(1);
+            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
+            #self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #9
+            self.dlg.comboBox.setCurrentIndex(1)
+            self.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
