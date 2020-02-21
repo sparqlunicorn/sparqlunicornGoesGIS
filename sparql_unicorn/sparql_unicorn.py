@@ -1644,7 +1644,15 @@ class SPAQLunicorn:
 
     def run(self):
         """Run method that performs all the real work"""
-
+        #try:
+        #    print(sparql = SPARQLWrapper("http://dbpedia.org/sparql"))
+        #except ImportError as error:
+            # Output expected ImportErrors.
+        #    print(error.__class__.__name__ + ": " + error.message)
+        #except Exception as exception:
+            # Output unexpected Exceptions.
+        #    print(exception, False)
+        #    print(exception.__class__.__name__ + ": " + exception.message)
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
