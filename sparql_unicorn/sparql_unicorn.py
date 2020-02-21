@@ -341,6 +341,8 @@ class SPAQLunicorn:
 	
     currentcol=0
 	
+    interlinkOrEnrich=True
+	
     vl=""
 	
     geonamesconcepts=["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"]
@@ -937,44 +939,60 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
+    def createEnrichSearchDialog(self,row=-1,column=-1):
+        self.interlinkOrEnrich=False
+        if column==1:
+            self.buildSearchDialog(row,column)
+
     def createInterlinkSearchDialog(self, row=-1, column=-1):
+        self.interlinkOrEnrich=True
         if column>3 or column==-1:
-            self.dlg.currentcol=column
-            self.dlg.currentrow=row
-            self.dlg.interlinkdialog = QDialog()
-            self.dlg.interlinkdialog.setMinimumSize(650, 400)
-            self.dlg.conceptSearchEdit = QLineEdit(self.dlg.interlinkdialog)
-            self.dlg.conceptSearchEdit.move(100,10)
-            conceptSearchLabel = QLabel("Search Concept:",self.dlg.interlinkdialog)
-            conceptSearchLabel.move(0,10)
-            findConcept = QRadioButton("Class",self.dlg.interlinkdialog)
-            findConcept.move(230,15)
-            if column!=4:
-                findConcept.setChecked(True)
-            findProperty = QRadioButton("Property",self.dlg.interlinkdialog)
-            findProperty.move(230,40)
-            if column==4:
-                findProperty.setChecked(True)
-            findProperty.setEnabled(False)
-            findConcept.setEnabled(False)
-            self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
-            self.dlg.tripleStoreEdit.move(100,40)
-            self.dlg.tripleStoreEdit.addItem("Wikidata")
-            tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
-            tripleStoreLabel.move(0,40)
-            searchButton = QPushButton("Search",self.dlg.interlinkdialog)
-            searchButton.move(10,70)
-            searchButton.clicked.connect(self.getClassesFromLabel)
-            searchResultLabel = QLabel("Search Results",self.dlg.interlinkdialog)
-            searchResultLabel.move(100,100)
-            self.dlg.searchResult = QListWidget(self.dlg.interlinkdialog)
-            self.dlg.searchResult.move(30,120)
-            self.dlg.searchResult.setMinimumSize(600, 300)
-            applyButton = QPushButton("Apply",self.dlg.interlinkdialog)
-            applyButton.move(150,430)
-            applyButton.clicked.connect(self.applyConceptToColumn)
-            self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
-            self.dlg.interlinkdialog.exec_()
+            self.buildSearchDialog(row,column)
+
+    def buildSearchDialog(self,row,column):
+        self.dlg.currentcol=column
+        self.dlg.currentrow=row
+        self.dlg.interlinkdialog = QDialog()
+        self.dlg.interlinkdialog.setMinimumSize(650, 400)
+        self.dlg.conceptSearchEdit = QLineEdit(self.dlg.interlinkdialog)
+        self.dlg.conceptSearchEdit.move(100,10)
+        conceptSearchLabel = QLabel("Search Concept:",self.dlg.interlinkdialog)
+        conceptSearchLabel.move(0,10)
+        findConcept = QRadioButton("Class",self.dlg.interlinkdialog)
+        findConcept.move(300,15)
+        if column!=4:
+            findConcept.setChecked(True)
+        findProperty = QRadioButton("Property",self.dlg.interlinkdialog)
+        findProperty.move(300,40)
+        if column==4:
+            findProperty.setChecked(True)
+        findProperty.setEnabled(False)
+        findConcept.setEnabled(False)
+        self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
+        self.dlg.tripleStoreEdit.move(100,40)
+        self.dlg.tripleStoreEdit.addItem("Wikidata")
+        self.dlg.tripleStoreEdit.addItem('Ordnance Survey UK') #2
+        self.dlg.tripleStoreEdit.addItem('nomisma.org') #3
+        self.dlg.tripleStoreEdit.addItem('kerameikos.org') #4
+        self.dlg.tripleStoreEdit.addItem('Linked Geodata (OSM)') #5
+        self.dlg.tripleStoreEdit.addItem('DBPedia') #6
+        self.dlg.tripleStoreEdit.addItem('Geonames') #7
+        self.dlg.tripleStoreEdit.addItem('Ordnance Survey Ireland') #8
+        tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
+        tripleStoreLabel.move(0,40)
+        searchButton = QPushButton("Search",self.dlg.interlinkdialog)
+        searchButton.move(10,70)
+        searchButton.clicked.connect(self.getClassesFromLabel)
+        searchResultLabel = QLabel("Search Results",self.dlg.interlinkdialog)
+        searchResultLabel.move(100,100)
+        self.dlg.searchResult = QListWidget(self.dlg.interlinkdialog)
+        self.dlg.searchResult.move(30,120)
+        self.dlg.searchResult.setMinimumSize(600, 300)
+        applyButton = QPushButton("Apply",self.dlg.interlinkdialog)
+        applyButton.move(150,430)
+        applyButton.clicked.connect(self.applyConceptToColumn)
+        self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
+        self.dlg.interlinkdialog.exec_()
 
     def applyConceptToColumn(self):
         print("test")
@@ -984,7 +1002,14 @@ class SPAQLunicorn:
             item=QTableWidgetItem(self.dlg.searchResult.currentItem().text())
             item.setText(self.dlg.searchResult.currentItem().text())
             item.setData(0,self.dlg.searchResult.currentItem().data(0))
-            self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
+            if self.interlinkOrEnrich:
+                self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
+            else:
+                item2=QTableWidgetItem()
+                item2.setText(self.dlg.tripleStoreEdit.currentText())
+                item2.setData(0,self.endpoints[self.dlg.tripleStoreEdit.currentIndex()+1])
+                self.dlg.enrichTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
+                self.dlg.enrichTable.setItem(self.dlg.currentrow,(self.dlg.currentcol+1),item2)
         self.dlg.interlinkdialog.close()
 
     def loadLayerForEnrichment(self):
@@ -1462,20 +1487,9 @@ class SPAQLunicorn:
             print ("Layer failed to load!")
         self.rect_tool = RectangleMapTool(self.map_canvas)
         self.map_canvas.setMapTool(self.rect_tool)
-        #self.rect_tool.canvasClicked.connect( self.displaypoint )
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        #self.bboxextent = QLineEdit(self.d)
-        #self.bboxextent.move(80,500)
-        #self.bboxextent.setText("100")
-        #self.bboxCoordinateLabelLon=QLabel("Lon: ",self.d)
-        #self.bboxCoordinateLabelLon.move(0,470)
-        #self.bboxCoordinateLabelLon.setMinimumSize(500, 30)
-        #bboxextentLabel = QLabel("BBOX Extent:",self.d)
-        #bboxextentLabel.move(0,505)
-        #bboxextentLabel2 = QLabel("km",self.d)
-        #bboxextentLabel2.move(200,505)
         b1 = QPushButton("Apply",self.d)
         b1.move(400,500)
         b1.clicked.connect(self.setBBOXInQuery)
@@ -1657,7 +1671,7 @@ class SPAQLunicorn:
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
             self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
             self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-            #self.dlg.enrichTable.cellClicked.connect(self.createInterlinkSearchDialog)
+            self.dlg.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
