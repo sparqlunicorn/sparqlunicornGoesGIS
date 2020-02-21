@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
@@ -836,7 +836,10 @@ class SPAQLunicorn:
             results=self.getQIDsForLabels(label)
         self.dlg.searchResult.clear()
         for result in results:
-            self.dlg.searchResult.addItem(str(results[result]))
+            item=QListWidgetItem()
+            item.setData(0,result)
+            item.setText(str(results[result]))
+            self.dlg.searchResult.addItem(item)
         return viewlist
 		
     """Returns properties for a given label from a triple store."""
@@ -976,9 +979,12 @@ class SPAQLunicorn:
     def applyConceptToColumn(self):
         print("test")
         if self.dlg.currentrow==-1 and self.dlg.currentcol==-1:
-            self.dlg.interlinkOwlClassInput.setText(self.dlg.searchResult.currentItem().text())
+            self.dlg.interlinkOwlClassInput.setText(str(self.dlg.searchResult.currentItem().text()))
         else:
-            self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,QTableWidgetItem(self.dlg.searchResult.currentItem().text()))
+            item=QTableWidgetItem(self.dlg.searchResult.currentItem().text())
+            item.setText(self.dlg.searchResult.currentItem().text())
+            item.setData(0,self.dlg.searchResult.currentItem().data(0))
+            self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
         self.dlg.interlinkdialog.close()
 
     def loadLayerForEnrichment(self):
@@ -1117,12 +1123,12 @@ class SPAQLunicorn:
                 else:
                     column = self.dlg.interlinkTable.item(row, 3).text()
                     if self.dlg.interlinkTable.item(row,4)!=None:
-                        column=self.dlg.interlinkTable.item(row,4).text()
+                        column=self.dlg.interlinkTable.item(row,4).data(0)
                     if self.dlg.interlinkTable.item(row, 5)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 5).text()
+                        concept = self.dlg.interlinkTable.item(row, 5).data(0)
                         self.exportColConfig[column]=concept
                     if self.dlg.interlinkTable.item(row, 6)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 6).text()
+                        valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
         self.enrichedExport=True
         self.exportLayer()
 		
