@@ -1047,6 +1047,7 @@ class SPAQLunicorn:
             cbox.addItem("Replace Local")
             cbox.addItem("Merge")
             cbox.addItem("Ask User")
+            cbox.addItem("Exclude")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
@@ -1077,8 +1078,9 @@ class SPAQLunicorn:
         self.dlg.enrichTable.insertRow(row)
         self.dlg.enrichTable.setItem(row,0,item)
         cbox=QComboBox()
-        cbox.addItem("Get Remote")
+        cbox.addItem("Keep Remote")
         cbox.addItem("No Enrichment")
+        cbox.addItem("Exclude")
         self.dlg.enrichTable.setCellWidget(row,3,cbox)
 
     def enrichLayer(self):
@@ -1088,13 +1090,16 @@ class SPAQLunicorn:
         attlist={}
         itemlist=[]
         propertylist=[]
+        excludelist=[]
         idfield=self.dlg.IDColumnEnrich.currentText()
         for row in range(self.dlg.enrichTable.rowCount()):
             item = self.dlg.enrichTable.item(row, 0).text()
             property=self.dlg.enrichTable.item(row, 1)
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             if item!=idfield:
-                propertylist.append(self.dlg.enrichTable.item(row, 1))    
+                propertylist.append(self.dlg.enrichTable.item(row, 1)) 
+            if strategy=="Exclude":
+                excludelist.append(row)
             if strategy!="No Enrichment" and property!=None:
                 itemlist.append(item)
                 attlist[item]=[]
@@ -1122,6 +1127,8 @@ class SPAQLunicorn:
                         print("Asking user")
                     resultcounter+=1
             row+=1
+        self.enrichLayer.dataProvider().deleteAttributes(excludelist)
+        self.enrichLayer.updateFields()
         self.dlg.enrichTable.hide()
         fieldnames = [field.name() for field in self.enrichLayer.fields()]
         self.dlg.enrichTableResult.clear()
