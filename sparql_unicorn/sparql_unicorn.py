@@ -341,6 +341,10 @@ class SPAQLunicorn:
 	
     currentcol=-1
 	
+    searchTripleStoreDialog=None
+
+    searchTripleStoreEdit=None
+	
     interlinkOrEnrich=True
 	
     vl=""
@@ -376,6 +380,8 @@ class SPAQLunicorn:
     searchResult=""
 
     tripleStoreEdit=""
+	
+    tripleStoreNameEdit=""
 
     conceptSearchEdit=""
 	
@@ -949,6 +955,98 @@ class SPAQLunicorn:
         if column>3 or column==-1:
             self.buildSearchDialog(row,column)
 
+    def buildCustomTripleStoreDialog(self):
+        self.dlg.searchTripleStoreDialog = QDialog()
+        self.dlg.searchTripleStoreDialog.setMinimumSize(650, 400)
+        tripleStoreLabel = QLabel("Enter Triple Store URL:",self.dlg.searchTripleStoreDialog)
+        tripleStoreLabel.move(0,10)
+        self.dlg.tripleStoreEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.tripleStoreEdit.move(150,10)
+        self.dlg.tripleStoreEdit.setMinimumSize(350, 20)
+        self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")
+        testConnectButton = QPushButton("Test Connection",self.dlg.searchTripleStoreDialog)
+        testConnectButton.move(510,10)
+        testConnectButton.clicked.connect(self.testTripleStoreConnection)
+        tripleStoreNameLabel = QLabel("Enter Triple Store Name:",self.dlg.searchTripleStoreDialog)
+        tripleStoreNameLabel.move(0,40)
+        self.dlg.tripleStoreNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.tripleStoreNameEdit.move(150,40)
+        self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)
+        self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")
+        tripleStorePrefix = QLabel("SPARQL Prefix Name:",self.dlg.searchTripleStoreDialog)
+        tripleStorePrefix.move(0,70)
+        self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.tripleStorePrefixNameEdit.move(150,70)
+        self.dlg.tripleStorePrefixNameEdit.setText("wd")
+        self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)
+        tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)
+        tripleStorePrefixName.move(270,70)
+        addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)
+        addPrefixButton.move(510,70)
+        queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)
+        queryVarLabel.move(0,100)
+        self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.queryVarEdit.move(150,100)
+        self.dlg.queryVarEdit.setText("geo")
+        self.dlg.queryVarEdit.setMinimumSize(100, 20)
+        queryVarItemLabel = QLabel("Item Variable:",self.dlg.searchTripleStoreDialog)
+        queryVarItemLabel.move(270,100)
+        self.dlg.queryVarItemEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.queryVarItemEdit.move(370,100)
+        self.dlg.queryVarItemEdit.setText("item")
+        self.dlg.queryVarItemEdit.setMinimumSize(100, 20)
+        #addPrefixButton.clicked.connect(self.testTripleStoreConnection)
+        prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)
+        prefixListLabel.move(20,130)
+        prefixList=QListWidget(self.dlg.searchTripleStoreDialog)
+        prefixList.move(20,150)
+        prefixList.setMinimumSize(300,200)
+        exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)
+        exampleQueryLabel.move(330,130)
+        exampleQuery=QListWidget(self.dlg.searchTripleStoreDialog)
+        exampleQuery.move(330,150)
+        exampleQuery.setMinimumSize(300,200)
+        self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
+        self.dlg.tripleStorePrefixEdit.move(310,70)
+        self.dlg.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")
+        self.dlg.tripleStorePrefixEdit.setMinimumSize(200, 20)
+        tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)
+        tripleStoreApplyButton.move(10,370)
+        tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)
+        self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
+        self.dlg.searchTripleStoreDialog.exec_()
+
+    def testTripleStoreConnection(self,calledfromotherfunction=False):
+        sparql = SPARQLWrapper(self.dlg.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1")
+        sparql.setReturnFormat(JSON)
+        print("now sending query")
+        try:
+            results = sparql.query()
+            if not calledfromotherfunction:
+                msgBox=QMessageBox()
+                msgBox.setText("URL depicts a valid SPARQL Endpoint!")
+                msgBox.exec()
+            return True
+        except:
+            msgBox=QMessageBox()
+            msgBox.setText("URL does not depict a valid SPARQL Endpoint!")
+            msgBox.exec()
+            return False
+
+    def applyCustomSPARQLEndPoint(self):
+        if not self.testTripleStoreConnection(True):
+           return
+        if self.dlg.tripleStoreNameEdit.text()=="":
+           msgBox=QMessageBox()
+           msgBox.setText("Triple Store Name is missing!")
+           msgBox.exec()
+           return
+        self.endpoints.append(self.dlg.tripleStoreEdit.text())
+        self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())
+        self.dlg.searchTripleStoreDialog.close()
+        
+
     def buildSearchDialog(self,row,column):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
@@ -1027,6 +1125,7 @@ class SPAQLunicorn:
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
         self.dlg.enrichTable.show()
+        self.dlg.addEnrichedLayerRowButton.setEnabled(True)
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
@@ -1145,6 +1244,7 @@ class SPAQLunicorn:
                 fieldcounter+=1
             row+=1
         self.dlg.enrichTableResult.show()
+        self.dlg.addEnrichedLayerRowButton.setEnabled(False)
 
     def addEnrichedLayer(self):
         QgsProject.instance().addMapLayer(self.enrichLayer)
@@ -1727,6 +1827,7 @@ class SPAQLunicorn:
             self.dlg.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
+            self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
