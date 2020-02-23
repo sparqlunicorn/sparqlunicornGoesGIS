@@ -399,6 +399,8 @@ class SPAQLunicorn:
 
     outputfile=""
 	
+    prefixList=""
+	
     prefixes=["","PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
     "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
@@ -895,9 +897,12 @@ class SPAQLunicorn:
         url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=item"
         myResponse = json.loads(requests.get(url).text)
         for ent in myResponse["search"]:
-            qid=ent["url"]
-            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-            result[qid]=label
+            if "url" in ent and "label" in ent and "id" in ent:
+                qid=ent["url"]
+                label=ent["label"]+" ("+ent["id"]+")"
+                if "description" in ent:
+                    label+="["+ent["description"]+"]"
+                result[qid]=label
         return result
 		
     def getPIDsForLabels(self,label):
@@ -905,9 +910,12 @@ class SPAQLunicorn:
         url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=property"
         myResponse = json.loads(requests.get(url).text)
         for ent in myResponse["search"]:
-            qid=ent["url"]
-            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-            result[qid]=label
+            if "url" in ent and "label" in ent and "id" in ent:
+                qid=ent["url"]
+                label=ent["label"]+" ("+ent["id"]+")"
+                if "description" in ent:
+                    label+="["+ent["description"]+"]"
+                result[qid]=label
         return result
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
@@ -983,6 +991,7 @@ class SPAQLunicorn:
         tripleStorePrefixName.move(270,70)
         addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)
         addPrefixButton.move(510,70)
+        addPrefixButton.clicked.connect(self.addPrefixToList)
         queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)
         queryVarLabel.move(0,100)
         self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
@@ -995,12 +1004,11 @@ class SPAQLunicorn:
         self.dlg.queryVarItemEdit.move(370,100)
         self.dlg.queryVarItemEdit.setText("item")
         self.dlg.queryVarItemEdit.setMinimumSize(100, 20)
-        #addPrefixButton.clicked.connect(self.testTripleStoreConnection)
         prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)
         prefixListLabel.move(20,130)
-        prefixList=QListWidget(self.dlg.searchTripleStoreDialog)
-        prefixList.move(20,150)
-        prefixList.setMinimumSize(300,200)
+        self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)
+        self.dlg.prefixList.move(20,150)
+        self.dlg.prefixList.setMinimumSize(300,200)
         exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)
         exampleQueryLabel.move(330,130)
         exampleQuery=QListWidget(self.dlg.searchTripleStoreDialog)
@@ -1033,6 +1041,13 @@ class SPAQLunicorn:
             msgBox.setText("URL does not depict a valid SPARQL Endpoint!")
             msgBox.exec()
             return False
+			
+    def addPrefixToList(self):
+        item=QListWidgetItem()
+        item.setData(0,"PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")
+        item.setText("PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")
+        self.dlg.prefixList.addItem(item)
+		
 
     def applyCustomSPARQLEndPoint(self):
         if not self.testTripleStoreConnection(True):
@@ -1044,6 +1059,9 @@ class SPAQLunicorn:
            return
         self.endpoints.append(self.dlg.tripleStoreEdit.text())
         self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())
+        curprefixes=""
+        for i in range(self.dlg.prefixList.count()):
+            curprefixes+=self.dlg.prefixList.item(i).text()
         self.dlg.searchTripleStoreDialog.close()
         
 
