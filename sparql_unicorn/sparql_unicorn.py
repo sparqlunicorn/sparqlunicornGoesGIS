@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
@@ -339,7 +339,7 @@ class SPAQLunicorn:
 
     currentgraph=None
 	
-    currentcol=0
+    currentcol=-1
 	
     interlinkOrEnrich=True
 	
@@ -349,7 +349,7 @@ class SPAQLunicorn:
 
     bboxbuffer=""
 
-    currentrow=0
+    currentrow=-1
 
     exportNameSpace=""
 	
@@ -997,7 +997,7 @@ class SPAQLunicorn:
     def applyConceptToColumn(self):
         print("test")
         if self.dlg.currentrow==-1 and self.dlg.currentcol==-1:
-            self.dlg.interlinkOwlClassInput.setText(str(self.dlg.searchResult.currentItem().text()))
+            self.dlg.interlinkOwlClassInput.setText(str(self.dlg.searchResult.currentItem().data(0)))
         else:
             item=QTableWidgetItem(self.dlg.searchResult.currentItem().text())
             item.setText(self.dlg.searchResult.currentItem().text())
@@ -1012,6 +1012,14 @@ class SPAQLunicorn:
                 self.dlg.enrichTable.setItem(self.dlg.currentrow,(self.dlg.currentcol+1),item2)
         self.dlg.interlinkdialog.close()
 
+    def addnewEnrichRow(self):
+        currentRowCount = self.dlg.enrichTable.rowCount() 
+        self.dlg.enrichTable.insertRow(currentRowCount)
+        
+    def moveRow(self,upOrDown):
+        if self.dlg.enrichTable.selectionModel().hasSelected():
+            currentRowCount = self.dlg.enrichTable.selectedRows() 
+
     def loadLayerForEnrichment(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
@@ -1023,8 +1031,8 @@ class SPAQLunicorn:
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(4)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy"])
+        self.dlg.enrichTable.setColumnCount(5)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Options"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -1040,8 +1048,38 @@ class SPAQLunicorn:
             cbox.addItem("Merge")
             cbox.addItem("Ask User")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
+            celllayout= QHBoxLayout()
+            upbutton=QPushButton("Up")
+            removebutton=QPushButton("Remove")
+            removebutton.clicked.connect(self.deleteEnrichRow)
+            downbutton=QPushButton("Down")
+            celllayout.addWidget(upbutton)
+            celllayout.addWidget(downbutton)
+            celllayout.addWidget(removebutton)
+            w = QWidget()
+            w.setLayout(celllayout)
+            optitem=QTableWidgetItem()
+            #self.dlg.enrichTable.setCellWidget(row,4,w)
             #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
+
+    def deleteEnrichRow(send):
+        w = send.sender().parent()
+        row = self.dlg.enrichTable.indexAt(w.pos()).row()
+        self.dlg.enrichTable.removeRow(row);
+        self.dlg.enrichTable.setCurrentCell(0, 0)
+        
+    def addEnrichRow(self):
+        item=QTableWidgetItem("new_column")
+        item.setFlags(QtCore.Qt.ItemIsEnabled)
+        row = self.dlg.enrichTable.rowCount() 
+        self.dlg.IDColumnEnrich.addItem("new_column")
+        self.dlg.enrichTable.insertRow(row)
+        self.dlg.enrichTable.setItem(row,0,item)
+        cbox=QComboBox()
+        cbox.addItem("Get Remote")
+        cbox.addItem("No Enrichment")
+        self.dlg.enrichTable.setCellWidget(row,3,cbox)
 
     def enrichLayer(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1684,6 +1722,7 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.clear()
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+            self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)

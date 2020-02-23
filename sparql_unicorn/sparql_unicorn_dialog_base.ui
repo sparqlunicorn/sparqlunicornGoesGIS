@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -651,6 +651,19 @@ SELECT ?label ?geo ?item WHERE {
        <width>811</width>
        <height>451</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addEnrichedLayerRowButton">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>70</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Row</string>
      </property>
     </widget>
    </widget>
