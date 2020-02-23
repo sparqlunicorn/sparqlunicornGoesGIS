@@ -1229,11 +1229,20 @@ class SPAQLunicorn:
                 attlist[item]=[]
                 for f in self.enrichLayer.getFeatures():
                     attlist[item].append(f[item])
-                query="SELECT ?item ?val WHERE {\n VALUES ?item { "
+                if content=="Enrich URI": 
+                    query="SELECT ?item WHERE {\n"
+                elif content=="Enrich Value" or content=="Enrich Both":
+                    query="SELECT ?item ?val ?valLabel WHERE {\n"
+                query+="VALUES ?item { "
                 for it in attlist[idfield]:
                     query+=it
                 query+=" } . \n"
-                query+="?item <"+property+"> ?val . } ORDER BY ?item "
+                query+="?item <"+property+"> ?val . \n"
+                if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
+                    query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
+                elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
+                    query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
+                query+="} ORDER BY ?item "
                 sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                 sparql.setQuery(query)
                 print("now sending query")
@@ -1242,11 +1251,26 @@ class SPAQLunicorn:
                 resultcounter=0
                 for f in self.enrichLayer.getFeatures():
                     if strategy=="Keep Local" and f[item]=="" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                        if content=="Enrich Value":
+                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
+                        elif content=="Enrich URI":
+                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                        else:
+                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["val"]
                     elif strategy=="Replace Local" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                        if content=="Enrich Value":
+                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
+                        elif content=="Enrich URI":
+                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
+                        else:
+                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]
                     elif strategy=="Merge":
-                        f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
+                        if content=="Enrich Value":
+                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["valLabel"]["value"])
+                        elif content=="Enrich URI":
+                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
+                        else:
+                            f[item]=str(f[item])+";"+results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]                       
                     elif strategy=="Ask User":
                         print("Asking user")
                     resultcounter+=1
