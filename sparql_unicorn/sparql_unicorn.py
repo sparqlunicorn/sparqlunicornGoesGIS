@@ -1148,8 +1148,8 @@ class SPAQLunicorn:
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(5)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Options"])
+        self.dlg.enrichTable.setColumnCount(6)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Content","Options"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -1166,6 +1166,11 @@ class SPAQLunicorn:
             cbox.addItem("Ask User")
             cbox.addItem("Exclude")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
+            cbox=QComboBox()
+            cbox.addItem("Enrich Value")
+            cbox.addItem("Enrich URI")
+            cbox.addItem("Enrich Both")
+            self.dlg.enrichTable.setCellWidget(row,4,cbox)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove")
@@ -1177,7 +1182,7 @@ class SPAQLunicorn:
             w = QWidget()
             w.setLayout(celllayout)
             optitem=QTableWidgetItem()
-            #self.dlg.enrichTable.setCellWidget(row,4,w)
+            #self.dlg.enrichTable.setCellWidget(row,5,w)
             #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
 
@@ -1259,6 +1264,8 @@ class SPAQLunicorn:
             for field in f:
                 item=QTableWidgetItem(field)
                 self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
+                if ";" in field:
+                    item.setBackground(QColor.red)
                 fieldcounter+=1
             row+=1
         self.dlg.enrichTableResult.show()
