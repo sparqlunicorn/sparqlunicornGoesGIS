@@ -173,6 +173,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         QgsMapTool.deactivate(self)
         self.deactivated.emit()
 
+
 class SPARQLHighlighter (QSyntaxHighlighter):
     """Syntax highlighter for the Python language.
     """
@@ -347,6 +348,10 @@ class SPAQLunicorn:
 	
     interlinkOrEnrich=True
 	
+    layerExtentOrBBOX=False
+	
+    chooseBBOXLayer=""
+	
     vl=""
 	
     geonamesconcepts=["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"]
@@ -461,6 +466,17 @@ class SPAQLunicorn:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
+
+    def tooltipOverWord(self,event):
+        textCursor = self.cursorForPosition(event.pos())
+        textCursor.select(QTextCursor.WordUnderCursor)
+        text.setTextCursor(textCursor)
+        word = textCursor.selectedText()
+        toolTipText = word
+        # Put the hover over in an easy to read spot
+        pos = text.cursorRect(text.textCursor()).bottomRight()
+        # The pos could also be set to event.pos() if you want it directly under the mouse
+        pos = text.mapToGlobal(pos)
 
     def validateSPARQL(self):
         try:
@@ -1290,8 +1306,8 @@ class SPAQLunicorn:
             for field in f:
                 item=QTableWidgetItem(field)
                 self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
-                if ";" in field:
-                    item.setBackground(QColor.red)
+                #if ";" in field:
+                    #item.setBackground(QColor.red)
                 fieldcounter+=1
             row+=1
         self.dlg.enrichTableResult.show()
@@ -1632,12 +1648,28 @@ class SPAQLunicorn:
             for concept in conceptlist:
                 self.dlg.layerconcepts.addItem(concept)
 
+    def setBBOXExtentQuery(self):
+        self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()
+        self.layerExtentOrBBOX=True
+        self.setBBOXInQuery()
+
     def setBBOXInQuery(self):
-        pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
-        pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
-        pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
-        pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
-        sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
+        if self.layerExtentOrBBOX:
+            xMax=self.mts_layer.extent().xMaximum()
+            xMin=self.mts_layer.extent().xMinimum()
+            yMin=self.mts_layer.extent().yMinimum()
+            yMax=self.mts_layer.extent().yMaximum()
+            pointt1=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMin))
+            pointt2=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMin))
+            pointt3=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMax))
+            pointt4=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMax))
+            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.sourceCrs())
+        else:
+            pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
+            pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
+            pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
+            pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
+            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
         destCrs = QgsCoordinateReferenceSystem(4326)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
         pointt1.transform(tr)
@@ -1659,18 +1691,19 @@ class SPAQLunicorn:
         self.d.close()
         curquery=self.dlg.inp_sparql.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==0:
-            curquery=curquery[0:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
+        if endpointIndex==1:
+            curquery=curquery[1:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
       bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
       bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
     }\n }"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==4:
+        elif endpointIndex==5:
             curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?geo, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==5:
+        elif endpointIndex==6:
             curquery=curquery[0:curquery.rfind('}')]+"""FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point("""+str(center.asPoint().x())+","+str(center.asPoint().y())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
             self.dlg.inp_sparql.setPlainText(curquery)
+        self.layerExtentOrBBOX=False
 
     def getPointFromCanvas(self):
         self.d = QDialog()
@@ -1686,7 +1719,17 @@ class SPAQLunicorn:
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        b1 = QPushButton("Apply",self.d)
+        chooseLayerLabel=QLabel("Choose Layer Extent:",self.d) 
+        chooseLayerLabel.move(0,480)
+        self.chooseBBOXLayer=QComboBox(self.d)
+        self.chooseBBOXLayer.move(125,475)
+        b2 = QPushButton("Apply Layer Extent",self.d)
+        b2.move(10,500)
+        b2.clicked.connect(self.setBBOXExtentQuery)
+        layers = QgsProject.instance().layerTreeRoot().children()
+        for layer in layers:
+            self.chooseBBOXLayer.addItem(layer.name())  
+        b1 = QPushButton("Apply BBOX",self.d)
         b1.move(400,500)
         b1.clicked.connect(self.setBBOXInQuery)
         self.d.setWindowTitle("Choose BoundingBox")
@@ -1854,7 +1897,9 @@ class SPAQLunicorn:
         if self.first_start == True:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
+            #self.dlg.inp_sparql=TooltipPlainTextEdit(self.dlg)
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
+            self.dlg.inp_sparql.setMouseTracking(True)
             self.dlg.comboBox.clear()
             self.dlg.comboBox.addItem('File') #0
             self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #1
