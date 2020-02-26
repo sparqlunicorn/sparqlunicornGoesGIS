@@ -9,54 +9,84 @@
 "name":"Wikidata",
 "prefixes":"PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
 "endpoint":"https://query.wikidata.org/sparql",
-"mandatoryvariables":["item","geo"]
+"mandatoryvariables":["item","geo"],
+"querytemplate":[
+{"label":"Item+Label","query":"SELECT ?item ?itemLabel ?rel ?val ?geo WHERE { ?item wdt:P31 wd:Q%%concept%% . ?item wdt:P625 ?geo . ?item ?rel ?val . SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} LIMIT 100"}
+]
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.wikidata.org/prop/direct/P31> ?class . ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .}",
+"geoconceptlimit":500,
+"staticconcepts":[]
 },
 {
 "name":"Ordnance Survey UK",
 "prefixes":    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
 "endpoint":"http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql",
-"mandatoryvariables":["item","easting","northing"]
+"mandatoryvariables":["item","easting","northing"],
+"querytemplate":"SELECT ?item ?easting ?northing { ?item a <%%concept%%>. ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting . ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .} LIMIT 10",
+"staticconcepts":[]
 },
 {
 "name":"Nomisma",
 "prefixes":"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
 "endpoint":"http://nomisma.org/query",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"querytemplate":"SELECT ?item ?easting ?northing { ?item a <%%concept%%>. ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting . ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .} LIMIT 10",
+"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.w3.org/2004/02/skos/core#Concept","http://nomisma.org/ontology#Mint","http://nomisma.org/ontology#Region"]
 },
 {
 "name":"Kerameikos",
 "prefixes":"PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
 "endpoint":"http://kerameikos.org/query",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing,"http://www.cidoc-crm.org/cidoc-crm/E53_Place","http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"]
 },
 {
 "name":"LinkedGeoData",
 "prefixes":"Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
 "endpoint":"http://linkedgeodata.org/sparql",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":[]
 },
 {
 "name":"DBPedia",
 "prefixes":"Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
 "endpoint":"http://dbpedia.org/sparql",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":[]
 },
 {
 "name":"Geonames",
 "prefixes":"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
 "endpoint":"http://factforge.net/repositories/ff-news",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":[]
 },
 {
 "name":"GND",
 "prefixes":"",
 "endpoint":"http://zbw.eu/beta/sparql/econ_pers/query",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":[]
 },
 {
 "name":"Ordnance Survey Ireland",
 "prefixes":"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> ",
 "endpoint":"http://sandbox.mainzed.org/osi/sparql",
-"mandatoryvariables":["item","lat","lon"]
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":["http://www.opengis.net/ont/geosparql#Feature","http://ontologies.geohive.ie/osi#County","http://ontologies.geohive.ie/osi#Barony","http://ontologies.geohive.ie/osi#Council","http://ontologies.geohive.ie/osi#Townland","http://ontologies.geohive.ie/osi#ElectoralDivision","http://ontologies.geohive.ie/osi#GaeltachtRegion","http://ontologies.geohive.ie/osi#LocalElectoralArea","http://ontologies.geohive.ie/osi#MunicipalDistrict","http://ontologies.geohive.ie/osi#NationalConstituency","http://ontologies.geohive.ie/osi#CivilParish","http://ontologies.geohive.ie/osi#RuralArea"]
 }
 ]
