@@ -28,7 +28,7 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication,QRegExp, Qt,pyqtSignal
+from qgis.PyQt.QtCore import QSettings, QTranslator, QThread,QCoreApplication,QObject,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
@@ -172,7 +172,6 @@ class RectangleMapTool(QgsMapToolEmitPoint):
     def deactivate(self):
         QgsMapTool.deactivate(self)
         self.deactivated.emit()
-
 
 class SPARQLHighlighter (QSyntaxHighlighter):
     """Syntax highlighter for the Python language.
@@ -329,10 +328,57 @@ class SPARQLHighlighter (QSyntaxHighlighter):
         else:
             return False
 
+geoconcepts=""
+
+class GeoConceptsWorker(QObject):
+    finished = pyqtSignal()
+    intReady = pyqtSignal(int)
+
+    query=""
+    
+    triplestoreurl=""
+   
+    graph=None
+    
+    signalStatus = QtCore.pyqtSignal(str)
+
+    def __init__(self,query,url,graph,parent=None):
+        super(self.__class__, self).__init__(parent)
+        self.query=query
+        self.triplestoreurl=url
+        self.graph=graph
+    
+    @QtCore.pyqtSlot()
+    def startWork(self):
+        print("THREADSTART")
+        viewlist=[]
+        print(self.query)
+        print(self.triplestoreurl)
+        print(self.graph)
+        if self.graph!=None:
+            print("WE HAVE A GRAPH")
+            results = self.graph.query(self.query)
+            for row in results:
+                viewlist.append(str(row[0]))
+        else:
+            sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(self.query)
+            print("now sending query")
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert().sort()
+            for result in results["results"]["bindings"]:
+                viewlist.append(str(result[queryvar]["value"]))
+        print(viewlist)	
+        geoconcepts=viewlist
+        self.finished.emit()
+
+
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
     loadedfromfile=False
+    
+    currentquery=""
 	
     justloadingfromfile=False
 	
@@ -342,19 +388,11 @@ class SPAQLunicorn:
 	
     currentcol=-1
 	
-    searchTripleStoreDialog=None
-
-    searchTripleStoreEdit=None
-	
     interlinkOrEnrich=True
 	
-    layerExtentOrBBOX=False
-	
-    chooseBBOXLayer=""
-	
+    triplestoreconf=None
+    
     vl=""
-	
-    geonamesconcepts=["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"]
 
     bboxbuffer=""
 
@@ -385,8 +423,6 @@ class SPAQLunicorn:
     searchResult=""
 
     tripleStoreEdit=""
-	
-    tripleStoreNameEdit=""
 
     conceptSearchEdit=""
 	
@@ -404,22 +440,6 @@ class SPAQLunicorn:
 
     outputfile=""
 	
-    prefixList=""
-	
-    prefixes=["","PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
-    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
-    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
-    "PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/> PREFIX crmgeo: <http://www.ics.forth.gr/isl/CRMgeo/> PREFIX crmsci: <http://www.ics.forth.gr/isl/CRMsci/> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX kid: <http://kerameikos.org/id/> PREFIX kon: <http://kerameikos.org/ontology#> PREFIX org: <http://www.w3.org/ns/org#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
-    "Prefix lgdo: <http://linkedgeodata.org/ontology/> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
-    "Prefix dbo: <http://dbpedia.org/ontology/> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix geom: <http://geovocab.org/geometry#> Prefix lgdo: <http://linkedgeodata.org/ontology/>",
-    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
-    "",
-    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> "
-    ]
-	
-    endpoints=["","https://query.wikidata.org/sparql","http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql","http://nomisma.org/query","http://kerameikos.org/query",
-        "http://linkedgeodata.org/sparql","http://dbpedia.org/sparql","http://factforge.net/repositories/ff-news","http://zbw.eu/beta/sparql/econ_pers/query","http://sandbox.mainzed.org/osi/sparql"]
-
     def __init__(self, iface):
         """Constructor.
 
@@ -467,20 +487,9 @@ class SPAQLunicorn:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
 
-    def tooltipOverWord(self,event):
-        textCursor = self.cursorForPosition(event.pos())
-        textCursor.select(QTextCursor.WordUnderCursor)
-        text.setTextCursor(textCursor)
-        word = textCursor.selectedText()
-        toolTipText = word
-        # Put the hover over in an easy to read spot
-        pos = text.cursorRect(text.textCursor()).bottomRight()
-        # The pos could also be set to event.pos() if you want it directly under the mouse
-        pos = text.mapToGlobal(pos)
-
     def validateSPARQL(self):
         try:
-            prepareQuery(self.prefixes[self.dlg.comboBox.currentIndex()]+"\n"+self.dlg.inp_sparql.toPlainText())
+            prepareQuery(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"]+"\n"+self.dlg.inp_sparql.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
@@ -512,45 +521,6 @@ class SPAQLunicorn:
         status_tip=None,
         whats_this=None,
         parent=None):
-        """Add a toolbar icon to the toolbar.
-
-        :param icon_path: Path to the icon for this action. Can be a resource
-            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
-        :type icon_path: str
-
-        :param text: Text that should be shown in menu items for this action.
-        :type text: str
-
-        :param callback: Function to be called when the action is triggered.
-        :type callback: function
-
-        :param enabled_flag: A flag indicating if the action should be enabled
-            by default. Defaults to True.
-        :type enabled_flag: bool
-
-        :param add_to_menu: Flag indicating whether the action should also
-            be added to the menu. Defaults to True.
-        :type add_to_menu: bool
-
-        :param add_to_toolbar: Flag indicating whether the action should also
-            be added to the toolbar. Defaults to True.
-        :type add_to_toolbar: bool
-
-        :param status_tip: Optional text to show in a popup when mouse pointer
-            hovers over the action.
-        :type status_tip: str
-
-        :param parent: Parent widget for the new action. Defaults None.
-        :type parent: QWidget
-
-        :param whats_this: Optional text to show in the status bar when the
-            mouse pointer hovers over the action.
-
-        :returns: The action that was created. Note that the action is also
-            added to self.actions list.
-        :rtype: QAction
-        """
-
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
@@ -599,7 +569,9 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
-    def processResults(self,results,reproject,latval,lonval):
+    def processResults(self,results,reproject,mandatoryvars):
+        latval=mandatoryvars[0]
+        lonval=mandatoryvars[1]
         features = []
         first=True
         newobject=True
@@ -627,7 +599,7 @@ class SPAQLunicorn:
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/2157> ",""))
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+reproject+"> ",""))
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
                     destCrs = QgsCoordinateReferenceSystem(4326)
@@ -691,29 +663,17 @@ class SPAQLunicorn:
             self.dlg.close()
             return
         else:
-            endpoint_url=self.endpoints[endpointIndex]
-        if "?rel" in query and "?val" in query and not "?item" in query:
+            endpoint_url=self.triplestoreconf[endpointIndex]["endpoint"]
+        missingmandvars=[]
+        for mandvar in self.triplestoreconf[endpointIndex]["mandatoryvariables"]:
+            if mandvar not in query:
+                  missingmandvars.append("?"+mandvar)
+        if missingmandvars!=[]:
             msgBox=QMessageBox()
-            msgBox.setText("A SPARQL query including the ?rel and ?val variable needs to include an ?item variable indicating the individual URI. ")
+            msgBox.setText("The SPARQL query is missing the following mandatory variables: "+missingmandvars)
             msgBox.exec()
-            return
-        if (endpointIndex==1 or endpointIndex==8) and not "?geo" in query:
-            msgBox=QMessageBox()
-            msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
-            msgBox.exec()
-            return
-        if (endpointIndex==2) and not "?easting" in query and not "?northing" in query:
-            msgBox=QMessageBox()
-            msgBox.setText("The SPARQL query needs to include a ?geo variable indicating a geometry literal! ")
-            msgBox.exec()
-            return
-        if (endpointIndex==3 or endpointIndex==4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9) and not "?lat" in query  and not "?lon" in query:
-            msgBox=QMessageBox()
-            msgBox.setText("The SPARQL query needs to include a ?lat and a ?lon variable indicating a latitude and longitude literals! ")
-            msgBox.exec()
-            return
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(self.prefixes[endpointIndex] + query)
+        sparql.setQuery(self.triplestoreconf[endpointIndex]["prefixes"] + query)
         sparql.setReturnFormat(JSON)
         try:
             results = sparql.query().convert()
@@ -724,14 +684,7 @@ class SPAQLunicorn:
             return            
         #print(results)
         # geojson stuff
-        if endpointIndex == 1:
-            geojson=self.processResults(results,"","","")
-        elif endpointIndex == 2:
-            geojson=self.processResults(results,27700,"easting","northing")
-        elif endpointIndex == 3 or endpointIndex == 4 or endpointIndex==5 or endpointIndex==6 or endpointIndex==7 or endpointIndex==9:
-            geojson=self.processResults(results,"","lat","lon")
-        elif endpointIndex == 8:
-            geojson=self.processResults(results,2157,"","")
+        geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:])
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
@@ -747,20 +700,24 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-    """Extracts geographic concepts from an rdf file."""
-    def getGeoConceptsFromGraph(self,graph):
+    def getGeoConcepts(self,triplestoreurl,query,queryvar,graph):
         viewlist=[]
-        qres = graph.query(
-        """SELECT DISTINCT ?a_class (count(?a_class) as ?count)
-        WHERE {
-          ?a rdf:type ?a_class .
-          ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .
-        }""")
-        print(qres)
-        self.dlg.layercount.setText("["+str(len(qres))+"]")
-        for row in qres:
-            viewlist.append(str(row[0]))
-        return viewlist
+        resultlist=[]
+        if graph!=None:
+            results = graph.query(query)
+            for row in results:
+                viewlist.append(str(row[0]))
+        else:
+            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(query)
+            print("now sending query")
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert().sort()
+            for result in results["results"]["bindings"]:
+                viewlist.append(str(result[queryvar]["value"]))
+        print(viewlist)
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")			
+        return viewlist        
 
     """Extracts geographic WKT concepts from Wikidata."""
     def getGeoConceptsFromWikidata(self):
@@ -789,104 +746,99 @@ class SPAQLunicorn:
             i=i+1			
         return resultlist
 
-    """Extracts geographic concepts from a SPARQL endpoint."""
-    def getGeoConceptsFromGeoSPARQLTripleStore(self,triplestoreurl):
-        viewlist=[]
-        resultlist=[]
-        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        """SELECT DISTINCT ?class
-        WHERE {
-          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
-          ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom .
-        } LIMIT 500""")
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert().sort()
-        for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
-        print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")			
-        return viewlist
-
-    """Extracts geographic concepts from a triplestore saving geoconcepts using lat lon properties."""
-    def getGeoConceptsFromLatLonTripleStore(self,triplestoreurl):
-        viewlist=[]
-        resultlist=[]
-        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        """SELECT DISTINCT ?class
-        WHERE {
-          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
-          ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-          ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .
-        }  LIMIT 500""")
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
-        print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
-        return viewlist
-
-    def getGeoConceptsFromEastingNorthingTripleStore(self,triplestoreurl):
-        viewlist=[]
-        resultlist=[]
-        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        """SELECT DISTINCT ?class
-        WHERE {
-          ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .
-          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
-          ?a <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
-        }  LIMIT 100""")
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
-        print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
-        return viewlist
-
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self):
         viewlist=[]
         resultlist=[]
         label=self.dlg.conceptSearchEdit.text()
         language="en"
+        result={}
+        self.dlg.searchResult.clear()
         if self.dlg.currentcol==4:
+            query=self.triplestoreconf[endpointIndex]["propertyfromlabelquery"]
             results=self.getPIDsForLabels(label)
         else:
+            query=self.triplestoreconf[endpointIndex]["classfromlabelquery"]
             results=self.getQIDsForLabels(label)
-        self.dlg.searchResult.clear()
-        for result in results:
-            item=QListWidgetItem()
-            item.setData(0,result)
-            item.setText(str(results[result]))
-            self.dlg.searchResult.addItem(item)
+        if "SELECT" in query:
+            query=query.replace("%%label%%",label).replace("%%language%%",language)
+            sparql = SPARQLWrapper(self.triplestoreconf[endpointIndex]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(query)
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            for res in results["results"]["bindings"]:
+                item=QListWidgetItem()
+                item.setData(0,str(res["class"]["value"]))
+                item.setText(str(res["label"]["value"]))
+                self.dlg.searchResult.addItem(item)
+        else:
+            myResponse = json.loads(requests.get(url).text)
+            for ent in myResponse["search"]:
+                qid=ent["url"]
+                label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
+                result[qid]=label    
+            for result in results:
+                item=QListWidgetItem()
+                item.setData(0,result)
+                item.setText(str(results[result]))
+                self.dlg.searchResult.addItem(item)
         return viewlist
 		
-    """Returns properties for a given label from a triple store."""
+    """Returns properties for a given label from a triple store.
     def getPropertiesFromLabel(self):
         viewlist=[]
         resultlist=[]
         sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery(
-        """SELECT DISTINCT ?class
+        SELECT DISTINCT ?class
         WHERE {
           ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Property> .
-          ?class <http://www.w3.org/2000/01/rdf-schema#label> """+"\""+label+"\"@"+language+""" .
-        }  LIMIT 500""")
+          ?class <http://www.w3.org/2000/01/rdf-schema#label> +"\""+label+"\"@"+language+ .
+        }  LIMIT 500)
         print("now sending query")
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         for result in results["results"]["bindings"]:
             self.dlg.searchResult.addItem(str(result["class"]["value"]))
         return viewlist
+    """
 
-       
+    def getLabelsForClasses(self,classes,endpointIndex):
+        result={}
+        query=self.triplestoreconf[endpointIndex]["classlabelquery"]
+        #url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        if "SELECT" in query:
+            vals="VALUES ?class { "
+            for qid in classes:
+                vals+=qid+" "
+            vals+="}\n"
+            query=query.replace("%%classes%%",vals)
+            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(query)
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            for res in results["results"]["bindings"]:
+                result[res["class"]["value"]]=res["label"]["value"]
+        else:
+            i=0
+            qidquery=""
+            for qid in classes:
+                qidquery+="Q"+qid.split("Q")[1]
+                if (i%50)==0:
+                    print(query+qidquery+"&languages=en&format=json")
+                    myResponse = json.loads(requests.get(query+qidquery+"&languages=en&format=json").text)
+                    print(myResponse)
+                    for ent in myResponse["entities"]:
+                        print(ent)
+                        if "en" in myResponse["entities"][ent]["labels"]:
+                            result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
+                    qidquery=""
+                else:
+                    qidquery+="|"
+                i=i+1
+        return result
+    
+    
     def getWikidataLabelsForQIDs(self,qids):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
@@ -907,18 +859,15 @@ class SPAQLunicorn:
                 qidquery+="|"
             i=i+1
         return result
-
+    """
     def getQIDsForLabels(self,label):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=item"
         myResponse = json.loads(requests.get(url).text)
         for ent in myResponse["search"]:
-            if "url" in ent and "label" in ent and "id" in ent:
-                qid=ent["url"]
-                label=ent["label"]+" ("+ent["id"]+")"
-                if "description" in ent:
-                    label+="["+ent["description"]+"]"
-                result[qid]=label
+            qid=ent["url"]
+            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
+            result[qid]=label
         return result
 		
     def getPIDsForLabels(self,label):
@@ -926,13 +875,11 @@ class SPAQLunicorn:
         url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=property"
         myResponse = json.loads(requests.get(url).text)
         for ent in myResponse["search"]:
-            if "url" in ent and "label" in ent and "id" in ent:
-                qid=ent["url"]
-                label=ent["label"]+" ("+ent["id"]+")"
-                if "description" in ent:
-                    label+="["+ent["description"]+"]"
-                result[qid]=label
+            qid=ent["url"]
+            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
+            result[qid]=label
         return result
+    """
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
@@ -979,110 +926,6 @@ class SPAQLunicorn:
         if column>3 or column==-1:
             self.buildSearchDialog(row,column)
 
-    def buildCustomTripleStoreDialog(self):
-        self.dlg.searchTripleStoreDialog = QDialog()
-        self.dlg.searchTripleStoreDialog.setMinimumSize(650, 400)
-        tripleStoreLabel = QLabel("Enter Triple Store URL:",self.dlg.searchTripleStoreDialog)
-        tripleStoreLabel.move(0,10)
-        self.dlg.tripleStoreEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStoreEdit.move(150,10)
-        self.dlg.tripleStoreEdit.setMinimumSize(350, 20)
-        self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")
-        testConnectButton = QPushButton("Test Connection",self.dlg.searchTripleStoreDialog)
-        testConnectButton.move(510,10)
-        testConnectButton.clicked.connect(self.testTripleStoreConnection)
-        tripleStoreNameLabel = QLabel("Enter Triple Store Name:",self.dlg.searchTripleStoreDialog)
-        tripleStoreNameLabel.move(0,40)
-        self.dlg.tripleStoreNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStoreNameEdit.move(150,40)
-        self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)
-        self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")
-        tripleStorePrefix = QLabel("SPARQL Prefix Name:",self.dlg.searchTripleStoreDialog)
-        tripleStorePrefix.move(0,70)
-        self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStorePrefixNameEdit.move(150,70)
-        self.dlg.tripleStorePrefixNameEdit.setText("wd")
-        self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)
-        tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)
-        tripleStorePrefixName.move(270,70)
-        addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)
-        addPrefixButton.move(510,70)
-        addPrefixButton.clicked.connect(self.addPrefixToList)
-        queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)
-        queryVarLabel.move(0,100)
-        self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.queryVarEdit.move(150,100)
-        self.dlg.queryVarEdit.setText("geo")
-        self.dlg.queryVarEdit.setMinimumSize(100, 20)
-        queryVarItemLabel = QLabel("Item Variable:",self.dlg.searchTripleStoreDialog)
-        queryVarItemLabel.move(270,100)
-        self.dlg.queryVarItemEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.queryVarItemEdit.move(370,100)
-        self.dlg.queryVarItemEdit.setText("item")
-        self.dlg.queryVarItemEdit.setMinimumSize(100, 20)
-        prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)
-        prefixListLabel.move(20,130)
-        self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)
-        self.dlg.prefixList.move(20,150)
-        self.dlg.prefixList.setMinimumSize(300,200)
-        exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)
-        exampleQueryLabel.move(330,130)
-        exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)
-        exampleQuery.move(330,150)
-        exampleQuery.setMinimumSize(300,200)
-        exampleQuery.textChanged.connect(self.validateSPARQL)
-        sparqlhighlighter = SPARQLHighlighter(exampleQuery,self.dlg.errorLabel)
-        self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStorePrefixEdit.move(310,70)
-        self.dlg.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")
-        self.dlg.tripleStorePrefixEdit.setMinimumSize(200, 20)
-        tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)
-        tripleStoreApplyButton.move(10,370)
-        tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)
-        self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
-        self.dlg.searchTripleStoreDialog.exec_()
-
-    def testTripleStoreConnection(self,calledfromotherfunction=False):
-        sparql = SPARQLWrapper(self.dlg.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1")
-        sparql.setReturnFormat(JSON)
-        print("now sending query")
-        try:
-            results = sparql.query()
-            if not calledfromotherfunction:
-                msgBox=QMessageBox()
-                msgBox.setText("URL depicts a valid SPARQL Endpoint!")
-                msgBox.exec()
-            return True
-        except:
-            msgBox=QMessageBox()
-            msgBox.setText("URL does not depict a valid SPARQL Endpoint!")
-            msgBox.exec()
-            return False
-			
-    def addPrefixToList(self):
-        item=QListWidgetItem()
-        item.setData(0,"PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")
-        item.setText("PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")
-        self.dlg.prefixList.addItem(item)
-		
-
-    def applyCustomSPARQLEndPoint(self):
-        if not self.testTripleStoreConnection(True):
-           return
-        if self.dlg.tripleStoreNameEdit.text()=="":
-           msgBox=QMessageBox()
-           msgBox.setText("Triple Store Name is missing!")
-           msgBox.exec()
-           return
-        self.endpoints.append(self.dlg.tripleStoreEdit.text())
-        self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())
-        curprefixes=""
-        for i in range(self.dlg.prefixList.count()):
-            curprefixes+=self.dlg.prefixList.item(i).text()
-        self.dlg.searchTripleStoreDialog.close()
-        
-
     def buildSearchDialog(self,row,column):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
@@ -1104,14 +947,9 @@ class SPAQLunicorn:
         findConcept.setEnabled(False)
         self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
         self.dlg.tripleStoreEdit.move(100,40)
-        self.dlg.tripleStoreEdit.addItem("Wikidata")
-        self.dlg.tripleStoreEdit.addItem('Ordnance Survey UK') #2
-        self.dlg.tripleStoreEdit.addItem('nomisma.org') #3
-        self.dlg.tripleStoreEdit.addItem('kerameikos.org') #4
-        self.dlg.tripleStoreEdit.addItem('Linked Geodata (OSM)') #5
-        self.dlg.tripleStoreEdit.addItem('DBPedia') #6
-        self.dlg.tripleStoreEdit.addItem('Geonames') #7
-        self.dlg.tripleStoreEdit.addItem('Ordnance Survey Ireland') #8
+        for triplestore in self.triplestoreconf:
+            if not "File"==self.triplestore["name"]:
+                self.dlg.tripleStoreEdit.addItem(self.triplestoreconf["name"])
         tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
         tripleStoreLabel.move(0,40)
         searchButton = QPushButton("Search",self.dlg.interlinkdialog)
@@ -1141,7 +979,7 @@ class SPAQLunicorn:
             else:
                 item2=QTableWidgetItem()
                 item2.setText(self.dlg.tripleStoreEdit.currentText())
-                item2.setData(0,self.endpoints[self.dlg.tripleStoreEdit.currentIndex()+1])
+                item2.setData(0,self.triplestoreconf[self.dlg.tripleStoreEdit.currentIndex()+1]["endpoint"])
                 self.dlg.enrichTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
                 self.dlg.enrichTable.setItem(self.dlg.currentrow,(self.dlg.currentcol+1),item2)
         self.dlg.interlinkdialog.close()
@@ -1161,13 +999,12 @@ class SPAQLunicorn:
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
         self.dlg.enrichTable.show()
-        self.dlg.addEnrichedLayerRowButton.setEnabled(True)
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(6)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Content","Options"])
+        self.dlg.enrichTable.setColumnCount(5)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Options"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -1182,13 +1019,7 @@ class SPAQLunicorn:
             cbox.addItem("Replace Local")
             cbox.addItem("Merge")
             cbox.addItem("Ask User")
-            cbox.addItem("Exclude")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
-            cbox=QComboBox()
-            cbox.addItem("Enrich Value")
-            cbox.addItem("Enrich URI")
-            cbox.addItem("Enrich Both")
-            self.dlg.enrichTable.setCellWidget(row,4,cbox)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove")
@@ -1200,7 +1031,7 @@ class SPAQLunicorn:
             w = QWidget()
             w.setLayout(celllayout)
             optitem=QTableWidgetItem()
-            #self.dlg.enrichTable.setCellWidget(row,5,w)
+            #self.dlg.enrichTable.setCellWidget(row,4,w)
             #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
 
@@ -1218,9 +1049,8 @@ class SPAQLunicorn:
         self.dlg.enrichTable.insertRow(row)
         self.dlg.enrichTable.setItem(row,0,item)
         cbox=QComboBox()
-        cbox.addItem("Keep Remote")
+        cbox.addItem("Get Remote")
         cbox.addItem("No Enrichment")
-        cbox.addItem("Exclude")
         self.dlg.enrichTable.setCellWidget(row,3,cbox)
 
     def enrichLayer(self):
@@ -1230,35 +1060,23 @@ class SPAQLunicorn:
         attlist={}
         itemlist=[]
         propertylist=[]
-        excludelist=[]
         idfield=self.dlg.IDColumnEnrich.currentText()
         for row in range(self.dlg.enrichTable.rowCount()):
             item = self.dlg.enrichTable.item(row, 0).text()
             property=self.dlg.enrichTable.item(row, 1)
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             if item!=idfield:
-                propertylist.append(self.dlg.enrichTable.item(row, 1)) 
-            if strategy=="Exclude":
-                excludelist.append(row)
+                propertylist.append(self.dlg.enrichTable.item(row, 1))    
             if strategy!="No Enrichment" and property!=None:
                 itemlist.append(item)
                 attlist[item]=[]
                 for f in self.enrichLayer.getFeatures():
                     attlist[item].append(f[item])
-                if content=="Enrich URI": 
-                    query="SELECT ?item WHERE {\n"
-                elif content=="Enrich Value" or content=="Enrich Both":
-                    query="SELECT ?item ?val ?valLabel WHERE {\n"
-                query+="VALUES ?item { "
+                query="SELECT ?item ?val WHERE {\n VALUES ?item { "
                 for it in attlist[idfield]:
                     query+=it
                 query+=" } . \n"
-                query+="?item <"+property+"> ?val . \n"
-                if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
-                    query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
-                elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
-                    query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
-                query+="} ORDER BY ?item "
+                query+="?item <"+property+"> ?val . } ORDER BY ?item "
                 sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                 sparql.setQuery(query)
                 print("now sending query")
@@ -1267,32 +1085,15 @@ class SPAQLunicorn:
                 resultcounter=0
                 for f in self.enrichLayer.getFeatures():
                     if strategy=="Keep Local" and f[item]=="" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        if content=="Enrich Value":
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
-                        elif content=="Enrich URI":
-                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
-                        else:
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["val"]
+                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
                     elif strategy=="Replace Local" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        if content=="Enrich Value":
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
-                        elif content=="Enrich URI":
-                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
-                        else:
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]
+                        f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
                     elif strategy=="Merge":
-                        if content=="Enrich Value":
-                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["valLabel"]["value"])
-                        elif content=="Enrich URI":
-                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
-                        else:
-                            f[item]=str(f[item])+";"+results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]                       
+                        f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
                     elif strategy=="Ask User":
                         print("Asking user")
                     resultcounter+=1
             row+=1
-        self.enrichLayer.dataProvider().deleteAttributes(excludelist)
-        self.enrichLayer.updateFields()
         self.dlg.enrichTable.hide()
         fieldnames = [field.name() for field in self.enrichLayer.fields()]
         self.dlg.enrichTableResult.clear()
@@ -1306,12 +1107,9 @@ class SPAQLunicorn:
             for field in f:
                 item=QTableWidgetItem(field)
                 self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
-                #if ";" in field:
-                    #item.setBackground(QColor.red)
                 fieldcounter+=1
             row+=1
         self.dlg.enrichTableResult.show()
-        self.dlg.addEnrichedLayerRowButton.setEnabled(False)
 
     def addEnrichedLayer(self):
         QgsProject.instance().addMapLayer(self.enrichLayer)
@@ -1533,7 +1331,7 @@ class SPAQLunicorn:
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
         return featurecollection	
-			
+
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -1545,20 +1343,46 @@ class SPAQLunicorn:
             result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
             print(g)
             self.currentgraph=g
-            geoconcepts=self.getGeoConceptsFromGraph(g)
+            geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
             self.dlg.layerconcepts.clear()
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
-            self.dlg.inp_sparql.setPlainText("""SELECT DISTINCT ?a ?rel ?val ?wkt
-            WHERE {
-            ?a rdf:type <"""+geoconcepts[0]+"""> .
-            ?a ?rel ?val .
-            OPTIONAL { ?val geo:asWKT ?wkt}
-            }""")
+            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
             self.loadedfromfile=True
             self.justloadingfromfile=False
             return result
-        return None      
+        return None
+
+    """		
+    def loadGraph(self):
+        dialog = QFileDialog(self.dlg)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        self.justloadingfromfile=True
+        if dialog.exec_():
+            fileNames = dialog.selectedFiles()
+            g = rdflib.Graph()
+            filepath=fileNames[0].split(".")
+            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
+            print(g)
+            self.currentgraph=g
+            self.dlg.layerconcepts.clear()
+            worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            worker_thread = QThread()
+            worker.moveToThread(worker_thread)
+            worker_thread.finished.connect(self.loadGraphGUI)
+            worker_thread.start()
+            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
+        #return None
+    """
+    
+    def loadGraphGUI(self):
+         self.dlg.layercount.setText("["+str(len(viewlist))+"]")		
+         for geo in geoconcepts:
+                self.dlg.layerconcepts.addItem(geo)
+         self.dlg.inp_sparql.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+         self.loadedfromfile=True
+         self.justloadingfromfile=False
+         return result
     
     def getWikidataAreaConcepts(self):
         resultlist=[]
@@ -1587,89 +1411,27 @@ class SPAQLunicorn:
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.layerconcepts.clear()
-        if endpointIndex==1:
-            print("changing to wikidata")
-            conceptlist=self.getGeoConceptsFromWikidata()
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-            conceptlist2=self.getWikidataAreaConcepts()
+        print("changing endpoint")
+        conceptlist=[]
+        if (not "staticconcepts" in self.triplestoreconf[endpointIndex] or self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
+            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None)
+        elif "staticconcepts" in self.triplestoreconf[endpointIndex] or self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
+            conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
+        for concept in conceptlist:
+            self.dlg.layerconcepts.addItem(concept)
+        if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
+            conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
-                self.dlg.areaconcepts.addItem(concept)
-        elif endpointIndex==2:
-            self.dlg.layerconcepts.addItem("http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/NamedPlace")
-            #conceptlist=self.getGeoConceptsFromEastingNorthingTripleStore("http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql")
-            #for concept in conceptlist:
-                #self.dlg.layerconcepts.addItem(concept)
-        elif endpointIndex==3:
-            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
-            self.dlg.layerconcepts.addItem("http://www.w3.org/2004/02/skos/core#Concept")
-            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Mint")
-            self.dlg.layerconcepts.addItem("http://nomisma.org/ontology#Region")
-        elif endpointIndex==4:
-            self.dlg.layerconcepts.addItem("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
-            self.dlg.layerconcepts.addItem("http://www.cidoc-crm.org/cidoc-crm/E53_Place")
-            self.dlg.layerconcepts.addItem("http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression")
-        elif endpointIndex==5:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://linkedgeodata.org/sparql")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-        elif endpointIndex==6:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://dbpedia.org/sparql")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-        elif endpointIndex==7:
-            #conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://factforge.net/repositories/ff-news")
-            self.dlg.layerconcepts.addItem("Feature")
-            for concept in self.geonamesconcepts:
-                self.dlg.layerconcepts.addItem("Feature: "+concept)
-        elif endpointIndex==8:
-            self.dlg.layerconcepts.addItem("http://www.opengis.net/ont/geosparql#Feature")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#County")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Barony")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Council")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#Townland")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#ElectoralDivision")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#GaeltachtRegion")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#LocalElectoralArea")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#MunicipalDistrict")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#NationalConstituency")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#CivilParish")
-            self.dlg.layerconcepts.addItem("http://ontologies.geohive.ie/osi#RuralArea")
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item rdfs:label ?label.
-            FILTER (lang(?label) = 'en')
-            ?item ogc:hasGeometry [
-            ogc:asWKT ?geo
-            ] .
-            } LIMIT 10""")
-        elif endpointIndex==9:
-            conceptlist=self.getGeoConceptsFromLatLonTripleStore("http://zbw.eu/beta/sparql/gnd/query")
-            for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-
-    def setBBOXExtentQuery(self):
-        self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()
-        self.layerExtentOrBBOX=True
-        self.setBBOXInQuery()
+                 self.dlg.areaconcepts.addItem(concept)
+        if "examplequery" in self.triplestoreconf[endpointIndex]:
+            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
 
     def setBBOXInQuery(self):
-        if self.layerExtentOrBBOX:
-            xMax=self.mts_layer.extent().xMaximum()
-            xMin=self.mts_layer.extent().xMinimum()
-            yMin=self.mts_layer.extent().yMinimum()
-            yMax=self.mts_layer.extent().yMaximum()
-            pointt1=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMin))
-            pointt2=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMin))
-            pointt3=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMax))
-            pointt4=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMax))
-            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.sourceCrs())
-        else:
-            pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
-            pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
-            pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
-            pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
-            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
+        pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
+        pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
+        pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
+        pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
+        sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
         destCrs = QgsCoordinateReferenceSystem(4326)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
         pointt1.transform(tr)
@@ -1691,19 +1453,11 @@ class SPAQLunicorn:
         self.d.close()
         curquery=self.dlg.inp_sparql.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==1:
-            curquery=curquery[1:curquery.rfind('}')]+"""SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n 
-      bd:serviceParam wikibase:cornerSouthWest " """+pointt2.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
-      bd:serviceParam wikibase:cornerNorthEast " """+pointt4.asWkt()+""""^^<http://www.opengis.net/geosparql#wktLiteral> .\n
-    }\n }"""+curquery[curquery.rfind('}')+1:]
-            self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==5:
-            curquery=curquery[0:curquery.rfind('}')]+"""Filter(bif:st_intersects (?geo, bif:st_point ("""+str(center.asPoint().y())+","+str(center.asPoint().x())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
-            self.dlg.inp_sparql.setPlainText(curquery)
-        elif endpointIndex==6:
-            curquery=curquery[0:curquery.rfind('}')]+"""FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point("""+str(center.asPoint().x())+","+str(center.asPoint().y())+"),"+str(widthm/1000)+""")) .}"""+curquery[curquery.rfind('}')+1:]
-            self.dlg.inp_sparql.setPlainText(curquery)
-        self.layerExtentOrBBOX=False
+        if "bboxquery" in triplestoreconf[endpointIndex] and triplestoreconf[endpointIndex]["bboxquery"]["type"]=="minmax":
+             curquery=curquery[0:curquery.rfind('}')]+triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%minPoint%%",pointt2.asWKT()).replace("%%maxPoint%%",pointt4.asWkt())+curquery[curquery.rfind('}')+1:]
+        elif "bboxquery" in triplestoreconf[endpointIndex] and triplestoreconf[endpointIndex]["bboxquery"]["type"]=="pointdistance":
+            curquery=curquery[0:curquery.rfind('}')]+triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%lat%%",str(center.asPoint().y())).replace("%%lon%%",str(center.asPoint().x())).replace("%%distance%%",str(widthm/1000))+curquery[curquery.rfind('}')+1:]
+        self.dlg.inp_sparql.setPlainText(curquery)
 
     def getPointFromCanvas(self):
         self.d = QDialog()
@@ -1719,163 +1473,24 @@ class SPAQLunicorn:
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        chooseLayerLabel=QLabel("Choose Layer Extent:",self.d) 
-        chooseLayerLabel.move(0,480)
-        self.chooseBBOXLayer=QComboBox(self.d)
-        self.chooseBBOXLayer.move(125,475)
-        b2 = QPushButton("Apply Layer Extent",self.d)
-        b2.move(10,500)
-        b2.clicked.connect(self.setBBOXExtentQuery)
-        layers = QgsProject.instance().layerTreeRoot().children()
-        for layer in layers:
-            self.chooseBBOXLayer.addItem(layer.name())  
-        b1 = QPushButton("Apply BBOX",self.d)
+        b1 = QPushButton("Apply",self.d)
         b1.move(400,500)
         b1.clicked.connect(self.setBBOXInQuery)
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
-
-    def display_point(self):
-        print("hallo")
 
     def viewselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        if endpointIndex==1:
+        #if endpointIndex==1:
             if self.dlg.layerconcepts.currentText()=="":
                 concept="1248784"
             else:
                 concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
                 self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
-            if self.dlg.queryTemplates.currentText()=="All Attributes":
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
-            ?item wdt:P31 wd:Q"""+concept+""" .
-            ?item wdt:P625 ?geo .
-            ?item ?rel ?val .
-			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            } LIMIT 100""")
-            else:
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?itemLabel ?geo WHERE {
-            ?item wdt:P31 wd:Q"""+concept+""" .
-            ?item wdt:P625 ?geo .
-			SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            } LIMIT 10""")
-        elif endpointIndex==2:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?easting ?northing {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .
-            ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==3:
-            if self.dlg.queryTemplates.currentText()=="All Attributes":
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?rel ?val ?lat ?lon WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-			?item ?rel ?val .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 100""")
-            else:
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==4:
-            if self.dlg.queryTemplates.currentText()=="All Attributes":
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item ?rel ?val .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
-            else:
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==5:
-            if self.dlg.queryTemplates.currentText()=="All Attributes":
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?rel ?val ?lat ?lon  WHERE {
-            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
-            ?item rdfs:label ?label .
-            ?item ?rel ?val .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            FILTER(langMatches(lang(?label),'EN'))
-            } LIMIT 10""")
-            else:
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
-            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
-            ?item rdfs:label ?label .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            FILTER(langMatches(lang(?label),'EN'))
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==6:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?lat ?lon  WHERE {
-            ?item rdf:type <"""+self.dlg.layerconcepts.currentText()+"""> .
-            ?item rdfs:label ?label .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            FILTER(langMatches(lang(?label),'EN'))
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==7:
-            if self.dlg.layerconcepts.currentText()=="Feature":
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <http://www.geonames.org/ontology#Feature>.
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")				
-            else:
-                self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <http://www.geonames.org/ontology#Feature>.
-            ?item <http://www.geonames.org/ontology#featureCode> <http://www.geonames.org/ontology#"""+self.dlg.layerconcepts.currentText()[9:]+"""> .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
-            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[9:].lower().replace(" ","_"))
-        elif endpointIndex==8:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?label ?geo WHERE {
-            ?item a <"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item rdfs:label ?label.
-            FILTER (lang(?label) = 'en')
-            ?item ogc:hasGeometry [
-            ogc:asWKT ?geo
-            ] .
-            } LIMIT 10""")
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-        elif endpointIndex==9:
-            self.dlg.inp_sparql.setPlainText("""SELECT ?item ?lat ?lon WHERE {
-            ?item a <https://d-nb.info/standards/elementset/gnd#"""+self.dlg.layerconcepts.currentText()+""">.
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .
-            ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .
-            } LIMIT 10""")
+            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex+1][self.dlg.queryTemplates.currentText()].replace("%%concept%%",concept))
             if "#" in self.dlg.layerconcepts.currentText():
                 self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
             else:
@@ -1895,22 +1510,24 @@ class SPAQLunicorn:
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
+            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
+                data=myfile.read()
+            # parse file 
+            self.triplestoreconf = json.loads(data)
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
-            #self.dlg.inp_sparql=TooltipPlainTextEdit(self.dlg)
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
-            self.dlg.inp_sparql.setMouseTracking(True)
             self.dlg.comboBox.clear()
-            self.dlg.comboBox.addItem('File') #0
-            self.dlg.comboBox.addItem('Wikidata --> ?geo required!') #1
-            self.dlg.comboBox.addItem('Ordnance Survey UK --> ?easting ?northing required!') #2
-            self.dlg.comboBox.addItem('nomisma.org --> ?lat ?long required!') #3
-            self.dlg.comboBox.addItem('kerameikos.org --> ?lat ?long required!') #4
-            self.dlg.comboBox.addItem('Linked Geodata (OSM) --> ?geo required!') #5
-            self.dlg.comboBox.addItem('DBPedia --> ?lat ?lon required!') #6
-            self.dlg.comboBox.addItem('Geonames --> ?lat ?lon required!') #7
-            self.dlg.comboBox.addItem('Ordnance Survey Ireland --> ?geo required!') #8
-            #self.dlg.comboBox.addItem('German National Library (GND) --> ?lat ?lon required!') #9
+            for triplestore in self.triplestoreconf:
+                if triplestore["active"]:
+                    item=triplestore["name"]
+                    if "mandatoryvariables" in triplestore:
+                        item+=" --> "
+                        for mandvar in triplestore["mandatoryvariables"]:
+                            item+="?"+mandvar+" "
+                        item+=" required!"
+                    self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
@@ -1923,7 +1540,6 @@ class SPAQLunicorn:
             self.dlg.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
-            self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)

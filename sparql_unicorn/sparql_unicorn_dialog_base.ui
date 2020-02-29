@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
+    <width>974</width>
     <height>659</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>861</width>
+     <width>961</width>
      <height>661</height>
     </rect>
    </property>
@@ -47,7 +47,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>91</width>
+       <width>111</width>
        <height>20</height>
       </rect>
      </property>
@@ -58,9 +58,9 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>10</y>
-       <width>171</width>
+       <width>231</width>
        <height>22</height>
       </rect>
      </property>
@@ -70,7 +70,7 @@
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>91</width>
+       <width>101</width>
        <height>20</height>
       </rect>
      </property>
@@ -81,9 +81,9 @@
     <widget class="QComboBox" name="layerconcepts">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>120</x>
        <y>40</y>
-       <width>431</width>
+       <width>521</width>
        <height>22</height>
       </rect>
      </property>
@@ -91,7 +91,7 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>500</x>
        <y>10</y>
        <width>21</width>
        <height>20</height>
@@ -104,9 +104,9 @@
     <widget class="QPushButton" name="loadFileButton">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>520</x>
        <y>10</y>
-       <width>93</width>
+       <width>111</width>
        <height>21</height>
       </rect>
      </property>
@@ -117,9 +117,9 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>530</x>
+       <x>640</x>
        <y>10</y>
-       <width>121</width>
+       <width>151</width>
        <height>20</height>
       </rect>
      </property>
@@ -130,7 +130,7 @@
     <widget class="QLineEdit" name="inp_label">
      <property name="geometry">
       <rect>
-       <x>660</x>
+       <x>780</x>
        <y>10</y>
        <width>161</width>
        <height>20</height>
@@ -142,7 +142,7 @@
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>811</width>
+       <width>941</width>
        <height>401</height>
       </rect>
      </property>
@@ -169,7 +169,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>540</y>
-       <width>811</width>
+       <width>941</width>
        <height>41</height>
       </rect>
      </property>
@@ -187,9 +187,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="btn_loadunicornlayers">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>590</y>
-       <width>131</width>
+       <width>201</width>
        <height>28</height>
       </rect>
      </property>
@@ -200,9 +200,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="loadedLayers">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>220</x>
        <y>590</y>
-       <width>381</width>
+       <width>421</width>
        <height>21</height>
       </rect>
      </property>
@@ -210,9 +210,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportLayers">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>650</x>
        <y>590</y>
-       <width>181</width>
+       <width>211</width>
        <height>28</height>
       </rect>
      </property>
@@ -223,7 +223,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QDialogButtonBox" name="button_box">
      <property name="geometry">
       <rect>
-       <x>730</x>
+       <x>860</x>
        <y>590</y>
        <width>91</width>
        <height>32</height>
@@ -241,7 +241,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>151</width>
+       <width>171</width>
        <height>20</height>
       </rect>
      </property>
@@ -252,9 +252,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="areaconcepts">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>180</x>
        <y>70</y>
-       <width>211</width>
+       <width>331</width>
        <height>22</height>
       </rect>
      </property>
@@ -262,7 +262,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="bboxButton">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>770</x>
        <y>70</y>
        <width>171</width>
        <height>21</height>
@@ -275,7 +275,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="areas">
      <property name="geometry">
       <rect>
-       <x>450</x>
+       <x>570</x>
        <y>70</y>
        <width>191</width>
        <height>22</height>
@@ -285,7 +285,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>520</x>
        <y>70</y>
        <width>41</width>
        <height>20</height>
@@ -311,7 +311,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>660</x>
        <y>40</y>
        <width>111</width>
        <height>20</height>
@@ -324,7 +324,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="queryTemplates">
      <property name="geometry">
       <rect>
-       <x>660</x>
+       <x>780</x>
        <y>40</y>
        <width>161</width>
        <height>22</height>
@@ -344,7 +344,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_14">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>360</x>
        <y>10</y>
        <width>21</width>
        <height>20</height>
@@ -357,9 +357,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="loadTripleStoreButton">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>380</x>
        <y>10</y>
-       <width>101</width>
+       <width>121</width>
        <height>21</height>
       </rect>
      </property>
@@ -536,7 +536,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>80</y>
        <width>121</width>
        <height>16</height>

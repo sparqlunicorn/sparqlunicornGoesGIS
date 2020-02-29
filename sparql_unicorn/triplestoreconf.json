@@ -3,37 +3,50 @@
 "name":"File",
 "prefixes":"",
 "endpoint":"",
-"mandatoryvariables":[]
+"geoconceptquery":"SELECT DISTINCT ?class (count(?class) as ?count) WHERE { ?a rdf:type ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .}",
+"querytemplate":[{"label":"All Attributes","query":"SELECT DISTINCT ?item ?rel ?val ?wkt WHERE {\n ?item rdf:type <%%concept%%> .\n ?item ?rel ?val . \n OPTIONAL { ?val geo:asWKT ?wkt}\n}\n"}],
+"mandatoryvariables":[],
+"active":true
 },
 {
 "name":"Wikidata",
 "prefixes":"PREFIX geo:<http://www.opengis.net/geosparql#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wds: <http://www.wikidata.org/entity/statement/> PREFIX wdv: <http://www.wikidata.org/value/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX wikibase: <http://wikiba.se/ontology#> PREFIX p: <http://www.wikidata.org/prop/> PREFIX ps: <http://www.wikidata.org/prop/statement/> PREFIX pq: <http://www.wikidata.org/prop/qualifier/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX bd: <http://www.bigdata.com/rdf#> PREFIX wdref: <http://www.wikidata.org/reference/> PREFIX psv: <http://www.wikidata.org/prop/statement/value/> PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/> PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/> PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> PREFIX pr: <http://www.wikidata.org/prop/reference/> PREFIX prv: <http://www.wikidata.org/prop/reference/value/> PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/> PREFIX wdno: <http://www.wikidata.org/prop/novalue/> PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/> PREFIX schema: <http://schema.org/> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX prov: <http://www.w3.org/ns/prov#> PREFIX bds: <http://www.bigdata.com/rdf/search#> PREFIX gas: <http://www.bigdata.com/rdf/gas#> PREFIX hint: <http://www.bigdata.com/queryHints#>",
 "endpoint":"https://query.wikidata.org/sparql",
+"bboxquery":{"type":"minmax","query":"SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"},
 "mandatoryvariables":["item","geo"],
 "querytemplate":[
-{"label":"Item+Label","query":"SELECT ?item ?itemLabel ?rel ?val ?geo WHERE { ?item wdt:P31 wd:Q%%concept%% . ?item wdt:P625 ?geo . ?item ?rel ?val . SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} LIMIT 100"}
-]
+{"label":"Item+Label","query":"SELECT ?item ?itemLabel ?geo WHERE {?item wdt:P31 wd:Q%%concept%% . ?item wdt:P625 ?geo .SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 10"},{"label":"All Attributes","query":"SELECT ?item ?itemLabel ?rel ?val ?geo WHERE { ?item wdt:P31 wd:Q%%concept%% . ?item wdt:P625 ?geo . ?item ?rel ?val . SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }} LIMIT 100"}
+],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.wikidata.org/prop/direct/P31> ?class . ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .}",
+"classlabelquery":"https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=en&format=json&ids=%%concepts%%",
+"propertylabelquery":"https://www.wikidata.org/w/api.php?action=wbsearchentities&&format=json&language=en&uselang=en&type=property&search=%%concept%%",
+"classfromlabelquery":"",
+"propertyfromlabelquery":"",
 "geoconceptlimit":500,
-"staticconcepts":[]
+"staticconcepts":[],
+"active":true
 },
 {
 "name":"Ordnance Survey UK",
 "prefixes":    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX spatial: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> PREFIX gaz: <http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/>",
 "endpoint":"http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql",
 "mandatoryvariables":["item","easting","northing"],
-"querytemplate":"SELECT ?item ?easting ?northing { ?item a <%%concept%%>. ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting . ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .} LIMIT 10",
-"staticconcepts":[]
+"querytemplate":"SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing . \n} LIMIT 10",
+"staticconcepts":[],
+"querytemplate":[{"label":"Item+Label","query":"SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .\n } LIMIT 10}"}],
+"crs":27700,
+"active":true
 },
 {
 "name":"Nomisma",
 "prefixes":"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX nm: <http://nomisma.org/id/> PREFIX nmo: <http://nomisma.org/ontology#> PREFIX skos: <http://www.w3.org/2004/02/skos/core#> PREFIX spatial: <http://jena.apache.org/spatial#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
 "endpoint":"http://nomisma.org/query",
 "mandatoryvariables":["item","lat","lon"],
-"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptquery":"SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
 "geoconceptlimit":500,
-"querytemplate":"SELECT ?item ?easting ?northing { ?item a <%%concept%%>. ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting . ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .} LIMIT 10",
-"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.w3.org/2004/02/skos/core#Concept","http://nomisma.org/ontology#Mint","http://nomisma.org/ontology#Region"]
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
+"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.w3.org/2004/02/skos/core#Concept","http://nomisma.org/ontology#Mint","http://nomisma.org/ontology#Region"],
+"active":true
 },
 {
 "name":"Kerameikos",
@@ -41,8 +54,10 @@
 "endpoint":"http://kerameikos.org/query",
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE { ?item a <%%concept%%>. ?item ?rel ?val . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE { ?item a <%%concept%%>. ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } LIMIT 10"}],
 "geoconceptlimit":500,
-"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing,"http://www.cidoc-crm.org/cidoc-crm/E53_Place","http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"]
+"staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.cidoc-crm.org/cidoc-crm/E53_Place","http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"],
+"active":true
 },
 {
 "name":"LinkedGeoData",
@@ -51,7 +66,10 @@
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
 "geoconceptlimit":500,
-"staticconcepts":[]
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE { ?item a <%%concept%%>. ?item ?rel ?val . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE { ?item a <%%concept%%>. ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } LIMIT 10"}],
+"staticconcepts":[],
+"bboxquery":{"type":"pointdistance","query":"Filter(bif:st_intersects (?geo, bif:st_point (%%lat%%,%%lon%%),%%width%%))"},
+"active":true
 },
 {
 "name":"DBPedia",
@@ -59,8 +77,11 @@
 "endpoint":"http://dbpedia.org/sparql",
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE { ?item a <%%concept%%>. ?item ?rel ?val . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE { ?item a <%%concept%%>. ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } LIMIT 10"}],
 "geoconceptlimit":500,
-"staticconcepts":[]
+"staticconcepts":[],
+"bboxquery":{"type":"pointdistance","query":"FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))"},
+"active":true
 },
 {
 "name":"Geonames",
@@ -68,17 +89,10 @@
 "endpoint":"http://factforge.net/repositories/ff-news",
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?lat ?lon WHERE { ?item a <http://www.geonames.org/ontology#Feature>. ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } LIMIT 10"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {?item a <http://www.geonames.org/ontology#Feature>. ?item <http://www.geonames.org/ontology#featureCode> <%%concept%%> . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . } LIMIT 10"}],
 "geoconceptlimit":500,
-"staticconcepts":[]
-},
-{
-"name":"GND",
-"prefixes":"",
-"endpoint":"http://zbw.eu/beta/sparql/econ_pers/query",
-"mandatoryvariables":["item","lat","lon"],
-"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
-"geoconceptlimit":500,
-"staticconcepts":[]
+"staticconcepts":["ADM1","ADM1H","ADM2","ADM2H","ADM3","ADM3H","ADM4","ADM4H","ADM5","ADM5H","ADMD","ADMDH","ADMF","AGRC","AGRF","AIRB","AIRF","AIRH","AIRP","AIRQ","AIRS","AIRT","AMTH","AMUS","ANCH","ANS","APNU","AQC","ARCH","ARCHV","ARCU","AREA","ARRU","ART","ASPH","ASTR","ASYL","ATHF","ATM","ATOL","BANK","BAR","BAY","BAYS","BCH","BCHS","BCN","BDG","BDGQ","BDLD","BDLU","BGHT","BKSU","BLDA","BLDG","BLDO","BLDR","BLHL","BLOW","BNCH","BNK","BNKR","BNKU","BNKX","BOG","BP","BRKS","BRKW","BSND","BSNP","BSNU","BSTN","BTL","BTYD","BUR","BUSH","BUSTN","BUSTP","BUTE","CAPE","CAPG","CARN","CAVE","CDAU","CFT","CH","CHN","CHNL","CHNM","CHNN","CLDA","CLF","CLG","CMN","CMP","CMPL","CMPLA","CMPMN","CMPO","CMPQ","CMPRF","CMTY","CNFL","CNL","CNLA","CNLB","CNLD","CNLI","CNLN","CNLQ","CNLSB","CNLX","CNS","CNSU","CNYN","CNYU","COLF","COMC","CONE","CONT","COVE","CRDR","CRKT","CRNT","CRQ","CRQS","CRRL","CRSU","CRTR","CSNO","CST","CSTL","CSTM","CSWY","CTHSE","CTRA","CTRB","CTRCM","CTRF","CTRM","CTRR","CTRS","CUET","CULT","CUTF","CVNT","DAM","DAMQ","DAMSB","DARY","DCK","DCKB","DCKD","DCKY","DEPU","DEVH","DIKE","DIP","DLTA","DOMG","DPOF","DPR","DPRG","DSRT","DTCH","DTCHD","DTCHI","DTCHM","DUNE","DVD","EDGU","ERG","ESCU","EST","ESTO","ESTR","ESTSG","ESTT","ESTX","ESTY","FAN","FANU","FCL","FISH","FJD","FJDS","FLD","FLDI","FLLS","FLLSX","FLTM","FLTT","FLTU","FNDY","FORD","FRM","FRMQ","FRMS","FRMT","FRST","FRSTF","FRZU","FSR","FT","FURU","FY","FYT","GAP","GAPU","GASF","GATE","GDN","GHAT","GHSE","GLCR","GLYU","GOSP","GOVL","GRAZ","GRGE","GROVE","GRSLD","GRVC","GRVE","GRVO","GRVP","GRVPN","GULF","GVL","GYSR","H","HBR","HBRX","HDLD","HERM","HLL","HLLS","HLLU","HLSU","HLT","HMCK","HMDA","HMSD","HOLU","HSE","HSEC","HSP","HSPC","HSPD","HSPL","HSTS","HTH","HTL","HUT","HUTS","INDS","INLT","INLTQ","INSM","INTF","ISL","ISLET","ISLF","ISLM","ISLS","ISLT","ISLX","ISTH","ITTR","JTY","KNLU","KNSU","KRST","L","LAND","LAVA","LBED","LCTY","LDGU","LDNG","LEPC","LEV","LEVU","LGN","LGNS","LGNX","LIBR","LK","LKC","LKI","LKN","LKNI","LKO","LKOI","LKS","LKSB","LKSC","LKSI","LKSN","LKSNI","LKX","LNDF","LOCK","LTER","LTHSE","MALL","MAR","MDW","MESA","MESU","MFG","MFGB","MFGC","MFGCU","MFGLM","MFGM","MFGN","MFGPH","MFGQ","MFGSG","MGV","MILB","MKT","ML","MLM","MLO","MLSG","MLSGQ","MLSW","MLWND","MLWTR","MN","MNA","MNAU","MNC","MNCR","MNCU","MND","MNDU","MNFE","MNMT","MNN","MNQ","MNQR","MOLE","MOOR","MOTU","MRN","MRSH","MRSHN","MSQE","MSSN","MSSNQ","MSTY","MT","MTRO","MTS","MTU","MUS","MVA","NKM","NOV","NRWS","NSY","NTK","NTKS","NVB","OAS","OBPT","OBS","OBSR","OCH","OCN","OILF","OILJ","OILP","OILQ","OILR","OILT","OILW","OPRA","OVF","P","PAL","PAN","PANS","PASS","PCL","PCLD","PCLF","PCLH","PCLI","PCLIX","PCLS","PEAT","PEN","PENX","PGDA","PIER","PK","PKLT","PKS","PKSU","PKU","PLAT","PLATX","PLDR","PLN","PLNU","PLNX","PLTU","PMPO","PMPW","PND","PNDI","PNDN","PNDNI","PNDS","PNDSF","PNDSI","PNDSN","PNLU","PO","POOL","POOLI","PP","PPL","PPLA","PPLA2","PPLA3","PPLA4","PPLA5","PPLC","PPLCH","PPLF","PPLG","PPLH","PPLL","PPLQ","PPLR","PPLS","PPLW","PPLX","PPQ","PRK","PRKGT","PRKHQ","PRMN","PRN","PRNJ","PRNQ","PROM","PRSH","PRT","PRVU","PS","PSH","PSN","PSTB","PSTC","PSTP","PT","PTGE","PTS","PYR","PYRS","QCKS","QUAY","R","RCH","RD","RDA","RDB","RDCR","RDCUT","RDGB","RDGE","RDGG","RDGU","RDIN","RDJCT","RDST","RDSU","RECG","RECR","REG","RES","RESA","RESF","RESH","RESN","RESP","REST","RESV","RESW","RET","RF","RFC","RFSU","RFU","RFX","RGN","RGNE","RGNH","RGNL","RHSE","RISU","RJCT","RK","RKFL","RKRY","RKS","RLG","RLGR","RNCH","RNGA","RPDS","RR","RRQ","RSD","RSGNL","RSRT","RSTN","RSTNQ","RSTP","RSTPQ","RSV","RSVI","RSVT","RTE","RUIN","RVN","RYD","S","SALT","SAND","SBED","SBKH","SCH","SCHA","SCHC","SCHL","SCHM","SCHN","SCHT","SCNU","SCRB","SCRP","SCSU","SD","SDL","SDLU","SEA","SECP","SHFU","SHLU","SHOL","SHOR","SHPF","SHRN","SHSE","SHSU","SHVU","SILL","SILU","SINK","SLCE","SLID","SLP","SLPU","SMSU","SMU","SNOW","SNTR","SPA","SPIT","SPLY","SPNG","SPNS","SPNT","SPRU","SPUR","SQR","ST","STBL","STDM","STKR","STLMT","STM","STMA","STMB","STMC","STMD","STMH","STMI","STMIX","STMM","STMQ","STMS","STMSB","STMX","STNB","STNC","STNE","STNF","STNI","STNM","STNR","STNS","STNW","STPS","STRT","SWMP","SWT","SYG","SYSI","T","TAL","TERR","TERU","THTR","TMB","TMPL","TMSU","TMTU","TNGU","TNKD","TNL","TNLC","TNLN","TNLRD","TNLRR","TNLS","TOLL","TOWR","TRAM","TRANT","TRB","TREE","TRGD","TRGU","TRIG","TRL","TRMO","TRNU","TRR","TUND","TWO","U","UNIP","UNIV","UPLD","USGE","V","VAL","VALG","VALS","VALU","VALX","VETF","VIN","VINS","VLC","VLSU","WAD","WADB","WADJ","WADM","WADS","WADX","WALL","WALLA","WEIR","WHRF","WHRL","WLL","WLLQ","WLLS","WRCK","WTLD","WTLDI","WTRC","WTRH","WTRW","ZN","ZNB","ZNF","ZOO"],
+"active":true
 },
 {
 "name":"Ordnance Survey Ireland",
@@ -87,6 +101,19 @@
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
 "geoconceptlimit":500,
-"staticconcepts":["http://www.opengis.net/ont/geosparql#Feature","http://ontologies.geohive.ie/osi#County","http://ontologies.geohive.ie/osi#Barony","http://ontologies.geohive.ie/osi#Council","http://ontologies.geohive.ie/osi#Townland","http://ontologies.geohive.ie/osi#ElectoralDivision","http://ontologies.geohive.ie/osi#GaeltachtRegion","http://ontologies.geohive.ie/osi#LocalElectoralArea","http://ontologies.geohive.ie/osi#MunicipalDistrict","http://ontologies.geohive.ie/osi#NationalConstituency","http://ontologies.geohive.ie/osi#CivilParish","http://ontologies.geohive.ie/osi#RuralArea"]
+"querytemplate":[{"label":"Default","query":"SELECT ?item ?label ?geo WHERE { ?item a <%%concept%%>.?item rdfs:label ?label. FILTER (lang(?label) = 'en') ?item ogc:hasGeometry [ ogc:asWKT ?geo ] .} LIMIT 10"}],
+"staticconcepts":["http://www.opengis.net/ont/geosparql#Feature","http://ontologies.geohive.ie/osi#County","http://ontologies.geohive.ie/osi#Barony","http://ontologies.geohive.ie/osi#Council","http://ontologies.geohive.ie/osi#Townland","http://ontologies.geohive.ie/osi#ElectoralDivision","http://ontologies.geohive.ie/osi#GaeltachtRegion","http://ontologies.geohive.ie/osi#LocalElectoralArea","http://ontologies.geohive.ie/osi#MunicipalDistrict","http://ontologies.geohive.ie/osi#NationalConstituency","http://ontologies.geohive.ie/osi#CivilParish","http://ontologies.geohive.ie/osi#RuralArea"],
+"crs":2157,
+"active":true
+},
+{
+"name":"GND",
+"prefixes":"",
+"endpoint":"http://zbw.eu/beta/sparql/econ_pers/query",
+"mandatoryvariables":["item","lat","lon"],
+"geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+"geoconceptlimit":500,
+"staticconcepts":[],
+"active":false
 }
 ]
