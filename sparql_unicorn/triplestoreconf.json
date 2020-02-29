@@ -33,7 +33,7 @@
 "mandatoryvariables":["item","easting","northing"],
 "querytemplate":"SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing . \n} LIMIT 10",
 "staticconcepts":[],
-"querytemplate":[{"label":"Item+Label","query":"SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .\n } LIMIT 10}"}],
+"querytemplate":[{"label":"Item+Label","query":"SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .\n } LIMIT 10"}],
 "crs":27700,
 "active":true
 },
@@ -44,7 +44,7 @@
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
 "geoconceptlimit":500,
-"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
 "staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.w3.org/2004/02/skos/core#Concept","http://nomisma.org/ontology#Mint","http://nomisma.org/ontology#Region"],
 "active":true
 },
@@ -54,7 +54,7 @@
 "endpoint":"http://kerameikos.org/query",
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
-"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100}"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
 "geoconceptlimit":500,
 "staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.cidoc-crm.org/cidoc-crm/E53_Place","http://www.ics.forth.gr/isl/CRMgeo/SP5_Geometric_Place_Expression"],
 "active":true

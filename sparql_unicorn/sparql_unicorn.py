@@ -527,7 +527,7 @@ class SPAQLunicorn:
 
     def validateSPARQL(self):
         try:
-            prepareQuery(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"]+"\n"+self.dlg.inp_sparql.toPlainText())
+            prepareQuery(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"]+"\n"+self.dlg.inp_sparql2.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
@@ -615,7 +615,7 @@ class SPAQLunicorn:
         newobject=True
         item=""
         for result in results["results"]["bindings"]:
-            if "item" in result and "rel" in result and  "val" in result and (item=="" or result["item"]["value"]!=item):
+            if "item" in result and "rel" in result and "val" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
                 if item!="":
                     myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
                     if reproject!="":
@@ -628,8 +628,8 @@ class SPAQLunicorn:
                     features.append(feature)
                 properties = {}
                 item=result["item"]["value"]
-            if not "rel" in result and not "val" in result:
-                properties = {}
+            #if not "rel" in result and not "val" in result:
+            properties = {}
             for var in results["head"]["vars"]:
                 if var in result:
                     if var=="rel" and "val" in result:
@@ -687,7 +687,7 @@ class SPAQLunicorn:
         # SPARQL query
         #print(self.loadedfromfile)
 		# query
-        query = self.dlg.inp_sparql.toPlainText()
+        query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
             concept = self.dlg.layerconcepts.currentText()
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
@@ -793,14 +793,15 @@ class SPAQLunicorn:
         result={}
         self.dlg.searchResult.clear()
         if self.dlg.currentcol==4:
-            query=self.triplestoreconf[endpointIndex]["propertyfromlabelquery"]
-            results=self.getPIDsForLabels(label)
+            query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["propertyfromlabelquery"]
+            results=self.getLabelsForClasses(label,query,self.dlg.comboBox.currentIndex())#self.getPIDsForLabels(label)
         else:
-            query=self.triplestoreconf[endpointIndex]["classfromlabelquery"]
-            results=self.getQIDsForLabels(label)
+            query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classfromlabelquery"]
+            results=self.getLabelsForClasses(label,query,self.dlg.comboBox.currentIndex())
+            #results=self.getQIDsForLabels(label)
         if "SELECT" in query:
             query=query.replace("%%label%%",label).replace("%%language%%",language)
-            sparql = SPARQLWrapper(self.triplestoreconf[endpointIndex]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql = SPARQLWrapper(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
             sparql.setQuery(query)
             sparql.setReturnFormat(JSON)
             results = sparql.query().convert()
@@ -841,7 +842,7 @@ class SPAQLunicorn:
         return viewlist
     """
 
-    def getLabelsForClasses(self,classes,endpointIndex):
+    def getLabelsForClasses(self,classes,query,endpointIndex):
         result={}
         query=self.triplestoreconf[endpointIndex]["classlabelquery"]
         #url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
@@ -861,7 +862,8 @@ class SPAQLunicorn:
             i=0
             qidquery=""
             for qid in classes:
-                qidquery+="Q"+qid.split("Q")[1]
+                if "Q" in qid:
+                    qidquery+="Q"+qid.split("Q")[1]
                 if (i%50)==0:
                     print(query+qidquery+"&languages=en&format=json")
                     myResponse = json.loads(requests.get(query+qidquery+"&languages=en&format=json").text)
@@ -1089,8 +1091,8 @@ class SPAQLunicorn:
         self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
         self.dlg.tripleStoreEdit.move(100,40)
         for triplestore in self.triplestoreconf:
-            if not "File"==self.triplestore["name"]:
-                self.dlg.tripleStoreEdit.addItem(self.triplestoreconf["name"])
+            if not "File"==triplestore["name"]:
+                self.dlg.tripleStoreEdit.addItem(triplestore["name"])
         tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
         tripleStoreLabel.move(0,40)
         searchButton = QPushButton("Search",self.dlg.interlinkdialog)
@@ -1140,12 +1142,13 @@ class SPAQLunicorn:
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
         self.dlg.enrichTable.show()
+        self.dlg.addEnrichedLayerRowButton.setEnabled(True)
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(5)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","Options"])
+        self.dlg.enrichTable.setColumnCount(6)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","Options"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -1160,7 +1163,13 @@ class SPAQLunicorn:
             cbox.addItem("Replace Local")
             cbox.addItem("Merge")
             cbox.addItem("Ask User")
+            cbox.addItem("Exclude")
             self.dlg.enrichTable.setCellWidget(row,3,cbox)
+            cbox=QComboBox()	
+            cbox.addItem("Enrich Value")	
+            cbox.addItem("Enrich URI")	
+            cbox.addItem("Enrich Both")	
+            self.dlg.enrichTable.setCellWidget(row,4,cbox)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove")
@@ -1192,6 +1201,7 @@ class SPAQLunicorn:
         cbox=QComboBox()
         cbox.addItem("Get Remote")
         cbox.addItem("No Enrichment")
+        cbox.addItem("Exclude")
         self.dlg.enrichTable.setCellWidget(row,3,cbox)
 
     def enrichLayer(self):
@@ -1521,9 +1531,10 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.clear()
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
             self.loadedfromfile=True
             self.justloadingfromfile=False
+            self.dlg.comboBox.setCurrentIndex(0)
             return result
         return None
 
@@ -1553,7 +1564,7 @@ class SPAQLunicorn:
          self.dlg.layercount.setText("["+str(len(viewlist))+"]")		
          for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
-         self.dlg.inp_sparql.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+         self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
          self.loadedfromfile=True
          self.justloadingfromfile=False
          return result
@@ -1584,13 +1595,14 @@ class SPAQLunicorn:
 
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
-        self.dlg.layerconcepts.clear()
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
         conceptlist=[]
-        if (not "staticconcepts" in self.triplestoreconf[endpointIndex] or self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
+        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
+            self.dlg.layerconcepts.clear()
             conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None)
-        elif "staticconcepts" in self.triplestoreconf[endpointIndex] or self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
+        elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
+            self.dlg.layerconcepts.clear()
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
         for concept in conceptlist:
             self.dlg.layerconcepts.addItem(concept)
@@ -1602,7 +1614,7 @@ class SPAQLunicorn:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
         if "examplequery" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
+            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
 
     def setBBOXExtentQuery(self):	
         self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	
@@ -1645,13 +1657,13 @@ class SPAQLunicorn:
         self.curbbox.append(pointt3)
         self.curbbox.append(pointt4)
         self.d.close()
-        curquery=self.dlg.inp_sparql.toPlainText()
+        curquery=self.dlg.inp_sparql2.toPlainText()
         endpointIndex = self.dlg.comboBox.currentIndex()
-        if "bboxquery" in triplestoreconf[endpointIndex] and triplestoreconf[endpointIndex]["bboxquery"]["type"]=="minmax":
-             curquery=curquery[0:curquery.rfind('}')]+triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%minPoint%%",pointt2.asWKT()).replace("%%maxPoint%%",pointt4.asWkt())+curquery[curquery.rfind('}')+1:]
-        elif "bboxquery" in triplestoreconf[endpointIndex] and triplestoreconf[endpointIndex]["bboxquery"]["type"]=="pointdistance":
-            curquery=curquery[0:curquery.rfind('}')]+triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%lat%%",str(center.asPoint().y())).replace("%%lon%%",str(center.asPoint().x())).replace("%%distance%%",str(widthm/1000))+curquery[curquery.rfind('}')+1:]
-        self.dlg.inp_sparql.setPlainText(curquery)
+        if "bboxquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["bboxquery"]["type"]=="minmax":
+             curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%minPoint%%",pointt2.asWKT()).replace("%%maxPoint%%",pointt4.asWkt())+curquery[curquery.rfind('}')+1:]
+        elif "bboxquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["bboxquery"]["type"]=="pointdistance":
+            curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%lat%%",str(center.asPoint().y())).replace("%%lon%%",str(center.asPoint().x())).replace("%%distance%%",str(widthm/1000))+curquery[curquery.rfind('}')+1:]
+        self.dlg.inp_sparql2.setPlainText(curquery)
 
     def getPointFromCanvas(self):
         self.d = QDialog()
@@ -1693,7 +1705,7 @@ class SPAQLunicorn:
             concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
             concept=self.dlg.layerconcepts.currentText()
-        self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+        self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
         if "#" in self.dlg.layerconcepts.currentText():
             self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
         else:
@@ -1721,7 +1733,7 @@ class SPAQLunicorn:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             self.dlg.inp_sparql.hide()
-            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg)
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab)
             self.dlg.inp_sparql2.move(10,130)
             self.dlg.inp_sparql2.setMinimumSize(941,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
@@ -1742,7 +1754,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
-            self.dlg.inp_sparql.textChanged.connect(self.validateSPARQL)
+            self.dlg.inp_sparql2.textChanged.connect(self.validateSPARQL)
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
             self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
             self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
