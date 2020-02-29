@@ -727,7 +727,7 @@ class SPAQLunicorn:
             sparql.setQuery(query)
             print("now sending query")
             sparql.setReturnFormat(JSON)
-            results = sparql.query().convert().sort()
+            results = sparql.query().convert()
             for result in results["results"]["bindings"]:
                 viewlist.append(str(result[queryvar]["value"]))
         print(viewlist)
@@ -911,7 +911,7 @@ class SPAQLunicorn:
         self.dlg.queryVarEdit.setText("geo")	
         self.dlg.queryVarEdit.setMinimumSize(100, 20)	
         queryVarItemLabel = QLabel("Item Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarItemLabel.move(270,100)	
+        queryVarItemLabel.move(300,100)	
         self.dlg.queryVarItemEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.queryVarItemEdit.move(370,100)	
         self.dlg.queryVarItemEdit.setText("item")	
@@ -1562,6 +1562,7 @@ class SPAQLunicorn:
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.layerconcepts.clear()
+        self.dlg.queryTemplates.clear()
         print("changing endpoint")
         conceptlist=[]
         if (not "staticconcepts" in self.triplestoreconf[endpointIndex] or self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
@@ -1574,6 +1575,9 @@ class SPAQLunicorn:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
                  self.dlg.areaconcepts.addItem(concept)
+        if "querytemplate" in self.triplestoreconf[endpointIndex]:
+            for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
+                 self.dlg.queryTemplates.addItem(concept["label"])
         if "examplequery" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
 
@@ -1661,17 +1665,16 @@ class SPAQLunicorn:
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        #if endpointIndex==1:
-            if self.dlg.layerconcepts.currentText()=="":
-                concept="1248784"
-            else:
-                concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex+1][self.dlg.queryTemplates.currentText()].replace("%%concept%%",concept))
-            if "#" in self.dlg.layerconcepts.currentText():
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-            else:
-                self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
+        if "(Q" in self.dlg.layerconcepts.currentText():
+            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
+            concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
+        else:
+            concept=self.dlg.layerconcepts.currentText()
+        self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+        if "#" in self.dlg.layerconcepts.currentText():
+            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
+        else:
+            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
 
     def run(self):
         """Run method that performs all the real work"""
