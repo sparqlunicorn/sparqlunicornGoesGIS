@@ -29,8 +29,8 @@ from qgis.utils import iface
 from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QThread,QCoreApplication,QObject,QRegExp, Qt,pyqtSignal
-from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget
+from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter,QTextCursor
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget, QToolTip
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
@@ -373,6 +373,39 @@ class GeoConceptsWorker(QObject):
         self.finished.emit()
 
 
+class ToolTipPlainText(QPlainTextEdit):      
+
+    def __init__(self,parent=None):
+        super(self.__class__, self).__init__(parent)
+        self.setMouseTracking(True)
+        
+    def mouseMoveEvent(self, event):
+        textCursor = self.cursorForPosition(event.pos())
+        textCursor.select(QTextCursor.WordUnderCursor)
+        word = textCursor.selectedText()
+        #
+            #msgBox=QMessageBox()
+            #msgBox.setText(word)
+            #msgBox.exec()
+            
+        #while not word.endswith(" "):
+        #    self.setPosition(self.anchor()+1,QtGui.QTextCursor.KeepAnchor)
+        #    word = textCursor.selectedText()        
+        #if not word.startswith(" "):
+            
+        if True: #"http" in word:
+            #if not word.endswith(' '):
+                #self.moveCursor(QTextCursor.NextCharacter,QTextCursor.KeepAnchor)
+                #word = textCursor.selectedText()
+            toolTipText = word
+            # Put the hover over in an easy to read spot
+            pos = self.cursorRect(self.textCursor()).bottomRight()
+            # The pos could also be set to event.pos() if you want it directly under the mouse
+            pos = self.mapToGlobal(pos)
+            QToolTip.showText(event.screenPos().toPoint(), word)
+        #textCursor.clearSelection()
+        #self.setTextCursor(self.textCursor())
+
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
 
@@ -491,16 +524,6 @@ class SPAQLunicorn:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
 
-    def tooltipOverWord(self,event):
-        textCursor = self.cursorForPosition(event.pos())
-        textCursor.select(QTextCursor.WordUnderCursor)
-        text.setTextCursor(textCursor)
-        word = textCursor.selectedText()
-        toolTipText = word
-        # Put the hover over in an easy to read spot
-        pos = text.cursorRect(text.textCursor()).bottomRight()
-        # The pos could also be set to event.pos() if you want it directly under the mouse
-        pos = text.mapToGlobal(pos)
 
     def validateSPARQL(self):
         try:
@@ -1697,7 +1720,13 @@ class SPAQLunicorn:
             self.triplestoreconf = json.loads(data)
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
-            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
+            self.dlg.inp_sparql.hide()
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg)
+            self.dlg.inp_sparql2.move(10,130)
+            self.dlg.inp_sparql2.setMinimumSize(941,401)
+            self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
+            self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql2,self.dlg.errorLabel)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
