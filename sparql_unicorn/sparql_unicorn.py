@@ -738,7 +738,7 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-    def getGeoConcepts(self,triplestoreurl,query,queryvar,graph):
+    def getGeoConcepts(self,triplestoreurl,query,queryvar,graph,getlabels):
         viewlist=[]
         resultlist=[]
         if graph!=None:
@@ -754,20 +754,31 @@ class SPAQLunicorn:
             for result in results["results"]["bindings"]:
                 viewlist.append(str(result[queryvar]["value"]))
         print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")			
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
+        if getlabels:
+            labels=self.getLabelsForClasses(viewlist,self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"],self.dlg.comboBox.currentIndex())
+            print(labels)
+            self.dlg.layercount.setText("["+str(len(labels))+"]")
+            i=0
+            sorted_labels=sorted(labels.items(),key=lambda x:x[1])
+            for lab in sorted_labels:
+                resultlist.append(labels[lab[0]]+"("+lab[0]+")")
+                i=i+1	
+            return resultlist
         return viewlist        
 
     """Extracts geographic WKT concepts from Wikidata."""
+    """
     def getGeoConceptsFromWikidata(self):
         viewlist=[]
         resultlist=[]
         sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery(
-        """SELECT DISTINCT ?class
+        SELECT DISTINCT ?class
         WHERE {
           ?a <http://www.wikidata.org/prop/direct/P31> ?class .
           ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .
-        } LIMIT 500""")
+        } LIMIT 500)
         print("now sending query")
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
@@ -783,6 +794,8 @@ class SPAQLunicorn:
             resultlist.append(labels[lab[0]]+"("+lab[0]+")")
             i=i+1			
         return resultlist
+    """
+
 
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self):
@@ -790,15 +803,15 @@ class SPAQLunicorn:
         resultlist=[]
         label=self.dlg.conceptSearchEdit.text()
         language="en"
-        result={}
+        results={}
         self.dlg.searchResult.clear()
+        query=""
         if self.dlg.currentcol==4:
-            query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["propertyfromlabelquery"]
-            results=self.getLabelsForClasses(label,query,self.dlg.comboBox.currentIndex())#self.getPIDsForLabels(label)
+            if "propertyfromlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
+                query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["propertyfromlabelquery"].replace("%%label%%",label)
         else:
-            query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classfromlabelquery"]
-            results=self.getLabelsForClasses(label,query,self.dlg.comboBox.currentIndex())
-            #results=self.getQIDsForLabels(label)
+            if "classfromlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
+                query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classfromlabelquery"].replace("%%label%%",label)
         if "SELECT" in query:
             query=query.replace("%%label%%",label).replace("%%language%%",language)
             sparql = SPARQLWrapper(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
@@ -811,18 +824,18 @@ class SPAQLunicorn:
                 item.setText(str(res["label"]["value"]))
                 self.dlg.searchResult.addItem(item)
         else:
-            myResponse = json.loads(requests.get(url).text)
+            myResponse = json.loads(requests.get(query).text)
             for ent in myResponse["search"]:
                 qid=ent["url"]
                 label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-                result[qid]=label    
+                results[qid]=label    
             for result in results:
                 item=QListWidgetItem()
                 item.setData(0,result)
                 item.setText(str(results[result]))
                 self.dlg.searchResult.addItem(item)
         return viewlist
-		
+	
     """Returns properties for a given label from a triple store.
     def getPropertiesFromLabel(self):
         viewlist=[]
@@ -851,7 +864,7 @@ class SPAQLunicorn:
             for qid in classes:
                 vals+=qid+" "
             vals+="}\n"
-            query=query.replace("%%classes%%",vals)
+            query=query.replace("%%concepts%%",vals)
             sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
             sparql.setQuery(query)
             sparql.setReturnFormat(JSON)
@@ -859,14 +872,15 @@ class SPAQLunicorn:
             for res in results["results"]["bindings"]:
                 result[res["class"]["value"]]=res["label"]["value"]
         else:
+            url=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"]
             i=0
             qidquery=""
             for qid in classes:
                 if "Q" in qid:
                     qidquery+="Q"+qid.split("Q")[1]
                 if (i%50)==0:
-                    print(query+qidquery+"&languages=en&format=json")
-                    myResponse = json.loads(requests.get(query+qidquery+"&languages=en&format=json").text)
+                    print(url.replace("%%concepts%%",qidquery))
+                    myResponse = json.loads(requests.get(url.replace("%%concepts%%",qidquery)).text)
                     print(myResponse)
                     for ent in myResponse["entities"]:
                         print(ent)
@@ -878,7 +892,7 @@ class SPAQLunicorn:
                 i=i+1
         return result
     
-    
+    """
     def getWikidataLabelsForQIDs(self,qids):
         result={}
         url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
@@ -899,7 +913,8 @@ class SPAQLunicorn:
                 qidquery+="|"
             i=i+1
         return result
-    
+    """
+
     def buildCustomTripleStoreDialog(self):	
         self.dlg.searchTripleStoreDialog = QDialog()	
         self.dlg.searchTripleStoreDialog.setMinimumSize(650, 400)	
@@ -1002,27 +1017,7 @@ class SPAQLunicorn:
         for i in range(self.dlg.prefixList.count()):	
             curprefixes+=self.dlg.prefixList.item(i).text()	
         self.dlg.searchTripleStoreDialog.close()
-    """
-    def getQIDsForLabels(self,label):
-        result={}
-        url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=item"
-        myResponse = json.loads(requests.get(url).text)
-        for ent in myResponse["search"]:
-            qid=ent["url"]
-            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-            result[qid]=label
-        return result
-		
-    def getPIDsForLabels(self,label):
-        result={}
-        url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+label+"&format=json&language=en&uselang=en&type=property"
-        myResponse = json.loads(requests.get(url).text)
-        for ent in myResponse["search"]:
-            qid=ent["url"]
-            label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-            result[qid]=label
-        return result
-    """
+
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
@@ -1600,7 +1595,7 @@ class SPAQLunicorn:
         conceptlist=[]
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
             self.dlg.layerconcepts.clear()
-            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None)
+            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
             self.dlg.layerconcepts.clear()
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
@@ -1700,7 +1695,7 @@ class SPAQLunicorn:
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        if "(Q" in self.dlg.layerconcepts.currentText():
+        if self.dlg.layerconcepts.currentText()!=None and "(Q" in self.dlg.layerconcepts.currentText():
             self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
             concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
