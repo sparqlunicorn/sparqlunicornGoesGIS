@@ -800,7 +800,7 @@ class SPAQLunicorn:
                 viewlist.append(str(result[queryvar]["value"]))
         print(viewlist)
         self.dlg.layercount.setText("["+str(len(viewlist))+"]")
-        if getlabels:
+        if getlabels and "classlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"]!="":
             labels=self.getLabelsForClasses(viewlist,self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"],self.dlg.comboBox.currentIndex())
             print(labels)
             self.dlg.layercount.setText("["+str(len(labels))+"]")
