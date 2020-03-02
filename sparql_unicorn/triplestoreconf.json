@@ -98,7 +98,7 @@
 "name":"Ordnance Survey Ireland",
 "prefixes":"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> Prefix osi: <http://ontologies.geohive.ie/osi#> ",
 "endpoint":"http://sandbox.mainzed.org/osi/sparql",
-"mandatoryvariables":["item","lat","lon"],
+"mandatoryvariables":["item","geo"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
 "geoconceptlimit":500,
 "querytemplate":[{"label":"Default","query":"SELECT ?item ?label ?geo WHERE {\n ?item a <%%concept%%>.\n ?item rdfs:label ?label.\n FILTER (lang(?label) = 'en') ?item ogc:hasGeometry [ ogc:asWKT ?geo ] .\n } LIMIT 10"}],

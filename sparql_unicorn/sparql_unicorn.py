@@ -753,7 +753,7 @@ class SPAQLunicorn:
                   missingmandvars.append("?"+mandvar)
         if missingmandvars!=[]:
             msgBox=QMessageBox()
-            msgBox.setText("The SPARQL query is missing the following mandatory variables: "+missingmandvars)
+            msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery(self.triplestoreconf[endpointIndex]["prefixes"] + query)
