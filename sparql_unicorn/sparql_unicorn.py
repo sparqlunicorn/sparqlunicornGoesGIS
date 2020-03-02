@@ -30,7 +30,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QThread,QCoreApplication,QObject,QRegExp, Qt,pyqtSignal
 from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter,QTextCursor
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget, QToolTip
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit,QCompleter, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget, QToolTip
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
@@ -810,37 +810,7 @@ class SPAQLunicorn:
                 resultlist.append(labels[lab[0]]+"("+lab[0]+")")
                 i=i+1	
             return resultlist
-        return viewlist        
-
-    """Extracts geographic WKT concepts from Wikidata."""
-    """
-    def getGeoConceptsFromWikidata(self):
-        viewlist=[]
-        resultlist=[]
-        sparql = SPARQLWrapper("https://query.wikidata.org/sparql", agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        SELECT DISTINCT ?class
-        WHERE {
-          ?a <http://www.wikidata.org/prop/direct/P31> ?class .
-          ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .
-        } LIMIT 500)
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        for result in results["results"]["bindings"]:
-            viewlist.append(str(result["class"]["value"]))
-        print(viewlist)
-        labels=self.getWikidataLabelsForQIDs(viewlist)
-        print(labels)
-        self.dlg.layercount.setText("["+str(len(labels))+"]")
-        i=0
-        sorted_labels=sorted(labels.items(),key=lambda x:x[1])
-        for lab in sorted_labels:
-            resultlist.append(labels[lab[0]]+"("+lab[0]+")")
-            i=i+1			
-        return resultlist
-    """
-
+        return viewlist
 
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self):
@@ -936,29 +906,6 @@ class SPAQLunicorn:
                     qidquery+="|"
                 i=i+1
         return result
-    
-    """
-    def getWikidataLabelsForQIDs(self,qids):
-        result={}
-        url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
-        i=0
-        qidquery=""
-        for qid in qids:
-            qidquery+="Q"+qid.split("Q")[1]
-            if (i%50)==0:
-                print(url+qidquery+"&languages=en&format=json")
-                myResponse = json.loads(requests.get(url+qidquery+"&languages=en&format=json").text)
-                print(myResponse)
-                for ent in myResponse["entities"]:
-                    print(ent)
-                    if "en" in myResponse["entities"][ent]["labels"]:
-                        result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
-                qidquery=""
-            else:
-                qidquery+="|"
-            i=i+1
-        return result
-    """
 
     def buildCustomTripleStoreDialog(self):	
         self.dlg.searchTripleStoreDialog = QDialog()	
@@ -1571,6 +1518,10 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.clear()
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
+            comp=QCompleter(self.dlg.layerconcepts)
+            comp.setCompletionMode(QCompleter.PopupCompletion)
+            comp.setModel(self.dlg.layerconcepts.model())
+            self.dlg.layerconcepts.setCompleter(comp)
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
             self.loadedfromfile=True
             self.justloadingfromfile=False
@@ -1618,13 +1569,17 @@ class SPAQLunicorn:
     """
     
     def loadGraphGUI(self):
-         self.dlg.layercount.setText("["+str(len(viewlist))+"]")		
-         for geo in geoconcepts:
-                self.dlg.layerconcepts.addItem(geo)
-         self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
-         self.loadedfromfile=True
-         self.justloadingfromfile=False
-         return result
+        self.dlg.layercount.setText("["+str(len(viewlist))+"]")		
+        for geo in geoconcepts:
+            self.dlg.layerconcepts.addItem(geo)
+        comp=QCompleter(self.dlg.layerconcepts)
+        comp.setCompletionMode(QCompleter.PopupCompletion)
+        comp.setModel(self.dlg.layerconcepts.model())
+        self.dlg.layerconcepts.setCompleter(comp)
+        self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+        self.loadedfromfile=True
+        self.justloadingfromfile=False
+        return result
     
     def getWikidataAreaConcepts(self):
         resultlist=[]
@@ -1663,6 +1618,10 @@ class SPAQLunicorn:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
         for concept in conceptlist:
             self.dlg.layerconcepts.addItem(concept)
+        comp=QCompleter(self.dlg.layerconcepts)
+        comp.setCompletionMode(QCompleter.PopupCompletion)
+        comp.setModel(self.dlg.layerconcepts.model())
+        self.dlg.layerconcepts.setCompleter(comp)
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
@@ -1818,6 +1777,8 @@ class SPAQLunicorn:
             self.dlg.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
             self.dlg.layerconcepts.clear()
+            self.dlg.layerconcepts.setEditable(True)
+            self.dlg.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
