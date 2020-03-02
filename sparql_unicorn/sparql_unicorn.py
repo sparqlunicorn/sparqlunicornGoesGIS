@@ -609,7 +609,9 @@ class SPAQLunicorn:
 
     def processResults(self,results,reproject,mandatoryvars):
         latval=mandatoryvars[0]
-        lonval=mandatoryvars[1]
+        lonval=""
+        if len(mandatoryvars)>1:
+            lonval=mandatoryvars[1]
         features = []
         first=True
         newobject=True
@@ -1696,7 +1698,7 @@ class SPAQLunicorn:
             self.justloadingfromfile=False
             return
         if self.dlg.layerconcepts.currentText()!=None and "(Q" in self.dlg.layerconcepts.currentText():
-            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0]).lower().replace(" ","_")
+            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0].lower().replace(" ","_"))
             concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
             concept=self.dlg.layerconcepts.currentText()
