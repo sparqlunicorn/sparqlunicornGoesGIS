@@ -330,6 +330,49 @@ class SPARQLHighlighter (QSyntaxHighlighter):
 
 geoconcepts=""
 
+
+class GeoConceptsThread(QThread):
+    signal = pyqtSignal('PyQt_PyObject')
+
+    query=""
+    
+    triplestoreurl=""
+   
+    graph=None
+
+    def __init__(self,query,url,graph):
+        QThread.__init__(self)
+        #self.git_url = ""
+        self.query=query
+        self.triplestoreurl=url
+        self.graph=graph
+
+    # run method gets called when we start the thread
+    def run(self):
+        print("THREADSTART")
+        viewlist=[]
+        print(self.query)
+        print(self.triplestoreurl)
+        print(self.graph)
+        if self.graph!=None:
+            print("WE HAVE A GRAPH")
+            results = self.graph.query(self.query)
+            for row in results:
+                viewlist.append(str(row[0]))
+        else:
+            sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(self.query)
+            print("now sending query")
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            for result in results["results"]["bindings"]:
+                viewlist.append(str(result[queryvar]["value"]))
+        print(viewlist)	
+        #geoconcepts=viewlist
+        #self.signal.emit(tmpdir)
+        # git clone done, now inform the main thread with the output
+
+
 class GeoConceptsWorker(QObject):
     finished = pyqtSignal()
     intReady = pyqtSignal(int)
@@ -365,7 +408,7 @@ class GeoConceptsWorker(QObject):
             sparql.setQuery(self.query)
             print("now sending query")
             sparql.setReturnFormat(JSON)
-            results = sparql.query().convert().sort()
+            results = sparql.query().convert()
             for result in results["results"]["bindings"]:
                 viewlist.append(str(result[queryvar]["value"]))
         print(viewlist)	
@@ -1524,7 +1567,7 @@ class SPAQLunicorn:
             result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
             print(g)
             self.currentgraph=g
-            geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
+            geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g,False)
             self.dlg.layerconcepts.clear()
             for geo in geoconcepts:
                 self.dlg.layerconcepts.addItem(geo)
@@ -1534,8 +1577,25 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(0)
             return result
         return None
+    """
+    def loadGraph(self):
+        dialog = QFileDialog(self.dlg)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        self.justloadingfromfile=True
+        if dialog.exec_():
+            fileNames = dialog.selectedFiles()
+            g = rdflib.Graph()
+            filepath=fileNames[0].split(".")
+            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
+            print(g)
+            self.currentgraph=g
+            self.dlg.layerconcepts.clear()
+            worker_thread = GeoConceptsThread(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            worker_thread.finished.connect(self.loadGraphGUI)
+            worker_thread.start()
+            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
+        #return None
 
-    """		
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
