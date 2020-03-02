@@ -44,8 +44,9 @@
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
 "geoconceptlimit":500,
-"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item geo:location ?loc .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
 "staticconcepts":["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing","http://www.w3.org/2004/02/skos/core#Concept","http://nomisma.org/ontology#Mint","http://nomisma.org/ontology#Region"],
+"bboxquery":{"type":"pointdistance","query":"?loc spatial:nearby (%%lat%% %%lon%% %%width%% 'km') ."},
 "active":true
 },
 {
@@ -85,6 +86,7 @@
 },
 {
 "name":"Geonames",
+"bboxquery":{"type":"pointdistance","query":"FILTER(bif:st_within(bif:st_point(?lon, ?lat), bif:st_point(%%lon%%,%%lat%%),%%width%%))"},
 "prefixes":"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX gn:<http://www.geonames.org/ontology#> Prefix geom: <http://geovocab.org/geometry#> Prefix ogc: <http://www.opengis.net/ont/geosparql#> Prefix owl: <http://www.w3.org/2002/07/owl#> prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
 "endpoint":"http://factforge.net/repositories/ff-news",
 "mandatoryvariables":["item","lat","lon"],
