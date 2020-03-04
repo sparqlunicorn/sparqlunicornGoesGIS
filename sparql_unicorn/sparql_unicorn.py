@@ -967,6 +967,9 @@ class SPAQLunicorn:
         tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)	
         tripleStoreApplyButton.move(10,370)	
         tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
+        tripleStoreApplyButton = QPushButton("Reset Configuration",self.dlg.searchTripleStoreDialog)	
+        tripleStoreApplyButton.move(330,370)	
+        tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
         self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.dlg.searchTripleStoreDialog.exec_()	
 
@@ -1717,7 +1720,15 @@ class SPAQLunicorn:
     def saveTripleStoreConfig(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf_personal.json'),'w') as myfile:
-            myfile.write(json.dumps(self.triplestoreconf))
+            myfile.write(json.dumps(self.triplestoreconf,indent=2))
+
+    def resetTripleStoreConfig(self):
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
+               data=myfile.read()
+        self.triplestoreconf = json.loads(data)
+        with open(os.path.join(__location__, 'triplestoreconf_personal.json'),'w') as myfile:
+            myfile.write(json.dumps(self.triplestoreconf,indent=2))
 
     def viewselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
@@ -1758,6 +1769,7 @@ class SPAQLunicorn:
                     data=myfile.read()
             # parse file 
             self.triplestoreconf = json.loads(data)
+            self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             #self.dlg.inp_sparql.hide()
