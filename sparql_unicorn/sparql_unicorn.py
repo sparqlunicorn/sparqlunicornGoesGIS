@@ -570,7 +570,7 @@ class SPAQLunicorn:
 
     def validateSPARQL(self):
         try:
-            prepareQuery(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"]+"\n"+self.dlg.inp_sparql.toPlainText())
+            prepareQuery("".join(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"])+"\n"+self.dlg.inp_sparql.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
@@ -756,7 +756,7 @@ class SPAQLunicorn:
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(self.triplestoreconf[endpointIndex]["prefixes"] + query)
+        sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + query)
         sparql.setReturnFormat(JSON)
         try:
             results = sparql.query().convert()
