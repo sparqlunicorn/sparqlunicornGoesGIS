@@ -273,6 +273,40 @@
 		"active": true
 	},
 	{
+		"name": "Pleiades",
+		"prefixes": ["PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>",
+			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+			"PREFIX pleiades: <http://pleiades.stoa.org/places/vocab#>",
+			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+			"PREFIX spatial: <http://geovocab.org/spatial#>",
+			"PREFIX placetype: <http://pleiades.stoa.org//plone/vocabularies/place-types/>",
+			"PREFIX timeperiod: <http://pleiades.stoa.org/vocabularies/time-periods/>",
+			"PREFIX dcterms: <http://purl.org/dc/terms/>"
+		],
+		"endpoint": "http://sandbox.mainzed.org/pleiades/sparql",
+		"mandatoryvariables": ["item", "geo"],
+		"geoconceptquery": "",
+		"geoconceptlimit": 500,
+		"querytemplate": [{
+			"label": "Random Places with Locations",
+			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n } LIMIT 100"
+		}, {
+			"label": "Places with Forts",
+			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?place pleiades:hasFeatureType placetype:fort.\n }"
+		}, {
+			"label": "Places with Churches",
+			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?place pleiades:hasFeatureType placetype:church.\n }"
+		}, {
+			"label": "Places in Roman Period",
+			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n }"
+		}, {
+			"label": "Forts in Roman Period",
+			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n ?place pleiades:hasFeatureType placetype:fort.\n }"
+		}],
+		"staticconcepts": ["http://pleiades.stoa.org/places/vocab#Place", "http://www.w3.org/2004/02/skos/core#Concept"],
+		"active": true
+	},
+	{
 		"name": "GND",
 		"prefixes": "",
 		"endpoint": "http://zbw.eu/beta/sparql/econ_pers/query",
