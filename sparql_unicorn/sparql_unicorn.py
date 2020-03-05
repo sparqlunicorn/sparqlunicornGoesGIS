@@ -468,6 +468,8 @@ class SPAQLunicorn:
 	
     triplestoreconf=None
     
+    tripleStoreChooser=None
+    
     vl=""
 
     bboxbuffer=""
@@ -907,71 +909,95 @@ class SPAQLunicorn:
                 i=i+1
         return result
 
+    def loadTripleStoreConfig(self):
+        self.dlg.tripleStoreEdit.setText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["endpoint"])
+        self.dlg.tripleStoreNameEdit.setText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["name"])
+        self.dlg.prefixList.clear()
+        for prefix in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["prefixes"]:
+            self.dlg.prefixList.addItem(prefix)
+
     def buildCustomTripleStoreDialog(self):	
         self.dlg.searchTripleStoreDialog = QDialog()	
-        self.dlg.searchTripleStoreDialog.setMinimumSize(650, 400)	
-        tripleStoreLabel = QLabel("Enter Triple Store URL:",self.dlg.searchTripleStoreDialog)	
-        tripleStoreLabel.move(0,10)	
+        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 600)	
+        tripleStoreChooserLabel = QLabel("Choose Triple Store:",self.dlg.searchTripleStoreDialog)	
+        tripleStoreChooserLabel.move(0,10)
+        self.dlg.tripleStoreChooser=QComboBox(self.dlg.searchTripleStoreDialog)
+        for item in self.triplestoreconf:
+            self.dlg.tripleStoreChooser.addItem(item["name"])
+        self.dlg.tripleStoreChooser.move(150,10)
+        self.dlg.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)    
+        addTripleStoreButton = QPushButton("Add new Triple Store",self.dlg.searchTripleStoreDialog)	
+        addTripleStoreButton.move(350,10)	
+        addTripleStoreButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
+        tripleStoreLabel = QLabel("Triple Store URL:",self.dlg.searchTripleStoreDialog)	
+        tripleStoreLabel.move(0,40)	
         self.dlg.tripleStoreEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStoreEdit.move(150,10)	
+        self.dlg.tripleStoreEdit.move(150,40)	
         self.dlg.tripleStoreEdit.setMinimumSize(350, 20)	
         self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")	
         testConnectButton = QPushButton("Test Connection",self.dlg.searchTripleStoreDialog)	
-        testConnectButton.move(510,10)	
+        testConnectButton.move(510,40)	
         testConnectButton.clicked.connect(self.testTripleStoreConnection)	
-        tripleStoreNameLabel = QLabel("Enter Triple Store Name:",self.dlg.searchTripleStoreDialog)	
-        tripleStoreNameLabel.move(0,40)	
+        tripleStoreNameLabel = QLabel("Triple Store Name:",self.dlg.searchTripleStoreDialog)	
+        tripleStoreNameLabel.move(0,70)	
         self.dlg.tripleStoreNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStoreNameEdit.move(150,40)	
+        self.dlg.tripleStoreNameEdit.move(150,70)	
         self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)	
         self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")	
-        tripleStorePrefix = QLabel("SPARQL Prefix Name:",self.dlg.searchTripleStoreDialog)	
-        tripleStorePrefix.move(0,70)	
+        #tripleStorePrefix = QLabel("SPARQL Prefix Name:",self.dlg.searchTripleStoreDialog)	
+        #tripleStorePrefix.move(0,100)	
         self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixNameEdit.move(150,70)	
+        self.dlg.tripleStorePrefixNameEdit.move(150,130)	
         self.dlg.tripleStorePrefixNameEdit.setText("wd")	
         self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)	
         tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)	
-        tripleStorePrefixName.move(270,70)	
+        tripleStorePrefixName.move(10,130)	
         addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)	
-        addPrefixButton.move(510,70)	
+        addPrefixButton.move(560,130)	
         addPrefixButton.clicked.connect(self.addPrefixToList)	
         queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarLabel.move(0,100)	
+        queryVarLabel.move(0,105)	
         self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.queryVarEdit.move(150,100)	
         self.dlg.queryVarEdit.setText("geo")	
         self.dlg.queryVarEdit.setMinimumSize(100, 20)	
         queryVarItemLabel = QLabel("Item Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarItemLabel.move(300,100)	
+        queryVarItemLabel.move(305,105)	
         self.dlg.queryVarItemEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.queryVarItemEdit.move(370,100)	
+        self.dlg.queryVarItemEdit.move(400,100)	
         self.dlg.queryVarItemEdit.setText("item")	
         self.dlg.queryVarItemEdit.setMinimumSize(100, 20)	
         prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)	
-        prefixListLabel.move(20,130)	
+        prefixListLabel.move(20,160)	
         self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)	
-        self.dlg.prefixList.move(20,150)	
+        self.dlg.prefixList.move(20,180)	
         self.dlg.prefixList.setMinimumSize(300,200)	
         exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)	
-        exampleQueryLabel.move(330,130)	
+        exampleQueryLabel.move(330,160)	
         exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)	
-        exampleQuery.move(330,150)	
+        exampleQuery.move(330,180)	
         exampleQuery.setMinimumSize(300,200)	
         exampleQuery.textChanged.connect(self.validateSPARQL)	
         sparqlhighlighter = SPARQLHighlighter(exampleQuery,self.dlg.errorLabel)	
+        #self.dlg.queryChooser=QComboBox(self.dlg.searchTripleStoreDialog)
         self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixEdit.move(310,70)	
+        self.dlg.tripleStorePrefixEdit.move(310,130)	
         self.dlg.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")	
-        self.dlg.tripleStorePrefixEdit.setMinimumSize(200, 20)	
+        self.dlg.tripleStorePrefixEdit.setMinimumSize(250, 20)	
         tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)	
-        tripleStoreApplyButton.move(10,370)	
+        tripleStoreApplyButton.move(10,480)	
         tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
+        tripleStoreCloseButton = QPushButton("Close",self.dlg.searchTripleStoreDialog)	
+        tripleStoreCloseButton.move(100,480)	
+        tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)	
         tripleStoreApplyButton = QPushButton("Reset Configuration",self.dlg.searchTripleStoreDialog)	
-        tripleStoreApplyButton.move(330,370)	
+        tripleStoreApplyButton.move(330,480)	
         tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
         self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.dlg.searchTripleStoreDialog.exec_()	
+
+    def closeTripleStoreDialog(self):
+        self.dlg.searchTripleStoreDialog.close()
 
     def testTripleStoreConnection(self,calledfromotherfunction=False):	
         sparql = SPARQLWrapper(self.dlg.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
@@ -1008,14 +1034,15 @@ class SPAQLunicorn:
            return	
         self.endpoints.append(self.dlg.tripleStoreEdit.text())	
         self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())	
-        curprefixes=""	
+        curprefixes=[]	
         for i in range(self.dlg.prefixList.count()):	
-            curprefixes+=self.dlg.prefixList.item(i).text()	
-        self.dlg.searchTripleStoreDialog.close()
+            curprefixes.append(self.dlg.prefixList.item(i).text()	)
         index=len(self.dlg.triplestoreconf)
         self.dlg.triplestoreconf[index]={}
         self.dlg.triplestoreconf[index]["endpoint"]=self.dlg.tripleStoreEdit.text()
         self.dlg.triplestoreconf[index]["name"]=self.dlg.tripleStoreNameEdit.text()	
+        self.dlg.triplestoreconf[index]["prefixes"]=curprefixes
+        self.dlg.triplestoreconf[index]["prefixes"]=curprefixes	
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
