@@ -769,7 +769,7 @@ class SPAQLunicorn:
             return            
         #print(results)
         # geojson stuff
-        geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:])
+        geojson=self.processResults(results,(str(self.triplestoreconf[endpointIndex]["crs"]) if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:])
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
@@ -944,8 +944,6 @@ class SPAQLunicorn:
         self.dlg.tripleStoreNameEdit.move(150,70)	
         self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)	
         self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")	
-        #tripleStorePrefix = QLabel("SPARQL Prefix Name:",self.dlg.searchTripleStoreDialog)	
-        #tripleStorePrefix.move(0,100)	
         self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.tripleStorePrefixNameEdit.move(150,130)	
         self.dlg.tripleStorePrefixNameEdit.setText("wd")	

@@ -326,6 +326,7 @@
 			"label": "Load AtlantGIS",
 			"query": "SELECT ?item ?geo WHERE {\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
 		}],
+		"crs":4326,
 		"staticconcepts": ["http://atlantgis.squirrel.link/ontology#ArchaeologicalSite",
 			"http://atlantgis.squirrel.link/ontology#CoastLine",
 			"http://atlantgis.squirrel.link/ontology#LandType",
