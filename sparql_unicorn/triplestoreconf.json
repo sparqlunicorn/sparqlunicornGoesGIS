@@ -307,6 +307,36 @@
 		"active": true
 	},
 	{
+		"name": "Atlantgis",
+		"prefixes": ["PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>",
+			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+			"PREFIX atlantgis: <http://atlantgis.squirrel.link/ontology#>",
+			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>",
+			"PREFIX spatial: <http://geovocab.org/spatial#>",
+			"PREFIX dcterms: <http://purl.org/dc/terms/>"
+		],
+		"endpoint": "http://sandbox.mainzed.org/atlantgis/sparql",
+		"mandatoryvariables": ["item", "geo"],
+		"geoconceptquery": "",
+		"geoconceptlimit": 500,
+		"querytemplate": [{
+			"label": "100 Random Geometries",
+			"query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 100"
+		}, {
+			"label": "Load AtlantGIS",
+			"query": "SELECT ?item ?geo WHERE {\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
+		}],
+		"staticconcepts": ["http://atlantgis.squirrel.link/ontology#ArchaeologicalSite",
+			"http://atlantgis.squirrel.link/ontology#CoastLine",
+			"http://atlantgis.squirrel.link/ontology#LandType",
+			"http://atlantgis.squirrel.link/ontology#Goldkupfererz",
+			"http://atlantgis.squirrel.link/ontology#Zinn",
+			"http://atlantgis.squirrel.link/ontology#Silber",
+			"http://atlantgis.squirrel.link/ontology#Stream",
+			"http://atlantgis.squirrel.link/ontology#Voronoi"
+		],
+		"active": true
+	}, {
 		"name": "GND",
 		"prefixes": "",
 		"endpoint": "http://zbw.eu/beta/sparql/econ_pers/query",
