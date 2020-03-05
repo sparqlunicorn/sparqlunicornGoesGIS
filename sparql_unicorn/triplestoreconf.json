@@ -15,7 +15,11 @@
 "bboxquery":{"type":"minmax","query":"SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"},
 "mandatoryvariables":["item","geo"],
 "querytemplate":[
-{"label":"Item+Label","query":"SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"},{"label":"All Attributes","query":"SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"}
+{"label":"Item+Label","query":"SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"},
+{"label":"All Attributes","query":"SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"},
+{"label":"100 Hospitals","query":"SELECT ?label ?geo ?item WHERE {\n ?item ((wdt:P31*)/(wdt:P279*)) wd:Q16917; #Hospital\n wdt:P625 ?geo;\n rdfs:label ?label.\n  FILTER((LANG(?label)) = \"en\")}"},
+{"label":"Castles as archaeological sites","query":"SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q839954; #archaeologicalSite\n (wdt:P31/(wdt:P279*)) wd:Q23413; #Castle\n wdt:P625 ?geo;\n rdfs:label ?label.\n FILTER((LANG(?label)) = \"en\")\n}"},
+{"label":"Ogham Stones","query":"SELECT ?label ?geo ?item WHERE {\n ?item wdt:P31 wd:Q2016147; #Ogam Stone\n wdt:P361 wd:Q67978809;\n wdt:P195 ?collection.\nOPTIONAL { ?item wdt:P625 ?geo. }\nOPTIONAL {\n?item rdfs:label ?label.\nFILTER((LANG(?label)) = \"en\")\n}\nOPTIONAL {\n?collection rdfs:label ?collectionLabel.\nFILTER((LANG(?collectionLabel)) = \"en\")\n}\n}"}
 ],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE {\n ?a <http://www.wikidata.org/prop/direct/P31> ?class .\n ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .\n} LIMIT 500",
 "classlabelquery":"https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=en&format=json&ids=%%concepts%%",
@@ -67,7 +71,9 @@
 "mandatoryvariables":["item","lat","lon"],
 "geoconceptquery":"SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
 "geoconceptlimit":500,
-"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"}],
+"querytemplate":[{"label":"All Attributes","query":"SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"},
+{"label":"Item+Label","query":"SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"},
+{"label":"Restaurants in Mainz","query":"SELECT ?item ?label ?geo FROM <http://linkedgeodata.org> WHERE {\n ?item a lgdo:Restaurant ;\n rdfs:label ?label ;\ngeom:geometry [ ogc:asWKT ?geo ] .\nFilter (bif:st_intersects (?geo, bif:st_point (8.274167,49.998889),0.5)) .\n}"}],
 "staticconcepts":[],
 "bboxquery":{"type":"pointdistance","query":"Filter(bif:st_intersects (?geo, bif:st_point (%%lat%%,%%lon%%),%%width%%))"},
 "active":true
