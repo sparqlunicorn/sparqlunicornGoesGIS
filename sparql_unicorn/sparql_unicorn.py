@@ -29,7 +29,7 @@ from qgis.utils import iface
 from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QThread,QCoreApplication,QObject,QRegExp, Qt,pyqtSignal
-from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter,QTextCursor
+from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter,QTextCursor,QIntValidator,QRegExpValidator,QValidator
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit,QCompleter, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget, QToolTip
 from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
@@ -463,6 +463,8 @@ class SPAQLunicorn:
     currentgraph=None
 	
     currentcol=-1
+	
+    epsgEdit=-1
 	
     interlinkOrEnrich=True
 	
@@ -915,6 +917,27 @@ class SPAQLunicorn:
         self.dlg.prefixList.clear()
         for prefix in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["prefixes"]:
             self.dlg.prefixList.addItem(prefix)
+        if "crs" in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]:
+            self.dlg.epsgEdit.setText(str(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["crs"]))
+        else:
+            self.dlg.epsgEdit.setText("4326")
+
+    def check_state1(self):
+        self.check_state(self.dlg.tripleStoreEdit)
+
+    def check_state2(self):
+        self.check_state(self.dlg.tripleStorePrefixEdit)
+
+    def check_state(self,sender):
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if state == QValidator.Acceptable:
+            color = '#c4df9b' # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a' # yellow
+        else:
+            color = '#f6989d' # red
+        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     def buildCustomTripleStoreDialog(self):	
         self.dlg.searchTripleStoreDialog = QDialog()	
@@ -931,10 +954,15 @@ class SPAQLunicorn:
         addTripleStoreButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         tripleStoreLabel = QLabel("Triple Store URL:",self.dlg.searchTripleStoreDialog)	
         tripleStoreLabel.move(0,40)	
+        urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+        urlvalidator = QRegExpValidator(urlregex, self.dlg.searchTripleStoreDialog)
         self.dlg.tripleStoreEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.tripleStoreEdit.move(150,40)	
         self.dlg.tripleStoreEdit.setMinimumSize(350, 20)	
-        self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")	
+        self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")
+        self.dlg.tripleStoreEdit.setValidator(urlvalidator)
+        self.dlg.tripleStoreEdit.textChanged.connect(self.check_state1)
+        self.dlg.tripleStoreEdit.textChanged.emit(self.dlg.tripleStoreEdit.text())
         testConnectButton = QPushButton("Test Connection",self.dlg.searchTripleStoreDialog)	
         testConnectButton.move(510,40)	
         testConnectButton.clicked.connect(self.testTripleStoreConnection)	
@@ -944,17 +972,8 @@ class SPAQLunicorn:
         self.dlg.tripleStoreNameEdit.move(150,70)	
         self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)	
         self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")	
-        self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixNameEdit.move(150,130)	
-        self.dlg.tripleStorePrefixNameEdit.setText("wd")	
-        self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)	
-        tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)	
-        tripleStorePrefixName.move(10,130)	
-        addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)	
-        addPrefixButton.move(560,130)	
-        addPrefixButton.clicked.connect(self.addPrefixToList)	
         queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarLabel.move(0,105)	
+        queryVarLabel.move(10,105)	
         self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.queryVarEdit.move(150,100)	
         self.dlg.queryVarEdit.setText("geo")	
@@ -965,22 +984,44 @@ class SPAQLunicorn:
         self.dlg.queryVarItemEdit.move(400,100)	
         self.dlg.queryVarItemEdit.setText("item")	
         self.dlg.queryVarItemEdit.setMinimumSize(100, 20)	
+        epsgLabel = QLabel("EPSG Code:",self.dlg.searchTripleStoreDialog)	
+        epsgLabel.move(10,125)	
+        self.dlg.epsgEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
+        self.dlg.epsgEdit.move(150,125)	
+        self.dlg.epsgEdit.setText("4326")
+        self.dlg.epsgEdit.setValidator(QIntValidator(1, 100000))
+        self.dlg.epsgEdit.setMinimumSize(100, 20)
+        prefixregex = QRegExp("[a-z]+")
+        prefixvalidator = QRegExpValidator(prefixregex, self.dlg.searchTripleStoreDialog)
+        self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
+        self.dlg.tripleStorePrefixNameEdit.move(150,150)	
+        self.dlg.tripleStorePrefixNameEdit.setText("wd")	
+        self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)	
+        self.dlg.tripleStorePrefixNameEdit.setValidator(prefixvalidator)
+        tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)	
+        tripleStorePrefixName.move(10,150)	
+        addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)	
+        addPrefixButton.move(560,150)	
+        addPrefixButton.clicked.connect(self.addPrefixToList)	
         prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)	
-        prefixListLabel.move(20,160)	
+        prefixListLabel.move(20,180)	
         self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)	
-        self.dlg.prefixList.move(20,180)	
+        self.dlg.prefixList.move(20,200)	
         self.dlg.prefixList.setMinimumSize(300,200)	
         exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)	
-        exampleQueryLabel.move(330,160)	
+        exampleQueryLabel.move(330,180)	
         exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)	
-        exampleQuery.move(330,180)	
+        exampleQuery.move(330,200)	
         exampleQuery.setMinimumSize(300,200)	
         exampleQuery.textChanged.connect(self.validateSPARQL)	
         sparqlhighlighter = SPARQLHighlighter(exampleQuery,self.dlg.errorLabel)	
         #self.dlg.queryChooser=QComboBox(self.dlg.searchTripleStoreDialog)
         self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixEdit.move(310,130)	
+        self.dlg.tripleStorePrefixEdit.move(310,150)	
         self.dlg.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")	
+        self.dlg.tripleStorePrefixEdit.setValidator(urlvalidator)
+        self.dlg.tripleStorePrefixEdit.textChanged.connect(self.check_state2)
+        self.dlg.tripleStorePrefixEdit.textChanged.emit(self.dlg.tripleStorePrefixEdit.text())
         self.dlg.tripleStorePrefixEdit.setMinimumSize(250, 20)	
         tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)	
         tripleStoreApplyButton.move(10,480)	
@@ -1040,7 +1081,7 @@ class SPAQLunicorn:
         self.dlg.triplestoreconf[index]["endpoint"]=self.dlg.tripleStoreEdit.text()
         self.dlg.triplestoreconf[index]["name"]=self.dlg.tripleStoreNameEdit.text()	
         self.dlg.triplestoreconf[index]["prefixes"]=curprefixes
-        self.dlg.triplestoreconf[index]["prefixes"]=curprefixes	
+        self.dlg.triplestoreconf[index]["crs"]=self.dlg.epsgEdit.text()	
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
