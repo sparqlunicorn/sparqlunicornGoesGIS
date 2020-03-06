@@ -928,6 +928,9 @@ class SPAQLunicorn:
     def check_state2(self):
         self.check_state(self.dlg.tripleStorePrefixEdit)
 
+    def check_state3(self):
+        self.check_state(self.dlg.interlinkNameSpace)
+
     def check_state(self,sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
@@ -1870,6 +1873,11 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.setEditable(True)
             self.dlg.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+            urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+            urlvalidator = QRegExpValidator(urlregex, self.dlg)
+            self.dlg.interlinkNameSpace.setValidator(urlvalidator)
+            self.dlg.interlinkNameSpace.textChanged.connect(self.check_state3)
+            self.dlg.interlinkNameSpace.textChanged.emit(self.dlg.interlinkNameSpace.text())
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
