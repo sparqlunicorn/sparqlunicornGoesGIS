@@ -326,7 +326,7 @@
 			"label": "Load AtlantGIS",
 			"query": "SELECT ?item ?geo WHERE {\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
 		}],
-		"crs":4326,
+		"crs": 4326,
 		"staticconcepts": ["http://atlantgis.squirrel.link/ontology#ArchaeologicalSite",
 			"http://atlantgis.squirrel.link/ontology#CoastLine",
 			"http://atlantgis.squirrel.link/ontology#LandType",
@@ -335,6 +335,38 @@
 			"http://atlantgis.squirrel.link/ontology#Silber",
 			"http://atlantgis.squirrel.link/ontology#Stream",
 			"http://atlantgis.squirrel.link/ontology#Voronoi"
+		],
+		"active": true
+	}, {
+		"name": "Roman Open Data",
+		"prefixes": ["PREFIX ont: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#>",
+			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+			"PREFIX dcterms: <http://purl.org/dc/terms/>",
+			"PREFIX pleiades: <http://pleiades.stoa.org/places/>",
+			"PREFIX edh: <http://edh-www.adw.uni-heidelberg.de/edh/inschrift/>",
+			"PREFIX ads: <http://data.archaeologydataservice.ac.uk/romanamphorae/>",
+			"PREFIX fabio: <http://purl.org/spar/fabio/>",
+			"PREFIX co: <http://purl.org/co/>",
+			"PREFIX shape: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#shape/>",
+			"PREFIX relief: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#relief/>",
+			"PREFIX placefunc: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#placefunc/>",
+			"PREFIX readir: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#readir/>",
+			"PREFIX amphsect: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#amphsect/>",
+			"PREFIX ink: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ink/>",
+			"PREFIX coctura: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#coctura/>",
+			"PREFIX graffito: <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#sketch/>"
+		],
+		"endpoint": "http://romanopendata.eu/sparql-endpoint",
+		"mandatoryvariables": ["item", "lat", "lon"],
+		"geoconceptquery": "",
+		"geoconceptlimit": 500,
+		"querytemplate": [{
+			"label": "100 Random Geometries",
+			"query": "SELECT * WHERE { ?item a <%%concept%%>.\n ?item ont:hasLatitude ?lat. ?item ont:hasLongitude ?lon. ?item dcterms:title ?title . } ORDER BY ASC(?title) LIMIT 100"
+		}],
+		"crs": 4326,
+		"staticconcepts": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Place",
+			"http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Municipality"
 		],
 		"active": true
 	}, {
