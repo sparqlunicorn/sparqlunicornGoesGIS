@@ -362,7 +362,7 @@
 		"geoconceptlimit": 500,
 		"querytemplate": [{
 			"label": "100 Random Geometries",
-			"query": "SELECT * WHERE { ?item a <%%concept%%>.\n ?item ont:hasLatitude ?lat. ?item ont:hasLongitude ?lon. ?item dcterms:title ?title . } ORDER BY ASC(?title) LIMIT 100"
+			"query": "SELECT * WHERE {\n ?item a <%%concept%%>.\n ?item ont:hasLatitude ?lat.\n ?item ont:hasLongitude ?lon.\n ?item dcterms:title ?title .\n }\n ORDER BY ASC(?title)\n LIMIT 100"
 		}],
 		"crs": 4326,
 		"staticconcepts": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Place",
@@ -393,7 +393,7 @@
 		"geoconceptlimit": 500,
 		"querytemplate": [{
 			"label": "10 Random Geometries",
-			"query": "SELECT ?item ?type ?geo WHERE { ?item a ?type.\n ?item osmm:loc ?geo. } ORDER BY ASC(?title) LIMIT 10"
+			"query": "SELECT ?item ?type ?geo WHERE {\n ?item osmm:type ?type.\n ?item osmm:loc ?geo. }\n LIMIT 10"
 		}],
 		"crs": 4326,
 		"staticconcepts": [],
