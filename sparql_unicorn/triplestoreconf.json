@@ -369,6 +369,35 @@
 			"http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Municipality"
 		],
 		"active": true
+	},{
+		"name": "Sophox",
+		"prefixes": ["PREFIX osmnode: <https://www.openstreetmap.org/node/>",
+			"PREFIX osmway: <https://www.openstreetmap.org/way/>",
+			"PREFIX osmrel: <https://www.openstreetmap.org/relation/>",
+			"PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>",
+			"PREFIX osmm: <https://www.openstreetmap.org/meta/>",
+			"PREFIX pageviews: <https://dumps.wikimedia.org/other/pageviews/>",
+			"PREFIX osmd: <http://wiki.openstreetmap.org/entity/>",
+			"PREFIX osmdt: <http://wiki.openstreetmap.org/prop/direct/>",
+			"PREFIX osmp: <http://wiki.openstreetmap.org/prop/>",
+			"PREFIX osmps: <http://wiki.openstreetmap.org/prop/statement/>",
+			"PREFIX osmpq: <http://wiki.openstreetmap.org/prop/qualifier/>",
+			"PREFIX osmd: <http://wiki.openstreetmap.org/entity/>",
+			"PREFIX pageviews: <https://dumps.wikimedia.org/other/pageviews/>",
+			"PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>",
+			"PREFIX osmm: <https://www.openstreetmap.org/meta/>"
+		],
+		"endpoint": "https://sophox.org/sparql",
+		"mandatoryvariables": ["item", "geo"],
+		"geoconceptquery": "",
+		"geoconceptlimit": 500,
+		"querytemplate": [{
+			"label": "10 Random Geometries",
+			"query": "SELECT ?item ?type ?geo WHERE { ?item a ?type.\n ?item osmm:loc ?geo. } ORDER BY ASC(?title) LIMIT 10"
+		}],
+		"crs": 4326,
+		"staticconcepts": [],
+		"active": true
 	}, {
 		"name": "GND",
 		"prefixes": "",
