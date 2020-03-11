@@ -499,10 +499,16 @@ class SPAQLunicorn:
     exportClassCol=""
 
     exportSetClass=""
+    
+    exampleQuery=""
+
+    activeCheckBox=""
 
     searchResult=""
 
     tripleStoreEdit=""
+    
+    addTripleStore=False
 
     conceptSearchEdit=""
 	
@@ -917,10 +923,14 @@ class SPAQLunicorn:
         self.dlg.prefixList.clear()
         for prefix in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["prefixes"]:
             self.dlg.prefixList.addItem(prefix)
+        self.dlg.prefixList.sortItems()
+        if "active" in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]:
+            self.dlg.activeCheckBox.setChecked(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["active"])
         if "crs" in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]:
             self.dlg.epsgEdit.setText(str(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["crs"]))
         else:
             self.dlg.epsgEdit.setText("4326")
+        self.dlg.exampleQuery.setPlainText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["querytemplate"][0]["query"])
 
     def check_state1(self):
         self.check_state(self.dlg.tripleStoreEdit)
@@ -944,7 +954,7 @@ class SPAQLunicorn:
 
     def buildCustomTripleStoreDialog(self):	
         self.dlg.searchTripleStoreDialog = QDialog()	
-        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 600)	
+        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)	
         tripleStoreChooserLabel = QLabel("Choose Triple Store:",self.dlg.searchTripleStoreDialog)	
         tripleStoreChooserLabel.move(0,10)
         self.dlg.tripleStoreChooser=QComboBox(self.dlg.searchTripleStoreDialog)
@@ -954,7 +964,7 @@ class SPAQLunicorn:
         self.dlg.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)    
         addTripleStoreButton = QPushButton("Add new Triple Store",self.dlg.searchTripleStoreDialog)	
         addTripleStoreButton.move(350,10)	
-        addTripleStoreButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
+        addTripleStoreButton.clicked.connect(self.addNewSPARQLEndpoint)	
         tripleStoreLabel = QLabel("Triple Store URL:",self.dlg.searchTripleStoreDialog)	
         tripleStoreLabel.move(0,40)	
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
@@ -994,6 +1004,10 @@ class SPAQLunicorn:
         self.dlg.epsgEdit.setText("4326")
         self.dlg.epsgEdit.setValidator(QIntValidator(1, 100000))
         self.dlg.epsgEdit.setMinimumSize(100, 20)
+        activeTripleStore = QLabel("Active:",self.dlg.searchTripleStoreDialog)	
+        activeTripleStore.move(310,125)	
+        self.dlg.activeCheckBox = QCheckBox(self.dlg.searchTripleStoreDialog)	
+        self.dlg.activeCheckBox.move(360,125)	
         prefixregex = QRegExp("[a-z]+")
         prefixvalidator = QRegExpValidator(prefixregex, self.dlg.searchTripleStoreDialog)
         self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
@@ -1006,18 +1020,21 @@ class SPAQLunicorn:
         addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)	
         addPrefixButton.move(560,150)	
         addPrefixButton.clicked.connect(self.addPrefixToList)	
+        removePrefixButton = QPushButton("Remove Selected Prefix",self.dlg.searchTripleStoreDialog)	
+        removePrefixButton.move(100,180)
+        removePrefixButton.clicked.connect(self.removePrefixFromList)	
         prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)	
-        prefixListLabel.move(20,180)	
+        prefixListLabel.move(20,185)	
         self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)	
-        self.dlg.prefixList.move(20,200)	
+        self.dlg.prefixList.move(20,210)	
         self.dlg.prefixList.setMinimumSize(300,200)	
         exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)	
-        exampleQueryLabel.move(330,180)	
-        exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)	
-        exampleQuery.move(330,200)	
-        exampleQuery.setMinimumSize(300,200)	
-        exampleQuery.textChanged.connect(self.validateSPARQL)	
-        sparqlhighlighter = SPARQLHighlighter(exampleQuery,self.dlg.errorLabel)	
+        exampleQueryLabel.move(330,185)	
+        self.dlg.exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)	
+        self.dlg.exampleQuery.move(330,210)	
+        self.dlg.exampleQuery.setMinimumSize(300,200)	
+        self.dlg.exampleQuery.textChanged.connect(self.validateSPARQL)	
+        sparqlhighlighter = SPARQLHighlighter(self.dlg.exampleQuery,self.dlg.errorLabel)	
         #self.dlg.queryChooser=QComboBox(self.dlg.searchTripleStoreDialog)
         self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
         self.dlg.tripleStorePrefixEdit.move(310,150)	
@@ -1025,16 +1042,16 @@ class SPAQLunicorn:
         self.dlg.tripleStorePrefixEdit.setValidator(urlvalidator)
         self.dlg.tripleStorePrefixEdit.textChanged.connect(self.check_state2)
         self.dlg.tripleStorePrefixEdit.textChanged.emit(self.dlg.tripleStorePrefixEdit.text())
-        self.dlg.tripleStorePrefixEdit.setMinimumSize(250, 20)	
+        self.dlg.tripleStorePrefixEdit.setMinimumSize(250, 20)
         tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)	
-        tripleStoreApplyButton.move(10,480)	
+        tripleStoreApplyButton.move(10,460)	
         tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         tripleStoreCloseButton = QPushButton("Close",self.dlg.searchTripleStoreDialog)	
-        tripleStoreCloseButton.move(100,480)	
+        tripleStoreCloseButton.move(100,460)	
         tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)	
-        tripleStoreApplyButton = QPushButton("Reset Configuration",self.dlg.searchTripleStoreDialog)	
-        tripleStoreApplyButton.move(330,480)	
-        tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
+        #tripleStoreApplyButton = QPushButton("Reset Configuration",self.dlg.searchTripleStoreDialog)	
+        #tripleStoreApplyButton.move(330,560)	
+        #tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
         self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.dlg.searchTripleStoreDialog.exec_()	
 
@@ -1059,12 +1076,21 @@ class SPAQLunicorn:
             msgBox.exec()	
             return False	
 
+    def addNewSPARQLEndpoint(self):
+        self.addTripleStore=True
+        self.applyCustomSPARQLEndPoint()
+
+
     def addPrefixToList(self):	
         item=QListWidgetItem()	
         item.setData(0,"PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")	
         item.setText("PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")	
         self.dlg.prefixList.addItem(item)	
 
+    def removePrefixFromList(self):	
+        item=QListWidgetItem()	
+        for item in self.dlg.prefixList.selectedItems():
+            self.dlg.prefixList.removeItemWidget(item)
 
     def applyCustomSPARQLEndPoint(self):	
         if not self.testTripleStoreConnection(True):	
@@ -1074,17 +1100,32 @@ class SPAQLunicorn:
            msgBox.setText("Triple Store Name is missing!")	
            msgBox.exec()	
            return	
-        self.endpoints.append(self.dlg.tripleStoreEdit.text())	
+        #self.endpoints.append(self.dlg.tripleStoreEdit.text())	
         self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())	
         curprefixes=[]	
         for i in range(self.dlg.prefixList.count()):	
             curprefixes.append(self.dlg.prefixList.item(i).text()	)
-        index=len(self.dlg.triplestoreconf)
-        self.dlg.triplestoreconf[index]={}
-        self.dlg.triplestoreconf[index]["endpoint"]=self.dlg.tripleStoreEdit.text()
-        self.dlg.triplestoreconf[index]["name"]=self.dlg.tripleStoreNameEdit.text()	
-        self.dlg.triplestoreconf[index]["prefixes"]=curprefixes
-        self.dlg.triplestoreconf[index]["crs"]=self.dlg.epsgEdit.text()	
+        if self.addTripleStore:
+            index=len(self.triplestoreconf)
+            self.dlg.tripleStoreChooser.addItem(self.dlg.tripleStoreNameEdit.text()	)
+            self.triplestoreconf.append({})
+            self.triplestoreconf[index]["querytemplate"]=[]
+            self.triplestoreconf[index]["querytemplate"].append({})
+            self.triplestoreconf[index]["querytemplate"][0]["label"]="Example Query"
+            self.triplestoreconf[index]["querytemplate"][0]["query"]=self.dlg.exampleQuery.toPlainText()
+        else:
+            index=self.dlg.tripleStoreChooser.currentIndex()
+        self.triplestoreconf[index]={}
+        self.triplestoreconf[index]["endpoint"]=self.dlg.tripleStoreEdit.text()
+        self.triplestoreconf[index]["name"]=self.dlg.tripleStoreNameEdit.text()	
+        self.triplestoreconf[index]["mandatoryvariables"]=[]
+        self.triplestoreconf[index]["mandatoryvariables"].append(self.dlg.queryVarEdit.text())
+        self.triplestoreconf[index]["mandatoryvariables"].append(self.dlg.queryVarItemEdit.text())        
+        self.triplestoreconf[index]["prefixes"]=curprefixes
+        self.triplestoreconf[index]["crs"]=self.dlg.epsgEdit.text()	
+        self.triplestoreconf[index]["active"]=self.dlg.activeCheckBox.isChecked()
+
+        self.addTripleStore=False
 
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
@@ -1809,7 +1850,10 @@ class SPAQLunicorn:
             concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
             concept=self.dlg.layerconcepts.currentText()
-        self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+        if "querytemplate" in self.triplestoreconf[endpointIndex]:
+            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+            if "wd:Q ." in self.dlg.inp_sparql.toPlainText():
+                self.dlg.inp_sparql.setPlainText(self.dlg.inp_sparql.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
         if "#" in self.dlg.layerconcepts.currentText():
             self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
         else:
@@ -1860,6 +1904,12 @@ class SPAQLunicorn:
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.viewselectaction()
+            self.dlg.areaconcepts.hide()
+            self.dlg.areas.hide()
+            self.dlg.label_8.hide()
+            self.dlg.label_9.hide()
+            self.dlg.tabWidget.removeTab(2)
+            self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
