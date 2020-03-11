@@ -5,12 +5,12 @@
 [general]
 name=SPARQLing Unicorn QGIS Plugin
 qgisMinimumVersion=3.0
-description=This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs can be found here: https://github.com/sparqlunicorn/unicornQGISdepInstaller. These SPARQL endpoints are implemented: Wikidata, Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia and GeoNames.
+description=This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs can be found <a href="https://github.com/sparqlunicorn/unicornQGISdepInstaller">here</a>.
 version=0.9
 author=SPARQL Unicorn, Florian Thiery, Timo Homburg
 email=qgisplugin@sparqlunicorn.link
 
-about=Adds a layer from Wikidata and other Linked Data SPARQL endpoints. This plugin needs the following external dependencies: https://github.com/sparqlunicorn/unicornQGISdepInstaller. Just insert a SPARQL query for Geo-Items and get a new vector layer into QGIS.
+about=Adds a layer from Wikidata and other Linked Data SPARQL endpoints. This plugin needs the following external dependencies: <a href="https://github.com/sparqlunicorn/unicornQGISdepInstaller">libs</a>. Just insert a SPARQL query for Geo-Items and get a new vector layer into QGIS.
 repository=https://github.com/sparqlunicorn/sparqlunicornGoesGIS
 tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
 
