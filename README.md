@@ -1,6 +1,10 @@
 # SPARQLing Unicorn QGIS Plugin
 
-**This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs can be found here: https://github.com/sparqlunicorn/unicornQGISdepInstaller. These SPARQL endpoints are implemented: Wikidata, Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia and GeoNames.**
+**This plugin adds a GeoJSON layer from SPARQL enpoint queries.**
+
+**The necessary python libs can be found here: https://github.com/sparqlunicorn/unicornQGISdepInstaller.** 
+
+These SPARQL endpoints are implemented: Wikidata, Ordnance Survey UK, Linked Geodata (OSM), Nomisma, Kerameikos, DBpedia and GeoNames.
 
 * qgisMinimumVersion=3.0
 * version=0.8
