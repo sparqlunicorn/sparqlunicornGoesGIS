@@ -1,4 +1,0 @@
-geojson
-geomet
-SPARQLWrapper
-convertbng
