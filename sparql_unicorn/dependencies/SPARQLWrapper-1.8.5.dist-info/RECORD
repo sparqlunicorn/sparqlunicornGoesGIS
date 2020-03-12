@@ -1,0 +1,17 @@
+SPARQLWrapper-1.8.5.dist-info/DESCRIPTION.rst,sha256=KQsRb1OK7uB7gNU_VwfSGmu9WfNWFuQfuJtTlJFHhts,145
+SPARQLWrapper-1.8.5.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+SPARQLWrapper-1.8.5.dist-info/METADATA,sha256=IBcUyOQEelGwS2WhrXqURDs1O2f1eWTTcz8A5zZnq98,1469
+SPARQLWrapper-1.8.5.dist-info/RECORD,,
+SPARQLWrapper-1.8.5.dist-info/WHEEL,sha256=-aSo8rHuuPDEFzkcqqQ55pDyCjy25bYMLxSiHWKAOTc,92
+SPARQLWrapper-1.8.5.dist-info/metadata.json,sha256=94zBiRXHOZD1Im_nwWvrYCh72G4fqGGtV2bvUjWNVhA,1445
+SPARQLWrapper-1.8.5.dist-info/top_level.txt,sha256=3KluNiTwOkX16hLJwC3UEYzKdEscknK--UV5q56mYWY,14
+SPARQLWrapper/KeyCaseInsensitiveDict.py,sha256=GaQ-JMeHTJqP6214ZpECdWSiWZMUi8aFtP9nyU6IpCU,1249
+SPARQLWrapper/SPARQLExceptions.py,sha256=gqEbCL9biag9dgVwYamJ38rv1KbEEOq-LlSITCBaIv0,2439
+SPARQLWrapper/SmartWrapper.py,sha256=BTuk5JvOr33E_t43QNNp9g7JC2cVU8gPKI8A1abGuAA,13752
+SPARQLWrapper/Wrapper.py,sha256=VHUZiWe5jB7YrZ4LychE941rnUVmaXk4KVlideCVUwU,73399
+SPARQLWrapper/__init__.py,sha256=YgRYNDXcw4lIMmnBzZ3t32rr9oJQ48SIS_QaNNcnGhE,1341
+SPARQLWrapper/__pycache__/KeyCaseInsensitiveDict.cpython-37.pyc,,
+SPARQLWrapper/__pycache__/SPARQLExceptions.cpython-37.pyc,,
+SPARQLWrapper/__pycache__/SmartWrapper.cpython-37.pyc,,
+SPARQLWrapper/__pycache__/Wrapper.cpython-37.pyc,,
+SPARQLWrapper/__pycache__/__init__.cpython-37.pyc,,

@@ -35,23 +35,26 @@ from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, 
 from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
 from qgis.utils import iface
-import rdflib
-from rdflib.plugins.sparql import prepareQuery
+import os.path
 import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import requests
 import uuid
-
+import json
+from rdflib import *
+from rdflib.plugins.sparql import prepareQuery
+from SPARQLWrapper import SPARQLWrapper, JSON
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
-import os.path
+
 import re
 
 # external libraires for SPARQL Unicorn
-from SPARQLWrapper import SPARQLWrapper, JSON
+
 #import rdflib
-import json
+
 #from convertbng.util import convert_bng, convert_lonlat
 
 
