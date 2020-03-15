@@ -1,6 +1,6 @@
 
 from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton
-from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
+from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
 from qgis.gui import QgsMapCanvas
 from .rectanglemaptool import RectangleMapTool
 
