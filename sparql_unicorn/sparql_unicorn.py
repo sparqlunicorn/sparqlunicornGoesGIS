@@ -28,12 +28,10 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QThread,QCoreApplication,QObject,QRegExp, Qt,pyqtSignal
-from qgis.PyQt.QtGui import QColor, QTextCharFormat, QFont, QIcon, QSyntaxHighlighter,QTextCursor,QIntValidator,QRegExpValidator,QValidator
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QTableWidgetItem,QListWidgetItem, QCheckBox, QDialog, QPushButton,QPlainTextEdit,QTextEdit, QLabel, QLineEdit,QCompleter, QListWidget, QComboBox, QRadioButton,QMessageBox, QHBoxLayout,QWidget, QToolTip
-from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea
-from qgis.core import QgsVectorLayer, QgsProject, QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer
-from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
+from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
+from qgis.PyQt.QtGui import QIcon,QRegExpValidator
+from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer
 from qgis.utils import iface
 import os.path
 import sys
@@ -48,415 +46,22 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from .resources import *
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
+from .sparqlhighlighter import SPARQLHighlighter
+from .tooltipplaintext import ToolTipPlainText
+from .triplestoredialog import TripleStoreDialog
+from .searchdialog import SearchDialog
+from .bboxdialog import BBOXDialog
 
 import re
 
-# external libraires for SPARQL Unicorn
-
-#import rdflib
-
-#from convertbng.util import convert_bng, convert_lonlat
-
-
-def format(color, style=''):
-    """Return a QTextCharFormat with the given attributes.
-    """
-    _color = QColor()
-    _color.setNamedColor(color)
-
-    _format = QTextCharFormat()
-    _format.setForeground(_color)
-    if 'bold' in style:
-        _format.setFontWeight(QFont.Bold)
-    if 'italic' in style:
-        _format.setFontItalic(True)
- 
-    return _format
-
-STYLES = {
-    'keyword': format('#b32424'),
-    'operator': format('black'),
-    'error': format('red'),
-    'brace': format('black'),
-    'defclass': format('#14866d'),
-    'uri': format('#2a4b8d'),
-	'prefixcls': format('#14866d'),
-    'string': format('#ac6600'),
-    'string2': format('darkMagenta'),
-    'comment': format('#72777d'),
-    'self': format('blue', 'italic'),
-    'numbers': format('black'),
-}
-
-class RectangleMapTool(QgsMapToolEmitPoint):
-
-    rectangleCreated = pyqtSignal()
-    deactivated = pyqtSignal()
-	
-    point1=""
-    point2=""
-    point3=""
-    point4=""
-    chosen=False
-
-    def __init__(self, canvas):
-        self.canvas = canvas
-        QgsMapToolEmitPoint.__init__(self, self.canvas)
-
-        self.rubberBand = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
-        self.rubberBand.setColor(QColor(255, 0, 0, 100))
-        self.rubberBand.setWidth(2)
-
-        self.reset()
-
-    def reset(self):
-        self.startPoint = self.endPoint = None
-        self.isEmittingPoint = False
-        self.rubberBand.reset(QgsWkbTypes.PolygonGeometry)
-
-    def canvasPressEvent(self, e):
-        self.startPoint = self.toMapCoordinates(e.pos())
-        self.endPoint = self.startPoint
-        self.isEmittingPoint = True
-
-        self.showRect(self.startPoint, self.endPoint)
-
-    def canvasReleaseEvent(self, e):
-        self.isEmittingPoint = False
-        if self.rectangle() is not None:
-            self.rectangleCreated.emit()
-
-    def canvasMoveEvent(self, e):
-        if not self.isEmittingPoint:
-            return
-
-        self.endPoint = self.toMapCoordinates(e.pos())
-        self.showRect(self.startPoint, self.endPoint)
-
-    def showRect(self, startPoint, endPoint):
-        self.rubberBand.reset(QgsWkbTypes.PolygonGeometry)
-        if startPoint.x() == endPoint.x() or startPoint.y() == endPoint.y():
-            return
-
-        self.point1 = QgsPointXY(startPoint.x(), startPoint.y())
-        self.point2 = QgsPointXY(startPoint.x(), endPoint.y())
-        self.point3 = QgsPointXY(endPoint.x(), endPoint.y())
-        self.point4 = QgsPointXY(endPoint.x(), startPoint.y())
-
-        self.rubberBand.addPoint(self.point1, False)
-        self.rubberBand.addPoint(self.point2, False)
-        self.rubberBand.addPoint(self.point3, False)
-        # True to update canvas
-        self.rubberBand.addPoint(self.point4, True)
-        self.rubberBand.show()
-        chosen=True
-
-    def rectangle(self):
-        if self.startPoint is None or self.endPoint is None:
-            return None
-        elif self.startPoint.x() == self.endPoint.x() or \
-                self.startPoint.y() == self.endPoint.y():
-            return None
-
-        return QgsRectangle(self.startPoint, self.endPoint)
-
-    def setRectangle(self, rect):
-        if rect == self.rectangle():
-            return False
-
-        if rect is None:
-            self.reset()
-        else:
-            self.startPoint = QgsPointXY(rect.xMaximum(), rect.yMaximum())
-            self.endPoint = QgsPointXY(rect.xMinimum(), rect.yMinimum())
-            self.showRect(self.startPoint, self.endPoint)
-        return True
-
-    def deactivate(self):
-        QgsMapTool.deactivate(self)
-        self.deactivated.emit()
-
-class SPARQLHighlighter (QSyntaxHighlighter):
-    """Syntax highlighter for the Python language.
-    """
-    # Python keywords
-    keywords = [
-        'SELECT', 'INSERT', 'WHERE', 'ORDER', 'BY', 'LIMIT',
-        'OFFSET', 'FROM', 'PREFIX', 'GRAPH', 'NAMED', 'BIND',
-        'VALUES', 'ASC', 'DESC', 'FILTER', 'DISTINCT', 'REDUCED',
-        'OPTIONAL', 'CONSTRUCT', 'ASK', 'DESCRIBE', 'BOUND', 'IF','SERVICE',
-        'EXISTS', 'NOT', 'IN', 'STR', 'AS','LANG','DELETE','CREATE','CLEAR','DROP','LOAD','COPY','MOVE','ADD'
-        'IRI', 'URI', 'False', 'a'
-    ]
-  
-    # Python operators
-    operators = [
-        '=',
-        # Comparison
-        '==', '!=', '<', '<=', '>', '>=',
-        # Arithmetic
-        '\+', '-', '\*', '/', '//', '\%', '\*\*',
-        # In-place
-        '\+=', '-=', '\*=', '/=', '\%=',
-        # Bitwise
-        '\^', '\|', '\&', '\~', '>>', '<<',
-    ]
-	
-    errorhighlightline=-1
-
-    currentline=0
-
-    errorhighlightcol=-1
-  
-    # Python braces
-    braces = [
-        '\{', '\}', '\(', '\)', '\[', '\]',
-    ]
-    def __init__(self, document,errorlabel):
-        QSyntaxHighlighter.__init__(self, document.document())
-        #msgBox=QMessageBox()
-        #msgBox.setText(document.toPlainText())
-        #msgBox.exec()
-        # Multi-line strings (expression, flag, style)
-        # FIXME: The triple-quotes in these two lines will mess up the
-        # syntax highlighting from this point onward
-        self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
-        self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
-  
-        rules = []
-  
-  
-          # All other rules
-        rules += [
-            # 'self'
-            (r'\bself\b', 0, STYLES['self']),
-  
-            # Double-quoted string, possibly containing escape sequences
-            (r'"[^"\\]*(\\.[^"\\]*)*"', 0, STYLES['string']),
-            # Single-quoted string, possibly containing escape sequences
-            (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
-  
-            # 'def' followed by an identifier
-            (r'([?]\w+)', 1, STYLES['defclass']),
-            (r'([<][h][t][t][p][:][/][/]\w+[>])', 0, STYLES['uri']),
-			# 'class' followed by an identifier
-            (r'(\w+[:]\w+)', 1, STYLES['uri']),
-			
-  
-            # From '#' until a newline
-            (r'#[^\n]*', 0, STYLES['comment']),
-  
-            # Numeric literals
-            (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
-            (r'\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b', 0, STYLES['numbers']),
-            (r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b', 0, STYLES['numbers']),
-        ]
-		        # Keyword, operator, and brace rules
-        rules += [(r'\b%s\b' % w, 0, STYLES['keyword'])
-            for w in SPARQLHighlighter.keywords]
-        rules += [(r'%s' % o, 0, STYLES['operator'])
-            for o in SPARQLHighlighter.operators]
-        rules += [(r'%s' % b, 0, STYLES['brace'])
-            for b in SPARQLHighlighter.braces]
-  
-        # Build a QRegExp for each pattern
-        self.rules = [(QRegExp(pat), index, fmt)
-            for (pat, index, fmt) in rules]
-  
-  
-    def highlightBlock(self, text):
-        """Apply syntax highlighting to the given block of text.
-        """
-        self.currentline+=1
-        #msgBox=QMessageBox()
-        #msgBox.setText(str(self.errorhighlightline))
-        #msgBox.exec()
-        #if self.errorhighlightline!=-1:
-        #    self.setFormat(0, len(text), STYLES['error'])
-        #else:
-		#    # Do other syntax formatting
-        for expression, nth, format in self.rules:
-            index = expression.indexIn(text, 0)
-            while index >= 0:
-                # We actually want the index of the nth match
-                index = expression.pos(nth)
-                length = expression.matchedLength()
-                self.setFormat(index, length, format)
-                index = expression.indexIn(text, index + length)
-  
-        self.setCurrentBlockState(0)
-        # Do multi-line strings
-        in_multiline = self.match_multiline(text, *self.tri_single)
-        if not in_multiline:
-            in_multiline = self.match_multiline(text, *self.tri_double)
-  
-  
-    def match_multiline(self, text, delimiter, in_state, style):
-        """Do highlighting of multi-line strings. ``delimiter`` should be a
-        ``QRegExp`` for triple-single-quotes or triple-double-quotes, and
-        ``in_state`` should be a unique integer to represent the corresponding
-        state changes when inside those strings. Returns True if we're still
-        inside a multi-line string when this function is finished.
-        """
-        # If inside triple-single quotes, start at 0
-        if self.previousBlockState() == in_state:
-            start = 0
-            add = 0
-        # Otherwise, look for the delimiter on this line
-        else:
-            start = delimiter.indexIn(text)
-            # Move past this match
-            add = delimiter.matchedLength()
-  
-        # As long as there's a delimiter match on this line...
-        while start >= 0:
-            # Look for the ending delimiter
-            end = delimiter.indexIn(text, start + add)
-            # Ending delimiter on this line?
-            if end >= add:
-                length = end - start + add + delimiter.matchedLength()
-                self.setCurrentBlockState(0)
-            # No; multi-line string
-            else:
-                self.setCurrentBlockState(in_state)
-                length = text.length() - start + add
-            # Apply formatting
-            self.setFormat(start, length, style)
-            # Look for the next match
-            start = delimiter.indexIn(text, start + length)
-  
-        # Return True if still inside a multi-line string, False otherwise
-        if self.currentBlockState() == in_state:
-            return True
-        else:
-            return False
-
 geoconcepts=""
-
-
-class GeoConceptsThread(QThread):
-    signal = pyqtSignal('PyQt_PyObject')
-
-    query=""
-    
-    triplestoreurl=""
-   
-    graph=None
-
-    def __init__(self,query,url,graph):
-        QThread.__init__(self)
-        #self.git_url = ""
-        self.query=query
-        self.triplestoreurl=url
-        self.graph=graph
-
-    # run method gets called when we start the thread
-    def run(self):
-        print("THREADSTART")
-        viewlist=[]
-        print(self.query)
-        print(self.triplestoreurl)
-        print(self.graph)
-        if self.graph!=None:
-            print("WE HAVE A GRAPH")
-            results = self.graph.query(self.query)
-            for row in results:
-                viewlist.append(str(row[0]))
-        else:
-            sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(self.query)
-            print("now sending query")
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for result in results["results"]["bindings"]:
-                viewlist.append(str(result[queryvar]["value"]))
-        print(viewlist)	
-        #geoconcepts=viewlist
-        #self.signal.emit(tmpdir)
-        # git clone done, now inform the main thread with the output
-
-
-class GeoConceptsWorker(QObject):
-    finished = pyqtSignal()
-    intReady = pyqtSignal(int)
-
-    query=""
-    
-    triplestoreurl=""
-   
-    graph=None
-    
-    signalStatus = QtCore.pyqtSignal(str)
-
-    def __init__(self,query,url,graph,parent=None):
-        super(self.__class__, self).__init__(parent)
-        self.query=query
-        self.triplestoreurl=url
-        self.graph=graph
-    
-    @QtCore.pyqtSlot()
-    def startWork(self):
-        print("THREADSTART")
-        viewlist=[]
-        print(self.query)
-        print(self.triplestoreurl)
-        print(self.graph)
-        if self.graph!=None:
-            print("WE HAVE A GRAPH")
-            results = self.graph.query(self.query)
-            for row in results:
-                viewlist.append(str(row[0]))
-        else:
-            sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(self.query)
-            print("now sending query")
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for result in results["results"]["bindings"]:
-                viewlist.append(str(result[queryvar]["value"]))
-        print(viewlist)	
-        geoconcepts=viewlist
-        self.finished.emit()
-
-
-class ToolTipPlainText(QPlainTextEdit):      
-
-    def __init__(self,parent=None):
-        super(self.__class__, self).__init__(parent)
-        self.setMouseTracking(True)
-        
-    def mouseMoveEvent(self, event):
-        textCursor = self.cursorForPosition(event.pos())
-        textCursor.select(QTextCursor.WordUnderCursor)
-        word = textCursor.selectedText()
-        #
-            #msgBox=QMessageBox()
-            #msgBox.setText(word)
-            #msgBox.exec()
-            
-        #while not word.endswith(" "):
-        #    self.setPosition(self.anchor()+1,QtGui.QTextCursor.KeepAnchor)
-        #    word = textCursor.selectedText()        
-        #if not word.startswith(" "):
-            
-        if True: #"http" in word:
-            #if not word.endswith(' '):
-                #self.moveCursor(QTextCursor.NextCharacter,QTextCursor.KeepAnchor)
-                #word = textCursor.selectedText()
-            toolTipText = word
-            # Put the hover over in an easy to read spot
-            pos = self.cursorRect(self.textCursor()).bottomRight()
-            # The pos could also be set to event.pos() if you want it directly under the mouse
-            pos = self.mapToGlobal(pos)
-            QToolTip.showText(event.screenPos().toPoint(), word)
-        #textCursor.clearSelection()
-        #self.setTextCursor(self.textCursor())
 
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
-
     loadedfromfile=False
-    
+	
+    triplestoreconf=None
+    """   
     currentquery=""
 	
     justloadingfromfile=False
@@ -468,10 +73,6 @@ class SPAQLunicorn:
     currentcol=-1
 	
     epsgEdit=-1
-	
-    interlinkOrEnrich=True
-	
-    triplestoreconf=None
     
     tripleStoreChooser=None
     
@@ -494,8 +95,6 @@ class SPAQLunicorn:
     bboxCoordinateLabelLat=""
 
     exportIdCol=""
-	
-    mts_layer=""
 	
     map_canvas=""
 	
@@ -526,13 +125,11 @@ class SPAQLunicorn:
     layerExtentOrBBOX=False
 
     chooseBBOXLayer=""
-	 
-    d=""
 
     enrichedExport=False
 
     outputfile=""
-	
+	"""
     def __init__(self, iface):
         """Constructor.
 
@@ -825,64 +422,6 @@ class SPAQLunicorn:
             return resultlist
         return viewlist
 
-    """Returns classes for a given label from a triple store."""
-    def getClassesFromLabel(self):
-        viewlist=[]
-        resultlist=[]
-        label=self.dlg.conceptSearchEdit.text()
-        language="en"
-        results={}
-        self.dlg.searchResult.clear()
-        query=""
-        if self.dlg.currentcol==4:
-            if "propertyfromlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
-                query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["propertyfromlabelquery"].replace("%%label%%",label)
-        else:
-            if "classfromlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()]:
-                query=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classfromlabelquery"].replace("%%label%%",label)
-        if "SELECT" in query:
-            query=query.replace("%%label%%",label).replace("%%language%%",language)
-            sparql = SPARQLWrapper(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for res in results["results"]["bindings"]:
-                item=QListWidgetItem()
-                item.setData(0,str(res["class"]["value"]))
-                item.setText(str(res["label"]["value"]))
-                self.dlg.searchResult.addItem(item)
-        else:
-            myResponse = json.loads(requests.get(query).text)
-            for ent in myResponse["search"]:
-                qid=ent["url"]
-                label=ent["label"]+" ("+ent["id"]+") ["+ent["description"]+"]"
-                results[qid]=label    
-            for result in results:
-                item=QListWidgetItem()
-                item.setData(0,result)
-                item.setText(str(results[result]))
-                self.dlg.searchResult.addItem(item)
-        return viewlist
-	
-    """Returns properties for a given label from a triple store.
-    def getPropertiesFromLabel(self):
-        viewlist=[]
-        resultlist=[]
-        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-        SELECT DISTINCT ?class
-        WHERE {
-          ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Property> .
-          ?class <http://www.w3.org/2000/01/rdf-schema#label> +"\""+label+"\"@"+language+ .
-        }  LIMIT 500)
-        print("now sending query")
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        for result in results["results"]["bindings"]:
-            self.dlg.searchResult.addItem(str(result["class"]["value"]))
-        return viewlist
-    """
-
     def getLabelsForClasses(self,classes,query,endpointIndex):
         result={}
         query=self.triplestoreconf[endpointIndex]["classlabelquery"]
@@ -920,216 +459,6 @@ class SPAQLunicorn:
                 i=i+1
         return result
 
-    def loadTripleStoreConfig(self):
-        self.dlg.tripleStoreEdit.setText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["endpoint"])
-        self.dlg.tripleStoreNameEdit.setText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["name"])
-        self.dlg.prefixList.clear()
-        for prefix in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["prefixes"]:
-            self.dlg.prefixList.addItem(prefix)
-        self.dlg.prefixList.sortItems()
-        if "active" in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]:
-            self.dlg.activeCheckBox.setChecked(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["active"])
-        if "crs" in self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]:
-            self.dlg.epsgEdit.setText(str(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["crs"]))
-        else:
-            self.dlg.epsgEdit.setText("4326")
-        self.dlg.exampleQuery.setPlainText(self.triplestoreconf[self.dlg.tripleStoreChooser.currentIndex()]["querytemplate"][0]["query"])
-
-    def check_state1(self):
-        self.check_state(self.dlg.tripleStoreEdit)
-
-    def check_state2(self):
-        self.check_state(self.dlg.tripleStorePrefixEdit)
-
-    def check_state3(self):
-        self.check_state(self.dlg.interlinkNameSpace)
-
-    def check_state(self,sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b' # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a' # yellow
-        else:
-            color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
-
-    def buildCustomTripleStoreDialog(self):	
-        self.dlg.searchTripleStoreDialog = QDialog()	
-        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)	
-        tripleStoreChooserLabel = QLabel("Choose Triple Store:",self.dlg.searchTripleStoreDialog)	
-        tripleStoreChooserLabel.move(0,10)
-        self.dlg.tripleStoreChooser=QComboBox(self.dlg.searchTripleStoreDialog)
-        for item in self.triplestoreconf:
-            self.dlg.tripleStoreChooser.addItem(item["name"])
-        self.dlg.tripleStoreChooser.move(150,10)
-        self.dlg.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)    
-        addTripleStoreButton = QPushButton("Add new Triple Store",self.dlg.searchTripleStoreDialog)	
-        addTripleStoreButton.move(350,10)	
-        addTripleStoreButton.clicked.connect(self.addNewSPARQLEndpoint)	
-        tripleStoreLabel = QLabel("Triple Store URL:",self.dlg.searchTripleStoreDialog)	
-        tripleStoreLabel.move(0,40)	
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStoreEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStoreEdit.move(150,40)	
-        self.dlg.tripleStoreEdit.setMinimumSize(350, 20)	
-        self.dlg.tripleStoreEdit.setText("https://query.wikidata.org/sparql")
-        self.dlg.tripleStoreEdit.setValidator(urlvalidator)
-        self.dlg.tripleStoreEdit.textChanged.connect(self.check_state1)
-        self.dlg.tripleStoreEdit.textChanged.emit(self.dlg.tripleStoreEdit.text())
-        testConnectButton = QPushButton("Test Connection",self.dlg.searchTripleStoreDialog)	
-        testConnectButton.move(510,40)	
-        testConnectButton.clicked.connect(self.testTripleStoreConnection)	
-        tripleStoreNameLabel = QLabel("Triple Store Name:",self.dlg.searchTripleStoreDialog)	
-        tripleStoreNameLabel.move(0,70)	
-        self.dlg.tripleStoreNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStoreNameEdit.move(150,70)	
-        self.dlg.tripleStoreNameEdit.setMinimumSize(350, 20)	
-        self.dlg.tripleStoreNameEdit.setText("My cool triplestore!")	
-        queryVarLabel = QLabel("Geometry Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarLabel.move(10,105)	
-        self.dlg.queryVarEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.queryVarEdit.move(150,100)	
-        self.dlg.queryVarEdit.setText("geo")	
-        self.dlg.queryVarEdit.setMinimumSize(100, 20)	
-        queryVarItemLabel = QLabel("Item Variable:",self.dlg.searchTripleStoreDialog)	
-        queryVarItemLabel.move(305,105)	
-        self.dlg.queryVarItemEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.queryVarItemEdit.move(400,100)	
-        self.dlg.queryVarItemEdit.setText("item")	
-        self.dlg.queryVarItemEdit.setMinimumSize(100, 20)	
-        epsgLabel = QLabel("EPSG Code:",self.dlg.searchTripleStoreDialog)	
-        epsgLabel.move(10,125)	
-        self.dlg.epsgEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.epsgEdit.move(150,125)	
-        self.dlg.epsgEdit.setText("4326")
-        self.dlg.epsgEdit.setValidator(QIntValidator(1, 100000))
-        self.dlg.epsgEdit.setMinimumSize(100, 20)
-        activeTripleStore = QLabel("Active:",self.dlg.searchTripleStoreDialog)	
-        activeTripleStore.move(310,125)	
-        self.dlg.activeCheckBox = QCheckBox(self.dlg.searchTripleStoreDialog)	
-        self.dlg.activeCheckBox.move(360,125)	
-        prefixregex = QRegExp("[a-z]+")
-        prefixvalidator = QRegExpValidator(prefixregex, self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStorePrefixNameEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixNameEdit.move(150,150)	
-        self.dlg.tripleStorePrefixNameEdit.setText("wd")	
-        self.dlg.tripleStorePrefixNameEdit.setMinimumSize(100, 20)	
-        self.dlg.tripleStorePrefixNameEdit.setValidator(prefixvalidator)
-        tripleStorePrefixName = QLabel("Prefix:",self.dlg.searchTripleStoreDialog)	
-        tripleStorePrefixName.move(10,150)	
-        addPrefixButton = QPushButton("Add Prefix",self.dlg.searchTripleStoreDialog)	
-        addPrefixButton.move(560,150)	
-        addPrefixButton.clicked.connect(self.addPrefixToList)	
-        removePrefixButton = QPushButton("Remove Selected Prefix",self.dlg.searchTripleStoreDialog)	
-        removePrefixButton.move(100,180)
-        removePrefixButton.clicked.connect(self.removePrefixFromList)	
-        prefixListLabel = QLabel("Prefixes:",self.dlg.searchTripleStoreDialog)	
-        prefixListLabel.move(20,185)	
-        self.dlg.prefixList=QListWidget(self.dlg.searchTripleStoreDialog)	
-        self.dlg.prefixList.move(20,210)	
-        self.dlg.prefixList.setMinimumSize(300,200)	
-        exampleQueryLabel = QLabel("Example Query (optional): ",self.dlg.searchTripleStoreDialog)	
-        exampleQueryLabel.move(330,185)	
-        self.dlg.exampleQuery=QPlainTextEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.exampleQuery.move(330,210)	
-        self.dlg.exampleQuery.setMinimumSize(300,200)	
-        self.dlg.exampleQuery.textChanged.connect(self.validateSPARQL)	
-        sparqlhighlighter = SPARQLHighlighter(self.dlg.exampleQuery,self.dlg.errorLabel)	
-        #self.dlg.queryChooser=QComboBox(self.dlg.searchTripleStoreDialog)
-        self.dlg.tripleStorePrefixEdit = QLineEdit(self.dlg.searchTripleStoreDialog)	
-        self.dlg.tripleStorePrefixEdit.move(310,150)	
-        self.dlg.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")	
-        self.dlg.tripleStorePrefixEdit.setValidator(urlvalidator)
-        self.dlg.tripleStorePrefixEdit.textChanged.connect(self.check_state2)
-        self.dlg.tripleStorePrefixEdit.textChanged.emit(self.dlg.tripleStorePrefixEdit.text())
-        self.dlg.tripleStorePrefixEdit.setMinimumSize(250, 20)
-        tripleStoreApplyButton = QPushButton("Apply",self.dlg.searchTripleStoreDialog)	
-        tripleStoreApplyButton.move(10,460)	
-        tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
-        tripleStoreCloseButton = QPushButton("Close",self.dlg.searchTripleStoreDialog)	
-        tripleStoreCloseButton.move(100,460)	
-        tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)	
-        #tripleStoreApplyButton = QPushButton("Reset Configuration",self.dlg.searchTripleStoreDialog)	
-        #tripleStoreApplyButton.move(330,560)	
-        #tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
-        self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
-        self.dlg.searchTripleStoreDialog.exec_()	
-
-    def closeTripleStoreDialog(self):
-        self.dlg.searchTripleStoreDialog.close()
-
-    def testTripleStoreConnection(self,calledfromotherfunction=False):	
-        sparql = SPARQLWrapper(self.dlg.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
-        sparql.setQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1")	
-        sparql.setReturnFormat(JSON)	
-        print("now sending query")	
-        try:	
-            results = sparql.query()	
-            if not calledfromotherfunction:	
-                msgBox=QMessageBox()	
-                msgBox.setText("URL depicts a valid SPARQL Endpoint!")	
-                msgBox.exec()	
-            return True	
-        except:	
-            msgBox=QMessageBox()	
-            msgBox.setText("URL does not depict a valid SPARQL Endpoint!")	
-            msgBox.exec()	
-            return False	
-
-    def addNewSPARQLEndpoint(self):
-        self.addTripleStore=True
-        self.applyCustomSPARQLEndPoint()
-
-
-    def addPrefixToList(self):	
-        item=QListWidgetItem()	
-        item.setData(0,"PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")	
-        item.setText("PREFIX "+self.dlg.tripleStorePrefixNameEdit.text()+":<"+self.dlg.tripleStorePrefixEdit.text()+">")	
-        self.dlg.prefixList.addItem(item)	
-
-    def removePrefixFromList(self):	
-        item=QListWidgetItem()	
-        for item in self.dlg.prefixList.selectedItems():
-            self.dlg.prefixList.removeItemWidget(item)
-
-    def applyCustomSPARQLEndPoint(self):	
-        if not self.testTripleStoreConnection(True):	
-           return	
-        if self.dlg.tripleStoreNameEdit.text()=="":	
-           msgBox=QMessageBox()	
-           msgBox.setText("Triple Store Name is missing!")	
-           msgBox.exec()	
-           return	
-        #self.endpoints.append(self.dlg.tripleStoreEdit.text())	
-        self.dlg.comboBox.addItem(self.dlg.tripleStoreNameEdit.text())	
-        curprefixes=[]	
-        for i in range(self.dlg.prefixList.count()):	
-            curprefixes.append(self.dlg.prefixList.item(i).text()	)
-        if self.addTripleStore:
-            index=len(self.triplestoreconf)
-            self.dlg.tripleStoreChooser.addItem(self.dlg.tripleStoreNameEdit.text()	)
-            self.triplestoreconf.append({})
-            self.triplestoreconf[index]["querytemplate"]=[]
-            self.triplestoreconf[index]["querytemplate"].append({})
-            self.triplestoreconf[index]["querytemplate"][0]["label"]="Example Query"
-            self.triplestoreconf[index]["querytemplate"][0]["query"]=self.dlg.exampleQuery.toPlainText()
-        else:
-            index=self.dlg.tripleStoreChooser.currentIndex()
-        self.triplestoreconf[index]={}
-        self.triplestoreconf[index]["endpoint"]=self.dlg.tripleStoreEdit.text()
-        self.triplestoreconf[index]["name"]=self.dlg.tripleStoreNameEdit.text()	
-        self.triplestoreconf[index]["mandatoryvariables"]=[]
-        self.triplestoreconf[index]["mandatoryvariables"].append(self.dlg.queryVarEdit.text())
-        self.triplestoreconf[index]["mandatoryvariables"].append(self.dlg.queryVarItemEdit.text())        
-        self.triplestoreconf[index]["prefixes"]=curprefixes
-        self.triplestoreconf[index]["crs"]=self.dlg.epsgEdit.text()	
-        self.triplestoreconf[index]["active"]=self.dlg.activeCheckBox.isChecked()
-
-        self.addTripleStore=False
-
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
         qres = graph.query(
@@ -1166,72 +495,22 @@ class SPAQLunicorn:
         return geometries
 
     def createEnrichSearchDialog(self,row=-1,column=-1):
-        self.interlinkOrEnrich=False
         if column==1:
-            self.buildSearchDialog(row,column)
+            self.buildSearchDialog(row,column,False,self.dlg.enrichTable)
 
     def createInterlinkSearchDialog(self, row=-1, column=-1):
-        self.interlinkOrEnrich=True
-        if column>3 or column==-1:
-            self.buildSearchDialog(row,column)
+        if column>3:
+            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable)
+        elif column==-1:
+            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput)
 
-    def buildSearchDialog(self,row,column):
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog = QDialog()
+        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
-        self.dlg.conceptSearchEdit = QLineEdit(self.dlg.interlinkdialog)
-        self.dlg.conceptSearchEdit.move(100,10)
-        conceptSearchLabel = QLabel("Search Concept:",self.dlg.interlinkdialog)
-        conceptSearchLabel.move(0,10)
-        findConcept = QRadioButton("Class",self.dlg.interlinkdialog)
-        findConcept.move(300,15)
-        if column!=4:
-            findConcept.setChecked(True)
-        findProperty = QRadioButton("Property",self.dlg.interlinkdialog)
-        findProperty.move(300,40)
-        if column==4:
-            findProperty.setChecked(True)
-        findProperty.setEnabled(False)
-        findConcept.setEnabled(False)
-        self.dlg.tripleStoreEdit = QComboBox(self.dlg.interlinkdialog)
-        self.dlg.tripleStoreEdit.move(100,40)
-        for triplestore in self.triplestoreconf:
-            if not "File"==triplestore["name"]:
-                self.dlg.tripleStoreEdit.addItem(triplestore["name"])
-        tripleStoreLabel = QLabel("Triple Store:",self.dlg.interlinkdialog)
-        tripleStoreLabel.move(0,40)
-        searchButton = QPushButton("Search",self.dlg.interlinkdialog)
-        searchButton.move(10,70)
-        searchButton.clicked.connect(self.getClassesFromLabel)
-        searchResultLabel = QLabel("Search Results",self.dlg.interlinkdialog)
-        searchResultLabel.move(100,100)
-        self.dlg.searchResult = QListWidget(self.dlg.interlinkdialog)
-        self.dlg.searchResult.move(30,120)
-        self.dlg.searchResult.setMinimumSize(600, 300)
-        applyButton = QPushButton("Apply",self.dlg.interlinkdialog)
-        applyButton.move(150,430)
-        applyButton.clicked.connect(self.applyConceptToColumn)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.dlg.interlinkdialog.exec_()
-
-    def applyConceptToColumn(self):
-        print("test")
-        if self.dlg.currentrow==-1 and self.dlg.currentcol==-1:
-            self.dlg.interlinkOwlClassInput.setText(str(self.dlg.searchResult.currentItem().data(0)))
-        else:
-            item=QTableWidgetItem(self.dlg.searchResult.currentItem().text())
-            item.setText(self.dlg.searchResult.currentItem().text())
-            item.setData(0,self.dlg.searchResult.currentItem().data(0))
-            if self.interlinkOrEnrich:
-                self.dlg.interlinkTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
-            else:
-                item2=QTableWidgetItem()
-                item2.setText(self.dlg.tripleStoreEdit.currentText())
-                item2.setData(0,self.triplestoreconf[self.dlg.tripleStoreEdit.currentIndex()+1]["endpoint"])
-                self.dlg.enrichTable.setItem(self.dlg.currentrow,self.dlg.currentcol,item)
-                self.dlg.enrichTable.setItem(self.dlg.currentrow,(self.dlg.currentcol+1),item2)
-        self.dlg.interlinkdialog.close()
 
     def addnewEnrichRow(self):
         currentRowCount = self.dlg.enrichTable.rowCount() 
@@ -1475,7 +754,6 @@ class SPAQLunicorn:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
 		
-
     def exportLayer(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
@@ -1566,7 +844,7 @@ class SPAQLunicorn:
                 first=first+1
 #        with open(filename+"_temp", 'w') as output_file:
 #            output_file.write(ttlstring)
-        g=rdflib.Graph()
+        g=Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
         exportNameSpace=""
@@ -1621,14 +899,14 @@ class SPAQLunicorn:
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
         return featurecollection	
-
+    
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
         self.justloadingfromfile=True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
-            g = rdflib.Graph()
+            g = Graph()
             filepath=fileNames[0].split(".")
             result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
             print(g)
@@ -1647,6 +925,7 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(0)
             return result
         return None
+     
     """
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
@@ -1654,41 +933,50 @@ class SPAQLunicorn:
         self.justloadingfromfile=True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
-            g = rdflib.Graph()
+            g = Graph()
             filepath=fileNames[0].split(".")
             result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
             print(g)
             self.currentgraph=g
             self.dlg.layerconcepts.clear()
-            worker_thread = GeoConceptsThread(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            worker_thread.finished.connect(self.loadGraphGUI)
-            worker_thread.start()
-            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
-        #return None
+            task1=QgsTask.fromFunction('loadGraphProcess', self.loadGraphProcess,onfinished=self.loadGraphGUI,wait_time=0,query=self.triplestoreconf[0]["geoconceptquery"],triplestoreurl="",graph=g)
+            QgsApplication.taskManager().addTask(task1)
+            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            #runworker=RunWorker()
+            #runworker.start_worker(worker, self.iface, 'testing the worker')
 
-    def loadGraph(self):
-        dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        self.justloadingfromfile=True
-        if dialog.exec_():
-            fileNames = dialog.selectedFiles()
-            g = rdflib.Graph()
-            filepath=fileNames[0].split(".")
-            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
-            print(g)
-            self.currentgraph=g
-            self.dlg.layerconcepts.clear()
-            worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            worker_thread = QThread()
-            worker.moveToThread(worker_thread)
-            worker_thread.finished.connect(self.loadGraphGUI)
-            worker_thread.start()
+            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            #worker_thread = QThread()
+            #worker.moveToThread(worker_thread)
+            #worker_thread.finished.connect(self.loadGraphGUI)
+            #worker_thread.start()
             #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
         #return None
     """
-    
-    def loadGraphGUI(self):
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")		
+    def loadGraphProcess(task, wait_time,query,triplestoreurl,graph):
+        print("THREADSTART")
+        viewlist=[]
+        print(query)
+        print(triplestoreurl)
+        print(graph)
+        if graph!=None:
+            print("WE HAVE A GRAPH")
+            results = graph.query(query)
+            for row in results:
+                viewlist.append(str(row[0]))
+        else:
+            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            sparql.setQuery(query)
+            print("now sending query")
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+            for result in results["results"]["bindings"]:
+                viewlist.append(str(result[queryvar]["value"]))
+        print(viewlist)
+        return viewlist
+
+    def loadGraphGUI(exception, result=None):
+        self.dlg.layercount.setText("["+str(len(result))+"]")		
         for geo in geoconcepts:
             self.dlg.layerconcepts.addItem(geo)
         comp=QCompleter(self.dlg.layerconcepts)
@@ -1699,16 +987,6 @@ class SPAQLunicorn:
         self.loadedfromfile=True
         self.justloadingfromfile=False
         return result
-    
-    def getWikidataAreaConcepts(self):
-        resultlist=[]
-        resultlist.append("city"+" (Q515)")
-        resultlist.append("country"+" (Q6256)")		
-        return resultlist
-		
-    def loadAreas(self):
-        resultlist=[]
-        return resultlist
     
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
@@ -1751,82 +1029,9 @@ class SPAQLunicorn:
         if "examplequery" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
 
-    def setBBOXExtentQuery(self):	
-        self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	
-        self.layerExtentOrBBOX=True	
-        self.setBBOXInQuery()
-
-    def setBBOXInQuery(self):
-        if self.layerExtentOrBBOX:
-            xMax=self.mts_layer.extent().xMaximum()
-            xMin=self.mts_layer.extent().xMinimum()
-            yMin=self.mts_layer.extent().yMinimum()
-            yMax=self.mts_layer.extent().yMaximum()
-            pointt1=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMin))	
-            pointt2=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMin))	
-            pointt3=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMax))	
-            pointt4=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMax))	
-            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.sourceCrs())	
-        else:	
-            pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())	
-            pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())	
-            pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())	
-            pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())	
-            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
-        destCrs = QgsCoordinateReferenceSystem(4326)
-        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-        pointt1.transform(tr)
-        pointt2.transform(tr)
-        pointt3.transform(tr)
-        pointt4.transform(tr)
-        polygon = QgsGeometry.fromPolylineXY( [pointt1.asPoint(),pointt2.asPoint(),pointt3.asPoint(),pointt4.asPoint()] )
-        center=polygon.centroid()
-        #distance = QgsDistanceArea()
-        #distance.setSourceCrs(destCrs)
-        #distance.setEllipsoidalMode(True)
-        #distance.setEllipsoid('WGS84')
-        widthm = 100 #distance.measureLine(pointt1, pointt2)
-        self.curbbox=[]
-        self.curbbox.append(pointt1)
-        self.curbbox.append(pointt2)
-        self.curbbox.append(pointt3)
-        self.curbbox.append(pointt4)
-        self.d.close()
-        curquery=self.dlg.inp_sparql.toPlainText()
-        endpointIndex = self.dlg.comboBox.currentIndex()
-        if "bboxquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["bboxquery"]["type"]=="minmax":
-             curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%minPoint%%",pointt2.asWKT()).replace("%%maxPoint%%",pointt4.asWkt())+curquery[curquery.rfind('}')+1:]
-        elif "bboxquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["bboxquery"]["type"]=="pointdistance":
-            curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[endpointIndex]["bboxquery"]["query"].replace("%%lat%%",str(center.asPoint().y())).replace("%%lon%%",str(center.asPoint().x())).replace("%%distance%%",str(widthm/1000))+curquery[curquery.rfind('}')+1:]
-        self.dlg.inp_sparql.setPlainText(curquery)
 
     def getPointFromCanvas(self):
-        self.d = QDialog()
-        self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.map_canvas = QgsMapCanvas(self.d)
-        self.map_canvas.setMinimumSize(500, 475)
-        uri="url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz"
-        self.mts_layer=QgsRasterLayer(uri,'OSM','wms')
-        if not self.mts_layer.isValid():
-            print ("Layer failed to load!")
-        self.rect_tool = RectangleMapTool(self.map_canvas)
-        self.map_canvas.setMapTool(self.rect_tool)
-        self.map_canvas.setExtent(self.mts_layer.extent())
-        self.map_canvas.setLayers( [self.vl,self.mts_layer] )
-        self.map_canvas.setCurrentLayer(self.mts_layer)
-        chooseLayerLabel=QLabel("Choose Layer Extent:",self.d)
-        chooseLayerLabel.move(0,480)	
-        self.chooseBBOXLayer=QComboBox(self.d)	
-        self.chooseBBOXLayer.move(150,475)	
-        b2 = QPushButton("Apply Layer Extent",self.d)	
-        b2.move(10,500)	
-        b2.clicked.connect(self.setBBOXExtentQuery)	
-        layers = QgsProject.instance().layerTreeRoot().children()	
-        for layer in layers:	
-            self.chooseBBOXLayer.addItem(layer.name())  	
-        b1 = QPushButton("Apply BBOX",self.d)
-        b1.move(400,500)
-        b1.clicked.connect(self.setBBOXInQuery)
+        self.d=BBOXDialog(self.dlg.inp_sparql,self.triplestoreconf,self.dlg.comboBox.currentIndex())
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
@@ -1862,17 +1067,17 @@ class SPAQLunicorn:
         else:
             self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
 
+    def check_state3(self):
+        self.dlg.searchTripleStoreDialog.check_state(self.dlg.interlinkNameSpace)
+		
+    def buildCustomTripleStoreDialog(self):	
+        self.dlg.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)	
+        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
+        self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
+        self.dlg.searchTripleStoreDialog.exec_()
+
     def run(self):
         """Run method that performs all the real work"""
-        #try:
-        #    print(sparql = SPARQLWrapper("http://dbpedia.org/sparql"))
-        #except ImportError as error:
-            # Output expected ImportErrors.
-        #    print(error.__class__.__name__ + ": " + error.message)
-        #except Exception as exception:
-            # Output unexpected Exceptions.
-        #    print(exception, False)
-        #    print(exception.__class__.__name__ + ": " + exception.message)
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
@@ -1888,13 +1093,14 @@ class SPAQLunicorn:
             self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
+            self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
             #self.dlg.inp_sparql.hide()
             #self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab)
             #self.dlg.inp_sparql2.move(10,130)
             #self.dlg.inp_sparql2.setMinimumSize(941,401)
             #self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
             #self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql,self.dlg.errorLabel)
+            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
@@ -1907,12 +1113,12 @@ class SPAQLunicorn:
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.viewselectaction()
-            self.dlg.areaconcepts.hide()
-            self.dlg.areas.hide()
-            self.dlg.label_8.hide()
-            self.dlg.label_9.hide()
-            self.dlg.tabWidget.removeTab(2)
-            self.dlg.tabWidget.removeTab(1)
+            #self.dlg.areaconcepts.hide()
+            #self.dlg.areas.hide()
+            #self.dlg.label_8.hide()
+            #self.dlg.label_9.hide()
+            #self.dlg.tabWidget.removeTab(2)
+            #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
@@ -1935,7 +1141,7 @@ class SPAQLunicorn:
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
-            self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
+            #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
