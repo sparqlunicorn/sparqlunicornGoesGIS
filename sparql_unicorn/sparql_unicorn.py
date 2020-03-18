@@ -735,6 +735,15 @@ class SPAQLunicorn:
                         valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
         self.enrichedExport=True
         self.exportLayer()
+        
+    def addNewLayerToTripleStore(self,triplestoreaddress,layer):
+        ttlstring=layerToTTLString(layer)
+        queryString = "INSERT DATA { GRAPH <http://example.com/> { "+ttlstring+" } }" 
+        sparql = SPARQLWrapper(triplestoreaddress)
+        sparql.setQuery(queryString) 
+        sparql.method = 'POST'
+        sparql.query()
+        
 		
     def matchColumnValueFromTripleStore(self,toquery):
         values="VALUES ?vals { "
@@ -753,18 +762,8 @@ class SPAQLunicorn:
         for result in results["results"]["bindings"]:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
-		
-    def exportLayer(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
-        if filename=="":
-             return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        if self.enrichedExport:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        else:
-            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+
+    def layerToTTLString(self,layer):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -842,8 +841,20 @@ class SPAQLunicorn:
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n" 
             if first<10:
                 first=first+1
-#        with open(filename+"_temp", 'w') as output_file:
-#            output_file.write(ttlstring)
+        return ttlstring
+		
+    def exportLayer(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
+        if filename=="":
+             return
+        layers = QgsProject.instance().layerTreeRoot().children()
+        if self.enrichedExport:
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        else:
+            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        ttlstring=layerToTTLString(layer)
         g=Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
