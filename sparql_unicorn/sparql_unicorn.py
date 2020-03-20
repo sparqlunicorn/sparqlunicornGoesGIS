@@ -31,7 +31,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
-from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest
 from qgis.utils import iface
 import os.path
 import sys
@@ -743,7 +743,19 @@ class SPAQLunicorn:
         sparql.setQuery(queryString) 
         sparql.method = 'POST'
         sparql.query()
-        
+		
+    def compareLayers(layer1,layer2,idcolumn):
+        changedTriples=""
+        fieldnames = [field.name() for field in layer.fields()]
+        for f in layer1.getFeatures():
+            geom = f.geometry()
+            id=f[idcolumn]
+            expr = QgsExpression( "\""+idcolumn+"\"="+id )
+            it = cLayer.getFeatures( QgsFeatureRequest( expr ) )
+            if len(it)==0:
+                #Add new line
+			elif len(it)>0:
+                #Compare
 		
     def matchColumnValueFromTripleStore(self,toquery):
         values="VALUES ?vals { "
