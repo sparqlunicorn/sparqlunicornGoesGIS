@@ -752,9 +752,9 @@ class SPAQLunicorn:
             id=f[idcolumn]
             expr = QgsExpression( "\""+idcolumn+"\"="+id )
             it = cLayer.getFeatures( QgsFeatureRequest( expr ) )
-            if len(it)==0:
+            #if len(it)==0:
                 #Add new line
-            elif len(it)>0:
+            #elif len(it)>0:
                 #Compare
 		
     def matchColumnValueFromTripleStore(self,toquery):
