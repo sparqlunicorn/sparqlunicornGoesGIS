@@ -335,10 +335,11 @@ class SPAQLunicorn:
                 myGeometryInstance.transform(tr)
             #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
-            features.append(feature)
-		
-        if features==[]:
+            features.append(feature)		
+        if features==[] and len(results["results"]["bindings"])==0:
             return None
+        if features==[] and len(results["results"]["bindings"])>0:
+            return len(results["results"]["bindings"])
         geojson = {'type': 'FeatureCollection', 'features': features }
         return geojson
 
@@ -386,6 +387,11 @@ class SPAQLunicorn:
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
+            msgBox.exec()
+            return
+        if isinstance(geojson, int) and not self.dlg.allownongeo.isChecked():
+            msgBox=QMessageBox()
+            msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
         # add layer
