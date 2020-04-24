@@ -367,6 +367,19 @@ SELECT ?label ?geo ?item WHERE {
       <string>Own TripleStore</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="allownongeo">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>100</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Allow non-geo queries</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -377,7 +390,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>811</width>
+       <width>931</width>
        <height>391</height>
       </rect>
      </property>
@@ -674,7 +687,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>20</x>
        <y>100</y>
-       <width>811</width>
+       <width>921</width>
        <height>451</height>
       </rect>
      </property>

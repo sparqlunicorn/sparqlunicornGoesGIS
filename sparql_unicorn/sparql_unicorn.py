@@ -260,7 +260,7 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
-    def processResults(self,results,reproject,mandatoryvars):
+    def processResults(self,results,reproject,mandatoryvars,geooptional):
         latval=mandatoryvars[0]
         lonval=""
         if len(mandatoryvars)>1:
@@ -321,6 +321,10 @@ class SPAQLunicorn:
                 #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
+            if not "rel" in result and not "val" in result and not "geo" in result and geooptional:
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  {} }
+                features.append(feature)
             #print(properties)
         if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
             myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"])
@@ -332,6 +336,7 @@ class SPAQLunicorn:
             #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
             features.append(feature)
+		
         if features==[]:
             return None
         geojson = {'type': 'FeatureCollection', 'features': features }
@@ -361,7 +366,7 @@ class SPAQLunicorn:
         for mandvar in self.triplestoreconf[endpointIndex]["mandatoryvariables"]:
             if mandvar not in query:
                   missingmandvars.append("?"+mandvar)
-        if missingmandvars!=[]:
+        if missingmandvars!=[] and not self.dlg.allownongeo.isChecked():
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
@@ -377,7 +382,7 @@ class SPAQLunicorn:
             return            
         #print(results)
         # geojson stuff
-        geojson=self.processResults(results,(str(self.triplestoreconf[endpointIndex]["crs"]) if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:])
+        geojson=self.processResults(results,(str(self.triplestoreconf[endpointIndex]["crs"]) if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
