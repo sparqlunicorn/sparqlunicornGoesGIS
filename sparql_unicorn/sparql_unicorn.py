@@ -31,7 +31,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
-from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem
 from qgis.utils import iface
 import os.path
 import sys
