@@ -283,6 +283,19 @@ class SPAQLunicorn:
                     features.append(feature)
                 properties = {}
                 item=result["item"]["value"]
+            if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (item=="" or result["item"]["value"]!=item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                if item!="":
+                    myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
+                    if reproject!="":
+                        sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                        destCrs = QgsCoordinateReferenceSystem(4326)
+                        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                        myGeometryInstance.transform(tr)
+                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                    features.append(feature)
+                properties = {}
+                item=result["item"]["value"]
             #if not "rel" in result and not "val" in result:
             properties = {}
             for var in results["head"]["vars"]:
@@ -1055,7 +1068,7 @@ class SPAQLunicorn:
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
-                 self.dlg.areaconcepts.addItem(concept)
+                 self.dlg.areaconcepts.addItem(concept["concept"])
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
