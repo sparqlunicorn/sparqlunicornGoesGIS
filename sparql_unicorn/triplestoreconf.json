@@ -105,7 +105,7 @@
 					"http://data.ordnancesurvey.co.uk/ontology/admingeo/GreaterLondonAuthorityAssemblyConstituency"],
 		"querytemplate": [{
 			"label": "Item+Label",
-			"query": "SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> ?easting .\n ?item <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> ?northing .\n } LIMIT 10"
+			"query": "SELECT ?item ?easting ?northing WHERE {\n ?item a <%%concept%%>.\n ?item spatial:easting ?easting .\n ?item spatial:northing ?northing .\n } LIMIT 10"
 		}],
 		"crs": 27700,
 		"active": true
@@ -119,18 +119,19 @@
 			"PREFIX nmo: <http://nomisma.org/ontology#>",
 			"PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
 			"PREFIX spatial: <http://jena.apache.org/spatial#>",
-			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
 		],
 		"endpoint": "http://nomisma.org/query",
 		"mandatoryvariables": ["item", "lat", "lon"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
 		"geoconceptlimit": 500,
 		"querytemplate": [{
-			"label": "All Attributes",
-			"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item geo:location ?loc .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"
+			"label": "100 Random Places",
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n} LIMIT 100"
 		}, {
 			"label": "Item+Label",
-			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?loc <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item geo:location ?loc .\n ?loc wgs84_pos:lat ?lat .\n ?loc wgs84_pos:long ?lon .\n } LIMIT 10"
 		}],
 		"staticconcepts": ["http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing", "http://www.w3.org/2004/02/skos/core#Concept", "http://nomisma.org/ontology#Mint", "http://nomisma.org/ontology#Region"],
 		"bboxquery": {
@@ -152,17 +153,18 @@
 			"PREFIX org: <http://www.w3.org/ns/org#>",
 			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
 			"PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
-			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+			"PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
 		],
 		"endpoint": "http://kerameikos.org/query",
 		"mandatoryvariables": ["item", "lat", "lon"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
 		"querytemplate": [{
 			"label": "All Attributes",
-			"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"
+			"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
 		}, {
 			"label": "Item+Label",
-			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
 		}],
 		"geoconceptlimit": 500,
 		"areaconcepts": [{
@@ -185,7 +187,8 @@
 			"Prefix owl: <http://www.w3.org/2002/07/owl#>",
 			"Prefix ogc: <http://www.opengis.net/ont/geosparql#>",
 			"Prefix geom: <http://geovocab.org/geometry#>",
-			"Prefix lgdo: <http://linkedgeodata.org/ontology/>"
+			"Prefix lgdo: <http://linkedgeodata.org/ontology/>",
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
 		],
 		"endpoint": "http://linkedgeodata.org/sparql",
 		"mandatoryvariables": ["item", "lat", "lon"],
@@ -193,11 +196,11 @@
 		"geoconceptlimit": 500,
 		"querytemplate": [{
 				"label": "All Attributes",
-				"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"
+				"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
 			},
 			{
 				"label": "Item+Label",
-				"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+				"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
 			},
 			{
 				"label": "Restaurants in Mainz",
@@ -219,17 +222,18 @@
 			"Prefix ogc: <http://www.opengis.net/ont/geosparql#>",
 			"Prefix owl: <http://www.w3.org/2002/07/owl#>",
 			"Prefix geom: <http://geovocab.org/geometry#>",
-			"Prefix lgdo: <http://linkedgeodata.org/ontology/>"
+			"Prefix lgdo: <http://linkedgeodata.org/ontology/>",
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
 		],
 		"endpoint": "http://dbpedia.org/sparql",
 		"mandatoryvariables": ["item", "lat", "lon"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
 		"querytemplate": [{
-			"label": "All Attributes",
-			"query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n} LIMIT 100"
+			"label": "100 Random Places",
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
 		}, {
 			"label": "Item+Label",
-			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
 		}],
 		"geoconceptlimit": 500,
 		"staticconcepts": [],
@@ -251,17 +255,18 @@
 			"Prefix geom: <http://geovocab.org/geometry#>",
 			"Prefix ogc: <http://www.opengis.net/ont/geosparql#>",
 			"Prefix owl: <http://www.w3.org/2002/07/owl#>",
-			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>",
+			"Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
 		],
 		"endpoint": "http://factforge.net/repositories/ff-news",
 		"mandatoryvariables": ["item", "lat", "lon"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .} LIMIT 100",
 		"querytemplate": [{
 			"label": "All Attributes",
-			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <http://www.geonames.org/ontology#Feature>.\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
 		}, {
 			"label": "Item+Label",
-			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <http://www.geonames.org/ontology#Feature>.\n ?item <http://www.geonames.org/ontology#featureCode> <%%concept%%> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"
+			"query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature.\n ?item gn:featureCode gn:%%concept%% .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
 		}],
 		"geoconceptlimit": 500,
 		"staticconcepts": ["ADM1", "ADM1H", "ADM2", "ADM2H", "ADM3", "ADM3H", "ADM4", "ADM4H", "ADM5", "ADM5H", "ADMD", "ADMDH", "ADMF", "AGRC", "AGRF", "AIRB", "AIRF", "AIRH", "AIRP", "AIRQ", "AIRS", "AIRT", "AMTH", "AMUS", "ANCH", "ANS", "APNU", "AQC", "ARCH", "ARCHV", "ARCU", "AREA", "ARRU", "ART", "ASPH", "ASTR", "ASYL", "ATHF", "ATM", "ATOL", "BANK", "BAR", "BAY", "BAYS", "BCH", "BCHS", "BCN", "BDG", "BDGQ", "BDLD", "BDLU", "BGHT", "BKSU", "BLDA", "BLDG", "BLDO", "BLDR", "BLHL", "BLOW", "BNCH", "BNK", "BNKR", "BNKU", "BNKX", "BOG", "BP", "BRKS", "BRKW", "BSND", "BSNP", "BSNU", "BSTN", "BTL", "BTYD", "BUR", "BUSH", "BUSTN", "BUSTP", "BUTE", "CAPE", "CAPG", "CARN", "CAVE", "CDAU", "CFT", "CH", "CHN", "CHNL", "CHNM", "CHNN", "CLDA", "CLF", "CLG", "CMN", "CMP", "CMPL", "CMPLA", "CMPMN", "CMPO", "CMPQ", "CMPRF", "CMTY", "CNFL", "CNL", "CNLA", "CNLB", "CNLD", "CNLI", "CNLN", "CNLQ", "CNLSB", "CNLX", "CNS", "CNSU", "CNYN", "CNYU", "COLF", "COMC", "CONE", "CONT", "COVE", "CRDR", "CRKT", "CRNT", "CRQ", "CRQS", "CRRL", "CRSU", "CRTR", "CSNO", "CST", "CSTL", "CSTM", "CSWY", "CTHSE", "CTRA", "CTRB", "CTRCM", "CTRF", "CTRM", "CTRR", "CTRS", "CUET", "CULT", "CUTF", "CVNT", "DAM", "DAMQ", "DAMSB", "DARY", "DCK", "DCKB", "DCKD", "DCKY", "DEPU", "DEVH", "DIKE", "DIP", "DLTA", "DOMG", "DPOF", "DPR", "DPRG", "DSRT", "DTCH", "DTCHD", "DTCHI", "DTCHM", "DUNE", "DVD", "EDGU", "ERG", "ESCU", "EST", "ESTO", "ESTR", "ESTSG", "ESTT", "ESTX", "ESTY", "FAN", "FANU", "FCL", "FISH", "FJD", "FJDS", "FLD", "FLDI", "FLLS", "FLLSX", "FLTM", "FLTT", "FLTU", "FNDY", "FORD", "FRM", "FRMQ", "FRMS", "FRMT", "FRST", "FRSTF", "FRZU", "FSR", "FT", "FURU", "FY", "FYT", "GAP", "GAPU", "GASF", "GATE", "GDN", "GHAT", "GHSE", "GLCR", "GLYU", "GOSP", "GOVL", "GRAZ", "GRGE", "GROVE", "GRSLD", "GRVC", "GRVE", "GRVO", "GRVP", "GRVPN", "GULF", "GVL", "GYSR", "H", "HBR", "HBRX", "HDLD", "HERM", "HLL", "HLLS", "HLLU", "HLSU", "HLT", "HMCK", "HMDA", "HMSD", "HOLU", "HSE", "HSEC", "HSP", "HSPC", "HSPD", "HSPL", "HSTS", "HTH", "HTL", "HUT", "HUTS", "INDS", "INLT", "INLTQ", "INSM", "INTF", "ISL", "ISLET", "ISLF", "ISLM", "ISLS", "ISLT", "ISLX", "ISTH", "ITTR", "JTY", "KNLU", "KNSU", "KRST", "L", "LAND", "LAVA", "LBED", "LCTY", "LDGU", "LDNG", "LEPC", "LEV", "LEVU", "LGN", "LGNS", "LGNX", "LIBR", "LK", "LKC", "LKI", "LKN", "LKNI", "LKO", "LKOI", "LKS", "LKSB", "LKSC", "LKSI", "LKSN", "LKSNI", "LKX", "LNDF", "LOCK", "LTER", "LTHSE", "MALL", "MAR", "MDW", "MESA", "MESU", "MFG", "MFGB", "MFGC", "MFGCU", "MFGLM", "MFGM", "MFGN", "MFGPH", "MFGQ", "MFGSG", "MGV", "MILB", "MKT", "ML", "MLM", "MLO", "MLSG", "MLSGQ", "MLSW", "MLWND", "MLWTR", "MN", "MNA", "MNAU", "MNC", "MNCR", "MNCU", "MND", "MNDU", "MNFE", "MNMT", "MNN", "MNQ", "MNQR", "MOLE", "MOOR", "MOTU", "MRN", "MRSH", "MRSHN", "MSQE", "MSSN", "MSSNQ", "MSTY", "MT", "MTRO", "MTS", "MTU", "MUS", "MVA", "NKM", "NOV", "NRWS", "NSY", "NTK", "NTKS", "NVB", "OAS", "OBPT", "OBS", "OBSR", "OCH", "OCN", "OILF", "OILJ", "OILP", "OILQ", "OILR", "OILT", "OILW", "OPRA", "OVF", "P", "PAL", "PAN", "PANS", "PASS", "PCL", "PCLD", "PCLF", "PCLH", "PCLI", "PCLIX", "PCLS", "PEAT", "PEN", "PENX", "PGDA", "PIER", "PK", "PKLT", "PKS", "PKSU", "PKU", "PLAT", "PLATX", "PLDR", "PLN", "PLNU", "PLNX", "PLTU", "PMPO", "PMPW", "PND", "PNDI", "PNDN", "PNDNI", "PNDS", "PNDSF", "PNDSI", "PNDSN", "PNLU", "PO", "POOL", "POOLI", "PP", "PPL", "PPLA", "PPLA2", "PPLA3", "PPLA4", "PPLA5", "PPLC", "PPLCH", "PPLF", "PPLG", "PPLH", "PPLL", "PPLQ", "PPLR", "PPLS", "PPLW", "PPLX", "PPQ", "PRK", "PRKGT", "PRKHQ", "PRMN", "PRN", "PRNJ", "PRNQ", "PROM", "PRSH", "PRT", "PRVU", "PS", "PSH", "PSN", "PSTB", "PSTC", "PSTP", "PT", "PTGE", "PTS", "PYR", "PYRS", "QCKS", "QUAY", "R", "RCH", "RD", "RDA", "RDB", "RDCR", "RDCUT", "RDGB", "RDGE", "RDGG", "RDGU", "RDIN", "RDJCT", "RDST", "RDSU", "RECG", "RECR", "REG", "RES", "RESA", "RESF", "RESH", "RESN", "RESP", "REST", "RESV", "RESW", "RET", "RF", "RFC", "RFSU", "RFU", "RFX", "RGN", "RGNE", "RGNH", "RGNL", "RHSE", "RISU", "RJCT", "RK", "RKFL", "RKRY", "RKS", "RLG", "RLGR", "RNCH", "RNGA", "RPDS", "RR", "RRQ", "RSD", "RSGNL", "RSRT", "RSTN", "RSTNQ", "RSTP", "RSTPQ", "RSV", "RSVI", "RSVT", "RTE", "RUIN", "RVN", "RYD", "S", "SALT", "SAND", "SBED", "SBKH", "SCH", "SCHA", "SCHC", "SCHL", "SCHM", "SCHN", "SCHT", "SCNU", "SCRB", "SCRP", "SCSU", "SD", "SDL", "SDLU", "SEA", "SECP", "SHFU", "SHLU", "SHOL", "SHOR", "SHPF", "SHRN", "SHSE", "SHSU", "SHVU", "SILL", "SILU", "SINK", "SLCE", "SLID", "SLP", "SLPU", "SMSU", "SMU", "SNOW", "SNTR", "SPA", "SPIT", "SPLY", "SPNG", "SPNS", "SPNT", "SPRU", "SPUR", "SQR", "ST", "STBL", "STDM", "STKR", "STLMT", "STM", "STMA", "STMB", "STMC", "STMD", "STMH", "STMI", "STMIX", "STMM", "STMQ", "STMS", "STMSB", "STMX", "STNB", "STNC", "STNE", "STNF", "STNI", "STNM", "STNR", "STNS", "STNW", "STPS", "STRT", "SWMP", "SWT", "SYG", "SYSI", "T", "TAL", "TERR", "TERU", "THTR", "TMB", "TMPL", "TMSU", "TMTU", "TNGU", "TNKD", "TNL", "TNLC", "TNLN", "TNLRD", "TNLRR", "TNLS", "TOLL", "TOWR", "TRAM", "TRANT", "TRB", "TREE", "TRGD", "TRGU", "TRIG", "TRL", "TRMO", "TRNU", "TRR", "TUND", "TWO", "U", "UNIP", "UNIV", "UPLD", "USGE", "V", "VAL", "VALG", "VALS", "VALU", "VALX", "VETF", "VIN", "VINS", "VLC", "VLSU", "WAD", "WADB", "WADJ", "WADM", "WADS", "WADX", "WALL", "WALLA", "WEIR", "WHRF", "WHRL", "WLL", "WLLQ", "WLLS", "WRCK", "WTLD", "WTLDI", "WTRC", "WTRH", "WTRW", "ZN", "ZNB", "ZNF", "ZOO"],
@@ -273,11 +278,12 @@
 			"Prefix geom: <http://geovocab.org/geometry#>",
 			"Prefix ogc: <http://www.opengis.net/ont/geosparql#>",
 			"Prefix owl: <http://www.w3.org/2002/07/owl#>",
-			"Prefix osi: <http://ontologies.geohive.ie/osi#> "
+			"Prefix osi: <http://ontologies.geohive.ie/osi#> ",
+			"Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
 		],
 		"endpoint": "http://sandbox.mainzed.org/osi/sparql",
 		"mandatoryvariables": ["item", "geo"],
-		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a rdf:type ?class . ?a wgs84_pos:lat ?lat . ?a wgs84_pos:long ?long .}",
 		"geoconceptlimit": 500,
 		"querytemplate": [{
 			"label": "Default",
@@ -463,18 +469,16 @@
 		"prefixes": ["PREFIX osmnode: <https://www.openstreetmap.org/node/>",
 			"PREFIX osmway: <https://www.openstreetmap.org/way/>",
 			"PREFIX osmrel: <https://www.openstreetmap.org/relation/>",
-			"PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>",
-			"PREFIX osmm: <https://www.openstreetmap.org/meta/>",
 			"PREFIX pageviews: <https://dumps.wikimedia.org/other/pageviews/>",
 			"PREFIX osmd: <http://wiki.openstreetmap.org/entity/>",
 			"PREFIX osmdt: <http://wiki.openstreetmap.org/prop/direct/>",
 			"PREFIX osmp: <http://wiki.openstreetmap.org/prop/>",
 			"PREFIX osmps: <http://wiki.openstreetmap.org/prop/statement/>",
 			"PREFIX osmpq: <http://wiki.openstreetmap.org/prop/qualifier/>",
-			"PREFIX osmd: <http://wiki.openstreetmap.org/entity/>",
-			"PREFIX pageviews: <https://dumps.wikimedia.org/other/pageviews/>",
 			"PREFIX osmt: <https://wiki.openstreetmap.org/wiki/Key:>",
-			"PREFIX osmm: <https://www.openstreetmap.org/meta/>"
+			"PREFIX osmm: <https://www.openstreetmap.org/meta/>",
+			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>",
+			"Prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
 		],
 		"endpoint": "https://sophox.org/sparql",
 		"mandatoryvariables": ["item", "geo"],
@@ -492,7 +496,7 @@
 		"prefixes": "",
 		"endpoint": "http://zbw.eu/beta/sparql/econ_pers/query",
 		"mandatoryvariables": ["item", "lat", "lon"],
-		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
+		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a rdf:type ?class .\n ?a wgs84_pos:lat ?lat .\n ?a wgs84_pos:long ?long .\n}",
 		"geoconceptlimit": 500,
 		"staticconcepts": [],
 		"active": false

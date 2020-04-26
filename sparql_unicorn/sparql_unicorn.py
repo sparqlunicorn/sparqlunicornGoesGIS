@@ -305,7 +305,7 @@ class SPAQLunicorn:
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+reproject+"> ",""))
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+str(reproject)+"> ",""))
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
                     destCrs = QgsCoordinateReferenceSystem(4326)
@@ -396,7 +396,7 @@ class SPAQLunicorn:
             return            
         #print(results)
         # geojson stuff
-        geojson=self.processResults(results,(str(self.triplestoreconf[endpointIndex]["crs"]) if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
+        geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
