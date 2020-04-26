@@ -31,7 +31,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
-from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform
 from qgis.utils import iface
 import os.path
 import sys
@@ -260,7 +260,7 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
-    def processResults(self,results,reproject,mandatoryvars):
+    def processResults(self,results,reproject,mandatoryvars,geooptional):
         latval=mandatoryvars[0]
         lonval=""
         if len(mandatoryvars)>1:
@@ -283,6 +283,19 @@ class SPAQLunicorn:
                     features.append(feature)
                 properties = {}
                 item=result["item"]["value"]
+            if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (item=="" or result["item"]["value"]!=item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                if item!="":
+                    myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
+                    if reproject!="":
+                        sourceCrs = QgsCoordinateReferenceSystem(reproject)
+                        destCrs = QgsCoordinateReferenceSystem(4326)
+                        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+                        myGeometryInstance.transform(tr)
+                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                    features.append(feature)
+                properties = {}
+                item=result["item"]["value"]
             #if not "rel" in result and not "val" in result:
             properties = {}
             for var in results["head"]["vars"]:
@@ -292,7 +305,7 @@ class SPAQLunicorn:
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+reproject+"> ",""))
+                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+str(reproject)+"> ",""))
                 if reproject!="":
                     sourceCrs = QgsCoordinateReferenceSystem(reproject)
                     destCrs = QgsCoordinateReferenceSystem(4326)
@@ -321,6 +334,10 @@ class SPAQLunicorn:
                 #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
                 features.append(feature)
+            if not "rel" in result and not "val" in result and not "geo" in result and geooptional:
+                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  {} }
+                features.append(feature)
             #print(properties)
         if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
             myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"])
@@ -331,9 +348,11 @@ class SPAQLunicorn:
                 myGeometryInstance.transform(tr)
             #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
-            features.append(feature)
-        if features==[]:
+            features.append(feature)		
+        if features==[] and len(results["results"]["bindings"])==0:
             return None
+        if features==[] and len(results["results"]["bindings"])>0:
+            return len(results["results"]["bindings"])
         geojson = {'type': 'FeatureCollection', 'features': features }
         return geojson
 
@@ -361,7 +380,7 @@ class SPAQLunicorn:
         for mandvar in self.triplestoreconf[endpointIndex]["mandatoryvariables"]:
             if mandvar not in query:
                   missingmandvars.append("?"+mandvar)
-        if missingmandvars!=[]:
+        if missingmandvars!=[] and not self.dlg.allownongeo.isChecked():
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
@@ -377,10 +396,15 @@ class SPAQLunicorn:
             return            
         #print(results)
         # geojson stuff
-        geojson=self.processResults(results,(str(self.triplestoreconf[endpointIndex]["crs"]) if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:])
+        geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
         if geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
+            msgBox.exec()
+            return
+        if isinstance(geojson, int) and not self.dlg.allownongeo.isChecked():
+            msgBox=QMessageBox()
+            msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
         # add layer
@@ -752,9 +776,9 @@ class SPAQLunicorn:
             id=f[idcolumn]
             expr = QgsExpression( "\""+idcolumn+"\"="+id )
             it = cLayer.getFeatures( QgsFeatureRequest( expr ) )
-            if len(it)==0:
+            #if len(it)==0:
                 #Add new line
-			elif len(it)>0:
+            #elif len(it)>0:
                 #Compare
 		
     def matchColumnValueFromTripleStore(self,toquery):
@@ -1030,11 +1054,10 @@ class SPAQLunicorn:
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
         conceptlist=[]
+        self.dlg.layerconcepts.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            self.dlg.layerconcepts.clear()
             conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
-            self.dlg.layerconcepts.clear()
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
         for concept in conceptlist:
             self.dlg.layerconcepts.addItem(concept)
@@ -1045,7 +1068,7 @@ class SPAQLunicorn:
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
-                 self.dlg.areaconcepts.addItem(concept)
+                 self.dlg.areaconcepts.addItem(concept["concept"])
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
@@ -1117,12 +1140,12 @@ class SPAQLunicorn:
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
             self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
-            #self.dlg.inp_sparql.hide()
-            #self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab)
-            #self.dlg.inp_sparql2.move(10,130)
-            #self.dlg.inp_sparql2.setMinimumSize(941,401)
-            #self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
-            #self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+            self.dlg.inp_sparql.hide()
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab)
+            self.dlg.inp_sparql2.move(10,130)
+            self.dlg.inp_sparql2.setMinimumSize(941,401)
+            self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
+            self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
@@ -1136,12 +1159,12 @@ class SPAQLunicorn:
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.viewselectaction()
-            #self.dlg.areaconcepts.hide()
-            #self.dlg.areas.hide()
-            #self.dlg.label_8.hide()
-            #self.dlg.label_9.hide()
-            #self.dlg.tabWidget.removeTab(2)
-            #self.dlg.tabWidget.removeTab(1)
+            self.dlg.areaconcepts.hide()
+            self.dlg.areas.hide()
+            self.dlg.label_8.hide()
+            self.dlg.label_9.hide()
+            self.dlg.tabWidget.removeTab(2)
+            self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()

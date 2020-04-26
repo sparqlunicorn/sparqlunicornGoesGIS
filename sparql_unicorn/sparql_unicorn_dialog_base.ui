@@ -367,6 +367,19 @@ SELECT ?label ?geo ?item WHERE {
       <string>Own TripleStore</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="allownongeo">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>100</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Allow non-geo queries</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -377,7 +390,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>811</width>
+       <width>931</width>
        <height>391</height>
       </rect>
      </property>
@@ -674,7 +687,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>20</x>
        <y>100</y>
-       <width>811</width>
+       <width>921</width>
        <height>451</height>
       </rect>
      </property>
@@ -755,6 +768,80 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>&lt;a href=&quot;https://plugins.qgis.org/plugins/sparqlunicorn/&quot;&gt;QGIS Plugin&lt;/a&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>250</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Credits</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>300</y>
+       <width>281</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Research Squirrel Engineers</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>350</y>
+       <width>331</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Timo Homburg, Florian Thiery</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>400</y>
+       <width>331</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Licensed under: GPL 2.0</string>
      </property>
     </widget>
    </widget>
