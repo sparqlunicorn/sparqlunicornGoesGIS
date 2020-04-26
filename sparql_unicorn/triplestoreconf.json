@@ -382,8 +382,8 @@
 			"label": "Load World",
 			"query": "SELECT ?item ?geo WHERE {\n ?item a world:Country. \n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
 		}, {
-			"label": "Johns Hopkins Data 22/04/2020",
-			"query": "SELECT ?label ?confirmed ?recovered ?deaths ?geo WHERE { ?dataset a covid19:JHU_Dataset. \n ?dataset covid19:country ?item. \n ?dataset covid19:date '2020-04-22T00:00:00.000Z'. \n ?dataset covid19:confirmed ?confirmed. \n ?dataset covid19:recovered ?recovered. \n ?dataset covid19:deaths ?deaths. \n ?item geosparql:hasGeometry ?item_geom . \n ?item rdfs:label ?label. \n ?item_geom geosparql:asWKT ?geo . \n }\n ORDER BY ASC(?label)"
+			"label": "Johns Hopkins Data 25/04/2020",
+			"query": "SELECT ?label ?confirmed ?recovered ?deaths ?geo WHERE { ?dataset a covid19:JHU_Dataset. \n ?dataset covid19:country ?item. \n ?dataset covid19:date '2020-04-25T00:00:00.000Z'. \n ?dataset covid19:confirmed ?confirmed. \n ?dataset covid19:recovered ?recovered. \n ?dataset covid19:deaths ?deaths. \n ?item geosparql:hasGeometry ?item_geom . \n ?item rdfs:label ?label. \n ?item_geom geosparql:asWKT ?geo . \n }\n ORDER BY ASC(?label)"
 		}],
 		"crs": 4326,
 		"staticconcepts": ["http://world.squirrel.link/ontology#Country",
