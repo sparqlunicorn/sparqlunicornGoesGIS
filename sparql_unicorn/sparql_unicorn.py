@@ -1041,11 +1041,10 @@ class SPAQLunicorn:
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
         conceptlist=[]
+        self.dlg.layerconcepts.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            self.dlg.layerconcepts.clear()
             conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
-            self.dlg.layerconcepts.clear()
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
         for concept in conceptlist:
             self.dlg.layerconcepts.addItem(concept)
