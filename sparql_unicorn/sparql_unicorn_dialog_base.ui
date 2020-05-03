@@ -568,6 +568,9 @@ SELECT ?label ?geo ?item WHERE {
        <height>22</height>
       </rect>
      </property>
+     <property name="text">
+      <string>http://www.github.com/sparqlunicorn#</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="searchClass">
      <property name="geometry">
@@ -580,6 +583,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Search Class</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exportMappingButton">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>100</y>
+       <width>121</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Export Mapping</string>
      </property>
     </widget>
    </widget>

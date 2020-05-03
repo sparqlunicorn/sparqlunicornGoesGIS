@@ -666,6 +666,73 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
+    def readMapping(self):
+        with open('example.json', 'r') as myfile:
+            data=myfile.read()
+        obj = json.loads(data)
+        self.dlg.interlinkNameSpace.setPlainText(obj["data"]["file"]["namespace"])
+        self.dlg.interlinkOwlClassInput.setPlainText(obj["data"]["file"]["class"])   
+
+    def exportMapping(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ","", "XML (.xml)",)
+        if filename=="":
+             return
+        layers = QgsProject.instance().layerTreeRoot().children()
+        ttlstring=self.exportMappingProcess()
+        splitted=filename.split(".")
+        exportNameSpace=""
+        exportSetClass=""
+        with open(filename, 'w') as output_file:
+            output_file.write(ttlstring)
+            iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
+
+    def exportMappingProcess(self):
+        xmlmappingheader="<? xml version=\"1.0\" ?>\n<data>\n<file "
+        xmlmapping=""
+        self.exportIdCol=""
+        self.exportNameSpace=self.dlg.interlinkNameSpace.text()
+        self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
+        xmlmappingheader+="class=\""+self.dlg.interlinkOwlClassInput.text()+"\" "
+        xmlmappingheader+="namespace=\""+self.dlg.interlinkNameSpace.text()+"\" "
+        propurilist=[]
+        classurilist=[]
+        includelist=[]
+        for row in range(self.dlg.interlinkTable.rowCount()):
+            item = self.dlg.interlinkTable.item(row, 0)
+            if item.checkState():
+                includelist.append(True)
+                if self.dlg.interlinkTable.item(row, 1).checkState():
+                    self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
+                    xmlmappingheader+=" indid=\""+self.exportIdCol+"\" "
+                    propurilist.append("")
+                    classurilist.append("")
+                else:
+                    xmlmapping+="<column name=\""+self.dlg.interlinkTable.item(row, 3).text()+"\" "
+                    column = self.dlg.interlinkTable.item(row, 3).text()
+                    if self.dlg.interlinkTable.item(row,4)!=None:
+                        column=self.dlg.interlinkTable.item(row,4).data(0)
+                        propurilist.append(self.dlg.interlinkTable.item(row,4).data(1))
+                        xmlmapping+="propiri=\""+self.dlg.interlinkTable.item(row,4).data(1)+"\" "
+                    else:
+                         propurilist.append("")
+                    if self.dlg.interlinkTable.item(row, 5)!=None:
+                        concept = self.dlg.interlinkTable.item(row, 5).data(0)
+                        self.exportColConfig[column]=concept
+                        classurilist.append(concept)
+                        xmlmapping+="concept=\""+self.dlg.interlinkTable.item(row,4).data(1)+"\" "
+                    else:
+                        classurilist.append("")
+                    if self.dlg.interlinkTable.item(row, 6)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
+                    xmlmapping+=">\n</column>\n"
+            else:
+                includelist.append(False)
+                propurilist.append("")
+                classurilist.append("")
+        xmlmapping+="</file>\n</data>"
+        return xmlmappingheader+">\n"+xmlmapping
+
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
@@ -1199,6 +1266,7 @@ class SPAQLunicorn:
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
             self.dlg.enrichTableResult.hide()
             self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+            self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
