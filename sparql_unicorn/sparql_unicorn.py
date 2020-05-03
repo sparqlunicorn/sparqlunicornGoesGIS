@@ -30,8 +30,9 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator
+from qgis.core import QgsTask, QgsTaskManager
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
-from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes
 from qgis.utils import iface
 import os.path
 import sys
@@ -39,6 +40,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "depe
 import requests
 import uuid
 import json
+import urllib.parse
 from rdflib import *
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -61,75 +63,9 @@ class SPAQLunicorn:
     loadedfromfile=False
 	
     triplestoreconf=None
-    """   
-    currentquery=""
-	
-    justloadingfromfile=False
-	
-    tableCheckBoxes=[]
-
-    currentgraph=None
-	
-    currentcol=-1
-	
-    epsgEdit=-1
     
-    tripleStoreChooser=None
-    
-    vl=""
-
-    bboxbuffer=""
-
-    currentrow=-1
-
-    exportNameSpace=""
-	
-    bboxextent=""
-	
-    rect_tool=""
-	
-    curbbox=[]
-	
-    bboxCoordinateLabelLon=""
-
-    bboxCoordinateLabelLat=""
-
-    exportIdCol=""
-	
-    map_canvas=""
-	
-    exportClassCol=""
-
-    exportSetClass=""
-    
-    exampleQuery=""
-
-    activeCheckBox=""
-
-    searchResult=""
-
-    tripleStoreEdit=""
-    
-    addTripleStore=False
-
-    conceptSearchEdit=""
-	
-    sparqlhighlight=""
-	
-    interlinkdialog=""
-
-    exportColConfig={}
-	
-    errorline=-1
-    
-    layerExtentOrBBOX=False
-
-    chooseBBOXLayer=""
-
-    enrichedExport=False
-
-    outputfile=""
-	"""
+    enrichLayer=None
+   
     def __init__(self, iface):
         """Constructor.
 
@@ -612,8 +548,13 @@ class SPAQLunicorn:
         cbox.addItem("No Enrichment")
         cbox.addItem("Exclude")
         self.dlg.enrichTable.setCellWidget(row,3,cbox)
+        cbox=QComboBox()	
+        cbox.addItem("Enrich Value")	
+        cbox.addItem("Enrich URI")	
+        cbox.addItem("Enrich Both")	
+        self.dlg.enrichTable.setCellWidget(row,4,cbox)
 
-    def enrichLayer(self):
+    def enrichLayerProcess(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
         self.enrichLayer = layers[selectedLayerIndex].layer().clone()
@@ -624,31 +565,44 @@ class SPAQLunicorn:
         idfield=self.dlg.IDColumnEnrich.currentText()
         for row in range(self.dlg.enrichTable.rowCount()):
             item = self.dlg.enrichTable.item(row, 0).text()
-            property=self.dlg.enrichTable.item(row, 1)
+            propertyy=self.dlg.enrichTable.item(row, 1)
+            triplestoreurl=""
+            if self.dlg.enrichTable.cellWidget(row, 2)!=None:
+                triplestoreurl=self.dlg.enrichTable.item(row, 2).currentText()
+                print(self.dlg.enrichTable.item(row, 2).currentText())
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
+            content=""
+            if self.dlg.enrichTable.cellWidget(row, 4)!=None:
+                content = self.dlg.enrichTable.cellWidget(row, 4).currentText()
             if item!=idfield:
                 propertylist.append(self.dlg.enrichTable.item(row, 1)) 
             if strategy=="Exclude":
                 excludelist.append(row)
-            if strategy!="No Enrichment" and property!=None:
+            if strategy!="No Enrichment" and propertyy!=None:
+                print("Enrichment for "+propertyy.text())
                 itemlist.append(item)
                 attlist[item]=[]
                 for f in self.enrichLayer.getFeatures():
-                    attlist[item].append(f[item])
+                    if item in f:
+                        attlist[item].append(f[item])
+                query=""
                 if content=="Enrich URI": 
-                    query="SELECT ?item WHERE {\n"
+                    query+="SELECT ?item WHERE {\n"
                 elif content=="Enrich Value" or content=="Enrich Both":
-                    query="SELECT ?item ?val ?valLabel WHERE {\n"
+                    query+="SELECT ?item ?val ?valLabel WHERE {\n"
                 query+="VALUES ?item { "
-                for it in attlist[idfield]:
-                    query+=it
+                if idfield in attlist:
+                    for it in attlist[idfield]:
+                        query+=it
                 query+=" } . \n"
-                query+="?item <"+property+"> ?val . \n"
+                query+="?item <"+propertyy.data(1)+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
                     query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
                 elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
                     query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
                 query+="} ORDER BY ?item "
+                print(query)
+                print(triplestoreurl)
                 sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                 sparql.setQuery(query)
                 print("now sending query")
@@ -702,10 +656,10 @@ class SPAQLunicorn:
             row+=1
         self.dlg.enrichTableResult.show()
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
-
+        return self.enrichLayer
 
     def addEnrichedLayer(self):
-        QgsProject.instance().addMapLayer(self.enrichLayer)
+        QgsProject.instance().addMapLayer(self.enrichLayerProcess(),True)
         canvas = iface.mapCanvas()
         canvas.setExtent(self.enrichLayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
@@ -743,25 +697,41 @@ class SPAQLunicorn:
         self.exportIdCol=""
         self.exportNameSpace=self.dlg.interlinkNameSpace.text()
         self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
+        propurilist=[]
+        classurilist=[]
+        includelist=[]
         for row in range(self.dlg.interlinkTable.rowCount()):
             item = self.dlg.interlinkTable.item(row, 0)
             if item.checkState():
+                includelist.append(True)
                 if self.dlg.interlinkTable.item(row, 1).checkState():
                     self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
+                    propurilist.append("")
+                    classurilist.append("")
                 else:
                     column = self.dlg.interlinkTable.item(row, 3).text()
                     if self.dlg.interlinkTable.item(row,4)!=None:
                         column=self.dlg.interlinkTable.item(row,4).data(0)
+                        propurilist.append(self.dlg.interlinkTable.item(row,4).data(1))
+                    else:
+                         propurilist.append("")
                     if self.dlg.interlinkTable.item(row, 5)!=None:
                         concept = self.dlg.interlinkTable.item(row, 5).data(0)
                         self.exportColConfig[column]=concept
+                        classurilist.append(concept)
+                    else:
+                        classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 6)!=None:
                         valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
+            else:
+                includelist.append(False)
+                propurilist.append("")
+                classurilist.append("")
         self.enrichedExport=True
-        self.exportLayer()
+        self.exportLayer(propurilist,classurilist,includelist)
         
     def addNewLayerToTripleStore(self,triplestoreaddress,layer):
-        ttlstring=layerToTTLString(layer)
+        ttlstring=self.layerToTTLString(layer)
         queryString = "INSERT DATA { GRAPH <http://example.com/> { "+ttlstring+" } }" 
         sparql = SPARQLWrapper(triplestoreaddress)
         sparql.setQuery(queryString) 
@@ -799,7 +769,7 @@ class SPAQLunicorn:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
 
-    def layerToTTLString(self,layer):
+    def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -821,13 +791,17 @@ class SPAQLunicorn:
         curid=""
         if self.exportSetClass=="":
             curclassid=namespace+str(uuid.uuid4())
-        else:
+        elif self.exportSetClass.startswith("http"):
             curclassid=self.exportSetClass
+        else:
+            curclassid=urllib.parse.quote(self.exportSetClass)
         for f in layer.getFeatures():
             geom = f.geometry()
             if not idcol in fieldnames:
                 curid=namespace+str(uuid.uuid4())
-            else:				 
+            elif not str(f[idcol]).startswith("http"):
+                curid=namespace+f[idcol]
+            else:
                 curid=f[idcol]
             if not classcol in fieldnames:
                 ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
@@ -839,38 +813,66 @@ class SPAQLunicorn:
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
             ttlstring+="<"+curid+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
-            for prop in fieldnames:
-                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[prop]:
-                    ttlstring+="<"+f[prop]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
-                    ttlstring+="<"+f[prop]+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
+            fieldcounter=-1
+            for propp in fieldnames:
+                fieldcounter+=1
+                #if fieldcounter>=len(fieldnames):
+                #    fieldcounter=0
+                if includelist!=None and includelist[fieldcounter]==False:
+                    continue
+                prop=propp
+                print(str(fieldcounter))
+                print(str(urilist)+"\n")
+                print(str(classurilist)+"\n")
+                print(str(includelist)+"\n")
+                if urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
+                    print(urilist)
+                    if not urilist[fieldcounter].startswith("http"):
+                        print("Does not start with http")
+                        prop=urllib.parse.quote(urilist[fieldcounter])
+                    else:
+                        prop=urilist[fieldcounter]
+                    print("New Prop from list: "+str(prop))
+                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[propp]:
+                    ttlstring+="<"+f[propp]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
+                    ttlstring+="<"+f[propp]+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
                 if prop=="id":
                     continue
+                #elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
+                 #   ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
+                #    if first<10:
+                 #       ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                 #       ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
+                  #      if classurilist[fieldcounter]!="":
+                  #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
-                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n" 
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  						
-                elif not f[prop] or f[prop]==None or f[prop]=="":
+                elif not f[propp] or f[propp]==None or f[propp]=="":
                     continue
-                elif re.match(r'^-?\d+$', str(f[prop])):
-                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
+                elif re.match(r'^-?\d+$', str(f[propp])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n" 
-                elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[prop])):
-                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
+                elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[propp])):
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp])+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n"
                     if first:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n" 
-                elif "http" in f[prop]:
-                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[prop])+"> .\n"
+                elif "http" in f[propp]:
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
+                        if classurilist[fieldcounter]!="":
+                             ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 else:
-                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[prop]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
+                    ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
@@ -879,7 +881,7 @@ class SPAQLunicorn:
                 first=first+1
         return ttlstring
 		
-    def exportLayer(self):
+    def exportLayer(self,urilist,classurilist,includelist):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         if filename=="":
@@ -890,7 +892,7 @@ class SPAQLunicorn:
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
-        ttlstring=layerToTTLString(layer)
+        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist)
         g=Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
@@ -946,7 +948,7 @@ class SPAQLunicorn:
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
         return featurecollection	
-    
+    """
     def loadGraph(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -972,45 +974,19 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(0)
             return result
         return None
-     
-    """
-    def loadGraph(self):
-        dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        self.justloadingfromfile=True
-        if dialog.exec_():
-            fileNames = dialog.selectedFiles()
-            g = Graph()
-            filepath=fileNames[0].split(".")
-            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
-            print(g)
-            self.currentgraph=g
-            self.dlg.layerconcepts.clear()
-            task1=QgsTask.fromFunction('loadGraphProcess', self.loadGraphProcess,onfinished=self.loadGraphGUI,wait_time=0,query=self.triplestoreconf[0]["geoconceptquery"],triplestoreurl="",graph=g)
-            QgsApplication.taskManager().addTask(task1)
-            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            #runworker=RunWorker()
-            #runworker.start_worker(worker, self.iface, 'testing the worker')
-
-            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            #worker_thread = QThread()
-            #worker.moveToThread(worker_thread)
-            #worker_thread.finished.connect(self.loadGraphGUI)
-            #worker_thread.start()
-            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
-        #return None
-    """
+    """ 
     def loadGraphProcess(task, wait_time,query,triplestoreurl,graph):
         print("THREADSTART")
         viewlist=[]
-        print(query)
-        print(triplestoreurl)
+        #print(query)
+        #print(triplestoreurl)
         print(graph)
         if graph!=None:
             print("WE HAVE A GRAPH")
             results = graph.query(query)
-            for row in results:
-                viewlist.append(str(row[0]))
+            #for row in results:
+                #viewlist.append(str(row[0]))
+        """
         else:
             sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
             sparql.setQuery(query)
@@ -1019,10 +995,12 @@ class SPAQLunicorn:
             results = sparql.query().convert()
             for result in results["results"]["bindings"]:
                 viewlist.append(str(result[queryvar]["value"]))
+        """
         print(viewlist)
         return viewlist
 
     def loadGraphGUI(exception, result=None):
+        print("Loading graph gui")
         self.dlg.layercount.setText("["+str(len(result))+"]")		
         for geo in geoconcepts:
             self.dlg.layerconcepts.addItem(geo)
@@ -1035,6 +1013,33 @@ class SPAQLunicorn:
         self.justloadingfromfile=False
         return result
     
+    def loadGraph(self):
+        dialog = QFileDialog(self.dlg)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        self.justloadingfromfile=True
+        if dialog.exec_():
+            fileNames = dialog.selectedFiles()
+            g = Graph()
+            filepath=fileNames[0].split(".")
+            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
+            print(g)
+            self.currentgraph=g
+            self.dlg.layerconcepts.clear()
+            print(self.triplestoreconf[0]["geoconceptquery"])
+            task1=QgsTask.fromFunction('loadGraphProcess', self.loadGraphProcess,onfinished=self.loadGraphGUI,wait_time=100,query=self.triplestoreconf[0]["geoconceptquery"],triplestoreurl="",graph=g)
+            QgsApplication.taskManager().addTask(task1)
+            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            #runworker=RunWorker()
+            #runworker.start_worker(worker, self.iface, 'testing the worker')
+
+            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
+            #worker_thread = QThread()
+            #worker.moveToThread(worker_thread)
+            #worker_thread.finished.connect(self.loadGraphGUI)
+            #worker_thread.start()
+            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
+        return None
+        
     def loadUnicornLayers(self):
         # Fetch the currently loaded layers
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1141,12 +1146,12 @@ class SPAQLunicorn:
             self.dlg = SPAQLunicornDialog()
             self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
             self.dlg.inp_sparql.hide()
-            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab)
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox)
             self.dlg.inp_sparql2.move(10,130)
             self.dlg.inp_sparql2.setMinimumSize(941,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
             self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql)
+            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql2)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
@@ -1164,7 +1169,7 @@ class SPAQLunicorn:
             self.dlg.label_8.hide()
             self.dlg.label_9.hide()
             self.dlg.tabWidget.removeTab(2)
-            self.dlg.tabWidget.removeTab(1)
+           #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
@@ -1185,7 +1190,7 @@ class SPAQLunicorn:
             self.dlg.interlinkNameSpace.textChanged.emit(self.dlg.interlinkNameSpace.text())
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-            self.dlg.startEnrichment.clicked.connect(self.enrichLayer)
+            self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action

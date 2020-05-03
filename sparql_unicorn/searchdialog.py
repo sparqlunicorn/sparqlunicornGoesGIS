@@ -11,6 +11,8 @@ class SearchDialog(QDialog):
     triplestoreconf=""
 	
     interlinkOrEnrich=False
+    
+    searchResultMap={}
 
     table=False
 
@@ -75,10 +77,12 @@ class SearchDialog(QDialog):
             sparql.setQuery(query)
             sparql.setReturnFormat(JSON)
             results = sparql.query().convert()
+            self.searchResultMap={}
             for res in results["results"]["bindings"]:
                 item=QListWidgetItem()
                 item.setData(0,str(res["class"]["value"]))
                 item.setText(str(res["label"]["value"]))
+                self.searchResultMap[res["label"]["value"]]=res["class"]["value"]
                 self.searchResult.addItem(item)
         else:
             myResponse = json.loads(requests.get(query).text)
@@ -88,6 +92,7 @@ class SearchDialog(QDialog):
                 if "description" in ent:
                     label+="["+ent["description"]+"]"
                 results[qid]=label    
+                self.searchResultMap[label]=ent["url"]
             for result in results:
                 item=QListWidgetItem()
                 item.setData(0,result)
@@ -97,12 +102,16 @@ class SearchDialog(QDialog):
 		
     def applyConceptToColumn(self):
         print("test")
+        print(str(self.searchResultMap))
+        inputstr=self.searchResultMap[self.searchResult.currentItem().text()]
+        if inputstr.startswith("//"):
+            inputstr="http:"+str(inputstr)
         if self.interlinkOrEnrich==-1:
-            self.table.setText(str(self.searchResult.currentItem().data(0)))
+            self.table.setText(inputstr)
         else:
             item=QTableWidgetItem(self.searchResult.currentItem().text())
             item.setText(self.searchResult.currentItem().text())
-            item.setData(0,self.searchResult.currentItem().data(0))
+            item.setData(1,inputstr)
             if self.interlinkOrEnrich:
                 self.table.setItem(self.currentrow,self.currentcol,item)
             else:
