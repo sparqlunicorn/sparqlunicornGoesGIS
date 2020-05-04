@@ -52,6 +52,7 @@ from .sparqlhighlighter import SPARQLHighlighter
 from .tooltipplaintext import ToolTipPlainText
 from .triplestoredialog import TripleStoreDialog
 from .searchdialog import SearchDialog
+from .valuemapping import ValueMappingDialog
 from .bboxdialog import BBOXDialog
 
 import re
@@ -459,8 +460,13 @@ class SPAQLunicorn:
             self.buildSearchDialog(row,column,False,self.dlg.enrichTable)
 
     def createInterlinkSearchDialog(self, row=-1, column=-1):
-        if column>3:
+        if column>3 and column<7:
             self.buildSearchDialog(row,column,True,self.dlg.interlinkTable)
+        elif column>=7:
+            layers = QgsProject.instance().layerTreeRoot().children()
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+            layer = layers[selectedLayerIndex].layer()
+            self.buildValueMappingDialog(row,column,True,self.dlg.interlinkTable,layer)
         elif column==-1:
             self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput)
 
@@ -470,6 +476,14 @@ class SPAQLunicorn:
         self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
+        self.dlg.interlinkdialog.exec_()
+        
+    def buildValueMappingDialog(self,row,column,interlinkOrEnrich,table,layer):
+        self.dlg.currentcol=column
+        self.dlg.currentrow=row
+        self.dlg.interlinkdialog =ValueMappingDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,table.item(row, 3).text(),layer)
+        self.dlg.interlinkdialog.setMinimumSize(650, 400)
+        self.dlg.interlinkdialog.setWindowTitle("Get Value Mappings")
         self.dlg.interlinkdialog.exec_()
 
     def addnewEnrichRow(self):
