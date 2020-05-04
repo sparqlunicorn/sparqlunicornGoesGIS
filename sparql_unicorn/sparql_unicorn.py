@@ -537,7 +537,7 @@ class SPAQLunicorn:
             self.dlg.enrichTable.setCellWidget(row,4,cbox)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
-            removebutton=QPushButton("Remove")
+            removebutton=QPushButton("Remove",self.dlg)
             removebutton.clicked.connect(self.deleteEnrichRow)
             downbutton=QPushButton("Down")
             celllayout.addWidget(upbutton)
@@ -558,7 +558,7 @@ class SPAQLunicorn:
         
     def addEnrichRow(self):
         item=QTableWidgetItem("new_column")
-        item.setFlags(QtCore.Qt.ItemIsEnabled)
+        #item.setFlags(QtCore.Qt.ItemIsEnabled)
         row = self.dlg.enrichTable.rowCount() 
         self.dlg.IDColumnEnrich.addItem("new_column")
         self.dlg.enrichTable.insertRow(row)
@@ -683,6 +683,10 @@ class SPAQLunicorn:
         canvas = iface.mapCanvas()
         canvas.setExtent(self.enrichLayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+        for row in range(self.valmaptable.rowCount()):
+            fromm = self.valmaptable.item(row, 0).text()
+            to = self.valmaptable.item(row, 1).text()
+            resmap[fromm]=to
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
