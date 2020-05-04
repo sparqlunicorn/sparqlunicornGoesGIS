@@ -36,6 +36,7 @@ from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFea
 from qgis.utils import iface
 import os.path
 import sys
+import xml.etree.ElementTree as ET
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import requests
 import uuid
@@ -683,12 +684,63 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
-    def readMapping(self):
-        with open('example.json', 'r') as myfile:
-            data=myfile.read()
-        obj = json.loads(data)
-        self.dlg.interlinkNameSpace.setPlainText(obj["data"]["file"]["namespace"])
-        self.dlg.interlinkOwlClassInput.setPlainText(obj["data"]["file"]["class"])   
+    def loadMapping(self):
+        dialog = QFileDialog(self.dlg)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        if dialog.exec_():
+            fileNames = dialog.selectedFiles()
+            filepath=fileNames[0].split(".")
+            self.readMapping(fileNames[0])
+
+    def readMapping(self,filename):
+        if self.dlg.interlinkTable.rowCount()!=0:
+            tree = ET.parse(filename)
+            root = tree.getroot()
+            filedata=root.find('file')[0]
+            self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
+            self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))  
+            for neighbor in root.iter('column'):
+                name=neighbor.get("name")
+                proptype=neighbor.get("prop")
+                propiri=neighbor.get("propiri")
+                concept=neighbor.get("concept")
+                valuemappings={}
+                for vmap in neighbor.findall("valuemapping"):
+                    valuemappings[vmap.get("from")]=vmap.get("to")
+                for row in range(self.dlg.interlinkTable.rowCount()):
+                    columnname=self.dlg.interlinkTable.item(row,3).text()
+                    if columnname==name:
+                        if propiri!=None:
+                            item=QTableWidgetItem(propiri)
+                            item.setText(propiri)
+                            item.setData(1,propiri)
+                            self.dlg.interlinkTable.setItem(row,4,item)
+                        if proptype!=None:
+                            comboboxx=self.dlg.interlinkTable.cellWidget(row,5)
+                            if proptype=="annotation":
+                                comboboxx.setCurrentIndex(comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
+                            elif proptype=="obj":
+                                comboboxx.setCurrentIndex(comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
+                            elif proptype=="data":
+                                comboboxx.setCurrentIndex(comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
+                            elif proptype=="subclass":
+                                comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
+                            else:
+                                comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
+                        if concept!=None:
+                            item=QTableWidgetItem(concept)
+                            item.setText(concept)
+                            item.setData(1,concept)
+                            self.dlg.interlinkTable.setItem(row,6,item)
+                        if valuemappings!={} and valuemappings!=None:
+                            item=QTableWidgetItem("ValueMap{}")
+                            item.setText("ValueMap{}")
+                            item.setData(1,valuemappings)
+                            self.dlg.interlinkTable.setItem(row,7,item)
+        else:
+            msgBox=QMessageBox()
+            msgBox.setText("Please first load a dataset to enrich before loading a mapping file")
+            msgBox.exec()
 
     def exportMapping(self):
         filename, _filter = QFileDialog.getSaveFileName(
@@ -705,7 +757,7 @@ class SPAQLunicorn:
             iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
 
     def exportMappingProcess(self):
-        xmlmappingheader="<? xml version=\"1.0\" ?>\n<data>\n<file "
+        xmlmappingheader="<?xml version=\"1.0\" ?>\n<data>\n<file "
         xmlmapping=""
         self.exportIdCol=""
         self.exportNameSpace=self.dlg.interlinkNameSpace.text()
@@ -1318,6 +1370,7 @@ class SPAQLunicorn:
             self.dlg.enrichTableResult.hide()
             self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
+            self.dlg.importMappingButton.clicked.connect(self.loadMapping)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
