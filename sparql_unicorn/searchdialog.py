@@ -25,16 +25,16 @@ class SearchDialog(QDialog):
         self.conceptSearchEdit.move(110,10)
         conceptSearchLabel = QLabel("Search Concept:",self)
         conceptSearchLabel.move(0,10)
-        findConcept = QRadioButton("Class",self)
-        findConcept.move(400,15)
+        self.findConcept = QRadioButton("Class",self)
+        self.findConcept.move(400,15)
         if column!=4:
-            findConcept.setChecked(True)
-        findProperty = QRadioButton("Property",self)
-        findProperty.move(400,40)
-        if column==4:
-            findProperty.setChecked(True)
-        findProperty.setEnabled(False)
-        findConcept.setEnabled(False)
+            self.findConcept.setChecked(True)
+        self.findProperty = QRadioButton("Property",self)
+        self.findProperty.move(400,40)
+        if column==4 or (not interlinkOrEnrich and column!=4):
+            self.findProperty.setChecked(True)
+        self.findProperty.setEnabled(False)
+        self.findConcept.setEnabled(False)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
         for triplestore in self.triplestoreconf:
@@ -63,7 +63,7 @@ class SearchDialog(QDialog):
         results={}
         self.searchResult.clear()
         query=""
-        if self.currentcol==4:
+        if self.findProperty.isChecked():
             if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
                 query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["propertyfromlabelquery"].replace("%%label%%",label)
         else:
@@ -77,32 +77,40 @@ class SearchDialog(QDialog):
             results = sparql.query().convert()
             for res in results["results"]["bindings"]:
                 item=QListWidgetItem()
-                item.setData(0,str(res["class"]["value"]))
+                item.setData(1,str(res["class"]["value"]))
                 item.setText(str(res["label"]["value"]))
                 self.searchResult.addItem(item)
         else:
             myResponse = json.loads(requests.get(query).text)
+            qids=[]
             for ent in myResponse["search"]:
-                qid=ent["url"]
+                qid=ent["concepturi"]
+                if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
+                    qid="http://www.wikidata.org/prop/direct/"+ent["id"]
+                elif "http://www.wikidata.org/wiki/" in qid and self.findConcept.isChecked():
+                    qid="http://www.wikidata.org/entity/"+ent["id"]
+                qids.append(qid)
                 label=ent["label"]+" ("+ent["id"]+") "
                 if "description" in ent:
                     label+="["+ent["description"]+"]"
                 results[qid]=label    
+            i=0
             for result in results:
                 item=QListWidgetItem()
-                item.setData(0,result)
+                item.setData(1,qids[i])
                 item.setText(str(results[result]))
                 self.searchResult.addItem(item)
+                i+=1
         return viewlist
 		
     def applyConceptToColumn(self):
         print("test")
         if self.interlinkOrEnrich==-1:
-            self.table.setText(str(self.searchResult.currentItem().data(0)))
+            self.table.setText(str(self.searchResult.currentItem().data(1)))
         else:
             item=QTableWidgetItem(self.searchResult.currentItem().text())
             item.setText(self.searchResult.currentItem().text())
-            item.setData(0,self.searchResult.currentItem().data(0))
+            item.setData(1,self.searchResult.currentItem().data(1))
             if self.interlinkOrEnrich:
                 self.table.setItem(self.currentrow,self.currentcol,item)
             else:

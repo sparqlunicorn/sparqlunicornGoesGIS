@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -370,9 +370,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>780</x>
+       <x>770</x>
        <y>100</y>
-       <width>161</width>
+       <width>181</width>
        <height>20</height>
       </rect>
      </property>
@@ -593,7 +593,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportMappingButton">
      <property name="geometry">
       <rect>
-       <x>720</x>
+       <x>820</x>
        <y>100</y>
        <width>121</width>
        <height>28</height>
@@ -601,6 +601,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Export Mapping</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="importMappingButton">
+     <property name="geometry">
+      <rect>
+       <x>700</x>
+       <y>100</y>
+       <width>111</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Import Mapping</string>
      </property>
     </widget>
    </widget>
@@ -662,7 +675,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>120</x>
        <y>70</y>
-       <width>471</width>
+       <width>391</width>
        <height>21</height>
       </rect>
      </property>
@@ -716,7 +729,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="addEnrichedLayerRowButton">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>780</x>
        <y>70</y>
        <width>161</width>
        <height>21</height>
@@ -724,6 +737,32 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Add Row</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="languageEdit">
+     <property name="geometry">
+      <rect>
+       <x>620</x>
+       <y>70</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>en</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="languageLabel">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>70</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Language:</string>
      </property>
     </widget>
    </widget>

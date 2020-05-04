@@ -587,9 +587,9 @@ class SPAQLunicorn:
             item = self.dlg.enrichTable.item(row, 0).text()
             propertyy=self.dlg.enrichTable.item(row, 1)
             triplestoreurl=""
-            if self.dlg.enrichTable.cellWidget(row, 2)!=None:
-                triplestoreurl=self.dlg.enrichTable.item(row, 2).currentText()
-                print(self.dlg.enrichTable.item(row, 2).currentText())
+            if self.dlg.enrichTable.item(row, 2)!=None:
+                triplestoreurl=self.dlg.enrichTable.item(row, 2).text()
+                print(self.dlg.enrichTable.item(row, 2).text())
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             content=""
             if self.dlg.enrichTable.cellWidget(row, 4)!=None:
@@ -600,22 +600,32 @@ class SPAQLunicorn:
                 excludelist.append(row)
             if strategy!="No Enrichment" and propertyy!=None:
                 print("Enrichment for "+propertyy.text())
+                print("Item: "+idfield)
                 itemlist.append(item)
                 attlist[item]=[]
+                attlist[idfield]=[]
                 for f in self.enrichLayer.getFeatures():
                     if item in f:
                         attlist[item].append(f[item])
+                    attlist[idfield].append(f[idfield])
                 query=""
                 if content=="Enrich URI": 
                     query+="SELECT ?item WHERE {\n"
                 elif content=="Enrich Value" or content=="Enrich Both":
                     query+="SELECT ?item ?val ?valLabel WHERE {\n"
-                query+="VALUES ?item { "
-                if idfield in attlist:
-                    for it in attlist[idfield]:
-                        query+=it
+                query+="VALUES ?vals { "
+                print(attlist)
+                for it in attlist[idfield]:
+                    if it.startswith("http"):
+                        query+="<"+it+"> "
+                    else:
+                        query+="\""+it+"\"@"+self.dlg.languageEdit.text()+" "
                 query+=" } . \n"
-                query+="?item <"+propertyy.data(1)+"> ?val . \n"
+                proppp=propertyy.data(1)
+                if propertyy.data(1).startswith("//"):
+                    proppp="http:"+proppp
+                query+="?item rdfs:label ?vals .\n"
+                query+="?item <"+proppp+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
                     query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
                 elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
@@ -683,9 +693,9 @@ class SPAQLunicorn:
         canvas = iface.mapCanvas()
         canvas.setExtent(self.enrichLayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-        for row in range(self.valmaptable.rowCount()):
-            fromm = self.valmaptable.item(row, 0).text()
-            to = self.valmaptable.item(row, 1).text()
+        for row in range(self.dlg.interlinkTable.rowCount()):
+            fromm = self.dlg.interlinkTable.item(row, 0).text()
+            to = self.dlg.interlinkTable.item(row, 1).text()
             resmap[fromm]=to
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
