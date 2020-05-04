@@ -716,15 +716,24 @@ class SPAQLunicorn:
                         xmlmapping+="propiri=\""+self.dlg.interlinkTable.item(row,4).data(1)+"\" "
                     else:
                          propurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 5)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 5).data(0)
+                    if self.dlg.interlinkTable.cellWidget(row, 5)!=None and self.dlg.interlinkTable.cellWidget(row, 5).currentText()!="Automatic":
+                        if self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="AnnotationProperty":
+                            xmlmapping+="prop=\"annotation\" "
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="DataProperty":
+                            xmlmapping+="prop=\"data\" "
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="ObjectProperty":
+                            xmlmapping+="prop=\"obj\" "
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="SubClass":
+                            xmlmapping+="prop=\"subclass\" "
+                    if self.dlg.interlinkTable.item(row, 6)!=None:
+                        concept = self.dlg.interlinkTable.item(row, 6).data(0)
                         self.exportColConfig[column]=concept
                         classurilist.append(concept)
-                        xmlmapping+="concept=\""+self.dlg.interlinkTable.item(row,4).data(1)+"\" "
+                        xmlmapping+="concept=\""+self.dlg.interlinkTable.item(row,6).data(1)+"\" "
                     else:
                         classurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 6)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
+                    if self.dlg.interlinkTable.item(row, 7)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
                     xmlmapping+=">\n</column>\n"
             else:
                 includelist.append(False)
@@ -741,8 +750,8 @@ class SPAQLunicorn:
         while self.dlg.interlinkTable.rowCount() > 0:
             self.dlg.interlinkTable.removeRow(0);
         row=0
-        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","ColumnProperty","ColumnConcept","ValueConcepts"])
-        self.dlg.interlinkTable.setColumnCount(7)
+        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","ColumnProperty","PropertyType","ColumnConcept","ValueConcepts"])
+        self.dlg.interlinkTable.setColumnCount(8)
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -752,12 +761,19 @@ class SPAQLunicorn:
             item3.setCheckState(False)
             item4=QTableWidgetItem()
             item4.setCheckState(False)
-            currentRowCount = self.dlg.interlinkTable.rowCount() 
             self.dlg.interlinkTable.insertRow(row)
             self.dlg.interlinkTable.setItem(row,3,item)
             self.dlg.interlinkTable.setItem(row,0,item2)
             self.dlg.interlinkTable.setItem(row,1,item3)
             self.dlg.interlinkTable.setItem(row,2,item4)
+            cbox=QComboBox()
+            cbox.addItem("Automatic")
+            cbox.addItem("AnnotationProperty")
+            cbox.addItem("DataProperty")
+            cbox.addItem("ObjectProperty")
+            cbox.addItem("SubClass")
+            self.dlg.interlinkTable.setCellWidget(row,5,cbox)
+            currentRowCount = self.dlg.interlinkTable.rowCount() 
             row+=1
 
     def exportEnrichedLayer(self):
@@ -767,6 +783,7 @@ class SPAQLunicorn:
         propurilist=[]
         classurilist=[]
         includelist=[]
+        proptypelist=[]
         for row in range(self.dlg.interlinkTable.rowCount()):
             item = self.dlg.interlinkTable.item(row, 0)
             if item.checkState():
@@ -775,27 +792,33 @@ class SPAQLunicorn:
                     self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
                     propurilist.append("")
                     classurilist.append("")
+                    proptypelist.append("")
                 else:
                     column = self.dlg.interlinkTable.item(row, 3).text()
                     if self.dlg.interlinkTable.item(row,4)!=None:
-                        column=self.dlg.interlinkTable.item(row,4).data(0)
+                        column=self.dlg.interlinkTable.item(row,3).data(0)
                         propurilist.append(self.dlg.interlinkTable.item(row,4).data(1))
                     else:
-                         propurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 5)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 5).data(0)
+                        propurilist.append("")
+                    if self.dlg.interlinkTable.item(row,5)!=None:
+                        proptypelist.append(self.dlg.interlinkTable.item(row,5).text())
+                    else:
+                        proptypelist.append("")
+                    if self.dlg.interlinkTable.item(row, 6)!=None:
+                        concept = self.dlg.interlinkTable.item(row, 6).data(0)
                         self.exportColConfig[column]=concept
                         classurilist.append(concept)
                     else:
                         classurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 6)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 6).data(0)
+                    if self.dlg.interlinkTable.item(row, 7)!=None:
+                        valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
             else:
                 includelist.append(False)
                 propurilist.append("")
                 classurilist.append("")
+                proptypelist.append("")
         self.enrichedExport=True
-        self.exportLayer(propurilist,classurilist,includelist)
+        self.exportLayer(propurilist,classurilist,includelist,proptypelist)
         
     def addNewLayerToTripleStore(self,triplestoreaddress,layer):
         ttlstring=self.layerToTTLString(layer)
@@ -836,7 +859,7 @@ class SPAQLunicorn:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
 
-    def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None):
+    def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None,proptypelist=None):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -912,13 +935,25 @@ class SPAQLunicorn:
                  #       ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
                   #      if classurilist[fieldcounter]!="":
                   #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
-                elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment":
+                elif prop=="http://www.w3.org/2000/01/rdf-schema#label" or prop=="http://www.w3.org/2000/01/rdf-schema#comment" or (proptypelist!=None and proptypelist[fieldcounter]=="AnnotationProperty"):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n" 
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  						
                 elif not f[propp] or f[propp]==None or f[propp]=="":
                     continue
+                elif proptypelist!=None and proptypelist[fieldcounter]=="SubClass":
+                    ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+str(f[propp])+"> .\n"
+                    ttlstring+="<"+curid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+curclassid+"> .\n"
+                    if first<10:
+                        ttlstring+="<"+str(f[propp])+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n" 
+                elif "http" in f[propp] or (proptypelist!=None and proptypelist[fieldcounter]=="ObjectProperty"):
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
+                        if classurilist[fieldcounter]!="":
+                             ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif re.match(r'^-?\d+$', str(f[propp])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
                     if first<10:
@@ -931,13 +966,6 @@ class SPAQLunicorn:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n" 
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n" 
-                elif "http" in f[propp]:
-                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
-                    if first<10:
-                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
-                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
-                        if classurilist[fieldcounter]!="":
-                             ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 else:
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp]).replace('"','\\"')+"\"^^<http://www.w3.org/2001/XMLSchema#string> .\n"
                     if first<10:
@@ -948,7 +976,7 @@ class SPAQLunicorn:
                 first=first+1
         return ttlstring
 		
-    def exportLayer(self,urilist,classurilist,includelist):
+    def exportLayer(self,urilist,classurilist,includelist,proptypelist):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         if filename=="":
@@ -959,7 +987,7 @@ class SPAQLunicorn:
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
-        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist)
+        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist)
         g=Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
