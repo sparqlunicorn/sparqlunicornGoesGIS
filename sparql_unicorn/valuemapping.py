@@ -63,6 +63,9 @@ class ValueMappingDialog(QDialog):
         addMappingButton=QPushButton("Add Mapping",self)
         addMappingButton.move(100,70)
         addMappingButton.clicked.connect(self.addMappingToTable)
+        deleteRowButton=QPushButton("Delete Selected Table Row",self)
+        deleteRowButton.move(100,300)
+        deleteRowButton.clicked.connect(self.deleteSelectedRow)
         applyButton=QPushButton("Apply",self)
         applyButton.move(10,300)    
         applyButton.clicked.connect(self.applyMapping)
@@ -75,6 +78,10 @@ class ValueMappingDialog(QDialog):
             item2=QTableWidgetItem(self.foundClass.text())
             self.valmaptable.setItem(row,0,item)
             self.valmaptable.setItem(row,1,item2)
+			
+    def deleteSelectedRow(self):
+        for index in self.valmaptable.selectedIndexes():
+            self.valmaptable.removeRow(index.row())
 	  
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self,comboBox):

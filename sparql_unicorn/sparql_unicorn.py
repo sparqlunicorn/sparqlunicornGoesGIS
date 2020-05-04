@@ -67,6 +67,8 @@ class SPAQLunicorn:
     triplestoreconf=None
     
     enrichLayer=None
+	
+    originalRowCount=0
    
     def __init__(self, iface):
         """Constructor.
