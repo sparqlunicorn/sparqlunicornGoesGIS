@@ -481,7 +481,10 @@ class SPAQLunicorn:
     def buildValueMappingDialog(self,row,column,interlinkOrEnrich,table,layer):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog =ValueMappingDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,table.item(row, 3).text(),layer)
+        valuemap=None
+        if table.item(row, column)!=None and table.item(row, column).text()!="":
+           valuemap=table.item(row, column).data(1)
+        self.dlg.interlinkdialog =ValueMappingDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,table.item(row, 3).text(),layer,valuemap)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Get Value Mappings for column "+table.item(row, 3).text())
         self.dlg.interlinkdialog.exec_()
@@ -747,8 +750,14 @@ class SPAQLunicorn:
                     else:
                         classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 7)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
-                    xmlmapping+=">\n</column>\n"
+                        valuemap = self.dlg.interlinkTable.item(row, 7).data(1)
+                        xmlmapping+=">\n"
+                        if valuemap!=None:
+                            for key in valuemap:
+                                xmlmapping+="<valuemapping from=\""+key+"\" to=\""+valuemap[key]+"\"/>\n"
+                    else:
+                        xmlmapping+=">\n"
+                    xmlmapping+="</column>\n"
             else:
                 includelist.append(False)
                 propurilist.append("")

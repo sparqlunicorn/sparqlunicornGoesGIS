@@ -20,42 +20,62 @@ class ValueMappingDialog(QDialog):
     
     valmaptable=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,fieldname,layer):
+    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,fieldname,layer,valuemap):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
         self.table=table
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
+        self.valuemap=valuemap
         self.valmaptable=QTableWidget(self)
         self.valmaptable.move(10,100)
         while self.valmaptable.rowCount() > 0:
             self.valmaptable.removeRow(0);
         row=0
-        self.valmaptable.setHorizontalHeaderLabels(["From","To"])
         self.valmaptable.setColumnCount(2)
+        self.valmaptable.setHorizontalHeaderLabels(["From","To"])
+        if valuemap!=None:
+            for key in valuemap:
+                row = self.valmaptable.rowCount() 
+                self.valmaptable.insertRow(row)
+                item=QTableWidgetItem(key)
+                item2=QTableWidgetItem(valuemap[key])
+                self.valmaptable.setItem(row,0,item)
+                self.valmaptable.setItem(row,1,item2)
         cboxlabel=QLabel("Select Value To Map",self)
         cboxlabel.move(10,10)
-        cbox=QComboBox(self)
-        cbox.move(140,10)
+        self.cbox=QComboBox(self)
+        self.cbox.move(140,10)
         toaddset={"All"}
         for f in layer.getFeatures():
             toaddset.add(f.attribute(fieldname))
         for item in toaddset:
-            cbox.addItem(str(item))
+            self.cbox.addItem(str(item))
         cboxlabel=QLabel("Map To:",self)
         cboxlabel.move(10,40)
         self.foundClass=QLineEdit(self)
         self.foundClass.move(140,40)
+        self.foundClass.resize(400, self.foundClass.height())
         findMappingButton=QPushButton("Find Mapping",self)
         findMappingButton.move(10,70)
         findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
         addMappingButton=QPushButton("Add Mapping",self)
         addMappingButton.move(100,70)
+        addMappingButton.clicked.connect(self.addMappingToTable)
         applyButton=QPushButton("Apply",self)
         applyButton.move(10,300)    
         applyButton.clicked.connect(self.applyMapping)
-        
+      
+    def addMappingToTable(self):
+        if self.foundClass.text()!="":
+            row = self.valmaptable.rowCount() 
+            self.valmaptable.insertRow(row)
+            item=QTableWidgetItem(self.cbox.currentText())
+            item2=QTableWidgetItem(self.foundClass.text())
+            self.valmaptable.setItem(row,0,item)
+            self.valmaptable.setItem(row,1,item2)
+	  
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self,comboBox):
         viewlist=[]
@@ -112,23 +132,14 @@ class ValueMappingDialog(QDialog):
        self.interlinkdialog.exec_()
 	
     def applyMapping(self):
-        print("test")
-        print(str(self.searchResultMap))
-        inputstr=self.searchResultMap[self.searchResult.currentItem().text()]
-        if inputstr.startswith("//"):
-            inputstr="http:"+str(inputstr)
-        if self.interlinkOrEnrich==-1:
-            self.table.setText(inputstr)
-        else:
-            item=QTableWidgetItem(self.searchResult.currentItem().text())
-            item.setText(self.searchResult.currentItem().text())
-            item.setData(1,inputstr)
-            if self.interlinkOrEnrich:
-                self.table.setItem(self.currentrow,self.currentcol,item)
-            else:
-                item2=QTableWidgetItem()
-                item2.setText(self.tripleStoreEdit.currentText())
-                item2.setData(0,self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
-                self.table.setItem(self.currentrow,self.currentcol,item)
-                self.table.setItem(self.currentrow,(self.currentcol+1),item2)
+        resmap={}
+        for row in range(self.valmaptable.rowCount()):
+            fromm = self.valmaptable.item(row, 0).text()
+            to = self.valmaptable.item(row, 1).text()
+            resmap[fromm]=to
+        item=QTableWidgetItem("ValueMap{}")
+        item.setText("ValueMap{}")
+        item.setData(1,resmap)
+        self.table.setItem(self.currentrow,self.currentcol,item)
         self.close()
+        return resmap
