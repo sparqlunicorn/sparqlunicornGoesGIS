@@ -117,7 +117,7 @@ class SPAQLunicorn:
 
     def validateSPARQL(self):
         try:
-            prepareQuery("".join(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"])+"\n"+self.dlg.inp_sparql.toPlainText())
+            prepareQuery("".join(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"])+"\n"+self.dlg.inp_sparql2.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
@@ -298,7 +298,7 @@ class SPAQLunicorn:
         # SPARQL query
         #print(self.loadedfromfile)
 		# query
-        query = self.dlg.inp_sparql.toPlainText()
+        query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
             concept = self.dlg.layerconcepts.currentText()
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
@@ -1117,7 +1117,7 @@ class SPAQLunicorn:
         comp.setCompletionMode(QCompleter.PopupCompletion)
         comp.setModel(self.dlg.layerconcepts.model())
         self.dlg.layerconcepts.setCompleter(comp)
-        self.dlg.inp_sparql.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+        self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
         self.loadedfromfile=True
         self.justloadingfromfile=False
         return result
@@ -1187,11 +1187,11 @@ class SPAQLunicorn:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
         if "examplequery" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
+            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
 
 
     def getPointFromCanvas(self):
-        self.d=BBOXDialog(self.dlg.inp_sparql,self.triplestoreconf,self.dlg.comboBox.currentIndex())
+        self.d=BBOXDialog(self.dlg.inp_sparql2,self.triplestoreconf,self.dlg.comboBox.currentIndex())
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
@@ -1219,9 +1219,9 @@ class SPAQLunicorn:
         else:
             concept=self.dlg.layerconcepts.currentText()
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
-            if "wd:Q ." in self.dlg.inp_sparql.toPlainText():
-                self.dlg.inp_sparql.setPlainText(self.dlg.inp_sparql.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
+            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+            if "wd:Q ." in self.dlg.inp_sparql2.toPlainText():
+                self.dlg.inp_sparql2.setPlainText(self.dlg.inp_sparql2.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
         if "#" in self.dlg.layerconcepts.currentText():
             self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
         else:
@@ -1277,12 +1277,12 @@ class SPAQLunicorn:
             self.dlg.areas.hide()
             self.dlg.label_8.hide()
             self.dlg.label_9.hide()
-            self.dlg.tabWidget.removeTab(2)
+            #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
             self.dlg.loadedLayers.clear()
-            self.dlg.inp_sparql.textChanged.connect(self.validateSPARQL)
+            self.dlg.inp_sparql2.textChanged.connect(self.validateSPARQL)
             self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
             self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
             self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)

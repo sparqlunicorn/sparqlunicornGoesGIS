@@ -1,6 +1,7 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QTableWidget,QPlainTextEdit
 from qgis.core import QgsProject
+from .searchdialog import SearchDialog
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
 import requests
@@ -33,21 +34,27 @@ class ValueMappingDialog(QDialog):
         row=0
         self.valmaptable.setHorizontalHeaderLabels(["From","To"])
         self.valmaptable.setColumnCount(2)
+        cboxlabel=QLabel("Select Value To Map",self)
+        cboxlabel.move(10,10)
         cbox=QComboBox(self)
-        cbox.move(10,10)
+        cbox.move(140,10)
         toaddset={"All"}
         for f in layer.getFeatures():
             toaddset.add(f.attribute(fieldname))
         for item in toaddset:
             cbox.addItem(str(item))
-        self.foundClass=QPlainTextEdit()
-        self.foundClass.move(80,10)
+        cboxlabel=QLabel("Map To:",self)
+        cboxlabel.move(10,40)
+        self.foundClass=QLineEdit(self)
+        self.foundClass.move(140,40)
         findMappingButton=QPushButton("Find Mapping",self)
         findMappingButton.move(10,70)
+        findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
         addMappingButton=QPushButton("Add Mapping",self)
-        addMappingButton.move(40,70)
+        addMappingButton.move(100,70)
         applyButton=QPushButton("Apply",self)
-        applyButton.move(10,300)        
+        applyButton.move(10,300)    
+        applyButton.clicked.connect(self.applyMapping)
         
     """Returns classes for a given label from a triple store."""
     def getClassesFromLabel(self,comboBox):
@@ -92,8 +99,19 @@ class ValueMappingDialog(QDialog):
                 item.setText(str(results[result]))
                 self.searchResult.addItem(item)
         return viewlist
-		
-    def applyConceptToColumn(self):
+
+    def createValueMappingSearchDialog(self, row=-1, column=-1):
+        self.buildSearchDialog(row,column,-1,self.foundClass)
+
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
+       self.currentcol=column
+       self.currentrow=row
+       self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
+       self.interlinkdialog.setMinimumSize(650, 400)
+       self.interlinkdialog.setWindowTitle("Search Interlink Concept")
+       self.interlinkdialog.exec_()
+	
+    def applyMapping(self):
         print("test")
         print(str(self.searchResultMap))
         inputstr=self.searchResultMap[self.searchResult.currentItem().text()]

@@ -11,8 +11,6 @@ class SearchDialog(QDialog):
     triplestoreconf=""
 	
     interlinkOrEnrich=False
-    
-    searchResultMap={}
 
     table=False
 
@@ -24,15 +22,15 @@ class SearchDialog(QDialog):
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
         self.conceptSearchEdit = QLineEdit(self)
-        self.conceptSearchEdit.move(100,10)
+        self.conceptSearchEdit.move(110,10)
         conceptSearchLabel = QLabel("Search Concept:",self)
         conceptSearchLabel.move(0,10)
         findConcept = QRadioButton("Class",self)
-        findConcept.move(300,15)
+        findConcept.move(400,15)
         if column!=4:
             findConcept.setChecked(True)
         findProperty = QRadioButton("Property",self)
-        findProperty.move(300,40)
+        findProperty.move(400,40)
         if column==4:
             findProperty.setChecked(True)
         findProperty.setEnabled(False)
@@ -77,12 +75,10 @@ class SearchDialog(QDialog):
             sparql.setQuery(query)
             sparql.setReturnFormat(JSON)
             results = sparql.query().convert()
-            self.searchResultMap={}
             for res in results["results"]["bindings"]:
                 item=QListWidgetItem()
                 item.setData(0,str(res["class"]["value"]))
                 item.setText(str(res["label"]["value"]))
-                self.searchResultMap[res["label"]["value"]]=res["class"]["value"]
                 self.searchResult.addItem(item)
         else:
             myResponse = json.loads(requests.get(query).text)
@@ -92,7 +88,6 @@ class SearchDialog(QDialog):
                 if "description" in ent:
                     label+="["+ent["description"]+"]"
                 results[qid]=label    
-                self.searchResultMap[label]=ent["url"]
             for result in results:
                 item=QListWidgetItem()
                 item.setData(0,result)
@@ -102,16 +97,12 @@ class SearchDialog(QDialog):
 		
     def applyConceptToColumn(self):
         print("test")
-        print(str(self.searchResultMap))
-        inputstr=self.searchResultMap[self.searchResult.currentItem().text()]
-        if inputstr.startswith("//"):
-            inputstr="http:"+str(inputstr)
         if self.interlinkOrEnrich==-1:
-            self.table.setText(inputstr)
+            self.table.setText(str(self.searchResult.currentItem().data(0)))
         else:
             item=QTableWidgetItem(self.searchResult.currentItem().text())
             item.setText(self.searchResult.currentItem().text())
-            item.setData(1,inputstr)
+            item.setData(0,self.searchResult.currentItem().data(0))
             if self.interlinkOrEnrich:
                 self.table.setItem(self.currentrow,self.currentcol,item)
             else:
