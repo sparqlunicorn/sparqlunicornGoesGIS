@@ -483,7 +483,7 @@ class SPAQLunicorn:
         self.dlg.currentrow=row
         self.dlg.interlinkdialog =ValueMappingDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,table.item(row, 3).text(),layer)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
-        self.dlg.interlinkdialog.setWindowTitle("Get Value Mappings")
+        self.dlg.interlinkdialog.setWindowTitle("Get Value Mappings for column "+table.item(row, 3).text())
         self.dlg.interlinkdialog.exec_()
 
     def addnewEnrichRow(self):
