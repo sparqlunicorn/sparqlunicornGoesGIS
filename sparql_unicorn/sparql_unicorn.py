@@ -28,11 +28,11 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp
+from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator
 from qgis.core import QgsTask, QgsTaskManager
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
-from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
 from qgis.utils import iface
 import os.path
 import sys
@@ -549,6 +549,7 @@ class SPAQLunicorn:
             #self.dlg.enrichTable.setCellWidget(row,4,w)
             #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
+        self.originalRowCount=row
 
     def deleteEnrichRow(send):
         w = send.sender().parent()
@@ -583,6 +584,7 @@ class SPAQLunicorn:
         propertylist=[]
         excludelist=[]
         idfield=self.dlg.IDColumnEnrich.currentText()
+        resultmap={}
         for row in range(self.dlg.enrichTable.rowCount()):
             item = self.dlg.enrichTable.item(row, 0).text()
             propertyy=self.dlg.enrichTable.item(row, 1)
@@ -599,6 +601,13 @@ class SPAQLunicorn:
             if strategy=="Exclude":
                 excludelist.append(row)
             if strategy!="No Enrichment" and propertyy!=None:
+                if row>=self.originalRowCount:
+                    self.enrichLayer.dataProvider().addAttributes([QgsField(item,QVariant.String)])
+                    self.enrichLayer.updateFields()
+                fieldnames = [field.name() for field in self.enrichLayer.fields()]
+                self.enrichLayer.startEditing()
+                print(str(self.enrichLayer.dataProvider().capabilitiesString()))
+                print(str(fieldnames))
                 print("Enrichment for "+propertyy.text())
                 print("Item: "+idfield)
                 itemlist.append(item)
@@ -612,7 +621,7 @@ class SPAQLunicorn:
                 if content=="Enrich URI": 
                     query+="SELECT ?item WHERE {\n"
                 elif content=="Enrich Value" or content=="Enrich Both":
-                    query+="SELECT ?item ?val ?valLabel WHERE {\n"
+                    query+="SELECT ?item ?val ?valLabel ?vals WHERE {\n"
                 query+="VALUES ?vals { "
                 print(attlist)
                 for it in attlist[idfield]:
@@ -638,32 +647,21 @@ class SPAQLunicorn:
                 print("now sending query")
                 sparql.setReturnFormat(JSON)
                 results = sparql.query().convert()
-                resultcounter=0
+                print(str(results))
+                #resultcounter=0
+                for resultcounter in results["results"]["bindings"]:
+                    if content=="Enrich Value":
+                        resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]
+                    elif content=="Enrich URI":
+                        resultmap[resultcounter["vals"]["value"]]=resultcounter["val"]["value"]
+                    else:
+                        resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]+";"+resultcounter["val"]["value"]
+                print(str(resultmap))
                 for f in self.enrichLayer.getFeatures():
-                    if strategy=="Keep Local" and f[item]=="" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        if content=="Enrich Value":
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
-                        elif content=="Enrich URI":
-                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
-                        else:
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["val"]
-                    elif strategy=="Replace Local" and results["results"]["bindings"][resultcounter]["val"]["value"]!="":
-                        if content=="Enrich Value":
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]
-                        elif content=="Enrich URI":
-                            f[item]=results["results"]["bindings"][resultcounter]["val"]["value"]
-                        else:
-                            f[item]=results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]
-                    elif strategy=="Merge":
-                        if content=="Enrich Value":
-                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["valLabel"]["value"])
-                        elif content=="Enrich URI":
-                            f[item]=str(f[item])+";"+str(results["results"]["bindings"][resultcounter]["val"]["value"])
-                        else:
-                            f[item]=str(f[item])+";"+results["results"]["bindings"][resultcounter]["valLabel"]["value"]+";"+results["results"]["bindings"][resultcounter]["val"]["value"]                       
-                    elif strategy=="Ask User":
-                        print("Asking user")
-                    resultcounter+=1
+                    if f[idfield] in resultmap:
+                        f.setAttribute(5,resultmap[f[idfield]])
+                        print(resultmap[f[idfield]])
+            self.enrichLayer.commitChanges()
             row+=1
         self.enrichLayer.dataProvider().deleteAttributes(excludelist)
         self.enrichLayer.updateFields()
@@ -673,17 +671,20 @@ class SPAQLunicorn:
         self.dlg.enrichTableResult.setRowCount(0)		
         self.dlg.enrichTableResult.setColumnCount(len(fieldnames))
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
+        print("New fieldnames: "+str(fieldnames))
         row=0
         for f in self.enrichLayer.getFeatures():
             fieldcounter=0
             self.dlg.enrichTableResult.insertRow(row)
             for field in f:
-                item=QTableWidgetItem(field)
+                item=QTableWidgetItem(str(field))
                 self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
-                #if ";" in field:
-                    #item.setBackground(QColor.red)
+                if ";" in str(field):
+                    item.setBackground(QColor.red)
+                print(str(field))
                 fieldcounter+=1
             row+=1
+        #print(self.enrichLayer.asJson())
         self.dlg.enrichTableResult.show()
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
@@ -694,6 +695,7 @@ class SPAQLunicorn:
         canvas.setExtent(self.enrichLayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
         for row in range(self.dlg.interlinkTable.rowCount()):
+            
             fromm = self.dlg.interlinkTable.item(row, 0).text()
             to = self.dlg.interlinkTable.item(row, 1).text()
             resmap[fromm]=to
