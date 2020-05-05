@@ -1,0 +1,13 @@
+cff-version: 1.1.0
+message: If you use this software, please cite it as below.
+authors:
+  - family-names: Thiery
+    given-names: Florian
+    orcid: https://orcid.org/0000-0002-3246-3531
+  - family-names: Homburg
+    given-names: Timo
+    orcid: https://orcid.org/0000-0002-9499-5840
+title: "SPARQLing Unicorn QGIS Plugin"
+version: 0.10
+doi: 10.5281/zenodo.3786819
+date-released: 2020-04-26
