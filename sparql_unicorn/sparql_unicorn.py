@@ -506,6 +506,8 @@ class SPAQLunicorn:
         layer = layers[selectedLayerIndex].layer()
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
+        while self.dlg.enrichTableResult.rowCount() > 0:
+            self.dlg.enrichTableResult.removeRow(0);
         self.dlg.enrichTable.show()
         self.dlg.addEnrichedLayerRowButton.setEnabled(True)
         fieldnames = [field.name() for field in layer.fields()]
@@ -659,10 +661,12 @@ class SPAQLunicorn:
                 print(str(resultmap))
                 for f in self.enrichLayer.getFeatures():
                     if f[idfield] in resultmap:
-                        f.setAttribute(5,resultmap[f[idfield]])
+                        f.setAttribute(6,resultmap[f[idfield]])
+                        self.enrichLayer.updateFeature(f)
                         print(resultmap[f[idfield]])
             self.enrichLayer.commitChanges()
             row+=1
+        iface.vectorLayerTools().stopEditing(self.enrichLayer)
         self.enrichLayer.dataProvider().deleteAttributes(excludelist)
         self.enrichLayer.updateFields()
         self.dlg.enrichTable.hide()
