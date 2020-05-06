@@ -1,0 +1,6 @@
+{
+"rdf":{"label":"RDF Vocabulary", "source":"rdf.ttl"},
+"rdfs":{"label":"RDFS Vocabulary", "source":"rdfs.ttl"},
+"owl":{"label":"OWL Vocabulary", "source":"owl.ttl"},
+"skos":{"label":"SKOS Vocabulary", "source":"skos.rdf"}
+}

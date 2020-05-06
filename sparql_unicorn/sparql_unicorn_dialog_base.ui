@@ -31,12 +31,12 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
+     <width>971</width>
      <height>661</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -696,8 +696,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="addEnrichedLayerButton">
      <property name="geometry">
       <rect>
-       <x>660</x>
-       <y>570</y>
+       <x>780</x>
+       <y>580</y>
        <width>161</width>
        <height>41</height>
       </rect>
@@ -710,9 +710,9 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>101</y>
-       <width>801</width>
-       <height>451</height>
+       <y>131</y>
+       <width>911</width>
+       <height>421</height>
       </rect>
      </property>
     </widget>
@@ -720,9 +720,9 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>100</y>
+       <y>130</y>
        <width>921</width>
-       <height>451</height>
+       <height>421</height>
       </rect>
      </property>
     </widget>
@@ -763,6 +763,58 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Language:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="idPropertyLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ID Property:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="findIDPropertyEdit">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>100</y>
+       <width>391</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>http://www.w3.org/2000/01/rdf-schema#label</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="findIDProperty">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>100</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Find ID Property</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="useDefaultIDProp">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>100</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Use Default ID Property</string>
      </property>
     </widget>
    </widget>

@@ -30,11 +30,12 @@ class ValueMappingDialog(QDialog):
         self.valuemap=valuemap
         self.valmaptable=QTableWidget(self)
         self.valmaptable.move(10,100)
+        self.valmaptable.setMinimumSize(600, 300)
         while self.valmaptable.rowCount() > 0:
             self.valmaptable.removeRow(0);
         row=0
         self.valmaptable.setColumnCount(2)
-        self.valmaptable.setHorizontalHeaderLabels(["From","To"])
+        self.valmaptable.setHorizontalHeaderLabels(["From","To"])		
         if valuemap!=None:
             for key in valuemap:
                 row = self.valmaptable.rowCount() 
@@ -64,10 +65,10 @@ class ValueMappingDialog(QDialog):
         addMappingButton.move(100,70)
         addMappingButton.clicked.connect(self.addMappingToTable)
         deleteRowButton=QPushButton("Delete Selected Table Row",self)
-        deleteRowButton.move(100,300)
+        deleteRowButton.move(100,400)
         deleteRowButton.clicked.connect(self.deleteSelectedRow)
         applyButton=QPushButton("Apply",self)
-        applyButton.move(10,300)    
+        applyButton.move(10,400)    
         applyButton.clicked.connect(self.applyMapping)
       
     def addMappingToTable(self):
@@ -78,6 +79,7 @@ class ValueMappingDialog(QDialog):
             item2=QTableWidgetItem(self.foundClass.text())
             self.valmaptable.setItem(row,0,item)
             self.valmaptable.setItem(row,1,item2)
+            self.foundClass.setText("")
 			
     def deleteSelectedRow(self):
         for index in self.valmaptable.selectedIndexes():
@@ -134,7 +136,7 @@ class ValueMappingDialog(QDialog):
        self.currentcol=column
        self.currentrow=row
        self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
-       self.interlinkdialog.setMinimumSize(650, 400)
+       self.interlinkdialog.setMinimumSize(650, 500)
        self.interlinkdialog.setWindowTitle("Search Interlink Concept")
        self.interlinkdialog.exec_()
 	

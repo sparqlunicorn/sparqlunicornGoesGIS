@@ -69,6 +69,14 @@ class SPAQLunicorn:
     enrichLayer=None
 	
     originalRowCount=0
+	
+    enrichLayerCounter=0
+	
+    addVocabConf=None
+	
+    exportColConfig={}
+
+    valueconcept={}
    
     def __init__(self, iface):
         """Constructor.
@@ -460,23 +468,26 @@ class SPAQLunicorn:
 
     def createEnrichSearchDialog(self,row=-1,column=-1):
         if column==1:
-            self.buildSearchDialog(row,column,False,self.dlg.enrichTable)
+            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
+
+    def createEnrichSearchDialogProp(self,row=-1,column=-1):
+        self.buildSearchDialog(row,column,-1,self.dlg.findIDPropertyEdit,True)
 
     def createInterlinkSearchDialog(self, row=-1, column=-1):
         if column>3 and column<7:
-            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable)
+            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable,True)
         elif column>=7:
             layers = QgsProject.instance().layerTreeRoot().children()
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
             layer = layers[selectedLayerIndex].layer()
             self.buildValueMappingDialog(row,column,True,self.dlg.interlinkTable,layer)
         elif column==-1:
-            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput)
+            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput,False)
 
-    def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
+        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.dlg.interlinkdialog.exec_()
@@ -558,6 +569,9 @@ class SPAQLunicorn:
         row = self.dlg.enrichTable.indexAt(w.pos()).row()
         self.dlg.enrichTable.removeRow(row);
         self.dlg.enrichTable.setCurrentCell(0, 0)
+		
+    def useDefaultIDPropProcess(self):
+        self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
         
     def addEnrichRow(self):
         item=QTableWidgetItem("new_column")
@@ -629,8 +643,10 @@ class SPAQLunicorn:
                 for it in attlist[idfield]:
                     if it.startswith("http"):
                         query+="<"+it+"> "
-                    else:
+                    elif self.dlg.findIDPropertyEdit.text()=="http://www.w3.org/2000/01/rdf-schema#label":
                         query+="\""+it+"\"@"+self.dlg.languageEdit.text()+" "
+                    else:
+                        query+="\""+it+"\" "
                 query+=" } . \n"
                 proppp=propertyy.data(1)
                 if propertyy.data(1).startswith("//"):
@@ -638,7 +654,7 @@ class SPAQLunicorn:
                 query+="?item rdfs:label ?vals .\n"
                 query+="?item <"+proppp+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
-                    query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
+                    query+="OPTIONAL{ ?val <"+self.dlg.findIDPropertyEdit.text()+"> ?valLabel }"
                 elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
                     query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
                 query+="} ORDER BY ?item "
@@ -694,16 +710,12 @@ class SPAQLunicorn:
         return self.enrichLayer
 
     def addEnrichedLayer(self):
-        QgsProject.instance().addMapLayer(self.enrichLayerProcess(),True)
+        self.enrichLayerCounter+=1
+        self.enrichLayer.setName(self.enrichLayer.name()+"_enrich"+str(self.enrichLayerCounter))
+        QgsProject.instance().addMapLayer(self.enrichLayer,True)
         canvas = iface.mapCanvas()
         canvas.setExtent(self.enrichLayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-        for row in range(self.dlg.interlinkTable.rowCount()):
-            
-            fromm = self.dlg.interlinkTable.item(row, 0).text()
-            to = self.dlg.interlinkTable.item(row, 1).text()
-            resmap[fromm]=to
-        #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
     def loadMapping(self):
@@ -824,11 +836,11 @@ class SPAQLunicorn:
                     else:
                         classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 7)!=None:
-                        valuemap = self.dlg.interlinkTable.item(row, 7).data(1)
+                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
                         xmlmapping+=">\n"
-                        if valuemap!=None:
-                            for key in valuemap:
-                                xmlmapping+="<valuemapping from=\""+key+"\" to=\""+valuemap[key]+"\"/>\n"
+                        if self.valueconcept!=None:
+                            for key in self.valueconcept:
+                                xmlmapping+="<valuemapping from=\""+key+"\" to=\""+self.valueconcept[key]+"\"/>\n"
                     else:
                         xmlmapping+=">\n"
                     xmlmapping+="</column>\n"
@@ -908,7 +920,7 @@ class SPAQLunicorn:
                     else:
                         classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 7)!=None:
-                        valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
+                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
             else:
                 includelist.append(False)
                 propurilist.append("")
@@ -1044,7 +1056,14 @@ class SPAQLunicorn:
                     ttlstring+="<"+curid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+curclassid+"> .\n"
                     if first<10:
                         ttlstring+="<"+str(f[propp])+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n" 
-                elif "http" in f[propp] or (proptypelist!=None and proptypelist[fieldcounter]=="ObjectProperty"):
+                elif self.valueconcept!=None and f[propp] in self.valueconcept:
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(self.valueconcept[f[propp]])+"> .\n"
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
+                        if classurilist[fieldcounter]!="":
+                             ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
+                elif "http" in str(f[propp]) or (proptypelist!=None and proptypelist[fieldcounter]=="ObjectProperty"):
                     ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
@@ -1332,7 +1351,10 @@ class SPAQLunicorn:
                 with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
                     data=myfile.read()
             # parse file 
+            with open(os.path.join(__location__, 'addvocabconf.json'),'r') as myfile:
+                data2=myfile.read()
             self.triplestoreconf = json.loads(data)
+            self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
@@ -1375,7 +1397,7 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.setEditable(True)
             self.dlg.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
             self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-            urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+            urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
             urlvalidator = QRegExpValidator(urlregex, self.dlg)
             self.dlg.interlinkNameSpace.setValidator(urlvalidator)
             self.dlg.interlinkNameSpace.textChanged.connect(self.check_state3)
@@ -1393,6 +1415,8 @@ class SPAQLunicorn:
             self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             self.dlg.importMappingButton.clicked.connect(self.loadMapping)
+            self.dlg.findIDProperty.clicked.connect(self.createEnrichSearchDialogProp)
+            self.dlg.useDefaultIDProp.clicked.connect(self.useDefaultIDPropProcess)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)

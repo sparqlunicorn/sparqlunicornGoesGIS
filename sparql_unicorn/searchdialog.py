@@ -14,7 +14,7 @@ class SearchDialog(QDialog):
 
     table=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table):
+    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
@@ -31,12 +31,13 @@ class SearchDialog(QDialog):
             self.findConcept.setChecked(True)
         self.findProperty = QRadioButton("Property",self)
         self.findProperty.move(400,40)
-        if column==4 or (not interlinkOrEnrich and column!=4):
+        if column==4 or (not interlinkOrEnrich and column!=4) or (not interlinkOrEnrich and propOrClass):
             self.findProperty.setChecked(True)
         self.findProperty.setEnabled(False)
         self.findConcept.setEnabled(False)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
+        self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
