@@ -1,5 +1,7 @@
 from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip
 from qgis.PyQt.QtGui import QTextCursor
+from PyQt5.QtCore import Qt
+from .varinput import VarInputDialog
 import json
 import requests
 
@@ -15,6 +17,22 @@ class ToolTipPlainText(QPlainTextEdit):
         self.zoomIn(4)
         self.triplestoreconf=triplestoreconfig
         self.selector=selector
+        self.parent=parent
+
+    def keyPressEvent(self, event):
+        print("Key: "+str(event.key()))
+        print("Modifier: "+str(event.modifiers()))
+        if event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
+            self.createVarInputDialog()
+            event.accept()
+        else:
+            super(ToolTipPlainText, self).keyPressEvent(event)
+            
+    def createVarInputDialog(self):
+        self.interlinkdialog = VarInputDialog(self,self)
+        self.interlinkdialog.setMinimumSize(650, 500)
+        self.interlinkdialog.setWindowTitle("Select Column as Variable")
+        self.interlinkdialog.exec_()
         
     def mouseMoveEvent(self, event):
         textCursor = self.cursorForPosition(event.pos())
