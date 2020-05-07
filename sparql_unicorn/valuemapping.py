@@ -2,6 +2,7 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QTableWidget,QPlainTextEdit
 from qgis.core import QgsProject
 from .searchdialog import SearchDialog
+from .sparqlhighlighter import SPARQLHighlighter
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
 import requests
@@ -28,9 +29,21 @@ class ValueMappingDialog(QDialog):
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
         self.valuemap=valuemap
+        self.queryedit=QPlainTextEdit(self)
+        self.queryedit.zoomIn(4)
+        self.queryhighlight=SPARQLHighlighter(self.queryedit)
+        self.queryedit.move(320,100)
+        self.queryedit.setMinimumSize(310,300)
+        self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%"+fieldname+"%% . \n}")
+        self.tripleStoreEdit = QComboBox(self)
+        self.tripleStoreEdit.move(320,400)
+        self.tripleStoreEdit.setEnabled(False)
+        for triplestore in self.triplestoreconf:
+            if not "File"==triplestore["name"]:
+                self.tripleStoreEdit.addItem(triplestore["name"])
         self.valmaptable=QTableWidget(self)
         self.valmaptable.move(10,100)
-        self.valmaptable.setMinimumSize(600, 300)
+        self.valmaptable.setMinimumSize(300, 300)
         while self.valmaptable.rowCount() > 0:
             self.valmaptable.removeRow(0);
         row=0
@@ -62,11 +75,13 @@ class ValueMappingDialog(QDialog):
         findMappingButton.move(10,70)
         findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
         addMappingButton=QPushButton("Add Mapping",self)
-        addMappingButton.move(100,70)
+        addMappingButton.move(110,70)
         addMappingButton.clicked.connect(self.addMappingToTable)
         deleteRowButton=QPushButton("Delete Selected Table Row",self)
         deleteRowButton.move(100,400)
         deleteRowButton.clicked.connect(self.deleteSelectedRow)
+        sparqlLabel=QLabel("Mapping by SPARQL Query:\nColumn names may be used as variables in %%",self)
+        sparqlLabel.move(320,70)
         applyButton=QPushButton("Apply",self)
         applyButton.move(10,400)    
         applyButton.clicked.connect(self.applyMapping)

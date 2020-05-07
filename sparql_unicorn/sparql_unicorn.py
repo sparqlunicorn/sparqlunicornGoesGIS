@@ -53,6 +53,7 @@ from .sparqlhighlighter import SPARQLHighlighter
 from .tooltipplaintext import ToolTipPlainText
 from .triplestoredialog import TripleStoreDialog
 from .searchdialog import SearchDialog
+from .varinput import VarInputDialog
 from .valuemapping import ValueMappingDialog
 from .bboxdialog import BBOXDialog
 
