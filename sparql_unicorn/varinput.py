@@ -36,6 +36,10 @@ class VarInputDialog(QDialog):
         self.chooseField=QComboBox(self)
         self.chooseField.move(150,40)
         self.chooseField.clear()
+        self.varNameLabel=QLabel("Variable Name:",self)
+        self.varNameLabel.move(10,70)
+        self.varNameEdit=QLineEdit(self)
+        self.varNameEdit.move(150,70)
         applyButton=QPushButton("Apply",self)
         applyButton.move(10,100)    
         applyButton.clicked.connect(self.applyVar)
@@ -57,7 +61,10 @@ class VarInputDialog(QDialog):
         layer = layers[index].layer()
         layername=self.chooseLayer.currentText()
         fieldname=self.chooseField.currentText()
-        varname="?__"+layername.replace(" ","")+"__"+fieldname.replace(" ","")+"__"
+        if self.varNameEdit.text()!="":
+            varname="?_"+self.varNameEdit.text()
+        else:
+            varname="?__"+layername.replace(" ","")+"__"+fieldname.replace(" ","")+"__"
         self.inputfield.insertPlainText(varname)
         queryinsert="VALUES "+varname+" {"
         attlist={""}
