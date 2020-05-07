@@ -78,6 +78,8 @@ class SPAQLunicorn:
     exportColConfig={}
 
     valueconcept={}
+	
+    columnvars={}
    
     def __init__(self, iface):
         """Constructor.
@@ -332,6 +334,12 @@ class SPAQLunicorn:
         if missingmandvars!=[] and not self.dlg.allownongeo.isChecked():
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
+            msgBox.exec()
+        if self.columnvars!={}:
+            for lay in self.columvars:
+                query=query.replace("WHERE {","WHERE {\n"+self.columnvars[lay]+"\n")
+            msgBox=QMessageBox()
+            msgBox.setText(query)
             msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + query)
@@ -1221,6 +1229,7 @@ class SPAQLunicorn:
         comp.setModel(self.dlg.layerconcepts.model())
         self.dlg.layerconcepts.setCompleter(comp)
         self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
+        self.columnvars={}
         self.loadedfromfile=True
         self.justloadingfromfile=False
         return result
@@ -1291,6 +1300,7 @@ class SPAQLunicorn:
                  self.dlg.queryTemplates.addItem(concept["label"])
         if "examplequery" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
+            self.columnvars={}
 
 
     def getPointFromCanvas(self):
@@ -1323,6 +1333,7 @@ class SPAQLunicorn:
             concept=self.dlg.layerconcepts.currentText()
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+            self.columnvars={}
             if "wd:Q ." in self.dlg.inp_sparql2.toPlainText():
                 self.dlg.inp_sparql2.setPlainText(self.dlg.inp_sparql2.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
         if "#" in self.dlg.layerconcepts.currentText():
@@ -1361,11 +1372,12 @@ class SPAQLunicorn:
             self.dlg = SPAQLunicornDialog()
             self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
             self.dlg.inp_sparql.hide()
-            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox)
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox,self.columnvars)
             self.dlg.inp_sparql2.move(10,130)
             self.dlg.inp_sparql2.setMinimumSize(941,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
             self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+            self.columnvars={}
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql2)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:

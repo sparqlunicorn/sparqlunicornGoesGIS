@@ -14,12 +14,15 @@ class VarInputDialog(QDialog):
     
     chooseLayer=None
 
-    def __init__(self,parent,inputfield):
+    columnvars=None
+
+    def __init__(self,parent,inputfield,columnvars):
         super(QDialog, self).__init__()
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.inputfield=inputfield
         self.resize(200,200)
+        self.columnvars=columnvars
         layerLabel=QLabel("Choose Layer: ",self)
         layerLabel.move(10,10)
         self.chooseLayer=QComboBox(self)
@@ -49,8 +52,20 @@ class VarInputDialog(QDialog):
             self.chooseField.addItem(field)
  
     def applyVar(self):
-        layername=self.chooseLayer.currentText().replace(" ","")
-        fieldname=self.chooseField.currentText().replace(" ","")
-        varname="?__"+layername+"__"+fieldname+"__"
+        layers = QgsProject.instance().layerTreeRoot().children()
+        index=self.chooseLayer.currentIndex()
+        layer = layers[index].layer()
+        layername=self.chooseLayer.currentText()
+        fieldname=self.chooseField.currentText()
+        varname="?__"+layername.replace(" ","")+"__"+fieldname.replace(" ","")+"__"
         self.inputfield.insertPlainText(varname)
+        queryinsert="VALUES "+varname+" {"
+        attlist={""}
+        for f in layer.getFeatures():
+            attlist.add(f[fieldname])
+        for att in attlist:
+            if att!="":
+                queryinsert+="\""+att+"\" "
+        queryinsert+="}"
+        self.columnvars[varname]=queryinsert
         self.close()
