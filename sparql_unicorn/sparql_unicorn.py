@@ -523,6 +523,8 @@ class SPAQLunicorn:
     def loadLayerForEnrichment(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        if not selectedLayerIndex in layers:
+           return
         layer = layers[selectedLayerIndex].layer()
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
@@ -863,6 +865,8 @@ class SPAQLunicorn:
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        if not selectedLayerIndex in layers:
+           return
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.interlinkTable.rowCount() > 0:
