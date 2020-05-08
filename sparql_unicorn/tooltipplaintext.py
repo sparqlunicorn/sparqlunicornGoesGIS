@@ -11,12 +11,13 @@ class ToolTipPlainText(QPlainTextEdit):
      
     selector=None
 
-    def __init__(self,parent,triplestoreconfig,selector):
+    def __init__(self,parent,triplestoreconfig,selector,columnvars):
         super(self.__class__, self).__init__(parent)
         self.setMouseTracking(True)
         self.zoomIn(4)
         self.triplestoreconf=triplestoreconfig
         self.selector=selector
+        self.columnvars=columnvars
         self.parent=parent
 
     def keyPressEvent(self, event):
@@ -29,7 +30,7 @@ class ToolTipPlainText(QPlainTextEdit):
             super(ToolTipPlainText, self).keyPressEvent(event)
             
     def createVarInputDialog(self):
-        self.interlinkdialog = VarInputDialog(self,self)
+        self.interlinkdialog = VarInputDialog(self,self,self.columnvars)
         self.interlinkdialog.setMinimumSize(650, 500)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
         self.interlinkdialog.exec_()
