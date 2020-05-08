@@ -57,12 +57,16 @@ class ToolTipPlainText(QPlainTextEdit):
             word = textCursor.selectedText()
             print("Tooltip Word")
             if word in self.savedLabels:
-               toolTipText=self.savedLabels[word]
+                toolTipText=self.savedLabels[word]
             elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
-               self.savedLabels[word]=self.getLabelsForClasses([word.replace("wd:","").replace("wdt:","")],self.selector.currentIndex())
-               toolTipText=self.savedLabels[word]
+                self.savedLabels[word]=self.getLabelsForClasses([word.replace("wd:","").replace("wdt:","")],self.selector.currentIndex())
+                toolTipText=self.savedLabels[word]
             else:
                toolTipText = word
+            if ":" in word and toolTipText!=word:
+                toolTipText=word[word.index(":")+1:]+":"+toolTipText
+            elif toolTipText!=word:
+                toolTipText=word+":"+toolTipText
             # Put the hover over in an easy to read spot
             pos = self.cursorRect(self.textCursor()).bottomRight()
             # The pos could also be set to event.pos() if you want it directly under the mouse
