@@ -345,9 +345,9 @@ class SPAQLunicorn:
             for lay in self.dlg.inp_sparql2.columnvars:
                 if lay in query:
                     query=query.replace("WHERE {","WHERE {\n"+self.dlg.inp_sparql2.columnvars[lay]+"\n")
-            #msgBox=QMessageBox()
-            #msgBox.setText(query)
-            #msgBox.exec()
+            msgBox=QMessageBox()
+            msgBox.setText(query)
+            msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + query)
         sparql.setReturnFormat(JSON)
@@ -695,7 +695,7 @@ class SPAQLunicorn:
                 print(str(resultmap))
                 for f in self.enrichLayer.getFeatures():
                     if f[idfield] in resultmap:
-                        f.setAttribute(6,resultmap[f[idfield]])
+                        f.setAttribute(row,resultmap[f[idfield]])
                         self.enrichLayer.updateFeature(f)
                         print(resultmap[f[idfield]])
             self.enrichLayer.commitChanges()
