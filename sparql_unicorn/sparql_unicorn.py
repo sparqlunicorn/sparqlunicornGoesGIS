@@ -335,12 +335,19 @@ class SPAQLunicorn:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
-        if self.columnvars!={}:
-            for lay in self.columvars:
-                query=query.replace("WHERE {","WHERE {\n"+self.columnvars[lay]+"\n")
-            msgBox=QMessageBox()
-            msgBox.setText(query)
-            msgBox.exec()
+        #msgBox=QMessageBox()
+        #msgBox.setText(str(self.dlg.inp_sparql2.columnvars))
+        #msgBox.exec()
+        #msgBox=QMessageBox()
+        #msgBox.setText(query)
+        #msgBox.exec()
+        if self.dlg.inp_sparql2.columnvars!={}:
+            for lay in self.dlg.inp_sparql2.columnvars:
+                if lay in query:
+                    query=query.replace("WHERE {","WHERE {\n"+self.dlg.inp_sparql2.columnvars[lay]+"\n")
+            #msgBox=QMessageBox()
+            #msgBox.setText(query)
+            #msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + query)
         sparql.setReturnFormat(JSON)
@@ -662,10 +669,10 @@ class SPAQLunicorn:
                 proppp=propertyy.data(1)
                 if propertyy.data(1).startswith("//"):
                     proppp="http:"+proppp
-                query+="?item rdfs:label ?vals .\n"
+                query+="?item <"+self.dlg.findIDPropertyEdit.text()+"> ?vals .\n"
                 query+="?item <"+proppp+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
-                    query+="OPTIONAL{ ?val <"+self.dlg.findIDPropertyEdit.text()+"> ?valLabel }"
+                    query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
                 elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
                     query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
                 query+="} ORDER BY ?item "
@@ -1235,7 +1242,7 @@ class SPAQLunicorn:
         comp.setModel(self.dlg.layerconcepts.model())
         self.dlg.layerconcepts.setCompleter(comp)
         self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
-        self.columnvars={}
+        self.dlg.inp_sparql2.columnvars={}
         self.loadedfromfile=True
         self.justloadingfromfile=False
         return result
@@ -1306,7 +1313,7 @@ class SPAQLunicorn:
                  self.dlg.queryTemplates.addItem(concept["label"])
         if "examplequery" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
-            self.columnvars={}
+            self.dlg.inp_sparql2.columnvars={}
 
 
     def getPointFromCanvas(self):
@@ -1339,7 +1346,7 @@ class SPAQLunicorn:
             concept=self.dlg.layerconcepts.currentText()
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
-            self.columnvars={}
+            self.dlg.inp_sparql2.columnvars={}
             if "wd:Q ." in self.dlg.inp_sparql2.toPlainText():
                 self.dlg.inp_sparql2.setPlainText(self.dlg.inp_sparql2.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
         if "#" in self.dlg.layerconcepts.currentText():
@@ -1383,7 +1390,7 @@ class SPAQLunicorn:
             self.dlg.inp_sparql2.setMinimumSize(941,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
             self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-            self.columnvars={}
+            self.dlg.inp_sparql2.columnvars={}
             self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql2)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
