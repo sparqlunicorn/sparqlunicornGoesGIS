@@ -1,8 +1,9 @@
-from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip
+from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox
 from qgis.PyQt.QtGui import QTextCursor
 from PyQt5.QtCore import Qt
 from .varinput import VarInputDialog
 import json
+import re
 import requests
 
 class ToolTipPlainText(QPlainTextEdit):      
@@ -10,6 +11,8 @@ class ToolTipPlainText(QPlainTextEdit):
     triplestoreconf=None
      
     selector=None
+	
+    savedLabels={}
 
     def __init__(self,parent,triplestoreconfig,selector,columnvars):
         super(self.__class__, self).__init__(parent)
@@ -39,8 +42,11 @@ class ToolTipPlainText(QPlainTextEdit):
         textCursor = self.cursorForPosition(event.pos())
         textCursor.select(QTextCursor.WordUnderCursor)
         word = textCursor.selectedText()
-        print(textCursor.position())           
-        if False:
+        print(textCursor.position())    
+        if not word.endswith(' '):
+            textCursor.setPosition(textCursor.position()+1,QTextCursor.KeepAnchor)
+            word = textCursor.selectedText()
+        if word.strip()!="" and (word.startswith("wd:") or word.startswith("wdt:") or re.match("^(Q|P)[0-9]+$", word)):
             while not word.endswith(' '):
                 textCursor.setPosition(textCursor.position()+1,QTextCursor.KeepAnchor)
                 word = textCursor.selectedText()
@@ -50,20 +56,27 @@ class ToolTipPlainText(QPlainTextEdit):
                 textCursor.setPosition(textCursor.position()-1,QTextCursor.KeepAnchor)     
             word = textCursor.selectedText()
             print("Tooltip Word")
-            #if "wikidata" in word or word.startswith("wd:"):
-            #    self.getLabelsForClasses([word],self.selector.currentIndex())
-            toolTipText = word
+            if word in self.savedLabels:
+               toolTipText=self.savedLabels[word]
+            elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
+               self.savedLabels[word]=self.getLabelsForClasses([word.replace("wd:","").replace("wdt:","")],self.selector.currentIndex())
+               toolTipText=self.savedLabels[word]
+            else:
+               toolTipText = word
             # Put the hover over in an easy to read spot
             pos = self.cursorRect(self.textCursor()).bottomRight()
             # The pos could also be set to event.pos() if you want it directly under the mouse
             pos = self.mapToGlobal(pos)
-            QToolTip.showText(event.screenPos().toPoint(), word)
+            QToolTip.showText(event.screenPos().toPoint(), toolTipText)
         #textCursor.clearSelection()
         #self.setTextCursor(self.textCursor())
         
     def getLabelsForClasses(self,classes,endpointIndex):
         result=[]
-        query=self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"]
+        if classes[0].startswith("Q"):
+            query=self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"]
+        elif classes[0].startswith("P"):
+            query=self.triplestoreconf[self.selector.currentIndex()]["propertylabelquery"]
         print("Get Labels for Tooltip")
         #url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if "SELECT" in query:
@@ -86,16 +99,21 @@ class ToolTipPlainText(QPlainTextEdit):
                 print(qid)
                 if "Q" in qid:
                     qidquery+="Q"+qid.split("Q")[1]
+                if "P" in qid:
+                    qidquery+="P"+qid.split("P")[1]
                 if (i%50)==0:
                     print(url.replace("%%concepts%%",qidquery))
                     myResponse = json.loads(requests.get(url.replace("%%concepts%%",qidquery)).text)
                     print(myResponse)
-                    for ent in myResponse["entities"]:
-                        print(ent)
-                        if "en" in myResponse["entities"][ent]["labels"]:
-                            result.append(myResponse["entities"][ent]["labels"]["en"]["value"])                
-                    qidquery=""
-                else:
-                    qidquery+="|"
+                    if "entities" in myResponse:
+                        for ent in myResponse["entities"]:
+                            print(ent)
+                            if "en" in myResponse["entities"][ent]["labels"]:
+                                result.append(myResponse["entities"][ent]["labels"]["en"]["value"])                
+                        qidquery=""
+                    else:
+                        qidquery+="|"
                 i=i+1
-        return result[0]
+        if len(result)>0:
+            return result[0]
+        return ""
