@@ -480,7 +480,7 @@ class SPAQLunicorn:
             self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
 
     def createEnrichSearchDialogProp(self,row=-1,column=-1):
-        self.buildSearchDialog(row,column,-1,self.dlg.findIDPropertyEdit,True)
+        self.buildSearchDialog(row,column,False,self.dlg.findIDPropertyEdit,True)
 
     def createInterlinkSearchDialog(self, row=-1, column=-1):
         if column>3 and column<7:
@@ -523,8 +523,8 @@ class SPAQLunicorn:
     def loadLayerForEnrichment(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        if not selectedLayerIndex in layers:
-           return
+        #if len(layers)>0:
+        #   return
         layer = layers[selectedLayerIndex].layer()
         self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
@@ -848,6 +848,8 @@ class SPAQLunicorn:
                         classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 7)!=None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
+                        if self.dlg.interlinkTable.item(row, 7).data(2)!=None and self.dlg.interlinkTable.item(row, 7).data(3)!=None:
+                            xmlmapping="query=\""+self.dlg.interlinkTable.item(row, 7).data(2)+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
                         xmlmapping+=">\n"
                         if self.valueconcept!=None:
                             for key in self.valueconcept:
@@ -865,8 +867,8 @@ class SPAQLunicorn:
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        if not selectedLayerIndex in layers:
-           return
+        #if len(layers)>0:
+        #   return
         layer = layers[selectedLayerIndex].layer()
         fieldnames = [field.name() for field in layer.fields()]
         while self.dlg.interlinkTable.rowCount() > 0:
