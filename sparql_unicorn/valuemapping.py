@@ -20,12 +20,15 @@ class ValueMappingDialog(QDialog):
     table=False
     
     valmaptable=False
+	
+    fieldname=""
 
     def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,fieldname,layer,valuemap):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
         self.table=table
+        self.fieldname=fieldname
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
         self.valuemap=valuemap
@@ -164,6 +167,9 @@ class ValueMappingDialog(QDialog):
         item=QTableWidgetItem("ValueMap{}")
         item.setText("ValueMap{}")
         item.setData(1,resmap)
+        if "SELECT ?item\n WHERE {\n ?item ?rel %%"+self.fieldname+"%% . \n}"!=self.queryedit.toPlainText():
+            item.setData(2,self.queryedit.toPlainText())
+            item.setData(3,self.tripleStoreEdit.currentText())
         self.table.setItem(self.currentrow,self.currentcol,item)
         self.close()
         return resmap
