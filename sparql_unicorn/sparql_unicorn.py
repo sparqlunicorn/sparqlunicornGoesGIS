@@ -915,6 +915,8 @@ class SPAQLunicorn:
         classurilist=[]
         includelist=[]
         proptypelist=[]
+        valuemappings={}
+        valuequeries=[]
         for row in range(self.dlg.interlinkTable.rowCount()):
             item = self.dlg.interlinkTable.item(row, 0)
             if item.checkState():
@@ -943,13 +945,15 @@ class SPAQLunicorn:
                         classurilist.append("")
                     if self.dlg.interlinkTable.item(row, 7)!=None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
+                        valuemappings[item.text()]=self.dlg.interlinkTable.item(row,7).data(1)
+                        valuequeries.append({self.dlg.interlinkTable.item(row,7).data(2),self.dlg.interlinkTable.item(row,7).data(3)})
             else:
                 includelist.append(False)
                 propurilist.append("")
                 classurilist.append("")
                 proptypelist.append("")
         self.enrichedExport=True
-        self.exportLayer(propurilist,classurilist,includelist,proptypelist)
+        self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
         
     def addNewLayerToTripleStore(self,triplestoreaddress,layer):
         ttlstring=self.layerToTTLString(layer)
@@ -990,7 +994,7 @@ class SPAQLunicorn:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
 
-    def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None,proptypelist=None):
+    def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -1041,7 +1045,7 @@ class SPAQLunicorn:
                 #    fieldcounter=0
                 if includelist!=None and includelist[fieldcounter]==False:
                     continue
-                prop=propp
+                prop=propp    
                 print(str(fieldcounter))
                 print(str(urilist)+"\n")
                 print(str(classurilist)+"\n")
@@ -1078,8 +1082,20 @@ class SPAQLunicorn:
                     ttlstring+="<"+curid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+curclassid+"> .\n"
                     if first<10:
                         ttlstring+="<"+str(f[propp])+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n" 
-                elif self.valueconcept!=None and f[propp] in self.valueconcept:
-                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(self.valueconcept[f[propp]])+"> .\n"
+                elif valuequeries!=None and propp in valuequeries:
+                    ttlstring+=""
+                    sparql = SPARQLWrapper(valuequeries[propp][1], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                    sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + valuequeries[propp][0].replace("%%"+propp+"%%","\""+str(f[propp])+"\""))
+                    sparql.setReturnFormat(JSON)
+                    results = sparql.query().convert()
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+results["results"]["bindings"][0]["item"]["value"]+"> ."
+                    if first<10:
+                        ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
+                        ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
+                        if classurilist[fieldcounter]!="":
+                             ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
+                elif valuemappings!=None and propp in valuemappings and f[propp] in self.valuemappings[propp]:
+                    ttlstring+="<"+curid+"> <"+prop+"> <"+str(self.valuemappings[propp][f[propp]])+"> .\n"
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
@@ -1114,7 +1130,7 @@ class SPAQLunicorn:
                 first=first+1
         return ttlstring
 		
-    def exportLayer(self,urilist,classurilist,includelist,proptypelist):
+    def exportLayer(self,urilist,classurilist,includelist,proptypelist,valuemappings=None,valuequeries=None):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         if filename=="":
@@ -1125,7 +1141,7 @@ class SPAQLunicorn:
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
-        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist)
+        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
         g=Graph()
         g.parse(data=ttlstring, format="ttl")
         splitted=filename.split(".")
