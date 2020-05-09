@@ -1,4 +1,4 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem
+from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QCheckBox
 from qgis.PyQt.QtGui import QTextCursor
 from qgis.core import QgsProject
 from PyQt5.QtCore import Qt
@@ -36,6 +36,12 @@ class VarInputDialog(QDialog):
         self.chooseField=QComboBox(self)
         self.chooseField.move(150,40)
         self.chooseField.clear()
+        self.isLabelLabel=QCheckBox("Is Label",self)
+        self.isLabelLabel.move(250,40)
+        self.labelLangLabel=QLabel("Label Lang: ",self)
+        self.labelLangLabel.move(350,40)
+        self.labelLang=QLineEdit(self)
+        self.labelLang.move(430,40)
         self.varNameLabel=QLabel("Variable Name:",self)
         self.varNameLabel.move(10,70)
         self.varNameEdit=QLineEdit(self)
@@ -64,7 +70,7 @@ class VarInputDialog(QDialog):
         if self.varNameEdit.text()!="":
             varname="?_"+self.varNameEdit.text()
         else:
-            varname="?__"+layername.replace(" ","")+"__"+fieldname.replace(" ","")+"__"
+            varname="?_"+layername.replace(" ","")+"_"+fieldname.replace(" ","")
         self.inputfield.insertPlainText(varname)
         queryinsert="VALUES "+varname+" {"
         attlist={""}
@@ -72,7 +78,13 @@ class VarInputDialog(QDialog):
             attlist.add(f[fieldname])
         for att in attlist:
             if att!="":
-                queryinsert+="\""+att+"\" "
+                if att.startswith("http"):
+                    query+="<"+att+">"
+                else:
+                    queryinsert+="\""+att+"\""
+                    if self.isLabelLabel.isChecked():
+                        queryinsert+="@"+self.labelLang.text()
+                queryinsert+=" "
         queryinsert+="}"
         self.columnvars[varname]=queryinsert
         self.close()

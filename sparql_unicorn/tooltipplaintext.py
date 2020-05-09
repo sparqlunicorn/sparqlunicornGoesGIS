@@ -2,6 +2,7 @@ from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox
 from qgis.PyQt.QtGui import QTextCursor
 from PyQt5.QtCore import Qt
 from .varinput import VarInputDialog
+from .searchdialog import SearchDialog
 import json
 import re
 import requests
@@ -29,6 +30,9 @@ class ToolTipPlainText(QPlainTextEdit):
         if event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             self.createVarInputDialog()
             event.accept()
+        elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and event.modifiers()==Qt.ControlModifier:
+            self.buildSearchDialog(-1,-1,-1,self,True,True)
+            event.accept()
         else:
             super(ToolTipPlainText, self).keyPressEvent(event)
             
@@ -36,6 +40,14 @@ class ToolTipPlainText(QPlainTextEdit):
         self.interlinkdialog = VarInputDialog(self,self,self.columnvars)
         self.interlinkdialog.setMinimumSize(650, 500)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
+        self.interlinkdialog.exec_()
+        
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions):
+        self.currentcol=column
+        self.currentrow=row
+        self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,bothOptions)
+        self.interlinkdialog.setMinimumSize(650, 400)
+        self.interlinkdialog.setWindowTitle("Search Property or Class")
         self.interlinkdialog.exec_()
         
     def mouseMoveEvent(self, event):
@@ -59,6 +71,8 @@ class ToolTipPlainText(QPlainTextEdit):
             if word in self.savedLabels:
                 toolTipText=self.savedLabels[word]
             elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
+                if "http" in word:
+                    word=word[word.rfind("/")+1:-1]
                 self.savedLabels[word]=self.getLabelsForClasses([word.replace("wd:","").replace("wdt:","")],self.selector.currentIndex())
                 toolTipText=self.savedLabels[word]
             else:

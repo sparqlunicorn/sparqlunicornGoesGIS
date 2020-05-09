@@ -14,11 +14,12 @@ class SearchDialog(QDialog):
 
     table=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False):
+    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
         self.table=table
+        self.bothOptions=bothOptions
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
         self.conceptSearchEdit = QLineEdit(self)
@@ -33,8 +34,9 @@ class SearchDialog(QDialog):
         self.findProperty.move(400,40)
         if column==4 or (not interlinkOrEnrich and column!=4) or (not interlinkOrEnrich and propOrClass):
             self.findProperty.setChecked(True)
-        self.findProperty.setEnabled(False)
-        self.findConcept.setEnabled(False)
+        if not bothOptions:
+            self.findProperty.setEnabled(False)
+            self.findConcept.setEnabled(False)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
         self.tripleStoreEdit.setEnabled(False)
@@ -106,7 +108,9 @@ class SearchDialog(QDialog):
 		
     def applyConceptToColumn(self):
         print("test")
-        if self.interlinkOrEnrich==-1:
+        if self.bothOptions==True:
+            self.table.insertPlainText("<"+str(self.searchResult.currentItem().data(1))+">")
+        elif self.interlinkOrEnrich==-1:
             self.table.setText(str(self.searchResult.currentItem().data(1)))
         else:
             item=QTableWidgetItem(self.searchResult.currentItem().text())

@@ -153,9 +153,9 @@ class ValueMappingDialog(QDialog):
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
        self.currentcol=column
        self.currentrow=row
-       self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table)
+       self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,True)
        self.interlinkdialog.setMinimumSize(650, 500)
-       self.interlinkdialog.setWindowTitle("Search Interlink Concept")
+       self.interlinkdialog.setWindowTitle("Search Property or Class")
        self.interlinkdialog.exec_()
 	
     def applyMapping(self):
