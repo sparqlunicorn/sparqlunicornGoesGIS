@@ -49,6 +49,14 @@ class SearchDialog(QDialog):
         searchButton = QPushButton("Search",self)
         searchButton.move(10,70)
         searchButton.clicked.connect(self.getClassesFromLabel)
+        #costumpropertyLabel = QLabel("Define Own URI:",self)
+        #costumpropertyLabel.move(200,75)
+        #costumproperty = QLineEdit(self)
+        #costumproperty.move(300,70)
+        #costumproperty.setMinimumSize(200,25)
+        #costumpropertyButton = QPushButton("Use Own Class/Property",self)
+        #costumpropertyButton.move(500,70)
+        #costumpropertyButton.clicked.connect(self.applyConceptToColumn)
         searchResultLabel = QLabel("Search Results",self)
         searchResultLabel.move(100,100)
         self.searchResult = QListWidget(self)
@@ -110,7 +118,7 @@ class SearchDialog(QDialog):
     def applyConceptToColumn(self):
         print("test")
         if self.searchResult.count()==0:
-            return
+            return           
         if self.bothOptions==True:	
             toinsert=str(self.searchResult.currentItem().data(1))
             haschanged=False
