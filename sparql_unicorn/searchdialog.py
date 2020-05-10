@@ -19,6 +19,7 @@ class SearchDialog(QDialog):
         self.currentcol=column
         self.currentrow=row
         self.table=table
+        self.bothOptions=bothOptions
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
         self.conceptSearchEdit = QLineEdit(self)
