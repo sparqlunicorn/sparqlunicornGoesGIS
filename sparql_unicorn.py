@@ -1131,11 +1131,9 @@ class SPAQLunicorn:
 		
     def exportLayer(self,urilist,classurilist,includelist,proptypelist,valuemappings=None,valuequeries=None):
         filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
+            self.dlg, "Select   output file ","", "Linked data (*.ttl *.n3 *.owl *.nt *.nq *.trix *.rdfxml *.json-ld)",)
         if filename=="":
              return
-        if not ".ttl" in filename and not ".n3" in filename and not ".owl" in filename and not ".nt" in filename and not ".nq" in filename and not ".trix" in filename and not "json-ld" in filename:
-            filename=filename+".ttl"
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
