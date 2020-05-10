@@ -3,6 +3,7 @@ from qgis.PyQt.QtGui import QTextCursor
 from PyQt5.QtCore import Qt
 from qgis.core import QgsProject
 from .varinput import VarInputDialog
+from .searchdialog import SearchDialog
 import json
 import re
 import requests
