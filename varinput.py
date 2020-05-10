@@ -46,6 +46,16 @@ class VarInputDialog(QDialog):
         self.varNameLabel.move(10,70)
         self.varNameEdit=QLineEdit(self)
         self.varNameEdit.move(150,70)
+        self.varTypeLabel=QLabel("Variable Type:",self)
+        self.varTypeLabel.move(270,75)
+        self.varType=QComboBox(self)
+        self.varType.move(370,70)
+        self.varType.addItem("Automatic")
+        self.varType.addItem("String")
+        self.varType.addItem("URI")
+        self.varType.addItem("Double")
+        self.varType.addItem("Integer")
+        self.varType.addItem("Date")
         applyButton=QPushButton("Apply",self)
         applyButton.move(10,100)    
         applyButton.clicked.connect(self.applyVar)
@@ -78,9 +88,13 @@ class VarInputDialog(QDialog):
             attlist.add(f[fieldname])
         for att in attlist:
             if att!="":
-                if att.startswith("http"):
+                if self.varType.currentText()=="URI" or (self.varType.currentText()=="Automatic" and att.startswith("http")):
                     query+="<"+att+">"
-                else:
+                elif self.varType.currentText()=="Integer" or self.varType.currentText()=="Double":
+                    query+=att
+                elif self.varType.currentText()=="Date":
+                    query+="\""+att+"\"^^xsd:date"
+                elif self.varType.currentText()=="String" or self.varType.currentText()=="Automatic":
                     queryinsert+="\""+att+"\""
                     if self.isLabelLabel.isChecked():
                         queryinsert+="@"+self.labelLang.text()
