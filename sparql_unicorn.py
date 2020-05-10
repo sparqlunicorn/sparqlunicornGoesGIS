@@ -796,6 +796,8 @@ class SPAQLunicorn:
             self.dlg, "Select   output file ","", "XML (.xml)",)
         if filename=="":
              return
+        if not filename.endswith(".xml"):
+            filename=filename+".xml"
         layers = QgsProject.instance().layerTreeRoot().children()
         ttlstring=self.exportMappingProcess()
         splitted=filename.split(".")
