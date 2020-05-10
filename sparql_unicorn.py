@@ -855,7 +855,7 @@ class SPAQLunicorn:
                     if self.dlg.interlinkTable.item(row, 7)!=None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
                         if self.dlg.interlinkTable.item(row, 7).data(2)!=None and self.dlg.interlinkTable.item(row, 7).data(3)!=None:
-                            xmlmapping="query=\""+self.dlg.interlinkTable.item(row, 7).data(2)+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
+                            xmlmapping+="query=\""+self.dlg.interlinkTable.item(row, 7).data(2)+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
                         xmlmapping+=">\n"
                         if self.valueconcept!=None:
                             for key in self.valueconcept:
