@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>974</width>
+    <width>1092</width>
     <height>659</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>971</width>
+     <width>1091</width>
      <height>661</height>
     </rect>
    </property>
@@ -132,7 +132,7 @@
       <rect>
        <x>780</x>
        <y>10</y>
-       <width>161</width>
+       <width>291</width>
        <height>20</height>
       </rect>
      </property>
@@ -142,7 +142,7 @@
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>941</width>
+       <width>1071</width>
        <height>401</height>
       </rect>
      </property>
@@ -169,7 +169,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>540</y>
-       <width>941</width>
+       <width>1061</width>
        <height>41</height>
       </rect>
      </property>
@@ -202,7 +202,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>220</x>
        <y>590</y>
-       <width>421</width>
+       <width>531</width>
        <height>21</height>
       </rect>
      </property>
@@ -210,7 +210,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportLayers">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>760</x>
        <y>590</y>
        <width>211</width>
        <height>28</height>
@@ -223,7 +223,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QDialogButtonBox" name="button_box">
      <property name="geometry">
       <rect>
-       <x>860</x>
+       <x>980</x>
        <y>590</y>
        <width>91</width>
        <height>32</height>
@@ -262,7 +262,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="bboxButton">
      <property name="geometry">
       <rect>
-       <x>770</x>
+       <x>900</x>
        <y>70</y>
        <width>171</width>
        <height>21</height>
@@ -277,7 +277,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>570</x>
        <y>70</y>
-       <width>191</width>
+       <width>321</width>
        <height>22</height>
       </rect>
      </property>
@@ -300,7 +300,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>20</x>
        <y>105</y>
-       <width>791</width>
+       <width>861</width>
        <height>21</height>
       </rect>
      </property>
@@ -326,7 +326,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>780</x>
        <y>40</y>
-       <width>161</width>
+       <width>291</width>
        <height>22</height>
       </rect>
      </property>
@@ -370,9 +370,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>770</x>
+       <x>910</x>
        <y>100</y>
-       <width>181</width>
+       <width>161</width>
        <height>20</height>
       </rect>
      </property>
@@ -390,7 +390,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>931</width>
+       <width>1071</width>
        <height>391</height>
       </rect>
      </property>
@@ -456,8 +456,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportInterlink">
      <property name="geometry">
       <rect>
-       <x>162</x>
-       <y>550</y>
+       <x>260</x>
+       <y>540</y>
        <width>521</width>
        <height>61</height>
       </rect>
@@ -593,7 +593,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportMappingButton">
      <property name="geometry">
       <rect>
-       <x>820</x>
+       <x>920</x>
        <y>100</y>
        <width>121</width>
        <height>28</height>
@@ -606,7 +606,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="importMappingButton">
      <property name="geometry">
       <rect>
-       <x>700</x>
+       <x>720</x>
        <y>100</y>
        <width>111</width>
        <height>28</height>
@@ -657,29 +657,6 @@ SELECT ?label ?geo ?item WHERE {
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_10">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ID Column:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="IDColumnEnrich">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>70</y>
-       <width>391</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="startEnrichment">
      <property name="geometry">
       <rect>
@@ -696,8 +673,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="addEnrichedLayerButton">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>580</y>
+       <x>900</x>
+       <y>570</y>
        <width>161</width>
        <height>41</height>
       </rect>
@@ -710,9 +687,9 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>131</y>
-       <width>911</width>
-       <height>421</height>
+       <y>101</y>
+       <width>1041</width>
+       <height>451</height>
       </rect>
      </property>
     </widget>
@@ -720,16 +697,16 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>130</y>
-       <width>921</width>
-       <height>421</height>
+       <y>100</y>
+       <width>1051</width>
+       <height>451</height>
       </rect>
      </property>
     </widget>
     <widget class="QPushButton" name="addEnrichedLayerRowButton">
      <property name="geometry">
       <rect>
-       <x>780</x>
+       <x>20</x>
        <y>70</y>
        <width>161</width>
        <height>21</height>
@@ -737,84 +714,6 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Add Row</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="languageEdit">
-     <property name="geometry">
-      <rect>
-       <x>620</x>
-       <y>70</y>
-       <width>91</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>en</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="languageLabel">
-     <property name="geometry">
-      <rect>
-       <x>540</x>
-       <y>70</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Language:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="idPropertyLabel">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ID Property:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="findIDPropertyEdit">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>100</y>
-       <width>391</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>http://www.w3.org/2000/01/rdf-schema#label</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="findIDProperty">
-     <property name="geometry">
-      <rect>
-       <x>530</x>
-       <y>100</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Find ID Property</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="useDefaultIDProp">
-     <property name="geometry">
-      <rect>
-       <x>780</x>
-       <y>100</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Use Default ID Property</string>
      </property>
     </widget>
    </widget>

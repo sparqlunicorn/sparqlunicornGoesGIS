@@ -487,6 +487,8 @@ class SPAQLunicorn:
     def createEnrichSearchDialog(self,row=-1,column=-1):
         if column==1:
             self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
+        if column==6:
+            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
 
     def createEnrichSearchDialogProp(self,row=-1,column=-1):
         self.buildSearchDialog(row,column,False,self.dlg.findIDPropertyEdit,True)
@@ -535,7 +537,6 @@ class SPAQLunicorn:
         #if len(layers)>0:
         #   return
         layer = layers[selectedLayerIndex].layer()
-        self.dlg.IDColumnEnrich.clear()
         self.dlg.enrichTableResult.hide()
         while self.dlg.enrichTableResult.rowCount() > 0:
             self.dlg.enrichTableResult.removeRow(0);
@@ -545,13 +546,12 @@ class SPAQLunicorn:
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(6)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","Options"])
+        self.dlg.enrichTable.setColumnCount(8)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","ID Column","ID Property","Language"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
             currentRowCount = self.dlg.enrichTable.rowCount() 
-            self.dlg.IDColumnEnrich.addItem(field)
             self.dlg.enrichTable.insertRow(row)
             self.dlg.enrichTable.setItem(row,0,item)
             cbox=QComboBox()
@@ -568,6 +568,14 @@ class SPAQLunicorn:
             cbox.addItem("Enrich URI")	
             cbox.addItem("Enrich Both")	
             self.dlg.enrichTable.setCellWidget(row,4,cbox)
+            cbox=QComboBox()
+            for fieldd in fieldnames:
+                cbox.addItem(fieldd)	
+            self.dlg.enrichTable.setCellWidget(row,5,cbox)
+            itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+            self.dlg.enrichTable.setItem(row,6,itemm)
+            itemm=QTableWidgetItem("")
+            self.dlg.enrichTable.setItem(row,7,itemm)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove",self.dlg)
@@ -594,10 +602,14 @@ class SPAQLunicorn:
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
         
     def addEnrichRow(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        self.dlg.enrichTableResult.hide()
+        fieldnames = [field.name() for field in layer.fields()]
         item=QTableWidgetItem("new_column")
         #item.setFlags(QtCore.Qt.ItemIsEnabled)
         row = self.dlg.enrichTable.rowCount() 
-        self.dlg.IDColumnEnrich.addItem("new_column")
         self.dlg.enrichTable.insertRow(row)
         self.dlg.enrichTable.setItem(row,0,item)
         cbox=QComboBox()
@@ -610,6 +622,15 @@ class SPAQLunicorn:
         cbox.addItem("Enrich URI")	
         cbox.addItem("Enrich Both")	
         self.dlg.enrichTable.setCellWidget(row,4,cbox)
+        cbox=QComboBox()
+        for fieldd in fieldnames:
+            cbox.addItem(fieldd)	
+        self.dlg.enrichTable.setCellWidget(row,5,cbox)
+        itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+        self.dlg.enrichTable.setItem(row,6,itemm) 
+        itemm=QTableWidgetItem("")
+        self.dlg.enrichTable.setItem(row,7,itemm)
+        
 
     def enrichLayerProcess(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -619,9 +640,15 @@ class SPAQLunicorn:
         itemlist=[]
         propertylist=[]
         excludelist=[]
-        idfield=self.dlg.IDColumnEnrich.currentText()
         resultmap={}
         for row in range(self.dlg.enrichTable.rowCount()):
+            idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
+            idprop=self.dlg.enrichTable.item(row, 6).text()
+            if idprop==None or idprop=="":
+                msgBox=QMessageBox()
+                msgBox.setText("ID Property has not been specified for column "+str(self.dlg.enrichTable.item(row, 0).text()))
+                msgBox.exec()
+                return
             item = self.dlg.enrichTable.item(row, 0).text()
             propertyy=self.dlg.enrichTable.item(row, 1)
             triplestoreurl=""
@@ -663,15 +690,15 @@ class SPAQLunicorn:
                 for it in attlist[idfield]:
                     if it.startswith("http"):
                         query+="<"+it+"> "
-                    elif self.dlg.findIDPropertyEdit.text()=="http://www.w3.org/2000/01/rdf-schema#label":
-                        query+="\""+it+"\"@"+self.dlg.languageEdit.text()+" "
+                    elif idprop=="http://www.w3.org/2000/01/rdf-schema#label" and self.dlg.enrichTable.item(row, 7).text()!="":
+                        query+="\""+it+"\"@"+self.dlg.enrichTable.item(row, 7).text()+" "
                     else:
                         query+="\""+it+"\" "
                 query+=" } . \n"
                 proppp=propertyy.data(1)
                 if propertyy.data(1).startswith("//"):
                     proppp="http:"+proppp
-                query+="?item <"+self.dlg.findIDPropertyEdit.text()+"> ?vals .\n"
+                query+="?item <"+idprop+"> ?vals .\n"
                 query+="?item <"+proppp+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
                     query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
@@ -1411,7 +1438,7 @@ class SPAQLunicorn:
             self.dlg.inp_sparql.hide()
             self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox,self.columnvars)
             self.dlg.inp_sparql2.move(10,130)
-            self.dlg.inp_sparql2.setMinimumSize(941,401)
+            self.dlg.inp_sparql2.setMinimumSize(1071,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
             self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
             self.dlg.inp_sparql2.columnvars={}
@@ -1465,8 +1492,6 @@ class SPAQLunicorn:
             self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             self.dlg.importMappingButton.clicked.connect(self.loadMapping)
-            self.dlg.findIDProperty.clicked.connect(self.createEnrichSearchDialogProp)
-            self.dlg.useDefaultIDProp.clicked.connect(self.useDefaultIDPropProcess)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
