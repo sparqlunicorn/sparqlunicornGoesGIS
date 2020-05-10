@@ -37,7 +37,10 @@ class ValueMappingDialog(QDialog):
         self.queryhighlight=SPARQLHighlighter(self.queryedit)
         self.queryedit.move(320,100)
         self.queryedit.setMinimumSize(310,300)
-        self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%"+fieldname+"%% . \n}")
+        if self.table.item(row,column)!=None and self.table.item(row,column).data(2)!=None:
+            self.queryedit.setPlainText(self.table.item(row,column).data(2))
+        else:
+            self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%"+fieldname+"%% . \n}")
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(320,400)
         self.tripleStoreEdit.setEnabled(False)
