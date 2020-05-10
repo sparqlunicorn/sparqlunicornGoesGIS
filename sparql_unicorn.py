@@ -80,6 +80,8 @@ class SPAQLunicorn:
     valueconcept={}
 	
     columnvars={}
+	
+    prefixes=[]
    
     def __init__(self, iface):
         """Constructor.
@@ -131,7 +133,7 @@ class SPAQLunicorn:
 
     def validateSPARQL(self):
         try:
-            prepareQuery("".join(self.triplestoreconf[self.dlg.comboBox.currentIndex()]["prefixes"])+"\n"+self.dlg.inp_sparql2.toPlainText())
+            prepareQuery("".join(self.prefixes[self.dlg.comboBox.currentIndex()])+"\n"+self.dlg.inp_sparql2.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
@@ -345,8 +347,11 @@ class SPAQLunicorn:
             for lay in self.dlg.inp_sparql2.columnvars:
                 if lay in query:
                     query=query.replace("WHERE {","WHERE {\n"+self.dlg.inp_sparql2.columnvars[lay]+"\n")
+            msgBox=QMessageBox()
+            msgBox.setText(query)
+            msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + query)
+        sparql.setQuery("".join(self.prefixes[endpointIndex]) + query)
         sparql.setReturnFormat(JSON)
         try:
             results = sparql.query().convert()
@@ -796,8 +801,6 @@ class SPAQLunicorn:
             self.dlg, "Select   output file ","", "XML (.xml)",)
         if filename=="":
              return
-        if not filename.endswith(".xml"):
-            filename=filename+".xml"
         layers = QgsProject.instance().layerTreeRoot().children()
         ttlstring=self.exportMappingProcess()
         splitted=filename.split(".")
@@ -855,7 +858,7 @@ class SPAQLunicorn:
                     if self.dlg.interlinkTable.item(row, 7)!=None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
                         if self.dlg.interlinkTable.item(row, 7).data(2)!=None and self.dlg.interlinkTable.item(row, 7).data(3)!=None:
-                            xmlmapping+="query=\""+self.dlg.interlinkTable.item(row, 7).data(2)+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
+                            xmlmapping="query=\""+self.dlg.interlinkTable.item(row, 7).data(2)+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
                         xmlmapping+=">\n"
                         if self.valueconcept!=None:
                             for key in self.valueconcept:
@@ -1084,7 +1087,7 @@ class SPAQLunicorn:
                 elif valuequeries!=None and propp in valuequeries:
                     ttlstring+=""
                     sparql = SPARQLWrapper(valuequeries[propp][1], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                    sparql.setQuery("".join(self.triplestoreconf[endpointIndex]["prefixes"]) + valuequeries[propp][0].replace("%%"+propp+"%%","\""+str(f[propp])+"\""))
+                    sparql.setQuery("".join(self.prefixes[endpointIndex]) + valuequeries[propp][0].replace("%%"+propp+"%%","\""+str(f[propp])+"\""))
                     sparql.setReturnFormat(JSON)
                     results = sparql.query().convert()
                     ttlstring+="<"+curid+"> <"+prop+"> <"+results["results"]["bindings"][0]["item"]["value"]+"> ."
@@ -1131,7 +1134,7 @@ class SPAQLunicorn:
 		
     def exportLayer(self,urilist,classurilist,includelist,proptypelist,valuemappings=None,valuequeries=None):
         filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select output file ","", "Linked Data (*.ttl *.n3 *.owl *.nt *.nq *.trix *.rdfxml *.json-ld)",)
+            self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         if filename=="":
              return
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1394,6 +1397,12 @@ class SPAQLunicorn:
             with open(os.path.join(__location__, 'addvocabconf.json'),'r') as myfile:
                 data2=myfile.read()
             self.triplestoreconf = json.loads(data)
+            counter=0
+            for store in self.triplestoreconf:
+                self.prefixes.append("")
+                for prefix in store["prefixes"]:                 
+                    self.prefixes[counter]+="PREFIX "+prefix+":<"+store["prefixes"][prefix]+">\n"
+                counter+=1            
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False

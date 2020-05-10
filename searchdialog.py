@@ -14,11 +14,12 @@ class SearchDialog(QDialog):
 
     table=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False):
+    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
         self.table=table
+        self.currentprefixes=currentprefixes
         self.bothOptions=bothOptions
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
@@ -110,8 +111,17 @@ class SearchDialog(QDialog):
         print("test")
         if self.searchResult.count()==0:
             return
-        if self.bothOptions==True:	       
-            self.table.insertPlainText("<"+str(self.searchResult.currentItem().data(1))+">")
+        if self.bothOptions==True:	
+            toinsert=str(self.searchResult.currentItem().data(1))
+            haschanged=False
+            for prefix in self.currentprefixes:
+                if self.currentprefixes[prefix] in toinsert:
+                    toinsert=toinsert.replace(self.currentprefixes[prefix],prefix+":")
+                    haschanged=True
+            if haschanged:
+                self.table.insertPlainText(toinsert)
+            else:
+                self.table.insertPlainText("<"+toinsert+">")
         elif self.interlinkOrEnrich==-1:
             self.table.setText(str(self.searchResult.currentItem().data(1)))
         else:
