@@ -32,8 +32,19 @@ class ToolTipPlainText(QPlainTextEdit):
         if len(layers)>0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             self.createVarInputDialog()
             event.accept()
+        elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and event.modifiers()==Qt.ControlModifier:	
+            self.buildSearchDialog(-1,-1,-1,self,True,True)	
+            event.accept()
         else:
             super(ToolTipPlainText, self).keyPressEvent(event)
+			
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions):	
+        self.currentcol=column	
+        self.currentrow=row	
+        self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,bothOptions)	
+        self.interlinkdialog.setMinimumSize(650, 400)	
+        self.interlinkdialog.setWindowTitle("Search Property or Class")	
+        self.interlinkdialog.exec_()
             
     def createVarInputDialog(self):
         self.interlinkdialog = VarInputDialog(self,self,self.columnvars)
@@ -49,7 +60,7 @@ class ToolTipPlainText(QPlainTextEdit):
         if not word.endswith(' '):
             textCursor.setPosition(textCursor.position()+1,QTextCursor.KeepAnchor)
             word = textCursor.selectedText()
-        if word.strip()!="" and (word.startswith("wd:") or word.startswith("wdt:") or re.match("^(Q|P)[0-9]+$", word.replace(":",""))):
+        if word.strip()!="" and (word.startswith("wd:") or word.startswith("wdt:") or re.match("[:]?(Q|P)[0-9]+$", word.replace(":",""))):
             while re.match("[QP:0-9]",word[-1]):
                 textCursor.setPosition(textCursor.position()+1,QTextCursor.KeepAnchor)
                 word = textCursor.selectedText()
@@ -62,6 +73,8 @@ class ToolTipPlainText(QPlainTextEdit):
             if word in self.savedLabels:
                 toolTipText=self.savedLabels[word]
             elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
+                if "http" in word:	
+                    word=word[word.rfind("/")+1:-1]
                 self.savedLabels[word]=self.getLabelsForClasses([word.replace("wd:","").replace("wdt:","")],self.selector.currentIndex())
                 toolTipText=self.savedLabels[word]
             else:
