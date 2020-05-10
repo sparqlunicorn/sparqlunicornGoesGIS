@@ -1134,6 +1134,8 @@ class SPAQLunicorn:
             self.dlg, "Select   output file ","", "Linked data (*.rdfxml *.ttl *.n3 *.owl *.nt *.nq *.trix *.json-ld)",)
         if filename=="":
              return
+        if not "." in filename:
+            filename=filename+".ttl"
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
