@@ -641,6 +641,13 @@ class SPAQLunicorn:
         propertylist=[]
         excludelist=[]
         resultmap={}
+        self.dlg.enrichTableResult.clear()
+        self.dlg.enrichTableResult.setRowCount(0)		
+        self.dlg.enrichTableResult.setColumnCount(self.dlg.enrichTable.rowCount())
+        fieldnames=[]
+        for row in range(self.dlg.enrichTable.rowCount()):
+            fieldnames.append(self.dlg.enrichTable.item(row, 0).text())
+        self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
             idprop=self.dlg.enrichTable.item(row, 6).text()
@@ -722,36 +729,34 @@ class SPAQLunicorn:
                     else:
                         resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]+";"+resultcounter["val"]["value"]
                 print(str(resultmap))
+                rowww=0            
                 for f in self.enrichLayer.getFeatures():
+                    if rowww>=self.dlg.enrichTableResult.rowCount():
+                        self.dlg.enrichTableResult.insertRow(rowww)
                     if f[idfield] in resultmap:
-                        f.setAttribute(row,resultmap[f[idfield]])
-                        self.enrichLayer.updateFeature(f)
-                        print(resultmap[f[idfield]])
+                        newitem=QTableWidgetItem(resultmap[f[idfield]])
+                        self.dlg.enrichTableResult.setItem(rowww,row,newitem)
+                        #if ";" in str(newitem):
+                        #    newitem.setBackground(QColor.red)
+                        print(str(newitem))
+                    rowww+=1  
+            else:
+                rowww=0            
+                for f in self.enrichLayer.getFeatures():
+                    if rowww>=self.dlg.enrichTableResult.rowCount():
+                        self.dlg.enrichTableResult.insertRow(rowww)
+                    newitem=QTableWidgetItem(str(f[item]))
+                    self.dlg.enrichTableResult.setItem(rowww,row,newitem)
+                    #if ";" in str(newitem):
+                    #    newitem.setBackground(QColor.red)
+                    print(str(newitem))
+                    rowww+=1
             self.enrichLayer.commitChanges()
             row+=1
         iface.vectorLayerTools().stopEditing(self.enrichLayer)
         self.enrichLayer.dataProvider().deleteAttributes(excludelist)
         self.enrichLayer.updateFields()
         self.dlg.enrichTable.hide()
-        fieldnames = [field.name() for field in self.enrichLayer.fields()]
-        self.dlg.enrichTableResult.clear()
-        self.dlg.enrichTableResult.setRowCount(0)		
-        self.dlg.enrichTableResult.setColumnCount(len(fieldnames))
-        self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
-        print("New fieldnames: "+str(fieldnames))
-        row=0
-        for f in self.enrichLayer.getFeatures():
-            fieldcounter=0
-            self.dlg.enrichTableResult.insertRow(row)
-            for field in f:
-                item=QTableWidgetItem(str(field))
-                self.dlg.enrichTableResult.setItem(row,fieldcounter,item)
-                if ";" in str(field):
-                    item.setBackground(QColor.red)
-                print(str(field))
-                fieldcounter+=1
-            row+=1
-        #print(self.enrichLayer.asJson())
         self.dlg.enrichTableResult.show()
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
@@ -765,7 +770,10 @@ class SPAQLunicorn:
         for f in self.enrichLayer.getFeatures():
             fieldcounter=0
             for field in fieldnames:
-                f[field]=self.dlg.enrichTableResult.item(row,fieldcounter).text()
+                if self.dlg.enrichTableResult.item(row,fieldcounter)!=None:
+                    f[field]=self.dlg.enrichTableResult.item(row,fieldcounter).text()
+                else:
+                    f[field]=""
                 fieldcounter+=1
             self.enrichLayer.updateFeature(f)
             row+=1
@@ -1184,7 +1192,7 @@ class SPAQLunicorn:
                 first=first+1
         return ttlstring
 		
-    def exportLayer(self,urilist,classurilist,includelist,proptypelist,valuemappings=None,valuequeries=None):
+    def exportLayer(self,urilist,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "Linked Data (*.ttl *.n3 *.nt)",)
         if filename=="":
