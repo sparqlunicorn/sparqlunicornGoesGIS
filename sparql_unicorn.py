@@ -759,6 +759,18 @@ class SPAQLunicorn:
     def addEnrichedLayer(self):
         self.enrichLayerCounter+=1
         self.enrichLayer.setName(self.enrichLayer.name()+"_enrich"+str(self.enrichLayerCounter))
+        self.enrichLayer.startEditing()
+        row=0
+        fieldnames = [field.name() for field in self.enrichLayer.fields()]
+        for f in self.enrichLayer.getFeatures():
+            fieldcounter=0
+            for field in fieldnames:
+                f[field]=self.dlg.enrichTableResult.item(row,fieldcounter).text()
+                fieldcounter+=1
+            self.enrichLayer.updateFeature(f)
+            row+=1
+        self.enrichLayer.commitChanges()
+        iface.vectorLayerTools().stopEditing(self.enrichLayer)
         QgsProject.instance().addMapLayer(self.enrichLayer,True)
         canvas = iface.mapCanvas()
         canvas.setExtent(self.enrichLayer.extent())
@@ -785,6 +797,8 @@ class SPAQLunicorn:
                 proptype=neighbor.get("prop")
                 propiri=neighbor.get("propiri")
                 concept=neighbor.get("concept")
+                query=neighbor.get("query")
+                triplestoreurl=neighbor.get("triplestoreurl")
                 valuemappings={}
                 for vmap in neighbor.findall("valuemapping"):
                     valuemappings[vmap.get("from")]=vmap.get("to")
@@ -817,7 +831,18 @@ class SPAQLunicorn:
                             item=QTableWidgetItem("ValueMap{}")
                             item.setText("ValueMap{}")
                             item.setData(1,valuemappings)
+                            if query!=None:
+                                item.setData(2,query)
+                                item.setData(3,triplestoreurl)                                
                             self.dlg.interlinkTable.setItem(row,7,item)
+                        elif query!=None:
+                            item=QTableWidgetItem("ValueMap{}")
+                            item.setText("ValueMap{}")
+                            item.setData(2,query)
+                            item.setData(3,triplestoreurl)
+                            if valuemappings!={} and valuemappings!=None:
+                                item.setData(1,valuemappings)                                
+                            self.dlg.interlinkTable.setItem(row,7,item)                            
         else:
             msgBox=QMessageBox()
             msgBox.setText("Please first load a dataset to enrich before loading a mapping file")
