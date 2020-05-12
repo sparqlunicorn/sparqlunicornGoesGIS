@@ -734,7 +734,18 @@ class SPAQLunicorn:
                     if rowww>=self.dlg.enrichTableResult.rowCount():
                         self.dlg.enrichTableResult.insertRow(rowww)
                     if f[idfield] in resultmap:
-                        newitem=QTableWidgetItem(resultmap[f[idfield]])
+                        if strategy=="Merge":
+                            newitem=QTableWidgetItem(str(f[item])+str(resultmap[f[idfield]]))
+                        elif strategy=="Keep Local":
+                            newitem=QTableWidgetItem(str(f[item])+str(resultmap[f[idfield]]))
+                        elif strategy=="Ask User":
+                            newitem=QTableWidgetItem(str(f[item])+";"+str(resultmap[f[idfield]]))
+                        elif strategy=="Keep Remote":
+                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
+                        elif strategy=="Replace Local":
+                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
+                        else:
+                            newitem=QTableWidgetItem(resultmap[f[idfield]])
                         self.dlg.enrichTableResult.setItem(rowww,row,newitem)
                         #if ";" in str(newitem):
                         #    newitem.setBackground(QColor.red)
@@ -745,6 +756,7 @@ class SPAQLunicorn:
                 for f in self.enrichLayer.getFeatures():
                     if rowww>=self.dlg.enrichTableResult.rowCount():
                         self.dlg.enrichTableResult.insertRow(rowww)
+                    #if item in f:
                     newitem=QTableWidgetItem(str(f[item]))
                     self.dlg.enrichTableResult.setItem(rowww,row,newitem)
                     #if ";" in str(newitem):
@@ -758,8 +770,16 @@ class SPAQLunicorn:
         self.enrichLayer.updateFields()
         self.dlg.enrichTable.hide()
         self.dlg.enrichTableResult.show()
+        self.dlg.startEnrichment.setText("Enrichment Configuration")
+        self.dlg.startEnrichment.clicked.connect(self.showConfigTable)
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
+    
+    def showConfigTable(self):
+        self.dlg.enrichTableResult.hide()
+        self.dlg.enrichTable.show()
+        self.dlg.startEnrichment.setText("Start Enrichment")
+        self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
 
     def addEnrichedLayer(self):
         self.enrichLayerCounter+=1
