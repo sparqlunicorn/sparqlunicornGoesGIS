@@ -31,13 +31,18 @@ class ValueMappingDialog(QDialog):
         self.fieldname=fieldname
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
-        self.valuemap=valuemap
+        self.valuemap=None
+        if self.table.item(row,column)!=None and self.table.item(row,column).data(1)!=None:
+            self.valuemap=json.loads(self.table.item(row,column).data(1))
+            msgBox=QMessageBox()
+            msgBox.setText(str(self.valuemap))
+            msgBox.exec()
         self.queryedit=QPlainTextEdit(self)
         self.queryedit.zoomIn(4)
         self.queryhighlight=SPARQLHighlighter(self.queryedit)
         self.queryedit.move(320,100)
         self.queryedit.setMinimumSize(310,300)
-        if self.table.item(row,column)!=None and self.table.item(row,column).data(2)!=None:
+        if self.table.item(row,column)!=None and self.table.item(row,column).data(2)!=None and self.table.item(row,column).data(2)!="ValueMap{}":
             self.queryedit.setPlainText(self.table.item(row,column).data(2))
         else:
             self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%"+fieldname+"%% . \n}")
@@ -55,12 +60,12 @@ class ValueMappingDialog(QDialog):
         row=0
         self.valmaptable.setColumnCount(2)
         self.valmaptable.setHorizontalHeaderLabels(["From","To"])		
-        if valuemap!=None:
-            for key in valuemap:
+        if self.valuemap!=None:
+            for key in self.valuemap:
                 row = self.valmaptable.rowCount() 
                 self.valmaptable.insertRow(row)
                 item=QTableWidgetItem(key)
-                item2=QTableWidgetItem(valuemap[key])
+                item2=QTableWidgetItem(self.valuemap[key])
                 self.valmaptable.setItem(row,0,item)
                 self.valmaptable.setItem(row,1,item2)
         cboxlabel=QLabel("Select Value To Map",self)
@@ -167,9 +172,11 @@ class ValueMappingDialog(QDialog):
             fromm = self.valmaptable.item(row, 0).text()
             to = self.valmaptable.item(row, 1).text()
             resmap[fromm]=to
+        msgBox=QMessageBox()
+        msgBox.setText(str(resmap))
+        msgBox.exec()
         item=QTableWidgetItem("ValueMap{}")
-        item.setText("ValueMap{}")
-        item.setData(1,resmap)
+        item.setData(1,str(json.dumps(resmap)))
         if "SELECT ?item\n WHERE {\n ?item ?rel %%"+self.fieldname+"%% . \n}"!=self.queryedit.toPlainText():
             item.setData(2,self.queryedit.toPlainText())
             item.setData(3,self.tripleStoreEdit.currentText())
