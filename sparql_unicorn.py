@@ -29,7 +29,7 @@ from qgis.utils import iface
 from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant
-from qgis.PyQt.QtGui import QIcon,QRegExpValidator
+from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor
 from qgis.core import QgsTask, QgsTaskManager
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
@@ -737,15 +737,19 @@ class SPAQLunicorn:
                         if strategy=="Merge":
                             newitem=QTableWidgetItem(str(f[item])+str(resultmap[f[idfield]]))
                         elif strategy=="Keep Local":
-                            newitem=QTableWidgetItem(str(f[item])+str(resultmap[f[idfield]]))
+                            if f[item]==None:
+                                newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
+                            else:
+                                newitem=QTableWidgetItem(str(f[item]))
                         elif strategy=="Ask User":
                             newitem=QTableWidgetItem(str(f[item])+";"+str(resultmap[f[idfield]]))
                         elif strategy=="Keep Remote":
-                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
-                        elif strategy=="Replace Local":
-                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
+                            if not f[idfield] in resultmap or resultmap[f[idfield]]==None:
+                                newitem=QTableWidgetItem(str(f[item]))
+                            else:
+                                newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
                         else:
-                            newitem=QTableWidgetItem(resultmap[f[idfield]])
+                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
                         self.dlg.enrichTableResult.setItem(rowww,row,newitem)
                         #if ";" in str(newitem):
                         #    newitem.setBackground(QColor.red)
