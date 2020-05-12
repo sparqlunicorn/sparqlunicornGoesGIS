@@ -77,6 +77,7 @@ class ValueMappingDialog(QDialog):
         findMappingButton=QPushButton("Find Mapping",self)
         findMappingButton.move(10,70)
         findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
+        findMappingButton.setEnabled(False)
         addMappingButton=QPushButton("Add Mapping",self)
         addMappingButton.move(110,70)
         addMappingButton.clicked.connect(self.addMappingToTable)
