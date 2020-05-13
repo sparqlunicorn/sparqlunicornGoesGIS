@@ -516,7 +516,7 @@ class SPAQLunicorn:
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass)
+        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,self.addVocabConf)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.dlg.interlinkdialog.exec_()
@@ -1508,6 +1508,10 @@ class SPAQLunicorn:
                     self.prefixes[counter]+="PREFIX "+prefix+":<"+store["prefixes"][prefix]+">\n"
                 counter+=1            
             self.addVocabConf = json.loads(data2)
+            for key in self.addVocabConf:
+                if os.path.isfile(self.addVocabConf[key]["source"]):
+                    with open(self.addVocabConf[key]["source"]) as f:
+                        self.addVocabConf[key]["data"]=json.load(f)
             self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
