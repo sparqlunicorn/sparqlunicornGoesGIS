@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -189,7 +189,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>590</y>
-       <width>201</width>
+       <width>151</width>
        <height>28</height>
       </rect>
      </property>
@@ -200,9 +200,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="loadedLayers">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>170</x>
        <y>590</y>
-       <width>531</width>
+       <width>391</width>
        <height>21</height>
       </rect>
      </property>
@@ -380,6 +380,19 @@ SELECT ?label ?geo ?item WHERE {
       <string>Allow non-geo queries</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="exportTripleStore_2">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>590</y>
+       <width>151</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Export To Triple Store</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -456,7 +469,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportInterlink">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>180</x>
        <y>540</y>
        <width>521</width>
        <height>61</height>
@@ -614,6 +627,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Import Mapping</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="exportTripleStore">
+     <property name="geometry">
+      <rect>
+       <x>492</x>
+       <y>110</y>
+       <width>151</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Export To Triple Store</string>
      </property>
     </widget>
    </widget>

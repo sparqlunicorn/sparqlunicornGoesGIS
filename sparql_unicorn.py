@@ -56,6 +56,7 @@ from .searchdialog import SearchDialog
 from .varinput import VarInputDialog
 from .valuemapping import ValueMappingDialog
 from .bboxdialog import BBOXDialog
+from .uploadrdfdialog import UploadRDFDialog
 
 import re
 
@@ -65,6 +66,14 @@ class SPAQLunicorn:
     """QGIS Plugin Implementation."""
     loadedfromfile=False
 	
+    enrichedExport=False
+	
+    exportNameSpace=None
+
+    exportIdCol=None
+	
+    exportSetClass=None
+
     triplestoreconf=None
     
     enrichLayer=None
@@ -1039,7 +1048,7 @@ class SPAQLunicorn:
                 classurilist.append("")
                 proptypelist.append("")
         self.enrichedExport=True
-        self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
+        self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries,self.dlg.exportTripleStore.isChecked())
         
     def addNewLayerToTripleStore(self,triplestoreaddress,layer):
         ttlstring=self.layerToTTLString(layer)
@@ -1090,7 +1099,7 @@ class SPAQLunicorn:
         ttlstring+="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n"
         first=0
-        if self.exportNameSpace=="":
+        if self.exportNameSpace==None or self.exportNameSpace=="":
             namespace="http://www.github.com/sparqlunicorn#"
         else:
             namespace=self.exportNameSpace
@@ -1100,7 +1109,7 @@ class SPAQLunicorn:
             idcol=self.exportIdCol
         classcol="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         curid=""
-        if self.exportSetClass=="":
+        if self.exportSetClass==None or self.exportSetClass=="":
             curclassid=namespace+str(uuid.uuid4())
         elif self.exportSetClass.startswith("http"):
             curclassid=self.exportSetClass
@@ -1129,14 +1138,14 @@ class SPAQLunicorn:
                 fieldcounter+=1
                 #if fieldcounter>=len(fieldnames):
                 #    fieldcounter=0
-                if includelist!=None and includelist[fieldcounter]==False:
+                if includelist!=None and fieldcounter<len(includelist) and includelist[fieldcounter]==False:
                     continue
                 prop=propp    
                 print(str(fieldcounter))
                 print(str(urilist)+"\n")
                 print(str(classurilist)+"\n")
                 print(str(includelist)+"\n")
-                if urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
+                if urilist!=None and urilist[fieldcounter]!="":
                     print(urilist)
                     if not urilist[fieldcounter].startswith("http"):
                         print("Does not start with http")
@@ -1215,27 +1224,38 @@ class SPAQLunicorn:
             if first<10:
                 first=first+1
         return ttlstring
-		
-    def exportLayer(self,urilist,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None):
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ","", "Linked Data (*.ttl *.n3 *.nt)",)
-        if filename=="":
-             return
+
+    def exportLayer2(self):
+        self.exportLayer(None,None,None,None,None,None,self.dlg.exportTripleStore_2.isChecked())
+
+
+    def exportLayer(self,urilist=None,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None,exportToTripleStore=False):
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
-        ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
-        g=Graph()
-        g.parse(data=ttlstring, format="ttl")
-        splitted=filename.split(".")
-        exportNameSpace=""
-        exportSetClass=""
-        with open(filename, 'w') as output_file:
-            output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
-            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+        if exportToTripleStore:
+            ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
+            uploaddialog=UploadRDFDialog(ttlstring)
+            uploaddialog.setMinimumSize(450, 250)
+            uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
+            uploaddialog.exec_()
+        else:
+            filename, _filter = QFileDialog.getSaveFileName(
+                self.dlg, "Select   output file ","", "Linked Data (*.ttl *.n3 *.nt)",)
+            if filename=="":
+                return
+            ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
+            g=Graph()
+            g.parse(data=ttlstring, format="ttl")
+            splitted=filename.split(".")
+            exportNameSpace=""
+            exportSetClass=""
+            with open(filename, 'w') as output_file:
+                output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
+                iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
     def exportLayerAsGeoJSONLD(self):
         context={
@@ -1516,6 +1536,8 @@ class SPAQLunicorn:
             self.dlg.areas.hide()
             self.dlg.label_8.hide()
             self.dlg.label_9.hide()
+            self.dlg.exportTripleStore.hide()
+            self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
@@ -1542,7 +1564,7 @@ class SPAQLunicorn:
             self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
             #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
-            self.dlg.exportLayers.clicked.connect(self.exportLayer)
+            self.dlg.exportLayers.clicked.connect(self.exportLayer2)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
             self.dlg.enrichTableResult.hide()
