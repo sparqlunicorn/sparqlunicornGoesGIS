@@ -21,7 +21,7 @@ class VarInputDialog(QDialog):
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.inputfield=inputfield
-        self.resize(200,200)
+        self.resize(200,150)
         self.columnvars=columnvars
         layerLabel=QLabel("Choose Layer: ",self)
         layerLabel.move(10,10)

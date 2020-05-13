@@ -49,7 +49,7 @@ class ToolTipPlainText(QPlainTextEdit):
             
     def createVarInputDialog(self):
         self.interlinkdialog = VarInputDialog(self,self,self.columnvars)
-        self.interlinkdialog.setMinimumSize(650, 500)
+        self.interlinkdialog.setMinimumSize(650, 120)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
         self.interlinkdialog.exec_()
         
