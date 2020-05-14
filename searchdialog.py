@@ -16,7 +16,7 @@ class SearchDialog(QDialog):
 
     table=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None):
+    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None,addVocab=None):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
@@ -28,6 +28,7 @@ class SearchDialog(QDialog):
         self.conceptSearchEdit = QLineEdit(self)
         self.conceptSearchEdit.move(110,10)
         self.conceptSearchEdit.setMinimumSize(180,25)
+        self.addVocab=addVocab
         conceptSearchLabel = QLabel("Search Concept:",self)
         conceptSearchLabel.move(5,10)
         self.findConcept = QRadioButton("Class",self)
@@ -47,6 +48,9 @@ class SearchDialog(QDialog):
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
+        if addVocab!=None:
+            for cov in addVocab:
+                self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         tripleStoreLabel = QLabel("Triple Store:",self)
         tripleStoreLabel.move(5,40)
         searchButton = QPushButton("Search",self)
@@ -97,44 +101,58 @@ class SearchDialog(QDialog):
         results={}
         self.searchResult.clear()
         query=""
-        if self.findProperty.isChecked():
-            if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
-                query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["propertyfromlabelquery"].replace("%%label%%",label)
-        else:
-            if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
-                query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["classfromlabelquery"].replace("%%label%%",label)
-        if "SELECT" in query:
-            query=query.replace("%%label%%",label).replace("%%language%%",language)
-            sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for res in results["results"]["bindings"]:
+        position=self.tripleStoreEdit.currentIndex()
+        if self.tripleStoreEdit.currentIndex()>len(self.triplestoreconf):
+            if self.findProperty.isChecked():
+                self.addVocab[self.addVocab.keys()[position-len(self.triplestoreconf)]]["source"]["properties"]
+                viewlist={k:v for k,v in d.iteritems() if label in k}
+            else:
+                self.addVocab[self.addVocab.keys()[position-len(self.triplestoreconf)]]["source"]["classes"]
+                viewlist={k:v for k,v in d.iteritems() if label in k}
+            for res in viewlist:
                 item=QListWidgetItem()
-                item.setData(1,str(res["class"]["value"]))
-                item.setText(str(res["label"]["value"]))
+                item.setData(1,val)
+                item.setText(key)
                 self.searchResult.addItem(item)
-        else:
-            myResponse = json.loads(requests.get(query).text)
-            qids=[]
-            for ent in myResponse["search"]:
-                qid=ent["concepturi"]
-                if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
-                    qid="http://www.wikidata.org/prop/direct/"+ent["id"]
-                elif "http://www.wikidata.org/wiki/" in qid and self.findConcept.isChecked():
-                    qid="http://www.wikidata.org/entity/"+ent["id"]
-                qids.append(qid)
-                label=ent["label"]+" ("+ent["id"]+") "
-                if "description" in ent:
-                    label+="["+ent["description"]+"]"
-                results[qid]=label    
-            i=0
-            for result in results:
-                item=QListWidgetItem()
-                item.setData(1,qids[i])
-                item.setText(str(results[result]))
-                self.searchResult.addItem(item)
-                i+=1
+        else:    
+            if self.findProperty.isChecked():
+                if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
+                    query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["propertyfromlabelquery"].replace("%%label%%",label)
+            else:
+                if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
+                    query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["classfromlabelquery"].replace("%%label%%",label)
+            if "SELECT" in query:
+                query=query.replace("%%label%%",label).replace("%%language%%",language)
+                sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                sparql.setQuery(query)
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+                for res in results["results"]["bindings"]:
+                    item=QListWidgetItem()
+                    item.setData(1,str(res["class"]["value"]))
+                    item.setText(str(res["label"]["value"]))
+                    self.searchResult.addItem(item)
+            else:
+                myResponse = json.loads(requests.get(query).text)
+                qids=[]
+                for ent in myResponse["search"]:
+                    qid=ent["concepturi"]
+                    if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
+                        qid="http://www.wikidata.org/prop/direct/"+ent["id"]
+                    elif "http://www.wikidata.org/wiki/" in qid and self.findConcept.isChecked():
+                        qid="http://www.wikidata.org/entity/"+ent["id"]
+                    qids.append(qid)
+                    label=ent["label"]+" ("+ent["id"]+") "
+                    if "description" in ent:
+                        label+="["+ent["description"]+"]"
+                    results[qid]=label    
+                i=0
+                for result in results:
+                    item=QListWidgetItem()
+                    item.setData(1,qids[i])
+                    item.setText(str(results[result]))
+                    self.searchResult.addItem(item)
+                    i+=1
         return viewlist
 
     def applyConceptToColumn2(self):

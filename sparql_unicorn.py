@@ -495,28 +495,28 @@ class SPAQLunicorn:
 
     def createEnrichSearchDialog(self,row=-1,column=-1):
         if column==1:
-            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
+            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False,False,None,self.addVocabConf)
         if column==6:
-            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False)
+            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False,False,None,self.addVocabConf)
 
     def createEnrichSearchDialogProp(self,row=-1,column=-1):
-        self.buildSearchDialog(row,column,False,self.dlg.findIDPropertyEdit,True)
+        self.buildSearchDialog(row,column,False,self.dlg.findIDPropertyEdit,True,False,None,self.addVocabConf)
 
     def createInterlinkSearchDialog(self, row=-1, column=-1):
         if column>3 and column<7:
-            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable,True)
+            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable,True,False,None,self.addVocabConf)
         elif column>=7:
             layers = QgsProject.instance().layerTreeRoot().children()
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
             layer = layers[selectedLayerIndex].layer()
             self.buildValueMappingDialog(row,column,True,self.dlg.interlinkTable,layer)
         elif column==-1:
-            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput,False)
+            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput,False,False,None,self.addVocabConf)
 
-    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass):
+    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions=False,currentprefixes=None,addVocabConf=None):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,self.addVocabConf)
+        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,bothOptions,currentprefixes,addVocabConf)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.dlg.interlinkdialog.exec_()
@@ -1501,6 +1501,10 @@ class SPAQLunicorn:
             with open(os.path.join(__location__, 'addvocabconf.json'),'r') as myfile:
                 data2=myfile.read()
             self.triplestoreconf = json.loads(data)
+            self.addVocabConf=json.loads(data2)
+            #msgBox=QMessageBox()
+            #msgBox.setText(str(self.addVocabConf))
+            #msgBox.exec()
             counter=0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -1508,10 +1512,6 @@ class SPAQLunicorn:
                     self.prefixes[counter]+="PREFIX "+prefix+":<"+store["prefixes"][prefix]+">\n"
                 counter+=1            
             self.addVocabConf = json.loads(data2)
-            for key in self.addVocabConf:
-                if os.path.isfile(self.addVocabConf[key]["source"]):
-                    with open(self.addVocabConf[key]["source"]) as f:
-                        self.addVocabConf[key]["data"]=json.load(f)
             self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog()
