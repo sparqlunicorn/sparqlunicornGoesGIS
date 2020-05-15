@@ -54,6 +54,7 @@ from .tooltipplaintext import ToolTipPlainText
 from .triplestoredialog import TripleStoreDialog
 from .searchdialog import SearchDialog
 from .varinput import VarInputDialog
+from .whattoenrich import EnrichmentDialog
 from .valuemapping import ValueMappingDialog
 from .bboxdialog import BBOXDialog
 from .uploadrdfdialog import UploadRDFDialog
@@ -1484,6 +1485,12 @@ class SPAQLunicorn:
         self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.dlg.searchTripleStoreDialog.exec_()
+        
+    def createWhatToEnrich(self):
+        self.dlg.searchTripleStoreDialog = EnrichmentDialog(self.triplestoreconf,self.prefixes,None,None)	
+        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
+        self.dlg.searchTripleStoreDialog.setWindowTitle("Enrichment Search")	
+        self.dlg.searchTripleStoreDialog.exec_()
 
     def run(self):
         """Run method that performs all the real work"""
@@ -1569,6 +1576,7 @@ class SPAQLunicorn:
             #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
+            self.dlg.whattoenrich.clicked.connect(self.createWhatToEnrich)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
             self.dlg.enrichTableResult.hide()
