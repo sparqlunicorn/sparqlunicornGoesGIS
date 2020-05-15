@@ -57,7 +57,7 @@ class EnrichmentDialog(QDialog):
         self.searchResult.move(30,120)
         self.searchResult.setMinimumSize(800, 300)
         self.searchResult.setColumnCount(5)
-        self.searchResult.setHorizontalHeaderLabels(["Concept Count","Relation Count","Value Count","Relation","Relation Label"])
+        self.searchResult.setHorizontalHeaderLabels(["Concept Count","Relation Count","Value Count","Occurance Percentage","Relation","Relation Label"])
         applyButton = QPushButton("Apply",self)
         applyButton.move(150,430)
         applyButton.clicked.connect(self.applyConceptToColumn)
@@ -82,8 +82,9 @@ class EnrichmentDialog(QDialog):
             msgBox.exec()
             return  
         self.searchResult.clear()
-        self.searchResult.setColumnCount(5)
-        self.searchResult.setHorizontalHeaderLabels(["Concept Count","Relation Count","Value Count","Relation","Relation Label"])
+        self.searchResult.setColumnCount(6)
+        self.searchResult.setHorizontalHeaderLabels(["Concept Count","Relation Count","Value Count","Occurance Percentage","Relation","Relation Label"])
+        maxcons=int(results["results"]["bindings"][0]["countcon"]["value"])
         for result in results["results"]["bindings"]:
             row = self.searchResult.rowCount() 
             self.searchResult.insertRow(row)
@@ -93,10 +94,12 @@ class EnrichmentDialog(QDialog):
             self.searchResult.setItem(row,1,item)
             item=QTableWidgetItem(result["countval"]["value"])
             self.searchResult.setItem(row,2,item)
-            item=QTableWidgetItem(result["rel"]["value"])
+            item=QTableWidgetItem(str(round((int(result["countrel"]["value"])/maxcons)*100,2))+"%")
             self.searchResult.setItem(row,3,item)
-            item=QTableWidgetItem(result["relLabel"]["value"][result["relLabel"]["value"].rfind('/')+1:])
+            item=QTableWidgetItem(result["rel"]["value"])
             self.searchResult.setItem(row,4,item)
+            item=QTableWidgetItem(result["relLabel"]["value"][result["relLabel"]["value"].rfind('/')+1:])
+            self.searchResult.setItem(row,5,item)
 
     def applyConceptToColumn(self,costumURI=False):
         self.close()
