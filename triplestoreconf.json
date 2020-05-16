@@ -76,6 +76,7 @@
 		"propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&&format=json&language=en&uselang=en&type=property&search=%%concepts%%",
 		"classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=en&uselang=en&type=item",
 		"propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=en&uselang=en&type=property",
+        "whattoenrichquery":"select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 %%concept%% . ?con wdt:P625 ?coord . ?con wdt:P17  %%area%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)",
 		"geoconceptlimit": 500,
 		"staticconcepts": [],
 		"active": true

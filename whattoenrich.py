@@ -80,7 +80,8 @@ class EnrichmentDialog(QDialog):
         if self.conceptSearchEdit.text()=="":
             return
         concept="<"+self.conceptSearchEdit.text()+">"
-        query="select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 "+str(concept)+" . ?con wdt:P625 ?coord . ?con wdt:P17  "+str(inarea)+" . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
+        query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%",inarea)
+		#"select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 "+str(concept)+" . ?con wdt:P625 ?coord . ?con wdt:P17  "+str(inarea)+" . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.prefixes[self.tripleStoreEdit.currentIndex()]) + query)
         sparql.setReturnFormat(JSON)
