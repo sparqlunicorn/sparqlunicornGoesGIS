@@ -793,6 +793,7 @@ class SPAQLunicorn:
         self.dlg.enrichTable.hide()
         self.dlg.enrichTableResult.show()
         self.dlg.startEnrichment.setText("Enrichment Configuration")
+        self.dlg.startEnrichment.clicked.disconnect()
         self.dlg.startEnrichment.clicked.connect(self.showConfigTable)
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
@@ -801,6 +802,7 @@ class SPAQLunicorn:
         self.dlg.enrichTableResult.hide()
         self.dlg.enrichTable.show()
         self.dlg.startEnrichment.setText("Start Enrichment")
+        self.dlg.startEnrichment.clicked.disconnect()
         self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
 
     def addEnrichedLayer(self):
