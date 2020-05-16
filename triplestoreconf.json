@@ -233,6 +233,7 @@
 		},
 		"endpoint": "http://dbpedia.org/sparql",
 		"mandatoryvariables": ["item", "lat", "lon"],
+		"classfromlabelquery": "SELECT DISTINCT ?class ?label WHERE { ?item rdf:type ?class . ?class rdfs:label ?label . FILTER(regex(str(?label), \"%%label%%\")) } LIMIT 10",
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
 		"querytemplate": [{
 			"label": "100 Random Places",
@@ -332,6 +333,7 @@
 			"label": "Forts in Roman Period",
 			"query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n ?place pleiades:hasFeatureType placetype:fort.\n }"
 		}],
+		"classfromlabelquery":"SELECT DISTINCT ?class ?label WHERE { [] a ?class  . OPTIONAL{ ?class rdfs:label ?label  } } ORDER BY ?class LIMIT 10",
 		"staticconcepts": ["http://pleiades.stoa.org/places/vocab#Place", "http://www.w3.org/2004/02/skos/core#Concept"],
 		"active": true
 	},

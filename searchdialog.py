@@ -44,7 +44,7 @@ class SearchDialog(QDialog):
             self.findConcept.setEnabled(False)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
-        self.tripleStoreEdit.setEnabled(False)
+        #self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
@@ -121,6 +121,11 @@ class SearchDialog(QDialog):
             else:
                 if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]:
                     query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["classfromlabelquery"].replace("%%label%%",label)
+            if query=="":
+                msgBox=QMessageBox()
+                msgBox.setText("No search query specified for this triplestore")
+                msgBox.exec()
+                return
             if "SELECT" in query:
                 query=query.replace("%%label%%",label).replace("%%language%%",language)
                 sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
@@ -130,7 +135,10 @@ class SearchDialog(QDialog):
                 for res in results["results"]["bindings"]:
                     item=QListWidgetItem()
                     item.setData(1,str(res["class"]["value"]))
-                    item.setText(str(res["label"]["value"]))
+                    if "label" in res:
+                        item.setText(str(res["label"]["value"] +" ("+res["class"]["value"]+")"))
+                    else:
+                        item.setText(str(res["class"]["value"]))
                     self.searchResult.addItem(item)
             else:
                 myResponse = json.loads(requests.get(query).text)

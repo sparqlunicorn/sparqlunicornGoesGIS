@@ -1487,7 +1487,12 @@ class SPAQLunicorn:
         self.dlg.searchTripleStoreDialog.exec_()
         
     def createWhatToEnrich(self):
-        self.dlg.searchTripleStoreDialog = EnrichmentDialog(self.triplestoreconf,self.prefixes,None,None)	
+        if self.dlg.enrichTable.rowCount()==0:
+            return
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        self.dlg.searchTripleStoreDialog = EnrichmentDialog(self.triplestoreconf,self.prefixes,self.dlg.enrichTable,layer,None,None)	
         self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.dlg.searchTripleStoreDialog.setWindowTitle("Enrichment Search")	
         self.dlg.searchTripleStoreDialog.exec_()
@@ -1547,8 +1552,8 @@ class SPAQLunicorn:
             self.dlg.areas.hide()
             self.dlg.label_8.hide()
             self.dlg.label_9.hide()
-            self.dlg.exportTripleStore.hide()
-            self.dlg.exportTripleStore_2.hide()
+            #self.dlg.exportTripleStore.hide()
+            #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
