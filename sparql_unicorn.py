@@ -556,8 +556,8 @@ class SPAQLunicorn:
         while self.dlg.enrichTable.rowCount() > 0:
             self.dlg.enrichTable.removeRow(0);
         row=0
-        self.dlg.enrichTable.setColumnCount(8)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","ID Column","ID Property","Language"])
+        self.dlg.enrichTable.setColumnCount(9)
+        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","ID Column","ID Property","ID Domain","Language"])
         for field in fieldnames:
             item=QTableWidgetItem(field)
             item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -586,6 +586,8 @@ class SPAQLunicorn:
             self.dlg.enrichTable.setItem(row,6,itemm)
             itemm=QTableWidgetItem("")
             self.dlg.enrichTable.setItem(row,7,itemm)
+            itemm=QTableWidgetItem("")
+            self.dlg.enrichTable.setItem(row,8,itemm)
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove",self.dlg)
@@ -640,6 +642,8 @@ class SPAQLunicorn:
         self.dlg.enrichTable.setItem(row,6,itemm) 
         itemm=QTableWidgetItem("")
         self.dlg.enrichTable.setItem(row,7,itemm)
+        itemm=QTableWidgetItem("")
+        self.dlg.enrichTable.setItem(row,8,itemm)
         
 
     def enrichLayerProcess(self):
@@ -707,14 +711,18 @@ class SPAQLunicorn:
                 for it in attlist[idfield]:
                     if it.startswith("http"):
                         query+="<"+it+"> "
-                    elif idprop=="http://www.w3.org/2000/01/rdf-schema#label" and self.dlg.enrichTable.item(row, 7).text()!="":
-                        query+="\""+it+"\"@"+self.dlg.enrichTable.item(row, 7).text()+" "
+                    elif idprop=="http://www.w3.org/2000/01/rdf-schema#label" and self.dlg.enrichTable.item(row, 8).text()!="":
+                        query+="\""+it+"\"@"+self.dlg.enrichTable.item(row, 8).text()+" "
                     else:
                         query+="\""+it+"\" "
                 query+=" } . \n"
                 proppp=propertyy.data(1)
                 if propertyy.data(1).startswith("//"):
                     proppp="http:"+proppp
+                if self.dlg.enrichTable.item(row, 7).text()!="" and "wikidata" in triplestoreurl:
+                    query+="?item wdt:P31 <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
+                else:
+                    query+="?item rdf:type <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
                 query+="?item <"+idprop+"> ?vals .\n"
                 query+="?item <"+proppp+"> ?val . \n"
                 if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:

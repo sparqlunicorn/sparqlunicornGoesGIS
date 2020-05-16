@@ -137,14 +137,14 @@ class EnrichmentDialog(QDialog):
 
     def applyConceptToColumn(self,costumURI=False):
         fieldnames = [field.name() for field in self.layer.fields()]
-        item=QTableWidgetItem("new_column")
+        item=QTableWidgetItem(self.searchResult.currentItem().text()[0:self.searchResult.currentItem().text().rfind('(')-1])
         #item.setFlags(QtCore.Qt.ItemIsEnabled)
         row = self.enrichtable.rowCount() 
         self.enrichtable.insertRow(row)
         self.enrichtable.setItem(row,0,item)
         item=QTableWidgetItem()
+        item.setData(1,self.searchResult.currentItem().data(1))
         item.setText(self.searchResult.currentItem().text())
-        #item.setData(self.searchResult.currentItem().data(1))
         self.enrichtable.setItem(row,1,item)
         item=QTableWidgetItem()
         item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
@@ -165,6 +165,8 @@ class EnrichmentDialog(QDialog):
         self.enrichtable.setCellWidget(row,5,cbox)
         itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
         self.enrichtable.setItem(row,6,itemm) 
-        itemm=QTableWidgetItem("")
+        itemm=QTableWidgetItem(self.conceptSearchEdit.text())
         self.enrichtable.setItem(row,7,itemm)
+        itemm=QTableWidgetItem("")
+        self.enrichtable.setItem(row,8,itemm)
         self.close()
