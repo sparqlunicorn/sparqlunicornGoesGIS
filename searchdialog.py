@@ -97,6 +97,8 @@ class SearchDialog(QDialog):
         viewlist=[]
         resultlist=[]
         label=self.conceptSearchEdit.text()
+        if label=="":
+            return
         language="en"
         results={}
         self.searchResult.clear()
