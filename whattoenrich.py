@@ -34,7 +34,7 @@ class EnrichmentDialog(QDialog):
         conceptSearchLabel.move(5,10)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
-        self.tripleStoreEdit.setEnabled(False)
+        #self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
@@ -71,7 +71,7 @@ class EnrichmentDialog(QDialog):
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
        self.currentcol=column
        self.currentrow=row
-       self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,True)
+       self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,self.prefixes,interlinkOrEnrich,table,True)
        self.interlinkdialog.setMinimumSize(650, 500)
        self.interlinkdialog.setWindowTitle("Search Property or Class")
        self.interlinkdialog.exec_()
@@ -93,6 +93,8 @@ class EnrichmentDialog(QDialog):
             msgBox.exec()
             return  
         self.searchResult.clear()
+        if len(results["results"]["bindings"])==0:
+            return
         maxcons=int(results["results"]["bindings"][0]["countcon"]["value"])
         attlist={}
         urilist={}

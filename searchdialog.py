@@ -16,11 +16,12 @@ class SearchDialog(QDialog):
 
     table=False
 
-    def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None,addVocab=None):
+    def __init__(self,column,row,triplestoreconf,prefixes,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None,addVocab=None):
         super(QDialog, self).__init__()
         self.currentcol=column
         self.currentrow=row
         self.table=table
+        self.prefixes=prefixes
         self.currentprefixes=currentprefixes
         self.bothOptions=bothOptions
         self.triplestoreconf=triplestoreconf
@@ -130,10 +131,21 @@ class SearchDialog(QDialog):
                 return
             if "SELECT" in query:
                 query=query.replace("%%label%%",label).replace("%%language%%",language)
-                sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery(query)
+                sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                #msgBox=QMessageBox()
+                #msgBox.setText(query+" - "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
+                #msgBox.exec()
+                sparql.setQuery(self.prefixes[self.tripleStoreEdit.currentIndex()+1]+query)
                 sparql.setReturnFormat(JSON)
                 results = sparql.query().convert()
+                #msgBox=QMessageBox()
+                #msgBox.setText(str(results))
+                #msgBox.exec()
+                if len(results["results"])==0:
+                    msgBox=QMessageBox()
+                    msgBox.setText("The search yielded no results")
+                    msgBox.exec()
+                    return
                 for res in results["results"]["bindings"]:
                     item=QListWidgetItem()
                     item.setData(1,str(res["class"]["value"]))

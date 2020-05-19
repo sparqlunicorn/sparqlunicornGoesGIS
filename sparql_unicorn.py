@@ -517,7 +517,7 @@ class SPAQLunicorn:
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions=False,currentprefixes=None,addVocabConf=None):
         self.dlg.currentcol=column
         self.dlg.currentrow=row
-        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,bothOptions,currentprefixes,addVocabConf)
+        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,self.prefixes,interlinkOrEnrich,table,propOrClass,bothOptions,currentprefixes,addVocabConf)
         self.dlg.interlinkdialog.setMinimumSize(650, 400)
         self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.dlg.interlinkdialog.exec_()
