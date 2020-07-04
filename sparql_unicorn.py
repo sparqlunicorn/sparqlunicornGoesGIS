@@ -44,7 +44,7 @@ import json
 import urllib.parse
 from rdflib import *
 from rdflib.plugins.sparql import prepareQuery
-from SPARQLWrapper import SPARQLWrapper, JSON
+from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
@@ -362,14 +362,22 @@ class SPAQLunicorn:
             msgBox.exec()
         sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.prefixes[endpointIndex]) + query)
+        sparql.setMethod(POST)
         sparql.setReturnFormat(JSON)
         try:
             results = sparql.query().convert()
-        except Exception as e:
-            msgBox=QMessageBox()
-            msgBox.setText("The following exception occurred: "+str(e))
-            msgBox.exec()
-            return            
+        except Exception as e: 
+            try:
+                sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                sparql.setQuery("".join(self.prefixes[endpointIndex]) + query)
+                sparql.setMethod(GET)
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+            except Exception as e:
+                msgBox=QMessageBox()
+                msgBox.setText("The following exception occurred: "+str(e))
+                msgBox.exec()
+                return            
         #print(results)
         # geojson stuff
         geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
@@ -709,12 +717,12 @@ class SPAQLunicorn:
                 query+="VALUES ?vals { "
                 print(attlist)
                 for it in attlist[idfield]:
-                    if it.startswith("http"):
-                        query+="<"+it+"> "
+                    if str(it).startswith("http"):
+                        query+="<"+str(it)+"> "
                     elif idprop=="http://www.w3.org/2000/01/rdf-schema#label" and self.dlg.enrichTable.item(row, 8).text()!="":
-                        query+="\""+it+"\"@"+self.dlg.enrichTable.item(row, 8).text()+" "
+                        query+="\""+str(it)+"\"@"+self.dlg.enrichTable.item(row, 8).text()+" "
                     else:
-                        query+="\""+it+"\" "
+                        query+="\""+str(it)+"\" "
                 query+=" } . \n"
                 proppp=propertyy.data(1)
                 if propertyy.data(1).startswith("//"):
@@ -732,11 +740,25 @@ class SPAQLunicorn:
                 query+="} ORDER BY ?item "
                 print(query)
                 print(triplestoreurl)
-                sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery(query)
-                print("now sending query")
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
+                try:
+                    sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                    sparql.setQuery(query)
+                    sparql.setMethod(POST)
+                    print("now sending query")
+                    sparql.setReturnFormat(JSON)
+                    results = sparql.query().convert()
+                except Exception as e: 
+                    try:
+                        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                        sparql.setQuery(query)
+                        sparql.setMethod(GET)
+                        sparql.setReturnFormat(JSON)
+                        results = sparql.query().convert()
+                    except Exception as e:
+                        msgBox=QMessageBox()
+                        msgBox.setText("The following exception occurred: "+str(e))
+                        msgBox.exec()
+                        return    
                 print(str(results))
                 #resultcounter=0
                 for resultcounter in results["results"]["bindings"]:
@@ -1131,19 +1153,19 @@ class SPAQLunicorn:
             if not idcol in fieldnames:
                 curid=namespace+str(uuid.uuid4())
             elif not str(f[idcol]).startswith("http"):
-                curid=namespace+f[idcol]
+                curid=namespace+str(f[idcol])
             else:
                 curid=f[idcol]
             if not classcol in fieldnames:
-                ttlstring+="<"+curid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
+                ttlstring+="<"+str(curid)+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+curclassid+"> .\n"
                 if first==0:
-                    ttlstring+="<"+curclassid+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
-                    ttlstring+="<"+curclassid+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
-            ttlstring+="<"+curid+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+curid+"_geom> .\n"
-            ttlstring+="<"+curid+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
+                    ttlstring+="<"+str(curclassid)+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
+                    ttlstring+="<"+str(curclassid)+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
+            ttlstring+="<"+str(curid)+"> <http://www.opengis.net/ont/geosparql#hasGeometry> <"+curid+"_geom> .\n"
+            ttlstring+="<"+str(curid)+"_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> .\n"
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
             ttlstring+="<http://www.opengis.net/ont/geosparql#"+QgsWkbTypes.displayString(geom.wkbType())+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n"
-            ttlstring+="<"+curid+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
+            ttlstring+="<"+str(curid)+"_geom> <http://www.opengis.net/ont/geosparql#asWKT> \""+geom.asWkt()+"\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n"
             fieldcounter=-1
             for propp in fieldnames:
                 fieldcounter+=1
@@ -1164,9 +1186,9 @@ class SPAQLunicorn:
                     else:
                         prop=urilist[fieldcounter]
                     print("New Prop from list: "+str(prop))
-                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in f[propp]:
-                    ttlstring+="<"+f[propp]+"> <"+prop+"> <http://www.w3.org/2002/07/owl#Class> .\n"
-                    ttlstring+="<"+f[propp]+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
+                if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in str(f[propp]):
+                    ttlstring+="<"+str(f[propp])+"> <"+str(prop)+"> <http://www.w3.org/2002/07/owl#Class> .\n"
+                    ttlstring+="<"+str(f[propp])+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
                 if prop=="id":
                     continue
                 #elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
@@ -1192,6 +1214,7 @@ class SPAQLunicorn:
                     ttlstring+=""
                     sparql = SPARQLWrapper(valuequeries[propp][1], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                     sparql.setQuery("".join(self.prefixes[endpointIndex]) + valuequeries[propp][0].replace("%%"+propp+"%%","\""+str(f[propp])+"\""))
+                    sparql.setMethod(POST)
                     sparql.setReturnFormat(JSON)
                     results = sparql.query().convert()
                     ttlstring+="<"+curid+"> <"+prop+"> <"+results["results"]["bindings"][0]["item"]["value"]+"> ."
@@ -1539,7 +1562,7 @@ class SPAQLunicorn:
             self.dlg = SPAQLunicornDialog()
             self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
             self.dlg.inp_sparql.hide()
-            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox,self.columnvars)
+            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox,self.columnvars,self.prefixes)
             self.dlg.inp_sparql2.move(10,130)
             self.dlg.inp_sparql2.setMinimumSize(1071,401)
             self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
@@ -1562,8 +1585,8 @@ class SPAQLunicorn:
             self.dlg.areas.hide()
             self.dlg.label_8.hide()
             self.dlg.label_9.hide()
-            #self.dlg.exportTripleStore.hide()
-            #self.dlg.exportTripleStore_2.hide()
+            self.dlg.exportTripleStore.hide()
+            self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)

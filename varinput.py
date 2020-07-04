@@ -47,9 +47,9 @@ class VarInputDialog(QDialog):
         self.varNameEdit=QLineEdit(self)
         self.varNameEdit.move(150,70)
         self.varTypeLabel=QLabel("Variable Type:",self)
-        self.varTypeLabel.move(270,75)
+        self.varTypeLabel.move(300,75)
         self.varType=QComboBox(self)
-        self.varType.move(370,70)
+        self.varType.move(400,70)
         self.varType.addItem("Automatic")
         self.varType.addItem("String")
         self.varType.addItem("URI")
@@ -77,6 +77,12 @@ class VarInputDialog(QDialog):
         layer = layers[index].layer()
         layername=self.chooseLayer.currentText()
         fieldname=self.chooseField.currentText()
+        if layer.featureCount()==0:
+            msgBox=QMessageBox()
+            msgBox.setText("The layer column does not contain any features, therefore no query variable will be created!")
+            msgBox.exec()
+            self.close()
+            return
         if self.varNameEdit.text()!="":
             varname="?_"+self.varNameEdit.text()
         else:

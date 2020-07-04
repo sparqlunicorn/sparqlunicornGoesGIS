@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -645,7 +645,7 @@ SELECT ?label ?geo ?item WHERE {
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
-     <string>Enrich</string>
+     <string>Enrich (Experimental)</string>
     </attribute>
     <widget class="QPushButton" name="loadLayerEnrich">
      <property name="geometry">

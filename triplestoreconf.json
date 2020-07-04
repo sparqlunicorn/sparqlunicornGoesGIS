@@ -449,7 +449,7 @@
 				"hw_road": "http://hadrianswall.squirrel.link/road#",
 				"hw_wall": "http://hadrianswall.squirrel.link/wall#"
 			},
-			"endpoint": "http://sandbox.mainzed.org/researchsquirrels/sparql",
+			"endpoint": "http://sandbox.mainzed.org/squirrels/sparql",
 			"mandatoryvariables": ["item", "geo"],
             "classfromlabelquery":"SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
             "geoconceptquery": "",
@@ -463,7 +463,9 @@
 				"query": "SELECT ?a ?wkt_geom WHERE {\n ?item rdf:type hw:Fort .\n ?item geosparql:hasGeometry ?item_geom . ?item_geom geosparql:asWKT ?wkt_geom .\n }"
 			}],
 			"crs": 4326,
-			"staticconcepts": ["http://hadrianswall.squirrel.link/ontology#Milefortlet",
+			"staticconcepts": [
+				"http://onto.squirrel.link/ontology#Watchtower",
+				"http://hadrianswall.squirrel.link/ontology#Milefortlet",
 				"http://hadrianswall.squirrel.link/ontology#CoastalSite",
 				"http://hadrianswall.squirrel.link/ontology#Tower",
 				"http://hadrianswall.squirrel.link/ontology#Fort",

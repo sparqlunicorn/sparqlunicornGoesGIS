@@ -55,6 +55,7 @@ class ValueMappingDialog(QDialog):
         self.valmaptable=QTableWidget(self)
         self.valmaptable.move(10,100)
         self.valmaptable.setMinimumSize(300, 300)
+        self.valmaptable.setEnabled(False)
         while self.valmaptable.rowCount() > 0:
             self.valmaptable.removeRow(0);
         row=0
@@ -72,6 +73,7 @@ class ValueMappingDialog(QDialog):
         cboxlabel.move(10,10)
         self.cbox=QComboBox(self)
         self.cbox.move(140,10)
+        self.cbox.setEnabled(False)
         toaddset={"All"}
         for f in layer.getFeatures():
             toaddset.add(f.attribute(fieldname))
@@ -82,14 +84,18 @@ class ValueMappingDialog(QDialog):
         self.foundClass=QLineEdit(self)
         self.foundClass.move(140,40)
         self.foundClass.resize(400, self.foundClass.height())
+        self.foundClass.setEnabled(False)
         findMappingButton=QPushButton("Find Mapping",self)
         findMappingButton.move(10,70)
+        findMappingButton.setEnabled(False)
         findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
         addMappingButton=QPushButton("Add Mapping",self)
         addMappingButton.move(110,70)
+        addMappingButton.setEnabled(False)
         addMappingButton.clicked.connect(self.addMappingToTable)
         deleteRowButton=QPushButton("Delete Selected Table Row",self)
         deleteRowButton.move(100,400)
+        deleteRowButton.setEnabled(False)
         deleteRowButton.clicked.connect(self.deleteSelectedRow)
         sparqlLabel=QLabel("Mapping by SPARQL Query:\nColumn names may be used as variables in %%",self)
         sparqlLabel.move(320,70)

@@ -16,12 +16,13 @@ class ToolTipPlainText(QPlainTextEdit):
 	
     savedLabels={}
 
-    def __init__(self,parent,triplestoreconfig,selector,columnvars):
+    def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes):
         super(self.__class__, self).__init__(parent)
         self.setMouseTracking(True)
         self.zoomIn(4)
         self.triplestoreconf=triplestoreconfig
         self.selector=selector
+        self.prefixes=prefixes
         self.columnvars=columnvars
         self.parent=parent
 
@@ -42,7 +43,7 @@ class ToolTipPlainText(QPlainTextEdit):
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions):	
         self.currentcol=column	
         self.currentrow=row	
-        self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,propOrClass,bothOptions)	
+        self.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,self.prefixes,interlinkOrEnrich,table,propOrClass,bothOptions)	
         self.interlinkdialog.setMinimumSize(650, 400)	
         self.interlinkdialog.setWindowTitle("Search Property or Class")	
         self.interlinkdialog.exec_()

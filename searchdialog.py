@@ -192,10 +192,11 @@ class SearchDialog(QDialog):
             toinsert=str(self.searchResult.currentItem().data(1))
         if self.bothOptions==True:	
             haschanged=False
-            for prefix in self.currentprefixes:
-                if self.currentprefixes[prefix] in toinsert:
-                    toinsert=toinsert.replace(self.currentprefixes[prefix],prefix+":")
-                    haschanged=True
+            if self.currentprefixes!=None:
+                for prefix in self.currentprefixes:
+                    if self.currentprefixes[prefix] in toinsert:
+                        toinsert=toinsert.replace(self.currentprefixes[prefix],prefix+":")
+                        haschanged=True
             if haschanged:
                 self.table.insertPlainText(toinsert)
             else:
