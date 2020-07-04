@@ -4,5 +4,5 @@
 "owl":{"label":"OWL Vocabulary", "source":"owl/owl.json"},
 "skos":{"label":"SKOS Vocabulary", "source":"owl/skos.json"},
 "prov":{"label":"Prov-O Vocabulary","source":"owl/provenance.json"},
-"geosparql":{"label":"GeoSPARQL Vocabulary","source":"owl/geosparql.json"},
+"geosparql":{"label":"GeoSPARQL Vocabulary","source":"owl/geosparql.json"}
 }
