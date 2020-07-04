@@ -34,7 +34,7 @@ class EnrichmentDialog(QDialog):
         conceptSearchLabel.move(5,10)
         self.tripleStoreEdit = QComboBox(self)
         self.tripleStoreEdit.move(100,40)
-        #self.tripleStoreEdit.setEnabled(False)
+        self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
