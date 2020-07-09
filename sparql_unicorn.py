@@ -42,6 +42,7 @@ import requests
 import uuid
 import json
 import urllib.parse
+import urllib
 from rdflib import *
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
@@ -70,6 +71,10 @@ class SPAQLunicorn:
     enrichedExport=False
 	
     exportNameSpace=None
+	
+    useProxy=False
+	
+    proxySettings={}
 
     exportIdCol=None
 	
@@ -142,6 +147,9 @@ class SPAQLunicorn:
 
 
     def validateSPARQL(self):
+        """
+           Validates an entered SPARQL query using the SPARQLWrapper library .
+        """
         try:
             prepareQuery("".join(self.prefixes[self.dlg.comboBox.currentIndex()])+"\n"+self.dlg.inp_sparql2.toPlainText())
             self.dlg.errorLabel.setText("Valid Query")
@@ -1123,6 +1131,9 @@ class SPAQLunicorn:
         return viewlist
 
     def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None):
+        ## Creates a TTL representation of a layer which may be converted to another RDF serialization format.
+		#  @param self The object pointer.
+		#  @param layer The layer to be converted.  
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
         ttlstring+="<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -1404,6 +1415,8 @@ class SPAQLunicorn:
         return result
     
     def loadGraph(self):
+		## Loads a graph from a file using rdflib.
+		#  @param self The object pointer.
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
         self.justloadingfromfile=True
@@ -1431,7 +1444,8 @@ class SPAQLunicorn:
         return None
         
     def loadUnicornLayers(self):
-        # Fetch the currently loaded layers
+        ## Fetches the currently loaded layers from QGIS.
+		#  @param self The object pointer.
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
@@ -1445,6 +1459,9 @@ class SPAQLunicorn:
             self.dlg.chooseLayerEnrich.addItem(layer.name())       
 
     def endpointselectaction(self):
+        ## Shows concepts to be queried when a triple store is selected in the query dialog.
+		#  @param self The object pointer.
+		#  Concepts may either be stored statically in the triple store configuration or may be queried using an appropriate SPARQL query  
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
@@ -1514,12 +1531,16 @@ class SPAQLunicorn:
         self.dlg.searchTripleStoreDialog.check_state(self.dlg.interlinkNameSpace)
 		
     def buildCustomTripleStoreDialog(self):	
+		## Creates the triple store management dialog.
+		#  @param self The object pointer.
         self.dlg.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)	
         self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.dlg.searchTripleStoreDialog.exec_()
         
     def createWhatToEnrich(self):
+		## Creates the what to enrich dialog.
+		#  @param self The object pointer.
         if self.dlg.enrichTable.rowCount()==0:
             return
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -1530,10 +1551,29 @@ class SPAQLunicorn:
         self.dlg.searchTripleStoreDialog.setWindowTitle("Enrichment Search")	
         self.dlg.searchTripleStoreDialog.exec_()
 
+    def refreshProxySettings(self):
+        settings = QSettings()
+        msgBox=QMessageBox()
+        msgBox.setText(str(settings.value("Proxy enabled")))
+        msgBox.exec()
+        if not useProxy and settings.value("Proxy enabled"):
+            host=settings.value("Proxy Host ")   
+            port=settings.value("Proxy Port ")
+            proxy = urllib.ProxyHandler({'http': host+":"+port})
+            opener = urllib.build_opener(proxy)
+            urllib.install_opener(opener)
+            useProxy=True
+        else if useProxy and not settings.value("Proxy enabled"):
+            print("TODO") 
+            useProxy=False
+            
+
+
     def run(self):
-        """Run method that performs all the real work"""
-        # Create the dialog with elements (after translation) and keep reference
+        ## Run method that performs all the real work.
+		# Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
+        self.refreshProxySettings()    
         if self.first_start == True:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
             if os.path.isfile(os.path.join(__location__, 'triplestoreconf_personal.json')):
