@@ -1,0 +1,353 @@
+/* The default text style used on every page */
+body, td
+{ 
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+	margin:0;
+	margin-left:15px;
+	margin-right:15px;
+	margin-bottom:15px;
+}
+
+
+/* used in tables to alternate background colours between rows */
+.altRow 
+{ background-color:#eeeeee }
+
+a, a:visited { color:#280092 }
+a:visited:hover, a:link:hover { color: #ff6501; text-decoration:underline }
+
+h1, h2, h3, h4
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #006699;
+	text-align:left;
+	text-decoration:none;
+}
+
+h1 { font-size:20px; margin:0; padding:0; margin-bottom:15px; margin-top:15px; color: #FF8000;}
+h2 { font-size:18px; margin-bottom:5px;margin-top:45px}
+h3 { font-size:16px; margin-bottom:5px;margin-top:25px}
+h4 { font-size:12px; margin-bottom:2px;}
+
+h4 a:visited, h4 a, h4 a:link { text-decoration:underline; color:#005588; }
+h3 a:visited, h3 a, h4 a:link { text-decoration:none; color:#006699; }
+h2 a:visited, h2 a, h4 a:link { text-decoration:none; color:#006699; }
+
+
+h2 a.anchor
+{  color:#003699;
+  margin:2px 4px 2px 0px; padding: 0px 0px 0px 20px;
+  background-position:left;
+  background-image:url("images/arrow_right.gif");
+	background-repeat:no-repeat;
+
+}
+
+.formtitle 
+{
+  padding:0;
+	margin:0;
+	border:0;
+	border-bottom:1px solid #C5C5C5; 
+}
+	
+p, .stdtext
+{
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.blue, a.blue, a.blue:link, a.blue:visited
+{
+  color: #006699;
+}
+
+.blue:link:hover, a.blue:hover, a.blue:link:hover
+{ 
+  color: #FF6600; text-decoration:underline;
+} 
+
+.orange, a.orange, a.orange:link, a.orange:visited
+{
+  color: #FF6600;
+}
+
+.orange:link:hover, a.orange:hover, a.orange:link:hover
+{ 
+  color: #006699; text-decoration:underline;
+}
+ 
+.tab, a.tab, a.tab:visited
+{
+  color: #606060;
+  font-weight: bold;
+  font-size: 9.5px;
+  text-decoration: none;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+td.tab2, td.tab
+{
+	text-align:center;
+	vertical-align:middle;
+	padding-top:2px;
+}
+
+td.tab { background-image:url("images/back1.gif"); }
+td.tab2 { background-image:url("images/back2.gif"); }
+
+
+p.orangewarn
+{
+  text-align:center;
+  color:#FF6600;
+	font-size:12px;
+	font-weight:bold;
+}
+
+td.dots
+{
+  background-position:center;
+  background-image:url("images/dots.gif");
+	background-repeat:repeat-x;
+	height:1px;
+}
+
+
+
+.footer {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #656563;
+	background-color: #F5F5F7;
+	text-align:center;
+	padding: 1px 1px;
+	border-bottom:6px solid #FFFFFF;
+}
+
+ul.orangebullets	{ margin:2px 4px 2px 35px; padding:0px; list-style:url("images/list-orange.gif"); }
+
+/* ******************** */
+/* Login and News panel */
+.toprightpanel {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #999999;
+	text-decoration: none; 
+	background-color:#F0F3FA;
+}
+
+.login {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #201E21;
+	text-decoration: none;
+}
+
+.backgroundnews
+{
+	background-color:#F0F3FA;
+}
+
+.latestnews, .backgroundnews p, .backgroundnews a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #656563;
+	text-decoration: none;
+}
+
+
+.usename {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #006699;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.bottomleftpanel {
+	background-image: url(images/backfadeaout.jpg);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+}
+
+/* ****************** */
+/* Guide information */
+
+td.guidetop
+{
+	background-image: url(images/p-sep2.gif);
+  background-repeat:repeat-x;
+	height:2px;
+}
+
+td.guidetitle, td.guidetitle_orange
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight:bold;
+	color: #656563;
+	text-decoration: none; 
+	background-color:#D0DAD1;
+	text-align:center;
+	vertical-align:middle;
+	height:17px;
+}
+
+td.guidetitle_orange
+{
+  color: #FF6600;
+}
+
+.guidemain
+{
+	background-color:#F0F3FA;
+}
+
+.guidemain p, .guidemain li
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #656563;
+	text-decoration: none;
+}
+
+td.guidebottom
+{
+	background-image: url(images/infopanel_mid.gif);
+  background-repeat:repeat-x;
+	height:11px;
+}
+
+
+/* ******************* */
+/* Form header */
+
+.formborder 
+{
+	background-color:#F5F5F7;
+  border: 1px solid #cccccc;
+	padding:0px;
+	margin:0px;
+}
+
+.formtext, .formtext a, .formgeneral
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #455560;
+	text-decoration:none;
+	font-weight:normal;
+}
+
+.formgeneral 
+{
+  border:1px solid #cccccc;
+	background-color:#F5F5F7;
+	margin:0;
+	padding:0;
+}
+
+.formhead, .formhead-left
+{
+  background-image:url(images/formheader.gif);
+	background-repeat: repeat-x;
+	height:17px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color:#FF6600;
+	text-decoration: none;
+	font-weight: bold;
+	border:0;
+	padding:0;
+	margin:0;
+	text-transform: uppercase;
+}
+
+.formhead-left
+{
+  padding-left:10px;
+	text-align:left;
+}
+
+td.formhead 
+{
+	padding:0;
+}
+
+
+table.formgeneral input, table.formgeneral select, table.formgeneral select option 
+{
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10px;
+}
+
+.firstcell
+{
+	padding-left:10px;
+}
+
+/* General tag for all hidden form elements etc */
+.hidden
+  {	width:0px; height:0px; padding:0px; margin:0px; border:none; visibility:hidden; } 
+
+/* styles for shopping cart */
+input, textarea
+  { margin:0px 1px 1px 0px; font-size: 11px; padding: 0px;}
+input.submitButton, input.submitButtonRed 
+  { width:110px; margin-left: 10px; margin-right: 10px; }
+input.submitButtonRed
+  { color: red; font-weight: bold; }  
+	
+
+.disabled {color: #c0c0c0; }
+.gap {background-color:white}
+/* Do we need this */
+table.formgeneral table.formgeneral { margin-top:7px; margin-bottom:7px}
+
+
+/* Local menus style on MyCogs and Contribute */
+/* Controll the temporary top level general menu we have */ 
+td.bmenu, .refbmenu
+{
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  font-size:9px;  
+	font-weight:bold;
+  margin:0px;
+  padding:1px;
+  text-align:left;
+  background-color: #f5f5f7;
+  border:0; 
+}  
+
+img.bmenu
+{ 
+  vertical-align:top;
+	height:13px;
+	width:15px;
+	border:0;
+}
+
+a.bmenutext, a.bmenutext:visited
+{ text-decoration:none; 
+	color:#003794; 
+	vertical-align:top; 
+}
+
+a.bmenutext:hover
+{ color:#ff6501;
+  text-decoration:underline;
+} 
+  
+a.bmenutextorange, a.bmenutextorange:visited
+{ text-decoration:none; 
+	color:#ff6501; 
+	vertical-align:top; 
+}
+
+a.bmenutextorange:hover
+{ color:#ff6501; 
+  text-decoration:underline;
+} 
+    
