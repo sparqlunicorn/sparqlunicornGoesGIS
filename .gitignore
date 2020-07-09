@@ -1,2 +1,8 @@
 __pycache__/
+dependencies/isodate/__pycache__/
+dependencies/rdflib/plugins/sparql/stores/__pycache__/
+dependencies/rdflib/plugins/sparql/__pycache__/
+dependencies/rdflib/plugins/
+dependencies/SPARQLWrapper/__pycache__/
+dependencies/rdflib/__pycache__/
 triplestoreconf_personal.json
