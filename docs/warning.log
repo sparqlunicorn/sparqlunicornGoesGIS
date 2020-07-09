@@ -1,0 +1,9 @@
+warning: source ../docs/docuCommand.dox is not a readable file or directory... skipping.
+warning: source ../docs/mainpage.dox is not a readable file or directory... skipping.
+warning: source ../docs/kdtreedoc.dox is not a readable file or directory... skipping.
+warning: source ../docs/licences.dox is not a readable file or directory... skipping.
+/home/timo/git/ibrmanager/src/main/java/de/i3mainz/ibr/procedure/ProjectXML.java:38: warning: End of list marker found without any preceding list items
+/home/timo/git/ibrmanager/src/main/java/de/i3mainz/ibr/procedure/ProjectXML.java:38: warning: End of list marker found without any preceding list items
+/home/timo/git/ibrmanager/src/main/java/de/i3mainz/ibr/procedure/ProjectXML.java:38: warning: End of list marker found without any preceding list items
+/home/timo/git/ibrmanager/src/main/java/de/i3mainz/ibr/triangulation/Line2D.java:55: warning: The following parameters of de.i3mainz.ibr.triangulation.Line2D.boundingBoxCheck(Line2D other, Point2D cut) are not documented:
+  parameter 'cut'
