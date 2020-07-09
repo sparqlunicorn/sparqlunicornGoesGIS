@@ -1,0 +1,8 @@
+{
+"rdf":{"label":"RDF Vocabulary", "source":"owl/rdf.json"},
+"rdfs":{"label":"RDFS Vocabulary", "source":"owl/rdfs.json"},
+"owl":{"label":"OWL Vocabulary", "source":"owl/owl.json"},
+"skos":{"label":"SKOS Vocabulary", "source":"owl/skos.json"},
+"prov":{"label":"Prov-O Vocabulary","source":"owl/provenance.json"},
+"geosparql":{"label":"GeoSPARQL Vocabulary","source":"owl/geosparql.json"}
+}
