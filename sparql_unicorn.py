@@ -851,6 +851,9 @@ class SPAQLunicorn:
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
         self.dlg.close()
 
+
+    ## Loads an enrichment mapping from a previously defined mapping file.
+    #  @param self The object pointer.
     def loadMapping(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -1291,6 +1294,8 @@ class SPAQLunicorn:
                 output_file.write(g.serialize(format=splitted[len(splitted)-1]).decode("utf-8"))
                 iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
+    ## Exports a layer as GeoJSONLD.
+    #  @param self The object pointer.
     def exportLayerAsGeoJSONLD(self):
         context={
     "geojson": "https://purl.org/geojson/vocab#",
@@ -1403,9 +1408,9 @@ class SPAQLunicorn:
         self.justloadingfromfile=False
         return result
     
+    ## Loads a graph from an rdf file.
+    #  @param self The object pointer.    
     def loadGraph(self):
-        ## Loads a graph from an rdf file.
-        #  @param self The object pointer.
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
         self.justloadingfromfile=True
@@ -1431,10 +1436,10 @@ class SPAQLunicorn:
             #worker_thread.start()
             #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
         return None
-        
+
+    ## Fetch the currently loaded layers.
+    #  @param self The object pointer.
     def loadUnicornLayers(self):
-        ## Fetch the currently loaded layers.
-        #  @param self The object pointer.
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
@@ -1447,9 +1452,9 @@ class SPAQLunicorn:
             self.dlg.chooseLayerInterlink.addItem(layer.name())
             self.dlg.chooseLayerEnrich.addItem(layer.name())       
 
+    ## Selects a SPARQL endpoint and changes its configuration accordingly.
+    #  @param self The object pointer.
     def endpointselectaction(self):
-        ## Selects a SPARQL endpoint and changes its configuration accordingly.
-        #  @param self The object pointer.
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
@@ -1482,11 +1487,15 @@ class SPAQLunicorn:
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
+    ## Saves a personal copy of the triplestore configuration file to disk.
+    #  @param self The object pointer.
     def saveTripleStoreConfig(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf_personal.json'),'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf,indent=2))
 
+    ## Restores the triple store configuration file with the version delivered with the SPARQLUnicorn QGIS plugin.
+    #  @param self The object pointer.
     def resetTripleStoreConfig(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
