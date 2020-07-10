@@ -1404,6 +1404,8 @@ class SPAQLunicorn:
         return result
     
     def loadGraph(self):
+        ## Loads a graph from an rdf file.
+        #  @param self The object pointer.
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
         self.justloadingfromfile=True
@@ -1431,7 +1433,8 @@ class SPAQLunicorn:
         return None
         
     def loadUnicornLayers(self):
-        # Fetch the currently loaded layers
+        ## Fetch the currently loaded layers.
+        #  @param self The object pointer.
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
         self.dlg.loadedLayers.clear()
@@ -1445,6 +1448,8 @@ class SPAQLunicorn:
             self.dlg.chooseLayerEnrich.addItem(layer.name())       
 
     def endpointselectaction(self):
+        ## Selects a SPARQL endpoint and changes its configuration accordingly.
+        #  @param self The object pointer.
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
