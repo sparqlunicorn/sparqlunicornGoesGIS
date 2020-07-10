@@ -140,7 +140,8 @@ class SPAQLunicorn:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
 
-
+    ## Validates the SPARQL query in the input field and outputs errors in a label.
+    #  @param self The object pointer.
     def validateSPARQL(self):
         try:
             prepareQuery("".join(self.prefixes[self.dlg.comboBox.currentIndex()])+"\n"+self.dlg.inp_sparql2.toPlainText())
@@ -214,15 +215,21 @@ class SPAQLunicorn:
         # will be set False in run()
         self.first_start = True
 
-
+    ## Removes the plugin menu item and icon from QGIS GUI.
+    #  @param self The object pointer.
     def unload(self):
-        """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginVectorMenu(
                 self.tr(u'&SPARQL Unicorn Wikidata Plugin'),
                 action)
             self.iface.removeToolBarIcon(action)
 
+    ## Processes query results and reformats them to a QGIS layer.
+    #  @param self The object pointer.
+    #  @param results The query results
+    #  @param reproject The crs from which to reproject to WGS84
+    #  @param mandatoryvars mandatoryvariables to find in the query result
+    #  @param geooptional indicates if a geometry is mandatory
     def processResults(self,results,reproject,mandatoryvars,geooptional):
         latval=mandatoryvars[0]
         lonval=""
