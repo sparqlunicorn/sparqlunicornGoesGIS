@@ -6,6 +6,8 @@ The necessary python libs can be found here: https://github.com/sparqlunicorn/un
 
 qgisMinimumVersion = 3.0
 
+Documentation https://sparqlunicorn.github.io/sparqlunicornGoesGIS/
+
 ## QGIS Plugin
 
 This Plugin is listed under die experimentail QGIS Pluigins:
