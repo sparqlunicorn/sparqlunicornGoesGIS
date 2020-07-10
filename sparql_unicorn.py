@@ -401,6 +401,13 @@ class SPAQLunicorn:
         #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
         self.dlg.close()
 
+    ## Gets a set of geometric concepts from the selected triple store.
+    #  @param self The object pointer.
+    #  @param triplestoreurl the url of the SPARQL endpoint
+    #  @param query the query to execute
+    #  @param queryvar the queryvariable returning the geoconcepts
+    #  @param graph the graph to query if to query from a file
+    #  @param getlabels indicates whether to also query labels for the returned geoconcepts
     def getGeoConcepts(self,triplestoreurl,query,queryvar,graph,getlabels):
         viewlist=[]
         resultlist=[]
@@ -430,6 +437,11 @@ class SPAQLunicorn:
             return resultlist
         return viewlist
 
+    ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
+    #  @param self The object pointer.
+    #  @param classes array of classes to find labels for
+    #  @param query the class label query
+    #  @param endpointIndex the index of the selected SPARQL endpoint
     def getLabelsForClasses(self,classes,query,endpointIndex):
         result={}
         query=self.triplestoreconf[endpointIndex]["classlabelquery"]
@@ -521,6 +533,7 @@ class SPAQLunicorn:
             self.buildValueMappingDialog(row,column,True,self.dlg.interlinkTable,layer)
         elif column==-1:
             self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput,False,False,None,self.addVocabConf)
+
 
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions=False,currentprefixes=None,addVocabConf=None):
         self.dlg.currentcol=column
