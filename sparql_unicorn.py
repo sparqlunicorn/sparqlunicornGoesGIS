@@ -63,6 +63,8 @@ import re
 
 geoconcepts=""
 
+## The main SPARQL unicorn dialog.
+#
 class SPAQLunicorn:
     """QGIS Plugin Implementation."""
     loadedfromfile=False
@@ -1058,6 +1060,8 @@ class SPAQLunicorn:
             currentRowCount = self.dlg.interlinkTable.rowCount() 
             row+=1
 
+    ## Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.
+    #  @param self The object pointer.
     def exportEnrichedLayer(self):
         self.exportIdCol=""
         self.exportNameSpace=self.dlg.interlinkNameSpace.text()
@@ -1105,7 +1109,11 @@ class SPAQLunicorn:
                 proptypelist.append("")
         self.enrichedExport=True
         self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries,self.dlg.exportTripleStore.isChecked())
-        
+    
+    ## Adds a new QGIS layer to a triplestore with a given address.
+    #  @param self The object pointer.
+    #  @param triplestoreaddress The address of the triple store
+    #  @param layer The layer to add
     def addNewLayerToTripleStore(self,triplestoreaddress,layer):
         ttlstring=self.layerToTTLString(layer)
         queryString = "INSERT DATA { GRAPH <http://example.com/> { "+ttlstring+" } }" 

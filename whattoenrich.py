@@ -8,6 +8,8 @@ from .searchdialog import SearchDialog
 import json
 import requests
 
+## Enrichment dialog to search for possible enrichments.
+#
 class EnrichmentDialog(QDialog):
 	
     currentrow=""

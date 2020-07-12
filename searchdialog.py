@@ -2,10 +2,13 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
+from qgis.PyQt import uic
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
 import requests
 
+## Represents a dialog to search for properties and classe from various SPARQL endpoints.
+#
 class SearchDialog(QDialog):
 	
     currentrow=""
@@ -16,8 +19,19 @@ class SearchDialog(QDialog):
 
     table=False
 
+    ## Initializes the search dialog.
+    #  @param self The object pointer.		
+    #  @param column the column to write the search result in
+    #  @param row the row to write the search result in    
+    #  @param triplestoreconf the current triple store configuration
+    #  @param prefixes the prefixes currently in use in the current triple store configuration
+    #  @param interlinkOrEnrich indicates whether the dialog is called from the interlink or enrich tab
+    #  @param table the GUI object into which the result is being written
+    #  @param propOrClass indicates whether the dialog should be enabled for a property or a class search
     def __init__(self,column,row,triplestoreconf,prefixes,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None,addVocab=None):
         super(QDialog, self).__init__()
+        uic.loadUi('searchdialog.ui', self)
+        #self.show()
         self.currentcol=column
         self.currentrow=row
         self.table=table
@@ -26,25 +40,25 @@ class SearchDialog(QDialog):
         self.bothOptions=bothOptions
         self.triplestoreconf=triplestoreconf
         self.interlinkOrEnrich=interlinkOrEnrich
-        self.conceptSearchEdit = QLineEdit(self)
-        self.conceptSearchEdit.move(110,10)
-        self.conceptSearchEdit.setMinimumSize(180,25)
+        #self.conceptSearchEdit = QLineEdit(self)
+        #self.conceptSearchEdit.move(110,10)
+        #self.conceptSearchEdit.setMinimumSize(180,25)
         self.addVocab=addVocab
-        conceptSearchLabel = QLabel("Search Concept:",self)
-        conceptSearchLabel.move(5,10)
-        self.findConcept = QRadioButton("Class",self)
-        self.findConcept.move(400,15)
+        #conceptSearchLabel = QLabel("Search Concept:",self)
+        #conceptSearchLabel.move(5,10)
+        #self.findConcept = QRadioButton("Class",self)
+        s#elf.findConcept.move(400,15)
         if column!=4:
             self.findConcept.setChecked(True)
-        self.findProperty = QRadioButton("Property",self)
-        self.findProperty.move(400,40)
+        #self.findProperty = QRadioButton("Property",self)
+        #self.findProperty.move(400,40)
         if column==4 or (not interlinkOrEnrich and column!=4) or (not interlinkOrEnrich and propOrClass):
             self.findProperty.setChecked(True)
         if not bothOptions:	        
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
-        self.tripleStoreEdit = QComboBox(self)
-        self.tripleStoreEdit.move(100,40)
+        #self.tripleStoreEdit = QComboBox(self)
+        #self.tripleStoreEdit.move(100,40)
         self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
@@ -52,36 +66,39 @@ class SearchDialog(QDialog):
         if addVocab!=None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
-        tripleStoreLabel = QLabel("Triple Store:",self)
-        tripleStoreLabel.move(5,40)
-        searchButton = QPushButton("Search",self)
-        searchButton.move(300,10)
+        #tripleStoreLabel = QLabel("Triple Store:",self)
+        #tripleStoreLabel.move(5,40)
+        #searchButton = QPushButton("Search",self)
+        #searchButton.move(300,10)
         searchButton.clicked.connect(self.getClassesFromLabel)
-        costumpropertyLabel = QLabel("Define Own URI:",self)
-        costumpropertyLabel.move(10,75)
+        #costumpropertyLabel = QLabel("Define Own URI:",self)
+        #costumpropertyLabel.move(10,75)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
-        self.costumproperty = QLineEdit(self)
-        self.costumproperty.move(110,70)
-        self.costumproperty.setMinimumSize(200,25)
+        #self.costumproperty = QLineEdit(self)
+        #self.costumproperty.move(110,70)
+        #self.costumproperty.setMinimumSize(200,25)
         self.costumproperty.setValidator(urlvalidator)
         self.costumproperty.textChanged.connect(self.check_state3)
         self.costumproperty.textChanged.emit(self.costumproperty.text())
-        costumpropertyButton = QPushButton("Use Own Class/Property",self)
-        costumpropertyButton.move(315,70)
+        #costumpropertyButton = QPushButton("Use Own Class/Property",self)
+        #costumpropertyButton.move(315,70)
         costumpropertyButton.clicked.connect(self.applyConceptToColumn2)
-        searchResultLabel = QLabel("Search Results",self)
-        searchResultLabel.move(100,100)
-        self.searchResult = QListWidget(self)
-        self.searchResult.move(30,120)
-        self.searchResult.setMinimumSize(600, 300)
-        applyButton = QPushButton("Apply",self)
-        applyButton.move(150,430)
+        #searchResultLabel = QLabel("Search Results",self)
+        #searchResultLabel.move(100,100)
+        #self.searchResult = QListWidget(self)
+        #self.searchResult.move(30,120)
+        #self.searchResult.setMinimumSize(600, 300)
+        #applyButton = QPushButton("Apply",self)
+        #applyButton.move(150,430)
         applyButton.clicked.connect(self.applyConceptToColumn)
 
     def check_state3(self):
         self.check_state(self.costumproperty)
-		
+
+    ##Checks the state of an input field in order to highlight it with an appropriate color.
+    #  @param self The object pointer.		
+    #  @param sender The sending object containing the validator	
     def check_state(self,sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
@@ -94,6 +111,8 @@ class SearchDialog(QDialog):
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     """Returns classes for a given label from a triple store."""
+    ## Returns classes for a given label from a triple store.
+    #  @param self The object pointer.
     def getClassesFromLabel(self,comboBox):
         viewlist=[]
         resultlist=[]
@@ -179,6 +198,8 @@ class SearchDialog(QDialog):
 
     def applyConceptToColumn2(self):
         self.applyConceptToColumn(True)
+
+
 
     def applyConceptToColumn(self,costumURI=False):
         print("test")
