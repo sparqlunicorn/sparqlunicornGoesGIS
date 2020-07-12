@@ -1,67 +1,52 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QCheckBox
 from qgis.PyQt.QtGui import QTextCursor
+from qgis.PyQt import uic
 from qgis.core import QgsProject
 from PyQt5.QtCore import Qt
 from .searchdialog import SearchDialog
 import json
 import requests
+import os.path
 
-class VarInputDialog(QDialog):      
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'varinput.ui'))
 
+## Class representing the variable input dialog which maps geodataset columns to SPARQL query variables.
+class VarInputDialog(QDialog, FORM_CLASS):      
+    # The inputfield to which the result variable is saved
     inputfield=None
-    
+    # The field of the geodataset which has been chosen to be represented by the variable
     chooseField=None
-    
+    # The laayer which column is chosen to be represented by the variable
     chooseLayer=None
-
+    # The map of already exisiting variables which represent geodataset columns
     columnvars=None
 
+    ## 
+    #  @brief Initializes the dialog by loading existing layers.
+    #  
+    #  @param self The object pointer 
+    #  @param parent A parent window if available
+    #  @param inputfield The inputfield to which the variable will be saved
+    #  @param columnvars A map of already existing variable mappings  
     def __init__(self,parent,inputfield,columnvars):
         super(QDialog, self).__init__()
+        self.setupUi(self)
         layers = QgsProject.instance().layerTreeRoot().children()
-        # Populate the comboBox with names of all the loaded unicorn layers
         self.inputfield=inputfield
-        self.resize(200,150)
         self.columnvars=columnvars
-        layerLabel=QLabel("Choose Layer: ",self)
-        layerLabel.move(10,10)
-        self.chooseLayer=QComboBox(self)
-        self.chooseLayer.move(150,10)
         self.chooseLayer.clear()
         for layer in layers:
             self.chooseLayer.addItem(layer.name())
         self.chooseLayer.currentIndexChanged.connect(self.layerselectaction)
-        fieldLabel=QLabel("Choose Field: ",self)
-        fieldLabel.move(10,40)
-        self.chooseField=QComboBox(self)
-        self.chooseField.move(150,40)
-        self.chooseField.clear()
-        self.isLabelLabel=QCheckBox("Is Label",self)
-        self.isLabelLabel.move(250,40)
-        self.labelLangLabel=QLabel("Label Lang: ",self)
-        self.labelLangLabel.move(350,40)
-        self.labelLang=QLineEdit(self)
-        self.labelLang.move(430,40)
-        self.varNameLabel=QLabel("Variable Name:",self)
-        self.varNameLabel.move(10,70)
-        self.varNameEdit=QLineEdit(self)
-        self.varNameEdit.move(150,70)
-        self.varTypeLabel=QLabel("Variable Type:",self)
-        self.varTypeLabel.move(300,75)
-        self.varType=QComboBox(self)
-        self.varType.move(400,70)
-        self.varType.addItem("Automatic")
-        self.varType.addItem("String")
-        self.varType.addItem("URI")
-        self.varType.addItem("Double")
-        self.varType.addItem("Integer")
-        self.varType.addItem("Date")
-        applyButton=QPushButton("Apply",self)
-        applyButton.move(10,100)    
-        applyButton.clicked.connect(self.applyVar)
+        self.chooseField.clear()   
+        self.applyButton.clicked.connect(self.applyVar)
         self.layerselectaction()
         
-        
+    ## 
+    #  @brief Refreshes the layer column view of the dialog when a new layer is selected.
+    #  
+    #  @param self The object pointer     
     def layerselectaction(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         index=self.chooseLayer.currentIndex()
@@ -70,7 +55,14 @@ class VarInputDialog(QDialog):
         self.chooseField.clear()
         for field in fieldnames:
             self.chooseField.addItem(field)
- 
+
+    ## 
+    #  @brief Inserts a variable into the query as stated in the query dialog.
+    #  
+    #  @param self The object pointer
+    #  
+    #  @details The variable will be inserted and the corresponding SPARQL VALUES statement will be generated in the background
+    #  
     def applyVar(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         index=self.chooseLayer.currentIndex()

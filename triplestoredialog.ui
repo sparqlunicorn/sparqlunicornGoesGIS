@@ -16,7 +16,7 @@
   <widget class="QLabel" name="tripleStoreChooserLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>10</y>
      <width>161</width>
      <height>17</height>
@@ -31,7 +31,7 @@
     <rect>
      <x>150</x>
      <y>10</y>
-     <width>86</width>
+     <width>401</width>
      <height>25</height>
     </rect>
    </property>
@@ -39,7 +39,7 @@
   <widget class="QPushButton" name="addTripleStoreButton">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>560</x>
      <y>10</y>
      <width>151</width>
      <height>25</height>
@@ -52,8 +52,8 @@
   <widget class="QLabel" name="tripleStoreLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>60</y>
+     <x>10</x>
+     <y>40</y>
      <width>161</width>
      <height>17</height>
     </rect>
@@ -66,17 +66,20 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>60</y>
-     <width>113</width>
+     <y>40</y>
+     <width>401</width>
      <height>25</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>https://query.wikidata.org/sparql</string>
    </property>
   </widget>
   <widget class="QLabel" name="tripleStoreNameLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
+     <y>70</y>
      <width>161</width>
      <height>17</height>
     </rect>
@@ -88,10 +91,267 @@
   <widget class="QLineEdit" name="tripleStoreNameEdit">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>100</y>
-     <width>113</width>
+     <x>150</x>
+     <y>70</y>
+     <width>401</width>
      <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>My cool triplestore!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="queryVarLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>105</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Geometry Variable:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="queryVarEdit">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>100</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>geo</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="testConnectButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>40</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Test Connection</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="queryVarItemLabel">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>105</y>
+     <width>71</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Item Variable:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="queryVarItemEdit">
+   <property name="geometry">
+    <rect>
+     <x>422</x>
+     <y>100</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>item</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="epsgLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>125</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>EPSG Code:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="epsgEdit">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>125</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>4326</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="activeTripleStoreLabel">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>125</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Active:</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="activeCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>125</y>
+     <width>70</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tripleStorePrefixNameEdit">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>150</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>wd</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tripleStorePrefixNameLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Prefix:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addPrefixButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>150</y>
+     <width>151</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Prefix</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="prefixListLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>185</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Prefixes:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removePrefixButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>180</y>
+     <width>151</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Remove Selected Prefix</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="exampleQueryLabel">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>185</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Example Query (optional):</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tripleStorePrefixEdit">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>150</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>http://www.wikidata.org/entity/</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tripleStoreApplyButton">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>440</y>
+     <width>151</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apply</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tripleStoreCloseButton">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>440</y>
+     <width>151</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="prefixList">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>210</y>
+     <width>311</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="exampleQuery">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>210</y>
+     <width>371</width>
+     <height>200</height>
     </rect>
    </property>
   </widget>
