@@ -10,9 +10,7 @@ var files =
       [ "RectangleMapTool", "a00074.html", "a00074" ]
     ] ],
     [ "resources.py", "a00017.html", "a00017" ],
-    [ "searchdialog.py", "a00020.html", [
-      [ "SearchDialog", "a00078.html", "a00078" ]
-    ] ],
+    [ "searchdialog.py", "a00020.html", "a00020" ],
     [ "sparql_unicorn.py", "a00023.html", "a00023" ],
     [ "sparql_unicorn_dialog.py", "a00026.html", "a00026" ],
     [ "sparqlhighlighter.py", "a00029.html", "a00029" ],
