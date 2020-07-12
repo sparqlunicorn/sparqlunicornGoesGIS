@@ -69,6 +69,9 @@ $(document).ready(function(){initNavTree('a00102.html','');});
 <div class="title">UploadRDFDialog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Dialog to upload a generated RDF result to a triple store.  
+ <a href="a00102.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for UploadRDFDialog:</div>
 <div class="dyncontent">
@@ -91,6 +94,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a967b038f3b4803df943b1f443d030520"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00102.html#a967b038f3b4803df943b1f443d030520">__init__</a> (self, <a class="el" href="a00102.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">ttlstring</a>)</td></tr>
 <tr class="separator:a967b038f3b4803df943b1f443d030520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7092c7fd31ba92d11cacd01e25c48276"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00102.html#a7092c7fd31ba92d11cacd01e25c48276">checkConnection</a> (self)</td></tr>
+<tr class="memdesc:a7092c7fd31ba92d11cacd01e25c48276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the connection to a triple store which has been defined by a given internet address.  <a href="#a7092c7fd31ba92d11cacd01e25c48276">More...</a><br /></td></tr>
 <tr class="separator:a7092c7fd31ba92d11cacd01e25c48276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad33b38d01e5394ad75cbc43021984f3e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00102.html#ad33b38d01e5394ad75cbc43021984f3e">uploadResult</a> (self)</td></tr>
 <tr class="separator:ad33b38d01e5394ad75cbc43021984f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,7 +121,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a6aa91eb05e0f70d41e5ae3348922a469"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00102.html#a6aa91eb05e0f70d41e5ae3348922a469">fieldname</a> = &quot;&quot;</td></tr>
 <tr class="separator:a6aa91eb05e0f70d41e5ae3348922a469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Dialog to upload a generated RDF result to a triple store. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a967b038f3b4803df943b1f443d030520"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a967b038f3b4803df943b1f443d030520">&#9670;&nbsp;</a></span>__init__()</h2>
 
@@ -143,7 +149,7 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">def </span><a class="code" href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">__init__</a>(self,ttlstring):</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        super(QDialog, self).<a class="code" href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">__init__</a>()</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.setupUi(self)</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.ttlstring=ttlstring   </div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.checkConnectionButton.clicked.connect(self.checkConnection)  </div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.applyButton.clicked.connect(self.uploadResult)</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div><div class="ttc" id="a00114_html_afeab84e56b997c4cceacfaf74c13cfec"><div class="ttname"><a href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">sparqlunicornGoesGIS.whattoenrich.EnrichmentDialog.__init__</a></div><div class="ttdeci">def __init__(self, triplestoreconf, prefixes, enrichtable, layer, classid=&quot;&quot;, triplestoreurl=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> whattoenrich.py:26</div></div>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">def </span><a class="code" href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">__init__</a>(self,ttlstring):</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        super(QDialog, self).<a class="code" href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">__init__</a>()</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.setupUi(self)</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.ttlstring=ttlstring   </div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.checkConnectionButton.clicked.connect(self.checkConnection)  </div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.applyButton.clicked.connect(self.uploadResult)</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div><div class="ttc" id="a00114_html_afeab84e56b997c4cceacfaf74c13cfec"><div class="ttname"><a href="a00114.html#afeab84e56b997c4cceacfaf74c13cfec">sparqlunicornGoesGIS.whattoenrich.EnrichmentDialog.__init__</a></div><div class="ttdeci">def __init__(self, triplestoreconf, prefixes, enrichtable, layer, classid=&quot;&quot;, triplestoreurl=&quot;&quot;)</div><div class="ttdoc">Initializes this dialog. </div><div class="ttdef"><b>Definition:</b> whattoenrich.py:34</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -163,7 +169,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span>checkConnection(self):</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        print(<span class="stringliteral">&quot;&quot;</span>)</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div></div><!-- fragment -->
+
+<p>Checks the connection to a triple store which has been defined by a given internet address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the connection was successful, false otherwise </dd></dl>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span>checkConnection(self):</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        print(<span class="stringliteral">&quot;&quot;</span>)</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ad33b38d01e5394ad75cbc43021984f3e"></a>
@@ -183,7 +198,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">References <a class="el" href="a00102.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">UploadRDFDialog.ttlstring</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">def </span>uploadResult(self):</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        query_endpoint = <span class="stringliteral">&#39;http://localhost:3030/ds/query&#39;</span></div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        update_endpoint = self.tripleStoreURL</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        g=Graph()</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        g.parse(data=self.ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        store = sparqlstore.SPARQLUpdateStore()</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        store.open((query_endpoint, update_endpoint))</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        store.add_graph(g)</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.close()</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">def </span>uploadResult(self):</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        query_endpoint = <span class="stringliteral">&#39;http://localhost:3030/ds/query&#39;</span></div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        update_endpoint = self.tripleStoreURL</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        g=Graph()</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        g.parse(data=self.ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        store = sparqlstore.SPARQLUpdateStore()</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        store.open((query_endpoint, update_endpoint))</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        store.add_graph(g)</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.close()</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
