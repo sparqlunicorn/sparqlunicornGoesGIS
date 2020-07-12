@@ -11,16 +11,24 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'varinput.ui'))
 
+## Class representing the variable input dialog which maps geodataset columns to SPARQL query variables.
 class VarInputDialog(QDialog, FORM_CLASS):      
-
+    # The inputfield to which the result variable is saved
     inputfield=None
-    
+    # The field of the geodataset which has been chosen to be represented by the variable
     chooseField=None
-    
+    # The laayer which column is chosen to be represented by the variable
     chooseLayer=None
-
+    # The map of already exisiting variables which represent geodataset columns
     columnvars=None
 
+    ## 
+    #  @brief Initializes the dialog by loading existing layers.
+    #  
+    #  @param self The object pointer 
+    #  @param parent A parent window if available
+    #  @param inputfield The inputfield to which the variable will be saved
+    #  @param columnvars A map of already existing variable mappings  
     def __init__(self,parent,inputfield,columnvars):
         super(QDialog, self).__init__()
         self.setupUi(self)
@@ -35,7 +43,10 @@ class VarInputDialog(QDialog, FORM_CLASS):
         self.applyButton.clicked.connect(self.applyVar)
         self.layerselectaction()
         
-        
+    ## 
+    #  @brief Refreshes the layer column view of the dialog when a new layer is selected.
+    #  
+    #  @param self The object pointer     
     def layerselectaction(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         index=self.chooseLayer.currentIndex()
@@ -44,7 +55,14 @@ class VarInputDialog(QDialog, FORM_CLASS):
         self.chooseField.clear()
         for field in fieldnames:
             self.chooseField.addItem(field)
- 
+
+    ## 
+    #  @brief Inserts a variable into the query as stated in the query dialog.
+    #  
+    #  @param self The object pointer
+    #  
+    #  @details The variable will be inserted and the corresponding SPARQL VALUES statement will be generated in the background
+    #  
     def applyVar(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         index=self.chooseLayer.currentIndex()

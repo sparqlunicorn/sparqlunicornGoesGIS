@@ -13,16 +13,24 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'whattoenrich.ui'))
 
+## Enrichment dialog to enrich properties to a geodataset.
 class EnrichmentDialog(QDialog, FORM_CLASS):
-	
+    # Indicates the position within the given GUI element to which the result is returned.
     currentrow=""
-	
+    # The triplestore configuration of the plugin.
     triplestoreconf=""
-	
+    # Indicates whether this dialog was called from an enrichment or interlinking interface.
     interlinkOrEnrich=False
-
+    # The GUI element to which the result of this dialog is returned.
     table=False
-
+    
+	##Initializes this dialog.
+	# @param triplestoreconf The triplestore configuration file
+	# @param prefixes RDF prefixes to be used in this dialog
+	# @param enrichtable the GUI object to save the results in
+	# @param layer the layer to enrich
+	# @param classid the classid to use for enrichment
+	# @param triplestoreurl the url of the triplestore to use for enrichment
     def __init__(self,triplestoreconf,prefixes,enrichtable,layer,classid="",triplestoreurl=""):
         super(QDialog, self).__init__()
         self.setupUi(self)
@@ -42,18 +50,25 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchButton2.clicked.connect(self.getAttributeStatistics)
         self.searchButton2.hide()
         self.applyButton.clicked.connect(self.applyConceptToColumn)    
-        
+
+    ## 
+    #  @brief Creates a search dialog to search for a concept.
+    #  
+    #  @param self The object pointer
+    #  @param row A row value for the search dialog
+    #  @param column A column value for the search dialog
+    #  @return Return description 
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row,column,-1,self.conceptSearchEdit)
 
     ## 
     #  @brief Builds the search dialog for the concept search
     #  
-    #  @param [in] self The object pointer
-    #  @param [in] row The row for enrichment
-    #  @param [in] column The column for enrichment
-    #  @param [in] interlinkOrEnrich Indicates if enrichment or interlinking is calling this dialog
-    #  @param [in] table The UI element used for displaying results
+    #  @param self The object pointer
+    #  @param row The row for enrichment
+    #  @param column The column for enrichment
+    #  @param interlinkOrEnrich Indicates if enrichment or interlinking is calling this dialog
+    #  @param table The UI element used for displaying results
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table):
        self.currentcol=column
        self.currentrow=row
@@ -62,6 +77,11 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
        self.interlinkdialog.setWindowTitle("Search Property or Class")
        self.interlinkdialog.exec_()
 
+    ## 
+    #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
+    #  
+    #  @param [in] self The object pointer
+    #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self,concept="wd:Q3914",endpoint_url="https://query.wikidata.org/sparql",labellang="en",inarea="wd:Q183"):
         if self.conceptSearchEdit.text()=="":
             return
@@ -145,6 +165,13 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         #msgBox.setText(str("Finished"))
         #msgBox.exec()
 
+
+    ## 
+    #  @brief Returns a chosen concept to the calling dialog.
+    #  
+    #  @param [in] self The object pointer
+    #  @param [in] costumURI indicates whether a URI has been entered by the user or if a URI should be selected in the result list widget
+    #  @return A URI and possibly its label as a String
     def applyConceptToColumn(self,costumURI=False):
         fieldnames = [field.name() for field in self.layer.fields()]
         item=QTableWidgetItem(self.searchResult.currentItem().text()[0:self.searchResult.currentItem().text().rfind('(')-1])

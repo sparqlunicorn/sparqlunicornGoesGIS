@@ -11,6 +11,7 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'searchdialog.ui'))
 
+## Class representing a search dialog which may be used to search for concepts or properties.
 class SearchDialog(QDialog, FORM_CLASS):
 	
     currentrow=""
@@ -21,6 +22,24 @@ class SearchDialog(QDialog, FORM_CLASS):
 
     table=False
 
+    ## 
+    #  @brief Initializes the search dialog
+    #  
+    #  @param self The object pointer
+    #  @param column The column of the GUI widget which called this dialog, if any
+    #  @param row The row of the GUI widget which called this dialog, if any
+    #  @param triplestoreconf The triple store configuration of the plugin
+    #  @param prefixes A list of prefixes known to the plugin
+    #  @param interlinkOrEnrich indicates whether this dialog was called from an enrichment or interlinking dialog
+    #  @param table The GUI element ot return the result to
+    #  @param propOrClass indicates whether a class or a property can be searched
+    #  @param bothOptions indicates whether both a class or property may be searched
+    #  @param currentprefixes Description for currentprefixes
+    #  @param addVocab Description for addVocab
+    #  @return Return description
+    #  
+    #  @details More details
+    #  
     def __init__(self,column,row,triplestoreconf,prefixes,interlinkOrEnrich,table,propOrClass=False,bothOptions=False,currentprefixes=None,addVocab=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
@@ -70,7 +89,12 @@ class SearchDialog(QDialog, FORM_CLASS):
             color = '#f6989d' # red
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
-    """Returns classes for a given label from a triple store."""
+    ## 
+    #  @brief Returns classes for a given label from a triple store.
+    #  
+    #  @param self The object pointer
+    #  @param comboBox A comboBox indicating the triple store to be used.
+    #  @return A list returning concept candidates.
     def getClassesFromLabel(self,comboBox):
         viewlist=[]
         resultlist=[]
