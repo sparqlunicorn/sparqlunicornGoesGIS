@@ -27,7 +27,9 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.core import QgsProject
-from qgis.PyQt.QtWidgets import QComboBox
+from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtWidgets import QComboBox,QCompleter
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText
@@ -50,7 +52,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     columnvars={}
 	
-    def __init__(self,triplestoreconf={},prefixes=[],parent=None):
+    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
         # Set up the user interface from Designer through FORM_CLASS.
@@ -60,6 +62,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.prefixes=prefixes
+        self.addVocabConf=addVocabConf
         self.triplestoreconf=triplestoreconf
         self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
         self.layerconcepts.clear()
@@ -78,6 +81,23 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.label_8.hide()
         self.label_9.hide()
         self.enrichTableResult.hide()
+        self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
+        self.bboxButton.clicked.connect(self.getPointFromCanvas)
+        self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
+        self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
+        self.chooseLayerInterlink.clear()
+        self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+        urlvalidator = QRegExpValidator(urlregex, self)
+        self.interlinkNameSpace.setValidator(urlvalidator)
+        self.interlinkNameSpace.textChanged.connect(self.check_state3)
+        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
+        #self.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
+        self.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
+        #self.layerconcepts.currentIndexChanged.connect(self.loadAreas)
+        self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+        self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
 
     def buildCustomTripleStoreDialog(self):	
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.comboBox)	
@@ -95,7 +115,10 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Enrichment Search")	
         self.searchTripleStoreDialog.exec_()
-		
+
+    def check_state3(self):
+        self.searchTripleStoreDialog.check_state(self.interlinkNameSpace)
+
     def createEnrichSearchDialog(self,row=-1,column=-1):
         if column==1:
             self.buildSearchDialog(row,column,False,self.enrichTable,False,False,None,self.addVocabConf)
@@ -129,34 +152,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startEnrichment.clicked.connect(self.enrichLayerProcess)
 
 
-    ## Selects a SPARQL endpoint and changes its configuration accordingly.
-    #  @param self The object pointer.
-    def endpointselectaction(self):
-        endpointIndex = self.comboBox.currentIndex()
-        self.queryTemplates.clear()
-        print("changing endpoint")
-        conceptlist=[]
-        self.layerconcepts.clear()
-        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
-        elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
-            conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
-        for concept in conceptlist:
-            self.layerconcepts.addItem(concept)
-        comp=QCompleter(self.layerconcepts)
-        comp.setCompletionMode(QCompleter.PopupCompletion)
-        comp.setModel(self.layerconcepts.model())
-        self.layerconcepts.setCompleter(comp)
-        if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
-            conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
-            for concept in conceptlist2:
-                 self.areaconcepts.addItem(concept["concept"])
-        if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
-                 self.queryTemplates.addItem(concept["label"])
-        if "examplequery" in self.triplestoreconf[endpointIndex]:
-            self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
-            self.inp_sparql2.columnvars={}
+    
 
     def viewselectaction(self):
         endpointIndex = self.comboBox.currentIndex()

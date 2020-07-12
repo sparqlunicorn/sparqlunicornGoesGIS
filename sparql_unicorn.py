@@ -413,6 +413,35 @@ class SPAQLunicorn:
             return resultlist
         return viewlist
 
+    ## Selects a SPARQL endpoint and changes its configuration accordingly.
+    #  @param self The object pointer.
+    def endpointselectaction(self):
+        endpointIndex = self.dlg.comboBox.currentIndex()
+        self.dlg.queryTemplates.clear()
+        print("changing endpoint")
+        conceptlist=[]
+        self.dlg.layerconcepts.clear()
+        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
+            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
+        elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
+            conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
+        for concept in conceptlist:
+            self.dlg.layerconcepts.addItem(concept)
+        comp=QCompleter(self.dlg.layerconcepts)
+        comp.setCompletionMode(QCompleter.PopupCompletion)
+        comp.setModel(self.dlg.layerconcepts.model())
+        self.dlg.layerconcepts.setCompleter(comp)
+        if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
+            conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
+            for concept in conceptlist2:
+                 self.dlg.areaconcepts.addItem(concept["concept"])
+        if "querytemplate" in self.triplestoreconf[endpointIndex]:
+            for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
+                 self.dlg.queryTemplates.addItem(concept["label"])
+        if "examplequery" in self.triplestoreconf[endpointIndex]:
+            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
+            self.dlg.inp_sparql2.columnvars={}
+
     ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
     #  @param self The object pointer.
     #  @param classes array of classes to find labels for
@@ -1368,9 +1397,6 @@ class SPAQLunicorn:
         with open(os.path.join(__location__, 'triplestoreconf_personal.json'),'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf,indent=2))
 
-    def check_state3(self):
-        self.dlg.searchTripleStoreDialog.check_state(self.dlg.interlinkNameSpace)
-
     def run(self):
         """Run method that performs all the real work"""
         # Create the dialog with elements (after translation) and keep reference
@@ -1400,7 +1426,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf)
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
@@ -1414,36 +1440,20 @@ class SPAQLunicorn:
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
-            
+            self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             #self.dlg.exportTripleStore.hide()
             #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
-            self.dlg.comboBox.currentIndexChanged.connect(self.dlg.endpointselectaction)
-            self.dlg.queryTemplates.currentIndexChanged.connect(self.dlg.viewselectaction)
             self.dlg.loadedLayers.clear()
-            self.dlg.bboxButton.clicked.connect(self.dlg.getPointFromCanvas)
             self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
-            self.dlg.interlinkTable.cellClicked.connect(self.dlg.createInterlinkSearchDialog)
-            self.dlg.enrichTable.cellClicked.connect(self.dlg.createEnrichSearchDialog)
-            self.dlg.chooseLayerInterlink.clear()
-            self.dlg.searchClass.clicked.connect(self.dlg.createInterlinkSearchDialog)
-            urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-            urlvalidator = QRegExpValidator(urlregex, self.dlg)
-            self.dlg.interlinkNameSpace.setValidator(urlvalidator)
-            self.dlg.interlinkNameSpace.textChanged.connect(self.check_state3)
-            self.dlg.interlinkNameSpace.textChanged.emit(self.dlg.interlinkNameSpace.text())
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.addEnrichedLayerRowButton.clicked.connect(self.dlg.addEnrichRow)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
-            self.dlg.layerconcepts.currentIndexChanged.connect(self.dlg.viewselectaction)
             #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
-            self.dlg.whattoenrich.clicked.connect(self.dlg.createWhatToEnrich)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-            self.dlg.loadTripleStoreButton.clicked.connect(self.dlg.buildCustomTripleStoreDialog)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             self.dlg.importMappingButton.clicked.connect(self.loadMapping)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
