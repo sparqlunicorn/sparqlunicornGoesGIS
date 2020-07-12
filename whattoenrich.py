@@ -97,29 +97,30 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         attcounter=0
         count=0
         for att in attlist.keys():
-            if att.startswith("P") and count==50:
-                atts[attcounter]=atts[attcounter][:-1]
-                attcounter+=1
-                atts.append("")
-                count=0
-                atts[attcounter]+=att+"|"
-            elif att.startswith("P") and count<50:
+            #if att.startswith("P") and count==50:
+            #    atts[attcounter]=atts[attcounter][:-1]
+            #    attcounter+=1
+            #    atts.append("")
+            #    count=0
+            #    atts[attcounter]+=att+"|"
+            if att.startswith("P") and count<50:
                 atts[attcounter]+=att+"|"
                 count+=1
-        msgBox=QMessageBox()
-        msgBox.setText(str(atts))
-        msgBox.exec()        
+        #msgBox=QMessageBox()
+        #msgBox.setText(str(atts))
+        #msgBox.exec()  
+        atts[0]=atts[0][:-1]
+        i=0
         for att in atts:
             url="https://www.wikidata.org/w/api.php" #?action=wbgetentities&format=json&language=en&ids="+atts
-            i=0
             postdata["ids"]=att
-            msgBox=QMessageBox()
-            msgBox.setText(str(postdata))
-            msgBox.exec()
+            #msgBox=QMessageBox()
+            #msgBox.setText(str(postdata))
+            #msgBox.exec()
             myResponse = json.loads(requests.post(url,postdata).text)
-            msgBox=QMessageBox()
-            msgBox.setText(str(myResponse))
-            msgBox.exec()
+            #msgBox=QMessageBox()
+            #msgBox.setText(str(myResponse))
+            #msgBox.exec()
             for ent in myResponse["entities"]:
                 print(ent)
                 if "en" in myResponse["entities"][ent]["labels"]:
@@ -140,6 +141,9 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 item.setText(att[0]+" ("+str(att[1])+"%)")
                 item.setData(1,urilist[att[0]])
                 self.searchResult.addItem(item)
+        #msgBox=QMessageBox()
+        #msgBox.setText(str("Finished"))
+        #msgBox.exec()
 
     def applyConceptToColumn(self,costumURI=False):
         fieldnames = [field.name() for field in self.layer.fields()]
