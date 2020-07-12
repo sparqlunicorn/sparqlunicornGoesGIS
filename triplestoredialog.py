@@ -1,4 +1,4 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QPlainTextEdit,QComboBox,QCheckBox,QMessageBox
+from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QPlainTextEdit,QComboBox,QCheckBox,QMessageBox,QListWidgetItem
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
@@ -33,6 +33,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStorePrefixNameEdit.setValidator(prefixvalidator)
         self.addPrefixButton.clicked.connect(self.addPrefixToList)	
         self.removePrefixButton.clicked.connect(self.removePrefixFromList)	
+        self.testConnectButton.clicked.connect(self.testTripleStoreConnection)	
         #self.exampleQuery.textChanged.connect(self.validateSPARQL)	
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)	
         self.tripleStorePrefixEdit.setValidator(urlvalidator)
