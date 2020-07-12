@@ -1,110 +1,44 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QPlainTextEdit,QComboBox,QCheckBox,QMessageBox
 from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
 from .sparqlhighlighter import SPARQLHighlighter
 from SPARQLWrapper import SPARQLWrapper, JSON
+import os.path
 
-class TripleStoreDialog(QDialog):
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'triplestoredialog.ui'))
+
+class TripleStoreDialog(QDialog,FORM_CLASS):
 	
     triplestoreconf=""
 	
     def __init__(self,triplestoreconf,comboBox):
         super(QDialog, self).__init__()
+        self.setupUi(self)
         self.triplestoreconf=triplestoreconf
         self.comboBox=comboBox
-        self.tripleStoreChooserLabel = QLabel("Choose Triple Store:",self)	
-        self.tripleStoreChooserLabel.move(0,10)
-        self.tripleStoreChooser=QComboBox(self)
         for item in triplestoreconf:
             self.tripleStoreChooser.addItem(item["name"])
-        self.tripleStoreChooser.move(150,10)
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)    
-        self.addTripleStoreButton = QPushButton("Add new Triple Store",self)	
-        self.addTripleStoreButton.move(350,10)	
         self.addTripleStoreButton.clicked.connect(self.addNewSPARQLEndpoint)	
-        self.tripleStoreLabel = QLabel("Triple Store URL:",self)	
-        self.tripleStoreLabel.move(0,40)	
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
-        self.tripleStoreEdit = QLineEdit(self)	
-        self.tripleStoreEdit.move(150,40)	
-        self.tripleStoreEdit.setMinimumSize(350, 20)	
-        self.tripleStoreEdit.setText("https://query.wikidata.org/sparql")
         self.tripleStoreEdit.setValidator(urlvalidator)
         self.tripleStoreEdit.textChanged.connect(self.check_state1)
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
-        self.testConnectButton = QPushButton("Test Connection",self)	
-        self.testConnectButton.move(510,40)	
-        self.testConnectButton.clicked.connect(self.testTripleStoreConnection)	
-        self.tripleStoreNameLabel = QLabel("Triple Store Name:",self)	
-        self.tripleStoreNameLabel.move(0,70)	
-        self.tripleStoreNameEdit = QLineEdit(self)	
-        self.tripleStoreNameEdit.move(150,70)	
-        self.tripleStoreNameEdit.setMinimumSize(350, 20)	
-        self.tripleStoreNameEdit.setText("My cool triplestore!")	
-        self.queryVarLabel = QLabel("Geometry Variable:",self)	
-        self.queryVarLabel.move(10,105)	
-        self.queryVarEdit = QLineEdit(self)	
-        self.queryVarEdit.move(150,100)	
-        self.queryVarEdit.setText("geo")	
-        self.queryVarEdit.setMinimumSize(100, 20)	
-        self.queryVarItemLabel = QLabel("Item Variable:",self)	
-        self.queryVarItemLabel.move(305,105)	
-        self.queryVarItemEdit = QLineEdit(self)	
-        self.queryVarItemEdit.move(400,100)	
-        self.queryVarItemEdit.setText("item")	
-        self.queryVarItemEdit.setMinimumSize(100, 20)	
-        self.epsgLabel = QLabel("EPSG Code:",self)	
-        self.epsgLabel.move(10,125)	
-        self.epsgEdit = QLineEdit(self)	
-        self.epsgEdit.move(150,125)	
-        self.epsgEdit.setText("4326")
-        self.epsgEdit.setValidator(QIntValidator(1, 100000))
-        self.epsgEdit.setMinimumSize(100, 20)
-        self.activeTripleStore = QLabel("Active:",self)	
-        self.activeTripleStore.move(310,125)	
-        self.activeCheckBox = QCheckBox(self)	
-        self.activeCheckBox.move(360,125)	
+        self.epsgEdit.setValidator(QIntValidator(1, 100000))	
         prefixregex = QRegExp("[a-z]+")
         prefixvalidator = QRegExpValidator(prefixregex, self)
-        self.tripleStorePrefixNameEdit = QLineEdit(self)	
-        self.tripleStorePrefixNameEdit.move(150,150)	
-        self.tripleStorePrefixNameEdit.setText("wd")	
-        self.tripleStorePrefixNameEdit.setMinimumSize(100, 20)	
         self.tripleStorePrefixNameEdit.setValidator(prefixvalidator)
-        self.tripleStorePrefixName = QLabel("Prefix:",self)	
-        self.tripleStorePrefixName.move(10,150)	
-        self.addPrefixButton = QPushButton("Add Prefix",self)	
-        self.addPrefixButton.move(560,150)	
         self.addPrefixButton.clicked.connect(self.addPrefixToList)	
-        self.removePrefixButton = QPushButton("Remove Selected Prefix",self)	
-        self.removePrefixButton.move(100,180)
         self.removePrefixButton.clicked.connect(self.removePrefixFromList)	
-        prefixListLabel = QLabel("Prefixes:",self)	
-        prefixListLabel.move(20,185)	
-        self.prefixList=QListWidget(self)	
-        self.prefixList.move(20,210)	
-        self.prefixList.setMinimumSize(300,200)	
-        self.exampleQueryLabel = QLabel("Example Query (optional): ",self)	
-        self.exampleQueryLabel.move(330,185)	
-        self.exampleQuery=QPlainTextEdit(self)	
-        self.exampleQuery.move(330,210)	
-        self.exampleQuery.setMinimumSize(300,200)	
         #self.exampleQuery.textChanged.connect(self.validateSPARQL)	
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)	
-        #self.queryChooser=QComboBox(self)
-        self.tripleStorePrefixEdit = QLineEdit(self)	
-        self.tripleStorePrefixEdit.move(310,150)	
-        self.tripleStorePrefixEdit.setText("http://www.wikidata.org/entity/")	
         self.tripleStorePrefixEdit.setValidator(urlvalidator)
         self.tripleStorePrefixEdit.textChanged.connect(self.check_state2)
         self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
-        self.tripleStorePrefixEdit.setMinimumSize(250, 20)
-        self.tripleStoreApplyButton = QPushButton("Apply",self)	
-        self.tripleStoreApplyButton.move(10,460)	
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
-        self.tripleStoreCloseButton = QPushButton("Close",self)	
-        self.tripleStoreCloseButton.move(100,460)	
         self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)	
         #tripleStoreApplyButton = QPushButton("Reset Configuration",self)	
         #tripleStoreApplyButton.move(330,560)	
@@ -129,6 +63,13 @@ class TripleStoreDialog(QDialog):
     def closeTripleStoreDialog(self):
         self.close()
 
+    ## 
+    #  @brief Tests the connection for a given triple store.
+    #  
+    #  @param [in] self The object pointer
+    #  @param [in] calledfromotherfunction Indicates if the method is called from a super fu
+    #  @return Return true if the connection was successful, false otherwise
+    #  
     def testTripleStoreConnection(self,calledfromotherfunction=False):	
         sparql = SPARQLWrapper(self.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
         sparql.setQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1")	
@@ -146,22 +87,33 @@ class TripleStoreDialog(QDialog):
             msgBox.setText("URL does not depict a valid SPARQL Endpoint!")	
             msgBox.exec()	
             return False	
-
+    ## 
+    #  @brief Addes a new SPARQL endpoint to the triple store registry
+    #  
+    #  @param [in] self The object pointer
     def addNewSPARQLEndpoint(self):
         self.addTripleStore=True
         self.applyCustomSPARQLEndPoint()
 
-
+    ## 
+    #  @brief Adds a prefix to the list of prefixes in the search dialog window.
+    #  
+    #  @param [in] self The object pointer
     def addPrefixToList(self):	
         item=QListWidgetItem()	
         item.setData(0,"PREFIX "+self.tripleStorePrefixNameEdit.text()+":<"+self.tripleStorePrefixEdit.text()+">")	
         item.setText("PREFIX "+self.tripleStorePrefixNameEdit.text()+":<"+self.tripleStorePrefixEdit.text()+">")	
         self.prefixList.addItem(item)	
 
+    ## 
+    #  @brief Removes a prefix from the list of prefixes in the search dialog window.
+    #  
+    #  @param [in] self The object pointer
     def removePrefixFromList(self):	
         item=QListWidgetItem()	
         for item in self.prefixList.selectedItems():
             self.prefixList.removeItemWidget(item)
+
 
     def applyCustomSPARQLEndPoint(self):	
         if not self.testTripleStoreConnection(True):	

@@ -2,12 +2,18 @@
 from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton
 from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
 from qgis.gui import QgsMapCanvas
+from qgis.PyQt import uic
 from .rectanglemaptool import RectangleMapTool
+import os.path
 
-class BBOXDialog(QDialog):
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'bboxdialog.ui'))
+
+class BBOXDialog(QDialog,FORM_CLASS):
 	
     def __init__(self,inp_sparql,triplestoreconf,endpointIndex):
         super(QDialog, self).__init__()
+        self.setupUi(self)
         self.inp_sparql=inp_sparql
         self.triplestoreconf=triplestoreconf
         self.endpointIndex=endpointIndex
@@ -24,19 +30,19 @@ class BBOXDialog(QDialog):
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        chooseLayerLabel=QLabel("Choose Layer Extent:",self)
-        chooseLayerLabel.move(0,480)	
-        self.chooseBBOXLayer=QComboBox(self)	
-        self.chooseBBOXLayer.move(150,475)	
-        b2 = QPushButton("Apply Layer Extent",self)	
-        b2.move(10,500)	
-        b2.clicked.connect(self.setBBOXExtentQuery)	
+        #chooseLayerLabel=QLabel("Choose Layer Extent:",self)
+        #chooseLayerLabel.move(0,480)	
+        #self.chooseBBOXLayer=QComboBox(self)	
+        #self.chooseBBOXLayer.move(150,475)	
+        #b2 = QPushButton("Apply Layer Extent",self)	
+        #b2.move(10,500)	
+        self.b2.clicked.connect(self.setBBOXExtentQuery)	
         layers = QgsProject.instance().layerTreeRoot().children()	
         for layer in layers:	
             self.chooseBBOXLayer.addItem(layer.name())  	
-        b1 = QPushButton("Apply BBOX",self)
-        b1.move(400,500)
-        b1.clicked.connect(self.setBBOXInQuery)
+        #b1 = QPushButton("Apply BBOX",self)
+        #b1.move(400,500)
+        self.b1.clicked.connect(self.setBBOXInQuery)
 		
     def setBBOXExtentQuery(self):	
         self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	

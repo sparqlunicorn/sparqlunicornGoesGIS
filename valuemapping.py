@@ -1,13 +1,18 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QTableWidget,QPlainTextEdit
 from qgis.core import QgsProject
+from qgis.PyQt import uic
 from .searchdialog import SearchDialog
 from .sparqlhighlighter import SPARQLHighlighter
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
 import requests
+import os.path
 
-class ValueMappingDialog(QDialog):
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'valuemapping.ui'))
+
+class ValueMappingDialog(QDialog,FORM_CLASS):
 	
     currentrow=""
 	
@@ -25,6 +30,7 @@ class ValueMappingDialog(QDialog):
 
     def __init__(self,column,row,triplestoreconf,interlinkOrEnrich,table,fieldname,layer,valuemap):
         super(QDialog, self).__init__()
+        self.setupUi(self)
         self.currentcol=column
         self.currentrow=row
         self.table=table
@@ -37,25 +43,15 @@ class ValueMappingDialog(QDialog):
             msgBox=QMessageBox()
             msgBox.setText(str(self.valuemap))
             msgBox.exec()
-        self.queryedit=QPlainTextEdit(self)
         self.queryedit.zoomIn(4)
         self.queryhighlight=SPARQLHighlighter(self.queryedit)
-        self.queryedit.move(320,100)
-        self.queryedit.setMinimumSize(310,300)
         if self.table.item(row,column)!=None and self.table.item(row,column).data(2)!=None and self.table.item(row,column).data(2)!="ValueMap{}":
             self.queryedit.setPlainText(self.table.item(row,column).data(2))
         else:
             self.queryedit.setPlainText("SELECT ?item\n WHERE {\n ?item ?rel %%"+fieldname+"%% . \n}")
-        self.tripleStoreEdit = QComboBox(self)
-        self.tripleStoreEdit.move(320,400)
-        self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
-        self.valmaptable=QTableWidget(self)
-        self.valmaptable.move(10,100)
-        self.valmaptable.setMinimumSize(300, 300)
-        self.valmaptable.setEnabled(False)
         while self.valmaptable.rowCount() > 0:
             self.valmaptable.removeRow(0);
         row=0
@@ -69,40 +65,15 @@ class ValueMappingDialog(QDialog):
                 item2=QTableWidgetItem(self.valuemap[key])
                 self.valmaptable.setItem(row,0,item)
                 self.valmaptable.setItem(row,1,item2)
-        cboxlabel=QLabel("Select Value To Map",self)
-        cboxlabel.move(10,10)
-        self.cbox=QComboBox(self)
-        self.cbox.move(140,10)
-        self.cbox.setEnabled(False)
         toaddset={"All"}
         for f in layer.getFeatures():
             toaddset.add(f.attribute(fieldname))
         for item in toaddset:
             self.cbox.addItem(str(item))
-        cboxlabel=QLabel("Map To:",self)
-        cboxlabel.move(10,40)
-        self.foundClass=QLineEdit(self)
-        self.foundClass.move(140,40)
-        self.foundClass.resize(400, self.foundClass.height())
-        self.foundClass.setEnabled(False)
-        findMappingButton=QPushButton("Find Mapping",self)
-        findMappingButton.move(10,70)
-        findMappingButton.setEnabled(False)
-        findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
-        findMappingButton.setEnabled(False)
-        addMappingButton=QPushButton("Add Mapping",self)
-        addMappingButton.move(110,70)
-        addMappingButton.setEnabled(False)
-        addMappingButton.clicked.connect(self.addMappingToTable)
-        deleteRowButton=QPushButton("Delete Selected Table Row",self)
-        deleteRowButton.move(100,400)
-        deleteRowButton.setEnabled(False)
-        deleteRowButton.clicked.connect(self.deleteSelectedRow)
-        sparqlLabel=QLabel("Mapping by SPARQL Query:\nColumn names may be used as variables in %%",self)
-        sparqlLabel.move(320,70)
-        applyButton=QPushButton("Apply",self)
-        applyButton.move(10,400)    
-        applyButton.clicked.connect(self.applyMapping)
+        self.findMappingButton.clicked.connect(self.createValueMappingSearchDialog)
+        self.addMappingButton.clicked.connect(self.addMappingToTable)
+        self.deleteRowButton.clicked.connect(self.deleteSelectedRow) 
+        self.applyButton.clicked.connect(self.applyMapping)
       
     def addMappingToTable(self):
         if self.foundClass.text()!="":

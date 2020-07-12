@@ -49,14 +49,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 from .resources import *
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
-from .sparqlhighlighter import SPARQLHighlighter
-from .tooltipplaintext import ToolTipPlainText
-from .triplestoredialog import TripleStoreDialog
-from .searchdialog import SearchDialog
-from .varinput import VarInputDialog
-from .whattoenrich import EnrichmentDialog
-from .valuemapping import ValueMappingDialog
-from .bboxdialog import BBOXDialog
 from .uploadrdfdialog import UploadRDFDialog
 
 import re
@@ -140,30 +132,7 @@ class SPAQLunicorn:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
 
-    ## Validates the SPARQL query in the input field and outputs errors in a label.
-    #  @param self The object pointer.
-    def validateSPARQL(self):
-        try:
-            prepareQuery("".join(self.prefixes[self.dlg.comboBox.currentIndex()])+"\n"+self.dlg.inp_sparql2.toPlainText())
-            self.dlg.errorLabel.setText("Valid Query")
-            self.errorline=-1
-            self.sparqlhighlight.errorhighlightline=self.errorline
-            self.sparqlhighlight.currentline=0
-        except Exception as e:
-            self.dlg.errorLabel.setText(str(e))
-            if "line" in str(e):
-                ex=str(e)
-                start = ex.find('line:') + 5
-                end = ex.find(',', start)
-                start2 = ex.find('col:') + 4
-                end2 = ex.find(')', start2)
-                self.errorline=ex[start:end]
-                self.sparqlhighlight.errorhighlightcol=ex[start2:end2]
-                self.sparqlhighlight.errorhighlightline=self.errorline
-                self.sparqlhighlight.currentline=0
-                #msgBox=QMessageBox()
-                #msgBox.setText(str(self.errorline)+" "+str(self.sparqlhighlight.errorhighlightline)+" "+str(self.sparqlhighlight.errorhighlightcol))
-                #msgBox.exec()
+
 
     def add_action(
         self,
@@ -521,53 +490,7 @@ class SPAQLunicorn:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
 
-    def createEnrichSearchDialog(self,row=-1,column=-1):
-        if column==1:
-            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False,False,None,self.addVocabConf)
-        if column==6:
-            self.buildSearchDialog(row,column,False,self.dlg.enrichTable,False,False,None,self.addVocabConf)
 
-    def createEnrichSearchDialogProp(self,row=-1,column=-1):
-        self.buildSearchDialog(row,column,False,self.dlg.findIDPropertyEdit,True,False,None,self.addVocabConf)
-
-    def createInterlinkSearchDialog(self, row=-1, column=-1):
-        if column>3 and column<7:
-            self.buildSearchDialog(row,column,True,self.dlg.interlinkTable,True,False,None,self.addVocabConf)
-        elif column>=7:
-            layers = QgsProject.instance().layerTreeRoot().children()
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-            layer = layers[selectedLayerIndex].layer()
-            self.buildValueMappingDialog(row,column,True,self.dlg.interlinkTable,layer)
-        elif column==-1:
-            self.buildSearchDialog(row,column,-1,self.dlg.interlinkOwlClassInput,False,False,None,self.addVocabConf)
-
-
-    def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions=False,currentprefixes=None,addVocabConf=None):
-        self.dlg.currentcol=column
-        self.dlg.currentrow=row
-        self.dlg.interlinkdialog = SearchDialog(column,row,self.triplestoreconf,self.prefixes,interlinkOrEnrich,table,propOrClass,bothOptions,currentprefixes,addVocabConf)
-        self.dlg.interlinkdialog.setMinimumSize(650, 400)
-        self.dlg.interlinkdialog.setWindowTitle("Search Interlink Concept")
-        self.dlg.interlinkdialog.exec_()
-        
-    def buildValueMappingDialog(self,row,column,interlinkOrEnrich,table,layer):
-        self.dlg.currentcol=column
-        self.dlg.currentrow=row
-        valuemap=None
-        if table.item(row, column)!=None and table.item(row, column).text()!="":
-           valuemap=table.item(row, column).data(1)
-        self.dlg.interlinkdialog =ValueMappingDialog(column,row,self.triplestoreconf,interlinkOrEnrich,table,table.item(row, 3).text(),layer,valuemap)
-        self.dlg.interlinkdialog.setMinimumSize(650, 400)
-        self.dlg.interlinkdialog.setWindowTitle("Get Value Mappings for column "+table.item(row, 3).text())
-        self.dlg.interlinkdialog.exec_()
-
-    def addnewEnrichRow(self):
-        currentRowCount = self.dlg.enrichTable.rowCount() 
-        self.dlg.enrichTable.insertRow(currentRowCount)
-        
-    def moveRow(self,upOrDown):
-        if self.dlg.enrichTable.selectionModel().hasSelected():
-            currentRowCount = self.dlg.enrichTable.selectedRows() 
 
     def loadLayerForEnrichment(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -619,7 +542,7 @@ class SPAQLunicorn:
             celllayout= QHBoxLayout()
             upbutton=QPushButton("Up")
             removebutton=QPushButton("Remove",self.dlg)
-            removebutton.clicked.connect(self.deleteEnrichRow)
+            removebutton.clicked.connect(self.dlg.deleteEnrichRow)
             downbutton=QPushButton("Down")
             celllayout.addWidget(upbutton)
             celllayout.addWidget(downbutton)
@@ -631,48 +554,9 @@ class SPAQLunicorn:
             #self.dlg.enrichTable.setItem(row,3,cbox)
             row+=1
         self.originalRowCount=row
-
-    def deleteEnrichRow(send):
-        w = send.sender().parent()
-        row = self.dlg.enrichTable.indexAt(w.pos()).row()
-        self.dlg.enrichTable.removeRow(row);
-        self.dlg.enrichTable.setCurrentCell(0, 0)
 		
     def useDefaultIDPropProcess(self):
-        self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
-        
-    def addEnrichRow(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        self.dlg.enrichTableResult.hide()
-        fieldnames = [field.name() for field in layer.fields()]
-        item=QTableWidgetItem("new_column")
-        #item.setFlags(QtCore.Qt.ItemIsEnabled)
-        row = self.dlg.enrichTable.rowCount() 
-        self.dlg.enrichTable.insertRow(row)
-        self.dlg.enrichTable.setItem(row,0,item)
-        cbox=QComboBox()
-        cbox.addItem("Get Remote")
-        cbox.addItem("No Enrichment")
-        cbox.addItem("Exclude")
-        self.dlg.enrichTable.setCellWidget(row,3,cbox)
-        cbox=QComboBox()	
-        cbox.addItem("Enrich Value")	
-        cbox.addItem("Enrich URI")	
-        cbox.addItem("Enrich Both")	
-        self.dlg.enrichTable.setCellWidget(row,4,cbox)
-        cbox=QComboBox()
-        for fieldd in fieldnames:
-            cbox.addItem(fieldd)	
-        self.dlg.enrichTable.setCellWidget(row,5,cbox)
-        itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-        self.dlg.enrichTable.setItem(row,6,itemm) 
-        itemm=QTableWidgetItem("")
-        self.dlg.enrichTable.setItem(row,7,itemm)
-        itemm=QTableWidgetItem("")
-        self.dlg.enrichTable.setItem(row,8,itemm)
-        
+        self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
 
     def enrichLayerProcess(self):
         layers = QgsProject.instance().layerTreeRoot().children()
@@ -836,16 +720,11 @@ class SPAQLunicorn:
         self.dlg.enrichTableResult.show()
         self.dlg.startEnrichment.setText("Enrichment Configuration")
         self.dlg.startEnrichment.clicked.disconnect()
-        self.dlg.startEnrichment.clicked.connect(self.showConfigTable)
+        self.dlg.startEnrichment.clicked.connect(self.dlg.showConfigTable)
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
     
-    def showConfigTable(self):
-        self.dlg.enrichTableResult.hide()
-        self.dlg.enrichTable.show()
-        self.dlg.startEnrichment.setText("Start Enrichment")
-        self.dlg.startEnrichment.clicked.disconnect()
-        self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
+
 
     def addEnrichedLayer(self):
         self.enrichLayerCounter+=1
@@ -1472,41 +1351,6 @@ class SPAQLunicorn:
             self.dlg.chooseLayerInterlink.addItem(layer.name())
             self.dlg.chooseLayerEnrich.addItem(layer.name())       
 
-    ## Selects a SPARQL endpoint and changes its configuration accordingly.
-    #  @param self The object pointer.
-    def endpointselectaction(self):
-        endpointIndex = self.dlg.comboBox.currentIndex()
-        self.dlg.queryTemplates.clear()
-        print("changing endpoint")
-        conceptlist=[]
-        self.dlg.layerconcepts.clear()
-        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
-        elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
-            conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
-        for concept in conceptlist:
-            self.dlg.layerconcepts.addItem(concept)
-        comp=QCompleter(self.dlg.layerconcepts)
-        comp.setCompletionMode(QCompleter.PopupCompletion)
-        comp.setModel(self.dlg.layerconcepts.model())
-        self.dlg.layerconcepts.setCompleter(comp)
-        if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
-            conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
-            for concept in conceptlist2:
-                 self.dlg.areaconcepts.addItem(concept["concept"])
-        if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
-                 self.dlg.queryTemplates.addItem(concept["label"])
-        if "examplequery" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
-            self.dlg.inp_sparql2.columnvars={}
-
-
-    def getPointFromCanvas(self):
-        self.d=BBOXDialog(self.dlg.inp_sparql2,self.triplestoreconf,self.dlg.comboBox.currentIndex())
-        self.d.setWindowTitle("Choose BoundingBox")
-        self.d.exec_()
-
     ## Saves a personal copy of the triplestore configuration file to disk.
     #  @param self The object pointer.
     def saveTripleStoreConfig(self):
@@ -1524,45 +1368,8 @@ class SPAQLunicorn:
         with open(os.path.join(__location__, 'triplestoreconf_personal.json'),'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf,indent=2))
 
-    def viewselectaction(self):
-        endpointIndex = self.dlg.comboBox.currentIndex()
-        if endpointIndex==0:
-            self.justloadingfromfile=False
-            return
-        if self.dlg.layerconcepts.currentText()!=None and "(Q" in self.dlg.layerconcepts.currentText():
-            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText().split("(")[0].lower().replace(" ","_"))
-            concept=self.dlg.layerconcepts.currentText().split("Q")[1].replace(")","")
-        else:
-            concept=self.dlg.layerconcepts.currentText()
-        if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.dlg.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
-            self.dlg.inp_sparql2.columnvars={}
-            if "wd:Q ." in self.dlg.inp_sparql2.toPlainText():
-                self.dlg.inp_sparql2.setPlainText(self.dlg.inp_sparql2.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
-        if "#" in self.dlg.layerconcepts.currentText():
-            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-        else:
-            self.dlg.inp_label.setText(self.dlg.layerconcepts.currentText()[self.dlg.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
-
     def check_state3(self):
         self.dlg.searchTripleStoreDialog.check_state(self.dlg.interlinkNameSpace)
-		
-    def buildCustomTripleStoreDialog(self):	
-        self.dlg.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)	
-        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
-        self.dlg.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
-        self.dlg.searchTripleStoreDialog.exec_()
-        
-    def createWhatToEnrich(self):
-        if self.dlg.enrichTable.rowCount()==0:
-            return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        self.dlg.searchTripleStoreDialog = EnrichmentDialog(self.triplestoreconf,self.prefixes,self.dlg.enrichTable,layer,None,None)	
-        self.dlg.searchTripleStoreDialog.setMinimumSize(700, 500)
-        self.dlg.searchTripleStoreDialog.setWindowTitle("Enrichment Search")	
-        self.dlg.searchTripleStoreDialog.exec_()
 
     def run(self):
         """Run method that performs all the real work"""
@@ -1593,16 +1400,8 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog()
-            self.dlg.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.dlg.comboBox)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes)
             self.dlg.inp_sparql.hide()
-            self.dlg.inp_sparql2=ToolTipPlainText(self.dlg.tab,self.triplestoreconf,self.dlg.comboBox,self.columnvars,self.prefixes)
-            self.dlg.inp_sparql2.move(10,130)
-            self.dlg.inp_sparql2.setMinimumSize(1071,401)
-            self.dlg.inp_sparql2.document().defaultFont().setPointSize(16)
-            self.dlg.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-            self.dlg.inp_sparql2.columnvars={}
-            self.sparqlhighlight = SPARQLHighlighter(self.dlg.inp_sparql2)
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
@@ -1614,45 +1413,37 @@ class SPAQLunicorn:
                         item+=" required!"
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
-            self.viewselectaction()
-            self.dlg.areaconcepts.hide()
-            self.dlg.areas.hide()
-            self.dlg.label_8.hide()
-            self.dlg.label_9.hide()
-            self.dlg.exportTripleStore.hide()
-            self.dlg.exportTripleStore_2.hide()
+            self.dlg.viewselectaction()
+            
+            #self.dlg.exportTripleStore.hide()
+            #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
            #self.dlg.tabWidget.removeTab(1)
-            self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-            self.dlg.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
+            self.dlg.comboBox.currentIndexChanged.connect(self.dlg.endpointselectaction)
+            self.dlg.queryTemplates.currentIndexChanged.connect(self.dlg.viewselectaction)
             self.dlg.loadedLayers.clear()
-            self.dlg.inp_sparql2.textChanged.connect(self.validateSPARQL)
-            self.dlg.bboxButton.clicked.connect(self.getPointFromCanvas)
+            self.dlg.bboxButton.clicked.connect(self.dlg.getPointFromCanvas)
             self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
-            self.dlg.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-            self.dlg.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
+            self.dlg.interlinkTable.cellClicked.connect(self.dlg.createInterlinkSearchDialog)
+            self.dlg.enrichTable.cellClicked.connect(self.dlg.createEnrichSearchDialog)
             self.dlg.chooseLayerInterlink.clear()
-            self.dlg.layerconcepts.clear()
-            self.dlg.layerconcepts.setEditable(True)
-            self.dlg.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
-            self.dlg.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+            self.dlg.searchClass.clicked.connect(self.dlg.createInterlinkSearchDialog)
             urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
             urlvalidator = QRegExpValidator(urlregex, self.dlg)
             self.dlg.interlinkNameSpace.setValidator(urlvalidator)
             self.dlg.interlinkNameSpace.textChanged.connect(self.check_state3)
             self.dlg.interlinkNameSpace.textChanged.emit(self.dlg.interlinkNameSpace.text())
             #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
+            self.dlg.addEnrichedLayerRowButton.clicked.connect(self.dlg.addEnrichRow)
             self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
-            self.dlg.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
+            self.dlg.layerconcepts.currentIndexChanged.connect(self.dlg.viewselectaction)
             #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
-            self.dlg.whattoenrich.clicked.connect(self.createWhatToEnrich)
+            self.dlg.whattoenrich.clicked.connect(self.dlg.createWhatToEnrich)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
             self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-            self.dlg.enrichTableResult.hide()
-            self.dlg.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+            self.dlg.loadTripleStoreButton.clicked.connect(self.dlg.buildCustomTripleStoreDialog)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             self.dlg.importMappingButton.clicked.connect(self.loadMapping)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
