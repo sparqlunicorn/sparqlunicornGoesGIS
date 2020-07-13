@@ -6,7 +6,7 @@ from qgis.core import QgsProject,QgsApplication,QgsMessageLog
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
 from SPARQLWrapper import SPARQLWrapper, JSON
 from .searchdialog import SearchDialog
-from .enrichmentquerytask import EnrichmentQueryTask
+from .whattoenrichquerytask import WhatToEnrichQueryTask
 import json
 import requests
 import os.path
@@ -88,7 +88,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         if self.conceptSearchEdit.text()=="":
             return
         concept="<"+self.conceptSearchEdit.text()+">"
-        self.qtask=EnrichmentQueryTask("getAttributeStatistics",
+        self.qtask=EnrichmentQueryTask("Get Property Enrichment Candidates ("+self.conceptSearchEdit.text()+")",
                              endpoint_url,
         self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%","?area"),
         self.conceptSearchEdit.text(),

@@ -2,10 +2,12 @@ from time import sleep
 from rdflib import *
 import json
 import requests
+from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
+from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
     )
@@ -15,19 +17,15 @@ MESSAGE_CATEGORY = 'RandomIntegerSumTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl,query,searchTerm,prefixes,searchResult):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,allownongeo,filename):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
+        self.triplestoreconf=triplestoreconf
         self.query=query
-        self.prefixes=prefixes
-        self.labels=None
-        self.urilist=None
+        self.allownongeo=allownongeo
+        self.filename=filename
         self.geojson=None
-        self.sortedatt=None
-        self.searchTerm=searchTerm
-        self.searchResult=searchResult
-        self.results=None
 
     def run(self):
         """Here you implement your heavy lifting.
@@ -40,16 +38,16 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
                                      self.description()),
                                  MESSAGE_CATEGORY, Qgis.Info)
-               sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery("".join(self.prefixes[endpointIndex]) + query)
+        sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        sparql.setQuery(self.query)
         sparql.setMethod(POST)
         sparql.setReturnFormat(JSON)
         try:
             results = sparql.query().convert()
         except Exception as e: 
             try:
-                sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery("".join(self.prefixes[endpointIndex]) + query)
+                sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                sparql.setQuery(self.query)
                 sparql.setMethod(GET)
                 sparql.setReturnFormat(JSON)
                 results = sparql.query().convert()
@@ -58,7 +56,7 @@ class QueryLayerTask(QgsTask):
                 return            
         #print(results)
         # geojson stuff
-        self.geojson=self.processResults(results,(self.triplestoreconf[endpointIndex]["crs"] if "crs" in self.triplestoreconf[endpointIndex] else ""),self.triplestoreconf[endpointIndex]["mandatoryvariables"][1:],self.dlg.allownongeo.isChecked())
+        self.geojson=self.processResults(results,(self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),self.triplestoreconf["mandatoryvariables"][1:],self.allownongeo)
         return True
 
     ## Processes query results and reformats them to a QGIS layer.
@@ -187,7 +185,7 @@ class QueryLayerTask(QgsTask):
             msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
-        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
+        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True, indent=4),"unicorn_"+self.filename,"ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)
         canvas = iface.mapCanvas()
