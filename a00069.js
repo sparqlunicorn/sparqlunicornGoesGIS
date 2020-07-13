@@ -1,4 +1,4 @@
 var a00069 =
 [
-    [ "SPAQLunicornDialog", "a00106.html", "a00106" ]
+    [ "RectangleMapTool", "a00102.html", "a00102" ]
 ];

@@ -1,4 +1,4 @@
 var a00063 =
 [
-    [ "ValueMappingDialog", "a00106.html", "a00106" ]
+    [ "BBOXDialog", "a00086.html", "a00086" ]
 ];

@@ -1,4 +1,4 @@
 var a00071 =
 [
-    [ "ToolTipPlainText", "a00114.html", "a00114" ]
+    [ "SearchDialog", "a00106.html", "a00106" ]
 ];

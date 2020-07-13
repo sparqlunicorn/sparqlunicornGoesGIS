@@ -1,4 +1,4 @@
 var a00077 =
 [
-    [ "WhatToEnrichQueryTask", "a00138.html", "a00138" ]
+    [ "UploadRDFDialog", "a00130.html", "a00130" ]
 ];

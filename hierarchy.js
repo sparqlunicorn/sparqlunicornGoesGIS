@@ -1,40 +1,41 @@
 var hierarchy =
 [
-    [ "FORM_CLASS", "a00502.html", [
-      [ "BBOXDialog", "a00082.html", null ],
-      [ "SearchDialog", "a00098.html", null ],
-      [ "SPAQLunicornDialog", "a00106.html", null ],
-      [ "TripleStoreDialog", "a00118.html", null ],
-      [ "UploadRDFDialog", "a00122.html", null ],
-      [ "ValueMappingDialog", "a00126.html", null ],
-      [ "VarInputDialog", "a00130.html", null ],
-      [ "EnrichmentDialog", "a00134.html", null ]
+    [ "FORM_CLASS", "a00510.html", [
+      [ "BBOXDialog", "a00086.html", null ],
+      [ "SearchDialog", "a00106.html", null ],
+      [ "SPAQLunicornDialog", "a00114.html", null ],
+      [ "TripleStoreDialog", "a00126.html", null ],
+      [ "UploadRDFDialog", "a00130.html", null ],
+      [ "ValueMappingDialog", "a00134.html", null ],
+      [ "VarInputDialog", "a00138.html", null ],
+      [ "EnrichmentDialog", "a00142.html", null ]
     ] ],
     [ "QDialog", null, [
-      [ "SPAQLunicornDialog", "a00106.html", null ]
+      [ "SPAQLunicornDialog", "a00114.html", null ]
     ] ],
-    [ "SPAQLunicorn", "a00102.html", null ],
+    [ "SPAQLunicorn", "a00110.html", null ],
     [ "QDialog", null, [
-      [ "BBOXDialog", "a00082.html", null ],
-      [ "SearchDialog", "a00098.html", null ],
-      [ "TripleStoreDialog", "a00118.html", null ],
-      [ "UploadRDFDialog", "a00122.html", null ],
-      [ "ValueMappingDialog", "a00126.html", null ],
-      [ "VarInputDialog", "a00130.html", null ],
-      [ "EnrichmentDialog", "a00134.html", null ]
+      [ "BBOXDialog", "a00086.html", null ],
+      [ "SearchDialog", "a00106.html", null ],
+      [ "TripleStoreDialog", "a00126.html", null ],
+      [ "UploadRDFDialog", "a00130.html", null ],
+      [ "ValueMappingDialog", "a00134.html", null ],
+      [ "VarInputDialog", "a00138.html", null ],
+      [ "EnrichmentDialog", "a00142.html", null ]
     ] ],
     [ "QgsMapToolEmitPoint", null, [
-      [ "RectangleMapTool", "a00094.html", null ]
+      [ "RectangleMapTool", "a00102.html", null ]
     ] ],
     [ "QgsTask", null, [
-      [ "EnrichmentQueryTask", "a00086.html", null ],
-      [ "QueryLayerTask", "a00090.html", null ],
-      [ "WhatToEnrichQueryTask", "a00138.html", null ]
+      [ "EnrichmentQueryTask", "a00090.html", null ],
+      [ "GeoConceptsQueryTask", "a00094.html", null ],
+      [ "QueryLayerTask", "a00098.html", null ],
+      [ "WhatToEnrichQueryTask", "a00146.html", null ]
     ] ],
     [ "QPlainTextEdit", null, [
-      [ "ToolTipPlainText", "a00114.html", null ]
+      [ "ToolTipPlainText", "a00122.html", null ]
     ] ],
     [ "QSyntaxHighlighter", null, [
-      [ "SPARQLHighlighter", "a00110.html", null ]
+      [ "SPARQLHighlighter", "a00118.html", null ]
     ] ]
 ];

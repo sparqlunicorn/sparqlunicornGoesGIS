@@ -1,22 +1,14 @@
 var a00098 =
 [
-    [ "__init__", "a00098.html#a82e7e3197aa35770eba7300065f8f1af", null ],
-    [ "applyConceptToColumn", "a00098.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
-    [ "applyConceptToColumn2", "a00098.html#a2e38b4b1e21375cc0a3092b1862c5453", null ],
-    [ "check_state", "a00098.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state3", "a00098.html#ace2b9b2398c60b5e5468418324fc7212", null ],
-    [ "getClassesFromLabel", "a00098.html#a00c7d47f79ad9e7a9665d7588c9bd512", null ],
-    [ "addVocab", "a00098.html#ac260fdbf23e7d137884620aa4c68c92f", null ],
-    [ "bothOptions", "a00098.html#ac15ea5ca3c2948ec40b302b241c6493e", null ],
-    [ "currentcol", "a00098.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
-    [ "currentprefixes", "a00098.html#a725c1d251ccfbd60a4bae31cd2e6b7d0", null ],
-    [ "currentrow", "a00098.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
-    [ "currentrow", "a00098.html#a086f47cacf997373ef862200fcfb4612", null ],
-    [ "interlinkOrEnrich", "a00098.html#a22becd814f00141dbdbb9167f5b9551f", null ],
-    [ "interlinkOrEnrich", "a00098.html#a69b33bf970ec8c6eac8e2cd4578172fc", null ],
-    [ "prefixes", "a00098.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "table", "a00098.html#ab31a20ab07de26623b45757ffb619144", null ],
-    [ "table", "a00098.html#ab172ed3d3d31ff02fc5f798fe7e1bfb8", null ],
-    [ "triplestoreconf", "a00098.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
-    [ "triplestoreconf", "a00098.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00098.html#a9030151e8a2ee6540464585a54ed359c", null ],
+    [ "finished", "a00098.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
+    [ "processResults", "a00098.html#ab368e533f681a396257e919f7acf52fd", null ],
+    [ "run", "a00098.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "allownongeo", "a00098.html#a2be679e131aa5f671200ce80927d4f47", null ],
+    [ "exception", "a00098.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "filename", "a00098.html#a2ff994e16bf9521154de4cf659a3b689", null ],
+    [ "geojson", "a00098.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
+    [ "query", "a00098.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
+    [ "triplestoreconf", "a00098.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestoreurl", "a00098.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];
