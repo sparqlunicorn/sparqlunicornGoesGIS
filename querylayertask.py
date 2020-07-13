@@ -12,7 +12,7 @@ from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
     )
 
-MESSAGE_CATEGORY = 'RandomIntegerSumTask'
+MESSAGE_CATEGORY = 'QueryLayerTask'
 
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
@@ -28,13 +28,6 @@ class QueryLayerTask(QgsTask):
         self.geojson=None
 
     def run(self):
-        """Here you implement your heavy lifting.
-        Should periodically test for isCanceled() to gracefully
-        abort.
-        This method MUST return True or False.
-        Raising exceptions will crash QGIS, so we handle them
-        internally and raise them in self.finished
-        """
         QgsMessageLog.logMessage('Started task "{}"'.format(
                                      self.description()),
                                  MESSAGE_CATEGORY, Qgis.Info)
@@ -163,18 +156,6 @@ class QueryLayerTask(QgsTask):
 
 
     def finished(self, result):
-        """
-        This function is automatically called when the task has
-        completed (successfully or not).
-        You implement finished() to do whatever follow-up stuff
-        should happen after the task is complete.
-        finished is always called from the main thread, so it's safe
-        to do GUI operations and raise Python exceptions here.
-        result is the return value from self.run.
-        """
-        #msgBox=QMessageBox()
-        #msgBox.setText(str("Task is finished!"))
-        #msgBox.exec()
         if self.geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")

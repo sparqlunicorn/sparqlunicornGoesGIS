@@ -45,6 +45,32 @@ class UploadRDFDialog(QDialog,FORM_CLASS):
     def checkConnection(self):
         print("")
 
+		
+    def compareLayers(layer1,layer2,idcolumn):
+        changedTriples=""
+        fieldnames = [field.name() for field in layer.fields()]
+        for f in layer1.getFeatures():
+            geom = f.geometry()
+            id=f[idcolumn]
+            expr = QgsExpression( "\""+idcolumn+"\"="+id )
+            it = cLayer.getFeatures( QgsFeatureRequest( expr ) )
+            #if len(it)==0:
+                #Add new line
+            #elif len(it)>0:
+                #Compare
+
+    ## Adds a new QGIS layer to a triplestore with a given address.
+    #  @param self The object pointer.
+    #  @param triplestoreaddress The address of the triple store
+    #  @param layer The layer to add
+    def addNewLayerToTripleStore(self,triplestoreaddress,layer):
+        ttlstring=self.layerToTTLString(layer)
+        queryString = "INSERT DATA { GRAPH <http://example.com/> { "+ttlstring+" } }" 
+        sparql = SPARQLWrapper(triplestoreaddress)
+        sparql.setQuery(queryString) 
+        sparql.method = 'POST'
+        sparql.query()
+
     def uploadResult(self):
         query_endpoint = 'http://localhost:3030/ds/query'
         update_endpoint = self.tripleStoreURL

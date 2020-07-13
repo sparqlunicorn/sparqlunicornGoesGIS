@@ -10,7 +10,7 @@ from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
     )
 
-MESSAGE_CATEGORY = 'RandomIntegerSumTask'
+MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
 class GeoConceptsQueryTask(QgsTask):
 

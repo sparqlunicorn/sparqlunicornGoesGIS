@@ -26,10 +26,11 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
+from qgis.PyQt import QtCore
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator
-from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem
+from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText
@@ -278,3 +279,117 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Get Value Mappings for column "+table.item(row, 3).text())
         self.interlinkdialog.exec_()
+
+    def loadLayerForInterlink(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+        if len(layers)==0:
+           return
+        layer = layers[selectedLayerIndex].layer()
+        fieldnames = [field.name() for field in layer.fields()]
+        while self.interlinkTable.rowCount() > 0:
+            self.interlinkTable.removeRow(0);
+        row=0
+        self.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","ColumnProperty","PropertyType","ColumnConcept","ValueConcepts"])
+        self.interlinkTable.setColumnCount(8)
+        for field in fieldnames:
+            item=QTableWidgetItem(field)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            item2=QTableWidgetItem()
+            item2.setCheckState(True)
+            item3=QTableWidgetItem()
+            item3.setCheckState(False)
+            item4=QTableWidgetItem()
+            item4.setCheckState(False)
+            self.interlinkTable.insertRow(row)
+            self.interlinkTable.setItem(row,3,item)
+            self.interlinkTable.setItem(row,0,item2)
+            self.interlinkTable.setItem(row,1,item3)
+            self.interlinkTable.setItem(row,2,item4)
+            cbox=QComboBox()
+            cbox.addItem("Automatic")
+            cbox.addItem("AnnotationProperty")
+            cbox.addItem("DataProperty")
+            cbox.addItem("ObjectProperty")
+            cbox.addItem("SubClass")
+            self.interlinkTable.setCellWidget(row,5,cbox)
+            currentRowCount = self.interlinkTable.rowCount() 
+            row+=1
+
+    def loadLayerForEnrichment(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
+        if len(layers)==0:
+           return
+        layer = layers[selectedLayerIndex].layer()
+        self.enrichTableResult.hide()
+        while self.enrichTableResult.rowCount() > 0:
+            self.enrichTableResult.removeRow(0);
+        self.enrichTable.show()
+        self.addEnrichedLayerRowButton.setEnabled(True)
+        fieldnames = [field.name() for field in layer.fields()]
+        while self.enrichTable.rowCount() > 0:
+            self.enrichTable.removeRow(0);
+        row=0
+        self.enrichTable.setColumnCount(9)
+        self.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","ID Column","ID Property","ID Domain","Language"])
+        for field in fieldnames:
+            item=QTableWidgetItem(field)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+            currentRowCount = self.enrichTable.rowCount() 
+            self.enrichTable.insertRow(row)
+            self.enrichTable.setItem(row,0,item)
+            cbox=QComboBox()
+            cbox.addItem("No Enrichment")
+            cbox.addItem("Keep Local")
+            cbox.addItem("Keep Remote")
+            cbox.addItem("Replace Local")
+            cbox.addItem("Merge")
+            cbox.addItem("Ask User")
+            cbox.addItem("Exclude")
+            self.enrichTable.setCellWidget(row,3,cbox)
+            cbox=QComboBox()	
+            cbox.addItem("Enrich Value")	
+            cbox.addItem("Enrich URI")	
+            cbox.addItem("Enrich Both")	
+            self.enrichTable.setCellWidget(row,4,cbox)
+            cbox=QComboBox()
+            for fieldd in fieldnames:
+                cbox.addItem(fieldd)	
+            self.enrichTable.setCellWidget(row,5,cbox)
+            itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+            self.enrichTable.setItem(row,6,itemm)
+            itemm=QTableWidgetItem("")
+            self.enrichTable.setItem(row,7,itemm)
+            itemm=QTableWidgetItem("")
+            self.enrichTable.setItem(row,8,itemm)
+            celllayout= QHBoxLayout()
+            upbutton=QPushButton("Up")
+            removebutton=QPushButton("Remove",self)
+            removebutton.clicked.connect(self.deleteEnrichRow)
+            downbutton=QPushButton("Down")
+            celllayout.addWidget(upbutton)
+            celllayout.addWidget(downbutton)
+            celllayout.addWidget(removebutton)
+            w = QWidget()
+            w.setLayout(celllayout)
+            optitem=QTableWidgetItem()
+            #self.enrichTable.setCellWidget(row,4,w)
+            #self.enrichTable.setItem(row,3,cbox)
+            row+=1
+        self.originalRowCount=row
+
+    ## Fetch the currently loaded layers.
+    #  @param self The object pointer.
+    def loadUnicornLayers(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.loadedLayers.clear()
+        self.chooseLayerInterlink.clear()
+        self.chooseLayerEnrich.clear()
+        for layer in layers:
+            ucl = layer.name()
+            #if type(layer) == QgsMapLayer.VectorLayer:
+            self.loadedLayers.addItem(layer.name())
+            self.chooseLayerInterlink.addItem(layer.name())
+            self.chooseLayerEnrich.addItem(layer.name())    

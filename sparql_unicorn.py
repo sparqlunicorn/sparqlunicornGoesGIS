@@ -282,48 +282,6 @@ class SPAQLunicorn:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
             self.dlg.inp_sparql2.columnvars={}
 
-    ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
-    #  @param self The object pointer.
-    #  @param classes array of classes to find labels for
-    #  @param query the class label query
-    #  @param endpointIndex the index of the selected SPARQL endpoint
-    def getLabelsForClasses(self,classes,query,endpointIndex):
-        result={}
-        query=self.triplestoreconf[endpointIndex]["classlabelquery"]
-        #url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
-        if "SELECT" in query:
-            vals="VALUES ?class { "
-            for qid in classes:
-                vals+=qid+" "
-            vals+="}\n"
-            query=query.replace("%%concepts%%",vals)
-            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for res in results["results"]["bindings"]:
-                result[res["class"]["value"]]=res["label"]["value"]
-        else:
-            url=self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"]
-            i=0
-            qidquery=""
-            for qid in classes:
-                if "Q" in qid:
-                    qidquery+="Q"+qid.split("Q")[1]
-                if (i%50)==0:
-                    print(url.replace("%%concepts%%",qidquery))
-                    myResponse = json.loads(requests.get(url.replace("%%concepts%%",qidquery)).text)
-                    print(myResponse)
-                    for ent in myResponse["entities"]:
-                        print(ent)
-                        if "en" in myResponse["entities"][ent]["labels"]:
-                            result[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]                
-                    qidquery=""
-                else:
-                    qidquery+="|"
-                i=i+1
-        return result
-
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
         qres = graph.query(
@@ -358,71 +316,6 @@ class SPAQLunicorn:
             else:
                 currentgeo['properties'][str(row[1])]=str(row[2])
         return geometries
-
-
-
-    def loadLayerForEnrichment(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        #if len(layers)>0:
-        #   return
-        layer = layers[selectedLayerIndex].layer()
-        self.dlg.enrichTableResult.hide()
-        while self.dlg.enrichTableResult.rowCount() > 0:
-            self.dlg.enrichTableResult.removeRow(0);
-        self.dlg.enrichTable.show()
-        self.dlg.addEnrichedLayerRowButton.setEnabled(True)
-        fieldnames = [field.name() for field in layer.fields()]
-        while self.dlg.enrichTable.rowCount() > 0:
-            self.dlg.enrichTable.removeRow(0);
-        row=0
-        self.dlg.enrichTable.setColumnCount(9)
-        self.dlg.enrichTable.setHorizontalHeaderLabels(["Column","EnrichmentConcept","TripleStore","Strategy","content","ID Column","ID Property","ID Domain","Language"])
-        for field in fieldnames:
-            item=QTableWidgetItem(field)
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            currentRowCount = self.dlg.enrichTable.rowCount() 
-            self.dlg.enrichTable.insertRow(row)
-            self.dlg.enrichTable.setItem(row,0,item)
-            cbox=QComboBox()
-            cbox.addItem("No Enrichment")
-            cbox.addItem("Keep Local")
-            cbox.addItem("Keep Remote")
-            cbox.addItem("Replace Local")
-            cbox.addItem("Merge")
-            cbox.addItem("Ask User")
-            cbox.addItem("Exclude")
-            self.dlg.enrichTable.setCellWidget(row,3,cbox)
-            cbox=QComboBox()	
-            cbox.addItem("Enrich Value")	
-            cbox.addItem("Enrich URI")	
-            cbox.addItem("Enrich Both")	
-            self.dlg.enrichTable.setCellWidget(row,4,cbox)
-            cbox=QComboBox()
-            for fieldd in fieldnames:
-                cbox.addItem(fieldd)	
-            self.dlg.enrichTable.setCellWidget(row,5,cbox)
-            itemm=QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-            self.dlg.enrichTable.setItem(row,6,itemm)
-            itemm=QTableWidgetItem("")
-            self.dlg.enrichTable.setItem(row,7,itemm)
-            itemm=QTableWidgetItem("")
-            self.dlg.enrichTable.setItem(row,8,itemm)
-            celllayout= QHBoxLayout()
-            upbutton=QPushButton("Up")
-            removebutton=QPushButton("Remove",self.dlg)
-            removebutton.clicked.connect(self.dlg.deleteEnrichRow)
-            downbutton=QPushButton("Down")
-            celllayout.addWidget(upbutton)
-            celllayout.addWidget(downbutton)
-            celllayout.addWidget(removebutton)
-            w = QWidget()
-            w.setLayout(celllayout)
-            optitem=QTableWidgetItem()
-            #self.dlg.enrichTable.setCellWidget(row,4,w)
-            #self.dlg.enrichTable.setItem(row,3,cbox)
-            row+=1
-        self.originalRowCount=row
 		
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
@@ -770,41 +663,7 @@ class SPAQLunicorn:
         xmlmapping+="</file>\n</data>"
         return xmlmappingheader+">\n"+xmlmapping
 
-    def loadLayerForInterlink(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        #if len(layers)>0:
-        #   return
-        layer = layers[selectedLayerIndex].layer()
-        fieldnames = [field.name() for field in layer.fields()]
-        while self.dlg.interlinkTable.rowCount() > 0:
-            self.dlg.interlinkTable.removeRow(0);
-        row=0
-        self.dlg.interlinkTable.setHorizontalHeaderLabels(["Export?","IDColumn?","GeoColumn?","Column","ColumnProperty","PropertyType","ColumnConcept","ValueConcepts"])
-        self.dlg.interlinkTable.setColumnCount(8)
-        for field in fieldnames:
-            item=QTableWidgetItem(field)
-            item.setFlags(QtCore.Qt.ItemIsEnabled)
-            item2=QTableWidgetItem()
-            item2.setCheckState(True)
-            item3=QTableWidgetItem()
-            item3.setCheckState(False)
-            item4=QTableWidgetItem()
-            item4.setCheckState(False)
-            self.dlg.interlinkTable.insertRow(row)
-            self.dlg.interlinkTable.setItem(row,3,item)
-            self.dlg.interlinkTable.setItem(row,0,item2)
-            self.dlg.interlinkTable.setItem(row,1,item3)
-            self.dlg.interlinkTable.setItem(row,2,item4)
-            cbox=QComboBox()
-            cbox.addItem("Automatic")
-            cbox.addItem("AnnotationProperty")
-            cbox.addItem("DataProperty")
-            cbox.addItem("ObjectProperty")
-            cbox.addItem("SubClass")
-            self.dlg.interlinkTable.setCellWidget(row,5,cbox)
-            currentRowCount = self.dlg.interlinkTable.rowCount() 
-            row+=1
+    
 
     ## Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.
     #  @param self The object pointer.
@@ -855,31 +714,6 @@ class SPAQLunicorn:
                 proptypelist.append("")
         self.enrichedExport=True
         self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries,self.dlg.exportTripleStore.isChecked())
-    
-    ## Adds a new QGIS layer to a triplestore with a given address.
-    #  @param self The object pointer.
-    #  @param triplestoreaddress The address of the triple store
-    #  @param layer The layer to add
-    def addNewLayerToTripleStore(self,triplestoreaddress,layer):
-        ttlstring=self.layerToTTLString(layer)
-        queryString = "INSERT DATA { GRAPH <http://example.com/> { "+ttlstring+" } }" 
-        sparql = SPARQLWrapper(triplestoreaddress)
-        sparql.setQuery(queryString) 
-        sparql.method = 'POST'
-        sparql.query()
-		
-    def compareLayers(layer1,layer2,idcolumn):
-        changedTriples=""
-        fieldnames = [field.name() for field in layer.fields()]
-        for f in layer1.getFeatures():
-            geom = f.geometry()
-            id=f[idcolumn]
-            expr = QgsExpression( "\""+idcolumn+"\"="+id )
-            it = cLayer.getFeatures( QgsFeatureRequest( expr ) )
-            #if len(it)==0:
-                #Add new line
-            #elif len(it)>0:
-                #Compare
 		
     def matchColumnValueFromTripleStore(self,toquery):
         values="VALUES ?vals { "
@@ -1116,56 +950,6 @@ class SPAQLunicorn:
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
         return featurecollection	
-    """
-    def loadGraph(self):
-        dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        self.justloadingfromfile=True
-        if dialog.exec_():
-            fileNames = dialog.selectedFiles()
-            g = Graph()
-            filepath=fileNames[0].split(".")
-            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
-            print(g)
-            self.currentgraph=g
-            geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g,False)
-            self.dlg.layerconcepts.clear()
-            for geo in geoconcepts:
-                self.dlg.layerconcepts.addItem(geo)
-            comp=QCompleter(self.dlg.layerconcepts)
-            comp.setCompletionMode(QCompleter.PopupCompletion)
-            comp.setModel(self.dlg.layerconcepts.model())
-            self.dlg.layerconcepts.setCompleter(comp)
-            self.dlg.inp_sparql.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
-            self.loadedfromfile=True
-            self.justloadingfromfile=False
-            self.dlg.comboBox.setCurrentIndex(0)
-            return result
-        return None
-    """ 
-    def loadGraphProcess(task, wait_time,query,triplestoreurl,graph):
-        print("THREADSTART")
-        viewlist=[]
-        #print(query)
-        #print(triplestoreurl)
-        print(graph)
-        if graph!=None:
-            print("WE HAVE A GRAPH")
-            results = graph.query(query)
-            #for row in results:
-                #viewlist.append(str(row[0]))
-        """
-        else:
-            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            print("now sending query")
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for result in results["results"]["bindings"]:
-                viewlist.append(str(result[queryvar]["value"]))
-        """
-        print(viewlist)
-        return viewlist
 
     def loadGraphGUI(exception, result=None):
         print("Loading graph gui")
@@ -1209,22 +993,7 @@ class SPAQLunicorn:
             #worker_thread.finished.connect(self.loadGraphGUI)
             #worker_thread.start()
             #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
-        return None
-
-    ## Fetch the currently loaded layers.
-    #  @param self The object pointer.
-    def loadUnicornLayers(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        # Populate the comboBox with names of all the loaded unicorn layers
-        self.dlg.loadedLayers.clear()
-        self.dlg.chooseLayerInterlink.clear()
-        self.dlg.chooseLayerEnrich.clear()
-        for layer in layers:
-            ucl = layer.name()
-            #if type(layer) == QgsMapLayer.VectorLayer:
-            self.dlg.loadedLayers.addItem(layer.name())
-            self.dlg.chooseLayerInterlink.addItem(layer.name())
-            self.dlg.chooseLayerEnrich.addItem(layer.name())       
+        return None   
 
     ## Saves a personal copy of the triplestore configuration file to disk.
     #  @param self The object pointer.
@@ -1260,9 +1029,6 @@ class SPAQLunicorn:
                 data2=myfile.read()
             self.triplestoreconf = json.loads(data)
             self.addVocabConf=json.loads(data2)
-            #msgBox=QMessageBox()
-            #msgBox.setText(str(self.addVocabConf))
-            #msgBox.exec()
             counter=0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -1299,18 +1065,18 @@ class SPAQLunicorn:
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
             self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
-            self.dlg.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+            self.dlg.loadLayerInterlink.clicked.connect(self.dlg.loadLayerForInterlink)
             self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
             self.dlg.importMappingButton.clicked.connect(self.loadMapping)
             #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
+            self.dlg.loadLayerEnrich.clicked.connect(self.dlg.loadLayerForEnrichment)
             #self.dlg.loadLayerEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
+            self.dlg.refreshLayersInterlink.clicked.connect(self.dlg.loadUnicornLayers)
             self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
 
         if self.first_start == False:
-            self.loadUnicornLayers()
+            self.dlg.loadUnicornLayers()
 
         # show the dialog
         self.dlg.show()
