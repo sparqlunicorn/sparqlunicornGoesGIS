@@ -29,7 +29,7 @@ from qgis.PyQt import QtWidgets
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator
-from qgis.PyQt.QtWidgets import QComboBox,QCompleter
+from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText

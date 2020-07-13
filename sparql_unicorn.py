@@ -48,6 +48,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 # Initialize Qt resources from file resources.py
 from .resources import *
 from .querylayertask import QueryLayerTask
+from .geoconceptsquerytask import GeoConceptsQueryTask
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
 from .uploadrdfdialog import UploadRDFDialog
@@ -246,27 +247,11 @@ class SPAQLunicorn:
             results = graph.query(query)
             for row in results:
                 viewlist.append(str(row[0]))
-        else:
-            sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            print("now sending query")
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for result in results["results"]["bindings"]:
-                viewlist.append(str(result[queryvar]["value"]))
-        print(viewlist)
-        self.dlg.layercount.setText("["+str(len(viewlist))+"]")
-        if getlabels and "classlabelquery" in self.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"]!="":
-            labels=self.getLabelsForClasses(viewlist,self.triplestoreconf[self.dlg.comboBox.currentIndex()]["classlabelquery"],self.dlg.comboBox.currentIndex())
-            print(labels)
-            self.dlg.layercount.setText("["+str(len(labels))+"]")
-            i=0
-            sorted_labels=sorted(labels.items(),key=lambda x:x[1])
-            for lab in sorted_labels:
-                resultlist.append(labels[lab[0]]+"("+lab[0]+")")
-                i=i+1	
-            return resultlist
-        return viewlist
+            return viewlist
+        self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
+                             triplestoreurl,
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.layerconcepts,queryvar,getlabels,self.dlg.layercount)
+        QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
     #  @param self The object pointer.
@@ -280,8 +265,8 @@ class SPAQLunicorn:
             conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
-        for concept in conceptlist:
-            self.dlg.layerconcepts.addItem(concept)
+            for concept in conceptlist:
+                self.dlg.layerconcepts.addItem(concept)
         comp=QCompleter(self.dlg.layerconcepts)
         comp.setCompletionMode(QCompleter.PopupCompletion)
         comp.setModel(self.dlg.layerconcepts.model())
