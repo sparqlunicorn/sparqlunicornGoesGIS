@@ -2,10 +2,11 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt import uic
-from qgis.core import QgsProject
+from qgis.core import QgsProject,QgsApplication,QgsMessageLog
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
 from SPARQLWrapper import SPARQLWrapper, JSON
 from .searchdialog import SearchDialog
+from .enrichmentquerytask import EnrichmentQueryTask
 import json
 import requests
 import os.path
@@ -23,6 +24,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     interlinkOrEnrich=False
     # The GUI element to which the result of this dialog is returned.
     table=False
+    qtask=None
     
 	##Initializes this dialog.
 	# @param triplestoreconf The triplestore configuration file
@@ -85,6 +87,15 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def getAttributeStatistics(self,concept="wd:Q3914",endpoint_url="https://query.wikidata.org/sparql",labellang="en",inarea="wd:Q183"):
         if self.conceptSearchEdit.text()=="":
             return
+        concept="<"+self.conceptSearchEdit.text()+">"
+        self.qtask=EnrichmentQueryTask("getAttributeStatistics",
+                             endpoint_url,
+        self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%","?area"),
+        self.conceptSearchEdit.text(),
+        self.prefixes[self.tripleStoreEdit.currentIndex()],
+        self.searchResult)
+        QgsApplication.taskManager().addTask(self.qtask)
+        """
         concept="<"+self.conceptSearchEdit.text()+">"
         query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%",inarea)
 		#"select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 "+str(concept)+" . ?con wdt:P625 ?coord . ?con wdt:P17  "+str(inarea)+" . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
@@ -164,7 +175,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         #msgBox=QMessageBox()
         #msgBox.setText(str("Finished"))
         #msgBox.exec()
-
+        """
 
     ## 
     #  @brief Returns a chosen concept to the calling dialog.
