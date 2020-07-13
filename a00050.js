@@ -1,15 +1,6 @@
 var a00050 =
 [
-    [ "bboxdialog", "a00051.html", "a00051" ],
-    [ "rectanglemaptool", "a00054.html", "a00054" ],
-    [ "searchdialog", "a00056.html", "a00056" ],
-    [ "sparql_unicorn", "a00057.html", "a00057" ],
-    [ "sparql_unicorn_dialog", "a00058.html", "a00058" ],
-    [ "sparqlhighlighter", "a00059.html", "a00059" ],
-    [ "tooltipplaintext", "a00060.html", "a00060" ],
-    [ "triplestoredialog", "a00061.html", "a00061" ],
-    [ "uploadrdfdialog", "a00062.html", "a00062" ],
-    [ "valuemapping", "a00063.html", "a00063" ],
-    [ "varinput", "a00064.html", "a00064" ],
-    [ "whattoenrich", "a00065.html", "a00065" ]
+    [ "VarInputDialog", "a00126.html", "a00126" ],
+    [ "_", "a00050.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00050.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

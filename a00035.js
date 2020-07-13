@@ -1,6 +1,6 @@
 var a00035 =
 [
-    [ "TripleStoreDialog", "a00098.html", "a00098" ],
-    [ "_", "a00035.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00035.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
+    [ "SPARQLHighlighter", "a00106.html", "a00106" ],
+    [ "format", "a00035.html#ab4762c2603cb341624f24c969e06440f", null ],
+    [ "STYLES", "a00035.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
 ];
