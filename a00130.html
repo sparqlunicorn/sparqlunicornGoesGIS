@@ -77,7 +77,7 @@ Inheritance diagram for UploadRDFDialog:</div>
 <div class="dyncontent">
 <div class="center"><img src="a00129.png" border="0" usemap="#UploadRDFDialog_inherit__map" alt="Inheritance graph"/></div>
 <map name="UploadRDFDialog_inherit__map" id="UploadRDFDialog_inherit__map">
-<area shape="rect" id="node3" href="a00510.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
+<area shape="rect" id="node3" href="a00514.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -85,7 +85,7 @@ Collaboration diagram for UploadRDFDialog:</div>
 <div class="dyncontent">
 <div class="center"><img src="a00128.png" border="0" usemap="#UploadRDFDialog_coll__map" alt="Collaboration graph"/></div>
 <map name="UploadRDFDialog_coll__map" id="UploadRDFDialog_coll__map">
-<area shape="rect" id="node3" href="a00510.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
+<area shape="rect" id="node3" href="a00514.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -96,6 +96,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7092c7fd31ba92d11cacd01e25c48276"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00130.html#a7092c7fd31ba92d11cacd01e25c48276">checkConnection</a> (self)</td></tr>
 <tr class="memdesc:a7092c7fd31ba92d11cacd01e25c48276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the connection to a triple store which has been defined by a given internet address.  <a href="#a7092c7fd31ba92d11cacd01e25c48276">More...</a><br /></td></tr>
 <tr class="separator:a7092c7fd31ba92d11cacd01e25c48276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90fc6f7893dab1f161f0876eedf261af"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00130.html#a90fc6f7893dab1f161f0876eedf261af">compareLayers</a> (layer1, layer2, idcolumn)</td></tr>
+<tr class="separator:a90fc6f7893dab1f161f0876eedf261af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4339cc40dab9d8fb7f7249b3a1e9b0b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00130.html#ad4339cc40dab9d8fb7f7249b3a1e9b0b">addNewLayerToTripleStore</a> (self, triplestoreaddress, layer)</td></tr>
+<tr class="memdesc:ad4339cc40dab9d8fb7f7249b3a1e9b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new QGIS layer to a triplestore with a given address.  <a href="#ad4339cc40dab9d8fb7f7249b3a1e9b0b">More...</a><br /></td></tr>
+<tr class="separator:ad4339cc40dab9d8fb7f7249b3a1e9b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad33b38d01e5394ad75cbc43021984f3e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00130.html#ad33b38d01e5394ad75cbc43021984f3e">uploadResult</a> (self)</td></tr>
 <tr class="separator:ad33b38d01e5394ad75cbc43021984f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -154,6 +159,52 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad4339cc40dab9d8fb7f7249b3a1e9b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4339cc40dab9d8fb7f7249b3a1e9b0b">&#9670;&nbsp;</a></span>addNewLayerToTripleStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def addNewLayerToTripleStore </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreaddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new QGIS layer to a triplestore with a given address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">triplestoreaddress</td><td>The address of the triple store </td></tr>
+    <tr><td class="paramname">layer</td><td>The layer to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">References <a class="el" href="a00110.html#ab229514567f36a825b2756e65973c3c7">SPAQLunicorn.layerToTTLString()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">def </span>addNewLayerToTripleStore(self,triplestoreaddress,layer):</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        ttlstring=self.layerToTTLString(layer)</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        queryString = <span class="stringliteral">&quot;INSERT DATA { GRAPH &lt;http://example.com/&gt; { &quot;</span>+ttlstring+<span class="stringliteral">&quot; } }&quot;</span> </div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        sparql = SPARQLWrapper(triplestoreaddress)</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        sparql.setQuery(queryString) </div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        sparql.method = <span class="stringliteral">&#39;POST&#39;</span></div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        sparql.query()</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div></div><!-- fragment -->
+</div>
+</div>
 <a id="a7092c7fd31ba92d11cacd01e25c48276"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7092c7fd31ba92d11cacd01e25c48276">&#9670;&nbsp;</a></span>checkConnection()</h2>
 
@@ -178,7 +229,41 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the connection was successful, false otherwise </dd></dl>
-<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span>checkConnection(self):</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        print(<span class="stringliteral">&quot;&quot;</span>)</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span>checkConnection(self):</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        print(<span class="stringliteral">&quot;&quot;</span>)</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                </div></div><!-- fragment -->
+</div>
+</div>
+<a id="a90fc6f7893dab1f161f0876eedf261af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90fc6f7893dab1f161f0876eedf261af">&#9670;&nbsp;</a></span>compareLayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def compareLayers </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>idcolumn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span>compareLayers(layer1,layer2,idcolumn):</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        changedTriples=<span class="stringliteral">&quot;&quot;</span></div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer1.getFeatures():</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            geom = f.geometry()</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            id=f[idcolumn]</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            expr = QgsExpression( <span class="stringliteral">&quot;\&quot;&quot;</span>+idcolumn+<span class="stringliteral">&quot;\&quot;=&quot;</span>+id )</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            it = cLayer.getFeatures( QgsFeatureRequest( expr ) )</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment">#if len(it)==0:</span></div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="comment">#Add new line</span></div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="comment">#elif len(it)&gt;0:</span></div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="comment">#Compare</span></div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ad33b38d01e5394ad75cbc43021984f3e"></a>
@@ -198,7 +283,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">References <a class="el" href="a00130.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">UploadRDFDialog.ttlstring</a>.</p>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">def </span>uploadResult(self):</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        query_endpoint = <span class="stringliteral">&#39;http://localhost:3030/ds/query&#39;</span></div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        update_endpoint = self.tripleStoreURL</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        g=Graph()</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        g.parse(data=self.ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        store = sparqlstore.SPARQLUpdateStore()</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        store.open((query_endpoint, update_endpoint))</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        store.add_graph(g)</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.close()</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">def </span>uploadResult(self):</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        query_endpoint = <span class="stringliteral">&#39;http://localhost:3030/ds/query&#39;</span></div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        update_endpoint = self.tripleStoreURL</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        g=Graph()</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        g.parse(data=self.ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        store = sparqlstore.SPARQLUpdateStore()</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        store.open((query_endpoint, update_endpoint))</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        store.add_graph(g)</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        self.close()</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
