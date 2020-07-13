@@ -1,18 +1,15 @@
 var a00110 =
 [
-    [ "__init__", "a00110.html#ab5c3dba737e3875967da09ff9d4276e4", null ],
-    [ "buildSearchDialog", "a00110.html#a8ba30c801fb03a6265193b413d3b8dda", null ],
-    [ "createVarInputDialog", "a00110.html#a9428cac43073795e4166503ce80f6283", null ],
-    [ "getLabelsForClasses", "a00110.html#a46a7ef5867410f61e466056f9dc02a33", null ],
-    [ "keyPressEvent", "a00110.html#aaf7224b03642e3cfe85bd396f1f4b08f", null ],
-    [ "mouseMoveEvent", "a00110.html#a23922d07d709315a17189e6dc15bd000", null ],
-    [ "columnvars", "a00110.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
-    [ "currentcol", "a00110.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
-    [ "currentrow", "a00110.html#a086f47cacf997373ef862200fcfb4612", null ],
-    [ "interlinkdialog", "a00110.html#a816bebaf94e989ec4293bfee7a615a98", null ],
-    [ "parent", "a00110.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
-    [ "prefixes", "a00110.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "savedLabels", "a00110.html#ae3c96bb33e9b67f91e6f88eef612ec80", null ],
-    [ "selector", "a00110.html#a093b121866a6168a986e7ff004ddc5c4", null ],
-    [ "triplestoreconf", "a00110.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00110.html#ab53a8d674edc6e5e61f3ff4ca1fcebf9", null ],
+    [ "highlightBlock", "a00110.html#afea4c5245fe0920f4c2d9bcb0f92f327", null ],
+    [ "match_multiline", "a00110.html#aa301cb2fc9bf96ca7c8608527c4a38e1", null ],
+    [ "braces", "a00110.html#a8f0e4dd16633e09638c465813ed3fc55", null ],
+    [ "currentline", "a00110.html#a1be7dfac6c204d2592700475b5d73fd2", null ],
+    [ "errorhighlightcol", "a00110.html#a52246e67bcb2882ef295b832f02cc11d", null ],
+    [ "errorhighlightline", "a00110.html#abf462271f908cf9644b363030e9872c7", null ],
+    [ "keywords", "a00110.html#a0d17271000b81550ca6c5a1fde2f17f3", null ],
+    [ "operators", "a00110.html#a64882d3e5d2f6a8957801403d61570ef", null ],
+    [ "rules", "a00110.html#a595e07a99f60f22a6a29e4fca291ea28", null ],
+    [ "tri_double", "a00110.html#a9bb5ce69445e9b7228404340d7e226a3", null ],
+    [ "tri_single", "a00110.html#adb8c3b06bd36e64ec0b1e2053d8d992d", null ]
 ];

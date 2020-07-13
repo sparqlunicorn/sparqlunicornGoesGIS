@@ -1,6 +1,6 @@
 var a00050 =
 [
-    [ "VarInputDialog", "a00126.html", "a00126" ],
+    [ "VarInputDialog", "a00130.html", "a00130" ],
     [ "_", "a00050.html#a18f05aeddc212b523b40818fa2b87b33", null ],
     [ "FORM_CLASS", "a00050.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

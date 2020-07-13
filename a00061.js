@@ -1,4 +1,4 @@
 var a00061 =
 [
-    [ "QueryLayerTask", "a00086.html", "a00086" ]
+    [ "EnrichmentQueryTask", "a00086.html", "a00086" ]
 ];

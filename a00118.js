@@ -1,14 +1,19 @@
 var a00118 =
 [
-    [ "__init__", "a00118.html#a967b038f3b4803df943b1f443d030520", null ],
-    [ "checkConnection", "a00118.html#a7092c7fd31ba92d11cacd01e25c48276", null ],
-    [ "uploadResult", "a00118.html#ad33b38d01e5394ad75cbc43021984f3e", null ],
-    [ "currentrow", "a00118.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
-    [ "fieldname", "a00118.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
-    [ "interlinkOrEnrich", "a00118.html#a22becd814f00141dbdbb9167f5b9551f", null ],
-    [ "searchResultMap", "a00118.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
-    [ "table", "a00118.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "__init__", "a00118.html#a380773bbae841b7d5d39f43433498adb", null ],
+    [ "addNewSPARQLEndpoint", "a00118.html#a34a78bc5f0927053db7797e886f20240", null ],
+    [ "addPrefixToList", "a00118.html#a182c82bd713e327a2621e41cbeeb5845", null ],
+    [ "applyCustomSPARQLEndPoint", "a00118.html#a7ab1931a2785e98a68d2547d73caad61", null ],
+    [ "check_state", "a00118.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00118.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "check_state2", "a00118.html#a9a1cb24b28540f37b69ea944b5834ecd", null ],
+    [ "closeTripleStoreDialog", "a00118.html#a29478b28b44bec57f44f7a180239211c", null ],
+    [ "loadTripleStoreConfig", "a00118.html#a809e9724f3fb01cd74431f96ff40c928", null ],
+    [ "removePrefixFromList", "a00118.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
+    [ "testTripleStoreConnection", "a00118.html#a6a316b91748ce565fe69847c689392f8", null ],
+    [ "addTripleStore", "a00118.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "comboBox", "a00118.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
+    [ "sparqlhighlighter", "a00118.html#af81c2262d69f9184819dac236925d02b", null ],
     [ "triplestoreconf", "a00118.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
-    [ "ttlstring", "a00118.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
-    [ "valmaptable", "a00118.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
+    [ "triplestoreconf", "a00118.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

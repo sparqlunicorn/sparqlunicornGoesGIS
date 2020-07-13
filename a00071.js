@@ -1,4 +1,4 @@
 var a00071 =
 [
-    [ "ValueMappingDialog", "a00122.html", "a00122" ]
+    [ "ToolTipPlainText", "a00114.html", "a00114" ]
 ];

@@ -1,4 +1,4 @@
 var a00069 =
 [
-    [ "TripleStoreDialog", "a00114.html", "a00114" ]
+    [ "SPAQLunicornDialog", "a00106.html", "a00106" ]
 ];

@@ -1,4 +1,4 @@
 var a00060 =
 [
-    [ "ToolTipPlainText", "a00094.html", "a00094" ]
+    [ "BBOXDialog", "a00082.html", "a00082" ]
 ];

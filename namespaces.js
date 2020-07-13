@@ -1,4 +1,4 @@
 var namespaces =
 [
-    [ "sparqlunicornGoesGIS", "a00056.html", "a00056" ]
+    [ "sparqlunicornGoesGIS", "a00059.html", "a00059" ]
 ];
