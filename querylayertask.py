@@ -52,6 +52,24 @@ class QueryLayerTask(QgsTask):
         self.geojson=self.processResults(results,(self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),self.triplestoreconf["mandatoryvariables"][1:],self.allownongeo)
         return True
 
+    def processLiteral(self,literal,literaltype,reproject):
+        geom=None
+        if "literaltype" in self.triplestoreconf:
+            literaltype=self.triplestoreconf["literaltype"]
+        if literaltype.lower()=="wkt":
+            geom=QgsGeometry.fromWkt(literal)
+        if literaltype.lower()=="geojson":
+            geom=literal
+        if geom!=None and reproject!="":
+            sourceCrs = QgsCoordinateReferenceSystem(reproject)
+            destCrs = QgsCoordinateReferenceSystem(4326)
+            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+            geom.transform(tr)
+        if geom!=None:
+            return geom.asJson()
+        return None
+
+
     ## Processes query results and reformats them to a QGIS layer.
     #  @param self The object pointer.
     #  @param results The query results
@@ -70,27 +88,15 @@ class QueryLayerTask(QgsTask):
         for result in results["results"]["bindings"]:
             if "item" in result and "rel" in result and "val" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
                 if item!="":
-                    myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"])
-                    if reproject!="":
-                        sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                        destCrs = QgsCoordinateReferenceSystem(4326)
-                        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                        myGeometryInstance.transform(tr)
-                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                    myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                     features.append(feature)
                 properties = {}
                 item=result["item"]["value"]
             if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (item=="" or result["item"]["value"]!=item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
                 if item!="":
-                    myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
-                    if reproject!="":
-                        sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                        destCrs = QgsCoordinateReferenceSystem(4326)
-                        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                        myGeometryInstance.transform(tr)
-                    #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                    myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
+                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                     features.append(feature)
                 properties = {}
                 item=result["item"]["value"]
@@ -103,49 +109,23 @@ class QueryLayerTask(QgsTask):
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstance=QgsGeometry.fromWkt(result["geo"]["value"].replace("<http://www.opengis.net/def/crs/EPSG/0/"+str(reproject)+"> ",""))
-                if reproject!="":
-                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                    destCrs = QgsCoordinateReferenceSystem(4326)
-                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                    myGeometryInstance.transform(tr)
-                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
-                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")")
-                if reproject!="":
-                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                    destCrs = QgsCoordinateReferenceSystem(4326)
-                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                    myGeometryInstance.transform(tr)
-                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")","wkt",reproject)
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             if not "rel" in result and not "val" in result and latval in result and lonval in result and reproject!=27700:
-                myGeometryInstance = QgsGeometry.fromWkt("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")")
-                if reproject!="":
-                    sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                    destCrs = QgsCoordinateReferenceSystem(4326)
-                    tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                    myGeometryInstance.transform(tr)
-                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
+                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             if not "rel" in result and not "val" in result and not "geo" in result and geooptional:
-                #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  {} }
                 features.append(feature)
-            #print(properties)
         if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
-            myGeometryInstance = QgsGeometry.fromWkt(result["geo"]["value"])
-            if reproject!="":
-                sourceCrs = QgsCoordinateReferenceSystem(reproject)
-                destCrs = QgsCoordinateReferenceSystem(4326)
-                tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-                myGeometryInstance.transform(tr)
-            #feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-            feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstance.asJson()) }
+            myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+            feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
             features.append(feature)		
         if features==[] and len(results["results"]["bindings"])==0:
             return None
