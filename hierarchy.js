@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "FORM_CLASS", "a00514.html", [
+    [ "FORM_CLASS", "a00522.html", [
       [ "BBOXDialog", "a00086.html", null ],
       [ "SearchDialog", "a00106.html", null ],
       [ "SPAQLunicornDialog", "a00114.html", null ],
