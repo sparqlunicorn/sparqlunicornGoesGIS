@@ -88,7 +88,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         if self.conceptSearchEdit.text()=="":
             return
         concept="<"+self.conceptSearchEdit.text()+">"
-        self.qtask=EnrichmentQueryTask("Get Property Enrichment Candidates ("+self.conceptSearchEdit.text()+")",
+        self.qtask=WhatToEnrichQueryTask("Get Property Enrichment Candidates ("+self.conceptSearchEdit.text()+")",
                              endpoint_url,
         self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%","?area"),
         self.conceptSearchEdit.text(),
