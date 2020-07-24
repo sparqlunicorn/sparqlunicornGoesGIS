@@ -28,10 +28,10 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant
+from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant,Qt
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor
 from qgis.core import QgsTask, QgsTaskManager
-from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox
+from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox,QProgressDialog
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
 from qgis.utils import iface
 import os.path
@@ -227,9 +227,13 @@ class SPAQLunicorn:
             msgBox=QMessageBox()
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
+        progress = QProgressDialog("Querying layer from "+endpoint_url+"...", "Abort", 0, 0, self.dlg)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setCancelButton(None)
+        progress.show()
         self.qtask=QueryLayerTask("Querying QGIS Layer from "+endpoint_url,
                              endpoint_url,
-        "".join(self.prefixes[endpointIndex]) + query,self.triplestoreconf[endpointIndex],self.dlg.allownongeo.isChecked(),self.dlg.inp_label.text())
+        "".join(self.prefixes[endpointIndex]) + query,self.triplestoreconf[endpointIndex],self.dlg.allownongeo.isChecked(),self.dlg.inp_label.text(),progress)
         QgsApplication.taskManager().addTask(self.qtask)
         self.dlg.close()
 

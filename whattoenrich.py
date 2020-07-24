@@ -1,6 +1,6 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem
-from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QProgressDialog
+from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt import uic
 from qgis.core import QgsProject,QgsApplication,QgsMessageLog
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
@@ -88,94 +88,16 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         if self.conceptSearchEdit.text()=="":
             return
         concept="<"+self.conceptSearchEdit.text()+">"
+        progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setCancelButton(None)
         self.qtask=WhatToEnrichQueryTask("Get Property Enrichment Candidates ("+self.conceptSearchEdit.text()+")",
                              endpoint_url,
         self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%","?area"),
         self.conceptSearchEdit.text(),
         self.prefixes[self.tripleStoreEdit.currentIndex()],
-        self.searchResult)
+        self.searchResult,progress)
         QgsApplication.taskManager().addTask(self.qtask)
-        """
-        concept="<"+self.conceptSearchEdit.text()+">"
-        query=self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["whattoenrichquery"].replace("%%concept%%",concept).replace("%%area%%",inarea)
-		#"select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 "+str(concept)+" . ?con wdt:P625 ?coord . ?con wdt:P17  "+str(inarea)+" . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-        sparql = SPARQLWrapper(endpoint_url, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery("".join(self.prefixes[self.tripleStoreEdit.currentIndex()]) + query)
-        sparql.setReturnFormat(JSON)
-        try:
-            results = sparql.query().convert()
-        except Exception as e:
-            msgBox=QMessageBox()
-            msgBox.setText("The following exception occurred: "+str(e))
-            msgBox.exec()
-            return  
-        self.searchResult.clear()
-        if len(results["results"]["bindings"])==0:
-            return
-        maxcons=int(results["results"]["bindings"][0]["countcon"]["value"])
-        attlist={}
-        urilist={}
-        for result in results["results"]["bindings"]:
-            attlist[result["rel"]["value"][result["rel"]["value"].rfind('/')+1:]]=round((int(result["countrel"]["value"])/maxcons)*100,2)
-            urilist[result["rel"]["value"][result["rel"]["value"].rfind('/')+1:]]=result["rel"]["value"]
-        sortedatt = sorted(attlist.items(),reverse=True, key=lambda kv: kv[1])
-        labels={}
-        postdata={}
-        postdata["language"]="en"
-        postdata["format"]="json"
-        postdata["action"]="wbgetentities"
-        atts=[""]
-        attcounter=0
-        count=0
-        for att in attlist.keys():
-            #if att.startswith("P") and count==50:
-            #    atts[attcounter]=atts[attcounter][:-1]
-            #    attcounter+=1
-            #    atts.append("")
-            #    count=0
-            #    atts[attcounter]+=att+"|"
-            if att.startswith("P") and count<50:
-                atts[attcounter]+=att+"|"
-                count+=1
-        #msgBox=QMessageBox()
-        #msgBox.setText(str(atts))
-        #msgBox.exec()  
-        atts[0]=atts[0][:-1]
-        i=0
-        for att in atts:
-            url="https://www.wikidata.org/w/api.php" #?action=wbgetentities&format=json&language=en&ids="+atts
-            postdata["ids"]=att
-            #msgBox=QMessageBox()
-            #msgBox.setText(str(postdata))
-            #msgBox.exec()
-            myResponse = json.loads(requests.post(url,postdata).text)
-            #msgBox=QMessageBox()
-            #msgBox.setText(str(myResponse))
-            #msgBox.exec()
-            for ent in myResponse["entities"]:
-                print(ent)
-                if "en" in myResponse["entities"][ent]["labels"]:
-                    labels[ent]=myResponse["entities"][ent]["labels"]["en"]["value"]               
-                i=i+1
-        counter=0
-        for att in sortedatt:
-            if att[1]<1:
-                continue
-            if att[0] in labels:
-                item=QListWidgetItem()
-                item.setText(labels[att[0]]+" ("+str(att[1])+"%)")
-                item.setData(1,urilist[att[0]])
-                self.searchResult.addItem(item)
-                counter+=1
-            else:
-                item=QListWidgetItem()
-                item.setText(att[0]+" ("+str(att[1])+"%)")
-                item.setData(1,urilist[att[0]])
-                self.searchResult.addItem(item)
-        #msgBox=QMessageBox()
-        #msgBox.setText(str("Finished"))
-        #msgBox.exec()
-        """
 
     ## 
     #  @brief Returns a chosen concept to the calling dialog.

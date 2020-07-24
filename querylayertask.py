@@ -4,7 +4,7 @@ import json
 import requests
 from qgis.utils import iface
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox
+from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox,QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
@@ -17,9 +17,10 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl,query,triplestoreconf,allownongeo,filename):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,allownongeo,filename,progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
+        self.progress=progress
         self.triplestoreurl=triplestoreurl
         self.triplestoreconf=triplestoreconf
         self.query=query
@@ -146,9 +147,11 @@ class QueryLayerTask(QgsTask):
             msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
+        self.progress.close()
         vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True, indent=4),"unicorn_"+self.filename,"ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)
         canvas = iface.mapCanvas()
         canvas.setExtent(vlayer.extent())
         iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+
