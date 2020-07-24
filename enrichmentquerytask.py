@@ -15,7 +15,7 @@ MESSAGE_CATEGORY = 'EnrichmentQueryTask'
 class EnrichmentQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl,query,searchTerm,prefixes,searchResult):
+    def __init__(self, description, triplestoreurl,query,columnmap,prefixes,progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
@@ -24,28 +24,65 @@ class EnrichmentQueryTask(QgsTask):
         self.labels=None
         self.urilist=None
         self.sortedatt=None
-        self.searchTerm=searchTerm
-        self.searchResult=searchResult
+        self.columnmap=columnmap
         self.results=None
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(
                                      self.description()),
                                  MESSAGE_CATEGORY, Qgis.Info)
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        self.enrichLayer = layers[selectedLayerIndex].layer().clone()
-        attlist={}
-        itemlist=[]
-        propertylist=[]
-        excludelist=[]
-        resultmap={}
-        self.dlg.enrichTableResult.clear()
-        self.dlg.enrichTableResult.setRowCount(0)		
-        self.dlg.enrichTableResult.setColumnCount(self.dlg.enrichTable.rowCount())
-        fieldnames=[]
-        for row in range(self.dlg.enrichTable.rowCount()):
-            fieldnames.append(self.dlg.enrichTable.item(row, 0).text())
+        for colid self.columnmap:
+            query=""
+            if content=="Enrich URI": 
+                query+="SELECT ?item WHERE {\n"
+            elif content=="Enrich Value" or content=="Enrich Both":
+                query+="SELECT ?item ?val ?valLabel ?vals WHERE {\n"
+            query+="VALUES ?vals { "
+            for val in self.columnmap[colid]["values"]:
+                if str(val).startswith("http"):
+                        query+="<"+str(val)+"> "
+                    elif self.columnmap[colid]["idfield"]=="http://www.w3.org/2000/01/rdf-schema#label" and "language" in self.columnmap[colid] and self.columnmap[colid]["language"]!="":
+                        query+="\""+str(val)+"\"@"+self.columnmap[colid]["language"]+" "
+                    else:
+                        query+="\""+str(val)+"\" "
+            query+=" } . \n"
+			proppp=propertyy.data(1)
+            if propertyy.data(1).startswith("//"):
+                proppp="http:"+proppp
+            if self.dlg.enrichTable.item(row, 7).text()!="" and "wikidata" in self.triplestoreurl:
+                query+="?item wdt:P31 <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
+            else:
+                query+="?item rdf:type <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
+            query+="?item <"+idprop+"> ?vals .\n"
+            query+="?item <"+proppp+"> ?val . \n"
+            if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
+                query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
+            elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
+                query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
+            query+="} ORDER BY ?item "
+            print(query)
+            print(triplestoreurl)
+            try:
+                sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                sparql.setQuery(query)
+                sparql.setMethod(POST)
+                print("now sending query")
+                sparql.setReturnFormat(JSON)
+                results = sparql.query().convert()
+            except Exception as e: 
+                try:
+                    sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                    sparql.setQuery(query)
+                    sparql.setMethod(GET)
+                    sparql.setReturnFormat(JSON)
+                    results = sparql.query().convert()
+                except Exception as e:
+                    print("Exception occured")
+                    #msgBox=QMessageBox()
+                    #msgBox.setText("The following exception occurred: "+str(e))
+                    #msgBox.exec()
+                    return    
+                print(str(results))
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()

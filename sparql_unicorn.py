@@ -324,6 +324,28 @@ class SPAQLunicorn:
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
 
+    def detectColumnType(self,table,col):
+        intcount=0
+        doublecount=0
+        for row in range(table.rowCount()):
+            if self.item(row,col)=="":
+                intcount+=1
+                doublecount+=1
+                continue
+            if self.item(row, col).text().isdigit():
+                intcount+=1
+            try:
+                float(self.item(row, col).text())
+                doublecount+=1
+            except:
+                print("")
+        if intcount==self.dlg.enrichTable.rowCount():
+            return QVariant.Integer
+        if doublecount==self.dlg.enrichTable.rowCount():
+            return QVariant.Double
+        return QVariant.String
+
+
     def enrichLayerProcess(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
@@ -340,6 +362,23 @@ class SPAQLunicorn:
         for row in range(self.dlg.enrichTable.rowCount()):
             fieldnames.append(self.dlg.enrichTable.item(row, 0).text())
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
+        columnmap={}
+        columntoid={}
+        for row in range(self.dlg.enrichTable.rowCount()):
+            strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
+            idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
+            propertyy=self.dlg.enrichTable.item(row, 1)
+            if strategy!="No Enrichment" and strategy!="Exclude" and propertyy!=None:
+                columnmap[row]={}
+                columnmap[row]["idfield"]=idfield
+                columnmap[row]["strategy"]=strategy
+                columnmap[row]["values"]=[]
+        fieldnames = [field.name() for field in self.enrichLayer.fields()] 
+        for f in self.enrichLayer.getFeatures():
+            i=0
+            for name in fieldnames:
+                if i in columnmap:
+                    columnmap[i]["values"].append(f[columnmap[i]["idfield"]])
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
             idprop=self.dlg.enrichTable.item(row, 6).text()
