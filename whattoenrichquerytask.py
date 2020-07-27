@@ -3,7 +3,7 @@ from rdflib import *
 import json
 import requests
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox
+from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox,QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 from qgis.core import (
@@ -15,11 +15,12 @@ MESSAGE_CATEGORY = 'WhatToEnrichQueryTask'
 class WhatToEnrichQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl,query,searchTerm,prefixes,searchResult):
+    def __init__(self, description, triplestoreurl,query,searchTerm,prefixes,searchResult,progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
         self.query=query
+        self.progress=progress
         self.prefixes=prefixes
         self.labels=None
         self.urilist=None
@@ -125,3 +126,4 @@ class WhatToEnrichQueryTask(QgsTask):
                 item.setText(att[0]+" ("+str(att[1])+"%)")
                 item.setData(1,self.urilist[att[0]])
                 self.searchResult.addItem(item)
+        self.progress.close()
