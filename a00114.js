@@ -2,7 +2,6 @@ var a00114 =
 [
     [ "__init__", "a00114.html#a64db1dd22c638fee852d0deb89275a09", null ],
     [ "addEnrichRow", "a00114.html#aef2caba5fdbabb1add496a3690ea2920", null ],
-    [ "addnewEnrichRow", "a00114.html#ac72cab54ee1034a0f176a6bf3fbe2bfd", null ],
     [ "buildCustomTripleStoreDialog", "a00114.html#aaa0da52fb182abd5369eb94a3031ffbd", null ],
     [ "buildSearchDialog", "a00114.html#acf276c4dd1702e8fbfa20bec371bf0db", null ],
     [ "buildValueMappingDialog", "a00114.html#a1659d7c9973dfca0d962d86f4195098b", null ],
@@ -16,7 +15,6 @@ var a00114 =
     [ "loadLayerForEnrichment", "a00114.html#a56435cd18605ceb7d36ef96f1a1252a2", null ],
     [ "loadLayerForInterlink", "a00114.html#a87085e3e93f6fa7041f16da1081c03f0", null ],
     [ "loadUnicornLayers", "a00114.html#a0a7541225b64dee6469fa1ec56d2c90e", null ],
-    [ "moveRow", "a00114.html#a7eacb7050b4d8b37a3debbc9b7e5baf9", null ],
     [ "showConfigTable", "a00114.html#a325fd8cbbc7334bc6881a68afd0c327f", null ],
     [ "validateSPARQL", "a00114.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
     [ "viewselectaction", "a00114.html#af9bcbe1a4132348650e930e72f66c336", null ],
