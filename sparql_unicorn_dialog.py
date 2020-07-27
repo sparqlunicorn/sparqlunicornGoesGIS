@@ -23,7 +23,7 @@
 """
 
 import os
-
+import re
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
@@ -44,7 +44,8 @@ from .bboxdialog import BBOXDialog
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'sparql_unicorn_dialog_base.ui'))
 
-
+## 
+#  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     triplestoreconf=None
@@ -100,12 +101,20 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
 
+    ## 
+    #  @brief Creates a What To Enrich dialog with parameters given.
+    #  
+    #  @param self The object pointer
     def buildCustomTripleStoreDialog(self):	
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.comboBox)	
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.searchTripleStoreDialog.exec_()
-		
+
+    ## 
+    #  @brief Creates a What To Enrich dialog with parameters given.
+    #  
+    #  @param self The object pointer
     def createWhatToEnrich(self):
         if self.enrichTable.rowCount()==0:
             return
@@ -129,6 +138,12 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def createEnrichSearchDialogProp(self,row=-1,column=-1):
         self.buildSearchDialog(row,column,False,self.findIDPropertyEdit,True,False,None,self.addVocabConf)
 
+    ## 
+    #  @brief Creates a search dialog with parameters for interlinking.
+    #  
+    #  @param self The object pointer
+    #  @param row The row of the table for which to map the search result
+    #  @param column The column of the table for which to map the search result
     def createInterlinkSearchDialog(self, row=-1, column=-1):
         if column>3 and column<7:
             self.buildSearchDialog(row,column,True,self.interlinkTable,True,False,None,self.addVocabConf)
@@ -143,7 +158,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     ## 
     #  @brief Shows the configuration table after creating an enrichment result.
     #  
-    #  @param [in] self The object pointer
+    #  @param  self The object pointer
     #  
     def showConfigTable(self):
         self.enrichTableResult.hide()
@@ -151,16 +166,18 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startEnrichment.setText("Start Enrichment")
         self.startEnrichment.clicked.disconnect()
         self.startEnrichment.clicked.connect(self.enrichLayerProcess)
-
-
-    
-
+        
+    ## 
+    #  @brief Executes a GUI event when a new SPARQL endpoint is selected. 
+    #  Usually loads the list of concepts related to the SPARQL endpoint
+    #  @param  send The sender of the request
+    # 
     def viewselectaction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        if self.layerconcepts.currentText()!=None and "(Q" in self.layerconcepts.currentText():
+        if self.layerconcepts.currentText()!=None and re.match(r'Q[0-9]+',self.layerconcepts.currentText()):
             self.inp_label.setText(self.layerconcepts.currentText().split("(")[0].lower().replace(" ","_"))
             concept=self.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
@@ -175,23 +192,22 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         else:
             self.inp_label.setText(self.layerconcepts.currentText()[self.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
 
-
-
-
-    def addnewEnrichRow(self):
-        currentRowCount = self.enrichTable.rowCount() 
-        self.enrichTable.insertRow(currentRowCount)
-        
-    def moveRow(self,upOrDown):
-        if self.enrichTable.selectionModel().hasSelected():
-            currentRowCount = self.enrichTable.selectedRows() 
-
+    ## 
+    #  @brief Deletes a row from the table in the enrichment dialog.
+    #  
+    #  @param  send The sender of the request
+    # 
     def deleteEnrichRow(send):
         w = send.sender().parent()
         row = self.enrichTable.indexAt(w.pos()).row()
         self.enrichTable.removeRow(row);
         self.enrichTable.setCurrentCell(0, 0)
-        
+  
+    ## 
+    #  @brief Adds a new row to the table in the enrichment dialog.
+    #  
+    #  @param  self The object pointer
+    # 
     def addEnrichRow(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
@@ -251,11 +267,11 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 
     ## 
     #  @brief Builds the search dialog to search for a concept or class.
-    #  @param [in] self The object pointer
-    #  @param [in] row the row to insert the result
-    #  @param [in] column the column to insert the result
-    #  @param [in] interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
-    #  @param [in] table the GUI element to display the result 
+    #  @param  self The object pointer
+    #  @param  row the row to insert the result
+    #  @param  column the column to insert the result
+    #  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
+    #  @param  table the GUI element to display the result 
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions=False,currentprefixes=None,addVocabConf=None):
         self.currentcol=column
         self.currentrow=row
@@ -264,11 +280,23 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.interlinkdialog.exec_()
 
+    ## 
+    #  @brief Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.
+    #  
+    #  @param self The object pointer
     def getPointFromCanvas(self):
         self.d=BBOXDialog(self.inp_sparql2,self.triplestoreconf,self.comboBox.currentIndex())
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
+    ## 
+    #  @brief Builds a value mapping dialog window for ther interlinking dialog.
+    #  
+    #  @param self The object pointer
+    #  @param row The row of the table for which to map the value
+    #  @param column The column of the table for which to map the value
+    #  @param table The table in which to save the value mapping result
+    #  @param layer The layer which is concerned by the enrichment oder interlinking
     def buildValueMappingDialog(self,row,column,interlinkOrEnrich,table,layer):
         self.currentcol=column
         self.currentrow=row
@@ -280,6 +308,10 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.interlinkdialog.setWindowTitle("Get Value Mappings for column "+table.item(row, 3).text())
         self.interlinkdialog.exec_()
 
+    ## 
+    #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
+    #  
+    #  @param self The object pointer
     def loadLayerForInterlink(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
@@ -316,6 +348,10 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             currentRowCount = self.interlinkTable.rowCount() 
             row+=1
 
+    ## 
+    #  @brief Loads a QGIS layer for enrichment into the enrichment dialog.
+    #  
+    #  @param self The object pointer
     def loadLayerForEnrichment(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
