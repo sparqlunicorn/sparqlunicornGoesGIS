@@ -186,7 +186,9 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.applyConceptToColumn(True)
 
 
-
+    ## Applies the search result to a GUI element for which the search dialog was called.
+    #  @param self The object pointer.
+    #  @param costumURI indicates if the the search result is a manually entered URI
     def applyConceptToColumn(self,costumURI=False):
         print("test")
         if costumURI:

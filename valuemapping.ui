@@ -64,7 +64,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>111</width>
+     <width>131</width>
      <height>16</height>
     </rect>
    </property>
@@ -119,7 +119,7 @@
     <rect>
      <x>10</x>
      <y>70</y>
-     <width>75</width>
+     <width>111</width>
      <height>23</height>
     </rect>
    </property>
@@ -135,7 +135,7 @@
     <rect>
      <x>140</x>
      <y>70</y>
-     <width>75</width>
+     <width>131</width>
      <height>23</height>
     </rect>
    </property>
@@ -146,10 +146,10 @@
   <widget class="QPushButton" name="deleteRowButton">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>130</x>
      <y>400</y>
-     <width>151</width>
-     <height>23</height>
+     <width>181</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -175,7 +175,7 @@ Column names may be used as variables in %%</string>
     <rect>
      <x>10</x>
      <y>400</y>
-     <width>121</width>
+     <width>101</width>
      <height>23</height>
     </rect>
    </property>

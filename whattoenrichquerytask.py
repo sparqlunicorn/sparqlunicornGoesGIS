@@ -23,6 +23,7 @@ class WhatToEnrichQueryTask(QgsTask):
         self.progress=progress
         self.prefixes=prefixes
         self.labels=None
+        self.progress=progress
         self.urilist=None
         self.sortedatt=None
         self.searchTerm=searchTerm
@@ -30,20 +31,10 @@ class WhatToEnrichQueryTask(QgsTask):
         self.results=None
 
     def run(self):
-        """Here you implement your heavy lifting.
-        Should periodically test for isCanceled() to gracefully
-        abort.
-        This method MUST return True or False.
-        Raising exceptions will crash QGIS, so we handle them
-        internally and raise them in self.finished
-        """
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-                                     self.description()),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()),MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm=="":
             return False
         concept="<"+self.searchTerm+">"
-		#"select (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con wdt:P31 "+str(concept)+" . ?con wdt:P625 ?coord . ?con wdt:P17  "+str(inarea)+" . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
         sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.prefixes) + self.query)
         sparql.setReturnFormat(JSON)
@@ -67,18 +58,9 @@ class WhatToEnrichQueryTask(QgsTask):
         attcounter=0
         count=0
         for att in attlist.keys():
-            #if att.startswith("P") and count==50:
-            #    atts[attcounter]=atts[attcounter][:-1]
-            #    attcounter+=1
-            #    atts.append("")
-            #    count=0
-            #    atts[attcounter]+=att+"|"
             if att.startswith("P") and count<50:
                 atts[attcounter]+=att+"|"
                 count+=1
-        #msgBox=QMessageBox()
-        #msgBox.setText(str(atts))
-        #msgBox.exec()  
         atts[0]=atts[0][:-1]
         i=0
         for att in atts:
@@ -99,18 +81,6 @@ class WhatToEnrichQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        """
-        This function is automatically called when the task has
-        completed (successfully or not).
-        You implement finished() to do whatever follow-up stuff
-        should happen after the task is complete.
-        finished is always called from the main thread, so it's safe
-        to do GUI operations and raise Python exceptions here.
-        result is the return value from self.run.
-        """
-        #msgBox=QMessageBox()
-        #msgBox.setText(str("Task is finished!"))
-        #msgBox.exec()
         counter=0
         for att in self.sortedatt:
             if att[1]<1:

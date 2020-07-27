@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>480</y>
-     <width>111</width>
+     <width>151</width>
      <height>16</height>
     </rect>
    </property>
@@ -29,9 +29,9 @@
   <widget class="QComboBox" name="chooseBBOXLayer">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>160</x>
      <y>475</y>
-     <width>361</width>
+     <width>331</width>
      <height>22</height>
     </rect>
    </property>
@@ -41,7 +41,7 @@
     <rect>
      <x>10</x>
      <y>500</y>
-     <width>111</width>
+     <width>151</width>
      <height>23</height>
     </rect>
    </property>

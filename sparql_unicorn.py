@@ -48,6 +48,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 # Initialize Qt resources from file resources.py
 from .resources import *
 from .querylayertask import QueryLayerTask
+from .enrichmentquerytask import EnrichmentQueryTask
 from .geoconceptsquerytask import GeoConceptsQueryTask
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
@@ -199,6 +200,8 @@ class SPAQLunicorn:
                 action)
             self.iface.removeToolBarIcon(action)
 
+    ## Creates a layer from the result of the given SPARQL unicorn query.
+    #  @param self The object pointer.
     def create_unicorn_layer(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         # SPARQL query
@@ -286,6 +289,10 @@ class SPAQLunicorn:
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
             self.dlg.inp_sparql2.columnvars={}
 
+    ## Gets GeoJSON reperesentations from a graph given by an RDF file or data source.
+    #  @param self The object pointer.
+    #  @param self The rdf graph
+    #  @param self The concept to search for
     def getGeoJSONFromGeoConcept(self,graph,concept):
         print(concept)
         qres = graph.query(
@@ -324,6 +331,10 @@ class SPAQLunicorn:
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
 
+    ## Detects the type of a column as String, Double or Integer.
+    #  @param self The object pointer.
+    #  @param table The object to detect from
+    # @param col The column to analyze
     def detectColumnType(self,table,col):
         intcount=0
         doublecount=0
@@ -345,7 +356,8 @@ class SPAQLunicorn:
             return QVariant.Double
         return QVariant.String
 
-
+    ## Starts the process of layer enrichment according to the options selected in the enrichment dialog.
+    #  @param self The object pointer.
     def enrichLayerProcess(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
@@ -379,6 +391,7 @@ class SPAQLunicorn:
             for name in fieldnames:
                 if i in columnmap:
                     columnmap[i]["values"].append(f[columnmap[i]["idfield"]])
+        self.enrichLayer.startEditing()
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
             idprop=self.dlg.enrichTable.item(row, 6).text()
@@ -402,12 +415,12 @@ class SPAQLunicorn:
             if strategy=="Exclude":
                 excludelist.append(row)
             if strategy!="No Enrichment" and propertyy!=None:
-                if row>=self.originalRowCount:
-                    self.enrichLayer.dataProvider().addAttributes([QgsField(item,QVariant.String)])
-                    self.enrichLayer.updateFields()
-                fieldnames = [field.name() for field in self.enrichLayer.fields()]
-                self.enrichLayer.startEditing()
-                print(str(self.enrichLayer.dataProvider().capabilitiesString()))
+                progress = QProgressDialog("Enriching column "+self.dlg.enrichTable.item(row, 0).text(), "Abort", 0, 0, self.dlg)
+                progress.setWindowModality(Qt.WindowModal)
+                progress.setCancelButton(None)
+                self.qtask=EnrichmentQueryTask("Enriching column: "+self.dlg.enrichTable.item(row, 0).text(), triplestoreurl,columnmap,self.enrichLayer,strategy,self.dlg.enrichTable.item(row, 8).text(),row,self.originalRowCount,self.dlg.enrichTable.item(row, 0).text(),self.dlg.enrichTable,idfield,idprop,self.dlg.enrichTable.item(row, 1),content,progress)
+                QgsApplication.taskManager().addTask(self.qtask)
+                """
                 print(str(fieldnames))
                 print("Enrichment for "+propertyy.text())
                 print("Item: "+idfield)
@@ -478,7 +491,13 @@ class SPAQLunicorn:
                     else:
                         resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]+";"+resultcounter["val"]["value"]
                 print(str(resultmap))
-                rowww=0            
+                rowww=0
+                if row>=self.originalRowCount:
+                    self.enrichLayer.dataProvider().addAttributes([QgsField(item,QVariant.String)])
+                    self.enrichLayer.updateFields()
+                fieldnames = [field.name() for field in self.enrichLayer.fields()]
+                self.enrichLayer.startEditing()
+                print(str(self.enrichLayer.dataProvider().capabilitiesString()))
                 for f in self.enrichLayer.getFeatures():
                     if rowww>=self.dlg.enrichTableResult.rowCount():
                         self.dlg.enrichTableResult.insertRow(rowww)
@@ -503,7 +522,8 @@ class SPAQLunicorn:
                         #if ";" in str(newitem):
                         #    newitem.setBackground(QColor.red)
                         print(str(newitem))
-                    rowww+=1  
+                    rowww+=1
+                    """
             else:
                 rowww=0            
                 for f in self.enrichLayer.getFeatures():
@@ -530,7 +550,8 @@ class SPAQLunicorn:
         return self.enrichLayer
     
 
-
+    ## Adds a QGIS layer which has been previously enriched to QGIS.
+    #  @param self The object pointer.
     def addEnrichedLayer(self):
         self.enrichLayerCounter+=1
         self.enrichLayer.setName(self.enrichLayer.name()+"_enrich"+str(self.enrichLayerCounter))
@@ -566,6 +587,9 @@ class SPAQLunicorn:
             filepath=fileNames[0].split(".")
             self.readMapping(fileNames[0])
 
+    ## Reads a concept mapping from a given XML file.
+    #  @param self The object pointer.
+    #  @param self The file path    
     def readMapping(self,filename):
         if self.dlg.interlinkTable.rowCount()!=0:
             tree = ET.parse(filename)
@@ -629,6 +653,8 @@ class SPAQLunicorn:
             msgBox.setText("Please first load a dataset to enrich before loading a mapping file")
             msgBox.exec()
 
+    ## Shows the export concept mapping dialog.
+    #  @param self The object pointer. 
     def exportMapping(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ","", "XML (.xml)",)
@@ -643,6 +669,8 @@ class SPAQLunicorn:
             output_file.write(ttlstring)
             iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
 
+    ## Converts a concept mapping to XML.
+    #  @param self The object pointer. 
     def exportMappingProcess(self):
         xmlmappingheader="<?xml version=\"1.0\" ?>\n<data>\n<file "
         xmlmapping=""
@@ -776,6 +804,9 @@ class SPAQLunicorn:
             viewlist.append(str(result["a"]["value"]))
         return viewlist
 
+    ## Converts a QGIS layer to TTL with or withour a given column mapping.
+    #  @param self The object pointer. 
+    #  @param layer The layer to convert. 
     def layerToTTLString(self,layer,urilist=None,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring="<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n"
@@ -916,7 +947,8 @@ class SPAQLunicorn:
     def exportLayer2(self):
         self.exportLayer(None,None,None,None,None,None,self.dlg.exportTripleStore_2.isChecked())
 
-
+    ## Creates the export layer dialog for exporting layers as TTL.
+    #  @param self The object pointer.
     def exportLayer(self,urilist=None,classurilist=None,includelist=None,proptypelist=None,valuemappings=None,valuequeries=None,exportToTripleStore=False):
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
