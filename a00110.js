@@ -4,7 +4,6 @@ var a00110 =
     [ "add_action", "a00110.html#a3f16a7f94b1128f16955ff6bd70450ca", null ],
     [ "addEnrichedLayer", "a00110.html#aca6b7d4f8799f96244e4515a0a633386", null ],
     [ "create_unicorn_layer", "a00110.html#afb699b236ce4e28e8d4fabc71b0a63e1", null ],
-    [ "detectColumnType", "a00110.html#a2b8ad056370bc8adc66c0a61a46c0ed3", null ],
     [ "endpointselectaction", "a00110.html#a08f51981194b429b151dd50b4192c9da", null ],
     [ "enrichLayerProcess", "a00110.html#a56c0d7bb6decc89954e354bbd53ec602", null ],
     [ "exportEnrichedLayer", "a00110.html#adfcc23a6b0a5b7441daa1d4b43a6e881", null ],

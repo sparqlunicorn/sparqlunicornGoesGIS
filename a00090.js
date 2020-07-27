@@ -1,10 +1,10 @@
 var a00090 =
 [
-    [ "__init__", "a00090.html#ada5d107247a7d7f701dd5fac9a9f6473", null ],
-    [ "detectColumnType", "a00090.html#a2b8ad056370bc8adc66c0a61a46c0ed3", null ],
+    [ "__init__", "a00090.html#a2a594eae28caeba17677d04e373595ae", null ],
+    [ "detectColumnType", "a00090.html#a5fa43f2158d2c275ce942444d14cb088", null ],
     [ "finished", "a00090.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00090.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "columnmap", "a00090.html#a1c2cf58b17f57abcbd2d8fed269b2b6e", null ],
+    [ "columntype", "a00090.html#acc09815ec98d8afca1cb5499ebfdb393", null ],
     [ "content", "a00090.html#a6858851eee0e05f318897984757b59dc", null ],
     [ "exception", "a00090.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "idfield", "a00090.html#a87055b5ec18a0da68316c455287d1e9c", null ],
@@ -18,6 +18,7 @@ var a00090 =
     [ "propertyy", "a00090.html#a2315a70a53b245bf15d631b4c15471fd", null ],
     [ "resultmap", "a00090.html#aaeea1836572756b4a0baf74cdb8ac5d5", null ],
     [ "results", "a00090.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
+    [ "resulttable", "a00090.html#afd0ae837545c3d40e48ae93e147d0657", null ],
     [ "row", "a00090.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
     [ "sortedatt", "a00090.html#a48ad5f81f31645c924cfff541c5add36", null ],
     [ "strategy", "a00090.html#ab621d71bb2cf38b09419ef3a5047e30c", null ],
