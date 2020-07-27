@@ -177,16 +177,20 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        if self.layerconcepts.currentText()!=None and re.match(r'Q[0-9]+',self.layerconcepts.currentText()):
+        if self.layerconcepts.currentText()!=None and re.match(r'Q[0-9]+',self.layerconcepts.currentText()) and not self.layerconcepts.currentText().startswith("http"):
             self.inp_label.setText(self.layerconcepts.currentText().split("(")[0].lower().replace(" ","_"))
             concept=self.layerconcepts.currentText().split("Q")[1].replace(")","")
         else:
             concept=self.layerconcepts.currentText()
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+            if "wd:Q%%concept%% ." in self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+                if concept.startswith("http"):
+                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept[concept.rfind('/')+1:]+" ."))
+                else:
+                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept+" ."))
+            else:
+                self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
             self.inp_sparql2.columnvars={}
-            if "wd:Q ." in self.inp_sparql2.toPlainText():
-                self.inp_sparql2.setPlainText(self.inp_sparql2.toPlainText().replace("wd:Q .", "wd:Q1248784 ."))
         if "#" in self.layerconcepts.currentText():
             self.inp_label.setText(self.layerconcepts.currentText()[self.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
         else:

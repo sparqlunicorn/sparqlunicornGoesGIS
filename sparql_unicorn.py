@@ -331,31 +331,6 @@ class SPAQLunicorn:
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
 
-    ## Detects the type of a column as String, Double or Integer.
-    #  @param self The object pointer.
-    #  @param table The object to detect from
-    # @param col The column to analyze
-    def detectColumnType(self,table,col):
-        intcount=0
-        doublecount=0
-        for row in range(table.rowCount()):
-            if self.item(row,col)=="":
-                intcount+=1
-                doublecount+=1
-                continue
-            if self.item(row, col).text().isdigit():
-                intcount+=1
-            try:
-                float(self.item(row, col).text())
-                doublecount+=1
-            except:
-                print("")
-        if intcount==self.dlg.enrichTable.rowCount():
-            return QVariant.Integer
-        if doublecount==self.dlg.enrichTable.rowCount():
-            return QVariant.Double
-        return QVariant.String
-
     ## Starts the process of layer enrichment according to the options selected in the enrichment dialog.
     #  @param self The object pointer.
     def enrichLayerProcess(self):
@@ -374,23 +349,6 @@ class SPAQLunicorn:
         for row in range(self.dlg.enrichTable.rowCount()):
             fieldnames.append(self.dlg.enrichTable.item(row, 0).text())
         self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
-        columnmap={}
-        columntoid={}
-        for row in range(self.dlg.enrichTable.rowCount()):
-            strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
-            idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
-            propertyy=self.dlg.enrichTable.item(row, 1)
-            if strategy!="No Enrichment" and strategy!="Exclude" and propertyy!=None:
-                columnmap[row]={}
-                columnmap[row]["idfield"]=idfield
-                columnmap[row]["strategy"]=strategy
-                columnmap[row]["values"]=[]
-        fieldnames = [field.name() for field in self.enrichLayer.fields()] 
-        for f in self.enrichLayer.getFeatures():
-            i=0
-            for name in fieldnames:
-                if i in columnmap:
-                    columnmap[i]["values"].append(f[columnmap[i]["idfield"]])
         self.enrichLayer.startEditing()
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
@@ -418,112 +376,8 @@ class SPAQLunicorn:
                 progress = QProgressDialog("Enriching column "+self.dlg.enrichTable.item(row, 0).text(), "Abort", 0, 0, self.dlg)
                 progress.setWindowModality(Qt.WindowModal)
                 progress.setCancelButton(None)
-                self.qtask=EnrichmentQueryTask("Enriching column: "+self.dlg.enrichTable.item(row, 0).text(), triplestoreurl,columnmap,self.enrichLayer,strategy,self.dlg.enrichTable.item(row, 8).text(),row,self.originalRowCount,self.dlg.enrichTable.item(row, 0).text(),self.dlg.enrichTable,idfield,idprop,self.dlg.enrichTable.item(row, 1),content,progress)
+                self.qtask=EnrichmentQueryTask("Enriching column: "+self.dlg.enrichTable.item(row, 0).text(), triplestoreurl,self.enrichLayer,strategy,self.dlg.enrichTable.item(row, 8).text(),row,self.originalRowCount,self.dlg.enrichTable.item(row, 0).text(),self.dlg.enrichTable,self.dlg.enrichTableResult,idfield,idprop,self.dlg.enrichTable.item(row, 1),content,progress)
                 QgsApplication.taskManager().addTask(self.qtask)
-                """
-                print(str(fieldnames))
-                print("Enrichment for "+propertyy.text())
-                print("Item: "+idfield)
-                itemlist.append(item)
-                attlist[item]=[]
-                attlist[idfield]=[]
-                for f in self.enrichLayer.getFeatures():
-                    if item in f:
-                        attlist[item].append(f[item])
-                    attlist[idfield].append(f[idfield])
-                query=""
-                if content=="Enrich URI": 
-                    query+="SELECT ?item WHERE {\n"
-                elif content=="Enrich Value" or content=="Enrich Both":
-                    query+="SELECT ?item ?val ?valLabel ?vals WHERE {\n"
-                query+="VALUES ?vals { "
-                print(attlist)
-                for it in attlist[idfield]:
-                    if str(it).startswith("http"):
-                        query+="<"+str(it)+"> "
-                    elif idprop=="http://www.w3.org/2000/01/rdf-schema#label" and self.dlg.enrichTable.item(row, 8).text()!="":
-                        query+="\""+str(it)+"\"@"+self.dlg.enrichTable.item(row, 8).text()+" "
-                    else:
-                        query+="\""+str(it)+"\" "
-                query+=" } . \n"
-                proppp=propertyy.data(1)
-                if propertyy.data(1).startswith("//"):
-                    proppp="http:"+proppp
-                if self.dlg.enrichTable.item(row, 7).text()!="" and "wikidata" in triplestoreurl:
-                    query+="?item wdt:P31 <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
-                else:
-                    query+="?item rdf:type <"+self.dlg.enrichTable.item(row, 7).text()+"> .\n"
-                query+="?item <"+idprop+"> ?vals .\n"
-                query+="?item <"+proppp+"> ?val . \n"
-                if (content=="Enrich Value" or content=="Enrich Both") and not "wikidata" in triplestoreurl:
-                    query+="OPTIONAL{ ?val rdfs:label ?valLabel }"
-                elif (content=="Enrich Value" or content=="Enrich Both") and "wikidata" in triplestoreurl:
-                    query+="SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }\n"
-                query+="} ORDER BY ?item "
-                print(query)
-                print(triplestoreurl)
-                try:
-                    sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                    sparql.setQuery(query)
-                    sparql.setMethod(POST)
-                    print("now sending query")
-                    sparql.setReturnFormat(JSON)
-                    results = sparql.query().convert()
-                except Exception as e: 
-                    try:
-                        sparql = SPARQLWrapper(triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                        sparql.setQuery(query)
-                        sparql.setMethod(GET)
-                        sparql.setReturnFormat(JSON)
-                        results = sparql.query().convert()
-                    except Exception as e:
-                        msgBox=QMessageBox()
-                        msgBox.setText("The following exception occurred: "+str(e))
-                        msgBox.exec()
-                        return    
-                print(str(results))
-                #resultcounter=0
-                for resultcounter in results["results"]["bindings"]:
-                    if content=="Enrich Value":
-                        resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]
-                    elif content=="Enrich URI":
-                        resultmap[resultcounter["vals"]["value"]]=resultcounter["val"]["value"]
-                    else:
-                        resultmap[resultcounter["vals"]["value"]]=resultcounter["valLabel"]["value"]+";"+resultcounter["val"]["value"]
-                print(str(resultmap))
-                rowww=0
-                if row>=self.originalRowCount:
-                    self.enrichLayer.dataProvider().addAttributes([QgsField(item,QVariant.String)])
-                    self.enrichLayer.updateFields()
-                fieldnames = [field.name() for field in self.enrichLayer.fields()]
-                self.enrichLayer.startEditing()
-                print(str(self.enrichLayer.dataProvider().capabilitiesString()))
-                for f in self.enrichLayer.getFeatures():
-                    if rowww>=self.dlg.enrichTableResult.rowCount():
-                        self.dlg.enrichTableResult.insertRow(rowww)
-                    if f[idfield] in resultmap:
-                        if strategy=="Merge":
-                            newitem=QTableWidgetItem(str(f[item])+str(resultmap[f[idfield]]))
-                        elif strategy=="Keep Local":
-                            if f[item]==None:
-                                newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
-                            else:
-                                newitem=QTableWidgetItem(str(f[item]))
-                        elif strategy=="Ask User":
-                            newitem=QTableWidgetItem(str(f[item])+";"+str(resultmap[f[idfield]]))
-                        elif strategy=="Keep Remote":
-                            if not f[idfield] in resultmap or resultmap[f[idfield]]==None:
-                                newitem=QTableWidgetItem(str(f[item]))
-                            else:
-                                newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
-                        else:
-                            newitem=QTableWidgetItem(str(resultmap[f[idfield]]))
-                        self.dlg.enrichTableResult.setItem(rowww,row,newitem)
-                        #if ";" in str(newitem):
-                        #    newitem.setBackground(QColor.red)
-                        print(str(newitem))
-                    rowww+=1
-                    """
             else:
                 rowww=0            
                 for f in self.enrichLayer.getFeatures():
