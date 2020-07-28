@@ -34,11 +34,14 @@ from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayou
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText
+from .enrichmenttab import EnrichmentTab
+from .interlinkingtab import InterlinkingTab
 from .triplestoredialog import TripleStoreDialog
 from .searchdialog import SearchDialog
 from .sparqlhighlighter import SPARQLHighlighter
 from .valuemapping import ValueMappingDialog
 from .bboxdialog import BBOXDialog
+from .loadgraphdialog import LoadGraphDialog
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -47,14 +50,18 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 ## 
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
-	
+	## The triple store configuration file
     triplestoreconf=None
-	
+	## Prefix map
     prefixes=None
+	
+    enrichtab=None
+	
+    interlinktab=None
 	
     columnvars={}
 	
-    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},parent=None):
+    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},maindlg=None,parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
         # Set up the user interface from Designer through FORM_CLASS.
@@ -64,6 +71,9 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.prefixes=prefixes
+        self.maindlg=maindlg
+        self.enrichtab=EnrichmentTab(self)
+        self.interlinktab=InterlinkingTab(self)
         self.addVocabConf=addVocabConf
         self.triplestoreconf=triplestoreconf
         self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
@@ -94,12 +104,29 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.interlinkNameSpace.setValidator(urlvalidator)
         self.interlinkNameSpace.textChanged.connect(self.check_state3)
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
-        #self.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
+        self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
+        self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+        self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
+        self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
+        self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+        self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
-        #self.layerconcepts.currentIndexChanged.connect(self.loadAreas)
+        self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
+        self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+        self.loadUnicornLayers()
+
+    ## 
+    #  @brief Creates a What To Enrich dialog with parameters given.
+    #  
+    #  @param self The object pointer
+    def buildLoadGraphDialog(self):	
+        self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf,self.maindlg,self)	
+        self.searchTripleStoreDialog.setWindowTitle("Load Graph")	
+        self.searchTripleStoreDialog.exec_()
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
@@ -165,7 +192,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.enrichTable.show()
         self.startEnrichment.setText("Start Enrichment")
         self.startEnrichment.clicked.disconnect()
-        self.startEnrichment.clicked.connect(self.enrichLayerProcess)
+        self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
         
     ## 
     #  @brief Executes a GUI event when a new SPARQL endpoint is selected. 

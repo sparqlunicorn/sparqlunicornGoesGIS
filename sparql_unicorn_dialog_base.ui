@@ -111,7 +111,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Load From File</string>
+      <string>Load Graph</string>
      </property>
     </widget>
     <widget class="QLabel" name="label">

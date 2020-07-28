@@ -99,6 +99,8 @@ class ToolTipPlainText(QPlainTextEdit):
             query=self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"]
         elif classes[0].startswith("P"):
             query=self.triplestoreconf[self.selector.currentIndex()]["propertylabelquery"]
+        else:
+            return
         print("Get Labels for Tooltip")
         #url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if "SELECT" in query:

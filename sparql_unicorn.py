@@ -33,10 +33,9 @@ from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor
 from qgis.core import QgsTask, QgsTaskManager
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox,QProgressDialog
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
-from qgis.utils import iface
 import os.path
 import sys
-import xml.etree.ElementTree as ET
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import requests
 import uuid
@@ -48,7 +47,9 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 # Initialize Qt resources from file resources.py
 from .resources import *
 from .querylayertask import QueryLayerTask
-from .enrichmentquerytask import EnrichmentQueryTask
+
+from .interlinkingtab import InterlinkingTab
+from .enrichmenttab import EnrichmentTab
 from .geoconceptsquerytask import GeoConceptsQueryTask
 # Import the code for the dialog
 from .sparql_unicorn_dialog import SPAQLunicornDialog
@@ -71,12 +72,14 @@ class SPAQLunicorn:
     exportIdCol=None
 	
     exportSetClass=None
-
+    # Triple store configuration map
     triplestoreconf=None
     
     enrichLayer=None
 	
     qtask=None
+	
+    currentgraph=None
 	
     originalRowCount=0
 	
@@ -138,8 +141,6 @@ class SPAQLunicorn:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('SPAQLunicorn', message)
-
-
 
     def add_action(
         self,
@@ -330,315 +331,6 @@ class SPAQLunicorn:
 		
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")       
-
-    ## Starts the process of layer enrichment according to the options selected in the enrichment dialog.
-    #  @param self The object pointer.
-    def enrichLayerProcess(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        self.enrichLayer = layers[selectedLayerIndex].layer().clone()
-        attlist={}
-        itemlist=[]
-        propertylist=[]
-        excludelist=[]
-        resultmap={}
-        self.dlg.enrichTableResult.clear()
-        self.dlg.enrichTableResult.setRowCount(0)		
-        self.dlg.enrichTableResult.setColumnCount(self.dlg.enrichTable.rowCount())
-        fieldnames=[]
-        for row in range(self.dlg.enrichTable.rowCount()):
-            fieldnames.append(self.dlg.enrichTable.item(row, 0).text())
-        self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)
-        self.enrichLayer.startEditing()
-        for row in range(self.dlg.enrichTable.rowCount()):
-            idfield=self.dlg.enrichTable.cellWidget(row, 5).currentText()
-            idprop=self.dlg.enrichTable.item(row, 6).text()
-            if idprop==None or idprop=="":
-                msgBox=QMessageBox()
-                msgBox.setText("ID Property has not been specified for column "+str(self.dlg.enrichTable.item(row, 0).text()))
-                msgBox.exec()
-                return
-            item = self.dlg.enrichTable.item(row, 0).text()
-            propertyy=self.dlg.enrichTable.item(row, 1)
-            triplestoreurl=""
-            if self.dlg.enrichTable.item(row, 2)!=None:
-                triplestoreurl=self.dlg.enrichTable.item(row, 2).text()
-                print(self.dlg.enrichTable.item(row, 2).text())
-            strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
-            content=""
-            if self.dlg.enrichTable.cellWidget(row, 4)!=None:
-                content = self.dlg.enrichTable.cellWidget(row, 4).currentText()
-            if item!=idfield:
-                propertylist.append(self.dlg.enrichTable.item(row, 1)) 
-            if strategy=="Exclude":
-                excludelist.append(row)
-            if strategy!="No Enrichment" and propertyy!=None:
-                progress = QProgressDialog("Enriching column "+self.dlg.enrichTable.item(row, 0).text(), "Abort", 0, 0, self.dlg)
-                progress.setWindowModality(Qt.WindowModal)
-                progress.setCancelButton(None)
-                self.qtask=EnrichmentQueryTask("Enriching column: "+self.dlg.enrichTable.item(row, 0).text(), triplestoreurl,self.enrichLayer,strategy,self.dlg.enrichTable.item(row, 8).text(),row,self.originalRowCount,self.dlg.enrichTable.item(row, 0).text(),self.dlg.enrichTable,self.dlg.enrichTableResult,idfield,idprop,self.dlg.enrichTable.item(row, 1),content,progress)
-                QgsApplication.taskManager().addTask(self.qtask)
-            else:
-                rowww=0            
-                for f in self.enrichLayer.getFeatures():
-                    if rowww>=self.dlg.enrichTableResult.rowCount():
-                        self.dlg.enrichTableResult.insertRow(rowww)
-                    #if item in f:
-                    newitem=QTableWidgetItem(str(f[item]))
-                    self.dlg.enrichTableResult.setItem(rowww,row,newitem)
-                    #if ";" in str(newitem):
-                    #    newitem.setBackground(QColor.red)
-                    print(str(newitem))
-                    rowww+=1
-            self.enrichLayer.commitChanges()
-            row+=1
-        iface.vectorLayerTools().stopEditing(self.enrichLayer)
-        self.enrichLayer.dataProvider().deleteAttributes(excludelist)
-        self.enrichLayer.updateFields()
-        self.dlg.enrichTable.hide()
-        self.dlg.enrichTableResult.show()
-        self.dlg.startEnrichment.setText("Enrichment Configuration")
-        self.dlg.startEnrichment.clicked.disconnect()
-        self.dlg.startEnrichment.clicked.connect(self.dlg.showConfigTable)
-        self.dlg.addEnrichedLayerRowButton.setEnabled(False)
-        return self.enrichLayer
-    
-
-    ## Adds a QGIS layer which has been previously enriched to QGIS.
-    #  @param self The object pointer.
-    def addEnrichedLayer(self):
-        self.enrichLayerCounter+=1
-        self.enrichLayer.setName(self.enrichLayer.name()+"_enrich"+str(self.enrichLayerCounter))
-        self.enrichLayer.startEditing()
-        row=0
-        fieldnames = [field.name() for field in self.enrichLayer.fields()]
-        for f in self.enrichLayer.getFeatures():
-            fieldcounter=0
-            for field in fieldnames:
-                if self.dlg.enrichTableResult.item(row,fieldcounter)!=None:
-                    f[field]=self.dlg.enrichTableResult.item(row,fieldcounter).text()
-                else:
-                    f[field]=""
-                fieldcounter+=1
-            self.enrichLayer.updateFeature(f)
-            row+=1
-        self.enrichLayer.commitChanges()
-        iface.vectorLayerTools().stopEditing(self.enrichLayer)
-        QgsProject.instance().addMapLayer(self.enrichLayer,True)
-        canvas = iface.mapCanvas()
-        canvas.setExtent(self.enrichLayer.extent())
-        iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-        self.dlg.close()
-
-
-    ## Loads an enrichment mapping from a previously defined mapping file.
-    #  @param self The object pointer.
-    def loadMapping(self):
-        dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        if dialog.exec_():
-            fileNames = dialog.selectedFiles()
-            filepath=fileNames[0].split(".")
-            self.readMapping(fileNames[0])
-
-    ## Reads a concept mapping from a given XML file.
-    #  @param self The object pointer.
-    #  @param self The file path    
-    def readMapping(self,filename):
-        if self.dlg.interlinkTable.rowCount()!=0:
-            tree = ET.parse(filename)
-            root = tree.getroot()
-            filedata=root.find('file')[0]
-            self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
-            self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))  
-            for neighbor in root.iter('column'):
-                name=neighbor.get("name")
-                proptype=neighbor.get("prop")
-                propiri=neighbor.get("propiri")
-                concept=neighbor.get("concept")
-                query=neighbor.get("query")
-                triplestoreurl=neighbor.get("triplestoreurl")
-                valuemappings={}
-                for vmap in neighbor.findall("valuemapping"):
-                    valuemappings[vmap.get("from")]=vmap.get("to")
-                for row in range(self.dlg.interlinkTable.rowCount()):
-                    columnname=self.dlg.interlinkTable.item(row,3).text()
-                    if columnname==name:
-                        if propiri!=None:
-                            item=QTableWidgetItem(propiri)
-                            item.setText(propiri)
-                            item.setData(1,propiri)
-                            self.dlg.interlinkTable.setItem(row,4,item)
-                        if proptype!=None:
-                            comboboxx=self.dlg.interlinkTable.cellWidget(row,5)
-                            if proptype=="annotation":
-                                comboboxx.setCurrentIndex(comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype=="obj":
-                                comboboxx.setCurrentIndex(comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype=="data":
-                                comboboxx.setCurrentIndex(comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype=="subclass":
-                                comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
-                            else:
-                                comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
-                        if concept!=None:
-                            item=QTableWidgetItem(concept)
-                            item.setText(concept)
-                            item.setData(1,concept)
-                            self.dlg.interlinkTable.setItem(row,6,item)
-                        if valuemappings!={} and valuemappings!=None:
-                            item=QTableWidgetItem("ValueMap{}")
-                            item.setText("ValueMap{}")
-                            item.setData(1,valuemappings)
-                            if query!=None:
-                                item.setData(2,query)
-                                item.setData(3,triplestoreurl)                                
-                            self.dlg.interlinkTable.setItem(row,7,item)
-                        elif query!=None:
-                            item=QTableWidgetItem("ValueMap{}")
-                            item.setText("ValueMap{}")
-                            item.setData(2,query)
-                            item.setData(3,triplestoreurl)
-                            if valuemappings!={} and valuemappings!=None:
-                                item.setData(1,valuemappings)                                
-                            self.dlg.interlinkTable.setItem(row,7,item)                            
-        else:
-            msgBox=QMessageBox()
-            msgBox.setText("Please first load a dataset to enrich before loading a mapping file")
-            msgBox.exec()
-
-    ## Shows the export concept mapping dialog.
-    #  @param self The object pointer. 
-    def exportMapping(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ","", "XML (.xml)",)
-        if filename=="":
-             return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        ttlstring=self.exportMappingProcess()
-        splitted=filename.split(".")
-        exportNameSpace=""
-        exportSetClass=""
-        with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-            iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
-
-    ## Converts a concept mapping to XML.
-    #  @param self The object pointer. 
-    def exportMappingProcess(self):
-        xmlmappingheader="<?xml version=\"1.0\" ?>\n<data>\n<file "
-        xmlmapping=""
-        self.exportIdCol=""
-        self.exportNameSpace=self.dlg.interlinkNameSpace.text()
-        self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
-        xmlmappingheader+="class=\""+self.dlg.interlinkOwlClassInput.text()+"\" "
-        xmlmappingheader+="namespace=\""+self.dlg.interlinkNameSpace.text()+"\" "
-        propurilist=[]
-        classurilist=[]
-        includelist=[]
-        for row in range(self.dlg.interlinkTable.rowCount()):
-            item = self.dlg.interlinkTable.item(row, 0)
-            if item.checkState():
-                includelist.append(True)
-                if self.dlg.interlinkTable.item(row, 1).checkState():
-                    self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
-                    xmlmappingheader+=" indid=\""+self.exportIdCol+"\" "
-                    propurilist.append("")
-                    classurilist.append("")
-                else:
-                    xmlmapping+="<column name=\""+self.dlg.interlinkTable.item(row, 3).text()+"\" "
-                    column = self.dlg.interlinkTable.item(row, 3).text()
-                    if self.dlg.interlinkTable.item(row,4)!=None:
-                        column=self.dlg.interlinkTable.item(row,4).data(0)
-                        propurilist.append(self.dlg.interlinkTable.item(row,4).data(1))
-                        xmlmapping+="propiri=\""+self.dlg.interlinkTable.item(row,4).data(1)+"\" "
-                    else:
-                         propurilist.append("")
-                    if self.dlg.interlinkTable.cellWidget(row, 5)!=None and self.dlg.interlinkTable.cellWidget(row, 5).currentText()!="Automatic":
-                        if self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="AnnotationProperty":
-                            xmlmapping+="prop=\"annotation\" "
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="DataProperty":
-                            xmlmapping+="prop=\"data\" "
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="ObjectProperty":
-                            xmlmapping+="prop=\"obj\" "
-                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText()=="SubClass":
-                            xmlmapping+="prop=\"subclass\" "
-                    if self.dlg.interlinkTable.item(row, 6)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        self.exportColConfig[column]=concept
-                        classurilist.append(concept)
-                        xmlmapping+="concept=\""+self.dlg.interlinkTable.item(row,6).data(1)+"\" "
-                    else:
-                        classurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 7)!=None:
-                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
-                        if self.dlg.interlinkTable.item(row, 7).data(2)!=None and self.dlg.interlinkTable.item(row, 7).data(3)!=None:
-                            xmlmapping+="query=\""+self.dlg.interlinkTable.item(row, 7).data(2).replace("\n"," ")+"\" triplestoreurl=\""+self.dlg.interlinkTable.item(row, 7).data(3)+"\" "
-                        xmlmapping+=">\n"
-                        if self.valueconcept!=None:
-                            for key in self.valueconcept:
-                                xmlmapping+="<valuemapping from=\""+key+"\" to=\""+self.valueconcept[key]+"\"/>\n"
-                    else:
-                        xmlmapping+=">\n"
-                    xmlmapping+="</column>\n"
-            else:
-                includelist.append(False)
-                propurilist.append("")
-                classurilist.append("")
-        xmlmapping+="</file>\n</data>"
-        return xmlmappingheader+">\n"+xmlmapping
-
-    
-
-    ## Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.
-    #  @param self The object pointer.
-    def exportEnrichedLayer(self):
-        self.exportIdCol=""
-        self.exportNameSpace=self.dlg.interlinkNameSpace.text()
-        self.exportSetClass=self.dlg.interlinkOwlClassInput.text()
-        propurilist=[]
-        classurilist=[]
-        includelist=[]
-        proptypelist=[]
-        valuemappings={}
-        valuequeries=[]
-        for row in range(self.dlg.interlinkTable.rowCount()):
-            item = self.dlg.interlinkTable.item(row, 0)
-            if item.checkState():
-                includelist.append(True)
-                if self.dlg.interlinkTable.item(row, 1).checkState():
-                    self.exportIdCol=self.dlg.interlinkTable.item(row, 3).text()
-                    propurilist.append("")
-                    classurilist.append("")
-                    proptypelist.append("")
-                else:
-                    column = self.dlg.interlinkTable.item(row, 3).text()
-                    if self.dlg.interlinkTable.item(row,4)!=None:
-                        column=self.dlg.interlinkTable.item(row,3).data(0)
-                        propurilist.append(self.dlg.interlinkTable.item(row,4).data(1))
-                    else:
-                        propurilist.append("")
-                    if self.dlg.interlinkTable.item(row,5)!=None:
-                        proptypelist.append(self.dlg.interlinkTable.item(row,5).text())
-                    else:
-                        proptypelist.append("")
-                    if self.dlg.interlinkTable.item(row, 6)!=None:
-                        concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        self.exportColConfig[column]=concept
-                        classurilist.append(concept)
-                    else:
-                        classurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 7)!=None:
-                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
-                        valuemappings[item.text()]=self.dlg.interlinkTable.item(row,7).data(1)
-                        valuequeries.append({self.dlg.interlinkTable.item(row,7).data(2),self.dlg.interlinkTable.item(row,7).data(3)})
-            else:
-                includelist.append(False)
-                propurilist.append("")
-                classurilist.append("")
-                proptypelist.append("")
-        self.enrichedExport=True
-        self.exportLayer(propurilist,classurilist,includelist,proptypelist,valuemappings,valuequeries,self.dlg.exportTripleStore.isChecked())
 		
     def matchColumnValueFromTripleStore(self,toquery):
         values="VALUES ?vals { "
@@ -878,51 +570,7 @@ class SPAQLunicorn:
                     currentgeo["properties"][prop]=f[prop]
             geos.append(currentgeo)
         featurecollection={"@context":context, "type":"FeatureCollection", "@id":"http://example.com/collections/1", "features": geos }
-        return featurecollection	
-
-    def loadGraphGUI(exception, result=None):
-        print("Loading graph gui")
-        self.dlg.layercount.setText("["+str(len(result))+"]")		
-        for geo in geoconcepts:
-            self.dlg.layerconcepts.addItem(geo)
-        comp=QCompleter(self.dlg.layerconcepts)
-        comp.setCompletionMode(QCompleter.PopupCompletion)
-        comp.setModel(self.dlg.layerconcepts.model())
-        self.dlg.layerconcepts.setCompleter(comp)
-        self.dlg.inp_sparql2.setPlainText(self.triplestore[0]["querytemplate"][0]["query"].replace("%%concept%%",geoconcepts[0]))
-        self.dlg.inp_sparql2.columnvars={}
-        self.loadedfromfile=True
-        self.justloadingfromfile=False
-        return result
-    
-    ## Loads a graph from an rdf file.
-    #  @param self The object pointer.    
-    def loadGraph(self):
-        dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        self.justloadingfromfile=True
-        if dialog.exec_():
-            fileNames = dialog.selectedFiles()
-            g = Graph()
-            filepath=fileNames[0].split(".")
-            result = g.parse(fileNames[0], format=filepath[len(filepath)-1])
-            print(g)
-            self.currentgraph=g
-            self.dlg.layerconcepts.clear()
-            print(self.triplestoreconf[0]["geoconceptquery"])
-            task1=QgsTask.fromFunction('loadGraphProcess', self.loadGraphProcess,onfinished=self.loadGraphGUI,wait_time=100,query=self.triplestoreconf[0]["geoconceptquery"],triplestoreurl="",graph=g)
-            QgsApplication.taskManager().addTask(task1)
-            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            #runworker=RunWorker()
-            #runworker.start_worker(worker, self.iface, 'testing the worker')
-
-            #worker = GeoConceptsWorker(self.triplestoreconf[0]["geoconceptquery"],"",g)
-            #worker_thread = QThread()
-            #worker.moveToThread(worker_thread)
-            #worker_thread.finished.connect(self.loadGraphGUI)
-            #worker_thread.start()
-            #geoconcepts=self.getGeoConcepts("",self.triplestoreconf[0]["geoconceptquery"],"class",g)
-        return None   
+        return featurecollection
 
     ## Saves a personal copy of the triplestore configuration file to disk.
     #  @param self The object pointer.
@@ -967,7 +615,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self)
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
@@ -985,28 +633,12 @@ class SPAQLunicorn:
             #self.dlg.exportTripleStore.hide()
             #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
-           #self.dlg.tabWidget.removeTab(1)
+            #self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
-            self.dlg.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
-            #self.dlg.layerconcepts.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.startEnrichment.clicked.connect(self.enrichLayerProcess)
-            #self.dlg.layerconcepts.currentIndexChanged.connect(self.loadAreas)
-            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer) # load action
+            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
-            self.dlg.exportInterlink.clicked.connect(self.exportEnrichedLayer)
-            self.dlg.loadLayerInterlink.clicked.connect(self.dlg.loadLayerForInterlink)
-            self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
-            self.dlg.importMappingButton.clicked.connect(self.loadMapping)
-            #self.dlg.loadLayerInterlink.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            #self.dlg.IDColumnEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.loadLayerEnrich.clicked.connect(self.dlg.loadLayerForEnrichment)
-            #self.dlg.loadLayerEnrich.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-            self.dlg.refreshLayersInterlink.clicked.connect(self.dlg.loadUnicornLayers)
-            self.dlg.loadFileButton.clicked.connect(self.loadGraph) # load action
-
-        if self.first_start == False:
-            self.dlg.loadUnicornLayers()
-
+        #if self.first_start == False:
+        #    self.dlg.loadUnicornLayers()
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop

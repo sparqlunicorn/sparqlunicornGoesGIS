@@ -150,7 +150,7 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage(str(intcount)+" - "+str(doublecount)+" - "+str(len(resultmap)),
                              MESSAGE_CATEGORY, Qgis.Info)
         if intcount==len(resultmap):
-            return QVariant.Integer
+            return QVariant.Int
         if doublecount==len(resultmap):
             return QVariant.Double
         return QVariant.String
