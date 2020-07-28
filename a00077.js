@@ -1,4 +1,4 @@
 var a00077 =
 [
-    [ "LoadGraphDialog", "a00114.html", "a00114" ]
+    [ "EnrichmentTab", "a00110.html", "a00110" ]
 ];

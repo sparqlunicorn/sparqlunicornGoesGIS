@@ -1,16 +1,12 @@
 var a00122 =
 [
-    [ "__init__", "a00122.html#afb329d20550a243e677709aaec83d848", null ],
-    [ "finished", "a00122.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processLiteral", "a00122.html#aae48cf1625ab7d7bcff5a877b5c10511", null ],
-    [ "processResults", "a00122.html#ab368e533f681a396257e919f7acf52fd", null ],
-    [ "run", "a00122.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "allownongeo", "a00122.html#a2be679e131aa5f671200ce80927d4f47", null ],
-    [ "exception", "a00122.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filename", "a00122.html#a2ff994e16bf9521154de4cf659a3b689", null ],
-    [ "geojson", "a00122.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
-    [ "progress", "a00122.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00122.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "triplestoreconf", "a00122.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00122.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "__init__", "a00122.html#a921f465a77663034ebb6932d1ac38188", null ],
+    [ "loadFile", "a00122.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00122.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "dlg", "a00122.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00122.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00122.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00122.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a00122.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00122.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

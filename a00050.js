@@ -1,6 +1,6 @@
 var a00050 =
 [
-    [ "ValueMappingDialog", "a00134.html", "a00134" ],
-    [ "_", "a00050.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00050.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
+    [ "SPARQLHighlighter", "a00150.html", "a00150" ],
+    [ "format", "a00050.html#ab4762c2603cb341624f24c969e06440f", null ],
+    [ "STYLES", "a00050.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
 ];

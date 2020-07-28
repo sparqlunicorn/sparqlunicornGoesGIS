@@ -1,4 +1,4 @@
 var a00081 =
 [
-    [ "RectangleMapTool", "a00126.html", "a00126" ]
+    [ "LoadGraphDialog", "a00122.html", "a00122" ]
 ];
