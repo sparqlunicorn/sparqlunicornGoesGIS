@@ -2,6 +2,8 @@ from time import sleep
 from rdflib import *
 import json
 import requests
+import urllib
+from qgis.PyQt.QtCore import QSettings
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QCompleter,QMessageBox
 from qgis.core import (
@@ -27,8 +29,20 @@ class LoadGraphTask(QgsTask):
         self.exception=None
         self.filename=filename
         self.geojson=None
+        s = QSettings() #getting proxy from qgis options settings
+        self.proxyEnabled = s.value("proxy/proxyEnabled")
+        self.proxyType = s.value("proxy/proxyType")
+        self.proxyHost = s.value("proxy/proxyHost")
+        self.proxyPort = s.value("proxy/proxyPort")
+        self.proxyUser = s.value("proxy/proxyUser")
+        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
+        if self.proxyHost!=None and self.ProxyPort!=None:
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.ProxyHandler({'http': proxyHost})
+            opener = urllib.build_opener(proxy)
+            urllib.install_opener(opener)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()),MESSAGE_CATEGORY, Qgis.Info)
         self.graph = Graph()
         try:

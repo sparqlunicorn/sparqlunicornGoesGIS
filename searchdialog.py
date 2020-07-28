@@ -2,10 +2,12 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
 from qgis.PyQt import uic
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
+import urllib
 import requests
 import os.path
 
@@ -75,6 +77,17 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.costumproperty.textChanged.emit(self.costumproperty.text())
         self.costumpropertyButton.clicked.connect(self.applyConceptToColumn2)
         self.applyButton.clicked.connect(self.applyConceptToColumn)
+        s = QSettings() #getting proxy from qgis options settings
+        self.proxyEnabled = s.value("proxy/proxyEnabled")
+        self.proxyType = s.value("proxy/proxyType")
+        self.proxyHost = s.value("proxy/proxyHost")
+        self.proxyPort = s.value("proxy/proxyPort")
+        self.proxyUser = s.value("proxy/proxyUser")
+        self.proxyPassword = s.value("proxy/proxyPassword")
+        if self.proxyHost!=None and self.ProxyPort!=None:
+            proxy = urllib.ProxyHandler({'http': proxyHost})
+            opener = urllib.build_opener(proxy)
+            urllib.install_opener(opener)
 
     def check_state3(self):
         self.check_state(self.costumproperty)

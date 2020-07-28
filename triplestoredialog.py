@@ -1,6 +1,7 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QPlainTextEdit,QComboBox,QCheckBox,QMessageBox,QListWidgetItem
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
 from .sparqlhighlighter import SPARQLHighlighter
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -41,6 +42,13 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)	
+        s = QSettings() #getting proxy from qgis options settings
+        self.proxyEnabled = s.value("proxy/proxyEnabled")
+        self.proxyType = s.value("proxy/proxyType")
+        self.proxyHost = s.value("proxy/proxyHost")
+        self.proxyPort = s.value("proxy/proxyPort")
+        self.proxyUser = s.value("proxy/proxyUser")
+        self.proxyPassword = s.value("proxy/proxyPassword")
         #tripleStoreApplyButton = QPushButton("Reset Configuration",self)	
         #tripleStoreApplyButton.move(330,560)	
         #tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
@@ -72,6 +80,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     #  @return Return true if the connection was successful, false otherwise
     #  
     def testTripleStoreConnection(self,calledfromotherfunction=False):	
+        if self.proxyHost!=None and self.ProxyPort!=None:
+            proxy = urllib.ProxyHandler({'http': proxyHost})
+            opener = urllib.build_opener(proxy)
+            urllib.install_opener(opener)
         sparql = SPARQLWrapper(self.tripleStoreEdit.text(), agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
         sparql.setQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1")	
         sparql.setReturnFormat(JSON)	

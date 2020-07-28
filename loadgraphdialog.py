@@ -4,6 +4,7 @@ from qgis.PyQt.QtWidgets import QProgressDialog,QFileDialog
 from qgis.PyQt import QtCore
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator
 from .loadgraphtask import LoadGraphTask

@@ -2,6 +2,8 @@ from time import sleep
 from rdflib import *
 import json
 import requests
+import urllib
+from qgis.PyQt.QtCore import QSettings
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox,QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
@@ -29,12 +31,24 @@ class WhatToEnrichQueryTask(QgsTask):
         self.searchTerm=searchTerm
         self.searchResult=searchResult
         self.results=None
+        s = QSettings() #getting proxy from qgis options settings
+        self.proxyEnabled = s.value("proxy/proxyEnabled")
+        self.proxyType = s.value("proxy/proxyType")
+        self.proxyHost = s.value("proxy/proxyHost")
+        self.proxyPort = s.value("proxy/proxyPort")
+        self.proxyUser = s.value("proxy/proxyUser")
+        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()),MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm=="":
             return False
         concept="<"+self.searchTerm+">"
+        if self.proxyHost!=None and self.ProxyPort!=None:
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.ProxyHandler({'http': proxyHost})
+            opener = urllib.build_opener(proxy)
+            urllib.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery("".join(self.prefixes) + self.query)
         sparql.setReturnFormat(JSON)
@@ -82,18 +96,23 @@ class WhatToEnrichQueryTask(QgsTask):
 
     def finished(self, result):
         counter=0
-        for att in self.sortedatt:
-            if att[1]<1:
-                continue
-            if att[0] in self.labels:
-                item=QListWidgetItem()
-                item.setText(self.labels[att[0]]+" ("+str(att[1])+"%)")
-                item.setData(1,self.urilist[att[0]])
-                self.searchResult.addItem(item)
-                counter+=1
-            else:
-                item=QListWidgetItem()
-                item.setText(att[0]+" ("+str(att[1])+"%)")
-                item.setData(1,self.urilist[att[0]])
-                self.searchResult.addItem(item)
+        if self.sortedatt!=None:
+            for att in self.sortedatt:
+                if att[1]<1:
+                    continue
+                if att[0] in self.labels:
+                    item=QListWidgetItem()
+                    item.setText(self.labels[att[0]]+" ("+str(att[1])+"%)")
+                    item.setData(1,self.urilist[att[0]])
+                    self.searchResult.addItem(item)
+                    counter+=1
+                else:
+                    item=QListWidgetItem()
+                    item.setText(att[0]+" ("+str(att[1])+"%)")
+                    item.setData(1,self.urilist[att[0]])
+                    self.searchResult.addItem(item)
+        else:
+            msgBox=QMessageBox()
+            msgBox.setText("The enrichment search query did not yield any results!")
+            msgBox.exec()
         self.progress.close()
