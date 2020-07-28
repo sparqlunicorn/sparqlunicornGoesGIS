@@ -1,5 +1,6 @@
 var a00020 =
 [
-    [ "QueryLayerTask", "a00098.html", "a00098" ],
-    [ "MESSAGE_CATEGORY", "a00020.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
+    [ "LoadGraphDialog", "a00114.html", "a00114" ],
+    [ "_", "a00020.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00020.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

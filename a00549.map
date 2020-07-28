@@ -1,0 +1,11 @@
+<map id="FORM_CLASS" name="FORM_CLASS">
+<area shape="rect" id="node2" href="$a00098.html" title="BBOXDialog" alt="" coords="190,5,286,32"/>
+<area shape="rect" id="node3" href="$a00114.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin. " alt="" coords="177,56,299,83"/>
+<area shape="rect" id="node4" href="$a00130.html" title="Class representing a search dialog which may be used to search for concepts or properties. " alt="" coords="188,107,288,133"/>
+<area shape="rect" id="node5" href="$a00138.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin. " alt="" coords="165,157,311,184"/>
+<area shape="rect" id="node6" href="$a00150.html" title="TripleStoreDialog" alt="" coords="177,208,299,235"/>
+<area shape="rect" id="node7" href="$a00154.html" title="Dialog to upload a generated RDF result to a triple store. " alt="" coords="174,259,302,285"/>
+<area shape="rect" id="node8" href="$a00158.html" title="ValueMappingDialog" alt="" coords="167,309,309,336"/>
+<area shape="rect" id="node9" href="$a00162.html" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables..." alt="" coords="184,360,292,387"/>
+<area shape="rect" id="node10" href="$a00166.html" title="Enrichment dialog to enrich properties to a geodataset. " alt="" coords="175,411,301,437"/>
+</map>

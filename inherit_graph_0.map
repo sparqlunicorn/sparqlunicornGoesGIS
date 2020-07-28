@@ -1,6 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$a00090.html" title="Executes an enrichment task on a given layer with a given configuration. " alt="" coords="137,5,289,32"/>
-<area shape="rect" id="node3" href="$a00094.html" title="GeoConceptsQueryTask" alt="" coords="129,56,296,83"/>
-<area shape="rect" id="node4" href="$a00098.html" title="QueryLayerTask" alt="" coords="153,107,272,133"/>
-<area shape="rect" id="node5" href="$a00146.html" title="WhatToEnrichQueryTask" alt="" coords="128,157,297,184"/>
+<area shape="rect" id="node2" href="$a00102.html" title="Executes an enrichment task on a given layer with a given configuration. " alt="" coords="137,5,289,32"/>
+<area shape="rect" id="node3" href="$a00106.html" title="GeoConceptsQueryTask" alt="" coords="129,56,296,83"/>
+<area shape="rect" id="node4" href="$a00118.html" title="Loads a graph from an RDF file either by providing an internet address or a file path. " alt="" coords="155,107,270,133"/>
+<area shape="rect" id="node5" href="$a00122.html" title="QueryLayerTask" alt="" coords="153,157,272,184"/>
+<area shape="rect" id="node6" href="$a00170.html" title="WhatToEnrichQueryTask" alt="" coords="128,208,297,235"/>
 </map>

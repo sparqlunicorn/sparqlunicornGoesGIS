@@ -1,4 +1,4 @@
 var a00073 =
 [
-    [ "SPAQLunicornDialog", "a00114.html", "a00114" ]
+    [ "EnrichmentQueryTask", "a00102.html", "a00102" ]
 ];

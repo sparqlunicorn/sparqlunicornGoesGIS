@@ -1,4 +1,4 @@
 var a00081 =
 [
-    [ "WhatToEnrichQueryTask", "a00146.html", "a00146" ]
+    [ "RectangleMapTool", "a00126.html", "a00126" ]
 ];

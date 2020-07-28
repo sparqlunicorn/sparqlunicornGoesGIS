@@ -1,16 +1,22 @@
 var a00130 =
 [
-    [ "__init__", "a00130.html#a967b038f3b4803df943b1f443d030520", null ],
-    [ "addNewLayerToTripleStore", "a00130.html#ad4339cc40dab9d8fb7f7249b3a1e9b0b", null ],
-    [ "checkConnection", "a00130.html#a7092c7fd31ba92d11cacd01e25c48276", null ],
-    [ "compareLayers", "a00130.html#a90fc6f7893dab1f161f0876eedf261af", null ],
-    [ "uploadResult", "a00130.html#ad33b38d01e5394ad75cbc43021984f3e", null ],
+    [ "__init__", "a00130.html#a82e7e3197aa35770eba7300065f8f1af", null ],
+    [ "applyConceptToColumn", "a00130.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
+    [ "applyConceptToColumn2", "a00130.html#a2e38b4b1e21375cc0a3092b1862c5453", null ],
+    [ "check_state", "a00130.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state3", "a00130.html#ace2b9b2398c60b5e5468418324fc7212", null ],
+    [ "getClassesFromLabel", "a00130.html#a00c7d47f79ad9e7a9665d7588c9bd512", null ],
+    [ "addVocab", "a00130.html#ac260fdbf23e7d137884620aa4c68c92f", null ],
+    [ "bothOptions", "a00130.html#ac15ea5ca3c2948ec40b302b241c6493e", null ],
+    [ "currentcol", "a00130.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
+    [ "currentprefixes", "a00130.html#a725c1d251ccfbd60a4bae31cd2e6b7d0", null ],
     [ "currentrow", "a00130.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
-    [ "fieldname", "a00130.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
+    [ "currentrow", "a00130.html#a086f47cacf997373ef862200fcfb4612", null ],
     [ "interlinkOrEnrich", "a00130.html#a22becd814f00141dbdbb9167f5b9551f", null ],
-    [ "searchResultMap", "a00130.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
+    [ "interlinkOrEnrich", "a00130.html#a69b33bf970ec8c6eac8e2cd4578172fc", null ],
+    [ "prefixes", "a00130.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "table", "a00130.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "table", "a00130.html#ab172ed3d3d31ff02fc5f798fe7e1bfb8", null ],
     [ "triplestoreconf", "a00130.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
-    [ "ttlstring", "a00130.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
-    [ "valmaptable", "a00130.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
+    [ "triplestoreconf", "a00130.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

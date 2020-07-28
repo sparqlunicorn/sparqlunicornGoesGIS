@@ -1,17 +1,18 @@
 var a00146 =
 [
-    [ "__init__", "a00146.html#a2b97505b4a89f59b1902bc41f75fba68", null ],
-    [ "finished", "a00146.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "run", "a00146.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "exception", "a00146.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "labels", "a00146.html#abc325fc13d4194905c1786e24ee447f0", null ],
+    [ "__init__", "a00146.html#ab5c3dba737e3875967da09ff9d4276e4", null ],
+    [ "buildSearchDialog", "a00146.html#a8ba30c801fb03a6265193b413d3b8dda", null ],
+    [ "createVarInputDialog", "a00146.html#a9428cac43073795e4166503ce80f6283", null ],
+    [ "getLabelsForClasses", "a00146.html#a46a7ef5867410f61e466056f9dc02a33", null ],
+    [ "keyPressEvent", "a00146.html#aaf7224b03642e3cfe85bd396f1f4b08f", null ],
+    [ "mouseMoveEvent", "a00146.html#a23922d07d709315a17189e6dc15bd000", null ],
+    [ "columnvars", "a00146.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
+    [ "currentcol", "a00146.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
+    [ "currentrow", "a00146.html#a086f47cacf997373ef862200fcfb4612", null ],
+    [ "interlinkdialog", "a00146.html#a816bebaf94e989ec4293bfee7a615a98", null ],
+    [ "parent", "a00146.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
     [ "prefixes", "a00146.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "progress", "a00146.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00146.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "results", "a00146.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
-    [ "searchResult", "a00146.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
-    [ "searchTerm", "a00146.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
-    [ "sortedatt", "a00146.html#a48ad5f81f31645c924cfff541c5add36", null ],
-    [ "triplestoreurl", "a00146.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "urilist", "a00146.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]
+    [ "savedLabels", "a00146.html#ae3c96bb33e9b67f91e6f88eef612ec80", null ],
+    [ "selector", "a00146.html#a093b121866a6168a986e7ff004ddc5c4", null ],
+    [ "triplestoreconf", "a00146.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

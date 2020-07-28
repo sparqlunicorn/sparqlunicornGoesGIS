@@ -1,18 +1,16 @@
 var a00122 =
 [
-    [ "__init__", "a00122.html#ab5c3dba737e3875967da09ff9d4276e4", null ],
-    [ "buildSearchDialog", "a00122.html#a8ba30c801fb03a6265193b413d3b8dda", null ],
-    [ "createVarInputDialog", "a00122.html#a9428cac43073795e4166503ce80f6283", null ],
-    [ "getLabelsForClasses", "a00122.html#a46a7ef5867410f61e466056f9dc02a33", null ],
-    [ "keyPressEvent", "a00122.html#aaf7224b03642e3cfe85bd396f1f4b08f", null ],
-    [ "mouseMoveEvent", "a00122.html#a23922d07d709315a17189e6dc15bd000", null ],
-    [ "columnvars", "a00122.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
-    [ "currentcol", "a00122.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
-    [ "currentrow", "a00122.html#a086f47cacf997373ef862200fcfb4612", null ],
-    [ "interlinkdialog", "a00122.html#a816bebaf94e989ec4293bfee7a615a98", null ],
-    [ "parent", "a00122.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
-    [ "prefixes", "a00122.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "savedLabels", "a00122.html#ae3c96bb33e9b67f91e6f88eef612ec80", null ],
-    [ "selector", "a00122.html#a093b121866a6168a986e7ff004ddc5c4", null ],
-    [ "triplestoreconf", "a00122.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00122.html#afb329d20550a243e677709aaec83d848", null ],
+    [ "finished", "a00122.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
+    [ "processLiteral", "a00122.html#aae48cf1625ab7d7bcff5a877b5c10511", null ],
+    [ "processResults", "a00122.html#ab368e533f681a396257e919f7acf52fd", null ],
+    [ "run", "a00122.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "allownongeo", "a00122.html#a2be679e131aa5f671200ce80927d4f47", null ],
+    [ "exception", "a00122.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "filename", "a00122.html#a2ff994e16bf9521154de4cf659a3b689", null ],
+    [ "geojson", "a00122.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
+    [ "progress", "a00122.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "query", "a00122.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
+    [ "triplestoreconf", "a00122.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestoreurl", "a00122.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];
