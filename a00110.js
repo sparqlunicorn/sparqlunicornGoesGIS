@@ -1,18 +1,15 @@
 var a00110 =
 [
-    [ "__init__", "a00110.html#a93626884d4600b8cf171d464a41099fd", null ],
-    [ "addEnrichedLayer", "a00110.html#aca6b7d4f8799f96244e4515a0a633386", null ],
-    [ "enrichLayerProcess", "a00110.html#a56c0d7bb6decc89954e354bbd53ec602", null ],
-    [ "exportEnrichedLayer", "a00110.html#adfcc23a6b0a5b7441daa1d4b43a6e881", null ],
-    [ "dlg", "a00110.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "enrichedExport", "a00110.html#ac1babc27d21e85ac2fa395cccac38d15", null ],
-    [ "enrichedExport", "a00110.html#ac26f04155f19a0850f23ab9c063ba611", null ],
-    [ "enrichLayer", "a00110.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
-    [ "enrichLayerCounter", "a00110.html#a52fdefb870f38c907e9fede14b52425f", null ],
-    [ "exportIdCol", "a00110.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
-    [ "exportNameSpace", "a00110.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
-    [ "exportSetClass", "a00110.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
-    [ "originalRowCount", "a00110.html#a96db96b589de91ab2dd5f6f5836757de", null ],
-    [ "qtask", "a00110.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "valueconcept", "a00110.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
+    [ "__init__", "a00110.html#acde7278bad3f571a558a9ce328f5032a", null ],
+    [ "setBBOXExtentQuery", "a00110.html#a9f814d876c9a64ddaa37954c49b2a590", null ],
+    [ "setBBOXInQuery", "a00110.html#a6d309f7c5cecf20100946f3ccbf72e79", null ],
+    [ "curbbox", "a00110.html#a413f81b64559e001701299e7e4e2cd81", null ],
+    [ "endpointIndex", "a00110.html#a21502d8768436cf2ce0f12de36797aba", null ],
+    [ "inp_sparql", "a00110.html#a78dd7b812e193157111968de8437452c", null ],
+    [ "layerExtentOrBBOX", "a00110.html#a4c1b62fb75c2d7840ffbde051044c449", null ],
+    [ "map_canvas", "a00110.html#aee60670247b05b378b16b953ae07da95", null ],
+    [ "mts_layer", "a00110.html#a90dc809bbf3ab04604a3662090a747bc", null ],
+    [ "rect_tool", "a00110.html#afa7762e508c69c794a5578cf048e0c4d", null ],
+    [ "triplestoreconf", "a00110.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "vl", "a00110.html#a3b8faf024ce1e723b98817e20cd69ff6", null ]
 ];

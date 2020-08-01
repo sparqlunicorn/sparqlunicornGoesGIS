@@ -1,0 +1,25 @@
+var a00182 =
+[
+    [ "__init__", "a00182.html#a380773bbae841b7d5d39f43433498adb", null ],
+    [ "addNewSPARQLEndpoint", "a00182.html#a34a78bc5f0927053db7797e886f20240", null ],
+    [ "addPrefixToList", "a00182.html#a182c82bd713e327a2621e41cbeeb5845", null ],
+    [ "applyCustomSPARQLEndPoint", "a00182.html#a7ab1931a2785e98a68d2547d73caad61", null ],
+    [ "check_state", "a00182.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00182.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "check_state2", "a00182.html#a9a1cb24b28540f37b69ea944b5834ecd", null ],
+    [ "closeTripleStoreDialog", "a00182.html#a29478b28b44bec57f44f7a180239211c", null ],
+    [ "loadTripleStoreConfig", "a00182.html#a809e9724f3fb01cd74431f96ff40c928", null ],
+    [ "removePrefixFromList", "a00182.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
+    [ "testTripleStoreConnection", "a00182.html#a6a316b91748ce565fe69847c689392f8", null ],
+    [ "addTripleStore", "a00182.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "comboBox", "a00182.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
+    [ "proxyEnabled", "a00182.html#ae862ff88f11a3a2ef7eee0c21957dcb7", null ],
+    [ "proxyHost", "a00182.html#af2d0d5884751e69699ca9b2d6c2cd7f1", null ],
+    [ "proxyPassword", "a00182.html#add5abc4de55257ede4e0ab5db30de1ce", null ],
+    [ "proxyPort", "a00182.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4", null ],
+    [ "proxyType", "a00182.html#a495fe54c42ce06ce71582737400c0d02", null ],
+    [ "proxyUser", "a00182.html#ab27c8ae6a38f63214b0413f461033e85", null ],
+    [ "sparqlhighlighter", "a00182.html#af81c2262d69f9184819dac236925d02b", null ],
+    [ "triplestoreconf", "a00182.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "triplestoreconf", "a00182.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+];

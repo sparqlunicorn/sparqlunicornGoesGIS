@@ -1,4 +1,4 @@
 var a00083 =
 [
-    [ "SearchDialog", "a00130.html", "a00130" ]
+    [ "EnrichmentTab", "a00118.html", "a00118" ]
 ];

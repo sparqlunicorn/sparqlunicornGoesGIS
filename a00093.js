@@ -1,4 +1,4 @@
 var a00093 =
 [
-    [ "UploadRDFDialog", "a00162.html", "a00162" ]
+    [ "RectangleMapTool", "a00158.html", "a00158" ]
 ];
