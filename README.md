@@ -19,6 +19,65 @@ This Plugin is listed under die experimentail QGIS Pluigins:
 * developer: SPARQL Unicorn, Florian Thiery, Timo Homburg
 * contact: qgisplugin@sparqlunicorn.link
 
+# Documentation and Help
+
+This documentation should help users and developers to get a better understanding about the internals of the SPARQL Unicorn QGIS plugin.
+
+## Querying geospatial data
+
+The SPARQL Unicorn plugin returns QGIS layers from specifically formatted SPARQL queries. 
+In this section the kinds of queries which are supported are presented.
+
+### SPARQL queries including a geometry literal
+
+The SPARQL queries need to include the following components:
+
+* A query variable which is used to return the geometry literals (usually ?geo)
+* A query variable indicating the URI of the owl:Individual which is queried (i.e. the feature id) (usually ?item)
+
+Example:
+
+    SELECT ?item ?geo WHERE {
+       ?item a ex:House .
+       ?item geosparql:hasGeometry ?geom_obj .
+       ?geom_obj geosparql:asWKT ?geo .
+    } LIMIT 10
+
+This query queries fictional houses from an unspecified SPARQL endpoint. Each house is associated with a URI which is captured in the *?item* variable.
+The geometry literal (here a WKTLiteral) is captured in the *?geo* variable.
+The results of any additional query variables become new columns of the result set, i.e. the QGIS vector layer.
+
+In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables ?lat ?lon have to be included in the query description.
+Example using the [Kerameikos](http://kerameikos.org/) Triple Store:
+
+    SELECT ?item ?lat ?lon WHERE {
+         ?item a <http://www.cidoc-crm.org/cidoc-crm/E53_Place>.
+         ?item wgs84_pos:lat ?lat .
+         ?item wgs84_pos:long ?lon . 
+    } LIMIT 10
+    
+The triple store configuration should reflect if geometry literals are used or if lat/lon properties are provided.
+
+### Querying all properties of a given semantic class
+
+Very often, a SPARQL query is used to discover linked data, so that not all properties of a given class which should be returned are known.
+Similarly, one typically does not want to specify a query variable for all columns of the QGIS vector layer if this can be avoided.
+
+Example: Query 100 schools from Wikidata with all properties
+
+    SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
+        ?item wdt:P31 wd:Q3914 .
+        ?item wdt:P625 ?geo .
+        ?item ?rel ?val .
+        SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }
+    } LIMIT 100
+
+This query uses the special variables *?rel* and *?val* to indicate that all relations and values of the school instances should be included in the result set.
+
+### Querying instances with the help of data included in other QGIS layers
+
+
+
 ## Adding new triple stores using configuration files
 
 Apart from the graphical user interface new triple stores may be added to the plugin by modifying the JSON configuration files as follows:
