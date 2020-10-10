@@ -23,9 +23,9 @@ This Plugin is listed under die experimentail QGIS Pluigins:
 
 Apart from the graphical user interface new triple stores may be added to the plugin by modifying the JSON configuration files as follows:
 
-triplestoreconf.json: This configuration file is delivered on installation of the SPARQL Unicorn QGIS plugin. It is not modified and serves as a backup for a possible reset option.
+*triplestoreconf.json*: This configuration file is delivered on installation of the SPARQL Unicorn QGIS plugin. It is not modified and serves as a backup for a possible reset option.
 
-triplstoreconf_personal.json: Thie configuration file is created the first time the SPARQL Unicorn QGIS plugin is started. All added triple stores will be stored within there in the following format:
+*triplestoreconf_personal.json*: This configuration file is created the first time the SPARQL Unicorn QGIS plugin is started. All added triple stores will be stored within there in the following format:
 
     {
     "name": "Research Squirrel Engineers Triplestore",
