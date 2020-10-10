@@ -27,8 +27,7 @@ triplestoreconf.json: This configuration file is delivered on installation of th
 
 triplstoreconf_personal.json: Thie configuration file is created the first time the SPARQL Unicorn QGIS plugin is started. All added triple stores will be stored within there in the following format:
 
-`
-{
+    {
     "name": "Research Squirrel Engineers Triplestore",
     "prefixes": {
       "geosparql": "http://www.opengis.net/ont/geosparql#",
@@ -63,18 +62,17 @@ triplstoreconf_personal.json: Thie configuration file is created the first time 
       "http://hadrianswall.squirrel.link/ontology#Milefortlet",
     ],
     "active": true
-  },
-`
+    }
 The following configuration options exist:
-* active: Indicates that the triple store is visible in the GUI
-* classfromlabelquery: A query which retrieves a set of classes from a given label (useful for class searches)
-* crs: The EPSG code of the CRS which should be used by QGIS to interpret the data received from the triple store
-* endpoint: The address of the SPARQL endpoint of the triple store
-* geoconceptlimit: A reasoable limit to query considering the performance of the triple store and the data included
-* geoconceptquery: A query to retrieve concepts associated to geometrical representations inside the triple store. The results of this query or the content of staticconcepts constitutes the list of concepts which is selectable in the graphical user interface
-* name: The name of the triple store which is display in the user interface
-* mandatoryvariables: A list of SPARQL query variables which have to be present in the SELECT statement (usually ?item for the URI and ?geo for the geometry but sometimes also ?lat ?lon instead of ?geo)
-* querytemplate: A list of JSON objects representing labeled queries which may be selectable in the user interface
-* staticconcepts: A list of concepts which are loaded to the dropdown menu of available concepts
-* prefixes: A list of prefixes which is used by the triple store. Each prefix in this list is recognized in the query interface automatically.
-* whattoenrichquery: A query which is sent to the triple store returning attributes and their occurance frequency for the whattoenrich dialog
+* *active*: Indicates that the triple store is visible in the GUI
+* *classfromlabelquery*: A query which retrieves a set of classes from a given label (useful for class searches)
+* *crs*: The EPSG code of the CRS which should be used by QGIS to interpret the data received from the triple store
+* *endpoint*: The address of the SPARQL endpoint of the triple store
+* *geoconceptlimit*: A reasoable limit to query considering the performance of the triple store and the data included
+* *geoconceptquery*: A query to retrieve concepts associated to geometrical representations inside the triple store. The results of this query or the content of staticconcepts constitutes the list of concepts which is selectable in the graphical user interface
+* *name*: The name of the triple store which is display in the user interface
+* *mandatoryvariables*: A list of SPARQL query variables which have to be present in the SELECT statement (usually ?item for the URI and ?geo for the geometry but sometimes also ?lat ?lon instead of ?geo)
+* *querytemplate*: A list of JSON objects representing labeled queries which may be selectable in the user interface
+* *staticconcepts*: A list of concepts which are loaded to the dropdown menu of available concepts
+* *prefixes*: A list of prefixes which is used by the triple store. Each prefix in this list is recognized in the query interface automatically.
+* *whattoenrichquery*: A query which is sent to the triple store returning attributes and their occurance frequency for the whattoenrich dialog
