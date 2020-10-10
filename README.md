@@ -148,6 +148,37 @@ A user defined query in this way would look like this:
 
 The underscore in the query variable *?_address* marks the variable visibly as to be supplemented by a VALUES statement as given above.
 
+## Data Enrichment
+
+The second function of the SPARQL Unicorn Plugin is data enrichment. Here, new columns may be added to an already existing QGIS Vector layer.
+
+### What to enrich?
+
+The first step of a data enrichment is to know what can be enriched. 
+For example:
+Given a dataset of universities including their geolocation, address and name and a triple store only properties with specific attributes might be interesting for an enrichment.
+In particular properties which occur sufficiently often should be of interest.
+In order to find out which properties exist and how often they are represented in a SPARQL endpoint, a "whattoenrichquery" may be defined in the triple store configuration.
+An example is given below:
+
+    SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { 
+        ?con wdt:P31 %%concept%% . 
+        ?con wdt:P625 ?coord . 
+        ?con ?rel ?val . 
+    } 
+    GROUP BY ?rel 
+    ORDER BY DESC(?countrel)
+
+This query is a template query in which the variable %%concept%% may be replaced by a Wikidata concept.
+The query returns every relation linked to instances of %%concept%% and its relative occurances in relation to the individuals.
+The result is interpreted by the SPARQL Unicorn QGIS plugin as a list in which most occuring proeprties are shown first.
+
+### Data enrichment process
+
+To enrich data from a triple store to a QGIS Vector layer, each feature included in the vector layer needs to be at best uniquely identified in the respective triple store.
+This has to be done by a matching relation e.g. the name of a university which is also present in Wikidata or by a URI which is already included in the QGIS vector layer.
+
+
 
 ## Adding new triple stores using configuration files
 
