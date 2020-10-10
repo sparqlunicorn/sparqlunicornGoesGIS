@@ -47,6 +47,11 @@ This query queries fictional houses from an unspecified SPARQL endpoint. Each ho
 The geometry literal (here a WKTLiteral) is captured in the *?geo* variable.
 The results of any additional query variables become new columns of the result set, i.e. the QGIS vector layer.
 
+The SPARQL Unicorn QGIS plugin currently supports the parsing of the following literal types:
+
+* OGC GeoSPARQL WKT Literals
+* GeoJSON Literals
+
 In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables ?lat ?lon have to be included in the query description.
 Example using the [Kerameikos](http://kerameikos.org/) Triple Store:
 
