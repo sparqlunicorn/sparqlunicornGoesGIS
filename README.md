@@ -80,9 +80,73 @@ Example: Query 100 schools from Wikidata with all properties
 
 This query uses the special variables *?rel* and *?val* to indicate that all relations and values of the school instances should be included in the result set.
 
+### SPARQL queries without geometry literals
+
+SPARQL queries without geometry literals may be issued to a triple store when the appropriate checkbox ("Allow non-geo queries") is selected in the user interface. This allows for the executition of arbitrary SPARQL queries and returns a QGIS layer without an attached geometry which might be used for merging with other QGIS layers.
+
+Example:
+
+    SELECT ?tower WHERE {
+     ?tower a <http://onto.squirrel.link/ontology#Watchtower>.
+    } LIMIT 100
+
 ### Querying instances with the help of data included in other QGIS layers
 
+The columns of a loaded QGIS vector layer may be used as a query input in the SPARQL Unicorn QGIS plugin.
 
+To achieve this behavior QGIS columns are converted to a SPARQL values statement as illustrated in the following example.
+
+Consider a QGIS vector layer of houses which is formatted as follows:
+
+| Geometry   | Address |
+|---|---|---|
+| POINT(..)  | First Street  8  |
+| POINT(..)  | Second Street 32 |
+| POINT(..)  | Third Street 4 |
+
+The task: Give me the height of all houses which is store in a given triple store.
+
+Assuming the addresses are unique identifiers in this example, the task could be solved as follows:
+
+    SELECT ?item ?geo ?height WHERE {
+        ?item ex:address "First Street 8" .
+        ?item ex:height ?height .
+        ?item geo:hasGeometry ?geom .
+        ?item geo:asWKT ?geo .
+    }
+
+However, this approach requires one query per table row and is not user friendly.
+
+A better approach would be to convert the column *Address* to a query variable so that the following query could be stated:
+
+    SELECT ?item ?geo ?height WHERE {
+        ?item ex:address ?address .
+        ?item ex:height ?height .
+        ?item geo:hasGeometry ?geom .
+        ?item geo:asWKT ?geo .
+    }
+
+SPARQL 1.1 allows this behaviour by defining a VALUES statement as follows:
+
+    SELECT ?item ?geo ?height WHERE {
+        VALUES ?address { "First Street 8" "Second Street 32" "Third Street 4" }
+        ?item ex:address ?address .
+        ?item ex:height ?height .
+        ?item geo:hasGeometry ?geom .
+        ?item geo:asWKT ?geo .
+    }
+    
+The SPARQL Unicorn allows the user to define special queryvariables which are replace by VALUES statements of connected columns of QGIS vector layers before sending the SPARQL query to the selected SPARQL endpoint.
+A user defined query in this way would look like this:
+
+    SELECT ?item ?geo ?height WHERE {
+        ?item ex:address ?_address .
+        ?item ex:height ?height .
+        ?item geo:hasGeometry ?geom .
+        ?item geo:asWKT ?geo .
+    }
+
+The underscore in the query variable *?_address* marks the variable visibly as to be supplemented by a VALUES statement as given above.
 
 
 ## Adding new triple stores using configuration files
