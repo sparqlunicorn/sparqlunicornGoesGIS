@@ -32,8 +32,8 @@ In this section the kinds of queries which are supported are presented.
 
 The SPARQL queries need to include the following components:
 
-* A query variable which is used to return the geometry literals (usually ?geo)
-* A query variable indicating the URI of the owl:Individual which is queried (i.e. the feature id) (usually ?item)
+* A query variable which is used to return the geometry literals (usually *?geo*)
+* A query variable indicating the URI of the owl:Individual which is queried (i.e. the feature id) (usually *?item*)
 
 Example:
 
@@ -52,7 +52,8 @@ The SPARQL Unicorn QGIS plugin currently supports the parsing of the following l
 * OGC GeoSPARQL WKT Literals
 * GeoJSON Literals
 
-In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables ?lat ?lon have to be included in the query description.
+In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables *?lat* *?lon* have to be included in the query description.
+
 Example using the [Kerameikos](http://kerameikos.org/) Triple Store:
 
     SELECT ?item ?lat ?lon WHERE {
@@ -74,12 +75,13 @@ Example: Query 100 schools from Wikidata with all properties
         ?item wdt:P31 wd:Q3914 .
         ?item wdt:P625 ?geo .
         ?item ?rel ?val .
-        SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
     } LIMIT 100
 
 This query uses the special variables *?rel* and *?val* to indicate that all relations and values of the school instances should be included in the result set.
 
 ### Querying instances with the help of data included in other QGIS layers
+
 
 
 
