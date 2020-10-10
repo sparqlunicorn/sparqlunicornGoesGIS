@@ -195,7 +195,10 @@ Apart from the graphical user interface new triple stores may be added to the pl
     }
 The following configuration options exist:
 * *active*: Indicates that the triple store is visible in the GUI
+* *classlabelquery*: A SPARQL query OR a URL which returns a set of labels for a given list of class URIs
 * *classfromlabelquery*: A query which retrieves a set of classes from a given label (useful for class searches)
+* *propertylabelquery*:  A SPARQL query OR a URL which returns labels for a given list of properties
+* *propertyfromlabelquery*:  A SPARQL query OR a URL which returns properties for a given list of labels
 * *crs*: The EPSG code of the CRS which should be used by QGIS to interpret the data received from the triple store
 * *endpoint*: The address of the SPARQL endpoint of the triple store
 * *geoconceptlimit*: A reasonable limit to query considering the performance of the triple store and the data included
@@ -206,3 +209,16 @@ The following configuration options exist:
 * *staticconcepts*: A list of concepts which are loaded to the dropdown menu of available concepts
 * *prefixes*: A list of prefixes which is used by the triple store. Each prefix in this list is recognized in the query interface automatically.
 * *whattoenrichquery*: A query which is sent to the triple store returning attributes and their occurance frequency for the whattoenrich dialog
+
+The configuration file allows the definition of placeholder variables (currently only %%concept%%) in template queries.
+These variables are prefixed and suffixed with %% statements.
+Example:
+
+    SELECT ?item ?label ?geo WHERE {
+        ?place a <%%concept%%>.
+        ?place pleiades:hasLocation ?item .
+        ?item geosparql:asWKT ?geo .
+        ?item dcterms:title ?label .
+    } LIMIT 100
+
+This query defines the placeholder variable %%concept%% which is replaced by the currently selected concept from the dropdown menu in the user inferface when a concept is selected.
