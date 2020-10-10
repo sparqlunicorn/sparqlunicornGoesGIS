@@ -68,7 +68,7 @@ The following configuration options exist:
 * *classfromlabelquery*: A query which retrieves a set of classes from a given label (useful for class searches)
 * *crs*: The EPSG code of the CRS which should be used by QGIS to interpret the data received from the triple store
 * *endpoint*: The address of the SPARQL endpoint of the triple store
-* *geoconceptlimit*: A reasoable limit to query considering the performance of the triple store and the data included
+* *geoconceptlimit*: A reasonable limit to query considering the performance of the triple store and the data included
 * *geoconceptquery*: A query to retrieve concepts associated to geometrical representations inside the triple store. The results of this query or the content of staticconcepts constitutes the list of concepts which is selectable in the graphical user interface
 * *name*: The name of the triple store which is display in the user interface
 * *mandatoryvariables*: A list of SPARQL query variables which have to be present in the SELECT statement (usually ?item for the URI and ?geo for the geometry but sometimes also ?lat ?lon instead of ?geo)
