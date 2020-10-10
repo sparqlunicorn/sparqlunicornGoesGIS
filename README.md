@@ -148,6 +148,11 @@ A user defined query in this way would look like this:
 
 The underscore in the query variable *?_address* marks the variable visibly as to be supplemented by a VALUES statement as given above.
 
+### Using GeoSPARQL or another customized SPARQL query syntax
+
+The supported SPARQL syntax is a matter of the triple store which is queried. The SPARQL Unicorn QGIS plugin does not restrict the usage of SPARQL extensions as long as they are matching the SPARQL syntax.
+If a triple store does not support e.g. a GeoSPARQL query then the SPARQL Unicorn QGIS plugin will return an error message.
+
 ## Data Enrichment
 
 The second function of the SPARQL Unicorn Plugin is data enrichment. Here, new columns may be added to an already existing QGIS Vector layer.
