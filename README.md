@@ -99,7 +99,7 @@ To achieve this behavior QGIS columns are converted to a SPARQL values statement
 Consider a QGIS vector layer of houses which is formatted as follows:
 
 | Geometry   | Address |
-|---|---|---|
+|---|---|
 | POINT(..)  | First Street  8  |
 | POINT(..)  | Second Street 32 |
 | POINT(..)  | Third Street 4 |
