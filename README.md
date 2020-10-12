@@ -171,7 +171,31 @@ A better representation of the RDF graph is gained by definining the relations u
 
 A mapping schema is defined in XML and saves mappings from QGIS vector layer columns to relation URIs in the to-be-build RDF graph and makes them reusable.
 
+Consider the following example:
 
+Example: 
+   
+    <?xml version="1.0"?>
+    <data>
+    <file class="http://onto.squirrel.link/ontology#RomanRoad" indid="groupID" indidprefix="line_"
+    namespace="http://lod.squirrel.link/data/intinerarium-antonini/"
+    attnamespace="http://lod.squirrel.link/data/intinerarium-antonini/" epsg="4326" nometadata="true" attachepsg="true">
+	
+	<column name="groupID" prop="data" propiri="http://onto.squirrel.link/ontology#groupID" range="http://www.w3.org/2001/XMLSchema#string"/> 
+				
+	<addcolumn prop="annotation" propiri="http://www.w3.org/2000/01/rdf-schema#label" value="Intinerarium Antonini Line"/> 
+				
+    </file>
+    </data>
+
+This mapping schema defines a mapping for a RomanRoad dataset, a dataset of annotated LineStrings. The mapping schema defines a target namespace (namespace) for the instance, an attributenamespace (attnamespace) for relations and coordinate reference system (epsg) and possibly a column which may be used as the individual id (indid).
+
+Then, each column is assigned a configuration with the following attributes:
+
+* *name*: the name of the column in the QGIS vector layer
+* *prop*: The property type to convert into (DataProperty (data), ObjectProperty (obj), AnnotationProperty (anno), SubClass (subclass))
+* *propiri*: The IRI used in the graph to represent the respective column
+* *range*: The range of the property
 
 
 ## Data Enrichment
