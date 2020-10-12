@@ -153,6 +153,27 @@ The underscore in the query variable *?_address* marks the variable visibly as t
 The supported SPARQL syntax is a matter of the triple store which is queried. The SPARQL Unicorn QGIS plugin does not restrict the usage of SPARQL extensions as long as they are matching the SPARQL syntax.
 If a triple store does not support e.g. a GeoSPARQL query then the SPARQL Unicorn QGIS plugin will return an error message.
 
+## Dataset conversion to RDF
+To convert a QGIS layer to RDF, each feature of the QGIS layer is converted to an instance of type owl:Indiviual. 
+Titles of columns become relations in the RDF graph, values of columns become either literals or URIs in the RDF representation.
+
+### Generic conversion process
+
+The generic conversion process does not need any further information to convert a QGIS vector layer to RDF. Geometries of the layer are converted to WKTLiterals in the graph and represented using the GeoSPARQL vocabulary.
+The feature ID is used as the name of the instance using a customized namespace defined by the QGIS plugin.
+Further information appended to features of the vector data layer is converted to relations associated with the instance defined by its feature id.
+Literal types of XSD literals are determined automatically for the types of xsd:string, xsd:double, xsd:integer.
+
+### Defining Interlinks
+A better representation of the RDF graph is gained by definining the relations used in the RDF graph beforehand, e.g. by using relations of the Wikidata graph. This mapping from a column name to a relation URI can be given in the Interlinking dialog.
+
+### Mapping Schema format
+
+A mapping schema is defined in XML and saves mappings from QGIS vector layer columns to relation URIs in the to-be-build RDF graph and makes them reusable.
+
+
+
+
 ## Data Enrichment
 
 The second function of the SPARQL Unicorn Plugin is data enrichment. Here, new columns may be added to an already existing QGIS Vector layer.
