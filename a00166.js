@@ -7,7 +7,7 @@ var a00166 =
     [ "exportLayer", "a00166.html#a297becf2256721565827ce936e29a9ad", null ],
     [ "exportLayer2", "a00166.html#a2e739c89375383225076b8ab23b47841", null ],
     [ "exportLayerAsGeoJSONLD", "a00166.html#a26ed29b2ccab38e578a7b4b15650dd7a", null ],
-    [ "getGeoConcepts", "a00166.html#ab64ceccb9929a569a8d0e87aef5ee7a8", null ],
+    [ "getGeoConcepts", "a00166.html#afdcc77b707ff20ed027197bc41ece770", null ],
     [ "getGeoJSONFromGeoConcept", "a00166.html#a55edd0ec173b2303fc226d96dd84bee8", null ],
     [ "initGui", "a00166.html#a6a9077c9bcb6838602c2d40d62d8fa3a", null ],
     [ "layerToTTLString", "a00166.html#ab229514567f36a825b2756e65973c3c7", null ],
