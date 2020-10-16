@@ -4,7 +4,7 @@ import json
 import requests
 import urllib
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings,QItemSelectionModel
 from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
@@ -16,7 +16,7 @@ MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
 class GeoConceptsQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,query,triplestoreconf,layerconcepts,queryvar,getlabels,layercount):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
@@ -25,8 +25,10 @@ class GeoConceptsQueryTask(QgsTask):
         self.layercount=layercount
         self.getlabels=getlabels
         self.queryvar=queryvar
-        self.layerconcepts=layerconcepts
+        self.sparql=sparql
         self.amountoflabels=-1
+        self.geoClassList=geoClassList
+        self.examplequery=examplequery
         self.resultlist=[]
         self.viewlist=[]
         s = QSettings() #getting proxy from qgis options settings
@@ -54,7 +56,7 @@ class GeoConceptsQueryTask(QgsTask):
         print(self.viewlist)
         #self.layercount.setText("["+str(len(viewlist))+"]")
         if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf["classlabelquery"]!="":
-            labels=self.getLabelsForClasses(viewlist,self.triplestoreconf["classlabelquery"])
+            labels=self.getLabelsForClasses(self.viewlist,self.triplestoreconf["classlabelquery"])
             print(labels)
             self.amountoflabels=len(labels)
             i=0
@@ -106,11 +108,25 @@ class GeoConceptsQueryTask(QgsTask):
         return result
 
     def finished(self, result):
+        self.geoClassList.clear()
+        if self.examplequery!=None:
+            self.sparql.setPlainText(self.examplequery) 
+            self.sparql.columnvars={}
         if len(self.resultlist)>0:
             for concept in self.resultlist:
-                self.layerconcepts.addItem(concept)
+                #self.layerconcepts.addItem(concept)
+                item=QListWidgetItem()
+                item.setData(1,concept)
+                item.setText(concept[concept.rfind('/')+1:])
+                self.geoClassList.addItem(item)
+            self.geoClassList.selectionModel().setCurrentIndex(self.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
         elif len(self.viewlist)>0:
             for concept in self.viewlist:
-                self.layerconcepts.addItem(concept)
+                #self.layerconcepts.addItem(concept)
+                item=QListWidgetItem()
+                item.setData(1,concept)
+                item.setText(concept[concept.rfind('/')+1:])
+                self.geoClassList.addItem(item)
+            self.geoClassList.selectionModel().setCurrentIndex(self.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
         if self.amountoflabels!=-1:
             self.layercount.setText("["+str(self.amountoflabels)+"]")

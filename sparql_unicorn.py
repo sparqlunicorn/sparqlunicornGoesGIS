@@ -28,10 +28,10 @@
 from qgis.utils import iface
 from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant,Qt
+from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant,Qt,QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor
 from qgis.core import QgsTask, QgsTaskManager
-from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox,QProgressDialog
+from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox,QProgressDialog,QListWidgetItem
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
 import os.path
 import sys
@@ -248,7 +248,7 @@ class SPAQLunicorn:
     #  @param queryvar the queryvariable returning the geoconcepts
     #  @param graph the graph to query if to query from a file
     #  @param getlabels indicates whether to also query labels for the returned geoconcepts
-    def getGeoConcepts(self,triplestoreurl,query,queryvar,graph,getlabels):
+    def getGeoConcepts(self,triplestoreurl,query,queryvar,graph,getlabels,examplequery):
         viewlist=[]
         resultlist=[]
         if graph!=None:
@@ -258,7 +258,7 @@ class SPAQLunicorn:
             return viewlist
         self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
                              triplestoreurl,
-               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.layerconcepts,queryvar,getlabels,self.dlg.layercount)
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassList,examplequery)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
@@ -269,16 +269,30 @@ class SPAQLunicorn:
         print("changing endpoint")
         conceptlist=[]
         self.dlg.layerconcepts.clear()
+        self.dlg.geoClassList.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True)
+            self.dlg.geoClassList.addItem("Loading...")
+            if "examplequery" in self.triplestoreconf[endpointIndex]:
+                conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True,self.triplestoreconf[endpointIndex]["examplequery"])
+            else:
+                conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True,None)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
             for concept in conceptlist:
-                self.dlg.layerconcepts.addItem(concept)
-        comp=QCompleter(self.dlg.layerconcepts)
-        comp.setCompletionMode(QCompleter.PopupCompletion)
-        comp.setModel(self.dlg.layerconcepts.model())
-        self.dlg.layerconcepts.setCompleter(comp)
+                #self.dlg.layerconcepts.addItem(concept)
+                item=QListWidgetItem()
+                item.setData(1,concept)
+                item.setText(concept[concept.rfind('/')+1:])
+                self.dlg.geoClassList.addItem(item)
+            if len(conceptlist)>0:
+                self.dlg.geoClassList.selectionModel().setCurrentIndex(self.dlg.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
+            if "examplequery" in self.triplestoreconf[endpointIndex]:
+                self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
+                self.dlg.inp_sparql2.columnvars={}
+        #comp=QCompleter(self.dlg.layerconcepts)
+        #comp.setCompletionMode(QCompleter.PopupCompletion)
+        #comp.setModel(self.dlg.layerconcepts.model())
+        #self.dlg.layerconcepts.setCompleter(comp)
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
@@ -286,9 +300,6 @@ class SPAQLunicorn:
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
-        if "examplequery" in self.triplestoreconf[endpointIndex]:
-            self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
-            self.dlg.inp_sparql2.columnvars={}
 
     ## Gets GeoJSON reperesentations from a graph given by an RDF file or data source.
     #  @param self The object pointer.
@@ -616,6 +627,7 @@ class SPAQLunicorn:
             self.saveTripleStoreConfig()
             self.first_start = False
             self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self)
+            self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
@@ -630,6 +642,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
+            self.dlg.filterConcepts.hide()
+            self.dlg.filterConceptsLabel.hide()
             #self.dlg.exportTripleStore.hide()
             #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
