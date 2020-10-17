@@ -1,6 +1,6 @@
 var a00122 =
 [
-    [ "__init__", "a00122.html#aa2a40323543a37c4784794a609cfb22b", null ],
+    [ "__init__", "a00122.html#a105c98b5dfcf2d928f5a55263e7df3aa", null ],
     [ "finished", "a00122.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "getLabelsForClasses", "a00122.html#a9668aa263c374afae42279e9ac4cd94d", null ],
     [ "run", "a00122.html#ad22709b2e67308af35f55680d5a026e0", null ],
@@ -8,6 +8,7 @@ var a00122 =
     [ "examplequery", "a00122.html#a6e134413291867bc4a871960af947cd5", null ],
     [ "exception", "a00122.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "geoClassList", "a00122.html#ae6db33435840cdf4fe215b4e7319f127", null ],
+    [ "geoClassListGui", "a00122.html#af330ef2a4e2809c581c58518bd5bb067", null ],
     [ "getlabels", "a00122.html#a9038167bc2020ad8e2f9c4774fba2024", null ],
     [ "layercount", "a00122.html#a89df5aba5301855e361ee8da3fdac4d2", null ],
     [ "proxyEnabled", "a00122.html#ae862ff88f11a3a2ef7eee0c21957dcb7", null ],

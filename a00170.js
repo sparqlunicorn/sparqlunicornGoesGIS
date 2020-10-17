@@ -16,6 +16,7 @@ var a00170 =
     [ "loadLayerForEnrichment", "a00170.html#a56435cd18605ceb7d36ef96f1a1252a2", null ],
     [ "loadLayerForInterlink", "a00170.html#a87085e3e93f6fa7041f16da1081c03f0", null ],
     [ "loadUnicornLayers", "a00170.html#a0a7541225b64dee6469fa1ec56d2c90e", null ],
+    [ "setFilterFromText", "a00170.html#af37b78fb1fd8472239c03b5c0bb19a11", null ],
     [ "showConfigTable", "a00170.html#a325fd8cbbc7334bc6881a68afd0c327f", null ],
     [ "validateSPARQL", "a00170.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
     [ "viewselectaction", "a00170.html#af9bcbe1a4132348650e930e72f66c336", null ],
@@ -27,6 +28,7 @@ var a00170 =
     [ "d", "a00170.html#a1aabac6d068eef6a7bad3fdf50a05cc8", null ],
     [ "enrichtab", "a00170.html#a798047d7be0ff17b0e59b9f9d960d376", null ],
     [ "errorline", "a00170.html#a227c8351ef43c0146b7d43d0afe1c00c", null ],
+    [ "geoClassListModel", "a00170.html#a5d68843c394bb38be4c9883ab56928e1", null ],
     [ "inp_sparql2", "a00170.html#a0ab9869ce99f2eee80ea8d82f315e99a", null ],
     [ "interlinkdialog", "a00170.html#a816bebaf94e989ec4293bfee7a615a98", null ],
     [ "interlinktab", "a00170.html#a3e331810b0db0beb7dface60f8e05508", null ],
@@ -34,6 +36,7 @@ var a00170 =
     [ "maindlg", "a00170.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "originalRowCount", "a00170.html#a69f706a761ec89c3b902ee489e8d7408", null ],
     [ "prefixes", "a00170.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "proxyModel", "a00170.html#a5e50e135cdd6239342d6d2c080e43542", null ],
     [ "searchTripleStoreDialog", "a00170.html#a0918bd6ea96ed15f91ffdf7d9e91776a", null ],
     [ "sparqlhighlight", "a00170.html#accda1a399e0a83e6da1c8590f09769c9", null ],
     [ "triplestoreconf", "a00170.html#a330d24be0afd5a96238ca9e128328a2d", null ]
