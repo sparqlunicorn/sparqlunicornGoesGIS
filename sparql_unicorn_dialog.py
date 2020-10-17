@@ -79,7 +79,6 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addVocabConf=addVocabConf
         self.triplestoreconf=triplestoreconf
         self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
-        self.layerconcepts.clear()
         self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geoClassList.setAlternatingRowColors(True)
         self.geoClassList.setViewMode(QListView.ListMode)
@@ -90,8 +89,6 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoClassList.setModel(self.proxyModel)
         self.geoClassListModel.clear()  
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
-        self.layerconcepts.setEditable(True)
-        self.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
         self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes)
         self.inp_sparql2.move(10,130)
         self.inp_sparql2.setMinimumSize(811,401)
@@ -124,7 +121,6 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-        self.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
         self.geoClassList.selectionModel().selectionChanged.connect(self.viewselectaction)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)

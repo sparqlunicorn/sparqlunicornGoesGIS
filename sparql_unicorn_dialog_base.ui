@@ -78,16 +78,6 @@
       <string>Geoconcepts</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="layerconcepts">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>250</y>
-       <width>521</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
@@ -370,7 +360,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>660</x>
+       <x>630</x>
        <y>40</y>
        <width>161</width>
        <height>20</height>

@@ -268,7 +268,6 @@ class SPAQLunicorn:
         self.dlg.queryTemplates.clear()
         print("changing endpoint")
         conceptlist=[]
-        self.dlg.layerconcepts.clear()
         self.dlg.geoClassListModel.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
             item=QStandardItem()
@@ -644,10 +643,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-            #self.dlg.filterConcepts.hide()
-            #self.dlg.filterConceptsLabel.hide()
-            #self.dlg.exportTripleStore.hide()
-            #self.dlg.exportTripleStore_2.hide()
+            self.dlg.exportTripleStore.hide()
+            self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
             #self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
