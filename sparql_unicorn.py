@@ -29,7 +29,7 @@ from qgis.utils import iface
 from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings,QCoreApplication,QRegExp,QVariant,Qt,QItemSelectionModel
-from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor
+from qgis.PyQt.QtGui import QIcon,QRegExpValidator,QBrush,QColor,QStandardItem
 from qgis.core import QgsTask, QgsTaskManager
 from qgis.PyQt.QtWidgets import QAction,QComboBox,QCompleter,QFileDialog,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QMessageBox,QProgressDialog,QListWidgetItem
 from qgis.core import QgsProject,QgsGeometry,QgsVectorLayer,QgsExpression,QgsFeatureRequest,QgsCoordinateReferenceSystem,QgsCoordinateTransform,QgsApplication,QgsWkbTypes,QgsField
@@ -258,7 +258,7 @@ class SPAQLunicorn:
             return viewlist
         self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
                              triplestoreurl,
-               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassList,examplequery)
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
@@ -269,9 +269,11 @@ class SPAQLunicorn:
         print("changing endpoint")
         conceptlist=[]
         self.dlg.layerconcepts.clear()
-        self.dlg.geoClassList.clear()
+        self.dlg.geoClassListModel.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
-            self.dlg.geoClassList.addItem("Loading...")
+            item=QStandardItem()
+            item.setText("Loading...")
+            self.dlg.geoClassListModel.appendRow(item)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True,self.triplestoreconf[endpointIndex]["examplequery"])
             else:
@@ -280,10 +282,10 @@ class SPAQLunicorn:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
             for concept in conceptlist:
                 #self.dlg.layerconcepts.addItem(concept)
-                item=QListWidgetItem()
-                item.setData(1,concept)
+                item=QStandardItem()
+                item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
-                self.dlg.geoClassList.addItem(item)
+                self.dlg.geoClassListModel.appendRow(item)
             if len(conceptlist)>0:
                 self.dlg.geoClassList.selectionModel().setCurrentIndex(self.dlg.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
@@ -642,8 +644,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-            self.dlg.filterConcepts.hide()
-            self.dlg.filterConceptsLabel.hide()
+            #self.dlg.filterConcepts.hide()
+            #self.dlg.filterConceptsLabel.hide()
             #self.dlg.exportTripleStore.hide()
             #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)

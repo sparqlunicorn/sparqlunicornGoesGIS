@@ -416,7 +416,7 @@ SELECT ?label ?geo ?item WHERE {
       </rect>
      </property>
     </widget>
-    <widget class="QListWidget" name="geoClassList">
+    <widget class="QListView" name="geoClassList">
      <property name="geometry">
       <rect>
        <x>820</x>

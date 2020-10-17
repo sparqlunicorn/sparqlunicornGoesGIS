@@ -1,7 +1,7 @@
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QCheckBox
 from qgis.PyQt.QtGui import QTextCursor
 from qgis.PyQt import uic
-from qgis.core import QgsProject
+from qgis.core import QgsProject,QgsMapLayer
 from PyQt5.QtCore import Qt
 from .searchdialog import SearchDialog
 import json
@@ -33,11 +33,12 @@ class VarInputDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         layers = QgsProject.instance().layerTreeRoot().children()
+        for layer in layers:
+            if layer.layer().type() == QgsMapLayer.VectorLayer:
+                self.chooseLayer.addItem(layer.name())
         self.inputfield=inputfield
         self.columnvars=columnvars
         self.chooseLayer.clear()
-        for layer in layers:
-            self.chooseLayer.addItem(layer.name())
         self.chooseLayer.currentIndexChanged.connect(self.layerselectaction)
         self.chooseField.clear()   
         self.applyButton.clicked.connect(self.applyVar)

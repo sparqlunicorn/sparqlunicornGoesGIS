@@ -5,6 +5,7 @@ import requests
 import urllib
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings,QItemSelectionModel
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QListWidgetItem,QMessageBox
 from rdflib.plugins.sparql import prepareQuery
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
@@ -16,7 +17,7 @@ MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
 class GeoConceptsQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery,geoClassListGui):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
@@ -26,6 +27,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.getlabels=getlabels
         self.queryvar=queryvar
         self.sparql=sparql
+        self.geoClassListGui=geoClassListGui
         self.amountoflabels=-1
         self.geoClassList=geoClassList
         self.examplequery=examplequery
@@ -115,18 +117,22 @@ class GeoConceptsQueryTask(QgsTask):
         if len(self.resultlist)>0:
             for concept in self.resultlist:
                 #self.layerconcepts.addItem(concept)
-                item=QListWidgetItem()
-                item.setData(1,concept)
+                item=QStandardItem()
+                item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
-                self.geoClassList.addItem(item)
-            self.geoClassList.selectionModel().setCurrentIndex(self.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
+                self.geoClassList.appendRow(item)
+            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
         elif len(self.viewlist)>0:
             for concept in self.viewlist:
                 #self.layerconcepts.addItem(concept)
-                item=QListWidgetItem()
-                item.setData(1,concept)
+                item=QStandardItem()
+                item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
-                self.geoClassList.addItem(item)
-            self.geoClassList.selectionModel().setCurrentIndex(self.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
+                self.geoClassList.appendRow(item)
+                #item=QListWidgetItem()
+                #item.setData(1,concept)
+                #item.setText(concept[concept.rfind('/')+1:])
+                #self.geoClassList.addItem(item)
+            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
         if self.amountoflabels!=-1:
             self.layercount.setText("["+str(self.amountoflabels)+"]")
