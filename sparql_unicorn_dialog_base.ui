@@ -68,24 +68,14 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
+       <x>910</x>
+       <y>70</y>
        <width>101</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Layer concept:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="layerconcepts">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>40</y>
-       <width>521</width>
-       <height>22</height>
-      </rect>
+      <string>Geoconcepts</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -142,7 +132,7 @@
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>1071</width>
+       <width>811</width>
        <height>401</height>
       </rect>
      </property>
@@ -263,7 +253,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>900</x>
-       <y>70</y>
+       <y>40</y>
        <width>171</width>
        <height>21</height>
       </rect>
@@ -311,7 +301,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>660</x>
+       <x>10</x>
        <y>40</y>
        <width>111</width>
        <height>20</height>
@@ -324,9 +314,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QComboBox" name="queryTemplates">
      <property name="geometry">
       <rect>
-       <x>780</x>
+       <x>120</x>
        <y>40</y>
-       <width>291</width>
+       <width>301</width>
        <height>22</height>
       </rect>
      </property>
@@ -370,9 +360,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>910</x>
-       <y>100</y>
-       <width>161</width>
+       <x>760</x>
+       <y>40</y>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -383,14 +373,73 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="exportTripleStore_2">
      <property name="geometry">
       <rect>
-       <x>720</x>
-       <y>100</y>
-       <width>171</width>
+       <x>630</x>
+       <y>40</y>
+       <width>131</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
       <string>Export To Triple Store</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="filterConceptsLabel">
+     <property name="geometry">
+      <rect>
+       <x>820</x>
+       <y>100</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Filter Concepts:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="filterConcepts">
+     <property name="geometry">
+      <rect>
+       <x>910</x>
+       <y>100</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QListView" name="geoClassList">
+     <property name="geometry">
+      <rect>
+       <x>820</x>
+       <y>130</y>
+       <width>256</width>
+       <height>401</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="queryLimit">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>40</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>10</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="queryLimitLabel">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>40</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Query Limit:</string>
      </property>
     </widget>
    </widget>

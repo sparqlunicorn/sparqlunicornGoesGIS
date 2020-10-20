@@ -28,9 +28,9 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
 from qgis.core import QgsProject
-from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator
-from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget
+from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel,Qt
+from qgis.PyQt.QtGui import QRegExpValidator,QStandardItemModel
+from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QAbstractItemView,QListView,QMessageBox
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText
@@ -59,6 +59,8 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     interlinktab=None
 	
+    conceptList=None
+	
     columnvars={}
 	
     def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},maindlg=None,parent=None):
@@ -77,12 +79,20 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addVocabConf=addVocabConf
         self.triplestoreconf=triplestoreconf
         self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
-        self.layerconcepts.clear()
-        self.layerconcepts.setEditable(True)
-        self.layerconcepts.setInsertPolicy(QComboBox.NoInsert)
+        self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.geoClassList.setAlternatingRowColors(True)
+        self.geoClassList.setViewMode(QListView.ListMode)
+        self.geoClassListModel=QStandardItemModel()
+        self.proxyModel = QSortFilterProxyModel(self)
+        self.proxyModel.sort(0)
+        self.proxyModel.setSourceModel(self.geoClassListModel)	
+        self.geoClassList.setModel(self.proxyModel)
+        self.geoClassListModel.clear()  
+        self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
+        self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes)
         self.inp_sparql2.move(10,130)
-        self.inp_sparql2.setMinimumSize(1071,401)
+        self.inp_sparql2.setMinimumSize(811,401)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
         self.inp_sparql2.columnvars={}
@@ -112,12 +122,15 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-        self.layerconcepts.currentIndexChanged.connect(self.viewselectaction)
+        self.geoClassList.selectionModel().selectionChanged.connect(self.viewselectaction)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
+
+    def setFilterFromText(self):
+        self.proxyModel.setFilterRegExp(self.filterConcepts.text())
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
@@ -204,24 +217,30 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if endpointIndex==0:
             self.justloadingfromfile=False
             return
-        if self.layerconcepts.currentText()!=None and re.match(r'Q[0-9]+',self.layerconcepts.currentText()) and not self.layerconcepts.currentText().startswith("http"):
-            self.inp_label.setText(self.layerconcepts.currentText().split("(")[0].lower().replace(" ","_"))
-            concept=self.layerconcepts.currentText().split("Q")[1].replace(")","")
-        else:
-            concept=self.layerconcepts.currentText()
+        concept=""
+        curindex=self.proxyModel.mapToSource(self.geoClassList.selectionModel().currentIndex())
+        if self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None and re.match(r'.*Q[0-9]+.*',self.geoClassListModel.itemFromIndex(curindex).text()) and not self.geoClassListModel.itemFromIndex(curindex).text().startswith("http"):
+            self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ","_"))
+            concept="Q"+self.geoClassListModel.itemFromIndex(curindex).text().split("Q")[1].replace(")","")
+        elif self.geoClassListModel.itemFromIndex(curindex)!=None:
+            concept=self.geoClassListModel.itemFromIndex(curindex).data(1)
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             if "wd:Q%%concept%% ." in self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
-                if concept.startswith("http"):
-                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept[concept.rfind('/')+1:]+" ."))
-                else:
-                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept+" ."))
+                querytext=""
+                if concept!=None and concept.startswith("http"):
+                    querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept[concept.rfind('/')+1:]+" .")
+                elif concept!=None:
+                    querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept+" .")
             else:
-                self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+                querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept)
+            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT")!=-1:
+               querytext=querytext[0:querytext.rfind("LIMIT")]+"LIMIT "+self.queryLimit.text()
+            self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars={}
-        if "#" in self.layerconcepts.currentText():
-            self.inp_label.setText(self.layerconcepts.currentText()[self.layerconcepts.currentText().rfind('#')+1:].lower().replace(" ","_"))
-        else:
-            self.inp_label.setText(self.layerconcepts.currentText()[self.layerconcepts.currentText().rfind('/')+1:].lower().replace(" ","_"))
+        if self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None and "#" in self.geoClassListModel.itemFromIndex(curindex).text():
+            self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[self.geoClassListModel.itemFromIndex(curindex).text().rfind('#')+1:].lower().replace(" ","_"))
+        elif self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None:
+            self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[self.geoClassListModel.itemFromIndex(curindex).text().rfind('/')+1:].lower().replace(" ","_"))
 
     ## 
     #  @brief Deletes a row from the table in the enrichment dialog.

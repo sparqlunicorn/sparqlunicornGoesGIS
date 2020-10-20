@@ -1,7 +1,7 @@
 from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox
 from qgis.PyQt.QtGui import QTextCursor
 from PyQt5.QtCore import Qt
-from qgis.core import QgsProject
+from qgis.core import QgsProject,QgsMapLayer
 from .varinput import VarInputDialog
 from .searchdialog import SearchDialog
 import json
@@ -34,6 +34,11 @@ class ToolTipPlainText(QPlainTextEdit):
         if len(layers)>0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             self.createVarInputDialog()
             event.accept()
+        elif len(layers)==0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
+            msgBox=QMessageBox()
+            msgBox.setText("No layer has been loaded in QGIS. Therefore no query variables may be created from a given QGIS layer.")
+            msgBox.exec()
+            event.accept()
         elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and event.modifiers()==Qt.ControlModifier:	
             self.buildSearchDialog(-1,-1,-1,self,True,True)	
             event.accept()
@@ -49,6 +54,16 @@ class ToolTipPlainText(QPlainTextEdit):
         self.interlinkdialog.exec_()
             
     def createVarInputDialog(self):
+        hasVectorLayer=False
+        layers = QgsProject.instance().layerTreeRoot().children()
+        for layer in layers:
+            if layer.layer().type() == QgsMapLayer.VectorLayer:
+                hasVectorLayer=True
+        if hasVectorLayer==False:
+            msgBox=QMessageBox()
+            msgBox.setText("No vector layer has been loaded in QGIS to create a query variable from.")
+            msgBox.exec()
+            return
         self.interlinkdialog = VarInputDialog(self,self,self.columnvars)
         self.interlinkdialog.setMinimumSize(650, 120)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
