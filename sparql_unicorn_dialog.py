@@ -225,12 +225,16 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             concept=self.geoClassListModel.itemFromIndex(curindex).data(1)
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             if "wd:Q%%concept%% ." in self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+                querytext=""
                 if concept!=None and concept.startswith("http"):
-                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept[concept.rfind('/')+1:]+" ."))
+                    querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept[concept.rfind('/')+1:]+" .")
                 elif concept!=None:
-                    self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept+" ."))
+                    querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("wd:Q%%concept%% .", "wd:"+concept+" .")
             else:
-                self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept))
+                querytext=self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%",concept)
+            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT")!=-1:
+               querytext=querytext[0:querytext.rfind("LIMIT")]+"LIMIT "+self.queryLimit.text()
+            self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars={}
         if self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None and "#" in self.geoClassListModel.itemFromIndex(curindex).text():
             self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[self.geoClassListModel.itemFromIndex(curindex).text().rfind('#')+1:].lower().replace(" ","_"))

@@ -360,9 +360,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>630</x>
+       <x>760</x>
        <y>40</y>
-       <width>161</width>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -373,9 +373,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="exportTripleStore_2">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>630</x>
        <y>40</y>
-       <width>171</width>
+       <width>131</width>
        <height>20</height>
       </rect>
      </property>
@@ -414,6 +414,32 @@ SELECT ?label ?geo ?item WHERE {
        <width>256</width>
        <height>401</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="queryLimit">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>40</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>10</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="queryLimitLabel">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>40</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Query Limit:</string>
      </property>
     </widget>
    </widget>

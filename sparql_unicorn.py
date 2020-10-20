@@ -219,7 +219,7 @@ class SPAQLunicorn:
             canvas.setExtent(vlayer.extent())
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
             #iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
-            self.dlg.close()
+            #self.dlg.close()
             return
         else:
             endpoint_url=self.triplestoreconf[endpointIndex]["endpoint"]
@@ -239,7 +239,7 @@ class SPAQLunicorn:
                              endpoint_url,
         "".join(self.prefixes[endpointIndex]) + query,self.triplestoreconf[endpointIndex],self.dlg.allownongeo.isChecked(),self.dlg.inp_label.text(),progress)
         QgsApplication.taskManager().addTask(self.qtask)
-        self.dlg.close()
+        #self.dlg.close()
 
     ## Gets a set of geometric concepts from the selected triple store.
     #  @param self The object pointer.
@@ -649,6 +649,7 @@ class SPAQLunicorn:
             #self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
+            self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
         #if self.first_start == False:
         #    self.dlg.loadUnicornLayers()
