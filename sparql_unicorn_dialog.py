@@ -88,6 +88,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.proxyModel.setSourceModel(self.geoClassListModel)	
         self.geoClassList.setModel(self.proxyModel)
         self.geoClassListModel.clear()  
+        self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes)
         self.inp_sparql2.move(10,130)
