@@ -15,6 +15,7 @@ var a00182 =
     [ "columnvars", "a00182.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
     [ "currentcol", "a00182.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
     [ "currentrow", "a00182.html#a086f47cacf997373ef862200fcfb4612", null ],
+    [ "errorline", "a00182.html#a227c8351ef43c0146b7d43d0afe1c00c", null ],
     [ "interlinkdialog", "a00182.html#a816bebaf94e989ec4293bfee7a615a98", null ],
     [ "lineNumberArea", "a00182.html#af127d2bf1eaf0da4cae9c423b455f559", null ],
     [ "parent", "a00182.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
