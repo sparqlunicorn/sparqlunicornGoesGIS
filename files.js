@@ -32,7 +32,8 @@ var files =
     [ "sparql_unicorn_dialog.py", "a00053.html", "a00053" ],
     [ "sparqlhighlighter.py", "a00056.html", "a00056" ],
     [ "tooltipplaintext.py", "a00059.html", [
-      [ "ToolTipPlainText", "a00178.html", "a00178" ]
+      [ "LineNumberArea", "a00178.html", "a00178" ],
+      [ "ToolTipPlainText", "a00182.html", "a00182" ]
     ] ],
     [ "triplestoredialog.py", "a00062.html", "a00062" ],
     [ "uploadrdfdialog.py", "a00065.html", "a00065" ],
