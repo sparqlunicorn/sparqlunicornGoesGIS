@@ -299,8 +299,13 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             self.errorline=-1
             self.sparqlhighlight.errorhighlightline=self.errorline
             self.sparqlhighlight.currentline=0
+            self.inp_sparql2.errorline=None
         except Exception as e:
-            self.errorLabel.setText(str(e))
+            match=re.search(r'line:([0-9]+),', str(e))
+            match2=re.search(r'col:([0-9]+),', str(e))
+            start=int(match.group(1))-len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"])-1
+            self.errorLabel.setText(re.sub("line:([0-9]+),", "line: "+str(start)+",",str(e)))
+            self.inp_sparql2.errorline=start-1
             if "line" in str(e):
                 ex=str(e)
                 start = ex.find('line:') + 5
@@ -311,9 +316,6 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 self.sparqlhighlight.errorhighlightcol=ex[start2:end2]
                 self.sparqlhighlight.errorhighlightline=self.errorline
                 self.sparqlhighlight.currentline=0
-                #msgBox=QMessageBox()
-                #msgBox.setText(str(self.errorline)+" "+str(self.sparqlhighlight.errorhighlightline)+" "+str(self.sparqlhighlight.errorhighlightcol))
-                #msgBox.exec()
 
     ## 
     #  @brief Builds the search dialog to search for a concept or class.
