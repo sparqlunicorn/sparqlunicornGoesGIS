@@ -280,7 +280,6 @@ class SPAQLunicorn:
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
             for concept in conceptlist:
-                #self.dlg.layerconcepts.addItem(concept)
                 item=QStandardItem()
                 item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
@@ -290,10 +289,6 @@ class SPAQLunicorn:
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"]) 
                 self.dlg.inp_sparql2.columnvars={}
-        #comp=QCompleter(self.dlg.layerconcepts)
-        #comp.setCompletionMode(QCompleter.PopupCompletion)
-        #comp.setModel(self.dlg.layerconcepts.model())
-        #self.dlg.layerconcepts.setCompleter(comp)
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["areaconcepts"]:
             conceptlist2=self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:

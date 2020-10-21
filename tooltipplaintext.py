@@ -27,6 +27,8 @@ class ToolTipPlainText(QPlainTextEdit):
      
     selector=None
 	
+    errorline=None
+	
     savedLabels={}
 
     def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes):
@@ -182,6 +184,7 @@ class ToolTipPlainText(QPlainTextEdit):
             max_value /= 10
             digits += 1
         space = 3 + self.fontMetrics().width('9') * digits
+        space+=10
         return space
 
     def updateLineNumberAreaWidth(self, _):
@@ -227,7 +230,10 @@ class ToolTipPlainText(QPlainTextEdit):
         while block.isValid() and (top <= event.rect().bottom()):
             if block.isVisible() and (bottom >= event.rect().top()):
                 number = str(blockNumber + 1)
-                painter.setPen(Qt.black)
+                if self.errorline!=None and blockNumber==self.errorline:
+                    painter.setPen(Qt.red)
+                else:
+                    painter.setPen(Qt.black)
                 painter.drawText(0, top, self.lineNumberArea.width(), height, Qt.AlignRight, number)
 
             block = block.next()
