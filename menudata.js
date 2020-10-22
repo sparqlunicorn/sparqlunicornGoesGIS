@@ -24,6 +24,7 @@ var menudata={children:[
 {text:"Variables",url:"namespacemembers_vars.html",children:[
 {text:"_",url:"namespacemembers_vars.html#index__"},
 {text:"a",url:"namespacemembers_vars.html#index_a"},
+{text:"c",url:"namespacemembers_vars.html#index_c"},
 {text:"d",url:"namespacemembers_vars.html#index_d"},
 {text:"e",url:"namespacemembers_vars.html#index_e"},
 {text:"f",url:"namespacemembers_vars.html#index_f"},

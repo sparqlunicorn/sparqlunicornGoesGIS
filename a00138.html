@@ -87,6 +87,8 @@ Collaboration diagram for LoginWindow:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3047f94dcb7e376099d2e6d9856cb8fb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00138.html#a3047f94dcb7e376099d2e6d9856cb8fb">__init__</a> (self, <a class="el" href="a00138.html#afe63fea7be31b0200b496d08bc6b517d">app</a>)</td></tr>
+<tr class="separator:a3047f94dcb7e376099d2e6d9856cb8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9afa46ee321e9de3e5231c8c39da78d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00138.html#ad9afa46ee321e9de3e5231c8c39da78d">__init__</a> (self, <a class="el" href="a00138.html#afe63fea7be31b0200b496d08bc6b517d">app</a>, authurl, <a class="el" href="a00138.html#a816e1eeaa4e197963ab5ed2ef6832f93">interceptor</a>)</td></tr>
 <tr class="separator:ad9afa46ee321e9de3e5231c8c39da78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a828c7df71b0e86f775916045240464e2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00138.html#a828c7df71b0e86f775916045240464e2">callable</a> (self, data)</td></tr>
@@ -114,8 +116,39 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a27b737395c35a2a45db65ae7028ed22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3047f94dcb7e376099d2e6d9856cb8fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3047f94dcb7e376099d2e6d9856cb8fb">&#9670;&nbsp;</a></span>__init__() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>app</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00138.html#ad9afa46ee321e9de3e5231c8c39da78d">LoginWindow.__init__()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">def </span><a class="code" href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, app):</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        super(LoginWindow, self).<a class="code" href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        self.nam = self.page()</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        self.app = app</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        self.setUrl(QUrl(AuthUrl))</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        self.show()</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        self.loadFinished.connect(self._loadFinished)</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        interceptor = RequestInterceptor(self.app)</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;=======</div><div class="ttc" id="a00210_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:20</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ad9afa46ee321e9de3e5231c8c39da78d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9afa46ee321e9de3e5231c8c39da78d">&#9670;&nbsp;</a></span>__init__()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9afa46ee321e9de3e5231c8c39da78d">&#9670;&nbsp;</a></span>__init__() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +184,9 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">def </span><a class="code" href="a00206.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, app, authurl,interceptor):</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        super(LoginWindow, self).<a class="code" href="a00206.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        self.nam = self.page()</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        self.app = app</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        self.setUrl(QUrl(authurl))</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        self.show()</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        self.loadFinished.connect(self._loadFinished)</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        self.interceptor = interceptor</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        self.page().profile().setRequestInterceptor(interceptor)</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        sys.exit(app.exec_())</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="ttc" id="a00206_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00206.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:20</div></div>
+
+<p class="reference">References <a class="el" href="a00138.html#a3047f94dcb7e376099d2e6d9856cb8fb">LoginWindow.__init__()</a>, <a class="el" href="a00138.html#a27b737395c35a2a45db65ae7028ed22c">LoginWindow._loadFinished()</a>, <a class="el" href="a00138.html#afe63fea7be31b0200b496d08bc6b517d">LoginWindow.app</a>, and <a class="el" href="a00138.html#a51416118072e894072c6e79857b054a0">LoginWindow.nam</a>.</p>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">def </span><a class="code" href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, app, authurl,interceptor):</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        super(LoginWindow, self).<a class="code" href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.nam = self.page()</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.app = app</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.setUrl(QUrl(authurl))</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.show()</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.loadFinished.connect(self._loadFinished)</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.interceptor = interceptor</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 62eabd13feb11502469f2bb0c5c2a2fb1328b89b</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.page().profile().setRequestInterceptor(interceptor)</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        sys.exit(app.exec_())</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div><div class="ttc" id="a00210_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00210.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:20</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -191,7 +226,9 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">References <a class="el" href="a00138.html#a828c7df71b0e86f775916045240464e2">LoginWindow.callable()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">def </span>_loadFinished(self, result):</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.page().toHtml(self.callable)</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div></div><!-- fragment -->
+
+<p class="reference">Referenced by <a class="el" href="a00138.html#ad9afa46ee321e9de3e5231c8c39da78d">LoginWindow.__init__()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">def </span>_loadFinished(self, result):</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.page().toHtml(self.callable)</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a828c7df71b0e86f775916045240464e2"></a>
@@ -221,7 +258,7 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="a00138.html#a27b737395c35a2a45db65ae7028ed22c">LoginWindow._loadFinished()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">def </span>callable(self, data):</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.html = data</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                </div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">def </span>callable(self, data):</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.html = data</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;=======</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                </div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 62eabd13feb11502469f2bb0c5c2a2fb1328b89b</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -236,6 +273,8 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00138.html#ad9afa46ee321e9de3e5231c8c39da78d">LoginWindow.__init__()</a>, <a class="el" href="a00142.html#a3047f94dcb7e376099d2e6d9856cb8fb">RequestInterceptor.__init__()</a>, and <a class="el" href="a00150.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2">GitlabRequestInterceptor.interceptRequest()</a>.</p>
 
 </div>
 </div>
@@ -300,6 +339,8 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00138.html#ad9afa46ee321e9de3e5231c8c39da78d">LoginWindow.__init__()</a>.</p>
 
 </div>
 </div>

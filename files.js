@@ -16,11 +16,7 @@ var files =
     [ "loginwindow.py", "a00029.html", [
       [ "LoginWindow", "a00138.html", "a00138" ]
     ] ],
-    [ "oauth.py", "a00032.html", [
-      [ "RequestInterceptor", "a00142.html", "a00142" ],
-      [ "UserMetaData", "a00146.html", "a00146" ],
-      [ "GitlabRequestInterceptor", "a00150.html", "a00150" ]
-    ] ],
+    [ "oauth.py", "a00032.html", "a00032" ],
     [ "plugin_upload.py", "a00035.html", "a00035" ],
     [ "querylayertask.py", "a00038.html", "a00038" ],
     [ "rectanglemaptool.py", "a00041.html", [
@@ -32,8 +28,9 @@ var files =
     [ "sparql_unicorn_dialog.py", "a00053.html", "a00053" ],
     [ "sparqlhighlighter.py", "a00056.html", "a00056" ],
     [ "tooltipplaintext.py", "a00059.html", [
-      [ "LineNumberArea", "a00178.html", "a00178" ],
-      [ "ToolTipPlainText", "a00182.html", "a00182" ]
+      [ "SPARQLCompleter", "a00178.html", "a00178" ],
+      [ "LineNumberArea", "a00182.html", "a00182" ],
+      [ "ToolTipPlainText", "a00186.html", "a00186" ]
     ] ],
     [ "triplestoredialog.py", "a00062.html", "a00062" ],
     [ "uploadrdfdialog.py", "a00065.html", "a00065" ],

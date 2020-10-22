@@ -1,6 +1,6 @@
 var a00170 =
 [
-    [ "__init__", "a00170.html#aef20bf50c2fc9fe3768678495c20bb45", null ],
+    [ "__init__", "a00170.html#a32e4e9f30a11c9b264c936a516659e21", null ],
     [ "addEnrichRow", "a00170.html#aef2caba5fdbabb1add496a3690ea2920", null ],
     [ "buildCustomTripleStoreDialog", "a00170.html#aaa0da52fb182abd5369eb94a3031ffbd", null ],
     [ "buildLoadGraphDialog", "a00170.html#a375e87d1112baec5682b217d29a81f39", null ],
@@ -21,6 +21,7 @@ var a00170 =
     [ "validateSPARQL", "a00170.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
     [ "viewselectaction", "a00170.html#af9bcbe1a4132348650e930e72f66c336", null ],
     [ "addVocabConf", "a00170.html#a1c0f392d53979b034116808ade371029", null ],
+    [ "autocomplete", "a00170.html#a0232b0ed4680bf785a599c4495843783", null ],
     [ "columnvars", "a00170.html#ae0b48044f5a1635491a0673852cf912c", null ],
     [ "conceptList", "a00170.html#ab3089a301e03daf14246f36103f033a9", null ],
     [ "currentcol", "a00170.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
