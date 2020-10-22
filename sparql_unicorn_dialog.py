@@ -63,7 +63,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     columnvars={}
 	
-    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},maindlg=None,parent=None):
+    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},maindlg=None,parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
         # Set up the user interface from Designer through FORM_CLASS.
@@ -77,6 +77,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.enrichtab=EnrichmentTab(self)
         self.interlinktab=InterlinkingTab(self)
         self.addVocabConf=addVocabConf
+        self.autocomplete=autocomplete
         self.triplestoreconf=triplestoreconf
         self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
         self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -90,7 +91,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoClassListModel.clear()  
         self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
-        self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes)
+        self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes,self.autocomplete)
         self.inp_sparql2.move(10,130)
         self.inp_sparql2.setMinimumSize(811,401)
         self.inp_sparql2.document().defaultFont().setPointSize(16)

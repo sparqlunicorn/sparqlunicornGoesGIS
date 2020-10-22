@@ -1,6 +1,7 @@
-from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox,QWidget,QTextEdit
+from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox,QWidget,QTextEdit,QCompleter
 from qgis.PyQt.QtGui import QTextCursor,QPainter,QColor,QTextFormat
 from PyQt5.QtCore import Qt, QRect, QSize
+from PyQt5 import QtCore
 from qgis.core import QgsProject,QgsMapLayer
 from .varinput import VarInputDialog
 from .searchdialog import SearchDialog
@@ -8,6 +9,21 @@ import json
 import re
 import requests
 import numpy as np
+
+class SPARQLCompleter(QCompleter):
+    insertText = QtCore.pyqtSignal(str)
+
+    def __init__(self,autocomplete, parent=None):
+        QCompleter.__init__(self, autocomplete["dict"], parent)
+        self.setCompletionMode(QCompleter.PopupCompletion)
+        self.setFilterMode(Qt.MatchContains)
+        self.highlighted.connect(self.setHighlighted)
+
+    def setHighlighted(self, text):
+        self.lastSelected = text
+
+    def getSelected(self):
+        return self.lastSelected
 
 class LineNumberArea(QWidget):
 
@@ -31,9 +47,12 @@ class ToolTipPlainText(QPlainTextEdit):
 	
     savedLabels={}
 
-    def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes):
+    def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes,autocomplete):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
+        self.completer = SPARQLCompleter(autocomplete)
+        self.completer.setWidget(self)
+        self.completer.insertText.connect(self.insertCompletion)
         self.blockCountChanged.connect(self.updateLineNumberAreaWidth)
         self.updateRequest.connect(self.updateLineNumberArea)
         self.cursorPositionChanged.connect(self.highlightCurrentLine)
@@ -51,19 +70,57 @@ class ToolTipPlainText(QPlainTextEdit):
         print("Modifier: "+str(event.modifiers()))
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = 0
+        tc = self.textCursor()
         if len(layers)>0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             self.createVarInputDialog()
             event.accept()
+            return
         elif len(layers)==0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             msgBox=QMessageBox()
             msgBox.setText("No layer has been loaded in QGIS. Therefore no query variables may be created from a given QGIS layer.")
             msgBox.exec()
             event.accept()
-        elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and event.modifiers()==Qt.ControlModifier:	
+            return
+        elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and not self.completer.popup().isVisible() and event.modifiers()==Qt.ControlModifier:	
             self.buildSearchDialog(-1,-1,-1,self,True,True)	
             event.accept()
+            return
+        elif (event.key()==Qt.Key_Enter or event.key()==Qt.Key_Return) and self.completer.popup().isVisible():
+            self.completer.insertText.emit(self.completer.getSelected())
+            self.completer.setCompletionMode(QCompleter.PopupCompletion)
+            event.accept();
+            return
+        QPlainTextEdit.keyPressEvent(self, event)
+        tc.select(QTextCursor.WordUnderCursor)
+        cr = self.cursorRect()
+
+        if len(tc.selectedText()) > 0:
+            self.completer.setCompletionPrefix(tc.selectedText())
+            popup = self.completer.popup()
+            popup.setCurrentIndex(self.completer.completionModel().index(0,0))
+
+            cr.setWidth(self.completer.popup().sizeHintForColumn(0) 
+            + self.completer.popup().verticalScrollBar().sizeHint().width())
+            self.completer.complete(cr)
         else:
-            super(ToolTipPlainText, self).keyPressEvent(event)
+            self.completer.popup().hide()
+        event.accept()
+        #else:
+        #    super(ToolTipPlainText, self).keyPressEvent(event)
+
+    def insertCompletion(self, completion):
+        tc = self.textCursor()
+        extra = (len(completion) - len(self.completer.completionPrefix()))
+        tc.movePosition(QTextCursor.Left)
+        tc.movePosition(QTextCursor.EndOfWord)
+        tc.insertText(completion[-extra:])
+        self.setTextCursor(tc)
+        self.completer.popup().hide()
+
+    def focusInEvent(self, event):
+        if self.completer:
+            self.completer.setWidget(self)
+        QPlainTextEdit.focusInEvent(self, event)
 			
     def buildSearchDialog(self,row,column,interlinkOrEnrich,table,propOrClass,bothOptions):	
         self.currentcol=column	
