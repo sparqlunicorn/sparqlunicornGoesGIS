@@ -14,7 +14,7 @@ class SPARQLCompleter(QCompleter):
     insertText = QtCore.pyqtSignal(str)
 
     def __init__(self,autocomplete, parent=None):
-        QCompleter.__init__(self, autocomplete["dict"], parent)
+        QCompleter.__init__(self, list(autocomplete["dict"].keys()), parent)
         self.setCompletionMode(QCompleter.PopupCompletion)
         self.setFilterMode(Qt.MatchContains)
         self.highlighted.connect(self.setHighlighted)
@@ -46,10 +46,15 @@ class ToolTipPlainText(QPlainTextEdit):
     errorline=None
 	
     savedLabels={}
+	
+    autocomplete=None
+	
+    insertedtext=""
 
     def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes,autocomplete):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
+        self.autocomplete=autocomplete
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
         self.completer.insertText.connect(self.insertCompletion)
@@ -111,9 +116,22 @@ class ToolTipPlainText(QPlainTextEdit):
     def insertCompletion(self, completion):
         tc = self.textCursor()
         extra = (len(completion) - len(self.completer.completionPrefix()))
+        prefix=completion.index(":")
+        sub=completion[0:prefix]
         tc.movePosition(QTextCursor.Left)
         tc.movePosition(QTextCursor.EndOfWord)
-        tc.insertText(completion[-extra:])
+        tc.setPosition(tc.position()-len(self.completer.completionPrefix()),QTextCursor.MoveAnchor)
+        tc.setPosition(tc.position()+len(self.completer.completionPrefix()),QTextCursor.KeepAnchor)
+        tc.removeSelectedText()
+        if self.completer.completionPrefix() in sub:
+            tc.insertText(self.autocomplete["dict"][completion]+" ")
+        else:
+            tc.insertText(self.autocomplete["dict"][completion][prefix+1:]+" ")
+        #else:
+        #    tc.setPosition(tc.position()-len(self.completer.completionPrefix())-(prefix+1),QTextCursor.MoveAnchor)
+        #    tc.setPosition(tc.position()+len(self.completer.completionPrefix())+prefix+1,QTextCursor.KeepAnchor)
+        #    tc.removeSelectedText()
+        #    tc.insertText(self.autocomplete["dict"][completion][prefix+1:]+" ")
         self.setTextCursor(tc)
         self.completer.popup().hide()
 
