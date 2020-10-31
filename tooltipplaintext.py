@@ -57,6 +57,7 @@ class ToolTipPlainText(QPlainTextEdit):
         self.autocomplete=autocomplete
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
+        self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.insertText.connect(self.insertCompletion)
         self.blockCountChanged.connect(self.updateLineNumberAreaWidth)
         self.updateRequest.connect(self.updateLineNumberArea)
