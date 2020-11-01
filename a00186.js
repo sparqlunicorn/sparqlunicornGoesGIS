@@ -12,6 +12,7 @@ var a00186 =
     [ "lineNumberAreaWidth", "a00186.html#acbb6a79174d954e49fcb23a39e327e77", null ],
     [ "mouseMoveEvent", "a00186.html#a23922d07d709315a17189e6dc15bd000", null ],
     [ "resizeEvent", "a00186.html#a0815964d2d7e4debf9b3e7cff7840436", null ],
+    [ "textUnderCursor", "a00186.html#a601f464cba2bb6503cd4593b5154066e", null ],
     [ "updateLineNumberArea", "a00186.html#a933afae03549914001ae6549cbe66ee7", null ],
     [ "updateLineNumberAreaWidth", "a00186.html#a7506e8b75b379b2ae41132e51b15ebd9", null ],
     [ "autocomplete", "a00186.html#a0232b0ed4680bf785a599c4495843783", null ],
