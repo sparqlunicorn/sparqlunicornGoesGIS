@@ -14,7 +14,7 @@ class SPARQLCompleter(QCompleter):
     insertText = QtCore.pyqtSignal(str)
 
     def __init__(self,autocomplete, parent=None):
-        QCompleter.__init__(self, autocomplete["dict"], parent)
+        QCompleter.__init__(self, list(autocomplete["dict"].keys()), parent)
         self.setCompletionMode(QCompleter.PopupCompletion)
         self.setFilterMode(Qt.MatchContains)
         self.highlighted.connect(self.setHighlighted)
@@ -46,12 +46,18 @@ class ToolTipPlainText(QPlainTextEdit):
     errorline=None
 	
     savedLabels={}
+	
+    autocomplete=None
+	
+    insertedtext=""
 
     def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes,autocomplete):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
+        self.autocomplete=autocomplete
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
+        self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.insertText.connect(self.insertCompletion)
         self.blockCountChanged.connect(self.updateLineNumberAreaWidth)
         self.updateRequest.connect(self.updateLineNumberArea)
@@ -64,6 +70,20 @@ class ToolTipPlainText(QPlainTextEdit):
         self.prefixes=prefixes
         self.columnvars=columnvars
         self.parent=parent
+
+    def textUnderCursor(self,tc):
+        isStartOfWord = False
+        if tc.atStart() or (tc.positionInBlock() == 0):
+            isStartOfWord = True
+        while not isStartOfWord:
+            tc.movePosition(QTextCursor.PreviousCharacter, QTextCursor.KeepAnchor)
+            if tc.atStart() or (tc.positionInBlock() == 0):
+                isStartOfWord = True
+            elif len(tc.selectedText())>0 and tc.selectedText()[0]==" ":
+                isStartOfWord = True
+        if len(tc.selectedText())>0 and tc.selectedText()[0]==" ":
+            tc.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)          
+        return tc.selectedText()
 
     def keyPressEvent(self, event):
         print("Key: "+str(event.key()))
@@ -91,14 +111,14 @@ class ToolTipPlainText(QPlainTextEdit):
             event.accept();
             return
         QPlainTextEdit.keyPressEvent(self, event)
-        tc.select(QTextCursor.WordUnderCursor)
+        seltext=self.textUnderCursor(tc)
+        #tc.select(self.textUnderCursor())
         cr = self.cursorRect()
 
-        if len(tc.selectedText()) > 0:
-            self.completer.setCompletionPrefix(tc.selectedText())
+        if len(seltext) > 0:
+            self.completer.setCompletionPrefix(seltext)
             popup = self.completer.popup()
             popup.setCurrentIndex(self.completer.completionModel().index(0,0))
-
             cr.setWidth(self.completer.popup().sizeHintForColumn(0) 
             + self.completer.popup().verticalScrollBar().sizeHint().width())
             self.completer.complete(cr)
@@ -111,9 +131,14 @@ class ToolTipPlainText(QPlainTextEdit):
     def insertCompletion(self, completion):
         tc = self.textCursor()
         extra = (len(completion) - len(self.completer.completionPrefix()))
+        prefix=completion.index(":")
+        sub=completion[0:prefix]
         tc.movePosition(QTextCursor.Left)
         tc.movePosition(QTextCursor.EndOfWord)
-        tc.insertText(completion[-extra:])
+        tc.setPosition(tc.position()-len(self.completer.completionPrefix()),QTextCursor.MoveAnchor)
+        tc.setPosition(tc.position()+len(self.completer.completionPrefix()),QTextCursor.KeepAnchor)
+        tc.removeSelectedText()
+        tc.insertText(self.autocomplete["dict"][completion]+" ")
         self.setTextCursor(tc)
         self.completer.popup().hide()
 
@@ -148,9 +173,10 @@ class ToolTipPlainText(QPlainTextEdit):
         
     def mouseMoveEvent(self, event):
         textCursor = self.cursorForPosition(event.pos())
+        #word=self.textUnderCursor(textCursor)
         textCursor.select(QTextCursor.WordUnderCursor)
         word = textCursor.selectedText()
-        print(textCursor.position())    
+        #print(textCursor.position())   
         if not word.endswith(' '):
             textCursor.setPosition(textCursor.position()+1,QTextCursor.KeepAnchor)
             word = textCursor.selectedText()
