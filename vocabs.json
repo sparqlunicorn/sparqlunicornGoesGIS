@@ -5368,6 +5368,8 @@
 		"geosparql":"http://www.opengis.net/ont/geosparql#",
 		"geo":"http://www.w3.org/2003/01/geo/wgs84_pos#",
 		"sf":"http://www.opengis.net/ont/sf#",
+		"osmm":"https://www.openstreetmap.org/meta/",
+		"osmt":"https://wiki.openstreetmap.org/wiki/Key:",
 		"prov":"http://www.w3.org/ns/prov#",
 		"skos":"http://www.w3.org/2004/02/skos/core#",
 		"gml":"http://www.opengis.net/ont/gml#",
@@ -5375,6 +5377,6 @@
 		"owl": "http://www.w3.org/2002/07/owl#",
 		"wd": "http://www.wikidata.org/entity/",
 		"wdt": "http://www.wikidata.org/prop/direct/",
-		"dcterms": "http://purl.org/dc/elements/1.1/"
+		"dc": "http://purl.org/dc/elements/1.1/"
 	}
 }

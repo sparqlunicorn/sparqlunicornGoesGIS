@@ -138,6 +138,9 @@ class ToolTipPlainText(QPlainTextEdit):
         tc.setPosition(tc.position()-len(self.completer.completionPrefix()),QTextCursor.MoveAnchor)
         tc.setPosition(tc.position()+len(self.completer.completionPrefix()),QTextCursor.KeepAnchor)
         tc.removeSelectedText()
+        newprefix=True
+        if not sub in self.prefixes[self.selector.currentIndex()]:
+            self.prefixes[self.selector.currentIndex()]+="PREFIX "+sub+":<"+self.autocomplete["namespaces"][sub]+">\n"
         tc.insertText(self.autocomplete["dict"][completion]+" ")
         self.setTextCursor(tc)
         self.completer.popup().hide()
