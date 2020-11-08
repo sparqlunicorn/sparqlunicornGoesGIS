@@ -156,7 +156,7 @@ class QueryLayerTask(QgsTask):
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
             return
-        if isinstance(self.geojson, int) and not self.allownongeo.isChecked():
+        if isinstance(self.geojson, int) and not self.allownongeo:
             msgBox=QMessageBox()
             msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
