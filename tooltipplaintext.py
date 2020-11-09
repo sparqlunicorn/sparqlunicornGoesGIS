@@ -91,6 +91,9 @@ class ToolTipPlainText(QPlainTextEdit):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = 0
         tc = self.textCursor()
+        #msgBox=QMessageBox()
+        #msgBox.setText(str(selection))
+        #msgBox.exec()
         if len(layers)>0 and event.key()==Qt.Key_Space and event.modifiers()==Qt.ControlModifier:
             self.createVarInputDialog()
             event.accept()
@@ -112,6 +115,8 @@ class ToolTipPlainText(QPlainTextEdit):
             return
         QPlainTextEdit.keyPressEvent(self, event)
         seltext=self.textUnderCursor(tc)
+        tc.select(QTextCursor.LineUnderCursor)
+        selection=tc.selectedText().split(" ")
         #tc.select(self.textUnderCursor())
         cr = self.cursorRect()
 
