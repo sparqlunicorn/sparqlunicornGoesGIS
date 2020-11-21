@@ -1,10 +1,11 @@
 var a00122 =
 [
-    [ "__init__", "a00122.html#a105c98b5dfcf2d928f5a55263e7df3aa", null ],
+    [ "__init__", "a00122.html#a71dc1b82e199430a7eac48ceba47f9cf", null ],
     [ "finished", "a00122.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "getLabelsForClasses", "a00122.html#a9668aa263c374afae42279e9ac4cd94d", null ],
     [ "run", "a00122.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "amountoflabels", "a00122.html#a920977da185a945b106fd389906f0fda", null ],
+    [ "completerClassList", "a00122.html#a41e122cb1ac43d786b64e494f7a5422c", null ],
     [ "examplequery", "a00122.html#a6e134413291867bc4a871960af947cd5", null ],
     [ "exception", "a00122.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "geoClassList", "a00122.html#ae6db33435840cdf4fe215b4e7319f127", null ],
