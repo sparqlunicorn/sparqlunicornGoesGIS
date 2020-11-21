@@ -7,6 +7,7 @@ from .varinput import VarInputDialog
 from .searchdialog import SearchDialog
 import json
 import re
+import os
 import requests
 import numpy as np
 
@@ -116,10 +117,24 @@ class ToolTipPlainText(QPlainTextEdit):
         QPlainTextEdit.keyPressEvent(self, event)
         seltext=self.textUnderCursor(tc)
         tc.select(QTextCursor.LineUnderCursor)
-        selection=tc.selectedText().split(" ")
-        #tc.select(self.textUnderCursor())
+        selline=tc.selectedText().rstrip()
+        sellinearr=selline.split(" ")
+        if len(sellinearr)==1 and (sellinearr[0].startswith("?")):
+            print("only subject")
+			#msgBox=QMessageBox()
+            #msgBox.setText("Only subject")
+            #msgBox.exec()
+        if len(sellinearr)==2 and (sellinearr[0].startswith("?")):
+            print("subject and predicate")
+            #msgBox=QMessageBox()
+            #msgBox.setText("subject and predicate")
+            #msgBox.exec()
+        for m in re.finditer(r'\S+', selline):
+            num, part = m.start(), m.group()
+            if (part=="." and num<len(selline)-1) or (part==";" and num<len(selline)-1) or (part=="{" and num<len(selline)-1 and num!=1) or (part=="}" and num<len(selline)-1 and num!=1):
+                tc.setPosition(tc.selectionEnd()-1)
+                tc.insertText(os.linesep)
         cr = self.cursorRect()
-
         if len(seltext) > 0:
             self.completer.setCompletionPrefix(seltext)
             popup = self.completer.popup()

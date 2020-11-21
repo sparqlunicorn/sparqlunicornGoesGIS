@@ -1530,6 +1530,7 @@
         "osmt:coastline":"osmt:coastline",
         "osmt:ele":"osmt:ele",
         "osmt:geological":"osmt:geological",
+        "osmt:highway":"osmt:highway",
         "osmt:name":"osmt:name",
         "osmt:natural":"osmt:natural",
         "osmt:note":"osmt:note",
