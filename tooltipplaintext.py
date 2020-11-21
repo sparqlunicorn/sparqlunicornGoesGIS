@@ -1,6 +1,6 @@
 from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip,QMessageBox,QWidget,QTextEdit,QCompleter
 from qgis.PyQt.QtGui import QTextCursor,QPainter,QColor,QTextFormat
-from PyQt5.QtCore import Qt, QRect, QSize
+from PyQt5.QtCore import Qt, QRect, QSize,QStringListModel
 from PyQt5 import QtCore
 from qgis.core import QgsProject,QgsMapLayer
 from .varinput import VarInputDialog
@@ -15,7 +15,7 @@ class SPARQLCompleter(QCompleter):
     insertText = QtCore.pyqtSignal(str)
 
     def __init__(self,autocomplete, parent=None):
-        QCompleter.__init__(self, list(autocomplete["dict"].keys()), parent)
+        QCompleter.__init__(self, list(autocomplete["clsdict"].keys())+list(autocomplete["propdict"].keys()), parent)
         self.setCompletionMode(QCompleter.PopupCompletion)
         self.setFilterMode(Qt.MatchContains)
         self.highlighted.connect(self.setHighlighted)
@@ -51,11 +51,15 @@ class ToolTipPlainText(QPlainTextEdit):
     autocomplete=None
 	
     insertedtext=""
+	
+    changedCompleterSetting=False
 
     def __init__(self,parent,triplestoreconfig,selector,columnvars,prefixes,autocomplete):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
         self.autocomplete=autocomplete
+        self.autocomplete["completerClassList"]={}
+        self.changedCompleterSetting=False
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
@@ -71,6 +75,12 @@ class ToolTipPlainText(QPlainTextEdit):
         self.prefixes=prefixes
         self.columnvars=columnvars
         self.parent=parent
+		
+    def updateCompleterData(self,stringlist):
+        self.completer.setModel(QStringListModel(stringlist))
+		
+    def updateNewClassList(self):
+        self.changedCompleterSetting=True
 
     def textUnderCursor(self,tc):
         isStartOfWord = False
@@ -116,16 +126,26 @@ class ToolTipPlainText(QPlainTextEdit):
         tc.select(QTextCursor.LineUnderCursor)
         selline=tc.selectedText().rstrip()
         sellinearr=selline.split(" ")
-        if len(sellinearr)==1 and (sellinearr[0].startswith("?")):
-            print("only subject")
-			#msgBox=QMessageBox()
-            #msgBox.setText("Only subject")
-            #msgBox.exec()
         if len(sellinearr)==2 and (sellinearr[0].startswith("?")):
-            print("subject and predicate")
+            print("subject is variable")
+            self.updateCompleterData(list(self.autocomplete["propdict"].keys()))
+            self.changedCompleterSetting=True
             #msgBox=QMessageBox()
-            #msgBox.setText("subject and predicate")
+            #msgBox.setText(str(list(self.autocomplete["completerClassList"].keys())))
             #msgBox.exec()
+        elif len(sellinearr)==3 and (sellinearr[0].startswith("?")):
+            print("subject and predicate")
+            self.updateCompleterData(list(self.autocomplete["clsdict"].keys())+list(self.autocomplete["completerClassList"].keys()))
+            self.changedCompleterSetting=True
+            #msgBox=QMessageBox()
+            #msgBox.setText(str(list(self.autocomplete["completerClassList"].keys())))
+            #msgBox.exec()
+        elif self.changedCompleterSetting:
+            self.updateCompleterData(list(self.autocomplete["clsdict"].keys())+list(self.autocomplete["propdict"].keys())+list(self.autocomplete["completerClassList"].keys()))
+            self.changedCompleterSetting=False
+        #msgBox=QMessageBox()
+        #msgBox.setText(str(list(self.autocomplete["completerClassList"].keys()))+" - "+str(self.changedCompleterSetting))
+        #msgBox.exec()
         for m in re.finditer(r'\S+', selline):
             num, part = m.start(), m.group()
             if (part=="." and num<len(selline)-1) or (part==";" and num<len(selline)-1) or (part=="{" and num<len(selline)-1 and num!=1) or (part=="}" and num<len(selline)-1 and num!=1):
@@ -147,6 +167,16 @@ class ToolTipPlainText(QPlainTextEdit):
 
     def insertCompletion(self, completion):
         tc = self.textCursor()
+        if completion in self.autocomplete["completerClassList"]:
+            tc.movePosition(QTextCursor.Left)
+            tc.movePosition(QTextCursor.EndOfWord)
+            tc.setPosition(tc.position()-len(self.completer.completionPrefix()),QTextCursor.MoveAnchor)
+            tc.setPosition(tc.position()+len(self.completer.completionPrefix()),QTextCursor.KeepAnchor)
+            tc.removeSelectedText()
+            tc.insertText(self.autocomplete["completerClassList"][completion]+" ")
+            self.setTextCursor(tc)
+            self.completer.popup().hide()
+            return
         extra = (len(completion) - len(self.completer.completionPrefix()))
         prefix=completion.index(":")
         sub=completion[0:prefix]
@@ -158,7 +188,10 @@ class ToolTipPlainText(QPlainTextEdit):
         newprefix=True
         if not sub in self.prefixes[self.selector.currentIndex()]:
             self.prefixes[self.selector.currentIndex()]+="PREFIX "+sub+":<"+self.autocomplete["namespaces"][sub]+">\n"
-        tc.insertText(self.autocomplete["dict"][completion]+" ")
+        if completion in self.autocomplete["clsdict"]:
+            tc.insertText(self.autocomplete["clsdict"][completion]+" ")		
+        elif completion in self.autocomplete["propdict"]:
+            tc.insertText(self.autocomplete["propdict"][completion]+" ")
         self.setTextCursor(tc)
         self.completer.popup().hide()
 
