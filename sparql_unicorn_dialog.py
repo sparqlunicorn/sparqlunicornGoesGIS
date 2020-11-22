@@ -61,16 +61,13 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     conceptList=None
 	
+    completerClassList=None
+	
     columnvars={}
 	
     def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},maindlg=None,parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
-        # Set up the user interface from Designer through FORM_CLASS.
-        # After self.setupUi() you can access any designer object by doing
-        # self.<objectname>, and you can use autoconnect slots - see
-        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
-        # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.prefixes=prefixes
         self.maindlg=maindlg
@@ -243,6 +240,13 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         elif self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None:
             self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[self.geoClassListModel.itemFromIndex(curindex).text().rfind('/')+1:].lower().replace(" ","_"))
 
+    def itemModelToMap(self, model):
+        resdict={}
+        for row in range(model.rowCount()):
+            index = model.index(row, 0, self);
+            resdict[model.itemFromIndex(index).text()]=model.itemFromIndex(index).data(1)
+        return resdict 
+    
     ## 
     #  @brief Deletes a row from the table in the enrichment dialog.
     #  

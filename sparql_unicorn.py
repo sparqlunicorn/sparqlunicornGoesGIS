@@ -253,12 +253,14 @@ class SPAQLunicorn:
         resultlist=[]
         if graph!=None:
             results = graph.query(query)
+            self.dlg.autocomplete["completerClassList"]={}
             for row in results:
                 viewlist.append(str(row[0]))
+                self.dlg.autocomplete["completerClassList"][row]=str(row[0])
             return viewlist
         self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
                              triplestoreurl,
-               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList)
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList,self.dlg.autocomplete)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
@@ -279,11 +281,14 @@ class SPAQLunicorn:
                 conceptlist=self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],self.triplestoreconf[endpointIndex]["geoconceptquery"],"class",None,True,None)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]!=[]:
             conceptlist=self.triplestoreconf[endpointIndex]["staticconcepts"]
+            self.dlg.autocomplete["completerClassList"]={}
             for concept in conceptlist:
                 item=QStandardItem()
                 item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
+                self.dlg.autocomplete["completerClassList"][concept[concept.rfind('/')+1:]]="<"+concept+">"
                 self.dlg.geoClassListModel.appendRow(item)
+            self.dlg.inp_sparql2.updateNewClassList()
             if len(conceptlist)>0:
                 self.dlg.geoClassList.selectionModel().setCurrentIndex(self.dlg.geoClassList.model().index(0,0),QItemSelectionModel.SelectCurrent)
             if "examplequery" in self.triplestoreconf[endpointIndex]:

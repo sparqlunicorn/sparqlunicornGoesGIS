@@ -17,7 +17,7 @@ MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
 class GeoConceptsQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery,geoClassListGui):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery,geoClassListGui,completerClassList):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
@@ -25,6 +25,8 @@ class GeoConceptsQueryTask(QgsTask):
         self.query=query
         self.layercount=layercount
         self.getlabels=getlabels
+        self.completerClassList=completerClassList
+        self.completerClassList["completerClassList"]={}
         self.queryvar=queryvar
         self.sparql=sparql
         self.geoClassListGui=geoClassListGui
@@ -64,7 +66,7 @@ class GeoConceptsQueryTask(QgsTask):
             i=0
             sorted_labels=sorted(labels.items(),key=lambda x:x[1])
             for lab in sorted_labels:
-                self.resultlist.append(labels[lab[0]]+"("+lab[0]+")")
+                self.resultlist.append(labels[lab[0]]+" ("+lab[0]+")")
                 i=i+1
         return True
 
@@ -121,6 +123,10 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
                 self.geoClassList.appendRow(item)
+                if self.triplestoreconf["name"]=="Wikidata":
+                    self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="wd:"+concept.split("(")[1].replace(" ","_").replace(")","")
+                else:
+                    self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="<"+concept+">"
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
         elif len(self.viewlist)>0:
             for concept in self.viewlist:
@@ -129,10 +135,15 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setData(concept,1)
                 item.setText(concept[concept.rfind('/')+1:])
                 self.geoClassList.appendRow(item)
+                if self.triplestoreconf["name"]=="Wikidata":
+                    self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="wd:"+concept.split("(")[1].replace(" ","_").replace(")","")
+                else:
+                    self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="<"+concept+">"
                 #item=QListWidgetItem()
                 #item.setData(1,concept)
                 #item.setText(concept[concept.rfind('/')+1:])
                 #self.geoClassList.addItem(item)
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
+        self.sparql.updateNewClassList()
         if self.amountoflabels!=-1:
             self.layercount.setText("["+str(self.amountoflabels)+"]")
