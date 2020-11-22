@@ -127,7 +127,7 @@ class ToolTipPlainText(QPlainTextEdit):
         QPlainTextEdit.keyPressEvent(self, event)
         seltext=self.textUnderCursor(tc)
         tc.select(QTextCursor.LineUnderCursor)
-        selline=tc.selectedText().rstrip()
+        selline=tc.selectedText().strip()
         sellinearr=selline.split(" ")
         if len(sellinearr)==2 and (sellinearr[0].startswith("?")):
             print("subject is variable")
