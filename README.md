@@ -1,6 +1,6 @@
 # SPARQLing Unicorn QGIS Plugin
 
-This plugin adds a GeoJSON layer from SPARQL enpoint queries.
+This plugin adds a GeoJSON layer from SPARQL endpoint queries.
 
 The necessary python libs can be found here: https://github.com/sparqlunicorn/unicornQGISdepInstaller.
 
@@ -10,7 +10,7 @@ Doxygen Documentation https://sparqlunicorn.github.io/sparqlunicornGoesGIS/
 
 ## QGIS Plugin
 
-This Plugin is listed under die experimentail QGIS Pluigins:
+This Plugin is listed under the experimental QGIS Plugins:
 
 * https://plugins.qgis.org/plugins/sparqlunicorn/
 
@@ -82,7 +82,7 @@ This query uses the special variables *?rel* and *?val* to indicate that all rel
 
 ### SPARQL queries without geometry literals
 
-SPARQL queries without geometry literals may be issued to a triple store when the appropriate checkbox ("Allow non-geo queries") is selected in the user interface. This allows for the executition of arbitrary SPARQL queries and returns a QGIS layer without an attached geometry which might be used for merging with other QGIS layers.
+SPARQL queries without geometry literals may be issued to a triple store when the appropriate checkbox ("Allow non-geo queries") is selected in the user interface. This allows for the execution of arbitrary SPARQL queries and returns a QGIS layer without an attached geometry which might be used for merging with other QGIS layers.
 
 Example:
 
@@ -104,7 +104,7 @@ Consider a QGIS vector layer of houses which is formatted as follows:
 | POINT(..)  | Second Street 32 |
 | POINT(..)  | Third Street 4 |
 
-The task: Give me the height of all houses which is store in a given triple store.
+The task: Give me the height of all houses which is stored in a given triple store.
 
 Assuming the addresses are unique identifiers in this example, the task could be solved as follows:
 
@@ -136,7 +136,7 @@ SPARQL 1.1 allows this behaviour by defining a VALUES statement as follows:
         ?item geo:asWKT ?geo .
     }
     
-The SPARQL Unicorn allows the user to define special queryvariables which are replace by VALUES statements of connected columns of QGIS vector layers before sending the SPARQL query to the selected SPARQL endpoint.
+The SPARQL Unicorn allows the user to define special query variables which are replaced by VALUES statements of connected columns of QGIS vector layers before sending the SPARQL query to the selected SPARQL endpoint.
 A user defined query in this way would look like this:
 
     SELECT ?item ?geo ?height WHERE {
@@ -165,7 +165,7 @@ Further information appended to features of the vector data layer is converted t
 Literal types of XSD literals are determined automatically for the types of xsd:string, xsd:double, xsd:integer.
 
 ### Defining Interlinks
-A better representation of the RDF graph is gained by definining the relations used in the RDF graph beforehand, e.g. by using relations of the Wikidata graph. This mapping from a column name to a relation URI can be given in the Interlinking dialog.
+A better representation of the RDF graph is gained by defining the relations used in the RDF graph beforehand, e.g. by using relations of the Wikidata graph. This mapping from a column name to a relation URI can be given in the Interlinking dialog.
 
 ### Mapping Schema format
 
@@ -220,8 +220,8 @@ An example is given below:
     ORDER BY DESC(?countrel)
 
 This query is a template query in which the variable %%concept%% may be replaced by a Wikidata concept.
-The query returns every relation linked to instances of %%concept%% and its relative occurances in relation to the individuals.
-The result is interpreted by the SPARQL Unicorn QGIS plugin as a list in which most occuring proeprties are shown first.
+The query returns every relation linked to instances of %%concept%% and its relative occurrences in relation to the individuals.
+The result is interpreted by the SPARQL Unicorn QGIS plugin as a list in which most occurring properties are shown first.
 
 ### Data enrichment process
 
@@ -302,4 +302,4 @@ Example:
         ?item dcterms:title ?label .
     } LIMIT 100
 
-This query defines the placeholder variable %%concept%% which is replaced by the currently selected concept from the dropdown menu in the user inferface when a concept is selected.
+This query defines the placeholder variable %%concept%% which is replaced by the currently selected concept from the dropdown menu in the user interface when a concept is selected.
