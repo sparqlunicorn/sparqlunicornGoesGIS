@@ -161,6 +161,7 @@ class SearchDialog(QDialog, FORM_CLASS):
                 #msgBox.exec()
                 if len(results["results"])==0:
                     msgBox=QMessageBox()
+                    msgBox.setWindowTitle("Empty search result")
                     msgBox.setText("The search yielded no results")
                     msgBox.exec()
                     return

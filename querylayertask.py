@@ -72,9 +72,16 @@ class QueryLayerTask(QgsTask):
         if "literaltype" in self.triplestoreconf:
             literaltype=self.triplestoreconf["literaltype"]
         if literaltype.lower()=="wkt":
-            geom=QgsGeometry.fromWkt(literal)
+            literal=literal.strip()
+            if literal.startswith("<http"):
+                index=literal.index(">")+1
+                slashindex=literal.rfind("/")+1
+                reproject=literal[slashindex:(index-1)]
+                geom=QgsGeometry.fromWkt(literal[index:])
+            else:
+                geom=QgsGeometry.fromWkt(literal)
         if literaltype.lower()=="geojson":
-            geom=literal
+            return geom
         if geom!=None and reproject!="":
             sourceCrs = QgsCoordinateReferenceSystem(reproject)
             destCrs = QgsCoordinateReferenceSystem(4326)

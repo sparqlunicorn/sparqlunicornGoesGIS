@@ -76,7 +76,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addVocabConf=addVocabConf
         self.autocomplete=autocomplete
         self.triplestoreconf=triplestoreconf
-        self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.comboBox)
+        self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.prefixes,self.comboBox)
         self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geoClassList.setAlternatingRowColors(True)
         self.geoClassList.setViewMode(QListView.ListMode)
@@ -144,7 +144,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #  
     #  @param self The object pointer
     def buildCustomTripleStoreDialog(self):	
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.comboBox)	
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.prefixes,self.comboBox)	
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.searchTripleStoreDialog.exec_()

@@ -229,6 +229,7 @@ class SPAQLunicorn:
                   missingmandvars.append("?"+mandvar)
         if missingmandvars!=[] and not self.dlg.allownongeo.isChecked():
             msgBox=QMessageBox()
+            msgBox.setWindowTitle("Mandatory variables missing!")
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
         progress = QProgressDialog("Querying layer from "+endpoint_url+"...", "Abort", 0, 0, self.dlg)
