@@ -100,6 +100,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             msgBox.setText("URL does not depict a valid SPARQL Endpoint!")	
             msgBox.exec()	
             return False	
+        
     ## 
     #  @brief Addes a new SPARQL endpoint to the triple store registry
     #  
