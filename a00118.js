@@ -1,7 +1,7 @@
 var a00118 =
 [
     [ "__init__", "a00118.html#a6655078a064673ed75ddc64c1c8bd379", null ],
-    [ "detectNamespaces", "a00118.html#a59cbfdecc614b182696686c220c50e2a", null ],
+    [ "detectNamespaces", "a00118.html#a28c2aa597146ea0bee8567e8fcbcea69", null ],
     [ "detectTripleStoreConfiguration", "a00118.html#afd5cbb47197ed025c14b33f40011c054", null ],
     [ "finished", "a00118.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00118.html#ad22709b2e67308af35f55680d5a026e0", null ],
