@@ -1,4 +1,6 @@
 var a00103 =
 [
-    [ "VarInputDialog", "a00202.html", "a00202" ]
+    [ "LineNumberArea", "a00190.html", "a00190" ],
+    [ "SPARQLCompleter", "a00186.html", "a00186" ],
+    [ "ToolTipPlainText", "a00194.html", "a00194" ]
 ];

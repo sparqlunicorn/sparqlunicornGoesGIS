@@ -1,12 +1,12 @@
 var a00138 =
 [
-    [ "__init__", "a00138.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "__init__", "a00138.html#ad9afa46ee321e9de3e5231c8c39da78d", null ],
-    [ "_loadFinished", "a00138.html#a27b737395c35a2a45db65ae7028ed22c", null ],
-    [ "callable", "a00138.html#a828c7df71b0e86f775916045240464e2", null ],
-    [ "app", "a00138.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "html", "a00138.html#a8f99bc655183db169e126fc155ceb631", null ],
-    [ "interceptor", "a00138.html#a816e1eeaa4e197963ab5ed2ef6832f93", null ],
-    [ "logged_in", "a00138.html#a2dde74ef7a1b1433fa85f7aefe03952e", null ],
-    [ "nam", "a00138.html#a51416118072e894072c6e79857b054a0", null ]
+    [ "__init__", "a00138.html#a921f465a77663034ebb6932d1ac38188", null ],
+    [ "loadFile", "a00138.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00138.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "dlg", "a00138.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00138.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00138.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00138.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a00138.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00138.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];
