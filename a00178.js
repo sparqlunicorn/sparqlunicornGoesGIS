@@ -1,6 +1,6 @@
 var a00178 =
 [
-    [ "__init__", "a00178.html#a32e4e9f30a11c9b264c936a516659e21", null ],
+    [ "__init__", "a00178.html#ac775ee34451fdfa742b318538164070e", null ],
     [ "addEnrichRow", "a00178.html#aef2caba5fdbabb1add496a3690ea2920", null ],
     [ "buildCustomTripleStoreDialog", "a00178.html#aaa0da52fb182abd5369eb94a3031ffbd", null ],
     [ "buildLoadGraphDialog", "a00178.html#a375e87d1112baec5682b217d29a81f39", null ],
@@ -39,6 +39,7 @@ var a00178 =
     [ "maindlg", "a00178.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "originalRowCount", "a00178.html#a69f706a761ec89c3b902ee489e8d7408", null ],
     [ "prefixes", "a00178.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a00178.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
     [ "proxyModel", "a00178.html#a5e50e135cdd6239342d6d2c080e43542", null ],
     [ "searchTripleStoreDialog", "a00178.html#a0918bd6ea96ed15f91ffdf7d9e91776a", null ],
     [ "sparqlhighlight", "a00178.html#accda1a399e0a83e6da1c8590f09769c9", null ],

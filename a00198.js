@@ -1,6 +1,6 @@
 var a00198 =
 [
-    [ "__init__", "a00198.html#ae455b400f5069c04a789ff2111577aef", null ],
+    [ "__init__", "a00198.html#ac6ef1909b43c27723c2a89de86988023", null ],
     [ "addNewSPARQLEndpoint", "a00198.html#a34a78bc5f0927053db7797e886f20240", null ],
     [ "addPrefixToList", "a00198.html#a182c82bd713e327a2621e41cbeeb5845", null ],
     [ "applyCustomSPARQLEndPoint", "a00198.html#a7ab1931a2785e98a68d2547d73caad61", null ],
@@ -15,6 +15,7 @@ var a00198 =
     [ "addTripleStore", "a00198.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
     [ "comboBox", "a00198.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
     [ "prefixes", "a00198.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a00198.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
     [ "proxyEnabled", "a00198.html#ae862ff88f11a3a2ef7eee0c21957dcb7", null ],
     [ "proxyHost", "a00198.html#af2d0d5884751e69699ca9b2d6c2cd7f1", null ],
     [ "proxyPassword", "a00198.html#add5abc4de55257ede4e0ab5db30de1ce", null ],

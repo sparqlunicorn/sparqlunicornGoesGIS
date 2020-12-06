@@ -44,6 +44,7 @@ var a00174 =
     [ "originalRowCount", "a00174.html#a96db96b589de91ab2dd5f6f5836757de", null ],
     [ "plugin_dir", "a00174.html#a2a0c7f0685d9b3e37941cdc508be18ae", null ],
     [ "prefixes", "a00174.html#acf1dec78e6e086f90ac980d02ea6ccef", null ],
+    [ "prefixstore", "a00174.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
     [ "qtask", "a00174.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
     [ "translator", "a00174.html#a35456e6cc377bc269b33b87c89fe8f3e", null ],
     [ "triplestoreconf", "a00174.html#a330d24be0afd5a96238ca9e128328a2d", null ],

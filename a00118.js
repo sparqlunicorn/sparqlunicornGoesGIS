@@ -1,6 +1,6 @@
 var a00118 =
 [
-    [ "__init__", "a00118.html#a6655078a064673ed75ddc64c1c8bd379", null ],
+    [ "__init__", "a00118.html#a9208405196787ae085b5c52bacf45151", null ],
     [ "detectNamespaces", "a00118.html#a28c2aa597146ea0bee8567e8fcbcea69", null ],
     [ "detectTripleStoreConfiguration", "a00118.html#afd5cbb47197ed025c14b33f40011c054", null ],
     [ "finished", "a00118.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
@@ -14,6 +14,7 @@ var a00118 =
     [ "feasibleConfiguration", "a00118.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
     [ "message", "a00118.html#ab8140947611504abcb64a4c277effcf5", null ],
     [ "prefixes", "a00118.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a00118.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
     [ "progress", "a00118.html#a991fd2c404665f13f536fc7791e53504", null ],
     [ "proxyEnabled", "a00118.html#ae862ff88f11a3a2ef7eee0c21957dcb7", null ],
     [ "proxyHost", "a00118.html#af2d0d5884751e69699ca9b2d6c2cd7f1", null ],
