@@ -17,10 +17,11 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 	
     triplestoreconf=""
 	
-    def __init__(self,triplestoreconf,prefixes,comboBox):
+    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.triplestoreconf=triplestoreconf
+        self.triplestoreconf=triplestoreconf 
+        self.prefixstore=prefixstore
         self.comboBox=comboBox
         self.prefixes=prefixes
         for item in triplestoreconf:
@@ -89,7 +90,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),True,False,self.prefixes,self.tripleStoreChooser,self.comboBox,progress)
+        self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),True,False,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     def detectTripleStoreConfiguration(self):	
@@ -97,7 +98,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),False,True,self.prefixes,self.tripleStoreChooser,self.comboBox,progress)
+        self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),False,True,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 	
     ## 

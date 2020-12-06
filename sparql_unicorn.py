@@ -620,9 +620,12 @@ class SPAQLunicorn:
                 data2=myfile.read()
             with open(os.path.join(__location__, 'vocabs.json'),'r') as myfile:
                 data3=myfile.read()
+            with open(os.path.join(__location__, 'prefixes.json'),'r') as myfile:
+                data4=myfile.read()
             self.triplestoreconf = json.loads(data)
             self.addVocabConf=json.loads(data2)
             self.autocomplete=json.loads(data3)
+            self.prefixstore=json.loads(data4)
             counter=0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -632,7 +635,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore)
             self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()

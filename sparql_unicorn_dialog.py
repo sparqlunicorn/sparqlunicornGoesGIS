@@ -65,7 +65,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     columnvars={}
 	
-    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},maindlg=None,parent=None):
+    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},prefixstore={"normal":{},"reversed":{}},maindlg=None,parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
         self.setupUi(self)
@@ -75,8 +75,9 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.interlinktab=InterlinkingTab(self)
         self.addVocabConf=addVocabConf
         self.autocomplete=autocomplete
+        self.prefixstore=prefixstore
         self.triplestoreconf=triplestoreconf
-        self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.prefixes,self.comboBox)
+        self.searchTripleStoreDialog=TripleStoreDialog(self.triplestoreconf,self.prefixes,self.prefixstore,self.comboBox)
         self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geoClassList.setAlternatingRowColors(True)
         self.geoClassList.setViewMode(QListView.ListMode)
@@ -144,7 +145,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #  
     #  @param self The object pointer
     def buildCustomTripleStoreDialog(self):	
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.prefixes,self.comboBox)	
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf,self.prefixes,self.prefixstore,self.comboBox)	
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.searchTripleStoreDialog.exec_()

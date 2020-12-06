@@ -20,11 +20,12 @@ MESSAGE_CATEGORY = 'DetectTripleStoreTask'
 class DetectTripleStoreTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreconf,endpoint,triplestorename, testURL, testConfiguration,prefixes,tripleStoreChooser,comboBox,progress):
+    def __init__(self, description, triplestoreconf,endpoint,triplestorename, testURL, testConfiguration,prefixes,prefixstore,tripleStoreChooser,comboBox,progress):
         super().__init__(description, QgsTask.CanCancel)
         self.description=description
         self.exception = None
         self.prefixes=prefixes
+        self.prefixstore=prefixstore
         self.progress=progress
         self.triplestorename=triplestorename
         self.tripleStoreChooser=tripleStoreChooser
@@ -121,8 +122,11 @@ class DetectTripleStoreTask(QgsTask):
                 i=0
                 for ns in res:
                     if ns!="http://" and ns.startswith("http://"):
-                        self.configuration["prefixes"]["ns"+str(i)]=ns
-                        i=i+1
+                        if ns in self.prefixstore["reversed"]:
+                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]]=ns
+                        else:
+                            self.configuration["prefixes"]["ns"+str(i)]=ns
+                            i=i+1
                 self.feasibleConfiguration=True
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
@@ -134,8 +138,11 @@ class DetectTripleStoreTask(QgsTask):
                 i=0
                 for ns in res:
                     if ns!="http://" and ns.startswith("http://"):
-                        self.configuration["prefixes"]["ns"+str(i)]=ns
-                        i=i+1
+                        if ns in self.prefixstore["reversed"]:
+                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]]=ns
+                        else:
+                            self.configuration["prefixes"]["ns"+str(i)]=ns
+                            i=i+1
                 self.feasibleConfiguration=True
             else:
                 self.message="SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint"
