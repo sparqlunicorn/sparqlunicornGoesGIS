@@ -3,6 +3,7 @@ from rdflib import *
 import json
 import requests
 import urllib
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import QSettings
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QCompleter,QMessageBox
@@ -66,16 +67,19 @@ class LoadGraphTask(QgsTask):
 
     def finished(self, result):
         if result==True:
-            self.dlg.layerconcepts.clear()
+            self.dlg.geoClassListModel.clear()
             self.dlg.comboBox.setCurrentIndex(0);
             self.maindlg.currentgraph=self.graph
             self.dlg.layercount.setText("["+str(len(self.geoconcepts))+"]")		
             for geo in self.geoconcepts:
-                self.dlg.layerconcepts.addItem(geo)
-            comp=QCompleter(self.dlg.layerconcepts)
-            comp.setCompletionMode(QCompleter.PopupCompletion)
-            comp.setModel(self.dlg.layerconcepts.model())
-            self.dlg.layerconcepts.setCompleter(comp)
+                item=QStandardItem()
+                item.setData(geo,1)
+                item.setText(geo[geo.rfind('/')+1:])
+                self.dlg.geoClassListModel.appendRow(item)
+            #comp=QCompleter(self.dlg.layerconcepts)
+            #comp.setCompletionMode(QCompleter.PopupCompletion)
+            #comp.setModel(self.dlg.layerconcepts.model())
+            #self.dlg.layerconcepts.setCompleter(comp)
             self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%",self.geoconcepts[0]))
             self.dlg.inp_sparql2.columnvars={}
             self.maindlg.loadedfromfile=True

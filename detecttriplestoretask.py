@@ -3,6 +3,7 @@ from rdflib import *
 import json
 import requests
 import urllib
+import sys
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis,QgsApplication
@@ -74,7 +75,13 @@ class DetectTripleStoreTask(QgsTask):
             self.feasibleConfiguration=False
             return False
 			
-    def detectNamespaces(self,query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"):	
+    def detectNamespaces(self,subpredobj):	
+        if subpredobj<0 or subpredobj==None:
+            query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
+        elif subpredobj==0:
+            query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
+        else:
+            query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         if self.proxyHost!=None and self.ProxyPort!=None:
             proxy = urllib.ProxyHandler({'http': proxyHost})
             opener = urllib.build_opener(proxy)
@@ -84,8 +91,12 @@ class DetectTripleStoreTask(QgsTask):
         sparql.setReturnFormat(JSON)	
         print("now sending query")	
         try:	
-            results = sparql.query()
-            return results["results"]["bindings"]["ns"]
+            results = sparql.query().convert()
+            reslist=[]
+            for nss in results["results"]["bindings"]:
+                if "ns" in nss:
+                    reslist.append(nss["ns"]["value"])
+            return reslist
         except:	
             return []
 
@@ -101,26 +112,30 @@ class DetectTripleStoreTask(QgsTask):
         testQueries={"available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
-                #msgBox=QMessageBox()	
-                #msgBox.setText("URL depicts a valid SPARQL Endpoint and contains asWKT!")	
-                #msgBox.exec()
                 self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
-                #res=self.detectNamespaces()
+                res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
+                i=0
+                for ns in res:
+                    if ns!="http://" and ns.startswith("http://"):
+                        self.configuration["prefixes"]["ns"+str(i)]=ns
+                        i=i+1
                 self.feasibleConfiguration=True
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
-                #msgBox=QMessageBox()	
-                #msgBox.setText("URL depicts a valid SPARQL Endpoint and contains Lat/long!")	
-                #msgBox.exec()
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
                 self.configuration["querytemplate"]=[]			
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}"
-                #res=self.detectNamespaces()
+                res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
+                i=0
+                for ns in res:
+                    if ns!="http://" and ns.startswith("http://"):
+                        self.configuration["prefixes"]["ns"+str(i)]=ns
+                        i=i+1
                 self.feasibleConfiguration=True
             else:
                 self.message="SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint"
