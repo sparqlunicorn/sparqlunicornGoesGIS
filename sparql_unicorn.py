@@ -210,7 +210,8 @@ class SPAQLunicorn:
 		# query
         query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
-            concept = self.dlg.layerconcepts.currentText()
+            curindex=self.dlg.proxyModel.mapToSource(self.dlg.geoClassList.selectionModel().currentIndex())
+            concept=self.dlg.geoClassListModel.itemFromIndex(curindex).data(1)
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
             vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
             print(vlayer.isValid())

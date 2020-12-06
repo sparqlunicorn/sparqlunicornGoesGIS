@@ -298,29 +298,31 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
-        try:
-            prepareQuery("".join(self.prefixes[self.comboBox.currentIndex()])+"\n"+self.inp_sparql2.toPlainText())
-            self.errorLabel.setText("Valid Query")
-            self.errorline=-1
-            self.sparqlhighlight.errorhighlightline=self.errorline
-            self.sparqlhighlight.currentline=0
-            self.inp_sparql2.errorline=None
-        except Exception as e:
-            match=re.search(r'line:([0-9]+),', str(e))
-            match2=re.search(r'col:([0-9]+),', str(e))
-            start=int(match.group(1))-len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"])-1
-            self.errorLabel.setText(re.sub("line:([0-9]+),", "line: "+str(start)+",",str(e)))
-            self.inp_sparql2.errorline=start-1
-            if "line" in str(e):
-                ex=str(e)
-                start = ex.find('line:') + 5
-                end = ex.find(',', start)
-                start2 = ex.find('col:') + 4
-                end2 = ex.find(')', start2)
-                self.errorline=ex[start:end]
-                self.sparqlhighlight.errorhighlightcol=ex[start2:end2]
+        if self.prefixes!=None and self.comboBox!=None and self.comboBox.currentIndex()!=None and self.prefixes[self.comboBox.currentIndex()]!=None and self.inp_sparql2.toPlainText()!=None and self.inp_sparql2.toPlainText()!="":
+            try:
+                if self.prefixes[self.comboBox.currentIndex()]!="":
+                    prepareQuery("".join(self.prefixes[self.comboBox.currentIndex()])+"\n"+self.inp_sparql2.toPlainText())
+                self.errorLabel.setText("Valid Query")
+                self.errorline=-1
                 self.sparqlhighlight.errorhighlightline=self.errorline
                 self.sparqlhighlight.currentline=0
+                self.inp_sparql2.errorline=None
+            except Exception as e:
+                match=re.search(r'line:([0-9]+),', str(e))
+                match2=re.search(r'col:([0-9]+),', str(e))
+                start=int(match.group(1))-len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"])-1
+                self.errorLabel.setText(re.sub("line:([0-9]+),", "line: "+str(start)+",",str(e)))
+                self.inp_sparql2.errorline=start-1
+                if "line" in str(e):
+                    ex=str(e)
+                    start = ex.find('line:') + 5
+                    end = ex.find(',', start)
+                    start2 = ex.find('col:') + 4
+                    end2 = ex.find(')', start2)
+                    self.errorline=ex[start:end]
+                    self.sparqlhighlight.errorhighlightcol=ex[start2:end2]
+                    self.sparqlhighlight.errorhighlightline=self.errorline
+                    self.sparqlhighlight.currentline=0
 
     ## 
     #  @brief Builds the search dialog to search for a concept or class.
