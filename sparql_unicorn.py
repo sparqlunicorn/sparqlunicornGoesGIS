@@ -210,7 +210,8 @@ class SPAQLunicorn:
 		# query
         query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
-            concept = self.dlg.layerconcepts.currentText()
+            curindex=self.dlg.proxyModel.mapToSource(self.dlg.geoClassList.selectionModel().currentIndex())
+            concept=self.dlg.geoClassListModel.itemFromIndex(curindex).data(1)
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
             vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
             print(vlayer.isValid())
@@ -229,6 +230,7 @@ class SPAQLunicorn:
                   missingmandvars.append("?"+mandvar)
         if missingmandvars!=[] and not self.dlg.allownongeo.isChecked():
             msgBox=QMessageBox()
+            msgBox.setWindowTitle("Mandatory variables missing!")
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
         progress = QProgressDialog("Querying layer from "+endpoint_url+"...", "Abort", 0, 0, self.dlg)
@@ -618,9 +620,12 @@ class SPAQLunicorn:
                 data2=myfile.read()
             with open(os.path.join(__location__, 'vocabs.json'),'r') as myfile:
                 data3=myfile.read()
+            with open(os.path.join(__location__, 'prefixes.json'),'r') as myfile:
+                data4=myfile.read()
             self.triplestoreconf = json.loads(data)
             self.addVocabConf=json.loads(data2)
             self.autocomplete=json.loads(data3)
+            self.prefixstore=json.loads(data4)
             counter=0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -630,7 +635,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore)
             self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()

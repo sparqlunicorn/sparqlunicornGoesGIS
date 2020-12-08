@@ -219,6 +219,7 @@ class ToolTipPlainText(QPlainTextEdit):
                 hasVectorLayer=True
         if hasVectorLayer==False:
             msgBox=QMessageBox()
+            msgBox.setWindowTitle("No vector layer loaded")
             msgBox.setText("No vector layer has been loaded in QGIS to create a query variable from.")
             msgBox.exec()
             return
