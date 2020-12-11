@@ -17,6 +17,8 @@ var a00178 =
     [ "loadLayerForEnrichment", "a00178.html#a56435cd18605ceb7d36ef96f1a1252a2", null ],
     [ "loadLayerForInterlink", "a00178.html#a87085e3e93f6fa7041f16da1081c03f0", null ],
     [ "loadUnicornLayers", "a00178.html#a0a7541225b64dee6469fa1ec56d2c90e", null ],
+    [ "onContext", "a00178.html#a09e8078fb44df773525cb9e68f7f3626", null ],
+    [ "openURL", "a00178.html#aa050210d902e2c6b62a25f53b04e998c", null ],
     [ "setFilterFromText", "a00178.html#af37b78fb1fd8472239c03b5c0bb19a11", null ],
     [ "showConfigTable", "a00178.html#a325fd8cbbc7334bc6881a68afd0c327f", null ],
     [ "validateSPARQL", "a00178.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
