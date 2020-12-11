@@ -117,7 +117,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
-                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
                 for ns in res:

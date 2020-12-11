@@ -124,7 +124,6 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.geoClassList.selectionModel().selectionChanged.connect(self.viewselectaction)
-        self.geoClassList.clicked.connect(self.openURL)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
