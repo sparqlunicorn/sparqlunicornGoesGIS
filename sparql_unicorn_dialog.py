@@ -28,9 +28,9 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
 from qgis.core import QgsProject
-from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel,Qt
-from qgis.PyQt.QtGui import QRegExpValidator,QStandardItemModel
-from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QAbstractItemView,QListView,QMessageBox
+from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel,Qt,QUrl
+from qgis.PyQt.QtGui import QRegExpValidator,QStandardItemModel,QDesktopServices
+from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QAbstractItemView,QListView,QMessageBox,QApplication,QMenu,QAction
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
 from .tooltipplaintext import ToolTipPlainText
@@ -81,6 +81,8 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geoClassList.setAlternatingRowColors(True)
         self.geoClassList.setViewMode(QListView.ListMode)
+        self.geoClassList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.geoClassList.customContextMenuRequested.connect(self.onContext)
         self.geoClassListModel=QStandardItemModel()
         self.proxyModel = QSortFilterProxyModel(self)
         self.proxyModel.sort(0)
@@ -127,6 +129,18 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
+
+    def onContext(self):
+        menu = QMenu("Menu", self.geoClassList)
+        action = QAction("Open in Webbrowser")
+        menu.addAction(action)
+        action.triggered.connect(self.openURL)
+
+    def openURL(self):
+        curindex=self.proxyModel.mapToSource(self.geoClassList.selectionModel().currentIndex())
+        concept=self.geoClassListModel.itemFromIndex(curindex).data(1)
+        url = QUrl(concept)
+        QDesktopServices.openUrl(url)
 
     def setFilterFromText(self):
         self.proxyModel.setFilterRegExp(self.filterConcepts.text())
