@@ -65,19 +65,6 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>910</x>
-       <y>70</y>
-       <width>101</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Geoconcepts</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
@@ -347,14 +334,14 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="loadTripleStoreButton">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>10</y>
-       <width>121</width>
+       <x>900</x>
+       <y>70</y>
+       <width>171</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Own TripleStore</string>
+      <string>Configure TripleStores</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="allownongeo">
@@ -386,22 +373,22 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="filterConceptsLabel">
      <property name="geometry">
       <rect>
-       <x>820</x>
+       <x>790</x>
        <y>100</y>
-       <width>101</width>
+       <width>121</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Filter Concepts:</string>
+      <string>Filter GeoConcepts:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="filterConcepts">
      <property name="geometry">
       <rect>
-       <x>910</x>
+       <x>900</x>
        <y>100</y>
-       <width>161</width>
+       <width>171</width>
        <height>20</height>
       </rect>
      </property>
@@ -440,6 +427,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Query Limit:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="quickAddTripleStore">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>10</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Quick Add Endpoint</string>
      </property>
     </widget>
    </widget>
