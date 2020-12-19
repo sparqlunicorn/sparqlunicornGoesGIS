@@ -94,7 +94,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes,self.autocomplete)
         self.inp_sparql2.move(10,130)
-        self.inp_sparql2.setMinimumSize(811,401)
+        self.inp_sparql2.setMinimumSize(780,401)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
         self.inp_sparql2.columnvars={}

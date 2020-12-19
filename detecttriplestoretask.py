@@ -122,6 +122,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries (All Attributes)","query": "SELECT ?item ?rel ?val ?geo \nWHERE{  \n{ \n SELECT ?item \n WHERE { \n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%> . \n } \n LIMIT 10 \n } \n ?item rdf:type <%%concept%%> . \n ?item ?rel ?val . \n OPTIONAL{ ?val <http://www.opengis.net/ont/geosparql#asWKT> ?geo }} LIMIT 10000" })	
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
@@ -137,7 +138,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
                 self.configuration["querytemplate"]=[]			
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries (All Attributes)","query": "SELECT ?item ?rel ?val ?lat ?lon WHERE{\n {\n SELECT ?item \n WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%> .\n }\n LIMIT 10\n }\n ?item rdf:type <%%concept%%> .\n ?item ?rel ?val . \n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n }\n LIMIT 10000"})								
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
@@ -154,6 +156,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo .\n } LIMIT 10"})	
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries (All Attributes","query": "SELECT ?item ?rel ?val ?geo  \nWHERE{  \n{ \n SELECT ?item \n WHERE { \n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%> . \n } \n LIMIT 10 \n } \n ?item rdf:type <%%concept%%> . \n ?item ?rel ?val . \n OPTIONAL{ ?val <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo }} LIMIT 10000"})	
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0

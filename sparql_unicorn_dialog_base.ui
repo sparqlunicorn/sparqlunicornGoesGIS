@@ -119,7 +119,7 @@
       <rect>
        <x>10</x>
        <y>130</y>
-       <width>811</width>
+       <width>781</width>
        <height>401</height>
       </rect>
      </property>
@@ -396,9 +396,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QListView" name="geoClassList">
      <property name="geometry">
       <rect>
-       <x>820</x>
+       <x>785</x>
        <y>130</y>
-       <width>256</width>
+       <width>291</width>
        <height>401</height>
       </rect>
      </property>
