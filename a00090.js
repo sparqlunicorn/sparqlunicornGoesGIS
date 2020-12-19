@@ -1,4 +1,4 @@
 var a00090 =
 [
-    [ "InterlinkingTab", "a00134.html", "a00134" ]
+    [ "EnrichmentTab", "a00130.html", "a00130" ]
 ];

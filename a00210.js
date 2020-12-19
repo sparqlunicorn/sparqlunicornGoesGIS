@@ -1,10 +1,16 @@
 var a00210 =
 [
-    [ "__init__", "a00210.html#a5b1893b3a08b784677ccf501dfec239e", null ],
-    [ "applyVar", "a00210.html#a4eb43e4f2330a8a8f8282864a657165e", null ],
-    [ "layerselectaction", "a00210.html#a514d660ea487e92b9fa9e15eda073db9", null ],
-    [ "chooseField", "a00210.html#aa67be040d27a2950e9f362c87804ce96", null ],
-    [ "chooseLayer", "a00210.html#a67c2f0ef9ec9c7c111e0214b3be7fec3", null ],
-    [ "columnvars", "a00210.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
-    [ "inputfield", "a00210.html#a48537577b75975b2d8d86aad8a878bd6", null ]
+    [ "__init__", "a00210.html#a967b038f3b4803df943b1f443d030520", null ],
+    [ "addNewLayerToTripleStore", "a00210.html#ad4339cc40dab9d8fb7f7249b3a1e9b0b", null ],
+    [ "checkConnection", "a00210.html#a7092c7fd31ba92d11cacd01e25c48276", null ],
+    [ "compareLayers", "a00210.html#a90fc6f7893dab1f161f0876eedf261af", null ],
+    [ "uploadResult", "a00210.html#ad33b38d01e5394ad75cbc43021984f3e", null ],
+    [ "currentrow", "a00210.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
+    [ "fieldname", "a00210.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
+    [ "interlinkOrEnrich", "a00210.html#a22becd814f00141dbdbb9167f5b9551f", null ],
+    [ "searchResultMap", "a00210.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
+    [ "table", "a00210.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "triplestoreconf", "a00210.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "ttlstring", "a00210.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
+    [ "valmaptable", "a00210.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
 ];
