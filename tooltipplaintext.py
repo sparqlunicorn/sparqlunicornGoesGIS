@@ -149,11 +149,11 @@ class ToolTipPlainText(QPlainTextEdit):
         #msgBox=QMessageBox()
         #msgBox.setText(str(list(self.autocomplete["completerClassList"].keys()))+" - "+str(self.changedCompleterSetting))
         #msgBox.exec()
-        for m in re.finditer(r'\S+', selline):
-            num, part = m.start(), m.group()
-            if (part=="." and num<len(selline)-1) or (part==";" and num<len(selline)-1) or (part=="{" and num<len(selline)-1 and num!=1) or (part=="}" and num<len(selline)-1 and num!=1):
-                tc.setPosition(tc.selectionEnd()-1)
-                tc.insertText(os.linesep)
+        #for m in re.finditer(r'\S+', selline):
+        #    num, part = m.start(), m.group()
+        #    if (part=="." and num<len(selline)-1) or (part==";" and num<len(selline)-1) or (part=="{" and num<len(selline)-1 and num!=1) or (part=="}" and num<len(selline)-1 and num!=1):
+        #        tc.setPosition(tc.selectionEnd()-1)
+        #        tc.insertText(os.linesep)
         cr = self.cursorRect()
         if len(seltext) > 0:
             self.completer.setCompletionPrefix(seltext)
