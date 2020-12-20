@@ -116,8 +116,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
-                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
+                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
                 for ns in res:
@@ -132,7 +132,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
                 self.configuration["querytemplate"]=[]			
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
                 self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
