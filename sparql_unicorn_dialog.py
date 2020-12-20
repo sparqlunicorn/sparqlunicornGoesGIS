@@ -37,6 +37,7 @@ from .tooltipplaintext import ToolTipPlainText
 from .enrichmenttab import EnrichmentTab
 from .interlinkingtab import InterlinkingTab
 from .triplestoredialog import TripleStoreDialog
+from .triplestorequickadd import TripleStoreQuickAddDialog
 from .searchdialog import SearchDialog
 from .sparqlhighlighter import SPARQLHighlighter
 from .valuemapping import ValueMappingDialog
@@ -93,7 +94,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2=ToolTipPlainText(self.tab,self.triplestoreconf,self.comboBox,self.columnvars,self.prefixes,self.autocomplete)
         self.inp_sparql2.move(10,130)
-        self.inp_sparql2.setMinimumSize(811,401)
+        self.inp_sparql2.setMinimumSize(780,401)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
         self.inp_sparql2.columnvars={}
@@ -127,6 +128,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+        self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
 
@@ -152,6 +154,16 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def buildLoadGraphDialog(self):	
         self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf,self.maindlg,self)	
         self.searchTripleStoreDialog.setWindowTitle("Load Graph")	
+        self.searchTripleStoreDialog.exec_()
+
+    ## 
+    #  @brief Creates a What To Enrich dialog with parameters given.
+    #  
+    #  @param self The object pointer
+    def buildQuickAddTripleStore(self):	
+        self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf,self.prefixes,self.prefixstore,self.comboBox)	
+        self.searchTripleStoreDialog.setMinimumSize(580, 186)
+        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")	
         self.searchTripleStoreDialog.exec_()
 
     ## 

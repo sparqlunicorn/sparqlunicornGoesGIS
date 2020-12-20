@@ -36,24 +36,11 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="addTripleStoreButton">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>10</y>
-     <width>151</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add new TripleStore</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="tripleStoreLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>40</y>
+     <y>70</y>
      <width>161</width>
      <height>17</height>
     </rect>
@@ -66,7 +53,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>40</y>
+     <y>70</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -79,7 +66,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
+     <y>40</y>
      <width>161</width>
      <height>17</height>
     </rect>
@@ -92,7 +79,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>70</y>
+     <y>40</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -131,7 +118,7 @@
    <property name="geometry">
     <rect>
      <x>560</x>
-     <y>40</y>
+     <y>70</y>
      <width>151</width>
      <height>25</height>
     </rect>
@@ -145,7 +132,7 @@
     <rect>
      <x>340</x>
      <y>105</y>
-     <width>71</width>
+     <width>101</width>
      <height>17</height>
     </rect>
    </property>
@@ -156,9 +143,9 @@
   <widget class="QLineEdit" name="queryVarItemEdit">
    <property name="geometry">
     <rect>
-     <x>422</x>
+     <x>442</x>
      <y>100</y>
-     <width>131</width>
+     <width>111</width>
      <height>20</height>
     </rect>
    </property>
@@ -359,13 +346,52 @@
    <property name="geometry">
     <rect>
      <x>560</x>
-     <y>70</y>
+     <y>100</y>
      <width>151</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
     <string>Detect Configuration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteTripleStore">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>10</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delete Triple Store</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="newTripleStore">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>40</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>New Triple Store</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="resetConfiguration">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>301</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Restore Default Triple Store Configuration</string>
    </property>
   </widget>
  </widget>
