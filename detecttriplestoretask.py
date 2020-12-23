@@ -115,15 +115,14 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["staticconcepts"]=[]
         self.configuration["active"]=True
         self.configuration["prefixes"]={"owl": "http://www.w3.org/2002/07/owl#","rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs": "http://www.w3.org/2000/01/rdf-schema#","geosparql": "http://www.opengis.net/ont/geosparql#","wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"}
-        testQueries={"available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasGeoJSON":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
+        testQueries={"available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasGML":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}","hasGeoJSON":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
                 self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries (All Attributes)","query": "SELECT DISTINCT ?item ?rel ?val ?geo WHERE {\n ?item rdf:type <%%concept%%> .\n ?item ?rel ?val . \n ?val <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n}\n LIMIT 100" })	
-                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
+                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
                 for ns in res:
@@ -138,9 +137,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
                 self.configuration["querytemplate"]=[]			
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
-                self.configuration["querytemplate"].append({"label":"10 Random Geometries (All Attributes)","query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%> .\n ?item ?rel ?val .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 100"})								
-                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}"
+                self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?lat ?lon WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})								
+                self.configuration["geoconceptquery"]="SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
                 res=set(self.detectNamespaces(-1)+self.detectNamespaces(0)+self.detectNamespaces(1))
                 i=0
                 for ns in res:

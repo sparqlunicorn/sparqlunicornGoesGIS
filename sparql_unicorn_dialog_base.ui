@@ -373,9 +373,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="filterConceptsLabel">
      <property name="geometry">
       <rect>
-       <x>790</x>
+       <x>760</x>
        <y>100</y>
-       <width>121</width>
+       <width>131</width>
        <height>20</height>
       </rect>
      </property>
@@ -419,9 +419,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="queryLimitLabel">
      <property name="geometry">
       <rect>
-       <x>440</x>
+       <x>430</x>
        <y>40</y>
-       <width>71</width>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>

@@ -82,13 +82,6 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     def closeTripleStoreDialog(self):
         self.close()
 
-    ## 
-    #  @brief Tests the connection for a given triple store.
-    #  
-    #  @param [in] self The object pointer
-    #  @param [in] calledfromotherfunction Indicates if the method is called from a super fu
-    #  @return Return true if the connection was successful, false otherwise
-    #  
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)

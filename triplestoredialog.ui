@@ -132,7 +132,7 @@
     <rect>
      <x>340</x>
      <y>105</y>
-     <width>71</width>
+     <width>101</width>
      <height>17</height>
     </rect>
    </property>
@@ -143,9 +143,9 @@
   <widget class="QLineEdit" name="queryVarItemEdit">
    <property name="geometry">
     <rect>
-     <x>422</x>
+     <x>442</x>
      <y>100</y>
-     <width>131</width>
+     <width>111</width>
      <height>20</height>
     </rect>
    </property>
@@ -386,7 +386,7 @@
     <rect>
      <x>10</x>
      <y>440</y>
-     <width>251</width>
+     <width>301</width>
      <height>25</height>
     </rect>
    </property>
