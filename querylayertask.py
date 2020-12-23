@@ -84,7 +84,7 @@ class QueryLayerTask(QgsTask):
         elif "gml" in literaltype.lower():
             geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
         elif "geojson" in literaltype.lower():
-            return geom
+            return literal
         elif "wkb" in literaltype.lower():
             geom=QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom!=None and reproject!="":
