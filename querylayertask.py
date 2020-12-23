@@ -72,7 +72,7 @@ class QueryLayerTask(QgsTask):
         geom=None
         if "literaltype" in self.triplestoreconf:
             literaltype=self.triplestoreconf["literaltype"]
-        if literaltype.lower()=="wkt":
+        if "wkt" in literaltype.lower():
             literal=literal.strip()
             if literal.startswith("<http"):
                 index=literal.index(">")+1
@@ -81,11 +81,11 @@ class QueryLayerTask(QgsTask):
                 geom=QgsGeometry.fromWkt(literal[index:])
             else:
                 geom=QgsGeometry.fromWkt(literal)
-        elif literaltype.lower()=="gml":
+        elif "gml" in literaltype.lower():
             geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
-        elif literaltype.lower()=="geojson":
+        elif "geojson" in literaltype.lower():
             return geom
-        elif literaltype.lower()=="wkb":
+        elif "wkb" in literaltype.lower():
             geom=QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom!=None and reproject!="":
             sourceCrs = QgsCoordinateReferenceSystem(reproject)
@@ -115,7 +115,7 @@ class QueryLayerTask(QgsTask):
         for result in results["results"]["bindings"]:
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
                 if item!="":
-                    myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+                    myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],result["geo"]["datatype"],reproject)
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                     features.append(feature)
                 properties = {}
@@ -136,7 +136,7 @@ class QueryLayerTask(QgsTask):
                     elif var!="val":
                         properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+                myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],result["geo"]["datatype"],reproject)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
@@ -151,7 +151,7 @@ class QueryLayerTask(QgsTask):
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  {} }
                 features.append(feature)
         if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
-            myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
+            myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],result["geo"]["datatype"],reproject)
             feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
             features.append(feature)		
         if features==[] and len(results["results"]["bindings"])==0:
