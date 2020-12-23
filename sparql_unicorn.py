@@ -211,7 +211,10 @@ class SPAQLunicorn:
         query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
             curindex=self.dlg.proxyModel.mapToSource(self.dlg.geoClassList.selectionModel().currentIndex())
-            concept=self.dlg.geoClassListModel.itemFromIndex(curindex).data(1)
+            if curindex!=None and self.dlg.geoClassListModel.itemFromIndex(curindex)!=None:
+                concept=self.dlg.geoClassListModel.itemFromIndex(curindex).data(1)
+            else:
+                concept="http://www.opengis.net/ont/geosparql#Feature"
             geojson=self.getGeoJSONFromGeoConcept(self.currentgraph,concept)
             vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),"unicorn_"+self.dlg.inp_label.text(),"ogr")
             print(vlayer.isValid())
@@ -635,7 +638,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore,self)
             self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
