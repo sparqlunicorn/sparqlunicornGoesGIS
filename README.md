@@ -51,6 +51,8 @@ The SPARQL Unicorn QGIS plugin currently supports the parsing of the following l
 
 * OGC GeoSPARQL WKT Literals
 * GeoJSON Literals
+* GML Literals
+* WKB Well Known Binary Literals
 
 In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables *?lat* *?lon* have to be included in the query description.
 
