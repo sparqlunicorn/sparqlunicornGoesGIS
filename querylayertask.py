@@ -1,6 +1,7 @@
 from time import sleep
 from rdflib import *
 import json
+import ogr
 import requests
 import urllib
 from qgis.PyQt.QtCore import QSettings
@@ -80,8 +81,12 @@ class QueryLayerTask(QgsTask):
                 geom=QgsGeometry.fromWkt(literal[index:])
             else:
                 geom=QgsGeometry.fromWkt(literal)
-        if literaltype.lower()=="geojson":
+        elif literaltype.lower()=="gml":
+            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+        elif literaltype.lower()=="geojson":
             return geom
+        elif literaltype.lower()=="wkb":
+            geom=QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom!=None and reproject!="":
             sourceCrs = QgsCoordinateReferenceSystem(reproject)
             destCrs = QgsCoordinateReferenceSystem(4326)
@@ -108,7 +113,7 @@ class QueryLayerTask(QgsTask):
         newobject=True
         item=""
         for result in results["results"]["bindings"]:
-            if "item" in result and "rel" in result and "val" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
+            if "item" in result and "rel" in result and "val" in result and "geo" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
                 if item!="":
                     myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
                     feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
@@ -163,9 +168,9 @@ class QueryLayerTask(QgsTask):
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
             return
-        if isinstance(self.geojson, int) and not self.allownongeo:
+        if self.geojson!=None and isinstance(self.geojson, int) and not self.allownongeo:
             msgBox=QMessageBox()
-            msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
+            msgBox.setText("The query did not retrieve a geometry result. However, there were "+str(self.geojson)+" non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
         self.progress.close()
