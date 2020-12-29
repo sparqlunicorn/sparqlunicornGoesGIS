@@ -74,7 +74,7 @@ Inheritance diagram for TripleStoreDialog:</div>
 <div class="dyncontent">
 <div class="center"><img src="a00201.png" border="0" usemap="#TripleStoreDialog_inherit__map" alt="Inheritance graph"/></div>
 <map name="TripleStoreDialog_inherit__map" id="TripleStoreDialog_inherit__map">
-<area shape="rect" id="node3" href="a00702.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
+<area shape="rect" id="node3" href="a00706.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -82,7 +82,7 @@ Collaboration diagram for TripleStoreDialog:</div>
 <div class="dyncontent">
 <div class="center"><img src="a00200.png" border="0" usemap="#TripleStoreDialog_coll__map" alt="Collaboration graph"/></div>
 <map name="TripleStoreDialog_coll__map" id="TripleStoreDialog_coll__map">
-<area shape="rect" id="node3" href="a00702.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
+<area shape="rect" id="node3" href="a00706.html" title="FORM_CLASS" alt="" coords="99,5,211,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -306,7 +306,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00206.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreQuickAddDialog.check_state1()</a>, <a class="el" href="a00202.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreDialog.check_state1()</a>, <a class="el" href="a00206.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreQuickAddDialog.check_state2()</a>, and <a class="el" href="a00202.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreDialog.check_state2()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00210.html#a452dcd98676575e133f2fd74a3a8bd01">UploadRDFDialog.check_state1()</a>, <a class="el" href="a00206.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreQuickAddDialog.check_state1()</a>, <a class="el" href="a00202.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreDialog.check_state1()</a>, <a class="el" href="a00206.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreQuickAddDialog.check_state2()</a>, and <a class="el" href="a00202.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreDialog.check_state2()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">def </span>check_state(self,sender):</div><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        validator = sender.validator()</div><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span> <span class="comment"># green</span></div><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span> <span class="comment"># yellow</span></div><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">else</span>:</div><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span> <span class="comment"># red</span></div><div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                </div><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div><!-- fragment -->
 </div>
 </div>
