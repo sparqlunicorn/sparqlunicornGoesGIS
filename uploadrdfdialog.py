@@ -1,4 +1,4 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QPushButton,QCheckBox,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QTableWidget,QPlainTextEdit,QProgressDialog
+from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit,QCompleter,QPushButton,QCheckBox,QListWidget,QComboBox,QMessageBox,QRadioButton,QListWidgetItem,QTableWidgetItem,QTableWidget,QPlainTextEdit,QProgressDialog
 from qgis.core import QgsProject,QgsApplication
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QRegExp,Qt
@@ -32,7 +32,7 @@ class UploadRDFDialog(QDialog,FORM_CLASS):
 	
     fieldname=""
 
-    def __init__(self,ttlstring):
+    def __init__(self,ttlstring,triplestoreconf):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.ttlstring=ttlstring   
@@ -41,6 +41,10 @@ class UploadRDFDialog(QDialog,FORM_CLASS):
         self.tripleStoreURLEdit.setValidator(urlvalidator)
         self.tripleStoreURLEdit.textChanged.connect(self.check_state1)
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
+        endpointurls=[]
+        for item in triplestoreconf:
+            endpointurls.append(item["endpoint"])                         
+        self.tripleStoreURLEdit.setCompleter(QCompleter(endpointurls))
         self.checkConnectionButton.clicked.connect(self.checkConnection)  
         self.applyButton.clicked.connect(self.addNewLayerToTripleStore)
 
@@ -96,23 +100,9 @@ class UploadRDFDialog(QDialog,FORM_CLASS):
         if self.usernameEdit.text()!="" and self.passwordEdit.text()!="":
             sparql.setCredentials(self.usernameEdit.text(),self.passwordEdit.text())
         sparql.setQuery(queryString) 
-        msgBox=QMessageBox()
-        msgBox.setWindowTitle("SPARQL UPDATE Status")
-        msgBox.setText(str(queryString))
-        msgBox.exec()
         sparql.method = 'POST'
         results=sparql.query()
         msgBox=QMessageBox()
         msgBox.setWindowTitle("SPARQL UPDATE Status")
         msgBox.setText(str(results.response.read()))
         msgBox.exec()
-
-    def uploadResult(self):
-        query_endpoint = 'http://localhost:3030/ds/query'
-        update_endpoint = self.tripleStoreURL
-        g=Graph()
-        g.parse(data=self.ttlstring, format="ttl")
-        store = sparqlstore.SPARQLUpdateStore()
-        store.open((query_endpoint, update_endpoint))
-        store.add_graph(g)
-        self.close()
