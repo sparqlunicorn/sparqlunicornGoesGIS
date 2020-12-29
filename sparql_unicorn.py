@@ -524,7 +524,7 @@ class SPAQLunicorn:
         layer = layers[selectedLayerIndex].layer()
         if exportToTripleStore:
             ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
-            uploaddialog=UploadRDFDialog(ttlstring,self.triplestoreconf)
+            uploaddialog=UploadRDFDialog(ttlstring,self.triplestoreconf,self.dlg.comboBox.currentIndex())
             uploaddialog.setMinimumSize(450, 250)
             uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
             uploaddialog.exec_()

@@ -32,12 +32,14 @@ class UploadRDFDialog(QDialog,FORM_CLASS):
 	
     fieldname=""
 
-    def __init__(self,ttlstring,triplestoreconf):
+    def __init__(self,ttlstring,triplestoreconf,currentindex):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.ttlstring=ttlstring   
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
+        if "endpoint" in triplestoreconf[currentindex]:
+            self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["endpoint"])
         self.tripleStoreURLEdit.setValidator(urlvalidator)
         self.tripleStoreURLEdit.textChanged.connect(self.check_state1)
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
