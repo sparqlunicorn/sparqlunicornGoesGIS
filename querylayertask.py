@@ -1,7 +1,7 @@
 from time import sleep
 from rdflib import *
 import json
-import ogr
+#import ogr
 import requests
 import urllib
 from qgis.PyQt.QtCore import QSettings
@@ -81,8 +81,8 @@ class QueryLayerTask(QgsTask):
                 geom=QgsGeometry.fromWkt(literal[index:])
             else:
                 geom=QgsGeometry.fromWkt(literal)
-        elif "gml" in literaltype.lower():
-            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+        #elif "gml" in literaltype.lower():
+        #    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():
@@ -139,12 +139,8 @@ class QueryLayerTask(QgsTask):
                 myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],result["geo"]["datatype"],reproject)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
-            elif not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
+            elif not "rel" in result and not "val" in result and latval in result and lonval in result:
                 myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")","wkt",reproject)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                features.append(feature)
-            elif not "rel" in result and not "val" in result and latval in result and lonval in result and reproject!=27700:
-                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
