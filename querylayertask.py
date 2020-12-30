@@ -1,7 +1,6 @@
 from time import sleep
 from rdflib import *
 import json
-import ogr
 import requests
 import urllib
 from qgis.PyQt.QtCore import QSettings
@@ -81,8 +80,8 @@ class QueryLayerTask(QgsTask):
                 geom=QgsGeometry.fromWkt(literal[index:])
             else:
                 geom=QgsGeometry.fromWkt(literal)
-        elif "gml" in literaltype.lower():
-            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+        #elif "gml" in literaltype.lower():
+        #    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():
