@@ -50,6 +50,7 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.setBBOXInQuery()
 	
     def setBBOXInQuery(self):
+        sourceCrs=None
         if self.layerExtentOrBBOX:
             xMax=self.mts_layer.extent().xMaximum()
             xMin=self.mts_layer.extent().xMinimum()
@@ -58,20 +59,21 @@ class BBOXDialog(QDialog,FORM_CLASS):
             pointt1=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMin))	
             pointt2=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMin))	
             pointt3=QgsGeometry.fromPointXY(QgsPointXY(xMin,yMax))	
-            pointt4=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMax))	
-            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.sourceCrs())	
+            pointt4=QgsGeometry.fromPointXY(QgsPointXY(xMax,yMax))
+            sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())	
         else:	
             pointt1=QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())	
             pointt2=QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())	
             pointt3=QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())	
             pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())	
             sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
-        destCrs = QgsCoordinateReferenceSystem(4326)
-        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-        pointt1.transform(tr)
-        pointt2.transform(tr)
-        pointt3.transform(tr)
-        pointt4.transform(tr)
+        if sourceCrs!=None:
+            destCrs = QgsCoordinateReferenceSystem(4326)
+            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+            pointt1.transform(tr)
+            pointt2.transform(tr)
+            pointt3.transform(tr)
+            pointt4.transform(tr)
         polygon = QgsGeometry.fromPolylineXY( [pointt1.asPoint(),pointt2.asPoint(),pointt3.asPoint(),pointt4.asPoint()] )
         center=polygon.centroid()
         #distance = QgsDistanceArea()
