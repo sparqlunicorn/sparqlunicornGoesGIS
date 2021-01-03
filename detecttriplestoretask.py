@@ -115,10 +115,16 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["staticconcepts"]=[]
         self.configuration["active"]=True
         self.configuration["prefixes"]={"owl": "http://www.w3.org/2002/07/owl#","rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs": "http://www.w3.org/2000/01/rdf-schema#","geosparql": "http://www.opengis.net/ont/geosparql#","wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"}
-        testQueries={"available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasGML":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}","hasGeoJSON":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
+        testQueries={"geosparql":"SELECT ?a ?b ?c WHERE { ?a ?b ?c . FILTER(geo:sfIntersects(?a,?b))}","available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasGML":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}","hasGeoJSON":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
-                self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
+                if self.testTripleStoreConnection(testQueries["geosparql"]):
+                    self.configuration["bboxquery"]={}
+                    self.configuration["bboxquery"]["type"]="geosparql"
+                    self.configuration["bboxquery"]["query"]=""
+                    self.message="URL depicts a valid GeoSPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
+                else:
+                    self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})	
@@ -150,7 +156,13 @@ class DetectTripleStoreTask(QgsTask):
                             i=i+1
                 self.feasibleConfiguration=True
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
-                self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
+                if self.testTripleStoreConnection(testQueries["geosparql"]):
+                    self.configuration["bboxquery"]={}
+                    self.configuration["bboxquery"]["type"]="geosparql"
+                    self.configuration["bboxquery"]["query"]=""
+                    self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
+                else:
+                    self.message="URL depicts a valid SPARQL Endpoint and contains asWKT!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","geo"]	
                 self.configuration["querytemplate"]=[]
                 self.configuration["querytemplate"].append({"label":"10 Random Geometries","query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo .\n } LIMIT 10"})	
