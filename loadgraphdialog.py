@@ -6,7 +6,7 @@ from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegExpValidator,QValidator
 from .loadgraphtask import LoadGraphTask
 import os.path
 import sys
@@ -35,8 +35,24 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.graphURIEdit.setValidator(urlvalidator)
+        self.graphURIEdit.textChanged.connect(self.check_state1)
+        self.graphURIEdit.textChanged.emit(self.graphURIEdit.text())
         self.loadFromFileButton.clicked.connect(self.loadFile)
         self.loadFromURIButton.clicked.connect(self.loadURI)
+
+    def check_state1(self):
+        self.check_state(self.graphURIEdit)
+		
+    def check_state(self,sender):
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if state == QValidator.Acceptable:
+            color = '#c4df9b' # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a' # yellow
+        else:
+            color = '#f6989d' # red
+        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     def loadFile(self): 
         dialog = QFileDialog(self.dlg)

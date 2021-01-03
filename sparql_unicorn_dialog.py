@@ -127,6 +127,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoClassList.selectionModel().selectionChanged.connect(self.viewselectaction)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
+        self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)

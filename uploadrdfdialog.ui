@@ -31,7 +31,7 @@
     <rect>
      <x>150</x>
      <y>20</y>
-     <width>113</width>
+     <width>231</width>
      <height>20</height>
     </rect>
    </property>
@@ -54,7 +54,7 @@
     <rect>
      <x>150</x>
      <y>60</y>
-     <width>113</width>
+     <width>231</width>
      <height>20</height>
     </rect>
    </property>
@@ -90,7 +90,7 @@
     <rect>
      <x>150</x>
      <y>95</y>
-     <width>113</width>
+     <width>231</width>
      <height>20</height>
     </rect>
    </property>
@@ -100,7 +100,7 @@
     <rect>
      <x>150</x>
      <y>130</y>
-     <width>113</width>
+     <width>231</width>
      <height>20</height>
     </rect>
    </property>
@@ -110,7 +110,7 @@
     <rect>
      <x>10</x>
      <y>170</y>
-     <width>131</width>
+     <width>121</width>
      <height>23</height>
     </rect>
    </property>
@@ -121,9 +121,9 @@
   <widget class="QPushButton" name="applyButton">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>160</x>
      <y>170</y>
-     <width>111</width>
+     <width>221</width>
      <height>23</height>
     </rect>
    </property>

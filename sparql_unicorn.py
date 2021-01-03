@@ -434,11 +434,14 @@ class SPAQLunicorn:
                     else:
                         prop=urilist[fieldcounter]
                     print("New Prop from list: "+str(prop))
+                if prop=="id":
+                    continue
+                if not prop.startswith("http"):
+                    prop=namespace+prop
                 if prop=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in str(f[propp]):
                     ttlstring+="<"+str(f[propp])+"> <"+str(prop)+"> <http://www.w3.org/2002/07/owl#Class> .\n"
                     ttlstring+="<"+str(f[propp])+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n"
-                if prop=="id":
-                    continue
+
                 #elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
                  #   ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
                 #    if first<10:
@@ -483,7 +486,7 @@ class SPAQLunicorn:
                     if first<10:
                         ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
                         ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"  
-                        if classurilist[fieldcounter]!="":
+                        if classurilist!=None and fieldcounter<len(classurilist) and classurilist[fieldcounter]!="":
                              ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif re.match(r'^-?\d+$', str(f[propp])):
                     ttlstring+="<"+curid+"> <"+prop+"> \""+str(f[propp])+"\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n"
@@ -521,7 +524,7 @@ class SPAQLunicorn:
         layer = layers[selectedLayerIndex].layer()
         if exportToTripleStore:
             ttlstring=self.layerToTTLString(layer,urilist,classurilist,includelist,proptypelist,valuemappings,valuequeries)
-            uploaddialog=UploadRDFDialog(ttlstring)
+            uploaddialog=UploadRDFDialog(ttlstring,self.triplestoreconf,self.dlg.comboBox.currentIndex())
             uploaddialog.setMinimumSize(450, 250)
             uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
             uploaddialog.exec_()
@@ -654,8 +657,8 @@ class SPAQLunicorn:
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-            self.dlg.exportTripleStore.hide()
-            self.dlg.exportTripleStore_2.hide()
+            #self.dlg.exportTripleStore.hide()
+            #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
             #self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
