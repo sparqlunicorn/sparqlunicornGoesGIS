@@ -1,7 +1,7 @@
 
-from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton
+from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction
 from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
-from qgis.gui import QgsMapCanvas
+from qgis.gui import QgsMapCanvas,QgsMapToolPan
 from qgis.PyQt import uic
 from .rectanglemaptool import RectangleMapTool
 import os.path
@@ -21,6 +21,11 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas = QgsMapCanvas(self)
         self.layerExtentOrBBOX=False
         self.map_canvas.setMinimumSize(500, 475)
+        actionPan = QAction("Pan", self)
+        actionPan.setCheckable(True)
+        actionPan.triggered.connect(self.pan)
+        self.toolPan = QgsMapToolPan(self.map_canvas)
+        self.toolPan.setAction(actionPan)
         uri="url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz"
         self.mts_layer=QgsRasterLayer(uri,'OSM','wms')
         if not self.mts_layer.isValid():
@@ -30,12 +35,17 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
+        self.pan()
         #chooseLayerLabel=QLabel("Choose Layer Extent:",self)
         #chooseLayerLabel.move(0,480)	
         #self.chooseBBOXLayer=QComboBox(self)	
         #self.chooseBBOXLayer.move(150,475)	
         #b2 = QPushButton("Apply Layer Extent",self)	
         #b2.move(10,500)	
+        self.panButton.clicked.connect(self.pan)
+        self.selectButton.clicked.connect(self.selectarea)
+        self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
+        self.zoomOut.clicked.connect(self.map_canvas.zoomOut)
         self.b2.clicked.connect(self.setBBOXExtentQuery)	
         layers = QgsProject.instance().layerTreeRoot().children()	
         for layer in layers:	
@@ -43,7 +53,13 @@ class BBOXDialog(QDialog,FORM_CLASS):
         #b1 = QPushButton("Apply BBOX",self)
         #b1.move(400,500)
         self.b1.clicked.connect(self.setBBOXInQuery)
-		
+	
+    def pan(self):
+        self.map_canvas.setMapTool(self.toolPan)
+
+    def selectarea(self):
+        self.map_canvas.setMapTool(self.rect_tool)
+        
     def setBBOXExtentQuery(self):	
         self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	
         self.layerExtentOrBBOX=True	
