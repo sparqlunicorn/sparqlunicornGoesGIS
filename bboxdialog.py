@@ -104,7 +104,9 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.curbbox.append(pointt4)
         self.close()
         curquery=self.inp_sparql.toPlainText()
-        if "bboxquery" in self.triplestoreconf[self.endpointIndex] and self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"]=="minmax":
+        if "bboxquery" in self.triplestoreconf[self.endpointIndex] and self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"]=="geosparql":
+             curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[self.endpointIndex]["bboxquery"]["query"].replace("%%x1%%",str(pointt1.asPoint().x())).replace("%%x2%%",str(pointt3.asPoint().x())).replace("%%y1%%",str(pointt1.asPoint().y())).replace("%%y2%%",str(pointt3.asPoint().y()))+"}\n"+curquery[curquery.rfind('}')+1:]
+        elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"]=="minmax":
              curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[self.endpointIndex]["bboxquery"]["query"].replace("%%minPoint%%",pointt2.asWkt()).replace("%%maxPoint%%",pointt4.asWkt())+curquery[curquery.rfind('}')+1:]
         elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"]=="pointdistance":
             curquery=curquery[0:curquery.rfind('}')]+self.triplestoreconf[self.endpointIndex]["bboxquery"]["query"].replace("%%lat%%",str(center.asPoint().y())).replace("%%lon%%",str(center.asPoint().x())).replace("%%distance%%",str(widthm/1000))+curquery[curquery.rfind('}')+1:]
