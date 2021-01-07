@@ -5,6 +5,7 @@ var a00118 =
     [ "selectarea", "a00118.html#ab0c24de48d8d2ee4dd3d1ced40240f82", null ],
     [ "setBBOXExtentQuery", "a00118.html#a9f814d876c9a64ddaa37954c49b2a590", null ],
     [ "setBBOXInQuery", "a00118.html#a6d309f7c5cecf20100946f3ccbf72e79", null ],
+    [ "crsdialog", "a00118.html#a4b5223c1aa54bf4f03d996a185059259", null ],
     [ "curbbox", "a00118.html#a413f81b64559e001701299e7e4e2cd81", null ],
     [ "endpointIndex", "a00118.html#a21502d8768436cf2ce0f12de36797aba", null ],
     [ "inp_sparql", "a00118.html#a78dd7b812e193157111968de8437452c", null ],
