@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>543</width>
-    <height>534</height>
+    <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>500</y>
+     <y>540</y>
      <width>151</width>
      <height>23</height>
     </rect>
@@ -53,7 +53,7 @@
    <property name="geometry">
     <rect>
      <x>400</x>
-     <y>500</y>
+     <y>540</y>
      <width>91</width>
      <height>23</height>
     </rect>
@@ -112,6 +112,19 @@
    </property>
    <property name="text">
     <string>Select</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bboxCRSLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>510</y>
+     <width>151</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BBOX CRS:</string>
    </property>
   </widget>
  </widget>

@@ -1,7 +1,7 @@
 
 from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction
 from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
-from qgis.gui import QgsMapCanvas,QgsMapToolPan
+from qgis.gui import QgsMapCanvas,QgsMapToolPan,QgsProjectionSelectionWidget
 from qgis.PyQt import uic
 from .rectanglemaptool import RectangleMapTool
 import os.path
@@ -36,6 +36,11 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
+        self.crsdialog=QgsProjectionSelectionWidget(self)
+        self.crsdialog.move(160,500)	
+        self.crsdialog.resize(331, 30)
+        self.crsdialog.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
+        self.crsdialog.show()
         #chooseLayerLabel=QLabel("Choose Layer Extent:",self)
         #chooseLayerLabel.move(0,480)	
         #self.chooseBBOXLayer=QComboBox(self)	
@@ -84,7 +89,7 @@ class BBOXDialog(QDialog,FORM_CLASS):
             pointt4=QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())	
             sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
         if sourceCrs!=None:
-            destCrs = QgsCoordinateReferenceSystem(4326)
+            destCrs = self.crsdialog.crs()
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
             pointt1.transform(tr)
             pointt2.transform(tr)
