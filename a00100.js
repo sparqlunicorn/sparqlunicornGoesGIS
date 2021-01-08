@@ -1,4 +1,4 @@
 var a00100 =
 [
-    [ "RectangleMapTool", "a00170.html", "a00170" ]
+    [ "RectangleMapTool", "a00174.html", "a00174" ]
 ];
