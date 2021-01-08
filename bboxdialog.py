@@ -1,10 +1,13 @@
 
-from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction
+from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction,QMessageBox
+from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
 from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
 from qgis.gui import QgsMapCanvas,QgsMapToolPan,QgsProjectionSelectionWidget
 from qgis.PyQt import uic
 from .rectanglemaptool import RectangleMapTool
 import os.path
+import json
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'bboxdialog.ui'))
@@ -21,6 +24,7 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas = QgsMapCanvas(self)
         self.layerExtentOrBBOX=False
         self.map_canvas.setMinimumSize(500, 475)
+        self.map_canvas.move(0,30)	
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
         actionPan.triggered.connect(self.pan)
@@ -37,16 +41,11 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.crsdialog=QgsProjectionSelectionWidget(self)
-        self.crsdialog.move(160,500)	
+        self.crsdialog.move(160,540)	
         self.crsdialog.resize(331, 30)
         self.crsdialog.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
         self.crsdialog.show()
-        #chooseLayerLabel=QLabel("Choose Layer Extent:",self)
-        #chooseLayerLabel.move(0,480)	
-        #self.chooseBBOXLayer=QComboBox(self)	
-        #self.chooseBBOXLayer.move(150,475)	
-        #b2 = QPushButton("Apply Layer Extent",self)	
-        #b2.move(10,500)	
+        self.nominatimurl='https://nominatim.openstreetmap.org/search?format=json&q={address}'
         self.panButton.clicked.connect(self.pan)
         self.selectButton.clicked.connect(self.selectarea)
         self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
@@ -55,9 +54,43 @@ class BBOXDialog(QDialog,FORM_CLASS):
         layers = QgsProject.instance().layerTreeRoot().children()	
         for layer in layers:	
             self.chooseBBOXLayer.addItem(layer.name())  	
-        #b1 = QPushButton("Apply BBOX",self)
-        #b1.move(400,500)
+        self.searchButton.clicked.connect(self.geocode)
         self.b1.clicked.connect(self.setBBOXInQuery)
+
+    def geocode(self):
+        try: 
+            nominatimurl = self.nominatimurl.format(**{'address': self.geocodeSearch.text()})
+            self.networkrequest(nominatimurl)
+        except Exception as e:
+            msgBox=QMessageBox()
+            msgBox.setWindowTitle("Mandatory variables missing!")
+            msgBox.setText(str(e))
+            msgBox.exec()
+
+    def networkrequest(self,nurl):
+        global reply
+        self.manager = QNetworkAccessManager()
+        url = QUrl(nurl)
+        request = QNetworkRequest(url)
+        self.manager.finished.connect(self.handleResponse)
+        self.manager.get(request)
+
+        
+    def handleResponse(self, reply):
+        er = reply.error()
+        if er == QNetworkReply.NoError:
+            bytes_string = reply.readAll()
+            print(str(bytes_string, 'utf-8'))
+            results = json.loads(str(bytes_string, 'utf-8'))
+            msgBox=QMessageBox()
+            msgBox.setWindowTitle("Mandatory variables missing!")
+            msgBox.setText(str(results))
+            msgBox.exec()
+            self.geocodeSearch.setText(str([(rec['display_name'], (rec['lon'], rec['lat'])) for rec in results]))
+            return [(rec['display_name'], (rec['lon'], rec['lat'])) for rec in results]
+        else:
+            print("Error occured: ", er)
+
 	
     def pan(self):
         self.map_canvas.setMapTool(self.toolPan)
