@@ -1,6 +1,7 @@
 
-from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction,QMessageBox
+from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction,QMessageBox,QCompleter
 from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
 from qgis.core import QgsVectorLayer,QgsRasterLayer,QgsProject,QgsGeometry,QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsWkbTypes,QgsMapLayer,QgsPointXY
 from qgis.gui import QgsMapCanvas,QgsMapToolPan,QgsProjectionSelectionWidget
@@ -11,6 +12,21 @@ import json
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'bboxdialog.ui'))
+
+class SPARQLCompleter(QCompleter):
+    insertText = QtCore.pyqtSignal(str)
+
+    def __init__(self,autocomplete, parent=None):
+        QCompleter.__init__(self, autocomplete, parent)
+        self.setCompletionMode(QCompleter.PopupCompletion)
+        #self.setFilterMode(Qt.MatchContains)
+        #self.highlighted.connect(self.setHighlighted)
+
+    def setHighlighted(self, text):
+        self.lastSelected = text
+
+    def getSelected(self):
+        return self.lastSelected
 
 class BBOXDialog(QDialog,FORM_CLASS):
 	
@@ -25,6 +41,7 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.layerExtentOrBBOX=False
         self.map_canvas.setMinimumSize(500, 475)
         self.map_canvas.move(0,30)	
+        self.nominatimmap={}
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
         actionPan.triggered.connect(self.pan)
@@ -74,7 +91,6 @@ class BBOXDialog(QDialog,FORM_CLASS):
         request = QNetworkRequest(url)
         self.manager.finished.connect(self.handleResponse)
         self.manager.get(request)
-
         
     def handleResponse(self, reply):
         er = reply.error()
@@ -82,15 +98,23 @@ class BBOXDialog(QDialog,FORM_CLASS):
             bytes_string = reply.readAll()
             print(str(bytes_string, 'utf-8'))
             results = json.loads(str(bytes_string, 'utf-8'))
-            msgBox=QMessageBox()
-            msgBox.setWindowTitle("Mandatory variables missing!")
-            msgBox.setText(str(results))
-            msgBox.exec()
-            self.geocodeSearch.setText(str([(rec['display_name'], (rec['lon'], rec['lat'])) for rec in results]))
-            return [(rec['display_name'], (rec['lon'], rec['lat'])) for rec in results]
+            self.nominatimmap={}
+            chooselist=[]
+            for rec in results:
+                chooselist.append(rec['display_name'])
+                self.nominatimmap[rec['display_name']]=[rec['lon'],rec['lat']]
+            completer = SPARQLCompleter(chooselist)
+            self.geocodeSearch.setCompleter(completer)
+            self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
+            completer.popup()
         else:
             print("Error occured: ", er)
 
+    def zoomToCoordinates(self,completion):
+        msgBox=QMessageBox()
+        msgBox.setText(completion)
+        msgBox.exec()
+        self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0],self.nominatimmap[completion][1],True)
 	
     def pan(self):
         self.map_canvas.setMapTool(self.toolPan)

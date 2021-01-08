@@ -130,7 +130,7 @@
   <widget class="QPushButton" name="searchButton">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>460</x>
      <y>0</y>
      <width>83</width>
      <height>25</height>
@@ -145,7 +145,7 @@
     <rect>
      <x>120</x>
      <y>0</y>
-     <width>281</width>
+     <width>331</width>
      <height>25</height>
     </rect>
    </property>
