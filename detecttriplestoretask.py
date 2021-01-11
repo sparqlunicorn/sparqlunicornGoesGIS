@@ -57,7 +57,7 @@ class DetectTripleStoreTask(QgsTask):
         return True
 
     def testTripleStoreConnection(self,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):	
-        if self.proxyHost!=None and self.ProxyPort!=None:
+        if self.proxyHost!=None and self.proxyPort!=None:
             proxy = urllib.ProxyHandler({'http': proxyHost})
             opener = urllib.build_opener(proxy)
             urllib.install_opener(opener)
@@ -85,7 +85,7 @@ class DetectTripleStoreTask(QgsTask):
             query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         else:
             query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
-        if self.proxyHost!=None and self.ProxyPort!=None:
+        if self.proxyHost!=None and self.proxyPort!=None:
             proxy = urllib.ProxyHandler({'http': proxyHost})
             opener = urllib.build_opener(proxy)
             urllib.install_opener(opener)
