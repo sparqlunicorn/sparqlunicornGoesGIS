@@ -141,6 +141,7 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                print(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
@@ -157,6 +158,7 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                print(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["bboxquery"]={}
@@ -180,6 +182,7 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                print(str(self.configuration))
             else:
                 self.message="SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint"
                 self.feasibleConfiguration=False
