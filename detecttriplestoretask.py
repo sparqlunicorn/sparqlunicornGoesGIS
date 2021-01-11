@@ -163,7 +163,7 @@ class DetectTripleStoreTask(QgsTask):
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["bboxquery"]={}
                     self.configuration["bboxquery"]["type"]="geosparql"
-                    self.configuration["bboxquery"]["query"]="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
+                    self.configuration["bboxquery"]["query"]="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral>))"
                     self.message="URL depicts a valid GeoSPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
                 else:
                     self.message="URL depicts a valid SPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
