@@ -58,9 +58,10 @@ class DetectTripleStoreTask(QgsTask):
 
     def testTripleStoreConnection(self,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):	
         if self.proxyHost!=None and self.proxyPort!=None:
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
         sparql.setQuery(query)	
         sparql.setReturnFormat(JSON)	

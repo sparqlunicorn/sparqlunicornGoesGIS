@@ -41,9 +41,9 @@ class LoadGraphTask(QgsTask):
     def run(self):
         if self.proxyHost!=None and self.proxyPort!=None:
             QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()),MESSAGE_CATEGORY, Qgis.Info)
         self.graph = Graph()
         try:
