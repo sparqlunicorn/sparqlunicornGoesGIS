@@ -648,7 +648,7 @@ class SPAQLunicorn:
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
                     item=triplestore["name"]
-                    if "mandatoryvariables" in triplestore and len(mandatoryvariables)>0:
+                    if "mandatoryvariables" in triplestore and len(triplestore["mandatoryvariables"])>0:
                         item+=" --> "
                         for mandvar in triplestore["mandatoryvariables"]:
                             item+="?"+mandvar+" "

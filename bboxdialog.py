@@ -122,10 +122,16 @@ class BBOXDialog(QDialog,FORM_CLASS):
     def selectarea(self):
         self.map_canvas.setMapTool(self.rect_tool)
         
-    def setBBOXExtentQuery(self):	
-        self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	
-        self.layerExtentOrBBOX=True	
-        self.setBBOXInQuery()
+    def setBBOXExtentQuery(self):
+        if len(QgsProject.instance().layerTreeRoot().children())>0:
+            self.mts_layer=QgsProject.instance().layerTreeRoot().children()[self.chooseBBOXLayer.currentIndex()].layer()	
+            self.layerExtentOrBBOX=True	
+            self.setBBOXInQuery()
+        else:
+            msgBox=QMessageBox()
+            msgBox.setWindowTitle("No layer loaded in QGIS!")
+            msgBox.setText("No layer has been loaded in QGIS to get an extent from!")
+            msgBox.exec()
 	
     def setBBOXInQuery(self):
         sourceCrs=None
