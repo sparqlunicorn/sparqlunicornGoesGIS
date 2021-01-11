@@ -545,19 +545,5 @@
 		"crs": 4326,
 		"staticconcepts": [],
 		"active": true
-	}, {
-		"name": "GND",
-		"prefixes": {
-			"owl": "http://www.w3.org/2002/07/owl#",
-			"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-			"rdfs": "http://www.w3.org/2000/01/rdf-schema#"
-		},
-		"endpoint": "http://zbw.eu/beta/sparql/econ_pers/query",
-		"classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-		"mandatoryvariables": ["item", "lat", "lon"],
-		"geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a rdf:type ?class .\n ?a wgs84_pos:lat ?lat .\n ?a wgs84_pos:long ?long .\n}",
-		"geoconceptlimit": 500,
-		"staticconcepts": [],
-		"active": false
 	}
 ]
