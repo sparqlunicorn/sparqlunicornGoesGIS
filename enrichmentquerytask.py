@@ -55,7 +55,7 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
                                      self.description()),
                                  MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost!=None and self.proxyPort!=None:
+        if self.proxyHost!=None and self.proxyHost!="" and self.proxyPort!=None and self.proxyPort!="":
             QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
             proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
             opener = urllib.request.build_opener(proxy)
