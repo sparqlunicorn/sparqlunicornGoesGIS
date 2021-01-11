@@ -121,10 +121,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStoreChooser.addItem("New triple store")
         self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
         self.tripleStoreNameEdit.setText("New triple store")
-        self.tripleStoreEdit.setText("")
-		
+        self.tripleStoreEdit.setText("")		
 				
     def restoreFactory(self):
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
             data=myfile.read()
         self.triplestoreconf=json.loads(data)
