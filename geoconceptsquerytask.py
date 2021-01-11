@@ -54,6 +54,7 @@ class GeoConceptsQueryTask(QgsTask):
         print(str(self.query))
         sparql.setQuery(self.query)
         print("now sending query")
+        print(self.triplestoreurl)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         for result in results["results"]["bindings"]:
