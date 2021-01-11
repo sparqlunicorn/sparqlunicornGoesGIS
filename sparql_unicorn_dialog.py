@@ -262,7 +262,7 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT")!=-1:
                querytext=querytext[0:querytext.rfind("LIMIT")]+"LIMIT "+self.queryLimit.text()
             elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT")==-1:
-               querytext=querytext+"LIMIT "+self.queryLimit.text()
+               querytext=querytext+" LIMIT "+self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars={}
         if self.geoClassList.selectionModel().currentIndex()!=None and self.geoClassListModel.itemFromIndex(curindex)!=None and "#" in self.geoClassListModel.itemFromIndex(curindex).text():
