@@ -39,7 +39,7 @@ class LoadGraphTask(QgsTask):
         self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
-        if self.proxyHost!=None and self.ProxyPort!=None:
+        if self.proxyHost!=None and self.proxyPort!=None:
             QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
             proxy = urllib.ProxyHandler({'http': proxyHost})
             opener = urllib.build_opener(proxy)
