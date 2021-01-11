@@ -409,19 +409,21 @@
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
-        "endpoint": "http://digits.mainzed.org/ogham/sparql",
+        "endpoint": "https://digits.mainzed.org/ogham/sparql",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
-        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}",
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
         "querytemplate": [{
-            "label": "100 Random Geometries",
-            "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 100"
-        }, {
-            "label": "Ogham CIIC Stones",
-            "query": "SELECT ?item ?geo WHERE {\n ?item rdf:type oghamonto:Stone.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n }"
-        }],
+                "label": "Ogham CIIC Stones",
+                "query": "SELECT ?item ?geo WHERE {\n ?item rdf:type oghamonto:Stone.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n OPTIONAL{ ?item rdfs:label ?label. } \n }"
+            },
+            {
+                "label": "Concept + Label",
+                "query": "SELECT ?item ?geo ?label WHERE {\n ?item a <%%concept%%>.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n OPTIONAL{ ?item rdfs:label ?label. } \n }"
+            }
+        ],
         "crs": 4326,
         "staticconcepts": [],
         "bboxquery": {
