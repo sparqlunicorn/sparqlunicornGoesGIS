@@ -1,5 +1,5 @@
 
-from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction,QMessageBox,QCompleter
+from qgis.PyQt.QtWidgets import QDialog,QLabel,QComboBox,QPushButton,QAction,QMessageBox,QCompleter,QPlainTextEdit,QLineEdit
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
@@ -27,6 +27,19 @@ class SPARQLCompleter(QCompleter):
 
     def getSelected(self):
         return self.lastSelected
+    
+class NominatimText(QLineEdit):
+
+    def __init__(self,parent,nominatimmap,map_canvas):
+        super(self.__class__, self).__init__(parent)
+        self.nominatimmap=nominatimmap
+        self.map_canvas=map_canvas
+        
+    def insertCompletion(self, completion):
+        self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0],self.nominatimmap[completion][1],True)
+
+    def setMap(self, nominatimmap):
+        self.nominatimmap=nominatimmap
 
 class BBOXDialog(QDialog,FORM_CLASS):
 	
@@ -57,6 +70,8 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
+        self.geocodeSearch=NominatimText(self,self.nominatimmap,self.map_canvas)
+        self.move(120,0)
         self.crsdialog=QgsProjectionSelectionWidget(self)
         self.crsdialog.move(160,540)	
         self.crsdialog.resize(331, 30)
@@ -104,9 +119,10 @@ class BBOXDialog(QDialog,FORM_CLASS):
                 chooselist.append(rec['display_name'])
                 self.nominatimmap[rec['display_name']]=[rec['lon'],rec['lat']]
             completer = SPARQLCompleter(chooselist)
+            self.geocodeSearch.setMap(self.nominatimmap)
             self.geocodeSearch.setCompleter(completer)
-            self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
-            completer.popup()
+            #self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
+            completer.popup().show()
         else:
             print("Error occured: ", er)
 
