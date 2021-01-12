@@ -57,10 +57,11 @@ class DetectTripleStoreTask(QgsTask):
         return True
 
     def testTripleStoreConnection(self,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):	
-        if self.proxyHost!=None and self.ProxyPort!=None:
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+        if self.proxyHost!=None and self.proxyHost!="" and self.proxyPort!=None and self.proxyPort!="":
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
         sparql.setQuery(query)	
         sparql.setReturnFormat(JSON)	
@@ -85,10 +86,11 @@ class DetectTripleStoreTask(QgsTask):
             query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         else:
             query="select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
-        if self.proxyHost!=None and self.ProxyPort!=None:
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+        if self.proxyHost!=None and self.proxyHost!="" and self.proxyPort!=None and self.proxyPort!="":
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl, agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")	
         sparql.setQuery(query)	
         sparql.setReturnFormat(JSON)	
@@ -114,7 +116,7 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["crs"]=4326
         self.configuration["staticconcepts"]=[]
         self.configuration["active"]=True
-        self.configuration["prefixes"]={"owl": "http://www.w3.org/2002/07/owl#","rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs": "http://www.w3.org/2000/01/rdf-schema#","geosparql": "http://www.opengis.net/ont/geosparql#","wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"}
+        self.configuration["prefixes"]={"owl": "http://www.w3.org/2002/07/owl#","rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs": "http://www.w3.org/2000/01/rdf-schema#","geosparql": "http://www.opengis.net/ont/geosparql#","geof": "http://www.opengis.net/def/function/geosparql/","geor":"http://www.opengis.net/def/rule/geosparql/","sf":"http://www.opengis.net/ont/sf#","wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"}
         testQueries={"geosparql":"PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}","available":"SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1","hasRDFSLabel":"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }","hasRDFType":"PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }","hasWKT":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}","hasGML":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}","hasGeoJSON":"PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}","hasLatLon":"PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }","namespaceQuery":"select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
@@ -139,6 +141,7 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
                 self.message="URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"]=["item","lat", "lon"]	
@@ -155,11 +158,12 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["bboxquery"]={}
                     self.configuration["bboxquery"]["type"]="geosparql"
-                    self.configuration["bboxquery"]["query"]="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
+                    self.configuration["bboxquery"]["query"]="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral>))"
                     self.message="URL depicts a valid GeoSPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
                 else:
                     self.message="URL depicts a valid SPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
@@ -178,6 +182,7 @@ class DetectTripleStoreTask(QgsTask):
                             self.configuration["prefixes"]["ns"+str(i)]=ns
                             i=i+1
                 self.feasibleConfiguration=True
+                QgsMessageLog.logMessage(str(self.configuration))
             else:
                 self.message="SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint"
                 self.feasibleConfiguration=False

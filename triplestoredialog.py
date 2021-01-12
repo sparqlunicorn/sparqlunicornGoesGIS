@@ -8,6 +8,7 @@ from .sparqlhighlighter import SPARQLHighlighter
 from .detecttriplestoretask import DetectTripleStoreTask
 from SPARQLWrapper import SPARQLWrapper, JSON
 import os.path
+import json
 import sys
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -121,10 +122,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStoreChooser.addItem("New triple store")
         self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
         self.tripleStoreNameEdit.setText("New triple store")
-        self.tripleStoreEdit.setText("")
-		
+        self.tripleStoreEdit.setText("")		
 				
     def restoreFactory(self):
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
             data=myfile.read()
         self.triplestoreconf=json.loads(data)
@@ -132,6 +133,11 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         for item in self.triplestoreconf:
             self.tripleStoreChooser.addItem(item["name"])
         self.writeConfiguration()
+        msgBox=QMessageBox()	
+        msgBox.setWindowTitle("Triple Store Settings Reset!")
+        msgBox.setText("Triple store settings have been reset to default!")	
+        msgBox.exec()	
+        return	
 
     ## 
     #  @brief Adds a prefix to the list of prefixes in the search dialog window.

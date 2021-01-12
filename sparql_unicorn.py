@@ -648,15 +648,15 @@ class SPAQLunicorn:
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:
                     item=triplestore["name"]
-                    if "mandatoryvariables" in triplestore:
+                    if "mandatoryvariables" in triplestore and len(triplestore["mandatoryvariables"])>0:
                         item+=" --> "
                         for mandvar in triplestore["mandatoryvariables"]:
                             item+="?"+mandvar+" "
-                        item+=" required!"
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
             self.dlg.viewselectaction()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
+            self.endpointselectaction()
             #self.dlg.exportTripleStore.hide()
             #self.dlg.exportTripleStore_2.hide()
             #self.dlg.tabWidget.removeTab(2)
