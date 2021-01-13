@@ -1,8 +1,10 @@
 var a00166 =
 [
-    [ "__init__", "a00166.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "getUserInformation", "a00166.html#aea3d6e87f3e13680be9d249ccdab7854", null ],
-    [ "interceptRequest", "a00166.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
-    [ "app", "a00166.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "oauthcode", "a00166.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
+    [ "authenticatedby", "a00166.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
+    [ "firstname", "a00166.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
+    [ "lastname", "a00166.html#a3c8f58d761707273489a76751c4905fb", null ],
+    [ "name", "a00166.html#ab74e6bf80237ddc4109968cedc58c151", null ],
+    [ "userid", "a00166.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
+    [ "username", "a00166.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
+    [ "userurl", "a00166.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
 ];
