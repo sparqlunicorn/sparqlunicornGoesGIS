@@ -265,7 +265,7 @@ class SPAQLunicorn:
             return viewlist
         self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
                              triplestoreurl,
-               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList,self.dlg.autocomplete)
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList,self.dlg.autocomplete,self.dlg)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.

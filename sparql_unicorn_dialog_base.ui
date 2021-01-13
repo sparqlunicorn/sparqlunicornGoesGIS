@@ -347,9 +347,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>760</x>
-       <y>40</y>
-       <width>141</width>
+       <x>630</x>
+       <y>70</y>
+       <width>191</width>
        <height>20</height>
       </rect>
      </property>
@@ -362,7 +362,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>630</x>
        <y>40</y>
-       <width>131</width>
+       <width>231</width>
        <height>20</height>
       </rect>
      </property>

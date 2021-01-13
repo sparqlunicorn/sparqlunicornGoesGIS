@@ -17,12 +17,13 @@ MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
 class GeoConceptsQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery,geoClassListGui,completerClassList):
+    def __init__(self, description, triplestoreurl,query,triplestoreconf,sparql,queryvar,getlabels,layercount,geoClassList,examplequery,geoClassListGui,completerClassList,dlg):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl=triplestoreurl
         self.triplestoreconf=triplestoreconf
         self.query=query
+        self.dlg=dlg
         self.layercount=layercount
         self.getlabels=getlabels
         self.completerClassList=completerClassList
@@ -121,6 +122,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.setPlainText(self.examplequery) 
             self.sparql.columnvars={}
         if len(self.resultlist)>0:
+            first=True
             for concept in self.resultlist:
                 #self.layerconcepts.addItem(concept)
                 item=QStandardItem()
@@ -131,7 +133,9 @@ class GeoConceptsQueryTask(QgsTask):
                     self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="wd:"+concept.split("(")[1].replace(" ","_").replace(")","")
                 else:
                     self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="<"+concept+">"
+            self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
+            self.dlg.viewselectaction()
         elif len(self.viewlist)>0:
             for concept in self.viewlist:
                 #self.layerconcepts.addItem(concept)
@@ -147,7 +151,8 @@ class GeoConceptsQueryTask(QgsTask):
                 #item.setData(1,concept)
                 #item.setText(concept[concept.rfind('/')+1:])
                 #self.geoClassList.addItem(item)
+            self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
-        self.sparql.updateNewClassList()
+            self.dlg.viewselectaction()
         if self.amountoflabels!=-1:
             self.layercount.setText("["+str(self.amountoflabels)+"]")

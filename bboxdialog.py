@@ -83,6 +83,9 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
         self.zoomOut.clicked.connect(self.map_canvas.zoomOut)
         self.b2.clicked.connect(self.setBBOXExtentQuery)	
+        self.searchButton.hide()
+        self.searchPlace.hide()
+        self.geocodeSearch.hide()
         layers = QgsProject.instance().layerTreeRoot().children()	
         for layer in layers:	
             self.chooseBBOXLayer.addItem(layer.name())  	
