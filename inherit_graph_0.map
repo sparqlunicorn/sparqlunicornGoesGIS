@@ -1,8 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$a00130.html" title="DetectTripleStoreTask" alt="" coords="136,5,289,32"/>
-<area shape="rect" id="node3" href="$a00134.html" title="Executes an enrichment task on a given layer with a given configuration. " alt="" coords="137,56,289,83"/>
-<area shape="rect" id="node4" href="$a00142.html" title="GeoConceptsQueryTask" alt="" coords="129,107,296,133"/>
-<area shape="rect" id="node5" href="$a00154.html" title="Loads a graph from an RDF file either by providing an internet address or a file path. " alt="" coords="155,157,270,184"/>
-<area shape="rect" id="node6" href="$a00174.html" title="QueryLayerTask" alt="" coords="153,208,272,235"/>
-<area shape="rect" id="node7" href="$a00234.html" title="WhatToEnrichQueryTask" alt="" coords="128,259,297,285"/>
+<area shape="rect" id="node2" href="$a00178.html" title="CircleMapTool" alt="" coords="155,5,262,32"/>
+<area shape="rect" id="node3" href="$a00182.html" title="PolygonMapTool" alt="" coords="149,56,268,83"/>
 </map>

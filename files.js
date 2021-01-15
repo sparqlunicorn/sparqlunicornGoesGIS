@@ -21,7 +21,9 @@ var files =
     [ "plugin_upload.py", "a00038.html", "a00038" ],
     [ "querylayertask.py", "a00041.html", "a00041" ],
     [ "rectanglemaptool.py", "a00044.html", [
-      [ "RectangleMapTool", "a00178.html", "a00178" ]
+      [ "CircleMapTool", "a00178.html", "a00178" ],
+      [ "PolygonMapTool", "a00182.html", "a00182" ],
+      [ "RectangleMapTool", "a00186.html", "a00186" ]
     ] ],
     [ "resources.py", "a00047.html", "a00047" ],
     [ "searchdialog.py", "a00050.html", "a00050" ],
@@ -29,9 +31,9 @@ var files =
     [ "sparql_unicorn_dialog.py", "a00056.html", "a00056" ],
     [ "sparqlhighlighter.py", "a00059.html", "a00059" ],
     [ "tooltipplaintext.py", "a00062.html", [
-      [ "SPARQLCompleter", "a00198.html", "a00198" ],
-      [ "LineNumberArea", "a00202.html", "a00202" ],
-      [ "ToolTipPlainText", "a00206.html", "a00206" ]
+      [ "SPARQLCompleter", "a00206.html", "a00206" ],
+      [ "LineNumberArea", "a00210.html", "a00210" ],
+      [ "ToolTipPlainText", "a00214.html", "a00214" ]
     ] ],
     [ "triplestoredialog.py", "a00065.html", "a00065" ],
     [ "triplestorequickadd.py", "a00068.html", "a00068" ],
