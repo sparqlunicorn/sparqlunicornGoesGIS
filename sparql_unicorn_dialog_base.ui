@@ -347,9 +347,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>760</x>
+       <x>750</x>
        <y>40</y>
-       <width>141</width>
+       <width>151</width>
        <height>20</height>
       </rect>
      </property>
@@ -360,9 +360,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="exportTripleStore_2">
      <property name="geometry">
       <rect>
-       <x>630</x>
+       <x>610</x>
        <y>40</y>
-       <width>131</width>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -406,7 +406,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLineEdit" name="queryLimit">
      <property name="geometry">
       <rect>
-       <x>520</x>
+       <x>500</x>
        <y>40</y>
        <width>101</width>
        <height>20</height>
@@ -440,6 +440,78 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>Quick Add Endpoint</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="savedQueryLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Saved Queries:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="savedQueries">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>70</y>
+       <width>231</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="loadQuery">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>70</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Load Query</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="saveQueryButton">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>70</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save Current  Query</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="saveQueryName">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>70</y>
+       <width>171</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="saveQueryName_2">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>70</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Query Name:</string>
      </property>
     </widget>
    </widget>

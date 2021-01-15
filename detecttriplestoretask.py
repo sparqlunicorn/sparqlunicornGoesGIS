@@ -4,6 +4,7 @@ import json
 import requests
 import urllib
 import sys
+import os
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis,QgsApplication
@@ -219,7 +220,8 @@ class DetectTripleStoreTask(QgsTask):
                 for prefix in self.configuration["prefixes"]:                 
                     self.prefixes[index]+="PREFIX "+prefix+":<"+self.configuration["prefixes"][prefix]+">\n"
                 if self.permanentAdd!=None and self.permanentAdd:
-                    f = open("triplestoreconf_personal.json", "w")
+                    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+                    f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")
                     f.write(json.dumps(self.triplestoreconf,indent=2))
                     f.close()
                 if self.parentdialog!=None:

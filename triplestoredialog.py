@@ -64,10 +64,14 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         #tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
 		
     def loadTripleStoreConfig(self):
-        if self.tripleStoreChooser.currentIndex() in self.triplestoreconf:
+        if self.tripleStoreChooser.currentIndex()<len(self.triplestoreconf):
             self.tripleStoreEdit.setText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["endpoint"])
             self.tripleStoreNameEdit.setText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])
             self.prefixList.clear()
+            msgBox=QMessageBox()
+            msgBox.setWindowTitle("Mandatory variables missing!")
+            msgBox.setText("The SPARQL query is missing the following mandatory variables: ")
+            msgBox.exec()
             for prefix in self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["prefixes"]:
                 self.prefixList.addItem(prefix)
             self.prefixList.sortItems()
@@ -159,7 +163,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             self.prefixList.removeItemWidget(item)
 
     def writeConfiguration(self):
-        f = open("triplestoreconf_personal.json", "w")
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        f = open(os.path.join(__location__, "triplestoreconf_personal.json"), "w")
         f.write(json.dumps(self.triplestoreconf,indent=2))
         f.close()
 

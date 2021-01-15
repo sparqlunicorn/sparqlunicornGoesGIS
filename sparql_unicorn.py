@@ -87,6 +87,8 @@ class SPAQLunicorn:
 	
     addVocabConf=None
 	
+    savedQueriesJSON={}
+	
     exportColConfig={}
 
     valueconcept={}
@@ -265,7 +267,7 @@ class SPAQLunicorn:
             return viewlist
         self.qtask=GeoConceptsQueryTask("Querying GeoConcepts from "+triplestoreurl,
                              triplestoreurl,
-               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList,self.dlg.autocomplete)
+               query,self.triplestoreconf[self.dlg.comboBox.currentIndex()],self.dlg.inp_sparql2,queryvar,getlabels,self.dlg.layercount,self.dlg.geoClassListModel,examplequery,self.dlg.geoClassList,self.dlg.autocomplete,self.dlg)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
@@ -276,6 +278,10 @@ class SPAQLunicorn:
         print("changing endpoint")
         conceptlist=[]
         self.dlg.geoClassListModel.clear()
+        self.dlg.savedQueries.clear()
+        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"] in self.savedQueriesJSON:
+            for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
+                self.dlg.savedQueries.addItem(item["label"])
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"]!="" and (not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"]==[]) and "geoconceptquery" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"]!="":
             item=QStandardItem()
             item.setText("Loading...")
@@ -628,10 +634,15 @@ class SPAQLunicorn:
                 data3=myfile.read()
             with open(os.path.join(__location__, 'prefixes.json'),'r') as myfile:
                 data4=myfile.read()
+            if os.path.isfile(os.path.join(__location__, 'savedqueries.json')): 
+                with open(os.path.join(__location__, 'savedqueries.json'),'r') as myfile:
+                    data5=myfile.read()
+                self.savedQueriesJSON=json.loads(data5)
             self.triplestoreconf = json.loads(data)
             self.addVocabConf=json.loads(data2)
             self.autocomplete=json.loads(data3)
             self.prefixstore=json.loads(data4)
+
             counter=0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -641,7 +652,7 @@ class SPAQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore,self)
+            self.dlg = SPAQLunicornDialog(self.triplestoreconf,self.prefixes,self.addVocabConf,self.autocomplete,self.prefixstore,self.savedQueriesJSON,self)
             self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()

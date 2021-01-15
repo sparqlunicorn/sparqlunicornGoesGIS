@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>543</width>
+    <width>577</width>
     <height>615</height>
    </rect>
   </property>
@@ -67,7 +67,7 @@
     <rect>
      <x>500</x>
      <y>30</y>
-     <width>41</width>
+     <width>71</width>
      <height>25</height>
     </rect>
    </property>
@@ -80,7 +80,7 @@
     <rect>
      <x>500</x>
      <y>60</y>
-     <width>41</width>
+     <width>71</width>
      <height>25</height>
     </rect>
    </property>
@@ -93,7 +93,7 @@
     <rect>
      <x>500</x>
      <y>90</y>
-     <width>41</width>
+     <width>71</width>
      <height>25</height>
     </rect>
    </property>
@@ -106,12 +106,12 @@
     <rect>
      <x>500</x>
      <y>120</y>
-     <width>41</width>
-     <height>25</height>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select</string>
+    <string>Select BBOX</string>
    </property>
   </widget>
   <widget class="QLabel" name="bboxCRSLabel">
@@ -132,22 +132,12 @@
     <rect>
      <x>460</x>
      <y>0</y>
-     <width>83</width>
+     <width>111</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
     <string>Search</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="geocodeSearch">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>0</y>
-     <width>331</width>
-     <height>25</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="searchPlace">
@@ -161,6 +151,32 @@
    </property>
    <property name="text">
     <string>Search Place:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="selectCircle">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>150</y>
+     <width>71</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Circle</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="selectPolygon">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>180</y>
+     <width>81</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Polygon</string>
    </property>
   </widget>
  </widget>

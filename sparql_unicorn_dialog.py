@@ -24,6 +24,7 @@
 
 import os
 import re
+import json
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
@@ -66,12 +67,13 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     columnvars={}
 	
-    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},prefixstore={"normal":{},"reversed":{}},maindlg=None,parent=None):
+    def __init__(self,triplestoreconf={},prefixes=[],addVocabConf={},autocomplete={},prefixstore={"normal":{},"reversed":{}},savedQueriesJSON={},maindlg=None,parent=None):
         """Constructor."""
         super(SPAQLunicornDialog, self).__init__(parent)
         self.setupUi(self)
         self.prefixes=prefixes
         self.maindlg=maindlg
+        self.savedQueriesJSON=savedQueriesJSON
         self.enrichtab=EnrichmentTab(self)
         self.interlinktab=InterlinkingTab(self)
         self.addVocabConf=addVocabConf
@@ -119,6 +121,8 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+        self.loadQuery.clicked.connect(self.loadQueryFunc)
+        self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
@@ -132,6 +136,21 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
+
+    def loadQueryFunc(self):
+        if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+            self.inp_sparql2.setPlainText(self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]][self.savedQueries.currentIndex()]["query"])
+
+    def saveQueryFunc(self):
+        queryName=self.saveQueryName.text()
+        if queryName!=None and queryName!="":
+            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append({"label":queryName,"query":self.inp_sparql2.toPlainText()})
+            self.savedQueries.addItem(queryName)
+            f = open(os.path.join(__location__, 'savedqueries.json'), "w")
+            f.write(json.dumps(self.savedQueriesJSON))
+            f.close()
+        
 
     def onContext(self):
         menu = QMenu("Menu", self.geoClassList)
