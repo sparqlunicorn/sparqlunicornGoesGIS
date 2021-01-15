@@ -163,7 +163,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             self.prefixList.removeItemWidget(item)
 
     def writeConfiguration(self):
-        f = open("triplestoreconf_personal.json", "w")
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        f = open(os.path.join(__location__, "triplestoreconf_personal.json"), "w")
         f.write(json.dumps(self.triplestoreconf,indent=2))
         f.close()
 
