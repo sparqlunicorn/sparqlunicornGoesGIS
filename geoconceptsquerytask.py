@@ -131,7 +131,9 @@ class GeoConceptsQueryTask(QgsTask):
                     self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="wd:"+concept.split("(")[1].replace(" ","_").replace(")","")
                 else:
                     self.completerClassList["completerClassList"][concept[concept.rfind('/')+1:]]="<"+concept+">"
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
+            if len(self.resultlist)>0:
+                self.geoClassListGui.selectionModel().select(self.geoClassListGui.model().index(0,0),QItemSelectionModel.Select)
+            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassListGui.model().index(0,0),QItemSelectionModel.SelectCurrent)
         elif len(self.viewlist)>0:
             for concept in self.viewlist:
                 #self.layerconcepts.addItem(concept)
@@ -147,7 +149,9 @@ class GeoConceptsQueryTask(QgsTask):
                 #item.setData(1,concept)
                 #item.setText(concept[concept.rfind('/')+1:])
                 #self.geoClassList.addItem(item)
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0,0),QItemSelectionModel.SelectCurrent)
+            if len(self.viewlist)>0:
+                self.geoClassListGui.selectionModel().select(self.geoClassListGui.model().index(0,0),QItemSelectionModel.Select)
+            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassListGui.model().index(0,0),QItemSelectionModel.SelectCurrent)
         self.sparql.updateNewClassList()
         if self.amountoflabels!=-1:
             self.layercount.setText("["+str(self.amountoflabels)+"]")
