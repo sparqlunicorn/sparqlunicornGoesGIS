@@ -14,7 +14,7 @@ The SPARQL Unicorn idea was born at the Computer Applications and Quantitative M
 
 ## QGIS Plugin
 
-<br><center><img src="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/icon.png" width="300"></center><br>
+<center><img src="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/icon.png" width="400"></center>
 
 The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugins:
 
