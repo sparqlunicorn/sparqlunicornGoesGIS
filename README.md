@@ -1,8 +1,6 @@
 # SPARQLing Unicorn QGIS Plugin
 
-This plugin adds a GeoJSON layer from SPARQL endpoint queries.
-
-The necessary python libs can be found here: <https://github.com/sparqlunicorn/unicornQGISdepInstaller>.
+This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
 
 qgisMinimumVersion = 3.0
 
@@ -11,6 +9,10 @@ Doxygen Documentation <https://sparqlunicorn.github.io/sparqlunicornGoesGIS/>
 ## SPARQL Unicorn
 
 The SPARQL Unicorn idea was born at the Computer Applications and Quantitative Methods in Archaeology conference 2019 in Kraków, Poland. As an important part of a scientific conference, networking and knowledge exchange brought interesting topics to daylight: In archaeological and (Digital) Humanities related research documentation, creating and maintaining databases and data analyses play a central role. However, very few databases are made free and open available and accessible and even less are linked into the Linked Open Data Cloud. This fact challenges comparative analyses of records across multiple datasets. But we have a lack of user-friendly, easy to use, free and open tools, especially for Linked Open Data technologies and repositories as well as Wikidata itself. Wikidata also still lacks in recognition as a research tool, not just because of a general anonymousness, but also for the reasons mentioned above. To mitigate these problems, the SPARQL Unicorn was developed, which we would like to propose as a friendly tool series for researchers working with Wikidata and other related triple stores. The unicorn’s aim is to help researchers of ancient studies in using the community driven data from Wikidata and to make it accessible to those without expertise in LOD or SPARQL.
+
+<center><img src="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicorn-logo/master/sparqlunicorn_quad_5000_6000.png" width="400"></center>
+
+Florian Thiery, Sophie Charlotte Schmidt, Timo Homburg, & Martina Trognitz. (2020). The SPARQL Unicorn: An introduction. In Research Squirrel Engineers - Squirrel Papers. Mainz, Germany: Florian Thiery. <http://doi.org/10.5281/zenodo.3742186>
 
 ## QGIS Plugin
 
@@ -21,6 +23,28 @@ The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugin
 -   <https://plugins.qgis.org/plugins/sparqlunicorn/>
 
 Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/blob/master/CITATION.cff).
+
+### Change Log
+
+-   0.12 Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
+-   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
+-   0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries
+-   0.9: Add triplestore functionallity, add more endpoints
+-   0.8: Syntax Highlighting and query validation, support for bbox queries, import and export of rdf files, Preloading of geoconcepts from triple stores
+-   0.7: add support for DBpedia and GeoNames
+-   0.6: add support for linkedgeodata.org
+-   0.5: add support for kerameikos.org
+-   0.4: add support for nomisma.org
+-   0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint
+-   0.2: bugfixes and more user comfort
+-   0.1: initial commit
+
+### Talks and Publications
+
+-   Timo Homburg, & Florian Thiery. (2020, October). Little Minions and SPARQL Unicorns as tools for archaeology. Presented at the ARCHEO.FOSS XIV | 2020 Open software, hardware, processes, data and formats in archaeological research (ARCHEO.FOSS XIV | 2020), virtual: Zenodo. <http://doi.org/10.5281/zenodo.4091734>
+-   Timo Homburg, & Florian Thiery. (2020, July). Linked Open Geodata in GIS? Ein Überblick über Linked Geodata Open Source Software. Presented at the AGIT 2020 connecting spatially – virtually (AGIT), Zenodo. <http://doi.org/10.5281/zenodo.3931262>
+-   Florian Thiery, & Timo Homburg. (2020, March). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. Presented at the Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (FOSSGIS) (FOSSGIS2020), University of Freiburg, Germany: Zenodo. <http://doi.org/10.5281/zenodo.3706962>
+-   Florian Thiery, & Timo Homburg. (2020). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. In FOSSGIS 2020: Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (pp. 68–72). University of Freiburg, Germany: FOSSGIS e.V. <http://doi.org/10.5281/zenodo.3719128>
 
 ## Credits
 
