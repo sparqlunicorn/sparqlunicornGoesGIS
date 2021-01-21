@@ -103,10 +103,10 @@ class QueryLayerTask(QgsTask):
     #  @param mandatoryvars mandatoryvariables to find in the query result
     #  @param geooptional indicates if a geometry is mandatory
     def processResults(self,results,reproject,mandatoryvars,geooptional):
-        latval=mandatoryvars[0]
-        lonval=""
-        if len(mandatoryvars)>1:
-            lonval=mandatoryvars[1]
+        latval="lat"
+        lonval="lon"
+        #if len(mandatoryvars)>1:
+        #    lonval=mandatoryvars[1]
         features = []
         first=True
         newobject=True
@@ -139,7 +139,7 @@ class QueryLayerTask(QgsTask):
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result:
-                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")","wkt",reproject)
+                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
                 feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
                 features.append(feature)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
