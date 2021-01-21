@@ -74,6 +74,7 @@ class BBOXDialog(QDialog,FORM_CLASS):
         self.map_canvas.setLayers( [self.vl,self.mts_layer] )
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
+        self.selectCircle.hide()
         self.geocodeSearch=NominatimText(self,self.nominatimmap,self.map_canvas)
         self.move(120,0)
         self.crsdialog=QgsProjectionSelectionWidget(self)
