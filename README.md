@@ -26,6 +26,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 ### Change Log
 
+-   0.12.1 Fix for lat/lon based triple stores, polygon BBOX
 -   0.12 Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
 -   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
 -   0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries
