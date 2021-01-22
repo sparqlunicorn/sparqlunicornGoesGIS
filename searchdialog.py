@@ -88,8 +88,8 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.proxyPassword = s.value("proxy/proxyPassword")
         if self.proxyHost != None and self.proxyPort != None:
             proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
 
     def check_state3(self):
         self.check_state(self.costumproperty)
