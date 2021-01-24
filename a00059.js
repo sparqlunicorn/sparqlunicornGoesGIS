@@ -1,6 +1,6 @@
 var a00059 =
 [
-    [ "SPARQLHighlighter", "a00202.html", "a00202" ],
-    [ "format", "a00059.html#ab4762c2603cb341624f24c969e06440f", null ],
-    [ "STYLES", "a00059.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
+    [ "SPAQLunicornDialog", "a00206.html", "a00206" ],
+    [ "_", "a00059.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00059.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

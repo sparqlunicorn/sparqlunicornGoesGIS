@@ -1,5 +1,5 @@
 var a00053 =
 [
-    [ "SPAQLunicorn", "a00194.html", "a00194" ],
-    [ "geoconcepts", "a00053.html#acbb10aa24d8002b4fa9f9bac04dd92b9", null ]
+    [ "SearchTask", "a00198.html", "a00198" ],
+    [ "MESSAGE_CATEGORY", "a00053.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
 ];

@@ -1,27 +1,5 @@
 var a00086 =
 [
-    [ "bboxdialog", "a00087.html", "a00087" ],
-    [ "detecttriplestoretask", "a00088.html", "a00088" ],
-    [ "enrichmentquerytask", "a00089.html", "a00089" ],
-    [ "enrichmenttab", "a00090.html", "a00090" ],
-    [ "geoconceptsquerytask", "a00091.html", "a00091" ],
-    [ "interlinkingtab", "a00093.html", "a00093" ],
-    [ "loadgraphdialog", "a00094.html", "a00094" ],
-    [ "loadgraphtask", "a00095.html", "a00095" ],
-    [ "loginwindow", "a00096.html", "a00096" ],
-    [ "oauth", "a00097.html", "a00097" ],
-    [ "querylayertask", "a00099.html", "a00099" ],
-    [ "rectanglemaptool", "a00100.html", "a00100" ],
-    [ "searchdialog", "a00102.html", "a00102" ],
-    [ "sparql_unicorn", "a00103.html", "a00103" ],
-    [ "sparql_unicorn_dialog", "a00104.html", "a00104" ],
-    [ "sparqlhighlighter", "a00105.html", "a00105" ],
-    [ "tooltipplaintext", "a00106.html", "a00106" ],
-    [ "triplestoredialog", "a00107.html", "a00107" ],
-    [ "triplestorequickadd", "a00108.html", "a00108" ],
-    [ "uploadrdfdialog", "a00109.html", "a00109" ],
-    [ "valuemapping", "a00110.html", "a00110" ],
-    [ "varinput", "a00111.html", "a00111" ],
-    [ "whattoenrich", "a00112.html", "a00112" ],
-    [ "whattoenrichquerytask", "a00113.html", "a00113" ]
+    [ "WhatToEnrichQueryTask", "a00250.html", "a00250" ],
+    [ "MESSAGE_CATEGORY", "a00086.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
 ];

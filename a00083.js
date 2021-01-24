@@ -1,5 +1,6 @@
 var a00083 =
 [
-    [ "WhatToEnrichQueryTask", "a00242.html", "a00242" ],
-    [ "MESSAGE_CATEGORY", "a00083.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
+    [ "EnrichmentDialog", "a00246.html", "a00246" ],
+    [ "_", "a00083.html#a18f05aeddc212b523b40818fa2b87b33", null ],
+    [ "FORM_CLASS", "a00083.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

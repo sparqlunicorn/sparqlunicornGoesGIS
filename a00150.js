@@ -1,14 +1,14 @@
 var a00150 =
 [
-    [ "__init__", "a00150.html#a921f465a77663034ebb6932d1ac38188", null ],
-    [ "check_state", "a00150.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state1", "a00150.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
-    [ "loadFile", "a00150.html#a2ae2b21223fe5437d0cb6702451276de", null ],
-    [ "loadURI", "a00150.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "__init__", "a00150.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "exportMapping", "a00150.html#ac0b79f251af60953125dc0c3807d8010", null ],
+    [ "exportMappingProcess", "a00150.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
+    [ "loadMapping", "a00150.html#ab38c44b08c637c238d983ebcab2ef845", null ],
+    [ "readMapping", "a00150.html#a69357de86ed09826927e35b3c3378fcd", null ],
     [ "dlg", "a00150.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "justloadingfromfile", "a00150.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
-    [ "maindlg", "a00150.html#a7a228f82cef256bf0c017634e4195718", null ],
-    [ "prefixes", "a00150.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "qtask", "a00150.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "triplestoreconf", "a00150.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "enrichLayer", "a00150.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "exportIdCol", "a00150.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00150.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00150.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "valueconcept", "a00150.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];
