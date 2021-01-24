@@ -5,11 +5,14 @@ from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt import uic
+from qgis.core import QgsApplication
 from SPARQLWrapper import SPARQLWrapper, JSON
+from .searchtask import SearchTask
 import json
 import urllib
 import requests
 import os.path
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'searchdialog.ui'))
@@ -150,53 +153,10 @@ class SearchDialog(QDialog, FORM_CLASS):
                 msgBox.setText("No search query specified for this triplestore")
                 msgBox.exec()
                 return
-            if "SELECT" in query:
-                query = query.replace("%%label%%", label).replace("%%language%%", language)
-                sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"], agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                # msgBox=QMessageBox()
-                #msgBox.setText(query+" - "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
-                # msgBox.exec()
-                sparql.setQuery(self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + query)
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
-                # msgBox=QMessageBox()
-                # msgBox.setText(str(results))
-                # msgBox.exec()
-                if len(results["results"]) == 0 or len(results["results"]["bindings"]) == 0:
-                    msgBox = QMessageBox()
-                    msgBox.setWindowTitle("Empty search result")
-                    msgBox.setText("The search yielded no results")
-                    msgBox.exec()
-                    return
-                for res in results["results"]["bindings"]:
-                    item = QListWidgetItem()
-                    item.setData(1, str(res["class"]["value"]))
-                    if "label" in res:
-                        item.setText(str(res["label"]["value"] + " (" + res["class"]["value"] + ")"))
-                    else:
-                        item.setText(str(res["class"]["value"]))
-                    self.searchResult.addItem(item)
-            else:
-                myResponse = json.loads(requests.get(query).text)
-                qids = []
-                for ent in myResponse["search"]:
-                    qid = ent["concepturi"]
-                    if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
-                        qid = "http://www.wikidata.org/prop/direct/" + ent["id"]
-                    elif "http://www.wikidata.org/wiki/" in qid and self.findConcept.isChecked():
-                        qid = "http://www.wikidata.org/entity/" + ent["id"]
-                    qids.append(qid)
-                    label = ent["label"] + " (" + ent["id"] + ") "
-                    if "description" in ent:
-                        label += "[" + ent["description"] + "]"
-                    results[qid] = label
-                i = 0
-                for result in results:
-                    item = QListWidgetItem()
-                    item.setData(1, qids[i])
-                    item.setText(str(results[result]))
-                    self.searchResult.addItem(item)
-                    i += 1
+            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"],
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"],
+               query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
+            QgsApplication.taskManager().addTask(self.qtask)
         return viewlist
 
     def applyConceptToColumn2(self):
