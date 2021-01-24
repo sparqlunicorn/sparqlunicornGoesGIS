@@ -64,7 +64,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         if not bothOptions:
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
-        self.tripleStoreEdit.setEnabled(False)
+        #self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
@@ -86,10 +86,11 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.proxyPort = s.value("proxy/proxyPort")
         self.proxyUser = s.value("proxy/proxyUser")
         self.proxyPassword = s.value("proxy/proxyPassword")
-        if self.proxyHost != None and self.proxyPort != None:
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
+        if self.proxyHost!=None and self.proxyHost!="" and self.proxyPort!=None and self.proxyPort!="":
+            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
 
     def check_state3(self):
         self.check_state(self.costumproperty)
