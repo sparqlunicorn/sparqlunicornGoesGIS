@@ -62,13 +62,14 @@ class SearchDialog(QDialog, FORM_CLASS):
         if not bothOptions:	        
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
-        self.tripleStoreEdit.setEnabled(False)
         for triplestore in self.triplestoreconf:
             if not "File"==triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
         if addVocab!=None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
+        self.tripleStoreEdit.setCurrentIndex(2)
+        #self.tripleStoreEdit.setEnabled(False)
         self.searchButton.clicked.connect(self.getClassesFromLabel)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
@@ -84,7 +85,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.proxyPort = s.value("proxy/proxyPort")
         self.proxyUser = s.value("proxy/proxyUser")
         self.proxyPassword = s.value("proxy/proxyPassword")
-        if self.proxyHost!=None and self.ProxyPort!=None:
+        if self.proxyHost!=None and self.proxyPort!=None:
             proxy = urllib.ProxyHandler({'http': proxyHost})
             opener = urllib.build_opener(proxy)
             urllib.install_opener(opener)
