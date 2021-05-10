@@ -1,4 +1,4 @@
-var files =
+var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
     [ "bboxdialog.py", "a00005.html", "a00005" ],

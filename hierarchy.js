@@ -62,8 +62,7 @@ var hierarchy =
     [ "QWebEngineUrlRequestInterceptor", null, [
       [ "RequestInterceptor", "a00166.html", [
         [ "GitlabRequestInterceptor", "a00174.html", null ]
-      ] ],
-      [ "RequestInterceptor", "a00166.html", null ]
+      ] ]
     ] ],
     [ "QWebEngineView", null, [
       [ "LoginWindow", "a00162.html", null ]

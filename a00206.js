@@ -1,6 +1,6 @@
 var a00206 =
 [
-    [ "__init__", "a00206.html#ac775ee34451fdfa742b318538164070e", null ],
+    [ "__init__", "a00206.html#a21e37c357a72011365b9ccd5a958a733", null ],
     [ "addEnrichRow", "a00206.html#aef2caba5fdbabb1add496a3690ea2920", null ],
     [ "buildCustomTripleStoreDialog", "a00206.html#aaa0da52fb182abd5369eb94a3031ffbd", null ],
     [ "buildLoadGraphDialog", "a00206.html#a375e87d1112baec5682b217d29a81f39", null ],
