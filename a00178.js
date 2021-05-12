@@ -1,6 +1,7 @@
 var a00178 =
 [
     [ "__init__", "a00178.html#afb329d20550a243e677709aaec83d848", null ],
+    [ "detectLiteralType", "a00178.html#a9894298861cc9aa2a8e0b4209e08c3e0", null ],
     [ "finished", "a00178.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "processLiteral", "a00178.html#aae48cf1625ab7d7bcff5a877b5c10511", null ],
     [ "processResults", "a00178.html#ab368e533f681a396257e919f7acf52fd", null ],
