@@ -1,5 +1,7 @@
 # SPARQLing Unicorn QGIS Plugin
 
+[![Join the chat at https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin](https://badges.gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin.svg)](https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
 
 qgisMinimumVersion = 3.0
