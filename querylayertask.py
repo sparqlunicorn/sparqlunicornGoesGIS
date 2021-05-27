@@ -1,6 +1,8 @@
+from urllib.request import urlopen
 from time import sleep
 from rdflib import *
 import json
+import sys
 import requests
 import urllib
 from qgis.PyQt.QtCore import QSettings
@@ -67,6 +69,21 @@ class QueryLayerTask(QgsTask):
         self.geojson=self.processResults(results,(self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),self.triplestoreconf["mandatoryvariables"][1:],self.allownongeo)
         return True
 
+    def handleURILiteral(self,uri):
+        result=[]
+        if uri.startswith("http") and uri.endswith(".map"):
+            try:
+                f=urlopen(uri)
+                myjson=json.loads(f.read())
+                if "data" in myjson and "type" in myjson["data"] and myjson["data"]["type"]=="FeatureCollection":
+                    features=myjson["data"]["features"]
+                    for feat in features:
+                        result.append(feat["geometry"])
+                return result
+            except:
+                QgsMessageLog.logMessage("Error getting geoshape "+str(uri)+" - "+str(sys.exc_info()[0]))
+        return None
+
     def detectLiteralType(self,literal):
         try:
             geom=QgsGeometry.fromWkt(literal)
@@ -86,9 +103,15 @@ class QueryLayerTask(QgsTask):
         return ""
 
     def processLiteral(self,literal,literaltype,reproject):
+        QgsMessageLog.logMessage("Process literal: "+str(literal)+" "+str(literaltype))
         geom=None
         if "literaltype" in self.triplestoreconf:
             literaltype=self.triplestoreconf["literaltype"]
+        if literal.startswith("http"):
+            res=self.handleURILiteral(literal)
+            if res==None:
+                return "{\"geometry\":null}"
+            return json.dumps(res[0])
         if literaltype=="":
             literaltype=self.detectLiteralType(literal)
         if "wkt" in literaltype.lower():
