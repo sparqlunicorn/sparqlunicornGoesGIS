@@ -295,26 +295,31 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keyword">def </span><a class="code" href="a00250.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">if</span> self.geojson==<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">if</span> self.geojson==<span class="keywordtype">None</span> <span class="keywordflow">and</span> self.exception!=<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            msgBox=QMessageBox()</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query yielded no results. Therefore no layer will be created!&quot;</span>)</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;An error occured while querying: &quot;</span>+str(self.exception))</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            msgBox.exec()</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">if</span> self.geojson!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> isinstance(self.geojson, int) <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.allownongeo:</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">if</span> self.geojson==<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            msgBox=QMessageBox()</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query did not retrieve a geometry result. However, there were &quot;</span>+str(self.geojson)+<span class="stringliteral">&quot; non-geometry query results. You can retrieve them by allowing non-geometry queries!&quot;</span>)</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query yielded no results. Therefore no layer will be created!&quot;</span>)</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            msgBox.exec()</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        self.progress.close()</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=<span class="keyword">True</span>, indent=4),<span class="stringliteral">&quot;unicorn_&quot;</span>+self.filename,<span class="stringliteral">&quot;ogr&quot;</span>)</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        print(vlayer.isValid())</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        QgsProject.instance().addMapLayer(vlayer)</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        canvas = iface.mapCanvas()</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        canvas.setExtent(vlayer.extent())</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Add layer&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">if</span> self.geojson!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> isinstance(self.geojson, int) <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.allownongeo:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            msgBox=QMessageBox()</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query did not retrieve a geometry result. However, there were &quot;</span>+str(self.geojson)+<span class="stringliteral">&quot; non-geometry query results. You can retrieve them by allowing non-geometry queries!&quot;</span>)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        self.progress.close()</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=<span class="keyword">True</span>, indent=4),<span class="stringliteral">&quot;unicorn_&quot;</span>+self.filename,<span class="stringliteral">&quot;ogr&quot;</span>)</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        print(vlayer.isValid())</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        QgsProject.instance().addMapLayer(vlayer)</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        canvas = iface.mapCanvas()</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        canvas.setExtent(vlayer.extent())</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Add layer&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00178.html#a2be679e131aa5f671200ce80927d4f47">QueryLayerTask.allownongeo</a>, <a class="el" href="a00158.html#a2ff994e16bf9521154de4cf659a3b689">LoadGraphTask.filename</a>, <a class="el" href="a00178.html#a2ff994e16bf9521154de4cf659a3b689">QueryLayerTask.filename</a>, <a class="el" href="a00158.html#abbcc160ca774f07e0a53d4e0520808d1">LoadGraphTask.geojson</a>, <a class="el" href="a00178.html#abbcc160ca774f07e0a53d4e0520808d1">QueryLayerTask.geojson</a>, <a class="el" href="a00158.html#a991fd2c404665f13f536fc7791e53504">LoadGraphTask.progress</a>, <a class="el" href="a00178.html#a991fd2c404665f13f536fc7791e53504">QueryLayerTask.progress</a>, <a class="el" href="a00134.html#a991fd2c404665f13f536fc7791e53504">DetectTripleStoreTask.progress</a>, and <a class="el" href="a00138.html#a991fd2c404665f13f536fc7791e53504">EnrichmentQueryTask.progress</a>.</p>
+<p class="reference">References <a class="el" href="a00178.html#a2be679e131aa5f671200ce80927d4f47">QueryLayerTask.allownongeo</a>, <a class="el" href="a00158.html#aec2b4fd1f327cbebb003cfc415e8bccb">LoadGraphTask.exception</a>, <a class="el" href="a00146.html#aec2b4fd1f327cbebb003cfc415e8bccb">GeoConceptsQueryTask.exception</a>, <a class="el" href="a00138.html#aec2b4fd1f327cbebb003cfc415e8bccb">EnrichmentQueryTask.exception</a>, <a class="el" href="a00178.html#aec2b4fd1f327cbebb003cfc415e8bccb">QueryLayerTask.exception</a>, <a class="el" href="a00134.html#aec2b4fd1f327cbebb003cfc415e8bccb">DetectTripleStoreTask.exception</a>, <a class="el" href="a00158.html#a2ff994e16bf9521154de4cf659a3b689">LoadGraphTask.filename</a>, <a class="el" href="a00178.html#a2ff994e16bf9521154de4cf659a3b689">QueryLayerTask.filename</a>, <a class="el" href="a00158.html#abbcc160ca774f07e0a53d4e0520808d1">LoadGraphTask.geojson</a>, <a class="el" href="a00178.html#abbcc160ca774f07e0a53d4e0520808d1">QueryLayerTask.geojson</a>, <a class="el" href="a00158.html#a991fd2c404665f13f536fc7791e53504">LoadGraphTask.progress</a>, <a class="el" href="a00178.html#a991fd2c404665f13f536fc7791e53504">QueryLayerTask.progress</a>, <a class="el" href="a00134.html#a991fd2c404665f13f536fc7791e53504">DetectTripleStoreTask.progress</a>, and <a class="el" href="a00138.html#a991fd2c404665f13f536fc7791e53504">EnrichmentQueryTask.progress</a>.</p>
 
 </div>
 </div>
@@ -600,7 +605,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                results = sparql.query().convert()</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                self.exception=e</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">return</span>            </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">False</span>           </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">#print(results)</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="comment"># geojson stuff</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        self.geojson=self.processResults(results,(self.triplestoreconf[<span class="stringliteral">&quot;crs&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;crs&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>),self.triplestoreconf[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>][1:],self.allownongeo)</div>
@@ -642,7 +647,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00178.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00178.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00178.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>.</p>
 
 </div>
 </div>
