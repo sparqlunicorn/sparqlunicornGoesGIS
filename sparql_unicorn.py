@@ -238,13 +238,23 @@ class SPAQLunicorn:
             msgBox.setWindowTitle("Mandatory variables missing!")
             msgBox.setText("The SPARQL query is missing the following mandatory variables: "+str(missingmandvars))
             msgBox.exec()
+            return
         progress = QProgressDialog("Querying layer from "+endpoint_url+"...", "Abort", 0, 0, self.dlg)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()
+        queryprefixes=[]
+        prefixestoadd=""
+        for line in query.split("\n"):
+            if line.startswith("PREFIX"):
+                queryprefixes.append(line[line.find("http"):].replace(">",""))
+                url=line[line.find("http"):].replace(">","")
+        for endpoint in self.triplestoreconf[endpointIndex]["prefixes"]:
+            if not self.triplestoreconf[endpointIndex]["prefixes"][endpoint] in queryprefixes:
+                prefixestoadd+="PREFIX "+endpoint+": <"+self.triplestoreconf[endpointIndex]["prefixes"][endpoint]+"> \n"
         self.qtask=QueryLayerTask("Querying QGIS Layer from "+endpoint_url,
                              endpoint_url,
-        "".join(self.prefixes[endpointIndex]) + query,self.triplestoreconf[endpointIndex],self.dlg.allownongeo.isChecked(),self.dlg.inp_label.text(),progress)
+        prefixestoadd + query,self.triplestoreconf[endpointIndex],self.dlg.allownongeo.isChecked(),self.dlg.inp_label.text(),progress)
         QgsApplication.taskManager().addTask(self.qtask)
         #self.dlg.close()
 

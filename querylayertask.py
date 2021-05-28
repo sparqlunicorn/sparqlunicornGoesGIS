@@ -63,7 +63,7 @@ class QueryLayerTask(QgsTask):
                 results = sparql.query().convert()
             except Exception as e:
                 self.exception=e
-                return            
+                return False           
         #print(results)
         # geojson stuff
         self.geojson=self.processResults(results,(self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),self.triplestoreconf["mandatoryvariables"][1:],self.allownongeo)
@@ -201,6 +201,11 @@ class QueryLayerTask(QgsTask):
 
 
     def finished(self, result):
+        if self.geojson==None and self.exception!=None:
+            msgBox=QMessageBox()
+            msgBox.setText("An error occured while querying: "+str(self.exception))
+            msgBox.exec()
+            return
         if self.geojson==None:
             msgBox=QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
