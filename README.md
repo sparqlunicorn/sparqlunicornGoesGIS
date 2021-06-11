@@ -27,7 +27,7 @@ The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugin
 Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/blob/master/CITATION.cff).
 
 ### Change Log
-
+-   0.12.2 Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
 -   0.12.1 Fix for lat/lon based triple stores, polygon BBOX
 -   0.12 Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
 -   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
