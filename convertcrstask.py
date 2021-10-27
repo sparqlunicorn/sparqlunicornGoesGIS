@@ -19,6 +19,8 @@ MESSAGE_CATEGORY = 'ConvertCRSTask'
 class ConvertCRSTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
+    supportedLiteralTypes={"http://www.opengis.net/ont/geosparql#wktLiteral"}
+
     def __init__(self, description,filename,crsdef,dialog,progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
@@ -52,8 +54,9 @@ class ConvertCRSTask(QgsTask):
             print("no geojson")
         return ""
 
-    def processLiteral(self,literal,literaltype,reproject):
-        QgsMessageLog.logMessage("Process literal: "+str(literal)+" "+str(literaltype))
+    def processLiteral(self,literal,literaltype,reproject,projectto):
+        QgsMessageLog.logMessage("Process literal: "+str(literal)+" "+str(literaltype)+" "+str(reproject))
+        QgsMessageLog.logMessage("REPROJECT: "+str(reproject))
         geom=None
         if literaltype=="" or literaltype==None:
             literaltype=self.detectLiteralType(literal)
@@ -68,15 +71,18 @@ class ConvertCRSTask(QgsTask):
                 geom=QgsGeometry.fromWkt(literal)
         #elif "gml" in literaltype.lower():
         #    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
-        elif "geojson" in literaltype.lower():
-            return literal
         elif "wkb" in literaltype.lower():
             geom=QgsGeometry.fromWkb(bytes.fromhex(literal))
-        if geom!=None and reproject!="":
-            sourceCrs = QgsCoordinateReferenceSystem(reproject)
-            destCrs = QgsCoordinateReferenceSystem(4326)
+        if geom!=None and projectto!=None:
+            sourceCrs = QgsCoordinateReferenceSystem("EPSG:"+str(reproject))
+            destCrs = QgsCoordinateReferenceSystem(projectto)
+            QgsMessageLog.logMessage('PROJECTIT '+str(sourceCrs.description())+" "+str(projectto.description()),MESSAGE_CATEGORY, Qgis.Info)
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
             geom.transform(tr)
+        if geom!=None and "wkt" in literaltype.lower():
+            return "<http://www.opengis.net/def/crs/EPSG/0/"+str(str(projectto.authid())[str(projectto.authid()).rfind(':')+1:])+"> "+geom.asWkt()
+        if geom!=None and "wkb" in literaltype.lower():
+            return geom.asWkb()
         if geom!=None:
             return geom.asJson()
         return None
@@ -106,77 +112,16 @@ class ConvertCRSTask(QgsTask):
         if self.graph!=None:
             print("WE HAVE A GRAPH")
             for s, p, o in self.graph:
+                QgsMessageLog.logMessage('BEFORE "{}"'.format(o),MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(o,Literal):
-                    QgsMessageLog.logMessage('BEFORE "{}"'.format(o)+" - "+str(o.datatype),MESSAGE_CATEGORY, Qgis.Info)
-                    self.graph.remove((s,p,o))
-                    self.graph.add((s,p,Literal(self.processLiteral(o,o.datatype,""),datatype=o.datatype)))
-                    QgsMessageLog.logMessage('AFTER "{}"'.format(o)+" - "+str(o.datatype),MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage('ISLITERAL "{}"'.format(o)+" - "+str(o.datatype),MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage(str(o.datatype),MESSAGE_CATEGORY, Qgis.Info)
+                    if str(o.datatype) in self.supportedLiteralTypes:
+                        QgsMessageLog.logMessage('ISGEOLITERAL "{}"'.format(self.graph),MESSAGE_CATEGORY, Qgis.Info)
+                        newliteral=Literal(self.processLiteral(o,o.datatype,"",self.crsdef),datatype=o.datatype)
+                        self.graph.set((s,p,newliteral))
+                        QgsMessageLog.logMessage('AFTER "{}"'.format(newliteral)+" - "+str(newliteral.datatype),MESSAGE_CATEGORY, Qgis.Info)
         return True
-
-    ## Processes query results and reformats them to a QGIS layer.
-    #  @param self The object pointer.
-    #  @param results The query results
-    #  @param reproject The crs from which to reproject to WGS84
-    #  @param mandatoryvars mandatoryvariables to find in the query result
-    #  @param geooptional indicates if a geometry is mandatory
-    def processResults(self,results,reproject,mandatoryvars,geooptional):
-        latval=mandatoryvars[0]
-        lonval=""
-        if len(mandatoryvars)>1:
-            lonval=mandatoryvars[1]
-        features = []
-        first=True
-        newobject=True
-        item=""
-        for result in results["results"]["bindings"]:
-            if "item" in result and "rel" in result and "val" in result and (item=="" or result["item"]["value"]!=item) and "geo" in mandatoryvars:
-                if item!="":
-                    myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                    features.append(feature)
-                properties = {}
-                item=result["item"]["value"]
-            if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (item=="" or result["item"]["value"]!=item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
-                if item!="":
-                    myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
-                    feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                    features.append(feature)
-                properties = {}
-                item=result["item"]["value"]
-            #if not "rel" in result and not "val" in result:
-            properties = {}
-            for var in results["head"]["vars"]:
-                if var in result:
-                    if var=="rel" and "val" in result:
-                        properties[result[var]["value"]] = result["val"]["value"]
-                    elif var!="val":
-                        properties[var] = result[var]["value"]
-            if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                features.append(feature)
-            elif not "rel" in result and not "val" in result and latval in result and lonval in result and reproject==27700:
-                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[latval]["value"]))+" "+str(float(result[lonval]["value"]))+")","wkt",reproject)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                features.append(feature)
-            elif not "rel" in result and not "val" in result and latval in result and lonval in result and reproject!=27700:
-                myGeometryInstanceJSON=self.processLiteral("POINT("+str(float(result[lonval]["value"]))+" "+str(float(result[latval]["value"]))+")","wkt",reproject)
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-                features.append(feature)
-            elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
-                feature = { 'type': 'Feature', 'properties': properties, 'geometry':  {} }
-                features.append(feature)
-        if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
-            myGeometryInstanceJSON=self.processLiteral(result["geo"]["value"],"wkt",reproject)
-            feature = { 'type': 'Feature', 'properties': properties, 'geometry':  json.loads(myGeometryInstanceJSON) }
-            features.append(feature)		
-        if features==[] and len(results["results"]["bindings"])==0:
-            return None
-        if features==[] and len(results["results"]["bindings"])>0:
-            return len(results["results"]["bindings"])
-        geojson = {'type': 'FeatureCollection', 'features': features }
-        return geojson
-
 
     def finished(self, result):
         self.progress.close()
@@ -188,5 +133,6 @@ class ConvertCRSTask(QgsTask):
             fo.write(self.graph.serialize(format="turtle").decode())
             fo.close()
         iface.messageBar().pushMessage("Save converted file", "OK", level=Qgis.Success)
+        self.dialog.close()
 
  

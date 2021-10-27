@@ -323,6 +323,7 @@ class SPAQLunicorn:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
         if self.triplestoreconf[endpointIndex]["endpoint"] in self.savedQueriesJSON:
+            self.dlg.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                  self.dlg.savedQueries.addItem(concept["label"])
 
