@@ -322,6 +322,9 @@ class SPAQLunicorn:
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                  self.dlg.queryTemplates.addItem(concept["label"])
+        if self.triplestoreconf[endpointIndex]["endpoint"] in self.savedQueriesJSON:
+            for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
+                 self.dlg.savedQueries.addItem(concept["label"])
 
     ## Gets GeoJSON reperesentations from a graph given by an RDF file or data source.
     #  @param self The object pointer.

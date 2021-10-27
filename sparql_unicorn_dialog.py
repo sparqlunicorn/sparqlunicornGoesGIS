@@ -34,6 +34,7 @@ from qgis.PyQt.QtGui import QRegExpValidator,QStandardItemModel,QDesktopServices
 from qgis.PyQt.QtWidgets import QComboBox,QCompleter,QTableWidgetItem,QHBoxLayout,QPushButton,QWidget,QAbstractItemView,QListView,QMessageBox,QApplication,QMenu,QAction
 from rdflib.plugins.sparql import prepareQuery
 from .whattoenrich import EnrichmentDialog
+from .convertcrsdialog import ConvertCRSDialog
 from .tooltipplaintext import ToolTipPlainText
 from .enrichmenttab import EnrichmentTab
 from .interlinkingtab import InterlinkingTab
@@ -102,21 +103,22 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.inp_sparql2.columnvars={}
         self.inp_sparql2.textChanged.connect(self.validateSPARQL)
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
-        self.areaconcepts.hide()
-        self.areas.hide()
-        self.label_8.hide()
-        self.label_9.hide()
-        self.savedQueries.hide()
-        self.loadQuery.hide()
-        self.saveQueryButton.hide()
-        self.saveQueryName.hide()
-        self.savedQueryLabel.hide()
-        self.saveQueryName_2.hide()
+        #self.areaconcepts.hide()
+        #self.areas.hide()
+        #self.label_8.hide()
+        #self.label_9.hide()
+        #self.savedQueries.hide()
+        #self.loadQuery.hide()
+        #self.saveQueryButton.hide()
+        #self.saveQueryName.hide()
+        #self.savedQueryLabel.hide()
+        #self.saveQueryName_2.hide()
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
         self.bboxButton.clicked.connect(self.getPointFromCanvas)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
+        self.convertTTLCRS.clicked.connect(self.buildConvertCRSDialog)
         self.chooseLayerInterlink.clear()
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
@@ -151,6 +153,8 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         queryName=self.saveQueryName.text()
         if queryName!=None and queryName!="":
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]]=[]
             self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append({"label":queryName,"query":self.inp_sparql2.toPlainText()})
             self.savedQueries.addItem(queryName)
             f = open(os.path.join(__location__, 'savedqueries.json'), "w")
@@ -180,6 +184,11 @@ class SPAQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def buildLoadGraphDialog(self):	
         self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf,self.maindlg,self)	
         self.searchTripleStoreDialog.setWindowTitle("Load Graph")	
+        self.searchTripleStoreDialog.exec_()
+
+    def buildConvertCRSDialog(self):	
+        self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf,self.maindlg,self)	
+        self.searchTripleStoreDialog.setWindowTitle("Convert CRS")	
         self.searchTripleStoreDialog.exec_()
 
     ## 

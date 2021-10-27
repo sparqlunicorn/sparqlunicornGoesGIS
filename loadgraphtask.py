@@ -16,7 +16,7 @@ MESSAGE_CATEGORY = 'LoadGraphTask'
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class LoadGraphTask(QgsTask):
 
-    def __init__(self, description, filename, loadgraphdlg,dlg,maindlg, query,triplestoreconf,progress):
+    def __init__(self, description, filename, loadgraphdlg,dlg,maindlg, query,triplestoreconf,progress,closedlg):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress=progress
@@ -27,6 +27,7 @@ class LoadGraphTask(QgsTask):
         self.query=query
         self.graph=None
         self.geoconcepts=None
+        self.closedlg=closedlg
         self.exception=None
         self.filename=filename
         self.geojson=None
@@ -84,7 +85,8 @@ class LoadGraphTask(QgsTask):
             self.dlg.inp_sparql2.columnvars={}
             self.maindlg.loadedfromfile=True
             self.maindlg.justloadingfromfile=False
-            self.loadgraphdlg.close()
+            if self.closedlg:
+                self.loadgraphdlg.close()
         else:
             msgBox=QMessageBox()
             msgBox.setText(self.exception)

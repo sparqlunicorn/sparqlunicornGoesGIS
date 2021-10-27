@@ -2,22 +2,22 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog,QFileDialog
 from qgis.PyQt import QtCore
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator
-from .loadgraphtask import LoadGraphTask
+from .convertcrstask import ConvertCRSTask
 import os.path
 import sys
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'loadgraphdialog.ui'))
+    os.path.dirname(__file__), 'convertcrsdialog.ui'))
 
 ## 
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
-class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
+class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
 	## The triple store configuration file
     triplestoreconf=None
 	## Prefix map
@@ -27,18 +27,18 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
 	
     def __init__(self,triplestoreconf={},maindlg=None,parent=None):
         """Constructor."""
-        super(LoadGraphDialog, self).__init__(parent)
+        super(ConvertCRSDialog, self).__init__(parent)
         self.setupUi(self)
         self.triplestoreconf=triplestoreconf
         self.dlg=parent
         self.maindlg=maindlg
+        self.projectionSelect.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
-        self.graphURIEdit.setValidator(urlvalidator)
-        self.graphURIEdit.textChanged.connect(self.check_state1)
-        self.graphURIEdit.textChanged.emit(self.graphURIEdit.text())
         self.loadFromFileButton.clicked.connect(self.loadFile)
-        self.loadFromURIButton.clicked.connect(self.loadURI)
+        self.startConversionButton.clicked.connect(self.startConversion)
+        self.cancelButton.clicked.connect(self.close)
+        #self.loadFromURIButton.clicked.connect(self.loadURI)
 
     def check_state1(self):
         self.check_state(self.graphURIEdit)
@@ -61,16 +61,19 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             filepath=fileNames[0].split(".")
-            progress = QProgressDialog("Loading Graph: "+fileNames[0], "Abort", 0, 0, self)
-            progress.setWindowModality(Qt.WindowModal)
-            progress.setCancelButton(None)
-            self.qtask=LoadGraphTask("Loading Graph: "+fileNames[0], fileNames[0],self,self.dlg,self.maindlg,self.triplestoreconf[0]["geoconceptquery"],self.triplestoreconf,progress,True)
-            QgsApplication.taskManager().addTask(self.qtask)
+            self.chosenFileLabel.setText(fileNames[0])
+    
+    def startConversion(self):
+        progress = QProgressDialog("Loading Graph and converting CRS of graph: "+self.chosenFileLabel.text(), "Abort", 0, 0, self)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setCancelButton(None)
+        self.qtask=ConvertCRSTask("Converting CRS of Graph: "+ self.chosenFileLabel.text(),  self.chosenFileLabel.text(),self.projectionSelect.crs(),self,progress)
+        QgsApplication.taskManager().addTask(self.qtask)
 			
     def loadURI(self):
         if self.graphURIEdit.text()!="":
             progress = QProgressDialog("Loading Graph from "+self.graphURIEdit.text(), "Abort", 0, 0, self)
             progress.setWindowModality(Qt.WindowModal)
             progress.setCancelButton(None)
-            self.qtask=LoadGraphTask("Loading Graph: "+self.graphURIEdit.text(), self.graphURIEdit.text(),self,self.dlg,self.maindlg,self.triplestoreconf[0]["geoconceptquery"],self.triplestoreconf,progress,True)
-            QgsApplication.taskManager().addTask(self.qtask)
+            self.qtask=LoadGraphTask("Loading Graph: "+self.graphURIEdit.text(), self.graphURIEdit.text(),self,self.dlg,self.maindlg,self.triplestoreconf[0]["geoconceptquery"],self.triplestoreconf,progress)
+            QgsApplication.taskManager().addTask(self.qtask) 
