@@ -3,7 +3,8 @@ var a00146 =
     [ "__init__", "a00146.html#a5ed333a37d6f700c2b29a0fb83870d80", null ],
     [ "detectLiteralType", "a00146.html#a9894298861cc9aa2a8e0b4209e08c3e0", null ],
     [ "finished", "a00146.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processLiteral", "a00146.html#af05d8aa0ef7a9307dfa5e0d690c9a98c", null ],
+    [ "processLiteral", "a00146.html#aae48cf1625ab7d7bcff5a877b5c10511", null ],
+    [ "processResults", "a00146.html#ab368e533f681a396257e919f7acf52fd", null ],
     [ "run", "a00146.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "crsdef", "a00146.html#a833c3fbda4bca0e0f0c2a5c418654fa9", null ],
     [ "dialog", "a00146.html#a3d2da04d187a7112445f18a9f20b39ef", null ],
@@ -17,6 +18,5 @@ var a00146 =
     [ "proxyPassword", "a00146.html#add5abc4de55257ede4e0ab5db30de1ce", null ],
     [ "proxyPort", "a00146.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4", null ],
     [ "proxyType", "a00146.html#a495fe54c42ce06ce71582737400c0d02", null ],
-    [ "proxyUser", "a00146.html#ab27c8ae6a38f63214b0413f461033e85", null ],
-    [ "supportedLiteralTypes", "a00146.html#a28a4112f838898d008910c4320f0732e", null ]
+    [ "proxyUser", "a00146.html#ab27c8ae6a38f63214b0413f461033e85", null ]
 ];
