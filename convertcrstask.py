@@ -68,13 +68,17 @@ class ConvertCRSTask(QgsTask):
                 reproject=literal[slashindex:(index-1)]
                 geom=QgsGeometry.fromWkt(literal[index:])
             else:
+                reproject="CRS84"
                 geom=QgsGeometry.fromWkt(literal)
         #elif "gml" in literaltype.lower():
         #    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
         elif "wkb" in literaltype.lower():
             geom=QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom!=None and projectto!=None:
-            sourceCrs = QgsCoordinateReferenceSystem("EPSG:"+str(reproject))
+            if reproject!="CRS84":
+                sourceCrs = QgsCoordinateReferenceSystem("EPSG:"+str(reproject))
+            else:
+                sourceCrs = QgsCoordinateReferenceSystem("CRS:84")
             destCrs = QgsCoordinateReferenceSystem(projectto)
             QgsMessageLog.logMessage('PROJECTIT '+str(sourceCrs.description())+" "+str(projectto.description()),MESSAGE_CATEGORY, Qgis.Info)
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
