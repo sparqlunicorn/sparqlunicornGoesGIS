@@ -8,6 +8,6 @@ authors:
     given-names: Timo
     orcid: https://orcid.org/0000-0002-9499-5840
 title: "SPARQLing Unicorn QGIS Plugin"
-version: 0.12.1
+version: 0.12.2
 doi: 10.5281/zenodo.3786814
-date-released: 2021-01-21
+date-released: 2021-06-11
