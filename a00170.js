@@ -1,10 +1,14 @@
 var a00170 =
 [
-    [ "authenticatedby", "a00170.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
-    [ "firstname", "a00170.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
-    [ "lastname", "a00170.html#a3c8f58d761707273489a76751c4905fb", null ],
-    [ "name", "a00170.html#ab74e6bf80237ddc4109968cedc58c151", null ],
-    [ "userid", "a00170.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
-    [ "username", "a00170.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
-    [ "userurl", "a00170.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
+    [ "__init__", "a00170.html#a921f465a77663034ebb6932d1ac38188", null ],
+    [ "check_state", "a00170.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00170.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "loadFile", "a00170.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00170.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "dlg", "a00170.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00170.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00170.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00170.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a00170.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00170.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

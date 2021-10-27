@@ -1,3 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$a00142.html" title=" " alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,81,209"/>
+<area shape="rect" id="node2" href="$a00146.html" title=" " alt="" coords="155,5,283,32"/>
+<area shape="rect" id="node3" href="$a00150.html" title=" " alt="" coords="137,56,300,83"/>
+<area shape="rect" id="node4" href="$a00154.html" title="Executes an enrichment task on a given layer with a given configuration." alt="" coords="137,107,301,133"/>
+<area shape="rect" id="node5" href="$a00162.html" title=" " alt="" coords="131,157,307,184"/>
+<area shape="rect" id="node6" href="$a00174.html" title="Loads a graph from an RDF file either by providing an internet address or a file path." alt="" coords="158,208,279,235"/>
+<area shape="rect" id="node7" href="$a00194.html" title=" " alt="" coords="155,259,282,285"/>
+<area shape="rect" id="node8" href="$a00214.html" title=" " alt="" coords="171,309,266,336"/>
+<area shape="rect" id="node9" href="$a00266.html" title=" " alt="" coords="129,360,308,387"/>
 </map>

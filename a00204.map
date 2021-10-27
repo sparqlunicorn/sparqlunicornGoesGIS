@@ -1,6 +1,6 @@
-<map id="SPAQLunicornDialog" name="SPAQLunicornDialog">
-<area shape="rect" id="node1" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="83,95,237,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00774.html" title=" " alt="" coords="105,5,215,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="239,5,326,32"/>
+<map id="RectangleMapTool" name="RectangleMapTool">
+<area shape="rect" id="node1" title=" " alt="" coords="153,139,294,165"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,169,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="194,5,253,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="277,5,327,32"/>
 </map>

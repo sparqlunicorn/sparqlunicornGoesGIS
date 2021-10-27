@@ -1,4 +1,6 @@
 var a00096 =
 [
-    [ "InterlinkingTab", "a00150.html", "a00150" ]
+    [ "BBOXDialog", "a00138.html", "a00138" ],
+    [ "NominatimText", "a00134.html", "a00134" ],
+    [ "SPARQLCompleter", "a00130.html", "a00130" ]
 ];

@@ -1,5 +1,4 @@
-<map id="GitlabRequestInterceptor" name="GitlabRequestInterceptor">
-<area shape="rect" id="node1" title=" " alt="" coords="36,155,221,181"/>
-<area shape="rect" id="node2" href="$a00166.html" title=" " alt="" coords="55,80,202,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,252,32"/>
+<map id="LoadGraphTask" name="LoadGraphTask">
+<area shape="rect" id="node1" title="Loads a graph from an RDF file either by providing an internet address or a file path." alt="" coords="5,80,127,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="28,5,104,32"/>
 </map>
