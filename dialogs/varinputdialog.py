@@ -30,12 +30,12 @@ class VarInputDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         layers = QgsProject.instance().layerTreeRoot().children()
-        for layer in layers:
-            if layer.layer().type() == QgsMapLayer.VectorLayer:
-                self.chooseLayer.addItem(layer.name())
+        print(layers)
         self.inputfield = inputfield
         self.columnvars = columnvars
         self.chooseLayer.clear()
+        for layer in layers:
+            self.chooseLayer.addItem(layer.name())
         self.chooseLayer.currentIndexChanged.connect(self.layerselectaction)
         self.chooseField.clear()
         self.applyButton.clicked.connect(self.applyVar)
@@ -49,10 +49,13 @@ class VarInputDialog(QDialog, FORM_CLASS):
         layers = QgsProject.instance().layerTreeRoot().children()
         index = self.chooseLayer.currentIndex()
         layer = layers[index].layer()
-        fieldnames = [field.name() for field in layer.fields()]
         self.chooseField.clear()
-        for field in fieldnames:
-            self.chooseField.addItem(field)
+        try:
+            fieldnames = [field.name() for field in layer.fields()]
+            for field in fieldnames:
+                self.chooseField.addItem(field)
+        except:
+            print("No vector layer")
 
     ## 
     #  @brief Inserts a variable into the query as stated in the query dialog.
@@ -87,11 +90,11 @@ class VarInputDialog(QDialog, FORM_CLASS):
             if att != "":
                 if self.varType.currentText() == "URI" or (
                         self.varType.currentText() == "Automatic" and att.startswith("http")):
-                    query += "<" + att + ">"
+                    queryinsert += "<" + att + ">"
                 elif self.varType.currentText() == "Integer" or self.varType.currentText() == "Double":
-                    query += att
+                    queryinsert += att
                 elif self.varType.currentText() == "Date":
-                    query += "\"" + att + "\"^^xsd:date"
+                    queryinsert += "\"" + att + "\"^^xsd:date"
                 elif self.varType.currentText() == "String" or self.varType.currentText() == "Automatic":
                     queryinsert += "\"" + att + "\""
                     if self.isLabelLabel.isChecked():
