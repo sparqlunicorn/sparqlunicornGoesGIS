@@ -794,6 +794,9 @@ WARN_LOGFILE           = ./warning.log
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = ../ \
+                         ../dialogs/ \
+                         ../tasks/ \
+                         ../util/ \
                          ../docs/docuCommand.dox \
                          ../docs/mainpage.dox \
                          ../docs/kdtreedoc.dox \
