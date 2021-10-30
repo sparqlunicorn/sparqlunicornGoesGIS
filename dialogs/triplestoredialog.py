@@ -4,15 +4,13 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
-from .sparqlhighlighter import SPARQLHighlighter
-from .detecttriplestoretask import DetectTripleStoreTask
-from SPARQLWrapper import SPARQLWrapper, JSON
+from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 import os.path
 import json
-import sys
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'triplestoredialog.ui'))
+    os.path.dirname(__file__), 'ui/triplestoredialog.ui'))
 
 class TripleStoreDialog(QDialog,FORM_CLASS):
 	

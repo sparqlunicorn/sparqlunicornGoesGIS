@@ -1,5 +1,5 @@
 __pycache__/
-triplestoreconf_personal.json
+conf/triplestoreconf_personal.json
 dependencies/isodate/__pycache__/
 dependencies/rdflib/__pycache__/
 dependencies/SPARQLWrapper/__pycache__/

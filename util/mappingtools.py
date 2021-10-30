@@ -1,9 +1,9 @@
-from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand,QgsMapTool
-from qgis.PyQt.QtCore import pyqtSignal,QUrl,Qt
+from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand, QgsMapTool
+from qgis.PyQt.QtCore import pyqtSignal, QUrl, Qt
 from qgis.PyQt.QtGui import QColor
-from qgis.PyQt.QtWidgets import QInputDialog
-from qgis.core import QgsProject, Qgis,QgsRasterLayer,QgsPointXY, QgsRectangle, QgsDistanceArea,QgsWkbTypes
-from math import sqrt,pi,cos,sin
+from qgis.core import QgsProject, Qgis, QgsRasterLayer, QgsPointXY, QgsRectangle, QgsDistanceArea, QgsWkbTypes
+from math import sqrt, pi, cos, sin
+
 
 class CircleMapTool(QgsMapTool):
     '''Outil de sélection par cercle, tiré de selectPlusFr'''
@@ -47,8 +47,8 @@ class CircleMapTool(QgsMapTool):
         if self.rb.numberOfVertices() > 3:
             self.selectionDone.emit()
         else:
-            radius=2
-			#, ok = QInputDialog.getDouble(self.iface.mainWindow(), tr('Radius'),tr('Give a radius in m:'), min=0)
+            radius = 2
+            # , ok = QInputDialog.getDouble(self.iface.mainWindow(), tr('Radius'),tr('Give a radius in m:'), min=0)
             if radius > 0:
                 cp = self.toMapCoordinates(e.pos())
                 cp.setX(cp.x() + radius)
@@ -65,17 +65,18 @@ class CircleMapTool(QgsMapTool):
     def deactivate(self):
         self.rb.reset(True)
         QgsMapTool.deactivate(self)
-		
-    def rbcircle(self,rb, center, edgePoint, N):
+
+    def rbcircle(self, rb, center, edgePoint, N):
         '''Fonction qui affiche une rubberband sous forme de cercle'''
         r = sqrt(center.sqrDist(edgePoint))
         self.rb.reset(QgsWkbTypes.PolygonGeometry)
         for itheta in range(N + 1):
             theta = itheta * (2.0 * pi / N)
             rb.addPoint(QgsPointXY(center.x() + r * cos(theta),
-                               center.y() + r * sin(theta)))
+                                   center.y() + r * sin(theta)))
         return
-		
+
+
 class PolygonMapTool(QgsMapTool):
     '''Outil de sélection par polygone, tiré de selectPlusFr'''
 
@@ -128,15 +129,14 @@ class PolygonMapTool(QgsMapTool):
 
 
 class RectangleMapTool(QgsMapToolEmitPoint):
-
     rectangleCreated = pyqtSignal()
     deactivated = pyqtSignal()
-	
-    point1=""
-    point2=""
-    point3=""
-    point4=""
-    chosen=False
+
+    point1 = ""
+    point2 = ""
+    point3 = ""
+    point4 = ""
+    chosen = False
 
     def __init__(self, canvas):
         self.canvas = canvas
@@ -187,7 +187,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         # True to update canvas
         self.rubberBand.addPoint(self.point4, True)
         self.rubberBand.show()
-        chosen=True
+        chosen = True
 
     def rectangle(self):
         if self.startPoint is None or self.endPoint is None:

@@ -1,16 +1,12 @@
 import sys
 from urllib.parse import urlencode, parse_qs
-<<<<<<< HEAD
-=======
 import requests
->>>>>>> 62eabd13feb11502469f2bb0c5c2a2fb1328b89b
 from PyQt5 import QtCore
 from PyQt5.QtWebEngineCore import QWebEngineUrlRequestInterceptor
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QApplication
 
-<<<<<<< HEAD
 ClientId = ''
 ClientSecret = ''
 RedirectUrl = 'localhost/callback'
@@ -34,7 +30,6 @@ class RequestInterceptor(QWebEngineUrlRequestInterceptor):
         super(RequestInterceptor, self).__init__()
         self.app = app
 
-=======
 class RequestInterceptor(QWebEngineUrlRequestInterceptor):
 
     oauthcode=None
@@ -123,16 +118,11 @@ class GitlabRequestInterceptor(RequestInterceptor):
 	def __init__(self, app):
         super(RequestInterceptor, self).__init__()
         self.app = app
-		
->>>>>>> 62eabd13feb11502469f2bb0c5c2a2fb1328b89b
     def interceptRequest(self, info):
         if RedirectUrl == (info.requestUrl().host()+info.requestUrl().path()):
             params = parse_qs(info.requestUrl().query())
             if 'code' in params.keys():
                 print('OAuth code is {code}'.format(code=params['code']))
-<<<<<<< HEAD
-                self.app.quit()
-=======
                 self.oauthcode=params['code']
 				
     def getUserInformation(self,baseurl):
@@ -144,5 +134,4 @@ class GitlabRequestInterceptor(RequestInterceptor):
         user.userurl=res["web_url"]
         user.userid=res["id"]
         user.authenticatedby="Gitlab ("+baseurl+")"
-		
->>>>>>> 62eabd13feb11502469f2bb0c5c2a2fb1328b89b
+

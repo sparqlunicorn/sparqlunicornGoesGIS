@@ -1,21 +1,17 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, QRadioButton, QListWidgetItem, QTableWidgetItem
 from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
-from SPARQLWrapper import SPARQLWrapper, JSON
-from .searchtask import SearchTask
-import json
+from ..tasks.searchtask import SearchTask
 import urllib
-import requests
 import os.path
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'searchdialog.ui'))
+    os.path.dirname(__file__), 'ui/searchdialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
 
