@@ -47,7 +47,7 @@ var hierarchy =
       [ "ConvertCRSTask", "a00201.html", null ],
       [ "DetectTripleStoreTask", "a00205.html", null ],
       [ "EnrichmentQueryTask", "a00209.html", null ],
-      [ "GeoConceptsQueryTask", "a00213.html", null ],
+      [ "GeoCollectionsQueryTask", "a00213.html", null ],
       [ "GeoConceptsQueryTask", "a00217.html", null ],
       [ "LoadGraphTask", "a00221.html", null ],
       [ "QueryLayerTask", "a00225.html", null ],

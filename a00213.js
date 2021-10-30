@@ -2,7 +2,6 @@ var a00213 =
 [
     [ "__init__", "a00213.html#a05f4a645bb6fcbc82211b06534cf6cb1", null ],
     [ "finished", "a00213.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "getLabelsForClasses", "a00213.html#a9668aa263c374afae42279e9ac4cd94d", null ],
     [ "run", "a00213.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "amountoflabels", "a00213.html#a920977da185a945b106fd389906f0fda", null ],
     [ "completerClassList", "a00213.html#a41e122cb1ac43d786b64e494f7a5422c", null ],

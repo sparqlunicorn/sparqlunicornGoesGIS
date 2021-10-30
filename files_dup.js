@@ -12,8 +12,8 @@ var files_dup =
     [ "enrichmenttab.py", "a00005.html", [
       [ "EnrichmentTab", "a00133.html", "a00133" ]
     ] ],
-    [ "geoconceptsquerytask.py", "a00065.html", "a00065" ],
-    [ "getcollectionstask.py", "a00068.html", "a00068" ],
+    [ "geocollectionsquerytask.py", "a00065.html", "a00065" ],
+    [ "geoconceptsquerytask.py", "a00068.html", "a00068" ],
     [ "interlinkingtab.py", "a00008.html", [
       [ "InterlinkingTab", "a00137.html", "a00137" ]
     ] ],
