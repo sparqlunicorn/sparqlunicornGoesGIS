@@ -1,5 +1,4 @@
 var annotated_dup =
 [
-    [ "sparqlunicornGoesGIS", "a00095.html", "a00095" ],
-    [ "FORM_CLASS", "a00790.html", null ]
+    [ "sparqlunicornGoesGIS", "a00020.html", "a00020" ]
 ];

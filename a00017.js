@@ -1,5 +1,5 @@
 var a00017 =
 [
-    [ "EnrichmentQueryTask", "a00154.html", "a00154" ],
-    [ "MESSAGE_CATEGORY", "a00017.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
+    [ "SPARQLunicorn", "a00038.html", "a00038" ],
+    [ "geoconcepts", "a00017.html#acbb10aa24d8002b4fa9f9bac04dd92b9", null ]
 ];
