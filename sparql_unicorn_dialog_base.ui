@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
-    <height>659</height>
+    <width>1131</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
      <x>0</x>
      <y>0</y>
      <width>1131</width>
-     <height>661</height>
+     <height>701</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -120,7 +120,7 @@
        <x>10</x>
        <y>130</y>
        <width>781</width>
-       <height>401</height>
+       <height>431</height>
       </rect>
      </property>
      <property name="font">
@@ -145,7 +145,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>540</y>
+       <y>570</y>
        <width>1101</width>
        <height>41</height>
       </rect>
@@ -165,7 +165,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>590</y>
+       <y>620</y>
        <width>151</width>
        <height>28</height>
       </rect>
@@ -178,7 +178,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>590</y>
+       <y>620</y>
        <width>641</width>
        <height>21</height>
       </rect>
@@ -188,7 +188,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>820</x>
-       <y>590</y>
+       <y>620</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -201,7 +201,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>1020</x>
-       <y>590</y>
+       <y>620</y>
        <width>91</width>
        <height>32</height>
       </rect>
@@ -231,7 +231,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>105</y>
-       <width>771</width>
+       <width>781</width>
        <height>21</height>
       </rect>
      </property>
@@ -330,14 +330,14 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="filterConceptsLabel">
      <property name="geometry">
       <rect>
-       <x>790</x>
+       <x>810</x>
        <y>100</y>
-       <width>131</width>
+       <width>121</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>Filter GeoConcepts:</string>
+      <string>Filter Concept Results:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="filterConcepts">
@@ -347,16 +347,6 @@ SELECT ?label ?geo ?item WHERE {
        <y>100</y>
        <width>171</width>
        <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QListView" name="geoClassList">
-     <property name="geometry">
-      <rect>
-       <x>785</x>
-       <y>130</y>
-       <width>331</width>
-       <height>401</height>
       </rect>
      </property>
     </widget>
@@ -484,6 +474,64 @@ SELECT ?label ?geo ?item WHERE {
       <string>Convert TTL CRS</string>
      </property>
     </widget>
+    <widget class="QTabWidget" name="conceptViewTabWidget">
+     <property name="geometry">
+      <rect>
+       <x>790</x>
+       <y>130</y>
+       <width>331</width>
+       <height>431</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>2</number>
+     </property>
+     <widget class="QWidget" name="geoConceptsTab">
+      <attribute name="title">
+       <string>GeoConcepts</string>
+      </attribute>
+      <widget class="QListView" name="geoClassList">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>331</width>
+         <height>411</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="featureCollectionsTab">
+      <attribute name="title">
+       <string>FeatureCollections</string>
+      </attribute>
+      <widget class="QListView" name="featureCollectionClassList">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>331</width>
+         <height>411</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="GeometryCollectionsTab">
+      <attribute name="title">
+       <string>GeometryCollections</string>
+      </attribute>
+      <widget class="QListView" name="geometryCollectionClassList">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>331</width>
+         <height>411</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -495,7 +543,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>10</x>
        <y>140</y>
        <width>1071</width>
-       <height>391</height>
+       <height>431</height>
       </rect>
      </property>
      <property name="minimumSize">
@@ -560,8 +608,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="exportInterlink">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>540</y>
+       <x>230</x>
+       <y>590</y>
        <width>521</width>
        <height>61</height>
       </rect>
@@ -778,7 +826,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>570</y>
+       <y>610</y>
        <width>201</width>
        <height>41</height>
       </rect>
@@ -791,7 +839,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>900</x>
-       <y>570</y>
+       <y>610</y>
        <width>161</width>
        <height>41</height>
       </rect>
@@ -816,7 +864,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>20</x>
        <y>100</y>
        <width>1051</width>
-       <height>451</height>
+       <height>501</height>
       </rect>
      </property>
     </widget>
