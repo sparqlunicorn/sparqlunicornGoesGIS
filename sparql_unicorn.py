@@ -209,9 +209,9 @@ class SPARQLunicorn:
         # query
         query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
-            curindex = self.dlg.proxyModel.mapToSource(self.dlg.geoClassList.selectionModel().currentIndex())
-            if curindex != None and self.dlg.geoClassListModel.itemFromIndex(curindex) != None:
-                concept = self.dlg.geoClassListModel.itemFromIndex(curindex).data(1)
+            curindex = self.dlg.proxyModel.mapToSource(self.dlg.geoTreeView.selectionModel().currentIndex())
+            if curindex != None and self.dlg.geoTreeViewModel.itemFromIndex(curindex) != None:
+                concept = self.dlg.geoTreeViewModel.itemFromIndex(curindex).data(1)
             else:
                 concept = "http://www.opengis.net/ont/geosparql#Feature"
             geojson = self.getGeoJSONFromGeoConcept(self.currentgraph, concept)
@@ -279,7 +279,7 @@ class SPARQLunicorn:
                                           triplestoreurl,
                                           query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                           self.dlg.inp_sparql2, queryvar, getlabels, self.dlg.layercount,
-                                          self.dlg.geoClassListModel, examplequery, self.dlg.geoClassList,
+                                          self.dlg.geoTreeViewModel, examplequery, self.dlg.geoTreeView,
                                           self.dlg.autocomplete, self.dlg)
         QgsApplication.taskManager().addTask(self.qtask)
         
@@ -316,9 +316,10 @@ class SPARQLunicorn:
     def endpointselectaction(self):
         endpointIndex = self.dlg.comboBox.currentIndex()
         self.dlg.queryTemplates.clear()
+        self.dlg.filterConcepts.setText("")
         print("changing endpoint")
         conceptlist = []
-        self.dlg.geoClassListModel.clear()
+        self.dlg.geoTreeViewModel.clear()
         self.dlg.savedQueries.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "endpoint"] in self.savedQueriesJSON:
@@ -331,7 +332,7 @@ class SPARQLunicorn:
                 self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"] != "":
             item = QStandardItem()
             item.setText("Loading...")
-            self.dlg.geoClassListModel.appendRow(item)
+            self.dlg.geoTreeViewModel.appendRow(item)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],
                                                   self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
@@ -373,10 +374,10 @@ class SPARQLunicorn:
                 item.setData(concept, 1)
                 item.setText(concept[concept.rfind('/') + 1:])
                 self.dlg.autocomplete["completerClassList"][concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-                self.dlg.geoClassListModel.appendRow(item)
+                self.dlg.geoTreeViewModel.appendRow(item)
             self.dlg.inp_sparql2.updateNewClassList()
             if len(conceptlist) > 0:
-                self.dlg.geoClassList.selectionModel().setCurrentIndex(self.dlg.geoClassList.model().index(0, 0),
+                self.dlg.geoTreeView.selectionModel().setCurrentIndex(self.dlg.geoTreeView.model().index(0, 0),
                                                                        QItemSelectionModel.SelectCurrent)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
@@ -789,7 +790,8 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
-            self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
+            #self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
+            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
         # if self.first_start == False:
         #    self.dlg.loadUnicornLayers()

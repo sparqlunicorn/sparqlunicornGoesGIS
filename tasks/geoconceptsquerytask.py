@@ -3,7 +3,7 @@ import requests
 import urllib
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
-from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
 from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -31,6 +31,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.geoClassListGui = geoClassListGui
         self.amountoflabels = -1
         self.geoClassList = geoClassList
+        self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.examplequery = examplequery
         self.resultlist = []
         self.viewlist = []
@@ -119,6 +120,11 @@ class GeoConceptsQueryTask(QgsTask):
 
     def finished(self, result):
         self.geoClassList.clear()
+        #self.dlg.geoTreeView.setModel(None)
+        self.geoTreeViewModel.clear()
+        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
+        self.rootNode=self.geoTreeViewModel.invisibleRootItem()
+        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
         if self.examplequery != None:
             self.sparql.setPlainText(self.examplequery)
             self.sparql.columnvars = {}
@@ -129,7 +135,9 @@ class GeoConceptsQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setData(concept, 1)
                 item.setText(concept[concept.rfind('/') + 1:])
-                self.geoClassList.appendRow(item)
+                item.setForeground(QColor(0,0,0))
+                item.setEditable(False)
+                self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
                                                                                                       concept.split(
@@ -151,7 +159,9 @@ class GeoConceptsQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setData(concept, 1)
                 item.setText(concept[concept.rfind('/') + 1:])
-                self.geoClassList.appendRow(item)
+                item.setForeground(QColor(0,0,0))
+                item.setEditable(False)
+                self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
                                                                                                       concept.split(

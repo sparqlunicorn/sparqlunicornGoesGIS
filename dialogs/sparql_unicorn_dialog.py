@@ -28,7 +28,7 @@ import json
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
-from qgis.core import QgsProject
+from qgis.core import QgsProject,QgsMessageLog, Qgis
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
 from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
@@ -51,6 +51,7 @@ from ..dialogs.loadgraphdialog import LoadGraphDialog
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
 
+MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
@@ -86,25 +87,28 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.comboBox)
-        self.geoClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.geoClassList.setAlternatingRowColors(True)
-        self.geoClassList.setViewMode(QListView.ListMode)
-        self.geoClassList.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.geoClassList.customContextMenuRequested.connect(self.onContext)
-        self.geoClassListModel = QStandardItemModel()
+        self.geoTreeView.setHeaderHidden(True)
+        self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.geoTreeView.setAlternatingRowColors(True)
+        self.geoTreeView.setWordWrap(True)
+        self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.geoTreeView.customContextMenuRequested.connect(self.onContext)
+        self.geoTreeViewModel = QStandardItemModel()
+        self.geoTreeView.setModel(self.geoTreeViewModel)
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.proxyModel = QSortFilterProxyModel(self)
         self.proxyModel.sort(0)
-        self.proxyModel.setSourceModel(self.geoClassListModel)
+        self.proxyModel.setSourceModel(self.geoTreeViewModel)
         self.featureCollectionProxyModel = QSortFilterProxyModel(self)
         self.featureCollectionProxyModel.sort(0)
         self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
         self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
         self.geometryCollectionProxyModel.sort(0)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
-        self.geoClassList.setModel(self.proxyModel)
-        self.geoClassListModel.clear()
+        self.geoTreeView.setModel(self.proxyModel)
+        self.geoTreeViewModel.clear()
+        self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
         self.featureCollectionClassListModel.clear()
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
@@ -154,7 +158,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-        self.geoClassList.selectionModel().selectionChanged.connect(self.viewselectaction)
+        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
@@ -162,6 +166,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
+
 
     def loadQueryFunc(self):
         if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
@@ -171,7 +176,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def saveQueryFunc(self):
         queryName = self.saveQueryName.text()
-        if queryName != None and queryName != "":
+        if queryName is not None and queryName != "":
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
             if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
                 self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
@@ -183,14 +188,14 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             f.close()
 
     def onContext(self):
-        menu = QMenu("Menu", self.geoClassList)
+        menu = QMenu("Menu", self.geoTreeView)
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
 
     def openURL(self):
-        curindex = self.proxyModel.mapToSource(self.geoClassList.selectionModel().currentIndex())
-        concept = self.geoClassListModel.itemFromIndex(curindex).data(1)
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
 
@@ -295,33 +300,45 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #  Usually loads the list of concepts related to the SPARQL endpoint
     #  @param  send The sender of the request
     # 
-    def viewselectaction(self):
+    def viewselectaction(self,selected=None, deselected=None):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
             self.justloadingfromfile = False
             return
         concept = ""
-        curindex = self.proxyModel.mapToSource(self.geoClassList.selectionModel().currentIndex())
-        if self.geoClassList.selectionModel().currentIndex() != None and self.geoClassListModel.itemFromIndex(
-                curindex) != None and re.match(r'.*Q[0-9]+.*', self.geoClassListModel.itemFromIndex(
-                curindex).text()) and not self.geoClassListModel.itemFromIndex(curindex).text().startswith("http"):
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        print("CURINDEX: "+str(curindex))
+        QgsMessageLog.logMessage("SELECTED: "+str(selected),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("CURINDEX: "+str(curindex),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        print("CURITEM: "+str(self.geoTreeViewModel.itemFromIndex(curindex)))
+        QgsMessageLog.logMessage("CURITEM: "+str(self.geoTreeViewModel.itemFromIndex(curindex)),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("ROWCOUNT: "+str(self.geoTreeViewModel.rowCount()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("SELIND: "+str(self.geoTreeView.selectionModel().selectedIndexes()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
+            curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
             self.inp_label.setText(
-                self.geoClassListModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
-            concept = "Q" + self.geoClassListModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
-        elif self.geoClassListModel.itemFromIndex(curindex) != None:
-            concept = self.geoClassListModel.itemFromIndex(curindex).data(1)
+                self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
+            concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
+        elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
+            concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             if "wd:Q%%concept%% ." in \
                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
                 querytext = ""
                 if concept != None and concept.startswith("http"):
                     querytext = \
-                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                        "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
                 elif concept != None:
                     querytext = \
-                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                        "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
                 querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
                     "query"].replace("%%concept%%", concept)
@@ -331,21 +348,21 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 querytext = querytext + " LIMIT " + self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
-        if self.geoClassList.selectionModel().currentIndex() != None and self.geoClassListModel.itemFromIndex(
-                curindex) != None and "#" in self.geoClassListModel.itemFromIndex(curindex).text():
-            self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[
-                                   self.geoClassListModel.itemFromIndex(curindex).text().rfind(
+        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None and "#" in self.geoTreeViewModel.itemFromIndex(curindex).text():
+            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
                                        '#') + 1:].lower().replace(" ", "_"))
-        elif self.geoClassList.selectionModel().currentIndex() != None and self.geoClassListModel.itemFromIndex(
-                curindex) != None:
-            self.inp_label.setText(self.geoClassListModel.itemFromIndex(curindex).text()[
-                                   self.geoClassListModel.itemFromIndex(curindex).text().rfind(
+        elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None:
+            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
                                        '/') + 1:].lower().replace(" ", "_"))
 
     def itemModelToMap(self, model):
         resdict = {}
         for row in range(model.rowCount()):
-            index = model.index(row, 0, self);
+            index = model.index(row, 0, self)
             resdict[model.itemFromIndex(index).text()] = model.itemFromIndex(index).data(1)
         return resdict
 
@@ -355,7 +372,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #
     #  @param  send The sender of the request
     #
-    def deleteEnrichRow(self,send):
+    def deleteEnrichRow(self, send):
         w = send.sender().parent()
         row = self.enrichTable.indexAt(w.pos()).row()
         self.enrichTable.removeRow(row);
@@ -401,8 +418,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
-        if self.prefixes != None and self.comboBox != None and self.comboBox.currentIndex() != None and self.prefixes[
-            self.comboBox.currentIndex()] != None and self.inp_sparql2.toPlainText() != None and self.inp_sparql2.toPlainText() != "":
+        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.prefixes[
+            self.comboBox.currentIndex()] is not None and self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
             try:
                 if self.prefixes[self.comboBox.currentIndex()] != "":
                     prepareQuery(
@@ -524,8 +541,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             msgBox.exec()
             return
 
-
-    ## 
+    ##
     #  @brief Loads a QGIS layer for enrichment into the enrichment dialog.
     #  
     #  @param self The object pointer
@@ -600,7 +616,6 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             msgBox.setText("The chosen layer is not supported for enrichment. You possibly selected a raster layer")
             msgBox.exec()
             return
-
 
     ## Fetch the currently loaded layers.
     #  @param self The object pointer.

@@ -51,6 +51,8 @@ class QueryLayerTask(QgsTask):
         sparql.setQuery(self.query)
         sparql.setMethod(POST)
         sparql.setReturnFormat(JSON)
+        QgsMessageLog.logMessage("QueryLayerTask: " + str(self.query))
+
         try:
             results = sparql.query().convert()
         except Exception as e:
