@@ -99,19 +99,34 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.proxyModel = QSortFilterProxyModel(self)
         self.proxyModel.sort(0)
+        self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxyModel.setSourceModel(self.geoTreeViewModel)
         self.featureCollectionProxyModel = QSortFilterProxyModel(self)
         self.featureCollectionProxyModel.sort(0)
+        self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
         self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
         self.geometryCollectionProxyModel.sort(0)
+        self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
+        self.featureCollectionClassList.setHeaderHidden(True)
+        self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.featureCollectionClassList.setAlternatingRowColors(True)
+        self.featureCollectionClassList.setWordWrap(True)
+        self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.featureCollectionClassListModel.clear()
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
+        self.geometryCollectionClassList.setHeaderHidden(True)
+        self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.geometryCollectionClassList.setAlternatingRowColors(True)
+        self.geometryCollectionClassList.setWordWrap(True)
+        self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.geometryCollectionClassListModel.clear()
         self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
@@ -307,18 +322,6 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             return
         concept = ""
         curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        print("CURINDEX: "+str(curindex))
-        QgsMessageLog.logMessage("SELECTED: "+str(selected),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("CURINDEX: "+str(curindex),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        print("CURITEM: "+str(self.geoTreeViewModel.itemFromIndex(curindex)))
-        QgsMessageLog.logMessage("CURITEM: "+str(self.geoTreeViewModel.itemFromIndex(curindex)),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("ROWCOUNT: "+str(self.geoTreeViewModel.rowCount()),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("SELIND: "+str(self.geoTreeView.selectionModel().selectedIndexes()),
-                                 MESSAGE_CATEGORY, Qgis.Info)
         if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
                 curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
             curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):

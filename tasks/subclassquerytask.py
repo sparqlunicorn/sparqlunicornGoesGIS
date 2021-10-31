@@ -35,7 +35,6 @@ class GeoConceptsQueryTask(QgsTask):
         self.examplequery = examplequery
         self.resultlist = []
         self.viewlist = []
-        self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts")
         s = QSettings()  # getting proxy from qgis options settings
         self.proxyEnabled = s.value("proxy/proxyEnabled")
         self.proxyType = s.value("proxy/proxyType")
@@ -121,9 +120,11 @@ class GeoConceptsQueryTask(QgsTask):
 
     def finished(self, result):
         self.geoClassList.clear()
+        #self.dlg.geoTreeView.setModel(None)
         self.geoTreeViewModel.clear()
+        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
-        self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.viewlist)) + ")")
+        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
         if self.examplequery != None:
             self.sparql.setPlainText(self.examplequery)
             self.sparql.columnvars = {}

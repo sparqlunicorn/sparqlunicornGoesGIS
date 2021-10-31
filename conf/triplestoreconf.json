@@ -21,7 +21,7 @@
             "spatial": "http://geovocab.org/spatial#",
             "dcterms": "http://purl.org/dc/terms/"
         },
-        "endpoint": "http://sandbox.mainzed.org/atlantgis/sparql",
+        "endpoint": "http://digits.mainzed.org/atlantgis/sparql",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],

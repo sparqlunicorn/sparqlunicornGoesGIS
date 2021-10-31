@@ -22,7 +22,8 @@ class GeoCollectionsQueryTask(QgsTask):
         self.dlg = dlg
         self.layercount = layercount
         self.labelvar = labelvar
-        self.classvar = featureOrGeoCollection
+        self.classvar = queryvar
+        self.featureOrGeoCollection=featureOrGeoCollection
         self.completerClassList = completerClassList
         self.completerClassList["completerClassList"] = {}
         self.queryvar = queryvar

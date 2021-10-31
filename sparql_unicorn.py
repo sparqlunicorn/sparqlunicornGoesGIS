@@ -274,6 +274,7 @@ class SPARQLunicorn:
             for row in results:
                 viewlist.append(str(row[0]))
                 self.dlg.autocomplete["completerClassList"][row] = str(row[0])
+            self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(viewlist)) + ")")
             return viewlist
         self.qtask = GeoConceptsQueryTask("Querying GeoConcepts from " + triplestoreurl,
                                           triplestoreurl,
@@ -294,22 +295,23 @@ class SPARQLunicorn:
                 self.dlg.autocomplete["completerClassList"][row] = str(row[0])
             return viewlist
         if featureOrGeoCollection:
-            self.qtask = GeoCollectionsQueryTask("Querying GeoConcepts from " + triplestoreurl,
+            self.qtaskfeature = GeoCollectionsQueryTask("Querying FeatureCollections from " + triplestoreurl,
                                                  triplestoreurl,
                                                  query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                                  self.dlg.inp_sparql2, queryvar, "label", featureOrGeoCollection,
                                                  self.dlg.layercount,
                                                  self.dlg.featureCollectionClassListModel, examplequery, self.dlg.featureCollectionClassList,
                                                  self.dlg.autocomplete, self.dlg)
+            QgsApplication.taskManager().addTask(self.qtaskfeature)
         else:
-            self.qtask = GeoCollectionsQueryTask("Querying GeoConcepts from " + triplestoreurl,
+            self.qtaskgeos = GeoCollectionsQueryTask("Querying GeometryCollections from " + triplestoreurl,
                                                  triplestoreurl,
                                                  query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                                  self.dlg.inp_sparql2, queryvar, "label", featureOrGeoCollection,
                                                  self.dlg.layercount,
                                                  self.dlg.geometryCollectionClassListModel, examplequery, self.dlg.geometryCollectionClassList,
                                                  self.dlg.autocomplete, self.dlg)
-        QgsApplication.taskManager().addTask(self.qtask)
+            QgsApplication.taskManager().addTask(self.qtaskgeos)
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
     #  @param self The object pointer.
@@ -341,34 +343,11 @@ class SPARQLunicorn:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],
                                                   self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
                                                   True, None)
-            if False and "geocollectionquery" in self.triplestoreconf[endpointIndex]:
-                query = self.triplestoreconf[endpointIndex]["geocollectionquery"]
-                if "featurecollectionclasses" in self.triplestoreconf[endpointIndex]:
-                    valstatement="VALUES ?collclass {"
-                    for featclass in self.triplestoreconf[endpointIndex]["featurecollectionclasses"]:
-                        valstatement+="<"+featclass+"> "
-                    valstatement+="} "
-                    query=query.replace("%%concept%%", "?collclass . ?collclass "+valstatement)
-                else:
-                    query=query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#FeatureCollection>")
-                self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
-                                                  query, "class", None,
-                                                  True, None)
-                if "geometrycollectionclasses" in self.triplestoreconf[endpointIndex]:
-                    valstatement="VALUES ?collclass {"
-                    for geoclass in self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]:
-                        valstatement+="<"+geoclass+"> "
-                    valstatement+="} "
-                    query=query.replace("%%concept%%", "?collclass . ?collclass "+valstatement)
-                else:
-                    query=query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#GeometryCollection>")
-                self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
-                                                  query, "class", None,
-                                                  False, None)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "staticconcepts"] != []:
             conceptlist = self.triplestoreconf[endpointIndex]["staticconcepts"]
             self.dlg.autocomplete["completerClassList"] = {}
+            self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(conceptlist)) + ")")
             for concept in conceptlist:
                 item = QStandardItem()
                 item.setData(concept, 1)
@@ -382,6 +361,31 @@ class SPARQLunicorn:
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.dlg.inp_sparql2.columnvars = {}
+        if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
+            query = self.triplestoreconf[endpointIndex]["geocollectionquery"]
+            if "featurecollectionclasses" in self.triplestoreconf[endpointIndex]:
+                valstatement = "VALUES ?collclass {"
+                for featclass in self.triplestoreconf[endpointIndex]["featurecollectionclasses"]:
+                    valstatement += "<" + featclass + "> "
+                valstatement += "} "
+                query = query.replace("%%concept%%", "?collclass . ?collclass " + valstatement)
+            else:
+                query = query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#FeatureCollection>")
+            self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
+                                           query, "class", None,
+                                           True, None)
+            if "geometrycollectionclasses" in self.triplestoreconf[endpointIndex]:
+                valstatement = "VALUES ?collclass {"
+                for geoclass in self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]:
+                    valstatement += "<" + geoclass + "> "
+                valstatement += "} "
+                query = query.replace("%%concept%%", "?collclass . ?collclass " + valstatement)
+            else:
+                query = query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#GeometryCollection>")
+            self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
+                                           query, "class", None,
+                                           False, None)
+
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "areaconcepts"]:
             conceptlist2 = self.triplestoreconf[endpointIndex]["areaconcepts"]
