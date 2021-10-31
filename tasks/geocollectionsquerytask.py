@@ -74,6 +74,8 @@ class GeoCollectionsQueryTask(QgsTask):
                     viewlistentry["label"]=str(result[self.labelvar]["value"])
                 if self.classvar in result:
                     viewlistentry["class"] = str(result[self.classvar]["value"])
+                if "members" in result:
+                    viewlistentry["members"] = str(result["members"]["value"])
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.viewlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
@@ -89,10 +91,14 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 1)
+                itemtext=""
                 if "label" in concept:
-                    item.setText(concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")")
+                    itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
                 else:
-                    item.setText(concept["uri"][concept["uri"].rfind('/') + 1:])
+                    itemtext=concept["uri"][concept["uri"].rfind('/') + 1:]
+                if "members" in concept:
+                    itemtext+=" ["+str(concept["members"])+"]"
+                item.setText(itemtext)
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
@@ -107,10 +113,14 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 1)
+                itemtext=""
                 if "label" in concept:
-                    item.setText(concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")")
+                    itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
                 else:
-                    item.setText(concept["uri"][concept["uri"].rfind('/') + 1:])
+                    itemtext=concept["uri"][concept["uri"].rfind('/') + 1:]
+                if "members" in concept:
+                    itemtext+=" ["+str(concept["members"])+"]"
+                item.setText(itemtext)
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),

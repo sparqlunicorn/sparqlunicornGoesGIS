@@ -120,24 +120,19 @@ class GeoConceptsQueryTask(QgsTask):
 
     def finished(self, result):
         self.geoClassList.clear()
-        #self.dlg.geoTreeView.setModel(None)
         self.geoTreeViewModel.clear()
-        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
-        #self.dlg.geoTreeView.setModel(self.geoTreeViewModel)
         if self.examplequery != None:
             self.sparql.setPlainText(self.examplequery)
             self.sparql.columnvars = {}
         if len(self.resultlist) > 0:
             first = True
             for concept in self.resultlist:
-                # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept, 1)
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
