@@ -1,4 +1,4 @@
 var a00122 =
 [
-    [ "SearchTask", "a00229.html", "a00229" ]
+    [ "GeoConceptsQueryTask", "a00221.html", "a00221" ]
 ];

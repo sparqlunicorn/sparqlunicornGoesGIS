@@ -1,4 +1,6 @@
 var a00105 =
 [
-    [ "LoginWindow", "a00165.html", "a00165" ]
+    [ "BBOXDialog", "a00157.html", "a00157" ],
+    [ "NominatimText", "a00153.html", "a00153" ],
+    [ "SPARQLCompleter", "a00149.html", "a00149" ]
 ];
