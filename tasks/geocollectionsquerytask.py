@@ -24,6 +24,10 @@ class GeoCollectionsQueryTask(QgsTask):
         self.labelvar = labelvar
         self.classvar = queryvar
         self.featureOrGeoCollection=featureOrGeoCollection
+        if featureOrGeoCollection:
+            self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections")
+        else:
+            self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections")
         self.completerClassList = completerClassList
         self.completerClassList["completerClassList"] = {}
         self.queryvar = queryvar
@@ -51,15 +55,18 @@ class GeoCollectionsQueryTask(QgsTask):
             urllib.request.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl,
                                agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        print(str(self.query))
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.query)), MESSAGE_CATEGORY, Qgis.Info)
         sparql.setQuery(self.query)
         print("now sending query")
         print(self.triplestoreurl)
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreurl)), MESSAGE_CATEGORY, Qgis.Info)
         results = sparql.query().convert()
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             viewlistentry={}
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.queryvar)), MESSAGE_CATEGORY, Qgis.Info)
             if self.queryvar in result:
                 self.viewlist.append(viewlistentry)
                 viewlistentry["uri"]=str(result[self.queryvar]["value"])
@@ -67,19 +74,23 @@ class GeoCollectionsQueryTask(QgsTask):
                     viewlistentry["label"]=str(result[self.labelvar]["value"])
                 if self.classvar in result:
                     viewlistentry["class"] = str(result[self.classvar]["value"])
-        print(self.viewlist)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.viewlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):
         self.geoClassList.clear()
         if len(self.resultlist) > 0:
             first = True
+            if self.featureOrGeoCollection:
+                self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections (" + str(len(self.resultlist)) + ")")
+            else:
+                self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections (" + str(len(self.resultlist)) + ")")
             for concept in self.resultlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 1)
-                if "class" in concept:
-                    item.setText(concept["uri"][concept["uri"].rfind('/') + 1:]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")")
+                if "label" in concept:
+                    item.setText(concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")")
                 else:
                     item.setText(concept["uri"][concept["uri"].rfind('/') + 1:])
                 self.geoClassList.appendRow(item)
@@ -88,11 +99,18 @@ class GeoCollectionsQueryTask(QgsTask):
                                                                   QItemSelectionModel.SelectCurrent)
             self.dlg.viewselectaction()
         elif len(self.viewlist) > 0:
+            if self.featureOrGeoCollection:
+                self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections (" + str(len(self.viewlist)) + ")")
+            else:
+                self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections (" + str(len(self.viewlist)) + ")")
             for concept in self.viewlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
-                item.setData(concept, 1)
-                item.setText(concept[concept.rfind('/') + 1:])
+                item.setData(concept["uri"], 1)
+                if "label" in concept:
+                    item.setText(concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")")
+                else:
+                    item.setText(concept["uri"][concept["uri"].rfind('/') + 1:])
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),

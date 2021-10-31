@@ -24,7 +24,7 @@
 """
 
 from qgis.utils import iface
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsMessageLog
 
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QRegExp, QVariant, Qt, QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon, QRegExpValidator, QBrush, QColor, QStandardItem
@@ -294,6 +294,7 @@ class SPARQLunicorn:
                 viewlist.append(str(row[0]))
                 self.dlg.autocomplete["completerClassList"][row] = str(row[0])
             return viewlist
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
         if featureOrGeoCollection:
             self.qtaskfeature = GeoCollectionsQueryTask("Querying FeatureCollections from " + triplestoreurl,
                                                  triplestoreurl,
@@ -362,28 +363,34 @@ class SPARQLunicorn:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.dlg.inp_sparql2.columnvars = {}
         if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
-            query = self.triplestoreconf[endpointIndex]["geocollectionquery"]
-            if "featurecollectionclasses" in self.triplestoreconf[endpointIndex]:
+            query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
+            if "featurecollectionclasses" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["featurecollectionclasses"]!=None and self.triplestoreconf[endpointIndex]["featurecollectionclasses"]!="":
                 valstatement = "VALUES ?collclass {"
                 for featclass in self.triplestoreconf[endpointIndex]["featurecollectionclasses"]:
-                    valstatement += "<" + featclass + "> "
+                    valstatement += "<" + str(featclass) + "> "
                 valstatement += "} "
-                query = query.replace("%%concept%%", "?collclass . ?collclass " + valstatement)
+                querymod = query.replace("%%concept%% .", "?collclass . ?collclass " + str(valstatement))
             else:
-                query = query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#FeatureCollection>")
+                rep = "<http://www.opengis.net/ont/geosparql#FeatureCollection>"
+                querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
-                                           query, "class", None,
+                                           querymod, "colinstance", None,
                                            True, None)
-            if "geometrycollectionclasses" in self.triplestoreconf[endpointIndex]:
+            query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
+            if "geometrycollectionclasses" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]!=None and self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]!="":
                 valstatement = "VALUES ?collclass {"
                 for geoclass in self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]:
-                    valstatement += "<" + geoclass + "> "
+                    valstatement += "<" + str(geoclass)+ "> "
                 valstatement += "} "
-                query = query.replace("%%concept%%", "?collclass . ?collclass " + valstatement)
+                querymod = query.replace("%%concept%% .", "?collclass . ?collclass " + str(valstatement))
             else:
-                query = query.replace("%%concept%%", "<http://www.opengis.net/ont/geosparql#GeometryCollection>")
+                rep="<http://www.opengis.net/ont/geosparql#GeometryCollection>"
+                querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
-                                           query, "class", None,
+                                           querymod, "colinstance", None,
                                            False, None)
 
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][

@@ -24,12 +24,10 @@
         "endpoint": "http://digits.mainzed.org/atlantgis/sparql",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
-        "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
-        "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
-        "geocollectionquery":"SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
+        "geocollectionquery":"SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type <http://www.opengis.net/ont/geosparql#FeatureCollection> . OPTIONAL { ?colinstance rdfs:label ?label . } }",
         "querytemplate": [{
             "label": "100 Random Geometries",
             "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 100"
