@@ -200,15 +200,16 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             f.write(json.dumps(self.savedQueriesJSON))
             f.close()
 
-    def onContext(self):
+    def onContext(self,position):
         menu = QMenu("Menu", self.geoTreeView)
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
+        menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
 
     def openURL(self):
         curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(2)
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
 
