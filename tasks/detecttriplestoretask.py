@@ -154,6 +154,7 @@ class DetectTripleStoreTask(QgsTask):
                     "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
+                self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:
@@ -179,6 +180,8 @@ class DetectTripleStoreTask(QgsTask):
                     "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
+                self.configuration[
+                    "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:
@@ -213,6 +216,8 @@ class DetectTripleStoreTask(QgsTask):
                     "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}"
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
+                self.configuration[
+                    "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:

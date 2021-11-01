@@ -44,6 +44,7 @@ from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.subclassquerytask import SubClassQueryTask
+from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
@@ -203,12 +204,19 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def onContext(self,position):
         menu = QMenu("Menu", self.geoTreeView)
+        actionclip=QAction("Copy IRI to clipboard")
+        menu.addAction(actionclip)
+        actionclip.triggered.connect(self.copyClipBoard)
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
-        action2 = QAction("Load subclasses")
-        menu.addAction(action2)
-        action2.triggered.connect(self.loadSubClasses)
+        actioninstancecount=QAction("Check instance count")
+        menu.addAction(actioninstancecount)
+        actioninstancecount.triggered.connect(self.instanceCount)
+        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            action2 = QAction("Load subclasses")
+            menu.addAction(action2)
+            action2.triggered.connect(self.loadSubClasses)
         menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
 
     def openURL(self):
@@ -216,6 +224,21 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
+
+    def copyClipBoard(self):
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(concept, mode=cb.Clipboard)
+
+    def instanceCount(self):
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        self.qtaskinstance = InstanceAmountQueryTask(
+            "Getting instance count for " + str(concept),
+            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.geoTreeViewModel.itemFromIndex(curindex))
+        QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def loadSubClasses(self):
         print("Load SubClasses")
@@ -227,13 +250,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             for endpoint in self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]:
                     prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"][
                         endpoint] + "> \n"
-            progress = QProgressDialog("Loading subclasses from " + str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]) + " for "+str(concept), "Abort", 0, 0, self)
-            progress.setWindowModality(Qt.WindowModal)
-            progress.setCancelButton(None)
-            progress.show()
             self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                                    prefixestoadd + query, progress,self,self.geoTreeViewModel.itemFromIndex(curindex))
+                                    prefixestoadd + query, None,self,self.geoTreeViewModel.itemFromIndex(curindex))
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):

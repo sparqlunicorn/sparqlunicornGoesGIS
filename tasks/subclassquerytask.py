@@ -2,6 +2,7 @@ import json
 import requests
 import urllib
 from qgis.core import Qgis
+from qgis.PyQt.QtWidgets import QStyle
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
 from SPARQLWrapper import SPARQLWrapper, JSON, GET
@@ -10,8 +11,6 @@ from qgis.core import (
 )
 
 MESSAGE_CATEGORY = 'SubClassQueryTask'
-
-
 
 class SubClassQueryTask(QgsTask):
 
@@ -49,13 +48,15 @@ class SubClassQueryTask(QgsTask):
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
+        QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
-            self.viewlist.append(str(result[self.queryvar]["value"]))
+            self.viewlist.append(str(result["subclass"]["value"]))
         print(self.viewlist)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.viewlist), MESSAGE_CATEGORY, Qgis.Info)
         # self.layercount.setText("["+str(len(viewlist))+"]")
-        if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
+        if "classlabelquery" in self.dlg.triplestoreconf and self.dlg.triplestoreconf[
             "classlabelquery"] != "":
-            labels = self.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"])
+            labels = self.getLabelsForClasses(self.viewlist, self.dlg.triplestoreconf["classlabelquery"])
             print(labels)
             self.amountoflabels = len(labels)
             i = 0
@@ -113,54 +114,20 @@ class SubClassQueryTask(QgsTask):
             first = True
             for concept in self.resultlist:
                 item = QStandardItem()
-                item.setData(concept, 1)
+                item.setData(concept, 256)
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
+                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 self.treeNode.appendRow(item)
-                if self.triplestoreconf["name"] == "Wikidata":
-                    self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
-                                                                                                      concept.split(
-                                                                                                          "(")[
-                                                                                                          1].replace(
-                                                                                                          " ",
-                                                                                                          "_").replace(
-                                                                                                          ")", "")
-                else:
-                    self.completerClassList["completerClassList"][
-                        concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-            self.sparql.updateNewClassList()
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
-                # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
-                item.setData(concept, 1)
+                item.setData(concept, 256)
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                #item.appendRow(QStandardItem("Child"))
+                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 self.treeNode.appendRow(item)
-                if self.triplestoreconf["name"] == "Wikidata":
-                    self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
-                                                                                                      concept.split(
-                                                                                                          "(")[
-                                                                                                          1].replace(
-                                                                                                          " ",
-                                                                                                          "_").replace(
-                                                                                                          ")", "")
-                else:
-                    self.completerClassList["completerClassList"][
-                        concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-                # item=QListWidgetItem()
-                # item.setData(1,concept)
-                # item.setText(concept[concept.rfind('/')+1:])
-                # self.geoClassList.addItem(item)
-            self.sparql.updateNewClassList()
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")
