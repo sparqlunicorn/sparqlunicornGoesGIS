@@ -365,7 +365,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 curindex) is not None:
             concept = self.geometryCollectionClassListModel.itemFromIndex(curindex).data(256)
             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-            "query"].replace("<%%concept%%>", "?col . ?col rdfs:member <"+concept+"> ")
+            "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
@@ -379,7 +379,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 curindex) is not None:
             concept = self.featureCollectionClassListModel.itemFromIndex(curindex).data(256)
             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-            "query"].replace("<%%concept%%>", "?col . ?col rdfs:member <"+concept+"> ")
+            "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
     ## 
