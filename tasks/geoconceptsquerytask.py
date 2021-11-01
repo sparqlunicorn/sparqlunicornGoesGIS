@@ -36,7 +36,6 @@ class GeoConceptsQueryTask(QgsTask):
         self.examplequery = examplequery
         self.resultlist = []
         self.viewlist = []
-        self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts")
         s = QSettings()  # getting proxy from qgis options settings
         self.proxyEnabled = s.value("proxy/proxyEnabled")
         self.proxyType = s.value("proxy/proxyType")

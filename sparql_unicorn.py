@@ -323,6 +323,11 @@ class SPARQLunicorn:
         print("changing endpoint")
         conceptlist = []
         self.dlg.geoTreeViewModel.clear()
+        self.dlg.geometryCollectionClassListModel.clear()
+        self.dlg.featureCollectionClassListModel.clear()
+        self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts")
+        self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections")
+        self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections")
         self.dlg.savedQueries.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "endpoint"] in self.savedQueriesJSON:
