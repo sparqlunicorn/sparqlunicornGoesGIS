@@ -30,6 +30,8 @@ var a00181 =
     [ "showConfigTable", "a00181.html#a325fd8cbbc7334bc6881a68afd0c327f", null ],
     [ "validateSPARQL", "a00181.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
     [ "viewselectaction", "a00181.html#a8592bb9f6da4d0d37ab8efa7344a8584", null ],
+    [ "viewselectactionFeatureCollection", "a00181.html#a7c263814dd6419c6aa9cb52dba8e5d89", null ],
+    [ "viewselectactionGeometryCollection", "a00181.html#aba874fb56654379ec8354fc5cbaabee7", null ],
     [ "addVocabConf", "a00181.html#a1c0f392d53979b034116808ade371029", null ],
     [ "autocomplete", "a00181.html#a0232b0ed4680bf785a599c4495843783", null ],
     [ "columnvars", "a00181.html#ae0b48044f5a1635491a0673852cf912c", null ],
