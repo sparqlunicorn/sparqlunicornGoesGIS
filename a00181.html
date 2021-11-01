@@ -1785,7 +1785,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                curindex) <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            concept = self.featureCollectionClassListModel.itemFromIndex(curindex).data(256)</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            querytext = self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;querytemplate&quot;</span>][self.queryTemplates.currentIndex()][</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;&lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;?col . ?col rdfs:member &lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;?item a &lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;&lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; rdfs:member ?item &quot;</span>)</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            self.inp_sparql2.setPlainText(querytext)</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            self.inp_sparql2.columnvars = {}</div>
 </div><!-- fragment -->
@@ -1834,7 +1834,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                curindex) <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            concept = self.geometryCollectionClassListModel.itemFromIndex(curindex).data(256)</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            querytext = self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;querytemplate&quot;</span>][self.queryTemplates.currentIndex()][</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;&lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;?col . ?col rdfs:member &lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;?item a &lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;&lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; rdfs:member ?item &quot;</span>)</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            self.inp_sparql2.setPlainText(querytext)</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            self.inp_sparql2.columnvars = {}</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
