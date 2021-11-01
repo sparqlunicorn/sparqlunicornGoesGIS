@@ -2,6 +2,7 @@ import urllib
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtWidgets import QStyle
 from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -90,7 +91,8 @@ class GeoCollectionsQueryTask(QgsTask):
             for concept in self.resultlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
-                item.setData(concept["uri"], 1)
+                item.setData(concept["uri"], 256)
+                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -112,7 +114,8 @@ class GeoCollectionsQueryTask(QgsTask):
             for concept in self.viewlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
-                item.setData(concept["uri"], 1)
+                item.setData(concept["uri"], 256)
+                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"

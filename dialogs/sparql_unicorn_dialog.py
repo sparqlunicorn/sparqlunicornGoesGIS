@@ -28,11 +28,11 @@ import json
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
-from qgis.core import QgsProject,QgsMessageLog, Qgis
+from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
 from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
-    QAbstractItemView, QListView, QMessageBox, QApplication, QMenu, QAction
+    QAbstractItemView, QListView, QMessageBox, QApplication, QMenu, QAction, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
@@ -43,6 +43,7 @@ from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..tasks.subclassquerytask import SubClassQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
@@ -205,13 +206,35 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
+        action2 = QAction("Load subclasses")
+        menu.addAction(action2)
+        action2.triggered.connect(self.loadSubClasses)
         menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
 
     def openURL(self):
         curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(2)
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
+
+    def loadSubClasses(self):
+        print("Load SubClasses")
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
+            prefixestoadd=""
+            for endpoint in self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]:
+                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"][
+                        endpoint] + "> \n"
+            progress = QProgressDialog("Loading subclasses from " + str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]) + " for "+str(concept), "Abort", 0, 0, self)
+            progress.setWindowModality(Qt.WindowModal)
+            progress.setCancelButton(None)
+            progress.show()
+            self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                                    prefixestoadd + query, progress,self,self.geoTreeViewModel.itemFromIndex(curindex))
+            QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):
         self.proxyModel.setFilterRegExp(self.filterConcepts.text())
@@ -328,7 +351,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
             concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
         elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
-            concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
+            concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             if "wd:Q%%concept%% ." in \
                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:

@@ -6,33 +6,25 @@ from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
 from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsApplication, QgsTask, QgsMessageLog
 )
 
-MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
+MESSAGE_CATEGORY = 'SubClassQueryTask'
 
 
-class GeoConceptsQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl, query, triplestoreconf, sparql, queryvar, getlabels, layercount,
-                 geoClassList, examplequery, geoClassListGui, completerClassList, dlg):
+class SubClassQueryTask(QgsTask):
+
+    def __init__(self, description, triplestoreurl, query, progress,dlg,treeNode):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
+        self.progress=progress
         self.triplestoreurl = triplestoreurl
-        self.triplestoreconf = triplestoreconf
         self.query = query
-        self.dlg = dlg
-        self.layercount = layercount
-        self.getlabels = getlabels
-        self.completerClassList = completerClassList
-        self.completerClassList["completerClassList"] = {}
-        self.queryvar = queryvar
-        self.sparql = sparql
-        self.geoClassListGui = geoClassListGui
+        self.dlg=dlg
+        self.treeNode=treeNode
         self.amountoflabels = -1
-        self.geoClassList = geoClassList
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
-        self.examplequery = examplequery
         self.resultlist = []
         self.viewlist = []
         s = QSettings()  # getting proxy from qgis options settings
@@ -52,10 +44,8 @@ class GeoConceptsQueryTask(QgsTask):
             urllib.request.install_opener(opener)
         sparql = SPARQLWrapper(self.triplestoreurl,
                                agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        print(str(self.query))
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
         sparql.setQuery(self.query)
-        print("now sending query")
-        print(self.triplestoreurl)
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
@@ -119,12 +109,6 @@ class GeoConceptsQueryTask(QgsTask):
         return result
 
     def finished(self, result):
-        self.geoClassList.clear()
-        self.geoTreeViewModel.clear()
-        self.rootNode=self.geoTreeViewModel.invisibleRootItem()
-        if self.examplequery != None:
-            self.sparql.setPlainText(self.examplequery)
-            self.sparql.columnvars = {}
         if len(self.resultlist) > 0:
             first = True
             for concept in self.resultlist:
@@ -133,7 +117,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                self.rootNode.appendRow(item)
+                self.treeNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
                                                                                                       concept.split(
@@ -158,7 +142,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
                 #item.appendRow(QStandardItem("Child"))
-                self.rootNode.appendRow(item)
+                self.treeNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
                                                                                                       concept.split(

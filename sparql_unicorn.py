@@ -29,7 +29,7 @@ from qgis.core import Qgis,QgsMessageLog
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QRegExp, QVariant, Qt, QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon, QRegExpValidator, QBrush, QColor, QStandardItem
 from qgis.PyQt.QtWidgets import QAction, QComboBox, QCompleter, QFileDialog, QTableWidgetItem, QHBoxLayout, QPushButton, \
-    QWidget, QMessageBox, QProgressDialog, QListWidgetItem
+    QWidget, QMessageBox, QProgressDialog, QListWidgetItem, QStyle
 from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, QgsFeatureRequest, \
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
@@ -351,8 +351,9 @@ class SPARQLunicorn:
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(conceptlist)) + ")")
             for concept in conceptlist:
                 item = QStandardItem()
-                item.setData(concept, 1)
+                item.setData(concept, 256)
                 item.setText(concept[concept.rfind('/') + 1:])
+                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 self.dlg.autocomplete["completerClassList"][concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
                 self.dlg.geoTreeViewModel.appendRow(item)
             self.dlg.inp_sparql2.updateNewClassList()

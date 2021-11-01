@@ -505,7 +505,7 @@ SELECT ?label ?geo ?item WHERE {
       <attribute name="title">
        <string>FeatureCollections</string>
       </attribute>
-      <widget class="QListView" name="featureCollectionClassList">
+      <widget class="QTreeView" name="featureCollectionClassList">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -520,7 +520,7 @@ SELECT ?label ?geo ?item WHERE {
       <attribute name="title">
        <string>GeometryCollections</string>
       </attribute>
-      <widget class="QListView" name="geometryCollectionClassList">
+      <widget class="QTreeView" name="geometryCollectionClassList">
        <property name="geometry">
         <rect>
          <x>0</x>
