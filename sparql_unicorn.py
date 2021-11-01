@@ -398,12 +398,13 @@ class SPARQLunicorn:
             self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["endpoint"],
                                            querymod, "colinstance", None,
                                            False, None)
-
+        """
         if "areaconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "areaconcepts"]:
             conceptlist2 = self.triplestoreconf[endpointIndex]["areaconcepts"]
             for concept in conceptlist2:
                 self.dlg.areaconcepts.addItem(concept["concept"])
+        """
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                 self.dlg.queryTemplates.addItem(concept["label"])
@@ -411,6 +412,7 @@ class SPARQLunicorn:
             self.dlg.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                 self.dlg.savedQueries.addItem(concept["label"])
+
 
     ## Gets GeoJSON reperesentations from a graph given by an RDF file or data source.
     #  @param self The object pointer.

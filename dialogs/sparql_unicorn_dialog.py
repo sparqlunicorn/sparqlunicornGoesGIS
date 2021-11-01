@@ -118,6 +118,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.featureCollectionClassList.setAlternatingRowColors(True)
         self.featureCollectionClassList.setWordWrap(True)
+        self.featureCollectionClassList.setHeaderHidden(True)
         self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.featureCollectionClassListModel.clear()
@@ -125,6 +126,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geometryCollectionClassList.setAlternatingRowColors(True)
         self.geometryCollectionClassList.setWordWrap(True)
+        self.geometryCollectionClassList.setHeaderHidden(True)
         self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.geometryCollectionClassListModel.clear()
@@ -174,6 +176,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
+        self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
+        self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
@@ -351,6 +355,33 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startEnrichment.clicked.disconnect()
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
 
+    def viewselectactionGeometryCollection(self,selected=None, deselected=None):
+        endpointIndex = self.comboBox.currentIndex()
+        if endpointIndex == 0:
+            self.justloadingfromfile = False
+            return
+        curindex = self.geometryCollectionProxyModel.mapToSource(self.geometryCollectionClassList.selectionModel().currentIndex())
+        if self.geometryCollectionClassList.selectionModel().currentIndex() is not None and self.geometryCollectionClassListModel.itemFromIndex(
+                curindex) is not None:
+            concept = self.geometryCollectionClassListModel.itemFromIndex(curindex).data(256)
+            querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+            "query"].replace("<%%concept%%>", "?col . ?col rdfs:member <"+concept+"> ")
+            self.inp_sparql2.setPlainText(querytext)
+            self.inp_sparql2.columnvars = {}
+
+    def viewselectactionFeatureCollection(self,selected=None, deselected=None):
+        endpointIndex = self.comboBox.currentIndex()
+        if endpointIndex == 0:
+            self.justloadingfromfile = False
+            return
+        curindex = self.featureCollectionProxyModel.mapToSource(self.featureCollectionClassList.selectionModel().currentIndex())
+        if self.featureCollectionClassList.selectionModel().currentIndex() is not None and self.featureCollectionClassListModel.itemFromIndex(
+                curindex) is not None:
+            concept = self.featureCollectionClassListModel.itemFromIndex(curindex).data(256)
+            querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+            "query"].replace("<%%concept%%>", "?col . ?col rdfs:member <"+concept+"> ")
+            self.inp_sparql2.setPlainText(querytext)
+            self.inp_sparql2.columnvars = {}
     ## 
     #  @brief Executes a GUI event when a new SPARQL endpoint is selected. 
     #  Usually loads the list of concepts related to the SPARQL endpoint
