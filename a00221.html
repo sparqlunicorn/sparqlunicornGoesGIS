@@ -320,7 +320,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> self.resultlist:</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                <span class="comment"># self.layerconcepts.addItem(concept)</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                item = QStandardItem()</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                item.setData(concept, 1)</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                item.setData(concept, 256)</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                item.setText(concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:])</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                item.setForeground(QColor(0,0,0))</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                item.setEditable(<span class="keyword">False</span>)</div>
@@ -346,7 +346,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> self.viewlist:</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="comment"># self.layerconcepts.addItem(concept)</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                item = QStandardItem()</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                item.setData(concept, 1)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                item.setData(concept, 256)</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                item.setText(concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:])</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                item.setForeground(QColor(0,0,0))</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                item.setEditable(<span class="keyword">False</span>)</div>
@@ -460,9 +460,9 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">return</span> result</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00181.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00193.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00189.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00173.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00157.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00145.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00213.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
+<p class="reference">References <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00181.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00193.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00189.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00173.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00157.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00145.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00213.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a00281.html#a23922d07d709315a17189e6dc15bd000">ToolTipPlainText.mouseMoveEvent()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00281.html#a23922d07d709315a17189e6dc15bd000">ToolTipPlainText.mouseMoveEvent()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -514,7 +514,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#a920977da185a945b106fd389906f0fda">GeoConceptsQueryTask.amountoflabels</a>, <a class="el" href="a00217.html#a920977da185a945b106fd389906f0fda">GeoCollectionsQueryTask.amountoflabels</a>, <a class="el" href="a00209.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00131.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00221.html#a9038167bc2020ad8e2f9c4774fba2024">GeoConceptsQueryTask.getlabels</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00205.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00185.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00209.html#af2d0d5884751e69699ca9b2d6c2cd7f1">DetectTripleStoreTask.proxyHost</a>, <a class="el" href="a00221.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoConceptsQueryTask.proxyHost</a>, <a class="el" href="a00213.html#af2d0d5884751e69699ca9b2d6c2cd7f1">EnrichmentQueryTask.proxyHost</a>, <a class="el" href="a00217.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoCollectionsQueryTask.proxyHost</a>, <a class="el" href="a00181.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00173.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00205.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00185.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00209.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">DetectTripleStoreTask.proxyPort</a>, <a class="el" href="a00221.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoConceptsQueryTask.proxyPort</a>, <a class="el" href="a00213.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">EnrichmentQueryTask.proxyPort</a>, <a class="el" href="a00217.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoCollectionsQueryTask.proxyPort</a>, <a class="el" href="a00181.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, <a class="el" href="a00173.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>, <a class="el" href="a00217.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoCollectionsQueryTask.query</a>, <a class="el" href="a00221.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoConceptsQueryTask.query</a>, <a class="el" href="a00221.html#af35f8507723f20ef5ac0973814f6e536">GeoConceptsQueryTask.queryvar</a>, <a class="el" href="a00217.html#af35f8507723f20ef5ac0973814f6e536">GeoCollectionsQueryTask.queryvar</a>, <a class="el" href="a00221.html#af06316de4f3798fb8e2fd1c2846957ca">GeoConceptsQueryTask.resultlist</a>, <a class="el" href="a00217.html#af06316de4f3798fb8e2fd1c2846957ca">GeoCollectionsQueryTask.resultlist</a>, <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00181.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00193.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00189.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00173.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00157.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00145.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00213.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, <a class="el" href="a00221.html#a64118717d69ab90e67efd8b24cb32bb3">GeoConceptsQueryTask.viewlist</a>, and <a class="el" href="a00217.html#a64118717d69ab90e67efd8b24cb32bb3">GeoCollectionsQueryTask.viewlist</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#a920977da185a945b106fd389906f0fda">GeoConceptsQueryTask.amountoflabels</a>, <a class="el" href="a00217.html#a920977da185a945b106fd389906f0fda">GeoCollectionsQueryTask.amountoflabels</a>, <a class="el" href="a00209.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00131.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00221.html#a9038167bc2020ad8e2f9c4774fba2024">GeoConceptsQueryTask.getlabels</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00205.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00185.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00209.html#af2d0d5884751e69699ca9b2d6c2cd7f1">DetectTripleStoreTask.proxyHost</a>, <a class="el" href="a00221.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoConceptsQueryTask.proxyHost</a>, <a class="el" href="a00213.html#af2d0d5884751e69699ca9b2d6c2cd7f1">EnrichmentQueryTask.proxyHost</a>, <a class="el" href="a00217.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoCollectionsQueryTask.proxyHost</a>, <a class="el" href="a00181.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00173.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00205.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00185.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00209.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">DetectTripleStoreTask.proxyPort</a>, <a class="el" href="a00221.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoConceptsQueryTask.proxyPort</a>, <a class="el" href="a00213.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">EnrichmentQueryTask.proxyPort</a>, <a class="el" href="a00217.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoCollectionsQueryTask.proxyPort</a>, <a class="el" href="a00181.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, <a class="el" href="a00173.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>, <a class="el" href="a00217.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoCollectionsQueryTask.query</a>, <a class="el" href="a00221.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoConceptsQueryTask.query</a>, <a class="el" href="a00221.html#af35f8507723f20ef5ac0973814f6e536">GeoConceptsQueryTask.queryvar</a>, <a class="el" href="a00217.html#af35f8507723f20ef5ac0973814f6e536">GeoCollectionsQueryTask.queryvar</a>, <a class="el" href="a00221.html#af06316de4f3798fb8e2fd1c2846957ca">GeoConceptsQueryTask.resultlist</a>, <a class="el" href="a00217.html#af06316de4f3798fb8e2fd1c2846957ca">GeoCollectionsQueryTask.resultlist</a>, <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00181.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00193.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00189.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00173.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00157.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00145.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00213.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, <a class="el" href="a00221.html#a64118717d69ab90e67efd8b24cb32bb3">GeoConceptsQueryTask.viewlist</a>, and <a class="el" href="a00217.html#a64118717d69ab90e67efd8b24cb32bb3">GeoCollectionsQueryTask.viewlist</a>.</p>
 
 </div>
 </div>
@@ -531,7 +531,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -547,6 +547,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>.</p>
+
 </div>
 </div>
 <a id="ad2ee3c07560eb98d17a382b71105bf98"></a>
@@ -561,7 +563,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, and <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -607,7 +609,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">GeoConceptsQueryTask.finished()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, and <a class="el" href="a00221.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">GeoConceptsQueryTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -622,6 +624,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -653,7 +657,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -668,6 +672,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -697,7 +703,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -727,7 +733,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -771,7 +777,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SearchTask.finished()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SearchTask.finished()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -787,7 +793,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -803,7 +809,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -833,6 +839,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>.</p>
+
 </div>
 </div>
 <a id="a330d24be0afd5a96238ca9e128328a2d"></a>
@@ -847,7 +855,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00281.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00229.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00237.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00281.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00229.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -863,7 +871,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -879,7 +887,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00145.html#a4a1fa7bee96d55e0146bf3858bd9e340">SPARQLunicorn.matchColumnValueFromTripleStore()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00145.html#a4a1fa7bee96d55e0146bf3858bd9e340">SPARQLunicorn.matchColumnValueFromTripleStore()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>

@@ -52,7 +52,7 @@ var hierarchy =
       [ "LoadGraphTask", "a00225.html", null ],
       [ "QueryLayerTask", "a00229.html", null ],
       [ "SearchTask", "a00233.html", null ],
-      [ "GeoConceptsQueryTask", "a00237.html", null ],
+      [ "SubClassQueryTask", "a00237.html", null ],
       [ "WhatToEnrichQueryTask", "a00241.html", null ]
     ] ],
     [ "QLineEdit", null, [
