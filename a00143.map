@@ -1,7 +1,5 @@
-<map id="SPARQLunicorn" name="SPARQLunicorn">
-<area shape="rect" id="node1" title="The main SPARQL unicorn dialog." alt="" coords="193,139,313,165"/>
+<map id="EnrichmentTab" name="EnrichmentTab">
+<area shape="rect" id="node1" title=" " alt="" coords="47,109,165,136"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,44,32"/>
 <area shape="rect" id="node3" title=" " alt="" coords="162,5,213,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="275,5,361,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="453,5,495,32"/>
 </map>

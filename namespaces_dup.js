@@ -1,4 +1,4 @@
 var namespaces_dup =
 [
-    [ "sparqlunicornGoesGIS", "a00098.html", "a00098" ]
+    [ "sparqlunicornGoesGIS", "a00104.html", "a00104" ]
 ];

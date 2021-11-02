@@ -1,6 +1,6 @@
-<map id="SPARQLHighlighter" name="SPARQLHighlighter">
-<area shape="rect" id="node1" title=" " alt="" coords="127,124,271,151"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,155,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="179,5,218,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="325,5,368,32"/>
+<map id="RectangleMapTool" name="RectangleMapTool">
+<area shape="rect" id="node1" title=" " alt="" coords="153,139,294,165"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,169,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="194,5,253,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="277,5,327,32"/>
 </map>
