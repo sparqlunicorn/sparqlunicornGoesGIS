@@ -34,6 +34,7 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
 import sys
+import pyproj
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import uuid
@@ -505,6 +506,10 @@ class SPARQLunicorn:
             curclassid = self.exportSetClass
         else:
             curclassid = urllib.parse.quote(self.exportSetClass)
+        layercrs=layer.crs()
+        ttlstring+="<http://www.opengis.net/ont/crs/"+str(layercrs.authid()).replace(" ","_")+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/crs/SpatialReferenceSystem> .\n"
+        ttlstring+="<http://www.opengis.net/ont/crs/"+str(layercrs.authid()).replace(" ","_")+"> <http://www.opengis.net/ont/crs/asWKT> \""+str(layercrs.toWkt()).replace("\"","\\\"")+"\"^^<http://www.opengis.net/ont/crs/wktLiteral> .\n"
+        ttlstring+="<http://www.opengis.net/ont/crs/"+str(layercrs.authid()).replace(" ","_")+"> <http://www.opengis.net/ont/crs/asProj> \""+str(layercrs.toProj4())+"\"^^<http://www.opengis.net/ont/crs/proj4Literal> .\n"
         for f in layer.getFeatures():
             geom = f.geometry()
             if not idcol in fieldnames:
@@ -673,6 +678,9 @@ class SPARQLunicorn:
                 return
             ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
                                               valuequeries)
+            with open(filename, 'w') as output_file:
+                output_file.write(ttlstring)
+                iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
             g = Graph()
             g.parse(data=ttlstring, format="ttl")
             splitted = filename.split(".")
