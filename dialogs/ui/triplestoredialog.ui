@@ -932,6 +932,13 @@ background-color: rgb(253, 252, 250);</string>
            <height>20</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+         </property>
          <property name="text">
           <string>http://www.wikidata.org/entity/</string>
          </property>
