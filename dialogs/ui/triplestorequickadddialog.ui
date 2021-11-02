@@ -215,6 +215,16 @@ color: rgb(255, 255, 255);</string>
       </item>
       <item row="2" column="0">
        <widget class="QCheckBox" name="permanentAdd">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true">color:rgb(0, 81, 135);</string>
         </property>
