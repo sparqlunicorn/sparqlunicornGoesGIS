@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: DetectTripleStoreTask Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: ConvertCRSTask Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,82 +63,57 @@ $(document).ready(function(){initNavTree('a00209.html',''); initResizable(); });
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00206.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">DetectTripleStoreTask Class Reference</div>  </div>
+<div class="title">ConvertCRSTask Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for DetectTripleStoreTask:</div>
+Inheritance diagram for ConvertCRSTask:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00208.png" border="0" usemap="#DetectTripleStoreTask_inherit__map" alt="Inheritance graph"/></div>
-<map name="DetectTripleStoreTask_inherit__map" id="DetectTripleStoreTask_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,168,107"/>
-<area shape="rect" title=" " alt="" coords="49,5,125,32"/>
+<div class="center"><img src="a00208.png" border="0" usemap="#ConvertCRSTask_inherit__map" alt="Inheritance graph"/></div>
+<map name="ConvertCRSTask_inherit__map" id="ConvertCRSTask_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,133,107"/>
+<area shape="rect" title=" " alt="" coords="31,5,107,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for DetectTripleStoreTask:</div>
+Collaboration diagram for ConvertCRSTask:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00207.png" border="0" usemap="#DetectTripleStoreTask_coll__map" alt="Collaboration graph"/></div>
-<map name="DetectTripleStoreTask_coll__map" id="DetectTripleStoreTask_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,168,107"/>
-<area shape="rect" title=" " alt="" coords="49,5,125,32"/>
+<div class="center"><img src="a00207.png" border="0" usemap="#ConvertCRSTask_coll__map" alt="Collaboration graph"/></div>
+<map name="ConvertCRSTask_coll__map" id="ConvertCRSTask_coll__map">
+<area shape="rect" title=" " alt="" coords="31,95,159,121"/>
+<area shape="rect" title=" " alt="" coords="5,5,81,32"/>
+<area shape="rect" title=" " alt="" coords="105,5,192,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a48b05ba2974e5c356d3231193aeaf666"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a48b05ba2974e5c356d3231193aeaf666">__init__</a> (self, <a class="el" href="a00209.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">description</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>, endpoint, <a class="el" href="a00209.html#a0b7a6d6691bd92b2f5c8a6cab2a03dda">triplestorename</a>, <a class="el" href="a00209.html#aacac69f65111f90a0c0d4749ff99a530">testURL</a>, <a class="el" href="a00209.html#a85bc3b1af75c36188c69b04fcf8dd8b7">testConfiguration</a>, <a class="el" href="a00209.html#a302e350558edcbbd7b85927b33550548">prefixes</a>, <a class="el" href="a00209.html#a4d9e45fd666bc36c0602e3a0c6244b3c">prefixstore</a>, <a class="el" href="a00209.html#afe1b0b3e2a930a83eeaf4fb19f9a6969">tripleStoreChooser</a>, <a class="el" href="a00209.html#afcee2275fb7c24bb8979dd838f0dc90a">comboBox</a>, <a class="el" href="a00209.html#aea3053601e14e410bef3021defeb1164">permanentAdd</a>, <a class="el" href="a00209.html#aefbd5e6894d890da2d9989fbaf3a5c6c">parentdialog</a>, <a class="el" href="a00209.html#a991fd2c404665f13f536fc7791e53504">progress</a>)</td></tr>
-<tr class="separator:a48b05ba2974e5c356d3231193aeaf666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ed333a37d6f700c2b29a0fb83870d80"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a5ed333a37d6f700c2b29a0fb83870d80">__init__</a> (self, description, <a class="el" href="a00209.html#a2ff994e16bf9521154de4cf659a3b689">filename</a>, <a class="el" href="a00209.html#a833c3fbda4bca0e0f0c2a5c418654fa9">crsdef</a>, <a class="el" href="a00209.html#a3d2da04d187a7112445f18a9f20b39ef">dialog</a>, <a class="el" href="a00209.html#a991fd2c404665f13f536fc7791e53504">progress</a>)</td></tr>
+<tr class="separator:a5ed333a37d6f700c2b29a0fb83870d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9894298861cc9aa2a8e0b4209e08c3e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a9894298861cc9aa2a8e0b4209e08c3e0">detectLiteralType</a> (self, literal)</td></tr>
+<tr class="separator:a9894298861cc9aa2a8e0b4209e08c3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af05d8aa0ef7a9307dfa5e0d690c9a98c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#af05d8aa0ef7a9307dfa5e0d690c9a98c">processLiteral</a> (self, literal, literaltype, reproject, projectto)</td></tr>
+<tr class="separator:af05d8aa0ef7a9307dfa5e0d690c9a98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad22709b2e67308af35f55680d5a026e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">run</a> (self)</td></tr>
 <tr class="separator:ad22709b2e67308af35f55680d5a026e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79d5df9acef6fd54a9ebfdc4055f68d1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">testTripleStoreConnection</a> (self, query=&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;)</td></tr>
-<tr class="separator:a79d5df9acef6fd54a9ebfdc4055f68d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28c2aa597146ea0bee8567e8fcbcea69"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a28c2aa597146ea0bee8567e8fcbcea69">detectNamespaces</a> (self, subpredobj)</td></tr>
-<tr class="separator:a28c2aa597146ea0bee8567e8fcbcea69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd5cbb47197ed025c14b33f40011c054"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">detectTripleStoreConfiguration</a> (self)</td></tr>
-<tr class="memdesc:afd5cbb47197ed025c14b33f40011c054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects default configurations of common geospatial triple stores.  <a href="a00209.html#afd5cbb47197ed025c14b33f40011c054">More...</a><br /></td></tr>
-<tr class="separator:afd5cbb47197ed025c14b33f40011c054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f4d426f44e2bbf0bcca08c50d1b5ee4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a> (self, result)</td></tr>
 <tr class="separator:a5f4d426f44e2bbf0bcca08c50d1b5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a2661f439a4a94ffdcd5e47ae1da0bb1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">description</a></td></tr>
-<tr class="separator:a2661f439a4a94ffdcd5e47ae1da0bb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#aec2b4fd1f327cbebb003cfc415e8bccb">exception</a></td></tr>
 <tr class="separator:aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a302e350558edcbbd7b85927b33550548"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a302e350558edcbbd7b85927b33550548">prefixes</a></td></tr>
-<tr class="separator:a302e350558edcbbd7b85927b33550548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d9e45fd666bc36c0602e3a0c6244b3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a4d9e45fd666bc36c0602e3a0c6244b3c">prefixstore</a></td></tr>
-<tr class="separator:a4d9e45fd666bc36c0602e3a0c6244b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea3053601e14e410bef3021defeb1164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#aea3053601e14e410bef3021defeb1164">permanentAdd</a></td></tr>
-<tr class="separator:aea3053601e14e410bef3021defeb1164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a991fd2c404665f13f536fc7791e53504"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a991fd2c404665f13f536fc7791e53504">progress</a></td></tr>
 <tr class="separator:a991fd2c404665f13f536fc7791e53504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b7a6d6691bd92b2f5c8a6cab2a03dda"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a0b7a6d6691bd92b2f5c8a6cab2a03dda">triplestorename</a></td></tr>
-<tr class="separator:a0b7a6d6691bd92b2f5c8a6cab2a03dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe1b0b3e2a930a83eeaf4fb19f9a6969"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#afe1b0b3e2a930a83eeaf4fb19f9a6969">tripleStoreChooser</a></td></tr>
-<tr class="separator:afe1b0b3e2a930a83eeaf4fb19f9a6969"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcee2275fb7c24bb8979dd838f0dc90a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#afcee2275fb7c24bb8979dd838f0dc90a">comboBox</a></td></tr>
-<tr class="separator:afcee2275fb7c24bb8979dd838f0dc90a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefbd5e6894d890da2d9989fbaf3a5c6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#aefbd5e6894d890da2d9989fbaf3a5c6c">parentdialog</a></td></tr>
-<tr class="separator:aefbd5e6894d890da2d9989fbaf3a5c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b8734be629bbc1f64723d90a67861ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a></td></tr>
-<tr class="separator:a9b8734be629bbc1f64723d90a67861ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a330d24be0afd5a96238ca9e128328a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a></td></tr>
-<tr class="separator:a330d24be0afd5a96238ca9e128328a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacac69f65111f90a0c0d4749ff99a530"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#aacac69f65111f90a0c0d4749ff99a530">testURL</a></td></tr>
-<tr class="separator:aacac69f65111f90a0c0d4749ff99a530"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32c97d3f8cd6089ccf54e7c423020b7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a32c97d3f8cd6089ccf54e7c423020b7a">configuration</a></td></tr>
-<tr class="separator:a32c97d3f8cd6089ccf54e7c423020b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85bc3b1af75c36188c69b04fcf8dd8b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a85bc3b1af75c36188c69b04fcf8dd8b7">testConfiguration</a></td></tr>
-<tr class="separator:a85bc3b1af75c36188c69b04fcf8dd8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8140947611504abcb64a4c277effcf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#ab8140947611504abcb64a4c277effcf5">message</a></td></tr>
-<tr class="separator:ab8140947611504abcb64a4c277effcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0144ff6d482c292e0fe86404f386f7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#ab0144ff6d482c292e0fe86404f386f7b">feasibleConfiguration</a></td></tr>
-<tr class="separator:ab0144ff6d482c292e0fe86404f386f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ff994e16bf9521154de4cf659a3b689"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a2ff994e16bf9521154de4cf659a3b689">filename</a></td></tr>
+<tr class="separator:a2ff994e16bf9521154de4cf659a3b689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833c3fbda4bca0e0f0c2a5c418654fa9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a833c3fbda4bca0e0f0c2a5c418654fa9">crsdef</a></td></tr>
+<tr class="separator:a833c3fbda4bca0e0f0c2a5c418654fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2da04d187a7112445f18a9f20b39ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a3d2da04d187a7112445f18a9f20b39ef">dialog</a></td></tr>
+<tr class="separator:a3d2da04d187a7112445f18a9f20b39ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae862ff88f11a3a2ef7eee0c21957dcb7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#ae862ff88f11a3a2ef7eee0c21957dcb7">proxyEnabled</a></td></tr>
 <tr class="separator:ae862ff88f11a3a2ef7eee0c21957dcb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a495fe54c42ce06ce71582737400c0d02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a495fe54c42ce06ce71582737400c0d02">proxyType</a></td></tr>
@@ -151,13 +126,20 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab27c8ae6a38f63214b0413f461033e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add5abc4de55257ede4e0ab5db30de1ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#add5abc4de55257ede4e0ab5db30de1ce">proxyPassword</a></td></tr>
 <tr class="separator:add5abc4de55257ede4e0ab5db30de1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4a8aa8ceb4969b82047ab23c9d00c82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#af4a8aa8ceb4969b82047ab23c9d00c82">addTripleStore</a></td></tr>
-<tr class="separator:af4a8aa8ceb4969b82047ab23c9d00c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca49c796430e66a10450bfc2d218c81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a8ca49c796430e66a10450bfc2d218c81">graph</a></td></tr>
+<tr class="separator:a8ca49c796430e66a10450bfc2d218c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c60f2039bf7ed34f3291349b4637a0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a6c60f2039bf7ed34f3291349b4637a0a">geoconcepts</a></td></tr>
+<tr class="separator:a6c60f2039bf7ed34f3291349b4637a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a28a4112f838898d008910c4320f0732e"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00209.html#a28a4112f838898d008910c4320f0732e">supportedLiteralTypes</a> = {&quot;http://www.opengis.net/ont/geosparql#wktLiteral&quot;}</td></tr>
+<tr class="separator:a28a4112f838898d008910c4320f0732e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">This shows how to subclass QgsTask</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a48b05ba2974e5c356d3231193aeaf666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48b05ba2974e5c356d3231193aeaf666">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="a5ed333a37d6f700c2b29a0fb83870d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed333a37d6f700c2b29a0fb83870d80">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,67 +160,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreconf</em>, </td>
+          <td class="paramname"><em>filename</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>endpoint</em>, </td>
+          <td class="paramname"><em>crsdef</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestorename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>testURL</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>testConfiguration</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>prefixes</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>prefixstore</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tripleStoreChooser</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>comboBox</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>permanentAdd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>parentdialog</em>, </td>
+          <td class="paramname"><em>dialog</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -253,46 +187,33 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">def </span><a class="code" href="a00241.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, description, triplestoreconf, endpoint, triplestorename, testURL, testConfiguration, prefixes,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                 prefixstore, tripleStoreChooser, comboBox, permanentAdd, parentdialog, progress):</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        super().<a class="code" href="a00241.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(description, QgsTask.CanCancel)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.description = description</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.exception = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.prefixes = prefixes</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.prefixstore = prefixstore</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.permanentAdd = permanentAdd</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.progress = progress</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.triplestorename = triplestorename</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.tripleStoreChooser = tripleStoreChooser</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.comboBox = comboBox</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.parentdialog = parentdialog</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.triplestoreurl = endpoint</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.triplestoreconf = triplestoreconf</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.testURL = testURL</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.configuration = {}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.testConfiguration = testConfiguration</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.message = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.feasibleConfiguration = <span class="keyword">False</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">def </span><a class="code" href="a00249.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, description, filename, crsdef, dialog, progress):</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        super().<a class="code" href="a00249.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(description, QgsTask.CanCancel)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.exception = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.progress = progress</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.filename = filename</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.crsdef = crsdef</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.dialog = dialog</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a28c2aa597146ea0bee8567e8fcbcea69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28c2aa597146ea0bee8567e8fcbcea69">&#9670;&nbsp;</a></span>detectNamespaces()</h2>
+<a id="a9894298861cc9aa2a8e0b4209e08c3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9894298861cc9aa2a8e0b4209e08c3e0">&#9670;&nbsp;</a></span>detectLiteralType()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def detectNamespaces </td>
+          <td class="memname">def detectLiteralType </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -301,7 +222,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>subpredobj</em>&#160;</td>
+          <td class="paramname"><em>literal</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -310,203 +231,26 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">def </span>detectNamespaces(self, subpredobj):</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">if</span> subpredobj &lt; 0 <span class="keywordflow">or</span> subpredobj == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            query = <span class="stringliteral">&quot;select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">elif</span> subpredobj == 0:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            query = <span class="stringliteral">&quot;select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            query = <span class="stringliteral">&quot;select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> self.proxyHost != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> self.proxyPort != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Proxy? &#39;</span> + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: self.proxyHost})</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            opener = urllib.request.build_opener(proxy)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            urllib.request.install_opener(opener)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        sparql = SPARQLWrapper(self.triplestoreurl,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                               agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        sparql.setQuery(query)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        sparql.setReturnFormat(JSON)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        print(<span class="stringliteral">&quot;now sending query&quot;</span>)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            results = sparql.query().convert()</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            reslist = []</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">for</span> nss <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;ns&quot;</span> <span class="keywordflow">in</span> nss:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    reslist.append(nss[<span class="stringliteral">&quot;ns&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">return</span> reslist</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">return</span> []</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">def </span>detectLiteralType(self, literal):</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            geom = QgsGeometry.fromWkt(literal)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkt&quot;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            print(<span class="stringliteral">&quot;no wkt&quot;</span>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkb&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            print(<span class="stringliteral">&quot;no wkb&quot;</span>)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            json.loads(literal)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;geojson&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00205.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00185.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00209.html#af2d0d5884751e69699ca9b2d6c2cd7f1">DetectTripleStoreTask.proxyHost</a>, <a class="el" href="a00181.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00173.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00205.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00185.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00209.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">DetectTripleStoreTask.proxyPort</a>, <a class="el" href="a00181.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, <a class="el" href="a00173.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>.</p>
-
-</div>
-</div>
-<a id="afd5cbb47197ed025c14b33f40011c054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd5cbb47197ed025c14b33f40011c054">&#9670;&nbsp;</a></span>detectTripleStoreConfiguration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def detectTripleStoreConfiguration </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Detects default configurations of common geospatial triple stores. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">def </span>detectTripleStoreConfiguration(self):</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        self.configuration = {}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.configuration[<span class="stringliteral">&quot;name&quot;</span>] = self.triplestorename</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        self.configuration[<span class="stringliteral">&quot;endpoint&quot;</span>] = self.triplestoreurl</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        self.configuration[<span class="stringliteral">&quot;geoconceptlimit&quot;</span>] = 500</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        self.configuration[<span class="stringliteral">&quot;crs&quot;</span>] = 4326</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        self.configuration[<span class="stringliteral">&quot;staticconcepts&quot;</span>] = []</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        self.configuration[<span class="stringliteral">&quot;active&quot;</span>] = <span class="keyword">True</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>] = {<span class="stringliteral">&quot;owl&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/2002/07/owl#&quot;</span>,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                                          <span class="stringliteral">&quot;rdf&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span>,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                          <span class="stringliteral">&quot;rdfs&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span>,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                                          <span class="stringliteral">&quot;geosparql&quot;</span>: <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#&quot;</span>,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                                          <span class="stringliteral">&quot;geof&quot;</span>: <span class="stringliteral">&quot;http://www.opengis.net/def/function/geosparql/&quot;</span>,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                                          <span class="stringliteral">&quot;geor&quot;</span>: <span class="stringliteral">&quot;http://www.opengis.net/def/rule/geosparql/&quot;</span>,</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                                          <span class="stringliteral">&quot;sf&quot;</span>: <span class="stringliteral">&quot;http://www.opengis.net/ont/sf#&quot;</span>,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                          <span class="stringliteral">&quot;wgs84_pos&quot;</span>: <span class="stringliteral">&quot;http://www.w3.org/2003/01/geo/wgs84_pos#&quot;</span>}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        testQueries = {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="stringliteral">&quot;geosparql&quot;</span>: <span class="stringliteral">&quot;PREFIX geof:&lt;http://www.opengis.net/def/function/geosparql/&gt; SELECT ?a ?b ?c WHERE { BIND( \&quot;POINT(1 1)\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; AS ?a) BIND( \&quot;POINT(1 1)\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; AS ?b) FILTER(geof:sfIntersects(?a,?b))}&quot;</span>,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="stringliteral">&quot;available&quot;</span>: <span class="stringliteral">&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;</span>,</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="stringliteral">&quot;hasRDFSLabel&quot;</span>: <span class="stringliteral">&quot;PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt; ASK { ?a rdfs:label ?c . }&quot;</span>,</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="stringliteral">&quot;hasRDFType&quot;</span>: <span class="stringliteral">&quot;PREFIX rdf:&lt;http:/www.w3.org/1999/02/22-rdf-syntax-ns#&gt; ASK { ?a &lt;http:/www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; ?c . }&quot;</span>,</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="stringliteral">&quot;hasWKT&quot;</span>: <span class="stringliteral">&quot;PREFIX geosparql:&lt;http://www.opengis.net/ont/geosparql#&gt; ASK { ?a geosparql:asWKT ?c .}&quot;</span>,</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="stringliteral">&quot;hasGML&quot;</span>: <span class="stringliteral">&quot;PREFIX geosparql:&lt;http://www.opengis.net/ont/geosparql#&gt; ASK { ?a geosparql:asGML ?c .}&quot;</span>,</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="stringliteral">&quot;hasGeoJSON&quot;</span>: <span class="stringliteral">&quot;PREFIX geosparql:&lt;http://www.opengis.net/ont/geosparql#&gt; ASK { ?a geosparql:asGeoJSON ?c .}&quot;</span>,</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="stringliteral">&quot;hasLatLon&quot;</span>: <span class="stringliteral">&quot;PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt; ASK { ?a geo:lat ?c . ?a geo:long ?d . }&quot;</span>,</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="stringliteral">&quot;namespaceQuery&quot;</span>: <span class="stringliteral">&quot;select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \&quot;(#|/)[^#/]*$\&quot;, \&quot;$1\&quot; ) as ?ns )} limit 10&quot;</span>}</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">if</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;available&quot;</span>]):</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">if</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;hasWKT&quot;</span>]):</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">if</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;geosparql&quot;</span>]):</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>] = {}</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;geosparql&quot;</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>][</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                        <span class="stringliteral">&quot;query&quot;</span>] = <span class="stringliteral">&quot;FILTER(&lt;http://www.opengis.net/def/function/geosparql/sfIntersects&gt;(?geo,\&quot;POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;))&quot;</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                    self.message = <span class="stringliteral">&quot;URL depicts a valid GeoSPARQL Endpoint and contains WKT Literals!\nWould you like to add this SPARQL endpoint?&quot;</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    self.message = <span class="stringliteral">&quot;URL depicts a valid SPARQL Endpoint and contains WKT Literals!\nWould you like to add this SPARQL endpoint?&quot;</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                self.configuration[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>] = [<span class="stringliteral">&quot;item&quot;</span>, <span class="stringliteral">&quot;geo&quot;</span>]</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>] = []</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>].append({<span class="stringliteral">&quot;label&quot;</span>: <span class="stringliteral">&quot;10 Random Geometries&quot;</span>,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                            <span class="stringliteral">&quot;query&quot;</span>: <span class="stringliteral">&quot;SELECT ?item ?geo WHERE {\n ?item &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;%%concept%%&gt;.\n ?item &lt;http://www.opengis.net/ont/geosparql#hasGeometry&gt; ?geom_obj .\n ?geom_obj &lt;http://www.opengis.net/ont/geosparql#asWKT&gt; ?geo .\n } LIMIT 10&quot;</span>})</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                self.configuration[<span class="stringliteral">&quot;featurecollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#FeatureCollection&quot;</span>]</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                self.configuration[<span class="stringliteral">&quot;geometrycollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#GeometryCollection&quot;</span>]</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                    <span class="stringliteral">&quot;geoconceptquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?class WHERE { ?a &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; ?class . ?a &lt;http://www.opengis.net/ont/geosparql#hasGeometry&gt; ?a_geom . ?a_geom &lt;http://www.opengis.net/ont/geosparql#asWKT&gt; ?wkt .}&quot;</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    <span class="stringliteral">&quot;geocollectionquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }&quot;</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                i = 0</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                <span class="keywordflow">for</span> ns <span class="keywordflow">in</span> res:</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="keywordflow">if</span> ns != <span class="stringliteral">&quot;http://&quot;</span> <span class="keywordflow">and</span> ns.startswith(<span class="stringliteral">&quot;http://&quot;</span>):</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                        <span class="keywordflow">if</span> ns <span class="keywordflow">in</span> self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>]:</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>][ns]] = ns</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][<span class="stringliteral">&quot;ns&quot;</span> + str(i)] = ns</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                            i = i + 1</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                self.feasibleConfiguration = <span class="keyword">True</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                QgsMessageLog.logMessage(str(self.configuration))</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordflow">elif</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;hasLatLon&quot;</span>]):</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                self.message = <span class="stringliteral">&quot;URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?&quot;</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                self.configuration[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>] = [<span class="stringliteral">&quot;item&quot;</span>, <span class="stringliteral">&quot;lat&quot;</span>, <span class="stringliteral">&quot;lon&quot;</span>]</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>] = []</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>].append({<span class="stringliteral">&quot;label&quot;</span>: <span class="stringliteral">&quot;10 Random Geometries&quot;</span>,</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                                            <span class="stringliteral">&quot;query&quot;</span>: <span class="stringliteral">&quot;SELECT ?item ?lat ?lon WHERE {\n ?item &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n ?item &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat .\n ?item &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?lon .\n } LIMIT 10&quot;</span>})</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                self.configuration[<span class="stringliteral">&quot;featurecollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#FeatureCollection&quot;</span>]</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                self.configuration[<span class="stringliteral">&quot;geometrycollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#GeometryCollection&quot;</span>]</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                    <span class="stringliteral">&quot;geoconceptquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?class WHERE { ?a &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; ?class . ?a &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat . ?a &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?lon .}&quot;</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    <span class="stringliteral">&quot;geocollectionquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }&quot;</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                i = 0</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                <span class="keywordflow">for</span> ns <span class="keywordflow">in</span> res:</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    <span class="keywordflow">if</span> ns != <span class="stringliteral">&quot;http://&quot;</span> <span class="keywordflow">and</span> ns.startswith(<span class="stringliteral">&quot;http://&quot;</span>):</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                        <span class="keywordflow">if</span> ns <span class="keywordflow">in</span> self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>]:</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>][ns]] = ns</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][<span class="stringliteral">&quot;ns&quot;</span> + str(i)] = ns</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                            i = i + 1</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                self.feasibleConfiguration = <span class="keyword">True</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                QgsMessageLog.logMessage(str(self.configuration))</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">elif</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;hasGeoJSON&quot;</span>]):</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                <span class="keywordflow">if</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;geosparql&quot;</span>]):</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>] = {}</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] = <span class="stringliteral">&quot;geosparql&quot;</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                    self.configuration[<span class="stringliteral">&quot;bboxquery&quot;</span>][</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                        <span class="stringliteral">&quot;query&quot;</span>] = <span class="stringliteral">&quot;FILTER(&lt;http://www.opengis.net/def/function/geosparql/sfIntersects&gt;(?geo,\&quot;POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\&quot;^^&lt;http://www.opengis.net/ont/geosparql#geoJSONLiteral&gt;))&quot;</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                    self.message = <span class="stringliteral">&quot;URL depicts a valid GeoSPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?&quot;</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                    self.message = <span class="stringliteral">&quot;URL depicts a valid SPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?&quot;</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                self.configuration[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>] = [<span class="stringliteral">&quot;item&quot;</span>, <span class="stringliteral">&quot;geo&quot;</span>]</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                self.configuration[<span class="stringliteral">&quot;featurecollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#FeatureCollection&quot;</span>]</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                self.configuration[<span class="stringliteral">&quot;geometrycollectionclasses&quot;</span>] = [</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                    <span class="stringliteral">&quot;http://www.opengis.net/ont/geosparql#GeometryCollection&quot;</span>]</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>] = []</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>].append({<span class="stringliteral">&quot;label&quot;</span>: <span class="stringliteral">&quot;10 Random Geometries&quot;</span>,</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                                                            <span class="stringliteral">&quot;query&quot;</span>: <span class="stringliteral">&quot;SELECT ?item ?geo WHERE {\n ?item a &lt;%%concept%%&gt;.\n ?item &lt;http://www.opengis.net/ont/geosparql#hasGeometry&gt; ?geom_obj .\n ?geom_obj &lt;http://www.opengis.net/ont/geosparql#asGeoJSON&gt; ?geo .\n } LIMIT 10&quot;</span>})</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                self.configuration[<span class="stringliteral">&quot;querytemplate&quot;</span>].append({<span class="stringliteral">&quot;label&quot;</span>: <span class="stringliteral">&quot;10 Random Geometries (All Attributes&quot;</span>,</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                                                            <span class="stringliteral">&quot;query&quot;</span>: <span class="stringliteral">&quot;SELECT DISTINCT ?item ?rel ?val ?geo WHERE {\n ?item rdf:type &lt;%%concept%%&gt; .\n ?item ?rel ?val . \n ?val &lt;http://www.opengis.net/ont/geosparql#asGeoJSON&gt; ?geo .\n}\n LIMIT 100&quot;</span>})</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                    <span class="stringliteral">&quot;geoconceptquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?class WHERE { ?a &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; ?class . ?a ?rel ?a_geom . ?a_geom &lt;http://www.opengis.net/ont/geosparql#asGeoJSON&gt; ?wkt .}&quot;</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                self.configuration[</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                    <span class="stringliteral">&quot;geocollectionquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }&quot;</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                i = 0</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                <span class="keywordflow">for</span> ns <span class="keywordflow">in</span> res:</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                    <span class="keywordflow">if</span> ns != <span class="stringliteral">&quot;http://&quot;</span> <span class="keywordflow">and</span> ns.startswith(<span class="stringliteral">&quot;http://&quot;</span>):</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                        <span class="keywordflow">if</span> ns <span class="keywordflow">in</span> self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>]:</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][self.prefixstore[<span class="stringliteral">&quot;reversed&quot;</span>][ns]] = ns</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                            self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][<span class="stringliteral">&quot;ns&quot;</span> + str(i)] = ns</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                            i = i + 1</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                self.feasibleConfiguration = <span class="keyword">True</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                QgsMessageLog.logMessage(str(self.configuration))</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                self.message = <span class="stringliteral">&quot;SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint&quot;</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                self.feasibleConfiguration = <span class="keyword">False</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            self.message = <span class="stringliteral">&quot;URL does not depict a valid SPARQL Endpoint!&quot;</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            self.feasibleConfiguration = <span class="keyword">False</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">if</span> self.testTripleStoreConnection(testQueries[<span class="stringliteral">&quot;hasRDFSLabel&quot;</span>]) <span class="keywordflow">and</span> self.testTripleStoreConnection(</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                testQueries[<span class="stringliteral">&quot;hasRDFType&quot;</span>]):</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            self.configuration[</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                <span class="stringliteral">&quot;classfromlabelquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?class ?label { ?class &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; . ?class &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label . FILTER(CONTAINS(?label,\&quot;%%label%%\&quot;))} LIMIT 100 &quot;</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            self.configuration[</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                <span class="stringliteral">&quot;propertyfromlabelquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT ?class ?label { ?class &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; . ?class &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label . FILTER(CONTAINS(?label,\&quot;%%label%%\&quot;))} LIMIT 100 &quot;</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            self.configuration[</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                <span class="stringliteral">&quot;whattoenrichquery&quot;</span>] = <span class="stringliteral">&quot;SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)&quot;</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00209.html#a32c97d3f8cd6089ccf54e7c423020b7a">DetectTripleStoreTask.configuration</a>, <a class="el" href="a00209.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00209.html#ab0144ff6d482c292e0fe86404f386f7b">DetectTripleStoreTask.feasibleConfiguration</a>, <a class="el" href="a00209.html#ab8140947611504abcb64a4c277effcf5">DetectTripleStoreTask.message</a>, <a class="el" href="a00185.html#a4d9e45fd666bc36c0602e3a0c6244b3c">TripleStoreQuickAddDialog.prefixstore</a>, <a class="el" href="a00181.html#a4d9e45fd666bc36c0602e3a0c6244b3c">TripleStoreDialog.prefixstore</a>, <a class="el" href="a00209.html#a4d9e45fd666bc36c0602e3a0c6244b3c">DetectTripleStoreTask.prefixstore</a>, <a class="el" href="a00177.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicornDialog.prefixstore</a>, <a class="el" href="a00145.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicorn.prefixstore</a>, <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>, <a class="el" href="a00181.html#a92f0f35c62235de8c1bba4c25f7ede69">TripleStoreDialog.testTripleStoreConnection()</a>, <a class="el" href="a00209.html#a0b7a6d6691bd92b2f5c8a6cab2a03dda">DetectTripleStoreTask.triplestorename</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00209.html#af05d8aa0ef7a9307dfa5e0d690c9a98c">ConvertCRSTask.processLiteral()</a>, and <a class="el" href="a00237.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>.</p>
 
 </div>
 </div>
@@ -535,47 +279,109 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keyword">def </span><a class="code" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        self.progress.close()</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">if</span> self.feasibleConfiguration <span class="keywordflow">and</span> self.testConfiguration:</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            msgBox.setStandardButtons(QMessageBox.Yes)</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            msgBox.addButton(QMessageBox.No)</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Automatic Detection Successful&quot;</span>)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            msgBox.setText(self.message)</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keywordflow">if</span> msgBox.exec() != QMessageBox.Yes:</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                self.comboBox.addItem(self.triplestorename)</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                <span class="keywordflow">if</span> self.tripleStoreChooser != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    self.tripleStoreChooser.addItem(self.triplestorename)</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                index = len(self.triplestoreconf)</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                self.triplestoreconf.append({})</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                self.triplestoreconf[index] = self.configuration</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                self.addTripleStore = <span class="keyword">False</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                    self.prefixes[index] += <span class="stringliteral">&quot;PREFIX &quot;</span> + prefix + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][prefix] + <span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">if</span> self.permanentAdd != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.permanentAdd:</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                    f = open(os.path.join(__location__, <span class="stringliteral">&#39;triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&quot;w&quot;</span>)</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                    f.write(json.dumps(self.triplestoreconf, indent=2))</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                    f.close()</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                <span class="keywordflow">if</span> self.parentdialog != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                    self.parentdialog.close()</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">elif</span> self.feasibleConfiguration:</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            msgBox.setText(self.message)</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Automatic Detection Successful&quot;</span>)</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            msgBox.setText(self.message)</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Automatic Detection Failed&quot;</span>)</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Detect Triple Store Configuration&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="fragment"><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">def </span><a class="code" href="a00249.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        self.progress.close()</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        options = QFileDialog.Options()</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        options |= QFileDialog.DontUseNativeDialog</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        fileName, _ = QFileDialog.getSaveFileName(self.dialog, <span class="stringliteral">&quot;QFileDialog.getSaveFileName()&quot;</span>, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                                                  <span class="stringliteral">&quot;All Files (*);;Text Files (*.ttl)&quot;</span>, options=options)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> fileName:</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            fo = open(fileName, <span class="stringliteral">&quot;w&quot;</span>)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            fo.write(self.graph.serialize(format=<span class="stringliteral">&quot;turtle&quot;</span>).decode())</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            fo.close()</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Save converted file&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        self.dialog.close()</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00185.html#afcee2275fb7c24bb8979dd838f0dc90a">TripleStoreQuickAddDialog.comboBox</a>, <a class="el" href="a00181.html#afcee2275fb7c24bb8979dd838f0dc90a">TripleStoreDialog.comboBox</a>, <a class="el" href="a00209.html#afcee2275fb7c24bb8979dd838f0dc90a">DetectTripleStoreTask.comboBox</a>, <a class="el" href="a00209.html#a32c97d3f8cd6089ccf54e7c423020b7a">DetectTripleStoreTask.configuration</a>, <a class="el" href="a00209.html#ab0144ff6d482c292e0fe86404f386f7b">DetectTripleStoreTask.feasibleConfiguration</a>, <a class="el" href="a00209.html#ab8140947611504abcb64a4c277effcf5">DetectTripleStoreTask.message</a>, <a class="el" href="a00205.html#a991fd2c404665f13f536fc7791e53504">ConvertCRSTask.progress</a>, <a class="el" href="a00209.html#a991fd2c404665f13f536fc7791e53504">DetectTripleStoreTask.progress</a>, <a class="el" href="a00209.html#a85bc3b1af75c36188c69b04fcf8dd8b7">DetectTripleStoreTask.testConfiguration</a>, <a class="el" href="a00209.html#afe1b0b3e2a930a83eeaf4fb19f9a6969">DetectTripleStoreTask.tripleStoreChooser</a>, <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00181.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00193.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00189.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00173.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00157.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00145.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00209.html#a0b7a6d6691bd92b2f5c8a6cab2a03dda">DetectTripleStoreTask.triplestorename</a>.</p>
+<p class="reference">References <a class="el" href="a00209.html#a3d2da04d187a7112445f18a9f20b39ef">ConvertCRSTask.dialog</a>, <a class="el" href="a00209.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, and <a class="el" href="a00209.html#a991fd2c404665f13f536fc7791e53504">ConvertCRSTask.progress</a>.</p>
+
+</div>
+</div>
+<a id="af05d8aa0ef7a9307dfa5e0d690c9a98c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af05d8aa0ef7a9307dfa5e0d690c9a98c">&#9670;&nbsp;</a></span>processLiteral()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def processLiteral </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>literal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>literaltype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>reproject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>projectto</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">def </span>processLiteral(self, literal, literaltype, reproject, projectto):</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Process literal: &quot;</span> + str(literal) + <span class="stringliteral">&quot; &quot;</span> + str(literaltype) + <span class="stringliteral">&quot; &quot;</span> + str(reproject))</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;REPROJECT: &quot;</span> + str(reproject))</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        geom = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> literaltype == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            literaltype = self.detectLiteralType(literal)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;wkt&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            literal = literal.strip()</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;&lt;http&quot;</span>):</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                index = literal.index(<span class="stringliteral">&quot;&gt;&quot;</span>) + 1</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                slashindex = literal.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                reproject = literal[slashindex:(index - 1)]</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                geom = QgsGeometry.fromWkt(literal[index:])</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                reproject = <span class="stringliteral">&quot;CRS84&quot;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                geom = QgsGeometry.fromWkt(literal)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment"># elif &quot;gml&quot; in literaltype.lower():</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="comment">#    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wkb&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span> <span class="keywordflow">and</span> projectto != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">if</span> reproject != <span class="stringliteral">&quot;CRS84&quot;</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                sourceCrs = QgsCoordinateReferenceSystem(<span class="stringliteral">&quot;EPSG:&quot;</span> + str(reproject))</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                sourceCrs = QgsCoordinateReferenceSystem(<span class="stringliteral">&quot;CRS:84&quot;</span>)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            destCrs = QgsCoordinateReferenceSystem(projectto)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;PROJECTIT &#39;</span> + str(sourceCrs.description()) + <span class="stringliteral">&quot; &quot;</span> + str(projectto.description()),</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                     MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            geom.transform(tr)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;wkt&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;http://www.opengis.net/def/crs/EPSG/0/&quot;</span> + str(</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                str(projectto.authid())[str(projectto.authid()).rfind(<span class="stringliteral">&#39;:&#39;</span>) + 1:]) + <span class="stringliteral">&quot;&gt; &quot;</span> + geom.asWkt()</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;wkb&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span> geom.asWkb()</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">return</span> geom.asJson()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00209.html#a9894298861cc9aa2a8e0b4209e08c3e0">ConvertCRSTask.detectLiteralType()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00237.html#ab368e533f681a396257e919f7acf52fd">QueryLayerTask.processResults()</a>.</p>
 
 </div>
 </div>
@@ -594,136 +400,77 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">def </span><a class="code" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00131.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.description), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> self.testURL <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.testConfiguration:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            self.testTripleStoreConnection()</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> self.testConfiguration <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.testURL:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            res = self.detectTripleStoreConfiguration()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">def </span><a class="code" href="a00249.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            self.description()),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> self.proxyHost != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> self.proxyPort != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Proxy? &#39;</span> + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: self.proxyHost})</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            opener = urllib.request.build_opener(proxy)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            urllib.request.install_opener(opener)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.description()), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.graph = Graph()</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">if</span> self.filename.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                self.graph.load(self.filename)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                filepath = self.filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                result = self.graph.parse(self.filename, format=filepath[len(filepath) - 1])</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.description()), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            self.exception = str(e)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        self.geoconcepts = []</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">if</span> self.graph != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            print(<span class="stringliteral">&quot;WE HAVE A GRAPH&quot;</span>)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">for</span> s, p, o <span class="keywordflow">in</span> self.graph:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&#39;BEFORE &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(o), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                <span class="keywordflow">if</span> isinstance(o, Literal):</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                    QgsMessageLog.logMessage(<span class="stringliteral">&#39;ISLITERAL &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(o) + <span class="stringliteral">&quot; - &quot;</span> + str(o.datatype), MESSAGE_CATEGORY,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                                             Qgis.Info)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                    QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                    <span class="keywordflow">if</span> str(o.datatype) <span class="keywordflow">in</span> self.supportedLiteralTypes:</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ISGEOLITERAL &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.graph), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                        newliteral = Literal(self.processLiteral(o, o.datatype, <span class="stringliteral">&quot;&quot;</span>, self.crsdef), datatype=o.datatype)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                        self.graph.set((s, p, newliteral))</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                        QgsMessageLog.logMessage(<span class="stringliteral">&#39;AFTER &quot;{}&quot;&#39;</span>.<a class="code" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(newliteral) + <span class="stringliteral">&quot; - &quot;</span> + str(newliteral.datatype),</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00209.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00185.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreQuickAddDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00181.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, <a class="el" href="a00131.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00209.html#a85bc3b1af75c36188c69b04fcf8dd8b7">DetectTripleStoreTask.testConfiguration</a>, <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>, <a class="el" href="a00181.html#a92f0f35c62235de8c1bba4c25f7ede69">TripleStoreDialog.testTripleStoreConnection()</a>, and <a class="el" href="a00209.html#aacac69f65111f90a0c0d4749ff99a530">DetectTripleStoreTask.testURL</a>.</p>
-
-</div>
-</div>
-<a id="a79d5df9acef6fd54a9ebfdc4055f68d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79d5df9acef6fd54a9ebfdc4055f68d1">&#9670;&nbsp;</a></span>testTripleStoreConnection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def testTripleStoreConnection </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>query</em> = <code>&quot;SELECT&#160;?a&#160;?b&#160;?c&#160;WHERE&#160;{&#160;?a&#160;?b&#160;?c&#160;.}&#160;LIMIT&#160;1&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">def </span>testTripleStoreConnection(self, query=&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;):</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> self.proxyHost != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> self.proxyPort != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Proxy? &#39;</span> + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: self.proxyHost})</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            opener = urllib.request.build_opener(proxy)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            urllib.request.install_opener(opener)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        sparql = SPARQLWrapper(self.triplestoreurl,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                               agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        sparql.setQuery(query)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        sparql.setReturnFormat(JSON)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        print(<span class="stringliteral">&quot;now sending query&quot;</span>)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            results = sparql.query().convert()</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> self.testURL <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.testConfiguration:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                self.message = <span class="stringliteral">&quot;URL depicts a valid SPARQL Endpoint!&quot;</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;ASK&quot;</span> <span class="keywordflow">in</span> query:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">return</span> results[<span class="stringliteral">&quot;boolean&quot;</span>]</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            self.feasibleConfiguration = <span class="keyword">True</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            self.message = <span class="stringliteral">&quot;URL does not depict a valid SPARQL Endpoint!&quot;</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            self.feasibleConfiguration = <span class="keyword">False</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00209.html#ab0144ff6d482c292e0fe86404f386f7b">DetectTripleStoreTask.feasibleConfiguration</a>, <a class="el" href="a00209.html#ab8140947611504abcb64a4c277effcf5">DetectTripleStoreTask.message</a>, <a class="el" href="a00205.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00185.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00209.html#af2d0d5884751e69699ca9b2d6c2cd7f1">DetectTripleStoreTask.proxyHost</a>, <a class="el" href="a00181.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00173.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00205.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00185.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00209.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">DetectTripleStoreTask.proxyPort</a>, <a class="el" href="a00181.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, <a class="el" href="a00173.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>, <a class="el" href="a00209.html#a85bc3b1af75c36188c69b04fcf8dd8b7">DetectTripleStoreTask.testConfiguration</a>, <a class="el" href="a00209.html#aacac69f65111f90a0c0d4749ff99a530">DetectTripleStoreTask.testURL</a>, <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00201.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00185.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, and <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>.</p>
+<p class="reference">References <a class="el" href="a00213.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00209.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00189.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00185.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00177.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00209.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00189.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00185.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, and <a class="el" href="a00177.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af4a8aa8ceb4969b82047ab23c9d00c82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4a8aa8ceb4969b82047ab23c9d00c82">&#9670;&nbsp;</a></span>addTripleStore</h2>
+<a id="a833c3fbda4bca0e0f0c2a5c418654fa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833c3fbda4bca0e0f0c2a5c418654fa9">&#9670;&nbsp;</a></span>crsdef</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">addTripleStore</td>
+          <td class="memname">crsdef</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="afcee2275fb7c24bb8979dd838f0dc90a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcee2275fb7c24bb8979dd838f0dc90a">&#9670;&nbsp;</a></span>comboBox</h2>
+<a id="a3d2da04d187a7112445f18a9f20b39ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d2da04d187a7112445f18a9f20b39ef">&#9670;&nbsp;</a></span>dialog</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">comboBox</td>
+          <td class="memname">dialog</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00177.html#aaa0da52fb182abd5369eb94a3031ffbd">SPARQLunicornDialog.buildCustomTripleStoreDialog()</a>, <a class="el" href="a00177.html#a72d1298a8ff05a60a62ea537c8c42d30">SPARQLunicornDialog.buildQuickAddTripleStore()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00177.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00177.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00177.html#a9cc2b975c909acd6ab64eae2ccc6ea0c">SPARQLunicornDialog.validateSPARQL()</a>, and <a class="el" href="a00177.html#a8592bb9f6da4d0d37ab8efa7344a8584">SPARQLunicornDialog.viewselectaction()</a>.</p>
-
-</div>
-</div>
-<a id="a32c97d3f8cd6089ccf54e7c423020b7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32c97d3f8cd6089ccf54e7c423020b7a">&#9670;&nbsp;</a></span>configuration</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">configuration</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, and <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>.</p>
-
-</div>
-</div>
-<a id="a2661f439a4a94ffdcd5e47ae1da0bb1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2661f439a4a94ffdcd5e47ae1da0bb1d">&#9670;&nbsp;</a></span>description</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">description</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00213.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, and <a class="el" href="a00205.html#ad22709b2e67308af35f55680d5a026e0">ConvertCRSTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">ConvertCRSTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -739,99 +486,55 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00229.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, and <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, and <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
 
 </div>
 </div>
-<a id="ab0144ff6d482c292e0fe86404f386f7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0144ff6d482c292e0fe86404f386f7b">&#9670;&nbsp;</a></span>feasibleConfiguration</h2>
+<a id="a2ff994e16bf9521154de4cf659a3b689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ff994e16bf9521154de4cf659a3b689">&#9670;&nbsp;</a></span>filename</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">feasibleConfiguration</td>
+          <td class="memname">filename</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
 
 </div>
 </div>
-<a id="ab8140947611504abcb64a4c277effcf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8140947611504abcb64a4c277effcf5">&#9670;&nbsp;</a></span>message</h2>
+<a id="a6c60f2039bf7ed34f3291349b4637a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c60f2039bf7ed34f3291349b4637a0a">&#9670;&nbsp;</a></span>geoconcepts</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">message</td>
+          <td class="memname">geoconcepts</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, and <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
 
 </div>
 </div>
-<a id="aefbd5e6894d890da2d9989fbaf3a5c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefbd5e6894d890da2d9989fbaf3a5c6c">&#9670;&nbsp;</a></span>parentdialog</h2>
+<a id="a8ca49c796430e66a10450bfc2d218c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca49c796430e66a10450bfc2d218c81">&#9670;&nbsp;</a></span>graph</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">parentdialog</td>
+          <td class="memname">graph</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="aea3053601e14e410bef3021defeb1164"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea3053601e14e410bef3021defeb1164">&#9670;&nbsp;</a></span>permanentAdd</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">permanentAdd</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a302e350558edcbbd7b85927b33550548"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a302e350558edcbbd7b85927b33550548">&#9670;&nbsp;</a></span>prefixes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">prefixes</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00281.html#ae951a11f594110260b86cee2ddb2d8df">ToolTipPlainText.insertCompletion()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, and <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="a4d9e45fd666bc36c0602e3a0c6244b3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d9e45fd666bc36c0602e3a0c6244b3c">&#9670;&nbsp;</a></span>prefixstore</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">prefixstore</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">ConvertCRSTask.finished()</a>, and <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
 
 </div>
 </div>
@@ -847,7 +550,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">WhatToEnrichQueryTask.finished()</a>, <a class="el" href="a00213.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">EnrichmentQueryTask.finished()</a>, <a class="el" href="a00229.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00233.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00249.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">WhatToEnrichQueryTask.finished()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">ConvertCRSTask.finished()</a>, <a class="el" href="a00217.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">EnrichmentQueryTask.finished()</a>, <a class="el" href="a00237.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00213.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>.</p>
 
 </div>
 </div>
@@ -877,7 +580,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00209.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00213.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00213.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00249.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">ConvertCRSTask.run()</a>, and <a class="el" href="a00213.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
 
 </div>
 </div>
@@ -907,7 +610,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00209.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00213.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00213.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00237.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, <a class="el" href="a00249.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">ConvertCRSTask.run()</a>, and <a class="el" href="a00213.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
 
 </div>
 </div>
@@ -939,113 +642,39 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a85bc3b1af75c36188c69b04fcf8dd8b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85bc3b1af75c36188c69b04fcf8dd8b7">&#9670;&nbsp;</a></span>testConfiguration</h2>
+<a id="a28a4112f838898d008910c4320f0732e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a4112f838898d008910c4320f0732e">&#9670;&nbsp;</a></span>supportedLiteralTypes</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">testConfiguration</td>
+          <td class="memname">dictionary supportedLiteralTypes = {&quot;http://www.opengis.net/ont/geosparql#wktLiteral&quot;}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
-
-</div>
-</div>
-<a id="aacac69f65111f90a0c0d4749ff99a530"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacac69f65111f90a0c0d4749ff99a530">&#9670;&nbsp;</a></span>testURL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">testURL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
-
-</div>
-</div>
-<a id="afe1b0b3e2a930a83eeaf4fb19f9a6969"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe1b0b3e2a930a83eeaf4fb19f9a6969">&#9670;&nbsp;</a></span>tripleStoreChooser</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tripleStoreChooser</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00185.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00181.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00181.html#aa5447b6794b47547c3db9b58ec8666ec">TripleStoreDialog.createNewTripleStore()</a>, <a class="el" href="a00181.html#ab51f83eb5efc7744cb415accade74abc">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a00181.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00181.html#a809e9724f3fb01cd74431f96ff40c928">TripleStoreDialog.loadTripleStoreConfig()</a>, and <a class="el" href="a00181.html#aebb0c8211d47ee1206755f7992455b62">TripleStoreDialog.restoreFactory()</a>.</p>
-
-</div>
-</div>
-<a id="a330d24be0afd5a96238ca9e128328a2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a330d24be0afd5a96238ca9e128328a2d">&#9670;&nbsp;</a></span>triplestoreconf</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">triplestoreconf</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00281.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00229.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00233.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="a0b7a6d6691bd92b2f5c8a6cab2a03dda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b7a6d6691bd92b2f5c8a6cab2a03dda">&#9670;&nbsp;</a></span>triplestorename</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">triplestorename</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, and <a class="el" href="a00209.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>.</p>
-
-</div>
-</div>
-<a id="a9b8734be629bbc1f64723d90a67861ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b8734be629bbc1f64723d90a67861ab">&#9670;&nbsp;</a></span>triplestoreurl</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">triplestoreurl</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00209.html#a28c2aa597146ea0bee8567e8fcbcea69">DetectTripleStoreTask.detectNamespaces()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">DetectTripleStoreTask.detectTripleStoreConfiguration()</a>, <a class="el" href="a00221.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00229.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00221.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00217.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00213.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, and <a class="el" href="a00209.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00241_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00241.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
-<div class="ttc" id="aa00241_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00241.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:40</div></div>
-<div class="ttc" id="aa00131_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00131.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
-<div class="ttc" id="aa00241_html_a5f4d426f44e2bbf0bcca08c50d1b5ee4"><div class="ttname"><a href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.finished</a></div><div class="ttdeci">def finished(self, result)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:97</div></div>
+<div class="ttc" id="aa00249_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00249.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
+<div class="ttc" id="aa00135_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00135.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
+<div class="ttc" id="aa00249_html_a5f4d426f44e2bbf0bcca08c50d1b5ee4"><div class="ttname"><a href="a00249.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.finished</a></div><div class="ttdeci">def finished(self, result)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:97</div></div>
+<div class="ttc" id="aa00249_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00249.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:40</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00098.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00117.html">tasks</a></li><li class="navelem"><a class="el" href="a00119.html">detecttriplestoretask</a></li><li class="navelem"><a class="el" href="a00209.html">DetectTripleStoreTask</a></li>
+    <li class="navelem"><a class="el" href="a00101.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00120.html">tasks</a></li><li class="navelem"><a class="el" href="a00121.html">convertcrstask</a></li><li class="navelem"><a class="el" href="a00209.html">ConvertCRSTask</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
