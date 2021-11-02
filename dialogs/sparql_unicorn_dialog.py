@@ -97,6 +97,14 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoTreeView.customContextMenuRequested.connect(self.onContext)
         self.geoTreeViewModel = QStandardItemModel()
         self.geoTreeView.setModel(self.geoTreeViewModel)
+        self.classTreeView.setHeaderHidden(True)
+        self.classTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.classTreeView.setAlternatingRowColors(True)
+        self.classTreeView.setWordWrap(True)
+        self.classTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.classTreeView.customContextMenuRequested.connect(self.onContext4)
+        self.classTreeViewModel = QStandardItemModel()
+        self.classTreeView.setModel(self.classTreeViewModel)
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.proxyModel = QSortFilterProxyModel(self)
@@ -120,7 +128,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.featureCollectionClassList.setWordWrap(True)
         self.featureCollectionClassList.setHeaderHidden(True)
         self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
+        self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext2)
         self.featureCollectionClassListModel.clear()
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
         self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -128,7 +136,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionClassList.setWordWrap(True)
         self.geometryCollectionClassList.setHeaderHidden(True)
         self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
+        self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext3)
         self.geometryCollectionClassListModel.clear()
         self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
@@ -206,8 +214,30 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             f.write(json.dumps(self.savedQueriesJSON))
             f.close()
 
+    currentContext=None
+
     def onContext(self,position):
-        menu = QMenu("Menu", self.geoTreeView)
+        self.currentContext=self.geoTreeView
+        menu=self.createMenu()
+        menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
+
+    def onContext2(self, position):
+        self.currentContext=self.featureCollectionClassList
+        menu=self.createMenu()
+        menu.exec_(self.featureCollectionClassList.viewport().mapToGlobal(position))
+
+    def onContext3(self, position):
+        self.currentContext = self.geometryCollectionClassList
+        menu=self.createMenu()
+        menu.exec_(self.geometryCollectionClassList.viewport().mapToGlobal(position))
+
+    def onContext4(self, position):
+        self.currentContext = self.classTreeView
+        menu=self.createMenu()
+        menu.exec_(self.classTreeView.viewport().mapToGlobal(position))
+
+    def createMenu(self):
+        menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
         actionclip.triggered.connect(self.copyClipBoard)
@@ -221,33 +251,33 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             action2 = QAction("Load subclasses")
             menu.addAction(action2)
             action2.triggered.connect(self.loadSubClasses)
-        menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
+        return menu
 
     def openURL(self):
-        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        curindex = self.proxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContext.selectionModel().itemFromIndex(curindex).data(256)
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
 
     def copyClipBoard(self):
-        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        curindex = self.proxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContext.selectionModel().itemFromIndex(curindex).data(256)
         cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard)
         cb.setText(concept, mode=cb.Clipboard)
 
     def instanceCount(self):
-        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        curindex = self.proxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContext.selectionModel().itemFromIndex(curindex).data(256)
         self.qtaskinstance = InstanceAmountQueryTask(
             "Getting instance count for " + str(concept),
-            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.geoTreeViewModel.itemFromIndex(curindex))
+            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContext.selectionModel().itemFromIndex(curindex))
         QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def loadSubClasses(self):
         print("Load SubClasses")
-        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
+        curindex = self.proxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContext.selectionModel().itemFromIndex(curindex).data(256)
         if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
             query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
             prefixestoadd=""

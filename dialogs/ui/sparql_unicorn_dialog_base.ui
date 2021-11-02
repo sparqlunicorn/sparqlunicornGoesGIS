@@ -484,7 +484,7 @@ SELECT ?label ?geo ?item WHERE {
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -531,6 +531,34 @@ SELECT ?label ?geo ?item WHERE {
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>ClassTreeTest</string>
+      </attribute>
+      <widget class="QTreeView" name="classTreeView">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>331</width>
+         <height>411</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QToolButton" name="toolButton">
+     <property name="geometry">
+      <rect>
+       <x>1010</x>
+       <y>650</y>
+       <width>25</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">

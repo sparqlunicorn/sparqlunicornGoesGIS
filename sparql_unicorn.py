@@ -34,6 +34,7 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
 import sys
+from .tasks.classtreequerytask import ClassTreeQueryTask
 import pyproj
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
@@ -51,7 +52,7 @@ from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
-from .util.crsconversiontools import ConvertCRS
+from .util.crsexporttools import ConvertCRS
 
 import re
 
@@ -285,6 +286,12 @@ class SPARQLunicorn:
                                           self.dlg.geoTreeViewModel, examplequery, self.dlg.geoTreeView,
                                           self.dlg.autocomplete, self.dlg)
         QgsApplication.taskManager().addTask(self.qtask)
+
+    def getClassTree(self):
+        self.qtaskctree = ClassTreeQueryTask(
+            "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
+            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], self.dlg, self.dlg.classTreeViewModel.invisibleRootItem())
+        QgsApplication.taskManager().addTask(self.qtaskctree)
 
     def getGeoCollectionInstances(self, triplestoreurl, query, queryvar, graph, featureOrGeoCollection, examplequery):
         viewlist = []
@@ -835,6 +842,7 @@ class SPARQLunicorn:
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
+            self.dlg.toolButton.clicked.connect(self.getClassTree)
         # if self.first_start == False:
         #    self.dlg.loadUnicornLayers()
         # show the dialog
