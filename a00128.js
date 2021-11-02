@@ -1,4 +1,7 @@
 var a00128 =
 [
-    [ "QueryLayerTask", "a00237.html", "a00237" ]
+    [ "mappingtools", "a00129.html", "a00129" ],
+    [ "oauth", "a00130.html", "a00130" ],
+    [ "sparqlhighlighter", "a00131.html", "a00131" ],
+    [ "tooltipplaintext", "a00132.html", "a00132" ]
 ];

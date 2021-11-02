@@ -1,5 +1,7 @@
-<map id="VarInputDialog" name="VarInputDialog">
-<area shape="rect" id="node1" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,80,161,107"/>
+<map id="EnrichmentDialog" name="EnrichmentDialog">
+<area shape="rect" id="node1" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="132,109,271,136"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00781.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node3" href="$a00773.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="240,5,299,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="348,5,399,32"/>
 </map>
