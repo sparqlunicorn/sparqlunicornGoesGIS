@@ -188,7 +188,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
+        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectactionGeoTree)
+        self.classTreeView.selectionModel().currentChanged.connect(self.viewselectactionClassTree)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
@@ -435,33 +436,91 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startEnrichment.clicked.disconnect()
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
 
-    def viewselectactionGeometryCollection(self,selected=None, deselected=None):
+    def collectionSelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
             self.justloadingfromfile = False
             return
-        curindex = self.geometryCollectionProxyModel.mapToSource(self.geometryCollectionClassList.selectionModel().currentIndex())
-        if self.geometryCollectionClassList.selectionModel().currentIndex() is not None and self.geometryCollectionClassListModel.itemFromIndex(
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
                 curindex) is not None:
-            concept = self.geometryCollectionClassListModel.itemFromIndex(curindex).data(256)
+            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
             "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
+    def viewselectactionGeometryCollection(self,selected=None, deselected=None):
+        self.currentContext=self.geometryCollectionClassList
+        self.currentProxyModel=self.geometryCollectionProxyModel
+        self.currentContextModel=self.geometryCollectionClassListModel
+        self.collectionSelectAction()
+
     def viewselectactionFeatureCollection(self,selected=None, deselected=None):
+        self.currentContext=self.featureCollectionClassList
+        self.currentProxyModel=self.featureCollectionProxyModel
+        self.currentContextModel=self.featureCollectionClassListModel
+        self.collectionSelectAction()
+
+    def viewselectactionClassTree(self):
+        self.currentContext=self.classTreeView
+        self.currentProxyModel=self.classTreeViewProxyModel
+        self.currentContextModel=self.classTreeViewModel
+        self.conceptSelectAction()
+
+    def viewselectactionGeoTree(self):
+        self.currentContext=self.geoTreeView
+        self.currentProxyModel=self.proxyModel
+        self.currentContextModel=self.geoTreeViewModel
+        self.conceptSelectAction()
+
+    def conceptSelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
             self.justloadingfromfile = False
             return
-        curindex = self.featureCollectionProxyModel.mapToSource(self.featureCollectionClassList.selectionModel().currentIndex())
-        if self.featureCollectionClassList.selectionModel().currentIndex() is not None and self.featureCollectionClassListModel.itemFromIndex(
-                curindex) is not None:
-            concept = self.featureCollectionClassListModel.itemFromIndex(curindex).data(256)
-            querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-            "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
+        concept = ""
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
+                curindex) is not None and re.match(r'.*Q[0-9]+.*', self.currentContextModel.itemFromIndex(
+            curindex).text()) and not self.currentContextModel.itemFromIndex(curindex).text().startswith("http"):
+            self.inp_label.setText(
+                self.currentContextModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
+            concept = "Q" + self.currentContextModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
+        elif self.currentContextModel.itemFromIndex(curindex) is not None:
+            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        if "querytemplate" in self.triplestoreconf[endpointIndex]:
+            if "wd:Q%%concept%% ." in \
+                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+                querytext = ""
+                if concept != None and concept.startswith("http"):
+                    querytext = \
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                elif concept != None:
+                    querytext = \
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+            else:
+                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                    "query"].replace("%%concept%%", concept)
+            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
+                querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
+            elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
+                querytext = querytext + " LIMIT " + self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
+        if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
+                curindex) is not None and "#" in self.currentContextModel.itemFromIndex(curindex).text():
+            self.inp_label.setText(self.currentContextModel.itemFromIndex(curindex).text()[
+                                   self.currentContextModel.itemFromIndex(curindex).text().rfind(
+                                       '#') + 1:].lower().replace(" ", "_"))
+        elif self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
+                curindex) is not None:
+            self.inp_label.setText(self.currentContextModel.itemFromIndex(curindex).text()[
+                                   self.currentContextModel.itemFromIndex(curindex).text().rfind(
+                                       '/') + 1:].lower().replace(" ", "_"))
+
     ## 
     #  @brief Executes a GUI event when a new SPARQL endpoint is selected. 
     #  Usually loads the list of concepts related to the SPARQL endpoint

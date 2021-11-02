@@ -841,6 +841,7 @@ class SPARQLunicorn:
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
+            self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
             self.dlg.toolButton.clicked.connect(self.getClassTree)
         # if self.first_start == False:
