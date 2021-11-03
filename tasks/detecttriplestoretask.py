@@ -65,14 +65,18 @@ class DetectTripleStoreTask(QgsTask):
         sparql.setReturnFormat(JSON)
         print("now sending query")
         try:
+            QgsMessageLog.logMessage("Executed query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
             results = sparql.query().convert()
+            QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
             if "ASK" in query:
+                QgsMessageLog.logMessage("Result: "+str(results["boolean"]), MESSAGE_CATEGORY, Qgis.Info)
                 return results["boolean"]
             self.feasibleConfiguration = True
             return True
-        except:
+        except Exception as e:
+            QgsMessageLog.logMessage("Exception: "+str(e), MESSAGE_CATEGORY, Qgis.Info)
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False
             return False
@@ -136,7 +140,10 @@ class DetectTripleStoreTask(QgsTask):
             "hasLatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
+            QgsMessageLog.logMessage("Triple Store "+str(self.triplestoreurl)+" is available!", MESSAGE_CATEGORY, Qgis.Info)
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
+                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
+                                         Qgis.Info)
                 self.configuration["geometryproperty"] = "http://www.opengis.net/ont/geosparql#hasGeometry"
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["bboxquery"] = {}
@@ -171,6 +178,9 @@ class DetectTripleStoreTask(QgsTask):
                 self.feasibleConfiguration = True
                 QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
+                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains Lat/Lon properties!",
+                                         MESSAGE_CATEGORY,
+                                         Qgis.Info)
                 self.configuration["geometryproperty"] = "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
                 self.message = "URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
@@ -199,6 +209,9 @@ class DetectTripleStoreTask(QgsTask):
                 self.feasibleConfiguration = True
                 QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
+                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains GeoJSON literals!",
+                                         MESSAGE_CATEGORY,
+                                         Qgis.Info)
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["geometryproperty"] = "http://www.opengis.net/ont/geosparql#hasGeometry"
                     self.configuration["bboxquery"] = {}

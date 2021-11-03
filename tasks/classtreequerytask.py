@@ -125,8 +125,8 @@ class ClassTreeQueryTask(QgsTask):
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
-        self.alreadyprocessed=set()
-        self.dlg.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
+        self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
+        self.alreadyprocessed=set()
         self.classtreemap["root"]=self.rootNode
         self.buildTree("root",self.classtreemap,self.subclassmap,[])

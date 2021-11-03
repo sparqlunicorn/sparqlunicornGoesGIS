@@ -288,6 +288,7 @@ class SPARQLunicorn:
         QgsApplication.taskManager().addTask(self.qtask)
 
     def getClassTree(self):
+        self.dlg.classTreeViewModel.clear()
         self.qtaskctree = ClassTreeQueryTask(
             "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
             self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], self.dlg, self.dlg.classTreeViewModel.invisibleRootItem())
@@ -339,6 +340,7 @@ class SPARQLunicorn:
         self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts")
         self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections")
         self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections")
+        self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree")
         self.dlg.savedQueries.clear()
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "endpoint"] in self.savedQueriesJSON:
@@ -352,6 +354,9 @@ class SPARQLunicorn:
             item = QStandardItem()
             item.setText("Loading...")
             self.dlg.geoTreeViewModel.appendRow(item)
+            item2 = QStandardItem()
+            item2.setText("Loading...")
+            self.dlg.classTreeViewModel.appendRow(item)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["endpoint"],
                                     self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
@@ -379,6 +384,8 @@ class SPARQLunicorn:
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.dlg.inp_sparql2.columnvars = {}
+        if "wikidata" not in self.triplestoreconf[endpointIndex]["endpoint"]:
+            self.getClassTree()
         if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
             QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
