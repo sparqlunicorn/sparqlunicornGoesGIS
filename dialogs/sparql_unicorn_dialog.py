@@ -330,7 +330,10 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
+            if "wikidata" in self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]:
+                query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
+            else:
+                query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
             prefixestoadd=""
             for endpoint in self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]:
                     prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"][

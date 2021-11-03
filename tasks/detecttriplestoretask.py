@@ -112,6 +112,9 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["endpoint"] = self.triplestoreurl
         self.configuration["geoconceptlimit"] = 500
         self.configuration["crs"] = 4326
+        self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label",  
+        self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf",    
         self.configuration["staticconcepts"] = []
         self.configuration["active"] = True
         self.configuration["prefixes"] = {"owl": "http://www.w3.org/2002/07/owl#",
@@ -134,6 +137,7 @@ class DetectTripleStoreTask(QgsTask):
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
+                self.configuration["geometryproperty"] = "http://www.opengis.net/ont/geosparql#hasGeometry"
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
@@ -167,6 +171,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.feasibleConfiguration = True
                 QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
+                self.configuration["geometryproperty"] = "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
                 self.message = "URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
                 self.configuration["querytemplate"] = []
@@ -195,6 +200,7 @@ class DetectTripleStoreTask(QgsTask):
                 QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
                 if self.testTripleStoreConnection(testQueries["geosparql"]):
+                    self.configuration["geometryproperty"] = "http://www.opengis.net/ont/geosparql#hasGeometry"
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
                     self.configuration["bboxquery"][

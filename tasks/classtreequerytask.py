@@ -27,15 +27,19 @@ class ClassTreeQueryTask(QgsTask):
         self.proxyPort = s.value("proxy/proxyPort")
         self.proxyUser = s.value("proxy/proxyUser")
         self.proxyPassword = s.value("proxy/proxyPassword")
-        #
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
                     SELECT DISTINCT ?subject ?label ?supertype ?hasgeo\n
-                    WHERE {\n
-                       { ?subject <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class .  } UNION { ?individual <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subject . OPTIONAL {BIND(EXISTS {?individual <http://www.opengis.net/ont/geosparql#hasGeometry>/<http://www.opengis.net/ont/geosparql#asWKT> ?wkt } AS ?hasgeo)}} .\n
-                       OPTIONAL { ?subject rdfs:subClassOf ?supertype } .\n
-                       OPTIONAL { ?subject <http://www.w3.org/2000/01/rdf-schema#label> ?label }.\n
+                    WHERE {\n"""
+        if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
+            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } .\n"
+        elif self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
+            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} .\n"
+        else:
+            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]+"> ?wkt } AS ?hasgeo)}} .\n"
+        self.query+="""OPTIONAL { ?subject <"""+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]+"""> ?supertype } .\n
+                       OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["labelproperty"])+"""> ?label }.\n
                         FILTER (\n
                             (\n
                             ?subject != owl:Class &&\n
@@ -59,6 +63,8 @@ class ClassTreeQueryTask(QgsTask):
             proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
+        self.classtreemap={"root":self.treeNode}
+        self.subclassmap={"root":set()}
         sparql = SPARQLWrapper(self.triplestoreurl,
                                agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.query)), MESSAGE_CATEGORY, Qgis.Info)
@@ -66,8 +72,6 @@ class ClassTreeQueryTask(QgsTask):
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
-        self.classtreemap={"root":self.treeNode}
-        self.subclassmap={"root":set()}
         for result in results["results"]["bindings"]:
             QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
