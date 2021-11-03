@@ -1,4 +1,7 @@
-<map id="EnrichmentQueryTask" name="EnrichmentQueryTask">
-<area shape="rect" id="node1" title="Executes an enrichment task on a given layer with a given configuration." alt="" coords="5,80,169,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="49,5,125,32"/>
+<map id="EnrichmentDialog" name="EnrichmentDialog">
+<area shape="rect" id="node1" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="132,109,271,136"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$a00813.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="240,5,299,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="348,5,399,32"/>
 </map>

@@ -1,4 +1,4 @@
 var a00119 =
 [
-    [ "DetectTripleStoreTask", "a00209.html", "a00209" ]
+    [ "SPARQLunicornDialog", "a00189.html", "a00189" ]
 ];
