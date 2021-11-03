@@ -1,4 +1,4 @@
 var a00115 =
 [
-    [ "ConvertCRSDialog", "a00173.html", "a00173" ]
+    [ "VarInputDialog", "a00197.html", "a00197" ]
 ];
