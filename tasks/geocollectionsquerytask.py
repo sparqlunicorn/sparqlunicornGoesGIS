@@ -1,9 +1,8 @@
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QStyle
-from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -49,21 +48,9 @@ class GeoCollectionsQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.query)), MESSAGE_CATEGORY, Qgis.Info)
-        sparql.setQuery(self.query)
-        print("now sending query")
-        print(self.triplestoreurl)
-        sparql.setMethod(GET)
-        sparql.setReturnFormat(JSON)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreurl)), MESSAGE_CATEGORY, Qgis.Info)
-        results = sparql.query().convert()
+        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        if results==False:
+            return False
         QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             viewlistentry={}

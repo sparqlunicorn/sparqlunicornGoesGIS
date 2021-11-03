@@ -1,12 +1,11 @@
 from urllib.request import urlopen
 import json
 import sys
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog
-from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, QgsFeatureRequest, \
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 from qgis.core import (
@@ -41,32 +40,9 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(self.query)
-        sparql.setMethod(POST)
-        sparql.setReturnFormat(JSON)
-        QgsMessageLog.logMessage("QueryLayerTask: " + str(self.query))
-
-        try:
-            results = sparql.query().convert()
-        except Exception as e:
-            try:
-                sparql = SPARQLWrapper(self.triplestoreurl,
-                                       agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery(self.query)
-                sparql.setMethod(GET)
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
-            except Exception as e:
-                self.exception = e
-                return False
-                # print(results)
+        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        if results==False:
+            return False
         # geojson stuff
         self.geojson = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),

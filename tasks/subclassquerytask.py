@@ -1,11 +1,10 @@
 import json
 import requests
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
-from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
@@ -36,18 +35,9 @@ class SubClassQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
-        sparql.setQuery(self.query)
-        sparql.setMethod(GET)
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
+        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        if results==False:
+            return False
         QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.viewlist.append(str(result["subclass"]["value"]))
@@ -80,12 +70,9 @@ class SubClassQueryTask(QgsTask):
                 vals += qid + " "
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
-            sparql = SPARQLWrapper(self.triplestoreurl,
-                                   agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setMethod(GET)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
+            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, query)
+            if results == False:
+                return result
             for res in results["results"]["bindings"]:
                 result[res["class"]["value"]] = res["label"]["value"]
         else:

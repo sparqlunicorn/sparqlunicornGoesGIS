@@ -1,11 +1,10 @@
 import json
 import requests
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog
-from SPARQLWrapper import SPARQLWrapper, JSON
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -41,11 +40,6 @@ class SearchTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.ProxyHandler({'http': proxyHost})
-            opener = urllib.build_opener(proxy)
-            urllib.install_opener(opener)
         # msgBox=QMessageBox()
         # msgBox.setText(self.query+" - "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
         # msgBox.exec()
@@ -61,11 +55,10 @@ class SearchTask(QgsTask):
             return
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)
-            sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"],
-                                   agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query)
-            sparql.setReturnFormat(JSON)
-            self.results = sparql.query().convert()
+            self.results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,
+                                               self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query)
+            if self.results == False:
+                return False
             # msgBox=QMessageBox()
             # msgBox.setText(str(results))
             # msgBox.exec()

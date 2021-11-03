@@ -1,11 +1,10 @@
 import json
-import urllib
 import os
+from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis, QgsApplication
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog
-from SPARQLWrapper import SPARQLWrapper, JSON
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -54,20 +53,10 @@ class DetectTripleStoreTask(QgsTask):
         return True
 
     def testTripleStoreConnection(self, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(query)
-        sparql.setReturnFormat(JSON)
-        print("now sending query")
-        try:
-            QgsMessageLog.logMessage("Executed query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-            results = sparql.query().convert()
-            QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Executed query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
+        results=SPARQLUtils.executeQuery(self.proxyHost,self.proxyPort,self.triplestoreurl,query)
+        QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
+        if results!=False:
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
             if "ASK" in query:
@@ -75,11 +64,7 @@ class DetectTripleStoreTask(QgsTask):
                 return results["boolean"]
             self.feasibleConfiguration = True
             return True
-        except Exception as e:
-            QgsMessageLog.logMessage("Exception: "+str(e), MESSAGE_CATEGORY, Qgis.Info)
-            self.message = "URL does not depict a valid SPARQL Endpoint!"
-            self.feasibleConfiguration = False
-            return False
+        return results
 
     def detectNamespaces(self, subpredobj):
         if subpredobj < 0 or subpredobj == None:
@@ -88,25 +73,14 @@ class DetectTripleStoreTask(QgsTask):
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         else:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(query)
-        sparql.setReturnFormat(JSON)
-        print("now sending query")
-        try:
-            results = sparql.query().convert()
-            reslist = []
-            for nss in results["results"]["bindings"]:
-                if "ns" in nss:
-                    reslist.append(nss["ns"]["value"])
-            return reslist
-        except:
+        results=SPARQLUtils.executeQuery(self.proxyHost,self.proxyPort,self.triplestoreurl,query)
+        if results==False:
             return []
+        reslist = []
+        for nss in results["results"]["bindings"]:
+            if "ns" in nss:
+                reslist.append(nss["ns"]["value"])
+        return reslist
 
     ## Detects default configurations of common geospatial triple stores.
     #  @param self The object pointer.

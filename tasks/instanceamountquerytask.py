@@ -1,7 +1,6 @@
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
-from SPARQLWrapper import SPARQLWrapper, JSON, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
@@ -28,32 +27,24 @@ class InstanceAmountQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        sparql = SPARQLWrapper(self.triplestoreurl,
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         if "wikidata" in self.triplestoreurl:
             wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
                     wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            sparql.setQuery(
-                "SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
+            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, "SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
                     wikicon) + "> . }")
         else:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
                     self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            sparql.setQuery(
-                "SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
+            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, "SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
                     self.treeNode.data(256)) + "> . }")
-        sparql.setMethod(GET)
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
-        self.amount = results["results"]["bindings"][0]["amount"]["value"]
+        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        if results != False:
+            self.amount = results["results"]["bindings"][0]["amount"]["value"]
+        else:
+            self.amount=0
         return True
 
     def finished(self, result):

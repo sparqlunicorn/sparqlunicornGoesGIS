@@ -1,9 +1,8 @@
-import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import Qgis, QgsField
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtWidgets import QMessageBox, QTableWidgetItem
-from SPARQLWrapper import SPARQLWrapper, JSON, POST, GET
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -52,14 +51,10 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
         attlist = {}
         attlist[self.item] = []
         attlist[self.idfield] = {}
+        query = ""
         for f in self.layer.getFeatures():
             if self.item in f:
                 attlist[self.item].append(f[self.item])
@@ -102,29 +97,10 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage(self.triplestoreurl,
                                  MESSAGE_CATEGORY, Qgis.Info)
         print(self.triplestoreurl)
-        try:
-            sparql = SPARQLWrapper(self.triplestoreurl,
-                                   agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setMethod(POST)
-            print("now sending query")
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-        except Exception as e:
-            QgsMessageLog.logMessage("Trying GET query",
-                                     MESSAGE_CATEGORY, Qgis.Info)
-            try:
-                sparql = SPARQLWrapper(self.triplestoreurl,
-                                       agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery(query)
-                sparql.setMethod(GET)
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
-            except Exception as e:
-                # msgBox=QMessageBox()
-                # msgBox.setText("The following exception occurred: "+str(e))
-                # msgBox.exec()
-                return False
+
+        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        if results==False:
+            return False
         print(str(results))
         # resultcounter=0
         for resultcounter in results["results"]["bindings"]:
@@ -189,14 +165,14 @@ class EnrichmentQueryTask(QgsTask):
                 if self.strategy == "Merge":
                     newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))
                 elif self.strategy == "Keep Local":
-                    if f[item] == None:
+                    if f[self.item] == None:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
                     else:
                         newitem = QTableWidgetItem(str(f[self.item]))
                 elif self.strategy == "Ask User":
                     newitem = QTableWidgetItem(str(f[self.item]) + ";" + str(self.resultmap[f[self.idfield]]))
                 elif self.strategy == "Keep Remote":
-                    if not f[idfield] in self.resultmap or self.resultmap[f[self.idfield]] == None:
+                    if not f[self.idfield] in self.resultmap or self.resultmap[f[self.idfield]] == None:
                         newitem = QTableWidgetItem(str(f[self.item]))
                     else:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
