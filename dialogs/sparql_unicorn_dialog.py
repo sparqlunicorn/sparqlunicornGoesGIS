@@ -83,7 +83,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         """Constructor."""
         super(SPARQLunicornDialog, self).__init__(parent)
         self.setupUi(self)
-
+        self.comboBox = QComboBox
         # self.menuBar = menuBar
         self.prefixes = prefixes
         self.maindlg = maindlg
@@ -95,7 +95,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.prefixstore = prefixstore
         self.triplestoreconf = triplestoreconf
         # self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-        #                                                  self.comboBox)
+        #                                                   self.comboBox)
         # self.geoTreeView.setHeaderHidden(True)
         # self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # self.geoTreeView.setAlternatingRowColors(True)
@@ -189,6 +189,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         #self.loadUnicornLayers()
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
+        self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
 
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
@@ -198,6 +199,19 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Load Graph")
         self.searchTripleStoreDialog.exec_()
+
+##
+#  @brief Creates a What To Enrich dialog with parameters given.
+#
+#  @param self The object pointer
+    def buildQuickAddTripleStore(self):
+        self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
+        self.comboBox)
+        self.searchTripleStoreDialog.setMinimumSize(580, 186)
+        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
+        self.searchTripleStoreDialog.exec_()
+
+
 # this part of code creates a menubar with an exit and file menu
         # exitAct = QAction(QIcon('exit.png'), '&Exit', self)
         # exitAct.setShortcut('Ctrl+Q')

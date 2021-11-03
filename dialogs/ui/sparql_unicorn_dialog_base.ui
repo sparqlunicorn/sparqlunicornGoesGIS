@@ -14,6 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QObject#centralwidget{
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}
+</string>
+   </property>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
@@ -411,7 +416,14 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Query</string>
     </property>
-    <addaction name="actionLoad_Graph"/>
+    <widget class="QMenu" name="menuEndpoint">
+     <property name="title">
+      <string>Endpoint</string>
+     </property>
+     <addaction name="actionAdd_Endpoint"/>
+     <addaction name="actionLoad_Graph"/>
+    </widget>
+    <addaction name="menuEndpoint"/>
    </widget>
    <addaction name="menuQuery"/>
   </widget>
@@ -419,6 +431,11 @@ color: rgb(255, 255, 255);</string>
   <action name="actionLoad_Graph">
    <property name="text">
     <string>Load Graph</string>
+   </property>
+  </action>
+  <action name="actionAdd_Endpoint">
+   <property name="text">
+    <string>Quick Add Endpoint</string>
    </property>
   </action>
  </widget>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>429</width>
-    <height>186</height>
+    <height>242</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -33,7 +33,7 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>19</height>
+       <height>48</height>
       </size>
      </property>
     </spacer>
@@ -230,7 +230,7 @@ color: rgb(255, 255, 255);</string>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>47</height>
       </size>
      </property>
     </spacer>

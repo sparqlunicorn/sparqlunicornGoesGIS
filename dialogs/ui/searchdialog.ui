@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>671</width>
-    <height>482</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QObject#SearchDialog{
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}</string>
   </property>
   <widget class="QLineEdit" name="conceptSearchEdit">
    <property name="geometry">
@@ -21,6 +25,13 @@
      <width>251</width>
      <height>25</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
    </property>
   </widget>
   <widget class="QLabel" name="conceptSearchLabel">
@@ -58,6 +69,13 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
+   </property>
   </widget>
   <widget class="QRadioButton" name="findConcept">
    <property name="geometry">
@@ -67,6 +85,9 @@
      <width>106</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(0, 81, 135);</string>
    </property>
    <property name="text">
     <string>Class</string>
@@ -94,6 +115,11 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
     <string>Search</string>
    </property>
@@ -120,6 +146,11 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+   </property>
    <property name="text">
     <string>Apply</string>
    </property>
@@ -143,6 +174,13 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="costumpropertyButton">
    <property name="geometry">
@@ -152,6 +190,11 @@
      <width>101</width>
      <height>25</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Use Own URI</string>
