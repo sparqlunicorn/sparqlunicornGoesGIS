@@ -33,12 +33,12 @@ class ClassTreeQueryTask(QgsTask):
                     SELECT DISTINCT ?subject ?label ?supertype ?hasgeo\n
                     WHERE {\n"""
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
-            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } .\n"
+            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } .\n"
         elif self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
-            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} .\n"
+            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} .\n"
         else:
-            self.query+="{ ?subject <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]+"> ?wkt } AS ?hasgeo)}} .\n"
-        self.query+="""OPTIONAL { ?subject <"""+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]+"""> ?supertype } .\n
+            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}} .\n"
+        self.query+="""OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"])+"""> ?supertype } .\n
                        OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["labelproperty"])+"""> ?label }.\n
                         FILTER (\n
                             (\n
@@ -110,14 +110,15 @@ class ClassTreeQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
-    def buildTree(self,curNode,classtreemap,subclassmap):
+    def buildTree(self,curNode,classtreemap,subclassmap,mypath):
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
-                if item in classtreemap and item not in self.alreadyprocessed:
+                if item in classtreemap and item not in self.alreadyprocessed and item not in mypath:
                     QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
                                          Qgis.Info)
                     classtreemap[curNode].appendRow(classtreemap[item])
-                self.buildTree(item,classtreemap,subclassmap)
+                if item!=curNode:
+                    self.buildTree(item,classtreemap,subclassmap,mypath+[item])
             self.alreadyprocessed.add(curNode)
 
 
@@ -128,4 +129,4 @@ class ClassTreeQueryTask(QgsTask):
         self.dlg.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         self.classtreemap["root"]=self.rootNode
-        self.buildTree("root",self.classtreemap,self.subclassmap)
+        self.buildTree("root",self.classtreemap,self.subclassmap,[])

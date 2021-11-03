@@ -112,9 +112,9 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["endpoint"] = self.triplestoreurl
         self.configuration["geoconceptlimit"] = 500
         self.configuration["crs"] = 4326
-        self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-        self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label",  
-        self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf",    
+        self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label"
+        self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         self.configuration["staticconcepts"] = []
         self.configuration["active"] = True
         self.configuration["prefixes"] = {"owl": "http://www.w3.org/2002/07/owl#",
