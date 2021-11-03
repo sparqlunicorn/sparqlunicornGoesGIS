@@ -340,7 +340,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            self.sparql.updateNewClassList()</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                                                  QItemSelectionModel.SelectCurrent)</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            self.dlg.viewselectaction()</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            self.dlg.viewselectactionGeoTree()</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">elif</span> len(self.viewlist) &gt; 0:</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> self.viewlist:</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                <span class="comment"># self.layerconcepts.addItem(concept)</span></div>
@@ -370,7 +370,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            self.sparql.updateNewClassList()</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                                                  QItemSelectionModel.SelectCurrent)</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            self.dlg.viewselectaction()</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            self.dlg.viewselectactionGeoTree()</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">if</span> self.amountoflabels != -1:</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            self.layercount.setText(<span class="stringliteral">&quot;[&quot;</span> + str(self.amountoflabels) + <span class="stringliteral">&quot;]&quot;</span>)</div>
 </div><!-- fragment -->
