@@ -94,8 +94,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.autocomplete = autocomplete
         self.prefixstore = prefixstore
         self.triplestoreconf = triplestoreconf
-        # self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-        #                                                   self.comboBox)
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
+                                                          self.comboBox)
         # self.geoTreeView.setHeaderHidden(True)
         # self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # self.geoTreeView.setAlternatingRowColors(True)
@@ -190,7 +190,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #self.loadUnicornLayers()
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
         self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
+        self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
 
+        # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
         #
@@ -211,6 +213,68 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
 
+    # def viewselectaction(self,selected=None, deselected=None):
+    #     endpointIndex = self.comboBox.currentIndex()
+    #     if endpointIndex == 0:
+    #         self.justloadingfromfile = False
+    #         return
+    #     concept = ""
+    #     curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+    #     if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+    #             curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
+    #         curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
+    #         self.inp_label.setText(
+    #             self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
+    #         concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
+    #     elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
+    #         concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
+    #     if "querytemplate" in self.triplestoreconf[endpointIndex]:
+    #         if "wd:Q%%concept%% ." in \
+    #                 self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+    #             querytext = ""
+    #             if concept != None and concept.startswith("http"):
+    #                 querytext = \
+    #                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+    #                         "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+    #             elif concept != None:
+    #                 querytext = \
+    #                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+    #                         "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+    #         else:
+    #             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+    #                 "query"].replace("%%concept%%", concept)
+    #         if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
+    #             querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
+    #         elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
+    #             querytext = querytext + " LIMIT " + self.queryLimit.text()
+    #         self.inp_sparql2.setPlainText(querytext)
+    #         self.inp_sparql2.columnvars = {}
+    #     if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+    #             curindex) is not None and "#" in self.geoTreeViewModel.itemFromIndex(curindex).text():
+    #         self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+    #                                self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
+    #                                    '#') + 1:].lower().replace(" ", "_"))
+    #     elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+    #             curindex) is not None:
+    #         self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+    #                                self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
+    #                                    '/') + 1:].lower().replace(" ", "_"))
+
+    def itemModelToMap(self, model):
+        resdict = {}
+        for row in range(model.rowCount()):
+            index = model.index(row, 0, self)
+            resdict[model.itemFromIndex(index).text()] = model.itemFromIndex(index).data(1)
+        return resdict
+
+
+
+    def buildCustomTripleStoreDialog(self):
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
+                                                         self.comboBox)
+        self.searchTripleStoreDialog.setMinimumSize(700, 500)
+        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
+        self.searchTripleStoreDialog.exec_()
 
 # this part of code creates a menubar with an exit and file menu
         # exitAct = QAction(QIcon('exit.png'), '&Exit', self)
