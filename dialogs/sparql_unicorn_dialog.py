@@ -166,7 +166,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.savedQueryLabel.hide()
         # self.saveQueryName_2.hide()
         self.enrichTableResult.hide()
-        self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
+        self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
         self.bboxButton.clicked.connect(self.getPointFromCanvas)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
@@ -228,46 +228,21 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.currentContext=self.geoTreeView
         self.currentContextModel = self.geoTreeViewModel
         self.currentProxyModel = self.proxyModel
-        menu = QMenu("Menu", self.currentContext)
-        actionclip=QAction("Copy IRI to clipboard")
-        menu.addAction(actionclip)
-        actionclip.triggered.connect(self.copyClipBoard)
-        action = QAction("Open in Webbrowser")
-        menu.addAction(action)
-        action.triggered.connect(self.openURL)
-        actioninstancecount=QAction("Check instance count")
-        menu.addAction(actioninstancecount)
-        actioninstancecount.triggered.connect(self.instanceCount)
-        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            action2 = QAction("Load subclasses")
-            menu.addAction(action2)
-            action2.triggered.connect(self.loadSubClasses)
-        menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
+        self.createMenu(position)
 
     def onContext2(self, position):
         self.currentContext=self.featureCollectionClassList
         self.currentContextModel = self.featureCollectionClassListModel
         self.currentProxyModel = self.featureCollectionProxyModel
-        menu = QMenu("Menu", self.currentContext)
-        actionclip = QAction("Copy IRI to clipboard")
-        menu.addAction(actionclip)
-        actionclip.triggered.connect(self.copyClipBoard)
-        action = QAction("Open in Webbrowser")
-        menu.addAction(action)
-        action.triggered.connect(self.openURL)
-        actioninstancecount = QAction("Check instance count")
-        menu.addAction(actioninstancecount)
-        actioninstancecount.triggered.connect(self.instanceCount)
-        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            action2 = QAction("Load subclasses")
-            menu.addAction(action2)
-            action2.triggered.connect(self.loadSubClasses)
-        menu.exec_(self.featureCollectionClassList.viewport().mapToGlobal(position))
+        self.createMenu(position)
 
     def onContext3(self, position):
         self.currentContext = self.geometryCollectionClassList
         self.currentContextModel = self.geometryCollectionClassListModel
         self.currentProxyModel = self.geometryCollectionProxyModel
+        self.createMenu(position)
+
+    def createMenu(self,position):
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -282,27 +257,17 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             action2 = QAction("Load subclasses")
             menu.addAction(action2)
             action2.triggered.connect(self.loadSubClasses)
-        menu.exec_(self.geometryCollectionClassList.viewport().mapToGlobal(position))
+        actionsubclassquery=QAction("Create subclass query")
+        menu.addAction(actionsubclassquery)
+        actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+        menu.exec_(self.currentContext.viewport().mapToGlobal(position))
+
 
     def onContext4(self, position):
         self.currentContext = self.classTreeView
         self.currentContextModel = self.classTreeViewModel
         self.currentProxyModel = self.classTreeViewProxyModel
-        menu = QMenu("Menu", self.currentContext)
-        actionclip=QAction("Copy IRI to clipboard")
-        menu.addAction(actionclip)
-        actionclip.triggered.connect(self.copyClipBoard)
-        action = QAction("Open in Webbrowser")
-        menu.addAction(action)
-        action.triggered.connect(self.openURL)
-        actioninstancecount=QAction("Check instance count")
-        menu.addAction(actioninstancecount)
-        actioninstancecount.triggered.connect(self.instanceCount)
-        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            action2 = QAction("Load subclasses")
-            menu.addAction(action2)
-            action2.triggered.connect(self.loadSubClasses)
-        menu.exec_(self.classTreeView.viewport().mapToGlobal(position))
+        self.createMenu(position)
 
     def openURL(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -477,6 +442,20 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.currentContextModel=self.geoTreeViewModel
         self.conceptSelectAction()
 
+    def subclassQuerySelectAction(self):
+        endpointIndex = self.comboBox.currentIndex()
+        if endpointIndex == 0:
+            self.justloadingfromfile = False
+            return
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
+                curindex) is not None:
+            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+            querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+            "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
+            self.inp_sparql2.setPlainText(querytext)
+            self.inp_sparql2.columnvars = {}
+
     def conceptSelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
@@ -524,57 +503,6 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                                    self.currentContextModel.itemFromIndex(curindex).text().rfind(
                                        '/') + 1:].lower().replace(" ", "_"))
 
-    ## 
-    #  @brief Executes a GUI event when a new SPARQL endpoint is selected. 
-    #  Usually loads the list of concepts related to the SPARQL endpoint
-    #  @param  send The sender of the request
-    # 
-    def viewselectaction(self,selected=None, deselected=None):
-        endpointIndex = self.comboBox.currentIndex()
-        if endpointIndex == 0:
-            self.justloadingfromfile = False
-            return
-        concept = ""
-        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-                curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
-            curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
-            self.inp_label.setText(
-                self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
-            concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
-        elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
-            concept = self.geoTreeViewModel.itemFromIndex(curindex).data(256)
-        if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            if "wd:Q%%concept%% ." in \
-                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
-                querytext = ""
-                if concept != None and concept.startswith("http"):
-                    querytext = \
-                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
-                elif concept != None:
-                    querytext = \
-                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
-            else:
-                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                    "query"].replace("%%concept%%", concept)
-            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
-                querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
-            elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
-                querytext = querytext + " LIMIT " + self.queryLimit.text()
-            self.inp_sparql2.setPlainText(querytext)
-            self.inp_sparql2.columnvars = {}
-        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-                curindex) is not None and "#" in self.geoTreeViewModel.itemFromIndex(curindex).text():
-            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
-                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
-                                       '#') + 1:].lower().replace(" ", "_"))
-        elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-                curindex) is not None:
-            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
-                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
-                                       '/') + 1:].lower().replace(" ", "_"))
 
     def itemModelToMap(self, model):
         resdict = {}

@@ -830,7 +830,7 @@ class SPARQLunicorn:
                             item += "?" + mandvar + " "
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(1)
-            self.dlg.viewselectaction()
+            self.dlg.viewselectactionClassTree()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.endpointselectaction()
             # self.dlg.exportTripleStore.hide()

@@ -153,7 +153,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
+            self.dlg.viewselectactionGeoTree()
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
                 # self.layerconcepts.addItem(concept)
@@ -183,6 +183,6 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
+            self.dlg.viewselectactionGeoTree()
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

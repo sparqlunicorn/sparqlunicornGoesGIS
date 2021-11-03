@@ -105,7 +105,10 @@ class GeoCollectionsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
+            if self.featureOrGeoCollection:
+                    self.dlg.viewselectactionFeatureCollection()
+            else:
+                    self.dlg.viewselectactionGeometryCollection()
         elif len(self.viewlist) > 0:
             if self.featureOrGeoCollection:
                 self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections (" + str(len(self.viewlist)) + ")")
@@ -128,6 +131,9 @@ class GeoCollectionsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectaction()
+            if self.featureOrGeoCollection:
+                    self.dlg.viewselectactionFeatureCollection()
+            else:
+                    self.dlg.viewselectactionGeometryCollection()
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")
