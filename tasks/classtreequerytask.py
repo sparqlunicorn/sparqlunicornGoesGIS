@@ -113,11 +113,11 @@ class ClassTreeQueryTask(QgsTask):
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
-                if item in classtreemap and item not in self.alreadyprocessed and item not in mypath:
+                if item in classtreemap and item not in self.alreadyprocessed:
                     QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
                                          Qgis.Info)
                     classtreemap[curNode].appendRow(classtreemap[item])
-                if item!=curNode:
+                if item!=curNode and item not in mypath:
                     self.buildTree(item,classtreemap,subclassmap,mypath+[item])
             self.alreadyprocessed.add(curNode)
 

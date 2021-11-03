@@ -844,6 +844,7 @@ class SPARQLunicorn:
             # self.dlg.exportTripleStore_2.hide()
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
+            self.dlg.toolButton.hide()
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
