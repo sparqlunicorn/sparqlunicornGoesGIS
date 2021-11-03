@@ -1,9 +1,6 @@
 var a00101 =
 [
-    [ "dialogs", "a00107.html", "a00107" ],
-    [ "enrichmenttab", "a00102.html", "a00102" ],
-    [ "interlinkingtab", "a00103.html", "a00103" ],
-    [ "sparql_unicorn", "a00106.html", "a00106" ],
-    [ "tasks", "a00121.html", "a00121" ],
-    [ "util", "a00132.html", "a00132" ]
+    [ "SPARQLHighlighter", "a00297.html", "a00297" ],
+    [ "format", "a00101.html#a52de39c8ac6c67fc1d22018a93f82709", null ],
+    [ "STYLES", "a00101.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
 ];

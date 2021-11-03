@@ -1,4 +1,4 @@
 var a00125 =
 [
-    [ "GeoCollectionsQueryTask", "a00225.html", "a00225" ]
+    [ "UploadRDFDialog", "a00205.html", "a00205" ]
 ];

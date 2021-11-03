@@ -1,4 +1,4 @@
 var a00135 =
 [
-    [ "SPARQLHighlighter", "a00277.html", "a00277" ]
+    [ "GeoConceptsQueryTask", "a00241.html", "a00241" ]
 ];

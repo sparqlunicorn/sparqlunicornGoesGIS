@@ -1,8 +1,14 @@
 var a00157 =
 [
-    [ "__init__", "a00157.html#ab39a5a1c349c3c9fd8564b7520b0561e", null ],
-    [ "insertCompletion", "a00157.html#ae951a11f594110260b86cee2ddb2d8df", null ],
-    [ "setMap", "a00157.html#a06374ae6289e4a0a17a41655dddd472a", null ],
-    [ "map_canvas", "a00157.html#aee60670247b05b378b16b953ae07da95", null ],
-    [ "nominatimmap", "a00157.html#a87030b4985e39b57aeea787ef0af34b9", null ]
+    [ "__init__", "a00157.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "exportMapping", "a00157.html#ac0b79f251af60953125dc0c3807d8010", null ],
+    [ "exportMappingProcess", "a00157.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
+    [ "loadMapping", "a00157.html#ab38c44b08c637c238d983ebcab2ef845", null ],
+    [ "readMapping", "a00157.html#a69357de86ed09826927e35b3c3378fcd", null ],
+    [ "dlg", "a00157.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichLayer", "a00157.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "exportIdCol", "a00157.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00157.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00157.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "valueconcept", "a00157.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];

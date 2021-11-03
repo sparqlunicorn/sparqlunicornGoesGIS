@@ -1,6 +1,5 @@
 var a00056 =
 [
-    [ "EnrichmentDialog", "a00209.html", "a00209" ],
-    [ "_", "a00056.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00056.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
+    [ "ClassTreeQueryTask", "a00221.html", "a00221" ],
+    [ "MESSAGE_CATEGORY", "a00056.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
 ];
