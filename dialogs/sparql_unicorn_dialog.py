@@ -32,7 +32,7 @@ from qgis.core import QgsProject,QgsMessageLog, Qgis
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QFrame
 from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
     QAbstractItemView, QListView, QMessageBox, QApplication, QMenu, QAction
 from rdflib.plugins.sparql import prepareQuery
@@ -83,6 +83,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         """Constructor."""
         super(SPARQLunicornDialog, self).__init__(parent)
         self.setupUi(self)
+
+        # self.currentIndex = QCo
         self.comboBox = QComboBox
         # self.menuBar = menuBar
         self.prefixes = prefixes
@@ -139,14 +141,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.filterConcepts.textChanged.connect(self.setFilterFromText)
         # self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
         #                                     self.prefixes, self.autocomplete)
-        # self.inp_sparql2.move(10, 130)
-        # self.inp_sparql2.setMinimumSize(780, 431)
-        # self.inp_sparql2.document().defaultFont().setPointSize(16)
-        # self.inp_sparql2.setPlainText(
-        #     "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-        # self.inp_sparql2.columnvars = {}
-        # self.inp_sparql2.textChanged.connect(self.validateSPARQL)
-        # self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
+        self.inp_sparql2.move(10, 130)
+        self.inp_sparql2.setMinimumSize(780, 431)
+        self.inp_sparql2.document().defaultFont().setPointSize(16)
+        self.inp_sparql2.setPlainText(
+            "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+        self.inp_sparql2.columnvars = {}
+        self.inp_sparql2.textChanged.connect(self.validateSPARQL)
+        self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
         # self.areaconcepts.hide()
         # self.areas.hide()
         # self.label_8.hide()
@@ -191,8 +193,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
         self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+        self.saveQueryButton.clicked.connect(self.saveQueryFunc)
+        self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
+        # self.bboxButton.clicked.connect(self.getPointFromCanvas)
 
-        # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
         #
@@ -212,6 +216,67 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.setMinimumSize(580, 186)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
+
+# builds the "buildCustomTripleStoreDialog" which pops up when the user clicks on the "loadTripleStoreButton" (Configure Triple)
+    def buildCustomTripleStoreDialog(self):
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
+                                                         self.comboBox)
+        self.searchTripleStoreDialog.setMinimumSize(700, 500)
+        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
+        self.searchTripleStoreDialog.exec_()
+
+# this functions allows us to save the users queries in a json.dump
+    def saveQueryFunc(self):
+        queryName = self.saveQueryName.text()
+        if queryName is not None and queryName != "":
+            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
+            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
+                {"label": queryName, "query": self.inp_sparql2.toPlainText()})
+            self.savedQueries.addItem(queryName)
+            f = open(os.path.join(__location__, 'savedqueries.json'), "w")
+            f.write(json.dumps(self.savedQueriesJSON))
+            f.close()
+
+# creates the dialog for converting CRS
+    def buildConvertCRSDialog(self):
+        self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
+        self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
+        self.searchTripleStoreDialog.exec_()
+
+    ## Validates the SPARQL query in the input field and outputs errors in a label.
+    #  @param self The object pointer.
+    def validateSPARQL(self):
+        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.prefixes[
+            self.comboBox.currentIndex()] is not None and self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
+            try:
+                if self.prefixes[self.comboBox.currentIndex()] != "":
+                    prepareQuery(
+                        "".join(self.prefixes[self.comboBox.currentIndex()]) + "\n" + self.inp_sparql2.toPlainText())
+                self.errorLabel.setText("Valid Query")
+                self.errorline = -1
+                self.sparqlhighlight.errorhighlightline = self.errorline
+                self.sparqlhighlight.currentline = 0
+                self.inp_sparql2.errorline = None
+            except Exception as e:
+                match = re.search(r'line:([0-9]+),', str(e))
+                match2 = re.search(r'col:([0-9]+),', str(e))
+                start = int(match.group(1)) - len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]) - 1
+                self.errorLabel.setText(re.sub("line:([0-9]+),", "line: " + str(start) + ",", str(e)))
+                self.inp_sparql2.errorline = start - 1
+                if "line" in str(e):
+                    ex = str(e)
+                    start = ex.find('line:') + 5
+                    end = ex.find(',', start)
+                    start2 = ex.find('col:') + 4
+                    end2 = ex.find(')', start2)
+                    self.errorline = ex[start:end]
+                    self.sparqlhighlight.errorhighlightcol = ex[start2:end2]
+                    self.sparqlhighlight.errorhighlightline = self.errorline
+                    self.sparqlhighlight.currentline = 0
+
+
 
     # def viewselectaction(self,selected=None, deselected=None):
     #     endpointIndex = self.comboBox.currentIndex()
@@ -260,21 +325,25 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #                                self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
     #                                    '/') + 1:].lower().replace(" ", "_"))
 
-    def itemModelToMap(self, model):
-        resdict = {}
-        for row in range(model.rowCount()):
-            index = model.index(row, 0, self)
-            resdict[model.itemFromIndex(index).text()] = model.itemFromIndex(index).data(1)
-        return resdict
+    # def itemModelToMap(self, model):
+    #     resdict = {}
+    #     for row in range(model.rowCount()):
+    #         index = model.index(row, 0, self)
+    #         resdict[model.itemFromIndex(index).text()] = model.itemFromIndex(index).data(1)
+    #     return resdict
 
 
 
-    def buildCustomTripleStoreDialog(self):
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                         self.comboBox)
-        self.searchTripleStoreDialog.setMinimumSize(700, 500)
-        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
-        self.searchTripleStoreDialog.exec_()
+
+
+    ##
+    #  @brief Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.
+    #
+    #  @param self The object pointer
+    # def getPointFromCanvas(self):
+    #     self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
+    #     self.d.setWindowTitle("Choose BoundingBox")
+    #     self.d.exec_()
 
 # this part of code creates a menubar with an exit and file menu
         # exitAct = QAction(QIcon('exit.png'), '&Exit', self)
