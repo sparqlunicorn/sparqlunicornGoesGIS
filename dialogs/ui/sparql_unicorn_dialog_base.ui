@@ -1,136 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SPAQLunicornDialogBase</class>
- <widget class="QDialog" name="SPAQLunicornDialogBase">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1131</width>
-    <height>699</height>
+    <width>1245</width>
+    <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SPARQLing Unicorn QGIS Plugin</string>
+   <string>MainWindow</string>
   </property>
-  <widget class="QLabel" name="layercount">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>50</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1131</width>
-     <height>701</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Query</string>
-    </attribute>
-    <widget class="QLabel" name="label_2">
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1231</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <widget class="QFrame" name="query_page_frame">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>111</width>
-       <height>20</height>
+       <x>31</x>
+       <y>110</y>
+       <width>1143</width>
+       <height>483</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Select endpoint:</string>
+     <property name="minimumSize">
+      <size>
+       <width>1143</width>
+       <height>483</height>
+      </size>
      </property>
-    </widget>
-    <widget class="QComboBox" name="comboBox">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>10</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
+     <property name="styleSheet">
+      <string notr="true">QObject#query_page_frame{
+	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+	
+border-radius:20px;}
+
+
+
+</string>
      </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>620</x>
-       <y>10</y>
-       <width>21</width>
-       <height>20</height>
-      </rect>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="text">
-      <string>Or:</string>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
-    </widget>
-    <widget class="QPushButton" name="loadFileButton">
-     <property name="geometry">
-      <rect>
-       <x>660</x>
-       <y>10</y>
-       <width>111</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Graph</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>790</x>
-       <y>10</y>
-       <width>151</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>layer name: unicorn_</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="inp_label">
-     <property name="geometry">
-      <rect>
-       <x>940</x>
-       <y>10</y>
-       <width>171</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPlainTextEdit" name="inp_sparql">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>781</width>
-       <height>431</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Courier New</family>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="plainText">
-      <string># Example: Airports in Germany
+     <widget class="QWidget" name="Query_page_txt_inp" native="true">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>9</y>
+        <width>1131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="allownongeo">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(0, 81, 135);</string>
+         </property>
+         <property name="text">
+          <string>Allow non-geo queries</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="queryLimitLabel">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+             <underline>false</underline>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(0, 81, 135);</string>
+           </property>
+           <property name="text">
+            <string>Query Limit:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="queryLimit">
+           <property name="minimumSize">
+            <size>
+             <width>81</width>
+             <height>21</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+           </property>
+           <property name="text">
+            <string>10</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="saveQueryName_3">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+             <underline>false</underline>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(0, 81, 135);</string>
+           </property>
+           <property name="text">
+            <string> Query Name :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="saveQueryName_4">
+           <property name="minimumSize">
+            <size>
+             <width>81</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="Layer_name_unicorn">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+             <underline>false</underline>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(0, 81, 135);</string>
+           </property>
+           <property name="text">
+            <string>Layer name: unicorn_</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="Layer_name_unicorn_inp">
+           <property name="minimumSize">
+            <size>
+             <width>161</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>820</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPlainTextEdit" name="inp_sparql">
+         <property name="minimumSize">
+          <size>
+           <width>561</width>
+           <height>411</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>561</width>
+           <height>471</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Courier New</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>IBeamCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:10px;
+
+background-color: rgb(253, 252, 250);</string>
+         </property>
+         <property name="plainText">
+          <string># Example: Airports in Germany
 
 SELECT ?label ?geo ?item WHERE {
   ?item wdt:P31 wd:Q1248784; #Airport
@@ -139,936 +254,174 @@ SELECT ?label ?geo ?item WHERE {
     rdfs:label ?label.
   FILTER((LANG(?label)) = &quot;en&quot;)
 } LIMIT 100</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>570</y>
-       <width>1101</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>add layer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_loadunicornlayers">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>620</y>
-       <width>151</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>load unicorn layers</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="loadedLayers">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>620</y>
-       <width>641</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="exportLayers">
-     <property name="geometry">
-      <rect>
-       <x>820</x>
-       <y>620</y>
-       <width>191</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export Loaded Layer as TTL</string>
-     </property>
-    </widget>
-    <widget class="QDialogButtonBox" name="button_box">
-     <property name="geometry">
-      <rect>
-       <x>1020</x>
-       <y>620</y>
-       <width>91</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="bboxButton">
-     <property name="geometry">
-      <rect>
-       <x>940</x>
-       <y>40</y>
-       <width>171</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Constraint By BBOX</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="errorLabel">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>105</y>
-       <width>781</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Query Templates:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="queryTemplates">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>40</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string>Item+Label</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>All Attributes</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label_14">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>10</y>
-       <width>21</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Or:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadTripleStoreButton">
-     <property name="geometry">
-      <rect>
-       <x>940</x>
-       <y>70</y>
-       <width>171</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Configure TripleStores</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="allownongeo">
-     <property name="geometry">
-      <rect>
-       <x>770</x>
-       <y>40</y>
-       <width>171</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Allow non-geo queries</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="exportTripleStore_2">
-     <property name="geometry">
-      <rect>
-       <x>610</x>
-       <y>40</y>
-       <width>161</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export To Triple Store</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="filterConceptsLabel">
-     <property name="geometry">
-      <rect>
-       <x>810</x>
-       <y>100</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Filter Concept Results:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="filterConcepts">
-     <property name="geometry">
-      <rect>
-       <x>940</x>
-       <y>100</y>
-       <width>171</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="queryLimit">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>40</y>
-       <width>101</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>10</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="queryLimitLabel">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>40</y>
-       <width>81</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Query Limit:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="quickAddTripleStore">
-     <property name="geometry">
-      <rect>
-       <x>470</x>
-       <y>10</y>
-       <width>141</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Quick Add Endpoint</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="savedQueryLabel">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Saved Queries:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="savedQueries">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>70</y>
-       <width>221</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadQuery">
-     <property name="geometry">
-      <rect>
-       <x>340</x>
-       <y>70</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Query</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="saveQueryButton">
-     <property name="geometry">
-      <rect>
-       <x>700</x>
-       <y>70</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Save Query</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="saveQueryName">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>70</y>
-       <width>171</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="saveQueryNameLabel">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>70</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Query Name:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="convertTTLCRS">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>70</y>
-       <width>131</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Convert TTL CRS</string>
-     </property>
-    </widget>
-    <widget class="QTabWidget" name="conceptViewTabWidget">
-     <property name="geometry">
-      <rect>
-       <x>790</x>
-       <y>130</y>
-       <width>331</width>
-       <height>431</height>
-      </rect>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="geoConceptsTab">
-      <attribute name="title">
-       <string>GeoConcepts</string>
-      </attribute>
-      <widget class="QTreeView" name="geoTreeView">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>331</width>
-         <height>411</height>
-        </rect>
-       </property>
-      </widget>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTreeView" name="geoClassTree">
+         <property name="minimumSize">
+          <size>
+           <width>251</width>
+           <height>419</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>251</width>
+           <height>419</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:10px;
+
+background-color: rgb(253, 252, 250);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-     <widget class="QWidget" name="featureCollectionsTab">
-      <attribute name="title">
-       <string>FeatureCollections</string>
-      </attribute>
-      <widget class="QListView" name="featureCollectionClassList">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>331</width>
-         <height>411</height>
-        </rect>
-       </property>
-      </widget>
+     <widget class="QWidget" name="export_trplstore_checkbox" native="true">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>70</y>
+        <width>237</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="2" column="0">
+        <widget class="QWidget" name="conf_trpl_store_and_bbox_buttons" native="true">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="bboxButton">
+            <property name="minimumSize">
+             <size>
+              <width>201</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>201</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">
+background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>Constraint By BBOX</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="loadTripleStoreButton">
+            <property name="minimumSize">
+             <size>
+              <width>201</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>201</width>
+              <height>31</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">
+background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>Configure TripleStores</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="exportTripleStore_2">
+         <property name="minimumSize">
+          <size>
+           <width>128</width>
+           <height>17</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(0, 81, 135);</string>
+         </property>
+         <property name="text">
+          <string>Export To Triple Store</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-     <widget class="QWidget" name="GeometryCollectionsTab">
-      <attribute name="title">
-       <string>GeometryCollections</string>
-      </attribute>
-      <widget class="QListView" name="geometryCollectionClassList">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>331</width>
-         <height>411</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Interlink</string>
-    </attribute>
-    <widget class="QTableWidget" name="interlinkTable">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>140</y>
-       <width>1071</width>
-       <height>431</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>811</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>4</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="columnCount">
-      <number>8</number>
-     </property>
-     <column>
-      <property name="text">
-       <string>Export?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>IDColumn?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>GeoColumn?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Column</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ColumnProperty</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>PropertyType</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ColumnConcept</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ValueConcept</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QPushButton" name="exportInterlink">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>590</y>
-       <width>521</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>3</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Export Result</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadLayerInterlink">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>10</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Layer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="refreshLayersInterlink">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Refresh Layers</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="chooseLayerInterlink">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>10</y>
-       <width>561</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="interlinkOwlClassInput">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>50</y>
-       <width>551</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>50</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>OWL Class:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>110</y>
-       <width>251</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Table Colums to Concepts:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>80</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Target Namespace:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="interlinkNameSpace">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>80</y>
-       <width>551</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>http://www.github.com/sparqlunicorn#</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="searchClass">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>50</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Search Class</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="exportMappingButton">
-     <property name="geometry">
-      <rect>
-       <x>920</x>
-       <y>100</y>
-       <width>121</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export Mapping</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="importMappingButton">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>100</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Import Mapping</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="exportTripleStore">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>110</y>
-       <width>181</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export To Triple Store</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_3">
-    <attribute name="title">
-     <string>Enrich (Experimental)</string>
-    </attribute>
-    <widget class="QPushButton" name="loadLayerEnrich">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>30</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Layer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="refreshLayersEnrich">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>121</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Refresh Layers</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="chooseLayerEnrich">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>30</y>
-       <width>321</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="startEnrichment">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>610</y>
-       <width>201</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Start Enrichment</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="addEnrichedLayerButton">
-     <property name="geometry">
-      <rect>
-       <x>900</x>
-       <y>610</y>
-       <width>161</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add enriched layer</string>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="enrichTable">
-     <property name="geometry">
-      <rect>
-       <x>25</x>
-       <y>101</y>
-       <width>1041</width>
-       <height>451</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="enrichTableResult">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>1051</width>
-       <height>501</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="addEnrichedLayerRowButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Row</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="whattoenrich">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>70</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>What to enrich?</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_4">
-    <attribute name="title">
-     <string>?</string>
-    </attribute>
-    <widget class="QLabel" name="label_12">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>20</y>
-       <width>411</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>SPARQL Unicorn QGIS Plugin</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_13">
-     <property name="geometry">
-      <rect>
-       <x>310</x>
-       <y>90</y>
-       <width>251</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>&lt;a href=&quot;https://github.com/sparqlunicorn/sparqlunicornGoesGIS&quot;&gt;Github Repository&lt;/a&gt;</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_16">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>150</y>
-       <width>171</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>&lt;a href=&quot;https://plugins.qgis.org/plugins/sparqlunicorn/&quot;&gt;QGIS Plugin&lt;/a&gt;</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_15">
-     <property name="geometry">
-      <rect>
-       <x>390</x>
-       <y>250</y>
-       <width>101</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Credits</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_17">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>300</y>
-       <width>281</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Research Squirrel Engineers</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_18">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>350</y>
-       <width>331</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Timo Homburg, Florian Thiery</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_19">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>400</y>
-       <width>331</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Licensed under: GPL 2.0</string>
-     </property>
     </widget>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1245</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuQuery">
+    <property name="title">
+     <string>Query</string>
+    </property>
+    <addaction name="actionLoad_Graph"/>
+   </widget>
+   <addaction name="menuQuery"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_Graph">
+   <property name="text">
+    <string>Load Graph</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>button_box</sender>
-   <signal>accepted()</signal>
-   <receiver>SPAQLunicornDialogBase</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button_box</sender>
-   <signal>rejected()</signal>
-   <receiver>SPAQLunicornDialogBase</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
