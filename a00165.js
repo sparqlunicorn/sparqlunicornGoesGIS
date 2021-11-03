@@ -1,8 +1,14 @@
 var a00165 =
 [
-    [ "__init__", "a00165.html#ab39a5a1c349c3c9fd8564b7520b0561e", null ],
-    [ "insertCompletion", "a00165.html#ae951a11f594110260b86cee2ddb2d8df", null ],
-    [ "setMap", "a00165.html#a06374ae6289e4a0a17a41655dddd472a", null ],
-    [ "map_canvas", "a00165.html#aee60670247b05b378b16b953ae07da95", null ],
-    [ "nominatimmap", "a00165.html#a87030b4985e39b57aeea787ef0af34b9", null ]
+    [ "__init__", "a00165.html#a921f465a77663034ebb6932d1ac38188", null ],
+    [ "check_state", "a00165.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00165.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "loadFile", "a00165.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00165.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "dlg", "a00165.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00165.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00165.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00165.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a00165.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00165.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

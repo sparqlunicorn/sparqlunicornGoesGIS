@@ -1,14 +1,8 @@
 var a00153 =
 [
-    [ "__init__", "a00153.html#a93626884d4600b8cf171d464a41099fd", null ],
-    [ "exportMapping", "a00153.html#ac0b79f251af60953125dc0c3807d8010", null ],
-    [ "exportMappingProcess", "a00153.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
-    [ "loadMapping", "a00153.html#ab38c44b08c637c238d983ebcab2ef845", null ],
-    [ "readMapping", "a00153.html#a69357de86ed09826927e35b3c3378fcd", null ],
-    [ "dlg", "a00153.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "enrichLayer", "a00153.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
-    [ "exportIdCol", "a00153.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
-    [ "exportNameSpace", "a00153.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
-    [ "exportSetClass", "a00153.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
-    [ "valueconcept", "a00153.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
+    [ "__init__", "a00153.html#ab39a5a1c349c3c9fd8564b7520b0561e", null ],
+    [ "insertCompletion", "a00153.html#ae951a11f594110260b86cee2ddb2d8df", null ],
+    [ "setMap", "a00153.html#a06374ae6289e4a0a17a41655dddd472a", null ],
+    [ "map_canvas", "a00153.html#aee60670247b05b378b16b953ae07da95", null ],
+    [ "nominatimmap", "a00153.html#a87030b4985e39b57aeea787ef0af34b9", null ]
 ];

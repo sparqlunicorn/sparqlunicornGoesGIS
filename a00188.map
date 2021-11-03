@@ -1,5 +1,5 @@
-<map id="SPARQLunicornDialog" name="SPARQLunicornDialog">
-<area shape="rect" id="node1" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="20,80,183,107"/>
+<map id="UploadRDFDialog" name="UploadRDFDialog">
+<area shape="rect" id="node1" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="33,80,170,107"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00813.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node3" href="$a00789.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
