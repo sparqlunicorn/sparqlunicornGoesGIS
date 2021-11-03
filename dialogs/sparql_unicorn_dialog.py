@@ -190,6 +190,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectactionGeoTree)
         self.classTreeView.selectionModel().currentChanged.connect(self.viewselectactionClassTree)
+        self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
@@ -309,7 +310,21 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):
-        self.proxyModel.setFilterRegExp(self.filterConcepts.text())
+        self.currentProxyModel.setFilterRegExp(self.filterConcepts.text())
+
+    def tabchanged(self,index):
+        QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
+        if self.currentProxyModel!=None:
+            self.currentProxyModel.setFilterRegExp("")
+        self.filterConcepts.setText("")
+        if index==0:
+            self.currentProxyModel=self.proxyModel
+        elif index==1:
+            self.currentProxyModel=self.featureCollectionProxyModel
+        elif index==2:
+            self.currentProxyModel=self.geometryCollectionProxyModel
+        elif index==3:
+            self.currentProxyModel=self.classTreeViewProxyModel
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
