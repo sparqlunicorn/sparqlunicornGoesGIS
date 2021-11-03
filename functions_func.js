@@ -14,11 +14,13 @@ var functions_func =
     [ "l", "functions_func_l.html", null ],
     [ "m", "functions_func_m.html", null ],
     [ "n", "functions_func_n.html", null ],
+    [ "o", "functions_func_o.html", null ],
     [ "p", "functions_func_p.html", null ],
     [ "r", "functions_func_r.html", null ],
     [ "s", "functions_func_s.html", null ],
     [ "t", "functions_func_t.html", null ],
     [ "u", "functions_func_u.html", null ],
+    [ "v", "functions_func_v.html", null ],
     [ "w", "functions_func_w.html", null ],
     [ "z", "functions_func_z.html", null ]
 ];
