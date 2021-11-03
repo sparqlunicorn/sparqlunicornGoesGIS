@@ -1,22 +1,10 @@
 var a00209 =
 [
-    [ "__init__", "a00209.html#afeab84e56b997c4cceacfaf74c13cfec", null ],
-    [ "applyConceptToColumn", "a00209.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
-    [ "buildSearchDialog", "a00209.html#aba518420f8497b693093f21c2624fb45", null ],
-    [ "createValueMappingSearchDialog", "a00209.html#a0e48a906160218f92fdfa0e1cb3aed8f", null ],
-    [ "getAttributeStatistics", "a00209.html#a50aab9cd6a6029812a4e7f9b6a42f756", null ],
-    [ "classid", "a00209.html#a89f25b52ad6e937437ba0b4585d05d78", null ],
-    [ "currentcol", "a00209.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
-    [ "currentrow", "a00209.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
-    [ "currentrow", "a00209.html#a086f47cacf997373ef862200fcfb4612", null ],
-    [ "enrichtable", "a00209.html#afa736d201198c3312f2d2c6f7f534880", null ],
-    [ "interlinkdialog", "a00209.html#a816bebaf94e989ec4293bfee7a615a98", null ],
-    [ "interlinkOrEnrich", "a00209.html#a22becd814f00141dbdbb9167f5b9551f", null ],
-    [ "layer", "a00209.html#a95f2e9e3b2b2d837f962bcfb58a2011e", null ],
-    [ "prefixes", "a00209.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "qtask", "a00209.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "table", "a00209.html#ab31a20ab07de26623b45757ffb619144", null ],
-    [ "triplestoreconf", "a00209.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
-    [ "triplestoreconf", "a00209.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00209.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "__init__", "a00209.html#a5b1893b3a08b784677ccf501dfec239e", null ],
+    [ "applyVar", "a00209.html#a4eb43e4f2330a8a8f8282864a657165e", null ],
+    [ "layerselectaction", "a00209.html#a514d660ea487e92b9fa9e15eda073db9", null ],
+    [ "chooseField", "a00209.html#aa67be040d27a2950e9f362c87804ce96", null ],
+    [ "chooseLayer", "a00209.html#a67c2f0ef9ec9c7c111e0214b3be7fec3", null ],
+    [ "columnvars", "a00209.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
+    [ "inputfield", "a00209.html#a48537577b75975b2d8d86aad8a878bd6", null ]
 ];
