@@ -1,6 +1,6 @@
 from qgis.core import QgsProject, Qgis
 from qgis.utils import iface
-from .tasks.enrichmentquerytask import EnrichmentQueryTask
+from ..tasks.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication

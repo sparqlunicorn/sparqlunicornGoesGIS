@@ -30,13 +30,6 @@ class SearchTask(QgsTask):
         self.searchResult = searchResult
         self.prefixes = prefixes
         self.results = {}
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
@@ -55,7 +48,7 @@ class SearchTask(QgsTask):
             return
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)
-            self.results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,
+            self.results = SPARQLUtils.executeQuery(self.triplestoreurl,
                                                self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query)
             if self.results == False:
                 return False

@@ -37,13 +37,6 @@ class EnrichmentQueryTask(QgsTask):
         self.sortedatt = None
         self.resultmap = {}
         self.results = None
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
 
     ## Executes the enrichment task.
     # @param self The object pointer
@@ -98,7 +91,7 @@ class EnrichmentQueryTask(QgsTask):
                                  MESSAGE_CATEGORY, Qgis.Info)
         print(self.triplestoreurl)
 
-        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,query)
         if results==False:
             return False
         print(str(results))

@@ -2,13 +2,21 @@ from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST
 import urllib
 from qgis.core import Qgis
 from qgis.core import QgsMessageLog
+from qgis.PyQt.QtCore import QSettings
 
 MESSAGE_CATEGORY="SPARQLUtils"
 
 class SPARQLUtils:
 
     @staticmethod
-    def executeQuery(proxyHost,proxyPort,triplestoreurl,query):
+    def executeQuery(triplestoreurl,query):
+        s = QSettings()  # getting proxy from qgis options settings
+        proxyEnabled = s.value("proxy/proxyEnabled")
+        proxyType = s.value("proxy/proxyType")
+        proxyHost = s.value("proxy/proxyHost")
+        proxyPort = s.value("proxy/proxyPort")
+        proxyUser = s.value("proxy/proxyUser")
+        proxyPassword = s.value("proxy/proxyPassword")
         if proxyHost != None and proxyHost != "" and proxyPort != None and proxyPort != "":
             QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
             proxy = urllib.request.ProxyHandler({'http': proxyHost})
