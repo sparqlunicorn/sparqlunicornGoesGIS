@@ -1,15 +1,18 @@
 var a00261 =
 [
-    [ "__init__", "a00261.html#a8620be517032a623030c0d1401b11c70", null ],
-    [ "canvasMoveEvent", "a00261.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00261.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "deactivate", "a00261.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "keyPressEvent", "a00261.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
-    [ "reset", "a00261.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00261.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "iface", "a00261.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00261.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00261.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "selectionDone", "a00261.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00261.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00261.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "addEnrichedLayer", "a00261.html#aca6b7d4f8799f96244e4515a0a633386", null ],
+    [ "enrichLayerProcess", "a00261.html#a56c0d7bb6decc89954e354bbd53ec602", null ],
+    [ "exportEnrichedLayer", "a00261.html#adfcc23a6b0a5b7441daa1d4b43a6e881", null ],
+    [ "dlg", "a00261.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichedExport", "a00261.html#ac1babc27d21e85ac2fa395cccac38d15", null ],
+    [ "enrichedExport", "a00261.html#ac26f04155f19a0850f23ab9c063ba611", null ],
+    [ "enrichLayer", "a00261.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "enrichLayerCounter", "a00261.html#a52fdefb870f38c907e9fede14b52425f", null ],
+    [ "exportIdCol", "a00261.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00261.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00261.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "originalRowCount", "a00261.html#a96db96b589de91ab2dd5f6f5836757de", null ],
+    [ "qtask", "a00261.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "valueconcept", "a00261.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];

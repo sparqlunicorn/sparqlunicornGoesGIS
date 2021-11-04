@@ -1,4 +1,4 @@
 var a00124 =
 [
-    [ "DetectTripleStoreTask", "a00213.html", "a00213" ]
+    [ "ValueMappingDialog", "a00201.html", "a00201" ]
 ];

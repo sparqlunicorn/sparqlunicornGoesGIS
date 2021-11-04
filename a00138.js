@@ -1,4 +1,4 @@
 var a00138 =
 [
-    [ "SPARQLHighlighter", "a00281.html", "a00281" ]
+    [ "SubClassQueryTask", "a00253.html", "a00253" ]
 ];

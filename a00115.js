@@ -1,4 +1,6 @@
 var a00115 =
 [
-    [ "TripleStoreDialog", "a00181.html", "a00181" ]
+    [ "BBOXDialog", "a00165.html", "a00165" ],
+    [ "NominatimText", "a00161.html", "a00161" ],
+    [ "SPARQLCompleter", "a00157.html", "a00157" ]
 ];

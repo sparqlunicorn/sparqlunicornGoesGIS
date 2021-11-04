@@ -1,10 +1,18 @@
 var a00273 =
 [
-    [ "authenticatedby", "a00273.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
-    [ "firstname", "a00273.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
-    [ "lastname", "a00273.html#a3c8f58d761707273489a76751c4905fb", null ],
-    [ "name", "a00273.html#ab74e6bf80237ddc4109968cedc58c151", null ],
-    [ "userid", "a00273.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
-    [ "username", "a00273.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
-    [ "userurl", "a00273.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
+    [ "__init__", "a00273.html#a5788aa490c766bf347cb9d3712abc036", null ],
+    [ "canvasMoveEvent", "a00273.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00273.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "canvasReleaseEvent", "a00273.html#af1a565828651f16efdecaee54f27a1b2", null ],
+    [ "deactivate", "a00273.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "rbcircle", "a00273.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
+    [ "reset", "a00273.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00273.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "center", "a00273.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
+    [ "iface", "a00273.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00273.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00273.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "segments", "a00273.html#a95912ea8e057275833a7edd278c87dfd", null ],
+    [ "selectionDone", "a00273.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00273.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];

@@ -1,8 +1,15 @@
 var a00277 =
 [
-    [ "__init__", "a00277.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "getUserInformation", "a00277.html#aea3d6e87f3e13680be9d249ccdab7854", null ],
-    [ "interceptRequest", "a00277.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
-    [ "app", "a00277.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "oauthcode", "a00277.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
+    [ "__init__", "a00277.html#a8620be517032a623030c0d1401b11c70", null ],
+    [ "canvasMoveEvent", "a00277.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00277.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "deactivate", "a00277.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "keyPressEvent", "a00277.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
+    [ "reset", "a00277.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00277.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "iface", "a00277.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00277.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00277.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "selectionDone", "a00277.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00277.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];
