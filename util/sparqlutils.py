@@ -17,6 +17,7 @@ class SPARQLUtils:
         sparql = SPARQLWrapper(triplestoreurl,
                                agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
         sparql.setQuery(query)
+        QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         try:
