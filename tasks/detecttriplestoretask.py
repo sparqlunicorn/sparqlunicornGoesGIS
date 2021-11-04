@@ -35,13 +35,6 @@ class DetectTripleStoreTask(QgsTask):
         self.testConfiguration = testConfiguration
         self.message = ""
         self.feasibleConfiguration = False
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)
@@ -54,7 +47,7 @@ class DetectTripleStoreTask(QgsTask):
 
     def testTripleStoreConnection(self, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         QgsMessageLog.logMessage("Executed query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-        results=SPARQLUtils.executeQuery(self.proxyHost,self.proxyPort,self.triplestoreurl,query)
+        results=SPARQLUtils.executeQuery(self.triplestoreurl,query)
         QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if self.testURL and not self.testConfiguration:
@@ -73,7 +66,7 @@ class DetectTripleStoreTask(QgsTask):
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         else:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
-        results=SPARQLUtils.executeQuery(self.proxyHost,self.proxyPort,self.triplestoreurl,query)
+        results=SPARQLUtils.executeQuery(self.triplestoreurl,query)
         if results==False:
             return []
         reslist = []

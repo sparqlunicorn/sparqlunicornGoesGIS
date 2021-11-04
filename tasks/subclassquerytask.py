@@ -25,17 +25,10 @@ class SubClassQueryTask(QgsTask):
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.resultlist = []
         self.viewlist = []
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
         if results==False:
             return False
         QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
@@ -70,7 +63,7 @@ class SubClassQueryTask(QgsTask):
                 vals += qid + " "
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
-            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl, query)
             if results == False:
                 return result
             for res in results["results"]["bindings"]:

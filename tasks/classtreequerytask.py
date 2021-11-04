@@ -19,13 +19,6 @@ class ClassTreeQueryTask(QgsTask):
         self.treeNode=treeNode
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.amount=-1
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
@@ -59,7 +52,7 @@ class ClassTreeQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.classtreemap={"root":self.treeNode}
         self.subclassmap={"root":set()}
-        results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
         if results==False:
             return False
         for result in results["results"]["bindings"]:
