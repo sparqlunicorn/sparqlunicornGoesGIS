@@ -33,7 +33,7 @@ from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QFrame
-from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
+from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget,  \
     QAbstractItemView, QListView, QMessageBox, QApplication, QMenu, QAction
 from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
@@ -85,7 +85,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.setupUi(self)
 
         # self.currentIndex = QCo
-        self.comboBox = QComboBox
+        # self.loadUnicornLayers = loadUnicornLayers()
+        # self.saveQueryName = QLineEdit()
+        self.comboBox = QComboBox()
         # self.menuBar = menuBar
         self.prefixes = prefixes
         self.maindlg = maindlg
@@ -189,13 +191,13 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         # self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        #self.loadUnicornLayers()
+        # self.loadUnicornLayers()
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
         self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        self.saveQueryButton.clicked.connect(self.saveQueryFunc)
+        # self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
-        # self.bboxButton.clicked.connect(self.getPointFromCanvas)
+        self.bboxButton.clicked.connect(self.getPointFromCanvas)
 
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
@@ -226,18 +228,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.exec_()
 
 # this functions allows us to save the users queries in a json.dump
-    def saveQueryFunc(self):
-        queryName = self.saveQueryName.text()
-        if queryName is not None and queryName != "":
-            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
-                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
-            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
-                {"label": queryName, "query": self.inp_sparql2.toPlainText()})
-            self.savedQueries.addItem(queryName)
-            f = open(os.path.join(__location__, 'savedqueries.json'), "w")
-            f.write(json.dumps(self.savedQueriesJSON))
-            f.close()
+    # def saveQueryFunc(self):
+    #     queryName = self.saveQueryName.text()
+    #     if queryName is not None and queryName != "":
+    #         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    #         if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+    #             self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
+    #         self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
+    #             {"label": queryName, "query": self.inp_sparql2.toPlainText()})
+    #         self.savedQueries.addItem(queryName)
+    #         f = open(os.path.join(__location__, 'savedqueries.json'), "w")
+    #         f.write(json.dumps(self.savedQueriesJSON))
+    #         f.close()
 
 # creates the dialog for converting CRS
     def buildConvertCRSDialog(self):
@@ -276,7 +278,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.sparqlhighlight.errorhighlightline = self.errorline
                     self.sparqlhighlight.currentline = 0
 
-
+# allow the user to load already savec queries
+    def loadQueryFunc(self):
+        if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+            self.inp_sparql2.setPlainText(
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]][
+                    self.savedQueries.currentIndex()]["query"])
 
     # def viewselectaction(self,selected=None, deselected=None):
     #     endpointIndex = self.comboBox.currentIndex()
@@ -340,10 +347,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #  @brief Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.
     #
     #  @param self The object pointer
-    # def getPointFromCanvas(self):
-    #     self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
-    #     self.d.setWindowTitle("Choose BoundingBox")
-    #     self.d.exec_()
+    def getPointFromCanvas(self):
+        self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
+        self.d.setWindowTitle("Choose BoundingBox")
+        self.d.exec_()
 
 # this part of code creates a menubar with an exit and file menu
         # exitAct = QAction(QIcon('exit.png'), '&Exit', self)
