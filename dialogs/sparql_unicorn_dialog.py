@@ -48,7 +48,7 @@ from ..util.sparqlhighlighter import SPARQLHighlighter
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
-
+from ..dialogs.interlinkMainWindow import InterlinkMainWindow
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
@@ -72,6 +72,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     columnvars = {}
 
+    # currentChanged = None
     # menubar = None
     #
     # fileMenu = {}
@@ -100,57 +101,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                           self.comboBox)
-        # self.geoTreeView.setHeaderHidden(True)
-        # self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.geoTreeView.setAlternatingRowColors(True)
-        # self.geoTreeView.setWordWrap(True)
-        # self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
-        # self.geoTreeView.customContextMenuRequested.connect(self.onContext)
-        # self.geoTreeViewModel = QStandardItemModel()
-        # self.geoTreeView.setModel(self.geoTreeViewModel)
-        # self.featureCollectionClassListModel = QStandardItemModel()
-        # self.geometryCollectionClassListModel = QStandardItemModel()
-        # self.proxyModel = QSortFilterProxyModel(self)
-        # self.proxyModel.sort(0)
-        # self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        # self.proxyModel.setSourceModel(self.geoTreeViewModel)
-        # self.featureCollectionProxyModel = QSortFilterProxyModel(self)
-        # self.featureCollectionProxyModel.sort(0)
-        # self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        # self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
-        # self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
-        # self.geometryCollectionProxyModel.sort(0)
-        # self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        # self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
-        # self.geoTreeView.setModel(self.proxyModel)
-        # self.geoTreeViewModel.clear()
-        # self.rootNode = self.geoTreeViewModel.invisibleRootItem()
-        # self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
-        # self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.featureCollectionClassList.setAlternatingRowColors(True)
-        # self.featureCollectionClassList.setWordWrap(True)
-        # self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
-        # self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
-        # self.featureCollectionClassListModel.clear()
-        # self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
-        # self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.geometryCollectionClassList.setAlternatingRowColors(True)
-        # self.geometryCollectionClassList.setWordWrap(True)
-        # self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
-        # self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
-        # self.geometryCollectionClassListModel.clear()
-        # self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
-        # self.filterConcepts.textChanged.connect(self.setFilterFromText)
+# initialisation of the Interlink MainWindow
+        self.interlinkdlg = InterlinkMainWindow(self)
         # self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
         #                                     self.prefixes, self.autocomplete)
-        self.inp_sparql2.move(10, 130)
-        self.inp_sparql2.setMinimumSize(780, 431)
-        self.inp_sparql2.document().defaultFont().setPointSize(16)
-        self.inp_sparql2.setPlainText(
-            "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
-        self.inp_sparql2.columnvars = {}
-        self.inp_sparql2.textChanged.connect(self.validateSPARQL)
-        self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
+
         # self.areaconcepts.hide()
         # self.areas.hide()
         # self.label_8.hide()
@@ -162,43 +117,105 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.savedQueryLabel.hide()
         # self.saveQueryName_2.hide()
         # self.enrichTableResult.hide()
-        # self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
-        # self.bboxButton.clicked.connect(self.getPointFromCanvas)
+
+        # To be removed
+            # self.saveQueryButton.clicked.connect(self.saveQueryFunc)
+            # self.convertTTLCRS.clicked.connect(self.buildConvertCRSDialog)
+            # self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
+            # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+            # self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
+
+        # Enrichment
+            # self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
+            # self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
+            # self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
+            # self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
+            # self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
+            # self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+            # self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+
+        # Interlink Main Window
+
+        # self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         # self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-        # self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
-        # self.convertTTLCRS.clicked.connect(self.buildConvertCRSDialog)
         # self.chooseLayerInterlink.clear()
         # self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self)
+        # urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+        # urlvalidator = QRegExpValidator(urlregex, self)
         # self.interlinkNameSpace.setValidator(urlvalidator)
         # self.interlinkNameSpace.textChanged.connect(self.check_state3)
         # self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
-        # self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
-        # self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
-        # self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
-        # self.loadQuery.clicked.connect(self.loadQueryFunc)
-        # self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         # self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
         # self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
         # self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-        # self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
-        # self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
-        # self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
-        # self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
-        # self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
-        # self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
-        # self.whattoenrich.clicked.connect(self.createWhatToEnrich)
-        # self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
-        # self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        # self.loadUnicornLayers()
+
+        # Query QMainWindow codelines:
+
+        self.inp_sparql2.move(10, 130)
+        self.inp_sparql2.setMinimumSize(780, 431)
+        self.inp_sparql2.document().defaultFont().setPointSize(16)
+        self.inp_sparql2.setPlainText(
+            "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+        self.inp_sparql2.columnvars = {}
+        self.inp_sparql2.textChanged.connect(self.validateSPARQL)
+        self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
+        self.geoTreeView.setHeaderHidden(True)
+        self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.geoTreeView.setAlternatingRowColors(True)
+        self.geoTreeView.setWordWrap(True)
+        self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.geoTreeView.customContextMenuRequested.connect(self.onContext)
+        self.geoTreeViewModel = QStandardItemModel()
+        self.geoTreeView.setModel(self.geoTreeViewModel)
+        self.featureCollectionClassListModel = QStandardItemModel()
+        self.geometryCollectionClassListModel = QStandardItemModel()
+        self.proxyModel = QSortFilterProxyModel(self)
+        self.proxyModel.sort(0)
+        self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxyModel.setSourceModel(self.geoTreeViewModel)
+        self.featureCollectionProxyModel = QSortFilterProxyModel(self)
+        self.featureCollectionProxyModel.sort(0)
+        self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
+        self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
+        self.geometryCollectionProxyModel.sort(0)
+        self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
+        self.geoTreeView.setModel(self.proxyModel)
+        self.geoTreeViewModel.clear()
+        self.rootNode = self.geoTreeViewModel.invisibleRootItem()
+        self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
+        self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.featureCollectionClassList.setAlternatingRowColors(True)
+        self.featureCollectionClassList.setWordWrap(True)
+        self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
+        self.featureCollectionClassListModel.clear()
+        self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
+        self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.geometryCollectionClassList.setAlternatingRowColors(True)
+        self.geometryCollectionClassList.setWordWrap(True)
+        self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
+        self.geometryCollectionClassListModel.clear()
+        self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
+        self.filterConcepts.textChanged.connect(self.setFilterFromText)
+        self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
+        self.loadQuery.clicked.connect(self.loadQueryFunc)
+        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
         self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        # self.saveQueryButton.clicked.connect(self.saveQueryFunc)
+        self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
         self.bboxButton.clicked.connect(self.getPointFromCanvas)
+        self.actionInterlink.triggered.connect(self.buildInterlinkDlg)
+        self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
+        self.loadUnicornLayers()
 
+    def buildInterlinkDlg(self):
+        self.interlinkdlg = InterlinkMainWindow(self)
+        self.interlinkdlg.show()
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
         #
@@ -227,19 +244,24 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
 
-# this functions allows us to save the users queries in a json.dump
-    # def saveQueryFunc(self):
-    #     queryName = self.saveQueryName.text()
-    #     if queryName is not None and queryName != "":
-    #         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    #         if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
-    #             self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
-    #         self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
-    #             {"label": queryName, "query": self.inp_sparql2.toPlainText()})
-    #         self.savedQueries.addItem(queryName)
-    #         f = open(os.path.join(__location__, 'savedqueries.json'), "w")
-    #         f.write(json.dumps(self.savedQueriesJSON))
-    #         f.close()
+    def setFilterFromText(self):
+        self.proxyModel.setFilterRegExp(self.filterConcepts.text())
+
+# this functions allows the users to save queries in a json.dump
+    def saveQueryFunc(self):
+        queryName = self.saveQueryName.text()
+        if queryName is not None and queryName != "":
+            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
+            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
+                {"label": queryName, "query": self.inp_sparql2.toPlainText()})
+            self.savedQueries.addItem(queryName)
+            f = open(os.path.join(__location__, 'savedqueries.json'), "w")
+            f.write(json.dumps(self.savedQueriesJSON))
+            f.close()
+
+
 
 # creates the dialog for converting CRS
     def buildConvertCRSDialog(self):
@@ -285,52 +307,90 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]][
                     self.savedQueries.currentIndex()]["query"])
 
-    # def viewselectaction(self,selected=None, deselected=None):
-    #     endpointIndex = self.comboBox.currentIndex()
-    #     if endpointIndex == 0:
-    #         self.justloadingfromfile = False
-    #         return
-    #     concept = ""
-    #     curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
-    #     if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-    #             curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
-    #         curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
-    #         self.inp_label.setText(
-    #             self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
-    #         concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
-    #     elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
-    #         concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
-    #     if "querytemplate" in self.triplestoreconf[endpointIndex]:
-    #         if "wd:Q%%concept%% ." in \
-    #                 self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
-    #             querytext = ""
-    #             if concept != None and concept.startswith("http"):
-    #                 querytext = \
-    #                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-    #                         "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
-    #             elif concept != None:
-    #                 querytext = \
-    #                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-    #                         "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
-    #         else:
-    #             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-    #                 "query"].replace("%%concept%%", concept)
-    #         if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
-    #             querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
-    #         elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
-    #             querytext = querytext + " LIMIT " + self.queryLimit.text()
-    #         self.inp_sparql2.setPlainText(querytext)
-    #         self.inp_sparql2.columnvars = {}
-    #     if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-    #             curindex) is not None and "#" in self.geoTreeViewModel.itemFromIndex(curindex).text():
-    #         self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
-    #                                self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
-    #                                    '#') + 1:].lower().replace(" ", "_"))
-    #     elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
-    #             curindex) is not None:
-    #         self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
-    #                                self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
-    #                                    '/') + 1:].lower().replace(" ", "_"))
+    def viewselectaction(self,selected=None, deselected=None):
+        endpointIndex = self.comboBox.currentIndex()
+        if endpointIndex == 0:
+            self.justloadingfromfile = False
+            return
+        concept = ""
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
+            curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
+            self.inp_label.setText(
+                self.geoTreeViewModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
+            concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
+        elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
+            concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
+        if "querytemplate" in self.triplestoreconf[endpointIndex]:
+            if "wd:Q%%concept%% ." in \
+                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+                querytext = ""
+                if concept != None and concept.startswith("http"):
+                    querytext = \
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                elif concept != None:
+                    querytext = \
+                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+            else:
+                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+                    "query"].replace("%%concept%%", concept)
+            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
+                querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
+            elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
+                querytext = querytext + " LIMIT " + self.queryLimit.text()
+            self.inp_sparql2.setPlainText(querytext)
+            self.inp_sparql2.columnvars = {}
+        if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None and "#" in self.geoTreeViewModel.itemFromIndex(curindex).text():
+            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
+                                       '#') + 1:].lower().replace(" ", "_"))
+        elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
+                curindex) is not None:
+            self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
+                                   self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
+                                       '/') + 1:].lower().replace(" ", "_"))
+
+    def onContext(self,position):
+        menu = QMenu("Menu", self.geoTreeView)
+        action = QAction("Open in Webbrowser")
+        menu.addAction(action)
+        action.triggered.connect(self.openURL)
+        menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
+
+    def loadUnicornLayers(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.loadedLayers.clear()
+        # self.chooseLayerInterlink.clear()
+        # self.chooseLayerEnrich.clear()
+        for layer in layers:
+            ucl = layer.name()
+            # if type(layer) == QgsMapLayer.VectorLayer:
+            self.loadedLayers.addItem(layer.name())
+            # self.chooseLayerInterlink.addItem(layer.name())
+            # self.chooseLayerEnrich.addItem(layer.name())
+
+        ##
+        #  @brief Builds the search dialog to search for a concept or class.
+        #  @param  self The object pointer
+        #  @param  row the row to insert the result
+        #  @param  column the column to insert the result
+        #  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
+        #  @param  table the GUI element to display the result
+        def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
+                              currentprefixes=None, addVocabConf=None):
+            self.currentcol = column
+            self.currentrow = row
+            self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
+                                                propOrClass, bothOptions, currentprefixes, addVocabConf)
+            self.interlinkdialog.setMinimumSize(650, 400)
+            self.interlinkdialog.setWindowTitle("Search Interlink Concept")
+            self.interlinkdialog.exec_()
+
 
     # def itemModelToMap(self, model):
     #     resdict = {}
