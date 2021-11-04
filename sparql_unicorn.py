@@ -34,7 +34,7 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
 import sys
-from .tasks.classtreequerytask import ClassTreeQueryTask
+
 import pyproj
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
@@ -46,7 +46,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST
 # Initialize Qt resources from file resources.py
 from .resources import *
 from .tasks.querylayertask import QueryLayerTask
-
+from .tasks.classtreequerytask import ClassTreeQueryTask
 from .tasks.geoconceptsquerytask import GeoConceptsQueryTask
 from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog

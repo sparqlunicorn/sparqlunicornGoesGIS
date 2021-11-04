@@ -37,8 +37,8 @@ from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
 from ..util.tooltipplaintext import ToolTipPlainText
-from ..enrichmenttab import EnrichmentTab
-from ..interlinkingtab import InterlinkingTab
+from ..tabs.enrichmenttab import EnrichmentTab
+from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
