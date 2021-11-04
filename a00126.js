@@ -1,4 +1,4 @@
 var a00126 =
 [
-    [ "ValueMappingDialog", "a00209.html", "a00209" ]
+    [ "GeoCollectionsQueryTask", "a00221.html", "a00221" ]
 ];

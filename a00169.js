@@ -1,8 +1,10 @@
 var a00169 =
 [
-    [ "__init__", "a00169.html#ab39a5a1c349c3c9fd8564b7520b0561e", null ],
-    [ "insertCompletion", "a00169.html#ae951a11f594110260b86cee2ddb2d8df", null ],
-    [ "setMap", "a00169.html#a06374ae6289e4a0a17a41655dddd472a", null ],
-    [ "map_canvas", "a00169.html#aee60670247b05b378b16b953ae07da95", null ],
-    [ "nominatimmap", "a00169.html#a87030b4985e39b57aeea787ef0af34b9", null ]
+    [ "__init__", "a00169.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
+    [ "_loadFinished", "a00169.html#a27b737395c35a2a45db65ae7028ed22c", null ],
+    [ "callable", "a00169.html#a828c7df71b0e86f775916045240464e2", null ],
+    [ "app", "a00169.html#afe63fea7be31b0200b496d08bc6b517d", null ],
+    [ "html", "a00169.html#a8f99bc655183db169e126fc155ceb631", null ],
+    [ "logged_in", "a00169.html#a2dde74ef7a1b1433fa85f7aefe03952e", null ],
+    [ "nam", "a00169.html#a51416118072e894072c6e79857b054a0", null ]
 ];

@@ -1,8 +1,14 @@
 var a00165 =
 [
-    [ "__init__", "a00165.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00165.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00165.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "insertText", "a00165.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00165.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ]
+    [ "__init__", "a00165.html#a921f465a77663034ebb6932d1ac38188", null ],
+    [ "check_state", "a00165.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00165.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "loadFile", "a00165.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00165.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "dlg", "a00165.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00165.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00165.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00165.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qtask", "a00165.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00165.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];
