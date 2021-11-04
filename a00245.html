@@ -110,18 +110,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac718e6195097812dffa9cfd2407131ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fb406750fcff703b1c7da34a23c187e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#a7fb406750fcff703b1c7da34a23c187e">amount</a></td></tr>
 <tr class="separator:a7fb406750fcff703b1c7da34a23c187e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae862ff88f11a3a2ef7eee0c21957dcb7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#ae862ff88f11a3a2ef7eee0c21957dcb7">proxyEnabled</a></td></tr>
-<tr class="separator:ae862ff88f11a3a2ef7eee0c21957dcb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a495fe54c42ce06ce71582737400c0d02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#a495fe54c42ce06ce71582737400c0d02">proxyType</a></td></tr>
-<tr class="separator:a495fe54c42ce06ce71582737400c0d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2d0d5884751e69699ca9b2d6c2cd7f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#af2d0d5884751e69699ca9b2d6c2cd7f1">proxyHost</a></td></tr>
-<tr class="separator:af2d0d5884751e69699ca9b2d6c2cd7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b3d20b1c7f6ec579fbb02a053c6c1a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">proxyPort</a></td></tr>
-<tr class="separator:a2b3d20b1c7f6ec579fbb02a053c6c1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab27c8ae6a38f63214b0413f461033e85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#ab27c8ae6a38f63214b0413f461033e85">proxyUser</a></td></tr>
-<tr class="separator:ab27c8ae6a38f63214b0413f461033e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add5abc4de55257ede4e0ab5db30de1ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#add5abc4de55257ede4e0ab5db30de1ce">proxyPassword</a></td></tr>
-<tr class="separator:add5abc4de55257ede4e0ab5db30de1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a40af6af9d75f52a7bebc6f32610fc10f"></a>
@@ -175,14 +163,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        self.treeNode=treeNode</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        self.geoTreeViewModel=self.dlg.geoTreeViewModel</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        self.amount=-1</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        self.proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -212,11 +193,11 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">def </span><a class="code" href="a00265.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            self.treeNode.text()+<span class="stringliteral">&quot; [&quot;</span>+str(self.amount)+<span class="stringliteral">&quot;]&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> self.amount!=-1:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            self.treeNode.setText(self.treeNode.text()+<span class="stringliteral">&quot; [&quot;</span>+str(self.amount)+<span class="stringliteral">&quot;]&quot;</span>)</div>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">def </span><a class="code" href="a00265.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            self.treeNode.text()+<span class="stringliteral">&quot; [&quot;</span>+str(self.amount)+<span class="stringliteral">&quot;]&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> self.amount!=-1:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.treeNode.setText(self.treeNode.text()+<span class="stringliteral">&quot; [&quot;</span>+str(self.amount)+<span class="stringliteral">&quot;]&quot;</span>)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00245.html#a7fb406750fcff703b1c7da34a23c187e">InstanceAmountQueryTask.amount</a>, <a class="el" href="a00221.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00245.html#a31ed64d43142fff4a68b7a148bec2f97">InstanceAmountQueryTask.treeNode</a>, and <a class="el" href="a00221.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>.</p>
 
@@ -237,30 +218,30 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">def </span><a class="code" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.description()), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> self.triplestoreurl:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            wikicon=self.treeNode.data(256).split(<span class="stringliteral">&quot;(&quot;</span>)[1].replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="stringliteral">&quot;WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/&quot;</span> + str(</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                    wikicon) + <span class="stringliteral">&quot; . }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con &lt;http://www.wikidata.org/prop/direct/P31&gt; &lt;http://www.wikidata.org/entity/&quot;</span> + str(</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                    wikicon) + <span class="stringliteral">&quot;&gt; . }&quot;</span>)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type &quot;</span> + str(</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    self.treeNode.data(256)) + <span class="stringliteral">&quot; . }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            results = SPARQLUtils.executeQuery(self.proxyHost, self.proxyPort, self.triplestoreurl, <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                    self.treeNode.data(256)) + <span class="stringliteral">&quot;&gt; . }&quot;</span>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Query results: &quot;</span> + str(results), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> results != <span class="keyword">False</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            self.amount = results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>][0][<span class="stringliteral">&quot;amount&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.amount=0</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">def </span><a class="code" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.description()), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> self.triplestoreurl:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            wikicon=self.treeNode.data(256).split(<span class="stringliteral">&quot;(&quot;</span>)[1].replace(<span class="stringliteral">&quot; &quot;</span>,<span class="stringliteral">&quot;_&quot;</span>).replace(<span class="stringliteral">&quot;)&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                <span class="stringliteral">&quot;WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/&quot;</span> + str(</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                    wikicon) + <span class="stringliteral">&quot; . }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            results = SPARQLUtils.executeQuery(self.triplestoreurl, <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con &lt;http://www.wikidata.org/prop/direct/P31&gt; &lt;http://www.wikidata.org/entity/&quot;</span> + str(</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                    wikicon) + <span class="stringliteral">&quot;&gt; . }&quot;</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type &quot;</span> + str(</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                    self.treeNode.data(256)) + <span class="stringliteral">&quot; . }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            results = SPARQLUtils.executeQuery(self.triplestoreurl,<span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;&quot;</span> + str(</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    self.treeNode.data(256)) + <span class="stringliteral">&quot;&gt; . }&quot;</span>)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Query results: &quot;</span> + str(results), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> results != <span class="keyword">False</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            self.amount = results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>][0][<span class="stringliteral">&quot;amount&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            self.amount=0</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00245.html#a7fb406750fcff703b1c7da34a23c187e">InstanceAmountQueryTask.amount</a>, <a class="el" href="a00221.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00229.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00245.html#af2d0d5884751e69699ca9b2d6c2cd7f1">InstanceAmountQueryTask.proxyHost</a>, <a class="el" href="a00221.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ClassTreeQueryTask.proxyHost</a>, <a class="el" href="a00225.html#af2d0d5884751e69699ca9b2d6c2cd7f1">ConvertCRSTask.proxyHost</a>, <a class="el" href="a00201.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreQuickAddDialog.proxyHost</a>, <a class="el" href="a00229.html#af2d0d5884751e69699ca9b2d6c2cd7f1">DetectTripleStoreTask.proxyHost</a>, <a class="el" href="a00241.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoConceptsQueryTask.proxyHost</a>, <a class="el" href="a00233.html#af2d0d5884751e69699ca9b2d6c2cd7f1">EnrichmentQueryTask.proxyHost</a>, <a class="el" href="a00237.html#af2d0d5884751e69699ca9b2d6c2cd7f1">GeoCollectionsQueryTask.proxyHost</a>, <a class="el" href="a00197.html#af2d0d5884751e69699ca9b2d6c2cd7f1">TripleStoreDialog.proxyHost</a>, <a class="el" href="a00189.html#af2d0d5884751e69699ca9b2d6c2cd7f1">SearchDialog.proxyHost</a>, <a class="el" href="a00245.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">InstanceAmountQueryTask.proxyPort</a>, <a class="el" href="a00221.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ClassTreeQueryTask.proxyPort</a>, <a class="el" href="a00225.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">ConvertCRSTask.proxyPort</a>, <a class="el" href="a00201.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreQuickAddDialog.proxyPort</a>, <a class="el" href="a00241.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoConceptsQueryTask.proxyPort</a>, <a class="el" href="a00229.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">DetectTripleStoreTask.proxyPort</a>, <a class="el" href="a00233.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">EnrichmentQueryTask.proxyPort</a>, <a class="el" href="a00237.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">GeoCollectionsQueryTask.proxyPort</a>, <a class="el" href="a00197.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">TripleStoreDialog.proxyPort</a>, <a class="el" href="a00189.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4">SearchDialog.proxyPort</a>, <a class="el" href="a00245.html#a31ed64d43142fff4a68b7a148bec2f97">InstanceAmountQueryTask.treeNode</a>, <a class="el" href="a00221.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>, <a class="el" href="a00245.html#a9b8734be629bbc1f64723d90a67861ab">InstanceAmountQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00237.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00233.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00241.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00229.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
+<p class="reference">References <a class="el" href="a00245.html#a7fb406750fcff703b1c7da34a23c187e">InstanceAmountQueryTask.amount</a>, <a class="el" href="a00221.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00229.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00245.html#a31ed64d43142fff4a68b7a148bec2f97">InstanceAmountQueryTask.treeNode</a>, <a class="el" href="a00221.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>, <a class="el" href="a00245.html#a9b8734be629bbc1f64723d90a67861ab">InstanceAmountQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00237.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00233.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00241.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00229.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00217.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
 
 </div>
 </div>
@@ -327,94 +308,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae862ff88f11a3a2ef7eee0c21957dcb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae862ff88f11a3a2ef7eee0c21957dcb7">&#9670;&nbsp;</a></span>proxyEnabled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyEnabled</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af2d0d5884751e69699ca9b2d6c2cd7f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2d0d5884751e69699ca9b2d6c2cd7f1">&#9670;&nbsp;</a></span>proxyHost</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyHost</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00261.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00249.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, and <a class="el" href="a00257.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="add5abc4de55257ede4e0ab5db30de1ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add5abc4de55257ede4e0ab5db30de1ce">&#9670;&nbsp;</a></span>proxyPassword</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyPassword</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2b3d20b1c7f6ec579fbb02a053c6c1a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b3d20b1c7f6ec579fbb02a053c6c1a4">&#9670;&nbsp;</a></span>proxyPort</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyPort</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00261.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00249.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, and <a class="el" href="a00257.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="a495fe54c42ce06ce71582737400c0d02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a495fe54c42ce06ce71582737400c0d02">&#9670;&nbsp;</a></span>proxyType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab27c8ae6a38f63214b0413f461033e85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab27c8ae6a38f63214b0413f461033e85">&#9670;&nbsp;</a></span>proxyUser</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">proxyUser</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a31ed64d43142fff4a68b7a148bec2f97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31ed64d43142fff4a68b7a148bec2f97">&#9670;&nbsp;</a></span>treeNode</h2>
 
@@ -451,8 +344,8 @@ Public Attributes</h2></td></tr>
 </div><!-- doc-content -->
 <div class="ttc" id="aa00265_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00265.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:17</div></div>
 <div class="ttc" id="aa00146_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
-<div class="ttc" id="aa00265_html_a5f4d426f44e2bbf0bcca08c50d1b5ee4"><div class="ttname"><a href="a00265.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.finished</a></div><div class="ttdeci">def finished(self, result)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:89</div></div>
-<div class="ttc" id="aa00265_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00265.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:39</div></div>
+<div class="ttc" id="aa00265_html_a5f4d426f44e2bbf0bcca08c50d1b5ee4"><div class="ttname"><a href="a00265.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.finished</a></div><div class="ttdeci">def finished(self, result)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:82</div></div>
+<div class="ttc" id="aa00265_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00265.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:32</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
