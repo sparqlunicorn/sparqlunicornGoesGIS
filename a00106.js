@@ -1,4 +1,4 @@
 var a00106 =
 [
-    [ "SPARQLunicorn", "a00149.html", "a00149" ]
+    [ "InterlinkingTab", "a00149.html", "a00149" ]
 ];

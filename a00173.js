@@ -1,10 +1,7 @@
 var a00173 =
 [
-    [ "__init__", "a00173.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "_loadFinished", "a00173.html#a27b737395c35a2a45db65ae7028ed22c", null ],
-    [ "callable", "a00173.html#a828c7df71b0e86f775916045240464e2", null ],
-    [ "app", "a00173.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "html", "a00173.html#a8f99bc655183db169e126fc155ceb631", null ],
-    [ "logged_in", "a00173.html#a2dde74ef7a1b1433fa85f7aefe03952e", null ],
-    [ "nam", "a00173.html#a51416118072e894072c6e79857b054a0", null ]
+    [ "__init__", "a00173.html#a311d8b4020d8220a7b19ac99dd5fc15c", null ],
+    [ "enrichtab", "a00173.html#a798047d7be0ff17b0e59b9f9d960d376", null ],
+    [ "interlinktab", "a00173.html#a3e331810b0db0beb7dface60f8e05508", null ],
+    [ "sparqlunicorndlg", "a00173.html#a6c8211e85b2f3e3a4c4bdd80d2ea5af3", null ]
 ];
