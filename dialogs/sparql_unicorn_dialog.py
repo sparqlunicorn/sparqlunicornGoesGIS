@@ -102,7 +102,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                           self.comboBox)
 # initialisation of the Interlink MainWindow
-        self.interlinkdlg = InterlinkMainWindow(self)
+        self.interlinkdlg = InterlinkMainWindow(self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
         # self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
         #                                     self.prefixes, self.autocomplete)
 
@@ -214,7 +214,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.loadUnicornLayers()
 
     def buildInterlinkDlg(self):
-        self.interlinkdlg = InterlinkMainWindow(self)
+        # self.interlinkdlg = InterlinkMainWindow(self)
         self.interlinkdlg.show()
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
