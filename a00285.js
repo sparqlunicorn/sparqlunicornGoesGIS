@@ -1,8 +1,7 @@
 var a00285 =
 [
-    [ "__init__", "a00285.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "__init__", "a00285.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "interceptRequest", "a00285.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
-    [ "app", "a00285.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "oauthcode", "a00285.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
+    [ "__init__", "a00285.html#a3eea7d74a4d095189d6d6f594ccc5323", null ],
+    [ "paintEvent", "a00285.html#ad0dbab7bd24945a905fb1bc8883b7cab", null ],
+    [ "sizeHint", "a00285.html#aff1e7c8521d73ca3ac484759bf2b7597", null ],
+    [ "myeditor", "a00285.html#a983609a19489c1366ce7f6dc2e19534b", null ]
 ];

@@ -1,4 +1,6 @@
 var a00136 =
 [
-    [ "QueryLayerTask", "a00245.html", "a00245" ]
+    [ "LineNumberArea", "a00285.html", "a00285" ],
+    [ "SPARQLCompleter", "a00281.html", "a00281" ],
+    [ "ToolTipPlainText", "a00289.html", "a00289" ]
 ];

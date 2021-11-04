@@ -1,4 +1,4 @@
 var a00130 =
 [
-    [ "DetectTripleStoreTask", "a00221.html", "a00221" ]
+    [ "GeoConceptsQueryTask", "a00245.html", "a00245" ]
 ];

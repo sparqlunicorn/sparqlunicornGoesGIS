@@ -1,8 +1,10 @@
 var a00269 =
 [
-    [ "__init__", "a00269.html#ae64f0875afe3067b97ba370b354b9213", null ],
-    [ "convertCRSFromEPSG", "a00269.html#ad36e6fed41b0eafd527841ce13c0a492", null ],
-    [ "convertCRSFromWKTString", "a00269.html#aaee76f67d9e7d0405f14ebf3b807a8c1", null ],
-    [ "crsToTTL", "a00269.html#aa5abea21cd551f22108088ef3d1880b0", null ],
-    [ "ttlhead", "a00269.html#ad382225511cbcbdfadae28d3f3641911", null ]
+    [ "authenticatedby", "a00269.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
+    [ "firstname", "a00269.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
+    [ "lastname", "a00269.html#a3c8f58d761707273489a76751c4905fb", null ],
+    [ "name", "a00269.html#ab74e6bf80237ddc4109968cedc58c151", null ],
+    [ "userid", "a00269.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
+    [ "username", "a00269.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
+    [ "userurl", "a00269.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
 ];

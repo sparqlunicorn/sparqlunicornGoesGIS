@@ -1,17 +1,18 @@
 var a00253 =
 [
-    [ "__init__", "a00253.html#ad68f48064ab758ee8e2c5a35653efe15", null ],
-    [ "finished", "a00253.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "getLabelsForClasses", "a00253.html#a9668aa263c374afae42279e9ac4cd94d", null ],
-    [ "run", "a00253.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "amountoflabels", "a00253.html#a920977da185a945b106fd389906f0fda", null ],
-    [ "dlg", "a00253.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "exception", "a00253.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "geoTreeViewModel", "a00253.html#ac718e6195097812dffa9cfd2407131ad", null ],
-    [ "progress", "a00253.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00253.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "resultlist", "a00253.html#af06316de4f3798fb8e2fd1c2846957ca", null ],
-    [ "treeNode", "a00253.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
-    [ "triplestoreurl", "a00253.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "viewlist", "a00253.html#a64118717d69ab90e67efd8b24cb32bb3", null ]
+    [ "__init__", "a00253.html#a5788aa490c766bf347cb9d3712abc036", null ],
+    [ "canvasMoveEvent", "a00253.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00253.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "canvasReleaseEvent", "a00253.html#af1a565828651f16efdecaee54f27a1b2", null ],
+    [ "deactivate", "a00253.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "rbcircle", "a00253.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
+    [ "reset", "a00253.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00253.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "center", "a00253.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
+    [ "iface", "a00253.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00253.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00253.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "segments", "a00253.html#a95912ea8e057275833a7edd278c87dfd", null ],
+    [ "selectionDone", "a00253.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00253.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];

@@ -1,4 +1,4 @@
 var a00116 =
 [
-    [ "ConvertCRSDialog", "a00169.html", "a00169" ]
+    [ "TripleStoreQuickAddDialog", "a00193.html", "a00193" ]
 ];
