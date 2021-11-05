@@ -19,13 +19,15 @@ class ConvertCRSTask(QgsTask):
 
     supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral"}
 
-    def __init__(self, description, filename, crsdef, dialog, progress):
+    def __init__(self, description, filename, crsdef, convertFrom, convertTo, dialog, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.filename = filename
         self.crsdef = crsdef
         self.dialog = dialog
+        self.convertFrom=convertFrom
+        self.convertTo=convertTo
         s = QSettings()  # getting proxy from qgis options settings
         self.proxyEnabled = s.value("proxy/proxyEnabled")
         self.proxyType = s.value("proxy/proxyType")

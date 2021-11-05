@@ -1,7 +1,6 @@
 import json
 import os
 from ..util.sparqlutils import SPARQLUtils
-from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis, QgsApplication
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog

@@ -535,7 +535,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def deleteEnrichRow(self, send):
         w = send.sender().parent()
         row = self.enrichTable.indexAt(w.pos()).row()
-        self.enrichTable.removeRow(row);
+        self.enrichTable.removeRow(row)
         self.enrichTable.setCurrentCell(0, 0)
 
     ## 
@@ -579,7 +579,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #  @param self The object pointer.
     def validateSPARQL(self):
         if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.prefixes[
-            self.comboBox.currentIndex()] is not None and self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
+            self.comboBox.currentIndex()] is not None \
+                and self.inp_sparql2.toPlainText() is not None \
+                and self.inp_sparql2.toPlainText() != "":
             try:
                 if self.prefixes[self.comboBox.currentIndex()] != "":
                     prepareQuery(

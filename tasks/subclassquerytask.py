@@ -3,7 +3,6 @@ import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog

@@ -36,7 +36,18 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         self.loadFromFileButton.clicked.connect(self.loadFile)
         self.startConversionButton.clicked.connect(self.startConversion)
         self.cancelButton.clicked.connect(self.close)
+        self.convertAllCheckBox.stateChanged.connect(self.toggleComboBoxes)
         # self.loadFromURIButton.clicked.connect(self.loadURI)
+
+    def toggleComboBoxes(self):
+        if self.convertFromComboBox.isEnabled():
+            self.convertFromComboBox.setDisabled(True)
+        else:
+            self.convertFromComboBox.setDisabled(False)
+        if self.convertToComboBox.isEnabled():
+            self.convertToComboBox.setDisabled(True)
+        else:
+            self.convertToComboBox.setDisabled(False)
 
     def check_state1(self):
         self.check_state(self.graphURIEdit)
@@ -66,8 +77,13 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
                                    0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
-        self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), self, progress)
+        if self.convertAllCheckBox.checkState():
+            self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
+                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
+                                        progress)
+        else:
+            self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
+                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), None, None, self, progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     def loadURI(self):

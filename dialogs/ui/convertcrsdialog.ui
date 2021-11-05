@@ -258,32 +258,13 @@
     <string>Choose a file</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>200</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Convert all</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="convertFromComboBox">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>125</x>
+     <x>120</x>
      <y>200</y>
      <width>131</width>
      <height>25</height>
@@ -320,7 +301,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="convertToComboBox">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -380,6 +361,25 @@
    </property>
    <property name="text">
     <string>To</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="convertAllCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Convert all</string>
    </property>
   </widget>
  </widget>
