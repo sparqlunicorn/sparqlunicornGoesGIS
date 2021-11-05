@@ -1,10 +1,15 @@
 var a00277 =
 [
-    [ "authenticatedby", "a00277.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
-    [ "firstname", "a00277.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
-    [ "lastname", "a00277.html#a3c8f58d761707273489a76751c4905fb", null ],
-    [ "name", "a00277.html#ab74e6bf80237ddc4109968cedc58c151", null ],
-    [ "userid", "a00277.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
-    [ "username", "a00277.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
-    [ "userurl", "a00277.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
+    [ "__init__", "a00277.html#a8620be517032a623030c0d1401b11c70", null ],
+    [ "canvasMoveEvent", "a00277.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00277.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "deactivate", "a00277.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "keyPressEvent", "a00277.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
+    [ "reset", "a00277.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00277.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "iface", "a00277.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00277.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00277.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "selectionDone", "a00277.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00277.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];

@@ -1,8 +1,10 @@
 var a00289 =
 [
-    [ "__init__", "a00289.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00289.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00289.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "insertText", "a00289.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00289.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ]
+    [ "authenticatedby", "a00289.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
+    [ "firstname", "a00289.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
+    [ "lastname", "a00289.html#a3c8f58d761707273489a76751c4905fb", null ],
+    [ "name", "a00289.html#ab74e6bf80237ddc4109968cedc58c151", null ],
+    [ "userid", "a00289.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
+    [ "username", "a00289.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
+    [ "userurl", "a00289.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
 ];

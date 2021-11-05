@@ -1,5 +1,5 @@
-<map id="SPARQLunicornDialog" name="SPARQLunicornDialog">
-<area shape="rect" id="node1" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="50,80,213,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,121,32"/>
-<area shape="rect" id="node3" href="$a00813.html" title=" " alt="" coords="145,5,256,32"/>
+<map id="TripleStoreDialog" name="TripleStoreDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="35,80,168,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$a00833.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
