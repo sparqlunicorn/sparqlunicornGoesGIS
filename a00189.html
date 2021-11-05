@@ -251,7 +251,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                                          self.comboBox)</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"># initialisation of the Interlink MainWindow</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.interlinkdlg = InterlinkMainWindow(self)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.interlinkdlg = InterlinkMainWindow(self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment"># self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="comment">#                                     self.prefixes, self.autocomplete)</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
@@ -390,7 +390,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <div class="fragment"><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">def </span>buildInterlinkDlg(self):</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        self.interlinkdlg = InterlinkMainWindow(self)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="comment"># self.interlinkdlg = InterlinkMainWindow(self)</span></div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        self.interlinkdlg.show()</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        </div>
 </div><!-- fragment -->
@@ -419,7 +419,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        self.searchTripleStoreDialog.exec_()</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00169.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00177.html#a7a228f82cef256bf0c017634e4195718">LoadGraphDialog.maindlg</a>, <a class="el" href="a00189.html#a7a228f82cef256bf0c017634e4195718">SPARQLunicornDialog.maindlg</a>, <a class="el" href="a00189.html#a0918bd6ea96ed15f91ffdf7d9e91776a">SPARQLunicornDialog.searchTripleStoreDialog</a>, <a class="el" href="a00169.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00153.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+<p class="reference">References <a class="el" href="a00169.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00177.html#a7a228f82cef256bf0c017634e4195718">LoadGraphDialog.maindlg</a>, <a class="el" href="a00189.html#a7a228f82cef256bf0c017634e4195718">SPARQLunicornDialog.maindlg</a>, <a class="el" href="a00173.html#a0918bd6ea96ed15f91ffdf7d9e91776a">InterlinkMainWindow.searchTripleStoreDialog</a>, <a class="el" href="a00189.html#a0918bd6ea96ed15f91ffdf7d9e91776a">SPARQLunicornDialog.searchTripleStoreDialog</a>, <a class="el" href="a00169.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00185.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00165.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00153.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
 </div>
 </div>
