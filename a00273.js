@@ -1,18 +1,14 @@
 var a00273 =
 [
-    [ "__init__", "a00273.html#a5788aa490c766bf347cb9d3712abc036", null ],
-    [ "canvasMoveEvent", "a00273.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00273.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "canvasReleaseEvent", "a00273.html#af1a565828651f16efdecaee54f27a1b2", null ],
-    [ "deactivate", "a00273.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "rbcircle", "a00273.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
-    [ "reset", "a00273.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00273.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "center", "a00273.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
-    [ "iface", "a00273.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00273.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00273.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "segments", "a00273.html#a95912ea8e057275833a7edd278c87dfd", null ],
-    [ "selectionDone", "a00273.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00273.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00273.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "exportMapping", "a00273.html#ac0b79f251af60953125dc0c3807d8010", null ],
+    [ "exportMappingProcess", "a00273.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
+    [ "loadMapping", "a00273.html#ab38c44b08c637c238d983ebcab2ef845", null ],
+    [ "readMapping", "a00273.html#a69357de86ed09826927e35b3c3378fcd", null ],
+    [ "dlg", "a00273.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichLayer", "a00273.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "exportIdCol", "a00273.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00273.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00273.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "valueconcept", "a00273.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];

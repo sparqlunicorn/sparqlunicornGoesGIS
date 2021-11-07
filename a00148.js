@@ -1,6 +1,6 @@
 var a00148 =
 [
-    [ "LineNumberArea", "a00309.html", "a00309" ],
-    [ "SPARQLCompleter", "a00305.html", "a00305" ],
-    [ "ToolTipPlainText", "a00313.html", "a00313" ]
+    [ "CircleMapTool", "a00281.html", "a00281" ],
+    [ "PolygonMapTool", "a00285.html", "a00285" ],
+    [ "RectangleMapTool", "a00289.html", "a00289" ]
 ];

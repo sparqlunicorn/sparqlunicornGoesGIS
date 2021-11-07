@@ -1,14 +1,17 @@
 var a00265 =
 [
-    [ "__init__", "a00265.html#a93626884d4600b8cf171d464a41099fd", null ],
-    [ "exportMapping", "a00265.html#ac0b79f251af60953125dc0c3807d8010", null ],
-    [ "exportMappingProcess", "a00265.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
-    [ "loadMapping", "a00265.html#ab38c44b08c637c238d983ebcab2ef845", null ],
-    [ "readMapping", "a00265.html#a69357de86ed09826927e35b3c3378fcd", null ],
-    [ "dlg", "a00265.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "enrichLayer", "a00265.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
-    [ "exportIdCol", "a00265.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
-    [ "exportNameSpace", "a00265.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
-    [ "exportSetClass", "a00265.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
-    [ "valueconcept", "a00265.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
+    [ "__init__", "a00265.html#a2b97505b4a89f59b1902bc41f75fba68", null ],
+    [ "finished", "a00265.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
+    [ "run", "a00265.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "exception", "a00265.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "labels", "a00265.html#abc325fc13d4194905c1786e24ee447f0", null ],
+    [ "prefixes", "a00265.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "progress", "a00265.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "query", "a00265.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
+    [ "results", "a00265.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
+    [ "searchResult", "a00265.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
+    [ "searchTerm", "a00265.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
+    [ "sortedatt", "a00265.html#a48ad5f81f31645c924cfff541c5add36", null ],
+    [ "triplestoreurl", "a00265.html#a9b8734be629bbc1f64723d90a67861ab", null ],
+    [ "urilist", "a00265.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]
 ];
