@@ -49,17 +49,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)
-        self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)		
-        s = QSettings() #getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
-        #tripleStoreApplyButton = QPushButton("Reset Configuration",self)	
-        #tripleStoreApplyButton.move(330,560)	
-        #tripleStoreApplyButton.clicked.connect(self.resetTripleStoreConfig)	
+        self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
 		
     def loadTripleStoreConfig(self):
         if self.tripleStoreChooser.currentIndex()<len(self.triplestoreconf):

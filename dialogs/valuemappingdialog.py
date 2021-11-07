@@ -3,7 +3,7 @@ from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWi
 from qgis.PyQt import uic
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
-from SPARQLWrapper import SPARQLWrapper, JSON
+from ..util.sparqlutils import SPARQLUtils
 import json
 import requests
 import os.path
@@ -109,11 +109,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
                     "%%label%%", label)
         if "SELECT" in query:
             query = query.replace("%%label%%", label).replace("%%language%%", language)
-            sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
-                                   agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
+            results=SPARQLUtils.executeQuery(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],query)
             self.searchResultMap = {}
             for res in results["results"]["bindings"]:
                 item = QListWidgetItem()

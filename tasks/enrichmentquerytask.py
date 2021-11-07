@@ -90,7 +90,6 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage(self.triplestoreurl,
                                  MESSAGE_CATEGORY, Qgis.Info)
         print(self.triplestoreurl)
-
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query)
         if results==False:
             return False

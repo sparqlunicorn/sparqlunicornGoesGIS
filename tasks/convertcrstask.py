@@ -1,6 +1,7 @@
 from rdflib import *
 import json
 import urllib
+from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis
@@ -28,13 +29,6 @@ class ConvertCRSTask(QgsTask):
         self.dialog = dialog
         self.convertFrom=convertFrom
         self.convertTo=convertTo
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
 
     def detectLiteralType(self, literal):
         try:
@@ -97,24 +91,7 @@ class ConvertCRSTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
-        if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        self.graph = Graph()
-        try:
-            if self.filename.startswith("http"):
-                self.graph.load(self.filename)
-            else:
-                filepath = self.filename.split(".")
-                result = self.graph.parse(self.filename, format=filepath[len(filepath) - 1])
-        except Exception as e:
-            QgsMessageLog.logMessage('Failed "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-            self.exception = str(e)
-            return False
-        self.geoconcepts = []
+        self.graph=SPARQLUtils.loadGraph(self.filename)
         if self.graph != None:
             print("WE HAVE A GRAPH")
             for s, p, o in self.graph:
