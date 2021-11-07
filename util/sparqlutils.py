@@ -1,6 +1,7 @@
 from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST
 import urllib
-from qgis.core import Qgis
+import json
+from qgis.core import Qgis, QgsGeometry
 from qgis.core import QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
@@ -8,6 +9,8 @@ from rdflib import Graph
 MESSAGE_CATEGORY="SPARQLUtils"
 
 class SPARQLUtils:
+    
+    supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral":"wkt","http://www.opengis.net/ont/geosparql#gmlLiteral":"gml","http://www.opengis.net/ont/geosparql#wkbLiteral":"wkb","http://www.opengis.net/ont/geosparql#geoJSONLiteral":"geojson","http://www.opengis.net/ont/geosparql#kmlLiteral":"kml","http://www.opengis.net/ont/geosparql#dggsLiteral":"dggs"}
 
     @staticmethod
     def executeQuery(triplestoreurl,query):
@@ -62,7 +65,7 @@ class SPARQLUtils:
             proxy = urllib.request.ProxyHandler({'http': proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
-                QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         graph = Graph()
         try:
             if self.filename.startswith("http"):
@@ -75,3 +78,38 @@ class SPARQLUtils:
             self.exception = str(e)
             return None
         return graph
+
+    @staticmethod
+    def detectLiteralType(literal):
+        try:
+            geom = QgsGeometry.fromWkt(literal)
+            return "wkt"
+        except:
+            print("no wkt")
+        try:
+            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
+            return "wkb"
+        except:
+            print("no wkb")
+        try:
+            json.loads(literal)
+            return "geojson"
+        except:
+            print("no geojson")
+        return ""
+    
+    @staticmethod
+    def handleURILiteral(uri):
+        result = []
+        if uri.startswith("http") and uri.endswith(".map"):
+            try:
+                f = urlopen(uri)
+                myjson = json.loads(f.read())
+                if "data" in myjson and "type" in myjson["data"] and myjson["data"]["type"] == "FeatureCollection":
+                    features = myjson["data"]["features"]
+                    for feat in features:
+                        result.append(feat["geometry"])
+                return result
+            except:
+                QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(sys.exc_info()[0]))
+        return None

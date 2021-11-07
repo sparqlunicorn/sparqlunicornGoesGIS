@@ -15,7 +15,6 @@ class InstanceAmountQueryTask(QgsTask):
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.treeNode=treeNode
-        self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.amount=-1
 
     def run(self):

@@ -16,9 +16,7 @@ MESSAGE_CATEGORY = 'ConvertCRSTask'
 
 
 class ConvertCRSTask(QgsTask):
-    """This shows how to subclass QgsTask"""
 
-    supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral"}
 
     def __init__(self, description, filename, crsdef, convertFrom, convertTo, dialog, progress):
         super().__init__(description, QgsTask.CanCancel)
@@ -30,30 +28,12 @@ class ConvertCRSTask(QgsTask):
         self.convertFrom=convertFrom
         self.convertTo=convertTo
 
-    def detectLiteralType(self, literal):
-        try:
-            geom = QgsGeometry.fromWkt(literal)
-            return "wkt"
-        except:
-            print("no wkt")
-        try:
-            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
-            return "wkb"
-        except:
-            print("no wkb")
-        try:
-            json.loads(literal)
-            return "geojson"
-        except:
-            print("no geojson")
-        return ""
-
     def processLiteral(self, literal, literaltype, reproject, projectto):
         QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype) + " " + str(reproject))
         QgsMessageLog.logMessage("REPROJECT: " + str(reproject))
         geom = None
         if literaltype == "" or literaltype == None:
-            literaltype = self.detectLiteralType(literal)
+            literaltype = SPARQLUtils.detectLiteralType(literal)
         if "wkt" in literaltype.lower():
             literal = literal.strip()
             if literal.startswith("<http"):
