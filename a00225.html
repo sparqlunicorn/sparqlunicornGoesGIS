@@ -330,29 +330,29 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">def </span>detectColumnType(self, resultmap, table):</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        intcount = 0</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        doublecount = 0</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">for</span> res <span class="keywordflow">in</span> resultmap:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> resultmap[res] == <span class="keywordtype">None</span> <span class="keywordflow">or</span> resultmap[res] == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                intcount += 1</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                doublecount += 1</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">if</span> resultmap[res].isdigit():</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                intcount += 1</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                float(resultmap[res])</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                doublecount += 1</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                print(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        QgsMessageLog.logMessage(str(intcount) + <span class="stringliteral">&quot; - &quot;</span> + str(doublecount) + <span class="stringliteral">&quot; - &quot;</span> + str(len(resultmap)),</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">if</span> intcount == len(resultmap):</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">return</span> QVariant.Int</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">if</span> doublecount == len(resultmap):</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">return</span> QVariant.Double</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">return</span> QVariant.String</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">def </span>detectColumnType(self, resultmap, table):</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        intcount = 0</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        doublecount = 0</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">for</span> res <span class="keywordflow">in</span> resultmap:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">if</span> resultmap[res] == <span class="keywordtype">None</span> <span class="keywordflow">or</span> resultmap[res] == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                intcount += 1</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                doublecount += 1</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">if</span> resultmap[res].isdigit():</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                intcount += 1</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                float(resultmap[res])</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                doublecount += 1</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                print(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        QgsMessageLog.logMessage(str(intcount) + <span class="stringliteral">&quot; - &quot;</span> + str(doublecount) + <span class="stringliteral">&quot; - &quot;</span> + str(len(resultmap)),</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">if</span> intcount == len(resultmap):</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">return</span> QVariant.Int</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">if</span> doublecount == len(resultmap):</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordflow">return</span> QVariant.Double</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">return</span> QVariant.String</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00225.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
 
@@ -392,42 +392,42 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">def </span><a class="code" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Finished&quot;</span>,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        rowww = 0</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">if</span> self.row &gt;= self.originalRowCount:</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            self.layer.dataProvider().addAttributes([QgsField(self.item, self.columntype)])</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            self.layer.updateFields()</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.layer.fields()]</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> self.layer.getFeatures():</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keywordflow">if</span> rowww &gt;= self.resulttable.rowCount():</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                self.resulttable.insertRow(rowww)</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">if</span> f[self.idfield] <span class="keywordflow">in</span> self.resultmap:</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                QgsMessageLog.logMessage(str(f[self.idfield]) + <span class="stringliteral">&quot; - &quot;</span> + str(self.resultmap[f[self.idfield]]),</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                                         MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                <span class="keywordflow">if</span> self.strategy == <span class="stringliteral">&quot;Merge&quot;</span>:</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Keep Local&quot;</span>:</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    <span class="keywordflow">if</span> f[self.item] == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                        newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                        newitem = QTableWidgetItem(str(f[self.item]))</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Ask User&quot;</span>:</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    newitem = QTableWidgetItem(str(f[self.item]) + <span class="stringliteral">&quot;;&quot;</span> + str(self.resultmap[f[self.idfield]]))</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Keep Remote&quot;</span>:</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> f[self.idfield] <span class="keywordflow">in</span> self.resultmap <span class="keywordflow">or</span> self.resultmap[f[self.idfield]] == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                        newitem = QTableWidgetItem(str(f[self.item]))</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                        newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                QgsMessageLog.logMessage(str(rowww) + <span class="stringliteral">&quot; - &quot;</span> + str(self.row) + <span class="stringliteral">&quot; - &quot;</span> + str(newitem), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                                         Qgis.Info)</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                self.resulttable.setItem(rowww, self.row, newitem)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            rowww += 1</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        self.layer.commitChanges()</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        self.progress.close()</div>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">def </span><a class="code" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Finished&quot;</span>,</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        rowww = 0</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span> self.row &gt;= self.originalRowCount:</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            self.layer.dataProvider().addAttributes([QgsField(self.item, self.columntype)])</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            self.layer.updateFields()</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.layer.fields()]</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> self.layer.getFeatures():</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordflow">if</span> rowww &gt;= self.resulttable.rowCount():</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                self.resulttable.insertRow(rowww)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">if</span> f[self.idfield] <span class="keywordflow">in</span> self.resultmap:</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                QgsMessageLog.logMessage(str(f[self.idfield]) + <span class="stringliteral">&quot; - &quot;</span> + str(self.resultmap[f[self.idfield]]),</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                                         MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <span class="keywordflow">if</span> self.strategy == <span class="stringliteral">&quot;Merge&quot;</span>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Keep Local&quot;</span>:</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="keywordflow">if</span> f[self.item] == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                        newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                        newitem = QTableWidgetItem(str(f[self.item]))</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Ask User&quot;</span>:</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    newitem = QTableWidgetItem(str(f[self.item]) + <span class="stringliteral">&quot;;&quot;</span> + str(self.resultmap[f[self.idfield]]))</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                <span class="keywordflow">elif</span> self.strategy == <span class="stringliteral">&quot;Keep Remote&quot;</span>:</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> f[self.idfield] <span class="keywordflow">in</span> self.resultmap <span class="keywordflow">or</span> self.resultmap[f[self.idfield]] == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                        newitem = QTableWidgetItem(str(f[self.item]))</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                        newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                QgsMessageLog.logMessage(str(rowww) + <span class="stringliteral">&quot; - &quot;</span> + str(self.row) + <span class="stringliteral">&quot; - &quot;</span> + str(newitem), MESSAGE_CATEGORY,</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                                         Qgis.Info)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                self.resulttable.setItem(rowww, self.row, newitem)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            rowww += 1</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        self.layer.commitChanges()</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        self.progress.close()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00225.html#acc09815ec98d8afca1cb5499ebfdb393">EnrichmentQueryTask.columntype</a>, <a class="el" href="a00225.html#a87055b5ec18a0da68316c455287d1e9c">EnrichmentQueryTask.idfield</a>, <a class="el" href="a00225.html#a4ed071da1d42b95e2465fb30952d9f80">EnrichmentQueryTask.item</a>, <a class="el" href="a00225.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentQueryTask.layer</a>, <a class="el" href="a00209.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentDialog.layer</a>, <a class="el" href="a00225.html#a69f706a761ec89c3b902ee489e8d7408">EnrichmentQueryTask.originalRowCount</a>, <a class="el" href="a00153.html#a96db96b589de91ab2dd5f6f5836757de">SPARQLunicorn.originalRowCount</a>, <a class="el" href="a00185.html#a69f706a761ec89c3b902ee489e8d7408">SPARQLunicornDialog.originalRowCount</a>, <a class="el" href="a00221.html#a991fd2c404665f13f536fc7791e53504">DetectTripleStoreTask.progress</a>, <a class="el" href="a00217.html#a991fd2c404665f13f536fc7791e53504">ConvertCRSTask.progress</a>, <a class="el" href="a00225.html#a991fd2c404665f13f536fc7791e53504">EnrichmentQueryTask.progress</a>, <a class="el" href="a00225.html#aaeea1836572756b4a0baf74cdb8ac5d5">EnrichmentQueryTask.resultmap</a>, <a class="el" href="a00225.html#afd0ae837545c3d40e48ae93e147d0657">EnrichmentQueryTask.resulttable</a>, <a class="el" href="a00225.html#ad42e2d1ad172100a2cd1338656cf0425">EnrichmentQueryTask.row</a>, and <a class="el" href="a00225.html#ab621d71bb2cf38b09419ef3a5047e30c">EnrichmentQueryTask.strategy</a>.</p>
 
@@ -506,27 +506,26 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        QgsMessageLog.logMessage(self.triplestoreurl,</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        print(self.triplestoreurl)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        results = SPARQLUtils.executeQuery(self.triplestoreurl,query)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span> results==<span class="keyword">False</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        print(str(results))</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment"># resultcounter=0</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">for</span> resultcounter <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">if</span> self.content == <span class="stringliteral">&quot;Enrich Value&quot;</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;valLabel&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">elif</span> self.content == <span class="stringliteral">&quot;Enrich URI&quot;</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;val&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;valLabel&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] + <span class="stringliteral">&quot;;&quot;</span> + \</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                                 resultcounter[<span class="stringliteral">&quot;val&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        self.columntype = self.detectColumnType(self.resultmap, self.table)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        QgsMessageLog.logMessage(str(self.columntype),</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        QgsMessageLog.logMessage(str(self.resultmap),</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        results = SPARQLUtils.executeQuery(self.triplestoreurl,query)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span> results==<span class="keyword">False</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        print(str(results))</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment"># resultcounter=0</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">for</span> resultcounter <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> self.content == <span class="stringliteral">&quot;Enrich Value&quot;</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;valLabel&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">elif</span> self.content == <span class="stringliteral">&quot;Enrich URI&quot;</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;val&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                self.resultmap[resultcounter[<span class="stringliteral">&quot;vals&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = resultcounter[<span class="stringliteral">&quot;valLabel&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] + <span class="stringliteral">&quot;;&quot;</span> + \</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                                                 resultcounter[<span class="stringliteral">&quot;val&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.columntype = self.detectColumnType(self.resultmap, self.table)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        QgsMessageLog.logMessage(str(self.columntype),</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        QgsMessageLog.logMessage(str(self.resultmap),</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00225.html#acc09815ec98d8afca1cb5499ebfdb393">EnrichmentQueryTask.columntype</a>, <a class="el" href="a00225.html#a6858851eee0e05f318897984757b59dc">EnrichmentQueryTask.content</a>, <a class="el" href="a00221.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00225.html#a5fa43f2158d2c275ce942444d14cb088">EnrichmentQueryTask.detectColumnType()</a>, <a class="el" href="a00146.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00225.html#a87055b5ec18a0da68316c455287d1e9c">EnrichmentQueryTask.idfield</a>, <a class="el" href="a00225.html#a5a008d832461cda11df5cede2c0ce06f">EnrichmentQueryTask.idprop</a>, <a class="el" href="a00225.html#a4ed071da1d42b95e2465fb30952d9f80">EnrichmentQueryTask.item</a>, <a class="el" href="a00225.html#aa37aa8979934d47ac32fd96ecff32202">EnrichmentQueryTask.language</a>, <a class="el" href="a00225.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentQueryTask.layer</a>, <a class="el" href="a00209.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentDialog.layer</a>, <a class="el" href="a00225.html#a2315a70a53b245bf15d631b4c15471fd">EnrichmentQueryTask.propertyy</a>, <a class="el" href="a00225.html#aaeea1836572756b4a0baf74cdb8ac5d5">EnrichmentQueryTask.resultmap</a>, <a class="el" href="a00225.html#ad42e2d1ad172100a2cd1338656cf0425">EnrichmentQueryTask.row</a>, <a class="el" href="a00225.html#ab621d71bb2cf38b09419ef3a5047e30c">EnrichmentQueryTask.strategy</a>, <a class="el" href="a00209.html#ab31a20ab07de26623b45757ffb619144">EnrichmentDialog.table</a>, <a class="el" href="a00201.html#ab31a20ab07de26623b45757ffb619144">ValueMappingDialog.table</a>, <a class="el" href="a00225.html#ab172ed3d3d31ff02fc5f798fe7e1bfb8">EnrichmentQueryTask.table</a>, <a class="el" href="a00197.html#ab31a20ab07de26623b45757ffb619144">UploadRDFDialog.table</a>, <a class="el" href="a00181.html#ab31a20ab07de26623b45757ffb619144">SearchDialog.table</a>, <a class="el" href="a00213.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00225.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00221.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, and <a class="el" href="a00209.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>.</p>
 
@@ -577,7 +576,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00245.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00241.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, and <a class="el" href="a00245.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>.</p>
 
 </div>
 </div>
