@@ -42,6 +42,7 @@ from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
+from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
@@ -54,6 +55,31 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
 
 MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
+
+
+class DiffFilterProxyModel(QSortFilterProxyModel):
+    def filterAcceptsRow(self, source_row, source_parent):
+        # Check if the model is valid
+        model = self.sourceModel()
+        if model is None:
+            return False
+
+        # get index for first column of the row
+        src_index = model.index(source_row, 0, source_parent)
+
+        # recursively compare the values in tree
+        for i in range (model.rowCount(src_index)):
+            child_index = src_index.child(i, 0)
+            c1 = child_index.sibling(child_index.row(), 1).data()
+            c2 = child_index.sibling(child_index.row(), 2).data()
+
+            if (c1 != c2 or self.filterAcceptsRow(i, src_index)):
+                return super(DiffFilterProxyModel, self).filterAcceptsRow(source_row, source_parent)                                                   
+
+        c1 = src_index.sibling(src_index.row(), 1).data()
+        c2 = src_index.sibling(src_index.row(), 2).data()
+
+        return c1 != c2 and super(DiffFilterProxyModel, self).filterAcceptsRow(source_row, source_parent)
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
@@ -110,6 +136,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.proxyModel.sort(0)
         self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxyModel.setSourceModel(self.geoTreeViewModel)
+        self.proxyModel.setRecursiveFilteringEnabled(True)
         self.featureCollectionProxyModel = QSortFilterProxyModel(self)
         self.featureCollectionProxyModel.sort(0)
         self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
@@ -118,11 +145,11 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionProxyModel.sort(0)
         self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
-        self.classTreeViewProxyModel = QSortFilterProxyModel(self)
+        self.classTreeViewProxyModel =  QSortFilterProxyModel(self)
         self.classTreeViewProxyModel.sort(0)
         self.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.classTreeViewProxyModel.setSourceModel(self.classTreeViewModel)
-
+        self.classTreeViewProxyModel.setRecursiveFilteringEnabled(True)
         self.classTreeView.setModel(self.classTreeViewProxyModel)
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
@@ -145,7 +172,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionClassListModel.clear()
         self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
-        self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
+        self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete)
         self.inp_sparql2.move(10, 130)
         self.inp_sparql2.setMinimumSize(780, 431)
@@ -254,6 +281,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         actioninstancecount=QAction("Check instance count")
         menu.addAction(actioninstancecount)
         actioninstancecount.triggered.connect(self.instanceCount)
+        actiondataschema=QAction("Query datatype schema")
+        menu.addAction(actiondataschema)
+        actiondataschema.triggered.connect(self.dataSchema)
         if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
             action2 = QAction("Load subclasses")
             menu.addAction(action2)
@@ -286,10 +316,20 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def instanceCount(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        self.qtaskinstance = InstanceAmountQueryTask(
-            "Getting instance count for " + str(concept),
-            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
-        QgsApplication.taskManager().addTask(self.qtaskinstance)
+        label = self.currentContextModel.itemFromIndex(curindex).text()
+        if not label.endswith("]"):
+            self.qtaskinstance = InstanceAmountQueryTask(
+                "Getting instance count for " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+            QgsApplication.taskManager().addTask(self.qtaskinstance)
+        
+    def dataSchema(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        label = self.currentContextModel.itemFromIndex(curindex).text()
+        self.dataSchemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        self.dataSchemaDialog.setWindowTitle("Data Schema for "+str(label))
+        self.dataSchemaDialog.exec_()
 
     def loadSubClasses(self):
         print("Load SubClasses")
