@@ -50,7 +50,7 @@ from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
-
+from .dialogs.warningLayerdlg import WarningLayerDlg
 import re
 
 geoconcepts = ""
@@ -652,29 +652,38 @@ class SPARQLunicorn:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         else:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        if exportToTripleStore:
-            ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
-                                              valuequeries)
-            uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.comboBox.currentIndex())
-            uploaddialog.setMinimumSize(450, 250)
-            uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
-            uploaddialog.exec_()
+
+        if  selectedLayerIndex == -1:
+            dlg = WarningLayerDlg()
+            dlg.show()
+            dlg.exec_()
+
         else:
-            filename, _filter = QFileDialog.getSaveFileName(
-                self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
-            if filename == "":
-                return
-            ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
-                                              valuequeries)
-            g = Graph()
-            g.parse(data=ttlstring, format="ttl")
-            splitted = filename.split(".")
-            exportNameSpace = ""
-            exportSetClass = ""
-            with open(filename, 'w') as output_file:
-                output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode("utf-8"))
-                iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+            
+            layer = layers[selectedLayerIndex].layer()
+
+            if exportToTripleStore:
+                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+                                                  valuequeries)
+                uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.comboBox.currentIndex())
+                uploaddialog.setMinimumSize(450, 250)
+                uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
+                uploaddialog.exec_()
+            else:
+                filename, _filter = QFileDialog.getSaveFileName(
+                    self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
+                if filename == "":
+                    return
+                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+                                                  valuequeries)
+                g = Graph()
+                g.parse(data=ttlstring, format="ttl")
+                splitted = filename.split(".")
+                exportNameSpace = ""
+                exportSetClass = ""
+                with open(filename, 'w') as output_file:
+                    output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode("utf-8"))
+                    iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
     ## Exports a layer as GeoJSONLD.
     #  @param self The object pointer.

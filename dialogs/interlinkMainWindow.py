@@ -32,12 +32,13 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
     enrichtab = None
 
-    def __init__(self, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
+    def __init__(self, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):
         """Constructor."""
         super(InterlinkMainWindow, self).__init__(parent)
-        self.sparqlunicorndlg = maindlg
+        
+        self.sparqlunicorndlg = dlg
         self.setupUi(self)
-
+        self.maindlg = maindlg
         self.addVocabConf = addVocabConf
         self.prefixes = prefixes
         self.triplestoreconf = triplestoreconf
@@ -57,7 +58,7 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-        # self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+        self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
 
     ##
     #  @brief Creates a search dialog with parameters for interlinking.

@@ -4,7 +4,7 @@ from .tasks.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication
-
+from .dialogs.warningLayerdlg import WarningLayerDlg
 
 class EnrichmentTab:
     enrichLayer = None
@@ -105,32 +105,41 @@ class EnrichmentTab:
     ## Adds a QGIS layer which has been previously enriched to QGIS.
     #  @param self The object pointer.
     def addEnrichedLayer(self):
+        existslayer = True
         if self.enrichLayer == None:
             layers = QgsProject.instance().layerTreeRoot().children()
             selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-            self.enrichLayer = layers[selectedLayerIndex].layer().clone()
-        self.enrichLayerCounter += 1
-        self.enrichLayer.setName(self.enrichLayer.name() + "_enrich" + str(self.enrichLayerCounter))
-        self.enrichLayer.startEditing()
-        row = 0
-        fieldnames = [field.name() for field in self.enrichLayer.fields()]
-        for f in self.enrichLayer.getFeatures():
-            fieldcounter = 0
-            for field in fieldnames:
-                if self.dlg.enrichTableResult.item(row, fieldcounter) != None:
-                    f[field] = self.dlg.enrichTableResult.item(row, fieldcounter).text()
-                else:
-                    f[field] = ""
-                fieldcounter += 1
-            self.enrichLayer.updateFeature(f)
-            row += 1
-        self.enrichLayer.commitChanges()
-        iface.vectorLayerTools().stopEditing(self.enrichLayer)
-        QgsProject.instance().addMapLayer(self.enrichLayer, True)
-        canvas = iface.mapCanvas()
-        canvas.setExtent(self.enrichLayer.extent())
-        iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-        self.dlg.close()
+            if  selectedLayerIndex == -1:
+                existslayer = False
+                dlg = WarningLayerDlg()
+                dlg.show()
+                dlg.exec_()
+            else:
+                self.enrichLayer = layers[selectedLayerIndex].layer().clone()
+        if existslayer is True:
+
+            self.enrichLayerCounter += 1
+            self.enrichLayer.setName(self.enrichLayer.name() + "_enrich" + str(self.enrichLayerCounter))
+            self.enrichLayer.startEditing()
+            row = 0
+            fieldnames = [field.name() for field in self.enrichLayer.fields()]
+            for f in self.enrichLayer.getFeatures():
+                fieldcounter = 0
+                for field in fieldnames:
+                    if self.dlg.enrichTableResult.item(row, fieldcounter) != None:
+                        f[field] = self.dlg.enrichTableResult.item(row, fieldcounter).text()
+                    else:
+                        f[field] = ""
+                    fieldcounter += 1
+                self.enrichLayer.updateFeature(f)
+                row += 1
+            self.enrichLayer.commitChanges()
+            iface.vectorLayerTools().stopEditing(self.enrichLayer)
+            QgsProject.instance().addMapLayer(self.enrichLayer, True)
+            canvas = iface.mapCanvas()
+            canvas.setExtent(self.enrichLayer.extent())
+            iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+            self.dlg.close()
 
     ## Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.
     #  @param self The object pointer.

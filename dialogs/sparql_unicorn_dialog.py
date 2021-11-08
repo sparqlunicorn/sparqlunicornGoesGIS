@@ -49,6 +49,7 @@ from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
 from ..dialogs.interlinkMainWindow import InterlinkMainWindow
+from ..dialogs.enrichmentMainWindow import EnrichmentMainWindow
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
@@ -99,10 +100,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.autocomplete = autocomplete
         self.prefixstore = prefixstore
         self.triplestoreconf = triplestoreconf
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                          self.comboBox)
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox)
+
+        self.enrichmentdlg = EnrichmentMainWindow(self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
 # initialisation of the Interlink MainWindow
-        self.interlinkdlg = InterlinkMainWindow(self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
+        self.interlinkdlg = InterlinkMainWindow(self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
         # self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
         #                                     self.prefixes, self.autocomplete)
 
@@ -210,8 +212,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
         self.bboxButton.clicked.connect(self.getPointFromCanvas)
         self.actionInterlink.triggered.connect(self.buildInterlinkDlg)
+        self.actionEnrichment.triggered.connect(self.buildEnrichmentDlg)
         self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.loadUnicornLayers()
+
+    def buildEnrichmentDlg(self):
+        self.enrichmentdlg.show()
 
     def buildInterlinkDlg(self):
         # self.interlinkdlg = InterlinkMainWindow(self)
@@ -425,3 +431,51 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.setGeometry(300, 300, 300, 200)
         # self.setWindowTitle('Simple menu')
         # self.show()
+    ##
+    #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
+    #
+    #  @param self The object pointer
+    def loadLayerForInterlink(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+        if len(layers) == 0:
+            return
+        layer = layers[selectedLayerIndex].layer()
+        try:
+            fieldnames = [field.name() for field in layer.fields()]
+            while self.interlinkTable.rowCount() > 0:
+                self.interlinkTable.removeRow(0);
+            row = 0
+            self.interlinkTable.setHorizontalHeaderLabels(
+                ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
+                 "ValueConcepts"])
+            self.interlinkTable.setColumnCount(8)
+            for field in fieldnames:
+                item = QTableWidgetItem(field)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                item2 = QTableWidgetItem()
+                item2.setCheckState(True)
+                item3 = QTableWidgetItem()
+                item3.setCheckState(False)
+                item4 = QTableWidgetItem()
+                item4.setCheckState(False)
+                self.interlinkTable.insertRow(row)
+                self.interlinkTable.setItem(row, 3, item)
+                self.interlinkTable.setItem(row, 0, item2)
+                self.interlinkTable.setItem(row, 1, item3)
+                self.interlinkTable.setItem(row, 2, item4)
+                cbox = QComboBox()
+                cbox.addItem("Automatic")
+                cbox.addItem("AnnotationProperty")
+                cbox.addItem("DataProperty")
+                cbox.addItem("ObjectProperty")
+                cbox.addItem("SubClass")
+                self.interlinkTable.setCellWidget(row, 5, cbox)
+                currentRowCount = self.interlinkTable.rowCount()
+                row += 1
+        except:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("Layer not compatible for interlinking!")
+            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
+            msgBox.exec()
+            return
