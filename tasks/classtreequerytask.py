@@ -1,6 +1,6 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
+from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import (
@@ -17,7 +17,7 @@ class ClassTreeQueryTask(QgsTask):
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.treeNode=treeNode
-        self.geoTreeViewModel=self.dlg.geoTreeViewModel
+        self.classTreeViewModel=self.dlg.classTreeViewModel
         self.amount=-1
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
@@ -55,6 +55,7 @@ class ClassTreeQueryTask(QgsTask):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
         if results==False:
             return False
+        hasparent={}
         for result in results["results"]["bindings"]:
             QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
@@ -83,12 +84,16 @@ class ClassTreeQueryTask(QgsTask):
             if "supertype" in result:
                 if not result["supertype"]["value"] in self.subclassmap:
                     self.subclassmap[result["supertype"]["value"]] = set()
-                if result["supertype"]["value"]!=subval:
+                if result["supertype"]["value"]!=subval and not result["supertype"]["value"] in self.subclassmap[subval]:
                     self.subclassmap[result["supertype"]["value"]].add(subval)
-                else:
-                    self.subclassmap["root"].add(subval)
-            else:
-                self.subclassmap["root"].add(subval)
+                    hasparent[subval]=True
+                #else:
+                #    self.subclassmap["root"].add(subval)
+            #else:
+            #    self.subclassmap["root"].add(subval)
+        for cls in self.classtreemap:
+            if cls not in hasparent and cls!="root":
+                self.subclassmap["root"].add(cls)
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.subclassmap)), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
@@ -113,3 +118,6 @@ class ClassTreeQueryTask(QgsTask):
         self.alreadyprocessed=set()
         self.classtreemap["root"]=self.rootNode
         self.buildTree("root",self.classtreemap,self.subclassmap,[])
+        self.dlg.classTreeView.setSortingEnabled(True)
+        self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder);
+        self.dlg.classTreeView.setSortingEnabled(False)

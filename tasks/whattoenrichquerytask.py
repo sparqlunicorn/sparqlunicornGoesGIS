@@ -16,6 +16,7 @@ class WhatToEnrichQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress):
         super().__init__(description, QgsTask.CanCancel)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.query = query
