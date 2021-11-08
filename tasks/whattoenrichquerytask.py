@@ -85,20 +85,25 @@ class WhatToEnrichQueryTask(QgsTask):
     def finished(self, result):
         counter = 0
         if self.sortedatt != None:
-            for att in self.sortedatt:
-                if att[1] < 1:
-                    continue
-                if att[0] in self.labels:
-                    item = QListWidgetItem()
-                    item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
-                    item.setData(1, self.urilist[att[0]])
-                    self.searchResult.addItem(item)
-                    counter += 1
-                else:
-                    item = QListWidgetItem()
-                    item.setText(att[0] + " (" + str(att[1]) + "%)")
-                    item.setData(1, self.urilist[att[0]])
-                    self.searchResult.addItem(item)
+            if len(self.sortedatt)==0:
+                item = QListWidgetItem()
+                item.setText("No results found")
+                self.searchResult.addItem(item)
+            else:
+                for att in self.sortedatt:
+                    if att[1] < 1:
+                        continue
+                    if att[0] in self.labels:
+                        item = QListWidgetItem()
+                        item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
+                        item.setData(1, self.urilist[att[0]])
+                        self.searchResult.addItem(item)
+                        counter += 1
+                    else:
+                        item = QListWidgetItem()
+                        item.setText(att[0] + " (" + str(att[1]) + "%)")
+                        item.setData(1, self.urilist[att[0]])
+                        self.searchResult.addItem(item)
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

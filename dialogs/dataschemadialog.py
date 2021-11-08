@@ -1,6 +1,7 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, QRadioButton, QListWidgetItem, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import QRegExp, Qt, QSettings
+from qgis.PyQt.QtCore import QRegExp, Qt, QSettings,QUrl
+from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
 from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
@@ -49,17 +50,16 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         item = QListWidgetItem()
         item.setText("Loading...")
         self.dataSchemaTableView.addItem(item)
-        #self.dataSchemaTableView.connect.itemDoubleClicked(self.openURL)
+        self.dataSchemaTableView.itemDoubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
-    #def openURL(self):
-    #    curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-    #    concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-    #    url = QUrl(concept)
-    #    QDesktopServices.openUrl(url)
+    def openURL(self):
+        concept=str(self.dataSchemaTableView.currentItem().data(1))
+        url = QUrl(concept)
+        QDesktopServices.openUrl(url)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
