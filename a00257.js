@@ -13,12 +13,6 @@ var a00257 =
     [ "loadgraphdlg", "a00257.html#a0f81c7694b2710fbbf3c33940f4cba64", null ],
     [ "maindlg", "a00257.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "progress", "a00257.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "proxyEnabled", "a00257.html#ae862ff88f11a3a2ef7eee0c21957dcb7", null ],
-    [ "proxyHost", "a00257.html#af2d0d5884751e69699ca9b2d6c2cd7f1", null ],
-    [ "proxyPassword", "a00257.html#add5abc4de55257ede4e0ab5db30de1ce", null ],
-    [ "proxyPort", "a00257.html#a2b3d20b1c7f6ec579fbb02a053c6c1a4", null ],
-    [ "proxyType", "a00257.html#a495fe54c42ce06ce71582737400c0d02", null ],
-    [ "proxyUser", "a00257.html#ab27c8ae6a38f63214b0413f461033e85", null ],
     [ "query", "a00257.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "triplestoreconf", "a00257.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];
