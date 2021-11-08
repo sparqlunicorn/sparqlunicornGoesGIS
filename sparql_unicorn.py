@@ -333,6 +333,7 @@ class SPARQLunicorn:
         self.dlg.queryTemplates.clear()
         self.dlg.filterConcepts.setText("")
         print("changing endpoint")
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn", Qgis.Info)
         conceptlist = []
         self.dlg.geoTreeViewModel.clear()
         self.dlg.geometryCollectionClassListModel.clear()
@@ -342,6 +343,7 @@ class SPARQLunicorn:
         self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections")
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree")
         self.dlg.savedQueries.clear()
+
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "endpoint"] in self.savedQueriesJSON:
             for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:

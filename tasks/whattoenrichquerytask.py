@@ -32,6 +32,7 @@ class WhatToEnrichQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
         concept = "<" + self.searchTerm + ">"
@@ -45,9 +46,10 @@ class WhatToEnrichQueryTask(QgsTask):
         attlist = {}
         self.urilist = {}
         for result in results["results"]["bindings"]:
-            attlist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = round(
-                (int(result["countrel"]["value"]) / maxcons) * 100, 2)
-            self.urilist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = result["rel"]["value"]
+            if maxcons!=0 and str(maxcons)!="0":
+                attlist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = round(
+                    (int(result["countrel"]["value"]) / maxcons) * 100, 2)
+                self.urilist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = result["rel"]["value"]
         self.sortedatt = sorted(attlist.items(), reverse=True, key=lambda kv: kv[1])
         self.labels = {}
         postdata = {}

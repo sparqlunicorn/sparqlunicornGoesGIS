@@ -102,6 +102,7 @@ class DetectTripleStoreTask(QgsTask):
             "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
             "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
             "hasGML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}",
+            "hasKML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asKML ?c .}",
             "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
             "hasLatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
@@ -132,6 +133,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                self.configuration[
+                    "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:
@@ -163,6 +166,8 @@ class DetectTripleStoreTask(QgsTask):
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                self.configuration[
+                    "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:
@@ -203,6 +208,8 @@ class DetectTripleStoreTask(QgsTask):
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                self.configuration[
+                    "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
                 i = 0
                 for ns in res:
