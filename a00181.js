@@ -2,6 +2,7 @@ var a00181 =
 [
     [ "__init__", "a00181.html#a4665ee1992f3a4ecf26c154a67f9f5bd", null ],
     [ "getAttributeStatistics", "a00181.html#a929e6379de0e9f6aa762a098436b1049", null ],
+    [ "openURL", "a00181.html#aa050210d902e2c6b62a25f53b04e998c", null ],
     [ "concept", "a00181.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "curindex", "a00181.html#a0e2acf0c940b73a578c9b54967492155", null ],
     [ "label", "a00181.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],

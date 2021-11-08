@@ -94,6 +94,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4665ee1992f3a4ecf26c154a67f9f5bd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00181.html#a4665ee1992f3a4ecf26c154a67f9f5bd">__init__</a> (self, <a class="el" href="a00181.html#a8797c550322dd66573e3ff76efea346e">concept</a>, <a class="el" href="a00181.html#a22f45a3cb4f074e609f58ebaeef0ecf9">label</a>, <a class="el" href="a00181.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>, <a class="el" href="a00181.html#a302e350558edcbbd7b85927b33550548">prefixes</a>, <a class="el" href="a00181.html#a0e2acf0c940b73a578c9b54967492155">curindex</a>)</td></tr>
 <tr class="memdesc:a4665ee1992f3a4ecf26c154a67f9f5bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the search dialog.  <a href="a00181.html#a4665ee1992f3a4ecf26c154a67f9f5bd">More...</a><br /></td></tr>
 <tr class="separator:a4665ee1992f3a4ecf26c154a67f9f5bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa050210d902e2c6b62a25f53b04e998c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00181.html#aa050210d902e2c6b62a25f53b04e998c">openURL</a> (self)</td></tr>
+<tr class="separator:aa050210d902e2c6b62a25f53b04e998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a929e6379de0e9f6aa762a098436b1049"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00181.html#a929e6379de0e9f6aa762a098436b1049">getAttributeStatistics</a> (self, <a class="el" href="a00181.html#a8797c550322dd66573e3ff76efea346e">concept</a>=&quot;wd:Q3914&quot;, endpoint_url=&quot;https://query.wikidata.org/sparql&quot;)</td></tr>
 <tr class="memdesc:a929e6379de0e9f6aa762a098436b1049"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives statistics about most commonly occuring properties from a certain class in a given triple store.  <a href="a00181.html#a929e6379de0e9f6aa762a098436b1049">More...</a><br /></td></tr>
 <tr class="separator:a929e6379de0e9f6aa762a098436b1049"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,25 +193,25 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Return description</dd></dl>
 <p>More details </p>
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex):</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        super(QDialog, self).<a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.concept=concept</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.label=label</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.prefixes=prefixes</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.triplestoreconf=triplestoreconf</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.triplestoreurl=triplestoreurl</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.dataSchemaNameLabel.setText(str(label)+<span class="stringliteral">&quot; (&lt;a href=\&quot;&quot;</span>+str(concept)+<span class="stringliteral">&quot;\&quot;&gt;&quot;</span>+str(concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>)+1:])+<span class="stringliteral">&quot;&lt;/a&gt;)&quot;</span>)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.curindex=curindex</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        item = QListWidgetItem()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        item.setText(<span class="stringliteral">&quot;Loading...&quot;</span>)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.dataSchemaTableView.addItem(item)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">#self.dataSchemaTableView.connect.itemDoubleClicked(self.openURL)</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.okButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00154.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.triplestoreconf[self.curindex]), <span class="stringliteral">&quot;DataSchemaDialog&quot;</span>, Qgis.Info)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.getAttributeStatistics(self.concept,triplestoreurl)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex):</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        super(QDialog, self).<a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.concept=concept</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.label=label</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.prefixes=prefixes</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.triplestoreconf=triplestoreconf</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.triplestoreurl=triplestoreurl</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.dataSchemaNameLabel.setText(str(label)+<span class="stringliteral">&quot; (&lt;a href=\&quot;&quot;</span>+str(concept)+<span class="stringliteral">&quot;\&quot;&gt;&quot;</span>+str(concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>)+1:])+<span class="stringliteral">&quot;&lt;/a&gt;)&quot;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.curindex=curindex</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        item = QListWidgetItem()</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        item.setText(<span class="stringliteral">&quot;Loading...&quot;</span>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.dataSchemaTableView.addItem(item)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.dataSchemaTableView.itemDoubleClicked.connect(self.openURL)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.okButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00154.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(self.triplestoreconf[self.curindex]), <span class="stringliteral">&quot;DataSchemaDialog&quot;</span>, Qgis.Info)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.getAttributeStatistics(self.concept,triplestoreurl)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -276,6 +278,31 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00181.html#a8797c550322dd66573e3ff76efea346e">DataSchemaDialog.concept</a>, <a class="el" href="a00181.html#a0e2acf0c940b73a578c9b54967492155">DataSchemaDialog.curindex</a>, <a class="el" href="a00154.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+
+</div>
+</div>
+<a id="aa050210d902e2c6b62a25f53b04e998c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa050210d902e2c6b62a25f53b04e998c">&#9670;&nbsp;</a></span>openURL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def openURL </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">def </span>openURL(self):</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        concept=str(self.dataSchemaTableView.currentItem().data(1))</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        url = QUrl(concept)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        QDesktopServices.openUrl(url)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00197.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>.</p>
 
 </div>
 </div>
