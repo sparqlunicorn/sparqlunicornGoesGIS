@@ -78,6 +78,9 @@
      <height>331</height>
     </rect>
    </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

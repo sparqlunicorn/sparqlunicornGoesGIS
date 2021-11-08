@@ -49,10 +49,17 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         item = QListWidgetItem()
         item.setText("Loading...")
         self.dataSchemaTableView.addItem(item)
+        #self.dataSchemaTableView.connect.itemDoubleClicked(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
+
+    #def openURL(self):
+    #    curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+    #    concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+    #    url = QUrl(concept)
+    #    QDesktopServices.openUrl(url)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
