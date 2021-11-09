@@ -103,11 +103,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.autocomplete = autocomplete
         self.prefixstore = prefixstore
         self.triplestoreconf = triplestoreconf
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox)
+        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.endpointCB)
 
-        self.enrichmentdlg = EnrichmentMainWindow(self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
-# initialisation of the Interlink MainWindow
-        self.interlinkdlg = InterlinkMainWindow(self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.comboBox, self)
+
+
         # self.inp_sparql2 = ToolTipPlainText(self.tab, self.triplestoreconf, self.comboBox, self.columnvars,
         #                                     self.prefixes, self.autocomplete)
 
@@ -220,11 +219,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.loadUnicornLayers()
 
     def buildEnrichmentDlg(self):
-        self.enrichmentdlg.show()
+        enrichmentdlg = EnrichmentMainWindow(QgsProject.instance().layerTreeRoot().children(), self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)
+        enrichmentdlg.show()
 
     def buildInterlinkDlg(self):
         # self.interlinkdlg = InterlinkMainWindow(self)
-        self.interlinkdlg.show()
+        # initialisation of the Interlink MainWindow
+        interlinkdlg = InterlinkMainWindow(QgsProject.instance().layerTreeRoot().children(), self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)
+        interlinkdlg.show()
         ##
         #  @brief Creates a What To Enrich dialog with parameters given.
         #
@@ -241,7 +243,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def buildQuickAddTripleStore(self):
 
         self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-        self.comboBox)
+        self.endpointCB)
         self.searchTripleStoreDialog.setMinimumSize(580, 186)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
@@ -250,7 +252,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def buildCustomTripleStoreDialog(self):
 
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                         self.comboBox)
+                                                         self.endpointCB)
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
@@ -263,9 +265,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         queryName = self.saveQueryName.text()
         if queryName is not None and queryName != "":
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
-                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
-            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
+            if not self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+                self.savedQueriesJSON[self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"]] = []
+            self.savedQueriesJSON[self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"]].append(
                 {"label": queryName, "query": self.inp_sparql2.toPlainText()})
             self.savedQueries.addItem(queryName)
             f = open(os.path.join(__location__, 'savedqueries.json'), "w")
@@ -283,12 +285,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
-        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.prefixes[
-            self.comboBox.currentIndex()] is not None and self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
+        if self.prefixes is not None and self.endpointCB is not None and self.endpointCB.currentIndex() is not None and self.prefixes[
+            self.endpointCB.currentIndex()] is not None and self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
             try:
-                if self.prefixes[self.comboBox.currentIndex()] != "":
+                if self.prefixes[self.endpointCB.currentIndex()] != "":
                     prepareQuery(
-                        "".join(self.prefixes[self.comboBox.currentIndex()]) + "\n" + self.inp_sparql2.toPlainText())
+                        "".join(self.prefixes[self.endpointCB.currentIndex()]) + "\n" + self.inp_sparql2.toPlainText())
                 self.errorLabel.setText("Valid Query")
                 self.errorline = -1
                 self.sparqlhighlight.errorhighlightline = self.errorline
@@ -297,7 +299,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             except Exception as e:
                 match = re.search(r'line:([0-9]+),', str(e))
                 match2 = re.search(r'col:([0-9]+),', str(e))
-                start = int(match.group(1)) - len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]) - 1
+                start = int(match.group(1)) - len(self.triplestoreconf[self.endpointCB.currentIndex()]["prefixes"]) - 1
                 self.errorLabel.setText(re.sub("line:([0-9]+),", "line: " + str(start) + ",", str(e)))
                 self.inp_sparql2.errorline = start - 1
                 if "line" in str(e):
@@ -313,14 +315,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
 # allow the user to load already savec queries
     def loadQueryFunc(self):
-        if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+        if self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"] in self.savedQueriesJSON:
             self.inp_sparql2.setPlainText(
-                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]][
+                self.savedQueriesJSON[self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"]][
                     self.savedQueries.currentIndex()]["query"])
 
     def viewselectaction(self,selected=None, deselected=None):
 
-        endpointIndex = self.comboBox.currentIndex()
+        endpointIndex = self.endpointCB.currentIndex()
         if endpointIndex == 0:
             self.justloadingfromfile = False
             return
@@ -429,7 +431,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #
     #  @param self The object pointer
     def getPointFromCanvas(self):
-        self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
+        self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.endpointCB.currentIndex())
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()
 
@@ -450,47 +452,47 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
     #
     #  @param self The object pointer
-    def loadLayerForInterlink(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-        if len(layers) == 0:
-            return
-        layer = layers[selectedLayerIndex].layer()
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
-            while self.interlinkTable.rowCount() > 0:
-                self.interlinkTable.removeRow(0);
-            row = 0
-            self.interlinkTable.setHorizontalHeaderLabels(
-                ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
-                 "ValueConcepts"])
-            self.interlinkTable.setColumnCount(8)
-            for field in fieldnames:
-                item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                item2 = QTableWidgetItem()
-                item2.setCheckState(True)
-                item3 = QTableWidgetItem()
-                item3.setCheckState(False)
-                item4 = QTableWidgetItem()
-                item4.setCheckState(False)
-                self.interlinkTable.insertRow(row)
-                self.interlinkTable.setItem(row, 3, item)
-                self.interlinkTable.setItem(row, 0, item2)
-                self.interlinkTable.setItem(row, 1, item3)
-                self.interlinkTable.setItem(row, 2, item4)
-                cbox = QComboBox()
-                cbox.addItem("Automatic")
-                cbox.addItem("AnnotationProperty")
-                cbox.addItem("DataProperty")
-                cbox.addItem("ObjectProperty")
-                cbox.addItem("SubClass")
-                self.interlinkTable.setCellWidget(row, 5, cbox)
-                currentRowCount = self.interlinkTable.rowCount()
-                row += 1
-        except:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Layer not compatible for interlinking!")
-            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
-            msgBox.exec()
-            return
+    # def loadLayerForInterlink(self):
+    #     layers = QgsProject.instance().layerTreeRoot().children()
+    #     selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+    #     if len(layers) == 0:
+    #         return
+    #     layer = layers[selectedLayerIndex].layer()
+    #     try:
+    #         fieldnames = [field.name() for field in layer.fields()]
+    #         while self.interlinkTable.rowCount() > 0:
+    #             self.interlinkTable.removeRow(0);
+    #         row = 0
+    #         self.interlinkTable.setHorizontalHeaderLabels(
+    #             ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
+    #              "ValueConcepts"])
+    #         self.interlinkTable.setColumnCount(8)
+    #         for field in fieldnames:
+    #             item = QTableWidgetItem(field)
+    #             item.setFlags(QtCore.Qt.ItemIsEnabled)
+    #             item2 = QTableWidgetItem()
+    #             item2.setCheckState(True)
+    #             item3 = QTableWidgetItem()
+    #             item3.setCheckState(False)
+    #             item4 = QTableWidgetItem()
+    #             item4.setCheckState(False)
+    #             self.interlinkTable.insertRow(row)
+    #             self.interlinkTable.setItem(row, 3, item)
+    #             self.interlinkTable.setItem(row, 0, item2)
+    #             self.interlinkTable.setItem(row, 1, item3)
+    #             self.interlinkTable.setItem(row, 2, item4)
+    #             cbox = QComboBox()
+    #             cbox.addItem("Automatic")
+    #             cbox.addItem("AnnotationProperty")
+    #             cbox.addItem("DataProperty")
+    #             cbox.addItem("ObjectProperty")
+    #             cbox.addItem("SubClass")
+    #             self.interlinkTable.setCellWidget(row, 5, cbox)
+    #             currentRowCount = self.interlinkTable.rowCount()
+    #             row += 1
+    #     except:
+    #         msgBox = QMessageBox()
+    #         msgBox.setWindowTitle("Layer not compatible for interlinking!")
+    #         msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
+    #         msgBox.exec()
+    #         return

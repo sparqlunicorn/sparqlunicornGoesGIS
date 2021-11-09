@@ -32,12 +32,14 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
     enrichtab = None
 
-    def __init__(self, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):
+    def __init__(self, layers, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):
         """Constructor."""
         super(InterlinkMainWindow, self).__init__(parent)
 
+
         self.sparqlunicorndlg = dlg
         self.setupUi(self)
+        self.loadUnicornLayers(layers)
         self.maindlg = maindlg
         self.addVocabConf = addVocabConf
         self.prefixes = prefixes
@@ -46,9 +48,9 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
                                                           comboBox)
         self.enrichtab = EnrichmentTab(self)
         self.interlinktab = InterlinkingTab(self)  #perhaps "self" needs to be replaced by "sparqlunicorndlg"
-        self.refreshLayersInterlink.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
+        # self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-        # # self.chooseLayerInterlink.clear()
+         # self.chooseLayerInterlink.clear()
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
@@ -59,6 +61,18 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+
+
+
+    def loadUnicornLayers(self, layers):
+        # Populate the comboBox with names of all the loaded unicorn layers
+
+        for layer in layers:
+            ucl = layer.name()
+            # if type(layer) == QgsMapLayer.VectorLayer:
+            # self.loadedLayers.addItem(layer.name())
+            self.chooseLayerInterlink.addItem(layer.name())
+            # self.chooseLayerEnrich.addItem(layer.name())
 
     ##
     #  @brief Creates a search dialog with parameters for interlinking.

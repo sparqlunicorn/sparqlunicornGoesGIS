@@ -38,13 +38,13 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
     sparqlunicorndlg = None
 
-    def __init__(self, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
+    def __init__(self, layers, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
         """Constructor."""
         super(EnrichmentMainWindow, self).__init__(parent)
         self.sparqlunicorndlg = maindlg
         self.setupUi(self)
 
-
+        self.loadUnicornLayers(layers)
         self.addVocabConf = addVocabConf
         self.prefixes = prefixes
         self.triplestoreconf = triplestoreconf
@@ -62,6 +62,17 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.refreshLayersEnrich.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
 
+
+
+    def loadUnicornLayers(self, layers):
+        # Populate the comboBox with names of all the loaded unicorn layers
+
+        for layer in layers:
+            ucl = layer.name()
+            # if type(layer) == QgsMapLayer.VectorLayer:
+            # self.loadedLayers.addItem(layer.name())
+            # self.chooseLayerInterlink.addItem(layer.name())
+            self.chooseLayerEnrich.addItem(layer.name())
 
 
 # functions:
@@ -105,33 +116,33 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         else:
             layer = layers[selectedLayerIndex].layer()
 
-        self.enrichTableResult.hide()
-        fieldnames = [field.name() for field in layer.fields()]
-        item = QTableWidgetItem("new_column")
-        # item.setFlags(QtCore.Qt.ItemIsEnabled)
-        row = self.enrichTable.rowCount()
-        self.enrichTable.insertRow(row)
-        self.enrichTable.setItem(row, 0, item)
-        cbox = QComboBox()
-        cbox.addItem("Get Remote")
-        cbox.addItem("No Enrichment")
-        cbox.addItem("Exclude")
-        self.enrichTable.setCellWidget(row, 3, cbox)
-        cbox = QComboBox()
-        cbox.addItem("Enrich Value")
-        cbox.addItem("Enrich URI")
-        cbox.addItem("Enrich Both")
-        self.enrichTable.setCellWidget(row, 4, cbox)
-        cbox = QComboBox()
-        for fieldd in fieldnames:
-            cbox.addItem(fieldd)
-        self.enrichTable.setCellWidget(row, 5, cbox)
-        itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-        self.enrichTable.setItem(row, 6, itemm)
-        itemm = QTableWidgetItem("")
-        self.enrichTable.setItem(row, 7, itemm)
-        itemm = QTableWidgetItem("")
-        self.enrichTable.setItem(row, 8, itemm)
+            self.enrichTableResult.hide()
+            fieldnames = [field.name() for field in layer.fields()]
+            item = QTableWidgetItem("new_column")
+            # item.setFlags(QtCore.Qt.ItemIsEnabled)
+            row = self.enrichTable.rowCount()
+            self.enrichTable.insertRow(row)
+            self.enrichTable.setItem(row, 0, item)
+            cbox = QComboBox()
+            cbox.addItem("Get Remote")
+            cbox.addItem("No Enrichment")
+            cbox.addItem("Exclude")
+            self.enrichTable.setCellWidget(row, 3, cbox)
+            cbox = QComboBox()
+            cbox.addItem("Enrich Value")
+            cbox.addItem("Enrich URI")
+            cbox.addItem("Enrich Both")
+            self.enrichTable.setCellWidget(row, 4, cbox)
+            cbox = QComboBox()
+            for fieldd in fieldnames:
+                cbox.addItem(fieldd)
+            self.enrichTable.setCellWidget(row, 5, cbox)
+            itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+            self.enrichTable.setItem(row, 6, itemm)
+            itemm = QTableWidgetItem("")
+            self.enrichTable.setItem(row, 7, itemm)
+            itemm = QTableWidgetItem("")
+            self.enrichTable.setItem(row, 8, itemm)
 
 
 
