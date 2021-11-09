@@ -2,15 +2,14 @@ import json
 import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog
+from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QProgressDialog, QPushButton
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
 
-MESSAGE_CATEGORY = 'WhatToEnrichQueryTask'
+MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 
-
-class WhatToEnrichQueryTask(QgsTask):
+class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
     def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress):
@@ -82,27 +81,37 @@ class WhatToEnrichQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        counter = 0
+        self.searchResult.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
-                item = QListWidgetItem()
+                self.searchResult.insertRow(0)
+                item = QTableWidgetItem()
                 item.setText("No results found")
-                self.searchResult.addItem(item)
+                self.searchResult.setItem(0,0,item)
             else:
+                counter=0
                 for att in self.sortedatt:
                     if att[1] < 1:
                         continue
                     if att[0] in self.labels:
-                        item = QListWidgetItem()
+                        self.searchResult.insertRow(counter)
+                        item = QTableWidgetItem()
                         item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
-                        item.setData(1, self.urilist[att[0]])
-                        self.searchResult.addItem(item)
-                        counter += 1
+                        item.setData(256, self.urilist[att[0]])
+                        self.searchResult.setItem(counter, 0, item)
+                        itembutton = QTableWidgetItem()
+                        itembutton.setText("Click to load samples...")
+                        self.searchResult.setItem(counter, 1, itembutton)
                     else:
-                        item = QListWidgetItem()
+                        self.searchResult.insertRow(counter)
+                        item = QTableWidgetItem()
                         item.setText(att[0] + " (" + str(att[1]) + "%)")
-                        item.setData(1, self.urilist[att[0]])
-                        self.searchResult.addItem(item)
+                        item.setData(256, self.urilist[att[0]])
+                        self.searchResult.setItem(counter, 0, item)
+                        itembutton = QTableWidgetItem()
+                        itembutton.setText("Click to load samples...")
+                        self.searchResult.setItem(counter, 1, itembutton)
+                    counter += 1
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

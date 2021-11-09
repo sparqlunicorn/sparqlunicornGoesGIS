@@ -1,10 +1,11 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, QRadioButton, QListWidgetItem, QTableWidgetItem, QProgressDialog
+from qgis.PyQt.QtWidgets import QDialog, QLabel,QHeaderView, QLineEdit, QPushButton, QTableWidget, QComboBox, QMessageBox, QRadioButton, QTableWidgetItem, QProgressDialog
 from qgis.PyQt.QtCore import QRegExp, Qt, QSettings,QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
-from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
+from ..tasks.dataschemaquerytask import DataSchemaQueryTask
+from ..tasks.datasamplequerytask import DataSampleQueryTask
 import os.path
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -43,23 +44,42 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.concept=concept
         self.label=label
         self.prefixes=prefixes
+        self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.curindex=curindex
-        item = QListWidgetItem()
+        header =self.dataSchemaTableView.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.dataSchemaTableView.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
+        self.dataSchemaTableView.insertRow(0)
+        item = QTableWidgetItem()
         item.setText("Loading...")
-        self.dataSchemaTableView.addItem(item)
-        self.dataSchemaTableView.itemDoubleClicked.connect(self.openURL)
+        self.dataSchemaTableView.setItem(0,0,item)
+        self.dataSchemaTableView.cellClicked.connect(self.loadSamples)
+        self.dataSchemaTableView.cellDoubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
-    def openURL(self):
-        concept=str(self.dataSchemaTableView.currentItem().data(1))
-        url = QUrl(concept)
-        QDesktopServices.openUrl(url)
+    def openURL(self,row,column):
+        if column==0:
+            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+            url = QUrl(concept)
+            QDesktopServices.openUrl(url)
+
+    def loadSamples(self,row,column):
+        if column==1 and row not in self.alreadyloadedSample:
+            relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
+            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
+                                             self.triplestoreurl,
+                                             self,
+                                             self.concept,
+                                             relation,
+                                             column,row)
+            QgsApplication.taskManager().addTask(self.qtask2)
+            self.alreadyloadedSample.append(row)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
@@ -78,7 +98,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
-        self.qtask = WhatToEnrichQueryTask("Querying dataset schema.... (" + self.label + ")",
+        self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
                                            self.triplestoreconf[self.curindex][
                                                "whattoenrichquery"].replace("%%concept%%", concept),

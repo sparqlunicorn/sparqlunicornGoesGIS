@@ -39,7 +39,8 @@ class LoadGraphTask(QgsTask):
             results = self.graph.query(self.query)
             for row in results:
                 self.geoconcepts.append(str(row[0]))
-        return True
+            return True
+        return False
 
     def finished(self, result):
         if result == True:

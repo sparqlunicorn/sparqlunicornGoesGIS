@@ -15,7 +15,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 # Class representing a search dialog which may be used to search for concepts or properties.
 
-
 class SearchDialog(QDialog, FORM_CLASS):
 
     currentrow = ""

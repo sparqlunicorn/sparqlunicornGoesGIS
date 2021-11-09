@@ -3,7 +3,6 @@ from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWi
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
-from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIntValidator
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 import os.path

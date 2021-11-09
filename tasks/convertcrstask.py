@@ -1,8 +1,5 @@
 from rdflib import *
-import json
-import urllib
 from ..util.sparqlutils import SPARQLUtils
-from qgis.PyQt.QtCore import QSettings
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog, QFileDialog
@@ -14,9 +11,7 @@ from qgis.core import (
 
 MESSAGE_CATEGORY = 'ConvertCRSTask'
 
-
 class ConvertCRSTask(QgsTask):
-
 
     def __init__(self, description, filename, crsdef, convertFrom, convertTo, dialog, progress):
         super().__init__(description, QgsTask.CanCancel)

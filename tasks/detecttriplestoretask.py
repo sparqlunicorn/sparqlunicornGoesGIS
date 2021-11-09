@@ -10,7 +10,6 @@ from qgis.core import (
 
 MESSAGE_CATEGORY = 'DetectTripleStoreTask'
 
-
 class DetectTripleStoreTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
