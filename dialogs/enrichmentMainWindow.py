@@ -22,6 +22,9 @@ from qgis.utils import iface
 from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem, QComboBox
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication
+from ..dialogs.warningLayerdlg import WarningLayerDlg
+from ..dialogs.triplestoredialog import TripleStoreDialog
+from ..dialogs.searchdialog import SearchDialog
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -57,6 +60,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+        self.refreshLayersEnrich.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
 
 
 
@@ -94,7 +98,13 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     def addEnrichRow(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+        if  selectedLayerIndex == -1:
+            dlg = WarningLayerDlg()
+            dlg.show()
+            dlg.exec_()
+        else:
+            layer = layers[selectedLayerIndex].layer()
+
         self.enrichTableResult.hide()
         fieldnames = [field.name() for field in layer.fields()]
         item = QTableWidgetItem("new_column")
@@ -125,6 +135,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
 
 
+
     ##
     #  @brief Creates a What To Enrich dialog with parameters given.
     #
@@ -146,9 +157,15 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
         if len(layers) == 0:
-            return
-        layer = layers[selectedLayerIndex].layer()
-        self.enrichTableResult.hide()
+
+            if  selectedLayerIndex == -1:
+                dlg = WarningLayerDlg()
+                dlg.show()
+                dlg.exec_()
+            else:
+                return
+                layer = layers[selectedLayerIndex].layer()
+                self.enrichTableResult.hide()
         while self.enrichTableResult.rowCount() > 0:
             self.enrichTableResult.removeRow(0);
         self.enrichTable.show()

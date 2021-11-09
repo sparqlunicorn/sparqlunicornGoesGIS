@@ -15,7 +15,7 @@ from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.searchdialog import SearchDialog
-
+from ..dialogs.warningLayerdlg import WarningLayerDlg
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/Interlink.ui'))
@@ -35,7 +35,7 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     def __init__(self, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):
         """Constructor."""
         super(InterlinkMainWindow, self).__init__(parent)
-        
+
         self.sparqlunicorndlg = dlg
         self.setupUi(self)
         self.maindlg = maindlg
@@ -109,8 +109,13 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
         if len(layers) == 0:
-            return
-        layer = layers[selectedLayerIndex].layer()
+            if  selectedLayerIndex == -1:
+                dlg = WarningLayerDlg()
+                dlg.show()
+                dlg.exec_()
+            else:
+                return
+                layer = layers[selectedLayerIndex].layer()
         try:
             fieldnames = [field.name() for field in layer.fields()]
             while self.interlinkTable.rowCount() > 0:

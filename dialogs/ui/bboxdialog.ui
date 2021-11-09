@@ -96,6 +96,9 @@ border-radius:20px;}
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -126,6 +129,9 @@ color: rgb(255, 255, 255);</string>
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
@@ -158,6 +164,9 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -188,6 +197,9 @@ color: rgb(255, 255, 255);</string>
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
@@ -244,6 +256,9 @@ color: rgb(255, 255, 255);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -274,6 +289,9 @@ color: rgb(255, 255, 255);</string>
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
@@ -307,6 +325,9 @@ color: rgb(255, 255, 255);</string>
       <width>506</width>
       <height>91</height>
      </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
@@ -351,6 +372,9 @@ color: rgb(255, 255, 255);</string>
          <width>331</width>
          <height>22</height>
         </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">border-radius:10px;
@@ -411,6 +435,9 @@ background-color: rgb(253, 252, 250);</string>
          <bold>true</bold>
         </font>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -441,6 +468,9 @@ color: rgb(255, 255, 255);</string>
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color:rgb(0, 127, 165);
@@ -481,6 +511,9 @@ color: rgb(255, 255, 255);</string>
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgb(0, 127, 165);

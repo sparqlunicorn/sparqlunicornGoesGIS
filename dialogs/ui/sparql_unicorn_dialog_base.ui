@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1549</width>
-    <height>836</height>
+    <width>1429</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,12 +23,6 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
     <item row="0" column="0">
      <widget class="QFrame" name="query_page_frame">
       <property name="minimumSize">
-       <size>
-        <width>1411</width>
-        <height>671</height>
-       </size>
-      </property>
-      <property name="maximumSize">
        <size>
         <width>1411</width>
         <height>671</height>
@@ -299,6 +293,9 @@ color: rgb(255, 255, 255);</string>
                <bold>true</bold>
               </font>
              </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="styleSheet">
               <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -416,7 +413,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="endpointCB">
           <property name="minimumSize">
            <size>
             <width>301</width>
@@ -428,6 +425,9 @@ color: rgb(255, 255, 255);</string>
             <width>301</width>
             <height>22</height>
            </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
           </property>
          </widget>
         </item>
@@ -458,6 +458,9 @@ color: rgb(255, 255, 255);</string>
          <height>431</height>
         </rect>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">
 
@@ -465,7 +468,7 @@ color: rgb(255, 255, 255);</string>
 background-color: rgb(253, 252, 250);</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="geoConceptsTab">
         <attribute name="title">
@@ -514,6 +517,9 @@ background-color: rgb(253, 252, 250);</string>
            <width>331</width>
            <height>411</height>
           </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
         </widget>
        </widget>
@@ -599,6 +605,9 @@ SELECT ?label ?geo ?item WHERE {
          <width>301</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(253, 252, 250);
@@ -692,6 +701,9 @@ background-color: rgb(253, 252, 250);</string>
          <height>22</height>
         </size>
        </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
        <property name="styleSheet">
         <string notr="true">border-radius:10px;
 
@@ -740,7 +752,7 @@ color: rgb(255, 255, 255);</string>
         <string>Load Query</string>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -840,6 +852,9 @@ background-color: rgb(253, 252, 250);</string>
             <bold>true</bold>
            </font>
           </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
@@ -861,7 +876,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1549</width>
+     <width>1429</width>
      <height>21</height>
     </rect>
    </property>

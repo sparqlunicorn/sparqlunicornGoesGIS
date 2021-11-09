@@ -101,6 +101,9 @@ border-radius:20px;}
              <height>0</height>
             </size>
            </property>
+           <property name="cursor" stdset="0">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="sortingEnabled">
             <bool>true</bool>
            </property>

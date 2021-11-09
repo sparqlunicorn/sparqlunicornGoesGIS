@@ -50,6 +50,9 @@ from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
 from ..dialogs.interlinkMainWindow import InterlinkMainWindow
 from ..dialogs.enrichmentMainWindow import EnrichmentMainWindow
+from ..dialogs.warningLayerdlg import WarningLayerDlg
+
+
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
@@ -89,7 +92,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         # self.currentIndex = QCo
         # self.loadUnicornLayers = loadUnicornLayers()
         # self.saveQueryName = QLineEdit()
-        self.comboBox = QComboBox()
+        # self.comboBox = QComboBox()
         # self.menuBar = menuBar
         self.prefixes = prefixes
         self.maindlg = maindlg
@@ -236,6 +239,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 #
 #  @param self The object pointer
     def buildQuickAddTripleStore(self):
+
         self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
         self.comboBox)
         self.searchTripleStoreDialog.setMinimumSize(580, 186)
@@ -244,6 +248,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
 # builds the "buildCustomTripleStoreDialog" which pops up when the user clicks on the "loadTripleStoreButton" (Configure Triple)
     def buildCustomTripleStoreDialog(self):
+
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.comboBox)
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
@@ -314,12 +319,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.savedQueries.currentIndex()]["query"])
 
     def viewselectaction(self,selected=None, deselected=None):
+
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
             self.justloadingfromfile = False
             return
         concept = ""
         curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+
         if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
                 curindex) is not None and re.match(r'.*Q[0-9]+.*', self.geoTreeViewModel.itemFromIndex(
             curindex).text()) and not self.geoTreeViewModel.itemFromIndex(curindex).text().startswith("http"):
@@ -328,6 +335,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             concept = "Q" + self.geoTreeViewModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
         elif self.geoTreeViewModel.itemFromIndex(curindex) is not None:
             concept = self.geoTreeViewModel.itemFromIndex(curindex).data(1)
+
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             if "wd:Q%%concept%% ." in \
                     self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
@@ -354,18 +362,25 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
                                    self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
                                        '#') + 1:].lower().replace(" ", "_"))
+
         elif self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
                 curindex) is not None:
             self.inp_label.setText(self.geoTreeViewModel.itemFromIndex(curindex).text()[
                                    self.geoTreeViewModel.itemFromIndex(curindex).text().rfind(
                                        '/') + 1:].lower().replace(" ", "_"))
-
     def onContext(self,position):
         menu = QMenu("Menu", self.geoTreeView)
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
         menu.exec_(self.geoTreeView.viewport().mapToGlobal(position))
+
+    def openURL(self):
+        curindex = self.proxyModel.mapToSource(self.geoTreeView.selectionModel().currentIndex())
+        concept = self.geoTreeViewModel.itemFromIndex(curindex).data(2)
+        url = QUrl(concept)
+        QDesktopServices.openUrl(url)
+
 
     def loadUnicornLayers(self):
         layers = QgsProject.instance().layerTreeRoot().children()

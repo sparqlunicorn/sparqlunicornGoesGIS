@@ -151,7 +151,7 @@ class GeoConceptsQueryTask(QgsTask):
                 else:
                     self.completerClassList["completerClassList"][
                         concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-            self.sparql.updateNewClassList()
+            # self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
             self.dlg.viewselectaction()
