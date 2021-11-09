@@ -5,7 +5,6 @@ var a00041 =
     [ "buildCustomTripleStoreDialog", "a00041.html#ad1f93d2b6959ec455bac62a548aa192e", null ],
     [ "buildQuickAddTripleStore", "a00041.html#a5337305b01b3162b7d56f9f3e1a2c80f", null ],
     [ "getPointFromCanvas", "a00041.html#a48c6a360a88be859e4598d04ca1c27a9", null ],
-    [ "loadLayerForInterlink", "a00041.html#affa8169354afe9c3c7ea68fa5a1fe060", null ],
     [ "loadQueryFunc", "a00041.html#a78ccf4d6f35ecf512776743cd6825821", null ],
     [ "loadUnicornLayers", "a00041.html#a80aa35ab40509109b9aabf503b42d003", null ],
     [ "onContext", "a00041.html#a855577e6a8e105b84a62592920dde045", null ],
