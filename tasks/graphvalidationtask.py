@@ -1,8 +1,5 @@
 from rdflib import *
-import urllib
 from ..util.sparqlutils import SPARQLUtils
-from qgis.PyQt.QtGui import QStandardItem
-from qgis.PyQt.QtCore import QSettings
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QCompleter, QMessageBox
 from qgis.core import (
@@ -44,7 +41,7 @@ class ValidateGraphTask(QgsTask):
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
                         detected=SPARQLUtils.detectLiteralType()
                         if not detected!=SPARQLUtils.supportedLiteralTypes[str(o.datatype)]:
-                            self.errorlog.add("Error in triple: "+str(s)+" "+str(p)+" "+str(o)":\n [ERR-LITTYPE]: Detected literal content "+str(detected)+" does not match claimed literal type "+str(o.datatype))
+                            self.errorlog.add("Error in triple: "+str(s)+" "+str(p)+" "+str(o)+":\n [ERR-LITTYPE]: Detected literal content "+str(detected)+" does not match claimed literal type "+str(o.datatype))
         return True
 
     def finished(self, result):

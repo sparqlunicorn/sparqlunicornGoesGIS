@@ -1,12 +1,10 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, QRadioButton, QListWidgetItem, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import QRegExp, Qt, QSettings
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtCore import QRegExp, Qt, QSettings,QUrl
+from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
-from qgis.core import QgsApplication
 from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
-import urllib
 import os.path
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -47,22 +45,34 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.prefixes=prefixes
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.dataSchemaNameLabel.setText(label)
+        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.curindex=curindex
+        item = QListWidgetItem()
+        item.setText("Loading...")
+        self.dataSchemaTableView.addItem(item)
+        self.dataSchemaTableView.itemDoubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
-        ## 
+    def openURL(self):
+        concept=str(self.dataSchemaTableView.currentItem().data(1))
+        url = QUrl(concept)
+        QDesktopServices.openUrl(url)
+
+    ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
     #  
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
-    def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql",
-                               labellang="en", inarea="wd:Q183"):
+    def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
-        if self.concept == "" or self.concept==None or self.curindex not in self.triplestoreconf or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.curindex)+ " "+str(self.triplestoreconf[self.curindex]["endpoint"])), "DataSchemaDialog",
+                                 Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]["whattoenrichquery"]), "DataSchemaDialog",
+                                 Qgis.Info)
+        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
             return
         concept = "<" + self.concept + ">"
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
@@ -71,8 +81,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.qtask = WhatToEnrichQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
                                            self.triplestoreconf[self.curindex][
-                                               "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
-                                                                                                            "?area"),
+                                               "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            self.prefixes[self.curindex],
                                            self.dataSchemaTableView, progress)

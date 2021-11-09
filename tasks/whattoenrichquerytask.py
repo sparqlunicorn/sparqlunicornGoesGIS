@@ -32,6 +32,7 @@ class WhatToEnrichQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
         concept = "<" + self.searchTerm + ">"
@@ -45,9 +46,10 @@ class WhatToEnrichQueryTask(QgsTask):
         attlist = {}
         self.urilist = {}
         for result in results["results"]["bindings"]:
-            attlist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = round(
-                (int(result["countrel"]["value"]) / maxcons) * 100, 2)
-            self.urilist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = result["rel"]["value"]
+            if maxcons!=0 and str(maxcons)!="0":
+                attlist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = round(
+                    (int(result["countrel"]["value"]) / maxcons) * 100, 2)
+                self.urilist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = result["rel"]["value"]
         self.sortedatt = sorted(attlist.items(), reverse=True, key=lambda kv: kv[1])
         self.labels = {}
         postdata = {}
@@ -83,20 +85,25 @@ class WhatToEnrichQueryTask(QgsTask):
     def finished(self, result):
         counter = 0
         if self.sortedatt != None:
-            for att in self.sortedatt:
-                if att[1] < 1:
-                    continue
-                if att[0] in self.labels:
-                    item = QListWidgetItem()
-                    item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
-                    item.setData(1, self.urilist[att[0]])
-                    self.searchResult.addItem(item)
-                    counter += 1
-                else:
-                    item = QListWidgetItem()
-                    item.setText(att[0] + " (" + str(att[1]) + "%)")
-                    item.setData(1, self.urilist[att[0]])
-                    self.searchResult.addItem(item)
+            if len(self.sortedatt)==0:
+                item = QListWidgetItem()
+                item.setText("No results found")
+                self.searchResult.addItem(item)
+            else:
+                for att in self.sortedatt:
+                    if att[1] < 1:
+                        continue
+                    if att[0] in self.labels:
+                        item = QListWidgetItem()
+                        item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
+                        item.setData(1, self.urilist[att[0]])
+                        self.searchResult.addItem(item)
+                        counter += 1
+                    else:
+                        item = QListWidgetItem()
+                        item.setText(att[0] + " (" + str(att[1]) + "%)")
+                        item.setData(1, self.urilist[att[0]])
+                        self.searchResult.addItem(item)
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

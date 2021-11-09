@@ -48,6 +48,7 @@ from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
+from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
@@ -281,9 +282,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         actioninstancecount=QAction("Check instance count")
         menu.addAction(actioninstancecount)
         actioninstancecount.triggered.connect(self.instanceCount)
-        actiondataschema=QAction("Query datatype schema")
+        actiondataschema=QAction("Query data schema")
         menu.addAction(actiondataschema)
-        actiondataschema.triggered.connect(self.dataSchema)
+        actiondataschema.triggered.connect(self.dataSchemaView)
         if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
             action2 = QAction("Load subclasses")
             menu.addAction(action2)
@@ -322,14 +323,14 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 "Getting instance count for " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
             QgsApplication.taskManager().addTask(self.qtaskinstance)
-        
-    def dataSchema(self):
+
+    def dataSchemaView(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
-        self.dataSchemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.dataSchemaDialog.setWindowTitle("Data Schema for "+str(label))
-        self.dataSchemaDialog.exec_()
+        self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
+        self.dataschemaDialog.exec_()
 
     def loadSubClasses(self):
         print("Load SubClasses")
