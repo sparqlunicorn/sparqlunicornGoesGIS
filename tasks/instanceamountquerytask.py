@@ -1,6 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
