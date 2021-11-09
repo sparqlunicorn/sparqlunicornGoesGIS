@@ -1,4 +1,4 @@
 var a00138 =
 [
-    [ "GeoConceptsQueryTask", "a00253.html", "a00253" ]
+    [ "VarInputDialog", "a00225.html", "a00225" ]
 ];

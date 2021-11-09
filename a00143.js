@@ -1,4 +1,4 @@
 var a00143 =
 [
-    [ "WhatToEnrichQueryTask", "a00273.html", "a00273" ]
+    [ "DataSampleQueryTask", "a00241.html", "a00241" ]
 ];

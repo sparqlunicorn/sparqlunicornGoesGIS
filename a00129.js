@@ -1,4 +1,4 @@
 var a00129 =
 [
-    [ "ValueMappingDialog", "a00221.html", "a00221" ]
+    [ "DataSchemaDialog", "a00189.html", "a00189" ]
 ];
