@@ -1,16 +1,18 @@
 var a00277 =
 [
-    [ "__init__", "a00277.html#afb329d20550a243e677709aaec83d848", null ],
-    [ "finished", "a00277.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processLiteral", "a00277.html#aae48cf1625ab7d7bcff5a877b5c10511", null ],
-    [ "processResults", "a00277.html#ab368e533f681a396257e919f7acf52fd", null ],
-    [ "run", "a00277.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "allownongeo", "a00277.html#a2be679e131aa5f671200ce80927d4f47", null ],
-    [ "exception", "a00277.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filename", "a00277.html#a2ff994e16bf9521154de4cf659a3b689", null ],
-    [ "geojson", "a00277.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
-    [ "progress", "a00277.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00277.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "triplestoreconf", "a00277.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00277.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "__init__", "a00277.html#a5788aa490c766bf347cb9d3712abc036", null ],
+    [ "canvasMoveEvent", "a00277.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00277.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "canvasReleaseEvent", "a00277.html#af1a565828651f16efdecaee54f27a1b2", null ],
+    [ "deactivate", "a00277.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "rbcircle", "a00277.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
+    [ "reset", "a00277.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00277.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "center", "a00277.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
+    [ "iface", "a00277.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00277.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00277.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "segments", "a00277.html#a95912ea8e057275833a7edd278c87dfd", null ],
+    [ "selectionDone", "a00277.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00277.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];

@@ -78,7 +78,7 @@ Inheritance diagram for VarInputDialog:</div>
 <map name="VarInputDialog_inherit__map" id="VarInputDialog_inherit__map">
 <area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,80,161,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00865.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00829.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -88,7 +88,7 @@ Collaboration diagram for VarInputDialog:</div>
 <map name="VarInputDialog_coll__map" id="VarInputDialog_coll__map">
 <area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,80,161,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00865.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00829.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -167,8 +167,8 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">def </span><a class="code" href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, parent, inputfield, columnvars):</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        super(QDialog, self).<a class="code" href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, parent, inputfield, columnvars):</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        super(QDialog, self).<a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.setupUi(self)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        print(layers)</div>
@@ -183,7 +183,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.layerselectaction()</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00225.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, <a class="el" href="a00225.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00225.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00225.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00205.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00169.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, <a class="el" href="a00225.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>, and <a class="el" href="a00225.html#a514d660ea487e92b9fa9e15eda073db9">VarInputDialog.layerselectaction()</a>.</p>
+<p class="reference">References <a class="el" href="a00225.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, <a class="el" href="a00225.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00225.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00225.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00201.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00161.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, <a class="el" href="a00225.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>, and <a class="el" href="a00225.html#a514d660ea487e92b9fa9e15eda073db9">VarInputDialog.layerselectaction()</a>.</p>
 
 </div>
 </div>
@@ -252,7 +252,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.columnvars[varname] = queryinsert</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.close()</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00225.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00225.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00225.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00205.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00169.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, and <a class="el" href="a00225.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>.</p>
+<p class="reference">References <a class="el" href="a00225.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00225.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00225.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00201.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00161.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, and <a class="el" href="a00225.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a00225.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>.</p>
 
@@ -370,7 +370,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00225.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, <a class="el" href="a00225.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, and <a class="el" href="a00345.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00225.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, <a class="el" href="a00225.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, and <a class="el" href="a00313.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
 
 </div>
 </div>
@@ -400,12 +400,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00289_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
+<div class="ttc" id="aa00273_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00122.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00126.html">dialogs</a></li><li class="navelem"><a class="el" href="a00138.html">varinputdialog</a></li><li class="navelem"><a class="el" href="a00225.html">VarInputDialog</a></li>
+    <li class="navelem"><a class="el" href="a00110.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00116.html">dialogs</a></li><li class="navelem"><a class="el" href="a00130.html">varinputdialog</a></li><li class="navelem"><a class="el" href="a00225.html">VarInputDialog</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

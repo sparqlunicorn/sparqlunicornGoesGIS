@@ -1,6 +1,6 @@
 var a00050 =
 [
-    [ "EnrichmentDialog", "a00229.html", "a00229" ],
+    [ "TripleStoreQuickAddDialog", "a00213.html", "a00213" ],
     [ "_", "a00050.html#a18f05aeddc212b523b40818fa2b87b33", null ],
     [ "FORM_CLASS", "a00050.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

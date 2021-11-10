@@ -1,6 +1,7 @@
-<map id="RectangleMapTool" name="RectangleMapTool">
-<area shape="rect" id="node1" title=" " alt="" coords="153,139,294,165"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,169,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="194,5,253,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="277,5,327,32"/>
+<map id="ToolTipPlainText" name="ToolTipPlainText">
+<area shape="rect" id="node1" title=" " alt="" coords="169,95,296,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,121,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="146,5,205,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="265,5,315,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="451,5,537,32"/>
 </map>
