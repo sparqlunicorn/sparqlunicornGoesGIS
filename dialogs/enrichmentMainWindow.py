@@ -60,7 +60,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
-        self.refreshLayersEnrich.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
+        # self.refreshLayersEnrich.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
 
 
 

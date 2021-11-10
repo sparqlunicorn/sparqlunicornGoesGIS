@@ -912,7 +912,7 @@ color: rgb(255, 255, 255);</string>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>83</height>
+        <height>93</height>
        </size>
       </property>
      </spacer>
@@ -925,7 +925,7 @@ color: rgb(255, 255, 255);</string>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>83</height>
+        <height>93</height>
        </size>
       </property>
      </spacer>
@@ -970,7 +970,6 @@ color: rgb(255, 255, 255);</string>
    </widget>
    <addaction name="menuQuery"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad_Graph">
    <property name="text">
     <string>Load Graph</string>
