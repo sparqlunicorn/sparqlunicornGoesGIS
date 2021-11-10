@@ -53,17 +53,17 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         ##
 
     #  @brief Creates a search dialog to search for a concept.
-    #  
+    #
     #  @param self The object pointer
     #  @param row A row value for the search dialog
     #  @param column A column value for the search dialog
-    #  @return Return description 
+    #  @return Return description
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row, column, -1, self.conceptSearchEdit)
 
-    ## 
+    ##
     #  @brief Builds the search dialog for the concept search
-    #  
+    #
     #  @param self The object pointer
     #  @param row The row for enrichment
     #  @param column The column for enrichment
@@ -78,9 +78,9 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.interlinkdialog.setWindowTitle("Search Property or Class")
         self.interlinkdialog.exec_()
 
-    ## 
+    ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
-    #  
+    #
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql",
@@ -101,45 +101,52 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                            self.searchResult, progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
-    ## 
+    ##
     #  @brief Returns a chosen concept to the calling dialog.
-    #  
+    #
     #  @param [in] self The object pointer
     #  @param [in] costumURI indicates whether a URI has been entered by the user or if a URI should be selected in the result list widget
     #  @return A URI and possibly its label as a String
     def applyConceptToColumn(self, costumURI=False):
         fieldnames = [field.name() for field in self.layer.fields()]
-        item = QTableWidgetItem(
-            self.searchResult.currentItem().text()[0:self.searchResult.currentItem().text().rfind('(') - 1])
-        # item.setFlags(QtCore.Qt.ItemIsEnabled)
-        row = self.enrichtable.rowCount()
-        self.enrichtable.insertRow(row)
-        self.enrichtable.setItem(row, 0, item)
-        item = QTableWidgetItem()
-        item.setData(1, self.searchResult.currentItem().data(1))
-        item.setText(self.searchResult.currentItem().text())
-        self.enrichtable.setItem(row, 1, item)
-        item = QTableWidgetItem()
-        item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"])
-        self.enrichtable.setItem(row, 2, item)
-        cbox = QComboBox()
-        cbox.addItem("Get Remote")
-        cbox.addItem("No Enrichment")
-        cbox.addItem("Exclude")
-        self.enrichtable.setCellWidget(row, 3, cbox)
-        cbox = QComboBox()
-        cbox.addItem("Enrich Value")
-        cbox.addItem("Enrich URI")
-        cbox.addItem("Enrich Both")
-        self.enrichtable.setCellWidget(row, 4, cbox)
-        cbox = QComboBox()
-        for fieldd in fieldnames:
-            cbox.addItem(fieldd)
-        self.enrichtable.setCellWidget(row, 5, cbox)
-        itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-        self.enrichtable.setItem(row, 6, itemm)
-        itemm = QTableWidgetItem(self.conceptSearchEdit.text())
-        self.enrichtable.setItem(row, 7, itemm)
-        itemm = QTableWidgetItem("")
-        self.enrichtable.setItem(row, 8, itemm)
-        self.close()
+        if self.searchResult.count() == 0 :
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("WARNING for apply button")
+            msgBox.setText('You need to first "select a concept", then "select properties for enrichment" and only then click on the apply button.'+
+            'If you have done these two steps that means there are no results so you cannot apply enrichement.Try again with other concepts!')
+            msgBox.exec()
+        else:
+            item = QTableWidgetItem(
+                self.searchResult.currentItem().text()[0:self.searchResult.currentItem().text().rfind('(') - 1])
+            # item.setFlags(QtCore.Qt.ItemIsEnabled)
+            row = self.enrichtable.rowCount()
+            self.enrichtable.insertRow(row)
+            self.enrichtable.setItem(row, 0, item)
+            item = QTableWidgetItem()
+            item.setData(1, self.searchResult.currentItem().data(1))
+            item.setText(self.searchResult.currentItem().text())
+            self.enrichtable.setItem(row, 1, item)
+            item = QTableWidgetItem()
+            item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"])
+            self.enrichtable.setItem(row, 2, item)
+            cbox = QComboBox()
+            cbox.addItem("Get Remote")
+            cbox.addItem("No Enrichment")
+            cbox.addItem("Exclude")
+            self.enrichtable.setCellWidget(row, 3, cbox)
+            cbox = QComboBox()
+            cbox.addItem("Enrich Value")
+            cbox.addItem("Enrich URI")
+            cbox.addItem("Enrich Both")
+            self.enrichtable.setCellWidget(row, 4, cbox)
+            cbox = QComboBox()
+            for fieldd in fieldnames:
+                cbox.addItem(fieldd)
+            self.enrichtable.setCellWidget(row, 5, cbox)
+            itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+            self.enrichtable.setItem(row, 6, itemm)
+            itemm = QTableWidgetItem(self.conceptSearchEdit.text())
+            self.enrichtable.setItem(row, 7, itemm)
+            itemm = QTableWidgetItem("")
+            self.enrichtable.setItem(row, 8, itemm)
+            self.close()

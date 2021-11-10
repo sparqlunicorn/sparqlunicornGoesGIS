@@ -19,7 +19,7 @@ from ..dialogs.searchdialog import SearchDialog
 from qgis.core import QgsProject, Qgis
 from qgis.utils import iface
 # from .tasks.enrichmentquerytask import EnrichmentQueryTask
-from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem, QComboBox
+from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem, QComboBox, QHBoxLayout,  QPushButton, QWidget
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication
 from ..dialogs.warningLayerdlg import WarningLayerDlg
@@ -77,6 +77,22 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
 # functions:
 
+#  @brief Builds the search dialog to search for a concept or class.
+#  @param  self The object pointer
+#  @param  row the row to insert the result
+#  @param  column the column to insert the result
+#  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
+#  @param  table the GUI element to display the result
+# def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
+#                       currentprefixes=None, addVocabConf=None):
+#     self.currentcol = column
+#     self.currentrow = row
+#     self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
+#                                         propOrClass, bothOptions, currentprefixes, addVocabConf)
+#     self.interlinkdialog.setMinimumSize(650, 400)
+#     self.interlinkdialog.setWindowTitle("Search Interlink Concept")
+#     self.interlinkdialog.exec_()
+
     def createEnrichSearchDialog(self, row=-1, column=-1):
         if column == 1:
             self.sparqlunicorndlg.buildSearchDialog(row, column, False, self.enrichTable, False, False, None, self.addVocabConf)
@@ -93,11 +109,11 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     #
     #  @param  send The sender of the request
     #
-    # def deleteEnrichRow(self, send):
-    #     w = send.sender().parent()
-    #     row = self.enrichTable.indexAt(w.pos()).row()
-    #     self.enrichTable.removeRow(row);
-    #     self.enrichTable.setCurrentCell(0, 0)
+    def deleteEnrichRow(self, send):
+        w = send.sender().parent()
+        row = self.enrichTable.indexAt(w.pos()).row()
+        self.enrichTable.removeRow(row);
+        self.enrichTable.setCurrentCell(0, 0)
 
     ##
     #  @brief Adds a new row to the table in the enrichment dialog.
@@ -176,10 +192,10 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
             # if len(layers) == 0:
             #     return
             layer = layers[selectedLayerIndex].layer()
-            # self.enrichTableResult.hide()
-            # while self.enrichTableResult.rowCount() > 0:
-            #     self.enrichTableResult.removeRow(0);
-            # self.enrichTable.show()
+            self.enrichTableResult.hide()
+            while self.enrichTableResult.rowCount() > 0:
+                self.enrichTableResult.removeRow(0);
+            self.enrichTable.show()
             self.addEnrichedLayerRowButton.setEnabled(True)
             try:
                 fieldnames = [field.name() for field in layer.fields()]
@@ -192,10 +208,11 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
                      "ID Domain", "Language"])
                 for field in fieldnames:
                     item = QTableWidgetItem(field)
-                    item.setFlags(QtCore.Qt.ItemIsEnabled)
+                    item.setFlags(Qt.ItemIsEnabled)
                     currentRowCount = self.enrichTable.rowCount()
                     self.enrichTable.insertRow(row)
                     self.enrichTable.setItem(row, 0, item)
+
                     cbox = QComboBox()
                     cbox.addItem("No Enrichment")
                     cbox.addItem("Keep Local")
@@ -205,11 +222,13 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
                     cbox.addItem("Ask User")
                     cbox.addItem("Exclude")
                     self.enrichTable.setCellWidget(row, 3, cbox)
+
                     cbox = QComboBox()
                     cbox.addItem("Enrich Value")
                     cbox.addItem("Enrich URI")
                     cbox.addItem("Enrich Both")
                     self.enrichTable.setCellWidget(row, 4, cbox)
+
                     cbox = QComboBox()
                     for fieldd in fieldnames:
                         cbox.addItem(fieldd)
@@ -235,6 +254,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
                     # self.enrichTable.setItem(row,3,cbox)
                     row += 1
                 self.originalRowCount = row
+
             except:
                 msgBox = QMessageBox()
                 msgBox.setWindowTitle("Layer not compatible for enrichment!")

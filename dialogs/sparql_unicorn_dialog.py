@@ -404,15 +404,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #  @param  column the column to insert the result
         #  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
         #  @param  table the GUI element to display the result
-        def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
+    def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
                               currentprefixes=None, addVocabConf=None):
-            self.currentcol = column
-            self.currentrow = row
-            self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
+        self.currentcol = column
+        self.currentrow = row
+        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
                                                 propOrClass, bothOptions, currentprefixes, addVocabConf)
-            self.interlinkdialog.setMinimumSize(650, 400)
-            self.interlinkdialog.setWindowTitle("Search Interlink Concept")
-            self.interlinkdialog.exec_()
+        self.interlinkdialog.setMinimumSize(650, 400)
+        self.interlinkdialog.setWindowTitle("Search Interlink Concept")
+        self.interlinkdialog.exec_()
 
 
     # def itemModelToMap(self, model):
