@@ -4,6 +4,7 @@ var a00041 =
     [ "buildConvertCRSDialog", "a00041.html#ab1cd0713e03c27dd9b082831f07375c6", null ],
     [ "buildCustomTripleStoreDialog", "a00041.html#ad1f93d2b6959ec455bac62a548aa192e", null ],
     [ "buildQuickAddTripleStore", "a00041.html#a5337305b01b3162b7d56f9f3e1a2c80f", null ],
+    [ "buildSearchDialog", "a00041.html#a747dca996e4c4c9d642d7801424efc5c", null ],
     [ "getPointFromCanvas", "a00041.html#a48c6a360a88be859e4598d04ca1c27a9", null ],
     [ "loadQueryFunc", "a00041.html#a78ccf4d6f35ecf512776743cd6825821", null ],
     [ "loadUnicornLayers", "a00041.html#a80aa35ab40509109b9aabf503b42d003", null ],

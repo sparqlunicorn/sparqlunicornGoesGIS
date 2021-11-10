@@ -102,6 +102,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a80aa35ab40509109b9aabf503b42d003"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a> (self)</td></tr>
 <tr class="memdesc:a80aa35ab40509109b9aabf503b42d003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog to search for a concept or class.  <a href="a00124.html#a80aa35ab40509109b9aabf503b42d003">More...</a><br /></td></tr>
 <tr class="separator:a80aa35ab40509109b9aabf503b42d003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747dca996e4c4c9d642d7801424efc5c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">buildSearchDialog</a> (self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, addVocabConf=None)</td></tr>
+<tr class="separator:a747dca996e4c4c9d642d7801424efc5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48c6a360a88be859e4598d04ca1c27a9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00124.html#a48c6a360a88be859e4598d04ca1c27a9">getPointFromCanvas</a> (self)</td></tr>
 <tr class="memdesc:a48c6a360a88be859e4598d04ca1c27a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.  <a href="a00124.html#a48c6a360a88be859e4598d04ca1c27a9">More...</a><br /></td></tr>
 <tr class="separator:a48c6a360a88be859e4598d04ca1c27a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +216,89 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a747dca996e4c4c9d642d7801424efc5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747dca996e4c4c9d642d7801424efc5c">&#9670;&nbsp;</a></span>buildSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.buildSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>interlinkOrEnrich</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>propOrClass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bothOptions</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>currentprefixes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>addVocabConf</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keyword">def </span><a class="code" href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">buildSearchDialog</a>(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                              currentprefixes=None, addVocabConf=None):</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        self.currentcol = column</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        self.currentrow = row</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                                                propOrClass, bothOptions, currentprefixes, addVocabConf)</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        self.interlinkdialog.setMinimumSize(650, 400)</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Interlink Concept&quot;</span>)</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        self.interlinkdialog.exec_()</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00181.html#a0229f67169973a11be67544cdfa9e80f">EnrichmentMainWindow.createEnrichSearchDialog()</a>.</p>
+
+</div>
+</div>
 <a id="a48c6a360a88be859e4598d04ca1c27a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48c6a360a88be859e4598d04ca1c27a9">&#9670;&nbsp;</a></span>getPointFromCanvas()</h2>
 
@@ -323,17 +408,6 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;            <span class="comment"># self.chooseLayerEnrich.addItem(layer.name())</span></div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        <span class="keyword">def </span>buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                              currentprefixes=None, addVocabConf=None):</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            self.currentcol = column</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            self.currentrow = row</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                                                propOrClass, bothOptions, currentprefixes, addVocabConf)</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            self.interlinkdialog.setMinimumSize(650, 400)</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;            self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Interlink Concept&quot;</span>)</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;            self.interlinkdialog.exec_()</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -757,6 +831,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="aa00124_html_a80aa35ab40509109b9aabf503b42d003"><div class="ttname"><a href="a00124.html#a80aa35ab40509109b9aabf503b42d003">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.loadUnicornLayers</a></div><div class="ttdeci">def loadUnicornLayers(self)</div><div class="ttdoc">Builds the search dialog to search for a concept or class.</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:387</div></div>
 <div class="ttc" id="aa00124_html_a48c6a360a88be859e4598d04ca1c27a9"><div class="ttname"><a href="a00124.html#a48c6a360a88be859e4598d04ca1c27a9">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.getPointFromCanvas</a></div><div class="ttdeci">def getPointFromCanvas(self)</div><div class="ttdoc">Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:433</div></div>
 <div class="ttc" id="aa00124_html_a736d7370d473535977c578574aa7aedb"><div class="ttname"><a href="a00124.html#a736d7370d473535977c578574aa7aedb">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.openURL</a></div><div class="ttdeci">def openURL(self)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:380</div></div>
+<div class="ttc" id="aa00124_html_a747dca996e4c4c9d642d7801424efc5c"><div class="ttname"><a href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.buildSearchDialog</a></div><div class="ttdeci">def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, addVocabConf=None)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:407</div></div>
 <div class="ttc" id="aa00124_html_ad1f93d2b6959ec455bac62a548aa192e"><div class="ttname"><a href="a00124.html#ad1f93d2b6959ec455bac62a548aa192e">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.buildCustomTripleStoreDialog</a></div><div class="ttdeci">def buildCustomTripleStoreDialog(self)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:252</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->

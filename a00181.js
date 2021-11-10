@@ -4,6 +4,7 @@ var a00181 =
     [ "addEnrichRow", "a00181.html#aef2caba5fdbabb1add496a3690ea2920", null ],
     [ "createEnrichSearchDialog", "a00181.html#a0229f67169973a11be67544cdfa9e80f", null ],
     [ "createWhatToEnrich", "a00181.html#a0bec585636baa1304318e0da3bcca8e3", null ],
+    [ "deleteEnrichRow", "a00181.html#a04bb64f72568fb3fe1756fabc6c779b2", null ],
     [ "loadLayerForEnrichment", "a00181.html#a56435cd18605ceb7d36ef96f1a1252a2", null ],
     [ "loadUnicornLayers", "a00181.html#a901feba571a84b2b3ddd11c114c72f1e", null ],
     [ "showConfigTable", "a00181.html#a325fd8cbbc7334bc6881a68afd0c327f", null ],
