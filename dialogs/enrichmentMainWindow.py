@@ -38,7 +38,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
     sparqlunicorndlg = None
 
-    def __init__(self, layers, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
+    def __init__(self,layers, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
         """Constructor."""
         super(EnrichmentMainWindow, self).__init__(parent)
         self.sparqlunicorndlg = maindlg
@@ -165,82 +165,82 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
 
     def loadLayerForEnrichment(self):
+
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        if len(layers) == 0:
-
-            if  selectedLayerIndex == -1:
-                dlg = WarningLayerDlg()
-                dlg.show()
-                dlg.exec_()
-            else:
+        if  selectedLayerIndex == -1 or len(layers) == 0:
+            dlg = WarningLayerDlg()
+            dlg.show()
+            dlg.exec_()
+        else:
+            # if len(layers) == 0:
+            #     return
+            layer = layers[selectedLayerIndex].layer()
+            # self.enrichTableResult.hide()
+            # while self.enrichTableResult.rowCount() > 0:
+            #     self.enrichTableResult.removeRow(0);
+            # self.enrichTable.show()
+            self.addEnrichedLayerRowButton.setEnabled(True)
+            try:
+                fieldnames = [field.name() for field in layer.fields()]
+                while self.enrichTable.rowCount() > 0:
+                    self.enrichTable.removeRow(0);
+                row = 0
+                self.enrichTable.setColumnCount(9)
+                self.enrichTable.setHorizontalHeaderLabels(
+                    ["Column", "EnrichmentConcept", "TripleStore", "Strategy", "content", "ID Column", "ID Property",
+                     "ID Domain", "Language"])
+                for field in fieldnames:
+                    item = QTableWidgetItem(field)
+                    item.setFlags(QtCore.Qt.ItemIsEnabled)
+                    currentRowCount = self.enrichTable.rowCount()
+                    self.enrichTable.insertRow(row)
+                    self.enrichTable.setItem(row, 0, item)
+                    cbox = QComboBox()
+                    cbox.addItem("No Enrichment")
+                    cbox.addItem("Keep Local")
+                    cbox.addItem("Keep Remote")
+                    cbox.addItem("Replace Local")
+                    cbox.addItem("Merge")
+                    cbox.addItem("Ask User")
+                    cbox.addItem("Exclude")
+                    self.enrichTable.setCellWidget(row, 3, cbox)
+                    cbox = QComboBox()
+                    cbox.addItem("Enrich Value")
+                    cbox.addItem("Enrich URI")
+                    cbox.addItem("Enrich Both")
+                    self.enrichTable.setCellWidget(row, 4, cbox)
+                    cbox = QComboBox()
+                    for fieldd in fieldnames:
+                        cbox.addItem(fieldd)
+                    self.enrichTable.setCellWidget(row, 5, cbox)
+                    itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
+                    self.enrichTable.setItem(row, 6, itemm)
+                    itemm = QTableWidgetItem("")
+                    self.enrichTable.setItem(row, 7, itemm)
+                    itemm = QTableWidgetItem("")
+                    self.enrichTable.setItem(row, 8, itemm)
+                    celllayout = QHBoxLayout()
+                    upbutton = QPushButton("Up")
+                    removebutton = QPushButton("Remove", self)
+                    removebutton.clicked.connect(self.deleteEnrichRow)
+                    downbutton = QPushButton("Down")
+                    celllayout.addWidget(upbutton)
+                    celllayout.addWidget(downbutton)
+                    celllayout.addWidget(removebutton)
+                    w = QWidget()
+                    w.setLayout(celllayout)
+                    optitem = QTableWidgetItem()
+                    # self.enrichTable.setCellWidget(row,4,w)
+                    # self.enrichTable.setItem(row,3,cbox)
+                    row += 1
+                self.originalRowCount = row
+            except:
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("Layer not compatible for enrichment!")
+                msgBox.setText("The chosen layer is not supported for enrichment. You possibly selected a raster layer")
+                msgBox.exec()
                 return
-                layer = layers[selectedLayerIndex].layer()
-                self.enrichTableResult.hide()
-        while self.enrichTableResult.rowCount() > 0:
-            self.enrichTableResult.removeRow(0);
-        self.enrichTable.show()
-        self.addEnrichedLayerRowButton.setEnabled(True)
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
-            while self.enrichTable.rowCount() > 0:
-                self.enrichTable.removeRow(0);
-            row = 0
-            self.enrichTable.setColumnCount(9)
-            self.enrichTable.setHorizontalHeaderLabels(
-                ["Column", "EnrichmentConcept", "TripleStore", "Strategy", "content", "ID Column", "ID Property",
-                 "ID Domain", "Language"])
-            for field in fieldnames:
-                item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                currentRowCount = self.enrichTable.rowCount()
-                self.enrichTable.insertRow(row)
-                self.enrichTable.setItem(row, 0, item)
-                cbox = QComboBox()
-                cbox.addItem("No Enrichment")
-                cbox.addItem("Keep Local")
-                cbox.addItem("Keep Remote")
-                cbox.addItem("Replace Local")
-                cbox.addItem("Merge")
-                cbox.addItem("Ask User")
-                cbox.addItem("Exclude")
-                self.enrichTable.setCellWidget(row, 3, cbox)
-                cbox = QComboBox()
-                cbox.addItem("Enrich Value")
-                cbox.addItem("Enrich URI")
-                cbox.addItem("Enrich Both")
-                self.enrichTable.setCellWidget(row, 4, cbox)
-                cbox = QComboBox()
-                for fieldd in fieldnames:
-                    cbox.addItem(fieldd)
-                self.enrichTable.setCellWidget(row, 5, cbox)
-                itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-                self.enrichTable.setItem(row, 6, itemm)
-                itemm = QTableWidgetItem("")
-                self.enrichTable.setItem(row, 7, itemm)
-                itemm = QTableWidgetItem("")
-                self.enrichTable.setItem(row, 8, itemm)
-                celllayout = QHBoxLayout()
-                upbutton = QPushButton("Up")
-                removebutton = QPushButton("Remove", self)
-                removebutton.clicked.connect(self.deleteEnrichRow)
-                downbutton = QPushButton("Down")
-                celllayout.addWidget(upbutton)
-                celllayout.addWidget(downbutton)
-                celllayout.addWidget(removebutton)
-                w = QWidget()
-                w.setLayout(celllayout)
-                optitem = QTableWidgetItem()
-                # self.enrichTable.setCellWidget(row,4,w)
-                # self.enrichTable.setItem(row,3,cbox)
-                row += 1
-            self.originalRowCount = row
-        except:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Layer not compatible for enrichment!")
-            msgBox.setText("The chosen layer is not supported for enrichment. You possibly selected a raster layer")
-            msgBox.exec()
-            return
 
     ##
     #  @brief Shows the configuration table after creating an enrichment result.

@@ -562,6 +562,12 @@ class SPARQLunicorn:
                 print(str(classurilist) + "\n")
                 print(str(includelist) + "\n")
                 if urilist != None and urilist[fieldcounter] != "":
+                    if  selectedLayerIndex == -1:
+                        dlg = WarningLayerDlg()
+                        dlg.show()
+                        dlg.exec_()
+                    else:
+                        layer = layers[selectedLayerIndex].layer()
                     print(urilist)
                     if not urilist[fieldcounter].startswith("http"):
                         print("Does not start with http")

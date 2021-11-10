@@ -169,6 +169,13 @@ color: rgb(255, 255, 255);</string>
          <height>25</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
@@ -247,6 +254,13 @@ color: rgb(255, 255, 255);</string>
          <height>25</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="cursor">
         <cursorShape>PointingHandCursor</cursorShape>
        </property>
@@ -265,7 +279,7 @@ color: rgb(255, 255, 255);</string>
        <rect>
         <x>9</x>
         <y>9</y>
-        <width>591</width>
+        <width>541</width>
         <height>75</height>
        </rect>
       </property>
@@ -457,6 +471,23 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Apply</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>90</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
       </property>
      </widget>
     </widget>

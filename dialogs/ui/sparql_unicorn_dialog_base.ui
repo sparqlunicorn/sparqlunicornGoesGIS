@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1653</width>
+    <width>1659</width>
     <height>914</height>
    </rect>
   </property>
@@ -33,7 +33,7 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>91</width>
+        <width>106</width>
         <height>20</height>
        </size>
       </property>
@@ -891,19 +891,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </widget>
     </item>
-    <item row="2" column="3">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>91</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="0" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
@@ -935,6 +922,19 @@ color: rgb(255, 255, 255);</string>
       <layout class="QGridLayout" name="gridLayout"/>
      </widget>
     </item>
+    <item row="2" column="2">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>82</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -942,7 +942,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1653</width>
+     <width>1659</width>
      <height>21</height>
     </rect>
    </property>
