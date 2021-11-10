@@ -667,46 +667,46 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    <span class="keyword">def </span>exportLayer(self, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None,</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;                    valuequeries=None, exportToTripleStore=False):</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        <span class="keywordflow">if</span> self.enrichedExport:</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160; </div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;        <span class="keywordflow">if</span>  selectedLayerIndex == -1:</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;            dlg = WarningLayerDlg()</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;            dlg.show()</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;            dlg.exec_()</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160; </div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;            layer = layers[selectedLayerIndex].layer()</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160; </div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;            <span class="keywordflow">if</span> exportToTripleStore:</div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;                                                  valuequeries)</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;                uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.endpointCB.currentIndex())</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;                uploaddialog.setMinimumSize(450, 250)</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                uploaddialog.setWindowTitle(<span class="stringliteral">&quot;Upload interlinked dataset to triple store &quot;</span>)</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;                uploaddialog.exec_()</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                filename, _filter = QFileDialog.getSaveFileName(</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                    self.dlg, <span class="stringliteral">&quot;Select   output file &quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Linked Data (*.ttl *.n3 *.nt)&quot;</span>, )</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                <span class="keywordflow">if</span> filename == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                    <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;                                                  valuequeries)</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                g = Graph()</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                    output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode(<span class="stringliteral">&quot;utf-8&quot;</span>))</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                    iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    <span class="keyword">def </span>exportLayer(self, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None,</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;                    valuequeries=None, exportToTripleStore=False):</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;        <span class="keywordflow">if</span> self.enrichedExport:</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        <span class="keywordflow">if</span>  selectedLayerIndex == -1:</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;            dlg = WarningLayerDlg()</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;            dlg.show()</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;            dlg.exec_()</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160; </div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160; </div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;            layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160; </div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;            <span class="keywordflow">if</span> exportToTripleStore:</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                                                  valuequeries)</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.endpointCB.currentIndex())</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                uploaddialog.setMinimumSize(450, 250)</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                uploaddialog.setWindowTitle(<span class="stringliteral">&quot;Upload interlinked dataset to triple store &quot;</span>)</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;                uploaddialog.exec_()</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;                filename, _filter = QFileDialog.getSaveFileName(</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;                    self.dlg, <span class="stringliteral">&quot;Select   output file &quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Linked Data (*.ttl *.n3 *.nt)&quot;</span>, )</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;                <span class="keywordflow">if</span> filename == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;                    <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;                                                  valuequeries)</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;                g = Graph()</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;                g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;                splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;                exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;                exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;                    output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode(<span class="stringliteral">&quot;utf-8&quot;</span>))</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;                    iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00157.html#ad2ee3c07560eb98d17a382b71105bf98">InterlinkingTab.dlg</a>, <a class="el" href="a00153.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00161.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00153.html#ac1babc27d21e85ac2fa395cccac38d15">EnrichmentTab.enrichedExport</a>, <a class="el" href="a00161.html#ac1babc27d21e85ac2fa395cccac38d15">SPARQLunicorn.enrichedExport</a>, <a class="el" href="a00161.html#ab229514567f36a825b2756e65973c3c7">SPARQLunicorn.layerToTTLString()</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -729,10 +729,10 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;    <span class="keyword">def </span>exportLayer2(self):</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;        print(<span class="stringliteral">&quot;exportLayer2&quot;</span>)</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;        self.exportLayer(<span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self.dlg.exportTripleStore_2.isChecked())</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    <span class="keyword">def </span>exportLayer2(self):</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        print(<span class="stringliteral">&quot;exportLayer2&quot;</span>)</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;        self.exportLayer(<span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self.dlg.exportTripleStore_2.isChecked())</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00157.html#ad2ee3c07560eb98d17a382b71105bf98">InterlinkingTab.dlg</a>, <a class="el" href="a00153.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00161.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, and <a class="el" href="a00161.html#a297becf2256721565827ce936e29a9ad">SPARQLunicorn.exportLayer()</a>.</p>
 
@@ -761,54 +761,54 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;    <span class="keyword">def </span>exportLayerAsGeoJSONLD(self):</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        context = {</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;            <span class="stringliteral">&quot;geojson&quot;</span>: <span class="stringliteral">&quot;https://purl.org/geojson/vocab#&quot;</span>,</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            <span class="stringliteral">&quot;Feature&quot;</span>: <span class="stringliteral">&quot;geojson:Feature&quot;</span>,</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;            <span class="stringliteral">&quot;FeatureCollection&quot;</span>: <span class="stringliteral">&quot;geojson:FeatureCollection&quot;</span>,</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;            <span class="stringliteral">&quot;GeometryCollection&quot;</span>: <span class="stringliteral">&quot;geojson:GeometryCollection&quot;</span>,</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            <span class="stringliteral">&quot;LineString&quot;</span>: <span class="stringliteral">&quot;geojson:LineString&quot;</span>,</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            <span class="stringliteral">&quot;MultiLineString&quot;</span>: <span class="stringliteral">&quot;geojson:MultiLineString&quot;</span>,</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;            <span class="stringliteral">&quot;MultiPoint&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPoint&quot;</span>,</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;            <span class="stringliteral">&quot;MultiPolygon&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPolygon&quot;</span>,</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;            <span class="stringliteral">&quot;Point&quot;</span>: <span class="stringliteral">&quot;geojson:Point&quot;</span>,</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;            <span class="stringliteral">&quot;Polygon&quot;</span>: <span class="stringliteral">&quot;geojson:Polygon&quot;</span>,</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;            <span class="stringliteral">&quot;bbox&quot;</span>: {</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:bbox&quot;</span></div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;            },</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;            <span class="stringliteral">&quot;coordinates&quot;</span>: {</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:coordinates&quot;</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;            },</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            <span class="stringliteral">&quot;features&quot;</span>: {</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@set&quot;</span>,</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:features&quot;</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;            },</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;            <span class="stringliteral">&quot;geometry&quot;</span>: <span class="stringliteral">&quot;geojson:geometry&quot;</span>,</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            <span class="stringliteral">&quot;id&quot;</span>: <span class="stringliteral">&quot;@id&quot;</span>,</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;            <span class="stringliteral">&quot;properties&quot;</span>: <span class="stringliteral">&quot;geojson:properties&quot;</span>,</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;            <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;@type&quot;</span>,</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;            <span class="stringliteral">&quot;description&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/description&quot;</span>,</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            <span class="stringliteral">&quot;title&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/title&quot;</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        }</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;        layer = self.layers[self.selectedLayerIndex].layer()</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        currentgeo = {}</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;        geos = []</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;            geom = f.geometry()</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;            currentgeo = {<span class="stringliteral">&#39;id&#39;</span>: <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(geom.asJson()), <span class="stringliteral">&#39;properties&#39;</span>: {}}</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> fieldnames:</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                    currentgeo[<span class="stringliteral">&quot;id&quot;</span>] = f[prop]</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                    currentgeo[<span class="stringliteral">&quot;properties&quot;</span>][prop] = f[prop]</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;            geos.append(currentgeo)</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        featurecollection = {<span class="stringliteral">&quot;@context&quot;</span>: context, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;FeatureCollection&quot;</span>,</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                             <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;http://example.com/collections/1&quot;</span>, <span class="stringliteral">&quot;features&quot;</span>: geos}</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keywordflow">return</span> featurecollection</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    <span class="keyword">def </span>exportLayerAsGeoJSONLD(self):</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        context = {</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;            <span class="stringliteral">&quot;geojson&quot;</span>: <span class="stringliteral">&quot;https://purl.org/geojson/vocab#&quot;</span>,</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;            <span class="stringliteral">&quot;Feature&quot;</span>: <span class="stringliteral">&quot;geojson:Feature&quot;</span>,</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;            <span class="stringliteral">&quot;FeatureCollection&quot;</span>: <span class="stringliteral">&quot;geojson:FeatureCollection&quot;</span>,</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;            <span class="stringliteral">&quot;GeometryCollection&quot;</span>: <span class="stringliteral">&quot;geojson:GeometryCollection&quot;</span>,</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;            <span class="stringliteral">&quot;LineString&quot;</span>: <span class="stringliteral">&quot;geojson:LineString&quot;</span>,</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;            <span class="stringliteral">&quot;MultiLineString&quot;</span>: <span class="stringliteral">&quot;geojson:MultiLineString&quot;</span>,</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;            <span class="stringliteral">&quot;MultiPoint&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPoint&quot;</span>,</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;            <span class="stringliteral">&quot;MultiPolygon&quot;</span>: <span class="stringliteral">&quot;geojson:MultiPolygon&quot;</span>,</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;            <span class="stringliteral">&quot;Point&quot;</span>: <span class="stringliteral">&quot;geojson:Point&quot;</span>,</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            <span class="stringliteral">&quot;Polygon&quot;</span>: <span class="stringliteral">&quot;geojson:Polygon&quot;</span>,</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;            <span class="stringliteral">&quot;bbox&quot;</span>: {</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:bbox&quot;</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            },</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;            <span class="stringliteral">&quot;coordinates&quot;</span>: {</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@list&quot;</span>,</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:coordinates&quot;</span></div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            },</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;            <span class="stringliteral">&quot;features&quot;</span>: {</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;                <span class="stringliteral">&quot;@container&quot;</span>: <span class="stringliteral">&quot;@set&quot;</span>,</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;                <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;geojson:features&quot;</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            },</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;            <span class="stringliteral">&quot;geometry&quot;</span>: <span class="stringliteral">&quot;geojson:geometry&quot;</span>,</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;            <span class="stringliteral">&quot;id&quot;</span>: <span class="stringliteral">&quot;@id&quot;</span>,</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;            <span class="stringliteral">&quot;properties&quot;</span>: <span class="stringliteral">&quot;geojson:properties&quot;</span>,</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;            <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;@type&quot;</span>,</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;            <span class="stringliteral">&quot;description&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/description&quot;</span>,</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;            <span class="stringliteral">&quot;title&quot;</span>: <span class="stringliteral">&quot;http://purl.org/dc/terms/title&quot;</span></div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        }</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        layer = self.layers[self.selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        currentgeo = {}</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        geos = []</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;            geom = f.geometry()</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;            currentgeo = {<span class="stringliteral">&#39;id&#39;</span>: <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(geom.asJson()), <span class="stringliteral">&#39;properties&#39;</span>: {}}</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;            <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;                    currentgeo[<span class="stringliteral">&quot;id&quot;</span>] = f[prop]</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                    currentgeo[<span class="stringliteral">&quot;properties&quot;</span>][prop] = f[prop]</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            geos.append(currentgeo)</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        featurecollection = {<span class="stringliteral">&quot;@context&quot;</span>: context, <span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;FeatureCollection&quot;</span>,</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;                             <span class="stringliteral">&quot;@id&quot;</span>: <span class="stringliteral">&quot;http://example.com/collections/1&quot;</span>, <span class="stringliteral">&quot;features&quot;</span>: geos}</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;        <span class="keywordflow">return</span> featurecollection</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1251,107 +1251,113 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;                print(str(classurilist) + <span class="stringliteral">&quot;\n&quot;</span>)</div>
 <div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;                print(str(includelist) + <span class="stringliteral">&quot;\n&quot;</span>)</div>
 <div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;                <span class="keywordflow">if</span> urilist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> urilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;                    print(urilist)</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> urilist[fieldcounter].startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;                        print(<span class="stringliteral">&quot;Does not start with http&quot;</span>)</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;                        prop = urllib.parse.quote(urilist[fieldcounter])</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;                    <span class="keywordflow">if</span>  selectedLayerIndex == -1:</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;                        dlg = WarningLayerDlg()</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;                        dlg.show()</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;                        dlg.exec_()</div>
 <div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;                    <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                        prop = urilist[fieldcounter]</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;                    print(<span class="stringliteral">&quot;New Prop from list: &quot;</span> + str(prop))</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;                    <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;                <span class="keywordflow">if</span> <span class="keywordflow">not</span> prop.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;                    prop = namespace + prop</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]):</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[propp]) + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(prop) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;                                               propp]) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://www.opengis.net/ont/geosparql#Feature&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160; </div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;                <span class="comment"># elif urilist!=None and fieldcounter&lt;len(urilist) and urilist[fieldcounter]!=&quot;&quot;:</span></div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;                <span class="comment">#   ttlstring+=&quot;&lt;&quot;+curid+&quot;&gt; &lt;&quot;+prop+&quot;&gt; &lt;&quot;+str(f[propp])+&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;                <span class="comment">#    if first&lt;10:</span></div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;+curclassid+&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;                <span class="comment">#      if classurilist[fieldcounter]!=&quot;&quot;:</span></div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;                <span class="comment">#           ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;+classurilist[fieldcounter]+&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;                <span class="keywordflow">elif</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span> <span class="keywordflow">or</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#comment&quot;</span> <span class="keywordflow">or</span> (</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;                        proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;AnnotationProperty&quot;</span>):</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;                                                                                             <span class="stringliteral">&#39;\\&quot;&#39;</span>) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#AnnotationProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;                <span class="keywordflow">elif</span> <span class="keywordflow">not</span> f[propp] <span class="keywordflow">or</span> f[propp] == <span class="keywordtype">None</span> <span class="keywordflow">or</span> f[propp] == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                    <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;                <span class="keywordflow">elif</span> proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;SubClass&quot;</span>:</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;                                                   propp]) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;                <span class="keywordflow">elif</span> valuequeries != <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuequeries:</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                    sparql = SPARQLWrapper(valuequeries[propp][1],</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                                           agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;                    sparql.setQuery(</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;                        <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.endpointIndex]) + valuequeries[propp][0].replace(<span class="stringliteral">&quot;%%&quot;</span> + propp + <span class="stringliteral">&quot;%%&quot;</span>,</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                                                                                               <span class="stringliteral">&quot;\&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                                                                                                   f[propp]) + <span class="stringliteral">&quot;\&quot;&quot;</span>))</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                    sparql.setMethod(POST)</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                    sparql.setReturnFormat(JSON)</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                    results = sparql.query().convert()</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>][0][<span class="stringliteral">&quot;item&quot;</span>][</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                        <span class="stringliteral">&quot;value&quot;</span>] + <span class="stringliteral">&quot;&gt; .&quot;</span></div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;                <span class="keywordflow">elif</span> valuemappings != <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuemappings <span class="keywordflow">and</span> f[propp] <span class="keywordflow">in</span> self.valuemappings[propp]:</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(self.valuemappings[propp][f[propp]]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]) <span class="keywordflow">or</span> (</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;                        proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;ObjectProperty&quot;</span>):</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(f[propp]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;                        <span class="keywordflow">if</span> classurilist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> fieldcounter &lt; len(classurilist) <span class="keywordflow">and</span> classurilist[</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;                            fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+$&#39;</span>, str(f[propp])):</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#integer&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+(?:\.\d+)?$&#39;</span>, str(f[propp])):</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;                    <span class="keywordflow">if</span> first:</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;                                                                                             <span class="stringliteral">&#39;\\&quot;&#39;</span>) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;            <span class="keywordflow">if</span> first &lt; 10:</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;                first = first + 1</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;        <span class="keywordflow">return</span> ttlstring</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160; </div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                        layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;                    print(urilist)</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;                    <span class="keywordflow">if</span> <span class="keywordflow">not</span> urilist[fieldcounter].startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;                        print(<span class="stringliteral">&quot;Does not start with http&quot;</span>)</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;                        prop = urllib.parse.quote(urilist[fieldcounter])</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;                        prop = urilist[fieldcounter]</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;                    print(<span class="stringliteral">&quot;New Prop from list: &quot;</span> + str(prop))</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;id&quot;</span>:</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;                    <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;                <span class="keywordflow">if</span> <span class="keywordflow">not</span> prop.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;                    prop = namespace + prop</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;                <span class="keywordflow">if</span> prop == <span class="stringliteral">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&quot;</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]):</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[propp]) + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(prop) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;                                               propp]) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://www.opengis.net/ont/geosparql#Feature&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;                <span class="comment"># elif urilist!=None and fieldcounter&lt;len(urilist) and urilist[fieldcounter]!=&quot;&quot;:</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;                <span class="comment">#   ttlstring+=&quot;&lt;&quot;+curid+&quot;&gt; &lt;&quot;+prop+&quot;&gt; &lt;&quot;+str(f[propp])+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;                <span class="comment">#    if first&lt;10:</span></div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;                <span class="comment">#       ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;+curclassid+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;                <span class="comment">#      if classurilist[fieldcounter]!=&quot;&quot;:</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;                <span class="comment">#           ttlstring+=&quot;&lt;&quot;+prop+&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;+classurilist[fieldcounter]+&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;                <span class="keywordflow">elif</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span> <span class="keywordflow">or</span> prop == <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#comment&quot;</span> <span class="keywordflow">or</span> (</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;                        proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;AnnotationProperty&quot;</span>):</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;                                                                                             <span class="stringliteral">&#39;\\&quot;&#39;</span>) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#AnnotationProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                <span class="keywordflow">elif</span> <span class="keywordflow">not</span> f[propp] <span class="keywordflow">or</span> f[propp] == <span class="keywordtype">None</span> <span class="keywordflow">or</span> f[propp] == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;                    <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;                <span class="keywordflow">elif</span> proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;SubClass&quot;</span>:</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;&quot;</span> + str(</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + str(f[</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;                                                   propp]) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;                <span class="keywordflow">elif</span> valuequeries != <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuequeries:</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                    sparql = SPARQLWrapper(valuequeries[propp][1],</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                                           agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                    sparql.setQuery(</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                        <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.endpointIndex]) + valuequeries[propp][0].replace(<span class="stringliteral">&quot;%%&quot;</span> + propp + <span class="stringliteral">&quot;%%&quot;</span>,</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                                                                                               <span class="stringliteral">&quot;\&quot;&quot;</span> + str(</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                                                                                                   f[propp]) + <span class="stringliteral">&quot;\&quot;&quot;</span>))</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                    sparql.setMethod(POST)</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                    sparql.setReturnFormat(JSON)</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                    results = sparql.query().convert()</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>][0][<span class="stringliteral">&quot;item&quot;</span>][</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;                        <span class="stringliteral">&quot;value&quot;</span>] + <span class="stringliteral">&quot;&gt; .&quot;</span></div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;                <span class="keywordflow">elif</span> valuemappings != <span class="keywordtype">None</span> <span class="keywordflow">and</span> propp <span class="keywordflow">in</span> valuemappings <span class="keywordflow">and</span> f[propp] <span class="keywordflow">in</span> self.valuemappings[propp]:</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(self.valuemappings[propp][f[propp]]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;                        <span class="keywordflow">if</span> classurilist[fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> str(f[propp]) <span class="keywordflow">or</span> (</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;                        proptypelist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proptypelist[fieldcounter] == <span class="stringliteral">&quot;ObjectProperty&quot;</span>):</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(f[propp]) + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;                        <span class="keywordflow">if</span> classurilist != <span class="keywordtype">None</span> <span class="keywordflow">and</span> fieldcounter &lt; len(classurilist) <span class="keywordflow">and</span> classurilist[</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;                            fieldcounter] != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;                            ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;&quot;</span> + classurilist[</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;                                fieldcounter] + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+$&#39;</span>, str(f[propp])):</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#integer&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;                <span class="keywordflow">elif</span> re.match(<span class="stringliteral">r&#39;^-?\d+(?:\.\d+)?$&#39;</span>, str(f[propp])):</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;                        f[propp]) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;                    <span class="keywordflow">if</span> first:</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;                    ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + curid + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; \&quot;&quot;</span> + str(f[propp]).replace(<span class="stringliteral">&#39;&quot;&#39;</span>,</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;                                                                                             <span class="stringliteral">&#39;\\&quot;&#39;</span>) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;                    <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#domain&gt; &lt;&quot;</span> + curclassid + <span class="stringliteral">&quot;&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;                        ttlstring += <span class="stringliteral">&quot;&lt;&quot;</span> + prop + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#range&gt; &lt;http://www.w3.org/2001/XMLSchema#string&gt; .\n&quot;</span></div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;            <span class="keywordflow">if</span> first &lt; 10:</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;                first = first + 1</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;        <span class="keywordflow">return</span> ttlstring</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00173.html#a21502d8768436cf2ce0f12de36797aba">BBOXDialog.endpointIndex</a>, <a class="el" href="a00161.html#a28e8c8cab7654b472c43f25f3005b3ad">SPARQLunicorn.exportIdCol</a>, <a class="el" href="a00157.html#a28e8c8cab7654b472c43f25f3005b3ad">InterlinkingTab.exportIdCol</a>, <a class="el" href="a00153.html#a28e8c8cab7654b472c43f25f3005b3ad">EnrichmentTab.exportIdCol</a>, <a class="el" href="a00161.html#a53c91b53a9e6f8aa2e992e979da8af83">SPARQLunicorn.exportNameSpace</a>, <a class="el" href="a00157.html#a53c91b53a9e6f8aa2e992e979da8af83">InterlinkingTab.exportNameSpace</a>, <a class="el" href="a00153.html#a53c91b53a9e6f8aa2e992e979da8af83">EnrichmentTab.exportNameSpace</a>, <a class="el" href="a00161.html#a4bb9e994037d80a7ace5ae573c602d45">SPARQLunicorn.exportSetClass</a>, <a class="el" href="a00157.html#a4bb9e994037d80a7ace5ae573c602d45">InterlinkingTab.exportSetClass</a>, <a class="el" href="a00153.html#a4bb9e994037d80a7ace5ae573c602d45">EnrichmentTab.exportSetClass</a>, and <a class="el" href="a00161.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>.</p>
 
@@ -1431,14 +1437,14 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    <span class="keyword">def </span>resetTripleStoreConfig(self):</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;            data = myfile.read()</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        self.triplestoreconf = json.loads(data)</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;    <span class="keyword">def </span>resetTripleStoreConfig(self):</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;            data = myfile.read()</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        self.triplestoreconf = json.loads(data)</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -1459,85 +1465,85 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Run method that performs all the real work</pre> <div class="fragment"><div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;        <span class="comment"># Create the dialog with elements (after translation) and keep reference</span></div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="comment"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span></div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">True</span>:</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;            <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>)):</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                    data = myfile.read()</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                    data = myfile.read()</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            <span class="comment"># parse file</span></div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/addvocabconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;                data2 = myfile.read()</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/vocabs.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;                data3 = myfile.read()</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/prefixes.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;                data4 = myfile.read()</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;            <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>)):</div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;                    data5 = myfile.read()</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;                self.savedQueriesJSON = json.loads(data5)</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;            self.triplestoreconf = json.loads(data)</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;            self.addVocabConf = json.loads(data2)</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;            self.autocomplete = json.loads(data3)</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;            self.prefixstore = json.loads(data4)</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160; </div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;            counter = 0</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;            <span class="keywordflow">for</span> store <span class="keywordflow">in</span> self.triplestoreconf:</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;                self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;                <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> store[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;                    self.prefixes[counter] += <span class="stringliteral">&quot;PREFIX &quot;</span> + prefix + <span class="stringliteral">&quot;:&lt;&quot;</span> + store[<span class="stringliteral">&quot;prefixes&quot;</span>][prefix] + <span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;                counter += 1</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;            self.addVocabConf = json.loads(data2)</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;            self.saveTripleStoreConfig()</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;            self.first_start = <span class="keyword">False</span></div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;            self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;                                          self.prefixstore, self.savedQueriesJSON, self)</div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160; </div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160; </div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;            self.dlg.setWindowIcon(QIcon(<span class="stringliteral">&#39;:/plugins/sparql_unicorn/icon.png&#39;</span>))</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;            <span class="comment">#self.dlg.inp_sparql.hide()</span></div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;            <span class="comment">#self.dlg.endpointCB.clear()</span></div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;            <span class="keywordflow">for</span> triplestore <span class="keywordflow">in</span> self.triplestoreconf:</div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;                <span class="keywordflow">if</span> triplestore[<span class="stringliteral">&quot;active&quot;</span>]:</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;                    item = triplestore[<span class="stringliteral">&quot;name&quot;</span>]</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;mandatoryvariables&quot;</span> <span class="keywordflow">in</span> triplestore <span class="keywordflow">and</span> len(triplestore[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>]) &gt; 0:</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;                        item += <span class="stringliteral">&quot; --&gt; &quot;</span></div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;                        <span class="keywordflow">for</span> mandvar <span class="keywordflow">in</span> triplestore[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>]:</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;                            item += <span class="stringliteral">&quot;?&quot;</span> + mandvar + <span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;                    self.dlg.endpointCB.addItem(item)</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;            self.dlg.endpointCB.setCurrentIndex(1)</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;            self.dlg.<a class="code" href="a00124.html#a38c519e33af58590bd182b4495c8d419">viewselectaction</a>()</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;            self.dlg.endpointCB.currentIndexChanged.connect(self.endpointselectaction)</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;            self.endpointselectaction()</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160; </div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            <span class="comment"># self.dlg.exportTripleStore.hide()  # interlinkig tab component</span></div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            <span class="comment"># self.dlg.exportTripleStore_2.hide()</span></div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(2)</span></div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(1)</span></div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            self.dlg.loadedLayers.clear()</div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;            print(<span class="stringliteral">&quot;before clicked&quot;</span>)</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;            print(<span class="stringliteral">&quot;after clicked&quot;</span>)</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">False</span>:</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;           self.dlg.<a class="code" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a>()</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        <span class="comment"># show the dialog</span></div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;        self.dlg.show()</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;        <span class="comment"># result = self.dlg.exec_()</span></div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;        <span class="comment"># # See if OK was pressed</span></div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;        <span class="comment"># if result:</span></div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        <span class="comment">#     # Do something useful here - delete the line containing pass and</span></div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        <span class="comment">#     # substitute with your code.</span></div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;        <span class="comment">#     pass</span></div>
+<pre class="fragment">Run method that performs all the real work</pre> <div class="fragment"><div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Run method that performs all the real work&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <span class="comment"># Create the dialog with elements (after translation) and keep reference</span></div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;        <span class="comment"># Only create GUI ONCE in callback, so that it will only load when the plugin is started</span></div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">True</span>:</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>)):</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;                    data = myfile.read()</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;                    data = myfile.read()</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;            <span class="comment"># parse file</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/addvocabconf.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;                data2 = myfile.read()</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/vocabs.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;                data3 = myfile.read()</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;            <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;owl/prefixes.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;                data4 = myfile.read()</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;            <span class="keywordflow">if</span> os.path.isfile(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>)):</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;                <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/savedqueries.json&#39;</span>), <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;                    data5 = myfile.read()</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;                self.savedQueriesJSON = json.loads(data5)</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;            self.triplestoreconf = json.loads(data)</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;            self.addVocabConf = json.loads(data2)</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;            self.autocomplete = json.loads(data3)</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;            self.prefixstore = json.loads(data4)</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160; </div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;            counter = 0</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;            <span class="keywordflow">for</span> store <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;                self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;                <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> store[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;                    self.prefixes[counter] += <span class="stringliteral">&quot;PREFIX &quot;</span> + prefix + <span class="stringliteral">&quot;:&lt;&quot;</span> + store[<span class="stringliteral">&quot;prefixes&quot;</span>][prefix] + <span class="stringliteral">&quot;&gt;\n&quot;</span></div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;                counter += 1</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;            self.addVocabConf = json.loads(data2)</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;            self.saveTripleStoreConfig()</div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;            self.first_start = <span class="keyword">False</span></div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;            self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;                                          self.prefixstore, self.savedQueriesJSON, self)</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160; </div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160; </div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;            self.dlg.setWindowIcon(QIcon(<span class="stringliteral">&#39;:/plugins/sparql_unicorn/icon.png&#39;</span>))</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;            <span class="comment">#self.dlg.inp_sparql.hide()</span></div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;            <span class="comment">#self.dlg.endpointCB.clear()</span></div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;            <span class="keywordflow">for</span> triplestore <span class="keywordflow">in</span> self.triplestoreconf:</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;                <span class="keywordflow">if</span> triplestore[<span class="stringliteral">&quot;active&quot;</span>]:</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;                    item = triplestore[<span class="stringliteral">&quot;name&quot;</span>]</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;mandatoryvariables&quot;</span> <span class="keywordflow">in</span> triplestore <span class="keywordflow">and</span> len(triplestore[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>]) &gt; 0:</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;                        item += <span class="stringliteral">&quot; --&gt; &quot;</span></div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;                        <span class="keywordflow">for</span> mandvar <span class="keywordflow">in</span> triplestore[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>]:</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;                            item += <span class="stringliteral">&quot;?&quot;</span> + mandvar + <span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;                    self.dlg.endpointCB.addItem(item)</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            self.dlg.endpointCB.setCurrentIndex(1)</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;            self.dlg.<a class="code" href="a00124.html#a38c519e33af58590bd182b4495c8d419">viewselectaction</a>()</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            self.dlg.endpointCB.currentIndexChanged.connect(self.endpointselectaction)</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            self.endpointselectaction()</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160; </div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;            <span class="comment"># self.dlg.exportTripleStore.hide()  # interlinkig tab component</span></div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;            <span class="comment"># self.dlg.exportTripleStore_2.hide()</span></div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(2)</span></div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(1)</span></div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;            self.dlg.loadedLayers.clear()</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            print(<span class="stringliteral">&quot;before clicked&quot;</span>)</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            print(<span class="stringliteral">&quot;after clicked&quot;</span>)</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">False</span>:</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;           self.dlg.<a class="code" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a>()</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;        <span class="comment"># show the dialog</span></div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        self.dlg.show()</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        <span class="comment"># result = self.dlg.exec_()</span></div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        <span class="comment"># # See if OK was pressed</span></div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;        <span class="comment"># if result:</span></div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;        <span class="comment">#     # Do something useful here - delete the line containing pass and</span></div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        <span class="comment">#     # substitute with your code.</span></div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        <span class="comment">#     pass</span></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00161.html#aad1fed1f698792145456d4f39e711766">SPARQLunicorn.first_start</a>.</p>
 
@@ -1568,11 +1574,11 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <span class="keyword">def </span>saveTripleStoreConfig(self):</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    <span class="keyword">def </span>saveTripleStoreConfig(self):</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        <span class="keyword">with</span> open(os.path.join(__location__, <span class="stringliteral">&#39;conf/triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;            myfile.write(json.dumps(self.triplestoreconf, indent=2))</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
