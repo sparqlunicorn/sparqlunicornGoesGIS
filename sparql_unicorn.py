@@ -34,16 +34,15 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
 import sys
-from util.sparqlutils import SPARQLUtils
+from .util.sparqlutils import SPARQLUtils
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import uuid
 import json
 import urllib.parse
 from rdflib import *
-#from SPARQLWrapper import SPARQLWrapper, JSON, POST
+
 # Initialize Qt resources from file resources.py
-from .resources import *
 from .tasks.querylayertask import QueryLayerTask
 from .tasks.classtreequerytask import ClassTreeQueryTask
 from .tasks.geoconceptsquerytask import GeoConceptsQueryTask
@@ -213,7 +212,7 @@ class SPARQLunicorn:
         if self.loadedfromfile:
             curindex = self.dlg.proxyModel.mapToSource(self.dlg.geoTreeView.selectionModel().currentIndex())
             if curindex != None and self.dlg.geoTreeViewModel.itemFromIndex(curindex) != None:
-                concept = self.dlg.geoTreeViewModel.itemFromIndex(curindex).data(1)
+                concept = self.dlg.geoTreeViewModel.itemFromIndex(curindex).data(256)
             else:
                 concept = "http://www.opengis.net/ont/geosparql#Feature"
             geojson = self.getGeoJSONFromGeoConcept(self.currentgraph, concept)
@@ -385,7 +384,7 @@ class SPARQLunicorn:
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.dlg.inp_sparql2.columnvars = {}
-        if "wikidata" not in self.triplestoreconf[endpointIndex]["endpoint"]:
+        if "File" not in self.triplestoreconf[endpointIndex]["name"] and "wikidata" not in self.triplestoreconf[endpointIndex]["endpoint"]:
             self.getClassTree()
         if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
@@ -445,7 +444,7 @@ class SPARQLunicorn:
         qres = graph.query(
             """SELECT DISTINCT ?a ?rel ?val ?wkt
         WHERE {
-          ?a rdf:type <""" + concept + """> .
+          ?a rdf:type <""" + str(concept) + """> .
           ?a ?rel ?val .
           OPTIONAL { ?val <http://www.opengis.net/ont/geosparql#asWKT> ?wkt}
         }""")
