@@ -76,7 +76,7 @@ Inheritance diagram for ValueMappingDialog:</div>
 <map name="ValueMappingDialog_inherit__map" id="ValueMappingDialog_inherit__map">
 <area shape="rect" title=" " alt="" coords="23,80,179,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00829.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00869.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -86,7 +86,7 @@ Collaboration diagram for ValueMappingDialog:</div>
 <map name="ValueMappingDialog_coll__map" id="ValueMappingDialog_coll__map">
 <area shape="rect" title=" " alt="" coords="167,124,323,151"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00829.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00869.html" title=" " alt="" coords="105,5,215,32"/>
 <area shape="rect" title=" " alt="" coords="240,5,299,32"/>
 <area shape="rect" title=" " alt="" coords="347,5,397,32"/>
 <area shape="rect" title=" " alt="" coords="469,5,555,32"/>
@@ -218,8 +218,8 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, column, row, triplestoreconf, interlinkOrEnrich, table, fieldname, layer, valuemap):</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        super(QDialog, self).<a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">def </span><a class="code" href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, column, row, triplestoreconf, interlinkOrEnrich, table, fieldname, layer, valuemap):</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        super(QDialog, self).<a class="code" href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>()</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.setupUi(self)</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.currentcol = column</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.currentrow = row</div>
@@ -315,25 +315,25 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">def </span>applyMapping(self):</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        resmap = {}</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.valmaptable.rowCount()):</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            fromm = self.valmaptable.item(row, 0).text()</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            to = self.valmaptable.item(row, 1).text()</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            resmap[fromm] = to</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        msgBox = QMessageBox()</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        msgBox.setText(str(resmap))</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        msgBox.exec()</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        item = QTableWidgetItem(<span class="stringliteral">&quot;ValueMap{}&quot;</span>)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        item.setData(1, str(json.dumps(resmap)))</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT ?item\n WHERE {\n ?item ?rel %%&quot;</span> + self.fieldname + <span class="stringliteral">&quot;%% . \n}&quot;</span> != self.queryedit.toPlainText():</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            item.setData(2, self.queryedit.toPlainText())</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            item.setData(3, self.tripleStoreEdit.currentText())</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        self.table.setItem(self.currentrow, self.currentcol, item)</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        self.close()</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">return</span> resmap</div>
+<div class="fragment"><div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">def </span>applyMapping(self):</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        resmap = {}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.valmaptable.rowCount()):</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            fromm = self.valmaptable.item(row, 0).text()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            to = self.valmaptable.item(row, 1).text()</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            resmap[fromm] = to</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        msgBox = QMessageBox()</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        msgBox.setText(str(resmap))</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        msgBox.exec()</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        item = QTableWidgetItem(<span class="stringliteral">&quot;ValueMap{}&quot;</span>)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        item.setData(1, str(json.dumps(resmap)))</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT ?item\n WHERE {\n ?item ?rel %%&quot;</span> + self.fieldname + <span class="stringliteral">&quot;%% . \n}&quot;</span> != self.queryedit.toPlainText():</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            item.setData(2, self.queryedit.toPlainText())</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            item.setData(3, self.tripleStoreEdit.currentText())</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        self.table.setItem(self.currentrow, self.currentcol, item)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        self.close()</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">return</span> resmap</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00197.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">InterlinkMainWindow.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00221.html#a9dd9ae4cdd3fd369783ecc127c418871">ValueMappingDialog.currentrow</a>, <a class="el" href="a00217.html#a9dd9ae4cdd3fd369783ecc127c418871">UploadRDFDialog.currentrow</a>, <a class="el" href="a00197.html#a9dd9ae4cdd3fd369783ecc127c418871">SearchDialog.currentrow</a>, <a class="el" href="a00185.html#a086f47cacf997373ef862200fcfb4612">InterlinkMainWindow.currentrow</a>, <a class="el" href="a00205.html#a086f47cacf997373ef862200fcfb4612">SPARQLunicornDialog.currentrow</a>, <a class="el" href="a00221.html#a6aa91eb05e0f70d41e5ae3348922a469">ValueMappingDialog.fieldname</a>, <a class="el" href="a00217.html#a6aa91eb05e0f70d41e5ae3348922a469">UploadRDFDialog.fieldname</a>, <a class="el" href="a00221.html#ab31a20ab07de26623b45757ffb619144">ValueMappingDialog.table</a>, <a class="el" href="a00217.html#ab31a20ab07de26623b45757ffb619144">UploadRDFDialog.table</a>, <a class="el" href="a00197.html#ab31a20ab07de26623b45757ffb619144">SearchDialog.table</a>, <a class="el" href="a00265.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>, <a class="el" href="a00221.html#afa678c21e5c99845c09c18d10cdbf7b5">ValueMappingDialog.valmaptable</a>, and <a class="el" href="a00217.html#afa678c21e5c99845c09c18d10cdbf7b5">UploadRDFDialog.valmaptable</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00201.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00221.html#a9dd9ae4cdd3fd369783ecc127c418871">ValueMappingDialog.currentrow</a>, <a class="el" href="a00217.html#a9dd9ae4cdd3fd369783ecc127c418871">UploadRDFDialog.currentrow</a>, <a class="el" href="a00201.html#a9dd9ae4cdd3fd369783ecc127c418871">SearchDialog.currentrow</a>, <a class="el" href="a00205.html#a086f47cacf997373ef862200fcfb4612">SPARQLunicornDialog.currentrow</a>, <a class="el" href="a00221.html#a6aa91eb05e0f70d41e5ae3348922a469">ValueMappingDialog.fieldname</a>, <a class="el" href="a00217.html#a6aa91eb05e0f70d41e5ae3348922a469">UploadRDFDialog.fieldname</a>, <a class="el" href="a00221.html#ab31a20ab07de26623b45757ffb619144">ValueMappingDialog.table</a>, <a class="el" href="a00217.html#ab31a20ab07de26623b45757ffb619144">UploadRDFDialog.table</a>, <a class="el" href="a00201.html#ab31a20ab07de26623b45757ffb619144">SearchDialog.table</a>, <a class="el" href="a00281.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>, <a class="el" href="a00221.html#afa678c21e5c99845c09c18d10cdbf7b5">ValueMappingDialog.valmaptable</a>, and <a class="el" href="a00217.html#afa678c21e5c99845c09c18d10cdbf7b5">UploadRDFDialog.valmaptable</a>.</p>
 
 </div>
 </div>
@@ -380,18 +380,18 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">def </span><a class="code" href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">buildSearchDialog</a>(self, row, column, interlinkOrEnrich, table):</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        self.currentcol = column</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        self.currentrow = row</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, interlinkOrEnrich, table, <span class="keyword">True</span>)</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        self.interlinkdialog.setMinimumSize(650, 500)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Property or Class&quot;</span>)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        self.interlinkdialog.exec_()</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">def </span>buildSearchDialog(self, row, column, interlinkOrEnrich, table):</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        self.currentcol = column</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        self.currentrow = row</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, interlinkOrEnrich, table, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        self.interlinkdialog.setMinimumSize(650, 500)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Property or Class&quot;</span>)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        self.interlinkdialog.exec_()</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00197.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">InterlinkMainWindow.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00221.html#a9dd9ae4cdd3fd369783ecc127c418871">ValueMappingDialog.currentrow</a>, <a class="el" href="a00217.html#a9dd9ae4cdd3fd369783ecc127c418871">UploadRDFDialog.currentrow</a>, <a class="el" href="a00197.html#a9dd9ae4cdd3fd369783ecc127c418871">SearchDialog.currentrow</a>, <a class="el" href="a00185.html#a086f47cacf997373ef862200fcfb4612">InterlinkMainWindow.currentrow</a>, and <a class="el" href="a00205.html#a086f47cacf997373ef862200fcfb4612">SPARQLunicornDialog.currentrow</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00201.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00221.html#a9dd9ae4cdd3fd369783ecc127c418871">ValueMappingDialog.currentrow</a>, <a class="el" href="a00217.html#a9dd9ae4cdd3fd369783ecc127c418871">UploadRDFDialog.currentrow</a>, <a class="el" href="a00201.html#a9dd9ae4cdd3fd369783ecc127c418871">SearchDialog.currentrow</a>, and <a class="el" href="a00205.html#a086f47cacf997373ef862200fcfb4612">SPARQLunicornDialog.currentrow</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a00233.html#a0e48a906160218f92fdfa0e1cb3aed8f">EnrichmentDialog.createValueMappingSearchDialog()</a>, <a class="el" href="a00221.html#a0e48a906160218f92fdfa0e1cb3aed8f">ValueMappingDialog.createValueMappingSearchDialog()</a>, and <a class="el" href="a00313.html#aaf7224b03642e3cfe85bd396f1f4b08f">ToolTipPlainText.keyPressEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00229.html#a0e48a906160218f92fdfa0e1cb3aed8f">EnrichmentDialog.createValueMappingSearchDialog()</a>, <a class="el" href="a00221.html#a0e48a906160218f92fdfa0e1cb3aed8f">ValueMappingDialog.createValueMappingSearchDialog()</a>, and <a class="el" href="a00345.html#aaf7224b03642e3cfe85bd396f1f4b08f">ToolTipPlainText.keyPressEvent()</a>.</p>
 
 </div>
 </div>
@@ -426,11 +426,11 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keyword">def </span>createValueMappingSearchDialog(self, row=-1, column=-1):</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        self.buildSearchDialog(row, column, -1, self.foundClass)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">def </span>createValueMappingSearchDialog(self, row=-1, column=-1):</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        self.buildSearchDialog(row, column, -1, self.foundClass)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#aba518420f8497b693093f21c2624fb45">ValueMappingDialog.buildSearchDialog()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, and <a class="el" href="a00205.html#acf276c4dd1702e8fbfa20bec371bf0db">SPARQLunicornDialog.buildSearchDialog()</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#aba518420f8497b693093f21c2624fb45">ValueMappingDialog.buildSearchDialog()</a>, and <a class="el" href="a00205.html#acf276c4dd1702e8fbfa20bec371bf0db">SPARQLunicornDialog.buildSearchDialog()</a>.</p>
 
 </div>
 </div>
@@ -501,36 +501,32 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    <span class="stringliteral">&quot;%%label%%&quot;</span>, label)</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query:</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            query = query.replace(<span class="stringliteral">&quot;%%label%%&quot;</span>, label).replace(<span class="stringliteral">&quot;%%language%%&quot;</span>, language)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            sparql = SPARQLWrapper(self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>],</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                   agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            sparql.setQuery(query)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            sparql.setReturnFormat(JSON)</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            results = sparql.query().convert()</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            self.searchResultMap = {}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                item = QListWidgetItem()</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                item.setData(0, str(res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]))</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                item.setText(str(res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]))</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                self.searchResultMap[res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                self.searchResult.addItem(item)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            myResponse = json.loads(requests.get(query).text)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;search&quot;</span>]:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                qid = ent[<span class="stringliteral">&quot;url&quot;</span>]</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                label = ent[<span class="stringliteral">&quot;label&quot;</span>] + <span class="stringliteral">&quot; (&quot;</span> + ent[<span class="stringliteral">&quot;id&quot;</span>] + <span class="stringliteral">&quot;) &quot;</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;description&quot;</span> <span class="keywordflow">in</span> ent:</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    label += <span class="stringliteral">&quot;[&quot;</span> + ent[<span class="stringliteral">&quot;description&quot;</span>] + <span class="stringliteral">&quot;]&quot;</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                results[qid] = label</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                self.searchResultMap[label] = ent[<span class="stringliteral">&quot;url&quot;</span>]</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">for</span> result <span class="keywordflow">in</span> results:</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                item = QListWidgetItem()</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                item.setData(0, result)</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                item.setText(str(results[result]))</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                self.searchResult.addItem(item)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">return</span> viewlist</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            results=SPARQLUtils.executeQuery(self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>],query)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            self.searchResultMap = {}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                item = QListWidgetItem()</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                item.setData(0, str(res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]))</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                item.setText(str(res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]))</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                self.searchResultMap[res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                self.searchResult.addItem(item)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            myResponse = json.loads(requests.get(query).text)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;search&quot;</span>]:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                qid = ent[<span class="stringliteral">&quot;url&quot;</span>]</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                label = ent[<span class="stringliteral">&quot;label&quot;</span>] + <span class="stringliteral">&quot; (&quot;</span> + ent[<span class="stringliteral">&quot;id&quot;</span>] + <span class="stringliteral">&quot;) &quot;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;description&quot;</span> <span class="keywordflow">in</span> ent:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    label += <span class="stringliteral">&quot;[&quot;</span> + ent[<span class="stringliteral">&quot;description&quot;</span>] + <span class="stringliteral">&quot;]&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                results[qid] = label</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                self.searchResultMap[label] = ent[<span class="stringliteral">&quot;url&quot;</span>]</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">for</span> result <span class="keywordflow">in</span> results:</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                item = QListWidgetItem()</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                item.setData(0, result)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                item.setText(str(results[result]))</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                self.searchResult.addItem(item)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">return</span> viewlist</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00197.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">InterlinkMainWindow.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00273.html#a0e243f776f08c4dd077c3bca68a755a2">WhatToEnrichQueryTask.searchResult</a>, <a class="el" href="a00265.html#a0e243f776f08c4dd077c3bca68a755a2">SearchTask.searchResult</a>, <a class="el" href="a00213.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00209.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00221.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00217.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00197.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00201.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00265.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#a486aeee0a5d3170bc193bc29caf8a7b8">ValueMappingDialog.currentcol</a>, <a class="el" href="a00201.html#a486aeee0a5d3170bc193bc29caf8a7b8">SearchDialog.currentcol</a>, <a class="el" href="a00205.html#a486aeee0a5d3170bc193bc29caf8a7b8">SPARQLunicornDialog.currentcol</a>, <a class="el" href="a00281.html#a0e243f776f08c4dd077c3bca68a755a2">SearchTask.searchResult</a>, <a class="el" href="a00245.html#a0e243f776f08c4dd077c3bca68a755a2">DataSchemaQueryTask.searchResult</a>, <a class="el" href="a00289.html#a0e243f776f08c4dd077c3bca68a755a2">WhatToEnrichQueryTask.searchResult</a>, <a class="el" href="a00213.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00209.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00221.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00217.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00193.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00201.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00169.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00281.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
 
 </div>
 </div>
@@ -639,7 +635,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00313.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00345.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
 
 </div>
 </div>
@@ -749,7 +745,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00221.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -765,7 +761,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00245.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -789,7 +785,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00233.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00233.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00221.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00253.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00313.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00261.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00229.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00273.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00249.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00229.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00221.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00285.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00261.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00345.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00277.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00277.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00281.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -805,7 +801,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00233.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00233.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00253.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00313.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00261.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00229.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00273.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00249.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00229.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00285.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00261.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00345.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00277.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00277.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00281.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -849,13 +845,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00273_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
-<div class="ttc" id="aa00124_html_a747dca996e4c4c9d642d7801424efc5c"><div class="ttname"><a href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.buildSearchDialog</a></div><div class="ttdeci">def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, addVocabConf=None)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:407</div></div>
+<div class="ttc" id="aa00289_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00289.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00110.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00116.html">dialogs</a></li><li class="navelem"><a class="el" href="a00129.html">valuemappingdialog</a></li><li class="navelem"><a class="el" href="a00221.html">ValueMappingDialog</a></li>
+    <li class="navelem"><a class="el" href="a00122.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00126.html">dialogs</a></li><li class="navelem"><a class="el" href="a00137.html">valuemappingdialog</a></li><li class="navelem"><a class="el" href="a00221.html">ValueMappingDialog</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
