@@ -249,15 +249,15 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span><a class="code" href="a00289.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> result == <span class="keyword">True</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.dlg.geoClassListModel.clear()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.dlg.geoTreeViewModel.clear()</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            self.dlg.comboBox.setCurrentIndex(0);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            self.maindlg.currentgraph = self.graph</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            self.dlg.layercount.setText(<span class="stringliteral">&quot;[&quot;</span> + str(len(self.geoconcepts)) + <span class="stringliteral">&quot;]&quot;</span>)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">for</span> geo <span class="keywordflow">in</span> self.geoconcepts:</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                item = QStandardItem()</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                item.setData(geo, 1)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                item.setData(geo, 256)</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                item.setText(geo[geo.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:])</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                self.dlg.geoClassListModel.appendRow(item)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                self.dlg.geoTreeViewModel.appendRow(item)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="comment"># comp=QCompleter(self.dlg.layerconcepts)</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment"># comp.setCompletionMode(QCompleter.PopupCompletion)</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="comment"># comp.setModel(self.dlg.layerconcepts.model())</span></div>
