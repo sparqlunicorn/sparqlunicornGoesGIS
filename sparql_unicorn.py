@@ -34,15 +34,14 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
 import os.path
 import sys
-
-import pyproj
+from util.sparqlutils import SPARQLUtils
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import uuid
 import json
 import urllib.parse
 from rdflib import *
-from SPARQLWrapper import SPARQLWrapper, JSON, POST
+#from SPARQLWrapper import SPARQLWrapper, JSON, POST
 # Initialize Qt resources from file resources.py
 from .resources import *
 from .tasks.querylayertask import QueryLayerTask
@@ -484,16 +483,11 @@ class SPARQLunicorn:
         for queryval in toquery:
             values += "\"" + queryval + "\""
         values += "}"
-        sparql = SPARQLWrapper("https://query.wikidata.org/sparql",
-                               agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-        sparql.setQuery(
-            """SELECT DISTINCT ?a
+        results=SPARQLUtils.executeQuery("https://query.wikidata.org/sparql","""SELECT DISTINCT ?a
         WHERE {
           ?a wdt:P31 ?class .
           ?a ?label ?vals .
         } """)
-        sparql.setReturnFormat(JSON)
-        results = sparql.query().convert()
         for result in results["results"]["bindings"]:
             self.viewlist.append(str(result["a"]["value"]))
         return self.viewlist
@@ -621,16 +615,10 @@ class SPARQLunicorn:
                                                    propp]) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
                 elif valuequeries != None and propp in valuequeries:
                     #ttlstring += ""
-                    sparql = SPARQLWrapper(valuequeries[propp][1],
-                                           agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                    sparql.setQuery(
-                        "".join(self.prefixes[self.endpointIndex]) + valuequeries[propp][0].replace("%%" + propp + "%%",
+                    results=SPARQLUtils.executeQuery(valuequeries[propp][1],"".join(self.prefixes[self.endpointIndex]) + valuequeries[propp][0].replace("%%" + propp + "%%",
                                                                                                     "\"" + str(
                                                                                                         f[
                                                                                                             propp]) + "\""))
-                    sparql.setMethod(POST)
-                    sparql.setReturnFormat(JSON)
-                    results = sparql.query().convert()
                     ttlstring.add( "<" + curid + "> <" + prop + "> <" + results["results"]["bindings"][0]["item"][
                         "value"] + "> .")
                     if first < 10:
