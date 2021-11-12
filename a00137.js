@@ -1,4 +1,4 @@
 var a00137 =
 [
-    [ "GeoCollectionsQueryTask", "a00249.html", "a00249" ]
+    [ "SPARQLunicorn", "a00185.html", "a00185" ]
 ];
