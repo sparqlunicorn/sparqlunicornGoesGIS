@@ -256,6 +256,42 @@ background-color: rgb(253, 252, 250);</string>
         <item row="2" column="0">
          <widget class="QWidget" name="conf_trpl_store_and_bbox_buttons" native="true">
           <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="loadTripleStoreButton">
+             <property name="minimumSize">
+              <size>
+               <width>201</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>201</width>
+               <height>31</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+               <underline>false</underline>
+              </font>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>Configure TripleStores</string>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="0">
             <widget class="QPushButton" name="bboxButton">
              <property name="minimumSize">
@@ -322,42 +358,6 @@ color: rgb(255, 255, 255);</string>
              </property>
              <property name="text">
               <string>add layer</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="loadTripleStoreButton">
-             <property name="minimumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-               <underline>false</underline>
-              </font>
-             </property>
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">
-background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Configure TripleStores</string>
              </property>
             </widget>
            </item>
@@ -448,6 +448,13 @@ color: rgb(255, 255, 255);</string>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -487,7 +494,7 @@ color: rgb(255, 255, 255);</string>
 background-color: rgb(253, 252, 250);</string>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="geoConceptsTab">
         <attribute name="title">

@@ -30,7 +30,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     # @param layer the layer to enrich
     # @param classid the classid to use for enrichment
     # @param triplestoreurl the url of the triplestore to use for enrichment
-    def __init__(self, triplestoreconf, prefixes, enrichtable, layer, classid="", triplestoreurl=""):
+    def __init__(self, triplestoreconf, prefixes, enrichtable, layer, classid="", triplestoreurl="", addVocab=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.classid = classid
@@ -42,6 +42,16 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
+                # me
+                # tripleStoreEdit = QComboBox(self)
+                # tripleStoreEdit.addItem("Wikidata")
+                # tripleStoreEdit.addItem("DBPedia")
+        if addVocab != None:
+            for cov in addVocab:
+                self.tripleStoreEdit.addItem(addVocab[cov]["label"])
+                self.tripleStoreEdit.setCurrentIndex(2)
+                self.tripleStoreEdit.setEnabled(True)
+                # me
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.costumpropertyLabel.hide()
@@ -49,6 +59,10 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchButton2.clicked.connect(self.getAttributeStatistics)
         self.searchButton2.hide()
         self.applyButton.clicked.connect(self.applyConceptToColumn)
+        # me
+
+        # tripleStoreEdit.activated[str].connect(self.onActivated)
+        # me
 
         ##
 
@@ -85,21 +99,38 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql",
                                labellang="en", inarea="wd:Q183"):
+# msg box instead of return to tell the user that concept search is empty and that they need to choose a concept.
         if self.conceptSearchEdit.text() == "":
-            return
-        concept = "<" + self.conceptSearchEdit.text() + ">"
-        progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
-        progress.setCancelButton(None)
-        self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
-                                           endpoint_url,
-                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][
-                                               "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
-                                                                                                            "?area"),
-                                           self.conceptSearchEdit.text(),
-                                           self.prefixes[self.tripleStoreEdit.currentIndex()],
-                                           self.searchResult, progress)
-        QgsApplication.taskManager().addTask(self.qtask)
+            # @Antoine
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("WARNING ")
+            msgBox.setText('Concept search is empty please choose a concept by clicking the "search concept" button to proceed.')
+            msgBox.exec()
+            # return
+        else:
+        # @Antoine
+
+# Defines the variable "concept" , which is a string composed of the three concatenated strings"<" + self.conceptSearchEdit.text() + ">"
+            concept = "<" + self.conceptSearchEdit.text() + ">"
+# Defines the variable "progress"  which is an instances of the "QProgressDialog" class and is initiated through its Constructor
+            progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
+            # here progress calls its "setWindowModality" function and provides (Qt.WindowModal) as a parameter of this function.
+            progress.setWindowModality(Qt.WindowModal)
+            # calls  its "setCancelButton function and provides "None" as its parameter value
+            progress.setCancelButton(None)
+            # "What to enrich" defines its attribute "qtask"  as an instance of "WhatToEnrichQueryTask" class
+            self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
+                                               endpoint_url,
+                                               self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][
+                                                   "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%","?area"),
+                                                   # "What to enrich" calls its attribute conceptSearchEdit and retrieves the text inside through the function "text()"
+                                                   self.conceptSearchEdit.text(),
+                                                   # What to Enrich gets tripleStoreEdit's currentIndex() to find the appropriate item of a list of prefixes in accordance with the current triple store defined in "tripleStoreEdit"
+                                                   self.prefixes[self.tripleStoreEdit.currentIndex()],
+                                                   # The two last parameters of the WhatToEnrichQueryTask Constructor are(1) the searchResult attribute of what to enrich and (2) the progress variable
+                                                   self.searchResult, progress)
+         #QGIS Application first calls its "taskManager" function and then it calls the function addTask of the QgsApplication.taskManager() result
+            QgsApplication.taskManager().addTask(self.qtask)
 
     ##
     #  @brief Returns a chosen concept to the calling dialog.
@@ -127,6 +158,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             item.setText(self.searchResult.currentItem().text())
             self.enrichtable.setItem(row, 1, item)
             item = QTableWidgetItem()
+
             item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"])
             self.enrichtable.setItem(row, 2, item)
             cbox = QComboBox()

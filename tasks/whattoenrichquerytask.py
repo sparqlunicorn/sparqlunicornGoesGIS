@@ -23,7 +23,7 @@ class WhatToEnrichQueryTask(QgsTask):
         self.progress = progress
         self.prefixes = prefixes
         self.labels = None
-        self.progress = progress
+        # self.progress = progress
         self.urilist = None
         self.sortedatt = None
         self.searchTerm = searchTerm

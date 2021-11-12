@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>879</width>
-    <height>489</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,7 +64,7 @@ border-radius:20px;}
        </size>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QListWidget" name="searchResult">
          <property name="minimumSize">
           <size>
@@ -80,7 +80,7 @@ border-radius:20px;}
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="searchResultLabel">
          <property name="minimumSize">
           <size>
@@ -100,6 +100,35 @@ border-radius:20px;}
          </property>
          <property name="text">
           <string>Search Results</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QComboBox" name="tripleStoreEdit_1">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>311</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>311</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
          </property>
         </widget>
        </item>
@@ -396,12 +425,12 @@ background-color: rgb(253, 252, 250);</string>
          <item>
           <widget class="QComboBox" name="tripleStoreEdit">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="minimumSize">
             <size>
              <width>311</width>
-             <height>22</height>
+             <height>12</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -409,9 +438,6 @@ background-color: rgb(253, 252, 250);</string>
              <width>311</width>
              <height>22</height>
             </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true">border-radius:10px;
@@ -471,23 +497,6 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Apply</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>450</x>
-        <y>90</y>
-        <width>221</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border-radius:10px;
-
-border-color:rgb(45, 45, 45);
-
-background-color: rgb(253, 252, 250);</string>
       </property>
      </widget>
     </widget>
