@@ -185,3 +185,66 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.interlinkdialog.exec_()
+
+
+
+    ## Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.
+    #  @param self The object pointer.
+    def exportEnrichedLayer(self):
+
+        if self.conceptSearchEdit.text() == "":
+            # @Antoine
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("WARNING ")
+            msgBox.setText('Concept search is empty please choose a concept by clicking the "search concept" button to proceed.')
+            msgBox.exec()
+            # return
+        else:
+            self.exportIdCol = ""
+            self.exportNameSpace = self.dlg.interlinkNameSpace.text()
+            self.exportSetClass = self.dlg.interlinkOwlClassInput.text()
+            propurilist = []
+            classurilist = []
+            includelist = []
+            proptypelist = []
+            valuemappings = {}
+            valuequeries = []
+            for row in range(self.dlg.interlinkTable.rowCount()):
+                item = self.dlg.interlinkTable.item(row, 0)
+                if item.checkState():
+                    includelist.append(True)
+                    if self.dlg.interlinkTable.item(row, 1).checkState():
+                        self.exportIdCol = self.dlg.interlinkTable.item(row, 3).text()
+                        propurilist.append("")
+                        classurilist.append("")
+                        proptypelist.append("")
+                    else:
+                        column = self.dlg.interlinkTable.item(row, 3).text()
+                        if self.dlg.interlinkTable.item(row, 4) != None:
+                            column = self.dlg.interlinkTable.item(row, 3).data(0)
+                            propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))
+                        else:
+                            propurilist.append("")
+                        if self.dlg.interlinkTable.item(row, 5) != None:
+                            proptypelist.append(self.dlg.interlinkTable.item(row, 5).text())
+                        else:
+                            proptypelist.append("")
+                        if self.dlg.interlinkTable.item(row, 6) != None:
+                            concept = self.dlg.interlinkTable.item(row, 6).data(0)
+                            self.exportColConfig[column] = concept
+                            classurilist.append(concept)
+                        else:
+                            classurilist.append("")
+                        if self.dlg.interlinkTable.item(row, 7) != None:
+                            self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
+                            valuemappings[item.text()] = self.dlg.interlinkTable.item(row, 7).data(1)
+                            valuequeries.append({self.dlg.interlinkTable.item(row, 7).data(2),
+                                                 self.dlg.interlinkTable.item(row, 7).data(3)})
+                else:
+                    includelist.append(False)
+                    propurilist.append("")
+                    classurilist.append("")
+                    proptypelist.append("")
+            self.enrichedExport = True
+            self.dlg.maindlg.exportLayer(propurilist, classurilist, includelist, proptypelist, valuemappings, valuequeries,
+                                         self.dlg.exportTripleStore.isChecked())
