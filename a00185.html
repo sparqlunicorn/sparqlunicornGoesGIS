@@ -113,6 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acf276c4dd1702e8fbfa20bec371bf0db"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">buildSearchDialog</a> (self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">addVocabConf</a>=None)</td></tr>
 <tr class="memdesc:acf276c4dd1702e8fbfa20bec371bf0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog to search for a concept or class.  <a href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">More...</a><br /></td></tr>
 <tr class="separator:acf276c4dd1702e8fbfa20bec371bf0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#adfcc23a6b0a5b7441daa1d4b43a6e881">exportEnrichedLayer</a> (self)</td></tr>
+<tr class="memdesc:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.  <a href="a00185.html#adfcc23a6b0a5b7441daa1d4b43a6e881">More...</a><br /></td></tr>
+<tr class="separator:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -132,6 +135,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a086f47cacf997373ef862200fcfb4612"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a816bebaf94e989ec4293bfee7a615a98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a816bebaf94e989ec4293bfee7a615a98">interlinkdialog</a></td></tr>
 <tr class="separator:a816bebaf94e989ec4293bfee7a615a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a28e8c8cab7654b472c43f25f3005b3ad">exportIdCol</a></td></tr>
+<tr class="separator:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a53c91b53a9e6f8aa2e992e979da8af83">exportNameSpace</a></td></tr>
+<tr class="separator:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb9e994037d80a7ace5ae573c602d45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a4bb9e994037d80a7ace5ae573c602d45">exportSetClass</a></td></tr>
+<tr class="separator:a4bb9e994037d80a7ace5ae573c602d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94166918eca98bd0764f1c890ee2ec5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a94166918eca98bd0764f1c890ee2ec5b">valueconcept</a></td></tr>
+<tr class="separator:a94166918eca98bd0764f1c890ee2ec5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac26f04155f19a0850f23ab9c063ba611"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#ac26f04155f19a0850f23ab9c063ba611">enrichedExport</a></td></tr>
+<tr class="separator:ac26f04155f19a0850f23ab9c063ba611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -344,6 +357,9 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        self.interlinkdialog.setMinimumSize(650, 400)</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Interlink Concept&quot;</span>)</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        self.interlinkdialog.exec_()</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">InterlinkMainWindow.currentcol</a>, <a class="el" href="a00185.html#a086f47cacf997373ef862200fcfb4612">InterlinkMainWindow.currentrow</a>, <a class="el" href="a00185.html#a816bebaf94e989ec4293bfee7a615a98">InterlinkMainWindow.interlinkdialog</a>, <a class="el" href="a00177.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">InterlinkMainWindow.prefixes</a>, <a class="el" href="a00181.html#a302e350558edcbbd7b85927b33550548">EnrichmentMainWindow.prefixes</a>, <a class="el" href="a00161.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -508,6 +524,90 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">InterlinkMainWindow.addVocabConf</a>, <a class="el" href="a00181.html#a1c0f392d53979b034116808ade371029">EnrichmentMainWindow.addVocabConf</a>, <a class="el" href="a00161.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, and <a class="el" href="a00185.html#a1659d7c9973dfca0d962d86f4195098b">InterlinkMainWindow.buildValueMappingDialog()</a>.</p>
 
+</div>
+</div>
+<a id="adfcc23a6b0a5b7441daa1d4b43a6e881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcc23a6b0a5b7441daa1d4b43a6e881">&#9670;&nbsp;</a></span>exportEnrichedLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def exportEnrichedLayer </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">def </span>exportEnrichedLayer(self):</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordflow">if</span> self.conceptSearchEdit.text() == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            <span class="comment"># @Antoine</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            msgBox = QMessageBox()</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;WARNING &quot;</span>)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            msgBox.setText(<span class="stringliteral">&#39;Concept search is empty please choose a concept by clicking the &quot;search concept&quot; button to proceed.&#39;</span>)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="comment"># return</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            self.exportIdCol = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            self.exportNameSpace = self.dlg.interlinkNameSpace.text()</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            self.exportSetClass = self.dlg.interlinkOwlClassInput.text()</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            propurilist = []</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            classurilist = []</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            includelist = []</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            proptypelist = []</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            valuemappings = {}</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            valuequeries = []</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.dlg.interlinkTable.rowCount()):</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                item = self.dlg.interlinkTable.item(row, 0)</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                <span class="keywordflow">if</span> item.checkState():</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                    includelist.append(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 1).checkState():</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                        self.exportIdCol = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                        propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                        classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                        proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                        column = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 4) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                            column = self.dlg.interlinkTable.item(row, 3).data(0)</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                            propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                            propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 5) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                            proptypelist.append(self.dlg.interlinkTable.item(row, 5).text())</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                            proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 6) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                            concept = self.dlg.interlinkTable.item(row, 6).data(0)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                            self.exportColConfig[column] = concept</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                            classurilist.append(concept)</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                            classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 7) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                            self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                            valuemappings[item.text()] = self.dlg.interlinkTable.item(row, 7).data(1)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                            valuequeries.append({self.dlg.interlinkTable.item(row, 7).data(2),</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                                                 self.dlg.interlinkTable.item(row, 7).data(3)})</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                    includelist.append(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                    propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                    classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                    proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            self.enrichedExport = <span class="keyword">True</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            self.dlg.maindlg.exportLayer(propurilist, classurilist, includelist, proptypelist, valuemappings, valuequeries,</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                                         self.dlg.exportTripleStore.isChecked())</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a87085e3e93f6fa7041f16da1081c03f0"></a>
@@ -675,6 +775,20 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac26f04155f19a0850f23ab9c063ba611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26f04155f19a0850f23ab9c063ba611">&#9670;&nbsp;</a></span>enrichedExport</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichedExport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a798047d7be0ff17b0e59b9f9d960d376"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a798047d7be0ff17b0e59b9f9d960d376">&#9670;&nbsp;</a></span>enrichtab</h2>
 
@@ -696,6 +810,48 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="a00205.html#a325fd8cbbc7334bc6881a68afd0c327f">SPARQLunicornDialog.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="a28e8c8cab7654b472c43f25f3005b3ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e8c8cab7654b472c43f25f3005b3ad">&#9670;&nbsp;</a></span>exportIdCol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportIdCol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53c91b53a9e6f8aa2e992e979da8af83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c91b53a9e6f8aa2e992e979da8af83">&#9670;&nbsp;</a></span>exportNameSpace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportNameSpace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bb9e994037d80a7ace5ae573c602d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bb9e994037d80a7ace5ae573c602d45">&#9670;&nbsp;</a></span>exportSetClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportSetClass</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -822,6 +978,20 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="reference">Referenced by <a class="el" href="a00189.html#a921f465a77663034ebb6932d1ac38188">LoadGraphDialog.__init__()</a>, <a class="el" href="a00233.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00197.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00213.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00209.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00205.html#aa15babef112d3f7d3bea0535cefe5ec9">SPARQLunicornDialog.buildConvertCRSDialog()</a>, <a class="el" href="a00205.html#aaa0da52fb182abd5369eb94a3031ffbd">SPARQLunicornDialog.buildCustomTripleStoreDialog()</a>, <a class="el" href="a00201.html#aa0e553f57305253c64ce38eea94fbc7e">SPARQLunicornDialog.buildEnrichmentDlg()</a>, <a class="el" href="a00201.html#a5ffc5a729e10bc24fa788dc873c2488f">SPARQLunicornDialog.buildInterlinkDlg()</a>, <a class="el" href="a00201.html#a375e87d1112baec5682b217d29a81f39">SPARQLunicornDialog.buildLoadGraphDialog()</a>, <a class="el" href="a00205.html#a72d1298a8ff05a60a62ea537c8c42d30">SPARQLunicornDialog.buildQuickAddTripleStore()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, <a class="el" href="a00205.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00205.html#a0bec585636baa1304318e0da3bcca8e3">SPARQLunicornDialog.createWhatToEnrich()</a>, <a class="el" href="a00209.html#ab51f83eb5efc7744cb415accade74abc">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00233.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00221.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00197.html#a00c7d47f79ad9e7a9665d7588c9bd512">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a00253.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00313.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00205.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00209.html#a809e9724f3fb01cd74431f96ff40c928">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a00189.html#a527bac1321b550ce7d51f6ddf6d91566">LoadGraphDialog.loadURI()</a>, <a class="el" href="a00261.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00209.html#aebb0c8211d47ee1206755f7992455b62">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00205.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, and <a class="el" href="a00209.html#a630c34000dc83589645109cfc574c26b">TripleStoreDialog.writeConfiguration()</a>.</p>
+
+</div>
+</div>
+<a id="a94166918eca98bd0764f1c890ee2ec5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94166918eca98bd0764f1c890ee2ec5b">&#9670;&nbsp;</a></span>valueconcept</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">valueconcept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
