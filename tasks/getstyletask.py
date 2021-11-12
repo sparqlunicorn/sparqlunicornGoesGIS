@@ -25,14 +25,12 @@ class InstanceAmountQueryTask(QgsTask):
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
                     wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
-                    wikicon) + "> . }"
+            thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . "+"OPTIONAL { ?style geost:polygonStyle ?polygonStyle .} ?style  geost:fillOpacity }"
         else:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
                     self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
-                    self.treeNode.data(256)) + "> . }"
+            thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . }"
         if self.graph!=None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
