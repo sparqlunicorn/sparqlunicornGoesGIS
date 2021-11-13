@@ -44,15 +44,15 @@ class LoadGraphTask(QgsTask):
 
     def finished(self, result):
         if result == True:
-            self.dlg.geoClassListModel.clear()
+            self.dlg.geoTreeViewModel.clear()
             self.dlg.comboBox.setCurrentIndex(0);
             self.maindlg.currentgraph = self.graph
             self.dlg.layercount.setText("[" + str(len(self.geoconcepts)) + "]")
             for geo in self.geoconcepts:
                 item = QStandardItem()
-                item.setData(geo, 1)
+                item.setData(geo, 256)
                 item.setText(geo[geo.rfind('/') + 1:])
-                self.dlg.geoClassListModel.appendRow(item)
+                self.dlg.geoTreeViewModel.appendRow(item)
             # comp=QCompleter(self.dlg.layerconcepts)
             # comp.setCompletionMode(QCompleter.PopupCompletion)
             # comp.setModel(self.dlg.layerconcepts.model())

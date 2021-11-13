@@ -6,11 +6,10 @@ from rdflib.namespace import Namespace
 
 from rdflib.graph import Graph, ConjunctiveGraph
 
-from rdflib.py3compat import b
 
-__all__ = ['TriXSerializer']
+__all__ = ["TriXSerializer"]
 
-## TODO: MOve this somewhere central
+# TODO: Move this somewhere central
 TRIXNS = Namespace("http://www.w3.org/2004/03/trix/trix-1/")
 XMLNS = Namespace("http://www.w3.org/XML/1998/namespace")
 
@@ -20,7 +19,8 @@ class TriXSerializer(Serializer):
         super(TriXSerializer, self).__init__(store)
         if not store.context_aware:
             raise Exception(
-                "TriX serialization only makes sense for context-aware stores")
+                "TriX serialization only makes sense for context-aware stores"
+            )
 
     def serialize(self, stream, base=None, encoding=None, **args):
 
@@ -29,6 +29,11 @@ class TriXSerializer(Serializer):
         self.writer = XMLWriter(stream, nm, encoding, extra_ns={"": TRIXNS})
 
         self.writer.push(TRIXNS["TriX"])
+        # if base is given here, use that, if not and a base is set for the graph use that
+        if base is None and self.store.base is not None:
+            base = self.store.base
+        if base is not None:
+            self.writer.attribute("http://www.w3.org/XML/1998/namespacebase", base)
         self.writer.namespaces()
 
         if isinstance(self.store, ConjunctiveGraph):
@@ -40,13 +45,16 @@ class TriXSerializer(Serializer):
             raise Exception("Unknown graph type: " + type(self.store))
 
         self.writer.pop()
-        stream.write(b("\n"))
+        stream.write("\n".encode("latin-1"))
 
     def _writeGraph(self, graph):
         self.writer.push(TRIXNS["graph"])
+        if graph.base:
+            self.writer.attribute(
+                "http://www.w3.org/XML/1998/namespacebase", graph.base
+            )
         if isinstance(graph.identifier, URIRef):
-            self.writer.element(
-                TRIXNS["uri"], content=str(graph.identifier))
+            self.writer.element(TRIXNS["uri"], content=str(graph.identifier))
 
         for triple in graph.triples((None, None, None)):
             self._writeTriple(triple)
@@ -56,25 +64,22 @@ class TriXSerializer(Serializer):
         self.writer.push(TRIXNS["triple"])
         for component in triple:
             if isinstance(component, URIRef):
-                self.writer.element(TRIXNS["uri"],
-                                    content=str(component))
+                self.writer.element(TRIXNS["uri"], content=str(component))
             elif isinstance(component, BNode):
-                self.writer.element(TRIXNS["id"],
-                                    content=str(component))
+                self.writer.element(TRIXNS["id"], content=str(component))
             elif isinstance(component, Literal):
                 if component.datatype:
-                    self.writer.element(TRIXNS["typedLiteral"],
-                                        content=str(component),
-                                        attributes={TRIXNS["datatype"]:
-                                                    str(
-                                                        component.datatype)})
+                    self.writer.element(
+                        TRIXNS["typedLiteral"],
+                        content=str(component),
+                        attributes={TRIXNS["datatype"]: str(component.datatype)},
+                    )
                 elif component.language:
-                    self.writer.element(TRIXNS["plainLiteral"],
-                                        content=str(component),
-                                        attributes={XMLNS["lang"]:
-                                                    str(
-                                                        component.language)})
+                    self.writer.element(
+                        TRIXNS["plainLiteral"],
+                        content=str(component),
+                        attributes={XMLNS["lang"]: str(component.language)},
+                    )
                 else:
-                    self.writer.element(TRIXNS["plainLiteral"],
-                                        content=str(component))
+                    self.writer.element(TRIXNS["plainLiteral"], content=str(component))
         self.writer.pop()

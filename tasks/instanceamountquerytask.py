@@ -8,29 +8,35 @@ MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
 
 class InstanceAmountQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
+        self.graph=graph
         self.treeNode=treeNode
         self.amount=-1
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        thequery=""
         if "wikidata" in self.triplestoreurl:
             wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
                     wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            results = SPARQLUtils.executeQuery(self.triplestoreurl, "SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
-                    wikicon) + "> . }")
+            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
+                    wikicon) + "> . }"
         else:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
                     self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,"SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
-                    self.treeNode.data(256)) + "> . }")
+            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
+                    self.treeNode.data(256)) + "> . }"
+        if self.graph!=None:
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+        else:
+            results=self.graph.query(thequery)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results != False:
             self.amount = results["results"]["bindings"][0]["amount"]["value"]

@@ -26,7 +26,7 @@ class ClassTreeQueryTask(QgsTask):
                     WHERE {\n"""
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
             self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } .\n"
-        elif self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
+        elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
             self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} .\n"
         else:
             self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}} .\n"
