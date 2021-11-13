@@ -1,6 +1,6 @@
 var a00174 =
 [
-    [ "CircleMapTool", "a00329.html", "a00329" ],
-    [ "PolygonMapTool", "a00333.html", "a00333" ],
-    [ "RectangleMapTool", "a00337.html", "a00337" ]
+    [ "CircleMapTool", "a00333.html", "a00333" ],
+    [ "PolygonMapTool", "a00337.html", "a00337" ],
+    [ "RectangleMapTool", "a00341.html", "a00341" ]
 ];

@@ -1,17 +1,19 @@
 var a00309 =
 [
-    [ "__init__", "a00309.html#ad68f48064ab758ee8e2c5a35653efe15", null ],
+    [ "__init__", "a00309.html#a2da3a70a1b4e4a20dc234b2fb9f30ab8", null ],
     [ "finished", "a00309.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "getLabelsForClasses", "a00309.html#a9668aa263c374afae42279e9ac4cd94d", null ],
     [ "run", "a00309.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "amountoflabels", "a00309.html#a920977da185a945b106fd389906f0fda", null ],
-    [ "dlg", "a00309.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00309.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "geoTreeViewModel", "a00309.html#ac718e6195097812dffa9cfd2407131ad", null ],
+    [ "findProperty", "a00309.html#aec9027007067a3aa3d0286c0a92c61d4", null ],
+    [ "label", "a00309.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
+    [ "language", "a00309.html#aa37aa8979934d47ac32fd96ecff32202", null ],
+    [ "prefixes", "a00309.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "progress", "a00309.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "qids", "a00309.html#a5553b08a46beb00537611b8c66a10bed", null ],
     [ "query", "a00309.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "resultlist", "a00309.html#af06316de4f3798fb8e2fd1c2846957ca", null ],
-    [ "treeNode", "a00309.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
-    [ "triplestoreurl", "a00309.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "viewlist", "a00309.html#a64118717d69ab90e67efd8b24cb32bb3", null ]
+    [ "results", "a00309.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
+    [ "searchResult", "a00309.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
+    [ "triplestoreconf", "a00309.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "tripleStoreEdit", "a00309.html#a2f954fc5a00f58cea3af99dea474bab7", null ],
+    [ "triplestoreurl", "a00309.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

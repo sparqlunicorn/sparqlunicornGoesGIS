@@ -1,9 +1,9 @@
 var a00116 =
 [
-    [ "RequestInterceptor", "a00341.html", "a00341" ],
-    [ "RequestInterceptor", "a00341.html", "a00341" ],
-    [ "UserMetaData", "a00345.html", "a00345" ],
-    [ "GitlabRequestInterceptor", "a00349.html", "a00349" ],
+    [ "RequestInterceptor", "a00345.html", "a00345" ],
+    [ "RequestInterceptor", "a00345.html", "a00345" ],
+    [ "UserMetaData", "a00349.html", "a00349" ],
+    [ "GitlabRequestInterceptor", "a00353.html", "a00353" ],
     [ "AuthUrl", "a00116.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
     [ "ClientId", "a00116.html#aafe8b143d232fc8175b4f51af732863f", null ],
     [ "ClientSecret", "a00116.html#a1f4e8a9384e3c24ea1bce80875ab6b54", null ],

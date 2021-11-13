@@ -1,18 +1,8 @@
 var a00329 =
 [
-    [ "__init__", "a00329.html#a5788aa490c766bf347cb9d3712abc036", null ],
-    [ "canvasMoveEvent", "a00329.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00329.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "canvasReleaseEvent", "a00329.html#af1a565828651f16efdecaee54f27a1b2", null ],
-    [ "deactivate", "a00329.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "rbcircle", "a00329.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
-    [ "reset", "a00329.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00329.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "center", "a00329.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
-    [ "iface", "a00329.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00329.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00329.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "segments", "a00329.html#a95912ea8e057275833a7edd278c87dfd", null ],
-    [ "selectionDone", "a00329.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00329.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00329.html#ae64f0875afe3067b97ba370b354b9213", null ],
+    [ "convertCRSFromEPSG", "a00329.html#ad36e6fed41b0eafd527841ce13c0a492", null ],
+    [ "convertCRSFromWKTString", "a00329.html#aaee76f67d9e7d0405f14ebf3b807a8c1", null ],
+    [ "crsToTTL", "a00329.html#aa5abea21cd551f22108088ef3d1880b0", null ],
+    [ "ttlhead", "a00329.html#ad382225511cbcbdfadae28d3f3641911", null ]
 ];

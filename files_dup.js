@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00902.html", null ],
-    [ "tasks/__init__.py", "a00905.html", null ],
-    [ "util/__init__.py", "a00908.html", null ],
+    [ "dialogs/__init__.py", "a00906.html", null ],
+    [ "tasks/__init__.py", "a00909.html", null ],
+    [ "util/__init__.py", "a00912.html", null ],
     [ "bboxdialog.py", "a00014.html", "a00014" ],
     [ "classtreequerytask.py", "a00053.html", "a00053" ],
     [ "convertcrsdialog.py", "a00017.html", "a00017" ],
@@ -15,7 +15,7 @@ var files_dup =
     [ "detecttriplestoretask.py", "a00065.html", "a00065" ],
     [ "enrichmentquerytask.py", "a00068.html", "a00068" ],
     [ "enrichmenttab.py", "a00104.html", [
-      [ "EnrichmentTab", "a00317.html", "a00317" ]
+      [ "EnrichmentTab", "a00321.html", "a00321" ]
     ] ],
     [ "findstylestask.py", "a00071.html", "a00071" ],
     [ "geocollectionsquerytask.py", "a00074.html", "a00074" ],
@@ -24,7 +24,7 @@ var files_dup =
     [ "graphvalidationtask.py", "a00083.html", "a00083" ],
     [ "instanceamountquerytask.py", "a00086.html", "a00086" ],
     [ "interlinkingtab.py", "a00107.html", [
-      [ "InterlinkingTab", "a00321.html", "a00321" ]
+      [ "InterlinkingTab", "a00325.html", "a00325" ]
     ] ],
     [ "loadgraphdialog.py", "a00023.html", "a00023" ],
     [ "loadgraphtask.py", "a00089.html", "a00089" ],
@@ -32,9 +32,9 @@ var files_dup =
       [ "LoginWindow", "a00213.html", "a00213" ]
     ] ],
     [ "mappingtools.py", "a00113.html", [
-      [ "CircleMapTool", "a00329.html", "a00329" ],
-      [ "PolygonMapTool", "a00333.html", "a00333" ],
-      [ "RectangleMapTool", "a00337.html", "a00337" ]
+      [ "CircleMapTool", "a00333.html", "a00333" ],
+      [ "PolygonMapTool", "a00337.html", "a00337" ],
+      [ "RectangleMapTool", "a00341.html", "a00341" ]
     ] ],
     [ "oauth.py", "a00116.html", "a00116" ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
@@ -47,14 +47,14 @@ var files_dup =
     [ "sparqlhighlighter.py", "a00119.html", "a00119" ],
     [ "sparqlutils.py", "a00122.html", "a00122" ],
     [ "styleobject.py", "a00125.html", [
-      [ "StyleObject", "a00361.html", "a00361" ]
+      [ "StyleObject", "a00365.html", "a00365" ]
     ] ],
     [ "styleutils.py", "a00128.html", "a00128" ],
     [ "subclassquerytask.py", "a00098.html", "a00098" ],
     [ "tooltipplaintext.py", "a00131.html", [
-      [ "SPARQLCompleter", "a00365.html", "a00365" ],
-      [ "LineNumberArea", "a00369.html", "a00369" ],
-      [ "ToolTipPlainText", "a00373.html", "a00373" ]
+      [ "SPARQLCompleter", "a00369.html", "a00369" ],
+      [ "LineNumberArea", "a00373.html", "a00373" ],
+      [ "ToolTipPlainText", "a00377.html", "a00377" ]
     ] ],
     [ "triplestoredialog.py", "a00035.html", "a00035" ],
     [ "triplestorequickadddialog.py", "a00038.html", "a00038" ],
