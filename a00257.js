@@ -7,6 +7,7 @@ var a00257 =
     [ "convertFrom", "a00257.html#afea1666783c58d60d8f9a172c1d96335", null ],
     [ "convertTo", "a00257.html#a49a55dda21a6dbda2e0750035498c7cd", null ],
     [ "crsdef", "a00257.html#a833c3fbda4bca0e0f0c2a5c418654fa9", null ],
+    [ "crsdefs", "a00257.html#a40e92e9aad5a9dbd477d921260a4a33f", null ],
     [ "dialog", "a00257.html#a3d2da04d187a7112445f18a9f20b39ef", null ],
     [ "exception", "a00257.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "filename", "a00257.html#a2ff994e16bf9521154de4cf659a3b689", null ],

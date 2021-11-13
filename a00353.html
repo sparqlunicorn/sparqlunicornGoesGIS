@@ -137,7 +137,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="a00345.html#a3047f94dcb7e376099d2e6d9856cb8fb">RequestInterceptor</a>.</p>
-<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">def </span><a class="code" href="a00317.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, app):</div>
+<div class="fragment"><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">def </span><a class="code" href="a00317.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, app):</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -167,16 +167,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">def </span>getUserInformation(self,baseurl):</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        r = requests.get(baseurl+<span class="stringliteral">&quot;/users?username=&quot;</span>+)</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                res = r.json()</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        user=UserMetaData()</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        user.username=res[<span class="stringliteral">&quot;username&quot;</span>]</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        user.name=res[<span class="stringliteral">&quot;name&quot;</span>]</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        user.userurl=res[<span class="stringliteral">&quot;web_url&quot;</span>]</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        user.userid=res[<span class="stringliteral">&quot;id&quot;</span>]</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        user.authenticatedby=<span class="stringliteral">&quot;Gitlab (&quot;</span>+baseurl+<span class="stringliteral">&quot;)&quot;</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">def </span>getUserInformation(self,baseurl):</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        r = requests.get(baseurl+<span class="stringliteral">&quot;/users?username=&quot;</span>+)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                res = r.json()</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        user=UserMetaData()</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        user.username=res[<span class="stringliteral">&quot;username&quot;</span>]</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        user.name=res[<span class="stringliteral">&quot;name&quot;</span>]</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        user.userurl=res[<span class="stringliteral">&quot;web_url&quot;</span>]</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        user.userid=res[<span class="stringliteral">&quot;id&quot;</span>]</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        user.authenticatedby=<span class="stringliteral">&quot;Gitlab (&quot;</span>+baseurl+<span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -207,13 +207,13 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="a00345.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2">RequestInterceptor</a>.</p>
-<div class="fragment"><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">def </span>interceptRequest(self, info):</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span> RedirectUrl == (info.requestUrl().host()+info.requestUrl().path()):</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            params = parse_qs(info.requestUrl().<a class="code" href="a00317.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a>())</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&#39;code&#39;</span> <span class="keywordflow">in</span> params.keys():</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                print(<span class="stringliteral">&#39;OAuth code is {code}&#39;</span>.<a class="code" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(code=params[<span class="stringliteral">&#39;code&#39;</span>]))</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                self.oauthcode=params[<span class="stringliteral">&#39;code&#39;</span>]</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                </div>
+<div class="fragment"><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">def </span>interceptRequest(self, info):</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> RedirectUrl == (info.requestUrl().host()+info.requestUrl().path()):</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            params = parse_qs(info.requestUrl().<a class="code" href="a00317.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a>())</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&#39;code&#39;</span> <span class="keywordflow">in</span> params.keys():</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                print(<span class="stringliteral">&#39;OAuth code is {code}&#39;</span>.<a class="code" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(code=params[<span class="stringliteral">&#39;code&#39;</span>]))</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                self.oauthcode=params[<span class="stringliteral">&#39;code&#39;</span>]</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                                </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>.</p>
 
