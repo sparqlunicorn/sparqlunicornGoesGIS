@@ -4,9 +4,9 @@ from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
 
-MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
+MESSAGE_CATEGORY = 'GetStyleQueryTask'
 
-class InstanceAmountQueryTask(QgsTask):
+class GetStyleQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
         super().__init__(description, QgsTask.CanCancel)
@@ -31,7 +31,7 @@ class InstanceAmountQueryTask(QgsTask):
                 "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
                     self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . }"
-        if self.graph!=None:
+        if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
             results=self.graph.query(thequery)

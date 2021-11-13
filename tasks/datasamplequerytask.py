@@ -9,12 +9,13 @@ MESSAGE_CATEGORY = 'DataSampleQueryTask'
 
 class DataSampleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row):
+    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.column=column
+        self.graph=graph
         self.row=row
         self.concept=concept
         self.relation=relation

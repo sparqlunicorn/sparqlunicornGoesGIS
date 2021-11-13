@@ -4,9 +4,9 @@ from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
 
-MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
+MESSAGE_CATEGORY = 'FindStyleQueryTask'
 
-class InstanceAmountQueryTask(QgsTask):
+class FindStyleQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
         super().__init__(description, QgsTask.CanCancel)
@@ -29,7 +29,7 @@ class InstanceAmountQueryTask(QgsTask):
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT ?con ?style WHERE { ?con geo:style ?style . }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . }"
-        if self.graph!=None:
+        if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
             results=self.graph.query(thequery)

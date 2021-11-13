@@ -11,11 +11,12 @@ MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 
 class ClassTreeQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
+        self.graph=graph
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
         self.amount=-1
@@ -52,7 +53,10 @@ class ClassTreeQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.classtreemap={"root":self.treeNode}
         self.subclassmap={"root":set()}
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+        if self.graph==None:
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+        else:
+            results=self.graph.query(self.query)
         if results==False:
             return False
         hasparent={}
