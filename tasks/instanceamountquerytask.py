@@ -33,7 +33,7 @@ class InstanceAmountQueryTask(QgsTask):
                     self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
                     self.treeNode.data(256)) + "> . }"
-        if self.graph!=None:
+        if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
             results=self.graph.query(thequery)
