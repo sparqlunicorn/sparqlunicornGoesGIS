@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: InstanceAmountQueryTask Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: GetStyleQueryTask Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,25 +65,25 @@ $(document).ready(function(){initNavTree('a00289.html',''); initResizable(); });
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00286.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">InstanceAmountQueryTask Class Reference</div>  </div>
+<div class="title">GetStyleQueryTask Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for InstanceAmountQueryTask:</div>
+Inheritance diagram for GetStyleQueryTask:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00288.png" border="0" usemap="#InstanceAmountQueryTask_inherit__map" alt="Inheritance graph"/></div>
-<map name="InstanceAmountQueryTask_inherit__map" id="InstanceAmountQueryTask_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,201,107"/>
-<area shape="rect" title=" " alt="" coords="65,5,141,32"/>
+<div class="center"><img src="a00288.png" border="0" usemap="#GetStyleQueryTask_inherit__map" alt="Inheritance graph"/></div>
+<map name="GetStyleQueryTask_inherit__map" id="GetStyleQueryTask_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,152,107"/>
+<area shape="rect" title=" " alt="" coords="41,5,117,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for InstanceAmountQueryTask:</div>
+Collaboration diagram for GetStyleQueryTask:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00287.png" border="0" usemap="#InstanceAmountQueryTask_coll__map" alt="Collaboration graph"/></div>
-<map name="InstanceAmountQueryTask_coll__map" id="InstanceAmountQueryTask_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,201,107"/>
-<area shape="rect" title=" " alt="" coords="65,5,141,32"/>
+<div class="center"><img src="a00287.png" border="0" usemap="#GetStyleQueryTask_coll__map" alt="Collaboration graph"/></div>
+<map name="GetStyleQueryTask_coll__map" id="GetStyleQueryTask_coll__map">
+<area shape="rect" title=" " alt="" coords="5,80,152,107"/>
+<area shape="rect" title=" " alt="" coords="41,5,117,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -205,7 +205,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> self.amount!=-1:</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            self.treeNode.setText(self.treeNode.text()+<span class="stringliteral">&quot; [&quot;</span>+str(self.amount)+<span class="stringliteral">&quot;]&quot;</span>)</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00277.html#a7fb406750fcff703b1c7da34a23c187e">InstanceAmountQueryTask.amount</a>, <a class="el" href="a00253.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00277.html#a31ed64d43142fff4a68b7a148bec2f97">InstanceAmountQueryTask.treeNode</a>, and <a class="el" href="a00253.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>.</p>
+<p class="reference">References <a class="el" href="a00277.html#a7fb406750fcff703b1c7da34a23c187e">FindStyleQueryTask.amount</a>, <a class="el" href="a00289.html#a7fb406750fcff703b1c7da34a23c187e">GetStyleQueryTask.amount</a>, <a class="el" href="a00253.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00289.html#a31ed64d43142fff4a68b7a148bec2f97">GetStyleQueryTask.treeNode</a>, <a class="el" href="a00277.html#a31ed64d43142fff4a68b7a148bec2f97">FindStyleQueryTask.treeNode</a>, and <a class="el" href="a00253.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>.</p>
 
 </div>
 </div>
@@ -238,7 +238,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <span class="stringliteral">&quot;SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type &quot;</span> + str(</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                    self.treeNode.data(256)) + <span class="stringliteral">&quot; . }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            thequery=<span class="stringliteral">&quot;SELECT ?con ?style WHERE { ?con geo:style ?style . }&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> self.graph!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> self.graph==<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            results=self.graph.<a class="code" href="a00317.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a>(thequery)</div>
@@ -250,7 +250,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00277.html#a7fb406750fcff703b1c7da34a23c187e">InstanceAmountQueryTask.amount</a>, <a class="el" href="a00253.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00269.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00277.html#a8ca49c796430e66a10450bfc2d218c81">InstanceAmountQueryTask.graph</a>, <a class="el" href="a00257.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a00277.html#a31ed64d43142fff4a68b7a148bec2f97">InstanceAmountQueryTask.treeNode</a>, <a class="el" href="a00253.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>, <a class="el" href="a00277.html#a9b8734be629bbc1f64723d90a67861ab">InstanceAmountQueryTask.triplestoreurl</a>, <a class="el" href="a00261.html#a9b8734be629bbc1f64723d90a67861ab">DataSampleQueryTask.triplestoreurl</a>, <a class="el" href="a00253.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00281.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00273.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00265.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaQueryTask.triplestoreurl</a>, <a class="el" href="a00285.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00269.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, <a class="el" href="a00249.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, and <a class="el" href="a00205.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaDialog.triplestoreurl</a>.</p>
+<p class="reference">References <a class="el" href="a00277.html#a7fb406750fcff703b1c7da34a23c187e">FindStyleQueryTask.amount</a>, <a class="el" href="a00289.html#a7fb406750fcff703b1c7da34a23c187e">GetStyleQueryTask.amount</a>, <a class="el" href="a00253.html#a7fb406750fcff703b1c7da34a23c187e">ClassTreeQueryTask.amount</a>, <a class="el" href="a00269.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00176.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00277.html#a8ca49c796430e66a10450bfc2d218c81">FindStyleQueryTask.graph</a>, <a class="el" href="a00289.html#a8ca49c796430e66a10450bfc2d218c81">GetStyleQueryTask.graph</a>, <a class="el" href="a00261.html#a8ca49c796430e66a10450bfc2d218c81">DataSampleQueryTask.graph</a>, <a class="el" href="a00253.html#a8ca49c796430e66a10450bfc2d218c81">ClassTreeQueryTask.graph</a>, <a class="el" href="a00265.html#a8ca49c796430e66a10450bfc2d218c81">DataSchemaQueryTask.graph</a>, <a class="el" href="a00281.html#a8ca49c796430e66a10450bfc2d218c81">GeoCollectionsQueryTask.graph</a>, <a class="el" href="a00257.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, <a class="el" href="a00289.html#a31ed64d43142fff4a68b7a148bec2f97">GetStyleQueryTask.treeNode</a>, <a class="el" href="a00277.html#a31ed64d43142fff4a68b7a148bec2f97">FindStyleQueryTask.treeNode</a>, <a class="el" href="a00253.html#a31ed64d43142fff4a68b7a148bec2f97">ClassTreeQueryTask.treeNode</a>, <a class="el" href="a00289.html#a9b8734be629bbc1f64723d90a67861ab">GetStyleQueryTask.triplestoreurl</a>, <a class="el" href="a00277.html#a9b8734be629bbc1f64723d90a67861ab">FindStyleQueryTask.triplestoreurl</a>, <a class="el" href="a00261.html#a9b8734be629bbc1f64723d90a67861ab">DataSampleQueryTask.triplestoreurl</a>, <a class="el" href="a00253.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00281.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00273.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00265.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaQueryTask.triplestoreurl</a>, <a class="el" href="a00285.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00269.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, <a class="el" href="a00249.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, and <a class="el" href="a00205.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaDialog.triplestoreurl</a>.</p>
 
 </div>
 </div>
@@ -267,7 +267,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00289.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceAmountQueryTask.finished()</a>, and <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00289.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">GetStyleQueryTask.finished()</a>, <a class="el" href="a00297.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceAmountQueryTask.finished()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, and <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -315,7 +315,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">ValidateGraphTask.run()</a>, and <a class="el" href="a00301.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">ValidateGraphTask.run()</a>, and <a class="el" href="a00301.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>.</p>
 
 </div>
 </div>
@@ -331,7 +331,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00289.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceAmountQueryTask.finished()</a>, <a class="el" href="a00313.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, and <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">DataSampleQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00289.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">GetStyleQueryTask.finished()</a>, <a class="el" href="a00297.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceAmountQueryTask.finished()</a>, <a class="el" href="a00313.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SubClassQueryTask.finished()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, and <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">DataSampleQueryTask.run()</a>.</p>
 
 </div>
 </div>
@@ -347,7 +347,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00313.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00305.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00317.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, and <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00313.html#a9668aa263c374afae42279e9ac4cd94d">SubClassQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00305.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00317.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, and <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
 
 </div>
 </div>
@@ -362,7 +362,7 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00134.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00152.html">tasks</a></li><li class="navelem"><a class="el" href="a00162.html">getstyletask</a></li><li class="navelem"><a class="el" href="a00289.html">InstanceAmountQueryTask</a></li>
+    <li class="navelem"><a class="el" href="a00134.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00152.html">tasks</a></li><li class="navelem"><a class="el" href="a00162.html">getstyletask</a></li><li class="navelem"><a class="el" href="a00289.html">GetStyleQueryTask</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

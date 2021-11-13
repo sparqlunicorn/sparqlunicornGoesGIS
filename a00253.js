@@ -1,6 +1,6 @@
 var a00253 =
 [
-    [ "__init__", "a00253.html#a40af6af9d75f52a7bebc6f32610fc10f", null ],
+    [ "__init__", "a00253.html#a311bb253c4d3bf7cbff88111763b5836", null ],
     [ "buildTree", "a00253.html#a9193c13ffd068ed881199c4e1e29962b", null ],
     [ "finished", "a00253.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00253.html#ad22709b2e67308af35f55680d5a026e0", null ],
@@ -10,6 +10,7 @@ var a00253 =
     [ "classTreeViewModel", "a00253.html#ab989ae31f10de9563189455856ca3c42", null ],
     [ "dlg", "a00253.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00253.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "graph", "a00253.html#a8ca49c796430e66a10450bfc2d218c81", null ],
     [ "query", "a00253.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "rootNode", "a00253.html#a057f9de4afe85dad22a6bedc06424f58", null ],
     [ "subclassmap", "a00253.html#a65517ccb946882a1e90baa82c94621cf", null ],
