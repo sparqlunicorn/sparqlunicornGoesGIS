@@ -19,16 +19,9 @@ ResponseType = 'code'
 Headers = {'client_id': ClientId, 'redirect_uri': RedirectScheme+RedirectUrl, 'response_type': ResponseType,
            'scope': str.join(' ', Scopes)}
 
-AuthUrl = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(
-    headers=urlencode(Headers))
+AuthUrl = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(headers=urlencode(Headers))
 
 AuthUrl={"orcid":"","google":"","gitlabcom":"","github":""}
-
-class RequestInterceptor(QWebEngineUrlRequestInterceptor):
-
-    def __init__(self, app):
-        super(RequestInterceptor, self).__init__()
-        self.app = app
 
 class RequestInterceptor(QWebEngineUrlRequestInterceptor):
 

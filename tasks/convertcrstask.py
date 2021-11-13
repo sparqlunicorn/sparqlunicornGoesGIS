@@ -1,5 +1,7 @@
 from rdflib import *
+from osgeo import ogr
 from ..util.sparqlutils import SPARQLUtils
+from ..util.crsexporttools import ConvertCRS
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog, QFileDialog
@@ -19,13 +21,14 @@ class ConvertCRSTask(QgsTask):
         self.progress = progress
         self.filename = filename
         self.crsdef = crsdef
+        self.crsdefs={}
         self.dialog = dialog
         self.convertFrom=convertFrom
         self.convertTo=convertTo
 
     def processLiteral(self, literal, literaltype, reproject, projectto):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype) + " " + str(reproject))
-        QgsMessageLog.logMessage("REPROJECT: " + str(reproject))
+        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype) + " " + str(reproject), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("REPROJECT: " + str(reproject), MESSAGE_CATEGORY, Qgis.Info)
         geom = None
         if literaltype == "" or literaltype == None:
             literaltype = SPARQLUtils.detectLiteralType(literal)
@@ -39,8 +42,8 @@ class ConvertCRSTask(QgsTask):
             else:
                 reproject = "CRS84"
                 geom = QgsGeometry.fromWkt(literal)
-        # elif "gml" in literaltype.lower():
-        #    geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+        elif "gml" in literaltype.lower():
+            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
         elif "wkb" in literaltype.lower():
             geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom != None and projectto != None:
@@ -49,10 +52,14 @@ class ConvertCRSTask(QgsTask):
             else:
                 sourceCrs = QgsCoordinateReferenceSystem("CRS:84")
             destCrs = QgsCoordinateReferenceSystem(projectto)
+            QgsMessageLog.logMessage("CRS: " + str(destCrs.authid()), MESSAGE_CATEGORY, Qgis.Info)
+            if str(destCrs.authid()) not in self.crsdefs:
+                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),"")
             QgsMessageLog.logMessage('PROJECTIT ' + str(sourceCrs.description()) + " " + str(projectto.description()),
                                      MESSAGE_CATEGORY, Qgis.Info)
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
             geom.transform(tr)
+        QgsMessageLog.logMessage("CRS: " + str(self.crsdefs), MESSAGE_CATEGORY, Qgis.Info)
         if geom != None and "wkt" in literaltype.lower():
             return "<http://www.opengis.net/def/crs/EPSG/0/" + str(
                 str(projectto.authid())[str(projectto.authid()).rfind(':') + 1:]) + "> " + geom.asWkt()
@@ -75,7 +82,7 @@ class ConvertCRSTask(QgsTask):
                     QgsMessageLog.logMessage('ISLITERAL "{}"'.format(o) + " - " + str(o.datatype), MESSAGE_CATEGORY,
                                              Qgis.Info)
                     QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)
-                    if str(o.datatype) in self.supportedLiteralTypes:
+                    if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
                         QgsMessageLog.logMessage('ISGEOLITERAL "{}"'.format(self.graph), MESSAGE_CATEGORY, Qgis.Info)
                         newliteral = Literal(self.processLiteral(o, o.datatype, "", self.crsdef), datatype=o.datatype)
                         self.graph.set((s, p, newliteral))
@@ -92,6 +99,8 @@ class ConvertCRSTask(QgsTask):
         if fileName:
             fo = open(fileName, "w")
             fo.write(self.graph.serialize(format="turtle").decode())
+            for crs in self.crsdefs:
+                fo.write(self.crsdefs[crs])
             fo.close()
         iface.messageBar().pushMessage("Save converted file", "OK", level=Qgis.Success)
         self.dialog.close()

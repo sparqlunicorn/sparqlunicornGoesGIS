@@ -2,6 +2,12 @@ import pyproj
 import csv
 from rdflib import Graph
 from pyproj import CRS
+from qgis.core import Qgis
+from qgis.core import (
+    QgsApplication, QgsTask, QgsMessageLog,
+)
+
+MESSAGE_CATEGORY = 'ExportCRSTools'
 
 units = {}
 units["m"] = "om:meter"
@@ -155,12 +161,14 @@ class ConvertCRS:
 		self.ttlhead += "@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .\n"
 	
 	def convertCRSFromEPSG(self,epsgcode,ttl):
+		if "EPSG:" in epsgcode:
+			epsgcode=epsgcode.replace("EPSG:","")
 		try:
-			curcrs=CRS.from_epsg(epsgcode)
+			curcrs=CRS.from_epsg(int(epsgcode))
 			print("EPSG: "+str(epsgcode))
 			self.crsToTTL(ttl, curcrs, epsgcode, 1, None)
 		except:
-			print("Could not parse EPSG code")
+			QgsMessageLog.logMessage("Could not parse EPSG code "+str(epsgcode), MESSAGE_CATEGORY, Qgis.Info)
 		return ttl
 	
 	def convertCRSFromWKTString(self,wkt,ttl):
@@ -168,7 +176,7 @@ class ConvertCRS:
 			curcrs=CRS.from_wkt(wkt)
 			self.crsToTTL(ttl, curcrs, "WKT", 1, None)
 		except:
-			print("Could not parse WKT")
+			QgsMessageLog.logMessage("Could not parse WKT "+str(wkt), MESSAGE_CATEGORY, Qgis.Info)
 		return ttl
 	
 	def crsToTTL(self,ttl,curcrs,x,geodcounter,crsclass):
