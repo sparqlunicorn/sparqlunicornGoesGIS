@@ -2,7 +2,7 @@ var hierarchy =
 [
     [ "ConvertCRS", "a00329.html", null ],
     [ "EnrichmentTab", "a00321.html", null ],
-    [ "FORM_CLASS", "a00905.html", [
+    [ "FORM_CLASS", "a00909.html", [
       [ "BBOXDialog", "a00197.html", null ],
       [ "ConvertCRSDialog", "a00201.html", null ],
       [ "DataSchemaDialog", "a00205.html", null ],
@@ -25,10 +25,11 @@ var hierarchy =
     [ "SPARQLunicorn", "a00185.html", null ],
     [ "SPARQLUtils", "a00361.html", null ],
     [ "StyleObject", "a00365.html", null ],
+    [ "StyleUtils", "a00369.html", null ],
     [ "UserMetaData", "a00349.html", null ],
     [ "QCompleter", null, [
       [ "SPARQLCompleter", "a00189.html", null ],
-      [ "SPARQLCompleter", "a00369.html", null ]
+      [ "SPARQLCompleter", "a00373.html", null ]
     ] ],
     [ "QDialog", null, [
       [ "BBOXDialog", "a00197.html", null ],
@@ -71,7 +72,7 @@ var hierarchy =
       [ "NominatimText", "a00193.html", null ]
     ] ],
     [ "QPlainTextEdit", null, [
-      [ "ToolTipPlainText", "a00377.html", null ]
+      [ "ToolTipPlainText", "a00381.html", null ]
     ] ],
     [ "QSortFilterProxyModel", null, [
       [ "DiffFilterProxyModel", "a00221.html", null ]
@@ -88,6 +89,6 @@ var hierarchy =
       [ "LoginWindow", "a00213.html", null ]
     ] ],
     [ "QWidget", null, [
-      [ "LineNumberArea", "a00373.html", null ]
+      [ "LineNumberArea", "a00377.html", null ]
     ] ]
 ];

@@ -227,14 +227,15 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        options |= QFileDialog.DontUseNativeDialog</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        fileName, _ = QFileDialog.getSaveFileName(self.dialog, <span class="stringliteral">&quot;QFileDialog.getSaveFileName()&quot;</span>, <span class="stringliteral">&quot;&quot;</span>,</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                  <span class="stringliteral">&quot;All Files (*);;Text Files (*.ttl)&quot;</span>, options=options)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span> fileName:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span> fileName <span class="keywordflow">and</span> self.graph!=<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            fo = open(fileName, <span class="stringliteral">&quot;w&quot;</span>)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            fo.write(self.graph.serialize(format=<span class="stringliteral">&quot;turtle&quot;</span>).decode())</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">for</span> crs <span class="keywordflow">in</span> self.crsdefs:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                fo.write(self.crsdefs[crs])</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            fo.close()</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Save converted file&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.dialog.close()</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            fo.write(ConvertCRS().ttlhead)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            fo.write(self.graph.serialize(format=<span class="stringliteral">&quot;turtle&quot;</span>).decode())</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">for</span> crs <span class="keywordflow">in</span> self.crsdefs:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                fo.write(self.crsdefs[crs])</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            fo.close()</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Save converted file&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        self.dialog.close()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00257.html#a40e92e9aad5a9dbd477d921260a4a33f">ConvertCRSTask.crsdefs</a>, <a class="el" href="a00257.html#a3d2da04d187a7112445f18a9f20b39ef">ConvertCRSTask.dialog</a>, <a class="el" href="a00253.html#a8ca49c796430e66a10450bfc2d218c81">ClassTreeQueryTask.graph</a>, <a class="el" href="a00257.html#a8ca49c796430e66a10450bfc2d218c81">ConvertCRSTask.graph</a>, and <a class="el" href="a00257.html#a991fd2c404665f13f536fc7791e53504">ConvertCRSTask.progress</a>.</p>
 
@@ -311,7 +312,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            destCrs = QgsCoordinateReferenceSystem(projectto)</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&quot;CRS: &quot;</span> + str(destCrs.authid()), MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> str(destCrs.authid()) <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.crsdefs:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),destCrs.authid(),set())</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;PROJECTIT &#39;</span> + str(sourceCrs.description()) + <span class="stringliteral">&quot; &quot;</span> + str(projectto.description()),</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                     MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())</div>
@@ -493,7 +494,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">ConvertCRSTask.finished()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00277.html#ad22709b2e67308af35f55680d5a026e0">FindStyleQueryTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">ValidateGraphTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">DataSchemaQueryTask.run()</a>, <a class="el" href="a00301.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, and <a class="el" href="a00281.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">ConvertCRSTask.finished()</a>, <a class="el" href="a00277.html#ad22709b2e67308af35f55680d5a026e0">FindStyleQueryTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00289.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">ValidateGraphTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">DataSchemaQueryTask.run()</a>, <a class="el" href="a00301.html#ad22709b2e67308af35f55680d5a026e0">LoadGraphTask.run()</a>, and <a class="el" href="a00281.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>.</p>
 
 </div>
 </div>

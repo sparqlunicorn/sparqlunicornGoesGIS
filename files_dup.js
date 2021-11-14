@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00910.html", null ],
-    [ "tasks/__init__.py", "a00913.html", null ],
-    [ "util/__init__.py", "a00916.html", null ],
+    [ "dialogs/__init__.py", "a00914.html", null ],
+    [ "tasks/__init__.py", "a00917.html", null ],
+    [ "util/__init__.py", "a00920.html", null ],
     [ "bboxdialog.py", "a00014.html", "a00014" ],
     [ "classtreequerytask.py", "a00053.html", "a00053" ],
     [ "convertcrsdialog.py", "a00017.html", "a00017" ],
@@ -49,12 +49,14 @@ var files_dup =
     [ "styleobject.py", "a00125.html", [
       [ "StyleObject", "a00365.html", "a00365" ]
     ] ],
-    [ "styleutils.py", "a00128.html", "a00128" ],
+    [ "styleutils.py", "a00128.html", [
+      [ "StyleUtils", "a00369.html", "a00369" ]
+    ] ],
     [ "subclassquerytask.py", "a00098.html", "a00098" ],
     [ "tooltipplaintext.py", "a00131.html", [
-      [ "SPARQLCompleter", "a00369.html", "a00369" ],
-      [ "LineNumberArea", "a00373.html", "a00373" ],
-      [ "ToolTipPlainText", "a00377.html", "a00377" ]
+      [ "SPARQLCompleter", "a00373.html", "a00373" ],
+      [ "LineNumberArea", "a00377.html", "a00377" ],
+      [ "ToolTipPlainText", "a00381.html", "a00381" ]
     ] ],
     [ "triplestoredialog.py", "a00035.html", "a00035" ],
     [ "triplestorequickadddialog.py", "a00038.html", "a00038" ],

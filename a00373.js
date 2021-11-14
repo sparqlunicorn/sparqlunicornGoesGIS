@@ -1,7 +1,8 @@
 var a00373 =
 [
-    [ "__init__", "a00373.html#a3eea7d74a4d095189d6d6f594ccc5323", null ],
-    [ "paintEvent", "a00373.html#ad0dbab7bd24945a905fb1bc8883b7cab", null ],
-    [ "sizeHint", "a00373.html#aff1e7c8521d73ca3ac484759bf2b7597", null ],
-    [ "myeditor", "a00373.html#a983609a19489c1366ce7f6dc2e19534b", null ]
+    [ "__init__", "a00373.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
+    [ "getSelected", "a00373.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
+    [ "setHighlighted", "a00373.html#a47706ce8363cc5ef40a774d742500b7f", null ],
+    [ "insertText", "a00373.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
+    [ "lastSelected", "a00373.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ]
 ];
