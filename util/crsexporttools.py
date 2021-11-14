@@ -159,27 +159,38 @@ class ConvertCRS:
 		self.ttlhead += "@prefix dc: <http://purl.org/dc/elements/1.1/> .\n"
 		self.ttlhead += "@prefix wd: <http://www.wikidata.org/entity/> .\n"
 		self.ttlhead += "@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .\n"
-	
-	def convertCRSFromEPSG(self,epsgcode,ttl):
+
+	@staticmethod
+	def convertCRSFromEPSG(epsgcode,ttl):
 		if "EPSG:" in epsgcode:
 			epsgcode=epsgcode.replace("EPSG:","")
 		try:
 			curcrs=CRS.from_epsg(int(epsgcode))
 			print("EPSG: "+str(epsgcode))
-			self.crsToTTL(ttl, curcrs, epsgcode, 1, None)
+			ttl+=ConvertCRS.crsToTTL(ttl, curcrs, epsgcode, 1, None)
 		except:
 			QgsMessageLog.logMessage("Could not parse EPSG code "+str(epsgcode), MESSAGE_CATEGORY, Qgis.Info)
 		return ttl
-	
-	def convertCRSFromWKTString(self,wkt,ttl):
+
+	@staticmethod
+	def convertCRSFromWKTString(wkt,authcode,ttl):
+		if "EPSG:" in authcode:
+			authcode=authcode.replace("EPSG:","")
 		try:
 			curcrs=CRS.from_wkt(wkt)
-			self.crsToTTL(ttl, curcrs, "WKT", 1, None)
+			QgsMessageLog.logMessage("Parsed WKT " + str(curcrs), MESSAGE_CATEGORY, Qgis.Info)
+			if authcode!=None and authcode!="":
+				res=ConvertCRS.crsToTTL(ttl, curcrs, authcode, 1, None)
+			else:
+				res=ConvertCRS.crsToTTL(ttl, curcrs, "WKT", 1, None)
+			QgsMessageLog.logMessage("Parsed WKT Res " + str(res), MESSAGE_CATEGORY, Qgis.Info)
+			ttl="".join(res)
 		except:
 			QgsMessageLog.logMessage("Could not parse WKT "+str(wkt), MESSAGE_CATEGORY, Qgis.Info)
 		return ttl
-	
-	def crsToTTL(self,ttl,curcrs,x,geodcounter,crsclass):
+
+	@staticmethod
+	def crsToTTL(ttl,curcrs,x,geodcounter,crsclass):
 		epsgcode=str(x)
 		wkt=curcrs.to_wkt().replace("\"","'").strip()
 		if crsclass is not None:

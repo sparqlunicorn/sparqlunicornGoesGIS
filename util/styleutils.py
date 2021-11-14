@@ -3,10 +3,12 @@ from qgis.core import (
 )
 from styleobject import StyleObject
 
-@staticmethod
-def convertRDFStyleToSLD(results):
-    curStyleObject=StyleObject()
-    for result in results["results"]["bindings"]:
-        if "style" in result:
-            curStyleObject.styleId=result["style"]
-    return True
+class StyleUtils:
+
+    @staticmethod
+    def convertRDFStyleToSLD(results):
+        curStyleObject=StyleObject()
+        for result in results["results"]["bindings"]:
+            if "style" in result:
+                curStyleObject.styleId=result["style"]
+        return True

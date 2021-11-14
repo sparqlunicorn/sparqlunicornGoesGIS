@@ -1,4 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
+from ..util.styleobject import StyleObject
 from qgis.core import Qgis
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
@@ -8,11 +9,12 @@ MESSAGE_CATEGORY = 'GetStyleQueryTask'
 
 class GetStyleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,styleuri=None,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
+        self.styleuri=styleuri
         self.graph=graph
         self.treeNode=treeNode
         self.amount=-1
@@ -22,28 +24,53 @@ class GetStyleQueryTask(QgsTask):
         thequery=""
         if "wikidata" in self.triplestoreurl:
             wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
-                    wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . "+"OPTIONAL { ?style geost:polygonStyle ?polygonStyle .} ?style  geost:fillOpacity }"
+            thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <http://www.wikidata.org/entity/"+str(wikicon)+"> geo:style <"+str(self.styleuri)+"> . "+ \
+                     "OPTIONAL {?style geost:pointStyle ?pointstyle. }\n"+\
+                     "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
+                     "OPTIONAL { ?style geost: polygonStyle ?polygonstyle. }\n"+\
+                     "OPTIONAL { ?style geost:image ?img. }\n"+\
+                     "OPTIONAL { ?style geost:linestringImageStyle ?linestringImageStyle. }\n"+\
+                     "OPTIONAL { ?style geost:linestringImage ?linestringImage. }\n"+\
+                     "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
+                     "}"
         else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
-                    self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?style WHERE { ?con geo:style ?style . }"
+            con=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
+            thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <http://www.wikidata.org/entity/"+str(con)+"> geo:style <"+str(self.styleuri)+"> . "+ \
+                     "OPTIONAL {?style geost:pointStyle ?pointstyle. }\n"+\
+                     "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
+                     "OPTIONAL { ?style geost:polygonStyle ?polygonstyle. }\n"+\
+                     "OPTIONAL { ?style geost:image ?img. }\n"+\
+                     "OPTIONAL { ?style geost:linestringImageStyle ?linestringImageStyle. }\n"+\
+                     "OPTIONAL { ?style geost:linestringImage ?linestringImage. }\n"+\
+                     "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
+                     "}"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
             results=self.graph.query(thequery)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        if results != False:
-            self.amount = results["results"]["bindings"][0]["amount"]["value"]
-        else:
-            self.amount=0
+        self.resultstyles=[]
+        self.resultstyles.append(StyleObject())
+        resstylecounter=0
+        for result in results["results"]["bindings"]:
+            if "style" in result:
+                self.resultstyles[resstylecounter].styleId=result["style"]["value"]
+            if "pointstyle" in result:
+                self.resultstyles[resstylecounter].pointStyle=result["pointstyle"]["value"]
+            if "img" in result:
+                self.resultstyles[resstylecounter].pointImage=result["img"]["value"]
+            if "linestyle" in result:
+                self.resultstyles[resstylecounter].lineStringStyle=result["linestyle"]["value"]
+            if "linestringImage" in result:
+                self.resultstyles[resstylecounter].lineStringImage=result["linestringImage"]["value"]
+            if "polygonstyle" in result:
+                self.resultstyles[resstylecounter].polygonStyle=result["polygonstyle"]["value"]
+            if "hatch" in result:
+                self.resultstyles[resstylecounter].hatch=result["hatch"]["value"]
         return True
 
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
-        if self.amount!=-1:
-            self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
+            self.treeNode.text()+" ["+str(self.resultstyles)+"]"), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.treeNode.text()+" ["+str(self.resultstyles[0].toSLD(""))+"]"), MESSAGE_CATEGORY, Qgis.Info)

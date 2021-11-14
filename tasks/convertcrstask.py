@@ -54,7 +54,7 @@ class ConvertCRSTask(QgsTask):
             destCrs = QgsCoordinateReferenceSystem(projectto)
             QgsMessageLog.logMessage("CRS: " + str(destCrs.authid()), MESSAGE_CATEGORY, Qgis.Info)
             if str(destCrs.authid()) not in self.crsdefs:
-                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),"")
+                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),destCrs.authid(),set())
             QgsMessageLog.logMessage('PROJECTIT ' + str(sourceCrs.description()) + " " + str(projectto.description()),
                                      MESSAGE_CATEGORY, Qgis.Info)
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
@@ -96,8 +96,9 @@ class ConvertCRSTask(QgsTask):
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "",
                                                   "All Files (*);;Text Files (*.ttl)", options=options)
-        if fileName:
+        if fileName and self.graph!=None:
             fo = open(fileName, "w")
+            fo.write(ConvertCRS().ttlhead)
             fo.write(self.graph.serialize(format="turtle").decode())
             for crs in self.crsdefs:
                 fo.write(self.crsdefs[crs])
