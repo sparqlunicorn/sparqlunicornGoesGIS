@@ -1,8 +1,9 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/icons/earthinstance.png</file>
     <file>resources/icons/class.png</file>
     <file>resources/icons/sparqlunicorn.png</file>
-    <file>resources/icons/earth.svg</file>
     <file>resources/icons/instance.png</file>
+    <file>resources/icons/geoclass.png</file>
   </qresource>
 </RCC>

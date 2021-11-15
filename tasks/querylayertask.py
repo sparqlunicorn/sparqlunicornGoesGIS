@@ -1,5 +1,5 @@
 import json
-import ogr
+from osgeo import ogr
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
 from qgis.core import Qgis

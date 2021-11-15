@@ -54,7 +54,11 @@ class InstanceListQueryTask(QgsTask):
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
-            item.setData("Instance",257)
-            item.setIcon(QIcon(":/icons/resources/icons/instance.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+            if self.treeNode.data(257)=="GeoClass":
+                item.setData("Instance",257)
+                item.setIcon(QIcon(":/icons/resources/icons/earthinstance.png"))            
+            else:
+                item.setData("Instance",257)
+                item.setIcon(QIcon(":/icons/resources/icons/instance.png"))
             item.setText(self.queryresult[concept]["label"])
             self.treeNode.appendRow(item)

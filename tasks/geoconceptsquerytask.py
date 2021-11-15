@@ -70,8 +70,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-                item.setData("Class", 257)
+                item.setIcon(QIcon(":/icons/resources/icons/geoclass.png"))
+                item.setData("GeoClass", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
@@ -97,8 +97,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-                item.setData("Class", 257)
+                item.setIcon(QIcon(":/icons/resources/icons/geoclass.png"))
+                item.setData("GeoClass", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":

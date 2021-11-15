@@ -1082,7 +1082,8 @@ SELECT ?label ?geo ?item WHERE {
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+ </resources>
  <connections>
   <connection>
    <sender>button_box</sender>
