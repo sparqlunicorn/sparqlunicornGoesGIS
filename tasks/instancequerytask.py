@@ -24,9 +24,9 @@ class InstanceQueryTask(QgsTask):
         thequery=""
         if "wikidata" in self.triplestoreurl:
             QgsMessageLog.logMessage('Started task "{}"'.format(
-                "WIKIDATA: SELECT ?con ?rel ?val WHERE { http://www.wikidata.org/entity/" + str(
+                "WIKIDATA: SELECT ?rel ?val WHERE { http://www.wikidata.org/entity/" + str(
                     self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?rel ?val WHERE { <http://www.wikidata.org/entity/" + str(
+            thequery="SELECT ?rel ?val WHERE { <http://www.wikidata.org/entity/" + str(
                     self.searchTerm) + ">  ?rel ?val . }"
         else:
             QgsMessageLog.logMessage('Started task "{}"'.format(
