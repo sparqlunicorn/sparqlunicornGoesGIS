@@ -1,7 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtGui import QStandardItem, QIcon
-from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.core import Qgis
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
@@ -40,7 +38,7 @@ class InstanceListQueryTask(QgsTask):
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
         else:
             results=self.graph.query(thequery)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
             if "label" in result:
