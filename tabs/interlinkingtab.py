@@ -2,6 +2,7 @@ from qgis.core import QgsProject
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.core import Qgis
+from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog
 
 

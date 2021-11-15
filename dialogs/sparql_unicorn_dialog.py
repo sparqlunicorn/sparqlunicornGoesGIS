@@ -42,13 +42,14 @@ from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
-from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
+from ..tasks.instancelistquerytask import InstanceListQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.dataschemadialog import DataSchemaDialog
+from ..dialogs.instancedatadialog import InstanceDataDialog
 from ..dialogs.loadgraphdialog import LoadGraphDialog
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
@@ -56,31 +57,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
 
 MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
-
-
-class DiffFilterProxyModel(QSortFilterProxyModel):
-    def filterAcceptsRow(self, source_row, source_parent):
-        # Check if the model is valid
-        model = self.sourceModel()
-        if model is None:
-            return False
-
-        # get index for first column of the row
-        src_index = model.index(source_row, 0, source_parent)
-
-        # recursively compare the values in tree
-        for i in range (model.rowCount(src_index)):
-            child_index = src_index.child(i, 0)
-            c1 = child_index.sibling(child_index.row(), 1).data()
-            c2 = child_index.sibling(child_index.row(), 2).data()
-
-            if (c1 != c2 or self.filterAcceptsRow(i, src_index)):
-                return super(DiffFilterProxyModel, self).filterAcceptsRow(source_row, source_parent)                                                   
-
-        c1 = src_index.sibling(src_index.row(), 1).data()
-        c2 = src_index.sibling(src_index.row(), 2).data()
-
-        return c1 != c2 and super(DiffFilterProxyModel, self).filterAcceptsRow(source_row, source_parent)
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
@@ -272,6 +248,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.createMenu(position)
 
     def createMenu(self,position):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        label = self.currentContextModel.itemFromIndex(curindex).text()
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -279,20 +257,36 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
-        actioninstancecount=QAction("Check instance count")
-        menu.addAction(actioninstancecount)
-        actioninstancecount.triggered.connect(self.instanceCount)
-        actiondataschema=QAction("Query data schema")
-        menu.addAction(actiondataschema)
-        actiondataschema.triggered.connect(self.dataSchemaView)
-        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            action2 = QAction("Load subclasses")
-            menu.addAction(action2)
-            action2.triggered.connect(self.loadSubClasses)
-        actionsubclassquery=QAction("Create subclass query")
-        menu.addAction(actionsubclassquery)
-        actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+        if "[Ind]" not in label:
+            actioninstancecount=QAction("Check instance count")
+            menu.addAction(actioninstancecount)
+            actioninstancecount.triggered.connect(self.instanceCount)
+            actiondataschema = QAction("Query data schema")
+            menu.addAction(actiondataschema)
+            actiondataschema.triggered.connect(self.dataSchemaView)
+            actionqueryinstances = QAction("Query instances")
+            menu.addAction(actionqueryinstances)
+            actionqueryinstances.triggered.connect(self.instanceList)
+            if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
+                action2 = QAction("Load subclasses")
+                menu.addAction(action2)
+                action2.triggered.connect(self.loadSubClasses)
+            actionsubclassquery = QAction("Create subclass query")
+            menu.addAction(actionsubclassquery)
+            actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+        else:
+            actiondataschema = QAction("Query data")
+            menu.addAction(actiondataschema)
+            actiondataschema.triggered.connect(self.dataInstanceView)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
+        """
+        actionapplicablestyles=QAction("Find applicable styles")
+        menu.addAction(actionapplicablestyles)
+        actionapplicablestyles.triggered.connect(self.appStyles)
+        """
+
+
+
 
 
     def onContext4(self, position):
@@ -324,6 +318,16 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
+    def instanceList(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        label = self.currentContextModel.itemFromIndex(curindex).text()
+        if True: # or self.currentContextModel.itemFromIndex(curindex).childCount()==0:
+            self.qtaskinstanceList = InstanceListQueryTask(
+                "Getting instance count for " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+            QgsApplication.taskManager().addTask(self.qtaskinstanceList)
+
     def dataSchemaView(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
@@ -331,6 +335,22 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
         self.dataschemaDialog.exec_()
+
+    def dataInstanceView(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        label = self.currentContextModel.itemFromIndex(curindex).text()
+        self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        self.instancedataDialog.setWindowTitle("Data Schema View for "+str(concept))
+        self.instancedataDialog.exec_()
+
+    def appStyles(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        label = self.currentContextModel.itemFromIndex(curindex).text()
+        #self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        #self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
+        #self.dataschemaDialog.exec_()
 
     def loadSubClasses(self):
         print("Load SubClasses")

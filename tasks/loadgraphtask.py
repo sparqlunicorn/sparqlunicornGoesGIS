@@ -1,16 +1,11 @@
-from rdflib import *
 from ..util.sparqlutils import SPARQLUtils
-import urllib
 from qgis.PyQt.QtGui import QStandardItem
-from qgis.PyQt.QtCore import QSettings
-from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QCompleter, QMessageBox
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
 
 MESSAGE_CATEGORY = 'LoadGraphTask'
-
 
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class LoadGraphTask(QgsTask):

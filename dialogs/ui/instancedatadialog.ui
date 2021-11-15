@@ -6,30 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>953</width>
-    <height>458</height>
+    <width>977</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="okButton">
+  <widget class="QLabel" name="instanceDataViewLabel">
    <property name="geometry">
     <rect>
-     <x>860</x>
-     <y>410</y>
-     <width>83</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ok</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dataSchemaViewLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
+     <x>30</x>
      <y>10</y>
      <width>201</width>
      <height>20</height>
@@ -43,13 +30,13 @@
     </font>
    </property>
    <property name="text">
-    <string>Data Schema View for</string>
+    <string>Data View for Instance</string>
    </property>
   </widget>
-  <widget class="QLabel" name="dataSchemaNameLabel">
+  <widget class="QLabel" name="instanceDataNameLabel">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>250</x>
      <y>10</y>
      <width>491</width>
      <height>20</height>
@@ -69,10 +56,10 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTableWidget" name="dataSchemaTableView">
+  <widget class="QTableWidget" name="instanceDataTableView">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>30</x>
      <y>50</y>
      <width>921</width>
      <height>341</height>
@@ -109,7 +96,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Sample Instances</string>
+     <string>Value</string>
     </property>
    </column>
   </widget>
@@ -118,12 +105,35 @@
     <rect>
      <x>10</x>
      <y>430</y>
-     <width>821</width>
+     <width>491</width>
      <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="okButton">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>420</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ok</string>
    </property>
   </widget>
  </widget>

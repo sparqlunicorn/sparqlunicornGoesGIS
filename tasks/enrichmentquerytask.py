@@ -1,7 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
+from ..util.layerutils import LayerUtils
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import Qgis, QgsField
-from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtWidgets import QMessageBox, QTableWidgetItem
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -103,39 +103,12 @@ class EnrichmentQueryTask(QgsTask):
             else:
                 self.resultmap[resultcounter["vals"]["value"]] = resultcounter["valLabel"]["value"] + ";" + \
                                                                  resultcounter["val"]["value"]
-        self.columntype = self.detectColumnType(self.resultmap, self.table)
+        self.columntype = LayerUtils.detectColumnType(self.resultmap)
         QgsMessageLog.logMessage(str(self.columntype),
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage(str(self.resultmap),
                                  MESSAGE_CATEGORY, Qgis.Info)
         return True
-
-    ## Detects the type of a column which is to be entered into a QGIS vector layer.
-    #  @param self The object pointer.
-    #  @param table the layer to analyze
-    # the column to consider
-    def detectColumnType(self, resultmap, table):
-        intcount = 0
-        doublecount = 0
-        for res in resultmap:
-            if resultmap[res] == None or resultmap[res] == "":
-                intcount += 1
-                doublecount += 1
-                continue
-            if resultmap[res].isdigit():
-                intcount += 1
-            try:
-                float(resultmap[res])
-                doublecount += 1
-            except:
-                print("")
-        QgsMessageLog.logMessage(str(intcount) + " - " + str(doublecount) + " - " + str(len(resultmap)),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        if intcount == len(resultmap):
-            return QVariant.Int
-        if doublecount == len(resultmap):
-            return QVariant.Double
-        return QVariant.String
 
     ## Writes the result of the enrichment task to the result table in the main view.
     # @param self The object pointer

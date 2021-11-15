@@ -20,6 +20,7 @@ class DataSampleQueryTask(QgsTask):
         self.concept=concept
         self.relation=relation
         self.queryresult={}
+        self.encounteredtypes=set()
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
@@ -38,10 +39,13 @@ class DataSampleQueryTask(QgsTask):
         for result in results["results"]["bindings"]:
             QgsMessageLog.logMessage('Started task "{}"'.format(result), MESSAGE_CATEGORY, Qgis.Info)
             self.queryresult[result["val"]["value"]]={}
-            self.queryresult[result["val"]["value"]]["label"]=result["val"]["value"][result["val"]["value"].rfind('/') + 1:]
+            self.queryresult[result["val"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["val"]["value"])
             self.queryresult[result["val"]["value"]]["amount"]=result["amount"]["value"]
             if "datatype" in result["val"]:
                 self.queryresult[result["val"]["value"]]["datatype"]=result["val"]["datatype"]
+                self.encounteredtypes.add(self.queryresult[result["val"]["value"]]["datatype"])
+            else:
+                self.encounteredtypes.add("http://www.w3.org/2001/XMLSchema#anyURI")
         return True
 
     def finished(self,result):

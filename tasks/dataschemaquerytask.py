@@ -85,6 +85,8 @@ class DataSchemaQueryTask(QgsTask):
         return True
 
     def finished(self, result):
+        while self.searchResult.rowCount()>0:
+            self.searchResult.removeRow(0)
         self.searchResult.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
@@ -116,6 +118,16 @@ class DataSchemaQueryTask(QgsTask):
                         itembutton.setText("Click to load samples...")
                         self.searchResult.setItem(counter, 1, itembutton)
                     counter += 1
+                """
+                self.searchResult.insertRow(counter)
+                item = QTableWidgetItem()
+                item.setText("Associated styles")
+                item.setData(256, self.searchTerm)
+                self.searchResult.setItem(counter, 0, item)
+                itembutton = QTableWidgetItem()
+                itembutton.setText("Click to load styles...")
+                self.searchResult.setItem(counter, 1, itembutton)
+                """
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

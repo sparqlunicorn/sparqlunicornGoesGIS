@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST
 import urllib
+import requests
 import sys
 from urllib.request import urlopen
 import json
@@ -12,7 +13,6 @@ MESSAGE_CATEGORY = "SPARQLUtils"
 
 
 class SPARQLUtils:
-    
     supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral": "wkt",
                              "http://www.opengis.net/ont/geosparql#gmlLiteral": "gml",
                              "http://www.opengis.net/ont/geosparql#wkbLiteral": "wkb",
@@ -60,6 +60,14 @@ class SPARQLUtils:
         return results
 
     @staticmethod
+    def labelFromURI(uri):
+        if "#" in uri:
+            return uri[uri.rfind("#") + 1:]
+        if "/" in uri:
+            return uri[uri.rfind("/") + 1:]
+        return uri
+
+    @staticmethod
     def loadGraph(graphuri):
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")
@@ -83,7 +91,7 @@ class SPARQLUtils:
                 result = graph.parse(graphuri, format=filepath[len(filepath) - 1])
         except Exception as e:
             QgsMessageLog.logMessage('Failed "{}"'.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)
-            #self.exception = str(e)
+            # self.exception = str(e)
             return None
         return graph
 
@@ -121,3 +129,43 @@ class SPARQLUtils:
             except:
                 QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(sys.exc_info()[0]))
         return None
+
+    ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
+    #  @param self The object pointer.
+    #  @param classes array of classes to find labels for
+    #  @param query the class label query
+    @staticmethod
+    def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl):
+        result = {}
+        # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        if "SELECT" in query:
+            vals = "VALUES ?class { "
+            for qid in classes:
+                vals += qid + " "
+            vals += "}\n"
+            query = query.replace("%%concepts%%", vals)
+            results = SPARQLUtils.executeQuery(triplestoreurl, query)
+            if results == False:
+                return result
+            for res in results["results"]["bindings"]:
+                result[res["class"]["value"]] = res["label"]["value"]
+        else:
+            url = triplestoreconf["classlabelquery"]
+            i = 0
+            qidquery = ""
+            for qid in classes:
+                if "Q" in qid:
+                    qidquery += "Q" + qid.split("Q")[1]
+                if (i % 50) == 0:
+                    print(url.replace("%%concepts%%", qidquery))
+                    myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
+                    print(myResponse)
+                    for ent in myResponse["entities"]:
+                        print(ent)
+                        if "en" in myResponse["entities"][ent]["labels"]:
+                            result[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                    qidquery = ""
+                else:
+                    qidquery += "|"
+                i = i + 1
+        return result

@@ -35,11 +35,10 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
 import os.path
 import sys
 from .util.sparqlutils import SPARQLUtils
+from .util.layerutils import LayerUtils
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
-import uuid
 import json
-import urllib.parse
 from rdflib import *
 
 # Initialize Qt resources from file resources.py
@@ -50,9 +49,8 @@ from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
-from .util.crsexporttools import ConvertCRS
 
-import re
+#import .resources
 
 geoconcepts = ""
 
@@ -182,7 +180,7 @@ class SPARQLunicorn:
         # a = str('numpy' in sys.modules)
         # iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
 
-        icon_path = ':/plugins/sparql_unicorn/icon.png'
+        icon_path = ':/plugins/sparql_unicorn/resources/icons/sparqlunicorn.png'
         self.add_action(
             icon_path,
             text=self.tr(u'Adds GeoJSON layer from a Wikidata'),
@@ -491,184 +489,6 @@ class SPARQLunicorn:
             self.viewlist.append(str(result["a"]["value"]))
         return self.viewlist
 
-    ## Converts a QGIS layer to TTL with or withour a given column mapping.
-    #  @param self The object pointer.
-    #  @param layer The layer to convert.
-    def layerToTTLString(self, layer, urilist=None, classurilist=None, includelist=None, proptypelist=None,
-                         valuemappings=None, valuequeries=None):
-        fieldnames = [field.name() for field in layer.fields()]
-        ttlstring=set()
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
-        first = 0
-        if self.exportNameSpace == None or self.exportNameSpace == "":
-            namespace = "http://www.github.com/sparqlunicorn#"
-        else:
-            namespace = self.exportNameSpace
-        if self.exportIdCol == "":
-            idcol = "id"
-        else:
-            idcol = self.exportIdCol
-        classcol = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        curid = ""
-        if self.exportSetClass == None or self.exportSetClass == "":
-            curclassid = namespace + str(uuid.uuid4())
-        elif self.exportSetClass.startswith("http"):
-            curclassid = self.exportSetClass
-        else:
-            curclassid = urllib.parse.quote(self.exportSetClass)
-        layercrs = layer.crs()
-        ttlstring.add("<http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                         "_") + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/crs/SpatialReferenceSystem> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                         "_") + "> <http://www.opengis.net/ont/crs/asWKT> \"" + str(
-            layercrs.toWkt()).replace("\"", "\\\"") + "\"^^<http://www.opengis.net/ont/crs/wktLiteral> .\n")
-        ttlstring.add("<http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                         "_") + "> <http://www.opengis.net/ont/crs/asProj> \"" + str(
-            layercrs.toProj4()) + "\"^^<http://www.opengis.net/ont/crs/proj4Literal> .\n")
-        ccrs=ConvertCRS()
-        ttlrstring=ccrs.convertCRSFromWKTString(layercrs.toWkt(),ttlstring)
-        for f in layer.getFeatures():
-            geom = f.geometry()
-            if not idcol in fieldnames:
-                curid = namespace + str(uuid.uuid4())
-            elif not str(f[idcol]).startswith("http"):
-                curid = namespace + str(f[idcol])
-            else:
-                curid = f[idcol]
-            if not classcol in fieldnames:
-                ttlstring.add( "<" + str(
-                    curid) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + curclassid + "> .\n")
-                if first == 0:
-                    ttlstring.add( "<" + str(
-                        curclassid) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n")
-                    ttlstring.add( "<" + str(
-                        curclassid) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-            ttlstring.add( "<" + str(
-                curid) + "> <http://www.opengis.net/ont/geosparql#hasGeometry> <" + curid + "_geom> .\n")
-            ttlstring.add( "<" + str(
-                curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> .\n")
-            ttlstring.add( "<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-            ttlstring.add( "<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n")
-            ttlstring.add( "<" + str(
-                curid) + "_geom> <http://www.opengis.net/ont/geosparql#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
-            fieldcounter = -1
-            for propp in fieldnames:
-                fieldcounter += 1
-                # if fieldcounter>=len(fieldnames):
-                #    fieldcounter=0
-                if includelist != None and fieldcounter < len(includelist) and includelist[fieldcounter] == False:
-                    continue
-                prop = propp
-                print(str(fieldcounter))
-                print(str(urilist) + "\n")
-                print(str(classurilist) + "\n")
-                print(str(includelist) + "\n")
-                if urilist != None and urilist[fieldcounter] != "":
-                    print(urilist)
-                    if not urilist[fieldcounter].startswith("http"):
-                        print("Does not start with http")
-                        prop = urllib.parse.quote(urilist[fieldcounter])
-                    else:
-                        prop = urilist[fieldcounter]
-                    print("New Prop from list: " + str(prop))
-                if prop == "id":
-                    continue
-                if not prop.startswith("http"):
-                    prop = namespace + prop
-                if prop == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in str(f[propp]):
-                    ttlstring.add( "<" + str(f[propp]) + "> <" + str(prop) + "> <http://www.w3.org/2002/07/owl#Class> .\n")
-                    ttlstring.add( "<" + str(f[
-                                               propp]) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .\n")
-
-                # elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
-                #   ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
-                #    if first<10:
-                #       ttlstring+="<"+prop+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n"
-                #       ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#domain> <"+curclassid+"> .\n"
-                #      if classurilist[fieldcounter]!="":
-                #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
-                elif prop == "http://www.w3.org/2000/01/rdf-schema#label" or prop == "http://www.w3.org/2000/01/rdf-schema#comment" or (
-                        proptypelist != None and proptypelist[fieldcounter] == "AnnotationProperty"):
-                    ttlstring.add( "<" + curid + "> <" + prop + "> \"" + str(f[propp]).replace('"',
-                                                                                             '\\"') + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                elif not f[propp] or f[propp] == None or f[propp] == "":
-                    continue
-                elif proptypelist != None and proptypelist[fieldcounter] == "SubClass":
-                    ttlstring.add( "<" + curid + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
-                        f[propp]) + "> .\n")
-                    ttlstring.add( "<" + curid + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <" + curclassid + "> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + str(f[
-                                                   propp]) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                elif valuequeries != None and propp in valuequeries:
-                    #ttlstring += ""
-                    results=SPARQLUtils.executeQuery(valuequeries[propp][1],"".join(self.prefixes[self.endpointIndex]) + valuequeries[propp][0].replace("%%" + propp + "%%",
-                                                                                                    "\"" + str(
-                                                                                                        f[
-                                                                                                            propp]) + "\""))
-                    ttlstring.add( "<" + curid + "> <" + prop + "> <" + results["results"]["bindings"][0]["item"][
-                        "value"] + "> .")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        if classurilist[fieldcounter] != "":
-                            ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[
-                                fieldcounter] + "> .\n")
-                elif valuemappings != None and propp in valuemappings and f[propp] in self.valuemappings[propp]:
-                    ttlstring.add( "<" + curid + "> <" + prop + "> <" + str(self.valuemappings[propp][f[propp]]) + "> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        if classurilist[fieldcounter] != "":
-                            ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[
-                                fieldcounter] + "> .\n")
-                elif "http" in str(f[propp]) or (
-                        proptypelist != None and proptypelist[fieldcounter] == "ObjectProperty"):
-                    ttlstring.add( "<" + curid + "> <" + prop + "> <" + str(f[propp]) + "> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        if classurilist != None and fieldcounter < len(classurilist) and classurilist[
-                            fieldcounter] != "":
-                            ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[
-                                fieldcounter] + "> .\n")
-                elif re.match(r'^-?\d+$', str(f[propp])):
-                    ttlstring.add( "<" + curid + "> <" + prop + "> \"" + str(
-                        f[propp]) + "\"^^<http://www.w3.org/2001/XMLSchema#integer> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#integer> .\n")
-                elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[propp])):
-                    ttlstring.add( "<" + curid + "> <" + prop + "> \"" + str(
-                        f[propp]) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
-                    if first:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#double> .\n")
-                else:
-                    ttlstring.add( "<" + curid + "> <" + prop + "> \"" + str(f[propp]).replace('"',
-                                                                                             '\\"') + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n")
-                    if first < 10:
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        ttlstring.add( "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .\n")
-            if first < 10:
-                first = first + 1
-        return ccrs.ttlhead+"".join(ttlstring)
-
     def exportLayer2(self):
         self.exportLayer(None, None, None, None, None, None, self.dlg.exportTripleStore_2.isChecked())
 
@@ -683,7 +503,7 @@ class SPARQLunicorn:
             selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         if exportToTripleStore:
-            ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+            ttlstring = LayerUtils.layerToTTLString(layer,"".join(self.prefixes[self.dlg.comboBox.currentIndex()]), urilist, classurilist, includelist, proptypelist, valuemappings,
                                               valuequeries)
             uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.comboBox.currentIndex())
             uploaddialog.setMinimumSize(450, 250)
@@ -694,7 +514,7 @@ class SPARQLunicorn:
                 self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
             if filename == "":
                 return
-            ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+            ttlstring = LayerUtils.layerToTTLString(layer,"".join(self.prefixes[self.dlg.comboBox.currentIndex()]), urilist, classurilist, includelist, proptypelist, valuemappings,
                                               valuequeries)
             with open(filename, 'w') as output_file:
                 output_file.write(ttlstring)
@@ -814,7 +634,7 @@ class SPARQLunicorn:
             self.first_start = False
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
-            self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/icon.png'))
+            self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/resources/icons/sparqlunicorn.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:

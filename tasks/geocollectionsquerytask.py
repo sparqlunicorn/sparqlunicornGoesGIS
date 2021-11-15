@@ -1,7 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
-from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtGui import QStandardItem, QIcon
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -76,12 +76,12 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
                 else:
-                    itemtext=concept["uri"][concept["uri"].rfind('/') + 1:]
+                    itemtext=SPARQLUtils.labelFromURI(concept["uri"])
                 if "members" in concept:
                     itemtext+=" ["+str(concept["members"])+"]"
                 item.setText(itemtext)
@@ -102,12 +102,12 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
                 else:
-                    itemtext=concept["uri"][concept["uri"].rfind('/') + 1:]
+                    itemtext=SPARQLUtils.labelFromURI(concept["uri"])
                 if "members" in concept:
                     itemtext+=" ["+str(concept["members"])+"]"
                 item.setText(itemtext)

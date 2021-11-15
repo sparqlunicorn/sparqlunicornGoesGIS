@@ -4,9 +4,7 @@ from qgis.PyQt.QtCore import QRegExp, Qt, QSettings,QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
-from ..tasks.dataschemaquerytask import DataSchemaQueryTask
-from ..tasks.datasamplequerytask import DataSampleQueryTask
-from ..tasks.findstylestask import FindStyleQueryTask
+from ..tasks.instancequerytask import InstanceQueryTask
 import os.path
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -14,12 +12,12 @@ from qgis.core import (
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'ui/dataschemadialog.ui'))
+    os.path.dirname(__file__), 'ui/instancedatadialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
 
 
-class DataSchemaDialog(QDialog, FORM_CLASS):
+class InstanceDataDialog(QDialog, FORM_CLASS):
 
     ##
     #  @brief Initializes the search dialog
@@ -48,62 +46,41 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
+        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.curindex=curindex
-        header =self.dataSchemaTableView.horizontalHeader()
+        header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dataSchemaTableView.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
-        self.dataSchemaTableView.insertRow(0)
+        self.instanceDataTableView.setHorizontalHeaderLabels(["Attribute", "Value"])
+        self.instanceDataTableView.insertRow(0)
         item = QTableWidgetItem()
         item.setText("Loading...")
-        self.dataSchemaTableView.setItem(0,0,item)
-        self.dataSchemaTableView.setMouseTracking(True)
-        self.dataSchemaTableView.cellClicked.connect(self.loadSamples)
-        self.dataSchemaTableView.cellEntered.connect(self.showURI)
-        self.dataSchemaTableView.cellDoubleClicked.connect(self.openURL)
+        self.instanceDataTableView.setItem(0,0,item)
+        self.instanceDataTableView.setMouseTracking(True)
+        self.instanceDataTableView.cellEntered.connect(self.showURI)
+        self.instanceDataTableView.cellDoubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
-        self.getAttributeStatistics(self.concept,triplestoreurl)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
+        self.getAttributes(self.concept,triplestoreurl)
 
 
     def openURL(self,row,column):
         if column==0:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+            concept=str(self.instanceDataTableView.item(row,column).data(256))
             url = QUrl(concept)
             QDesktopServices.openUrl(url)
 
     def showURI(self,row,column):
         if column==0:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+            concept=str(self.instanceDataTableView.item(row,column).data(256))
             self.statusBarLabel.setText(concept)
-
-    def loadSamples(self,row,column):
-        if column==1 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
-            relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
-            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
-                                             self.triplestoreurl,
-                                             self,
-                                             self.concept,
-                                             relation,
-                                             column,row)
-            QgsApplication.taskManager().addTask(self.qtask2)
-            self.alreadyloadedSample.append(row)
-        elif row==self.dataSchemaTableView.rowCount()-1 and row not in self.alreadyloadedSample:
-            relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
-            self.qtask3 = FindStyleQueryTask("Querying styles for dataset.... (" + self.label + ")",
-                                             self.triplestoreurl,
-                                             self,
-                                             self.concept,
-                                             column,row)
-            QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
     #  
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
-    def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
+    def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.curindex)+ " "+str(self.triplestoreconf[self.curindex]["endpoint"])), "DataSchemaDialog",
                                  Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]["whattoenrichquery"]), "DataSchemaDialog",
@@ -111,14 +88,9 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
             return
         concept = "<" + self.concept + ">"
-        progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
-        progress.setCancelButton(None)
-        self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
+        self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
-                                           self.triplestoreconf[self.curindex][
-                                               "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            self.prefixes[self.curindex],
-                                           self.dataSchemaTableView, progress)
+                                           self.instanceDataTableView)
         QgsApplication.taskManager().addTask(self.qtask)
