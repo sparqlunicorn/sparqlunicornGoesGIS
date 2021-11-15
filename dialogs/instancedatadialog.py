@@ -91,6 +91,6 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
                                            self.concept,
-                                           self.prefixes[self.curindex],
+                                           self.triplestoreconf[self.curindex],
                                            self.instanceDataTableView)
         QgsApplication.taskManager().addTask(self.qtask)

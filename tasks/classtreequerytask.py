@@ -61,7 +61,7 @@ class ClassTreeQueryTask(QgsTask):
             return False
         hasparent={}
         for result in results["results"]["bindings"]:
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
             if subval==None or subval=="":
                 continue
@@ -82,7 +82,9 @@ class ClassTreeQueryTask(QgsTask):
                     else:
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
-                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))#;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))
+                self.classtreemap[subval].setData("Class", 257)
+                #;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:
@@ -106,8 +108,8 @@ class ClassTreeQueryTask(QgsTask):
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
                 if item in classtreemap and item not in self.alreadyprocessed:
-                    QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
-                                         Qgis.Info)
+                    #QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
+                    #                     Qgis.Info)
                     classtreemap[curNode].appendRow(classtreemap[item])
                 if item!=curNode and item not in mypath:
                     self.buildTree(item,classtreemap,subclassmap,mypath+[item])

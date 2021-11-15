@@ -249,7 +249,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        label = self.currentContextModel.itemFromIndex(curindex).text()
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -257,7 +257,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
-        if "[Ind]" not in label:
+        if nodetype!="Instance":
             actioninstancecount=QAction("Check instance count")
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
@@ -284,9 +284,6 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         menu.addAction(actionapplicablestyles)
         actionapplicablestyles.triggered.connect(self.appStyles)
         """
-
-
-
 
 
     def onContext4(self, position):

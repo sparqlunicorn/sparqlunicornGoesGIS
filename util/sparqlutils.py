@@ -60,10 +60,22 @@ class SPARQLUtils:
         return results
 
     @staticmethod
-    def labelFromURI(uri):
+    def invertPrefixes(prefixes):
+        QgsMessageLog.logMessage("Invert Prefixes: " + str(prefixes), MESSAGE_CATEGORY, Qgis.Info)
+        inv_map = {v: k for k, v in prefixes.items()}
+        return inv_map
+
+    @staticmethod
+    def labelFromURI(uri,prefixlist=None):
         if "#" in uri:
+            prefix=uri[:uri.rfind("#")+1]
+            if prefixlist!=None and prefix in prefixlist:
+                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("#") + 1:])
             return uri[uri.rfind("#") + 1:]
         if "/" in uri:
+            prefix=uri[:uri.rfind("/")+1]
+            if prefixlist!=None and prefix in prefixlist:
+                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("/") + 1:])
             return uri[uri.rfind("/") + 1:]
         return uri
 

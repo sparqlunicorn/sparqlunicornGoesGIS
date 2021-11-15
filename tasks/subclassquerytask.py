@@ -3,7 +3,7 @@ import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor, QIcon
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
@@ -58,19 +58,21 @@ class SubClassQueryTask(QgsTask):
             for concept in self.resultlist:
                 item = QStandardItem()
                 item.setData(concept, 256)
-                item.setText(concept[concept.rfind('/') + 1:])
+                item.setText(SPARQLUtils.labelFromURI(concept))
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                item.setData("Class", 257)
                 self.treeNode.appendRow(item)
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
                 item = QStandardItem()
                 item.setData(concept, 256)
-                item.setText(concept[concept.rfind('/') + 1:])
+                item.setText(SPARQLUtils.labelFromURI(concept))
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                item.setData("Class", 257)
                 self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

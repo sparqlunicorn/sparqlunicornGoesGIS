@@ -1,10 +1,7 @@
-import json
-import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor,QIcon
-from qgis.PyQt.QtWidgets import QPushButton, QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -74,7 +71,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("Class", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
@@ -100,7 +98,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("Class", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
