@@ -76,7 +76,7 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -102,7 +102,7 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"

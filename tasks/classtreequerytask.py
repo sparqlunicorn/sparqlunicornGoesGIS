@@ -82,7 +82,7 @@ class ClassTreeQueryTask(QgsTask):
                     else:
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
-                self.classtreemap[subval].setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))#;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:

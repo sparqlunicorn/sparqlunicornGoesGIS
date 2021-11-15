@@ -55,6 +55,6 @@ class InstanceListQueryTask(QgsTask):
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
-            item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/instance.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+            item.setIcon(QIcon(":/icons/resources/icons/instance.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
             item.setText(self.queryresult[concept]["label"]+" [Ind]")
             self.treeNode.appendRow(item)

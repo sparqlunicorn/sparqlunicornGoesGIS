@@ -1,11 +1,8 @@
 <RCC>
-    <qresource prefix="/plugins/sparql_unicorn/resources/icons/" >
-        <file>sparqlunicorn.png</file>
-    </qresource>
-    <qresource prefix="/plugins/sparql_unicorn/resources/icons/" >
-        <file>class.png</file>
-    </qresource>
-    <qresource prefix="/plugins/sparql_unicorn/resources/icons/" >
-        <file>instance.png</file>
-    </qresource>
+  <qresource prefix="icons">
+    <file>resources/icons/class.png</file>
+    <file>resources/icons/sparqlunicorn.png</file>
+    <file>resources/icons/earth.svg</file>
+    <file>resources/icons/instance.png</file>
+  </qresource>
 </RCC>

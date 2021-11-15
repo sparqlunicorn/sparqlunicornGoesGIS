@@ -74,7 +74,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
@@ -100,7 +100,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":plugins/sparql_unicorn/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":

@@ -32,6 +32,7 @@ from qgis.PyQt.QtWidgets import QAction, QComboBox, QCompleter, QFileDialog, QTa
     QWidget, QMessageBox, QProgressDialog, QListWidgetItem, QStyle
 from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, QgsFeatureRequest, \
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
+from .resources import *
 import os.path
 import sys
 from .util.sparqlutils import SPARQLUtils
@@ -39,6 +40,7 @@ from .util.layerutils import LayerUtils
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import json
+
 from rdflib import *
 
 # Initialize Qt resources from file resources.py
@@ -49,8 +51,6 @@ from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
-
-#import .resources
 
 geoconcepts = ""
 
@@ -180,7 +180,7 @@ class SPARQLunicorn:
         # a = str('numpy' in sys.modules)
         # iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
 
-        icon_path = ':/plugins/sparql_unicorn/resources/icons/sparqlunicorn.png'
+        icon_path = ':/icons/resources/icons/sparqlunicorn.png'
         self.add_action(
             icon_path,
             text=self.tr(u'Adds GeoJSON layer from a Wikidata'),
@@ -634,7 +634,7 @@ class SPARQLunicorn:
             self.first_start = False
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
-            self.dlg.setWindowIcon(QIcon(':/plugins/sparql_unicorn/resources/icons/sparqlunicorn.png'))
+            self.dlg.setWindowIcon(QIcon(':/icons/resources/icons/sparqlunicorn.png'))
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
