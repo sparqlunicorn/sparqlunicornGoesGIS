@@ -364,7 +364,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                         endpoint] + "> \n"
             self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                                    prefixestoadd + query, None,self,self.currentContextModel.itemFromIndex(curindex))
+                                    prefixestoadd + query,None,self,
+                                    self.currentContextModel.itemFromIndex(curindex),concept)
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):
