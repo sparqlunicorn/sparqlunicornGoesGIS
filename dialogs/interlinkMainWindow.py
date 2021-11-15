@@ -120,14 +120,18 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     #
     #  @param self The object pointer
     def loadLayerForInterlink(self):
+        print("1")
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+        print("2")
         if len(layers) == 0:
+
             if  selectedLayerIndex == -1:
                 dlg = WarningLayerDlg()
                 dlg.show()
                 dlg.exec_()
             else:
+
                 return
                 layer = layers[selectedLayerIndex].layer()
         try:

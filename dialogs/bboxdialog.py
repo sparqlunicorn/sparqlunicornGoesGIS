@@ -53,6 +53,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.inp_sparql = inp_sparql
+        
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -79,6 +80,9 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.selectCircle.hide()
+        # @Antoine
+        self.selectPolygon.hide()
+        ###########
         self.geocodeSearch = NominatimText(self, self.nominatimmap, self.map_canvas)
         self.move(120, 0)
         self.crsdialog = QgsProjectionSelectionWidget(self)
@@ -209,12 +213,15 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 pointt2 = QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
                 pointt3 = QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
                 pointt4 = QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
+                print("coucou")
                 if sourceCrs != None:
+                    print("sourceCrs")
                     tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
                     pointt1.transform(tr)
                     pointt2.transform(tr)
                     pointt3.transform(tr)
                     pointt4.transform(tr)
+                print("coucou3")
                 polygon = QgsGeometry.fromPolylineXY(
                     [pointt1.asPoint(), pointt2.asPoint(), pointt3.asPoint(), pointt4.asPoint()])
         center = polygon.centroid()
@@ -235,26 +242,30 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
                     "query"].replace("%%x1%%", str(pointt1.asPoint().x())).replace("%%x2%%",
-                                                                                   str(pointt3.asPoint().x())).replace(
+                                                                                    str(pointt3.asPoint().x())).replace(
                     "%%y1%%", str(pointt1.asPoint().y())).replace("%%y2%%",
-                                                                  str(pointt3.asPoint().y())) + "}\n" + curquery[
+                                                                    str(pointt3.asPoint().y())) + "}\n" + curquery[
                                                                                                         curquery.rfind(
                                                                                                             '}') + 1:]
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
                     "query"].replace("%%minPoint%%", pointt2.asWkt()).replace("%%maxPoint%%",
-                                                                              pointt4.asWkt()) + curquery[
+                                                                                pointt4.asWkt()) + curquery[
                                                                                                  curquery.rfind(
-                                                                                                     '}') + 1:]
+                                                                                                    '}') + 1:]
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "pointdistance":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
                     "query"].replace("%%lat%%", str(center.asPoint().y())).replace("%%lon%%",
-                                                                                   str(center.asPoint().x())).replace(
+                                                                                     str(center.asPoint().x())).replace(
                     "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+            ##
+            # @Antoine modified indentation because it was wrong
         elif polygon:
             widthm = 100
+            #
+            #
             if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
                 curquery = curquery[0:curquery.rfind(
@@ -265,13 +276,13 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     "query"].replace("%%minPoint%%", "POINT(" + str(polygon.boundingBox().yMinimum()) + " " + str(
                     polygon.boundingBox().xMinimum()) + ")").replace("%%maxPoint%%", "POINT(" + str(
                     polygon.boundingBox().yMaximum()) + " " + str(polygon.boundingBox().xMaximum()) + ")") + curquery[
-                                                                                                             curquery.rfind(
-                                                                                                                 '}') + 1:]
+                                                                                                            curquery.rfind(
+                                                                                                                '}') + 1:]
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "pointdistance":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
                     "query"].replace("%%lat%%", str(polygon.boundingBox().center().asPoint().y())).replace("%%lon%%",
-                                                                                                           str(polygon.boundingBox().center().asPoint().x())).replace(
-                    "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+                                                                                                            str(polygon.boundingBox().center().asPoint().x())).replace(
+                                                                                                            "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
         self.inp_sparql.setPlainText(curquery)
         self.close()
