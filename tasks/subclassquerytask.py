@@ -3,7 +3,7 @@ import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor, QIcon
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
@@ -12,7 +12,7 @@ MESSAGE_CATEGORY = 'SubClassQueryTask'
 
 class SubClassQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl, query, progress,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl, query, progress,dlg,treeNode,concept,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress=progress
@@ -20,7 +20,9 @@ class SubClassQueryTask(QgsTask):
         self.query = query
         self.dlg=dlg
         self.graph=graph
+        self.con=concept
         self.treeNode=treeNode
+        self.triplestoreconf=triplestoreconf
         self.amountoflabels = -1
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.resultlist = []
@@ -29,7 +31,7 @@ class SubClassQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         else:
             results=self.graph.query(self.query)
         if results==False:
@@ -56,21 +58,25 @@ class SubClassQueryTask(QgsTask):
         if len(self.resultlist) > 0:
             first = True
             for concept in self.resultlist:
-                item = QStandardItem()
-                item.setData(concept, 256)
-                item.setText(concept[concept.rfind('/') + 1:])
-                item.setForeground(QColor(0,0,0))
-                item.setEditable(False)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-                self.treeNode.appendRow(item)
+                if concept!=self.con:
+                    item = QStandardItem()
+                    item.setData(concept, 256)
+                    item.setText(SPARQLUtils.labelFromURI(concept))
+                    item.setForeground(QColor(0,0,0))
+                    item.setEditable(False)
+                    item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                    item.setData("Class", 257)
+                    self.treeNode.appendRow(item)
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
-                item = QStandardItem()
-                item.setData(concept, 256)
-                item.setText(concept[concept.rfind('/') + 1:])
-                item.setForeground(QColor(0,0,0))
-                item.setEditable(False)
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-                self.treeNode.appendRow(item)
+                if concept!=self.con:
+                    item = QStandardItem()
+                    item.setData(concept, 256)
+                    item.setText(SPARQLUtils.labelFromURI(concept))
+                    item.setForeground(QColor(0,0,0))
+                    item.setEditable(False)
+                    item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                    item.setData("Class", 257)
+                    self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

@@ -9,10 +9,11 @@ MESSAGE_CATEGORY = 'GetStyleQueryTask'
 
 class GetStyleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,styleuri=None,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,styleuri=None,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
+        self.triplestoreconf=triplestoreconf
         self.dlg=dlg
         self.styleuri=styleuri
         self.graph=graph
@@ -45,7 +46,7 @@ class GetStyleQueryTask(QgsTask):
                      "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
                      "}"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)

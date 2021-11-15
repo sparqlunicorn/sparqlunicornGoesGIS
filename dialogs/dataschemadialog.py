@@ -85,7 +85,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row)
+                                             column,row,self.triplestoreconf[self.curindex])
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         elif row==self.dataSchemaTableView.rowCount()-1 and row not in self.alreadyloadedSample:
@@ -94,7 +94,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self.triplestoreurl,
                                              self,
                                              self.concept,
-                                             column,row)
+                                             column,row,self.triplestoreconf[self.curindex])
             QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
@@ -120,5 +120,5 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                                "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            self.prefixes[self.curindex],
-                                           self.dataSchemaTableView, progress)
+                                           self.dataSchemaTableView,self.triplestoreconf[self.curindex], progress)
         QgsApplication.taskManager().addTask(self.qtask)

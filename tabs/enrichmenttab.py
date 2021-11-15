@@ -75,7 +75,7 @@ class EnrichmentTab:
                                                  len(self.enrichLayer.fields()),
                                                  self.dlg.enrichTable.item(row, 0).text(), self.dlg.enrichTable,
                                                  self.dlg.enrichTableResult, idfield, idprop,
-                                                 self.dlg.enrichTable.item(row, 1), content, progress)
+                                                 self.dlg.enrichTable.item(row, 1), content, progress,self.dlg.triplestoreconf)
                 QgsApplication.taskManager().addTask(self.qtask)
             else:
                 rowww = 0

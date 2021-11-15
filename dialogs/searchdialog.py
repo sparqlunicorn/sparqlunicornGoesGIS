@@ -4,7 +4,9 @@ from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt import uic
-from qgis.core import QgsApplication
+from qgis.core import (
+    QgsApplication, QgsTask, QgsMessageLog
+)
 from ..tasks.searchtask import SearchTask
 import urllib
 import os.path

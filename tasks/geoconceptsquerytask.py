@@ -1,10 +1,7 @@
-import json
-import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor,QIcon
-from qgis.PyQt.QtWidgets import QPushButton, QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -38,13 +35,12 @@ class GeoConceptsQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
         for result in results["results"]["bindings"]:
             self.viewlist.append(str(result[self.queryvar]["value"]))
         print(self.viewlist)
-        # self.layercount.setText("["+str(len(viewlist))+"]")
         if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
             "classlabelquery"] != "":
             labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.dlg.triplestoreconf["classlabelquery"],self.dlg.triplestoreconf,self.triplestoreurl)
@@ -74,7 +70,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("Class", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
@@ -100,7 +97,8 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(concept[concept.rfind('/') + 1:])
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setIcon(QIcon(":/icons/resources/icons/earth.svg"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("Class", 257)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":

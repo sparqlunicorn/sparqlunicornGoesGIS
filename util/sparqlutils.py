@@ -1,4 +1,4 @@
-from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST
+from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST, DIGEST
 import urllib
 import requests
 import sys
@@ -21,7 +21,7 @@ class SPARQLUtils:
                              "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"}
 
     @staticmethod
-    def executeQuery(triplestoreurl, query):
+    def executeQuery(triplestoreurl, query,triplestoreconf=None):
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")
         proxyType = s.value("proxy/proxyType")
@@ -36,6 +36,9 @@ class SPARQLUtils:
             urllib.request.install_opener(opener)
         QgsMessageLog.logMessage('Started task "{}"'.format(query), MESSAGE_CATEGORY, Qgis.Info)
         sparql = SPARQLWrapper(triplestoreurl)
+        if triplestoreconf!=None and "userCredential" in triplestoreconf and triplestoreconf["userCredential"]!="" and "userPassword" in triplestoreconf and triplestoreconf["userPassword"] != None:
+            sparql.setHTTPAuth(DIGEST)
+            sparql.setCredentials(triplestoreconf["userCredential"], triplestoreconf["userPassword"])
         sparql.setQuery(query)
         QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
         sparql.setMethod(GET)
@@ -49,6 +52,11 @@ class SPARQLUtils:
                 sparql = SPARQLWrapper(triplestoreurl,
                                        agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                 sparql.setQuery(query)
+                if triplestoreconf != None and "userCredential" in triplestoreconf and triplestoreconf[
+                    "userCredential"] != "" and "userPassword" in triplestoreconf and triplestoreconf[
+                    "userPassword"] != None:
+                    sparql.setHTTPAuth(DIGEST)
+                    sparql.setCredentials(triplestoreconf["userCredential"], triplestoreconf["userPassword"])
                 sparql.setMethod(POST)
                 sparql.setReturnFormat(JSON)
                 results = sparql.query().convert()
@@ -60,10 +68,22 @@ class SPARQLUtils:
         return results
 
     @staticmethod
-    def labelFromURI(uri):
+    def invertPrefixes(prefixes):
+        QgsMessageLog.logMessage("Invert Prefixes: " + str(prefixes), MESSAGE_CATEGORY, Qgis.Info)
+        inv_map = {v: k for k, v in prefixes.items()}
+        return inv_map
+
+    @staticmethod
+    def labelFromURI(uri,prefixlist=None):
         if "#" in uri:
+            prefix=uri[:uri.rfind("#")+1]
+            if prefixlist!=None and prefix in prefixlist:
+                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("#") + 1:])
             return uri[uri.rfind("#") + 1:]
         if "/" in uri:
+            prefix=uri[:uri.rfind("/")+1]
+            if prefixlist!=None and prefix in prefixlist:
+                return str(prefixlist[prefix])+":"+str(uri[uri.rfind("/") + 1:])
             return uri[uri.rfind("/") + 1:]
         return uri
 

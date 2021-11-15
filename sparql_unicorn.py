@@ -287,7 +287,8 @@ class SPARQLunicorn:
         self.dlg.classTreeViewModel.clear()
         self.qtaskctree = ClassTreeQueryTask(
             "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
-            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"], self.dlg, self.dlg.classTreeViewModel.invisibleRootItem())
+            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
+            self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),self.triplestoreconf[self.dlg.comboBox.currentIndex()])
         QgsApplication.taskManager().addTask(self.qtaskctree)
 
     def getGeoCollectionInstances(self, triplestoreurl, query, queryvar, graph, featureOrGeoCollection, examplequery):

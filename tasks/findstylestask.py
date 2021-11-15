@@ -9,12 +9,13 @@ MESSAGE_CATEGORY = 'FindStyleQueryTask'
 
 class FindStyleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,column,row,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,concept,column,row,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.graph=graph
+        self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.row=row
         self.column=column
@@ -31,7 +32,7 @@ class FindStyleQueryTask(QgsTask):
                 "SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)

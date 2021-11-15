@@ -13,7 +13,7 @@ MESSAGE_CATEGORY = 'WhatToEnrichQueryTask'
 class WhatToEnrichQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress):
+    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,  triplestoreconf,progress):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
@@ -21,6 +21,7 @@ class WhatToEnrichQueryTask(QgsTask):
         self.query = query
         self.progress = progress
         self.prefixes = prefixes
+        self.triplestoreconf=triplestoreconf
         self.labels = None
         self.progress = progress
         self.urilist = None
@@ -35,7 +36,7 @@ class WhatToEnrichQueryTask(QgsTask):
         if self.searchTerm == "":
             return False
         concept = "<" + self.searchTerm + ">"
-        results = SPARQLUtils.executeQuery(self.triplestoreurl, "".join(self.prefixes) + self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl, "".join(self.prefixes) + self.query,self.triplestoreconf)
         if results == False:
             return False
         self.searchResult.clear()

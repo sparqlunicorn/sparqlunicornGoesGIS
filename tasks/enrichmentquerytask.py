@@ -14,7 +14,7 @@ MESSAGE_CATEGORY = 'EnrichmentQueryTask'
 class EnrichmentQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl, layer, strategy, language, row, originalRowCount, item, table,
-                 resulttable, idfield, idprop, propertyy, content, progress):
+                 resulttable, idfield, idprop, propertyy, content, progress,triplestoreconf):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -32,6 +32,7 @@ class EnrichmentQueryTask(QgsTask):
         self.language = language
         self.strategy = strategy
         self.layer = layer
+        self.triplestoreconf=triplestoreconf
         self.columntype = QVariant.String
         self.urilist = None
         self.sortedatt = None
@@ -90,7 +91,7 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage(self.triplestoreurl,
                                  MESSAGE_CATEGORY, Qgis.Info)
         print(self.triplestoreurl)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         if results==False:
             return False
         print(str(results))

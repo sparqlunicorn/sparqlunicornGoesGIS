@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1131</width>
-    <height>699</height>
+    <width>1181</width>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1131</width>
+     <width>1181</width>
      <height>701</height>
     </rect>
    </property>
@@ -146,7 +146,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>570</y>
-       <width>1101</width>
+       <width>1161</width>
        <height>41</height>
       </rect>
      </property>
@@ -189,7 +189,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>820</x>
        <y>620</y>
-       <width>191</width>
+       <width>261</width>
        <height>28</height>
       </rect>
      </property>
@@ -200,7 +200,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QDialogButtonBox" name="button_box">
      <property name="geometry">
       <rect>
-       <x>1020</x>
+       <x>1080</x>
        <y>620</y>
        <width>91</width>
        <height>32</height>
@@ -216,7 +216,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="bboxButton">
      <property name="geometry">
       <rect>
-       <x>940</x>
+       <x>990</x>
        <y>40</y>
        <width>171</width>
        <height>21</height>
@@ -291,7 +291,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="loadTripleStoreButton">
      <property name="geometry">
       <rect>
-       <x>940</x>
+       <x>990</x>
        <y>70</y>
        <width>171</width>
        <height>21</height>
@@ -304,7 +304,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>770</x>
+       <x>810</x>
        <y>40</y>
        <width>171</width>
        <height>20</height>
@@ -317,7 +317,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="exportTripleStore_2">
      <property name="geometry">
       <rect>
-       <x>610</x>
+       <x>650</x>
        <y>40</y>
        <width>161</width>
        <height>20</height>
@@ -345,7 +345,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>940</x>
        <y>100</y>
-       <width>171</width>
+       <width>221</width>
        <height>20</height>
       </rect>
      </property>
@@ -353,7 +353,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLineEdit" name="queryLimit">
      <property name="geometry">
       <rect>
-       <x>500</x>
+       <x>530</x>
        <y>40</y>
        <width>101</width>
        <height>20</height>
@@ -466,7 +466,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>800</x>
        <y>70</y>
-       <width>131</width>
+       <width>171</width>
        <height>21</height>
       </rect>
      </property>
@@ -479,12 +479,12 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>790</x>
        <y>130</y>
-       <width>331</width>
+       <width>381</width>
        <height>431</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -495,7 +495,7 @@ SELECT ?label ?geo ?item WHERE {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>331</width>
+         <width>381</width>
          <height>411</height>
         </rect>
        </property>
@@ -510,7 +510,7 @@ SELECT ?label ?geo ?item WHERE {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>331</width>
+         <width>381</width>
          <height>411</height>
         </rect>
        </property>
@@ -525,7 +525,7 @@ SELECT ?label ?geo ?item WHERE {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>331</width>
+         <width>381</width>
          <height>411</height>
         </rect>
        </property>
@@ -540,7 +540,7 @@ SELECT ?label ?geo ?item WHERE {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>331</width>
+         <width>381</width>
          <height>411</height>
         </rect>
        </property>
@@ -588,7 +588,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>1071</width>
+       <width>1151</width>
        <height>431</height>
       </rect>
      </property>
@@ -884,7 +884,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="addEnrichedLayerButton">
      <property name="geometry">
       <rect>
-       <x>900</x>
+       <x>1000</x>
        <y>610</y>
        <width>161</width>
        <height>41</height>
@@ -909,7 +909,7 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>20</x>
        <y>100</y>
-       <width>1051</width>
+       <width>1141</width>
        <height>501</height>
       </rect>
      </property>
@@ -1082,8 +1082,7 @@ SELECT ?label ?geo ?item WHERE {
    </widget>
   </widget>
  </widget>
- <resources>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>button_box</sender>

@@ -249,7 +249,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        label = self.currentContextModel.itemFromIndex(curindex).text()
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -257,7 +257,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
-        if "[Ind]" not in label:
+        if nodetype!="Instance":
             actioninstancecount=QAction("Check instance count")
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
@@ -286,9 +286,6 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         """
 
 
-
-
-
     def onContext4(self, position):
         self.currentContext = self.classTreeView
         self.currentContextModel = self.classTreeViewModel
@@ -315,7 +312,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if not label.endswith("]"):
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceList(self):
@@ -325,7 +322,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if True: # or self.currentContextModel.itemFromIndex(curindex).childCount()==0:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtaskinstanceList)
 
     def dataSchemaView(self):
@@ -367,7 +364,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
                         endpoint] + "> \n"
             self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                                    prefixestoadd + query, None,self,self.currentContextModel.itemFromIndex(curindex))
+                                    prefixestoadd + query,None,self,
+                                    self.currentContextModel.itemFromIndex(curindex),concept,self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):

@@ -1,7 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtGui import QStandardItem, QIcon
-from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.core import Qgis
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
@@ -11,12 +9,13 @@ MESSAGE_CATEGORY = 'InstanceListQueryTask'
 
 class InstanceListQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.graph=graph
+        self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
 
@@ -37,10 +36,10 @@ class InstanceListQueryTask(QgsTask):
             thequery="SELECT ?con ?label WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
                     self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } }"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
             if "label" in result:
@@ -55,6 +54,7 @@ class InstanceListQueryTask(QgsTask):
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
+            item.setData("Instance",257)
             item.setIcon(QIcon(":/icons/resources/icons/instance.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-            item.setText(self.queryresult[concept]["label"]+" [Ind]")
+            item.setText(self.queryresult[concept]["label"])
             self.treeNode.appendRow(item)

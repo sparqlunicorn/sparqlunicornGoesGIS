@@ -11,12 +11,13 @@ MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 
 class ClassTreeQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.graph=graph
+        self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
         self.amount=-1
@@ -61,7 +62,7 @@ class ClassTreeQueryTask(QgsTask):
             return False
         hasparent={}
         for result in results["results"]["bindings"]:
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
             if subval==None or subval=="":
                 continue
@@ -82,7 +83,8 @@ class ClassTreeQueryTask(QgsTask):
                     else:
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
-                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))#;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))
+                self.classtreemap[subval].setData("Class", 257)
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:
@@ -91,10 +93,6 @@ class ClassTreeQueryTask(QgsTask):
                 if result["supertype"]["value"]!=subval and not result["supertype"]["value"] in self.subclassmap[subval]:
                     self.subclassmap[result["supertype"]["value"]].add(subval)
                     hasparent[subval]=True
-                #else:
-                #    self.subclassmap["root"].add(subval)
-            #else:
-            #    self.subclassmap["root"].add(subval)
         for cls in self.classtreemap:
             if cls not in hasparent and cls!="root":
                 self.subclassmap["root"].add(cls)
@@ -106,8 +104,8 @@ class ClassTreeQueryTask(QgsTask):
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
                 if item in classtreemap and item not in self.alreadyprocessed:
-                    QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
-                                         Qgis.Info)
+                    #QgsMessageLog.logMessage('Started task "{}"'.format("Append: "+str(curNode)+" - "+str(item)), MESSAGE_CATEGORY,
+                    #                     Qgis.Info)
                     classtreemap[curNode].appendRow(classtreemap[item])
                 if item!=curNode and item not in mypath:
                     self.buildTree(item,classtreemap,subclassmap,mypath+[item])
