@@ -16,6 +16,7 @@ class InstanceQueryTask(QgsTask):
         self.searchTerm=searchTerm
         self.searchResult = searchResult
         self.prefixes= SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
+        self.triplestoreconf=triplestoreconf
         self.graph=graph
         self.queryresult={}
 
@@ -35,7 +36,7 @@ class InstanceQueryTask(QgsTask):
             thequery="SELECT ?rel ?val WHERE { <" + str(
                     self.searchTerm) + ">  ?rel ?val . }"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)

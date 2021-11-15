@@ -40,12 +40,12 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         progress.show()
         self.qtask = DetectTripleStoreTask(
             "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
-            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), False, True, self.prefixes, self.prefixstore,
+            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),self.credentialPassword.text(), False, True, self.prefixes, self.prefixstore,
             None, self.comboBox, self.permanentAdd.isChecked(), self, progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 
-    #  @brief Addes a new SPARQL endpoint to the triple store registry
+    #  @brief Adds a new SPARQL endpoint to the triple store registry
     #  
     #  @param [in] self The object pointer
     def addNewSPARQLEndpoint(self):

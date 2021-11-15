@@ -312,7 +312,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if not label.endswith("]"):
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceList(self):
@@ -322,7 +322,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         if True: # or self.currentContextModel.itemFromIndex(curindex).childCount()==0:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex))
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtaskinstanceList)
 
     def dataSchemaView(self):
@@ -365,7 +365,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                                     prefixestoadd + query,None,self,
-                                    self.currentContextModel.itemFromIndex(curindex),concept)
+                                    self.currentContextModel.itemFromIndex(curindex),concept,self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def setFilterFromText(self):

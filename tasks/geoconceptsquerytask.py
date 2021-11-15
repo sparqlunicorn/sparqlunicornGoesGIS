@@ -35,13 +35,12 @@ class GeoConceptsQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
         for result in results["results"]["bindings"]:
             self.viewlist.append(str(result[self.queryvar]["value"]))
         print(self.viewlist)
-        # self.layercount.setText("["+str(len(viewlist))+"]")
         if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
             "classlabelquery"] != "":
             labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.dlg.triplestoreconf["classlabelquery"],self.dlg.triplestoreconf,self.triplestoreurl)

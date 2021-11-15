@@ -31,7 +31,7 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
         # geojson stuff

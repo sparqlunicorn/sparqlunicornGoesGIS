@@ -9,12 +9,13 @@ MESSAGE_CATEGORY = 'InstanceListQueryTask'
 
 class InstanceListQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.graph=graph
+        self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
 
@@ -35,7 +36,7 @@ class InstanceListQueryTask(QgsTask):
             thequery="SELECT ?con ?label WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
                     self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } }"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)

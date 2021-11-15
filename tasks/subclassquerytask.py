@@ -12,7 +12,7 @@ MESSAGE_CATEGORY = 'SubClassQueryTask'
 
 class SubClassQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl, query, progress,dlg,treeNode,concept,graph=None):
+    def __init__(self, description, triplestoreurl, query, progress,dlg,treeNode,concept,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress=progress
@@ -22,6 +22,7 @@ class SubClassQueryTask(QgsTask):
         self.graph=graph
         self.con=concept
         self.treeNode=treeNode
+        self.triplestoreconf=triplestoreconf
         self.amountoflabels = -1
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.resultlist = []
@@ -30,7 +31,7 @@ class SubClassQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         else:
             results=self.graph.query(self.query)
         if results==False:

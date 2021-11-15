@@ -98,7 +98,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                                                                                             "?area"),
                                            self.conceptSearchEdit.text(),
                                            self.prefixes[self.tripleStoreEdit.currentIndex()],
-                                           self.searchResult, progress)
+                                           self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1], progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 

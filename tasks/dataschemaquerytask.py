@@ -12,7 +12,7 @@ MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress,graph=None):
+    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
@@ -21,6 +21,7 @@ class DataSchemaQueryTask(QgsTask):
         self.progress = progress
         self.prefixes = prefixes
         self.labels = None
+        self.triplestoreconf=triplestoreconf
         self.graph=graph
         self.progress = progress
         self.urilist = None
@@ -36,7 +37,7 @@ class DataSchemaQueryTask(QgsTask):
             return False
         concept = "<" + self.searchTerm + ">"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
         else:
             results=self.graph.query("".join(self.prefixes) + self.query)
         if results == False:

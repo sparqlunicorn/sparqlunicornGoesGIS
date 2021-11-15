@@ -13,7 +13,7 @@ MESSAGE_CATEGORY = 'DetectTripleStoreTask'
 class DetectTripleStoreTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreconf, endpoint, triplestorename, testURL, testConfiguration, prefixes,
+    def __init__(self, description, triplestoreconf, endpoint, triplestorename, testURL, credentialUserName, credentialPassword, testConfiguration, prefixes,
                  prefixstore, tripleStoreChooser, comboBox, permanentAdd, parentdialog, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.description = description
@@ -22,6 +22,8 @@ class DetectTripleStoreTask(QgsTask):
         self.prefixstore = prefixstore
         self.permanentAdd = permanentAdd
         self.progress = progress
+        self.credentialUserName=credentialUserName
+        self.credentialPassword=credentialPassword
         self.triplestorename = triplestorename
         self.tripleStoreChooser = tripleStoreChooser
         self.comboBox = comboBox
@@ -45,7 +47,7 @@ class DetectTripleStoreTask(QgsTask):
 
     def testTripleStoreConnection(self, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         QgsMessageLog.logMessage("Executed query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-        results=SPARQLUtils.executeQuery(self.triplestoreurl,query)
+        results=SPARQLUtils.executeQuery(self.triplestoreurl,query,{"credentialUserName":self.credentialUserName,"credentialPassword":self.credentialPassword})
         QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if self.testURL and not self.testConfiguration:
@@ -64,7 +66,7 @@ class DetectTripleStoreTask(QgsTask):
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         else:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
-        results=SPARQLUtils.executeQuery(self.triplestoreurl,query)
+        results=SPARQLUtils.executeQuery(self.triplestoreurl,query,{"credentialUserName":self.credentialUserName,"credentialPassword":self.credentialPassword})
         if results==False:
             return []
         reslist = []
@@ -81,6 +83,9 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["endpoint"] = self.triplestoreurl
         self.configuration["geoconceptlimit"] = 500
         self.configuration["crs"] = 4326
+        if self.credentialUserName!=None and self.credentialUserName!="" and self.credentialPassword!=None and self.credentialPassword!=None:
+            self.configuration["credentialUserName"] = self.credentialUserName
+            self.configuration["credentialPassword"] = self.credentialPassword
         self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label"
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"

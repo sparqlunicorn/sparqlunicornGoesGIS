@@ -48,7 +48,7 @@ class SearchTask(QgsTask):
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)
             self.results = SPARQLUtils.executeQuery(self.triplestoreurl,
-                                               self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query)
+                                               self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query,self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1])
             if self.results == False:
                 return False
             # msgBox=QMessageBox()

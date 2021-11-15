@@ -11,12 +11,13 @@ MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 
 class ClassTreeQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.graph=graph
+        self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
         self.amount=-1
@@ -84,7 +85,6 @@ class ClassTreeQueryTask(QgsTask):
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
                 self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))
                 self.classtreemap[subval].setData("Class", 257)
-                #;self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:
@@ -93,10 +93,6 @@ class ClassTreeQueryTask(QgsTask):
                 if result["supertype"]["value"]!=subval and not result["supertype"]["value"] in self.subclassmap[subval]:
                     self.subclassmap[result["supertype"]["value"]].add(subval)
                     hasparent[subval]=True
-                #else:
-                #    self.subclassmap["root"].add(subval)
-            #else:
-            #    self.subclassmap["root"].add(subval)
         for cls in self.classtreemap:
             if cls not in hasparent and cls!="root":
                 self.subclassmap["root"].add(cls)
