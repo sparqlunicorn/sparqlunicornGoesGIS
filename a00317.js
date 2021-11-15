@@ -1,17 +1,12 @@
 var a00317 =
 [
-    [ "__init__", "a00317.html#a2b97505b4a89f59b1902bc41f75fba68", null ],
+    [ "__init__", "a00317.html#a311bb253c4d3bf7cbff88111763b5836", null ],
     [ "finished", "a00317.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00317.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "dlg", "a00317.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00317.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "labels", "a00317.html#abc325fc13d4194905c1786e24ee447f0", null ],
-    [ "prefixes", "a00317.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "progress", "a00317.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00317.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "results", "a00317.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
-    [ "searchResult", "a00317.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
-    [ "searchTerm", "a00317.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
-    [ "sortedatt", "a00317.html#a48ad5f81f31645c924cfff541c5add36", null ],
-    [ "triplestoreurl", "a00317.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "urilist", "a00317.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]
+    [ "graph", "a00317.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "queryresult", "a00317.html#a1bee14843933505be5e14e07c03f5f89", null ],
+    [ "treeNode", "a00317.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
+    [ "triplestoreurl", "a00317.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

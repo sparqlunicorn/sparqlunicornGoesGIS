@@ -1,5 +1,5 @@
-<map id="SearchDialog" name="SearchDialog">
-<area shape="rect" id="node1" title=" " alt="" coords="47,80,155,107"/>
+<map id="ConvertCRSDialog" name="ConvertCRSDialog">
+<area shape="rect" id="node1" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="31,80,172,107"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00909.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node3" href="$a00937.html" title=" " alt="" coords="105,5,215,32"/>
 </map>

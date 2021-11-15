@@ -1,4 +1,4 @@
 var a00173 =
 [
-    [ "ConvertCRS", "a00329.html", "a00329" ]
+    [ "GeoCollectionsQueryTask", "a00297.html", "a00297" ]
 ];

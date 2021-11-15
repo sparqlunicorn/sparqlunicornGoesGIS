@@ -1,4 +1,7 @@
 var a00146 =
 [
-    [ "TripleStoreDialog", "a00229.html", "a00229" ]
+    [ "dialogs", "a00150.html", "a00150" ],
+    [ "sparql_unicorn", "a00149.html", "a00149" ],
+    [ "tasks", "a00165.html", "a00165" ],
+    [ "util", "a00187.html", "a00187" ]
 ];

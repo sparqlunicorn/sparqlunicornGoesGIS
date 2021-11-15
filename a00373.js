@@ -1,8 +1,7 @@
 var a00373 =
 [
-    [ "__init__", "a00373.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00373.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00373.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "insertText", "a00373.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00373.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ]
+    [ "__init__", "a00373.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
+    [ "interceptRequest", "a00373.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
+    [ "app", "a00373.html#afe63fea7be31b0200b496d08bc6b517d", null ],
+    [ "oauthcode", "a00373.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
 ];

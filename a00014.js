@@ -1,8 +1,8 @@
 var a00014 =
 [
-    [ "SPARQLCompleter", "a00189.html", "a00189" ],
-    [ "NominatimText", "a00193.html", "a00193" ],
-    [ "BBOXDialog", "a00197.html", "a00197" ],
+    [ "SPARQLCompleter", "a00205.html", "a00205" ],
+    [ "NominatimText", "a00209.html", "a00209" ],
+    [ "BBOXDialog", "a00213.html", "a00213" ],
     [ "_", "a00014.html#a18f05aeddc212b523b40818fa2b87b33", null ],
     [ "FORM_CLASS", "a00014.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

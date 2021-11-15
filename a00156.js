@@ -1,4 +1,4 @@
 var a00156 =
 [
-    [ "DataSchemaQueryTask", "a00265.html", "a00265" ]
+    [ "LoginWindowDialog", "a00233.html", "a00233" ]
 ];

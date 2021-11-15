@@ -1,7 +1,5 @@
 var a00134 =
 [
-    [ "dialogs", "a00138.html", "a00138" ],
-    [ "sparql_unicorn", "a00137.html", "a00137" ],
-    [ "tasks", "a00152.html", "a00152" ],
-    [ "util", "a00172.html", "a00172" ]
+    [ "SPARQLUtils", "a00389.html", "a00389" ],
+    [ "MESSAGE_CATEGORY", "a00134.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
 ];

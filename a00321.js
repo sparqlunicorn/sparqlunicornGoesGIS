@@ -1,18 +1,13 @@
 var a00321 =
 [
-    [ "__init__", "a00321.html#a93626884d4600b8cf171d464a41099fd", null ],
-    [ "addEnrichedLayer", "a00321.html#aca6b7d4f8799f96244e4515a0a633386", null ],
-    [ "enrichLayerProcess", "a00321.html#a56c0d7bb6decc89954e354bbd53ec602", null ],
-    [ "exportEnrichedLayer", "a00321.html#adfcc23a6b0a5b7441daa1d4b43a6e881", null ],
-    [ "dlg", "a00321.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "enrichedExport", "a00321.html#ac1babc27d21e85ac2fa395cccac38d15", null ],
-    [ "enrichedExport", "a00321.html#ac26f04155f19a0850f23ab9c063ba611", null ],
-    [ "enrichLayer", "a00321.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
-    [ "enrichLayerCounter", "a00321.html#a52fdefb870f38c907e9fede14b52425f", null ],
-    [ "exportIdCol", "a00321.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
-    [ "exportNameSpace", "a00321.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
-    [ "exportSetClass", "a00321.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
-    [ "originalRowCount", "a00321.html#a96db96b589de91ab2dd5f6f5836757de", null ],
-    [ "qtask", "a00321.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "valueconcept", "a00321.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
+    [ "__init__", "a00321.html#a9113892424ad50d84bc275a0721e4735", null ],
+    [ "finished", "a00321.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
+    [ "run", "a00321.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "exception", "a00321.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "graph", "a00321.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "prefixes", "a00321.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "queryresult", "a00321.html#a1bee14843933505be5e14e07c03f5f89", null ],
+    [ "searchResult", "a00321.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
+    [ "searchTerm", "a00321.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
+    [ "triplestoreurl", "a00321.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

@@ -1,4 +1,4 @@
 var a00162 =
 [
-    [ "GetStyleQueryTask", "a00289.html", "a00289" ]
+    [ "ValueMappingDialog", "a00257.html", "a00257" ]
 ];
