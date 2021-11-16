@@ -314,11 +314,11 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                         valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        ttlstring=LayerUtils.layerToTTLString(layer, prefixes, urilist, classurilist, includelist, proptypelist,</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                         valuemappings, valuequeries,exportNameSpace,exportIdCol,exportSetClass)</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        g=Graph()</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        g.parse(data=ttlstring,format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        stream = io.StringIO()</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        rdf2dot(g, stream)</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> stream.getvalue()</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="comment">#g=Graph()</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="comment">#g.parse(data=ttlstring,format=&quot;ttl&quot;)</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="comment">#stream = io.StringIO()</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="comment">#rdf2dot(g, stream)</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span><span class="comment">#stream.getvalue()</span></div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
 </div><!-- fragment -->
