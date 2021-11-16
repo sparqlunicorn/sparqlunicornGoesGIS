@@ -11,8 +11,8 @@ import io
 import urllib.parse
 from ..util.crsexporttools import ConvertCRS
 from ..util.sparqlutils import SPARQLUtils
-from rdflib.tools.rdf2dot import rdf2dot
-from rdflib import Graph
+#from rdflib.tools.rdf2dot import rdf2dot
+#from rdflib import Graph
 
 MESSAGE_CATEGORY = 'LayerUtils'
 
@@ -226,11 +226,11 @@ class LayerUtils:
                          valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):
         ttlstring=LayerUtils.layerToTTLString(layer, prefixes, urilist, classurilist, includelist, proptypelist,
                          valuemappings, valuequeries,exportNameSpace,exportIdCol,exportSetClass)
-        g=Graph()
-        g.parse(data=ttlstring,format="ttl")
-        stream = io.StringIO()
-        rdf2dot(g, stream)
-        return stream.getvalue()
+        #g=Graph()
+        #g.parse(data=ttlstring,format="ttl")
+        #stream = io.StringIO()
+        #rdf2dot(g, stream)
+        return ""#stream.getvalue()
 
 
     @staticmethod
