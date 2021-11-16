@@ -1,7 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt
-from qgis.PyQt.QtGui import QStandardItem, QIcon
+from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt, QSortFilterProxyModel
+from qgis.PyQt.QtGui import QStandardItem, QIcon, QStandardItemModel
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
@@ -20,6 +20,8 @@ class ClassTreeQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
+        #self.dlg.classTreeViewModel.clear()
+        self.dlg.classTreeView.setModel(None)
         self.amount=-1
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
@@ -98,6 +100,16 @@ class ClassTreeQueryTask(QgsTask):
                 self.subclassmap["root"].add(cls)
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.subclassmap)), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
+        self.dlg.classTreeViewModel=QStandardItemModel()
+        self.dlg.classTreeViewProxyModel = QSortFilterProxyModel()
+        self.dlg.classTreeViewProxyModel.sort(0)
+        self.dlg.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.dlg.classTreeViewProxyModel.setSourceModel(self.dlg.classTreeViewModel)
+        self.dlg.classTreeViewProxyModel.setRecursiveFilteringEnabled(True)
+        self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
+        self.alreadyprocessed=set()
+        self.classtreemap["root"]=self.rootNode
+        self.buildTree("root",self.classtreemap,self.subclassmap,[])
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
@@ -115,11 +127,8 @@ class ClassTreeQueryTask(QgsTask):
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
-        self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
-        self.alreadyprocessed=set()
-        self.classtreemap["root"]=self.rootNode
-        self.buildTree("root",self.classtreemap,self.subclassmap,[])
+        self.dlg.classTreeView.setModel(self.dlg.classTreeViewProxyModel)
         self.dlg.classTreeView.setSortingEnabled(True)
         self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder);
         self.dlg.classTreeView.setSortingEnabled(False)
