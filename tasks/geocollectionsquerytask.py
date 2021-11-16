@@ -2,7 +2,6 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem, QIcon
-from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -76,7 +75,8 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("CollectionClass", 257)
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -102,7 +102,8 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))#self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
+                item.setData("CollectionClass", 257)
+                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"

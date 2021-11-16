@@ -6,9 +6,13 @@ from qgis.core import Qgis
 from qgis.core import QgsWkbTypes
 import uuid
 import re
+import json
+import io
 import urllib.parse
 from ..util.crsexporttools import ConvertCRS
 from ..util.sparqlutils import SPARQLUtils
+from rdflib.tools.rdf2dot import rdf2dot
+from rdflib import Graph
 
 MESSAGE_CATEGORY = 'LayerUtils'
 
@@ -45,7 +49,8 @@ class LayerUtils:
     ## Converts a QGIS layer to TTL with or withour a given column mapping.
     #  @param self The object pointer.
     #  @param layer The layer to convert.
-    def layerToTTLString(self, layer, prefixes, urilist=None, classurilist=None, includelist=None, proptypelist=None,
+    @staticmethod
+    def layerToTTLString(layer, prefixes, urilist=None, classurilist=None, includelist=None, proptypelist=None,
                          valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):
         fieldnames = [field.name() for field in layer.fields()]
         ttlstring=set()
@@ -83,7 +88,7 @@ class LayerUtils:
                                                                                          "_") + "> <http://www.opengis.net/ont/crs/asProj> \"" + str(
             layercrs.toProj4()) + "\"^^<http://www.opengis.net/ont/crs/proj4Literal> .\n")
         ccrs=ConvertCRS()
-        ttlstring=ccrs.convertCRSFromWKTString(layercrs.toWkt(),ttlstring)
+        ttlstring=ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(),ttlstring)
         for f in layer.getFeatures():
             geom = f.geometry()
             if not idcol in fieldnames:
@@ -215,3 +220,90 @@ class LayerUtils:
             if first < 10:
                 first = first + 1
         return ccrs.ttlhead+"".join(ttlstring)
+
+    @staticmethod
+    def layerToDot(layer, prefixes, urilist=None, classurilist=None, includelist=None, proptypelist=None,
+                         valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):
+        ttlstring=LayerUtils.layerToTTLString(layer, prefixes, urilist, classurilist, includelist, proptypelist,
+                         valuemappings, valuequeries,exportNameSpace,exportIdCol,exportSetClass)
+        g=Graph()
+        g.parse(data=ttlstring,format="ttl")
+        stream = io.StringIO()
+        rdf2dot(g, stream)
+        return stream.getvalue()
+
+
+    @staticmethod
+    def layerToGraphML(layer):
+        fieldnames = [field.name() for field in layer.fields()]
+        result="<?xml version=\"1.0\" encoding=\"UTF-8\">\n"
+        result+="<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\">\n"
+        result+="<graph id=\"G\" edgedefault=\"undirected\">\n"
+        nodeset=set()
+        edgeset=set()
+        fidcounter=0
+        for f in layer.getFeatures():
+            geom = f.geometry()
+            nodeset.add("<node id=\"fid_"+str(fidcounter)+"\"/>\n")
+            fieldcounter=0
+            for propp in fieldnames:
+                fieldcounter += 1
+                prop = propp
+                nodeset.add("<node id=\"" + str(prop) + "\"/>\n")
+                edgeset.add("<edge id=\"fid_"+str(fidcounter)+"_"+str(prop)+"\" source=\"fid_"+str(fidcounter)+"\" target=\""+str(prop)+"\"/>\n")
+            fidcounter+=1
+        result+="".join(nodeset)
+        result+="".join(edgeset)
+        result+="</graph>\n"
+        result+="</graphml>"
+        return result
+
+    ## Exports a layer as GeoJSONLD.
+    #  @param self The object pointer.
+    @staticmethod
+    def exportLayerAsGeoJSONLD(layer):
+        context = {
+            "geojson": "https://purl.org/geojson/vocab#",
+            "Feature": "geojson:Feature",
+            "FeatureCollection": "geojson:FeatureCollection",
+            "GeometryCollection": "geojson:GeometryCollection",
+            "LineString": "geojson:LineString",
+            "MultiLineString": "geojson:MultiLineString",
+            "MultiPoint": "geojson:MultiPoint",
+            "MultiPolygon": "geojson:MultiPolygon",
+            "Point": "geojson:Point",
+            "Polygon": "geojson:Polygon",
+            "bbox": {
+                "@container": "@list",
+                "@id": "geojson:bbox"
+            },
+            "coordinates": {
+                "@container": "@list",
+                "@id": "geojson:coordinates"
+            },
+            "features": {
+                "@container": "@set",
+                "@id": "geojson:features"
+            },
+            "geometry": "geojson:geometry",
+            "id": "@id",
+            "properties": "geojson:properties",
+            "type": "@type",
+            "description": "http://purl.org/dc/terms/description",
+            "title": "http://purl.org/dc/terms/title"
+        }
+        fieldnames = [field.name() for field in layer.fields()]
+        currentgeo = {}
+        geos = []
+        for f in layer.getFeatures():
+            geom = f.geometry()
+            currentgeo = {'id': "", 'geometry': json.loads(geom.asJson()), 'properties': {}}
+            for prop in fieldnames:
+                if prop == "id":
+                    currentgeo["id"] = f[prop]
+                else:
+                    currentgeo["properties"][prop] = f[prop]
+            geos.append(currentgeo)
+        featurecollection = {"@context": context, "type": "FeatureCollection",
+                             "@id": "http://example.com/collections/1", "features": geos}
+        return featurecollection

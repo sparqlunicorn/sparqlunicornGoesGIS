@@ -26,7 +26,7 @@
 from qgis.utils import iface
 from qgis.core import Qgis, QgsMessageLog
 
-from qgis.PyQt.QtCore import QSettings, QCoreApplication, QRegExp, QVariant, Qt, QItemSelectionModel
+from qgis.PyQt.QtCore import QSettings, QCoreApplication, QRegExp, QVariant, Qt, QItemSelectionModel, QTranslator
 from qgis.PyQt.QtGui import QIcon, QRegExpValidator, QBrush, QColor, QStandardItem
 from qgis.PyQt.QtWidgets import QAction, QComboBox, QCompleter, QFileDialog, QTableWidgetItem, QHBoxLayout, QPushButton, \
     QWidget, QMessageBox, QProgressDialog, QListWidgetItem, QStyle
@@ -493,6 +493,38 @@ class SPARQLunicorn:
     def exportLayer2(self):
         self.exportLayer(None, None, None, None, None, None, self.dlg.exportTripleStore_2.isChecked())
 
+    def exportLayer4(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        if self.enrichedExport:
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        else:
+            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        ttlstring = LayerUtils.layerToDot(layer,"".join(self.prefixes[self.dlg.comboBox.currentIndex()]))
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
+        if filename == "":
+            return
+        with open(filename, 'w') as output_file:
+            output_file.write(ttlstring)
+            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+
+    def exportLayer3(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        if self.enrichedExport:
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+        else:
+            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+        layer = layers[selectedLayerIndex].layer()
+        ttlstring = LayerUtils.layerToGraphML(layer)
+        filename, _filter = QFileDialog.getSaveFileName(
+            self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
+        if filename == "":
+            return
+        with open(filename, 'w') as output_file:
+            output_file.write(ttlstring)
+            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+
     ## Creates the export layer dialog for exporting layers as TTL.
     #  @param self The object pointer.
     def exportLayer(self, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None,
@@ -528,56 +560,6 @@ class SPARQLunicorn:
             with open(filename, 'w') as output_file:
                 output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode("utf-8"))
                 iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-
-    ## Exports a layer as GeoJSONLD.
-    #  @param self The object pointer.
-    def exportLayerAsGeoJSONLD(self):
-        context = {
-            "geojson": "https://purl.org/geojson/vocab#",
-            "Feature": "geojson:Feature",
-            "FeatureCollection": "geojson:FeatureCollection",
-            "GeometryCollection": "geojson:GeometryCollection",
-            "LineString": "geojson:LineString",
-            "MultiLineString": "geojson:MultiLineString",
-            "MultiPoint": "geojson:MultiPoint",
-            "MultiPolygon": "geojson:MultiPolygon",
-            "Point": "geojson:Point",
-            "Polygon": "geojson:Polygon",
-            "bbox": {
-                "@container": "@list",
-                "@id": "geojson:bbox"
-            },
-            "coordinates": {
-                "@container": "@list",
-                "@id": "geojson:coordinates"
-            },
-            "features": {
-                "@container": "@set",
-                "@id": "geojson:features"
-            },
-            "geometry": "geojson:geometry",
-            "id": "@id",
-            "properties": "geojson:properties",
-            "type": "@type",
-            "description": "http://purl.org/dc/terms/description",
-            "title": "http://purl.org/dc/terms/title"
-        }
-        layer = self.layers[self.selectedLayerIndex].layer()
-        fieldnames = [field.name() for field in layer.fields()]
-        currentgeo = {}
-        geos = []
-        for f in layer.getFeatures():
-            geom = f.geometry()
-            currentgeo = {'id': "", 'geometry': json.loads(geom.asJson()), 'properties': {}}
-            for prop in fieldnames:
-                if prop == "id":
-                    currentgeo["id"] = f[prop]
-                else:
-                    currentgeo["properties"][prop] = f[prop]
-            geos.append(currentgeo)
-        featurecollection = {"@context": context, "type": "FeatureCollection",
-                             "@id": "http://example.com/collections/1", "features": geos}
-        return featurecollection
 
     ## Saves a personal copy of the triplestore configuration file to disk.
     #  @param self The object pointer.
@@ -655,12 +637,16 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.toolButton.hide()
+            self.dlg.exportDOT.hide()
+            self.dlg.exportGraphML.hide()
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
+            self.dlg.exportGraphML.clicked.connect(self.exportLayer3)
+            self.dlg.exportDOT.clicked.connect(self.exportLayer4)
             self.dlg.toolButton.clicked.connect(self.getClassTree)
         # if self.first_start == False:
         #    self.dlg.loadUnicornLayers()

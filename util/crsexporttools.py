@@ -173,8 +173,8 @@ class ConvertCRS:
 		return ttl
 
 	@staticmethod
-	def convertCRSFromWKTString(wkt,authcode,ttl):
-		if "EPSG:" in authcode:
+	def convertCRSFromWKTStringSet(wkt,ttl, authcode=None):
+		if authcode!=None and "EPSG:" in authcode:
 			authcode=authcode.replace("EPSG:","")
 		try:
 			curcrs=CRS.from_wkt(wkt)
@@ -184,10 +184,15 @@ class ConvertCRS:
 			else:
 				res=ConvertCRS.crsToTTL(ttl, curcrs, "WKT", 1, None)
 			QgsMessageLog.logMessage("Parsed WKT Res " + str(res), MESSAGE_CATEGORY, Qgis.Info)
-			ttl="".join(res)
+			ttl=res
 		except:
 			QgsMessageLog.logMessage("Could not parse WKT "+str(wkt), MESSAGE_CATEGORY, Qgis.Info)
 		return ttl
+
+	@staticmethod
+	def convertCRSFromWKTString(wkt,ttl, authcode=None):
+		set=ConvertCRS.convertCRSFromWKTStringSet(wkt,ttl, authcode)
+		return "".join(set)
 
 	@staticmethod
 	def crsToTTL(ttl,curcrs,x,geodcounter,crsclass):
