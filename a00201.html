@@ -541,9 +541,9 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> conceptlist:</div>
 <div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                item = QStandardItem()</div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                item.setData(concept, 256)</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                item.setText(concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:])</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, <span class="stringliteral">&quot;SP_ToolBarHorizontalExtensionButton&quot;</span>)))</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                self.dlg.autocomplete[<span class="stringliteral">&quot;completerClassList&quot;</span>][concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:]] = <span class="stringliteral">&quot;&lt;&quot;</span> + concept + <span class="stringliteral">&quot;&gt;&quot;</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                item.setText(SPARQLUtils.labelFromURI(concept))</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                item.setIcon(SPARQLUtils.geoclassicon)</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                self.dlg.autocomplete[<span class="stringliteral">&quot;completerClassList&quot;</span>][SPARQLUtils.labelFromURI(concept)] = <span class="stringliteral">&quot;&lt;&quot;</span> + concept + <span class="stringliteral">&quot;&gt;&quot;</span></div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                self.dlg.geoTreeViewModel.appendRow(item)</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            self.dlg.inp_sparql2.updateNewClassList()</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            <span class="keywordflow">if</span> len(conceptlist) &gt; 0:</div>
