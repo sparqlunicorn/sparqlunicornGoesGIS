@@ -27,11 +27,11 @@ class ClassTreeQueryTask(QgsTask):
                     SELECT DISTINCT ?subject ?label ?supertype ?hasgeo\n
                     WHERE {\n"""
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
-            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } .\n"
+            self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
-            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} .\n"
+            self.query+="{ ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         else:
-            self.query+="{ ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } UNION { ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}} .\n"
+            self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  }  .\n"
         self.query+="""OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"])+"""> ?supertype } .\n
                        OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["labelproperty"])+"""> ?label }.\n
                         FILTER (\n
@@ -63,7 +63,6 @@ class ClassTreeQueryTask(QgsTask):
         hasparent={}
         QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)        
         for result in results["results"]["bindings"]:
-            #QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
             if subval==None or subval=="":
                 continue
@@ -73,19 +72,26 @@ class ClassTreeQueryTask(QgsTask):
                 if "label" in result:
                     if "hasgeo" in result:
                         self.classtreemap[subval].setText(
-                        result["label"]["value"]+" [GEO]")
+                        result["label"]["value"])
+                        self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
                     else:
                         self.classtreemap[subval].setText(
                         result["label"]["value"])
+                        self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
                 else:
                     if "hasgeo" in result:
                         self.classtreemap[subval].setText(
-                        result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:]+" [GEO]")
+                        result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
+                        self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
                     else:
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
-                self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
-                self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+                        self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:

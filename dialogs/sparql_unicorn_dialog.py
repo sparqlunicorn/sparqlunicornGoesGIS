@@ -37,6 +37,7 @@ from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
 from ..util.tooltipplaintext import ToolTipPlainText
+from ..util.sparqlutils import SPARQLUtils
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
@@ -257,7 +258,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(self.openURL)
-        if nodetype!="Instance":
+        if nodetype!=SPARQLUtils.instancenode and nodetype!=SPARQLUtils.geoinstancenode:
             actioninstancecount=QAction("Check instance count")
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)

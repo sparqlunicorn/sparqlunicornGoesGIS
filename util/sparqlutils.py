@@ -74,6 +74,7 @@ class SPARQLUtils:
             except:
                 QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
                 return False
+        QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
