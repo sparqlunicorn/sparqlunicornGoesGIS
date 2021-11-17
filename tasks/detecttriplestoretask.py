@@ -89,6 +89,7 @@ class DetectTripleStoreTask(QgsTask):
         self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label"
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        self.configuration["whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
         self.configuration["staticconcepts"] = []
         self.configuration["active"] = True
         self.configuration["prefixes"] = {"owl": "http://www.w3.org/2002/07/owl#",
@@ -108,7 +109,8 @@ class DetectTripleStoreTask(QgsTask):
             "hasGML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}",
             "hasKML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asKML ?c .}",
             "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
-            "hasLatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
+            "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
+            "hasSchemaOrgGeo": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         if self.testTripleStoreConnection(testQueries["available"]):
             QgsMessageLog.logMessage("Triple Store "+str(self.triplestoreurl)+" is available!", MESSAGE_CATEGORY, Qgis.Info)
@@ -150,8 +152,8 @@ class DetectTripleStoreTask(QgsTask):
                             i = i + 1
                 self.feasibleConfiguration = True
                 QgsMessageLog.logMessage(str(self.configuration))
-            elif self.testTripleStoreConnection(testQueries["hasLatLon"]):
-                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains Lat/Lon properties!",
+            elif self.testTripleStoreConnection(testQueries["hasWgs84LatLon"]):
+                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains WGS84 Lat/Lon properties!",
                                          MESSAGE_CATEGORY,
                                          Qgis.Info)
                 self.configuration["geometryproperty"] = "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
@@ -159,7 +161,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
                 self.configuration["querytemplate"] = []
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries",
-                                                            "query": "SELECT ?item ?lat ?lon WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})
+                                                            "query": "SELECT ?item ?lat ?lon WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%> .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .\n } LIMIT 10"})
                 self.configuration["featurecollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#FeatureCollection"]
                 self.configuration["geometrycollectionclasses"] = [
@@ -170,6 +172,39 @@ class DetectTripleStoreTask(QgsTask):
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                self.configuration[
+                    "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
+                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
+                i = 0
+                for ns in res:
+                    if ns != "http://" and ns.startswith("http://"):
+                        if ns in self.prefixstore["reversed"]:
+                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
+                        else:
+                            self.configuration["prefixes"]["ns" + str(i)] = ns
+                            i = i + 1
+                self.feasibleConfiguration = True
+                QgsMessageLog.logMessage(str(self.configuration))
+            elif self.testTripleStoreConnection(testQueries["hasSchemaOrgGeo"]):
+                QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains Schema.org Lat/Lon properties!",
+                                         MESSAGE_CATEGORY,
+                                         Qgis.Info)
+                self.configuration["geometryproperty"] = "https://schema.org/geo"
+                self.message = "URL depicts a valid SPARQL Endpoint and contains Schema.org Lat/long!\nWould you like to add this SPARQL endpoint?"
+                self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
+                self.configuration["querytemplate"] = []
+                self.configuration["querytemplate"].append({"label": "10 Random Geometries",
+                                                            "query": "SELECT ?item ?lat ?lon WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%> .\n ?item <http://schema.org/geo> ?itemgeo . ?itemgeo <http://schema.org/latitude> ?lat .\n ?itemgeo <http://schema.org/longitude> ?lon .\n } LIMIT 10"})
+                self.configuration["featurecollectionclasses"] = [
+                    "http://www.opengis.net/ont/geosparql#FeatureCollection"]
+                self.configuration["geometrycollectionclasses"] = [
+                    "http://www.opengis.net/ont/geosparql#GeometryCollection"]
+                self.configuration[
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://schema.org/latitude> ?lat . ?a <http://schema.org/longitude> ?lon .}"
+                self.configuration[
+                    "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
+                self.configuration[
+                    "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://schema.org/latitude> ?lat . ?a <http://schema.org/longitude> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
@@ -226,9 +261,9 @@ class DetectTripleStoreTask(QgsTask):
                 self.feasibleConfiguration = True
                 QgsMessageLog.logMessage(str(self.configuration))
             else:
-                self.message = "SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint"
-                self.feasibleConfiguration = False
-                return False
+                self.message = "SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries\nDo you still want to add this SPARQL endpoint?"
+                self.feasibleConfiguration = True
+                return True
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False
@@ -239,8 +274,6 @@ class DetectTripleStoreTask(QgsTask):
                 "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             self.configuration[
                 "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            self.configuration[
-                "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
         return True
 
     def finished(self, result):
