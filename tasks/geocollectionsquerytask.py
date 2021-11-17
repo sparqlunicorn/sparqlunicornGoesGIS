@@ -75,8 +75,8 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setData("CollectionClass", 257)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                item.setData(SPARQLUtils.collectionclassnode, 257)
+                item.setIcon(SPARQLUtils.classicon)
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -102,8 +102,8 @@ class GeoCollectionsQueryTask(QgsTask):
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
-                item.setData("CollectionClass", 257)
-                item.setIcon(QIcon(":/icons/resources/icons/class.png"))
+                item.setData(SPARQLUtils.collectionclassnode, 257)
+                item.setIcon(SPARQLUtils.classicon)
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"

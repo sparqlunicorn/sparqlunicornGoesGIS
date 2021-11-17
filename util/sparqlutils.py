@@ -25,6 +25,11 @@ class SPARQLUtils:
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
     earthinstanceicon=QIcon(":/icons/resources/icons/earthinstance.png")
+    classnode="Class"
+    geoclassnode="GeoClass"
+    instancenode="Instance"
+    geoinstancenode="GeoInstance"
+    collectionclassnode="CollectionClass"
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):

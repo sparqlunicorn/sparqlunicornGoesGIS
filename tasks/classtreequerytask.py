@@ -85,7 +85,7 @@ class ClassTreeQueryTask(QgsTask):
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
                 self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
-                self.classtreemap[subval].setData("Class", 257)
+                self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:

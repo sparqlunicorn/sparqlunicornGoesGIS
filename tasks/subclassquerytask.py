@@ -64,8 +64,8 @@ class SubClassQueryTask(QgsTask):
                     item.setText(SPARQLUtils.labelFromURI(concept))
                     item.setForeground(QColor(0,0,0))
                     item.setEditable(False)
-                    item.setIcon(QIcon(":/icons/resources/icons/class.png"))
-                    item.setData("Class", 257)
+                    item.setIcon(SPARQLUtils.classicon)
+                    item.setData(SPARQLUtils.classnode, 257)
                     self.treeNode.appendRow(item)
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
@@ -75,8 +75,8 @@ class SubClassQueryTask(QgsTask):
                     item.setText(SPARQLUtils.labelFromURI(concept))
                     item.setForeground(QColor(0,0,0))
                     item.setEditable(False)
-                    item.setIcon(QIcon(":/icons/resources/icons/class.png"))
-                    item.setData("Class", 257)
+                    item.setIcon(SPARQLUtils.classicon)
+                    item.setData(SPARQLUtils.classnode, 257)
                     self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")
