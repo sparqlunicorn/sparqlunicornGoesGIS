@@ -1,7 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt, QSortFilterProxyModel
-from qgis.PyQt.QtGui import QStandardItem, QIcon, QStandardItemModel
+from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt
+from qgis.PyQt.QtGui import QStandardItem, QIcon
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
@@ -20,8 +20,6 @@ class ClassTreeQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
-        #self.dlg.classTreeViewModel.clear()
-        self.dlg.classTreeView.setModel(None)
         self.amount=-1
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
@@ -63,6 +61,7 @@ class ClassTreeQueryTask(QgsTask):
         if results==False:
             return False
         hasparent={}
+        QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)        
         for result in results["results"]["bindings"]:
             #QgsMessageLog.logMessage('Started task "{}"'.format(str(result)), MESSAGE_CATEGORY, Qgis.Info)
             subval=result["subject"]["value"]
@@ -85,7 +84,7 @@ class ClassTreeQueryTask(QgsTask):
                     else:
                         self.classtreemap[subval].setText(
                         result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
-                self.classtreemap[subval].setIcon(QIcon(":/icons/resources/icons/class.png"))
+                self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                 self.classtreemap[subval].setData("Class", 257)
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
@@ -98,18 +97,8 @@ class ClassTreeQueryTask(QgsTask):
         for cls in self.classtreemap:
             if cls not in hasparent and cls!="root":
                 self.subclassmap["root"].add(cls)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.subclassmap)), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
-        self.dlg.classTreeViewModel=QStandardItemModel()
-        self.dlg.classTreeViewProxyModel = QSortFilterProxyModel()
-        self.dlg.classTreeViewProxyModel.sort(0)
-        self.dlg.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.dlg.classTreeViewProxyModel.setSourceModel(self.dlg.classTreeViewModel)
-        self.dlg.classTreeViewProxyModel.setRecursiveFilteringEnabled(True)
-        self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
-        self.alreadyprocessed=set()
-        self.classtreemap["root"]=self.rootNode
-        self.buildTree("root",self.classtreemap,self.subclassmap,[])
+        QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
@@ -126,9 +115,12 @@ class ClassTreeQueryTask(QgsTask):
 
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
+            "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
+        self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
-        self.dlg.classTreeView.setModel(self.dlg.classTreeViewProxyModel)
+        self.alreadyprocessed=set()
+        self.classtreemap["root"]=self.rootNode
+        self.buildTree("root",self.classtreemap,self.subclassmap,[])
         self.dlg.classTreeView.setSortingEnabled(True)
         self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder);
         self.dlg.classTreeView.setSortingEnabled(False)

@@ -56,9 +56,9 @@ class InstanceListQueryTask(QgsTask):
             item.setData(concept, 256)
             if self.treeNode.data(257)=="GeoClass":
                 item.setData("Instance",257)
-                item.setIcon(QIcon(":/icons/resources/icons/earthinstance.png"))            
+                item.setIcon(SPARQLUtils.earthinstanceicon)            
             else:
                 item.setData("Instance",257)
-                item.setIcon(QIcon(":/icons/resources/icons/instance.png"))
+                item.setIcon(SPARQLUtils.instanceicon)
             item.setText(self.queryresult[concept]["label"])
             self.treeNode.appendRow(item)

@@ -6,6 +6,7 @@ from urllib.request import urlopen
 import json
 from qgis.core import Qgis, QgsGeometry
 from qgis.core import QgsMessageLog
+from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
 
@@ -19,6 +20,11 @@ class SPARQLUtils:
                              "http://www.opengis.net/ont/geosparql#geoJSONLiteral": "geojson",
                              "http://www.opengis.net/ont/geosparql#kmlLiteral": "kml",
                              "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"}
+
+    classicon=QIcon(":/icons/resources/icons/class.png")
+    geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
+    instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    earthinstanceicon=QIcon(":/icons/resources/icons/earthinstance.png")
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
@@ -44,7 +50,7 @@ class SPARQLUtils:
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         try:
-            results = sparql.query().convert()
+            results = sparql.queryAndConvert()
             if "status_code" in results:
                 raise Exception
         except Exception as e:
@@ -52,14 +58,12 @@ class SPARQLUtils:
                 sparql = SPARQLWrapper(triplestoreurl,
                                        agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                 sparql.setQuery(query)
-                if triplestoreconf != None and "userCredential" in triplestoreconf and triplestoreconf[
-                    "userCredential"] != "" and "userPassword" in triplestoreconf and triplestoreconf[
-                    "userPassword"] != None:
+                if triplestoreconf != None and "userCredential" in triplestoreconf and triplestoreconf["userCredential"] != "" and "userPassword" in triplestoreconf and triplestoreconf["userPassword"] != None:
                     sparql.setHTTPAuth(DIGEST)
                     sparql.setCredentials(triplestoreconf["userCredential"], triplestoreconf["userPassword"])
                 sparql.setMethod(POST)
                 sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
+                results = sparql.queryAndConvert()
                 if "status_code" in results:
                     raise Exception
             except:
