@@ -372,9 +372,9 @@ class SPARQLunicorn:
             for concept in conceptlist:
                 item = QStandardItem()
                 item.setData(concept, 256)
-                item.setText(concept[concept.rfind('/') + 1:])
-                item.setIcon(self.dlg.style().standardIcon(getattr(QStyle, "SP_ToolBarHorizontalExtensionButton")))
-                self.dlg.autocomplete["completerClassList"][concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
+                item.setText(SPARQLUtils.labelFromURI(concept))
+                item.setIcon(SPARQLUtils.geoclassicon)
+                self.dlg.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
                 self.dlg.geoTreeViewModel.appendRow(item)
             self.dlg.inp_sparql2.updateNewClassList()
             if len(conceptlist) > 0:
