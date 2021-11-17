@@ -79,10 +79,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aafe8b143d232fc8175b4f51af732863f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#aafe8b143d232fc8175b4f51af732863f">ClientId</a> = ''</td></tr>
-<tr class="separator:aafe8b143d232fc8175b4f51af732863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f4e8a9384e3c24ea1bce80875ab6b54"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#a1f4e8a9384e3c24ea1bce80875ab6b54">ClientSecret</a> = ''</td></tr>
-<tr class="separator:a1f4e8a9384e3c24ea1bce80875ab6b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f12c8ddfb00c508eb1ee63907d6493c"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#a7f12c8ddfb00c508eb1ee63907d6493c">ClientId</a> = {&quot;orcid&quot;:&quot;&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;&quot;,&quot;github&quot;:&quot;&quot;}</td></tr>
+<tr class="separator:a7f12c8ddfb00c508eb1ee63907d6493c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86726dfd09230f62e353b939407e7819"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#a86726dfd09230f62e353b939407e7819">ClientSecret</a> = {&quot;orcid&quot;:&quot;&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;&quot;,&quot;github&quot;:&quot;&quot;}</td></tr>
+<tr class="separator:a86726dfd09230f62e353b939407e7819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac239dd96726a1bae22f8f0f2362e3df0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#ac239dd96726a1bae22f8f0f2362e3df0">RedirectUrl</a> = 'localhost/callback'</td></tr>
 <tr class="separator:ac239dd96726a1bae22f8f0f2362e3df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53a91115cb4711210ec578b91efbecdb"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#a53a91115cb4711210ec578b91efbecdb">RedirectScheme</a> = 'http://'</td></tr>
@@ -93,7 +93,7 @@ Variables</h2></td></tr>
 <tr class="separator:a76ea639e13c617a28c4cac0e357875e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7497c687f69d52200b6dcf2fe4df3a7c"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#a7497c687f69d52200b6dcf2fe4df3a7c">Headers</a></td></tr>
 <tr class="separator:a7497c687f69d52200b6dcf2fe4df3a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc51d89c18cc53d5e2541de54fb5862a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#acc51d89c18cc53d5e2541de54fb5862a">AuthUrl</a> = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(headers=urlencode(<a class="el" href="a00191.html#a7497c687f69d52200b6dcf2fe4df3a7c">Headers</a>))</td></tr>
+<tr class="memitem:acc51d89c18cc53d5e2541de54fb5862a"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00191.html#acc51d89c18cc53d5e2541de54fb5862a">AuthUrl</a> = {&quot;orcid&quot;:&quot; https://orcid.org/oauth/authorize?{headers}&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;https://gitlab.example.com/oauth/authorize?{headers}&quot;,&quot;github&quot;:&quot;https://github.com/login/oauth/authorize?{headers}&quot;}</td></tr>
 <tr class="separator:acc51d89c18cc53d5e2541de54fb5862a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
@@ -104,35 +104,35 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary AuthUrl = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(headers=urlencode(<a class="el" href="a00191.html#a7497c687f69d52200b6dcf2fe4df3a7c">Headers</a>))</td>
+          <td class="memname">dictionary AuthUrl = {&quot;orcid&quot;:&quot; https://orcid.org/oauth/authorize?{headers}&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;https://gitlab.example.com/oauth/authorize?{headers}&quot;,&quot;github&quot;:&quot;https://github.com/login/oauth/authorize?{headers}&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aafe8b143d232fc8175b4f51af732863f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafe8b143d232fc8175b4f51af732863f">&#9670;&nbsp;</a></span>ClientId</h2>
+<a id="a7f12c8ddfb00c508eb1ee63907d6493c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f12c8ddfb00c508eb1ee63907d6493c">&#9670;&nbsp;</a></span>ClientId</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string ClientId = ''</td>
+          <td class="memname">dictionary ClientId = {&quot;orcid&quot;:&quot;&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;&quot;,&quot;github&quot;:&quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1f4e8a9384e3c24ea1bce80875ab6b54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f4e8a9384e3c24ea1bce80875ab6b54">&#9670;&nbsp;</a></span>ClientSecret</h2>
+<a id="a86726dfd09230f62e353b939407e7819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86726dfd09230f62e353b939407e7819">&#9670;&nbsp;</a></span>ClientSecret</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string ClientSecret = ''</td>
+          <td class="memname">dictionary ClientSecret = {&quot;orcid&quot;:&quot;&quot;,&quot;google&quot;:&quot;&quot;,&quot;gitlabcom&quot;:&quot;&quot;,&quot;github&quot;:&quot;&quot;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
