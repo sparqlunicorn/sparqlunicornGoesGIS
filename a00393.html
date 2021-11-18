@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: StyleObject Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: SPARQLHighlighter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,79 +62,156 @@ $(document).ready(function(){initNavTree('a00393.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00390.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">StyleObject Class Reference</div>  </div>
+<div class="title">SPARQLHighlighter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Collaboration diagram for StyleObject:</div>
+Inheritance diagram for SPARQLHighlighter:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00391.png" border="0" usemap="#StyleObject_coll__map" alt="Collaboration graph"/></div>
-<map name="StyleObject_coll__map" id="StyleObject_coll__map">
-<area shape="rect" title=" " alt="" coords="5,241,103,268"/>
-<area shape="rect" title=" " alt="" coords="11,5,97,32"/>
+<div class="center"><img src="a00392.png" border="0" usemap="#SPARQLHighlighter_inherit__map" alt="Inheritance graph"/></div>
+<map name="SPARQLHighlighter_inherit__map" id="SPARQLHighlighter_inherit__map">
+<area shape="rect" title=" " alt="" coords="8,80,152,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,155,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for SPARQLHighlighter:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00391.png" border="0" usemap="#SPARQLHighlighter_coll__map" alt="Collaboration graph"/></div>
+<map name="SPARQLHighlighter_coll__map" id="SPARQLHighlighter_coll__map">
+<area shape="rect" title=" " alt="" coords="127,124,271,151"/>
+<area shape="rect" title=" " alt="" coords="5,5,155,32"/>
+<area shape="rect" title=" " alt="" coords="179,5,218,32"/>
+<area shape="rect" title=" " alt="" coords="325,5,368,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ad03673e69c5b388ed1479aa6fea2b8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">toString</a> (self)</td></tr>
-<tr class="separator:a1ad03673e69c5b388ed1479aa6fea2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19f8900ce11cc15b6c2758b2b1b52155"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a19f8900ce11cc15b6c2758b2b1b52155">cssLiteralToXML</a> (self, result, cssString)</td></tr>
-<tr class="separator:a19f8900ce11cc15b6c2758b2b1b52155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18c097b16c4526975fc83d495ba297f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a18c097b16c4526975fc83d495ba297f2">toSLD</a> (self, layername)</td></tr>
-<tr class="separator:a18c097b16c4526975fc83d495ba297f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab53a8d674edc6e5e61f3ff4ca1fcebf9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#ab53a8d674edc6e5e61f3ff4ca1fcebf9">__init__</a> (self, document)</td></tr>
+<tr class="separator:ab53a8d674edc6e5e61f3ff4ca1fcebf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea4c5245fe0920f4c2d9bcb0f92f327"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">highlightBlock</a> (self, text)</td></tr>
+<tr class="separator:afea4c5245fe0920f4c2d9bcb0f92f327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa301cb2fc9bf96ca7c8608527c4a38e1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#aa301cb2fc9bf96ca7c8608527c4a38e1">match_multiline</a> (self, text, delimiter, in_state, style)</td></tr>
+<tr class="separator:aa301cb2fc9bf96ca7c8608527c4a38e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adb8c3b06bd36e64ec0b1e2053d8d992d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#adb8c3b06bd36e64ec0b1e2053d8d992d">tri_single</a></td></tr>
+<tr class="separator:adb8c3b06bd36e64ec0b1e2053d8d992d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb5ce69445e9b7228404340d7e226a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a9bb5ce69445e9b7228404340d7e226a3">tri_double</a></td></tr>
+<tr class="separator:a9bb5ce69445e9b7228404340d7e226a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a595e07a99f60f22a6a29e4fca291ea28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a595e07a99f60f22a6a29e4fca291ea28">rules</a></td></tr>
+<tr class="separator:a595e07a99f60f22a6a29e4fca291ea28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a221ef49adb7a26691cafd3094c1380df"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a221ef49adb7a26691cafd3094c1380df">pointStyle</a> = {}</td></tr>
-<tr class="separator:a221ef49adb7a26691cafd3094c1380df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc36068b18fc0e763f03d5d81b1cc930"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#afc36068b18fc0e763f03d5d81b1cc930">pointImage</a> = {}</td></tr>
-<tr class="separator:afc36068b18fc0e763f03d5d81b1cc930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a366492bb1f1dd341c403e8ffce4e7bb9"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a366492bb1f1dd341c403e8ffce4e7bb9">lineStringStyle</a> = {&quot;stroke&quot;:{}}</td></tr>
-<tr class="separator:a366492bb1f1dd341c403e8ffce4e7bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa617df349724bd77dba9c97abb8f599"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#afa617df349724bd77dba9c97abb8f599">lineStringImage</a> = {}</td></tr>
-<tr class="separator:afa617df349724bd77dba9c97abb8f599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32d30b9c2955f548409c237bafc48cff"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a32d30b9c2955f548409c237bafc48cff">polygonStyle</a> = {&quot;stroke&quot;:{},&quot;fill&quot;:{}}</td></tr>
-<tr class="separator:a32d30b9c2955f548409c237bafc48cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba826ad777558571f61bfb8482d674d6"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#aba826ad777558571f61bfb8482d674d6">polygonImage</a> = {}</td></tr>
-<tr class="separator:aba826ad777558571f61bfb8482d674d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12346bfdf1a625ad94f9e36edabed019"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a12346bfdf1a625ad94f9e36edabed019">hatch</a> = {}</td></tr>
-<tr class="separator:a12346bfdf1a625ad94f9e36edabed019"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60fe91ff11ff85f726c0598eaf7e32e9"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a60fe91ff11ff85f726c0598eaf7e32e9">lineStringImageStyle</a> = {}</td></tr>
-<tr class="separator:a60fe91ff11ff85f726c0598eaf7e32e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfd5502922b2d47b6dd7675e0158d22f"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#adfd5502922b2d47b6dd7675e0158d22f">rasterStyle</a> = {}</td></tr>
-<tr class="separator:adfd5502922b2d47b6dd7675e0158d22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a128ed64dc26a5eaac426d197df85f1c6"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a128ed64dc26a5eaac426d197df85f1c6">rasterColorMap</a> = {}</td></tr>
-<tr class="separator:a128ed64dc26a5eaac426d197df85f1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e32ecec44a0e1da993b80de3e3955c5"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a2e32ecec44a0e1da993b80de3e3955c5">styleName</a> = {}</td></tr>
-<tr class="separator:a2e32ecec44a0e1da993b80de3e3955c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a125ef743ee7dce920a078b7dfbdd8efc"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a125ef743ee7dce920a078b7dfbdd8efc">styleId</a> = {}</td></tr>
-<tr class="separator:a125ef743ee7dce920a078b7dfbdd8efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26a0017c326a2a9cfe8196ff49480b48"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a26a0017c326a2a9cfe8196ff49480b48">styleDescription</a> = {}</td></tr>
-<tr class="separator:a26a0017c326a2a9cfe8196ff49480b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afaa8e43fce583046ac3d0bea1f23e11b"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#afaa8e43fce583046ac3d0bea1f23e11b">popupStyle</a> = {}</td></tr>
-<tr class="separator:afaa8e43fce583046ac3d0bea1f23e11b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8f0d611794246d912b4fe982767875b"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#ac8f0d611794246d912b4fe982767875b">textStyle</a> = {}</td></tr>
-<tr class="separator:ac8f0d611794246d912b4fe982767875b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a051199d13a37174027fd07a0b3bfdc35"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a051199d13a37174027fd07a0b3bfdc35">conditions</a> = {}</td></tr>
-<tr class="separator:a051199d13a37174027fd07a0b3bfdc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac08fc99e60c797ae56747b811ab187e3"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#ac08fc99e60c797ae56747b811ab187e3">svgToCSS</a> = {&quot;fill&quot;:&quot;fillColor&quot;,&quot;stroke&quot;:&quot;color&quot;,&quot;stroke-width&quot;:&quot;weight&quot;,&quot;stroke-linejoin&quot;:&quot;lineJoin&quot;}</td></tr>
-<tr class="separator:ac08fc99e60c797ae56747b811ab187e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab963ee83ac1362d7a05bea3c7ea3db57"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#ab963ee83ac1362d7a05bea3c7ea3db57">cssToSVG</a> = {&quot;fillColor&quot;:&quot;fill&quot;,&quot;color&quot;:&quot;stroke&quot;,&quot;weight&quot;:&quot;stroke-width&quot;,&quot;lineJoin&quot;:&quot;stroke-linejoin&quot;}</td></tr>
-<tr class="separator:ab963ee83ac1362d7a05bea3c7ea3db57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d17271000b81550ca6c5a1fde2f17f3"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a0d17271000b81550ca6c5a1fde2f17f3">keywords</a></td></tr>
+<tr class="separator:a0d17271000b81550ca6c5a1fde2f17f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64882d3e5d2f6a8957801403d61570ef"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a64882d3e5d2f6a8957801403d61570ef">operators</a></td></tr>
+<tr class="separator:a64882d3e5d2f6a8957801403d61570ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf462271f908cf9644b363030e9872c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#abf462271f908cf9644b363030e9872c7">errorhighlightline</a> = -1</td></tr>
+<tr class="separator:abf462271f908cf9644b363030e9872c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be7dfac6c204d2592700475b5d73fd2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a1be7dfac6c204d2592700475b5d73fd2">currentline</a> = 0</td></tr>
+<tr class="separator:a1be7dfac6c204d2592700475b5d73fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52246e67bcb2882ef295b832f02cc11d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a52246e67bcb2882ef295b832f02cc11d">errorhighlightcol</a> = -1</td></tr>
+<tr class="separator:a52246e67bcb2882ef295b832f02cc11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0e4dd16633e09638c465813ed3fc55"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00393.html#a8f0e4dd16633e09638c465813ed3fc55">braces</a></td></tr>
+<tr class="separator:a8f0e4dd16633e09638c465813ed3fc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Syntax highlighter for the Python language.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab53a8d674edc6e5e61f3ff4ca1fcebf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab53a8d674edc6e5e61f3ff4ca1fcebf9">&#9670;&nbsp;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>document</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">def </span><a class="code" href="a00345.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, document):</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        QSyntaxHighlighter.__init__(self, document.document())</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment"># msgBox=QMessageBox()</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="comment"># msgBox.setText(document.toPlainText())</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment"># msgBox.exec()</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="comment"># Multi-line strings (expression, flag, style)</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment"># FIXME: The triple-quotes in these two lines will mess up the</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="comment"># syntax highlighting from this point onward</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        self.tri_single = (QRegExp(<span class="stringliteral">&quot;&#39;&#39;&#39;&quot;</span>), 1, STYLES[<span class="stringliteral">&#39;string2&#39;</span>])</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        self.tri_double = (QRegExp(<span class="stringliteral">&#39;&quot;&quot;&quot;&#39;</span>), 2, STYLES[<span class="stringliteral">&#39;string2&#39;</span>])</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        rules = []</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="comment"># All other rules</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        rules += [</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="comment"># &#39;self&#39;</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            (<span class="stringliteral">r&#39;\bself\b&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;self&#39;</span>]),</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="comment"># Double-quoted string, possibly containing escape sequences</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            (<span class="stringliteral">r&#39;&quot;[^&quot;\\]*(\\.[^&quot;\\]*)*&quot;&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;string&#39;</span>]),</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="comment"># Single-quoted string, possibly containing escape sequences</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            (<span class="stringliteral">r&quot;&#39;[^&#39;\\]*(\\.[^&#39;\\]*)*&#39;&quot;</span>, 0, STYLES[<span class="stringliteral">&#39;string&#39;</span>]),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="comment"># &#39;def&#39; followed by an identifier</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            (<span class="stringliteral">r&#39;([?]\w+)&#39;</span>, 1, STYLES[<span class="stringliteral">&#39;defclass&#39;</span>]),</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            (<span class="stringliteral">r&#39;([&lt;][h][t][t][p][:][/][/]\w+[&gt;])&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;uri&#39;</span>]),</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="comment"># &#39;class&#39; followed by an identifier</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            (<span class="stringliteral">r&#39;(\w+[:]\w+)&#39;</span>, 1, STYLES[<span class="stringliteral">&#39;uri&#39;</span>]),</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="comment"># From &#39;#&#39; until a newline</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            (<span class="stringliteral">r&#39;#[^\n]*&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;comment&#39;</span>]),</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="comment"># Numeric literals</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            (<span class="stringliteral">r&#39;\b[+-]?[0-9]+[lL]?\b&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;numbers&#39;</span>]),</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            (<span class="stringliteral">r&#39;\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;numbers&#39;</span>]),</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            (<span class="stringliteral">r&#39;\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b&#39;</span>, 0, STYLES[<span class="stringliteral">&#39;numbers&#39;</span>]),</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        ]</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="comment"># Keyword, operator, and brace rules</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        rules += [(<span class="stringliteral">r&#39;\b%s\b&#39;</span> % w, 0, STYLES[<span class="stringliteral">&#39;keyword&#39;</span>])</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                  <span class="keywordflow">for</span> w <span class="keywordflow">in</span> SPARQLHighlighter.keywords]</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        rules += [(<span class="stringliteral">r&#39;%s&#39;</span> % o, 0, STYLES[<span class="stringliteral">&#39;operator&#39;</span>])</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                  <span class="keywordflow">for</span> o <span class="keywordflow">in</span> SPARQLHighlighter.operators]</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        rules += [(<span class="stringliteral">r&#39;%s&#39;</span> % b, 0, STYLES[<span class="stringliteral">&#39;brace&#39;</span>])</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                  <span class="keywordflow">for</span> b <span class="keywordflow">in</span> SPARQLHighlighter.braces]</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="comment"># Build a QRegExp for each pattern</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        self.rules = [(QRegExp(pat), index, fmt)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                      <span class="keywordflow">for</span> (pat, index, fmt) <span class="keywordflow">in</span> rules]</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a19f8900ce11cc15b6c2758b2b1b52155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19f8900ce11cc15b6c2758b2b1b52155">&#9670;&nbsp;</a></span>cssLiteralToXML()</h2>
+<a id="afea4c5245fe0920f4c2d9bcb0f92f327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afea4c5245fe0920f4c2d9bcb0f92f327">&#9670;&nbsp;</a></span>highlightBlock()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def cssLiteralToXML </td>
+          <td class="memname">def highlightBlock </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -143,13 +220,7 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>cssString</em>&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,40 +229,46 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">def </span>cssLiteralToXML(self,result,cssString):</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        treemap={<span class="stringliteral">&quot;Fill&quot;</span>:{},<span class="stringliteral">&quot;Stroke&quot;</span>:{}}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;;&quot;</span> <span class="keywordflow">in</span> cssString:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">for</span> statement <span class="keywordflow">in</span> cssString.split(<span class="stringliteral">&quot;;&quot;</span>):</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                split = statement.split(<span class="stringliteral">&quot;:&quot;</span>)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;stroke&quot;</span> <span class="keywordflow">in</span> split[0]:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    treemap[<span class="stringliteral">&quot;Stroke&quot;</span>][split[0]]=split[1]</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;fill&quot;</span> <span class="keywordflow">in</span> split[0]:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    treemap[<span class="stringliteral">&quot;Fill&quot;</span>][split[0]]=split[1]</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">for</span> key <span class="keywordflow">in</span> treemap:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    result+=<span class="stringliteral">&quot;&lt;sld:&quot;</span>+key+<span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keywordflow">for</span> keyy <span class="keywordflow">in</span> treemap[key]:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                        result+=<span class="stringliteral">&quot;&lt;sld:CssParameter name=\&quot;&quot;</span>+keyy+<span class="stringliteral">&quot;\&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        result+=<span class="stringliteral">&quot;&lt;ogc:Literal&gt;&quot;</span>+treemap[key][keyy]+<span class="stringliteral">&quot;&lt;/ogc:Literal&gt;\n&quot;</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        result+=<span class="stringliteral">&quot;&lt;/sld:CssParameter&gt;\n&quot;</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    result+=<span class="stringliteral">&quot;&lt;/sld:&quot;</span>+key+<span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    print(<span class="stringliteral">&quot;exception&quot;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<pre class="fragment">Apply syntax highlighting to the given block of text.
+</pre> <div class="fragment"><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">def </span>highlightBlock(self, text):</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Apply syntax highlighting to the given block of text.</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        self.currentline += 1</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment"># msgBox=QMessageBox()</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="comment"># msgBox.setText(str(self.errorhighlightline))</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="comment"># msgBox.exec()</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="comment"># if self.errorhighlightline!=-1:</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="comment">#    self.setFormat(0, len(text), STYLES[&#39;error&#39;])</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="comment"># else:</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">#    # Do other syntax formatting</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">for</span> expression, nth, format <span class="keywordflow">in</span> self.rules:</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            index = expression.indexIn(text, 0)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordflow">while</span> index &gt;= 0:</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <span class="comment"># We actually want the index of the nth match</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                index = expression.pos(nth)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                length = expression.matchedLength()</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                self.setFormat(index, length, format)</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                index = expression.indexIn(text, index + length)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        self.setCurrentBlockState(0)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="comment"># Do multi-line strings</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        in_multiline = self.match_multiline(text, *self.tri_single)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> in_multiline:</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            in_multiline = self.match_multiline(text, *self.tri_double)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00393.html#a18c097b16c4526975fc83d495ba297f2">StyleObject.toSLD()</a>.</p>
+<p class="reference">References <a class="el" href="a00393.html#a1be7dfac6c204d2592700475b5d73fd2">SPARQLHighlighter.currentline</a>, <a class="el" href="a00393.html#aa301cb2fc9bf96ca7c8608527c4a38e1">SPARQLHighlighter.match_multiline()</a>, <a class="el" href="a00393.html#a595e07a99f60f22a6a29e4fca291ea28">SPARQLHighlighter.rules</a>, <a class="el" href="a00393.html#a9bb5ce69445e9b7228404340d7e226a3">SPARQLHighlighter.tri_double</a>, and <a class="el" href="a00393.html#adb8c3b06bd36e64ec0b1e2053d8d992d">SPARQLHighlighter.tri_single</a>.</p>
 
 </div>
 </div>
-<a id="a18c097b16c4526975fc83d495ba297f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18c097b16c4526975fc83d495ba297f2">&#9670;&nbsp;</a></span>toSLD()</h2>
+<a id="aa301cb2fc9bf96ca7c8608527c4a38e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa301cb2fc9bf96ca7c8608527c4a38e1">&#9670;&nbsp;</a></span>match_multiline()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def toSLD </td>
+          <td class="memname">def match_multiline </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -200,7 +277,25 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>layername</em>&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>delimiter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>in_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>style</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -209,81 +304,58 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">def </span>toSLD(self,layername):</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        builder=<span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&quot;</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;sld:StyledLayerDescriptor xmlns=\&quot;http://www.opengis.net/sld\&quot; xmlns:ogc=\&quot;http://www.opengis.net/ogc\&quot; version=\&quot;1.1.0\&quot; xsi:schemaLocation=\&quot;http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd\&quot; xmlns:se=\&quot;http://www.opengis.net/se\&quot; xmlns:xlink=\&quot;http://www.w3.org/1999/xlink\&quot; xmlns:xsi=\&quot;http://www.w3.org/2001/XMLSchema-instance\&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;sld:NamedLayer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;se:Name&gt;&quot;</span>+str(layername)+<span class="stringliteral">&quot;&lt;/se:Name&gt;\n&quot;</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;se:Description&gt;&lt;/se:Description&gt;\n&quot;</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;sld:UserStyle&gt;\n&quot;</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;sld:FeatureTypeStyle&gt;\n&quot;</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        builder+=<span class="stringliteral">&quot;&lt;sld:Rule&gt;\n&quot;</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span> self.pointStyle:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            builder+=<span class="stringliteral">&quot;&lt;sld:PointSymbolizer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            builder = self.cssLiteralToXML(builder, self.pointStyle)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            builder+=<span class="stringliteral">&quot;&lt;/sld:PointSymbolizer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">if</span> self.polygonStyle:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            builder+=<span class="stringliteral">&quot;&lt;sld:PolygonSymbolizer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            builder = self.cssLiteralToXML(builder, self.polygonStyle)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            builder+=<span class="stringliteral">&quot;&lt;/sld:PolygonSymbolizer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        builder += <span class="stringliteral">&quot;&lt;/sld:Rule&gt;\n&quot;</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        builder += <span class="stringliteral">&quot;&lt;/sld:FeatureTypeStyle&gt;\n&quot;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        builder += <span class="stringliteral">&quot;&lt;/sld:UserStyle&gt;\n&quot;</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        builder += <span class="stringliteral">&quot;&lt;/sld:NamedLayer&gt;\n&quot;</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        builder += <span class="stringliteral">&quot;&lt;/sld:StyledLayerDescriptor&gt;&quot;</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> builder</div>
+<pre class="fragment">Do highlighting of multi-line strings. ``delimiter`` should be a
+``QRegExp`` for triple-single-quotes or triple-double-quotes, and
+``in_state`` should be a unique integer to represent the corresponding
+state changes when inside those strings. Returns True if we're still
+inside a multi-line string when this function is finished.
+</pre> <div class="fragment"><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">def </span>match_multiline(self, text, delimiter, in_state, style):</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Do highlighting of multi-line strings. ``delimiter`` should be a</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="stringliteral">        ``QRegExp`` for triple-single-quotes or triple-double-quotes, and</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="stringliteral">        ``in_state`` should be a unique integer to represent the corresponding</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="stringliteral">        state changes when inside those strings. Returns True if we&#39;re still</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="stringliteral">        inside a multi-line string when this function is finished.</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="comment"># If inside triple-single quotes, start at 0</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> self.previousBlockState() == in_state:</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            start = 0</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            add = 0</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="comment"># Otherwise, look for the delimiter on this line</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            start = delimiter.indexIn(text)</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <span class="comment"># Move past this match</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            add = delimiter.matchedLength()</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="comment"># As long as there&#39;s a delimiter match on this line...</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">while</span> start &gt;= 0:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <span class="comment"># Look for the ending delimiter</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            end = delimiter.indexIn(text, start + add)</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            <span class="comment"># Ending delimiter on this line?</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">if</span> end &gt;= add:</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                length = end - start + add + delimiter.matchedLength()</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                self.setCurrentBlockState(0)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="comment"># No; multi-line string</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                self.setCurrentBlockState(in_state)</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                length = text.length() - start + add</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="comment"># Apply formatting</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            self.setFormat(start, length, style)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="comment"># Look for the next match</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            start = delimiter.indexIn(text, start + length)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="comment"># Return True if still inside a multi-line string, False otherwise</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">if</span> self.currentBlockState() == in_state:</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00393.html#a19f8900ce11cc15b6c2758b2b1b52155">StyleObject.cssLiteralToXML()</a>, <a class="el" href="a00393.html#a221ef49adb7a26691cafd3094c1380df">StyleObject.pointStyle</a>, and <a class="el" href="a00393.html#a32d30b9c2955f548409c237bafc48cff">StyleObject.polygonStyle</a>.</p>
-
-</div>
-</div>
-<a id="a1ad03673e69c5b388ed1479aa6fea2b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ad03673e69c5b388ed1479aa6fea2b8">&#9670;&nbsp;</a></span>toString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def toString </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">def </span>toString(self):</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        builder=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        builder+=<span class="stringliteral">&quot;StyleObject [styleId=&quot;</span> + str(self.styleId) + <span class="stringliteral">&quot;,\n styleName=\&quot;&quot;</span> + str(self.styleName) + <span class="stringliteral">&quot;\&quot;,\n&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> self.pointStyle <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            builder+=<span class="stringliteral">&quot; pointStyle=&quot;</span> + str(self.pointStyle) + <span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> self.pointImage <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            builder+=<span class="stringliteral">&quot; pointImage=&quot;</span> + str(self.pointImage)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> self.lineStringStyle <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            builder+=<span class="stringliteral">&quot; lineStringStyle=&quot;</span> + str(self.lineStringStyle)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> self.lineStringImage <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            builder+=<span class="stringliteral">&quot; lineStringImage=&quot;</span> + str(self.lineStringImage)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> self.polygonStyle <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            builder+=<span class="stringliteral">&quot; polygonStyle=&quot;</span> + str(self.polygonStyle)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> self.polygonImage <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            builder+=<span class="stringliteral">&quot; polygonImage=&quot;</span> + str(self.polygonImage)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> self.hatch <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            builder+=<span class="stringliteral">&quot; hatch=&quot;</span> + str(self.hatch)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> self.popupStyle <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            builder+=<span class="stringliteral">&quot; popupStyle=&quot;</span> + str(self.popupStyle)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> self.rasterColorMap <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            builder+=<span class="stringliteral">&quot; rasterColorMap=&quot;</span> + str(self.rasterColorMap)+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        builder+=<span class="stringliteral">&quot; conditions: &quot;</span>+str(self.conditions)+<span class="stringliteral">&quot;]&quot;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> builder</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00393.html#a051199d13a37174027fd07a0b3bfdc35">StyleObject.conditions</a>, <a class="el" href="a00393.html#a12346bfdf1a625ad94f9e36edabed019">StyleObject.hatch</a>, <a class="el" href="a00393.html#afa617df349724bd77dba9c97abb8f599">StyleObject.lineStringImage</a>, <a class="el" href="a00393.html#a366492bb1f1dd341c403e8ffce4e7bb9">StyleObject.lineStringStyle</a>, <a class="el" href="a00393.html#afc36068b18fc0e763f03d5d81b1cc930">StyleObject.pointImage</a>, <a class="el" href="a00393.html#a221ef49adb7a26691cafd3094c1380df">StyleObject.pointStyle</a>, <a class="el" href="a00393.html#aba826ad777558571f61bfb8482d674d6">StyleObject.polygonImage</a>, <a class="el" href="a00393.html#a32d30b9c2955f548409c237bafc48cff">StyleObject.polygonStyle</a>, <a class="el" href="a00393.html#afaa8e43fce583046ac3d0bea1f23e11b">StyleObject.popupStyle</a>, <a class="el" href="a00393.html#a128ed64dc26a5eaac426d197df85f1c6">StyleObject.rasterColorMap</a>, <a class="el" href="a00393.html#a125ef743ee7dce920a078b7dfbdd8efc">StyleObject.styleId</a>, and <a class="el" href="a00393.html#a2e32ecec44a0e1da993b80de3e3955c5">StyleObject.styleName</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">SPARQLHighlighter.highlightBlock()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a051199d13a37174027fd07a0b3bfdc35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a051199d13a37174027fd07a0b3bfdc35">&#9670;&nbsp;</a></span>conditions</h2>
+<a id="a8f0e4dd16633e09638c465813ed3fc55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0e4dd16633e09638c465813ed3fc55">&#9670;&nbsp;</a></span>braces</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +364,32 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary conditions = {}</td>
+          <td class="memname">list braces</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=  [</div>
+<div class="line">        <span class="stringliteral">&#39;\{&#39;</span>, <span class="stringliteral">&#39;\}&#39;</span>, <span class="stringliteral">&#39;\(&#39;</span>, <span class="stringliteral">&#39;\)&#39;</span>, <span class="stringliteral">&#39;\[&#39;</span>, <span class="stringliteral">&#39;\]&#39;</span>,</div>
+<div class="line">    ]</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1be7dfac6c204d2592700475b5d73fd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be7dfac6c204d2592700475b5d73fd2">&#9670;&nbsp;</a></span>currentline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int currentline = 0</td>
         </tr>
       </table>
   </td>
@@ -302,12 +399,12 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">SPARQLHighlighter.highlightBlock()</a>.</p>
 
 </div>
 </div>
-<a id="ab963ee83ac1362d7a05bea3c7ea3db57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab963ee83ac1362d7a05bea3c7ea3db57">&#9670;&nbsp;</a></span>cssToSVG</h2>
+<a id="a52246e67bcb2882ef295b832f02cc11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52246e67bcb2882ef295b832f02cc11d">&#9670;&nbsp;</a></span>errorhighlightcol</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,77 +413,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary cssToSVG = {&quot;fillColor&quot;:&quot;fill&quot;,&quot;color&quot;:&quot;stroke&quot;,&quot;weight&quot;:&quot;stroke-width&quot;,&quot;lineJoin&quot;:&quot;stroke-linejoin&quot;}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a12346bfdf1a625ad94f9e36edabed019"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12346bfdf1a625ad94f9e36edabed019">&#9670;&nbsp;</a></span>hatch</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary hatch = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="afa617df349724bd77dba9c97abb8f599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa617df349724bd77dba9c97abb8f599">&#9670;&nbsp;</a></span>lineStringImage</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary lineStringImage = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="a60fe91ff11ff85f726c0598eaf7e32e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60fe91ff11ff85f726c0598eaf7e32e9">&#9670;&nbsp;</a></span>lineStringImageStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary lineStringImageStyle = {}</td>
+          <td class="memname">int errorhighlightcol = -1</td>
         </tr>
       </table>
   </td>
@@ -398,8 +425,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a366492bb1f1dd341c403e8ffce4e7bb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a366492bb1f1dd341c403e8ffce4e7bb9">&#9670;&nbsp;</a></span>lineStringStyle</h2>
+<a id="abf462271f908cf9644b363030e9872c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf462271f908cf9644b363030e9872c7">&#9670;&nbsp;</a></span>errorhighlightline</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -408,175 +435,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary lineStringStyle = {&quot;stroke&quot;:{}}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="afc36068b18fc0e763f03d5d81b1cc930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc36068b18fc0e763f03d5d81b1cc930">&#9670;&nbsp;</a></span>pointImage</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary pointImage = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="a221ef49adb7a26691cafd3094c1380df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a221ef49adb7a26691cafd3094c1380df">&#9670;&nbsp;</a></span>pointStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary pointStyle = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a18c097b16c4526975fc83d495ba297f2">StyleObject.toSLD()</a>, and <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="aba826ad777558571f61bfb8482d674d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba826ad777558571f61bfb8482d674d6">&#9670;&nbsp;</a></span>polygonImage</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary polygonImage = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="a32d30b9c2955f548409c237bafc48cff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32d30b9c2955f548409c237bafc48cff">&#9670;&nbsp;</a></span>polygonStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary polygonStyle = {&quot;stroke&quot;:{},&quot;fill&quot;:{}}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a18c097b16c4526975fc83d495ba297f2">StyleObject.toSLD()</a>, and <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="afaa8e43fce583046ac3d0bea1f23e11b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa8e43fce583046ac3d0bea1f23e11b">&#9670;&nbsp;</a></span>popupStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary popupStyle = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="a128ed64dc26a5eaac426d197df85f1c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a128ed64dc26a5eaac426d197df85f1c6">&#9670;&nbsp;</a></span>rasterColorMap</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary rasterColorMap = {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
-</div>
-</div>
-<a id="adfd5502922b2d47b6dd7675e0158d22f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfd5502922b2d47b6dd7675e0158d22f">&#9670;&nbsp;</a></span>rasterStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary rasterStyle = {}</td>
+          <td class="memname">int errorhighlightline = -1</td>
         </tr>
       </table>
   </td>
@@ -588,8 +447,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a26a0017c326a2a9cfe8196ff49480b48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26a0017c326a2a9cfe8196ff49480b48">&#9670;&nbsp;</a></span>styleDescription</h2>
+<a id="a0d17271000b81550ca6c5a1fde2f17f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d17271000b81550ca6c5a1fde2f17f3">&#9670;&nbsp;</a></span>keywords</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -598,7 +457,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary styleDescription = {}</td>
+          <td class="memname">list keywords</td>
         </tr>
       </table>
   </td>
@@ -607,11 +466,20 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=  [</div>
+<div class="line">        <span class="stringliteral">&#39;SELECT&#39;</span>, <span class="stringliteral">&#39;INSERT&#39;</span>, <span class="stringliteral">&#39;WHERE&#39;</span>, <span class="stringliteral">&#39;ORDER&#39;</span>, <span class="stringliteral">&#39;BY&#39;</span>, <span class="stringliteral">&#39;LIMIT&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;OFFSET&#39;</span>, <span class="stringliteral">&#39;FROM&#39;</span>, <span class="stringliteral">&#39;PREFIX&#39;</span>, <span class="stringliteral">&#39;GRAPH&#39;</span>, <span class="stringliteral">&#39;NAMED&#39;</span>, <span class="stringliteral">&#39;BIND&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;VALUES&#39;</span>, <span class="stringliteral">&#39;ASC&#39;</span>, <span class="stringliteral">&#39;DESC&#39;</span>, <span class="stringliteral">&#39;FILTER&#39;</span>, <span class="stringliteral">&#39;DISTINCT&#39;</span>, <span class="stringliteral">&#39;REDUCED&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;OPTIONAL&#39;</span>, <span class="stringliteral">&#39;CONSTRUCT&#39;</span>, <span class="stringliteral">&#39;ASK&#39;</span>, <span class="stringliteral">&#39;DESCRIBE&#39;</span>, <span class="stringliteral">&#39;BOUND&#39;</span>, <span class="stringliteral">&#39;IF&#39;</span>, <span class="stringliteral">&#39;SERVICE&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;EXISTS&#39;</span>, <span class="stringliteral">&#39;NOT&#39;</span>, <span class="stringliteral">&#39;IN&#39;</span>, <span class="stringliteral">&#39;STR&#39;</span>, <span class="stringliteral">&#39;AS&#39;</span>, <span class="stringliteral">&#39;LANG&#39;</span>, <span class="stringliteral">&#39;DELETE&#39;</span>, <span class="stringliteral">&#39;CREATE&#39;</span>, <span class="stringliteral">&#39;CLEAR&#39;</span>, <span class="stringliteral">&#39;DROP&#39;</span>, <span class="stringliteral">&#39;LOAD&#39;</span>, <span class="stringliteral">&#39;COPY&#39;</span>, <span class="stringliteral">&#39;MOVE&#39;</span>, <span class="stringliteral">&#39;ADD&#39;</span></div>
+<div class="line">                                                                                                                 <span class="stringliteral">&#39;IRI&#39;</span>,</div>
+<div class="line">        <span class="stringliteral">&#39;URI&#39;</span>, <span class="stringliteral">&#39;False&#39;</span>, <span class="stringliteral">&#39;a&#39;</span></div>
+<div class="line">    ]</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a125ef743ee7dce920a078b7dfbdd8efc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a125ef743ee7dce920a078b7dfbdd8efc">&#9670;&nbsp;</a></span>styleId</h2>
+<a id="a64882d3e5d2f6a8957801403d61570ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64882d3e5d2f6a8957801403d61570ef">&#9670;&nbsp;</a></span>operators</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,7 +488,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary styleId = {}</td>
+          <td class="memname">list operators</td>
         </tr>
       </table>
   </td>
@@ -629,86 +497,76 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
-
+<b>Initial value:</b><div class="fragment"><div class="line">=  [</div>
+<div class="line">        <span class="stringliteral">&#39;=&#39;</span>,</div>
+<div class="line">        <span class="comment"># Comparison</span></div>
+<div class="line">        <span class="stringliteral">&#39;==&#39;</span>, <span class="stringliteral">&#39;!=&#39;</span>, <span class="stringliteral">&#39;&lt;&#39;</span>, <span class="stringliteral">&#39;&lt;=&#39;</span>, <span class="stringliteral">&#39;&gt;&#39;</span>, <span class="stringliteral">&#39;&gt;=&#39;</span>,</div>
+<div class="line">        <span class="comment"># Arithmetic</span></div>
+<div class="line">        <span class="stringliteral">&#39;\+&#39;</span>, <span class="stringliteral">&#39;-&#39;</span>, <span class="stringliteral">&#39;\*&#39;</span>, <span class="stringliteral">&#39;/&#39;</span>, <span class="stringliteral">&#39;//&#39;</span>, <span class="stringliteral">&#39;\%&#39;</span>, <span class="stringliteral">&#39;\*\*&#39;</span>,</div>
+<div class="line">        <span class="comment"># In-place</span></div>
+<div class="line">        <span class="stringliteral">&#39;\+=&#39;</span>, <span class="stringliteral">&#39;-=&#39;</span>, <span class="stringliteral">&#39;\*=&#39;</span>, <span class="stringliteral">&#39;/=&#39;</span>, <span class="stringliteral">&#39;\%=&#39;</span>,</div>
+<div class="line">        <span class="comment"># Bitwise</span></div>
+<div class="line">        <span class="stringliteral">&#39;\^&#39;</span>, <span class="stringliteral">&#39;\|&#39;</span>, <span class="stringliteral">&#39;\&amp;&#39;</span>, <span class="stringliteral">&#39;\~&#39;</span>, <span class="stringliteral">&#39;&gt;&gt;&#39;</span>, <span class="stringliteral">&#39;&lt;&lt;&#39;</span>,</div>
+<div class="line">    ]</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a2e32ecec44a0e1da993b80de3e3955c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e32ecec44a0e1da993b80de3e3955c5">&#9670;&nbsp;</a></span>styleName</h2>
+<a id="a595e07a99f60f22a6a29e4fca291ea28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a595e07a99f60f22a6a29e4fca291ea28">&#9670;&nbsp;</a></span>rules</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary styleName = {}</td>
+          <td class="memname">rules</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00393.html#a1ad03673e69c5b388ed1479aa6fea2b8">StyleObject.toString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">SPARQLHighlighter.highlightBlock()</a>.</p>
 
 </div>
 </div>
-<a id="ac08fc99e60c797ae56747b811ab187e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac08fc99e60c797ae56747b811ab187e3">&#9670;&nbsp;</a></span>svgToCSS</h2>
+<a id="a9bb5ce69445e9b7228404340d7e226a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bb5ce69445e9b7228404340d7e226a3">&#9670;&nbsp;</a></span>tri_double</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary svgToCSS = {&quot;fill&quot;:&quot;fillColor&quot;,&quot;stroke&quot;:&quot;color&quot;,&quot;stroke-width&quot;:&quot;weight&quot;,&quot;stroke-linejoin&quot;:&quot;lineJoin&quot;}</td>
+          <td class="memname">tri_double</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">SPARQLHighlighter.highlightBlock()</a>.</p>
 
 </div>
 </div>
-<a id="ac8f0d611794246d912b4fe982767875b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8f0d611794246d912b4fe982767875b">&#9670;&nbsp;</a></span>textStyle</h2>
+<a id="adb8c3b06bd36e64ec0b1e2053d8d992d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb8c3b06bd36e64ec0b1e2053d8d992d">&#9670;&nbsp;</a></span>tri_single</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dictionary textStyle = {}</td>
+          <td class="memname">tri_single</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00393.html#afea4c5245fe0920f4c2d9bcb0f92f327">SPARQLHighlighter.highlightBlock()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aa00345_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00345.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00146.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00187.html">util</a></li><li class="navelem"><a class="el" href="a00194.html">styleobject</a></li><li class="navelem"><a class="el" href="a00393.html">StyleObject</a></li>
+    <li class="navelem"><a class="el" href="a00146.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00187.html">util</a></li><li class="navelem"><a class="el" href="a00192.html">sparqlhighlighter</a></li><li class="navelem"><a class="el" href="a00393.html">SPARQLHighlighter</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

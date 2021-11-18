@@ -1,10 +1,11 @@
 var a00377 =
 [
-    [ "authenticatedby", "a00377.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
-    [ "firstname", "a00377.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
-    [ "lastname", "a00377.html#a3c8f58d761707273489a76751c4905fb", null ],
-    [ "name", "a00377.html#ab74e6bf80237ddc4109968cedc58c151", null ],
-    [ "userid", "a00377.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
-    [ "username", "a00377.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
-    [ "userurl", "a00377.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
+    [ "AuthUrl", "a00377.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
+    [ "ClientId", "a00377.html#a7f12c8ddfb00c508eb1ee63907d6493c", null ],
+    [ "ClientSecret", "a00377.html#a86726dfd09230f62e353b939407e7819", null ],
+    [ "Headers", "a00377.html#a7497c687f69d52200b6dcf2fe4df3a7c", null ],
+    [ "RedirectScheme", "a00377.html#a53a91115cb4711210ec578b91efbecdb", null ],
+    [ "RedirectUrl", "a00377.html#ac239dd96726a1bae22f8f0f2362e3df0", null ],
+    [ "ResponseType", "a00377.html#a76ea639e13c617a28c4cac0e357875e3", null ],
+    [ "Scopes", "a00377.html#af58c94c45c513ec92b3a294e6cb8b160", null ]
 ];

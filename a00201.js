@@ -3,6 +3,7 @@ var a00201 =
     [ "__init__", "a00201.html#a8620be517032a623030c0d1401b11c70", null ],
     [ "add_action", "a00201.html#a3f16a7f94b1128f16955ff6bd70450ca", null ],
     [ "create_unicorn_layer", "a00201.html#afb699b236ce4e28e8d4fabc71b0a63e1", null ],
+    [ "createLoginWindow", "a00201.html#a9c8c1d33a9dd2403578510ed30e3dfdc", null ],
     [ "endpointselectaction", "a00201.html#a08f51981194b429b151dd50b4192c9da", null ],
     [ "exportLayer", "a00201.html#a297becf2256721565827ce936e29a9ad", null ],
     [ "exportLayer2", "a00201.html#a2e739c89375383225076b8ab23b47841", null ],

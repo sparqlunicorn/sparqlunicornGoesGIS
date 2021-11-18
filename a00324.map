@@ -1,4 +1,4 @@
-<map id="LoadGraphTask" name="LoadGraphTask">
-<area shape="rect" id="node1" title="Loads a graph from an RDF file either by providing an internet address or a file path." alt="" coords="5,80,127,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="28,5,104,32"/>
+<map id="InstanceQueryTask" name="InstanceQueryTask">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,151,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="40,5,116,32"/>
 </map>
