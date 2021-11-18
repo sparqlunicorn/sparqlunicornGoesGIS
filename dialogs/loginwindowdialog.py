@@ -6,8 +6,6 @@ from qgis.PyQt import uic
 import os
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
-
-
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/oauthlogindialog.ui'))
 
@@ -20,6 +18,7 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
     def __init__(self, app):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.
         #self.nam = self.page()
         #self.app = app
         #self.setUrl(QUrl(AuthUrl))
