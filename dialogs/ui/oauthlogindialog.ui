@@ -51,7 +51,7 @@
   <widget class="QPushButton" name="googleOAuthButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>50</x>
      <y>120</y>
      <width>83</width>
      <height>25</height>
@@ -77,14 +77,70 @@
   <widget class="QPushButton" name="orcidOAuthButton">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>120</y>
+     <x>180</x>
+     <y>160</y>
      <width>83</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
     <string>ORCID</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="gitlabcomOAuthButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>160</y>
+     <width>83</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Gitlab.com</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="providerComboBox">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>60</y>
+     <width>231</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>ORCID</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Github</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Gitlab.com</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Google</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Provider:</string>
    </property>
   </widget>
  </widget>
