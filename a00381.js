@@ -1,21 +1,15 @@
 var a00381 =
 [
-    [ "detectLiteralType", "a00381.html#af075c5781e0174e635863e938130c064", null ],
-    [ "executeQuery", "a00381.html#a390f1091745cd0ddbc900e80bcde5e3a", null ],
-    [ "getLabelsForClasses", "a00381.html#ae3aa85880852a1ec220b5c94ed7fa462", null ],
-    [ "handleURILiteral", "a00381.html#a3218189fb73d8b6b5484782a0bc9c041", null ],
-    [ "invertPrefixes", "a00381.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
-    [ "labelFromURI", "a00381.html#a8d66b18f94f098b37701c05f1a838047", null ],
-    [ "loadGraph", "a00381.html#a2ea69b3c9b5e9a5c623f23dd8d123965", null ],
-    [ "authmethods", "a00381.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
-    [ "classicon", "a00381.html#a48ef9378cd3b1e2cda96ca851adb3e0d", null ],
-    [ "classnode", "a00381.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
-    [ "collectionclassnode", "a00381.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
-    [ "earthinstanceicon", "a00381.html#a31619e6fc29fac22163570db6ae6dbfc", null ],
-    [ "geoclassicon", "a00381.html#a10e149d3486f54292669f30e13cff863", null ],
-    [ "geoclassnode", "a00381.html#abe5ec0a47371449485744620d324f1f3", null ],
-    [ "geoinstancenode", "a00381.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
-    [ "instanceicon", "a00381.html#a7957119a35f294ef57eb7479c0a56953", null ],
-    [ "instancenode", "a00381.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
-    [ "supportedLiteralTypes", "a00381.html#a28a4112f838898d008910c4320f0732e", null ]
+    [ "__init__", "a00381.html#ab53a8d674edc6e5e61f3ff4ca1fcebf9", null ],
+    [ "highlightBlock", "a00381.html#afea4c5245fe0920f4c2d9bcb0f92f327", null ],
+    [ "match_multiline", "a00381.html#aa301cb2fc9bf96ca7c8608527c4a38e1", null ],
+    [ "braces", "a00381.html#a8f0e4dd16633e09638c465813ed3fc55", null ],
+    [ "currentline", "a00381.html#a1be7dfac6c204d2592700475b5d73fd2", null ],
+    [ "errorhighlightcol", "a00381.html#a52246e67bcb2882ef295b832f02cc11d", null ],
+    [ "errorhighlightline", "a00381.html#abf462271f908cf9644b363030e9872c7", null ],
+    [ "keywords", "a00381.html#a0d17271000b81550ca6c5a1fde2f17f3", null ],
+    [ "operators", "a00381.html#a64882d3e5d2f6a8957801403d61570ef", null ],
+    [ "rules", "a00381.html#a595e07a99f60f22a6a29e4fca291ea28", null ],
+    [ "tri_double", "a00381.html#a9bb5ce69445e9b7228404340d7e226a3", null ],
+    [ "tri_single", "a00381.html#adb8c3b06bd36e64ec0b1e2053d8d992d", null ]
 ];

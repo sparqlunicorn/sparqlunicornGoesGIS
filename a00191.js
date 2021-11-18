@@ -1,4 +1,4 @@
 var a00191 =
 [
-    [ "OAuthConfiguration", "a00373.html", "a00373" ]
+    [ "OAuthConfiguration", "a00377.html", "a00377" ]
 ];
