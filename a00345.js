@@ -1,18 +1,18 @@
 var a00345 =
 [
-    [ "__init__", "a00345.html#af768e72071b11f2a420139fa04036c17", null ],
-    [ "finished", "a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "run", "a00345.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "exception", "a00345.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "labels", "a00345.html#abc325fc13d4194905c1786e24ee447f0", null ],
-    [ "prefixes", "a00345.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "progress", "a00345.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00345.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "results", "a00345.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
-    [ "searchResult", "a00345.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
-    [ "searchTerm", "a00345.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
-    [ "sortedatt", "a00345.html#a48ad5f81f31645c924cfff541c5add36", null ],
-    [ "triplestoreconf", "a00345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "urilist", "a00345.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]
+    [ "__init__", "a00345.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "addEnrichedLayer", "a00345.html#aca6b7d4f8799f96244e4515a0a633386", null ],
+    [ "enrichLayerProcess", "a00345.html#a56c0d7bb6decc89954e354bbd53ec602", null ],
+    [ "exportEnrichedLayer", "a00345.html#adfcc23a6b0a5b7441daa1d4b43a6e881", null ],
+    [ "dlg", "a00345.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichedExport", "a00345.html#ac1babc27d21e85ac2fa395cccac38d15", null ],
+    [ "enrichedExport", "a00345.html#ac26f04155f19a0850f23ab9c063ba611", null ],
+    [ "enrichLayer", "a00345.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "enrichLayerCounter", "a00345.html#a52fdefb870f38c907e9fede14b52425f", null ],
+    [ "exportIdCol", "a00345.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00345.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00345.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "originalRowCount", "a00345.html#a96db96b589de91ab2dd5f6f5836757de", null ],
+    [ "qtask", "a00345.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "valueconcept", "a00345.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];
