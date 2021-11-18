@@ -28,9 +28,20 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
+        self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
 
     def closeTripleStoreDialog(self):
         self.close()
+
+    def enableAuthentication(self):
+        if self.useAuthenticationCheckBox.checkState():
+            self.authenticationComboBox.setEnabled(True)
+            self.credentialUserName.setEnabled(True)
+            self.credentialPassword.setEnabled(True)
+        else:
+            self.authenticationComboBox.setEnabled(False)
+            self.credentialUserName.setEnabled(False)
+            self.credentialPassword.setEnabled(False)
 
     def detectTripleStoreConfiguration(self):
         progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...",
@@ -40,7 +51,8 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         progress.show()
         self.qtask = DetectTripleStoreTask(
             "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
-            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),self.credentialPassword.text(), False, True, self.prefixes, self.prefixstore,
+            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
+            self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
             None, self.comboBox, self.permanentAdd.isChecked(), self, progress)
         QgsApplication.taskManager().addTask(self.qtask)
 

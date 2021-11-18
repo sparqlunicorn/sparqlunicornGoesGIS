@@ -26,12 +26,15 @@ class ClassTreeQueryTask(QgsTask):
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
                     SELECT DISTINCT ?subject ?label ?supertype ?hasgeo\n
                     WHERE {\n"""
+        self.optionalpart=""
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
             self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
-            self.query+="{ ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
+            self.optionalpart="OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}"
+            self.query+="{ ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . "+str(self.optionalpart)+"} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]!="":
-            self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  }  .\n"
+            self.optionalpart="OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
+            self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . "+str(self.optionalpart)+"} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  }  .\n"
         else:
             self.query += "{ ?individual <" + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"] + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  }  .\n"
         self.query+="""OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"])+"""> ?supertype } .\n
@@ -57,9 +60,11 @@ class ClassTreeQueryTask(QgsTask):
         self.classtreemap={"root":self.treeNode}
         self.subclassmap={"root":set()}
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         else:
             results=self.graph.query(self.query)
+        if results=="Exists error":
+            results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
         if results==False:
             return False
         hasparent={}

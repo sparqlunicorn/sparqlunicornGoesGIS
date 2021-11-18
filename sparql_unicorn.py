@@ -579,7 +579,7 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
-    def createLoginWindow():
+    def createLoginWindow(self):
         LoginWindowDialog().exec()
 
     def run(self):
@@ -641,6 +641,7 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.toolButton.hide()
+            self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)
             self.dlg.exportDOT.hide()
             self.dlg.exportGraphML.hide()

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>580</width>
-    <height>265</height>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,7 +69,7 @@
    <property name="geometry">
     <rect>
      <x>370</x>
-     <y>220</y>
+     <y>260</y>
      <width>181</width>
      <height>23</height>
     </rect>
@@ -82,7 +82,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>220</y>
+     <y>260</y>
      <width>191</width>
      <height>25</height>
     </rect>
@@ -108,7 +108,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>190</y>
+     <y>220</y>
      <width>401</width>
      <height>17</height>
     </rect>
@@ -117,11 +117,11 @@
     <string>Add triple store permanently</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="usernameLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
+     <y>140</y>
      <width>111</width>
      <height>16</height>
     </rect>
@@ -130,11 +130,11 @@
     <string>Username (Optional):</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="passwordLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>150</y>
+     <y>180</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -144,10 +144,13 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="credentialUserName">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>110</y>
+     <y>140</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -157,10 +160,13 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="credentialPassword">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>150</y>
+     <y>180</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -171,6 +177,42 @@
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
    </property>
+  </widget>
+  <widget class="QCheckBox" name="useAuthenticationCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>121</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Use Authentication</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="authenticationComboBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>110</y>
+     <width>401</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>HTTP BASIC</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HTTP DIGEST</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

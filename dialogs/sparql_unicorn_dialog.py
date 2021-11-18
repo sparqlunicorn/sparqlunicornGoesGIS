@@ -373,7 +373,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.currentProxyModel.setFilterRegExp(self.filterConcepts.text())
 
     def tabchanged(self,index):
-        QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
         if self.currentProxyModel!=None:
             self.currentProxyModel.setFilterRegExp("")
         self.filterConcepts.setText("")
