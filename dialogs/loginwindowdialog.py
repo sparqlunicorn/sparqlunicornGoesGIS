@@ -1,11 +1,12 @@
 import sys
 from PyQt5 import QtCore
+from PyQt5.QtWebKitWidgets import QWebView
 from PyQt5.QtCore import QUrl
+from ..util.oauth import OAuthConfiguration
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
 import os
-#from PyQt5.QtWebEngineWidgets import QWebEngineView
-from ..util.oauth import OAuthConfiguration
+
 #from ..util.oauth import RequestInterceptor
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -13,17 +14,16 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 # Class representing a search dialog which may be used to search for concepts or properties.
 
-
 class LoginWindowDialog(QDialog, FORM_CLASS):
     logged_in = QtCore.pyqtSignal(['QString'])
 
     def __init__(self, app):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        #self.googleOAuthButton.clicked.connect(LoginWindow("google"))
-        #self.gitlabcomOAuthButton.clicked.connect(LoginWindow("gitlabcom"))
-        #self.orcidOAuthButton.clicked.connect(LoginWindow("orcid"))
-        #self.githubOAuthButton.clicked.connect(LoginWindow("github"))
+        self.googleOAuthButton.clicked.connect(self.createGoogleDialog)
+        self.gitlabcomOAuthButton.clicked.connect(self.createGitlabcomDialog)
+        self.orcidOAuthButton.clicked.connect(self.createORCIDDialog)
+        self.githubOAuthButton.clicked.connect(self.createGithubDialog)
 
     def _loadFinished(self, result):
         self.page().toHtml(self.callable)
@@ -31,8 +31,22 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
     def callable(self, data):
         self.html = data
         
-"""
-class LoginWindow(QWebEngineView):
+    def createGoogleDialog(self):
+        self.myWV = QWebView(None);
+        self.myWV.load(QUrl(OAuthConfiguration.getAuthUrl("google")))#QUrl("http://www.google.de"))#OAuthConfiguration.AuthUrl["google"]))
+        self.myWV.show()
+        #LoginWindow(self, "google")
+
+    def createGitlabcomDialog(self):
+        LoginWindow(self, "gitlabcom")
+
+    def createGithubDialog(self):
+        LoginWindow(self, "github")
+
+    def createORCIDDialog(self):
+        LoginWindow(self, "orcid")
+
+class LoginWindow(QWebView):
     logged_in = QtCore.pyqtSignal(['QString'])
 
     def __init__(self, app,provider):
@@ -42,8 +56,8 @@ class LoginWindow(QWebEngineView):
         self.setUrl(QUrl(OAuthConfiguration.AuthUrl[provider]))
         self.show()
         self.loadFinished.connect(self._loadFinished)
-        interceptor = RequestInterceptor(self.app,provider)
-        self.page().profile().setRequestInterceptor(interceptor)
+        #interceptor = RequestInterceptor(self.app,provider)
+        #self.page().profile().setRequestInterceptor(interceptor)
         sys.exit(app.exec_())
 
     def _loadFinished(self, result):
@@ -51,4 +65,4 @@ class LoginWindow(QWebEngineView):
 
     def callable(self, data):
         self.html = data
-"""
+

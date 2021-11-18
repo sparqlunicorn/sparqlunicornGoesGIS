@@ -580,7 +580,7 @@ class SPARQLunicorn:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
     def createLoginWindow(self):
-        LoginWindowDialog().exec()
+        LoginWindowDialog(self).exec()
 
     def run(self):
         """Run method that performs all the real work"""
