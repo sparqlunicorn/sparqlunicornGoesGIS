@@ -7,6 +7,7 @@ var a00381 =
     [ "invertPrefixes", "a00381.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
     [ "labelFromURI", "a00381.html#a8d66b18f94f098b37701c05f1a838047", null ],
     [ "loadGraph", "a00381.html#a2ea69b3c9b5e9a5c623f23dd8d123965", null ],
+    [ "authmethods", "a00381.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classicon", "a00381.html#a48ef9378cd3b1e2cda96ca851adb3e0d", null ],
     [ "classnode", "a00381.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00381.html#a670cc0c66359d5042a42639aa6a9e11a", null ],

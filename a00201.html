@@ -133,8 +133,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa36b714ac179f155426d67a231ee0906"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00201.html#aa36b714ac179f155426d67a231ee0906">resetTripleStoreConfig</a> (self)</td></tr>
 <tr class="memdesc:aa36b714ac179f155426d67a231ee0906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the triple store configuration file with the version delivered with the SPARQLUnicorn QGIS plugin.  <a href="a00201.html#aa36b714ac179f155426d67a231ee0906">More...</a><br /></td></tr>
 <tr class="separator:aa36b714ac179f155426d67a231ee0906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c8c1d33a9dd2403578510ed30e3dfdc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00201.html#a9c8c1d33a9dd2403578510ed30e3dfdc">createLoginWindow</a> ()</td></tr>
-<tr class="separator:a9c8c1d33a9dd2403578510ed30e3dfdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803372e1b19c2bf57f9ba620fa56b708"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00201.html#a803372e1b19c2bf57f9ba620fa56b708">createLoginWindow</a> (self)</td></tr>
+<tr class="separator:a803372e1b19c2bf57f9ba620fa56b708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad22709b2e67308af35f55680d5a026e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00201.html#ad22709b2e67308af35f55680d5a026e0">run</a> (self)</td></tr>
 <tr class="separator:ad22709b2e67308af35f55680d5a026e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -473,8 +473,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9c8c1d33a9dd2403578510ed30e3dfdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c8c1d33a9dd2403578510ed30e3dfdc">&#9670;&nbsp;</a></span>createLoginWindow()</h2>
+<a id="a803372e1b19c2bf57f9ba620fa56b708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803372e1b19c2bf57f9ba620fa56b708">&#9670;&nbsp;</a></span>createLoginWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,12 +482,13 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">def createLoginWindow </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    <span class="keyword">def </span>createLoginWindow():</div>
+<div class="fragment"><div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    <span class="keyword">def </span>createLoginWindow(self):</div>
 <div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        LoginWindowDialog().exec()</div>
 <div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
 </div><!-- fragment -->
@@ -1323,29 +1324,30 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(2)</span></div>
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(1)</span></div>
 <div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;            self.dlg.toolButton.hide()</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;            self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;            self.dlg.exportDOT.hide()</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;            self.dlg.exportGraphML.hide()</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;            self.dlg.loadedLayers.clear()</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;            self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;            self.dlg.exportGraphML.clicked.connect(self.exportLayer3)</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;            self.dlg.exportDOT.clicked.connect(self.exportLayer4)</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;            self.dlg.toolButton.clicked.connect(self.getClassTree)</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        <span class="comment"># if self.first_start == False:</span></div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <span class="comment">#    self.dlg.loadUnicornLayers()</span></div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        <span class="comment"># show the dialog</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;        self.dlg.show()</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        result = self.dlg.exec_()</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        <span class="comment"># See if OK was pressed</span></div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        <span class="keywordflow">if</span> result:</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;            <span class="comment"># Do something useful here - delete the line containing pass and</span></div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;            <span class="comment"># substitute with your code.</span></div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;            self.dlg.oauthTestButton.hide()</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;            self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;            self.dlg.exportDOT.hide()</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;            self.dlg.exportGraphML.hide()</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;            self.dlg.loadedLayers.clear()</div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;            self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;            self.dlg.exportGraphML.clicked.connect(self.exportLayer3)</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;            self.dlg.exportDOT.clicked.connect(self.exportLayer4)</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;            self.dlg.toolButton.clicked.connect(self.getClassTree)</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <span class="comment"># if self.first_start == False:</span></div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        <span class="comment">#    self.dlg.loadUnicornLayers()</span></div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;        <span class="comment"># show the dialog</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;        self.dlg.show()</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;        result = self.dlg.exec_()</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        <span class="comment"># See if OK was pressed</span></div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;        <span class="keywordflow">if</span> result:</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;            <span class="comment"># Do something useful here - delete the line containing pass and</span></div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;            <span class="comment"># substitute with your code.</span></div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;            <span class="keywordflow">pass</span></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00201.html#aad1fed1f698792145456d4f39e711766">SPARQLunicorn.first_start</a>.</p>
 

@@ -11,6 +11,7 @@ var a00269 =
     [ "dlg", "a00269.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00269.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "graph", "a00269.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "optionalpart", "a00269.html#a609a332465485662fe9434c82cb22f8c", null ],
     [ "query", "a00269.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "rootNode", "a00269.html#a057f9de4afe85dad22a6bedc06424f58", null ],
     [ "subclassmap", "a00269.html#a65517ccb946882a1e90baa82c94621cf", null ],

@@ -9,6 +9,7 @@ var a00249 =
     [ "check_state2", "a00249.html#a9a1cb24b28540f37b69ea944b5834ecd", null ],
     [ "closeTripleStoreDialog", "a00249.html#a29478b28b44bec57f44f7a180239211c", null ],
     [ "detectTripleStoreConfiguration", "a00249.html#afd5cbb47197ed025c14b33f40011c054", null ],
+    [ "enableAuthentication", "a00249.html#a57f72da816cb9d7e387f64294ab706e8", null ],
     [ "removePrefixFromList", "a00249.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
     [ "addTripleStore", "a00249.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
     [ "comboBox", "a00249.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],

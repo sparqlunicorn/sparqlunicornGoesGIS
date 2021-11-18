@@ -2115,7 +2115,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keyword">def </span>tabchanged(self,index):</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00192.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(<span class="stringliteral">&quot;Tab changed! &quot;</span>+str(index)), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Tab changed! &quot;+str(index)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        <span class="keywordflow">if</span> self.currentProxyModel!=<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            self.currentProxyModel.setFilterRegExp(<span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        self.filterConcepts.setText(<span class="stringliteral">&quot;&quot;</span>)</div>
@@ -2129,7 +2129,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            self.currentProxyModel=self.classTreeViewProxyModel</div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00241.html#a9d90add430846a2dbe7488a798e0f615">SPARQLunicornDialog.classTreeViewProxyModel</a>, <a class="el" href="a00241.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00241.html#a75aa4ee72888814706630f96c57a12d0">SPARQLunicornDialog.featureCollectionProxyModel</a>, <a class="el" href="a00192.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00241.html#a94e3aaff26c45f30cfb330adffe9ccce">SPARQLunicornDialog.geometryCollectionProxyModel</a>, and <a class="el" href="a00241.html#a5e50e135cdd6239342d6d2c080e43542">SPARQLunicornDialog.proxyModel</a>.</p>
+<p class="reference">References <a class="el" href="a00241.html#a9d90add430846a2dbe7488a798e0f615">SPARQLunicornDialog.classTreeViewProxyModel</a>, <a class="el" href="a00241.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00241.html#a75aa4ee72888814706630f96c57a12d0">SPARQLunicornDialog.featureCollectionProxyModel</a>, <a class="el" href="a00241.html#a94e3aaff26c45f30cfb330adffe9ccce">SPARQLunicornDialog.geometryCollectionProxyModel</a>, and <a class="el" href="a00241.html#a5e50e135cdd6239342d6d2c080e43542">SPARQLunicornDialog.proxyModel</a>.</p>
 
 </div>
 </div>
@@ -3017,7 +3017,6 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00192_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00192.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
 <div class="ttc" id="aa00341_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00341.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->

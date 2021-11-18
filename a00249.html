@@ -97,6 +97,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac6ef1909b43c27723c2a89de86988023"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29478b28b44bec57f44f7a180239211c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00249.html#a29478b28b44bec57f44f7a180239211c">closeTripleStoreDialog</a> (self)</td></tr>
 <tr class="separator:a29478b28b44bec57f44f7a180239211c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f72da816cb9d7e387f64294ab706e8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00249.html#a57f72da816cb9d7e387f64294ab706e8">enableAuthentication</a> (self)</td></tr>
+<tr class="separator:a57f72da816cb9d7e387f64294ab706e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd5cbb47197ed025c14b33f40011c054"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00249.html#afd5cbb47197ed025c14b33f40011c054">detectTripleStoreConfiguration</a> (self)</td></tr>
 <tr class="separator:afd5cbb47197ed025c14b33f40011c054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34a78bc5f0927053db7797e886f20240"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00249.html#a34a78bc5f0927053db7797e886f20240">addNewSPARQLEndpoint</a> (self)</td></tr>
@@ -195,7 +197,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,10 +226,10 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">def </span>addNewSPARQLEndpoint(self):</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.addTripleStore = <span class="keyword">True</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.applyCustomSPARQLEndPoint()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">def </span>addNewSPARQLEndpoint(self):</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.addTripleStore = <span class="keyword">True</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        self.applyCustomSPARQLEndPoint()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -253,13 +256,13 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">def </span>addPrefixToList(self):</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        item = QListWidgetItem()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        item.setData(0,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                     <span class="stringliteral">&quot;PREFIX &quot;</span> + self.tripleStorePrefixNameEdit.text() + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.tripleStorePrefixEdit.text() + <span class="stringliteral">&quot;&gt;&quot;</span>)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        item.setText(<span class="stringliteral">&quot;PREFIX &quot;</span> + self.tripleStorePrefixNameEdit.text() + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.tripleStorePrefixEdit.text() + <span class="stringliteral">&quot;&gt;&quot;</span>)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.prefixList.addItem(item)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">def </span>addPrefixToList(self):</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        item = QListWidgetItem()</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        item.setData(0,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                     <span class="stringliteral">&quot;PREFIX &quot;</span> + self.tripleStorePrefixNameEdit.text() + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.tripleStorePrefixEdit.text() + <span class="stringliteral">&quot;&gt;&quot;</span>)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        item.setText(<span class="stringliteral">&quot;PREFIX &quot;</span> + self.tripleStorePrefixNameEdit.text() + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.tripleStorePrefixEdit.text() + <span class="stringliteral">&quot;&gt;&quot;</span>)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        self.prefixList.addItem(item)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -278,41 +281,41 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">def </span>applyCustomSPARQLEndPoint(self):</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.testTripleStoreConnection(<span class="keyword">True</span>):</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> self.tripleStoreNameEdit.text() == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Triple Store Name is missing!&quot;</span>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;Please enter a triple store name&quot;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment"># self.endpoints.append(self.tripleStoreEdit.text())</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        self.comboBox.addItem(self.tripleStoreNameEdit.text())</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        curprefixes = []</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(self.prefixList.count()):</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            curprefixes.append(self.prefixList.item(i).text())</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">if</span> self.addTripleStore:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            index = len(self.triplestoreconf)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text())</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            self.triplestoreconf.append({})</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>] = []</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>].append({})</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>][0][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;Example Query&quot;</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>][0][<span class="stringliteral">&quot;query&quot;</span>] = self.exampleQuery.toPlainText()</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            index = self.tripleStoreChooser.currentIndex()</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        self.triplestoreconf[index] = {}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;endpoint&quot;</span>] = self.tripleStoreEdit.text()</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;name&quot;</span>] = self.tripleStoreNameEdit.text()</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>] = []</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>].append(self.queryVarEdit.text())</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>].append(self.queryVarItemEdit.text())</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;prefixes&quot;</span>] = curprefixes</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;crs&quot;</span>] = self.epsgEdit.text()</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;active&quot;</span>] = self.activeCheckBox.isChecked()</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        self.addTripleStore = <span class="keyword">False</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">def </span>applyCustomSPARQLEndPoint(self):</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.testTripleStoreConnection(<span class="keyword">True</span>):</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> self.tripleStoreNameEdit.text() == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            msgBox = QMessageBox()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Triple Store Name is missing!&quot;</span>)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;Please enter a triple store name&quot;</span>)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment"># self.endpoints.append(self.tripleStoreEdit.text())</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        self.comboBox.addItem(self.tripleStoreNameEdit.text())</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        curprefixes = []</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(self.prefixList.count()):</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            curprefixes.append(self.prefixList.item(i).text())</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">if</span> self.addTripleStore:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            index = len(self.triplestoreconf)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text())</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            self.triplestoreconf.append({})</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>] = []</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>].append({})</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>][0][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;Example Query&quot;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            self.triplestoreconf[index][<span class="stringliteral">&quot;querytemplate&quot;</span>][0][<span class="stringliteral">&quot;query&quot;</span>] = self.exampleQuery.toPlainText()</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            index = self.tripleStoreChooser.currentIndex()</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.triplestoreconf[index] = {}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;endpoint&quot;</span>] = self.tripleStoreEdit.text()</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;name&quot;</span>] = self.tripleStoreNameEdit.text()</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>] = []</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>].append(self.queryVarEdit.text())</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>].append(self.queryVarItemEdit.text())</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;prefixes&quot;</span>] = curprefixes</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;crs&quot;</span>] = self.epsgEdit.text()</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        self.triplestoreconf[index][<span class="stringliteral">&quot;active&quot;</span>] = self.activeCheckBox.isChecked()</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        self.addTripleStore = <span class="keyword">False</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00249.html#af4a8aa8ceb4969b82047ab23c9d00c82">TripleStoreQuickAddDialog.addTripleStore</a>, <a class="el" href="a00245.html#af4a8aa8ceb4969b82047ab23c9d00c82">TripleStoreDialog.addTripleStore</a>, <a class="el" href="a00249.html#afcee2275fb7c24bb8979dd838f0dc90a">TripleStoreQuickAddDialog.comboBox</a>, <a class="el" href="a00245.html#afcee2275fb7c24bb8979dd838f0dc90a">TripleStoreDialog.comboBox</a>, <a class="el" href="a00285.html#a79d5df9acef6fd54a9ebfdc4055f68d1">DetectTripleStoreTask.testTripleStoreConnection()</a>, <a class="el" href="a00245.html#a92f0f35c62235de8c1bba4c25f7ede69">TripleStoreDialog.testTripleStoreConnection()</a>, <a class="el" href="a00285.html#afe1b0b3e2a930a83eeaf4fb19f9a6969">DetectTripleStoreTask.tripleStoreChooser</a>, <a class="el" href="a00249.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00245.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00237.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00213.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00201.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
 
@@ -343,16 +346,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        validator = sender.validator()</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
+<div class="fragment"><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        validator = sender.validator()</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00253.html#a452dcd98676575e133f2fd74a3a8bd01">UploadRDFDialog.check_state1()</a>, <a class="el" href="a00249.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreQuickAddDialog.check_state1()</a>, and <a class="el" href="a00249.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreQuickAddDialog.check_state2()</a>.</p>
 
@@ -373,9 +376,9 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.check_state(self.tripleStoreEdit)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        self.check_state(self.tripleStoreEdit)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00229.html#aee700008c6180fc09c43e84dd4cfc1f1">LoadGraphDialog.check_state()</a>, <a class="el" href="a00217.html#aee700008c6180fc09c43e84dd4cfc1f1">ConvertCRSDialog.check_state()</a>, <a class="el" href="a00237.html#aee700008c6180fc09c43e84dd4cfc1f1">SearchDialog.check_state()</a>, <a class="el" href="a00249.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreQuickAddDialog.check_state()</a>, <a class="el" href="a00245.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreDialog.check_state()</a>, and <a class="el" href="a00333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
 
@@ -396,9 +399,9 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">def </span>check_state2(self):</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        self.check_state(self.tripleStorePrefixEdit)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">def </span>check_state2(self):</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        self.check_state(self.tripleStorePrefixEdit)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00229.html#aee700008c6180fc09c43e84dd4cfc1f1">LoadGraphDialog.check_state()</a>, <a class="el" href="a00217.html#aee700008c6180fc09c43e84dd4cfc1f1">ConvertCRSDialog.check_state()</a>, <a class="el" href="a00237.html#aee700008c6180fc09c43e84dd4cfc1f1">SearchDialog.check_state()</a>, <a class="el" href="a00249.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreQuickAddDialog.check_state()</a>, and <a class="el" href="a00245.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreDialog.check_state()</a>.</p>
 
@@ -419,9 +422,9 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">def </span>closeTripleStoreDialog(self):</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.close()</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">def </span>closeTripleStoreDialog(self):</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.close()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -440,22 +443,53 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">def </span>detectTripleStoreConfiguration(self):</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Detecting configuration for triple store &quot;</span> + self.tripleStoreEdit.text() + <span class="stringliteral">&quot;...&quot;</span>,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                   <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        progress.show()</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.qtask = DetectTripleStoreTask(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="stringliteral">&quot;Detecting configuration for triple store &quot;</span> + self.tripleStoreEdit.text() + <span class="stringliteral">&quot;...&quot;</span>, self.triplestoreconf,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),self.credentialPassword.text(), <span class="keyword">False</span>, <span class="keyword">True</span>, self.prefixes, self.prefixstore,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordtype">None</span>, self.comboBox, self.permanentAdd.isChecked(), self, progress)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">def </span>detectTripleStoreConfiguration(self):</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Detecting configuration for triple store &quot;</span> + self.tripleStoreEdit.text() + <span class="stringliteral">&quot;...&quot;</span>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                   <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        progress.show()</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.qtask = DetectTripleStoreTask(</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="stringliteral">&quot;Detecting configuration for triple store &quot;</span> + self.tripleStoreEdit.text() + <span class="stringliteral">&quot;...&quot;</span>, self.triplestoreconf,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.credentialPassword.text(),self.authenticationComboBox.currentText(), <span class="keyword">False</span>, <span class="keyword">True</span>, self.prefixes, self.prefixstore,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordtype">None</span>, self.comboBox, self.permanentAdd.isChecked(), self, progress)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00333.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a00285.html#ad22709b2e67308af35f55680d5a026e0">DetectTripleStoreTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a57f72da816cb9d7e387f64294ab706e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57f72da816cb9d7e387f64294ab706e8">&#9670;&nbsp;</a></span>enableAuthentication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def enableAuthentication </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>enableAuthentication(self):</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> self.useAuthenticationCheckBox.checkState():</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            self.authenticationComboBox.setEnabled(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            self.credentialUserName.setEnabled(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            self.credentialPassword.setEnabled(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            self.authenticationComboBox.setEnabled(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            self.credentialUserName.setEnabled(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            self.credentialPassword.setEnabled(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00285.html#af47ef99ec07c965212f8b2a4bb8561ca">DetectTripleStoreTask.credentialPassword</a>, and <a class="el" href="a00285.html#a8060ccbd094595273ba83ec05c23b55a">DetectTripleStoreTask.credentialUserName</a>.</p>
 
 </div>
 </div>
@@ -482,11 +516,11 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">def </span>removePrefixFromList(self):</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        item = QListWidgetItem()</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> self.prefixList.selectedItems():</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            self.prefixList.removeItemWidget(item)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">def </span>removePrefixFromList(self):</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        item = QListWidgetItem()</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> self.prefixList.selectedItems():</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            self.prefixList.removeItemWidget(item)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>

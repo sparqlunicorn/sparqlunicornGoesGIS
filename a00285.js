@@ -1,12 +1,13 @@
 var a00285 =
 [
-    [ "__init__", "a00285.html#a9105a3116393d32ae907f6e200a324d8", null ],
+    [ "__init__", "a00285.html#a4bc70c78b2fa4486b7b35166b901e270", null ],
     [ "detectNamespaces", "a00285.html#a28c2aa597146ea0bee8567e8fcbcea69", null ],
     [ "detectTripleStoreConfiguration", "a00285.html#afd5cbb47197ed025c14b33f40011c054", null ],
     [ "finished", "a00285.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00285.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "testTripleStoreConnection", "a00285.html#a79d5df9acef6fd54a9ebfdc4055f68d1", null ],
     [ "addTripleStore", "a00285.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "authmethod", "a00285.html#af7f23c6cca9466eeb595e3f6ad66350b", null ],
     [ "comboBox", "a00285.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
     [ "configuration", "a00285.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
     [ "credentialPassword", "a00285.html#af47ef99ec07c965212f8b2a4bb8561ca", null ],
