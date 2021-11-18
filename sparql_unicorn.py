@@ -50,6 +50,7 @@ from .tasks.geoconceptsquerytask import GeoConceptsQueryTask
 from .tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
+from .dialogs.loginwindowdialog import LoginWindowDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
 
 geoconcepts = ""
@@ -578,6 +579,9 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
+    def createLoginWindow():
+        LoginWindowDialog().exec()
+
     def run(self):
         """Run method that performs all the real work"""
         # Create the dialog with elements (after translation) and keep reference
@@ -637,6 +641,7 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.toolButton.hide()
+            self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)
             self.dlg.exportDOT.hide()
             self.dlg.exportGraphML.hide()
             self.dlg.loadedLayers.clear()

@@ -2,27 +2,29 @@ import sys
 from urllib.parse import urlencode, parse_qs
 import requests
 from PyQt5 import QtCore
-from PyQt5.QtWebEngineCore import QWebEngineUrlRequestInterceptor
+#from PyQt5.QtWebEngineCore import QWebEngineUrlRequestInterceptor
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+#from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QApplication
 
-ClientId = {"orcid":"","google":"","gitlabcom":"","github":""}
-ClientSecret = {"orcid":"","google":"","gitlabcom":"","github":""}
-RedirectUrl = 'localhost/callback'
-RedirectScheme = 'http://'
-Scopes = ['user_read', 'channel_subscriptions', 'channel_check_subscription', 'user_subscriptions', 'channel_editor',
-          'chat_login']
 
-ResponseType = 'code'
+class OAuthConfiguration:
+    ClientId = {"orcid":"","google":"","gitlabcom":"","github":""}
+    ClientSecret = {"orcid":"","google":"","gitlabcom":"","github":""}
+    RedirectUrl = 'localhost/callback'
+    RedirectScheme = 'http://'
+    Scopes = ['user_read', 'channel_subscriptions', 'channel_check_subscription', 'user_subscriptions', 'channel_editor',
+            'chat_login']
 
-Headers = {'client_id': ClientId, 'redirect_uri': RedirectScheme+RedirectUrl, 'response_type': ResponseType,
-           'scope': str.join(' ', Scopes)}
+    ResponseType = 'code'
 
-#AuthUrl = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(headers=urlencode(Headers))
+    Headers = {'client_id': ClientId, 'redirect_uri': RedirectScheme+RedirectUrl, 'response_type': ResponseType,
+            'scope': str.join(' ', Scopes)}
 
-AuthUrl={"orcid":" https://orcid.org/oauth/authorize?{headers}","google":"","gitlabcom":"https://gitlab.example.com/oauth/authorize?{headers}","github":"https://github.com/login/oauth/authorize?{headers}"}
+    #AuthUrl = 'https://api.twitch.tv/kraken/oauth2/authorize?{headers}'.format(headers=urlencode(Headers))
 
+    AuthUrl={"orcid":" https://orcid.org/oauth/authorize?{headers}","google":"","gitlabcom":"https://gitlab.example.com/oauth/authorize?{headers}","github":"https://github.com/login/oauth/authorize?{headers}"}
+"""
 class RequestInterceptor(QWebEngineUrlRequestInterceptor):
 
     oauthcode=None
@@ -39,7 +41,7 @@ class RequestInterceptor(QWebEngineUrlRequestInterceptor):
                 print('OAuth code is {code}'.format(code=params['code']))
                 self.oauthcode=params['code']
 
-"""
+
 class GoogleRequestInterceptor(RequestInterceptor):
 	
 	def __init__(self, app):
@@ -88,7 +90,7 @@ class GithubRequestInterceptor(RequestInterceptor):
 				
     def getUserInformation(self):
 
-"""
+
 class UserMetaData:
 
     username=None
@@ -128,4 +130,4 @@ class GitlabRequestInterceptor(RequestInterceptor):
         user.userurl=res["web_url"]
         user.userid=res["id"]
         user.authenticatedby="Gitlab ("+baseurl+")"
-
+"""
