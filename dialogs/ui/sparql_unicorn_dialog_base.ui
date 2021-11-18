@@ -604,6 +604,19 @@ SELECT ?label ?geo ?item WHERE {
       <string>Export Loaded Layer as DOT</string>
      </property>
     </widget>
+    <widget class="QToolButton" name="oauthTestButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>640</y>
+       <width>29</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

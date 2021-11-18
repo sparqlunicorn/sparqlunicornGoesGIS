@@ -4,9 +4,9 @@ from PyQt5.QtCore import QUrl
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
 import os
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from util.oauth import OAuthConfiguration
-from util.oauth import RequestInterceptor
+#from PyQt5.QtWebEngineWidgets import QWebEngineView
+from ..util.oauth import OAuthConfiguration
+#from ..util.oauth import RequestInterceptor
 
 
 
@@ -22,10 +22,10 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
     def __init__(self, app):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.googleOAuthButton.clicked.connect(LoginWindow("google"))
-        self.gitlabcomOAuthButton.clicked.connect(LoginWindow("gitlabcom"))
-        self.orcidOAuthButton.clicked.connect(LoginWindow("orcid"))
-        self.githubOAuthButton.clicked.connect(LoginWindow("github"))
+        #self.googleOAuthButton.clicked.connect(LoginWindow("google"))
+        #self.gitlabcomOAuthButton.clicked.connect(LoginWindow("gitlabcom"))
+        #self.orcidOAuthButton.clicked.connect(LoginWindow("orcid"))
+        #self.githubOAuthButton.clicked.connect(LoginWindow("github"))
 
     def _loadFinished(self, result):
         self.page().toHtml(self.callable)
@@ -33,7 +33,7 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
     def callable(self, data):
         self.html = data
         
-
+"""
 class LoginWindow(QWebEngineView):
     logged_in = QtCore.pyqtSignal(['QString'])
 
@@ -53,3 +53,4 @@ class LoginWindow(QWebEngineView):
 
     def callable(self, data):
         self.html = data
+"""
