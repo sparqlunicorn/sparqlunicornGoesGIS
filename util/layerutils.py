@@ -264,15 +264,15 @@ class LayerUtils:
                 if prop.startswith("http"):
                     toadd="<node id=\"" + str(prop) + "\" uri=\""+str(prop)+"\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"
                     if f[propp].startswith("http"):
-                        toadd += SPARQLUtils.labelFromURI(str(f[propp].replace("<", "").replace(">",""))) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
+                        toadd += SPARQLUtils.labelFromURI(str(f[propp]).replace("<", "").replace(">","")) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
                     else:
-                        toadd+="<!CDATA["+str(f[propp].replace("<","").replace(">",""))+"]]></y:NodeLabel></y:ShapeNode></data></node>\n"
+                        toadd+="<!CDATA["+str(f[propp]).replace("<","").replace(">","")+"]]></y:NodeLabel></y:ShapeNode></data></node>\n"
                     nodeset.add(toadd)
                     edgeset.add("<edge id=\"e" + str(edgecounter)+"\" uri=\""+str(propp)+"\" source=\"fid_" + str(
                         fidcounter) + "\" target=\"" + str(prop) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">"+str(propp)+"</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
                     edgecounter+=1
                 else:
-                    nodeset.add("<node id=\"literal" + str(literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"+str(f[propp].replace("<","").replace(">",""))[0:10]+"</y:NodeLabel></y:ShapeNode></data></node>\n")
+                    nodeset.add("<node id=\"literal" + str(literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">"+str(f[propp]).replace("<","").replace(">","")[0:10]+"</y:NodeLabel></y:ShapeNode></data></node>\n")
                     edgeset.add("<edge id=\"e" + str(edgecounter)+"\" uri=\""+str(propp)+"\" source=\"fid_" + str(
                         fidcounter) + "\" target=\"literal" + str(literalcounter) + "\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">"+str(propp)+"</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
                     literalcounter+=1
