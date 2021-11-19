@@ -51,7 +51,7 @@ class InstanceListQueryTask(QgsTask):
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
             if "label" in result:
-                self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]
+                self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"])+")"
             else:
                 self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"])
         return True

@@ -79,12 +79,12 @@ class ClassTreeQueryTask(QgsTask):
                 if "label" in result:
                     if "hasgeo" in result:
                         self.classtreemap[subval].setText(
-                        result["label"]["value"])
+                        result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval)+")")
                         self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
                     else:
                         self.classtreemap[subval].setText(
-                        result["label"]["value"])
+                        result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval)+")")
                         self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
                 else:
