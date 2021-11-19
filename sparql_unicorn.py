@@ -35,10 +35,10 @@ from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, Qg
 from .resources import *
 import os.path
 import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 from .util.sparqlutils import SPARQLUtils
 from .util.layerutils import LayerUtils
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 import json
 
 from rdflib import *
