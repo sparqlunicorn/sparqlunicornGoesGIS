@@ -165,7 +165,8 @@ class QueryLayerTask(QgsTask):
                 self.geojson) + " non-geometry query results. You can retrieve them by allowing non-geometry queries!")
             msgBox.exec()
             return
-        self.progress.close()
+        if self.progress!=None:
+            self.progress.close()
         vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True, indent=4), "unicorn_" + self.filename, "ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)

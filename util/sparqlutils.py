@@ -47,7 +47,7 @@ class SPARQLUtils:
             proxy = urllib.request.ProxyHandler({'http': proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
-        QgsMessageLog.logMessage('Started task "{}"'.format(query), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
         sparql = SPARQLWrapper(triplestoreurl)
         if triplestoreconf!=None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                 and triplestoreconf["auth"]["userCredential"]!="" \
@@ -60,7 +60,6 @@ class SPARQLUtils:
                 sparql.setHTTPAuth(BASIC)
             sparql.setCredentials(triplestoreconf["auth"]["userCredential"], triplestoreconf["auth"]["userPassword"])
         sparql.setQuery(query)
-        QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
         sparql.setMethod(GET)
         sparql.setReturnFormat(JSON)
         try:

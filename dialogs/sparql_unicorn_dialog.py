@@ -44,6 +44,7 @@ from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..tasks.querylayertask import QueryLayerTask
 from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
 from ..tasks.instancelistquerytask import InstanceListQueryTask
@@ -196,6 +197,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectactionGeoTree)
         self.classTreeView.selectionModel().currentChanged.connect(self.viewselectactionClassTree)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
+        self.conceptViewTabWidget.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
@@ -248,6 +251,16 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.currentProxyModel = self.geometryCollectionProxyModel
         self.createMenu(position)
 
+    def tabContextMenu(self,position):
+        menu = QMenu("Menu", self.conceptViewTabWidget)
+        actionsaveRDF=QAction("Save Contents as RDF")
+        menu.addAction(actionsaveRDF)
+        actionsaveRDF.triggered.connect(self.saveTreeToRDF)
+        menu.exec_(self.currentContext.viewport().mapToGlobal(position))
+
+    def saveTreeToRDF(self):
+        print("save")
+
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
@@ -275,10 +288,16 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             actionsubclassquery = QAction("Create subclass query")
             menu.addAction(actionsubclassquery)
             actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+            actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
+            menu.addAction(actionaddallInstancesAsLayer)
+            actionaddallInstancesAsLayer.triggered.connect(self.dataAllInstancesAsLayer)
         else:
             actiondataschema = QAction("Query data")
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataInstanceView)
+            actionaddInstanceAsLayer = QAction("Add instance new layer")
+            menu.addAction(actionaddInstanceAsLayer)
+            actionaddInstanceAsLayer.triggered.connect(self.dataInstanceAsLayer)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
         """
         actionapplicablestyles=QAction("Find applicable styles")
@@ -341,6 +360,42 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         self.instancedataDialog.setWindowTitle("Data Schema View for "+str(concept))
         self.instancedataDialog.exec_()
+
+    def dataInstanceAsLayer(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        if nodetype==SPARQLUtils.geoinstancenode:
+            self.qlayerinstance = QueryLayerTask(
+                "Instance to Layer: " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?item ?geo ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+        else:
+            self.qlayerinstance = QueryLayerTask(
+                "Instance to Layer: " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
+
+    def dataAllInstancesAsLayer(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        if nodetype==SPARQLUtils.geoinstancenode:
+            self.qlayerinstance = QueryLayerTask(
+                "Instance to Layer: " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?item ?geo ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+        else:
+            self.qlayerinstance = QueryLayerTask(
+                "Instance to Layer: " + str(concept),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def appStyles(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
