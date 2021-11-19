@@ -1,11 +1,4 @@
-import sys
-from urllib.parse import urlencode, parse_qs
-import requests
-from PyQt5 import QtCore
-#from PyQt5.QtWebEngineCore import QWebEngineUrlRequestInterceptor
-from PyQt5.QtCore import QUrl
-#from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWidgets import QApplication
+from urllib.parse import urlencode
 
 
 class OAuthConfiguration:
@@ -28,7 +21,7 @@ class OAuthConfiguration:
                 {"client_id":OAuthConfiguration.ClientId[provider],
                  "redirect_uri": OAuthConfiguration.RedirectScheme+OAuthConfiguration.RedirectUrl,
                  "response_type": OAuthConfiguration.ResponseType,
-                 'scope': str.join(' ', OAuthConfiguration.Scopes["provider"])
+                 'scope': str.join(' ', OAuthConfiguration.Scopes[provider])
                  }))
         return None
 """

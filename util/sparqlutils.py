@@ -122,6 +122,10 @@ class SPARQLUtils:
         return uri
 
     @staticmethod
+    def shortenLiteral(literal,numchars):
+        return literal[numchars:]
+
+    @staticmethod
     def loadGraph(graphuri):
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")

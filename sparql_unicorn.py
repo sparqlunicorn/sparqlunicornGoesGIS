@@ -55,7 +55,6 @@ from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
 
 geoconcepts = ""
 
-
 ## The main SPARQL unicorn dialog.
 #
 class SPARQLunicorn:
@@ -494,38 +493,6 @@ class SPARQLunicorn:
     def exportLayer2(self):
         self.exportLayer(None, None, None, None, None, None, self.dlg.exportTripleStore_2.isChecked())
 
-    def exportLayer4(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        if self.enrichedExport:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        else:
-            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        ttlstring = LayerUtils.layerToDot(layer,"".join(self.prefixes[self.dlg.comboBox.currentIndex()]))
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
-        if filename == "":
-            return
-        with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-
-    def exportLayer3(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        if self.enrichedExport:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        else:
-            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        ttlstring = LayerUtils.layerToGraphML(layer)
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
-        if filename == "":
-            return
-        with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-
     ## Creates the export layer dialog for exporting layers as TTL.
     #  @param self The object pointer.
     def exportLayer(self, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None,
@@ -545,22 +512,27 @@ class SPARQLunicorn:
             uploaddialog.exec_()
         else:
             filename, _filter = QFileDialog.getSaveFileName(
-                self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt)", )
+                self.dlg, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
             if filename == "":
                 return
-            ttlstring = LayerUtils.layerToTTLString(layer,"".join(self.prefixes[self.dlg.comboBox.currentIndex()]), urilist, classurilist, includelist, proptypelist, valuemappings,
-                                              valuequeries)
+            if filename.endswith("graphml"):
+                ttlstring = LayerUtils.layerToGraphML(layer)
+            else:
+                ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
+                                                        urilist, classurilist, includelist, proptypelist, valuemappings,
+                                                        valuequeries)
             with open(filename, 'w') as output_file:
                 output_file.write(ttlstring)
                 iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-            g = Graph()
-            g.parse(data=ttlstring, format="ttl")
-            splitted = filename.split(".")
-            exportNameSpace = ""
-            exportSetClass = ""
-            with open(filename, 'w') as output_file:
-                output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode("utf-8"))
-                iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
+            if not filename.endswith("graphml"):
+                g = Graph()
+                g.parse(data=ttlstring, format="ttl")
+                splitted = filename.split(".")
+                exportNameSpace = ""
+                exportSetClass = ""
+                with open(filename, 'w') as output_file:
+                    output_file.write(g.serialize(format=splitted[len(splitted) - 1]).decode("utf-8"))
+                    iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
 
     ## Saves a personal copy of the triplestore configuration file to disk.
     #  @param self The object pointer.
@@ -640,20 +612,14 @@ class SPARQLunicorn:
             # self.dlg.exportTripleStore_2.hide()
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
-            self.dlg.toolButton.hide()
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)
-            self.dlg.exportDOT.hide()
-            self.dlg.exportGraphML.hide()
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
-            self.dlg.exportGraphML.clicked.connect(self.exportLayer3)
-            self.dlg.exportDOT.clicked.connect(self.exportLayer4)
-            self.dlg.toolButton.clicked.connect(self.getClassTree)
         # if self.first_start == False:
         #    self.dlg.loadUnicornLayers()
         # show the dialog
