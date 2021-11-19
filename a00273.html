@@ -375,12 +375,12 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;label&quot;</span> <span class="keywordflow">in</span> result:</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;hasgeo&quot;</span> <span class="keywordflow">in</span> result:</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                        self.classtreemap[subval].setText(</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                        result[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                        result[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]+<span class="stringliteral">&quot; (&quot;</span>+SPARQLUtils.labelFromURI(subval)+<span class="stringliteral">&quot;)&quot;</span>)</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                        self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                        self.classtreemap[subval].setText(</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                        result[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>])</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                        result[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]+<span class="stringliteral">&quot; (&quot;</span>+SPARQLUtils.labelFromURI(subval)+<span class="stringliteral">&quot;)&quot;</span>)</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        self.classtreemap[subval].setIcon(SPARQLUtils.classicon)</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                        self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">else</span>:</div>
