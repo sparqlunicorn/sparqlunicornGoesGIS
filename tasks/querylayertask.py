@@ -136,6 +136,9 @@ class QueryLayerTask(QgsTask):
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
                 feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
                 features.append(feature)
+            elif "rel" in result and "val" in result and not "geo" in result and geooptional:
+                feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
+                features.append(feature)
         if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
             myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)

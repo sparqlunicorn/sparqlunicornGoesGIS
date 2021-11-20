@@ -43,7 +43,7 @@ class GeoConceptsQueryTask(QgsTask):
         print(self.viewlist)
         if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
             "classlabelquery"] != "":
-            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.dlg.triplestoreconf["classlabelquery"],self.dlg.triplestoreconf,self.triplestoreurl)
+            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
             print(labels)
             self.amountoflabels = len(labels)
             i = 0
