@@ -373,8 +373,9 @@ class SPARQLunicorn:
             for concept in conceptlist:
                 item = QStandardItem()
                 item.setData(concept, 256)
-                item.setText(SPARQLUtils.labelFromURI(concept))
+                item.setText(SPARQLUtils.labelFromURI(concept, self.triplestoreconf[endpointIndex]["prefixesrev"]))
                 item.setIcon(SPARQLUtils.geoclassicon)
+                item.setData(SPARQLUtils.geoclassnode,257)
                 self.dlg.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
                 self.dlg.geoTreeViewModel.appendRow(item)
             self.dlg.inp_sparql2.updateNewClassList()
@@ -618,8 +619,6 @@ class SPARQLunicorn:
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
-            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
-            self.dlg.classTreeView.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
         # if self.first_start == False:
         #    self.dlg.loadUnicornLayers()

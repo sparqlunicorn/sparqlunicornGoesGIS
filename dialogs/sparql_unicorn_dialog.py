@@ -149,6 +149,8 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext3)
         self.geometryCollectionClassListModel.clear()
+        self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
+        self.classTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
@@ -295,7 +297,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             actiondataschema = QAction("Query data")
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataInstanceView)
-            actionaddInstanceAsLayer = QAction("Add instance new layer")
+            actionaddInstanceAsLayer = QAction("Add instance as new layer")
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dataInstanceAsLayer)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
@@ -338,8 +340,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     def instanceList(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        alreadyloadedindicator = self.currentContextModel.itemFromIndex(curindex).data(259)
         label = self.currentContextModel.itemFromIndex(curindex).text()
-        if True: # or self.currentContextModel.itemFromIndex(curindex).childCount()==0:
+        if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
@@ -360,6 +363,17 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         self.instancedataDialog.setWindowTitle("Data Schema View for "+str(concept))
         self.instancedataDialog.exec_()
+
+    def treeAsRDF(self,root,result):
+        if root is not None:
+            for row in range(root.rowCount()):
+
+                row_item = root.child(row, 0)
+                if row_item.hasChildren():
+                    for childIndex in range(row_item.rowCount()):
+                        # Take second column from "child"-row
+                        child = row_item.child(childIndex, 1)
+                        yield child
 
     def dataInstanceAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -419,6 +433,14 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         #self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         #self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
         #self.dataschemaDialog.exec_()
+
+    def createLayerFromTreeEntry(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.classnode:
+            self.dataAllInstancesAsLayer()
+        elif nodetype==SPARQLUtils.geoinstancenode or nodetype==SPARQLUtils.instancenode:
+            self.dataInstanceAsLayer()
 
     def loadSubClasses(self):
         print("Load SubClasses")

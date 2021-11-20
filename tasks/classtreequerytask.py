@@ -89,13 +89,11 @@ class ClassTreeQueryTask(QgsTask):
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
                 else:
                     if "hasgeo" in result:
-                        self.classtreemap[subval].setText(
-                        result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
+                        self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
                         self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
                     else:
-                        self.classtreemap[subval].setText(
-                        result["subject"]["value"][result["subject"]["value"].rfind('/') + 1:])
+                        self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
                         self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
 
@@ -135,5 +133,5 @@ class ClassTreeQueryTask(QgsTask):
         self.classtreemap["root"]=self.rootNode
         self.buildTree("root",self.classtreemap,self.subclassmap,[])
         self.dlg.classTreeView.setSortingEnabled(True)
-        self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder);
+        self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
         self.dlg.classTreeView.setSortingEnabled(False)

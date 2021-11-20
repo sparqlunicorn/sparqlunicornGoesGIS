@@ -62,6 +62,7 @@ class InstanceListQueryTask(QgsTask):
         if self.treeNode.data(258)==None:
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
+        self.treeNode.setData(SPARQLUtils.instancesloadedindicator,259)
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
