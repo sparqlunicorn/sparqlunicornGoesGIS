@@ -18,5 +18,6 @@ var a00385 =
     [ "geoinstancenode", "a00385.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
     [ "instanceicon", "a00385.html#a7957119a35f294ef57eb7479c0a56953", null ],
     [ "instancenode", "a00385.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
+    [ "instancesloadedindicator", "a00385.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],
     [ "supportedLiteralTypes", "a00385.html#a28a4112f838898d008910c4320f0732e", null ]
 ];
