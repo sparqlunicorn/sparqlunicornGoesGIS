@@ -59,6 +59,8 @@ class InstanceListQueryTask(QgsTask):
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.treeNode.text()), MESSAGE_CATEGORY, Qgis.Info)
+        self.treeNode.setData(str(len(self.queryresult)),258)
+        self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)

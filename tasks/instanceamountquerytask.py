@@ -23,22 +23,22 @@ class InstanceAmountQueryTask(QgsTask):
         thequery=""
         if "wikidata" in self.triplestoreurl:
             wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
-                    wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    "WIKIDATA: SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
+            #        wikicon) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
                     wikicon) + "> . }"
         else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
-                    self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    "SELECT (COUNT(?con) as ?amount) WHERE { ?con http://www.w3.org/1999/02/22-rdf-syntax-ns#type " + str(
+            #        self.treeNode.data(256)) + " . }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(
                     self.treeNode.data(256)) + "> . }"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
             results=self.graph.query(thequery)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results != False:
             self.amount = results["results"]["bindings"][0]["amount"]["value"]
         else:
@@ -50,3 +50,4 @@ class InstanceAmountQueryTask(QgsTask):
             self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
         if self.amount!=-1:
             self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
+            self.treeNode.setData(str(self.amount),258)

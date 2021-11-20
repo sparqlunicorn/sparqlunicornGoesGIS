@@ -40,14 +40,14 @@ class GeoCollectionsQueryTask(QgsTask):
         self.viewlist = []
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         else:
             results=self.graph.query(self.query)
         if results==False:
             return False
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             viewlistentry={}
             QgsMessageLog.logMessage('Started task "{}"'.format(str(self.queryvar)), MESSAGE_CATEGORY, Qgis.Info)
@@ -60,7 +60,7 @@ class GeoCollectionsQueryTask(QgsTask):
                     viewlistentry["class"] = str(result[self.classvar]["value"])
                 if "members" in result:
                     viewlistentry["members"] = str(result["members"]["value"])
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.viewlist)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.viewlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):

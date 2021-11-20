@@ -34,6 +34,9 @@ class QueryLayerTask(QgsTask):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            results),
+            MESSAGE_CATEGORY, Qgis.Info)
         # geojson stuff
         self.geojson = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
@@ -91,9 +94,11 @@ class QueryLayerTask(QgsTask):
         first = True
         newobject = True
         item = ""
+        relval=False
         for result in results["results"]["bindings"]:
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
+                relval=True
                 if item != "":
                     myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
                         result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
@@ -103,8 +108,8 @@ class QueryLayerTask(QgsTask):
                 properties = {}
                 item = result["item"]["value"]
             if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (
-                    item == "" or result["item"][
-                "value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                    item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                relval=True
                 if item != "":
                     myGeometryInstanceJSON = self.processLiteral(
                         "POINT(" + str(float(result[lonval]["value"])) + " " + str(
@@ -114,8 +119,17 @@ class QueryLayerTask(QgsTask):
                     features.append(feature)
                 properties = {}
                 item = result["item"]["value"]
-            # if not "rel" in result and not "val" in result:
-            properties = {}
+            if "item" in result and "rel" in result and "val" in result and geooptional and (
+                    item == "" or result["item"]["value"] != item):
+                relval=True
+                if item != "":
+                    feature = {'type': 'Feature', 'properties': properties,
+                               'geometry': {}}
+                    features.append(feature)
+                properties = {}
+                item = result["item"]["value"]
+            if "rel" not in result and "val" not in result:
+                properties = {}
             for var in results["head"]["vars"]:
                 if var in result:
                     if var == "rel" and "val" in result:
@@ -136,14 +150,26 @@ class QueryLayerTask(QgsTask):
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
                 feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
                 features.append(feature)
-            elif "rel" in result and "val" in result and not "geo" in result and geooptional:
-                feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
-                features.append(feature)
-        if "rel" in results["results"]["bindings"] and "val" in results["results"]["bindings"]:
+        if relval and not geooptional:
             myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
             feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
             features.append(feature)
+        if relval and geooptional:
+            #myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
+            #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
+            feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}#json.loads(myGeometryInstanceJSON)}
+            features.append(feature)
+        if len(features)==0:
+            if not geooptional:
+                myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
+                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
+                feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+            else:
+                feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
+            features.append(feature)
+        QgsMessageLog.logMessage('Number of features '+str(len(features)),
+            MESSAGE_CATEGORY, Qgis.Info)
         if features == [] and len(results["results"]["bindings"]) == 0:
             return None
         if features == [] and len(results["results"]["bindings"]) > 0:

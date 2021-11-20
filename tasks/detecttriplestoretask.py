@@ -138,7 +138,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                self.configuration["geotriplepattern"]=["?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
@@ -170,11 +171,12 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
+                self.configuration["geotriplepattern"]=[" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[
-                    "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                    "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
@@ -203,7 +205,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://schema.org/latitude> ?lat . ?a <http://schema.org/longitude> ?lon .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://schema.org/geo> ?item_geo . ?item_geo <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon .}"
+                self.configuration["geotriplepattern"]=[" ?item <http://schema.org/geo> ?item_geo . ?item_geo <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[
@@ -245,7 +248,8 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries (All Attributes",
                                                             "query": "SELECT DISTINCT ?item ?rel ?val ?geo WHERE {\n ?item rdf:type <%%concept%%> .\n ?item ?rel ?val . \n ?val <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo .\n}\n LIMIT 100"})
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item ?rel ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}"
+                self.configuration["geotriplepattern"]=[" ?item ?rel ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance rdf:type %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration[

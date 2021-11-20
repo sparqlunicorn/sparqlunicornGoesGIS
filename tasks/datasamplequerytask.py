@@ -28,17 +28,17 @@ class DataSampleQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation),MESSAGE_CATEGORY, Qgis.Info)
         if "wikidata" in self.triplestoreurl:
             wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "WIKIDATA: SELECT DISTINCT (COUNT(?val) as ?amount) ?val  WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
-                    wikicon) + " . ?con "+str(self.relation)+" ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    "WIKIDATA: SELECT DISTINCT (COUNT(?val) as ?amount) ?val  WHERE { ?con http://www.wikidata.org/prop/direct/P31 http://www.wikidata.org/entity/" + str(
+            #        wikicon) + " . ?con "+str(self.relation)+" ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(self.triplestoreurl, "SELECT (COUNT(?val) as ?amount) ?val WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
                     wikicon) + "> . ?con "+str(self.relation)+" ?val . }",self.triplestoreconf)
         else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(self.concept) + "> . ?con <"+str(self.relation)+"> ?val } GROUP BY ?val LIMIT 100"), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(self.concept) + "> . ?con <"+str(self.relation)+"> ?val } GROUP BY ?val LIMIT 100"), MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(self.triplestoreurl,"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(self.concept) + "> . ?con <"+str(self.relation)+"> ?val } GROUP BY ?val LIMIT 100",self.triplestoreconf)
         for result in results["results"]["bindings"]:
-            QgsMessageLog.logMessage('Started task "{}"'.format(result), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(result), MESSAGE_CATEGORY, Qgis.Info)
             self.queryresult[result["val"]["value"]]={}
             self.queryresult[result["val"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["val"]["value"])
             self.queryresult[result["val"]["value"]]["amount"]=result["amount"]["value"]

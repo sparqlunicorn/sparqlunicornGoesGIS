@@ -29,6 +29,7 @@
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
 		"geoconceptquery": "",
+        "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . ?a rdf:type ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . }",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
@@ -121,6 +122,7 @@
             }
         ],
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.wikidata.org/prop/direct/P31> ?class .\n ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .\n} LIMIT 500",
+        "geotriplepattern": " ?item <http://www.wikidata.org/prop/direct/P625> ?geo . ",
         "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=en&format=json&ids=%%concepts%%",
         "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&&format=json&language=en&uselang=en&type=property&search=%%concepts%%",
         "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=en&uselang=en&type=item",
@@ -198,6 +200,7 @@
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
+        "geotriplepattern": ["?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "geoconceptlimit": 500,
         "querytemplate": [{
             "label": "100 Random Places",
@@ -243,6 +246,7 @@
 		"whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .}",
+        "geotriplepattern": ["?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "querytemplate": [{
             "label": "All Attributes",
             "query": "SELECT ?item ?rel ?val ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item ?rel ?val .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
@@ -285,6 +289,7 @@
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "geoconceptlimit": 500,
         "querytemplate": [{
                 "label": "All Attributes",
@@ -330,6 +335,7 @@
 		"whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)",
         "classfromlabelquery": "SELECT DISTINCT ?class ?label WHERE { ?class rdf:type owl:Class  . ?class rdfs:label ?label . FILTER(CONTAINS(?label, \"%%label%%\")) } LIMIT 10",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "querytemplate": [{
             "label": "100 Random Places",
             "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
@@ -371,6 +377,7 @@
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .} LIMIT 100",
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "querytemplate": [{
             "label": "All Attributes",
             "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a gn:Feature .\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n } LIMIT 10"
@@ -403,6 +410,7 @@
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a rdf:type ?class . ?a wgs84_pos:lat ?lat . ?a wgs84_pos:long ?long .}",
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
         "geoconceptlimit": 500,
         "querytemplate": [{
             "label": "Default",
@@ -434,6 +442,7 @@
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "",
+        "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
@@ -481,6 +490,7 @@
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . ?a rdf:type ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . }",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
+        "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
         "querytemplate": [{
@@ -516,6 +526,7 @@
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
         "geoconceptquery": "",
+        "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
 		"featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
@@ -562,6 +573,7 @@
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "geoconceptquery": "",
+        "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptlimit": 500,
         "querytemplate": [{
@@ -625,6 +637,7 @@
 		"featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "",
+        "geotriplepattern": [" ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat . ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon . "],
         "geoconceptlimit": 500,
         "querytemplate": [{
             "label": "100 Random Geometries",

@@ -366,10 +366,18 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
         if nodetype==SPARQLUtils.geoinstancenode:
-            self.qlayerinstance = QueryLayerTask(
+            if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
+                self.qlayerinstance = QueryLayerTask(
+                    "Instance to Layer: " + str(concept),
+                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                    "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
+                    self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0] + "\n }",
+                    self.triplestoreconf[self.comboBox.currentIndex()], False, SPARQLUtils.labelFromURI(concept), None)
+            else:
+                self.qlayerinstance = QueryLayerTask(
                 "Instance to Layer: " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                "SELECT ?item ?geo ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+                "SELECT ?item ?rel ?val \n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val . \n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
         else:
             self.qlayerinstance = QueryLayerTask(
@@ -383,15 +391,22 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
-        if nodetype==SPARQLUtils.geoinstancenode:
-            self.qlayerinstance = QueryLayerTask(
-                "Instance to Layer: " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                "SELECT ?item ?geo ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+        if nodetype==SPARQLUtils.geoclassnode:
+            if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
+                self.qlayerinstance = QueryLayerTask(
+                "All Instances to Layer: " + str(concept),
+                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0]+"\n }",
+                self.triplestoreconf[self.comboBox.currentIndex()],False, SPARQLUtils.labelFromURI(concept),None)
+            else:
+                self.qlayerinstance = QueryLayerTask(
+                "All Instances to Layer: " + str(concept),
+                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
         else:
             self.qlayerinstance = QueryLayerTask(
-                "Instance to Layer: " + str(concept),
+                "All Instances to Layer: " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
