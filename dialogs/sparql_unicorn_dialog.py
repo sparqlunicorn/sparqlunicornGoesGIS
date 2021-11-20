@@ -353,7 +353,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
         self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
+        self.dataschemaDialog.setWindowTitle("Data Schema View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
         self.dataschemaDialog.exec_()
 
     def dataInstanceView(self):
@@ -361,7 +361,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
         self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.instancedataDialog.setWindowTitle("Data Schema View for "+str(concept))
+        self.instancedataDialog.setWindowTitle("Data Schema View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
         self.instancedataDialog.exec_()
 
     def treeAsRDF(self,root,result):

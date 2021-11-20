@@ -5,6 +5,7 @@ from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
 from ..tasks.instancequerytask import InstanceQueryTask
+from ..util.sparqlutils import SPARQLUtils
 import os.path
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -46,8 +47,8 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.curindex=curindex
+        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.instanceDataTableView.setHorizontalHeaderLabels(["Attribute", "Value"])
