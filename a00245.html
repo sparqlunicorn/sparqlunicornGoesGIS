@@ -1453,7 +1453,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        concept = self.currentContextModel.itemFromIndex(curindex).data(256)</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        label = self.currentContextModel.itemFromIndex(curindex).text()</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        self.instancedataDialog.setWindowTitle(<span class="stringliteral">&quot;Data Schema View for &quot;</span>+str(concept))</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        self.instancedataDialog.setWindowTitle(<span class="stringliteral">&quot;Data Schema View for &quot;</span>+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;prefixesrev&quot;</span>]))</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        self.instancedataDialog.exec_()</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
 </div><!-- fragment -->
@@ -1483,7 +1483,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        concept = self.currentContextModel.itemFromIndex(curindex).data(256)</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        label = self.currentContextModel.itemFromIndex(curindex).text()</div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        self.dataschemaDialog.setWindowTitle(<span class="stringliteral">&quot;Data Schema View for &quot;</span>+str(concept))</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        self.dataschemaDialog.setWindowTitle(<span class="stringliteral">&quot;Data Schema View for &quot;</span>+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;prefixesrev&quot;</span>]))</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        self.dataschemaDialog.exec_()</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
 </div><!-- fragment -->
