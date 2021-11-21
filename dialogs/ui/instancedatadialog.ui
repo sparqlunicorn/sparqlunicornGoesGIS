@@ -166,6 +166,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="queryInstanceLayerButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>190</x>

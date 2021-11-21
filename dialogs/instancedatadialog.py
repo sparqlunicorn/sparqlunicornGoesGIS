@@ -5,6 +5,7 @@ from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
 from ..tasks.instancequerytask import InstanceQueryTask
+from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 import os.path
 from qgis.core import (
@@ -48,6 +49,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         self.curindex=curindex
+        self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -64,16 +66,29 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.getAttributes(self.concept,triplestoreurl)
 
 
+    def queryInstance(self):
+        self.qlayerinstance = QueryLayerTask(
+            "Instance to Layer: " + str(self.concept),
+            self.triplestoreconf[self.curindex]["endpoint"],
+            "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
+                self.concept) + "> AS ?item)\n ?item ?rel ?val . " +
+            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
+
     def openURL(self,row,column):
-        if column==0:
+        if self.instanceDataTableView.item(row,column)!=None:
             concept=str(self.instanceDataTableView.item(row,column).data(256))
-            url = QUrl(concept)
-            QDesktopServices.openUrl(url)
+            if concept.startswith("http"):
+                url = QUrl(concept)
+                QDesktopServices.openUrl(url)
 
     def showURI(self,row,column):
-        if column==0:
+        if self.instanceDataTableView.item(row,column)!=None:
             concept=str(self.instanceDataTableView.item(row,column).data(256))
-            self.statusBarLabel.setText(concept)
+            if concept.startswith("http"):
+                self.statusBarLabel.setText(concept)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.

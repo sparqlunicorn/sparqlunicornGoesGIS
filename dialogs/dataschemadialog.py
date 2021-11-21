@@ -7,6 +7,8 @@ from qgis.core import Qgis
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..tasks.findstylestask import FindStyleQueryTask
+from ..tasks.querylayertask import QueryLayerTask
+from ..util.sparqlutils import SPARQLUtils
 import os.path
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
@@ -48,8 +50,9 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.curindex=curindex
+        self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
+        self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dataSchemaTableView.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
@@ -66,16 +69,29 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
+    def queryAllInstances(self):
+        self.qlayerinstance = QueryLayerTask(
+            "Instance to Layer: " + str(self.concept),
+            self.triplestoreconf[self.curindex]["endpoint"],
+            "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
+                self.concept) + "> AS ?item)\n ?item ?rel ?val . " +
+            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
+
     def openURL(self,row,column):
-        if column==0:
+        if self.dataSchemaTableView.item(row,column)!=None:
             concept=str(self.dataSchemaTableView.item(row,column).data(256))
-            url = QUrl(concept)
-            QDesktopServices.openUrl(url)
+            if concept.startswith("http"):
+                url = QUrl(concept)
+                QDesktopServices.openUrl(url)
 
     def showURI(self,row,column):
-        if column==0:
+        if self.dataSchemaTableView.item(row,column)!=None:
             concept=str(self.dataSchemaTableView.item(row,column).data(256))
-            self.statusBarLabel.setText(concept)
+            if concept.startswith("http"):
+                self.statusBarLabel.setText(concept)
 
     def loadSamples(self,row,column):
         if column==1 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
