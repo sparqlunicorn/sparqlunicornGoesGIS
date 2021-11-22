@@ -67,7 +67,18 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
 
 
     def queryInstance(self):
-        self.qlayerinstance = QueryLayerTask(
+        querydepth = self.graphQueryDepthBox.value()
+        if int(querydepth)>1:
+            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
+                self.concept) + "> AS ?item)\n" +
+            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
+            self.qlayerinstance = QueryLayerTask(
+            "Instance to Layer: " + str(self.concept),
+            self.triplestoreconf[self.curindex]["endpoint"],query,
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+        else:
+            self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.triplestoreconf[self.curindex]["endpoint"],
             "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][

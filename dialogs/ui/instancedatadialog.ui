@@ -151,7 +151,7 @@
   </widget>
   <widget class="QSpinBox" name="graphQueryDepthBox">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -167,13 +167,13 @@
   </widget>
   <widget class="QPushButton" name="queryInstanceLayerButton">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>190</x>
      <y>410</y>
-     <width>151</width>
+     <width>211</width>
      <height>23</height>
     </rect>
    </property>

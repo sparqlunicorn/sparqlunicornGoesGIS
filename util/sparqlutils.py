@@ -126,6 +126,26 @@ class SPARQLUtils:
         return literal[numchars:]
 
     @staticmethod
+    def expandRelValToAmount(query,amount):
+        QgsMessageLog.logMessage('ExpandQuery '+str(amount)+"_" + str(query), MESSAGE_CATEGORY, Qgis.Info)
+        if "?rel" not in query and "?val" not in query:
+            return query
+        selectpart=query[0:query.find("WHERE")]
+        optionals="?item ?rel ?val . "
+        if amount>1:
+            for i in range(1,amount+1):
+                selectpart+=" ?rel"+str(i)+" ?val"+str(i)+" "
+                if i==1:
+                    optionals += "OPTIONAL { ?val ?rel" + str(i) + " ?val" + str(i) + " . "
+                else:
+                    optionals+="OPTIONAL { ?val"+str(i-1)+" ?rel"+str(i)+" ?val"+str(i)+" . "
+            for i in range(1,amount+1):
+                optionals+="}"
+        query=query.replace(query[0:query.find("WHERE")],selectpart).replace("?item ?rel ?val . ",optionals)
+        QgsMessageLog.logMessage('ExpandQuery '+str(query), MESSAGE_CATEGORY, Qgis.Info)
+        return query
+
+    @staticmethod
     def loadGraph(graphuri):
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")
