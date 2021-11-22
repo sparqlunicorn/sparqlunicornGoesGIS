@@ -8,7 +8,7 @@ from qgis.core import QgsProject
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog
+from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
 from ..enrichmenttab import EnrichmentTab
 from ..interlinkingtab import InterlinkingTab
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
@@ -123,55 +123,88 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         print("1")
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-        print("2")
-        if len(layers) == 0:
+        if  selectedLayerIndex == -1:
+            print("delta")
+            dlg = WarningLayerDlg()
+            dlg.show()
+            dlg.exec_()
+        else:
+            print("2")
+        # if len(layers) == 0:
+        #     print("3")
 
-            if  selectedLayerIndex == -1:
-                dlg = WarningLayerDlg()
-                dlg.show()
-                dlg.exec_()
-            else:
+            # if  selectedLayerIndex == -1:
+            #     print("4")
+            #     dlg = WarningLayerDlg()
+            #     dlg.show()
+            #     dlg.exec_()
+            # else:
 
-                return
-                layer = layers[selectedLayerIndex].layer()
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
+                # return
+            layer = layers[selectedLayerIndex].layer()
+            # Print("5")
             while self.interlinkTable.rowCount() > 0:
                 self.interlinkTable.removeRow(0);
-            row = 0
-            self.interlinkTable.setHorizontalHeaderLabels(
-                ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
-                 "ValueConcepts"])
-            self.interlinkTable.setColumnCount(8)
-            for field in fieldnames:
-                item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                item2 = QTableWidgetItem()
-                item2.setCheckState(True)
-                item3 = QTableWidgetItem()
-                item3.setCheckState(False)
-                item4 = QTableWidgetItem()
-                item4.setCheckState(False)
-                self.interlinkTable.insertRow(row)
-                self.interlinkTable.setItem(row, 3, item)
-                self.interlinkTable.setItem(row, 0, item2)
-                self.interlinkTable.setItem(row, 1, item3)
-                self.interlinkTable.setItem(row, 2, item4)
-                cbox = QComboBox()
-                cbox.addItem("Automatic")
-                cbox.addItem("AnnotationProperty")
-                cbox.addItem("DataProperty")
-                cbox.addItem("ObjectProperty")
-                cbox.addItem("SubClass")
-                self.interlinkTable.setCellWidget(row, 5, cbox)
-                currentRowCount = self.interlinkTable.rowCount()
-                row += 1
-        except:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Layer not compatible for interlinking!")
-            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
-            msgBox.exec()
-            return
+
+            fieldnames = [field.name() for field in layer.fields()]
+
+
+
+        # try:
+            # print("6")
+            # fieldnames = [field.name() for field in layer.fields()]
+            #
+            # while self.interlinkTable.rowCount() > 0:
+            #     self.interlinkTable.removeRow(0);
+            #     print("here")
+            # row = 0
+            # self.interlinkTable.setHorizontalHeaderLabels(
+            #     ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
+            #      "ValueConcepts"])
+            # self.interlinkTable.setColumnCount(8)
+            try:
+                fieldnames = [field.name() for field in layer.fields()]
+
+                while self.interlinkTable.rowCount() > 0:
+                    self.interlinkTable.removeRow(0);
+                row = 0
+                    # print("here")
+                for field in fieldnames:
+                    print("3")
+                    item = QTableWidgetItem(field)
+                    # item.setFlags(QtCore.Qt.ItemIsEnabled)
+                    print("here")
+                    item2 = QTableWidgetItem()
+                    item2.setCheckState(True)
+                    item3 = QTableWidgetItem()
+                    item3.setCheckState(False)
+                    item4 = QTableWidgetItem()
+                    item4.setCheckState(False)
+                    print("4")
+                    self.interlinkTable.insertRow(row)
+                    self.interlinkTable.setItem(row, 3, item)
+                    self.interlinkTable.setItem(row, 0, item2)
+                    self.interlinkTable.setItem(row, 1, item3)
+                    self.interlinkTable.setItem(row, 2, item4)
+                    print("5")
+                    cbox = QComboBox()
+                    cbox.addItem("Automatic")
+                    cbox.addItem("AnnotationProperty")
+                    cbox.addItem("DataProperty")
+                    cbox.addItem("ObjectProperty")
+                    cbox.addItem("SubClass")
+                    print("6")
+                    self.interlinkTable.setCellWidget(row, 5, cbox)
+                    currentRowCount = self.interlinkTable.rowCount()
+                    row += 1
+            except:
+                print("A")
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("Layer not compatible for interlinking!")
+                msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
+                msgBox.exec()
+                print("B")
+                return
 
     ##
     #  @brief Builds the search dialog to search for a concept or class.

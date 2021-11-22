@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1069</width>
-    <height>690</height>
+    <width>1078</width>
+    <height>695</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1078</width>
+    <height>695</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -31,38 +37,26 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
         <height>631</height>
        </size>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>1051</width>
-        <height>631</height>
-       </size>
-      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
-      <widget class="QFrame" name="Interlink_frame">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>1031</width>
-         <height>621</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>1031</width>
-         <height>621</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>1031</width>
-         <height>621</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QObject#Interlink_frame{
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QFrame" name="Interlink_frame">
+         <property name="minimumSize">
+          <size>
+           <width>1031</width>
+           <height>621</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>1031</width>
+           <height>631</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QObject#Interlink_frame{
 	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
 	
 border-radius:20px;}
@@ -70,525 +64,600 @@ border-radius:20px;}
 
 
 </string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QWidget" name="widget_2" native="true">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>130</y>
-          <width>991</width>
-          <height>431</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="1">
-          <widget class="QTableWidget" name="interlinkTable">
-           <property name="minimumSize">
-            <size>
-             <width>811</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>4</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="cursor" stdset="0">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="sortingEnabled">
-            <bool>true</bool>
-           </property>
-           <property name="columnCount">
-            <number>8</number>
-           </property>
-           <column>
-            <property name="text">
-             <string>Export?</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>IDColumn?</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>GeoColumn?</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Column</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ColumnProperty</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>PropertyType</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ColumnConcept</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>ValueConcept</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QPushButton" name="exportInterlink">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>570</y>
-          <width>141</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="baseSize">
-         <size>
-          <width>3</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-        </property>
-        <property name="text">
-         <string>Export Result</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="exportMappingButton">
-        <property name="geometry">
-         <rect>
-          <x>1750</x>
-          <y>200</y>
-          <width>121</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Export Mapping</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>110</y>
-          <width>251</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>251</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>251</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:rgb(0, 81, 135);</string>
-        </property>
-        <property name="text">
-         <string>Table Colums to Concepts:</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="exportTripleStore">
-        <property name="geometry">
-         <rect>
-          <x>340</x>
-          <y>110</y>
-          <width>181</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>181</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>181</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color:rgb(0, 81, 135);</string>
-        </property>
-        <property name="text">
-         <string>Export To Triple Store</string>
-        </property>
-       </widget>
-       <widget class="QWidget" name="widget_3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>840</x>
-          <y>10</y>
-          <width>159</width>
-          <height>114</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QPushButton" name="importMappingButton">
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="text">
-            <string>Import Mapping</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="searchClass">
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="text">
-            <string>Search Class</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="loadLayerInterlink">
-           <property name="minimumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>141</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="text">
-            <string>Load Layer</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="widget_4" native="true">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>10</y>
-          <width>698</width>
-          <height>108</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
-             </property>
-             <property name="text">
-              <string>Layer :</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="chooseLayerInterlink">
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QWidget" name="widget_2" native="true">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>150</y>
+            <width>991</width>
+            <height>431</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="1" column="1">
+            <widget class="QTableWidget" name="interlinkTable">
              <property name="minimumSize">
               <size>
-               <width>561</width>
-               <height>21</height>
+               <width>811</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>4</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="cursor" stdset="0">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="columnCount">
+              <number>8</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>Export?</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>IDColumn?</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>GeoColumn?</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Column</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>ColumnProperty</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>PropertyType</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>ColumnConcept</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>ValueConcept</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QPushButton" name="exportInterlink">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>590</y>
+            <width>141</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>3</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Export Result</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="exportMappingButton">
+          <property name="geometry">
+           <rect>
+            <x>1750</x>
+            <y>200</y>
+            <width>121</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Export Mapping</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="widget_3" native="true">
+          <property name="geometry">
+           <rect>
+            <x>840</x>
+            <y>10</y>
+            <width>159</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QPushButton" name="importMappingButton">
+             <property name="minimumSize">
+              <size>
+               <width>141</width>
+               <height>28</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>561</width>
-               <height>21</height>
+               <width>141</width>
+               <height>28</height>
               </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(253, 252, 250);
+              <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>Import Mapping</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="exportMappingButton_2">
+             <property name="minimumSize">
+              <size>
+               <width>141</width>
+               <height>28</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>141</width>
+               <height>28</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>Export Mapping</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="widget_4" native="true">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>821</width>
+            <height>114</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:rgb(0, 81, 135);</string>
+               </property>
+               <property name="text">
+                <string>Layer :</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="chooseLayerInterlink">
+               <property name="minimumSize">
+                <size>
+                 <width>561</width>
+                 <height>21</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>561</width>
+                 <height>21</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(253, 252, 250);
 
 border-radius:10px;
 border-color:rgb(45, 45, 45);
 selection-background-color: rgb(0, 0, 255);</string>
-             </property>
-            </widget>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="loadLayerInterlink">
+               <property name="minimumSize">
+                <size>
+                 <width>141</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>141</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="text">
+                <string>Load Layer</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
            <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_5">
-             <property name="minimumSize">
-              <size>
-               <width>71</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>71</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
-             </property>
-             <property name="text">
-              <string>OWL Class:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="interlinkOwlClassInput">
-             <property name="minimumSize">
-              <size>
-               <width>551</width>
-               <height>22</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>551</width>
-               <height>22</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: rgb(253, 252, 250);
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="minimumSize">
+                <size>
+                 <width>71</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>71</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:rgb(0, 81, 135);</string>
+               </property>
+               <property name="text">
+                <string>OWL Class:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="interlinkOwlClassInput">
+               <property name="minimumSize">
+                <size>
+                 <width>551</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>551</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(253, 252, 250);
 
 border-radius:10px;
 
 border-color:rgb(45, 45, 45);</string>
-             </property>
-            </widget>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="searchClass">
+               <property name="minimumSize">
+                <size>
+                 <width>141</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>141</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="text">
+                <string>Search Class</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
            <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QLabel" name="label_7">
-             <property name="minimumSize">
-              <size>
-               <width>121</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>121</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
-             </property>
-             <property name="text">
-              <string>Target Namespace:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="interlinkNameSpace">
-             <property name="minimumSize">
-              <size>
-               <width>551</width>
-               <height>22</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>551</width>
-               <height>22</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">border-radius:10px;
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="minimumSize">
+                <size>
+                 <width>121</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>121</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:rgb(0, 81, 135);</string>
+               </property>
+               <property name="text">
+                <string>Target Namespace:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="interlinkNameSpace">
+               <property name="minimumSize">
+                <size>
+                 <width>551</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>551</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius:10px;
 
 border-color:rgb(45, 45, 45);
 
 background-color: rgb(253, 252, 250);</string>
-             </property>
-             <property name="text">
-              <string>http://www.github.com/sparqlunicorn#</string>
-             </property>
-            </widget>
+               </property>
+               <property name="text">
+                <string>http://www.github.com/sparqlunicorn#</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
           </layout>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+         </widget>
+         <widget class="QCheckBox" name="exportTripleStore">
+          <property name="geometry">
+           <rect>
+            <x>600</x>
+            <y>130</y>
+            <width>181</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>181</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>181</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0, 81, 135);</string>
+          </property>
+          <property name="text">
+           <string>Export To Triple Store</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>130</y>
+            <width>251</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>251</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>251</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0, 81, 135);</string>
+          </property>
+          <property name="text">
+           <string>Table Colums to Concepts:</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -598,7 +667,7 @@ background-color: rgb(253, 252, 250);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1069</width>
+     <width>1078</width>
      <height>21</height>
     </rect>
    </property>
