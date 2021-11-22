@@ -323,10 +323,10 @@ color: rgb(255, 255, 255);</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(253, 252, 250);
-
+selection-background-color: rgb(255, 255, 255);
 border-radius:10px;
 border-color:rgb(45, 45, 45);
-selection-background-color: rgb(0, 0, 255);</string>
+selection-color:rgb(0, 81, 135);</string>
                </property>
               </widget>
              </item>
