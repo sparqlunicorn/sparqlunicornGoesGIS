@@ -1,17 +1,15 @@
 var a00281 =
 [
-    [ "__init__", "a00281.html#a6a2e5ca82e5dcdfa107856211868689b", null ],
-    [ "finished", "a00281.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "run", "a00281.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "column", "a00281.html#ae78e6e11a40e6dba1bae097358f97d15", null ],
-    [ "concept", "a00281.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "dlg", "a00281.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "encounteredtypes", "a00281.html#aa75fd54d56c71b4d4ffac31011149715", null ],
-    [ "exception", "a00281.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "graph", "a00281.html#a8ca49c796430e66a10450bfc2d218c81", null ],
-    [ "queryresult", "a00281.html#a1bee14843933505be5e14e07c03f5f89", null ],
-    [ "relation", "a00281.html#a87e75f78a11b7995d1386f9851405666", null ],
-    [ "row", "a00281.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
-    [ "triplestoreconf", "a00281.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00281.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "__init__", "a00281.html#a8620be517032a623030c0d1401b11c70", null ],
+    [ "canvasMoveEvent", "a00281.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00281.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "deactivate", "a00281.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "keyPressEvent", "a00281.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
+    [ "reset", "a00281.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00281.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "iface", "a00281.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00281.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00281.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "selectionDone", "a00281.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00281.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];
