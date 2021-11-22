@@ -1,18 +1,16 @@
 var a00277 =
 [
-    [ "__init__", "a00277.html#a5788aa490c766bf347cb9d3712abc036", null ],
-    [ "canvasMoveEvent", "a00277.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00277.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "canvasReleaseEvent", "a00277.html#af1a565828651f16efdecaee54f27a1b2", null ],
-    [ "deactivate", "a00277.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "rbcircle", "a00277.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
-    [ "reset", "a00277.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00277.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "center", "a00277.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
-    [ "iface", "a00277.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00277.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00277.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "segments", "a00277.html#a95912ea8e057275833a7edd278c87dfd", null ],
-    [ "selectionDone", "a00277.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00277.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00277.html#a7a9e2e95095816354b568f4d4b9aa6bc", null ],
+    [ "finished", "a00277.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
+    [ "processLiteral", "a00277.html#af05d8aa0ef7a9307dfa5e0d690c9a98c", null ],
+    [ "run", "a00277.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "convertFrom", "a00277.html#afea1666783c58d60d8f9a172c1d96335", null ],
+    [ "convertTo", "a00277.html#a49a55dda21a6dbda2e0750035498c7cd", null ],
+    [ "crsdef", "a00277.html#a833c3fbda4bca0e0f0c2a5c418654fa9", null ],
+    [ "crsdefs", "a00277.html#a40e92e9aad5a9dbd477d921260a4a33f", null ],
+    [ "dialog", "a00277.html#a3d2da04d187a7112445f18a9f20b39ef", null ],
+    [ "exception", "a00277.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "filename", "a00277.html#a2ff994e16bf9521154de4cf659a3b689", null ],
+    [ "graph", "a00277.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "progress", "a00277.html#a991fd2c404665f13f536fc7791e53504", null ]
 ];
