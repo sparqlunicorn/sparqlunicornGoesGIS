@@ -51,7 +51,7 @@ border-radius:20px;}
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -309,7 +309,7 @@ color: rgb(255, 255, 255);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -376,13 +376,15 @@ color: rgb(255, 255, 255);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>629</x>
@@ -506,7 +508,7 @@ color: rgb(255, 255, 255);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -579,7 +581,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -652,7 +654,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -725,7 +727,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -798,7 +800,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>9</x>
@@ -871,7 +873,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>320</x>
@@ -946,7 +948,7 @@ background-color: rgb(253, 252, 250);</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>90</x>

@@ -412,7 +412,9 @@ color: rgb(255, 255, 255);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
            </property>
            <item>
             <property name="text">
@@ -496,7 +498,9 @@ background-color: rgb(253, 252, 250);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
            </property>
            <item>
             <property name="text">
@@ -580,7 +584,9 @@ background-color: rgb(253, 252, 250);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
            </property>
           </widget>
          </item>

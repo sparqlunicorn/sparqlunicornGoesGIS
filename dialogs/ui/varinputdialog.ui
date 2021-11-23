@@ -98,7 +98,9 @@ border-radius:20px;}
 
 border-radius:10px;
 
-border-color:rgb(45, 45, 45);</string>
+border-color:rgb(45, 45, 45);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
         </property>
        </widget>
       </item>
@@ -168,7 +170,9 @@ border-color:rgb(45, 45, 45);</string>
 
 border-radius:10px;
 
-border-color:rgb(45, 45, 45);</string>
+border-color:rgb(45, 45, 45);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
           </property>
          </widget>
         </item>
@@ -255,7 +259,9 @@ border-color:rgb(45, 45, 45);</string>
 
 border-radius:10px;
 
-border-color:rgb(45, 45, 45);</string>
+border-color:rgb(45, 45, 45);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
           </property>
           <item>
            <property name="text">
@@ -1273,7 +1279,9 @@ border-color:rgb(45, 45, 45);</string>
 
 border-radius:10px;
 
-border-color:rgb(45, 45, 45);</string>
+border-color:rgb(45, 45, 45);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
           </property>
           <item>
            <property name="text">
