@@ -16,10 +16,11 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress):
+    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress,querydepth=0):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
+        self.querydepth=querydepth
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.query = query
