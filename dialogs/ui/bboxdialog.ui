@@ -19,6 +19,9 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
 </string>
   </property>
   <widget class="QLabel" name="searchPlace">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>9</x>
