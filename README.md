@@ -27,9 +27,11 @@ The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugin
 Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/blob/master/CITATION.cff).
 
 ### Change Log
--   0.12.2 Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
--   0.12.1 Fix for lat/lon based triple stores, polygon BBOX
--   0.12 Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
+
+-   0.13: TBD
+-   0.12.2: Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
+-   0.12.1: Fix for lat/lon based triple stores, polygon BBOX
+-   0.12: Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
 -   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
 -   0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries
 -   0.9: Add triplestore functionallity, add more endpoints
@@ -73,6 +75,7 @@ The SPARQL queries need to include the following components:
 -   A query variable indicating the URI of the owl:Individual which is queried (i.e. the feature id) (usually _?item_)
 
 Example:
+
 ```sparql
 SELECT ?item ?geo WHERE {
    ?item a ex:House .
@@ -80,6 +83,7 @@ SELECT ?item ?geo WHERE {
    ?geom_obj geosparql:asWKT ?geo .
 } LIMIT 10
 ```
+
 This query queries fictional houses from an unspecified SPARQL endpoint. Each house is associated with a URI which is captured in the _?item_ variable.
 The geometry literal (here a WKTLiteral) is captured in the _?geo_ variable.
 The results of any additional query variables become new columns of the result set, i.e. the QGIS vector layer.
@@ -94,6 +98,7 @@ The SPARQL Unicorn QGIS plugin currently supports the parsing of the following l
 In the case that the triple store does not include geometry literals but instead provides two properties with latitude and longitude, two variables _?lat_ _?lon_ have to be included in the query description.
 
 Example using the [Kerameikos](http://kerameikos.org/) Triple Store:
+
 ```sparql
 SELECT ?item ?lat ?lon WHERE {
      ?item a <http://www.cidoc-crm.org/cidoc-crm/E53_Place>.
@@ -101,6 +106,7 @@ SELECT ?item ?lat ?lon WHERE {
      ?item wgs84_pos:long ?lon .
 } LIMIT 10
 ```
+
 The triple store configuration should reflect if geometry literals are used or if lat/lon properties are provided.
 
 ### Querying all properties of a given semantic class
@@ -109,6 +115,7 @@ Very often, a SPARQL query is used to discover linked data, so that not all prop
 Similarly, one typically does not want to specify a query variable for all columns of the QGIS vector layer if this can be avoided.
 
 Example: Query 100 schools from Wikidata with all properties
+
 ```sparql
 SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
     ?item wdt:P31 wd:Q3914 .
@@ -117,6 +124,7 @@ SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 } LIMIT 100
 ```
+
 This query uses the special variables _?rel_ and _?val_ to indicate that all relations and values of the school instances should be included in the result set.
 
 ### SPARQL queries without geometry literals
@@ -124,11 +132,13 @@ This query uses the special variables _?rel_ and _?val_ to indicate that all rel
 SPARQL queries without geometry literals may be issued to a triple store when the appropriate checkbox ("Allow non-geo queries") is selected in the user interface. This allows for the execution of arbitrary SPARQL queries and returns a QGIS layer without an attached geometry which might be used for merging with other QGIS layers.
 
 Example:
+
 ```sparql
 SELECT ?tower WHERE {
  ?tower a <http://onto.squirrel.link/ontology#Watchtower>.
 } LIMIT 100
 ```
+
 ### Querying instances with the help of data included in other QGIS layers
 
 The columns of a loaded QGIS vector layer may be used as a query input in the  `SPARQLing Unicorn QGIS Plugin`.
@@ -146,6 +156,7 @@ Consider a QGIS vector layer of houses which is formatted as follows:
 The task: Give me the height of all houses which is stored in a given triple store.
 
 Assuming the addresses are unique identifiers in this example, the task could be solved as follows:
+
 ```sparql
 SELECT ?item ?geo ?height WHERE {
     ?item ex:address "First Street 8" .
@@ -154,9 +165,11 @@ SELECT ?item ?geo ?height WHERE {
     ?item geo:asWKT ?geo .
 }
 ```
+
 However, this approach requires one query per table row and is not user friendly.
 
 A better approach would be to convert the column _Address_ to a query variable so that the following query could be stated:
+
 ```sparql
 SELECT ?item ?geo ?height WHERE {
     ?item ex:address ?address .
@@ -165,7 +178,9 @@ SELECT ?item ?geo ?height WHERE {
     ?item geo:asWKT ?geo .
 }
 ```
+
 SPARQL 1.1 allows this behaviour by defining a VALUES statement as follows:
+
 ```sparql
 SELECT ?item ?geo ?height WHERE {
     VALUES ?address { "First Street 8" "Second Street 32" "Third Street 4" }
@@ -175,8 +190,10 @@ SELECT ?item ?geo ?height WHERE {
     ?item geo:asWKT ?geo .
 }
 ```
+
 The  `SPARQLing Unicorn QGIS Plugin` allows the user to define special query variables which are replaced by VALUES statements of connected columns of QGIS vector layers before sending the SPARQL query to the selected SPARQL endpoint.
 A user defined query in this way would look like this:
+
 ```sparql
 SELECT ?item ?geo ?height WHERE {
     ?item ex:address ?_address .
@@ -185,6 +202,7 @@ SELECT ?item ?geo ?height WHERE {
     ?item geo:asWKT ?geo .
 }
 ```
+
 The underscore in the query variable _?\_address_ marks the variable visibly as to be supplemented by a VALUES statement as given above.
 
 ### Using GeoSPARQL or another customized SPARQL query syntax
@@ -215,6 +233,7 @@ A mapping schema is defined in XML and saves mappings from QGIS vector layer col
 Consider the following example:
 
 Example:
+
 ```xml
 <?xml version="1.0"?>
 <data>
@@ -229,6 +248,7 @@ Example:
     </file>
 </data>
 ```
+
 This mapping schema defines a mapping for a RomanRoad dataset, a dataset of annotated LineStrings. The mapping schema defines a target namespace (namespace) for the instance, an attributenamespace (attnamespace) for relations and coordinate reference system (epsg) and possibly a column which may be used as the individual id (indid).
 
 Then, each column is assigned a configuration with the following attributes:
@@ -250,6 +270,7 @@ Given a dataset of universities including their geolocation, address and name an
 In particular properties which occur sufficiently often should be of interest.
 In order to find out which properties exist and how often they are represented in a SPARQL endpoint, a "whattoenrichquery" may be defined in the triple store configuration.
 An example is given below:
+
 ```sparql
 SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE {
     ?con wdt:P31 %%concept%% .
@@ -259,6 +280,7 @@ SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE
 GROUP BY ?rel
 ORDER BY DESC(?countrel)
 ```
+
 This query is a template query in which the variable %%concept%% may be replaced by a Wikidata concept.
 The query returns every relation linked to instances of %%concept%% and its relative occurrences in relation to the individuals.
 The result is interpreted by the  `SPARQLing Unicorn QGIS Plugin` as a list in which most occurring properties are shown first.
@@ -275,6 +297,7 @@ Apart from the graphical user interface new triple stores may be added to the pl
 _triplestoreconf.json_: This configuration file is delivered on installation of the SPARQL Unicorn QGIS plugin. It is not modified and serves as a backup for a possible reset option.
 
 _triplestoreconf_personal.json_: This configuration file is created the first time the SPARQL Unicorn QGIS plugin is started. All added triple stores will be stored within there in the following format:
+
 ```json
 {
     "name": "Research Squirrel Engineers Triplestore",
@@ -313,6 +336,7 @@ _triplestoreconf_personal.json_: This configuration file is created the first ti
     "active": true
 }
 ```
+
 The following configuration options exist:
 
 -   _active_: Indicates that the triple store is visible in the GUI
@@ -334,6 +358,7 @@ The following configuration options exist:
 The configuration file allows the definition of placeholder variables (currently only %%concept%%) in template queries.
 These variables are prefixed and suffixed with %% statements.
 Example:
+
 ```sparql
 SELECT ?item ?label ?geo WHERE {
     ?place a <%%concept%%>.
@@ -342,4 +367,5 @@ SELECT ?item ?label ?geo WHERE {
     ?item dcterms:title ?label .
 } LIMIT 100
 ```
+
 This query defines the placeholder variable %%concept%% which is replaced by the currently selected concept from the dropdown menu in the user interface when a concept is selected.
