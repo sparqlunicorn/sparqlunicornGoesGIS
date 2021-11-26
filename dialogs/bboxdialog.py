@@ -53,7 +53,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.inp_sparql = inp_sparql
-        
+
+
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -185,6 +186,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
             msgBox.exec()
 
     def setBBOXInQuery(self):
+        #@Antoine
+        global polygon
+        #
+        #
         sourceCrs = None
         if self.layerExtentOrBBOX:
             xMax = self.mts_layer.extent().xMaximum()
@@ -215,7 +220,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 pointt4 = QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
                 print("coucou")
                 if sourceCrs != None:
-                    print("sourceCrs")
+                    print(sourceCrs)
                     tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
                     pointt1.transform(tr)
                     pointt2.transform(tr)
@@ -249,11 +254,11 @@ class BBOXDialog(QDialog, FORM_CLASS):
                                                                                                             '}') + 1:]
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
+                p2= pointt2.asWkt().replace(" (", "(")
+                p4= pointt4.asWkt().replace(" (", "(")
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%minPoint%%", pointt2.asWkt()).replace("%%maxPoint%%",
-                                                                                pointt4.asWkt()) + curquery[
-                                                                                                 curquery.rfind(
-                                                                                                    '}') + 1:]
+                    "query"].replace("%%minPoint%%", p2).replace("%%maxPoint%%",p4) + curquery[curquery.rfind('}') + 1:]
+                curquery=curquery.replace("/geosparql","/ont/geosparql")
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "pointdistance":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
@@ -284,5 +289,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     "query"].replace("%%lat%%", str(polygon.boundingBox().center().asPoint().y())).replace("%%lon%%",
                                                                                                             str(polygon.boundingBox().center().asPoint().x())).replace(
                                                                                                             "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+
         self.inp_sparql.setPlainText(curquery)
         self.close()

@@ -53,6 +53,7 @@ from ..dialogs.enrichmentMainWindow import EnrichmentMainWindow
 from ..dialogs.warningLayerdlg import WarningLayerDlg
 
 
+
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
@@ -75,6 +76,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     completerClassList = None
 
     columnvars = {}
+
+    geoClassListModel = []
+
+    # areaconcepts = (additem)
+
+
+
+
 
     # currentChanged = None
     # menubar = None

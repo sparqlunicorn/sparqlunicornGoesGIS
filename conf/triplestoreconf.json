@@ -51,7 +51,7 @@
     {
         "name": "Wikidata",
         "prefixes": {
-            "geo": "http://www.opengis.net/geosparql#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
             "wd": "http://www.wikidata.org/entity/",
             "wds": "http://www.wikidata.org/entity/statement/",
             "wdv": "http://www.wikidata.org/value/",
@@ -85,7 +85,7 @@
         "endpoint": "https://query.wikidata.org/sparql",
         "bboxquery": {
             "type": "minmax",
-            "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"
+            "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }"
         },
         "mandatoryvariables": ["item", "geo"],
 		"featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],

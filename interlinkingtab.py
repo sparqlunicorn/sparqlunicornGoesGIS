@@ -26,7 +26,7 @@ class InterlinkingTab:
 
     ## Reads a concept mapping from a given XML file.
     #  @param self The object pointer.
-    #  @param self The file path    
+    #  @param self The file path
     def readMapping(self, filename):
         if self.dlg.interlinkTable.rowCount() != 0:
             tree = ET.parse(filename)
@@ -94,7 +94,7 @@ class InterlinkingTab:
             msgBox.exec()
 
     ## Shows the export concept mapping dialog.
-    #  @param self The object pointer. 
+    #  @param self The object pointer.
     def exportMapping(self):
         filename, _filter = QFileDialog.getSaveFileName(
             self.dlg, "Select   output file ", "", "XML (.xml)", )
@@ -110,7 +110,7 @@ class InterlinkingTab:
             iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
 
     ## Converts a concept mapping to XML.
-    #  @param self The object pointer. 
+    #  @param self The object pointer.
     def exportMappingProcess(self):
         xmlmappingheader = "<?xml version=\"1.0\" ?>\n<data>\n<file "
         xmlmapping = ""

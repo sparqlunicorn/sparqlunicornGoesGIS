@@ -1,9 +1,10 @@
 from rdflib import *
 import urllib
+from ..tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import QSettings
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QCompleter, QMessageBox
+from qgis.PyQt.QtWidgets import QCompleter, QMessageBox, QComboBox
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -15,7 +16,7 @@ MESSAGE_CATEGORY = 'LoadGraphTask'
 class LoadGraphTask(QgsTask):
 
     def __init__(self, description, filename, loadgraphdlg, dlg, maindlg, query, triplestoreconf, progress, closedlg):
-        super().__init__(description, QgsTask.CanCancel)
+        super().__init__(description, QgsTask.CanCancel )
         self.exception = None
         self.progress = progress
         self.dlg = dlg
@@ -36,7 +37,16 @@ class LoadGraphTask(QgsTask):
         self.proxyPort = s.value("proxy/proxyPort")
         self.proxyUser = s.value("proxy/proxyUser")
         self.proxyPassword = s.value("proxy/proxyPassword")
+        #@antoine
+        # self.geoClassListModel = ()
+        # global appendRow
+        # appendRow = ()
+        # item={appendRow}
 
+
+
+        # @antoine
+        #
     def run(self):
         if self.proxyHost != None and self.proxyHost != "" and self.proxyPort != None and self.proxyPort != "":
             QgsMessageLog.logMessage('Proxy? ' + str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
@@ -64,16 +74,20 @@ class LoadGraphTask(QgsTask):
         return True
 
     def finished(self, result):
+        #@Antoine
+        # item={appendRow}
+        # appendRow = ()
         if result == True:
             self.dlg.geoClassListModel.clear()
-            self.dlg.comboBox.setCurrentIndex(0);
+            self.dlg.endpointCB.setCurrentIndex(0);
             self.maindlg.currentgraph = self.graph
             self.dlg.layercount.setText("[" + str(len(self.geoconcepts)) + "]")
             for geo in self.geoconcepts:
                 item = QStandardItem()
                 item.setData(geo, 1)
                 item.setText(geo[geo.rfind('/') + 1:])
-                self.dlg.geoClassListModel.appendRow(item)
+                # self.dlg.geoClassListModel.appendRow(item)
+                self.dlg.geoClassListModel.append(item)
             # comp=QCompleter(self.dlg.layerconcepts)
             # comp.setCompletionMode(QCompleter.PopupCompletion)
             # comp.setModel(self.dlg.layerconcepts.model())
