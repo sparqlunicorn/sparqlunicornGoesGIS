@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: enrichmenttab Namespace Reference</title>
+<title>SPARQLingUnicornQGISPlugin: InterlinkMainWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,24 +61,987 @@ $(document).ready(function(){initNavTree('a00185.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a00182.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">enrichmenttab Namespace Reference</div>  </div>
+<div class="title">InterlinkMainWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The main dialog window that manages interlink for the sparqlunicorn plugins.  
+ <a href="a00185.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for InterlinkMainWindow:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00184.png" border="0" usemap="#InterlinkMainWindow_inherit__map" alt="Inheritance graph"/></div>
+<map name="InterlinkMainWindow_inherit__map" id="InterlinkMainWindow_inherit__map">
+<area shape="rect" title="The main dialog window that manages interlink for the sparqlunicorn plugins." alt="" coords="51,80,211,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,121,32"/>
+<area shape="rect" href="a00829.html" title=" " alt="" coords="145,5,256,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for InterlinkMainWindow:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00183.png" border="0" usemap="#InterlinkMainWindow_coll__map" alt="Collaboration graph"/></div>
+<map name="InterlinkMainWindow_coll__map" id="InterlinkMainWindow_coll__map">
+<area shape="rect" title="The main dialog window that manages interlink for the sparqlunicorn plugins." alt="" coords="51,80,211,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,121,32"/>
+<area shape="rect" href="a00829.html" title=" " alt="" coords="145,5,256,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00349.html">EnrichmentTab</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af0084d97a3952f36676c0deee3e5ad2e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#af0084d97a3952f36676c0deee3e5ad2e">__init__</a> (self, layers, <a class="el" href="a00185.html#a7a228f82cef256bf0c017634e4195718">maindlg</a>, <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">addVocabConf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>, <a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">prefixes</a>, prefixstore, comboBox, dlg=None, parent=None)</td></tr>
+<tr class="separator:af0084d97a3952f36676c0deee3e5ad2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a901feba571a84b2b3ddd11c114c72f1e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a901feba571a84b2b3ddd11c114c72f1e">loadUnicornLayers</a> (self, layers)</td></tr>
+<tr class="separator:a901feba571a84b2b3ddd11c114c72f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb28be67cbf74b09579fbe0038b819e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#aabb28be67cbf74b09579fbe0038b819e">createInterlinkSearchDialog</a> (self, row=-1, column=-1)</td></tr>
+<tr class="memdesc:aabb28be67cbf74b09579fbe0038b819e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a search dialog with parameters for interlinking.  <a href="a00185.html#aabb28be67cbf74b09579fbe0038b819e">More...</a><br /></td></tr>
+<tr class="separator:aabb28be67cbf74b09579fbe0038b819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1659d7c9973dfca0d962d86f4195098b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a1659d7c9973dfca0d962d86f4195098b">buildValueMappingDialog</a> (self, row, column, interlinkOrEnrich, table, layer)</td></tr>
+<tr class="memdesc:a1659d7c9973dfca0d962d86f4195098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a value mapping dialog window for ther interlinking dialog.  <a href="a00185.html#a1659d7c9973dfca0d962d86f4195098b">More...</a><br /></td></tr>
+<tr class="separator:a1659d7c9973dfca0d962d86f4195098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2b9b2398c60b5e5468418324fc7212"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#ace2b9b2398c60b5e5468418324fc7212">check_state3</a> (self)</td></tr>
+<tr class="separator:ace2b9b2398c60b5e5468418324fc7212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87085e3e93f6fa7041f16da1081c03f0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a87085e3e93f6fa7041f16da1081c03f0">loadLayerForInterlink</a> (self)</td></tr>
+<tr class="memdesc:a87085e3e93f6fa7041f16da1081c03f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a QGIS layer for interlinking into the interlinking dialog.  <a href="a00185.html#a87085e3e93f6fa7041f16da1081c03f0">More...</a><br /></td></tr>
+<tr class="separator:a87085e3e93f6fa7041f16da1081c03f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf276c4dd1702e8fbfa20bec371bf0db"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">buildSearchDialog</a> (self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">addVocabConf</a>=None)</td></tr>
+<tr class="memdesc:acf276c4dd1702e8fbfa20bec371bf0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog to search for a concept or class.  <a href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">More...</a><br /></td></tr>
+<tr class="separator:acf276c4dd1702e8fbfa20bec371bf0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#adfcc23a6b0a5b7441daa1d4b43a6e881">exportEnrichedLayer</a> (self)</td></tr>
+<tr class="memdesc:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.  <a href="a00185.html#adfcc23a6b0a5b7441daa1d4b43a6e881">More...</a><br /></td></tr>
+<tr class="separator:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7a228f82cef256bf0c017634e4195718"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a7a228f82cef256bf0c017634e4195718">maindlg</a></td></tr>
+<tr class="separator:a7a228f82cef256bf0c017634e4195718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0f392d53979b034116808ade371029"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">addVocabConf</a></td></tr>
+<tr class="separator:a1c0f392d53979b034116808ade371029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302e350558edcbbd7b85927b33550548"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">prefixes</a></td></tr>
+<tr class="separator:a302e350558edcbbd7b85927b33550548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330d24be0afd5a96238ca9e128328a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a></td></tr>
+<tr class="separator:a330d24be0afd5a96238ca9e128328a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0918bd6ea96ed15f91ffdf7d9e91776a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a0918bd6ea96ed15f91ffdf7d9e91776a">searchTripleStoreDialog</a></td></tr>
+<tr class="separator:a0918bd6ea96ed15f91ffdf7d9e91776a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a486aeee0a5d3170bc193bc29caf8a7b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">currentcol</a></td></tr>
+<tr class="separator:a486aeee0a5d3170bc193bc29caf8a7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086f47cacf997373ef862200fcfb4612"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a086f47cacf997373ef862200fcfb4612">currentrow</a></td></tr>
+<tr class="separator:a086f47cacf997373ef862200fcfb4612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816bebaf94e989ec4293bfee7a615a98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a816bebaf94e989ec4293bfee7a615a98">interlinkdialog</a></td></tr>
+<tr class="separator:a816bebaf94e989ec4293bfee7a615a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a28e8c8cab7654b472c43f25f3005b3ad">exportIdCol</a></td></tr>
+<tr class="separator:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a53c91b53a9e6f8aa2e992e979da8af83">exportNameSpace</a></td></tr>
+<tr class="separator:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb9e994037d80a7ace5ae573c602d45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a4bb9e994037d80a7ace5ae573c602d45">exportSetClass</a></td></tr>
+<tr class="separator:a4bb9e994037d80a7ace5ae573c602d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94166918eca98bd0764f1c890ee2ec5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a94166918eca98bd0764f1c890ee2ec5b">valueconcept</a></td></tr>
+<tr class="separator:a94166918eca98bd0764f1c890ee2ec5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac26f04155f19a0850f23ab9c063ba611"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#ac26f04155f19a0850f23ab9c063ba611">enrichedExport</a></td></tr>
+<tr class="separator:ac26f04155f19a0850f23ab9c063ba611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a6c8211e85b2f3e3a4c4bdd80d2ea5af3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a6c8211e85b2f3e3a4c4bdd80d2ea5af3">sparqlunicorndlg</a> = None</td></tr>
+<tr class="separator:a6c8211e85b2f3e3a4c4bdd80d2ea5af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e331810b0db0beb7dface60f8e05508"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a3e331810b0db0beb7dface60f8e05508">interlinktab</a> = None</td></tr>
+<tr class="separator:a3e331810b0db0beb7dface60f8e05508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a798047d7be0ff17b0e59b9f9d960d376"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00185.html#a798047d7be0ff17b0e59b9f9d960d376">enrichtab</a> = None</td></tr>
+<tr class="separator:a798047d7be0ff17b0e59b9f9d960d376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The main dialog window that manages interlink for the sparqlunicorn plugins. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af0084d97a3952f36676c0deee3e5ad2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0084d97a3952f36676c0deee3e5ad2e">&#9670;&nbsp;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maindlg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>addVocabConf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreconf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixstore</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>comboBox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dlg</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Constructor.</pre> <div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">def </span><a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(self, layers, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Constructor.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        super(InterlinkMainWindow, self).<a class="code" href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">__init__</a>(parent)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.sparqlunicorndlg = dlg</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.loadUnicornLayers(layers)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.maindlg = maindlg</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.addVocabConf = addVocabConf</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.prefixes = prefixes</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.triplestoreconf = triplestoreconf</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.searchTripleStoreDialog = TripleStoreDialog(triplestoreconf, prefixes, prefixstore,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                          comboBox)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.enrichtab = EnrichmentTab(self)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.interlinktab = InterlinkingTab(self)  <span class="comment">#perhaps &quot;self&quot; needs to be replaced by &quot;sparqlunicorndlg&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="comment"># self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;         <span class="comment"># self.chooseLayerInterlink.clear()</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.searchClass.clicked.connect(self.createInterlinkSearchDialog)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        urlregex = QRegExp(<span class="stringliteral">&quot;http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+&quot;</span>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        urlvalidator = QRegExpValidator(urlregex, self)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.interlinkNameSpace.setValidator(urlvalidator)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.interlinkNameSpace.textChanged.connect(self.check_state3)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00181.html#a901feba571a84b2b3ddd11c114c72f1e">EnrichmentMainWindow.loadUnicornLayers()</a>, <a class="el" href="a00185.html#a901feba571a84b2b3ddd11c114c72f1e">InterlinkMainWindow.loadUnicornLayers()</a>, <a class="el" href="a00185.html#a6c8211e85b2f3e3a4c4bdd80d2ea5af3">InterlinkMainWindow.sparqlunicorndlg</a>, and <a class="el" href="a00181.html#a6c8211e85b2f3e3a4c4bdd80d2ea5af3">EnrichmentMainWindow.sparqlunicorndlg</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acf276c4dd1702e8fbfa20bec371bf0db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf276c4dd1702e8fbfa20bec371bf0db">&#9670;&nbsp;</a></span>buildSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def buildSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>interlinkOrEnrich</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>propOrClass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bothOptions</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>currentprefixes</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>addVocabConf</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds the search dialog to search for a concept or class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramname">row</td><td>the row to insert the result </td></tr>
+    <tr><td class="paramname">column</td><td>the column to insert the result </td></tr>
+    <tr><td class="paramname">interlinkOrEnrich</td><td>indicates if the dialog is meant for interlinking or enrichment </td></tr>
+    <tr><td class="paramname">table</td><td>the GUI element to display the result </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">def </span><a class="code" href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">buildSearchDialog</a>(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                          currentprefixes=None, addVocabConf=None):</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        self.currentcol = column</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        self.currentrow = row</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                                            propOrClass, bothOptions, currentprefixes, addVocabConf)</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        self.interlinkdialog.setMinimumSize(650, 400)</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Search Interlink Concept&quot;</span>)</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        self.interlinkdialog.exec_()</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00185.html#a486aeee0a5d3170bc193bc29caf8a7b8">InterlinkMainWindow.currentcol</a>, <a class="el" href="a00185.html#a086f47cacf997373ef862200fcfb4612">InterlinkMainWindow.currentrow</a>, <a class="el" href="a00185.html#a816bebaf94e989ec4293bfee7a615a98">InterlinkMainWindow.interlinkdialog</a>, <a class="el" href="a00177.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">InterlinkMainWindow.prefixes</a>, <a class="el" href="a00181.html#a302e350558edcbbd7b85927b33550548">EnrichmentMainWindow.prefixes</a>, <a class="el" href="a00161.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00205.html#a0229f67169973a11be67544cdfa9e80f">SPARQLunicornDialog.createEnrichSearchDialog()</a>, <a class="el" href="a00205.html#af7775dd5ac22ed3a6f37edb833097f41">SPARQLunicornDialog.createEnrichSearchDialogProp()</a>, <a class="el" href="a00185.html#aabb28be67cbf74b09579fbe0038b819e">InterlinkMainWindow.createInterlinkSearchDialog()</a>, <a class="el" href="a00205.html#aabb28be67cbf74b09579fbe0038b819e">SPARQLunicornDialog.createInterlinkSearchDialog()</a>, <a class="el" href="a00233.html#a0e48a906160218f92fdfa0e1cb3aed8f">EnrichmentDialog.createValueMappingSearchDialog()</a>, <a class="el" href="a00221.html#a0e48a906160218f92fdfa0e1cb3aed8f">ValueMappingDialog.createValueMappingSearchDialog()</a>, and <a class="el" href="a00313.html#aaf7224b03642e3cfe85bd396f1f4b08f">ToolTipPlainText.keyPressEvent()</a>.</p>
+
+</div>
+</div>
+<a id="a1659d7c9973dfca0d962d86f4195098b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1659d7c9973dfca0d962d86f4195098b">&#9670;&nbsp;</a></span>buildValueMappingDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def buildValueMappingDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>interlinkOrEnrich</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds a value mapping dialog window for ther interlinking dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramname">row</td><td>The row of the table for which to map the value </td></tr>
+    <tr><td class="paramname">column</td><td>The column of the table for which to map the value </td></tr>
+    <tr><td class="paramname">table</td><td>The table in which to save the value mapping result </td></tr>
+    <tr><td class="paramname">layer</td><td>The layer which is concerned by the enrichment oder interlinking </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">def </span>buildValueMappingDialog(self, row, column, interlinkOrEnrich, table, layer):</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        self.currentcol = column</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.currentrow = row</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        valuemap = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">if</span> table.item(row, column) != <span class="keywordtype">None</span> <span class="keywordflow">and</span> table.item(row, column).text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            valuemap = table.item(row, column).data(1)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        self.interlinkdialog = ValueMappingDialog(column, row, self.triplestoreconf, interlinkOrEnrich, table,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                  table.item(row, 3).text(), layer, valuemap)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        self.interlinkdialog.setMinimumSize(650, 400)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.interlinkdialog.setWindowTitle(<span class="stringliteral">&quot;Get Value Mappings for column &quot;</span> + table.item(row, 3).text())</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        self.interlinkdialog.exec_()</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00185.html#aabb28be67cbf74b09579fbe0038b819e">InterlinkMainWindow.createInterlinkSearchDialog()</a>, and <a class="el" href="a00205.html#aabb28be67cbf74b09579fbe0038b819e">SPARQLunicornDialog.createInterlinkSearchDialog()</a>.</p>
+
+</div>
+</div>
+<a id="ace2b9b2398c60b5e5468418324fc7212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2b9b2398c60b5e5468418324fc7212">&#9670;&nbsp;</a></span>check_state3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def check_state3 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">def </span>check_state3(self):</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        self.searchTripleStoreDialog.check_state(self.interlinkNameSpace)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00185.html#a0918bd6ea96ed15f91ffdf7d9e91776a">InterlinkMainWindow.searchTripleStoreDialog</a>, and <a class="el" href="a00181.html#a0918bd6ea96ed15f91ffdf7d9e91776a">EnrichmentMainWindow.searchTripleStoreDialog</a>.</p>
+
+</div>
+</div>
+<a id="aabb28be67cbf74b09579fbe0038b819e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb28be67cbf74b09579fbe0038b819e">&#9670;&nbsp;</a></span>createInterlinkSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def createInterlinkSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a search dialog with parameters for interlinking. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+    <tr><td class="paramname">row</td><td>The row of the table for which to map the search result </td></tr>
+    <tr><td class="paramname">column</td><td>The column of the table for which to map the search result </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">def </span>createInterlinkSearchDialog(self, row=-1, column=-1):</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">if</span> column &gt; 3 <span class="keywordflow">and</span> column &lt; 7:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            self.buildSearchDialog(row, column, <span class="keyword">True</span>, self.interlinkTable, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.addVocabConf)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">elif</span> column &gt;= 7:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            selectedLayerIndex = self.chooseLayerInterlink.currentIndex()</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            self.buildValueMappingDialog(row, column, <span class="keyword">True</span>, self.interlinkTable, layer)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">elif</span> column == -1:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            self.buildSearchDialog(row, column, -1, self.interlinkOwlClassInput, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.addVocabConf)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">InterlinkMainWindow.addVocabConf</a>, <a class="el" href="a00181.html#a1c0f392d53979b034116808ade371029">EnrichmentMainWindow.addVocabConf</a>, <a class="el" href="a00161.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, and <a class="el" href="a00185.html#a1659d7c9973dfca0d962d86f4195098b">InterlinkMainWindow.buildValueMappingDialog()</a>.</p>
+
+</div>
+</div>
+<a id="adfcc23a6b0a5b7441daa1d4b43a6e881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcc23a6b0a5b7441daa1d4b43a6e881">&#9670;&nbsp;</a></span>exportEnrichedLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def exportEnrichedLayer </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">def </span>exportEnrichedLayer(self):</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">if</span> self.conceptSearchEdit.text() == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="comment"># @Antoine</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            msgBox = QMessageBox()</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;WARNING &quot;</span>)</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            msgBox.setText(<span class="stringliteral">&#39;Concept search is empty please choose a concept by clicking the &quot;search concept&quot; button to proceed.&#39;</span>)</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            <span class="comment"># return</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            self.exportIdCol = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            self.exportNameSpace = self.dlg.interlinkNameSpace.text()</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            self.exportSetClass = self.dlg.interlinkOwlClassInput.text()</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            propurilist = []</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            classurilist = []</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            includelist = []</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            proptypelist = []</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            valuemappings = {}</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            valuequeries = []</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.dlg.interlinkTable.rowCount()):</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                item = self.dlg.interlinkTable.item(row, 0)</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                <span class="keywordflow">if</span> item.checkState():</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                    includelist.append(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 1).checkState():</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                        self.exportIdCol = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                        propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                        classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                        column = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 4) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                            column = self.dlg.interlinkTable.item(row, 3).data(0)</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                            propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                            propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 5) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                            proptypelist.append(self.dlg.interlinkTable.item(row, 5).text())</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                            proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 6) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                            concept = self.dlg.interlinkTable.item(row, 6).data(0)</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                            self.exportColConfig[column] = concept</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                            classurilist.append(concept)</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                            classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                        <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 7) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                            self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                            valuemappings[item.text()] = self.dlg.interlinkTable.item(row, 7).data(1)</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                            valuequeries.append({self.dlg.interlinkTable.item(row, 7).data(2),</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                                                 self.dlg.interlinkTable.item(row, 7).data(3)})</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                    includelist.append(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                    propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                    classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                    proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            self.enrichedExport = <span class="keyword">True</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            self.dlg.maindlg.exportLayer(propurilist, classurilist, includelist, proptypelist, valuemappings, valuequeries,</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                                         self.dlg.exportTripleStore.isChecked())</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a87085e3e93f6fa7041f16da1081c03f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87085e3e93f6fa7041f16da1081c03f0">&#9670;&nbsp;</a></span>loadLayerForInterlink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def loadLayerForInterlink </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads a QGIS layer for interlinking into the interlinking dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">def </span>loadLayerForInterlink(self):</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        print(<span class="stringliteral">&quot;1&quot;</span>)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span>  selectedLayerIndex == -1:</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            print(<span class="stringliteral">&quot;delta&quot;</span>)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            dlg = WarningLayerDlg()</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            dlg.show()</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            dlg.exec_()</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            print(<span class="stringliteral">&quot;2&quot;</span>)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="comment"># if len(layers) == 0:</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">#     print(&quot;3&quot;)</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="comment"># if  selectedLayerIndex == -1:</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="comment">#     print(&quot;4&quot;)</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="comment">#     dlg = WarningLayerDlg()</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="comment">#     dlg.show()</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="comment">#     dlg.exec_()</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="comment"># else:</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                <span class="comment"># return</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="comment"># Print(&quot;5&quot;)</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">while</span> self.interlinkTable.rowCount() &gt; 0:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                self.interlinkTable.removeRow(0);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="comment"># try:</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="comment"># print(&quot;6&quot;)</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="comment"># fieldnames = [field.name() for field in layer.fields()]</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="comment">#</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="comment"># while self.interlinkTable.rowCount() &gt; 0:</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="comment">#     self.interlinkTable.removeRow(0);</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="comment">#     print(&quot;here&quot;)</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="comment"># row = 0</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="comment"># self.interlinkTable.setHorizontalHeaderLabels(</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="comment">#     [&quot;Export?&quot;, &quot;IDColumn?&quot;, &quot;GeoColumn?&quot;, &quot;Column&quot;, &quot;ColumnProperty&quot;, &quot;PropertyType&quot;, &quot;ColumnConcept&quot;,</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="comment">#      &quot;ValueConcepts&quot;])</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <span class="comment"># self.interlinkTable.setColumnCount(8)</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="keywordflow">while</span> self.interlinkTable.rowCount() &gt; 0:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                    self.interlinkTable.removeRow(0);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                row = 0</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    <span class="comment"># print(&quot;here&quot;)</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    print(<span class="stringliteral">&quot;3&quot;</span>)</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    item = QTableWidgetItem(field)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    <span class="comment"># item.setFlags(QtCore.Qt.ItemIsEnabled)</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    print(<span class="stringliteral">&quot;here&quot;</span>)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    item2 = QTableWidgetItem()</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    item2.setCheckState(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                    item3 = QTableWidgetItem()</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                    item3.setCheckState(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    item4 = QTableWidgetItem()</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                    item4.setCheckState(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                    print(<span class="stringliteral">&quot;4&quot;</span>)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    self.interlinkTable.insertRow(row)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                    self.interlinkTable.setItem(row, 3, item)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                    self.interlinkTable.setItem(row, 0, item2)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                    self.interlinkTable.setItem(row, 1, item3)</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                    self.interlinkTable.setItem(row, 2, item4)</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    print(<span class="stringliteral">&quot;5&quot;</span>)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    cbox = QComboBox()</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                    cbox.addItem(<span class="stringliteral">&quot;Automatic&quot;</span>)</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    cbox.addItem(<span class="stringliteral">&quot;AnnotationProperty&quot;</span>)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    cbox.addItem(<span class="stringliteral">&quot;DataProperty&quot;</span>)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    cbox.addItem(<span class="stringliteral">&quot;ObjectProperty&quot;</span>)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    cbox.addItem(<span class="stringliteral">&quot;SubClass&quot;</span>)</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                    print(<span class="stringliteral">&quot;6&quot;</span>)</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                    self.interlinkTable.setCellWidget(row, 5, cbox)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                    currentRowCount = self.interlinkTable.rowCount()</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                    row += 1</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                print(<span class="stringliteral">&quot;A&quot;</span>)</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                msgBox = QMessageBox()</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                msgBox.setWindowTitle(<span class="stringliteral">&quot;Layer not compatible for interlinking!&quot;</span>)</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                msgBox.setText(<span class="stringliteral">&quot;The chosen layer is not supported for interlinking. You possibly selected a raster layer&quot;</span>)</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                msgBox.exec()</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                print(<span class="stringliteral">&quot;B&quot;</span>)</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a901feba571a84b2b3ddd11c114c72f1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a901feba571a84b2b3ddd11c114c72f1e">&#9670;&nbsp;</a></span>loadUnicornLayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def loadUnicornLayers </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">def </span><a class="code" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a>(self, layers):</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="comment"># Populate the comboBox with names of all the loaded unicorn layers</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">for</span> layer <span class="keywordflow">in</span> layers:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            ucl = layer.name()</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="comment"># if type(layer) == QgsMapLayer.VectorLayer:</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="comment"># self.loadedLayers.addItem(layer.name())</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            self.chooseLayerInterlink.addItem(layer.name())</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="comment"># self.chooseLayerEnrich.addItem(layer.name())</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00185.html#af0084d97a3952f36676c0deee3e5ad2e">InterlinkMainWindow.__init__()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1c0f392d53979b034116808ade371029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c0f392d53979b034116808ade371029">&#9670;&nbsp;</a></span>addVocabConf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">addVocabConf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00201.html#aa0e553f57305253c64ce38eea94fbc7e">SPARQLunicornDialog.buildEnrichmentDlg()</a>, <a class="el" href="a00201.html#a5ffc5a729e10bc24fa788dc873c2488f">SPARQLunicornDialog.buildInterlinkDlg()</a>, <a class="el" href="a00205.html#a0229f67169973a11be67544cdfa9e80f">SPARQLunicornDialog.createEnrichSearchDialog()</a>, <a class="el" href="a00205.html#af7775dd5ac22ed3a6f37edb833097f41">SPARQLunicornDialog.createEnrichSearchDialogProp()</a>, <a class="el" href="a00185.html#aabb28be67cbf74b09579fbe0038b819e">InterlinkMainWindow.createInterlinkSearchDialog()</a>, and <a class="el" href="a00205.html#aabb28be67cbf74b09579fbe0038b819e">SPARQLunicornDialog.createInterlinkSearchDialog()</a>.</p>
+
+</div>
+</div>
+<a id="a486aeee0a5d3170bc193bc29caf8a7b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486aeee0a5d3170bc193bc29caf8a7b8">&#9670;&nbsp;</a></span>currentcol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">currentcol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00197.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00221.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a00221.html#aba518420f8497b693093f21c2624fb45">ValueMappingDialog.buildSearchDialog()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, <a class="el" href="a00205.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, and <a class="el" href="a00221.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>.</p>
+
+</div>
+</div>
+<a id="a086f47cacf997373ef862200fcfb4612"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a086f47cacf997373ef862200fcfb4612">&#9670;&nbsp;</a></span>currentrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">currentrow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00197.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00221.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, <a class="el" href="a00221.html#aba518420f8497b693093f21c2624fb45">ValueMappingDialog.buildSearchDialog()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, and <a class="el" href="a00205.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>.</p>
+
+</div>
+</div>
+<a id="ac26f04155f19a0850f23ab9c063ba611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26f04155f19a0850f23ab9c063ba611">&#9670;&nbsp;</a></span>enrichedExport</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichedExport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a798047d7be0ff17b0e59b9f9d960d376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a798047d7be0ff17b0e59b9f9d960d376">&#9670;&nbsp;</a></span>enrichtab</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichtab = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00205.html#a325fd8cbbc7334bc6881a68afd0c327f">SPARQLunicornDialog.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="a28e8c8cab7654b472c43f25f3005b3ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e8c8cab7654b472c43f25f3005b3ad">&#9670;&nbsp;</a></span>exportIdCol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportIdCol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53c91b53a9e6f8aa2e992e979da8af83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c91b53a9e6f8aa2e992e979da8af83">&#9670;&nbsp;</a></span>exportNameSpace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportNameSpace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bb9e994037d80a7ace5ae573c602d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bb9e994037d80a7ace5ae573c602d45">&#9670;&nbsp;</a></span>exportSetClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportSetClass</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a816bebaf94e989ec4293bfee7a615a98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816bebaf94e989ec4293bfee7a615a98">&#9670;&nbsp;</a></span>interlinkdialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">interlinkdialog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, <a class="el" href="a00205.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, and <a class="el" href="a00313.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
+
+</div>
+</div>
+<a id="a3e331810b0db0beb7dface60f8e05508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e331810b0db0beb7dface60f8e05508">&#9670;&nbsp;</a></span>interlinktab</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">interlinktab = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a228f82cef256bf0c017634e4195718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a228f82cef256bf0c017634e4195718">&#9670;&nbsp;</a></span>maindlg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">maindlg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00205.html#aa15babef112d3f7d3bea0535cefe5ec9">SPARQLunicornDialog.buildConvertCRSDialog()</a>, <a class="el" href="a00201.html#a5ffc5a729e10bc24fa788dc873c2488f">SPARQLunicornDialog.buildInterlinkDlg()</a>, <a class="el" href="a00201.html#a375e87d1112baec5682b217d29a81f39">SPARQLunicornDialog.buildLoadGraphDialog()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, and <a class="el" href="a00189.html#a527bac1321b550ce7d51f6ddf6d91566">LoadGraphDialog.loadURI()</a>.</p>
+
+</div>
+</div>
+<a id="a302e350558edcbbd7b85927b33550548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302e350558edcbbd7b85927b33550548">&#9670;&nbsp;</a></span>prefixes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">prefixes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00205.html#aaa0da52fb182abd5369eb94a3031ffbd">SPARQLunicornDialog.buildCustomTripleStoreDialog()</a>, <a class="el" href="a00201.html#aa0e553f57305253c64ce38eea94fbc7e">SPARQLunicornDialog.buildEnrichmentDlg()</a>, <a class="el" href="a00201.html#a5ffc5a729e10bc24fa788dc873c2488f">SPARQLunicornDialog.buildInterlinkDlg()</a>, <a class="el" href="a00205.html#a72d1298a8ff05a60a62ea537c8c42d30">SPARQLunicornDialog.buildQuickAddTripleStore()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, <a class="el" href="a00205.html#a0bec585636baa1304318e0da3bcca8e3">SPARQLunicornDialog.createWhatToEnrich()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00233.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00313.html#ae951a11f594110260b86cee2ddb2d8df">ToolTipPlainText.insertCompletion()</a>, <a class="el" href="a00273.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00205.html#a9cc2b975c909acd6ab64eae2ccc6ea0c">SPARQLunicornDialog.validateSPARQL()</a>.</p>
+
+</div>
+</div>
+<a id="a0918bd6ea96ed15f91ffdf7d9e91776a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0918bd6ea96ed15f91ffdf7d9e91776a">&#9670;&nbsp;</a></span>searchTripleStoreDialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">searchTripleStoreDialog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00205.html#aa15babef112d3f7d3bea0535cefe5ec9">SPARQLunicornDialog.buildConvertCRSDialog()</a>, <a class="el" href="a00205.html#aaa0da52fb182abd5369eb94a3031ffbd">SPARQLunicornDialog.buildCustomTripleStoreDialog()</a>, <a class="el" href="a00201.html#a375e87d1112baec5682b217d29a81f39">SPARQLunicornDialog.buildLoadGraphDialog()</a>, <a class="el" href="a00205.html#a72d1298a8ff05a60a62ea537c8c42d30">SPARQLunicornDialog.buildQuickAddTripleStore()</a>, <a class="el" href="a00185.html#ace2b9b2398c60b5e5468418324fc7212">InterlinkMainWindow.check_state3()</a>, <a class="el" href="a00205.html#ace2b9b2398c60b5e5468418324fc7212">SPARQLunicornDialog.check_state3()</a>, and <a class="el" href="a00205.html#a0bec585636baa1304318e0da3bcca8e3">SPARQLunicornDialog.createWhatToEnrich()</a>.</p>
+
+</div>
+</div>
+<a id="a6c8211e85b2f3e3a4c4bdd80d2ea5af3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8211e85b2f3e3a4c4bdd80d2ea5af3">&#9670;&nbsp;</a></span>sparqlunicorndlg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sparqlunicorndlg = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00185.html#af0084d97a3952f36676c0deee3e5ad2e">InterlinkMainWindow.__init__()</a>.</p>
+
+</div>
+</div>
+<a id="a330d24be0afd5a96238ca9e128328a2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a330d24be0afd5a96238ca9e128328a2d">&#9670;&nbsp;</a></span>triplestoreconf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">triplestoreconf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00189.html#a921f465a77663034ebb6932d1ac38188">LoadGraphDialog.__init__()</a>, <a class="el" href="a00233.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00197.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00213.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00209.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00205.html#aa15babef112d3f7d3bea0535cefe5ec9">SPARQLunicornDialog.buildConvertCRSDialog()</a>, <a class="el" href="a00205.html#aaa0da52fb182abd5369eb94a3031ffbd">SPARQLunicornDialog.buildCustomTripleStoreDialog()</a>, <a class="el" href="a00201.html#aa0e553f57305253c64ce38eea94fbc7e">SPARQLunicornDialog.buildEnrichmentDlg()</a>, <a class="el" href="a00201.html#a5ffc5a729e10bc24fa788dc873c2488f">SPARQLunicornDialog.buildInterlinkDlg()</a>, <a class="el" href="a00201.html#a375e87d1112baec5682b217d29a81f39">SPARQLunicornDialog.buildLoadGraphDialog()</a>, <a class="el" href="a00205.html#a72d1298a8ff05a60a62ea537c8c42d30">SPARQLunicornDialog.buildQuickAddTripleStore()</a>, <a class="el" href="a00185.html#acf276c4dd1702e8fbfa20bec371bf0db">InterlinkMainWindow.buildSearchDialog()</a>, <a class="el" href="a00205.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00205.html#a0bec585636baa1304318e0da3bcca8e3">SPARQLunicornDialog.createWhatToEnrich()</a>, <a class="el" href="a00209.html#ab51f83eb5efc7744cb415accade74abc">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a00209.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00257.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00241.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00233.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00221.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00197.html#a00c7d47f79ad9e7a9665d7588c9bd512">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a00253.html#a9668aa263c374afae42279e9ac4cd94d">GeoConceptsQueryTask.getLabelsForClasses()</a>, <a class="el" href="a00313.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00205.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00209.html#a809e9724f3fb01cd74431f96ff40c928">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a00189.html#a527bac1321b550ce7d51f6ddf6d91566">LoadGraphDialog.loadURI()</a>, <a class="el" href="a00261.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00209.html#aebb0c8211d47ee1206755f7992455b62">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a00261.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00265.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00253.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00205.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, and <a class="el" href="a00209.html#a630c34000dc83589645109cfc574c26b">TripleStoreDialog.writeConfiguration()</a>.</p>
+
+</div>
+</div>
+<a id="a94166918eca98bd0764f1c890ee2ec5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94166918eca98bd0764f1c890ee2ec5b">&#9670;&nbsp;</a></span>valueconcept</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">valueconcept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aa00273_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
+<div class="ttc" id="aa00124_html_a80aa35ab40509109b9aabf503b42d003"><div class="ttname"><a href="a00124.html#a80aa35ab40509109b9aabf503b42d003">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.loadUnicornLayers</a></div><div class="ttdeci">def loadUnicornLayers(self)</div><div class="ttdoc">Builds the search dialog to search for a concept or class.</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:396</div></div>
+<div class="ttc" id="aa00124_html_a747dca996e4c4c9d642d7801424efc5c"><div class="ttname"><a href="a00124.html#a747dca996e4c4c9d642d7801424efc5c">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.buildSearchDialog</a></div><div class="ttdeci">def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False, currentprefixes=None, addVocabConf=None)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:416</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00185.html">enrichmenttab</a></li>
+    <li class="navelem"><a class="el" href="a00110.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00116.html">dialogs</a></li><li class="navelem"><a class="el" href="a00120.html">interlinkMainWindow</a></li><li class="navelem"><a class="el" href="a00185.html">InterlinkMainWindow</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
