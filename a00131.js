@@ -1,4 +1,6 @@
 var a00131 =
 [
-    [ "WarningLayerDlg", "a00229.html", "a00229" ]
+    [ "SPARQLHighlighter", "a00381.html", "a00381" ],
+    [ "format", "a00131.html#a52de39c8ac6c67fc1d22018a93f82709", null ],
+    [ "STYLES", "a00131.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
 ];
