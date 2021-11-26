@@ -218,7 +218,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> self.queryresult:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            item = QStandardItem()</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            item.setData(concept, 256)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> self.treeNode.data(257)==SPARQLUtils.geoclassnode:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> self.treeNode.data(257)==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> self.treeNode.data(257)==SPARQLUtils.collectionclassnode:</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                item.setData(SPARQLUtils.geoinstancenode,257)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                item.setIcon(SPARQLUtils.earthinstanceicon)            </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">else</span>:</div>
