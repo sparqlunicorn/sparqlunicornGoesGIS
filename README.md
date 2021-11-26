@@ -18,7 +18,7 @@ Florian Thiery, Sophie Charlotte Schmidt, Timo Homburg, & Martina Trognitz. (202
 
 ## QGIS Plugin
 
-<center><img src="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/master/icon.png" width="400"></center>
+<center><img src="https://github.com/sparqlunicorn/sparqlunicornGoesGIS/raw/master/resources/icons/sparqlunicorn.png" width="400"></center>
 
 The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugins:
 
