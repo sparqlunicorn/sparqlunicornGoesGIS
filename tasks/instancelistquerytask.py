@@ -66,7 +66,7 @@ class InstanceListQueryTask(QgsTask):
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
-            if self.treeNode.data(257)==SPARQLUtils.geoclassnode:
+            if self.treeNode.data(257)==SPARQLUtils.geoclassnode or self.treeNode.data(257)==SPARQLUtils.collectionclassnode:
                 item.setData(SPARQLUtils.geoinstancenode,257)
                 item.setIcon(SPARQLUtils.earthinstanceicon)            
             else:
