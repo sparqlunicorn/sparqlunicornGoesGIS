@@ -26,6 +26,8 @@ class SPARQLUtils:
     classicon=QIcon(":/icons/resources/icons/class.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
+    featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
     earthinstanceicon=QIcon(":/icons/resources/icons/earthinstance.png")
     classnode="Class"
     geoclassnode="GeoClass"
