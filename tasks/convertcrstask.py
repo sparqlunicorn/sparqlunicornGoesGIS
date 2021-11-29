@@ -54,7 +54,7 @@ class ConvertCRSTask(QgsTask):
             destCrs = QgsCoordinateReferenceSystem(projectto)
             QgsMessageLog.logMessage("CRS: " + str(destCrs.authid()), MESSAGE_CATEGORY, Qgis.Info)
             if str(destCrs.authid()) not in self.crsdefs:
-                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),destCrs.authid(),set())
+                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),set(),destCrs.authid())
             QgsMessageLog.logMessage('PROJECTIT ' + str(sourceCrs.description()) + " " + str(projectto.description()),
                                      MESSAGE_CATEGORY, Qgis.Info)
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
