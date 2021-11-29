@@ -82,20 +82,24 @@ class ClassTreeQueryTask(QgsTask):
                         result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"])+")")
                         self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
+                        self.classtreemap[subval].setToolTip("GeoClass "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                     else:
                         self.classtreemap[subval].setText(
                         result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"])+")")
                         self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+                        self.classtreemap[subval].setToolTip("Class "+str(self.classtreemap[subval].text())+": <br>"+str(SPARQLUtils.treeNodeToolTip))
                 else:
                     if "hasgeo" in result:
                         self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
                         self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
+                        self.classtreemap[subval].setToolTip("GeoClass "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                     else:
                         self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
                         self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+                        self.classtreemap[subval].setToolTip("Class "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
 
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()

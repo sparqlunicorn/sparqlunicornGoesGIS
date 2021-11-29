@@ -72,6 +72,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setEditable(False)
                 item.setIcon(SPARQLUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
+                item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
@@ -99,6 +100,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setEditable(False)
                 item.setIcon(SPARQLUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
+                item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":

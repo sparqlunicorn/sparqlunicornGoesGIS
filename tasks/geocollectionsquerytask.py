@@ -106,10 +106,6 @@ class GeoCollectionsQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setData(concept["uri"], 256)
                 item.setData(SPARQLUtils.collectionclassnode, 257)
-                if self.featureOrGeoCollection:
-                    item.setIcon(SPARQLUtils.featurecollectionicon)
-                else:
-                    item.setIcon(SPARQLUtils.geometrycollectionicon)
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -118,6 +114,12 @@ class GeoCollectionsQueryTask(QgsTask):
                 if "members" in concept:
                     itemtext+=" ["+str(concept["members"])+"]"
                 item.setText(itemtext)
+                if self.featureOrGeoCollection:
+                    item.setIcon(SPARQLUtils.featurecollectionicon)
+                    item.setToolTip("FeatureCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                else:
+                    item.setIcon(SPARQLUtils.geometrycollectionicon)
+                    item.setToolTip("GeometryCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),

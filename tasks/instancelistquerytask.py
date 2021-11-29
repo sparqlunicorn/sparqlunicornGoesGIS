@@ -66,11 +66,13 @@ class InstanceListQueryTask(QgsTask):
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, 256)
+            item.setText(self.queryresult[concept]["label"])
             if self.treeNode.data(257)==SPARQLUtils.geoclassnode or self.treeNode.data(257)==SPARQLUtils.collectionclassnode:
                 item.setData(SPARQLUtils.geoinstancenode,257)
-                item.setIcon(SPARQLUtils.earthinstanceicon)            
+                item.setIcon(SPARQLUtils.earthinstanceicon)
+                item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             else:
                 item.setData(SPARQLUtils.instancenode,257)
                 item.setIcon(SPARQLUtils.instanceicon)
-            item.setText(self.queryresult[concept]["label"])
+                item.setToolTip("Instance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             self.treeNode.appendRow(item)

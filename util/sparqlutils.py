@@ -35,6 +35,7 @@ class SPARQLUtils:
     geoinstancenode="GeoInstance"
     collectionclassnode="CollectionClass"
     instancesloadedindicator="InstancesLoaded"
+    treeNodeToolTip="Double click to load, right click for menu"
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
