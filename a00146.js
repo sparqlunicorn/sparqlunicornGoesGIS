@@ -1,7 +1,6 @@
 var a00146 =
 [
-    [ "dialogs", "a00150.html", "a00150" ],
-    [ "sparql_unicorn", "a00149.html", "a00149" ],
-    [ "tasks", "a00165.html", "a00165" ],
-    [ "util", "a00187.html", "a00187" ]
+    [ "GitlabRequestInterceptor", "a00297.html", "a00297" ],
+    [ "RequestInterceptor", "a00289.html", "a00289" ],
+    [ "UserMetaData", "a00293.html", "a00293" ]
 ];
