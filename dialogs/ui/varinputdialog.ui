@@ -27,12 +27,6 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
        <height>171</height>
       </size>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>731</width>
-       <height>201</height>
-      </size>
-     </property>
      <property name="styleSheet">
       <string notr="true">QObject#frame{
 	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
