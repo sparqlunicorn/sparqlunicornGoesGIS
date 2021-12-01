@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1478</width>
-    <height>777</height>
+    <width>1342</width>
+    <height>666</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>1478</width>
-    <height>777</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -25,21 +19,9 @@
 background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}
 </string>
    </property>
-   <layout class="QGridLayout" name="gridLayout_3">
+   <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
      <widget class="QFrame" name="query_page_frame">
-      <property name="minimumSize">
-       <size>
-        <width>1411</width>
-        <height>671</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>1411</width>
-        <height>671</height>
-       </size>
-      </property>
       <property name="styleSheet">
        <string notr="true">QObject#query_page_frame{
 	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
@@ -56,534 +38,194 @@ border-radius:20px;}
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="Query_page_txt_inp" native="true">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>1381</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QCheckBox" name="allownongeo">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Allow non-geo queries</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="queryLimitLabel">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
-            </property>
-            <property name="text">
-             <string>Query Limit:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="queryLimit">
-            <property name="minimumSize">
-             <size>
-              <width>81</width>
-              <height>21</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius:10px;
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="2" column="7">
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>38</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="4" rowspan="2" colspan="2">
+        <widget class="QTabWidget" name="conceptViewTabWidget">
+         <property name="minimumSize">
+          <size>
+           <width>331</width>
+           <height>431</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>331</width>
+           <height>431</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
 
-border-color:rgb(45, 45, 45);
 
 background-color: rgb(253, 252, 250);</string>
-            </property>
-            <property name="text">
-             <string>10</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLabel" name="saveQueryName_3">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
-            </property>
-            <property name="text">
-             <string> Query Name :</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="saveQueryName">
-            <property name="minimumSize">
-             <size>
-              <width>81</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(253, 252, 250);
-
-border-radius:10px;
-
-border-color:rgb(45, 45, 45);</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="saveQueryButton">
-            <property name="minimumSize">
-             <size>
-              <width>111</width>
-              <height>21</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>Save Query</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="Layer_name_unicorn">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
-            </property>
-            <property name="text">
-             <string>Layer name: unicorn_</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="inp_label">
-            <property name="minimumSize">
-             <size>
-              <width>161</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius:10px;
-
-border-color:rgb(45, 45, 45);
+         </property>
+         <property name="currentIndex">
+          <number>2</number>
+         </property>
+         <widget class="QWidget" name="geoConceptsTab">
+          <attribute name="title">
+           <string>GeoConcepts</string>
+          </attribute>
+          <widget class="QTreeView" name="geoTreeView">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>331</width>
+             <height>411</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:10px;
 
 background-color: rgb(253, 252, 250);</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="export_trplstore_checkbox" native="true">
-       <property name="geometry">
-        <rect>
-         <x>1160</x>
-         <y>110</y>
-         <width>237</width>
-         <height>231</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="2" column="0">
-         <widget class="QWidget" name="conf_trpl_store_and_bbox_buttons" native="true">
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="loadTripleStoreButton">
-             <property name="minimumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-               <underline>false</underline>
-              </font>
-             </property>
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">
-background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Configure TripleStores</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="bboxButton">
-             <property name="minimumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>201</width>
-               <height>31</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">
-background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Constraint By BBOX</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton">
-             <property name="minimumSize">
-              <size>
-               <width>201</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>201</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Add Layer</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+           </property>
+          </widget>
          </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="exportTripleStore_2">
-          <property name="minimumSize">
-           <size>
-            <width>128</width>
-            <height>17</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Export To Triple Store</string>
-          </property>
+         <widget class="QWidget" name="featureCollectionsTab">
+          <attribute name="title">
+           <string>FeatureCollections</string>
+          </attribute>
+          <widget class="QListView" name="featureCollectionClassList">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>331</width>
+             <height>411</height>
+            </rect>
+           </property>
+          </widget>
          </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>420</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="minimumSize">
-           <size>
-            <width>111</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>111</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Select Endpoint:</string>
-          </property>
+         <widget class="QWidget" name="GeometryCollectionsTab">
+          <attribute name="title">
+           <string>GeometryCollections</string>
+          </attribute>
+          <widget class="QListView" name="geometryCollectionClassList">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>331</width>
+             <height>411</height>
+            </rect>
+           </property>
+           <property name="cursor" stdset="0">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+          </widget>
          </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="endpointCB">
-          <property name="minimumSize">
-           <size>
-            <width>301</width>
-            <height>22</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>301</width>
-            <height>22</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(253, 252, 250);
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="minimumSize">
+            <size>
+             <width>111</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>111</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(0, 81, 135);</string>
+           </property>
+           <property name="text">
+            <string>Select Endpoint:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="endpointCB">
+           <property name="minimumSize">
+            <size>
+             <width>301</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>301</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(253, 252, 250);
 selection-background-color: rgb(255, 255, 255);
 selection-color:rgb(0, 81, 135);
 border-radius:10px;
 
 border-color:rgb(45, 45, 45);</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="errorLabel">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>821</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QTabWidget" name="conceptViewTabWidget">
-       <property name="geometry">
-        <rect>
-         <x>800</x>
-         <y>130</y>
-         <width>331</width>
-         <height>431</height>
-        </rect>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">
-
-
-background-color: rgb(253, 252, 250);</string>
-       </property>
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="geoConceptsTab">
-        <attribute name="title">
-         <string>GeoConcepts</string>
-        </attribute>
-        <widget class="QTreeView" name="geoTreeView">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>331</width>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0" rowspan="2" colspan="3">
+        <widget class="QPlainTextEdit" name="inp_sparql2">
+         <property name="minimumSize">
+          <size>
+           <width>561</width>
            <height>411</height>
-          </rect>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>561</width>
+           <height>471</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Courier New</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="styleSheet">
           <string notr="true">border-radius:10px;
 
 background-color: rgb(253, 252, 250);</string>
          </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="featureCollectionsTab">
-        <attribute name="title">
-         <string>FeatureCollections</string>
-        </attribute>
-        <widget class="QListView" name="featureCollectionClassList">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>331</width>
-           <height>411</height>
-          </rect>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
-        </widget>
-       </widget>
-       <widget class="QWidget" name="GeometryCollectionsTab">
-        <attribute name="title">
-         <string>GeometryCollections</string>
-        </attribute>
-        <widget class="QListView" name="geometryCollectionClassList">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>331</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <property name="cursor" stdset="0">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QPlainTextEdit" name="inp_sparql2">
-       <property name="geometry">
-        <rect>
-         <x>11</x>
-         <y>131</y>
-         <width>561</width>
-         <height>411</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>561</width>
-         <height>411</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>561</width>
-         <height>471</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Courier New</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="cursor" stdset="0">
-        <cursorShape>IBeamCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:10px;
-
-background-color: rgb(253, 252, 250);</string>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="plainText">
-        <string># Example: Airports in Germany
+         <property name="plainText">
+          <string># Example: Airports in Germany
 
 SELECT ?label ?geo ?item WHERE {
   ?item wdt:P31 wd:Q1248784; #Airport
@@ -592,331 +234,650 @@ SELECT ?label ?geo ?item WHERE {
     rdfs:label ?label.
   FILTER((LANG(?label)) = &quot;en&quot;)
 } LIMIT 100</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_11">
-       <property name="geometry">
-        <rect>
-         <x>560</x>
-         <y>20</y>
-         <width>111</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:rgb(0, 81, 135);</string>
-       </property>
-       <property name="text">
-        <string>Query Templates:</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="queryTemplates">
-       <property name="geometry">
-        <rect>
-         <x>680</x>
-         <y>20</y>
-         <width>301</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(253, 252, 250);
-
-border-radius:10px;
-
-border-color:rgb(45, 45, 45);
-selection-background-color: rgb(255, 255, 255);
-selection-color:rgb(0, 81, 135);</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Item+Label</string>
-        </property>
+         </property>
+        </widget>
        </item>
-       <item>
-        <property name="text">
-         <string>All Attributes</string>
-        </property>
+       <item row="7" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>11</height>
+          </size>
+         </property>
+        </spacer>
        </item>
-      </widget>
-      <widget class="QLineEdit" name="filterConcepts">
-       <property name="geometry">
-        <rect>
-         <x>1170</x>
-         <y>20</y>
-         <width>171</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:10px;
+       <item row="4" column="0" colspan="5">
+        <widget class="QLabel" name="errorLabel">
+         <property name="minimumSize">
+          <size>
+           <width>821</width>
+           <height>21</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>821</width>
+           <height>21</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(0, 81, 135);</string>
+         </property>
+         <property name="text">
+          <string>Query Templates:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="filterConceptsLabel">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(0, 81, 135);</string>
+         </property>
+         <property name="text">
+          <string>Filter Concept Results:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="6">
+        <widget class="QWidget" name="Query_page_txt_inp" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QCheckBox" name="allownongeo">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(0, 81, 135);</string>
+            </property>
+            <property name="text">
+             <string>Allow non-geo queries</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="queryLimitLabel">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+                <underline>false</underline>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:rgb(0, 81, 135);</string>
+              </property>
+              <property name="text">
+               <string>Query Limit:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="queryLimit">
+              <property name="minimumSize">
+               <size>
+                <width>81</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
 
 border-color:rgb(45, 45, 45);
 
 background-color: rgb(253, 252, 250);</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="filterConceptsLabel">
-       <property name="geometry">
-        <rect>
-         <x>1000</x>
-         <y>20</y>
-         <width>141</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:rgb(0, 81, 135);</string>
-       </property>
-       <property name="text">
-        <string>Filter Concept Results:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="layercount">
-       <property name="geometry">
-        <rect>
-         <x>1160</x>
-         <y>530</y>
-         <width>51</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="savedQueries">
-       <property name="geometry">
-        <rect>
-         <x>1170</x>
-         <y>400</y>
-         <width>221</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>221</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>221</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="saveQueryName_3">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+                <underline>false</underline>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:rgb(0, 81, 135);</string>
+              </property>
+              <property name="text">
+               <string> Query Name :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="saveQueryName">
+              <property name="minimumSize">
+               <size>
+                <width>81</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="saveQueryButton">
+              <property name="minimumSize">
+               <size>
+                <width>111</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>9</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>Save Query</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="Layer_name_unicorn">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+                <underline>false</underline>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:rgb(0, 81, 135);</string>
+              </property>
+              <property name="text">
+               <string>Layer name: unicorn_</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="inp_label">
+              <property name="minimumSize">
+               <size>
+                <width>161</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QComboBox" name="queryTemplates">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(253, 252, 250);
+
+border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Item+Label</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>All Attributes</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="6" rowspan="3" colspan="2">
+        <widget class="QWidget" name="export_trplstore_checkbox" native="true">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="2" column="1">
+           <widget class="QWidget" name="conf_trpl_store_and_bbox_buttons" native="true">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="loadTripleStoreButton">
+               <property name="minimumSize">
+                <size>
+                 <width>201</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>201</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">
+background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="text">
+                <string>Configure TripleStores</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QPushButton" name="pushButton">
+               <property name="minimumSize">
+                <size>
+                 <width>201</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>201</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>11</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="text">
+                <string>Add Layer</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="bboxButton">
+               <property name="minimumSize">
+                <size>
+                 <width>201</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>201</width>
+                 <height>31</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">
+background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="text">
+                <string>Constraint By BBOX</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QComboBox" name="savedQueries">
+               <property name="minimumSize">
+                <size>
+                 <width>201</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>201</width>
+                 <height>22</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius:10px;
 
 border-color:rgb(45, 45, 45);
 
 background-color: rgb(253, 252, 250);
 selection-background-color: rgb(255, 255, 255);
 selection-color:rgb(0, 81, 135);</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="loadQuery">
-       <property name="geometry">
-        <rect>
-         <x>1170</x>
-         <y>400</y>
-         <width>101</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>101</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgb(0, 127, 165);
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QPushButton" name="loadQuery">
+               <property name="minimumSize">
+                <size>
+                 <width>201</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>201</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Load Query</string>
-       </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>590</y>
-         <width>1057</width>
-         <height>33</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="btn_loadunicornlayers">
-          <property name="minimumSize">
-           <size>
-            <width>201</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>201</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="sizeIncrement">
-           <size>
-            <width>201</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="baseSize">
-           <size>
-            <width>201</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+               </property>
+               <property name="text">
+                <string>Load Query</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="exportTripleStore_2">
+            <property name="minimumSize">
+             <size>
+              <width>128</width>
+              <height>17</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(0, 81, 135);</string>
+            </property>
+            <property name="text">
+             <string>Export To Triple Store</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="9" column="2">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>12</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="8" column="0" colspan="6">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btn_loadunicornlayers">
+           <property name="minimumSize">
+            <size>
+             <width>201</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>201</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="sizeIncrement">
+            <size>
+             <width>201</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="baseSize">
+            <size>
+             <width>201</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>load unicorn layers</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="loadedLayers">
-          <property name="minimumSize">
-           <size>
-            <width>641</width>
-            <height>21</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>641</width>
-            <height>21</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:10px;
+           </property>
+           <property name="text">
+            <string>load unicorn layers</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="loadedLayers">
+           <property name="minimumSize">
+            <size>
+             <width>641</width>
+             <height>21</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>641</width>
+             <height>21</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:10px;
 
 border-color:rgb(45, 45, 45);
 
 background-color: rgb(253, 252, 250);
 selection-background-color: rgb(255, 255, 255);
 selection-color:rgb(0, 81, 135);</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="exportLayers">
-          <property name="minimumSize">
-           <size>
-            <width>201</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>201</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="exportLayers">
+           <property name="minimumSize">
+            <size>
+             <width>201</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>201</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color:rgb(0, 127, 165);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Export Loaded Layer as TTL</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+           </property>
+           <property name="text">
+            <string>Export Loaded Layer as TTL</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="6">
+        <widget class="QLabel" name="layercount">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="7">
+        <widget class="QLineEdit" name="filterConcepts">
+         <property name="styleSheet">
+          <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>1426</x>
-      <y>686</y>
-      <width>18</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout"/>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1478</width>
+     <width>1342</width>
      <height>21</height>
     </rect>
    </property>
