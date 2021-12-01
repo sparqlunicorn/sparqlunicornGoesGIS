@@ -28,6 +28,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 ### Change Log
 
+-   0.13.1: fixed icons and RDF export
 -   0.13: Added classtree for navigation, support for SPARQL endpoints with HTTP Auth, support for GeoSPARQL 1.1 FeatureCollections, Added context menu for classtree, Added support for schema.org encoded geometries, smaller bugfixes
 -   0.12.2: Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
 -   0.12.1: Fix for lat/lon based triple stores, polygon BBOX
