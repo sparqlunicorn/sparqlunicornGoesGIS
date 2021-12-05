@@ -139,6 +139,7 @@ class ClassTreeQueryTask(QgsTask):
         self.buildTree("root",self.classtreemap,self.subclassmap,[])
         self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dlg.classTreeView.header().setStretchLastSection(False)
+        self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.dlg.classTreeView.setSortingEnabled(True)
         self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
         self.dlg.classTreeView.setSortingEnabled(False)

@@ -66,8 +66,12 @@ class DetectTripleStoreTask(QgsTask):
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
         elif subpredobj == 0:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?p), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Namespace detection (2/3)")
         else:
             query = "select distinct ?ns where { ?s ?p ?o . bind( replace( str(?o), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Namespace detection (3/3)")
         results=SPARQLUtils.executeQuery(self.triplestoreurl,query,{"auth":{"method":self.authmethod,"userCredential":self.credentialUserName,"userPassword":self.credentialPassword}})
         if results==False:
             return []
@@ -232,7 +236,7 @@ class DetectTripleStoreTask(QgsTask):
             res = set()
             if self.detectnamespaces:
                 newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
-                self.progress.setLabelText(newtext + "\nCurrent Task: Namespace detection")
+                self.progress.setLabelText(newtext + "\nCurrent Task: Namespace detection (1/3)")
                 res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
             i = 0
             for ns in res:

@@ -2,6 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem, QIcon
+from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -65,6 +66,9 @@ class GeoCollectionsQueryTask(QgsTask):
 
     def finished(self, result):
         self.geoClassList.clear()
+        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.geoClassListGui.header().setStretchLastSection(False)
+        self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         if len(self.resultlist) > 0:
             first = True
             if self.featureOrGeoCollection:

@@ -2,6 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor,QIcon
+from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
@@ -56,6 +57,9 @@ class GeoConceptsQueryTask(QgsTask):
     def finished(self, result):
         self.geoClassList.clear()
         self.geoTreeViewModel.clear()
+        self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.geoClassListGui.header().setStretchLastSection(False)
+        self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
         self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.viewlist)) + ")")
         if self.examplequery != None:

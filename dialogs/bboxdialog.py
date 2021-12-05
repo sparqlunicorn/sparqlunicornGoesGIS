@@ -80,7 +80,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.pan()
         self.selectCircle.hide()
         self.geocodeSearch = NominatimText(self, self.nominatimmap, self.map_canvas)
-        self.move(120, 0)
         self.crsdialog = QgsProjectionSelectionWidget(self)
         self.crsdialog.move(160, 540)
         self.crsdialog.resize(331, 30)
