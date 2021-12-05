@@ -1,7 +1,4 @@
-<map id="ToolTipPlainText" name="ToolTipPlainText">
-<area shape="rect" id="node1" title=" " alt="" coords="169,95,296,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,121,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="146,5,205,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="265,5,315,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="451,5,537,32"/>
+<map id="SPARQLCompleter" name="SPARQLCompleter">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,145,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="25,5,125,32"/>
 </map>

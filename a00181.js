@@ -1,4 +1,4 @@
 var a00181 =
 [
-    [ "QueryLayerTask", "a00333.html", "a00333" ]
+    [ "InstanceAmountQueryTask", "a00325.html", "a00325" ]
 ];
