@@ -6,11 +6,11 @@ from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog,
 )
 
-MESSAGE_CATEGORY = 'ValidateGraphTask'
+MESSAGE_CATEGORY = 'GraphValidationTask'
 
 
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
-class ValidateGraphTask(QgsTask):
+class GraphValidationTask(QgsTask):
 
     def __init__(self, description, filename, loadgraphdlg, dlg, maindlg, query, triplestoreconf, progress, closedlg):
         super().__init__(description, QgsTask.CanCancel)

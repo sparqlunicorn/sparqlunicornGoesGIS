@@ -41,6 +41,7 @@ from ..util.sparqlutils import SPARQLUtils
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
+from ..dialogs.graphvalidationdialog import GraphValidationDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter
@@ -62,7 +63,7 @@ MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
-class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
+class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     ## The triple store configuration file
     triplestoreconf = None
     ## Prefix map
@@ -83,6 +84,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         """Constructor."""
         super(SPARQLunicornDialog, self).__init__(parent)
         self.setupUi(self)
+        self.setCentralWidget(self.tabWidget)
         self.prefixes = prefixes
         self.maindlg = maindlg
         self.savedQueriesJSON = savedQueriesJSON
@@ -94,6 +96,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.comboBox)
+        self.layercount=0
         self.geoTreeView.setHeaderHidden(True)
         self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geoTreeView.setAlternatingRowColors(True)
@@ -175,10 +178,12 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.saveQueryName_2.hide()
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
-        self.bboxButton.clicked.connect(self.getPointFromCanvas)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-        self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
-        self.convertTTLCRS.clicked.connect(self.buildConvertCRSDialog)
+        self.actionConvert_RDF_Data.triggered.connect(self.buildConvertCRSDialog)
+        #self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(self.build)
+        self.actionTriple_Store_Settings.triggered.connect(self.buildCustomTripleStoreDialog)
+        self.actionValidate_RDF_Data.triggered.connect(self.buildGraphValidationDialog)
+        self.actionConstraint_By_BBOX.triggered.connect(self.buildBBOXDialog)
         self.chooseLayerInterlink.clear()
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
@@ -190,6 +195,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
+        self.closeButton.clicked.connect(self.hide)
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
@@ -208,8 +214,9 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
-        self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
+        #self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadUnicornLayers()
+        self.show()
 
 
     def loadQueryFunc(self):
@@ -277,7 +284,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node)), MESSAGE_CATEGORY, Qgis.Info)
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
-                iterateTree(self,node.child(i),result)
+                self.iterateTree(self,node.child(i),result)
             if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
                 result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+str(node.data(256))+"> .\n")
             elif node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
@@ -320,12 +327,10 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dataInstanceAsLayer)
-        menu.exec_(self.currentContext.viewport().mapToGlobal(position))
-        """
         actionapplicablestyles=QAction("Find applicable styles")
         menu.addAction(actionapplicablestyles)
         actionapplicablestyles.triggered.connect(self.appStyles)
-        """
+        menu.exec_(self.currentContext.viewport().mapToGlobal(position))
 
 
     def onContext4(self, position):
@@ -523,6 +528,15 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
 
+    ##
+    #  @brief Creates a What To Enrich dialog with parameters given.
+    #
+    #  @param self The object pointer
+    def buildGraphValidationDialog(self):
+        self.graphValidationDialog = GraphValidationDialog(self.triplestoreconf, self.maindlg, self)
+        self.graphValidationDialog.setWindowTitle("Validate Graph")
+        self.graphValidationDialog.exec_()
+
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
     #  
@@ -533,6 +547,15 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
+
+    def buildUploadRDFDialog(self):
+        print("todo")
+        #uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf)
+        #uploaddialog.setMinimumSize(450, 250)
+        #uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
+        #uploaddialog.exec_()
+
+
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
@@ -801,7 +824,7 @@ class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     #  @brief Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.
     #  
     #  @param self The object pointer
-    def getPointFromCanvas(self):
+    def buildBBOXDialog(self):
         self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
         self.d.setWindowTitle("Choose BoundingBox")
         self.d.exec_()

@@ -44,16 +44,17 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             self.credentialPassword.setEnabled(False)
 
     def detectTripleStoreConfiguration(self):
-        progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...",
+        progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
                                    "Abort", 0, 0, self)
+        progress.setWindowTitle("Triple Store Autoconfiguration")
         progress.setWindowModality(Qt.WindowModal)
-        progress.setCancelButton(None)
+        #progress.setCancelButton(None)
         progress.show()
         self.qtask = DetectTripleStoreTask(
             "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
             self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
             self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
-            None, self.comboBox, self.permanentAdd.isChecked(), self, progress)
+            None, self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self, progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 

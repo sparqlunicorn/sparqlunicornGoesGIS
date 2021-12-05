@@ -104,12 +104,12 @@
     <string>Enter a name and a triple store URL here to try autoconfiguration</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="permanentAdd">
+  <widget class="QCheckBox" name="permanentAddCBox">
    <property name="geometry">
     <rect>
      <x>150</x>
      <y>220</y>
-     <width>401</width>
+     <width>211</width>
      <height>17</height>
     </rect>
    </property>
@@ -213,6 +213,22 @@
      <string>HTTP DIGEST</string>
     </property>
    </item>
+  </widget>
+  <widget class="QCheckBox" name="detectNamespacesCBox">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>220</y>
+     <width>191</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Detect namespaces</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

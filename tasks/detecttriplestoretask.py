@@ -14,12 +14,13 @@ class DetectTripleStoreTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
     def __init__(self, description, triplestoreconf, endpoint, triplestorename, credentialUserName, credentialPassword,authmethod, testURL, testConfiguration, prefixes,
-                 prefixstore, tripleStoreChooser, comboBox, permanentAdd, parentdialog, progress):
+                 prefixstore, tripleStoreChooser, comboBox, permanentAdd,detectnamespaces, parentdialog, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.description = description
         self.exception = None
         self.prefixes = prefixes
         self.prefixstore = prefixstore
+        self.detectnamespaces=detectnamespaces
         self.permanentAdd = permanentAdd
         self.progress = progress
         self.credentialUserName=credentialUserName
@@ -115,6 +116,7 @@ class DetectTripleStoreTask(QgsTask):
             "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
             "hasSchemaOrgGeo": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
+        capabilitylist=[]
         if self.testTripleStoreConnection(testQueries["available"]):
             QgsMessageLog.logMessage("Triple Store "+str(self.triplestoreurl)+" is available!", MESSAGE_CATEGORY, Qgis.Info)
             if self.testTripleStoreConnection(testQueries["hasWKT"]):
@@ -126,9 +128,9 @@ class DetectTripleStoreTask(QgsTask):
                     self.configuration["bboxquery"]["type"] = "geosparql"
                     self.configuration["bboxquery"][
                         "query"] = "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
-                    self.message = "URL depicts a valid GeoSPARQL Endpoint and contains WKT Literals!\nWould you like to add this SPARQL endpoint?"
+                    self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>GeoSPARQL Query Capabilities</li><li>WKT Literals</li></ul>Would you like to add this SPARQL endpoint?"
                 else:
-                    self.message = "URL depicts a valid SPARQL Endpoint and contains WKT Literals!\nWould you like to add this SPARQL endpoint?"
+                    self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>WKT Literals</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "geo"]
                 self.configuration["querytemplate"] = []
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries",
@@ -145,23 +147,12 @@ class DetectTripleStoreTask(QgsTask):
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
-                i = 0
-                for ns in res:
-                    if ns != "http://" and ns.startswith("http://"):
-                        if ns in self.prefixstore["reversed"]:
-                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
-                        else:
-                            self.configuration["prefixes"]["ns" + str(i)] = ns
-                            i = i + 1
-                self.feasibleConfiguration = True
-                QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasWgs84LatLon"]):
                 QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains WGS84 Lat/Lon properties!",
                                          MESSAGE_CATEGORY,
                                          Qgis.Info)
                 self.configuration["geometryproperty"] = "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-                self.message = "URL depicts a valid SPARQL Endpoint and contains Lat/long!\nWould you like to add this SPARQL endpoint?"
+                self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>W3C Geo Lat/long!</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
                 self.configuration["querytemplate"] = []
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries",
@@ -179,23 +170,12 @@ class DetectTripleStoreTask(QgsTask):
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
-                i = 0
-                for ns in res:
-                    if ns != "http://" and ns.startswith("http://"):
-                        if ns in self.prefixstore["reversed"]:
-                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
-                        else:
-                            self.configuration["prefixes"]["ns" + str(i)] = ns
-                            i = i + 1
-                self.feasibleConfiguration = True
-                QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasSchemaOrgGeo"]):
                 QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains Schema.org Lat/Lon properties!",
                                          MESSAGE_CATEGORY,
                                          Qgis.Info)
                 self.configuration["geometryproperty"] = "https://schema.org/geo"
-                self.message = "URL depicts a valid SPARQL Endpoint and contains Schema.org Lat/long!\nWould you like to add this SPARQL endpoint?"
+                self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>Schema.org Lat/long!</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "lat", "lon"]
                 self.configuration["querytemplate"] = []
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries",
@@ -213,17 +193,6 @@ class DetectTripleStoreTask(QgsTask):
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://schema.org/latitude> ?lat . ?a <http://schema.org/longitude> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
-                i = 0
-                for ns in res:
-                    if ns != "http://" and ns.startswith("http://"):
-                        if ns in self.prefixstore["reversed"]:
-                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
-                        else:
-                            self.configuration["prefixes"]["ns" + str(i)] = ns
-                            i = i + 1
-                self.feasibleConfiguration = True
-                QgsMessageLog.logMessage(str(self.configuration))
             elif self.testTripleStoreConnection(testQueries["hasGeoJSON"]):
                 QgsMessageLog.logMessage("Triple Store " + str(self.triplestoreurl) + " contains GeoJSON literals!",
                                          MESSAGE_CATEGORY,
@@ -234,9 +203,9 @@ class DetectTripleStoreTask(QgsTask):
                     self.configuration["bboxquery"]["type"] = "geosparql"
                     self.configuration["bboxquery"][
                         "query"] = "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral>))"
-                    self.message = "URL depicts a valid GeoSPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
+                    self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>GeoSPARQL Query Capabilities</li><li>GeoJSON Literals</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 else:
-                    self.message = "URL depicts a valid SPARQL Endpoint and contains GeoJSON Literals!\nWould you like to add this SPARQL endpoint?"
+                    self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>GeoJSON Literals</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "geo"]
                 self.configuration["featurecollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#FeatureCollection"]
@@ -256,31 +225,35 @@ class DetectTripleStoreTask(QgsTask):
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
-                i = 0
-                for ns in res:
-                    if ns != "http://" and ns.startswith("http://"):
-                        if ns in self.prefixstore["reversed"]:
-                            self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
-                        else:
-                            self.configuration["prefixes"]["ns" + str(i)] = ns
-                            i = i + 1
-                self.feasibleConfiguration = True
-                QgsMessageLog.logMessage(str(self.configuration))
             else:
-                self.message = "SPARQL endpoint does not seem to include the following geometry relations: geo:asWKT, geo:asGeoJSON, geo:lat, geo:long.\nA manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries\nDo you still want to add this SPARQL endpoint?"
+                self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
                 self.feasibleConfiguration = True
                 return True
+            res = set()
+            if self.detectnamespaces:
+                newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+                self.progress.setLabelText(newtext + "\nCurrent Task: Namespace detection")
+                res = set(self.detectNamespaces(-1) + self.detectNamespaces(0) + self.detectNamespaces(1))
+            i = 0
+            for ns in res:
+                if ns != "http://" and ns.startswith("http://"):
+                    if ns in self.prefixstore["reversed"]:
+                        self.configuration["prefixes"][self.prefixstore["reversed"][ns]] = ns
+                    else:
+                        self.configuration["prefixes"]["ns" + str(i)] = ns
+                        i = i + 1
+            self.feasibleConfiguration = True
+            QgsMessageLog.logMessage(str(self.configuration))
+            if self.testTripleStoreConnection(testQueries["hasRDFSLabel"]) and self.testTripleStoreConnection(
+                    testQueries["hasRDFType"]):
+                self.configuration[
+                    "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+                self.configuration[
+                    "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False
             return False
-        if self.testTripleStoreConnection(testQueries["hasRDFSLabel"]) and self.testTripleStoreConnection(
-                testQueries["hasRDFType"]):
-            self.configuration[
-                "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            self.configuration[
-                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
         return True
 
     def finished(self, result):

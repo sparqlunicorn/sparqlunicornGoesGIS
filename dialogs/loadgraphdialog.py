@@ -60,6 +60,7 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
             fileNames = dialog.selectedFiles()
             filepath = fileNames[0].split(".")
             progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
+            progress.setWindowTitle("Loading Graph")
             progress.setWindowModality(Qt.WindowModal)
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], fileNames[0], self, self.dlg, self.maindlg,
@@ -69,6 +70,7 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
     def loadURI(self):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)
+            progress.setWindowTitle("Loading Graph")
             progress.setWindowModality(Qt.WindowModal)
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,

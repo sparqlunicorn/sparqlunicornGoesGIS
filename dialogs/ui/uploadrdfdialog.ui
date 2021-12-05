@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>219</height>
+    <width>458</width>
+    <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="tripleStoreURL">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>20</y>
+     <x>20</x>
+     <y>130</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QLineEdit" name="tripleStoreURLEdit">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>20</y>
+     <x>160</x>
+     <y>130</y>
      <width>231</width>
      <height>20</height>
     </rect>
@@ -39,8 +39,8 @@
   <widget class="QLabel" name="tripleStoreGraph">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>60</y>
+     <x>20</x>
+     <y>170</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -52,8 +52,8 @@
   <widget class="QLineEdit" name="tripleStoreGraphEdit">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>60</y>
+     <x>160</x>
+     <y>170</y>
      <width>231</width>
      <height>20</height>
     </rect>
@@ -62,8 +62,8 @@
   <widget class="QLabel" name="username">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>95</y>
+     <x>20</x>
+     <y>205</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -75,8 +75,8 @@
   <widget class="QLabel" name="password">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>130</y>
+     <x>20</x>
+     <y>240</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -88,8 +88,8 @@
   <widget class="QLineEdit" name="usernameEdit">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>95</y>
+     <x>160</x>
+     <y>205</y>
      <width>231</width>
      <height>20</height>
     </rect>
@@ -98,8 +98,8 @@
   <widget class="QLineEdit" name="passwordEdit">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>130</y>
+     <x>160</x>
+     <y>240</y>
      <width>231</width>
      <height>20</height>
     </rect>
@@ -108,8 +108,8 @@
   <widget class="QPushButton" name="checkConnectionButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>170</y>
+     <x>20</x>
+     <y>280</y>
      <width>121</width>
      <height>23</height>
     </rect>
@@ -121,14 +121,43 @@
   <widget class="QPushButton" name="applyButton">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>170</y>
+     <x>170</x>
+     <y>280</y>
      <width>221</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>Apply</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="layerCBox">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>30</y>
+     <width>241</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="loadLayerLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Load QGIS Layer:</string>
    </property>
   </widget>
  </widget>

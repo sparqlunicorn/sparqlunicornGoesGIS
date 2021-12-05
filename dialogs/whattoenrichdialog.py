@@ -89,6 +89,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             return
         concept = "<" + self.conceptSearchEdit.text() + ">"
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
+        progress.setWindowTitle("Enrichment Search Query")
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",

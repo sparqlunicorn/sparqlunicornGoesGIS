@@ -39,6 +39,12 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         self.tripleStoreURLEdit.setValidator(urlvalidator)
         self.tripleStoreURLEdit.textChanged.connect(self.check_state1)
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
+        layers = QgsProject.instance().layerTreeRoot().children()
+        # Populate the comboBox with names of all the loaded unicorn layers
+        self.loadedLayers.clear()
+        for layer in layers:
+            ucl = layer.name()
+            self.loadedLayers.add(ucl)
         endpointurls = []
         for item in triplestoreconf:
             endpointurls.append(item["endpoint"])

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SPAQLunicornDialogBase</class>
- <widget class="QDialog" name="SPAQLunicornDialogBase">
+ <widget class="QMainWindow" name="SPAQLunicornDialogBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,28 +13,7 @@
   <property name="windowTitle">
    <string>SPARQLing Unicorn QGIS Plugin</string>
   </property>
-  <widget class="QLabel" name="layercount">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>50</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1181</width>
-     <height>701</height>
-    </rect>
-   </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
@@ -109,7 +88,7 @@
       <rect>
        <x>940</x>
        <y>10</y>
-       <width>171</width>
+       <width>221</width>
        <height>20</height>
       </rect>
      </property>
@@ -197,41 +176,12 @@ SELECT ?label ?geo ?item WHERE {
       <string>Export Loaded Layer as Graph</string>
      </property>
     </widget>
-    <widget class="QDialogButtonBox" name="button_box">
-     <property name="geometry">
-      <rect>
-       <x>1080</x>
-       <y>620</y>
-       <width>91</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="bboxButton">
-     <property name="geometry">
-      <rect>
-       <x>990</x>
-       <y>40</y>
-       <width>171</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Constraint By BBOX</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="errorLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>105</y>
-       <width>781</width>
+       <width>771</width>
        <height>21</height>
       </rect>
      </property>
@@ -288,23 +238,10 @@ SELECT ?label ?geo ?item WHERE {
       <string>Or:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="loadTripleStoreButton">
-     <property name="geometry">
-      <rect>
-       <x>990</x>
-       <y>70</y>
-       <width>171</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Configure TripleStores</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="allownongeo">
      <property name="geometry">
       <rect>
-       <x>810</x>
+       <x>980</x>
        <y>40</y>
        <width>171</width>
        <height>20</height>
@@ -317,7 +254,7 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QCheckBox" name="exportTripleStore_2">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>640</x>
        <y>40</y>
        <width>161</width>
        <height>20</height>
@@ -330,8 +267,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLabel" name="filterConceptsLabel">
      <property name="geometry">
       <rect>
-       <x>810</x>
-       <y>100</y>
+       <x>800</x>
+       <y>70</y>
        <width>121</width>
        <height>20</height>
       </rect>
@@ -343,9 +280,9 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QLineEdit" name="filterConcepts">
      <property name="geometry">
       <rect>
-       <x>940</x>
-       <y>100</y>
-       <width>221</width>
+       <x>930</x>
+       <y>70</y>
+       <width>231</width>
        <height>20</height>
       </rect>
      </property>
@@ -461,30 +398,17 @@ SELECT ?label ?geo ?item WHERE {
       <string>Query Name:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="convertTTLCRS">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>70</y>
-       <width>171</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Convert TTL CRS</string>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="conceptViewTabWidget">
      <property name="geometry">
       <rect>
        <x>790</x>
-       <y>130</y>
+       <y>100</y>
        <width>381</width>
-       <height>431</height>
+       <height>461</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -496,7 +420,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>411</height>
+         <height>441</height>
         </rect>
        </property>
       </widget>
@@ -511,7 +435,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>411</height>
+         <height>441</height>
         </rect>
        </property>
       </widget>
@@ -526,7 +450,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>411</height>
+         <height>441</height>
         </rect>
        </property>
       </widget>
@@ -541,7 +465,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>411</height>
+         <height>441</height>
         </rect>
        </property>
        <property name="horizontalScrollBarPolicy">
@@ -576,6 +500,19 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="closeButton">
+     <property name="geometry">
+      <rect>
+       <x>1090</x>
+       <y>620</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Close</string>
      </property>
     </widget>
    </widget>
@@ -1081,40 +1018,94 @@ SELECT ?label ?geo ?item WHERE {
     </widget>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuLinked_Data_Processing">
+    <property name="title">
+     <string>Linked Data Processing</string>
+    </property>
+    <addaction name="actionConvert_RDF_Data"/>
+    <addaction name="actionValidate_RDF_Data"/>
+    <addaction name="actionConvert_QGIS_Layer_To_RDF"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionTriple_Store_Settings"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuQuery_Helpers">
+    <property name="title">
+     <string>Query Helpers</string>
+    </property>
+    <addaction name="actionConstraint_By_BBOX"/>
+    <addaction name="actionLayer_Column_as_Variable"/>
+    <addaction name="actionSearch_Concept_for_Query"/>
+   </widget>
+   <addaction name="menuLinked_Data_Processing"/>
+   <addaction name="menuQuery_Helpers"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionConvert_RDF_Data">
+   <property name="text">
+    <string>Convert RDF Data</string>
+   </property>
+  </action>
+  <action name="actionValidate_RDF_Data">
+   <property name="text">
+    <string>Validate RDF Data</string>
+   </property>
+  </action>
+  <action name="actionTriple_Store_Settings">
+   <property name="text">
+    <string>Configure Triple Stores</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionAdd_BBOX">
+   <property name="text">
+    <string>Constraint By BBOx</string>
+   </property>
+  </action>
+  <action name="actionConstraint_By_BBOX">
+   <property name="text">
+    <string>Constraint By BBOX</string>
+   </property>
+  </action>
+  <action name="actionLayer_Column_as_Variable">
+   <property name="text">
+    <string>Layer Column as Variable</string>
+   </property>
+  </action>
+  <action name="actionSearch_Concept_for_Query">
+   <property name="text">
+    <string>Search Concept for Query</string>
+   </property>
+  </action>
+  <action name="actionConvert_QGIS_Layer_To_RDF">
+   <property name="text">
+    <string>Convert QGIS Layer to RDF</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>button_box</sender>
-   <signal>accepted()</signal>
-   <receiver>SPAQLunicornDialogBase</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button_box</sender>
-   <signal>rejected()</signal>
-   <receiver>SPAQLunicornDialogBase</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -2,7 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt
 from qgis.PyQt.QtGui import QStandardItem, QIcon
-from qgis.PyQt.QtWidgets import QStyle
+from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
     QgsApplication, QgsTask, QgsMessageLog
 )
@@ -129,6 +129,7 @@ class ClassTreeQueryTask(QgsTask):
 
 
     def finished(self, result):
+        self.classTreeViewModel.clear()
         QgsMessageLog.logMessage('Started task "{}"'.format(
             "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
@@ -136,6 +137,8 @@ class ClassTreeQueryTask(QgsTask):
         self.alreadyprocessed=set()
         self.classtreemap["root"]=self.rootNode
         self.buildTree("root",self.classtreemap,self.subclassmap,[])
+        self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.dlg.classTreeView.header().setStretchLastSection(False)
         self.dlg.classTreeView.setSortingEnabled(True)
         self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
         self.dlg.classTreeView.setSortingEnabled(False)

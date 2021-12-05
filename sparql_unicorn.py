@@ -237,6 +237,7 @@ class SPARQLunicorn:
             msgBox.exec()
             return
         progress = QProgressDialog("Querying layer from " + endpoint_url + "...", "Abort", 0, 0, self.dlg)
+        progress.setWindowTitle("Query layer")
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()
@@ -285,6 +286,9 @@ class SPARQLunicorn:
 
     def getClassTree(self):
         self.dlg.classTreeViewModel.clear()
+        item2 = QStandardItem()
+        item2.setText("Loading...")
+        self.dlg.classTreeViewModel.appendRow(item2)
         self.qtaskctree = ClassTreeQueryTask(
             "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
             self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
@@ -620,14 +624,5 @@ class SPARQLunicorn:
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
-        # if self.first_start == False:
-        #    self.dlg.loadUnicornLayers()
-        # show the dialog
-        self.dlg.show()
-        # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
+        else:
+            self.dlg.show()
