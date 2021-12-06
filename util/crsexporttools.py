@@ -1,6 +1,3 @@
-import pyproj
-import csv
-from rdflib import Graph
 from pyproj import CRS
 from qgis.core import Qgis
 from qgis.core import (

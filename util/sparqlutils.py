@@ -150,6 +150,8 @@ class SPARQLUtils:
 
     @staticmethod
     def loadGraph(graphuri):
+        if graphuri==None or graphuri=="":
+            return None
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")
         proxyType = s.value("proxy/proxyType")

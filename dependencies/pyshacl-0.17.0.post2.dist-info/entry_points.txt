@@ -1,0 +1,3 @@
+[console_scripts]
+pyshacl=pyshacl.cli:main
+

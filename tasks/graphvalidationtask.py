@@ -1,4 +1,5 @@
 from rdflib import *
+from pyshacl import validate
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QCompleter, QMessageBox
@@ -19,13 +20,21 @@ class GraphValidationTask(QgsTask):
         self.ruleset=ruleset
         self.triplestoreconf = triplestoreconf
         self.graph = None
+        self.rulesetgraph= None
         self.geoconcepts = None
         self.exception = None
         self.errorlog=set()
+        self.processinglog={}
+        self.report=""
+        self.errortypemap={}
         self.filename = filename
 
     def run(self):
         self.graph=SPARQLUtils.loadGraph(self.filename)
+        self.rulesetgraph=SPARQLUtils.loadGraph(self.ruleset)
+        self.processinglog["literals"] = {}
+        self.processinglog["literals"]["geoliterals"] = {}
+        self.processinglog["literals"]["geoliterals"]["amount"] = 0
         if self.graph != None:
             print("WE HAVE A GRAPH")
             for s, p, o in self.graph:
@@ -35,18 +44,22 @@ class GraphValidationTask(QgsTask):
                                              Qgis.Info)
                     QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
-                        detected=SPARQLUtils.detectLiteralType()
-                        if not detected!=SPARQLUtils.supportedLiteralTypes[str(o.datatype)]:
+                        self.processinglog["literals"]["geoliterals"]["amount"]+=1
+                        detected=SPARQLUtils.detectLiteralType(o.value)
+                        if detected!=SPARQLUtils.supportedLiteralTypes[str(o.datatype)]:
+                            #self.processinglog["literals"]["geoliterals"]["amount"] = self.processinglog["literals"]["geoliterals"]["amount"] + 1
                             self.errorlog.add("Error in triple: "+str(s)+" "+str(p)+" "+str(o)+":\n [ERR-LITTYPE]: Detected literal content "+str(detected)+" does not match claimed literal type "+str(o.datatype))
+            if self.rulesetgraph!=None:
+                self.report=validate(self.graph,self.rulesetgraph,None,None)
         return True
 
     def finished(self, result):
         self.progress.close()
         if self.errorlog==set():
             msgBox = QMessageBox()
-            msgBox.setText("The graph validation task detect no errors!")
+            msgBox.setText("The graph validation task detected no errors!<br>Validation detected the following attributes:<ul><li>"+str(self.processinglog["literals"]["geoliterals"]["amount"])+" Geoliterals</li></ul>")
             msgBox.exec()
         else:
             msgBox = QMessageBox()
-            msgBox.setText("The graph validation task detected "+str(len(self.errorlog))+"errors:\n"+("\n".join(self.errorlog)))
+            msgBox.setText("The graph validation task detected "+str(len(self.errorlog))+"errors:\n"+("\n".join(self.errorlog))+" "+str(self.report))
             msgBox.exec()
