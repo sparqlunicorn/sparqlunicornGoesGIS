@@ -12,18 +12,14 @@ MESSAGE_CATEGORY = 'GraphValidationTask'
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class GraphValidationTask(QgsTask):
 
-    def __init__(self, description, filename, loadgraphdlg, dlg, maindlg, query, triplestoreconf, progress, closedlg):
+    def __init__(self, description, filename, ruleset, triplestoreconf, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
-        self.dlg = dlg
-        self.maindlg = maindlg
+        self.ruleset=ruleset
         self.triplestoreconf = triplestoreconf
-        self.loadgraphdlg = loadgraphdlg
-        self.query = query
         self.graph = None
         self.geoconcepts = None
-        self.closedlg = closedlg
         self.exception = None
         self.errorlog=set()
         self.filename = filename
@@ -45,6 +41,12 @@ class GraphValidationTask(QgsTask):
         return True
 
     def finished(self, result):
-        msgBox = QMessageBox()
-        msgBox.setText("".join(self.errorlog))
-        msgBox.exec()
+        self.progress.close()
+        if self.errorlog==set():
+            msgBox = QMessageBox()
+            msgBox.setText("The graph validation task detect no errors!")
+            msgBox.exec()
+        else:
+            msgBox = QMessageBox()
+            msgBox.setText("The graph validation task detected "+str(len(self.errorlog))+"errors:\n"+("\n".join(self.errorlog)))
+            msgBox.exec()

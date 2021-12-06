@@ -58,7 +58,7 @@
     <string>Load TTL File</string>
    </property>
   </widget>
-  <widget class="QLabel" name="chosenDataFileLabel">
+  <widget class="QLabel" name="chosenDataFile">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -90,7 +90,7 @@
     <string>Choosen Validation Rule Set:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="chosenValidatorFile">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -99,6 +99,11 @@
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Geometry Literal Content Validation</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>GeoSPARQL 1.0 Validation</string>

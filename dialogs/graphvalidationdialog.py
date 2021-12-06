@@ -58,20 +58,19 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             filepath = fileNames[0].split(".")
-            self.chosenFileLabel.setText(fileNames[0])
+            self.chosenDataFile.setText(fileNames[0])
 
     def startValidation(self):
-        progress = QProgressDialog("Loading Graph and converting CRS of graph: " + self.chosenFileLabel.text(), "Abort",
+        progress = QProgressDialog("Loading Graph and converting CRS of graph: " + self.chosenDataFile.text(), "Abort",
                                    0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
-        if self.convertAllCheckBox.checkState():
-            self.qtask = GraphValidationTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
-                                        progress)
-        else:
-            self.qtask = GraphValidationTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), None, None, self, progress)
+        #if self.convertAllCheckBox.checkState():
+        #    self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
+        #                                self.chosenDataFile.text(), self.chosenValidatorFile.text(),self.triplestoreconf,progress)
+        #else:
+        self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
+                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     def loadURI(self):
