@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: VarInputDialog Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: UploadRDFDialog Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,64 +62,86 @@ $(document).ready(function(){initNavTree('a00273.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00270.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">VarInputDialog Class Reference</div>  </div>
+<div class="title">UploadRDFDialog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class representing the variable input dialog which maps geodataset columns to SPARQL query variables.  
+<p>Dialog to upload a generated RDF result to a triple store.  
  <a href="a00273.html#details">More...</a></p>
 <div class="dynheader">
-Inheritance diagram for VarInputDialog:</div>
+Inheritance diagram for UploadRDFDialog:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00272.png" border="0" usemap="#VarInputDialog_inherit__map" alt="Inheritance graph"/></div>
-<map name="VarInputDialog_inherit__map" id="VarInputDialog_inherit__map">
-<area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,80,161,107"/>
+<div class="center"><img src="a00272.png" border="0" usemap="#UploadRDFDialog_inherit__map" alt="Inheritance graph"/></div>
+<map name="UploadRDFDialog_inherit__map" id="UploadRDFDialog_inherit__map">
+<area shape="rect" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="33,80,170,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00941.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00945.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for VarInputDialog:</div>
+Collaboration diagram for UploadRDFDialog:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00271.png" border="0" usemap="#VarInputDialog_coll__map" alt="Collaboration graph"/></div>
-<map name="VarInputDialog_coll__map" id="VarInputDialog_coll__map">
-<area shape="rect" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="42,80,161,107"/>
+<div class="center"><img src="a00271.png" border="0" usemap="#UploadRDFDialog_coll__map" alt="Collaboration graph"/></div>
+<map name="UploadRDFDialog_coll__map" id="UploadRDFDialog_coll__map">
+<area shape="rect" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="177,124,314,151"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00941.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00945.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" title=" " alt="" coords="240,5,299,32"/>
+<area shape="rect" title=" " alt="" coords="347,5,397,32"/>
+<area shape="rect" title=" " alt="" coords="469,5,555,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5b1893b3a08b784677ccf501dfec239e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">__init__</a> (self, parent, <a class="el" href="a00273.html#a48537577b75975b2d8d86aad8a878bd6">inputfield</a>, <a class="el" href="a00273.html#a4290d9428a06b5fa270a58e95ae89c1c">columnvars</a>)</td></tr>
-<tr class="memdesc:a5b1893b3a08b784677ccf501dfec239e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dialog by loading existing layers.  <a href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">More...</a><br /></td></tr>
-<tr class="separator:a5b1893b3a08b784677ccf501dfec239e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a514d660ea487e92b9fa9e15eda073db9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a514d660ea487e92b9fa9e15eda073db9">layerselectaction</a> (self)</td></tr>
-<tr class="memdesc:a514d660ea487e92b9fa9e15eda073db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the layer column view of the dialog when a new layer is selected.  <a href="a00273.html#a514d660ea487e92b9fa9e15eda073db9">More...</a><br /></td></tr>
-<tr class="separator:a514d660ea487e92b9fa9e15eda073db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eb43e4f2330a8a8f8282864a657165e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">applyVar</a> (self)</td></tr>
-<tr class="memdesc:a4eb43e4f2330a8a8f8282864a657165e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a variable into the query as stated in the query dialog.  <a href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">More...</a><br /></td></tr>
-<tr class="separator:a4eb43e4f2330a8a8f8282864a657165e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11c26a374ef30da345563e1f5459936a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a11c26a374ef30da345563e1f5459936a">__init__</a> (self, <a class="el" href="a00273.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">ttlstring</a>, <a class="el" href="a00273.html#aafcf1146e38f7f4733cbf5dc6a6fb147">triplestoreconf</a>, currentindex)</td></tr>
+<tr class="separator:a11c26a374ef30da345563e1f5459936a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ee4f0a7774436bd1d9b8de64402137"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#ad3ee4f0a7774436bd1d9b8de64402137">checkConnection</a> (self, calledfromotherfunction=False, showMessageBox=True, query=&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;)</td></tr>
+<tr class="memdesc:ad3ee4f0a7774436bd1d9b8de64402137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the connection to a triple store which has been defined by a given internet address.  <a href="a00273.html#ad3ee4f0a7774436bd1d9b8de64402137">More...</a><br /></td></tr>
+<tr class="separator:ad3ee4f0a7774436bd1d9b8de64402137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452dcd98676575e133f2fd74a3a8bd01"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a452dcd98676575e133f2fd74a3a8bd01">check_state1</a> (self)</td></tr>
+<tr class="separator:a452dcd98676575e133f2fd74a3a8bd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee700008c6180fc09c43e84dd4cfc1f1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#aee700008c6180fc09c43e84dd4cfc1f1">check_state</a> (self, sender)</td></tr>
+<tr class="separator:aee700008c6180fc09c43e84dd4cfc1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90fc6f7893dab1f161f0876eedf261af"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a90fc6f7893dab1f161f0876eedf261af">compareLayers</a> (layer1, layer2, idcolumn)</td></tr>
+<tr class="separator:a90fc6f7893dab1f161f0876eedf261af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad37f8ed07349b0ff9667607c64473225"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#ad37f8ed07349b0ff9667607c64473225">addNewLayerToTripleStore</a> (self)</td></tr>
+<tr class="memdesc:ad37f8ed07349b0ff9667607c64473225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new QGIS layer to a triplestore with a given address.  <a href="a00273.html#ad37f8ed07349b0ff9667607c64473225">More...</a><br /></td></tr>
+<tr class="separator:ad37f8ed07349b0ff9667607c64473225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a3d5c5f8fd0529cd88f52bf58586cc0ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">ttlstring</a></td></tr>
+<tr class="separator:a3d5c5f8fd0529cd88f52bf58586cc0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09dec5fb4a23fd0028407eddbe26cc16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a09dec5fb4a23fd0028407eddbe26cc16">qtask</a></td></tr>
+<tr class="separator:a09dec5fb4a23fd0028407eddbe26cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a48537577b75975b2d8d86aad8a878bd6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a48537577b75975b2d8d86aad8a878bd6">inputfield</a> = None</td></tr>
-<tr class="separator:a48537577b75975b2d8d86aad8a878bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa67be040d27a2950e9f362c87804ce96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#aa67be040d27a2950e9f362c87804ce96">chooseField</a> = None</td></tr>
-<tr class="separator:aa67be040d27a2950e9f362c87804ce96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67c2f0ef9ec9c7c111e0214b3be7fec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">chooseLayer</a> = None</td></tr>
-<tr class="separator:a67c2f0ef9ec9c7c111e0214b3be7fec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4290d9428a06b5fa270a58e95ae89c1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a4290d9428a06b5fa270a58e95ae89c1c">columnvars</a> = None</td></tr>
-<tr class="separator:a4290d9428a06b5fa270a58e95ae89c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd9ae4cdd3fd369783ecc127c418871"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a9dd9ae4cdd3fd369783ecc127c418871">currentrow</a> = &quot;&quot;</td></tr>
+<tr class="separator:a9dd9ae4cdd3fd369783ecc127c418871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafcf1146e38f7f4733cbf5dc6a6fb147"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#aafcf1146e38f7f4733cbf5dc6a6fb147">triplestoreconf</a> = &quot;&quot;</td></tr>
+<tr class="separator:aafcf1146e38f7f4733cbf5dc6a6fb147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22becd814f00141dbdbb9167f5b9551f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a22becd814f00141dbdbb9167f5b9551f">interlinkOrEnrich</a> = False</td></tr>
+<tr class="separator:a22becd814f00141dbdbb9167f5b9551f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c2bb7c4c08c1fad52520ab43f66f34"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#ab1c2bb7c4c08c1fad52520ab43f66f34">searchResultMap</a> = {}</td></tr>
+<tr class="separator:ab1c2bb7c4c08c1fad52520ab43f66f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab31a20ab07de26623b45757ffb619144"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#ab31a20ab07de26623b45757ffb619144">table</a> = False</td></tr>
+<tr class="separator:ab31a20ab07de26623b45757ffb619144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa678c21e5c99845c09c18d10cdbf7b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#afa678c21e5c99845c09c18d10cdbf7b5">valmaptable</a> = False</td></tr>
+<tr class="separator:afa678c21e5c99845c09c18d10cdbf7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aa91eb05e0f70d41e5ae3348922a469"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00273.html#a6aa91eb05e0f70d41e5ae3348922a469">fieldname</a> = &quot;&quot;</td></tr>
+<tr class="separator:a6aa91eb05e0f70d41e5ae3348922a469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class representing the variable input dialog which maps geodataset columns to SPARQL query variables. </p>
+<div class="textblock"><p>Dialog to upload a generated RDF result to a triple store. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5b1893b3a08b784677ccf501dfec239e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b1893b3a08b784677ccf501dfec239e">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="a11c26a374ef30da345563e1f5459936a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11c26a374ef30da345563e1f5459936a">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,19 +156,192 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
+          <td class="paramname"><em>ttlstring</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>inputfield</em>, </td>
+          <td class="paramname"><em>triplestoreconf</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>columnvars</em>&#160;</td>
+          <td class="paramname"><em>currentindex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span><a class="code" href="a00361.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, ttlstring, triplestoreconf, currentindex):</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        super(QDialog, self).<a class="code" href="a00361.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.ttlstring = ttlstring</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        urlregex = QRegExp(<span class="stringliteral">&quot;http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+&quot;</span>)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        urlvalidator = QRegExpValidator(urlregex, self)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;endpoint&quot;</span> <span class="keywordflow">in</span> triplestoreconf[currentindex]:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            self.tripleStoreURLEdit.setText(triplestoreconf[currentindex][<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.tripleStoreURLEdit.setValidator(urlvalidator)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.tripleStoreURLEdit.textChanged.connect(self.check_state1)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="comment"># Populate the comboBox with names of all the loaded unicorn layers</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.loadedLayers.clear()</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">for</span> layer <span class="keywordflow">in</span> layers:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            ucl = layer.name()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.loadedLayers.add(ucl)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        endpointurls = []</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            endpointurls.append(item[<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.tripleStoreURLEdit.setCompleter(QCompleter(endpointurls))</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.checkConnectionButton.clicked.connect(self.checkConnection)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.applyButton.clicked.connect(self.addNewLayerToTripleStore)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad37f8ed07349b0ff9667607c64473225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad37f8ed07349b0ff9667607c64473225">&#9670;&nbsp;</a></span>addNewLayerToTripleStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def addNewLayerToTripleStore </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new QGIS layer to a triplestore with a given address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">triplestoreaddress</td><td>The address of the triple store </td></tr>
+    <tr><td class="paramname">layer</td><td>The layer to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">def </span>addNewLayerToTripleStore(self):</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="comment"># ttlstring=self.layerToTTLString(layer)</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        queryString = <span class="stringliteral">&quot;INSERT DATA { GRAPH &lt;http://example.com/&gt; { &quot;</span> + self.ttlstring + <span class="stringliteral">&quot; } }&quot;</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        sparql = SPARQLWrapper(self.tripleStoreURLEdit.text())</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        sparql.setHTTPAuth(BASIC)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> self.usernameEdit.text() != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> self.passwordEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            sparql.setCredentials(self.usernameEdit.text(), self.passwordEdit.text())</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        sparql.setQuery(queryString)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        sparql.method = <span class="stringliteral">&#39;POST&#39;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        results = sparql.query()</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        msgBox = QMessageBox()</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        msgBox.setWindowTitle(<span class="stringliteral">&quot;SPARQL UPDATE Status&quot;</span>)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        msgBox.setText(str(results.response.read()))</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        msgBox.exec()</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00273.html#a3d5c5f8fd0529cd88f52bf58586cc0ec">UploadRDFDialog.ttlstring</a>.</p>
+
+</div>
+</div>
+<a id="aee700008c6180fc09c43e84dd4cfc1f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee700008c6180fc09c43e84dd4cfc1f1">&#9670;&nbsp;</a></span>check_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def check_state </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>sender</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        validator = sender.validator()</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="a00273.html#a452dcd98676575e133f2fd74a3a8bd01">UploadRDFDialog.check_state1()</a>.</p>
+
+</div>
+</div>
+<a id="a452dcd98676575e133f2fd74a3a8bd01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452dcd98676575e133f2fd74a3a8bd01">&#9670;&nbsp;</a></span>check_state1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def check_state1 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self.check_state(self.tripleStoreURLEdit)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00237.html#aee700008c6180fc09c43e84dd4cfc1f1">GraphValidationDialog.check_state()</a>, <a class="el" href="a00245.html#aee700008c6180fc09c43e84dd4cfc1f1">LoadGraphDialog.check_state()</a>, <a class="el" href="a00225.html#aee700008c6180fc09c43e84dd4cfc1f1">ConvertCRSDialog.check_state()</a>, <a class="el" href="a00273.html#aee700008c6180fc09c43e84dd4cfc1f1">UploadRDFDialog.check_state()</a>, <a class="el" href="a00257.html#aee700008c6180fc09c43e84dd4cfc1f1">SearchDialog.check_state()</a>, <a class="el" href="a00269.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreQuickAddDialog.check_state()</a>, and <a class="el" href="a00265.html#aee700008c6180fc09c43e84dd4cfc1f1">TripleStoreDialog.check_state()</a>.</p>
+
+</div>
+</div>
+<a id="ad3ee4f0a7774436bd1d9b8de64402137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ee4f0a7774436bd1d9b8de64402137">&#9670;&nbsp;</a></span>checkConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def checkConnection </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>calledfromotherfunction</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>showMessageBox</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>query</em> = <code>&quot;SELECT&#160;?a&#160;?b&#160;?c&#160;WHERE&#160;{&#160;?a&#160;?b&#160;?c&#160;.}&#160;LIMIT&#160;1&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -156,154 +351,80 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the dialog by loading existing layers. </p>
+<p>Checks the connection to a triple store which has been defined by a given internet address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">self</td><td>The object pointer </td></tr>
-    <tr><td class="paramname">parent</td><td>A parent window if available </td></tr>
-    <tr><td class="paramname">inputfield</td><td>The inputfield to which the variable will be saved </td></tr>
-    <tr><td class="paramname">columnvars</td><td>A map of already existing variable mappings <br  />
- </td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">def </span><a class="code" href="a00353.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, parent, inputfield, columnvars):</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        super(QDialog, self).<a class="code" href="a00353.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        print(layers)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.inputfield = inputfield</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.columnvars = columnvars</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.chooseLayer.clear()</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">for</span> layer <span class="keywordflow">in</span> layers:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            self.chooseLayer.addItem(layer.name())</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.chooseLayer.currentIndexChanged.connect(self.layerselectaction)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.chooseField.clear()</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.applyButton.clicked.connect(self.applyVar)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.layerselectaction()</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<dl class="section return"><dt>Returns</dt><dd>True if the connection was successful, false otherwise </dd></dl>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">def </span>checkConnection(self, calledfromotherfunction=False, showMessageBox=True,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        query=&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;):</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Checking connection to triple store &quot;</span> + self.tripleStoreURLEdit.text() + <span class="stringliteral">&quot;...&quot;</span>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                   <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        progress.show()</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        self.qtask = DetectTripleStoreTask(</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="stringliteral">&quot;Checking connection to triple store &quot;</span> + self.tripleStoreURLEdit.text() + <span class="stringliteral">&quot;...&quot;</span>, self.triplestoreconf,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            self.tripleStoreURLEdit.text(), self.tripleStoreURLEdit.text(), <span class="keyword">True</span>, <span class="keyword">False</span>, [], {}, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keyword">False</span>,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">None</span>, progress)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, <a class="el" href="a00273.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00273.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00273.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00253.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00205.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, <a class="el" href="a00273.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>, and <a class="el" href="a00273.html#a514d660ea487e92b9fa9e15eda073db9">VarInputDialog.layerselectaction()</a>.</p>
-
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4eb43e4f2330a8a8f8282864a657165e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eb43e4f2330a8a8f8282864a657165e">&#9670;&nbsp;</a></span>applyVar()</h2>
+<a id="a90fc6f7893dab1f161f0876eedf261af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90fc6f7893dab1f161f0876eedf261af">&#9670;&nbsp;</a></span>compareLayers()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def applyVar </td>
+          <td class="memname">def compareLayers </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>layer1</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Inserts a variable into the query as stated in the query dialog. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">self</td><td>The object pointer</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>The variable will be inserted and the corresponding SPARQL VALUES statement will be generated in the background </p>
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">def </span>applyVar(self):</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        index = self.chooseLayer.currentIndex()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        layer = layers[index].layer()</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        layername = self.chooseLayer.currentText()</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        fieldname = self.chooseField.currentText()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> layer.featureCount() == 0:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            msgBox.setText(</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="stringliteral">&quot;The layer column does not contain any features, therefore no query variable will be created!&quot;</span>)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            self.close()</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> self.varNameEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            varname = <span class="stringliteral">&quot;?_&quot;</span> + self.varNameEdit.text()</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            varname = <span class="stringliteral">&quot;?_&quot;</span> + layername.replace(<span class="stringliteral">&quot; &quot;</span>, <span class="stringliteral">&quot;&quot;</span>) + <span class="stringliteral">&quot;_&quot;</span> + fieldname.replace(<span class="stringliteral">&quot; &quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        self.inputfield.insertPlainText(varname)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        queryinsert = <span class="stringliteral">&quot;VALUES &quot;</span> + varname + <span class="stringliteral">&quot; {&quot;</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        attlist = {<span class="stringliteral">&quot;&quot;</span>}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer.getFeatures():</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            attlist.add(f[fieldname])</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">for</span> att <span class="keywordflow">in</span> attlist:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> att != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">if</span> self.varType.currentText() == <span class="stringliteral">&quot;URI&quot;</span> <span class="keywordflow">or</span> (</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        self.varType.currentText() == <span class="stringliteral">&quot;Automatic&quot;</span> <span class="keywordflow">and</span> att.startswith(<span class="stringliteral">&quot;http&quot;</span>)):</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    queryinsert += <span class="stringliteral">&quot;&lt;&quot;</span> + att + <span class="stringliteral">&quot;&gt;&quot;</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;Integer&quot;</span> <span class="keywordflow">or</span> self.varType.currentText() == <span class="stringliteral">&quot;Double&quot;</span>:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    queryinsert += att</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;Date&quot;</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    queryinsert += <span class="stringliteral">&quot;\&quot;&quot;</span> + att + <span class="stringliteral">&quot;\&quot;^^xsd:date&quot;</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                <span class="keywordflow">elif</span> self.varType.currentText() == <span class="stringliteral">&quot;String&quot;</span> <span class="keywordflow">or</span> self.varType.currentText() == <span class="stringliteral">&quot;Automatic&quot;</span>:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    queryinsert += <span class="stringliteral">&quot;\&quot;&quot;</span> + att + <span class="stringliteral">&quot;\&quot;&quot;</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    <span class="keywordflow">if</span> self.isLabelLabel.isChecked():</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                        queryinsert += <span class="stringliteral">&quot;@&quot;</span> + self.labelLang.text()</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                queryinsert += <span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        queryinsert += <span class="stringliteral">&quot;}&quot;</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.columnvars[varname] = queryinsert</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.close()</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00273.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, <a class="el" href="a00273.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>, <a class="el" href="a00273.html#a4290d9428a06b5fa270a58e95ae89c1c">VarInputDialog.columnvars</a>, <a class="el" href="a00253.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicornDialog.columnvars</a>, <a class="el" href="a00205.html#ae0b48044f5a1635491a0673852cf912c">SPARQLunicorn.columnvars</a>, and <a class="el" href="a00273.html#a48537577b75975b2d8d86aad8a878bd6">VarInputDialog.inputfield</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>.</p>
-
-</div>
-</div>
-<a id="a514d660ea487e92b9fa9e15eda073db9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a514d660ea487e92b9fa9e15eda073db9">&#9670;&nbsp;</a></span>layerselectaction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">def layerselectaction </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>idcolumn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Refreshes the layer column view of the dialog when a new layer is selected. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">self</td><td>The object pointer <br  />
- </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">def </span>layerselectaction(self):</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        index = self.chooseLayer.currentIndex()</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        layer = layers[index].layer()</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.chooseField.clear()</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                self.chooseField.addItem(field)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            print(<span class="stringliteral">&quot;No vector layer&quot;</span>)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">def </span>compareLayers(layer1, layer2, idcolumn):</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        changedTriples = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> layer1.getFeatures():</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            geom = f.geometry()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            id = f[idcolumn]</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            expr = QgsExpression(<span class="stringliteral">&quot;\&quot;&quot;</span> + idcolumn + <span class="stringliteral">&quot;\&quot;=&quot;</span> + id)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            it = cLayer.getFeatures(QgsFeatureRequest(expr))</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="comment"># if len(it)==0:</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="comment"># Add new line</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="comment"># elif len(it)&gt;0:</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="comment"># Compare</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00273.html#aa67be040d27a2950e9f362c87804ce96">VarInputDialog.chooseField</a>, and <a class="el" href="a00273.html#a67c2f0ef9ec9c7c111e0214b3be7fec3">VarInputDialog.chooseLayer</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa67be040d27a2950e9f362c87804ce96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa67be040d27a2950e9f362c87804ce96">&#9670;&nbsp;</a></span>chooseField</h2>
+<a id="a9dd9ae4cdd3fd369783ecc127c418871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd9ae4cdd3fd369783ecc127c418871">&#9670;&nbsp;</a></span>currentrow</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +433,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">chooseField = None</td>
+          <td class="memname">string currentrow = &quot;&quot;</td>
         </tr>
       </table>
   </td>
@@ -322,12 +443,12 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, <a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, and <a class="el" href="a00273.html#a514d660ea487e92b9fa9e15eda073db9">VarInputDialog.layerselectaction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00277.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a00277.html#aba518420f8497b693093f21c2624fb45">ValueMappingDialog.buildSearchDialog()</a>.</p>
 
 </div>
 </div>
-<a id="a67c2f0ef9ec9c7c111e0214b3be7fec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67c2f0ef9ec9c7c111e0214b3be7fec3">&#9670;&nbsp;</a></span>chooseLayer</h2>
+<a id="a6aa91eb05e0f70d41e5ae3348922a469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aa91eb05e0f70d41e5ae3348922a469">&#9670;&nbsp;</a></span>fieldname</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +457,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">chooseLayer = None</td>
+          <td class="memname">string fieldname = &quot;&quot;</td>
         </tr>
       </table>
   </td>
@@ -346,12 +467,12 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, <a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, and <a class="el" href="a00273.html#a514d660ea487e92b9fa9e15eda073db9">VarInputDialog.layerselectaction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00277.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>.</p>
 
 </div>
 </div>
-<a id="a4290d9428a06b5fa270a58e95ae89c1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4290d9428a06b5fa270a58e95ae89c1c">&#9670;&nbsp;</a></span>columnvars</h2>
+<a id="a22becd814f00141dbdbb9167f5b9551f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22becd814f00141dbdbb9167f5b9551f">&#9670;&nbsp;</a></span>interlinkOrEnrich</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -360,7 +481,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">columnvars = None</td>
+          <td class="memname">bool interlinkOrEnrich = False</td>
         </tr>
       </table>
   </td>
@@ -370,12 +491,26 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, <a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>, and <a class="el" href="a00413.html#a9428cac43073795e4166503ce80f6283">ToolTipPlainText.createVarInputDialog()</a>.</p>
+</div>
+</div>
+<a id="a09dec5fb4a23fd0028407eddbe26cc16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09dec5fb4a23fd0028407eddbe26cc16">&#9670;&nbsp;</a></span>qtask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">qtask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00365.html#a56c0d7bb6decc89954e354bbd53ec602">EnrichmentTab.enrichLayerProcess()</a>, and <a class="el" href="a00285.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>.</p>
 
 </div>
 </div>
-<a id="a48537577b75975b2d8d86aad8a878bd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48537577b75975b2d8d86aad8a878bd6">&#9670;&nbsp;</a></span>inputfield</h2>
+<a id="ab1c2bb7c4c08c1fad52520ab43f66f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1c2bb7c4c08c1fad52520ab43f66f34">&#9670;&nbsp;</a></span>searchResultMap</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -384,7 +519,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">inputfield = None</td>
+          <td class="memname">dictionary searchResultMap = {}</td>
         </tr>
       </table>
   </td>
@@ -394,18 +529,104 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00273.html#a5b1893b3a08b784677ccf501dfec239e">VarInputDialog.__init__()</a>, and <a class="el" href="a00273.html#a4eb43e4f2330a8a8f8282864a657165e">VarInputDialog.applyVar()</a>.</p>
+</div>
+</div>
+<a id="ab31a20ab07de26623b45757ffb619144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31a20ab07de26623b45757ffb619144">&#9670;&nbsp;</a></span>table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool table = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00277.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="aafcf1146e38f7f4733cbf5dc6a6fb147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafcf1146e38f7f4733cbf5dc6a6fb147">&#9670;&nbsp;</a></span>triplestoreconf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string triplestoreconf = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00285.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00305.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00285.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00277.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00421.html#a46a7ef5867410f61e466056f9dc02a33">ToolTipPlainText.getLabelsForClasses()</a>, <a class="el" href="a00349.html#aae48cf1625ab7d7bcff5a877b5c10511">QueryLayerTask.processLiteral()</a>, <a class="el" href="a00333.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00337.html#ad22709b2e67308af35f55680d5a026e0">InstanceListQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">FindStyleQueryTask.run()</a>, <a class="el" href="a00325.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00341.html#ad22709b2e67308af35f55680d5a026e0">InstanceQueryTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">DataSampleQueryTask.run()</a>, <a class="el" href="a00357.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00349.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00353.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00301.html#ad22709b2e67308af35f55680d5a026e0">DataSchemaQueryTask.run()</a>, <a class="el" href="a00321.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00317.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, and <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>.</p>
+
+</div>
+</div>
+<a id="a3d5c5f8fd0529cd88f52bf58586cc0ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d5c5f8fd0529cd88f52bf58586cc0ec">&#9670;&nbsp;</a></span>ttlstring</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ttlstring</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00273.html#ad37f8ed07349b0ff9667607c64473225">UploadRDFDialog.addNewLayerToTripleStore()</a>.</p>
+
+</div>
+</div>
+<a id="afa678c21e5c99845c09c18d10cdbf7b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa678c21e5c99845c09c18d10cdbf7b5">&#9670;&nbsp;</a></span>valmaptable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool valmaptable = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00277.html#aa5dec5e1a82ecfc970d188e380282813">ValueMappingDialog.addMappingToTable()</a>, <a class="el" href="a00277.html#a03c025e508c48e094dc4bed64fee9dbc">ValueMappingDialog.applyMapping()</a>, and <a class="el" href="a00277.html#acd16fcb1216c2be96c4119a9d67d26d7">ValueMappingDialog.deleteSelectedRow()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00353_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00353.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
+<div class="ttc" id="aa00361_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00361.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00149.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00153.html">dialogs</a></li><li class="navelem"><a class="el" href="a00167.html">varinputdialog</a></li><li class="navelem"><a class="el" href="a00273.html">VarInputDialog</a></li>
+    <li class="navelem"><a class="el" href="a00152.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00156.html">dialogs</a></li><li class="navelem"><a class="el" href="a00169.html">uploadrdfdialog</a></li><li class="navelem"><a class="el" href="a00273.html">UploadRDFDialog</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

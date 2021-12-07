@@ -1,5 +1,6 @@
 var a00137 =
 [
-    [ "SPARQLUtils", "a00393.html", "a00393" ],
-    [ "MESSAGE_CATEGORY", "a00137.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
+    [ "SPARQLHighlighter", "a00397.html", "a00397" ],
+    [ "format", "a00137.html#a52de39c8ac6c67fc1d22018a93f82709", null ],
+    [ "STYLES", "a00137.html#adcbbaf3bcf3dddacbacccee5c2d68196", null ]
 ];

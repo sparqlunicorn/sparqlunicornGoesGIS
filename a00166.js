@@ -1,4 +1,4 @@
 var a00166 =
 [
-    [ "ValueMappingDialog", "a00269.html", "a00269" ]
+    [ "SPARQLunicornDialog", "a00261.html", "a00261" ]
 ];

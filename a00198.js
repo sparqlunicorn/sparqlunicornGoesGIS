@@ -1,4 +1,6 @@
 var a00198 =
 [
-    [ "StyleObject", "a00397.html", "a00397" ]
+    [ "CircleMapTool", "a00381.html", "a00381" ],
+    [ "PolygonMapTool", "a00385.html", "a00385" ],
+    [ "RectangleMapTool", "a00389.html", "a00389" ]
 ];

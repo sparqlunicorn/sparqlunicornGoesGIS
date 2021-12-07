@@ -5,6 +5,7 @@ var a00237 =
     [ "check_state1", "a00237.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
     [ "loadFile", "a00237.html#a2ae2b21223fe5437d0cb6702451276de", null ],
     [ "loadURI", "a00237.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "startValidation", "a00237.html#a81b041c0fd2cb302982b79567a787779", null ],
     [ "dlg", "a00237.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "justloadingfromfile", "a00237.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
     [ "maindlg", "a00237.html#a7a228f82cef256bf0c017634e4195718", null ],

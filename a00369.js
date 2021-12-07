@@ -1,8 +1,14 @@
 var a00369 =
 [
-    [ "detectColumnType", "a00369.html#a3b3b26661848bacfec67cacda1d77cb6", null ],
-    [ "exportLayerAsGeoJSONLD", "a00369.html#a664f3dbc39717e5f4219fc829744d719", null ],
-    [ "layerToDot", "a00369.html#a5d95f97b11e92ed3d36c88331d1d55aa", null ],
-    [ "layerToGraphML", "a00369.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
-    [ "layerToTTLString", "a00369.html#ae1d773c3787ed7cdc49412aa072fcd32", null ]
+    [ "__init__", "a00369.html#a93626884d4600b8cf171d464a41099fd", null ],
+    [ "exportMapping", "a00369.html#ac0b79f251af60953125dc0c3807d8010", null ],
+    [ "exportMappingProcess", "a00369.html#a28f5df4c123a14ca3b15eae26c20064f", null ],
+    [ "loadMapping", "a00369.html#ab38c44b08c637c238d983ebcab2ef845", null ],
+    [ "readMapping", "a00369.html#a69357de86ed09826927e35b3c3378fcd", null ],
+    [ "dlg", "a00369.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "enrichLayer", "a00369.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],
+    [ "exportIdCol", "a00369.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
+    [ "exportNameSpace", "a00369.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
+    [ "exportSetClass", "a00369.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
+    [ "valueconcept", "a00369.html#a94166918eca98bd0764f1c890ee2ec5b", null ]
 ];
