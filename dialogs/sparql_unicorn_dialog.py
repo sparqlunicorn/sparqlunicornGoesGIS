@@ -50,6 +50,7 @@ from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
 from ..tasks.instancelistquerytask import InstanceListQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
+from ..dialogs.convertlayerdialog import ConvertLayerDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..dialogs.instancedatadialog import InstanceDataDialog
@@ -159,7 +160,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete)
         self.inp_sparql2.move(10, 130)
-        self.inp_sparql2.setMinimumSize(780, 431)
+        self.inp_sparql2.setMinimumSize(780, 471)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText(
             "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
@@ -180,7 +181,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.actionConvert_RDF_Data.triggered.connect(self.buildConvertCRSDialog)
-        #self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(self.build)
+        self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(self.buildConvertLayerDialog)
         self.actionTriple_Store_Settings.triggered.connect(self.buildCustomTripleStoreDialog)
         self.actionValidate_RDF_Data.triggered.connect(self.buildGraphValidationDialog)
         self.actionConstraint_By_BBOX.triggered.connect(self.buildBBOXDialog)
@@ -211,11 +212,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
-        self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
+        #self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
         #self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        self.loadUnicornLayers()
+        #self.loadUnicornLayers()
         self.show()
 
 
@@ -516,6 +517,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
         self.searchTripleStoreDialog.exec_()
+
+    def buildConvertLayerDialog(self):
+        self.convertLayerDialog = ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes ,self.maindlg, self)
+        self.convertLayerDialog.setWindowTitle("Convert Layer to Graph")
+        self.convertLayerDialog.exec_()
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.

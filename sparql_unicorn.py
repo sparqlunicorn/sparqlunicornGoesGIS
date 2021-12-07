@@ -620,9 +620,9 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)
-            self.dlg.loadedLayers.clear()
+            #self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
-            self.dlg.exportLayers.clicked.connect(self.exportLayer2)
+            #self.dlg.exportLayers.clicked.connect(self.exportLayer2)
         else:
             self.dlg.show()

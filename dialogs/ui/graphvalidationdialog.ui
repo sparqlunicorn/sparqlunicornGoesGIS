@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>589</width>
+    <width>635</width>
     <height>231</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>324</x>
      <y>190</y>
-     <width>231</width>
+     <width>271</width>
      <height>23</height>
     </rect>
    </property>
@@ -31,7 +31,7 @@
     <rect>
      <x>20</x>
      <y>50</y>
-     <width>101</width>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -48,7 +48,7 @@
   <widget class="QPushButton" name="loadDataFileButton">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>230</x>
      <y>80</y>
      <width>371</width>
      <height>23</height>
@@ -61,9 +61,9 @@
   <widget class="QLabel" name="chosenDataFile">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>230</x>
      <y>50</y>
-     <width>351</width>
+     <width>391</width>
      <height>20</height>
     </rect>
    </property>
@@ -76,7 +76,7 @@
     <rect>
      <x>10</x>
      <y>120</y>
-     <width>181</width>
+     <width>201</width>
      <height>16</height>
     </rect>
    </property>
@@ -87,13 +87,13 @@
     </font>
    </property>
    <property name="text">
-    <string>Choosen Validation Rule Set:</string>
+    <string>Chosen Validation Rule Set:</string>
    </property>
   </widget>
   <widget class="QComboBox" name="chosenValidatorFile">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>230</x>
      <y>120</y>
      <width>371</width>
      <height>22</height>
