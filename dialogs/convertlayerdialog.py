@@ -51,7 +51,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         if filename.endswith("graphml"):
             ttlstring = LayerUtils.layerToGraphML(layer)
         else:
-            ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.loadedLayers.currentIndex()]),
+            ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),"WKT",
                                                     None,None,None,None,None,None)
         with open(filename, 'w') as output_file:
             output_file.write(ttlstring)
@@ -63,6 +63,6 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
             exportNameSpace = ""
             exportSetClass = ""
             with open(filename, 'w') as output_file:
-                output_file.write(g.serialize(format=splitted[len(splitted) - 1]))
+                g.serialize(destination=filename,format=splitted[len(splitted) - 1])
                 iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
         self.close()

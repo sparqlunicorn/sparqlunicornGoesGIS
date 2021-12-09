@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>179</height>
+    <height>219</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>90</y>
+     <y>130</y>
      <width>251</width>
      <height>25</height>
     </rect>
@@ -27,7 +27,7 @@
    <property name="geometry">
     <rect>
      <x>11</x>
-     <y>90</y>
+     <y>130</y>
      <width>111</width>
      <height>20</height>
     </rect>
@@ -46,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
+     <y>180</y>
      <width>171</width>
      <height>25</height>
     </rect>
@@ -78,7 +78,7 @@
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>140</y>
+     <y>180</y>
      <width>171</width>
      <height>25</height>
     </rect>
@@ -87,7 +87,7 @@
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="loadedLayers_2">
+  <widget class="QComboBox" name="vocabularyCBox">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -99,6 +99,21 @@
    <item>
     <property name="text">
      <string>GeoSPARQL Ontology</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>W3C Geo Vocabulary</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Schema.org Vocabulary</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSMRDF Vocabulary</string>
     </property>
    </item>
   </widget>
@@ -121,7 +136,68 @@
     <string>Vocabulary:</string>
    </property>
   </widget>
+  <widget class="QLabel" name="chooseLayerLabel_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Literal Types:</string>
+   </property>
+  </widget>
+  <widget class="QgsCheckableComboBox" name="literalTypeCBox">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>90</y>
+     <width>251</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>GeoJSON Literal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>GML Literal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>KML Literal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>WKT Literal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>WKB Literal</string>
+    </property>
+   </item>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsCheckableComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgscheckablecombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
