@@ -88,7 +88,14 @@ class LayerUtils:
             ttlstring.add( "<" + str(
                 curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#long> \""+str(geom.centroid().vertexAt(0).y())+"\" .\n")
         elif vocab == "Schema.org":
-            return ttlstring
+            ttlstring.add( "<" + str(
+                curid) + "> <http://schema.org/geo> <" + str(curid) + "_geom> .\n")
+            ttlstring.add("<" + str(
+                curid) + "> <http://schema.org/latitude> \"" + str(
+                geom.centroid().vertexAt(0).x()) + "\" .\n")
+            ttlstring.add("<" + str(
+                curid) + "> <http://schema.org/longitude> \"" + str(
+                geom.centroid().vertexAt(0).y()) + "\" .\n")
         elif vocab == "OSMRDF":
             ttlstring.add("<" + str(
                 curid) + "> <https://www.openstreetmap.org/meta/loc> \"" + geom.asWkt() + "\" .\n")
