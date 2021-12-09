@@ -48,7 +48,7 @@ class LayerUtils:
 
     @staticmethod
     def exportGeometryType(curid,geom,vocab,literaltype,init,ttlstring):
-        if vocab=="GeoSPARQL":
+        if "GeoSPARQL" in vocab:
             if init:
                 ttlstring.add(
                     "<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
@@ -64,42 +64,55 @@ class LayerUtils:
                     "<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
                 ttlstring.add(
                     "<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
-            ttlstring.add( "<" + str(
-                curid) + "> <http://www.opengis.net/ont/geosparql#hasGeometry> <" + str(curid) + "_geom> .\n")
-            ttlstring.add( "<" + str(
-                curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
+            ttlstring.add( "<" + str(curid) + "> <http://www.opengis.net/ont/geosparql#hasGeometry> <" + str(curid) + "_geom> .\n")
+            ttlstring.add( "<" + str(curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
                 geom.wkbType()) + "> .\n")
             ttlstring.add( "<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
                 geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
             ttlstring.add( "<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
                 geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n")
             if "WKT" in literaltype:
-                ttlstring.add( "<" + str(
-                    curid) + "_geom> <http://www.opengis.net/ont/geosparql#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
+                ttlstring.add( "<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
             if literaltype == "GeoJSON":
-                ttlstring.add("<" + str(
-                     curid) + "_geom> <http://www.opengis.net/ont/geosparql#asGeoJSON> \"" + geom.asJson() + "\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral> .\n")
+                ttlstring.add("<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asGeoJSON> \"" + geom.asJson() + "\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral> .\n")
             if literaltype == "WKB":
-                ttlstring.add("<" + str(
-                     curid) + "_geom> <http://www.opengis.net/ont/geosparql#asGeoJSON> \"" + geom.asWkb() + "\"^^<http://www.opengis.net/ont/geosparql#wkbLiteral> .\n")
-        elif vocab=="W3CGeo":
-            ttlstring.add( "<" + str(
-                curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#lat> \""+str(geom.centroid().vertexAt(0).x())+"\" .\n")
-            ttlstring.add( "<" + str(
-                curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#long> \""+str(geom.centroid().vertexAt(0).y())+"\" .\n")
-        elif vocab == "Schema.org":
+                ttlstring.add("<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asGeoJSON> \"" + geom.asWkb() + "\"^^<http://www.opengis.net/ont/geosparql#wkbLiteral> .\n")
+        elif "W3C" in vocab and "Geo" in vocab:
+            if init:
+                ttlstring.add(
+                    "<http://www.w3.org/2003/01/geo/wgs84_pos#lat> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
+                ttlstring.add(
+                    "<http://www.w3.org/2003/01/geo/wgs84_pos#long> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
+            ttlstring.add( "<" + str(curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#lat> \""+str(geom.centroid().vertexAt(0).x())+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+            ttlstring.add( "<" + str(curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#long> \""+str(geom.centroid().vertexAt(0).y())+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+        elif "Schema.org" in vocab:
+            if init:
+                ttlstring.add(
+                    "<http://schema.org/geo> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
+                ttlstring.add(
+                    "<http://schema.org/latitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
+                ttlstring.add(
+                    "<http://schema.org/longitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
             ttlstring.add( "<" + str(
                 curid) + "> <http://schema.org/geo> <" + str(curid) + "_geom> .\n")
             ttlstring.add("<" + str(
-                curid) + "> <http://schema.org/latitude> \"" + str(
-                geom.centroid().vertexAt(0).x()) + "\" .\n")
+                curid) + "_geom> <http://schema.org/latitude> \"" + str(
+                geom.centroid().vertexAt(0).x()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
             ttlstring.add("<" + str(
-                curid) + "> <http://schema.org/longitude> \"" + str(
-                geom.centroid().vertexAt(0).y()) + "\" .\n")
-        elif vocab == "OSMRDF":
+                curid) + "_geom> <http://schema.org/longitude> \"" + str(
+                geom.centroid().vertexAt(0).y()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+        elif "OSMRDF" in vocab:
+            if init:
+                ttlstring.add(
+                    "<https://www.openstreetmap.org/meta/loc> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
             ttlstring.add("<" + str(
                 curid) + "> <https://www.openstreetmap.org/meta/loc> \"" + geom.asWkt() + "\" .\n")
-        elif vocab == "OrdnanceUK":
+        elif "OrdnanceUK" in vocab:
+            if init:
+                ttlstring.add(
+                    "<http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
+                ttlstring.add(
+                    "<http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
             ttlstring.add("<" + str(
                 curid) + "> <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> \"" + str(
                 geom.centroid().vertexAt(0).x()) + "\" .\n")
@@ -118,6 +131,8 @@ class LayerUtils:
                          valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):
         fieldnames = [field.name() for field in layer.fields()]
         QgsMessageLog.logMessage("FIELDNAMES: "+str(fieldnames),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("FIELDNAMES: "+str(vocab),
                                  MESSAGE_CATEGORY, Qgis.Info)
         ttlstring=set()
         first = 0
