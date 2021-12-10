@@ -38,7 +38,14 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
             ucl = layer.name()
             self.loadedLayers.addItem(ucl)
         self.convertToRDFButton.clicked.connect(self.startConversion)
+        self.vocabularyCBox.currentIndexChanged.connect(self.vocabularyCBoxIndexChanged)
         self.cancelButton.clicked.connect(self.close)
+
+    def vocabularyCBoxIndexChanged(self):
+        if "GeoSPARQL" not in self.vocabularyCBox.currentText():
+            self.literalTypeCBox.setEnabled(False)
+        else:
+            self.literalTypeCBox.setEnabled(True)
 
 
     def startConversion(self):
