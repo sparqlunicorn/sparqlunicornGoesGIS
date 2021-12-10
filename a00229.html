@@ -97,6 +97,8 @@ Collaboration diagram for ConvertLayerDialog:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a534a81b01488d60d7296437307b2cb1b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00229.html#a534a81b01488d60d7296437307b2cb1b">__init__</a> (self, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>={}, <a class="el" href="a00229.html#a302e350558edcbbd7b85927b33550548">prefixes</a>=[], <a class="el" href="a00229.html#a7a228f82cef256bf0c017634e4195718">maindlg</a>=None, parent=None)</td></tr>
 <tr class="separator:a534a81b01488d60d7296437307b2cb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15861c0689e000858a9505b9616cf03"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00229.html#aa15861c0689e000858a9505b9616cf03">vocabularyCBoxIndexChanged</a> (self)</td></tr>
+<tr class="separator:aa15861c0689e000858a9505b9616cf03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a281b1c143a8afdfa22a668ec770e812b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00229.html#a281b1c143a8afdfa22a668ec770e812b">startConversion</a> (self)</td></tr>
 <tr class="separator:a281b1c143a8afdfa22a668ec770e812b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -179,8 +181,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            ucl = layer.name()</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            self.loadedLayers.addItem(ucl)</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.convertToRDFButton.clicked.connect(self.startConversion)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.vocabularyCBox.currentIndexChanged.connect(self.vocabularyCBoxIndexChanged)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00209.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
@@ -203,34 +205,59 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">def </span>startConversion(self):</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        layer = layers[self.loadedLayers.currentIndex()].layer()</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        filename, _filter = QFileDialog.getSaveFileName(</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            self, <span class="stringliteral">&quot;Select   output file &quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Linked Data (*.ttl *.n3 *.nt *.graphml)&quot;</span>, )</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> filename == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            ttlstring = LayerUtils.layerToGraphML(layer)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            ttlstring = LayerUtils.layerToTTLString(layer, <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),<span class="stringliteral">&quot;WKT&quot;</span>,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                    <span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            output_file.write(ttlstring)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            g = Graph()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                g.serialize(destination=filename,format=splitted[len(splitted) - 1])</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        self.close()</div>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">def </span>startConversion(self):</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        layer = layers[self.loadedLayers.currentIndex()].layer()</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        filename, _filter = QFileDialog.getSaveFileName(</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self, <span class="stringliteral">&quot;Select   output file &quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;Linked Data (*.ttl *.n3 *.nt *.graphml)&quot;</span>, )</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> filename == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            ttlstring = LayerUtils.layerToGraphML(layer)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            ttlstring = LayerUtils.layerToTTLString(layer, <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),<span class="stringliteral">&quot;WKT&quot;</span>,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                    <span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            output_file.write(ttlstring)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            g = Graph()</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                g.serialize(destination=filename,format=splitted[len(splitted) - 1])</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        self.close()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00225.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00229.html#a302e350558edcbbd7b85927b33550548">ConvertLayerDialog.prefixes</a>, and <a class="el" href="a00209.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>.</p>
 
+</div>
+</div>
+<a id="aa15861c0689e000858a9505b9616cf03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15861c0689e000858a9505b9616cf03">&#9670;&nbsp;</a></span>vocabularyCBoxIndexChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def vocabularyCBoxIndexChanged </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">def </span>vocabularyCBoxIndexChanged(self):</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;GeoSPARQL&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> self.vocabularyCBox.currentText():</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            self.literalTypeCBox.setEnabled(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            self.literalTypeCBox.setEnabled(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>

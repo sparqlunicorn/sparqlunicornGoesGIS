@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"a00361.html#af768e72071b11f2a420139fa04036c17":[1,0,2,2,18,0,0],
 "a00365.html":[1,0,0,0],
 "a00365.html#a09dec5fb4a23fd0028407eddbe26cc16":[1,0,0,0,13],
 "a00365.html#a28e8c8cab7654b472c43f25f3005b3ad":[1,0,0,0,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "functions_func_q.html":[1,3,1,16],
 "functions_func_r.html":[1,3,1,17],
 "functions_func_s.html":[1,3,1,18],
-"functions_func_t.html":[1,3,1,19],
-"functions_func_u.html":[1,3,1,20]
+"functions_func_t.html":[1,3,1,19]
 };
