@@ -61,8 +61,9 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
             self.chosenDataFile.setText(fileNames[0])
 
     def startValidation(self):
-        progress = QProgressDialog("Loading Graph and converting CRS of graph: " + self.chosenDataFile.text(), "Abort",
+        progress = QProgressDialog("Validating graph: " + self.chosenDataFile.text(), "Abort",
                                    0, 0, self)
+        progress.setWindowTitle("Graph Validation")
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         #if self.convertAllCheckBox.checkState():
