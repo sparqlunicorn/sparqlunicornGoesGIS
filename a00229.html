@@ -215,21 +215,22 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            ttlstring = LayerUtils.layerToGraphML(layer)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            ttlstring = LayerUtils.layerToTTLString(layer, <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),<span class="stringliteral">&quot;WKT&quot;</span>,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                    <span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            output_file.write(ttlstring)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            g = Graph()</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                g.serialize(destination=filename,format=splitted[len(splitted) - 1])</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        self.close()</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            ttlstring = LayerUtils.layerToTTLString(layer,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),<span class="stringliteral">&quot;WKT&quot;</span>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            output_file.write(ttlstring)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> filename.endswith(<span class="stringliteral">&quot;graphml&quot;</span>):</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            g = Graph()</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            g.parse(data=ttlstring, format=<span class="stringliteral">&quot;ttl&quot;</span>)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            splitted = filename.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            exportNameSpace = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            exportSetClass = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> output_file:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                g.serialize(destination=filename,format=splitted[len(splitted) - 1])</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                iface.messageBar().pushMessage(<span class="stringliteral">&quot;export layer successfully!&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        self.close()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00225.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00229.html#a302e350558edcbbd7b85927b33550548">ConvertLayerDialog.prefixes</a>, and <a class="el" href="a00209.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>.</p>
 
