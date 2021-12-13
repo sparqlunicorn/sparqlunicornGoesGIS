@@ -4,7 +4,6 @@ var a00421 =
     [ "buildSearchDialog", "a00421.html#a8ba30c801fb03a6265193b413d3b8dda", null ],
     [ "createVarInputDialog", "a00421.html#a9428cac43073795e4166503ce80f6283", null ],
     [ "focusInEvent", "a00421.html#a43137cc37c25bc1aee85e3a5870e25c7", null ],
-    [ "getLabelsForClasses", "a00421.html#a46a7ef5867410f61e466056f9dc02a33", null ],
     [ "highlightCurrentLine", "a00421.html#acb327d98a2cf8456dcab153b3c3b017e", null ],
     [ "insertCompletion", "a00421.html#ae951a11f594110260b86cee2ddb2d8df", null ],
     [ "keyPressEvent", "a00421.html#aaf7224b03642e3cfe85bd396f1f4b08f", null ],
