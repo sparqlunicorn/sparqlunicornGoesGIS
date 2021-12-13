@@ -1,18 +1,9 @@
 var a00381 =
 [
-    [ "__init__", "a00381.html#a5788aa490c766bf347cb9d3712abc036", null ],
-    [ "canvasMoveEvent", "a00381.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00381.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "canvasReleaseEvent", "a00381.html#af1a565828651f16efdecaee54f27a1b2", null ],
-    [ "deactivate", "a00381.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "rbcircle", "a00381.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
-    [ "reset", "a00381.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00381.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "center", "a00381.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
-    [ "iface", "a00381.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00381.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00381.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "segments", "a00381.html#a95912ea8e057275833a7edd278c87dfd", null ],
-    [ "selectionDone", "a00381.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00381.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "detectColumnType", "a00381.html#a3b3b26661848bacfec67cacda1d77cb6", null ],
+    [ "exportGeometryType", "a00381.html#a6ab4400bb1d621394fec9af6ed12467b", null ],
+    [ "exportLayerAsGeoJSONLD", "a00381.html#a664f3dbc39717e5f4219fc829744d719", null ],
+    [ "layerToDot", "a00381.html#a5d95f97b11e92ed3d36c88331d1d55aa", null ],
+    [ "layerToGraphML", "a00381.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
+    [ "layerToTTLString", "a00381.html#ae39fdf5bb286c926d659bcbf9fe38bc8", null ]
 ];
