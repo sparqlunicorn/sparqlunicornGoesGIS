@@ -1,4 +1,4 @@
 var a00172 =
 [
-    [ "UploadRDFDialog", "a00277.html", "a00277" ]
+    [ "EnrichmentDialog", "a00285.html", "a00285" ]
 ];

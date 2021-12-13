@@ -1,13 +1,10 @@
 var a00253 =
 [
-    [ "__init__", "a00253.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
+    [ "__init__", "a00253.html#af69c3a8f180ead6f0a55751c1c11fea7", null ],
     [ "_loadFinished", "a00253.html#a27b737395c35a2a45db65ae7028ed22c", null ],
     [ "callable", "a00253.html#a828c7df71b0e86f775916045240464e2", null ],
-    [ "createGithubDialog", "a00253.html#a085f123eccc32611b2e152b67a1a6970", null ],
-    [ "createGitlabcomDialog", "a00253.html#a9be880f2f13a1ec5ec598a1ecdd45c7d", null ],
-    [ "createGoogleDialog", "a00253.html#ae0f57848626600d4b74a8ff044890850", null ],
-    [ "createORCIDDialog", "a00253.html#ad0150eae519b6b089f9eb754e8089565", null ],
+    [ "app", "a00253.html#afe63fea7be31b0200b496d08bc6b517d", null ],
     [ "html", "a00253.html#a8f99bc655183db169e126fc155ceb631", null ],
     [ "logged_in", "a00253.html#a2dde74ef7a1b1433fa85f7aefe03952e", null ],
-    [ "myWV", "a00253.html#a65caa397887c9eb3ed0ab2480a1bc65a", null ]
+    [ "nam", "a00253.html#a51416118072e894072c6e79857b054a0", null ]
 ];
