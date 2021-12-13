@@ -1,10 +1,10 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor,QIcon
+from qgis.PyQt.QtCore import QItemSelectionModel
+from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsTask, QgsMessageLog,
 )
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'

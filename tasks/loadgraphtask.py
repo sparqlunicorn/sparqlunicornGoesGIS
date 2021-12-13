@@ -1,8 +1,8 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtGui import QStandardItem
-from qgis.PyQt.QtWidgets import QCompleter, QMessageBox
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsTask
 )
 
 MESSAGE_CATEGORY = 'LoadGraphTask'

@@ -1,7 +1,7 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
-from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
+from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator

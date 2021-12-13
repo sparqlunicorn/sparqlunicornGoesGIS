@@ -1,10 +1,9 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QComboBox, QPushButton, QAction, QMessageBox, QCompleter, \
-    QPlainTextEdit, QLineEdit
+from qgis.PyQt.QtWidgets import QDialog, QAction, QMessageBox, QCompleter, QLineEdit
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsFeature, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsWkbTypes, QgsMapLayer, QgsPointXY
+from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
+    QgsCoordinateTransform, QgsPointXY
 from qgis.gui import QgsMapCanvas, QgsMapToolPan, QgsProjectionSelectionWidget
 from qgis.PyQt import uic
 from ..util.mappingtools import RectangleMapTool

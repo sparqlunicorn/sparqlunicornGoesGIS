@@ -2,9 +2,9 @@ import json
 import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog
+from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsTask, QgsMessageLog,
 )
 
 MESSAGE_CATEGORY = 'WhatToEnrichQueryTask'

@@ -1,8 +1,8 @@
 from ..util.sparqlutils import SPARQLUtils
-from qgis.PyQt.QtGui import QStandardItem, QIcon
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.core import Qgis
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog
+ QgsTask, QgsMessageLog
 )
 
 MESSAGE_CATEGORY = 'InstanceListQueryTask'

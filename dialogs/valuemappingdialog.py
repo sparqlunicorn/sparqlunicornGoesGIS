@@ -1,5 +1,4 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, \
-    QRadioButton, QListWidgetItem, QTableWidgetItem, QTableWidget, QPlainTextEdit
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox,QListWidgetItem, QTableWidgetItem
 from qgis.PyQt import uic
 from ..dialogs.searchdialog import SearchDialog
 from ..util.sparqlhighlighter import SPARQLHighlighter

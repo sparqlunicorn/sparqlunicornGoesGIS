@@ -1,13 +1,12 @@
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsMessageLog
 )
 from qgis.core import Qgis
 from qgis.core import QgsWkbTypes
 import uuid
 import re
 import json
-import io
 import urllib.parse
 from ..util.crsexporttools import ConvertCRS
 from ..util.sparqlutils import SPARQLUtils

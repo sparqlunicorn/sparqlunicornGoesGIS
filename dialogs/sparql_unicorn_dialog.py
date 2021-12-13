@@ -31,8 +31,8 @@ from qgis.PyQt import QtCore
 from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
-from qgis.PyQt.QtWidgets import QComboBox, QCompleter, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
-    QAbstractItemView, QListView, QMessageBox, QApplication, QMenu, QAction, QProgressDialog,QFileDialog
+from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
+    QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog
 from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog

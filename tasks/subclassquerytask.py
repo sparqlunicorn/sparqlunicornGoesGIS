@@ -1,11 +1,8 @@
-import json
-import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QStyle
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel,QColor, QIcon
+from qgis.PyQt.QtGui import QStandardItem, QColor
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog
+    QgsTask, QgsMessageLog
 )
 
 MESSAGE_CATEGORY = 'SubClassQueryTask'

@@ -1,10 +1,10 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import QSettings, QItemSelectionModel, Qt
-from qgis.PyQt.QtGui import QStandardItem, QIcon
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog
+    QgsTask, QgsMessageLog
 )
 
 MESSAGE_CATEGORY = 'ClassTreeQueryTask'

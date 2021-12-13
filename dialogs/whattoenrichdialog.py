@@ -1,8 +1,7 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, \
-    QRadioButton, QListWidgetItem, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import QRegExp, Qt
+from qgis.PyQt.QtWidgets import QDialog, QComboBox, QTableWidgetItem, QProgressDialog
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
-from qgis.core import QgsProject, QgsApplication, QgsMessageLog
+from qgis.core import QgsApplication
 from ..dialogs.searchdialog import SearchDialog
 from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
 import os.path

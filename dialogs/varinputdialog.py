@@ -1,7 +1,6 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QListWidget, QComboBox, QMessageBox, \
-    QRadioButton, QListWidgetItem, QTableWidgetItem, QCheckBox
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox
 from qgis.PyQt import uic
-from qgis.core import QgsProject, QgsMapLayer
+from qgis.core import QgsProject
 import os.path
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(

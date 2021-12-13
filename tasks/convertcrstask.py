@@ -4,11 +4,11 @@ from ..util.sparqlutils import SPARQLUtils
 from ..util.crsexporttools import ConvertCRS
 from qgis.utils import iface
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox, QProgressDialog, QFileDialog
-from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsExpression, QgsFeatureRequest, \
-    QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsApplication, QgsWkbTypes, QgsField
+from qgis.PyQt.QtWidgets import QFileDialog
+from qgis.core import QgsProject, QgsGeometry,\
+    QgsCoordinateReferenceSystem, QgsCoordinateTransform
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsTask, QgsMessageLog,
 )
 
 MESSAGE_CATEGORY = 'ConvertCRSTask'

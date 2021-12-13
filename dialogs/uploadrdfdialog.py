@@ -1,9 +1,8 @@
-from qgis.PyQt.QtWidgets import QDialog, QLabel, QLineEdit, QCompleter, QPushButton, QCheckBox, QListWidget, QComboBox, \
-    QMessageBox, QRadioButton, QListWidgetItem, QTableWidgetItem, QTableWidget, QPlainTextEdit, QProgressDialog
+from qgis.PyQt.QtWidgets import QDialog, QCompleter,QMessageBox, QProgressDialog
 from qgis.core import QgsProject, QgsApplication
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QRegExp, Qt
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIntValidator
+from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 from SPARQLWrapper import SPARQLWrapper, BASIC
 import os.path

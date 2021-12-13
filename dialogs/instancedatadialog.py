@@ -1,6 +1,6 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QLabel,QHeaderView, QLineEdit, QPushButton, QTableWidget, QComboBox, QMessageBox, QRadioButton, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import QRegExp, Qt, QSettings,QUrl
+from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem
+from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
 from qgis.core import Qgis
@@ -9,7 +9,7 @@ from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 import os.path
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsApplication, QgsMessageLog
 )
 
 

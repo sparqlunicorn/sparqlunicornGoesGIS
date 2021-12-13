@@ -2,9 +2,9 @@ from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from qgis.PyQt.QtCore import QVariant
 from qgis.core import Qgis, QgsField
-from qgis.PyQt.QtWidgets import QMessageBox, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QTableWidgetItem
 from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
+    QgsTask, QgsMessageLog,
 )
 
 MESSAGE_CATEGORY = 'EnrichmentQueryTask'

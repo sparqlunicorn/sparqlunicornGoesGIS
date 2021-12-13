@@ -1,10 +1,9 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import  QFileDialog
+from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsProject
 from qgis.core import Qgis
 from ..util.layerutils import LayerUtils
-from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
 from qgis.utils import iface
 from rdflib import Graph
