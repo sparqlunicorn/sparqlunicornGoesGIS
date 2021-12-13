@@ -5,11 +5,7 @@ from PyQt5 import QtCore
 from qgis.core import QgsProject, QgsMapLayer
 from ..dialogs.varinputdialog import VarInputDialog
 from ..dialogs.searchdialog import SearchDialog
-import json
 import re
-import os
-import requests
-import numpy as np
 
 
 class SPARQLCompleter(QCompleter):
@@ -280,55 +276,7 @@ class ToolTipPlainText(QPlainTextEdit):
         # textCursor.clearSelection()
         # self.setTextCursor(self.textCursor())
 
-    def getLabelsForClasses(self, classes, endpointIndex):
-        result = []
-        if classes[0].startswith("Q"):
-            query = self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"]
-        elif classes[0].startswith("P"):
-            query = self.triplestoreconf[self.selector.currentIndex()]["propertylabelquery"]
-        else:
-            return
-        print("Get Labels for Tooltip")
-        # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
-        if "SELECT" in query:
-            vals = "VALUES ?class { "
-            for qid in classes:
-                vals += qid + " "
-            vals += "}\n"
-            query = query.replace("%%concepts%%", vals)
-            sparql = SPARQLWrapper(triplestoreurl,
-                                   agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-            sparql.setQuery(query)
-            sparql.setReturnFormat(JSON)
-            results = sparql.query().convert()
-            for res in results["results"]["bindings"]:
-                result.append(res["class"]["value"])
-        else:
-            url = self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"]
-            i = 0
-            qidquery = ""
-            for qid in classes:
-                print(qid)
-                if "Q" in qid:
-                    qidquery += "Q" + qid.split("Q")[1]
-                if "P" in qid:
-                    qidquery += "P" + qid.split("P")[1]
-                if (i % 50) == 0:
-                    print(url.replace("%%concepts%%", qidquery))
-                    myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
-                    print(myResponse)
-                    if "entities" in myResponse:
-                        for ent in myResponse["entities"]:
-                            print(ent)
-                            if "en" in myResponse["entities"][ent]["labels"]:
-                                result.append(myResponse["entities"][ent]["labels"]["en"]["value"])
-                        qidquery = ""
-                    else:
-                        qidquery += "|"
-                i = i + 1
-        if len(result) > 0:
-            return result[0]
-        return ""
+
 
     def lineNumberAreaWidth(self):
         digits = 1

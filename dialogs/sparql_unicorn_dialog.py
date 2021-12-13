@@ -181,6 +181,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.actionConvert_RDF_Data.triggered.connect(self.buildConvertCRSDialog)
+        self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
+        self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(self.buildConvertLayerDialog)
         self.actionTriple_Store_Settings.triggered.connect(self.buildCustomTripleStoreDialog)
         self.actionValidate_RDF_Data.triggered.connect(self.buildGraphValidationDialog)
