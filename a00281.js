@@ -1,10 +1,15 @@
 var a00281 =
 [
-    [ "__init__", "a00281.html#a5b1893b3a08b784677ccf501dfec239e", null ],
-    [ "applyVar", "a00281.html#a4eb43e4f2330a8a8f8282864a657165e", null ],
-    [ "layerselectaction", "a00281.html#a514d660ea487e92b9fa9e15eda073db9", null ],
-    [ "chooseField", "a00281.html#aa67be040d27a2950e9f362c87804ce96", null ],
-    [ "chooseLayer", "a00281.html#a67c2f0ef9ec9c7c111e0214b3be7fec3", null ],
-    [ "columnvars", "a00281.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
-    [ "inputfield", "a00281.html#a48537577b75975b2d8d86aad8a878bd6", null ]
+    [ "__init__", "a00281.html#a8620be517032a623030c0d1401b11c70", null ],
+    [ "canvasMoveEvent", "a00281.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00281.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "deactivate", "a00281.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "keyPressEvent", "a00281.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
+    [ "reset", "a00281.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00281.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "iface", "a00281.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00281.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00281.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "selectionDone", "a00281.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00281.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];

@@ -1,17 +1,8 @@
 var a00297 =
 [
-    [ "__init__", "a00297.html#a6a2e5ca82e5dcdfa107856211868689b", null ],
-    [ "finished", "a00297.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "run", "a00297.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "column", "a00297.html#ae78e6e11a40e6dba1bae097358f97d15", null ],
-    [ "concept", "a00297.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "dlg", "a00297.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "encounteredtypes", "a00297.html#aa75fd54d56c71b4d4ffac31011149715", null ],
-    [ "exception", "a00297.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "graph", "a00297.html#a8ca49c796430e66a10450bfc2d218c81", null ],
-    [ "queryresult", "a00297.html#a1bee14843933505be5e14e07c03f5f89", null ],
-    [ "relation", "a00297.html#a87e75f78a11b7995d1386f9851405666", null ],
-    [ "row", "a00297.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
-    [ "triplestoreconf", "a00297.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00297.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "__init__", "a00297.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
+    [ "getUserInformation", "a00297.html#aea3d6e87f3e13680be9d249ccdab7854", null ],
+    [ "interceptRequest", "a00297.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
+    [ "app", "a00297.html#afe63fea7be31b0200b496d08bc6b517d", null ],
+    [ "oauthcode", "a00297.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
 ];

@@ -1,16 +1,10 @@
 var a00225 =
 [
-    [ "__init__", "a00225.html#a921f465a77663034ebb6932d1ac38188", null ],
-    [ "check_state", "a00225.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state1", "a00225.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
-    [ "loadFile", "a00225.html#a2ae2b21223fe5437d0cb6702451276de", null ],
-    [ "loadURI", "a00225.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
-    [ "startConversion", "a00225.html#a281b1c143a8afdfa22a668ec770e812b", null ],
-    [ "toggleComboBoxes", "a00225.html#a9d01577d7db1ca48f36ea1ddc91b991a", null ],
-    [ "dlg", "a00225.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "justloadingfromfile", "a00225.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
-    [ "maindlg", "a00225.html#a7a228f82cef256bf0c017634e4195718", null ],
-    [ "prefixes", "a00225.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "qtask", "a00225.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "triplestoreconf", "a00225.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00225.html#a5b1893b3a08b784677ccf501dfec239e", null ],
+    [ "applyVar", "a00225.html#a4eb43e4f2330a8a8f8282864a657165e", null ],
+    [ "layerselectaction", "a00225.html#a514d660ea487e92b9fa9e15eda073db9", null ],
+    [ "chooseField", "a00225.html#aa67be040d27a2950e9f362c87804ce96", null ],
+    [ "chooseLayer", "a00225.html#a67c2f0ef9ec9c7c111e0214b3be7fec3", null ],
+    [ "columnvars", "a00225.html#a4290d9428a06b5fa270a58e95ae89c1c", null ],
+    [ "inputfield", "a00225.html#a48537577b75975b2d8d86aad8a878bd6", null ]
 ];

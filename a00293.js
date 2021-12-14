@@ -1,16 +1,10 @@
 var a00293 =
 [
-    [ "__init__", "a00293.html#a7a9e2e95095816354b568f4d4b9aa6bc", null ],
-    [ "finished", "a00293.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processLiteral", "a00293.html#af05d8aa0ef7a9307dfa5e0d690c9a98c", null ],
-    [ "run", "a00293.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "convertFrom", "a00293.html#afea1666783c58d60d8f9a172c1d96335", null ],
-    [ "convertTo", "a00293.html#a49a55dda21a6dbda2e0750035498c7cd", null ],
-    [ "crsdef", "a00293.html#a833c3fbda4bca0e0f0c2a5c418654fa9", null ],
-    [ "crsdefs", "a00293.html#a40e92e9aad5a9dbd477d921260a4a33f", null ],
-    [ "dialog", "a00293.html#a3d2da04d187a7112445f18a9f20b39ef", null ],
-    [ "exception", "a00293.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filename", "a00293.html#a2ff994e16bf9521154de4cf659a3b689", null ],
-    [ "graph", "a00293.html#a8ca49c796430e66a10450bfc2d218c81", null ],
-    [ "progress", "a00293.html#a991fd2c404665f13f536fc7791e53504", null ]
+    [ "authenticatedby", "a00293.html#af44aa90d7e4abaea526c0d7fcbe63618", null ],
+    [ "firstname", "a00293.html#a5dd40932855124ccc8b7a1a64ca226ec", null ],
+    [ "lastname", "a00293.html#a3c8f58d761707273489a76751c4905fb", null ],
+    [ "name", "a00293.html#ab74e6bf80237ddc4109968cedc58c151", null ],
+    [ "userid", "a00293.html#af75c99e9117a33b73b429e3c5b3fc238", null ],
+    [ "username", "a00293.html#a0adcbe0e0e6f64a29b1d205ede9632c1", null ],
+    [ "userurl", "a00293.html#ab04370526cbdecef8503e8427ecaf8f3", null ]
 ];
