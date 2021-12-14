@@ -211,7 +211,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.geometryCollectionClassListModel.clear()
-        self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
+        #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
@@ -360,12 +360,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                         self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
                             "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
-                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                    "query"].replace("%%concept%%", concept)
-            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
-                querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
-            elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
-                querytext = querytext + " LIMIT " + self.queryLimit.text()
+                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"].replace("%%concept%%", concept)
+
+            print("1")
+            #if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
+                ##print("2")
+                ##querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
+            ##elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
+                ##querytext = querytext + " LIMIT " + self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
         if self.geoTreeView.selectionModel().currentIndex() is not None and self.geoTreeViewModel.itemFromIndex(
