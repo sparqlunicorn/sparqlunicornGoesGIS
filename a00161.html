@@ -1528,22 +1528,24 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;            <span class="comment"># self.dlg.tabWidget.removeTab(1)</span></div>
 <div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;            self.dlg.loadedLayers.clear()</div>
 <div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            print(<span class="stringliteral">&quot;before clicked&quot;</span>)</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            print(<span class="stringliteral">&quot;after clicked&quot;</span>)</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">False</span>:</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;           self.dlg.<a class="code" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a>()</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        <span class="comment"># show the dialog</span></div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;        self.dlg.show()</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        <span class="comment"># result = self.dlg.exec_()</span></div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;        <span class="comment"># # See if OK was pressed</span></div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;        <span class="comment"># if result:</span></div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        <span class="comment">#     # Do something useful here - delete the line containing pass and</span></div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        <span class="comment">#     # substitute with your code.</span></div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;        <span class="comment">#     pass</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            self.dlg.pushButton.setToolTip(<span class="stringliteral">&#39;Will add the layer yielded by the sele query&#39;</span>)</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            <span class="comment"># self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)</span></div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            print(<span class="stringliteral">&quot;before clicked&quot;</span>)</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            self.dlg.exportLayers.clicked.connect(self.exportLayer2)</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;            self.dlg.exportLayers.setToolTip(<span class="stringliteral">&#39;Will export your layer to a TTL file&#39;</span>)</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            print(<span class="stringliteral">&quot;after clicked&quot;</span>)</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;        <span class="keywordflow">if</span> self.first_start == <span class="keyword">False</span>:</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;           self.dlg.<a class="code" href="a00124.html#a80aa35ab40509109b9aabf503b42d003">loadUnicornLayers</a>()</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;        <span class="comment"># show the dialog</span></div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;        self.dlg.show()</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;        <span class="comment"># Run the dialog event loop</span></div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;        <span class="comment"># result = self.dlg.exec_()</span></div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;        <span class="comment"># # See if OK was pressed</span></div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        <span class="comment"># if result:</span></div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;        <span class="comment">#     # Do something useful here - delete the line containing pass and</span></div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;        <span class="comment">#     # substitute with your code.</span></div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;        <span class="comment">#     pass</span></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00161.html#aad1fed1f698792145456d4f39e711766">SPARQLunicorn.first_start</a>.</p>
 
@@ -2283,10 +2285,10 @@ We implement this ourselves since we do not inherit QObject.
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aa00147_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00147.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
-<div class="ttc" id="aa00124_html_a38c519e33af58590bd182b4495c8d419"><div class="ttname"><a href="a00124.html#a38c519e33af58590bd182b4495c8d419">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.viewselectaction</a></div><div class="ttdeci">def viewselectaction(self, selected=None, deselected=None)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:332</div></div>
+<div class="ttc" id="aa00124_html_a38c519e33af58590bd182b4495c8d419"><div class="ttname"><a href="a00124.html#a38c519e33af58590bd182b4495c8d419">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.viewselectaction</a></div><div class="ttdeci">def viewselectaction(self, selected=None, deselected=None)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:341</div></div>
 <div class="ttc" id="aa00273_html_a2b97505b4a89f59b1902bc41f75fba68"><div class="ttname"><a href="a00273.html#a2b97505b4a89f59b1902bc41f75fba68">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
 <div class="ttc" id="aa00273_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00273.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:40</div></div>
-<div class="ttc" id="aa00124_html_a80aa35ab40509109b9aabf503b42d003"><div class="ttname"><a href="a00124.html#a80aa35ab40509109b9aabf503b42d003">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.loadUnicornLayers</a></div><div class="ttdeci">def loadUnicornLayers(self)</div><div class="ttdoc">Builds the search dialog to search for a concept or class.</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:398</div></div>
+<div class="ttc" id="aa00124_html_a80aa35ab40509109b9aabf503b42d003"><div class="ttname"><a href="a00124.html#a80aa35ab40509109b9aabf503b42d003">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.loadUnicornLayers</a></div><div class="ttdeci">def loadUnicornLayers(self)</div><div class="ttdoc">Builds the search dialog to search for a concept or class.</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:407</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -352,18 +352,27 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        self.filterConcepts.textChanged.connect(self.setFilterFromText)</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        self.loadQuery.clicked.connect(self.loadQueryFunc)</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        self.saveQueryButton.clicked.connect(self.saveQueryFunc)</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        self.bboxButton.clicked.connect(self.getPointFromCanvas)</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        self.actionInterlink.triggered.connect(self.buildInterlinkDlg)</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        self.actionEnrichment.triggered.connect(self.buildEnrichmentDlg)</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        self.loadUnicornLayers()</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        self.loadQuery.setToolTip(<span class="stringliteral">&#39;Will load a previously saved query&#39;</span>)</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        self.actionLoad_Graph.setToolTip(<span class="stringliteral">&#39;Will open the Load Graph dialog if selected&#39;</span>)</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        self.actionAdd_Endpoint.setToolTip(<span class="stringliteral">&#39;Will open the Add Endpoint dialog if selected&#39;</span>)</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        self.loadTripleStoreButton.setToolTip(<span class="stringliteral">&#39;Loads your selected triplestore from the &quot;Unicorn plugin&quot; &#39;</span>)</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        self.saveQueryButton.clicked.connect(self.saveQueryFunc)</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        self.saveQueryButton.setToolTip(<span class="stringliteral">&#39;Saves your query in the &quot;Unicorn&quot; plugin&#39;</span>)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        self.bboxButton.clicked.connect(self.getPointFromCanvas)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        self.bboxButton.setToolTip(<span class="stringliteral">&#39;When clicked opens the BBOX dialog&#39;</span>)</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        self.actionInterlink.triggered.connect(self.buildInterlinkDlg)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        self.actionInterlink.setToolTip(<span class="stringliteral">&#39;Will open the Interlink window if selected&#39;</span>)</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        self.actionEnrichment.triggered.connect(self.buildEnrichmentDlg)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        self.actionEnrichment.setToolTip(<span class="stringliteral">&#39;Will open the Enrichment window if selected&#39;</span>)</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        self.btn_loadunicornlayers.setToolTip(<span class="stringliteral">&#39;Loads the layer you selected from the &quot;Unicorn plugin&quot; &#39;</span>)</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        self.loadUnicornLayers()</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -383,10 +392,10 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">def </span>buildEnrichmentDlg(self):</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        enrichmentdlg = EnrichmentMainWindow(QgsProject.instance().layerTreeRoot().children(), self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        enrichmentdlg.show()</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">def </span>buildEnrichmentDlg(self):</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        enrichmentdlg = EnrichmentMainWindow(QgsProject.instance().layerTreeRoot().children(), self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        enrichmentdlg.show()</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">InterlinkMainWindow.addVocabConf</a>, <a class="el" href="a00181.html#a1c0f392d53979b034116808ade371029">EnrichmentMainWindow.addVocabConf</a>, <a class="el" href="a00161.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00201.html#a1c0f392d53979b034116808ade371029">SPARQLunicornDialog.addVocabConf</a>, <a class="el" href="a00189.html#a302e350558edcbbd7b85927b33550548">LoadGraphDialog.prefixes</a>, <a class="el" href="a00177.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">InterlinkMainWindow.prefixes</a>, <a class="el" href="a00181.html#a302e350558edcbbd7b85927b33550548">EnrichmentMainWindow.prefixes</a>, <a class="el" href="a00197.html#a302e350558edcbbd7b85927b33550548">SearchDialog.prefixes</a>, <a class="el" href="a00201.html#a302e350558edcbbd7b85927b33550548">SPARQLunicornDialog.prefixes</a>, <a class="el" href="a00161.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a00201.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicornDialog.prefixstore</a>, <a class="el" href="a00161.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicorn.prefixstore</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00197.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00201.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -415,12 +424,12 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">def </span>buildInterlinkDlg(self):</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="comment"># self.interlinkdlg = InterlinkMainWindow(self)</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="comment"># initialisation of the Interlink MainWindow</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        interlinkdlg = InterlinkMainWindow(QgsProject.instance().layerTreeRoot().children(), self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        interlinkdlg.show()</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        </div>
+<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">def </span>buildInterlinkDlg(self):</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="comment"># self.interlinkdlg = InterlinkMainWindow(self)</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="comment"># initialisation of the Interlink MainWindow</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        interlinkdlg = InterlinkMainWindow(QgsProject.instance().layerTreeRoot().children(), self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        interlinkdlg.show()</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00185.html#a1c0f392d53979b034116808ade371029">InterlinkMainWindow.addVocabConf</a>, <a class="el" href="a00181.html#a1c0f392d53979b034116808ade371029">EnrichmentMainWindow.addVocabConf</a>, <a class="el" href="a00161.html#a1c0f392d53979b034116808ade371029">SPARQLunicorn.addVocabConf</a>, <a class="el" href="a00201.html#a1c0f392d53979b034116808ade371029">SPARQLunicornDialog.addVocabConf</a>, <a class="el" href="a00177.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00189.html#a7a228f82cef256bf0c017634e4195718">LoadGraphDialog.maindlg</a>, <a class="el" href="a00185.html#a7a228f82cef256bf0c017634e4195718">InterlinkMainWindow.maindlg</a>, <a class="el" href="a00201.html#a7a228f82cef256bf0c017634e4195718">SPARQLunicornDialog.maindlg</a>, <a class="el" href="a00177.html#a302e350558edcbbd7b85927b33550548">ConvertCRSDialog.prefixes</a>, <a class="el" href="a00189.html#a302e350558edcbbd7b85927b33550548">LoadGraphDialog.prefixes</a>, <a class="el" href="a00185.html#a302e350558edcbbd7b85927b33550548">InterlinkMainWindow.prefixes</a>, <a class="el" href="a00181.html#a302e350558edcbbd7b85927b33550548">EnrichmentMainWindow.prefixes</a>, <a class="el" href="a00197.html#a302e350558edcbbd7b85927b33550548">SearchDialog.prefixes</a>, <a class="el" href="a00201.html#a302e350558edcbbd7b85927b33550548">SPARQLunicornDialog.prefixes</a>, <a class="el" href="a00161.html#acf1dec78e6e086f90ac980d02ea6ccef">SPARQLunicorn.prefixes</a>, <a class="el" href="a00201.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicornDialog.prefixstore</a>, <a class="el" href="a00161.html#a4d9e45fd666bc36c0602e3a0c6244b3c">SPARQLunicorn.prefixstore</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00197.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00201.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -441,11 +450,11 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">def </span>buildLoadGraphDialog(self):</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf, self.maindlg, self)</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        self.searchTripleStoreDialog.setWindowTitle(<span class="stringliteral">&quot;Load Graph&quot;</span>)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        self.searchTripleStoreDialog.exec_()</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">def </span>buildLoadGraphDialog(self):</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf, self.maindlg, self)</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        self.searchTripleStoreDialog.setWindowTitle(<span class="stringliteral">&quot;Load Graph&quot;</span>)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        self.searchTripleStoreDialog.exec_()</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00177.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00189.html#a7a228f82cef256bf0c017634e4195718">LoadGraphDialog.maindlg</a>, <a class="el" href="a00185.html#a7a228f82cef256bf0c017634e4195718">InterlinkMainWindow.maindlg</a>, <a class="el" href="a00201.html#a7a228f82cef256bf0c017634e4195718">SPARQLunicornDialog.maindlg</a>, <a class="el" href="a00185.html#a0918bd6ea96ed15f91ffdf7d9e91776a">InterlinkMainWindow.searchTripleStoreDialog</a>, <a class="el" href="a00181.html#a0918bd6ea96ed15f91ffdf7d9e91776a">EnrichmentMainWindow.searchTripleStoreDialog</a>, <a class="el" href="a00201.html#a0918bd6ea96ed15f91ffdf7d9e91776a">SPARQLunicornDialog.searchTripleStoreDialog</a>, <a class="el" href="a00189.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00177.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00197.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00185.html#a330d24be0afd5a96238ca9e128328a2d">InterlinkMainWindow.triplestoreconf</a>, <a class="el" href="a00181.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentMainWindow.triplestoreconf</a>, <a class="el" href="a00173.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00201.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00161.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
