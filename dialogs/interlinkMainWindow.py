@@ -52,15 +52,20 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
          # self.chooseLayerInterlink.clear()
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+        self.searchClass.setToolTip('Will open the interlink search dialog when clicked.')
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.interlinkNameSpace.setValidator(urlvalidator)
         self.interlinkNameSpace.textChanged.connect(self.check_state3)
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
         self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
+        self.exportMappingButton.setToolTip('When clicked this will open your file directory and allow you to export the mapping you just created')
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
+        self.importMappingButton.setToolTip('When clicked this will open your file directory and allow you to import a mapping of your choosing.')
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+        self.loadLayerInterlink.setToolTip('will load your current layer in the "Interlink Table" ')
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
+        self.exportInterlink.setToolTip('When clicked this will open your file directory and allow you to export the interlink that you just created.')
 
 
 

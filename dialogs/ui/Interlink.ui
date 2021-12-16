@@ -417,7 +417,7 @@ color: rgb(255, 255, 255);</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="exportMappingButton_2">
+              <widget class="QPushButton" name="exportMappingButton">
                <property name="minimumSize">
                 <size>
                  <width>141</width>

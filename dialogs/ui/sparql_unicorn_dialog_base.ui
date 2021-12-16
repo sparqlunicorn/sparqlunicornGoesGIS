@@ -9,14 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1427</width>
-    <height>751</height>
+    <width>1458</width>
+    <height>773</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1294</width>
-    <height>751</height>
+    <width>1458</width>
+    <height>773</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -1006,7 +1006,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1427</width>
+     <width>1458</width>
      <height>21</height>
     </rect>
    </property>

@@ -846,10 +846,12 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.loadedLayers.clear()
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
+            self.dlg.pushButton.setToolTip('Will add the layer yielded by the sele query')
             # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
             self.dlg.geoTreeView.doubleClicked.connect(self.create_unicorn_layer)
             print("before clicked")
             self.dlg.exportLayers.clicked.connect(self.exportLayer2)
+            self.dlg.exportLayers.setToolTip('Will export your layer to a TTL file')
             print("after clicked")
         if self.first_start == False:
            self.dlg.loadUnicornLayers()
