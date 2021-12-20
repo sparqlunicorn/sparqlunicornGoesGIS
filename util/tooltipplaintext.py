@@ -261,7 +261,8 @@ class ToolTipPlainText(QPlainTextEdit):
                 if "http" in word:
                     word = word[word.rfind("/") + 1:-1]
                 self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
-                                                                  self.selector.currentIndex())
+                                                                  self.selector.currentIndex(),
+                                                                self.triplestoreconf,self.triplestoreconf["endpoint"])
                 toolTipText = self.savedLabels[word]
             else:
                 toolTipText = word
