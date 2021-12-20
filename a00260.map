@@ -1,4 +1,5 @@
-<map id="QueryLayerTask" name="QueryLayerTask">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="31,5,107,32"/>
+<map id="QueryLimitedInstancesDialog" name="QueryLimitedInstancesDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,220,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="17,5,91,32"/>
+<area shape="rect" id="node3" href="$a00921.html" title=" " alt="" coords="116,5,227,32"/>
 </map>

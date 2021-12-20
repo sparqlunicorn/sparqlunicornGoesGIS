@@ -1,15 +1,18 @@
 var a00281 =
 [
-    [ "__init__", "a00281.html#a8620be517032a623030c0d1401b11c70", null ],
-    [ "canvasMoveEvent", "a00281.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00281.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "deactivate", "a00281.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "keyPressEvent", "a00281.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
-    [ "reset", "a00281.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00281.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "iface", "a00281.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00281.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00281.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "selectionDone", "a00281.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00281.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00281.html#a11c26a374ef30da345563e1f5459936a", null ],
+    [ "addNewLayerToTripleStore", "a00281.html#ad37f8ed07349b0ff9667607c64473225", null ],
+    [ "check_state", "a00281.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
+    [ "check_state1", "a00281.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
+    [ "checkConnection", "a00281.html#ad3ee4f0a7774436bd1d9b8de64402137", null ],
+    [ "compareLayers", "a00281.html#a90fc6f7893dab1f161f0876eedf261af", null ],
+    [ "currentrow", "a00281.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
+    [ "fieldname", "a00281.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
+    [ "interlinkOrEnrich", "a00281.html#a22becd814f00141dbdbb9167f5b9551f", null ],
+    [ "qtask", "a00281.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "searchResultMap", "a00281.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
+    [ "table", "a00281.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "triplestoreconf", "a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "ttlstring", "a00281.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
+    [ "valmaptable", "a00281.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
 ];
