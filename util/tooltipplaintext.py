@@ -5,6 +5,7 @@ from PyQt5 import QtCore
 from qgis.core import QgsProject, QgsMapLayer
 from ..dialogs.varinputdialog import VarInputDialog
 from ..dialogs.searchdialog import SearchDialog
+from ..util.sparqlutils import SPARQLUtils
 import re
 
 
@@ -259,7 +260,7 @@ class ToolTipPlainText(QPlainTextEdit):
             elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
                 if "http" in word:
                     word = word[word.rfind("/") + 1:-1]
-                self.savedLabels[word] = self.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
+                self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
                                                                   self.selector.currentIndex())
                 toolTipText = self.savedLabels[word]
             else:
