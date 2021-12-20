@@ -525,7 +525,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.exec_()
 
     def buildQueryLimitedInstancesDialog(self):
-        self.queryLimitedInstanceDialog = QueryLimitedInstancesDialog(self.triplestoreconf, self.maindlg, self)
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        self.queryLimitedInstanceDialog = QueryLimitedInstancesDialog(self.triplestoreconf[self.comboBox.currentIndex()], concept, nodetype)
         self.queryLimitedInstanceDialog.setWindowTitle("Query limited instances")
         self.queryLimitedInstanceDialog.exec_()
 

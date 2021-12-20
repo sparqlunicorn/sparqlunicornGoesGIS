@@ -32,7 +32,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                                                "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
                         self.concept) + "> . ?item ?rel ?val . " +
-                    self.triplestoreconf["geotriplepattern"][0] + "\n } LIMIT "+self.amountOfInstancesEdit.currentText(),
+                    self.triplestoreconf["geotriplepattern"][0] + "\n } LIMIT "+self.amountOfInstancesEdit.text(),
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
             else:
                 self.qlayerinstance = QueryLayerTask(
@@ -40,7 +40,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.triplestoreconf["endpoint"],
                     "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
-                        self.concept) + "> .\n ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.currentText(),
+                        self.concept) + "> .\n ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.text(),
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         else:
             self.qlayerinstance = QueryLayerTask(
@@ -48,6 +48,6 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 self.triplestoreconf["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <" + str(
                     self.triplestoreconf["typeproperty"]) + "> <" + str(
-                    self.concept) + "> . ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.currentText(),
+                    self.concept) + "> . ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.text(),
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)

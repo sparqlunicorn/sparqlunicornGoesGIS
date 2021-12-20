@@ -126,5 +126,5 @@ class GeoConceptsQueryTask(QgsTask):
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
             self.dlg.viewselectactionGeoTree()
-        if self.amountoflabels != -1:
-            self.layercount.setText("[" + str(self.amountoflabels) + "]")
+        #if self.amountoflabels != -1:
+        #    self.layercount.setText("[" + str(self.amountoflabels) + "]")
