@@ -25,29 +25,46 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
     def queryWithLimit(self):
         if self.nodetype == SPARQLUtils.geoclassnode:
             if "geotriplepattern" in self.triplestoreconf:
+                limitstatement="LIMIT "+self.amountOfInstancesEdit.text()
+                if self.skipFirstInstancesEdit.text() != "0":
+                    limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+                thequery="SELECT ?" + " ?".join(self.triplestoreconf[
+                                               "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
+                        self.triplestoreconf["typeproperty"]) + "> <" + str(
+                        self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val . " +self.triplestoreconf["geotriplepattern"][0] + "\n }"
+                if self.skipFirstInstancesEdit.text()!="0":
+                    thequery+=" OFFSET "+self.skipFirstInstancesEdit.text()
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.triplestoreconf["endpoint"],
-                    "SELECT ?" + " ?".join(self.triplestoreconf[
-                                               "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <" + str(
-                        self.triplestoreconf["typeproperty"]) + "> <" + str(
-                        self.concept) + "> . ?item ?rel ?val . " +
-                    self.triplestoreconf["geotriplepattern"][0] + "\n } LIMIT "+self.amountOfInstancesEdit.text(),
+                    thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
             else:
+                limitstatement=" LIMIT "+self.amountOfInstancesEdit.text()
+                if self.skipFirstInstancesEdit.text() != "0":
+                    limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+                thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
+                        self.triplestoreconf["typeproperty"]) + "> <" + str(
+                        self.concept) + "> . } "+limitstatement+" }\n ?item ?rel ?val .\n }"
+                if self.skipFirstInstancesEdit.text()!="0":
+                    thequery+=" OFFSET "+self.skipFirstInstancesEdit.text()
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.triplestoreconf["endpoint"],
-                    "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <" + str(
-                        self.triplestoreconf["typeproperty"]) + "> <" + str(
-                        self.concept) + "> .\n ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.text(),
+                    thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         else:
+            limitstatement=" LIMIT "+self.amountOfInstancesEdit.text()
+            if self.skipFirstInstancesEdit.text() != "0":
+                limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+            thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
+                    self.triplestoreconf["typeproperty"]) + "> <" + str(
+                    self.concept) + "> . } "+limitstatement+"} ?item ?rel ?val .\n }"
+
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
                 self.triplestoreconf["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <" + str(
-                    self.triplestoreconf["typeproperty"]) + "> <" + str(
-                    self.concept) + "> . ?item ?rel ?val .\n } LIMIT "+self.amountOfInstancesEdit.text(),
+                thequery,
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
+        self.close()
