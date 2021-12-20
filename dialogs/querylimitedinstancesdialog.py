@@ -19,8 +19,8 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.nodetype=nodetype
-        #self.queryButton.clicked.connect(self.queryWithLimit)
-        #self.cancelButton.clicked.connect(self.close)
+        self.queryButton.clicked.connect(self.queryWithLimit)
+        self.cancelButton.clicked.connect(self.close)
 
     def queryWithLimit(self):
         if self.nodetype == SPARQLUtils.geoclassnode:

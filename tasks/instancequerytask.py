@@ -1,5 +1,6 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
+from qgis.PyQt.QtCore import Qt
 from qgis.core import (
     QgsTask, QgsMessageLog
 )
@@ -49,17 +50,22 @@ class InstanceQueryTask(QgsTask):
     def finished(self, result):
         while self.searchResult.rowCount()>0:
             self.searchResult.removeRow(0)
-        self.searchResult.setHorizontalHeaderLabels(["Attribute", "Value"])
+        self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Value"])
         counter=0
         for rel in self.queryresult:
             QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
             self.searchResult.insertRow(counter)
+            itemchecked = QTableWidgetItem()
+            itemchecked.setFlags(Qt.ItemIsUserCheckable |
+                                 Qt.ItemIsEnabled)
+            itemchecked.setCheckState(Qt.Checked)
+            self.searchResult.setItem(counter, 0, itemchecked)
             item = QTableWidgetItem()
             item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
             item.setData(256, str(rel))
-            self.searchResult.setItem(counter, 0, item)
+            self.searchResult.setItem(counter, 1, item)
             itembutton = QTableWidgetItem()
             itembutton.setText(self.queryresult[rel]["val"])
             itembutton.setData(256, self.queryresult[rel]["val"])
-            self.searchResult.setItem(counter, 1, itembutton)
+            self.searchResult.setItem(counter, 2, itembutton)
             counter+=1

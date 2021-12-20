@@ -106,7 +106,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                 self.statusBarLabel.setText(concept)
 
     def loadSamples(self,row,column):
-        if column==1 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
+        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
             relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
             self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,

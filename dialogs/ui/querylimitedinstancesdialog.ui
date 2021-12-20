@@ -62,7 +62,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Enter the amount of instance you would like to query:</string>
+    <string>Enter the amount of instances you would like to query:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="amountOfInstancesEdit">

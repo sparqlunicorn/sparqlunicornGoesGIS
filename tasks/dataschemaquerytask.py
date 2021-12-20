@@ -123,7 +123,7 @@ class DataSchemaQueryTask(QgsTask):
                         itemchecked.setCheckState(Qt.Checked)
                         self.searchResult.setItem(counter, 0, itemchecked)
                         item = QTableWidgetItem()
-                        item.setText(att[0] + " (" + str(att[1]) + "%)")
+                        item.setText(SPARQLUtils.labelFromURI(self.urilist[att[0]]) + " (" + str(att[1]) + "%)")
                         item.setData(256, self.urilist[att[0]])
                         self.searchResult.setItem(counter, 1, item)
                         itembutton = QTableWidgetItem()
