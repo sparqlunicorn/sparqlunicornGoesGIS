@@ -183,7 +183,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                               <span class="stringliteral">&quot;mandatoryvariables&quot;</span>]) + <span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                        self.triplestoreconf[<span class="stringliteral">&quot;typeproperty&quot;</span>]) + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                        self.concept) + <span class="stringliteral">&quot;&gt; . ?item ?rel ?val . &quot;</span> +</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    self.triplestoreconf[<span class="stringliteral">&quot;geotriplepattern&quot;</span>][0] + <span class="stringliteral">&quot;\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.currentText(),</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    self.triplestoreconf[<span class="stringliteral">&quot;geotriplepattern&quot;</span>][0] + <span class="stringliteral">&quot;\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.text(),</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                    self.triplestoreconf, <span class="keyword">False</span>, SPARQLUtils.labelFromURI(self.concept), <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
@@ -191,7 +191,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    self.triplestoreconf[<span class="stringliteral">&quot;endpoint&quot;</span>],</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                        self.triplestoreconf[<span class="stringliteral">&quot;typeproperty&quot;</span>]) + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        self.concept) + <span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.currentText(),</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        self.concept) + <span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.text(),</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    self.triplestoreconf, <span class="keyword">True</span>, SPARQLUtils.labelFromURI(self.concept), <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            self.qlayerinstance = QueryLayerTask(</div>
@@ -199,7 +199,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                self.triplestoreconf[<span class="stringliteral">&quot;endpoint&quot;</span>],</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    self.triplestoreconf[<span class="stringliteral">&quot;typeproperty&quot;</span>]) + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    self.concept) + <span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.currentText(),</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    self.concept) + <span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } LIMIT &quot;</span>+self.amountOfInstancesEdit.text(),</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                self.triplestoreconf, <span class="keyword">True</span>, SPARQLUtils.labelFromURI(self.concept), <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        QgsApplication.taskManager().addTask(self.qlayerinstance)</div>
 </div><!-- fragment -->
