@@ -404,18 +404,18 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">def </span>highlightCurrentLine(self):</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        extraSelections = []</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.isReadOnly():</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            selection = QTextEdit.ExtraSelection()</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            lineColor = QColor(Qt.blue).lighter(190)</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            selection.format.setBackground(lineColor)</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            selection.format.setProperty(QTextFormat.FullWidthSelection, <span class="keyword">True</span>)</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            selection.cursor = self.textCursor()</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            selection.cursor.clearSelection()</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            extraSelections.append(selection)</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        self.setExtraSelections(extraSelections)</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">def </span>highlightCurrentLine(self):</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        extraSelections = []</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.isReadOnly():</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            selection = QTextEdit.ExtraSelection()</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            lineColor = QColor(Qt.blue).lighter(190)</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            selection.format.setBackground(lineColor)</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            selection.format.setProperty(QTextFormat.FullWidthSelection, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            selection.cursor = self.textCursor()</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            selection.cursor.clearSelection()</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            extraSelections.append(selection)</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        self.setExtraSelections(extraSelections)</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -612,31 +612,31 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">def </span>lineNumberAreaPaintEvent(self, event):</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        painter = QPainter(self.lineNumberArea)</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        borderColor = QColor(Qt.lightGray).lighter(120)</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        painter.fillRect(event.rect(), borderColor)</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        block = self.firstVisibleBlock()</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        blockNumber = block.blockNumber()</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        top = self.blockBoundingGeometry(block).translated(self.contentOffset()).top()</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        bottom = top + self.blockBoundingRect(block).height()</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        <span class="comment"># Just to make sure I use the right font</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        height = self.fontMetrics().height()</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">while</span> block.isValid() <span class="keywordflow">and</span> (top &lt;= event.rect().bottom()):</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            <span class="keywordflow">if</span> block.isVisible() <span class="keywordflow">and</span> (bottom &gt;= event.rect().top()):</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                number = str(blockNumber + 1)</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                <span class="keywordflow">if</span> self.errorline != <span class="keywordtype">None</span> <span class="keywordflow">and</span> blockNumber == self.errorline:</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                    painter.setPen(Qt.red)</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    painter.setPen(Qt.black)</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                painter.drawText(0, top, self.lineNumberArea.width(), height, Qt.AlignRight, number)</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            block = block.next()</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            top = bottom</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            bottom = top + self.blockBoundingRect(block).height()</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            blockNumber += 1</div>
+<div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keyword">def </span>lineNumberAreaPaintEvent(self, event):</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        painter = QPainter(self.lineNumberArea)</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        borderColor = QColor(Qt.lightGray).lighter(120)</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        painter.fillRect(event.rect(), borderColor)</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        block = self.firstVisibleBlock()</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        blockNumber = block.blockNumber()</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        top = self.blockBoundingGeometry(block).translated(self.contentOffset()).top()</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        bottom = top + self.blockBoundingRect(block).height()</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <span class="comment"># Just to make sure I use the right font</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        height = self.fontMetrics().height()</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">while</span> block.isValid() <span class="keywordflow">and</span> (top &lt;= event.rect().bottom()):</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">if</span> block.isVisible() <span class="keywordflow">and</span> (bottom &gt;= event.rect().top()):</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                number = str(blockNumber + 1)</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">if</span> self.errorline != <span class="keywordtype">None</span> <span class="keywordflow">and</span> blockNumber == self.errorline:</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                    painter.setPen(Qt.red)</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    painter.setPen(Qt.black)</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                painter.drawText(0, top, self.lineNumberArea.width(), height, Qt.AlignRight, number)</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            block = block.next()</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            top = bottom</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            bottom = top + self.blockBoundingRect(block).height()</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            blockNumber += 1</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00429.html#a227c8351ef43c0146b7d43d0afe1c00c">ToolTipPlainText.errorline</a>, <a class="el" href="a00269.html#a227c8351ef43c0146b7d43d0afe1c00c">SPARQLunicornDialog.errorline</a>, and <a class="el" href="a00429.html#af127d2bf1eaf0da4cae9c423b455f559">ToolTipPlainText.lineNumberArea</a>.</p>
 
@@ -657,16 +657,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keyword">def </span>lineNumberAreaWidth(self):</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        digits = 1</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        max_value = max(1, self.blockCount())</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <span class="keywordflow">while</span> max_value &gt;= 10:</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            max_value /= 10</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            digits += 1</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        space = 3 + self.fontMetrics().width(<span class="stringliteral">&#39;9&#39;</span>) * digits</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        space += 10</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">return</span> space</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keyword">def </span>lineNumberAreaWidth(self):</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        digits = 1</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        max_value = max(1, self.blockCount())</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordflow">while</span> max_value &gt;= 10:</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            max_value /= 10</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            digits += 1</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        space = 3 + self.fontMetrics().width(<span class="stringliteral">&#39;9&#39;</span>) * digits</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        space += 10</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keywordflow">return</span> space</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00429.html#a0815964d2d7e4debf9b3e7cff7840436">ToolTipPlainText.resizeEvent()</a>, and <a class="el" href="a00429.html#a7506e8b75b379b2ae41132e51b15ebd9">ToolTipPlainText.updateLineNumberAreaWidth()</a>.</p>
 
@@ -724,26 +724,27 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> word:</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                    word = word[word.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1:-1]</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace(<span class="stringliteral">&quot;wd:&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;wdt:&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)],</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                                                                  self.selector.currentIndex())</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                toolTipText = self.savedLabels[word]</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                toolTipText = word</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> word <span class="keywordflow">and</span> toolTipText != word:</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                toolTipText = str(word[str(word).index(<span class="stringliteral">&quot;:&quot;</span>) + 1:]) + <span class="stringliteral">&quot;:&quot;</span> + str(toolTipText)</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            <span class="keywordflow">elif</span> toolTipText != word:</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                toolTipText = word + <span class="stringliteral">&quot;:&quot;</span> + toolTipText</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            <span class="comment"># Put the hover over in an easy to read spot</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            pos = self.cursorRect(self.textCursor()).bottomRight()</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            <span class="comment"># The pos could also be set to event.pos() if you want it directly under the mouse</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            pos = self.mapToGlobal(pos)</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            QToolTip.showText(event.screenPos().toPoint(), toolTipText)</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="comment"># textCursor.clearSelection()</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="comment"># self.setTextCursor(self.textCursor())</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                                                                  self.selector.currentIndex(),</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                                                                self.triplestoreconf,self.triplestoreconf[<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                toolTipText = self.savedLabels[word]</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                toolTipText = word</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> word <span class="keywordflow">and</span> toolTipText != word:</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                toolTipText = str(word[str(word).index(<span class="stringliteral">&quot;:&quot;</span>) + 1:]) + <span class="stringliteral">&quot;:&quot;</span> + str(toolTipText)</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            <span class="keywordflow">elif</span> toolTipText != word:</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                toolTipText = word + <span class="stringliteral">&quot;:&quot;</span> + toolTipText</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="comment"># Put the hover over in an easy to read spot</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            pos = self.cursorRect(self.textCursor()).bottomRight()</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            <span class="comment"># The pos could also be set to event.pos() if you want it directly under the mouse</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            pos = self.mapToGlobal(pos)</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            QToolTip.showText(event.screenPos().toPoint(), toolTipText)</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="comment"># textCursor.clearSelection()</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="comment"># self.setTextCursor(self.textCursor())</span></div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00429.html#ae3c96bb33e9b67f91e6f88eef612ec80">ToolTipPlainText.savedLabels</a>, and <a class="el" href="a00429.html#a093b121866a6168a986e7ff004ddc5c4">ToolTipPlainText.selector</a>.</p>
+<p class="reference">References <a class="el" href="a00429.html#ae3c96bb33e9b67f91e6f88eef612ec80">ToolTipPlainText.savedLabels</a>, <a class="el" href="a00429.html#a093b121866a6168a986e7ff004ddc5c4">ToolTipPlainText.selector</a>, <a class="el" href="a00277.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00341.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a00333.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00273.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00285.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00293.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00321.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00345.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a00353.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a00261.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a00305.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a00325.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00329.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00349.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a00297.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00337.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a00361.html#a330d24be0afd5a96238ca9e128328a2d">SearchTask.triplestoreconf</a>, <a class="el" href="a00365.html#a330d24be0afd5a96238ca9e128328a2d">SubClassQueryTask.triplestoreconf</a>, <a class="el" href="a00357.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a00369.html#a330d24be0afd5a96238ca9e128328a2d">WhatToEnrichQueryTask.triplestoreconf</a>, <a class="el" href="a00265.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00309.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a00313.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00317.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a00429.html#a330d24be0afd5a96238ca9e128328a2d">ToolTipPlainText.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00269.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00213.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
 </div>
 </div>
@@ -772,11 +773,11 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keyword">def </span>resizeEvent(self, event):</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        super().resizeEvent(event)</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        cr = self.contentsRect()</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        self.lineNumberArea.setGeometry(QRect(cr.left(), cr.top(), self.lineNumberAreaWidth(), cr.height()))</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keyword">def </span>resizeEvent(self, event):</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        super().resizeEvent(event)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        cr = self.contentsRect()</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        self.lineNumberArea.setGeometry(QRect(cr.left(), cr.top(), self.lineNumberAreaWidth(), cr.height()))</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00429.html#af127d2bf1eaf0da4cae9c423b455f559">ToolTipPlainText.lineNumberArea</a>, and <a class="el" href="a00429.html#acbb6a79174d954e49fcb23a39e327e77">ToolTipPlainText.lineNumberAreaWidth()</a>.</p>
 
@@ -892,14 +893,14 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">def </span>updateLineNumberArea(self, rect, dy):</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordflow">if</span> dy:</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            self.lineNumberArea.scroll(0, dy)</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            self.lineNumberArea.update(0, rect.y(), self.lineNumberArea.width(), rect.height())</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keywordflow">if</span> rect.contains(self.viewport().rect()):</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            self.updateLineNumberAreaWidth(0)</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">def </span>updateLineNumberArea(self, rect, dy):</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keywordflow">if</span> dy:</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            self.lineNumberArea.scroll(0, dy)</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            self.lineNumberArea.update(0, rect.y(), self.lineNumberArea.width(), rect.height())</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="keywordflow">if</span> rect.contains(self.viewport().rect()):</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            self.updateLineNumberAreaWidth(0)</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00429.html#af127d2bf1eaf0da4cae9c423b455f559">ToolTipPlainText.lineNumberArea</a>, and <a class="el" href="a00429.html#a7506e8b75b379b2ae41132e51b15ebd9">ToolTipPlainText.updateLineNumberAreaWidth()</a>.</p>
 
@@ -930,9 +931,9 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">def </span>updateLineNumberAreaWidth(self, _):</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        self.setViewportMargins(self.lineNumberAreaWidth(), 0, 0, 0)</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keyword">def </span>updateLineNumberAreaWidth(self, _):</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        self.setViewportMargins(self.lineNumberAreaWidth(), 0, 0, 0)</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00429.html#acbb6a79174d954e49fcb23a39e327e77">ToolTipPlainText.lineNumberAreaWidth()</a>.</p>
 
@@ -1261,6 +1262,8 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00429.html#a23922d07d709315a17189e6dc15bd000">ToolTipPlainText.mouseMoveEvent()</a>.</p>
 
 </div>
 </div>
