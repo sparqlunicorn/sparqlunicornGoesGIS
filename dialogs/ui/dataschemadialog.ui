@@ -87,6 +87,9 @@
    <property name="sortingEnabled">
     <bool>true</bool>
    </property>
+   <property name="columnCount">
+    <number>3</number>
+   </property>
    <attribute name="horizontalHeaderCascadingSectionResizes">
     <bool>true</bool>
    </attribute>
@@ -102,6 +105,11 @@
    <attribute name="verticalHeaderStretchLastSection">
     <bool>false</bool>
    </attribute>
+   <column>
+    <property name="text">
+     <string>Selection</string>
+    </property>
+   </column>
    <column>
     <property name="text">
      <string>Attribute</string>

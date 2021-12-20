@@ -41,6 +41,7 @@ from ..util.sparqlutils import SPARQLUtils
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
+from ..dialogs.querylimitedinstancesdialog import QueryLimitedInstancesDialog
 from ..dialogs.graphvalidationdialog import GraphValidationDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
@@ -310,7 +311,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             actiondataschema = QAction("Query data schema")
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataSchemaView)
-            actionqueryinstances = QAction("Query instances")
+            actionqueryinstances = QAction("Query all instances")
             menu.addAction(actionqueryinstances)
             actionqueryinstances.triggered.connect(self.instanceList)
             if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
@@ -320,6 +321,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             actionsubclassquery = QAction("Create subclass query")
             menu.addAction(actionsubclassquery)
             actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+            actionquerysomeinstances=QAction("Add some instances as new layer")
+            menu.addAction(actionquerysomeinstances)
+            actionquerysomeinstances.triggered.connect(self.buildQueryLimitedInstancesDialog)
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dataAllInstancesAsLayer)
@@ -519,6 +523,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
         self.searchTripleStoreDialog.exec_()
+
+    def buildQueryLimitedInstancesDialog(self):
+        self.queryLimitedInstanceDialog = QueryLimitedInstancesDialog(self.triplestoreconf, self.maindlg, self)
+        self.queryLimitedInstanceDialog.setWindowTitle("Query limited instances")
+        self.queryLimitedInstanceDialog.exec_()
 
     def buildConvertLayerDialog(self):
         self.convertLayerDialog = ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes ,self.maindlg, self)

@@ -55,7 +55,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dataSchemaTableView.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
+        self.dataSchemaTableView.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
         self.dataSchemaTableView.insertRow(0)
         item = QTableWidgetItem()
         item.setText("Loading...")

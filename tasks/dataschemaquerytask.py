@@ -2,6 +2,7 @@ import json
 import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox
 from qgis.core import (
     QgsTask, QgsMessageLog,
@@ -88,7 +89,7 @@ class DataSchemaQueryTask(QgsTask):
     def finished(self, result):
         while self.searchResult.rowCount()>0:
             self.searchResult.removeRow(0)
-        self.searchResult.setHorizontalHeaderLabels(["Attribute", "Sample Instances"])
+        self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
                 self.searchResult.insertRow(0)
@@ -102,22 +103,32 @@ class DataSchemaQueryTask(QgsTask):
                         continue
                     if att[0] in self.labels:
                         self.searchResult.insertRow(counter)
+                        itemchecked=QTableWidgetItem()
+                        itemchecked.setFlags(Qt.ItemIsUserCheckable |
+                                  Qt.ItemIsEnabled)
+                        itemchecked.setCheckState(Qt.Checked)
+                        self.searchResult.setItem(counter, 0, itemchecked)
                         item = QTableWidgetItem()
                         item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
                         item.setData(256, self.urilist[att[0]])
-                        self.searchResult.setItem(counter, 0, item)
+                        self.searchResult.setItem(counter, 1, item)
                         itembutton = QTableWidgetItem()
                         itembutton.setText("Click to load samples...")
-                        self.searchResult.setItem(counter, 1, itembutton)
+                        self.searchResult.setItem(counter, 2, itembutton)
                     else:
                         self.searchResult.insertRow(counter)
+                        itemchecked=QTableWidgetItem()
+                        itemchecked.setFlags(Qt.ItemIsUserCheckable |
+                                  Qt.ItemIsEnabled)
+                        itemchecked.setCheckState(Qt.Checked)
+                        self.searchResult.setItem(counter, 0, itemchecked)
                         item = QTableWidgetItem()
                         item.setText(att[0] + " (" + str(att[1]) + "%)")
                         item.setData(256, self.urilist[att[0]])
-                        self.searchResult.setItem(counter, 0, item)
+                        self.searchResult.setItem(counter, 1, item)
                         itembutton = QTableWidgetItem()
                         itembutton.setText("Click to load samples...")
-                        self.searchResult.setItem(counter, 1, itembutton)
+                        self.searchResult.setItem(counter, 2, itembutton)
                     counter += 1
                 """
                 self.searchResult.insertRow(counter)
