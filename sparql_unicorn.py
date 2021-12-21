@@ -254,7 +254,7 @@ class SPARQLunicorn:
         self.qtask = QueryLayerTask("Querying QGIS Layer from " + endpoint_url,
                                     endpoint_url,
                                     prefixestoadd + query, self.triplestoreconf[endpointIndex],
-                                    self.dlg.allownongeo.isChecked(), self.dlg.inp_label.text(), progress)
+                                    True, self.dlg.inp_label.text(), progress)
         QgsApplication.taskManager().addTask(self.qtask)
         # self.dlg.close()
 

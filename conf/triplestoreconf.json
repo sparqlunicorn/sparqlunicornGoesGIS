@@ -28,7 +28,7 @@
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
-		"geoconceptquery": "",
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
         "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . ?a rdf:type ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . }",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
@@ -43,11 +43,11 @@
         }],
         "crs": 4326,
         "staticconcepts": ["http://atlantgis.squirrel.link/ontology#ArchaeologicalSite",
-            "http://atlantgis.squirrel.link/ontology#CoastLine",
-            "http://atlantgis.squirrel.link/ontology#LandType",
-            "http://atlantgis.squirrel.link/ontology#Goldkupfererz",
-            "http://atlantgis.squirrel.link/ontology#Zinn",
-            "http://atlantgis.squirrel.link/ontology#Silber",
+            "http://atlantgis.squirrel.link/ontology/CoastLine",
+            "http://atlantgis.squirrel.link/ontology/LandType",
+            "http://atlantgis.squirrel.link/ontology/Goldkupfererz",
+            "http://atlantgis.squirrel.link/ontology/Zinn",
+            "http://atlantgis.squirrel.link/ontology/Silber",
             "http://atlantgis.squirrel.link/ontology#Stream",
             "http://atlantgis.squirrel.link/ontology#Voronoi"
         ],
@@ -441,7 +441,7 @@
         "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
-		"geoconceptquery": "",
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}",
         "geotriplepattern": [" ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "],
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
@@ -462,7 +462,7 @@
             "label": "Forts in Roman Period",
             "query": "SELECT ?item ?label ?geo WHERE {\n ?place a <%%concept%%>.\n ?place pleiades:hasLocation ?item .\n ?item geosparql:asWKT ?geo .\n ?item dcterms:title ?label .\n ?item pleiades:during timeperiod:roman.\n ?place pleiades:hasFeatureType placetype:fort.\n }"
         }],
-        "staticconcepts": ["http://pleiades.stoa.org/places/vocab#Place", "http://www.w3.org/2004/02/skos/core#Concept"],
+        "staticconcepts": [],
         "active": true
     }, {
         "name": "Linked Ogham Data",

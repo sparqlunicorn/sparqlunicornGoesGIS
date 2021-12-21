@@ -63,6 +63,30 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
 
+class ClassTreeSortProxyModel(QSortFilterProxyModel):
+    """Sorting proxy model that always places folders on top."""
+    def __init__(self):
+        super().__init__()
+
+    def lessThan(self, left, right):
+        """Perform sorting comparison.
+
+        Since we know the sort order, we can ensure that folders always come first.
+        """
+        left_is_class = (left.data(257)==SPARQLUtils.classnode or left.data(257)==SPARQLUtils.geoclassnode)
+        left_data = str(left.data(Qt.DisplayRole))
+        right_is_class = (right.data(257)==SPARQLUtils.classnode or right.data(257)==SPARQLUtils.geoclassnode)
+        right_data = str(right.data(Qt.DisplayRole))
+        sort_order = self.sortOrder()
+
+        if left_is_class and not right_is_class:
+            result = sort_order == Qt.AscendingOrder
+        elif not left_is_class and right_is_class:
+            result = sort_order != Qt.AscendingOrder
+        else:
+            result = left_data < right_data
+        return result
+
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
@@ -129,7 +153,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionProxyModel.sort(0)
         self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
-        self.classTreeViewProxyModel =  QSortFilterProxyModel(self)
+        self.classTreeViewProxyModel = ClassTreeSortProxyModel()
         self.classTreeViewProxyModel.sort(0)
         self.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.classTreeViewProxyModel.setSourceModel(self.classTreeViewModel)
@@ -156,7 +180,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassListModel.clear()
         self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.classTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
-        self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
+        #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete)
@@ -716,10 +740,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             else:
                 querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
                     "query"].replace("%%concept%%", concept)
-            if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
-                querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
-            elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
-                querytext = querytext + " LIMIT " + self.queryLimit.text()
+            #if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
+            #    querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
+            #elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
+            #    querytext = querytext + " LIMIT " + self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
