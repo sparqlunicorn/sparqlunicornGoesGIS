@@ -25,42 +25,39 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
     def queryWithLimit(self):
         if self.nodetype == SPARQLUtils.geoclassnode:
             if "geotriplepattern" in self.triplestoreconf:
-                limitstatement="LIMIT "+self.amountOfInstancesEdit.text()
-                if self.skipFirstInstancesEdit.text() != "0":
-                    limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+                limitstatement="LIMIT "+str(self.amountOfInstancesEdit.value())
+                if self.skipFirstInstancesEdit.value() > 0:
+                    limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
                 thequery="SELECT ?" + " ?".join(self.triplestoreconf[
                                                "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
                         self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val . " +self.triplestoreconf["geotriplepattern"][0] + "\n }"
-                if self.skipFirstInstancesEdit.text()!="0":
-                    thequery+=" OFFSET "+self.skipFirstInstancesEdit.text()
+                if self.skipFirstInstancesEdit.value()!="0":
+                    thequery+=" OFFSET "+str(self.skipFirstInstancesEdit.value())
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.triplestoreconf["endpoint"],
                     thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
             else:
-                limitstatement=" LIMIT "+self.amountOfInstancesEdit.text()
-                if self.skipFirstInstancesEdit.text() != "0":
-                    limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+                limitstatement=" LIMIT "+str(self.amountOfInstancesEdit.value())
+                if self.skipFirstInstancesEdit.value() > 0:
+                    limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
                 thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
                         self.concept) + "> . } "+limitstatement+" }\n ?item ?rel ?val .\n }"
-                if self.skipFirstInstancesEdit.text()!="0":
-                    thequery+=" OFFSET "+self.skipFirstInstancesEdit.text()
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.triplestoreconf["endpoint"],
                     thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         else:
-            limitstatement=" LIMIT "+self.amountOfInstancesEdit.text()
-            if self.skipFirstInstancesEdit.text() != "0":
-                limitstatement += " OFFSET " + self.skipFirstInstancesEdit.text()
+            limitstatement=" LIMIT "+str(self.amountOfInstancesEdit.value())
+            if self.skipFirstInstancesEdit.value() > 0:
+                limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
             thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                     self.triplestoreconf["typeproperty"]) + "> <" + str(
                     self.concept) + "> . } "+limitstatement+"} ?item ?rel ?val .\n }"
-
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
                 self.triplestoreconf["endpoint"],

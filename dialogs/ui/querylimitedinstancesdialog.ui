@@ -65,19 +65,6 @@
     <string>Enter the amount of instances you would like to query:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="amountOfInstancesEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>70</y>
-     <width>221</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>50</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="skipFirstInstancesLabel">
    <property name="geometry">
     <rect>
@@ -91,17 +78,33 @@
     <string>Skip first X instances:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="skipFirstInstancesEdit">
+  <widget class="QSpinBox" name="skipFirstInstancesEdit">
    <property name="geometry">
     <rect>
      <x>160</x>
      <y>110</y>
      <width>221</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
-   <property name="text">
-    <string>0</string>
+   <property name="maximum">
+    <number>999999999</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="amountOfInstancesEdit">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>70</y>
+     <width>221</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>999999999</number>
    </property>
   </widget>
  </widget>
