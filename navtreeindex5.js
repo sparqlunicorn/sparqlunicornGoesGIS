@@ -1,5 +1,8 @@
 var NAVTREEINDEX5 =
 {
+"functions_func_d.html":[1,3,1,4],
+"functions_func_e.html":[1,3,1,5],
+"functions_func_f.html":[1,3,1,6],
 "functions_func_g.html":[1,3,1,7],
 "functions_func_h.html":[1,3,1,8],
 "functions_func_i.html":[1,3,1,9],
@@ -33,8 +36,8 @@ var NAVTREEINDEX5 =
 "functions_t.html":[1,3,0,20],
 "functions_u.html":[1,3,0,21],
 "functions_v.html":[1,3,0,22],
-"functions_vars.html":[1,3,2],
 "functions_vars.html":[1,3,2,0],
+"functions_vars.html":[1,3,2],
 "functions_vars_b.html":[1,3,2,1],
 "functions_vars_c.html":[1,3,2,2],
 "functions_vars_d.html":[1,3,2,3],
