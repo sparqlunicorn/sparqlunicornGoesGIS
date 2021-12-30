@@ -71,7 +71,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         #                                self.chosenDataFile.text(), self.chosenValidatorFile.text(),self.triplestoreconf,progress)
         #else:
         self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
-                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress)
+                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress,self)
         QgsApplication.taskManager().addTask(self.qtask)
 
     def loadURI(self):
