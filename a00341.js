@@ -1,6 +1,6 @@
 var a00341 =
 [
-    [ "__init__", "a00341.html#a7d8117cf9583e31a21230804dda66891", null ],
+    [ "__init__", "a00341.html#a790e63a78ebf9da9997eb7da23a92dc8", null ],
     [ "finished", "a00341.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00341.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "errorlog", "a00341.html#a8b15bd2589e75c9ee368081cb8962996", null ],
@@ -9,6 +9,7 @@ var a00341 =
     [ "filename", "a00341.html#a2ff994e16bf9521154de4cf659a3b689", null ],
     [ "geoconcepts", "a00341.html#a6c60f2039bf7ed34f3291349b4637a0a", null ],
     [ "graph", "a00341.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "parent", "a00341.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
     [ "processinglog", "a00341.html#a1fd1e53d1248bfc9f5b9f54f8a84d4fb", null ],
     [ "progress", "a00341.html#a991fd2c404665f13f536fc7791e53504", null ],
     [ "report", "a00341.html#a4b7febb5dfb963ed99f5e7870abce71b", null ],
