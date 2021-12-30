@@ -87,6 +87,25 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
             result = left_data < right_data
         return result
 
+    def filter_accepts_row_itself(self, row_num, parent):
+        return super(ClassTreeSortProxyModel, self).filterAcceptsRow(row_num, parent)
+
+    def filter_accepts_any_parent(self, parent):
+        while parent.isValid():
+            if self.filter_accepts_row_itself(parent.row(), parent.parent()):
+                return True
+            parent = parent.parent()
+        return False
+
+    def filterAcceptsRow(self, source_row, source_parent):
+        # check if an item is currently accepted
+        if self.filter_accepts_row_itself(source_row, source_parent):
+            return True
+            # Traverse up all the way to root and check if any of them match
+        if self.filter_accepts_any_parent(source_parent):
+            return True
+        return False
+
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
@@ -140,16 +159,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.classTreeViewModel = QStandardItemModel()
-        self.proxyModel = QSortFilterProxyModel(self)
+        self.proxyModel = ClassTreeSortProxyModel()
         self.proxyModel.sort(0)
         self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxyModel.setSourceModel(self.geoTreeViewModel)
-        self.proxyModel.setRecursiveFilteringEnabled(True)
-        self.featureCollectionProxyModel = QSortFilterProxyModel(self)
+        self.featureCollectionProxyModel = ClassTreeSortProxyModel()
         self.featureCollectionProxyModel.sort(0)
         self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
-        self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
+        self.geometryCollectionProxyModel = ClassTreeSortProxyModel()
         self.geometryCollectionProxyModel.sort(0)
         self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
@@ -157,7 +175,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.classTreeViewProxyModel.sort(0)
         self.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.classTreeViewProxyModel.setSourceModel(self.classTreeViewModel)
-        self.classTreeViewProxyModel.setRecursiveFilteringEnabled(True)
         self.classTreeView.setModel(self.classTreeViewProxyModel)
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
