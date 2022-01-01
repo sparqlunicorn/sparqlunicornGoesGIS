@@ -96,6 +96,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a88c1c61cde0c7f2e749e6718b45f6f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e400b5fe965ac1c8bf7bcdecc41bf0c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00269.html#a9e400b5fe965ac1c8bf7bcdecc41bf0c">filter_accepts_any_parent</a> (self, parent)</td></tr>
 <tr class="separator:a9e400b5fe965ac1c8bf7bcdecc41bf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cbae32dbee7de2a23979dc91e3ae4f4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00269.html#a6cbae32dbee7de2a23979dc91e3ae4f4">has_accepted_children</a> (self, row_num, parent)</td></tr>
+<tr class="separator:a6cbae32dbee7de2a23979dc91e3ae4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a508ddfee8b4b96ec825faa1f4430df54"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00269.html#a508ddfee8b4b96ec825faa1f4430df54">filterAcceptsRow</a> (self, source_row, source_parent)</td></tr>
 <tr class="separator:a508ddfee8b4b96ec825faa1f4430df54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -154,7 +156,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            parent = parent.parent()</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00269.html#a88c1c61cde0c7f2e749e6718b45f6f96">ClassTreeSortProxyModel.filter_accepts_row_itself()</a>.</p>
 
@@ -234,19 +236,74 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">def </span>filterAcceptsRow(self, source_row, source_parent):</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="comment"># check if an item is currently accepted</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_row_itself(source_row, source_parent):</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="comment"># Traverse up all the way to root and check if any of them match</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_any_parent(source_parent):</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">def </span>filterAcceptsRow(self, source_row, source_parent):</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="comment"># check if an item is currently accepted</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_row_itself(source_row, source_parent):</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="comment"># Traverse up all the way to root and check if any of them match</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_any_parent(source_parent):</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">if</span> self.has_accepted_children(source_row,source_parent):</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00269.html#a9e400b5fe965ac1c8bf7bcdecc41bf0c">ClassTreeSortProxyModel.filter_accepts_any_parent()</a>, and <a class="el" href="a00269.html#a88c1c61cde0c7f2e749e6718b45f6f96">ClassTreeSortProxyModel.filter_accepts_row_itself()</a>.</p>
+<p class="reference">References <a class="el" href="a00269.html#a9e400b5fe965ac1c8bf7bcdecc41bf0c">ClassTreeSortProxyModel.filter_accepts_any_parent()</a>, <a class="el" href="a00269.html#a88c1c61cde0c7f2e749e6718b45f6f96">ClassTreeSortProxyModel.filter_accepts_row_itself()</a>, and <a class="el" href="a00269.html#a6cbae32dbee7de2a23979dc91e3ae4f4">ClassTreeSortProxyModel.has_accepted_children()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a00269.html#a88c1c61cde0c7f2e749e6718b45f6f96">ClassTreeSortProxyModel.filter_accepts_row_itself()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00269.html#a88c1c61cde0c7f2e749e6718b45f6f96">ClassTreeSortProxyModel.filter_accepts_row_itself()</a>, and <a class="el" href="a00269.html#a6cbae32dbee7de2a23979dc91e3ae4f4">ClassTreeSortProxyModel.has_accepted_children()</a>.</p>
+
+</div>
+</div>
+<a id="a6cbae32dbee7de2a23979dc91e3ae4f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cbae32dbee7de2a23979dc91e3ae4f4">&#9670;&nbsp;</a></span>has_accepted_children()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def has_accepted_children </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row_num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parent</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Starting from the current node as root, traverse all
+    the descendants and test if any of the children match
+</pre> <div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">def </span>has_accepted_children(self, row_num, parent):</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="stringliteral">&#39;&#39;&#39; Starting from the current node as root, traverse all</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="stringliteral">            the descendants and test if any of the children match</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="stringliteral">        &#39;&#39;&#39;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        model = self.sourceModel()</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        source_index = model.index(row_num, 0, parent)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        children_count =  model.rowCount(source_index)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(children_count):</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">if</span> self.filterAcceptsRow(i, source_index):</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00269.html#a508ddfee8b4b96ec825faa1f4430df54">ClassTreeSortProxyModel.filterAcceptsRow()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00269.html#a508ddfee8b4b96ec825faa1f4430df54">ClassTreeSortProxyModel.filterAcceptsRow()</a>.</p>
 
 </div>
 </div>
