@@ -96,13 +96,28 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
                 return True
             parent = parent.parent()
         return False
+    
+    def has_accepted_children(self, row_num, parent):
+        ''' Starting from the current node as root, traverse all
+            the descendants and test if any of the children match
+        '''
+        model = self.sourceModel()
+        source_index = model.index(row_num, 0, parent)
 
+        children_count =  model.rowCount(source_index)
+        for i in range(children_count):
+            if self.filterAcceptsRow(i, source_index):
+                return True
+        return False
+    
     def filterAcceptsRow(self, source_row, source_parent):
         # check if an item is currently accepted
         if self.filter_accepts_row_itself(source_row, source_parent):
             return True
             # Traverse up all the way to root and check if any of them match
         if self.filter_accepts_any_parent(source_parent):
+            return True
+        if self.has_accepted_children(source_row,source_parent):
             return True
         return False
 
@@ -440,7 +455,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def treeAsRDF(self,root,result):
         if root is not None:
             for row in range(root.rowCount()):
-
                 row_item = root.child(row, 0)
                 if row_item.hasChildren():
                     for childIndex in range(row_item.rowCount()):
