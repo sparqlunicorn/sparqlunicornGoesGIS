@@ -334,20 +334,28 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 return
         result=set()
         root=self.currentContextModel.invisibleRootItem()
-        self.iterateTree(root.child(0),result)
+        self.iterateTree(root,result)
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
         return result
         
     def iterateTree(self,node,result):
-        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node)), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node))+" "+str(node.rowCount()), MESSAGE_CATEGORY, Qgis.Info)
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
-                self.iterateTree(self,node.child(i),result)
+                self.iterateTree(node.child(i),result)
+            if node.data(256)==None:
+                continue
             if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
+                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)),None))+"\" .\n")
+                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
                 result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+str(node.data(256))+"> .\n")
             elif node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
+                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
                 result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+str(node.data(256))+"> .\n")
 
     def createMenu(self,position):
