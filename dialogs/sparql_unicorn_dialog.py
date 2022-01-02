@@ -325,7 +325,39 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         actionsaveRDF=QAction("Save Contents as RDF")
         menu.addAction(actionsaveRDF)
         actionsaveRDF.triggered.connect(self.saveTreeToRDF)
+        actionsaveClassesRDF=QAction("Save Classes as RDF")
+        menu.addAction(actionsaveClassesRDF)
+        actionsaveClassesRDF.triggered.connect(self.saveClassesTreeToRDF)
+        actionsaveVisibleRDF=QAction("Save Visible Contents as RDF")
+        menu.addAction(actionsaveVisibleRDF)
+        actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
+
+    def saveClassesTreeToRDF(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        if filename == "":
+                return
+        result=set()
+        root=self.currentContextModel.invisibleRootItem()
+        self.iterateTree(root,result,False,True)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
+        with open(filename, 'w') as output_file:
+            output_file.write("".join(result))
+        return result
+
+    def saveVisibleTreeToRDF(self):
+        filename, _filter = QFileDialog.getSaveFileName(
+                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        if filename == "":
+                return
+        result=set()
+        root=self.currentContextModel.invisibleRootItem()
+        self.iterateTree(root,result,True,False)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
+        with open(filename, 'w') as output_file:
+            output_file.write("".join(result))
+        return result
 
     def saveTreeToRDF(self):
         filename, _filter = QFileDialog.getSaveFileName(
@@ -334,18 +366,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 return
         result=set()
         root=self.currentContextModel.invisibleRootItem()
-        self.iterateTree(root,result)
+        self.iterateTree(root,result,False,False)
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
         return result
         
-    def iterateTree(self,node,result):
+    def iterateTree(self,node,result,visible,classesonly):
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node))+" "+str(node.rowCount()), MESSAGE_CATEGORY, Qgis.Info)
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
-                self.iterateTree(node.child(i),result)
-            if node.data(256)==None:
+                self.iterateTree(node.child(i),result,visible,classesonly)
+            if node.data(256)==None or (visible and not self.currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
                 result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
@@ -353,7 +385,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
                 result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+str(node.data(256))+"> .\n")
-            elif node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
+            elif not classesonly and node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
                 result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
@@ -460,16 +492,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         self.instancedataDialog.setWindowTitle("Data Schema View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
         self.instancedataDialog.exec_()
-
-    def treeAsRDF(self,root,result):
-        if root is not None:
-            for row in range(root.rowCount()):
-                row_item = root.child(row, 0)
-                if row_item.hasChildren():
-                    for childIndex in range(row_item.rowCount()):
-                        # Take second column from "child"-row
-                        child = row_item.child(childIndex, 1)
-                        yield child
 
     def dataInstanceAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
