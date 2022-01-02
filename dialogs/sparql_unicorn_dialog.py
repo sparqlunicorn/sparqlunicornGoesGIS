@@ -356,6 +356,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             elif node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
                 result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
+                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
                 result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+str(node.data(256))+"> .\n")
 
     def createMenu(self,position):
