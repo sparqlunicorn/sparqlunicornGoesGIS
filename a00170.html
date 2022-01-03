@@ -62,6 +62,7 @@ $(document).ready(function(){initNavTree('a00170.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog Namespace Reference</div>  </div>
@@ -76,6 +77,11 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main dialog window of the SPARQLUnicorn QGIS Plugin.  <a href="a00273.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3a57e9f40ba217a08c7e895560900784"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00170.html#a3a57e9f40ba217a08c7e895560900784">lessThan</a> (self, left, right)</td></tr>
+<tr class="separator:a3a57e9f40ba217a08c7e895560900784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0357d3c7a5047524e1543f2f43bc3e38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00170.html#a0357d3c7a5047524e1543f2f43bc3e38">FORM_CLASS</a></td></tr>
@@ -85,6 +91,97 @@ Variables</h2></td></tr>
 <tr class="memitem:a964735b6bbac75792f1ff19bab17c5e3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00170.html#a964735b6bbac75792f1ff19bab17c5e3">MESSAGE_CATEGORY</a> = 'SPARQLUnicornDialog'</td></tr>
 <tr class="separator:a964735b6bbac75792f1ff19bab17c5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a3a57e9f40ba217a08c7e895560900784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a57e9f40ba217a08c7e895560900784">&#9670;&nbsp;</a></span>lessThan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.lessThan </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Perform sorting comparison.
+
+Since we know the sort order, we can ensure that folders always come first.
+</pre> <div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">def </span><a class="code" href="a00170.html#a3a57e9f40ba217a08c7e895560900784">lessThan</a>(self, left, right):</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Perform sorting comparison.</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="stringliteral">        Since we know the sort order, we can ensure that folders always come first.</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        left_is_class = (left.data(257)==SPARQLUtils.classnode <span class="keywordflow">or</span> left.data(257)==SPARQLUtils.geoclassnode)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        left_data = str(left.data(Qt.DisplayRole))</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        right_is_class = (right.data(257)==SPARQLUtils.classnode <span class="keywordflow">or</span> right.data(257)==SPARQLUtils.geoclassnode)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        right_data = str(right.data(Qt.DisplayRole))</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        sort_order = self.sortOrder()</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> left_is_class <span class="keywordflow">and</span> <span class="keywordflow">not</span> right_is_class:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            result = sort_order == Qt.AscendingOrder</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">elif</span> <span class="keywordflow">not</span> left_is_class <span class="keywordflow">and</span> right_is_class:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            result = sort_order != Qt.AscendingOrder</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            result = left_data &lt; right_data</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">def </span>filter_accepts_row_itself(self, row_num, parent):</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> super(ClassTreeSortProxyModel, self).filterAcceptsRow(row_num, parent)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">def </span>filter_accepts_any_parent(self, parent):</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">while</span> parent.isValid():</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">if</span> self.filter_accepts_row_itself(parent.row(), parent.parent()):</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            parent = parent.parent()</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">def </span>has_accepted_children(self, row_num, parent):</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="stringliteral">&#39;&#39;&#39; Starting from the current node as root, traverse all</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="stringliteral">            the descendants and test if any of the children match</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="stringliteral">        &#39;&#39;&#39;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        model = self.sourceModel()</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        source_index = model.index(row_num, 0, parent)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        children_count =  model.rowCount(source_index)</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(children_count):</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">if</span> self.filterAcceptsRow(i, source_index):</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">def </span>filterAcceptsRow(self, source_row, source_parent):</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment"># check if an item is currently accepted</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_row_itself(source_row, source_parent):</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="comment"># Traverse up all the way to root and check if any of them match</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">if</span> self.filter_accepts_any_parent(source_parent):</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">if</span> self.has_accepted_children(source_row,source_parent):</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a18f05aeddc212b523b40818fa2b87b33"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18f05aeddc212b523b40818fa2b87b33">&#9670;&nbsp;</a></span>_</h2>
@@ -138,6 +235,7 @@ Variables</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aa00170_html_a3a57e9f40ba217a08c7e895560900784"><div class="ttname"><a href="a00170.html#a3a57e9f40ba217a08c7e895560900784">sparqlunicornGoesGIS.dialogs.sparql_unicorn_dialog.lessThan</a></div><div class="ttdeci">def lessThan(self, left, right)</div><div class="ttdef"><b>Definition:</b> sparql_unicorn_dialog.py:80</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
