@@ -68,7 +68,16 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
     def __init__(self):
         super().__init__()
 
-    def lessThan(self, left, right):
+    def filterAcceptsRow(self, row_num, parent):
+        model = self.sourceModel()  # The sourcemodel is a 2d array of QStandardItem
+        row = model.row(row_num)
+        rowtype=row.data(257)
+
+        parentrow = model.row(parent)
+        if parentrow
+
+
+def lessThan(self, left, right):
         """Perform sorting comparison.
 
         Since we know the sort order, we can ensure that folders always come first.
