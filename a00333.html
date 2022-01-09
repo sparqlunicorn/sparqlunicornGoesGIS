@@ -300,8 +300,8 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">for</span> concept <span class="keywordflow">in</span> self.resultlist:</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="comment"># self.layerconcepts.addItem(concept)</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                item = QStandardItem()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                item.setData(concept, 256)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                item.setText(SPARQLUtils.labelFromURI(concept,self.triplestoreconf[<span class="stringliteral">&quot;prefixesrev&quot;</span>]))</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                item.setData(concept[<span class="stringliteral">&quot;concept&quot;</span>], 256)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                item.setText(SPARQLUtils.labelFromURI(concept[<span class="stringliteral">&quot;label&quot;</span>],self.triplestoreconf[<span class="stringliteral">&quot;prefixesrev&quot;</span>]))</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                item.setForeground(QColor(0,0,0))</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                item.setEditable(<span class="keyword">False</span>)</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                item.setIcon(SPARQLUtils.geoclassicon)</div>
@@ -310,8 +310,8 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="comment">#item.appendRow(QStandardItem(&quot;Child&quot;))</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                self.rootNode.appendRow(item)</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                <span class="keywordflow">if</span> self.triplestoreconf[<span class="stringliteral">&quot;name&quot;</span>] == <span class="stringliteral">&quot;Wikidata&quot;</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    self.completerClassList[<span class="stringliteral">&quot;completerClassList&quot;</span>][concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:]] = <span class="stringliteral">&quot;wd:&quot;</span> + \</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                                                                                      concept.split(</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    self.completerClassList[<span class="stringliteral">&quot;completerClassList&quot;</span>][concept[<span class="stringliteral">&quot;concept&quot;</span>][concept[<span class="stringliteral">&quot;concept&quot;</span>].rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:]] = <span class="stringliteral">&quot;wd:&quot;</span> + \</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                                                                                      concept[<span class="stringliteral">&quot;label&quot;</span>].split(</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                                                                                          <span class="stringliteral">&quot;(&quot;</span>)[</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                                                                          1].replace(</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                                                                                          <span class="stringliteral">&quot; &quot;</span>,</div>
@@ -319,7 +319,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                                                                                          <span class="stringliteral">&quot;)&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    self.completerClassList[<span class="stringliteral">&quot;completerClassList&quot;</span>][</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        concept[concept.rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:]] = <span class="stringliteral">&quot;&lt;&quot;</span> + concept + <span class="stringliteral">&quot;&gt;&quot;</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        concept[<span class="stringliteral">&quot;concept&quot;</span>][concept[<span class="stringliteral">&quot;concept&quot;</span>].rfind(<span class="stringliteral">&#39;/&#39;</span>) + 1:]] = <span class="stringliteral">&quot;&lt;&quot;</span> + concept + <span class="stringliteral">&quot;&gt;&quot;</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            self.sparql.updateNewClassList()</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                                  QItemSelectionModel.SelectCurrent)</div>
@@ -394,7 +394,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            i = 0</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            sorted_labels = sorted(labels.items(), key=<span class="keyword">lambda</span> x: x[1])</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">for</span> lab <span class="keywordflow">in</span> sorted_labels:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                self.resultlist.append(labels[lab[0]] + <span class="stringliteral">&quot; (&quot;</span> + lab[0] + <span class="stringliteral">&quot;)&quot;</span>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                self.resultlist.append({<span class="stringliteral">&quot;label&quot;</span>:labels[lab[0]] + <span class="stringliteral">&quot; (&quot;</span> + lab[0] + <span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;concept&quot;</span>:self.viewlist[i]})</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                i = i + 1</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
