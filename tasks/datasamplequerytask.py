@@ -26,7 +26,10 @@ class DataSampleQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation),MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(self.concept) + "> . ?con <"+str(self.relation)+"> ?val } GROUP BY ?val LIMIT 100",self.triplestoreconf)
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        if "typeproperty" in self.triplestoreconf:
+            typeproperty=self.triplestoreconf["typeproperty"]
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,"SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <"+typeproperty+"> <" + str(self.concept) + "> . ?con <"+str(self.relation)+"> ?val } GROUP BY ?val LIMIT 100",self.triplestoreconf)
         for result in results["results"]["bindings"]:
             #QgsMessageLog.logMessage('Started task "{}"'.format(result), MESSAGE_CATEGORY, Qgis.Info)
             self.queryresult[result["val"]["value"]]={}

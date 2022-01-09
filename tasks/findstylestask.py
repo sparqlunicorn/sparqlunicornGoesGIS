@@ -22,15 +22,9 @@ class FindStyleQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        thequery=""
-        if "wikidata" in self.triplestoreurl:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
+        QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"
-        else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"
+        thequery="SELECT ?style ?stylelabel WHERE { <"+str(self.concept)+"> geo:style ?style . OPTIONAL { ?style rdfs:label ?stylelabel . } }"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:

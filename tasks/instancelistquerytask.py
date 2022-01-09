@@ -21,7 +21,6 @@ class InstanceListQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        thequery=""
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]

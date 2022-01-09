@@ -22,21 +22,8 @@ class GetStyleQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        thequery=""
-        if "wikidata" in self.triplestoreurl:
-            wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <http://www.wikidata.org/entity/"+str(wikicon)+"> geo:style <"+str(self.styleuri)+"> . "+ \
-                     "OPTIONAL {?style geost:pointStyle ?pointstyle. }\n"+\
-                     "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
-                     "OPTIONAL { ?style geost: polygonStyle ?polygonstyle. }\n"+\
-                     "OPTIONAL { ?style geost:image ?img. }\n"+\
-                     "OPTIONAL { ?style geost:linestringImageStyle ?linestringImageStyle. }\n"+\
-                     "OPTIONAL { ?style geost:linestringImage ?linestringImage. }\n"+\
-                     "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
-                     "}"
-        else:
-            con=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <http://www.wikidata.org/entity/"+str(con)+"> geo:style <"+str(self.styleuri)+"> . "+ \
+        con=self.treeNode.data(256)
+        thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> geo:style <"+str(self.styleuri)+"> . "+ \
                      "OPTIONAL {?style geost:pointStyle ?pointstyle. }\n"+\
                      "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
                      "OPTIONAL { ?style geost:polygonStyle ?polygonstyle. }\n"+\
