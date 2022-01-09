@@ -68,16 +68,7 @@ class ClassTreeSortProxyModel(QSortFilterProxyModel):
     def __init__(self):
         super().__init__()
 
-    def filterAcceptsRow(self, row_num, parent):
-        model = self.sourceModel()  # The sourcemodel is a 2d array of QStandardItem
-        row = model.row(row_num)
-        rowtype=row.data(257)
-
-        parentrow = model.row(parent)
-        if parentrow
-
-
-def lessThan(self, left, right):
+    def lessThan(self, left, right):
         """Perform sorting comparison.
 
         Since we know the sort order, we can ensure that folders always come first.
@@ -383,22 +374,31 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         
     def iterateTree(self,node,result,visible,classesonly):
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node))+" "+str(node.rowCount()), MESSAGE_CATEGORY, Qgis.Info)
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
+        subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        if "labelproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            labelproperty=self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"]
+        if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            typeproperty=self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"]
+        if "subclassproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            subclassproperty=self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"]
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
                 self.iterateTree(node.child(i),result,visible,classesonly)
             if node.data(256)==None or (visible and not self.currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
-                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)),None))+"\" .\n")
-                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <"+str(node.data(256))+"> .\n")
+                result.add("<" + str(node.child(i).data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)),None))+"\" .\n")
+                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
+                result.add("<"+str(node.child(i).data(256))+"> <"+subclassproperty+"> <"+str(node.data(256))+"> .\n")
             elif not classesonly and node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
-                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#label> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <"+str(node.data(256))+"> .\n")
+                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
+                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
+                result.add("<"+str(node.child(i).data(256))+"> <"+typeproperty+"> <"+str(node.data(256))+"> .\n")
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -977,7 +977,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         try:
             fieldnames = [field.name() for field in layer.fields()]
             while self.interlinkTable.rowCount() > 0:
-                self.interlinkTable.removeRow(0);
+                self.interlinkTable.removeRow(0)
             row = 0
             self.interlinkTable.setHorizontalHeaderLabels(
                 ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",

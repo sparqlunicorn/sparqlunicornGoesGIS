@@ -122,7 +122,7 @@
             }
         ],
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.wikidata.org/prop/direct/P31> ?class .\n ?a <http://www.wikidata.org/prop/direct/P625> ?a_geom .\n} LIMIT 500",
-        "geotriplepattern": " ?item <http://www.wikidata.org/prop/direct/P625> ?geo . ",
+        "geotriplepattern": [" ?item <http://www.wikidata.org/prop/direct/P625> ?geo . "],
         "classlabelquery": "https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&languages=en&format=json&ids=%%concepts%%",
         "propertylabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&&format=json&language=en&uselang=en&type=property&search=%%concepts%%",
         "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=en&uselang=en&type=item",

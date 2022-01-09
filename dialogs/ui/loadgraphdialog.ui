@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>120</height>
+    <width>569</width>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
+     <y>180</y>
      <width>111</width>
      <height>23</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="loadFromFileButton">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>70</y>
+     <x>440</x>
+     <y>180</y>
      <width>111</width>
      <height>23</height>
     </rect>
@@ -42,9 +42,9 @@
   <widget class="QLineEdit" name="graphURIEdit">
    <property name="geometry">
     <rect>
-     <x>132</x>
+     <x>150</x>
      <y>20</y>
-     <width>241</width>
+     <width>401</width>
      <height>21</height>
     </rect>
    </property>
@@ -65,14 +65,125 @@
   <widget class="QLabel" name="OrLabel">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>70</y>
+     <x>260</x>
+     <y>180</y>
      <width>61</width>
      <height>21</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string>OR</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="credentialPassword">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>130</y>
+     <width>401</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="useAuthenticationCheckBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>121</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Use Authentication</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernameLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Username (Optional):</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="authenticationComboBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>60</y>
+     <width>401</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>HTTP BASIC</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HTTP DIGEST</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Solid Pod</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="credentialUserName">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>90</y>
+     <width>401</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="passwordLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Password (Optional):</string>
    </property>
   </widget>
  </widget>

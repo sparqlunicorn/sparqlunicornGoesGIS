@@ -51,7 +51,7 @@ class GeoCollectionsQueryTask(QgsTask):
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             viewlistentry={}
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.queryvar)), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.queryvar)), MESSAGE_CATEGORY, Qgis.Info)
             if self.queryvar in result:
                 self.viewlist.append(viewlistentry)
                 viewlistentry["uri"]=str(result[self.queryvar]["value"])

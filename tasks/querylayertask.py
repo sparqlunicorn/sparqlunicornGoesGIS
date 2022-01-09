@@ -173,10 +173,11 @@ class QueryLayerTask(QgsTask):
         if len(features)==0:
             if not geooptional:
                 del properties['item']
-                del properties['geo']
-                myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
-                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
-                feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                if "geo" in properties:
+                    del properties['geo']
+                    myGeometryInstanceJSON = self.processLiteral(result["geo"]["value"], (
+                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject)
+                    feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
             else:
                 feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
             features.append(feature)
