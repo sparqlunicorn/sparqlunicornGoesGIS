@@ -23,18 +23,10 @@ class InstanceQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        thequery=""
-        if "wikidata" in self.triplestoreurl:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "WIKIDATA: SELECT ?rel ?val WHERE { http://www.wikidata.org/entity/" + str(
-                    self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?rel ?val WHERE { <http://www.wikidata.org/entity/" + str(
-                    self.searchTerm) + ">  ?rel ?val . }"
-        else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
+        QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT ?con ?rel ?val WHERE { "+ str(
                     self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?rel ?val WHERE { <" + str(
+        thequery="SELECT ?rel ?val WHERE { <" + str(
                     self.searchTerm) + ">  ?rel ?val . }"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)

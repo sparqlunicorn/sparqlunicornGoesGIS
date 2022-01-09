@@ -50,7 +50,7 @@ class GeoConceptsQueryTask(QgsTask):
             i = 0
             sorted_labels = sorted(labels.items(), key=lambda x: x[1])
             for lab in sorted_labels:
-                self.resultlist.append(labels[lab[0]] + " (" + lab[0] + ")")
+                self.resultlist.append({"label":labels[lab[0]] + " (" + lab[0] + ")","concept":self.viewlist[i]})
                 i = i + 1
         return True
 
@@ -70,8 +70,8 @@ class GeoConceptsQueryTask(QgsTask):
             for concept in self.resultlist:
                 # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
-                item.setData(concept, 256)
-                item.setText(SPARQLUtils.labelFromURI(concept,self.triplestoreconf["prefixesrev"]))
+                item.setData(concept["concept"], 256)
+                item.setText(SPARQLUtils.labelFromURI(concept["label"],self.triplestoreconf["prefixesrev"]))
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
                 item.setIcon(SPARQLUtils.geoclassicon)
@@ -80,8 +80,8 @@ class GeoConceptsQueryTask(QgsTask):
                 #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
-                    self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
-                                                                                                      concept.split(
+                    self.completerClassList["completerClassList"][concept["concept"][concept["concept"].rfind('/') + 1:]] = "wd:" + \
+                                                                                                      concept["label"].split(
                                                                                                           "(")[
                                                                                                           1].replace(
                                                                                                           " ",
@@ -89,7 +89,7 @@ class GeoConceptsQueryTask(QgsTask):
                                                                                                           ")", "")
                 else:
                     self.completerClassList["completerClassList"][
-                        concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
+                        concept["concept"][concept["concept"].rfind('/') + 1:]] = "<" + concept + ">"
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)

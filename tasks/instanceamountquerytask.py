@@ -23,13 +23,8 @@ class InstanceAmountQueryTask(QgsTask):
         thequery=""
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
-            typeproperty=typeproperty
-        if "wikidata" in self.triplestoreurl:
-            wikicon=self.treeNode.data(256).split("(")[1].replace(" ","_").replace(")", "")
-            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <http://www.wikidata.org/prop/direct/P31> <http://www.wikidata.org/entity/" + str(
-                    wikicon) + "> . }"
-        else:
-            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <"+typeproperty+"> <" + str(
+            typeproperty=self.triplestoreconf["typeproperty"]
+        thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <"+typeproperty+"> <" + str(
                     self.treeNode.data(256)) + "> . }"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
