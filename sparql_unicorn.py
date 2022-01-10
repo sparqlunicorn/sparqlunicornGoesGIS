@@ -344,7 +344,7 @@ class SPARQLunicorn:
         self.dlg.conceptViewTabWidget.setTabText(2, "GeometryCollections")
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree")
         self.dlg.savedQueries.clear()
-        if "prefixesrev" not in self.triplestoreconf[endpointIndex]:
+        if "prefixesrev" not in self.triplestoreconf[endpointIndex] and "prefixes" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["prefixes"]!=None and self.triplestoreconf[endpointIndex]["prefixes"]!="":
             self.triplestoreconf[endpointIndex]["prefixesrev"]=SPARQLUtils.invertPrefixes(self.triplestoreconf[endpointIndex]["prefixes"])
         if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "endpoint"] in self.savedQueriesJSON:

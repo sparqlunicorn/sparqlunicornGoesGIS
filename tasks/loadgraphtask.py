@@ -40,9 +40,8 @@ class LoadGraphTask(QgsTask):
     def finished(self, result):
         if result == True:
             self.dlg.geoTreeViewModel.clear()
-            self.dlg.comboBox.setCurrentIndex(0);
+            self.dlg.comboBox.setCurrentIndex(0)
             self.maindlg.currentgraph = self.graph
-            self.dlg.layercount.setText("[" + str(len(self.geoconcepts)) + "]")
             for geo in self.geoconcepts:
                 item = QStandardItem()
                 item.setData(geo, 256)

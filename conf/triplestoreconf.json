@@ -2,6 +2,10 @@
         "name": "File",
         "prefixes": "",
         "endpoint": "",
+        "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
+        "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
         "geoconceptquery": "SELECT DISTINCT ?class (count(?class) as ?count) WHERE { ?a rdf:type ?class . ?a <http://www.opengis.net/ont/geosparql#hasGeometry> ?a_geom .}",
         "querytemplate": [{
             "label": "All Attributes",

@@ -37,6 +37,7 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
         self.graphURIEdit.textChanged.emit(self.graphURIEdit.text())
         self.loadFromFileButton.clicked.connect(self.loadFile)
         self.loadFromURIButton.clicked.connect(self.loadURI)
+        self.loadGraphCloseButton.clicked.connect(self.close)
 
     def check_state1(self):
         self.check_state(self.graphURIEdit)

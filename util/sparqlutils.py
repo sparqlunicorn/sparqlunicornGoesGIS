@@ -149,6 +149,11 @@ class SPARQLUtils:
         return query
 
     @staticmethod
+    def loadAdditionalGraphResources(existinggraph,graphuri):
+        if graphuri==None or graphuri=="":
+            return None
+
+    @staticmethod
     def loadGraph(graphuri):
         if graphuri==None or graphuri=="":
             return None
@@ -168,13 +173,18 @@ class SPARQLUtils:
         graph = Graph()
         try:
             if graphuri.startswith("http"):
-                graph.load(graphuri)
+                QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
+                with urllib.request.urlopen(graphuri) as data:
+                    readit=data.read().decode()
+                    QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
+                    filepath = graphuri.split(".")
+                    graph.parse(data=readit,format=filepath[len(filepath) - 1])
             else:
                 filepath = graphuri.split(".")
                 result = graph.parse(graphuri, format=filepath[len(filepath) - 1])
         except Exception as e:
             QgsMessageLog.logMessage('Failed "{}"'.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)
-            # self.exception = str(e)
+            #self.exception = str(e)
             return None
         return graph
 
