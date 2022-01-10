@@ -181,7 +181,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.graphURIEdit.textChanged.emit(self.graphURIEdit.text())</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.loadFromFileButton.clicked.connect(self.loadFile)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.loadFromURIButton.clicked.connect(self.loadURI)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.loadGraphCloseButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00213.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -213,17 +214,17 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        validator = sender.validator()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        validator = sender.validator()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00249.html#a452dcd98676575e133f2fd74a3a8bd01">LoadGraphDialog.check_state1()</a>, <a class="el" href="a00285.html#a452dcd98676575e133f2fd74a3a8bd01">UploadRDFDialog.check_state1()</a>, <a class="el" href="a00281.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreQuickAddDialog.check_state1()</a>, <a class="el" href="a00277.html#a452dcd98676575e133f2fd74a3a8bd01">TripleStoreDialog.check_state1()</a>, <a class="el" href="a00281.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreQuickAddDialog.check_state2()</a>, <a class="el" href="a00277.html#a9a1cb24b28540f37b69ea944b5834ecd">TripleStoreDialog.check_state2()</a>, and <a class="el" href="a00265.html#ace2b9b2398c60b5e5468418324fc7212">SearchDialog.check_state3()</a>.</p>
 
@@ -244,9 +245,9 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.check_state(self.graphURIEdit)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.check_state(self.graphURIEdit)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00241.html#aee700008c6180fc09c43e84dd4cfc1f1">GraphValidationDialog.check_state()</a>, <a class="el" href="a00249.html#aee700008c6180fc09c43e84dd4cfc1f1">LoadGraphDialog.check_state()</a>, and <a class="el" href="a00229.html#aee700008c6180fc09c43e84dd4cfc1f1">ConvertCRSDialog.check_state()</a>.</p>
 
@@ -267,21 +268,21 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        dialog = QFileDialog(self.dlg)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            fileNames = dialog.selectedFiles()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + fileNames[0], <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Loading Graph&quot;</span>)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + fileNames[0], fileNames[0], self, self.dlg, self.maindlg,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                       self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], self.triplestoreconf, progress, <span class="keyword">True</span>)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        dialog = QFileDialog(self.dlg)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            fileNames = dialog.selectedFiles()</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + fileNames[0], <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Loading Graph&quot;</span>)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + fileNames[0], fileNames[0], self, self.dlg, self.maindlg,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                       self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], self.triplestoreconf, progress, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00249.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphDialog.dlg</a>, <a class="el" href="a00241.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00229.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, and <a class="el" href="a00213.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
 
@@ -302,16 +303,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Loading Graph&quot;</span>)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                       self.triplestoreconf, progress, <span class="keyword">True</span>)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Loading Graph&quot;</span>)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                       self.triplestoreconf, progress, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00249.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphDialog.dlg</a>, <a class="el" href="a00229.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00241.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00213.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00249.html#a7a228f82cef256bf0c017634e4195718">LoadGraphDialog.maindlg</a>, <a class="el" href="a00229.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00233.html#a7a228f82cef256bf0c017634e4195718">ConvertLayerDialog.maindlg</a>, <a class="el" href="a00241.html#a7a228f82cef256bf0c017634e4195718">GraphValidationDialog.maindlg</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00249.html#a09dec5fb4a23fd0028407eddbe26cc16">LoadGraphDialog.qtask</a>, <a class="el" href="a00241.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00213.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00245.html#a09dec5fb4a23fd0028407eddbe26cc16">InstanceDataDialog.qtask</a>, <a class="el" href="a00237.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00213.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 

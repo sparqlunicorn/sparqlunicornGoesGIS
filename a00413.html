@@ -91,6 +91,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a6a87e7a9a2e39deccadaeb01a20f4b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75ec67b8ee03aed176e014ccd7ecb3be"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#a75ec67b8ee03aed176e014ccd7ecb3be">expandRelValToAmount</a> (query, amount)</td></tr>
 <tr class="separator:a75ec67b8ee03aed176e014ccd7ecb3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26da799374792519f34753f24ebf64a0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#a26da799374792519f34753f24ebf64a0">loadAdditionalGraphResources</a> (existinggraph, graphuri)</td></tr>
+<tr class="separator:a26da799374792519f34753f24ebf64a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ea69b3c9b5e9a5c623f23dd8d123965"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#a2ea69b3c9b5e9a5c623f23dd8d123965">loadGraph</a> (graphuri)</td></tr>
 <tr class="separator:a2ea69b3c9b5e9a5c623f23dd8d123965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af075c5781e0174e635863e938130c064"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#af075c5781e0174e635863e938130c064">detectLiteralType</a> (literal)</td></tr>
@@ -158,24 +160,24 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">def </span>detectLiteralType(literal):</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            geom = QgsGeometry.fromWkt(literal)</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkt&quot;</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            print(<span class="stringliteral">&quot;no wkt&quot;</span>)</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkb&quot;</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            print(<span class="stringliteral">&quot;no wkb&quot;</span>)</div>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">def </span>detectLiteralType(literal):</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            json.loads(literal)</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;geojson&quot;</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            geom = QgsGeometry.fromWkt(literal)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkt&quot;</span></div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            print(<span class="stringliteral">&quot;no wkt&quot;</span>)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkb&quot;</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            print(<span class="stringliteral">&quot;no wkb&quot;</span>)</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            json.loads(literal)</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;geojson&quot;</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -399,40 +401,40 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl):</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        result = {}</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="comment"># url=&quot;https://www.wikidata.org/w/api.php?action=wbgetentities&amp;props=labels&amp;ids=&quot;</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query:</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            vals = <span class="stringliteral">&quot;VALUES ?class { &quot;</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                vals += qid + <span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            <span class="keywordflow">if</span> results == <span class="keyword">False</span>:</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                result[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            url = triplestoreconf[<span class="stringliteral">&quot;classlabelquery&quot;</span>]</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            i = 0</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                <span class="keywordflow">if</span> (i % 50) == 0:</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                    print(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery))</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                    print(myResponse)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                        print(ent)</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                            result[ent] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                i = i + 1</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl):</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        result = {}</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="comment"># url=&quot;https://www.wikidata.org/w/api.php?action=wbgetentities&amp;props=labels&amp;ids=&quot;</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query:</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            vals = <span class="stringliteral">&quot;VALUES ?class { &quot;</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                vals += qid + <span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="keywordflow">if</span> results == <span class="keyword">False</span>:</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                result[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            url = triplestoreconf[<span class="stringliteral">&quot;classlabelquery&quot;</span>]</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            i = 0</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                <span class="keywordflow">if</span> (i % 50) == 0:</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                    print(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery))</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                    print(myResponse)</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        print(ent)</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                            result[ent] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                i = i + 1</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keywordflow">return</span> result</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -459,21 +461,21 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">def </span>handleURILiteral(uri):</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        result = []</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keywordflow">if</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.map&quot;</span>):</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                f = urlopen(uri)</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                myjson = json.loads(f.read())</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;data&quot;</span> <span class="keywordflow">in</span> myjson <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> myjson[<span class="stringliteral">&quot;data&quot;</span>] <span class="keywordflow">and</span> myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;FeatureCollection&quot;</span>:</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                    features = myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;features&quot;</span>]</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                    <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                        result.append(feat[<span class="stringliteral">&quot;geometry&quot;</span>])</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting geoshape &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(sys.exc_info()[0]))</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keyword">def </span>handleURILiteral(uri):</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        result = []</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">if</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.map&quot;</span>):</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                f = urlopen(uri)</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                myjson = json.loads(f.read())</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;data&quot;</span> <span class="keywordflow">in</span> myjson <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> myjson[<span class="stringliteral">&quot;data&quot;</span>] <span class="keywordflow">and</span> myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;FeatureCollection&quot;</span>:</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                    features = myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;features&quot;</span>]</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                    <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                        result.append(feat[<span class="stringliteral">&quot;geometry&quot;</span>])</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting geoshape &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(sys.exc_info()[0]))</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -557,6 +559,46 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a26da799374792519f34753f24ebf64a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26da799374792519f34753f24ebf64a0">&#9670;&nbsp;</a></span>loadAdditionalGraphResources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def loadAdditionalGraphResources </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>existinggraph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>graphuri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">def </span>loadAdditionalGraphResources(existinggraph,graphuri):</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">if</span> graphuri==<span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a2ea69b3c9b5e9a5c623f23dd8d123965"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ea69b3c9b5e9a5c623f23dd8d123965">&#9670;&nbsp;</a></span>loadGraph()</h2>
 
@@ -580,35 +622,40 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">def </span>loadGraph(graphuri):</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">if</span> graphuri==<span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">if</span> proxyHost != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> proxyPort != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Proxy? &#39; + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: proxyHost})</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            opener = urllib.request.build_opener(proxy)</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            urllib.request.install_opener(opener)</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Load Graph&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        graph = Graph()</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordflow">if</span> graphuri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                graph.load(graphuri)</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                result = graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.<a class="code" href="a00204.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(str(e)), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            <span class="comment"># self.exception = str(e)</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">return</span> graph</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keyword">def </span>loadGraph(graphuri):</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> graphuri==<span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">if</span> proxyHost != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> proxyPort != <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Proxy? &#39; + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: proxyHost})</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            opener = urllib.request.build_opener(proxy)</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            urllib.request.install_opener(opener)</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Load Graph&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        graph = Graph()</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">if</span> graphuri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot; Data: &quot;</span> + str(graphuri) + <span class="stringliteral">&quot;&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                <span class="keyword">with</span> urllib.request.urlopen(graphuri) <span class="keyword">as</span> data:</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    readit=data.read().decode()</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                    QgsMessageLog.logMessage(<span class="stringliteral">&quot; Data: &quot;</span>+str(readit)+<span class="stringliteral">&quot;&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                    filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    graph.parse(data=readit,format=filepath[len(filepath) - 1])</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                result = graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.<a class="code" href="a00204.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(str(e)), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="comment">#self.exception = str(e)</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordflow">return</span> graph</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00204.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>.</p>
 

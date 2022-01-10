@@ -7,6 +7,7 @@ var a00413 =
     [ "handleURILiteral", "a00413.html#a3218189fb73d8b6b5484782a0bc9c041", null ],
     [ "invertPrefixes", "a00413.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
     [ "labelFromURI", "a00413.html#a8d66b18f94f098b37701c05f1a838047", null ],
+    [ "loadAdditionalGraphResources", "a00413.html#a26da799374792519f34753f24ebf64a0", null ],
     [ "loadGraph", "a00413.html#a2ea69b3c9b5e9a5c623f23dd8d123965", null ],
     [ "shortenLiteral", "a00413.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "authmethods", "a00413.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
