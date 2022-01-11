@@ -1,18 +1,11 @@
 var a00393 =
 [
-    [ "__init__", "a00393.html#a5788aa490c766bf347cb9d3712abc036", null ],
-    [ "canvasMoveEvent", "a00393.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00393.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "canvasReleaseEvent", "a00393.html#af1a565828651f16efdecaee54f27a1b2", null ],
-    [ "deactivate", "a00393.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "rbcircle", "a00393.html#a77bfe9c713743ce24a48112ddfd1ceae", null ],
-    [ "reset", "a00393.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00393.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "center", "a00393.html#a02389a9bda512aa8f8a3345f4fa27f25", null ],
-    [ "iface", "a00393.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00393.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00393.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "segments", "a00393.html#a95912ea8e057275833a7edd278c87dfd", null ],
-    [ "selectionDone", "a00393.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00393.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "__init__", "a00393.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
+    [ "detectNamespaces", "a00393.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
+    [ "detectTripleStoreConfiguration", "a00393.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
+    [ "testTripleStoreConnection", "a00393.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
+    [ "configuration", "a00393.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a00393.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "message", "a00393.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "testURL", "a00393.html#aacac69f65111f90a0c0d4749ff99a530", null ]
 ];

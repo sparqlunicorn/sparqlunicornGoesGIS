@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00934.html", null ],
-    [ "tasks/__init__.py", "a00937.html", null ],
-    [ "util/__init__.py", "a00940.html", null ],
+    [ "dialogs/__init__.py", "a00954.html", null ],
+    [ "tasks/__init__.py", "a00957.html", null ],
+    [ "util/__init__.py", "a00960.html", null ],
     [ "bboxdialog.py", "a00014.html", "a00014" ],
     [ "classtreequerytask.py", "a00065.html", "a00065" ],
     [ "convertcrsdialog.py", "a00017.html", "a00017" ],
@@ -16,12 +16,13 @@ var files_dup =
     [ "detecttriplestoretask.py", "a00077.html", "a00077" ],
     [ "enrichmentquerytask.py", "a00080.html", "a00080" ],
     [ "enrichmenttab.py", "a00122.html", [
-      [ "EnrichmentTab", "a00377.html", "a00377" ]
+      [ "EnrichmentTab", "a00381.html", "a00381" ]
     ] ],
     [ "findstylestask.py", "a00083.html", "a00083" ],
     [ "geocollectionsquerytask.py", "a00086.html", "a00086" ],
     [ "geoconceptsquerytask.py", "a00089.html", "a00089" ],
     [ "getstyletask.py", "a00092.html", "a00092" ],
+    [ "graphutils.py", "a00131.html", "a00131" ],
     [ "graphvalidationdialog.py", "a00026.html", "a00026" ],
     [ "graphvalidationtask.py", "a00095.html", "a00095" ],
     [ "instanceamountquerytask.py", "a00098.html", "a00098" ],
@@ -29,19 +30,19 @@ var files_dup =
     [ "instancelistquerytask.py", "a00101.html", "a00101" ],
     [ "instancequerytask.py", "a00104.html", "a00104" ],
     [ "interlinkingtab.py", "a00125.html", [
-      [ "InterlinkingTab", "a00381.html", "a00381" ]
+      [ "InterlinkingTab", "a00385.html", "a00385" ]
     ] ],
-    [ "layerutils.py", "a00131.html", "a00131" ],
+    [ "layerutils.py", "a00134.html", "a00134" ],
     [ "loadgraphdialog.py", "a00032.html", "a00032" ],
     [ "loadgraphtask.py", "a00107.html", "a00107" ],
     [ "loginwindowdialog.py", "a00035.html", "a00035" ],
-    [ "mappingtools.py", "a00134.html", [
-      [ "CircleMapTool", "a00393.html", "a00393" ],
-      [ "PolygonMapTool", "a00397.html", "a00397" ],
-      [ "RectangleMapTool", "a00401.html", "a00401" ]
+    [ "mappingtools.py", "a00137.html", [
+      [ "CircleMapTool", "a00401.html", "a00401" ],
+      [ "PolygonMapTool", "a00405.html", "a00405" ],
+      [ "RectangleMapTool", "a00409.html", "a00409" ]
     ] ],
-    [ "oauth.py", "a00137.html", [
-      [ "OAuthConfiguration", "a00405.html", "a00405" ]
+    [ "oauth.py", "a00140.html", [
+      [ "OAuthConfiguration", "a00413.html", "a00413" ]
     ] ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
     [ "querylayertask.py", "a00110.html", "a00110" ],
@@ -51,19 +52,19 @@ var files_dup =
     [ "searchtask.py", "a00113.html", "a00113" ],
     [ "sparql_unicorn.py", "a00011.html", "a00011" ],
     [ "sparql_unicorn_dialog.py", "a00044.html", "a00044" ],
-    [ "sparqlhighlighter.py", "a00140.html", "a00140" ],
-    [ "sparqlutils.py", "a00143.html", "a00143" ],
-    [ "styleobject.py", "a00146.html", [
-      [ "StyleObject", "a00417.html", "a00417" ]
+    [ "sparqlhighlighter.py", "a00143.html", "a00143" ],
+    [ "sparqlutils.py", "a00146.html", "a00146" ],
+    [ "styleobject.py", "a00149.html", [
+      [ "StyleObject", "a00425.html", "a00425" ]
     ] ],
-    [ "styleutils.py", "a00149.html", [
-      [ "StyleUtils", "a00421.html", "a00421" ]
+    [ "styleutils.py", "a00152.html", [
+      [ "StyleUtils", "a00429.html", "a00429" ]
     ] ],
     [ "subclassquerytask.py", "a00116.html", "a00116" ],
-    [ "tooltipplaintext.py", "a00152.html", [
-      [ "SPARQLCompleter", "a00425.html", "a00425" ],
-      [ "LineNumberArea", "a00429.html", "a00429" ],
-      [ "ToolTipPlainText", "a00433.html", "a00433" ]
+    [ "tooltipplaintext.py", "a00155.html", [
+      [ "SPARQLCompleter", "a00433.html", "a00433" ],
+      [ "LineNumberArea", "a00437.html", "a00437" ],
+      [ "ToolTipPlainText", "a00441.html", "a00441" ]
     ] ],
     [ "triplestoredialog.py", "a00047.html", "a00047" ],
     [ "triplestorequickadddialog.py", "a00050.html", "a00050" ],

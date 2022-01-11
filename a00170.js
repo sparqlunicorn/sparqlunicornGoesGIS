@@ -1,5 +1,5 @@
 var a00170 =
 [
-    [ "ClassTreeSortProxyModel", "a00269.html", "a00269" ],
-    [ "SPARQLunicornDialog", "a00273.html", "a00273" ]
+    [ "LoginWindow", "a00261.html", "a00261" ],
+    [ "LoginWindowDialog", "a00257.html", "a00257" ]
 ];

@@ -1,4 +1,4 @@
 var a00181 =
 [
-    [ "DataSchemaQueryTask", "a00313.html", "a00313" ]
+    [ "ClassTreeQueryTask", "a00305.html", "a00305" ]
 ];
