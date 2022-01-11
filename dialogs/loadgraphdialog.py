@@ -55,16 +55,15 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
-        dialog.setFileMode(QFileDialog.AnyFile)
+        dialog.setFileMode(QFileDialog.ExistingFiles)
         self.justloadingfromfile = True
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
-            filepath = fileNames[0].split(".")
             progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
             progress.setWindowTitle("Loading Graph")
             progress.setWindowModality(Qt.WindowModal)
             progress.setCancelButton(None)
-            self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], fileNames[0], self, self.dlg, self.maindlg,
+            self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.graphNameEdit.text(), fileNames, self, self.dlg, self.maindlg,
                                        self.triplestoreconf[0]["geoconceptquery"], self.triplestoreconf, progress, True)
             QgsApplication.taskManager().addTask(self.qtask)
 
@@ -74,7 +73,7 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
             progress.setWindowTitle("Loading Graph")
             progress.setWindowModality(Qt.WindowModal)
             progress.setCancelButton(None)
-            self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,
+            self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphNameEdit.text(), self.graphURIEdit.text(), self,
                                        self.dlg, self.maindlg, self.triplestoreconf[0]["geoconceptquery"],
                                        self.triplestoreconf, progress, True)
             QgsApplication.taskManager().addTask(self.qtask)

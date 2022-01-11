@@ -208,22 +208,7 @@ class SPARQLunicorn:
         # query
         query = self.dlg.inp_sparql2.toPlainText()
         if self.loadedfromfile:
-            curindex = self.dlg.proxyModel.mapToSource(self.dlg.geoTreeView.selectionModel().currentIndex())
-            if curindex != None and self.dlg.geoTreeViewModel.itemFromIndex(curindex) != None:
-                concept = self.dlg.geoTreeViewModel.itemFromIndex(curindex).data(256)
-            else:
-                concept = "http://www.opengis.net/ont/geosparql#Feature"
-            geojson = self.getGeoJSONFromGeoConcept(self.currentgraph, concept)
-            vlayer = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=4),
-                                    "unicorn_" + self.dlg.inp_label.text(), "ogr")
-            print(vlayer.isValid())
-            QgsProject.instance().addMapLayer(vlayer)
-            canvas = iface.mapCanvas()
-            canvas.setExtent(vlayer.extent())
-            iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-            # iface.messageBar().pushMessage("Error", "An error occured", level=Qgis.Critical)
-            # self.dlg.close()
-            return
+            endpoint_url=self.currentgraph
         else:
             endpoint_url = self.triplestoreconf[endpointIndex]["endpoint"]
         missingmandvars = []
@@ -236,7 +221,10 @@ class SPARQLunicorn:
             msgBox.setText("The SPARQL query is missing the following mandatory variables: " + str(missingmandvars))
             msgBox.exec()
             return
-        progress = QProgressDialog("Querying layer from " + endpoint_url + "...", "Abort", 0, 0, self.dlg)
+        if isinstance(endpoint_url, str):
+            progress = QProgressDialog("Querying layer from " + str(endpoint_url) + "...", "Abort", 0, 0, self.dlg)
+        else:
+            progress = QProgressDialog("Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0, self.dlg)
         progress.setWindowTitle("Query layer")
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
@@ -251,7 +239,13 @@ class SPARQLunicorn:
             if not self.triplestoreconf[endpointIndex]["prefixes"][endpoint] in queryprefixes:
                 prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[endpointIndex]["prefixes"][
                     endpoint] + "> \n"
-        self.qtask = QueryLayerTask("Querying QGIS Layer from " + endpoint_url,
+        if isinstance(endpoint_url, str):
+            self.qtask = QueryLayerTask("Querying QGIS Layer from " + endpoint_url,
+                                    endpoint_url,
+                                    prefixestoadd + query, self.triplestoreconf[endpointIndex],
+                                    True, self.dlg.inp_label.text(), progress)
+        else:
+            self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["name"]),
                                     endpoint_url,
                                     prefixestoadd + query, self.triplestoreconf[endpointIndex],
                                     True, self.dlg.inp_label.text(), progress)
@@ -276,7 +270,7 @@ class SPARQLunicorn:
                 self.dlg.autocomplete["completerClassList"][row] = str(row[0])
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(viewlist)) + ")")
             return viewlist
-        self.qtask = GeoConceptsQueryTask("Querying GeoConcepts from " + triplestoreurl,
+        self.qtask = GeoConceptsQueryTask("Querying GeoConcepts from " +str(triplestoreurl),
                                           triplestoreurl,
                                           query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                           self.dlg.inp_sparql2, queryvar, getlabels, self.dlg.layercount,
@@ -289,11 +283,26 @@ class SPARQLunicorn:
         item2 = QStandardItem()
         item2.setText("Loading...")
         self.dlg.classTreeViewModel.appendRow(item2)
-        self.qtaskctree = ClassTreeQueryTask(
+        if self.triplestoreconf[self.dlg.comboBox.currentIndex()]["type"]=="sparlendpoint":
+            self.qtaskctree = ClassTreeQueryTask(
             "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
             self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
             self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),self.triplestoreconf[self.dlg.comboBox.currentIndex()])
-        QgsApplication.taskManager().addTask(self.qtaskctree)
+            QgsApplication.taskManager().addTask(self.qtaskctree)
+        elif self.triplestoreconf[self.dlg.comboBox.currentIndex()]["type"]=="file":
+            self.qtaskctree = ClassTreeQueryTask(
+                "Getting classtree...",
+                self.currentgraph,
+                self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),
+                self.triplestoreconf[self.dlg.comboBox.currentIndex()])
+            QgsApplication.taskManager().addTask(self.qtaskctree)
+        else:
+            self.qtaskctree = ClassTreeQueryTask(
+            "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
+            self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
+            self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),self.triplestoreconf[self.dlg.comboBox.currentIndex()])
+            QgsApplication.taskManager().addTask(self.qtaskctree)
+
 
     def getGeoCollectionInstances(self, triplestoreurl, query, queryvar, graph, featureOrGeoCollection, examplequery):
         viewlist = []
@@ -307,7 +316,7 @@ class SPARQLunicorn:
             return viewlist
         QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
         if featureOrGeoCollection:
-            self.qtaskfeature = GeoCollectionsQueryTask("Querying FeatureCollections from " + triplestoreurl,
+            self.qtaskfeature = GeoCollectionsQueryTask("Querying FeatureCollections from " + str(triplestoreurl),
                                                         triplestoreurl,
                                                         query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                                         self.dlg.inp_sparql2, queryvar, "label", featureOrGeoCollection,
@@ -317,7 +326,7 @@ class SPARQLunicorn:
                                                         self.dlg.autocomplete, self.dlg)
             QgsApplication.taskManager().addTask(self.qtaskfeature)
         else:
-            self.qtaskgeos = GeoCollectionsQueryTask("Querying GeometryCollections from " + triplestoreurl,
+            self.qtaskgeos = GeoCollectionsQueryTask("Querying GeometryCollections from " + str(triplestoreurl),
                                                      triplestoreurl,
                                                      query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                                      self.dlg.inp_sparql2, queryvar, "label", featureOrGeoCollection,
@@ -389,7 +398,7 @@ class SPARQLunicorn:
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.dlg.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.dlg.inp_sparql2.columnvars = {}
-        if "File" not in self.triplestoreconf[endpointIndex]["name"] and "wikidata" not in self.triplestoreconf[endpointIndex]["endpoint"]:
+        if (isinstance(self.triplestoreconf[endpointIndex]["endpoint"],str) and "wikidata" not in self.triplestoreconf[endpointIndex]["endpoint"]) or not isinstance(self.triplestoreconf[endpointIndex]["endpoint"],str):
             self.getClassTree()
         if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
@@ -439,45 +448,6 @@ class SPARQLunicorn:
             self.dlg.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                 self.dlg.savedQueries.addItem(concept["label"])
-
-    ## Gets GeoJSON reperesentations from a graph given by an RDF file or data source.
-    #  @param self The object pointer.
-    #  @param self The rdf graph
-    #  @param self The concept to search for
-    def getGeoJSONFromGeoConcept(self, graph, concept):
-        print(concept)
-        qres = graph.query(
-            """SELECT DISTINCT ?a ?rel ?val ?wkt
-        WHERE {
-          ?a rdf:type <""" + str(concept) + """> .
-          ?a ?rel ?val .
-          OPTIONAL { ?val <http://www.opengis.net/ont/geosparql#asWKT> ?wkt}
-        }""")
-        geos = []
-        geometries = {
-            'type': 'FeatureCollection',
-            'features': geos,
-        }
-        newfeature = False
-        lastfeature = ""
-        currentgeo = {}
-        for row in qres:
-            print(lastfeature + " - " + row[0] + " - " + str(len(row)))
-            print(row)
-            if (lastfeature == "" or lastfeature != row[0]):
-                if (lastfeature != ""):
-                    geos.append(currentgeo)
-                lastfeature = row[0]
-                currentgeo = {'id': row[0], 'geometry': {}, 'properties': {}}
-            if (row[3] != None):
-                print(row[3])
-                if ("<" in row[3]):
-                    currentgeo['geometry'] = json.loads(QgsGeometry.fromWkt(row[3].split(">")[1].strip()).asJson())
-                else:
-                    currentgeo['geometry'] = json.loads(QgsGeometry.fromWkt(row[3]).asJson())
-            else:
-                currentgeo['properties'][str(row[1])] = str(row[2])
-        return geometries
 
     def useDefaultIDPropProcess(self):
         self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
@@ -599,7 +569,7 @@ class SPARQLunicorn:
             self.first_start = False
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
-            self.dlg.setWindowIcon(QIcon(':/icons/resources/icons/sparqlunicorn.png'))
+            self.dlg.setWindowIcon(SPARQLUtils.sparqlunicornicon)
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
@@ -609,8 +579,12 @@ class SPARQLunicorn:
                         item += " --> "
                         for mandvar in triplestore["mandatoryvariables"]:
                             item += "?" + mandvar + " "
+                    if "type" in triplestore and triplestore["type"]=="sparqlendpoint":
+                        item+=" [Endpoint]"
+                    elif "type" in triplestore and triplestore["type"] == "file":
+                        item += " [File]"
                     self.dlg.comboBox.addItem(item)
-            self.dlg.comboBox.setCurrentIndex(1)
+            self.dlg.comboBox.setCurrentIndex(0)
             self.dlg.viewselectactionClassTree()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.endpointselectaction()

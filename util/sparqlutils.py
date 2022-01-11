@@ -2,6 +2,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST, BASIC, DIGEST
 import urllib
 import requests
 import sys
+import io
 from urllib.request import urlopen
 import json
 from qgis.core import Qgis, QgsGeometry
@@ -9,6 +10,7 @@ from qgis.core import QgsMessageLog
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
+from rdflib.plugins.sparql.results.jsonresults import JSONResultSerializer
 
 MESSAGE_CATEGORY = "SPARQLUtils"
 
@@ -21,6 +23,8 @@ class SPARQLUtils:
                              "http://www.opengis.net/ont/geosparql#kmlLiteral": "kml",
                              "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"}
 
+    graphResource = ["solid:forClass"]
+
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
 
     classicon=QIcon(":/icons/resources/icons/class.png")
@@ -29,6 +33,7 @@ class SPARQLUtils:
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
     earthinstanceicon=QIcon(":/icons/resources/icons/earthinstance.png")
+    sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
     classnode="Class"
     geoclassnode="GeoClass"
     instancenode="Instance"
@@ -39,68 +44,74 @@ class SPARQLUtils:
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
-        s = QSettings()  # getting proxy from qgis options settings
-        proxyEnabled = s.value("proxy/proxyEnabled")
-        proxyType = s.value("proxy/proxyType")
-        proxyHost = s.value("proxy/proxyHost")
-        proxyPort = s.value("proxy/proxyPort")
-        proxyUser = s.value("proxy/proxyUser")
-        proxyPassword = s.value("proxy/proxyPassword")
-        if proxyHost != None and proxyHost != "" and proxyPort != None and proxyPort != "":
-            QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-        QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
-        sparql = SPARQLWrapper(triplestoreurl)
-        if triplestoreconf!=None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
-                and triplestoreconf["auth"]["userCredential"]!="" \
-                and "userPassword" in triplestoreconf["auth"] \
-                and triplestoreconf["auth"]["userPassword"] != None:
-            #QgsMessageLog.logMessage('Credentials? ' + str(triplestoreconf["auth"]["userCredential"])+" "+str(triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
-            if "method" in triplestoreconf["auth"] and triplestoreconf["auth"]["method"] in SPARQLUtils.authmethods:
-                sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf["auth"]["method"]])
-            else:
-                sparql.setHTTPAuth(BASIC)
-            sparql.setCredentials(triplestoreconf["auth"]["userCredential"], triplestoreconf["auth"]["userPassword"])
-        sparql.setQuery(query)
-        sparql.setMethod(GET)
-        sparql.setReturnFormat(JSON)
-        try:
-            results = sparql.queryAndConvert()
-            if "status_code" in results:
-                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-                raise Exception
-        except Exception as e:
+        if isinstance(triplestoreurl, str):
+            s = QSettings()  # getting proxy from qgis options settings
+            proxyEnabled = s.value("proxy/proxyEnabled")
+            proxyType = s.value("proxy/proxyType")
+            proxyHost = s.value("proxy/proxyHost")
+            proxyPort = s.value("proxy/proxyPort")
+            proxyUser = s.value("proxy/proxyUser")
+            proxyPassword = s.value("proxy/proxyPassword")
+            if proxyHost != None and proxyHost != "" and proxyPort != None and proxyPort != "":
+                QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
+                proxy = urllib.request.ProxyHandler({'http': proxyHost})
+                opener = urllib.request.build_opener(proxy)
+                urllib.request.install_opener(opener)
+            QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
+            sparql = SPARQLWrapper(triplestoreurl)
+            if triplestoreconf!=None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
+                    and triplestoreconf["auth"]["userCredential"]!="" \
+                    and "userPassword" in triplestoreconf["auth"] \
+                    and triplestoreconf["auth"]["userPassword"] != None:
+                #QgsMessageLog.logMessage('Credentials? ' + str(triplestoreconf["auth"]["userCredential"])+" "+str(triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
+                if "method" in triplestoreconf["auth"] and triplestoreconf["auth"]["method"] in SPARQLUtils.authmethods:
+                    sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf["auth"]["method"]])
+                else:
+                    sparql.setHTTPAuth(BASIC)
+                sparql.setCredentials(triplestoreconf["auth"]["userCredential"], triplestoreconf["auth"]["userPassword"])
+            sparql.setQuery(query)
+            sparql.setMethod(GET)
+            sparql.setReturnFormat(JSON)
             try:
-                sparql = SPARQLWrapper(triplestoreurl,
-                                       agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
-                sparql.setQuery(query)
-                if triplestoreconf != None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
-                        and triplestoreconf["auth"]["userCredential"] != "" \
-                        and "userPassword" in triplestoreconf["auth"] \
-                        and triplestoreconf["auth"]["userPassword"] != None:
-                    #QgsMessageLog.logMessage(
-                    #    'Credentials? ' + str(triplestoreconf["auth"]["userCredential"]) + " " + str(
-                    #       triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
-                    if "method" in triplestoreconf["auth"] and triplestoreconf["auth"][
-                        "method"] in SPARQLUtils.authmethods:
-                        sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf["auth"]["method"]])
-                    else:
-                        sparql.setHTTPAuth(BASIC)
-                    sparql.setCredentials(triplestoreconf["auth"]["userCredential"],
-                                          triplestoreconf["auth"]["userPassword"])
-                sparql.setMethod(POST)
-                sparql.setReturnFormat(JSON)
                 results = sparql.queryAndConvert()
                 if "status_code" in results:
                     QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     raise Exception
-            except:
-                QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
-                if "OntopUnsupportedInputQueryException: The expression Exists" in str(e):
-                    return "Exists error"
-                return False
+            except Exception as e:
+                try:
+                    sparql = SPARQLWrapper(triplestoreurl,
+                                           agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                    sparql.setQuery(query)
+                    if triplestoreconf != None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
+                            and triplestoreconf["auth"]["userCredential"] != "" \
+                            and "userPassword" in triplestoreconf["auth"] \
+                            and triplestoreconf["auth"]["userPassword"] != None:
+                        #QgsMessageLog.logMessage(
+                        #    'Credentials? ' + str(triplestoreconf["auth"]["userCredential"]) + " " + str(
+                        #       triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
+                        if "method" in triplestoreconf["auth"] and triplestoreconf["auth"][
+                            "method"] in SPARQLUtils.authmethods:
+                            sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf["auth"]["method"]])
+                        else:
+                            sparql.setHTTPAuth(BASIC)
+                        sparql.setCredentials(triplestoreconf["auth"]["userCredential"],
+                                              triplestoreconf["auth"]["userPassword"])
+                    sparql.setMethod(POST)
+                    sparql.setReturnFormat(JSON)
+                    results = sparql.queryAndConvert()
+                    if "status_code" in results:
+                        QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                        raise Exception
+                except:
+                    QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
+                    if "OntopUnsupportedInputQueryException: The expression Exists" in str(e):
+                        return "Exists error"
+                    return False
+        else:
+            graph=triplestoreurl
+            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl)+" "+str(len(triplestoreurl)), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Query: " + str(query), MESSAGE_CATEGORY, Qgis.Info)
+            results=json.loads(graph.query(query).serialize(format="json"))
         QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         return results
 
@@ -154,7 +165,7 @@ class SPARQLUtils:
             return None
 
     @staticmethod
-    def loadGraph(graphuri):
+    def loadGraph(graphuri,graph=None):
         if graphuri==None or graphuri=="":
             return None
         s = QSettings()  # getting proxy from qgis options settings
@@ -170,7 +181,8 @@ class SPARQLUtils:
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
         #QgsMessageLog.logMessage('Started task "{}"'.format("Load Graph"), MESSAGE_CATEGORY, Qgis.Info)
-        graph = Graph()
+        if graph==None:
+            graph = Graph()
         try:
             if graphuri.startswith("http"):
                 QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)

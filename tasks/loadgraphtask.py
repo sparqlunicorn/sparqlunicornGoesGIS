@@ -1,19 +1,19 @@
 from ..util.sparqlutils import SPARQLUtils
-from qgis.PyQt.QtGui import QStandardItem
+from ..util.graphutils import GraphUtils
 from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.core import (
-    QgsTask
-)
+from qgis.core import (QgsTask)
+from rdflib import Graph
 
 MESSAGE_CATEGORY = 'LoadGraphTask'
 
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class LoadGraphTask(QgsTask):
 
-    def __init__(self, description, filename, loadgraphdlg, dlg, maindlg, query, triplestoreconf, progress, closedlg):
+    def __init__(self, description, graphname, filenames, loadgraphdlg, dlg, maindlg, query, triplestoreconf, progress, closedlg):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
+        self.graphname=graphname
         self.dlg = dlg
         self.maindlg = maindlg
         self.triplestoreconf = triplestoreconf
@@ -23,14 +23,23 @@ class LoadGraphTask(QgsTask):
         self.geoconcepts = None
         self.closedlg = closedlg
         self.exception = None
-        self.filename = filename
+        self.detectnamespaces=True
+        self.filenames = filenames
         self.geojson = None
+        self.gutils=GraphUtils("")
 
     def run(self):
-        self.graph=SPARQLUtils.loadGraph(self.filename)
+        if isinstance(self.filenames,str):
+            self.graph=SPARQLUtils.loadGraph(self.filenames)
+        else:
+            self.graph=Graph()
+            for file in self.filenames:
+                SPARQLUtils.loadGraph(file,self.graph)
         self.geoconcepts = []
         if self.graph != None:
             print("WE HAVE A GRAPH")
+            self.gutils.detectTripleStoreConfiguration(self.graphname, self.graph, self.detectnamespaces,
+                                                       {"normal": {}, "reversed": {}}, self.progress)
             results = self.graph.query(self.query)
             for row in results:
                 self.geoconcepts.append(str(row[0]))
@@ -40,20 +49,30 @@ class LoadGraphTask(QgsTask):
     def finished(self, result):
         if result == True:
             self.dlg.geoTreeViewModel.clear()
-            self.dlg.comboBox.setCurrentIndex(0)
             self.maindlg.currentgraph = self.graph
+            """
             for geo in self.geoconcepts:
                 item = QStandardItem()
                 item.setData(geo, 256)
+                item.setIcon(SPARQLUtils.geoclassicon)
+                item.setData(SPARQLUtils.geoclassnode,257)
                 item.setText(geo[geo.rfind('/') + 1:])
                 self.dlg.geoTreeViewModel.appendRow(item)
+            """
             # comp=QCompleter(self.dlg.layerconcepts)
             # comp.setCompletionMode(QCompleter.PopupCompletion)
             # comp.setModel(self.dlg.layerconcepts.model())
             # self.dlg.layerconcepts.setCompleter(comp)
+            self.dlg.comboBox.addItem(str(self.graphname)+" [File]")
+            index = len(self.triplestoreconf)
+            self.triplestoreconf.append({})
+            self.triplestoreconf[index] = self.gutils.configuration
+            self.triplestoreconf[index]["endpoint"]=self.graph
+            """
             self.dlg.inp_sparql2.setPlainText(
                 self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%", self.geoconcepts[0]))
             self.dlg.inp_sparql2.columnvars = {}
+            """
             self.maindlg.loadedfromfile = True
             self.maindlg.justloadingfromfile = False
             if self.closedlg:

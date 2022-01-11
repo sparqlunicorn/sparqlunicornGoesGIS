@@ -94,7 +94,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             msgBox.exec()
             return
         # self.endpoints.append(self.tripleStoreEdit.text())
-        self.comboBox.addItem(self.tripleStoreNameEdit.text())
+        self.comboBox.addItem(str(self.tripleStoreNameEdit.text())+" [Endpoint]")
         curprefixes = []
         for i in range(self.prefixList.count()):
             curprefixes.append(self.prefixList.item(i).text())

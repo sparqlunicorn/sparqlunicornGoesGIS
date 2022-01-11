@@ -33,10 +33,10 @@ class InstanceListQueryTask(QgsTask):
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con rdfs:label ?label . } }"
         else:
             QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT ?con ?label WHERE { ?con "+typeproperty+" " + str(
-                        self.treeNode.data(256)) + " . OPTIONAL { ?con rdfs:label ?label . } }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?label WHERE { ?con <"+typeproperty+"> <" + str(
-                        self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } }"
+                "SELECT ?con ?label ?hasgeo WHERE { ?con "+typeproperty+" " + str(
+                        self.treeNode.data(256)) + " . OPTIONAL { ?con rdfs:label ?label . } OPTIONAL {BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}}"), MESSAGE_CATEGORY, Qgis.Info)
+            thequery="SELECT ?con ?label ?hasgeo WHERE { ?con <"+typeproperty+"> <" + str(
+                        self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } OPTIONAL {BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}}"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:
@@ -44,6 +44,10 @@ class InstanceListQueryTask(QgsTask):
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
+            if "hasgeo" in result:
+                self.queryresult[result["con"]["value"]]["hasgeo"] = True
+            else:
+                self.queryresult[result["con"]["value"]]["hasgeo"] = False
             if "label" in result:
                 self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
             else:
@@ -61,7 +65,8 @@ class InstanceListQueryTask(QgsTask):
             item = QStandardItem()
             item.setData(concept, 256)
             item.setText(self.queryresult[concept]["label"])
-            if self.treeNode.data(257)==SPARQLUtils.geoclassnode or self.treeNode.data(257)==SPARQLUtils.collectionclassnode:
+            if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
+                    or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)
                 item.setIcon(SPARQLUtils.earthinstanceicon)
                 item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)

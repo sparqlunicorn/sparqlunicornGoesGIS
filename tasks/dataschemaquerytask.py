@@ -1,5 +1,6 @@
 import json
 import requests
+from collections.abc import Iterable
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
 from qgis.PyQt.QtCore import Qt
@@ -38,9 +39,16 @@ class DataSchemaQueryTask(QgsTask):
             return False
         concept = "<" + self.searchTerm + ">"
         if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
+            if isinstance(self.prefixes, Iterable):
+                results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
+            else:
+                results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None","") + self.query,
+                                                   self.triplestoreconf)
         else:
-            results=self.graph.query("".join(self.prefixes) + self.query)
+            if isinstance(self.prefixes, Iterable):
+                results = self.graph.query("".join(self.prefixes) + self.query)
+            else:
+                results=self.graph.query(str(self.prefixes).replace("None","") + self.query)
         if results == False:
             return False
         self.searchResult.clear()

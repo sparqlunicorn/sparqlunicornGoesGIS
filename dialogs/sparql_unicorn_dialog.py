@@ -30,9 +30,9 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt import QtCore
 from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
 from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
-from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices
+from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
-    QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog
+    QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
 from rdflib.plugins.sparql import prepareQuery
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
@@ -245,6 +245,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionValidate_RDF_Data.triggered.connect(self.buildGraphValidationDialog)
         self.actionConstraint_By_BBOX.triggered.connect(self.buildBBOXDialog)
         self.chooseLayerInterlink.clear()
+        self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
+        self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
@@ -278,6 +280,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #self.loadUnicornLayers()
         self.show()
 
+    def tripleStoreInfoDialog(self):
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("RDF Resource Information")
+        thetext="<html><h3>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0><tr><th>Information</th><th>Value</th></tr>"
+        thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
+        thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"
+        thetext+="<tr><td>Endpoint</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"])+"</a></td></tr>"
+        thetext+="<tr><td>Type Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</a></td></tr>"
+        thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
+        thetext+="</html>"
+        msgBox.setText(thetext)
+        msgBox.exec()
 
     def loadQueryFunc(self):
         if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
@@ -888,7 +902,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
-        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.prefixes[
+        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.comboBox.currentIndex() in self.prefixes and self.prefixes[
             self.comboBox.currentIndex()] is not None \
                 and self.inp_sparql2.toPlainText() is not None \
                 and self.inp_sparql2.toPlainText() != "":
