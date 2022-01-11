@@ -284,7 +284,7 @@
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n} LIMIT 500",
-        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."],
         "geoconceptlimit": 500,
         "querytemplate": [{
                 "label": "All Attributes",
@@ -331,7 +331,7 @@
 		"whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)",
         "classfromlabelquery": "SELECT DISTINCT ?class ?label WHERE { ?class rdf:type owl:Class  . ?class rdfs:label ?label . FILTER(CONTAINS(?label, \"%%label%%\")) } LIMIT 10",
         "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long .\n}",
-        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."],
         "querytemplate": [{
             "label": "100 Random Places",
             "query": "SELECT ?item ?lat ?lon WHERE {\n ?item a <%%concept%%>.\n ?item wgs84_pos:lat ?lat .\n ?item wgs84_pos:long ?lon .\n} LIMIT 100"
@@ -408,7 +408,7 @@
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "SELECT DISTINCT ?class WHERE { ?a rdf:type ?class . ?a wgs84_pos:lat ?lat . ?a wgs84_pos:long ?long .}",
-        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?long ."],
+        "geotriplepattern": [" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon ."],
         "geoconceptlimit": 500,
         "querytemplate": [{
             "label": "Default",
@@ -432,7 +432,7 @@
             "timeperiod": "http://pleiades.stoa.org/vocabularies/time-periods/",
             "dcterms": "http://purl.org/dc/terms/"
         },
-        "endpoint": "http://sandbox.mainzed.org/pleiades/sparql",
+        "endpoint": "http://digits.mainzed.org/pleiades/sparql",
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
