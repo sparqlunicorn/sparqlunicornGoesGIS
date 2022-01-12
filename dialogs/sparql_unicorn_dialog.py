@@ -256,7 +256,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
-        self.closeButton.clicked.connect(self.hide)
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
@@ -271,11 +270,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
-        #self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
-        #self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
-        #self.loadUnicornLayers()
         self.show()
 
     def tripleStoreInfoDialog(self):

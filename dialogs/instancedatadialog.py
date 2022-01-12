@@ -1,9 +1,12 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem
 from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
-from qgis.core import Qgis
+from qgis.gui import QgsMapCanvas, QgsMapToolPan
+from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
+    QgsCoordinateTransform, QgsPointXY
 from ..tasks.instancequerytask import InstanceQueryTask
 from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
@@ -12,7 +15,7 @@ from qgis.core import (
     QgsApplication, QgsMessageLog
 )
 
-
+MESSAGE_CATEGORY = 'InstanceDataDialogggg'
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/instancedatadialog.ui'))
 
@@ -49,6 +52,27 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         self.curindex=curindex
+        self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.map_canvas = QgsMapCanvas(self)
+        self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
+        self.map_canvas.setMinimumSize(500, self.height()-10)
+        self.map_canvas.move(self.width(), 0)
+        actionPan = QAction("Pan", self)
+        actionPan.setCheckable(True)
+        actionPan.triggered.connect(self.pan)
+        self.toolPan = QgsMapToolPan(self.map_canvas)
+        self.toolPan.setAction(actionPan)
+        #self.map_canvas.hide()
+        uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz&zmax=19&crs=EPSG3857"
+        self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
+        QgsMessageLog.logMessage(str(self.mts_layer), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(self.mts_layer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
+        if not self.mts_layer.isValid():
+            print("Layer failed to load!")
+        self.map_canvas.setExtent(self.mts_layer.extent())
+        self.map_canvas.setLayers([self.mts_layer])
+        self.map_canvas.setCurrentLayer(self.mts_layer)
+        self.pan()
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
@@ -65,6 +89,8 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
 
+    def pan(self):
+        self.map_canvas.setMapTool(self.toolPan)
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()
@@ -119,5 +145,5 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
                                            self.triplestoreurl,
                                            self.concept,
                                            self.triplestoreconf[self.curindex],
-                                           self.instanceDataTableView)
+                                           self.instanceDataTableView,self.map_canvas,self.vl,self)
         QgsApplication.taskManager().addTask(self.qtask)

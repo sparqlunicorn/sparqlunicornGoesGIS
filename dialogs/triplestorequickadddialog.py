@@ -64,7 +64,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                                        "Abort", 0, 0, self)
             progress.setWindowTitle("Triple Store Autoconfiguration")
             progress.setWindowModality(Qt.WindowModal)
-            #progress.setCancelButton(None)
             progress.show()
             self.qtask = DetectTripleStoreTask(
                 "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,

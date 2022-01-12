@@ -32,11 +32,21 @@ class InstanceListQueryTask(QgsTask):
             thequery="SELECT ?con ?label WHERE {  <" + str(
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con rdfs:label ?label . } }"
         else:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT ?con ?label ?hasgeo WHERE { ?con "+typeproperty+" " + str(
-                        self.treeNode.data(256)) + " . OPTIONAL { ?con rdfs:label ?label . } OPTIONAL {BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}}"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?label ?hasgeo WHERE { ?con <"+typeproperty+"> <" + str(
-                        self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } OPTIONAL {BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}}"
+            if "geometryproperty" in self.triplestoreconf:
+                QgsMessageLog.logMessage('Started task "{}"'.format(
+                    "SELECT ?con ?label ?hasgeo WHERE { ?con "+typeproperty+" " + str(
+                            self.treeNode.data(256)) + " . OPTIONAL { ?con rdfs:label ?label . } BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY, Qgis.Info)
+                thequery="SELECT ?con ?label ?hasgeo WHERE { ?con <"+typeproperty+"> <" + str(
+                            self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
+            else:
+                QgsMessageLog.logMessage('Started task "{}"'.format(
+                    "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
+                        self.treeNode.data(
+                            256)) + " . OPTIONAL { ?con rdfs:label ?label . }}"), MESSAGE_CATEGORY,
+                    Qgis.Info)
+                thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
+                    self.treeNode.data(
+                        256)) + "> . OPTIONAL { ?con rdfs:label ?label . }}"
         if self.graph==None:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         else:

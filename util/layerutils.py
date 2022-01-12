@@ -2,8 +2,8 @@ from qgis.PyQt.QtCore import QVariant
 from qgis.core import (
     QgsMessageLog
 )
-from qgis.core import Qgis
-from qgis.core import QgsWkbTypes
+from osgeo import ogr
+from qgis.core import Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 import uuid
 import re
 import json
@@ -44,6 +44,44 @@ class LayerUtils:
         if doublecount == len(resultmap):
             return QVariant.Double
         return QVariant.String
+
+    @staticmethod
+    def processLiteral(literal, literaltype, reproject,triplestoreconf):
+        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
+        geom = None
+        if "literaltype" in triplestoreconf:
+            literaltype = triplestoreconf["literaltype"]
+        if literal.startswith("http"):
+            res = SPARQLUtils.handleURILiteral(literal)
+            if res == None:
+                return "{\"geometry\":null}"
+            return json.dumps(res[0])
+        if literaltype == "":
+            literaltype = SPARQLUtils.detectLiteralType(literal)
+        if "wkt" in literaltype.lower():
+            literal = literal.strip()
+            if literal.startswith("<http"):
+                index = literal.index(">") + 1
+                slashindex = literal.rfind("/") + 1
+                reproject = literal[slashindex:(index - 1)]
+                geom = QgsGeometry.fromWkt(literal[index:])
+            else:
+                geom = QgsGeometry.fromWkt(literal)
+        elif "gml" in literaltype.lower():
+            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+        elif "geojson" in literaltype.lower():
+            return literal
+        elif "wkb" in literaltype.lower():
+            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
+        if geom != None and reproject != "":
+            sourceCrs = QgsCoordinateReferenceSystem(reproject)
+            destCrs = QgsCoordinateReferenceSystem(4326)
+            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+            geom.transform(tr)
+        if geom != None:
+            return geom.asJson()
+        return None
+
 
     @staticmethod
     def exportGeometryType(curid,geom,vocab,literaltype,init,ttlstring):

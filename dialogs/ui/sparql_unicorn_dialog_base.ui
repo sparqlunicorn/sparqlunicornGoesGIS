@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1181</width>
-    <height>706</height>
+    <height>711</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -99,8 +99,8 @@ SELECT ?label ?geo ?item WHERE {
       <rect>
        <x>10</x>
        <y>600</y>
-       <width>1081</width>
-       <height>41</height>
+       <width>771</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -290,7 +290,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>790</x>
        <y>40</y>
        <width>381</width>
-       <height>561</height>
+       <height>611</height>
       </rect>
      </property>
      <property name="currentIndex">
@@ -306,7 +306,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>541</height>
+         <height>591</height>
         </rect>
        </property>
       </widget>
@@ -321,7 +321,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>541</height>
+         <height>591</height>
         </rect>
        </property>
       </widget>
@@ -336,7 +336,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>541</height>
+         <height>591</height>
         </rect>
        </property>
       </widget>
@@ -351,7 +351,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>541</height>
+         <height>591</height>
         </rect>
        </property>
        <property name="horizontalScrollBarPolicy">
@@ -386,19 +386,6 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>...</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="closeButton">
-     <property name="geometry">
-      <rect>
-       <x>1100</x>
-       <y>602</y>
-       <width>75</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Close</string>
      </property>
     </widget>
     <widget class="QPushButton" name="tripleStoreInfoButton">

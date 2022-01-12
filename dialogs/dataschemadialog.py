@@ -3,7 +3,10 @@ from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem, QProgres
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt import uic
-from qgis.core import Qgis
+from qgis.gui import QgsMapCanvas, QgsMapToolPan
+from qgis.PyQt.QtWidgets import QAction
+from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
+    QgsCoordinateTransform, QgsPointXY
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..tasks.findstylestask import FindStyleQueryTask
@@ -14,6 +17,7 @@ from qgis.core import (
     QgsApplication, QgsMessageLog,
 )
 
+MESSAGE_CATEGORY = 'DataSchemaDialogggg'
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataschemadialog.ui'))
@@ -53,6 +57,27 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.curindex=curindex
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
+        self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.map_canvas = QgsMapCanvas(self)
+        self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
+        self.map_canvas.setMinimumSize(500, self.height() - 10)
+        self.map_canvas.move(self.width(), 0)
+        actionPan = QAction("Pan", self)
+        actionPan.setCheckable(True)
+        actionPan.triggered.connect(self.pan)
+        self.toolPan = QgsMapToolPan(self.map_canvas)
+        self.toolPan.setAction(actionPan)
+        # self.map_canvas.hide()
+        uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz&zmax=19&crs=EPSG3857"
+        self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
+        QgsMessageLog.logMessage(str(self.mts_layer), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(self.mts_layer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
+        if not self.mts_layer.isValid():
+            print("Layer failed to load!")
+        self.map_canvas.setExtent(self.mts_layer.extent())
+        self.map_canvas.setLayers([self.mts_layer])
+        self.map_canvas.setCurrentLayer(self.mts_layer)
+        self.pan()
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dataSchemaTableView.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
@@ -104,6 +129,9 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             concept=str(self.dataSchemaTableView.item(row,column).data(256))
             if concept.startswith("http"):
                 self.statusBarLabel.setText(concept)
+
+    def pan(self):
+        self.map_canvas.setMapTool(self.toolPan)
 
     def loadSamples(self,row,column):
         if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
