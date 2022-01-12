@@ -1,15 +1,17 @@
 var a00245 =
 [
-    [ "__init__", "a00245.html#a921f465a77663034ebb6932d1ac38188", null ],
-    [ "check_state", "a00245.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state1", "a00245.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
-    [ "loadFile", "a00245.html#a2ae2b21223fe5437d0cb6702451276de", null ],
-    [ "loadURI", "a00245.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
-    [ "startValidation", "a00245.html#a81b041c0fd2cb302982b79567a787779", null ],
-    [ "dlg", "a00245.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "justloadingfromfile", "a00245.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
-    [ "maindlg", "a00245.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "__init__", "a00245.html#a4665ee1992f3a4ecf26c154a67f9f5bd", null ],
+    [ "getAttributes", "a00245.html#a756573574530be17f03d879e17a42d84", null ],
+    [ "openURL", "a00245.html#aa1d62c301dd8e26c9dce58b3dbf24349", null ],
+    [ "queryInstance", "a00245.html#ab8553dbd65c6ed73a2a13468e53a1496", null ],
+    [ "showURI", "a00245.html#a03192685f283caeea3973a70ff9ca599", null ],
+    [ "alreadyloadedSample", "a00245.html#acf65a34531091c482d3844fac8a32f6d", null ],
+    [ "concept", "a00245.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "curindex", "a00245.html#a0e2acf0c940b73a578c9b54967492155", null ],
+    [ "label", "a00245.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
     [ "prefixes", "a00245.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "qlayerinstance", "a00245.html#a372686b3ca59f062b995140d963fadd6", null ],
     [ "qtask", "a00245.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "triplestoreconf", "a00245.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "triplestoreconf", "a00245.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestoreurl", "a00245.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

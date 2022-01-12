@@ -1,15 +1,11 @@
 var a00405 =
 [
-    [ "__init__", "a00405.html#a8620be517032a623030c0d1401b11c70", null ],
-    [ "canvasMoveEvent", "a00405.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
-    [ "canvasPressEvent", "a00405.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
-    [ "deactivate", "a00405.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
-    [ "keyPressEvent", "a00405.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
-    [ "reset", "a00405.html#a51829b63adb24ac48d350dee60181002", null ],
-    [ "canvas", "a00405.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
-    [ "iface", "a00405.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "move", "a00405.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
-    [ "rb", "a00405.html#a8f610a49aea706583d0377479ad2e756", null ],
-    [ "selectionDone", "a00405.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
-    [ "status", "a00405.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
+    [ "getAuthUrl", "a00405.html#ad50702f3986e9735608dbe6c3c5d954d", null ],
+    [ "AuthUrl", "a00405.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
+    [ "ClientId", "a00405.html#a7f12c8ddfb00c508eb1ee63907d6493c", null ],
+    [ "ClientSecret", "a00405.html#a86726dfd09230f62e353b939407e7819", null ],
+    [ "RedirectScheme", "a00405.html#a53a91115cb4711210ec578b91efbecdb", null ],
+    [ "RedirectUrl", "a00405.html#ac239dd96726a1bae22f8f0f2362e3df0", null ],
+    [ "ResponseType", "a00405.html#a76ea639e13c617a28c4cac0e357875e3", null ],
+    [ "Scopes", "a00405.html#a08e85efb4b2f67fcb9ef90a5dda77d46", null ]
 ];
