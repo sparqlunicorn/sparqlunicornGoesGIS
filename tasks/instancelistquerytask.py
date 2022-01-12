@@ -54,7 +54,7 @@ class InstanceListQueryTask(QgsTask):
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
-            if "hasgeo" in result:
+            if "hasgeo" in result and result["hasgeo"]["value"]=="true":
                 self.queryresult[result["con"]["value"]]["hasgeo"] = True
             else:
                 self.queryresult[result["con"]["value"]]["hasgeo"] = False
@@ -75,6 +75,8 @@ class InstanceListQueryTask(QgsTask):
             item = QStandardItem()
             item.setData(concept, 256)
             item.setText(self.queryresult[concept]["label"])
+            QgsMessageLog.logMessage(str(self.queryresult[concept]["hasgeo"]), MESSAGE_CATEGORY,
+                Qgis.Info)
             if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
                     or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)
