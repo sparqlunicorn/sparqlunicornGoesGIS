@@ -44,51 +44,25 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>460</x>
-       <y>40</y>
-       <width>21</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Or:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadFileButton">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>40</y>
-       <width>291</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Graph</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>790</x>
-       <y>10</y>
-       <width>151</width>
+       <x>430</x>
+       <y>40</y>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>layer name: unicorn_</string>
+      <string>layer name: </string>
      </property>
     </widget>
     <widget class="QLineEdit" name="inp_label">
      <property name="geometry">
       <rect>
-       <x>940</x>
-       <y>10</y>
-       <width>231</width>
+       <x>500</x>
+       <y>40</y>
+       <width>281</width>
        <height>20</height>
       </rect>
      </property>
@@ -206,7 +180,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>790</x>
-       <y>40</y>
+       <y>10</y>
        <width>141</width>
        <height>20</height>
       </rect>
@@ -219,7 +193,7 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>940</x>
-       <y>40</y>
+       <y>10</y>
        <width>231</width>
        <height>20</height>
       </rect>
@@ -228,14 +202,14 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QPushButton" name="quickAddTripleStore">
      <property name="geometry">
       <rect>
-       <x>490</x>
+       <x>500</x>
        <y>10</y>
-       <width>291</width>
+       <width>281</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Quick Add Endpoint</string>
+      <string>Quick Add RDF Resource</string>
      </property>
     </widget>
     <widget class="QLabel" name="savedQueryLabel">
@@ -314,13 +288,13 @@ SELECT ?label ?geo ?item WHERE {
      <property name="geometry">
       <rect>
        <x>790</x>
-       <y>70</y>
+       <y>40</y>
        <width>381</width>
-       <height>531</height>
+       <height>561</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -332,7 +306,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>501</height>
+         <height>541</height>
         </rect>
        </property>
       </widget>
@@ -347,7 +321,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>501</height>
+         <height>541</height>
         </rect>
        </property>
       </widget>
@@ -362,7 +336,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>501</height>
+         <height>541</height>
         </rect>
        </property>
       </widget>
@@ -377,7 +351,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>501</height>
+         <height>541</height>
         </rect>
        </property>
        <property name="horizontalScrollBarPolicy">

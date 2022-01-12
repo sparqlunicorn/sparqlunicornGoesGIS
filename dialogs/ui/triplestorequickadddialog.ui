@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>580</width>
-    <height>297</height>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,20 +17,20 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
+     <y>110</y>
      <width>161</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Triple Store URL:</string>
+    <string>RDF Resource URL:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="tripleStoreEdit">
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>70</y>
+     <y>110</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -43,20 +43,20 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>30</y>
+     <y>70</y>
      <width>161</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Triple Store Name:</string>
+    <string>RDF Resource Name:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="tripleStoreNameEdit">
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>30</y>
+     <y>70</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -69,7 +69,7 @@
    <property name="geometry">
     <rect>
      <x>370</x>
-     <y>260</y>
+     <y>300</y>
      <width>181</width>
      <height>23</height>
     </rect>
@@ -82,7 +82,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>260</y>
+     <y>300</y>
      <width>191</width>
      <height>25</height>
     </rect>
@@ -101,27 +101,27 @@
     </rect>
    </property>
    <property name="text">
-    <string>Enter a name and a triple store URL here to try autoconfiguration</string>
+    <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="permanentAddCBox">
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>220</y>
+     <y>260</y>
      <width>211</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Add triple store permanently</string>
+    <string>Add RDF resource permanently</string>
    </property>
   </widget>
   <widget class="QLabel" name="usernameLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
+     <y>180</y>
      <width>111</width>
      <height>16</height>
     </rect>
@@ -134,7 +134,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
+     <y>220</y>
      <width>131</width>
      <height>16</height>
     </rect>
@@ -150,7 +150,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>140</y>
+     <y>180</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -166,7 +166,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>180</y>
+     <y>220</y>
      <width>401</width>
      <height>25</height>
     </rect>
@@ -182,7 +182,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
+     <y>150</y>
      <width>121</width>
      <height>17</height>
     </rect>
@@ -198,7 +198,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>110</y>
+     <y>150</y>
      <width>401</width>
      <height>22</height>
     </rect>
@@ -218,7 +218,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>220</y>
+     <y>260</y>
      <width>191</width>
      <height>17</height>
     </rect>
@@ -230,7 +230,93 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="rdfResourceTypeLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>161</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RDF Resource Type:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="rdfResourceComboBox">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>30</y>
+     <width>401</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>SPARQL Endpoint</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RDF Resource from URI </string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Local RDF File(s)</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QgsFileWidget" name="chooseFileWidget">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>110</y>
+     <width>401</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <property name="storageMode">
+    <enum>QgsFileWidget::GetMultipleFiles</enum>
+   </property>
+   <property name="options">
+    <set>QFileDialog::ReadOnly</set>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="recursiveResolvingCBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>260</y>
+     <width>131</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Recursive Resolving</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

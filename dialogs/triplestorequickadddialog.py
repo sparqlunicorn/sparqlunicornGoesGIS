@@ -2,8 +2,10 @@ from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QProgress
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
+from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -13,21 +15,35 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
     triplestoreconf = ""
 
-    def __init__(self, triplestoreconf, prefixes, prefixstore, comboBox):
+    def __init__(self, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,dlg=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.triplestoreconf = triplestoreconf
+        self.maindlg=maindlg
+        self.dlg=dlg
         self.prefixstore = prefixstore
         self.comboBox = comboBox
         self.prefixes = prefixes
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
+        self.chooseFileWidget.hide()
+        self.recursiveResolvingCBox.hide()
+        self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(urlvalidator)
         self.tripleStoreEdit.textChanged.connect(self.check_state1)
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
+        self.rdfResourceComboBox.currentIndexChanged.connect(self.resboxChangedEvent)
+
+    def resboxChangedEvent(self):
+        if "File" in self.rdfResourceComboBox.currentText():
+            self.chooseFileWidget.show()
+            self.tripleStoreEdit.hide()
+        else:
+            self.chooseFileWidget.hide()
+            self.tripleStoreEdit.show()
 
     def closeTripleStoreDialog(self):
         self.close()
@@ -43,18 +59,43 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             self.credentialPassword.setEnabled(False)
 
     def detectTripleStoreConfiguration(self):
-        progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
-                                   "Abort", 0, 0, self)
-        progress.setWindowTitle("Triple Store Autoconfiguration")
-        progress.setWindowModality(Qt.WindowModal)
-        #progress.setCancelButton(None)
-        progress.show()
-        self.qtask = DetectTripleStoreTask(
-            "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
-            self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
-            self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
-            None, self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self, progress)
-        QgsApplication.taskManager().addTask(self.qtask)
+        if "SPARQL Endpoint" in self.rdfResourceComboBox.currentText():
+            progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
+                                       "Abort", 0, 0, self)
+            progress.setWindowTitle("Triple Store Autoconfiguration")
+            progress.setWindowModality(Qt.WindowModal)
+            #progress.setCancelButton(None)
+            progress.show()
+            self.qtask = DetectTripleStoreTask(
+                "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
+                self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
+                self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
+                None, self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self, progress)
+            QgsApplication.taskManager().addTask(self.qtask)
+        elif "RDF Resource" in self.rdfResourceComboBox.currentText():
+            if self.tripleStoreEdit.text() != "":
+                progress = QProgressDialog("Loading Graph from " + self.tripleStoreEdit.text(), "Abort", 0, 0, self)
+                progress.setWindowTitle("Loading Graph")
+                progress.setWindowModality(Qt.WindowModal)
+                progress.setCancelButton(None)
+                self.qtask = LoadGraphTask("Loading Graph: " + self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(),
+                                           self.tripleStoreEdit.text(), self,
+                                           self.dlg, self.maindlg, self.triplestoreconf[0]["geoconceptquery"],
+                                           self.triplestoreconf, progress, True)
+                QgsApplication.taskManager().addTask(self.qtask)
+        elif "RDF File" in self.rdfResourceComboBox.currentText():
+            fileNames=self.chooseFileWidget.splitFilePaths(self.chooseFileWidget.filePath())
+            if len(fileNames)>0:
+                self.justloadingfromfile = True
+                progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
+                progress.setWindowTitle("Loading Graph")
+                progress.setWindowModality(Qt.WindowModal)
+                progress.setCancelButton(None)
+                self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.tripleStoreNameEdit.text(), fileNames, self,
+                                           self.dlg, self.maindlg,
+                                           self.triplestoreconf[0]["geoconceptquery"], self.triplestoreconf, progress,
+                                           True)
+                QgsApplication.taskManager().addTask(self.qtask)
 
     ## 
     #  @brief Adds a new SPARQL endpoint to the triple store registry

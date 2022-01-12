@@ -55,7 +55,6 @@ from ..dialogs.convertlayerdialog import ConvertLayerDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..dialogs.instancedatadialog import InstanceDataDialog
-from ..dialogs.loadgraphdialog import LoadGraphDialog
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -271,7 +270,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
-        self.loadFileButton.clicked.connect(self.buildLoadGraphDialog)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         #self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
@@ -619,15 +617,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         elif index==3:
             self.currentProxyModel=self.classTreeViewProxyModel
 
-    ## 
-    #  @brief Creates a What To Enrich dialog with parameters given.
-    #  
-    #  @param self The object pointer
-    def buildLoadGraphDialog(self):
-        self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf, self.maindlg, self)
-        self.searchTripleStoreDialog.setWindowTitle("Load Graph")
-        self.searchTripleStoreDialog.exec_()
-
     def buildConvertCRSDialog(self):
         self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
@@ -652,9 +641,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #  @param self The object pointer
     def buildQuickAddTripleStore(self):
         self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                                 self.comboBox)
+                                                                 self.comboBox,self.maindlg,self)
         self.searchTripleStoreDialog.setMinimumSize(580, 186)
-        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
+        self.searchTripleStoreDialog.setWindowTitle("Configure Own RDF Resource")
         self.searchTripleStoreDialog.exec_()
 
     ##
