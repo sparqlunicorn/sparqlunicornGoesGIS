@@ -6,309 +6,209 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>337</height>
+    <width>569</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="tripleStoreLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>110</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>RDF Resource URL:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tripleStoreEdit">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>110</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>https://digits.mainzed.org/pleiades/sparql</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="tripleStoreNameLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>70</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>RDF Resource Name:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tripleStoreNameEdit">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>70</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>My cool triplestore!</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="tripleStoreCloseButton">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>300</y>
-     <width>181</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Close</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="detectConfiguration">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>300</y>
-     <width>191</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Quick Add</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="tripleStoreNameLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>0</y>
-     <width>441</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="permanentAddCBox">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>260</y>
-     <width>211</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add RDF resource permanently</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="usernameLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>180</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Username (Optional):</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="passwordLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>220</y>
-     <width>131</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Password (Optional):</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="credentialUserName">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>180</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="credentialPassword">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>220</y>
-     <width>401</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Password</enum>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="useAuthenticationCheckBox">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>150</y>
-     <width>121</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Use Authentication</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="authenticationComboBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>150</y>
-     <width>401</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>HTTP BASIC</string>
-    </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="credentialPassword">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="tripleStoreLabel">
+       <property name="text">
+        <string>RDF Resource URL:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="tripleStoreNameEdit">
+       <property name="text">
+        <string>My cool triplestore!</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="tripleStoreNameLabel">
+       <property name="text">
+        <string>RDF Resource Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="credentialUserName">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="rdfResourceComboBox">
+       <item>
+        <property name="text">
+         <string>SPARQL Endpoint</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RDF Resource from URI </string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Local RDF File(s)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="tripleStoreNameLabel_2">
+       <property name="text">
+        <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QCheckBox" name="useAuthenticationCheckBox">
+       <property name="text">
+        <string>Use Authentication</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="usernameLabel">
+       <property name="text">
+        <string>Username (Optional):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="passwordLabel">
+       <property name="text">
+        <string>Password (Optional):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="rdfResourceTypeLabel">
+       <property name="text">
+        <string>RDF Resource Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="authenticationComboBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>HTTP BASIC</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>HTTP DIGEST</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QCheckBox" name="recursiveResolvingCBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Recursive Resolving</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="detectConfiguration">
+         <property name="text">
+          <string>Quick Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="tripleStoreCloseButton">
+         <property name="text">
+          <string>Close</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="8" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QCheckBox" name="permanentAddCBox">
+         <property name="text">
+          <string>Add RDF resource permanently</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="detectNamespacesCBox">
+         <property name="text">
+          <string>Detect namespaces</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="tripleStoreEdit">
+       <property name="text">
+        <string>https://digits.mainzed.org/pleiades/sparql</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QgsFileWidget" name="chooseFileWidget">
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
+       <property name="storageMode">
+        <enum>QgsFileWidget::GetMultipleFiles</enum>
+       </property>
+       <property name="options">
+        <set>QFileDialog::ReadOnly</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item>
-    <property name="text">
-     <string>HTTP DIGEST</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QCheckBox" name="detectNamespacesCBox">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>260</y>
-     <width>191</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Detect namespaces</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="rdfResourceTypeLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>RDF Resource Type:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="rdfResourceComboBox">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>30</y>
-     <width>401</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>SPARQL Endpoint</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>RDF Resource from URI </string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Local RDF File(s)</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QgsFileWidget" name="chooseFileWidget">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>110</y>
-     <width>401</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="acceptDrops">
-    <bool>true</bool>
-   </property>
-   <property name="storageMode">
-    <enum>QgsFileWidget::GetMultipleFiles</enum>
-   </property>
-   <property name="options">
-    <set>QFileDialog::ReadOnly</set>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="recursiveResolvingCBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>260</y>
-     <width>131</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Recursive Resolving</string>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-  </widget>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

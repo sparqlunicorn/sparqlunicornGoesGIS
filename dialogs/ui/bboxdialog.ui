@@ -6,180 +6,142 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>615</height>
+    <width>593</width>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="chooseLayerLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>510</y>
-     <width>151</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Choose Layer Extent:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="chooseBBOXLayer">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>510</y>
-     <width>331</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="b2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>580</y>
-     <width>151</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply Layer Extent</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="b1">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>580</y>
-     <width>91</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply BBOX</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="zoomIn">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>30</y>
-     <width>71</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>+</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="zoomOut">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>60</y>
-     <width>71</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="panButton">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>90</y>
-     <width>71</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Pan</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="selectButton">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>120</y>
-     <width>71</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Select BBOX</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="bboxCRSLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>550</y>
-     <width>151</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>BBOX CRS:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="searchButton">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>0</y>
-     <width>111</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Search</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="searchPlace">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>121</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Search Place:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="selectCircle">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>180</y>
-     <width>71</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Select Circle</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="selectPolygon">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>150</y>
-     <width>81</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Select Polygon</string>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="6" column="2">
+      <widget class="QPushButton" name="selectCircle">
+       <property name="text">
+        <string>Select Circle</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="chooseLayerLabel">
+       <property name="text">
+        <string>Choose Layer Extent:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="zoomIn">
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="panButton">
+       <property name="text">
+        <string>Pan</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="selectButton">
+       <property name="text">
+        <string>Select BBOX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2">
+      <widget class="QPushButton" name="b1">
+       <property name="text">
+        <string>Apply BBOX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="zoomOut">
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QPushButton" name="b2">
+       <property name="text">
+        <string>Apply Layer Extent</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QComboBox" name="chooseBBOXLayer"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="bboxCRSLabel">
+       <property name="text">
+        <string>BBOX CRS:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="8" column="1">
+      <widget class="QgsProjectionSelectionWidget" name="crsdialog"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="selectPolygon">
+       <property name="text">
+        <string>Select Polygon</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="searchButton">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="searchPlace">
+       <property name="text">
+        <string>Search Place:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" rowspan="6" colspan="2">
+      <widget class="QgsMapCanvas" name="map_canvas" native="true"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="geocodeSearch"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsProjectionSelectionWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsprojectionselectionwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapCanvas</class>
+   <extends>QWidget</extends>
+   <header>qgis.gui</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

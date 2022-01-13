@@ -21,52 +21,6 @@
     <attribute name="title">
      <string>Query</string>
     </attribute>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Select endpoint:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="comboBox">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>10</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>40</y>
-       <width>81</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>layer name: </string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="inp_label">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>40</y>
-       <width>281</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPlainTextEdit" name="inp_sparql">
      <property name="geometry">
       <rect>
@@ -112,176 +66,6 @@ SELECT ?label ?geo ?item WHERE {
      </property>
      <property name="text">
       <string>add layer</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="errorLabel">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>771</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Query Templates:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="queryTemplates">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>40</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string>Item+Label</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>All Attributes</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label_14">
-     <property name="geometry">
-      <rect>
-       <x>460</x>
-       <y>10</y>
-       <width>21</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Or:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="filterConceptsLabel">
-     <property name="geometry">
-      <rect>
-       <x>790</x>
-       <y>10</y>
-       <width>141</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Filter Concept Results:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="filterConcepts">
-     <property name="geometry">
-      <rect>
-       <x>940</x>
-       <y>10</y>
-       <width>231</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="quickAddTripleStore">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>10</y>
-       <width>281</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Quick Add RDF Resource</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="savedQueryLabel">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>570</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Saved Queries:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="savedQueries">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>570</y>
-       <width>221</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadQuery">
-     <property name="geometry">
-      <rect>
-       <x>340</x>
-       <y>570</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Query</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="saveQueryButton">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>570</y>
-       <width>91</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Save Query</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="saveQueryName">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>570</y>
-       <width>171</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="saveQueryNameLabel">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>570</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Query Name:</string>
      </property>
     </widget>
     <widget class="QTabWidget" name="conceptViewTabWidget">
@@ -388,21 +172,164 @@ SELECT ?label ?geo ?item WHERE {
       <string>...</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="tripleStoreInfoButton">
+    <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>10</x>
        <y>10</y>
-       <width>21</width>
-       <height>23</height>
+       <width>781</width>
+       <height>81</height>
       </rect>
      </property>
-     <property name="text">
-      <string/>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="1">
+       <widget class="QComboBox" name="queryTemplates">
+        <item>
+         <property name="text">
+          <string>Item+Label</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>All Attributes</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QComboBox" name="comboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="tripleStoreInfoButton">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="SP_MessageBoxInformation"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>Or:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Query Templates:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Select endpoint:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>layer name: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLineEdit" name="inp_label"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="quickAddTripleStore">
+        <property name="text">
+         <string>Quick Add RDF Resource</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="4">
+       <widget class="QLabel" name="errorLabel">
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>570</y>
+       <width>781</width>
+       <height>31</height>
+      </rect>
      </property>
-     <property name="icon">
-      <iconset theme="SP_MessageBoxInformation"/>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="savedQueryLabel">
+        <property name="text">
+         <string>Saved Queries:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="savedQueries"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loadQuery">
+        <property name="text">
+         <string>Load Query</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="saveQueryNameLabel">
+        <property name="text">
+         <string>Query Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="saveQueryName"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveQueryButton">
+        <property name="text">
+         <string>Save Query</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>790</x>
+       <y>10</y>
+       <width>381</width>
+       <height>31</height>
+      </rect>
      </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="filterConceptsLabel">
+        <property name="text">
+         <string>Filter Concept Results:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="filterConcepts"/>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">

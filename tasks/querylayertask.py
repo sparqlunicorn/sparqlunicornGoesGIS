@@ -176,7 +176,7 @@ class QueryLayerTask(QgsTask):
             return
         if self.progress!=None:
             self.progress.close()
-        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True, indent=2), "unicorn_" + self.filename, "ogr")
+        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         print(vlayer.isValid())
         QgsProject.instance().addMapLayer(vlayer)
         canvas = iface.mapCanvas()

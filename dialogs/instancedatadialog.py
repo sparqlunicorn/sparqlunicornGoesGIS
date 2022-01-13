@@ -53,16 +53,13 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.triplestoreurl=triplestoreurl
         self.curindex=curindex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.map_canvas = QgsMapCanvas(self)
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
-        self.map_canvas.setMinimumSize(500, self.height()-10)
-        self.map_canvas.move(self.width(), 0)
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
         actionPan.triggered.connect(self.pan)
         self.toolPan = QgsMapToolPan(self.map_canvas)
         self.toolPan.setAction(actionPan)
-        #self.map_canvas.hide()
+        self.map_canvas.hide()
         uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz&zmax=19&crs=EPSG3857"
         self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
         QgsMessageLog.logMessage(str(self.mts_layer), MESSAGE_CATEGORY, Qgis.Info)

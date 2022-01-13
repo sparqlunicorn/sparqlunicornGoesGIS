@@ -13,62 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="convertSRSLabel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>10</y>
-     <width>351</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Convert Geomeries in TTL to other SRS</string>
-   </property>
-  </widget>
-  <widget class="QgsProjectionSelectionWidget" name="projectionSelect">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>280</y>
-     <width>481</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="loadFromFileButton">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>90</y>
-     <width>361</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Load TTL File</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="cancelButton">
-   <property name="geometry">
-    <rect>
-     <x>12</x>
-     <y>360</y>
-     <width>481</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="fileLoadedLabel">
    <property name="geometry">
     <rect>
@@ -82,308 +26,301 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="startConversionButton">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
+     <y>10</y>
      <width>481</width>
-     <height>25</height>
+     <height>371</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Start Conversion</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="chosenFileLabel">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>50</y>
-     <width>351</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="convertLiteralSelectionLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Convert all</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="wktLiteralCheckBox">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>130</y>
-     <width>111</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>WKT Literals</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="gmlLiteralCheckBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>160</y>
-     <width>111</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GML Literals</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="wkbLiteralCheckBox">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>130</y>
-     <width>111</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>WKB Literals</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="toTargetProjectionLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>240</y>
-     <width>161</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>To Target Projection</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="kmlLiteralCheckBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>160</y>
-     <width>111</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>KML Literals</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="geojsonLiteralCheckBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>130</y>
-     <width>131</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GeoJSON Literals</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="dggsLiteralCheckBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>360</x>
-     <y>160</y>
-     <width>121</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>DGGS Literals</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="chooseFileLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>101</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Choose a file</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="convertFromComboBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>200</y>
-     <width>131</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>WKT Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>WKB Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>KML Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>GML Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>GeoJSON Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>DGGS Literal</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QComboBox" name="convertToComboBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>200</y>
-     <width>131</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>WKT Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>WKB Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>KML Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>GML Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>GeoJSON Literal</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>DGGS Literal</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>200</y>
-     <width>41</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>To</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="convertAllCheckBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>200</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Convert all</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="convertSRSLabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Convert Geomeries in TTL to other SRS</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="chooseFileLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Choose a file</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="chosenFileLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loadFromFileButton">
+        <property name="text">
+         <string>Load TTL File</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="convertLiteralSelectionLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Convert all</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="wktLiteralCheckBox">
+        <property name="text">
+         <string>WKT Literals</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="wkbLiteralCheckBox">
+        <property name="text">
+         <string>WKB Literals</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="geojsonLiteralCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>GeoJSON Literals</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="gmlLiteralCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>GML Literals</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kmlLiteralCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>KML Literals</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="dggsLiteralCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>DGGS Literals</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QCheckBox" name="convertAllCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Convert all</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="convertFromComboBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>WKT Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WKB Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>KML Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>GML Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>GeoJSON Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>DGGS Literal</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>To</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="convertToComboBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>WKT Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>WKB Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>KML Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>GML Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>GeoJSON Literal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>DGGS Literal</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="toTargetProjectionLabel">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>To Target Projection</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QgsProjectionSelectionWidget" name="projectionSelect"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="startConversionButton">
+      <property name="text">
+       <string>Start Conversion</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="cancelButton">
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>

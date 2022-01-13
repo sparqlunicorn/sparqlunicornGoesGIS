@@ -7,142 +7,96 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="oauthLabel">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>20</y>
-     <width>141</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Login with OAuth</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="googleOAuthButton">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>120</y>
-     <width>83</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Google</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="githubOAuthButton">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>120</y>
-     <width>83</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Github</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="orcidOAuthButton">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>160</y>
-     <width>83</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>ORCID</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="gitlabcomOAuthButton">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>160</y>
-     <width>83</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Gitlab.com</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="providerComboBox">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>60</y>
-     <width>231</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>ORCID</string>
-    </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1" colspan="2">
+    <widget class="QLabel" name="oauthLabel">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Login with OAuth</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Github</string>
-    </property>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Provider:</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Gitlab.com</string>
-    </property>
+   <item row="1" column="1" colspan="2">
+    <widget class="QComboBox" name="providerComboBox">
+     <item>
+      <property name="text">
+       <string>ORCID</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Github</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Gitlab.com</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Google</string>
+      </property>
+     </item>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Google</string>
-    </property>
+   <item row="2" column="0" colspan="2">
+    <widget class="QPushButton" name="googleOAuthButton">
+     <property name="text">
+      <string>Google</string>
+     </property>
+    </widget>
    </item>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>101</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Provider:</string>
-   </property>
-  </widget>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="githubOAuthButton">
+     <property name="text">
+      <string>Github</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QPushButton" name="gitlabcomOAuthButton">
+     <property name="text">
+      <string>Gitlab.com</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QPushButton" name="orcidOAuthButton">
+     <property name="text">
+      <string>ORCID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>

@@ -57,7 +57,7 @@ class InstanceQueryTask(QgsTask):
             itemchecked.setCheckState(Qt.Checked)
             if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
                 myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
-                    (self.queryresult[rel]["valtype"] if "datatype" in self.queryresult[rel]["valtype"] else ""),
+                    (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                     True,self.triplestoreconf)
                 geojson = {'type': 'FeatureCollection', 'features': [
                 {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
@@ -74,7 +74,7 @@ class InstanceQueryTask(QgsTask):
                 self.mymap.setLayers(layerlist)
                 self.mymap.setCurrentLayer(self.features)
                 self.mymap.zoomToSelected(self.features)
-                self.parentwindow.resize(QSize(self.parentwindow.width() + 500, self.parentwindow.height()))
+                self.parentwindow.resize(QSize(self.parentwindow.width() + 250, self.parentwindow.height()))
                 self.mymap.show()
             self.searchResult.setItem(counter, 0, itemchecked)
             item = QTableWidgetItem()

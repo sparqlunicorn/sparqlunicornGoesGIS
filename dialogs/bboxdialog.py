@@ -55,10 +55,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.map_canvas = QgsMapCanvas(self)
         self.layerExtentOrBBOX = False
         self.map_canvas.setMinimumSize(500, 475)
-        self.map_canvas.move(0, 30)
         self.nominatimmap = {}
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
@@ -78,10 +76,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.selectCircle.hide()
-        self.geocodeSearch = NominatimText(self, self.nominatimmap, self.map_canvas)
-        self.crsdialog = QgsProjectionSelectionWidget(self)
-        self.crsdialog.move(160, 540)
-        self.crsdialog.resize(331, 30)
         self.crsdialog.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
         self.crsdialog.show()
         self.nominatimurl = 'https://nominatim.openstreetmap.org/search?format=json&q={address}'
@@ -131,9 +125,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 chooselist.append(rec['display_name'])
                 self.nominatimmap[rec['display_name']] = [rec['lon'], rec['lat']]
             completer = SPARQLCompleter(chooselist)
-            self.geocodeSearch.setMap(self.nominatimmap)
-            self.geocodeSearch.setCompleter(completer)
-            # self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
+            #self.geocodeSearch.setMap(self.nominatimmap)
+            #self.geocodeSearch.setCompleter(completer)
+            #self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0], self.nominatimmap[completion][1], True)
+            self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
             completer.popup().show()
         else:
             print("Error occured: ", er)

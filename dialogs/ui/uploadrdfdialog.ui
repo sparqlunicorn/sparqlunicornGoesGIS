@@ -13,152 +13,87 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="tripleStoreURL">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
-     <width>101</width>
-     <height>16</height>
+     <y>20</y>
+     <width>421</width>
+     <height>291</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Triple Store URL:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tripleStoreURLEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>130</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="tripleStoreGraph">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>170</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Triple Store Graph:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="tripleStoreGraphEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>170</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="username">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>205</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Username:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="password">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>240</y>
-     <width>101</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Password:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="usernameEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>205</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="passwordEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>240</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="checkConnectionButton">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>280</y>
-     <width>121</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Check Connection</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="applyButton">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>280</y>
-     <width>221</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="layerCBox">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>30</y>
-     <width>241</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="loadLayerLabel">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>30</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Load QGIS Layer:</string>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QComboBox" name="layerCBox"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="usernameEdit"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="tripleStoreURL">
+      <property name="text">
+       <string>Triple Store URL:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="passwordEdit"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="tripleStoreGraph">
+      <property name="text">
+       <string>Triple Store Graph:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="tripleStoreURLEdit"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="password">
+      <property name="text">
+       <string>Password:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="username">
+      <property name="text">
+       <string>Username:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="loadLayerLabel">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Load QGIS Layer:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="tripleStoreGraphEdit"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QPushButton" name="applyButton">
+      <property name="text">
+       <string>Apply</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="checkConnectionButton">
+      <property name="text">
+       <string>Check Connection</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
