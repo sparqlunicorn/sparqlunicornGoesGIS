@@ -10,7 +10,6 @@ var a00245 =
     [ "concept", "a00245.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "curindex", "a00245.html#a0e2acf0c940b73a578c9b54967492155", null ],
     [ "label", "a00245.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
-    [ "map_canvas", "a00245.html#aee60670247b05b378b16b953ae07da95", null ],
     [ "mts_layer", "a00245.html#a90dc809bbf3ab04604a3662090a747bc", null ],
     [ "prefixes", "a00245.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "qlayerinstance", "a00245.html#a372686b3ca59f062b995140d963fadd6", null ],
