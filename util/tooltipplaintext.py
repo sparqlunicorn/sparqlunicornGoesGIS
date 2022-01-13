@@ -53,12 +53,13 @@ class ToolTipPlainText(QPlainTextEdit):
 
     changedCompleterSetting = False
 
-    def __init__(self, parent, triplestoreconfig, selector, columnvars, prefixes, autocomplete):
+    def __init__(self, parent, triplestoreconfig, selector, columnvars, prefixes, autocomplete,curtriplestoreconf):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
         self.autocomplete = autocomplete
         self.autocomplete["completerClassList"] = {}
         self.changedCompleterSetting = False
+        self.curtriplestoreconf=curtriplestoreconf
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
@@ -262,7 +263,7 @@ class ToolTipPlainText(QPlainTextEdit):
                     word = word[word.rfind("/") + 1:-1]
                 self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
                                                                   self.selector.currentIndex(),
-                                                                self.triplestoreconf,self.triplestoreconf["endpoint"])
+                                                                self.triplestoreconf,self.curtriplestoreconf["endpoint"])
                 toolTipText = self.savedLabels[word]
             else:
                 toolTipText = word
@@ -335,7 +336,7 @@ class ToolTipPlainText(QPlainTextEdit):
                     painter.setPen(Qt.red)
                 else:
                     painter.setPen(Qt.black)
-                painter.drawText(0, top, self.lineNumberArea.width(), height, Qt.AlignRight, number)
+                painter.drawText(0, int(top), int(self.lineNumberArea.width()), int(height), Qt.AlignRight, number)
 
             block = block.next()
             top = bottom

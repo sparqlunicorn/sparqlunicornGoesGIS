@@ -214,7 +214,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
-                                            self.prefixes, self.autocomplete)
+                                            self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
         self.inp_sparql2.move(10, 100)
         self.inp_sparql2.setMinimumSize(780, 471)
         self.inp_sparql2.document().defaultFont().setPointSize(16)

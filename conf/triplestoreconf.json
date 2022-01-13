@@ -279,7 +279,7 @@
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
-        "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
+        "geometryproperty":"http://www.w3.org/2003/01/geo/wgs84_pos#lat",
         "featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat .\n ?con <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",

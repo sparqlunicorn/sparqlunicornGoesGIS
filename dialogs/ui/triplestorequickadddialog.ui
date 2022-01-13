@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
-    <height>265</height>
+    <width>623</width>
+    <height>295</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -77,13 +77,6 @@
          <string>Local RDF File(s)</string>
         </property>
        </item>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="tripleStoreNameLabel_2">
-       <property name="text">
-        <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
-       </property>
       </widget>
      </item>
      <item row="5" column="0">
@@ -193,16 +186,10 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QgsFileWidget" name="chooseFileWidget">
-       <property name="acceptDrops">
-        <bool>true</bool>
-       </property>
-       <property name="storageMode">
-        <enum>QgsFileWidget::GetMultipleFiles</enum>
-       </property>
-       <property name="options">
-        <set>QFileDialog::ReadOnly</set>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="tripleStoreNameLabel_2">
+       <property name="text">
+        <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
        </property>
       </widget>
      </item>
@@ -210,13 +197,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QgsFileWidget</class>
-   <extends>QWidget</extends>
-   <header>qgsfilewidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

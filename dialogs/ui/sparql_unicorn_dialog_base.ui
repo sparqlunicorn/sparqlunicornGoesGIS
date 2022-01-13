@@ -178,7 +178,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>10</x>
        <y>10</y>
        <width>781</width>
-       <height>81</height>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
@@ -207,7 +207,8 @@ SELECT ?label ?geo ?item WHERE {
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="SP_MessageBoxInformation"/>
+           <iconset theme="SP_MessageBoxInformation">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
@@ -840,7 +841,7 @@ SELECT ?label ?geo ?item WHERE {
      <x>0</x>
      <y>0</y>
      <width>1181</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLinked_Data_Processing">

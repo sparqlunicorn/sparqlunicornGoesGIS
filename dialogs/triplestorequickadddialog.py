@@ -1,6 +1,7 @@
-from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QProgressDialog
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QSizePolicy
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt import uic
+from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
@@ -26,8 +27,11 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.prefixes = prefixes
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
-        self.chooseFileWidget.hide()
         self.recursiveResolvingCBox.hide()
+        self.chooseFileWidget=QgsFileWidget()
+        self.gridLayout.addWidget(self.chooseFileWidget,4,1,Qt.AlignLeft)
+        self.chooseFileWidget.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        self.chooseFileWidget.hide()
         self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(urlvalidator)
         self.tripleStoreEdit.textChanged.connect(self.check_state1)
