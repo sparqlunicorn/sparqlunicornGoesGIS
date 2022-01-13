@@ -1,6 +1,6 @@
 from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand, QgsMapTool
 from qgis.PyQt.QtCore import pyqtSignal, QUrl, Qt
-from qgis.PyQt.QtGui import QColor
+from qgis.PyQt.QtGui import QColor, QKeySequence
 from qgis.core import QgsProject, Qgis, QgsRasterLayer, QgsPointXY, QgsRectangle, QgsDistanceArea, QgsWkbTypes
 from math import sqrt, pi, cos, sin
 
@@ -20,7 +20,6 @@ class CircleMapTool(QgsMapTool):
         self.segments = segments
         self.rb = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
         self.rb.setColor(QColor(255, 0, 0, 100))
-        return None
 
     def canvasPressEvent(self, e):
         if not e.button() == Qt.LeftButton:
@@ -91,7 +90,6 @@ class PolygonMapTool(QgsMapTool):
         self.status = 0
         self.rb = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
         self.rb.setColor(QColor(255, 0, 0, 100))
-        return None
 
     def keyPressEvent(self, e):
         if e.matches(QKeySequence.Undo):

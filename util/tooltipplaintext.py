@@ -123,7 +123,7 @@ class ToolTipPlainText(QPlainTextEdit):
         elif (event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return) and self.completer.popup().isVisible():
             self.completer.insertText.emit(self.completer.getSelected())
             self.completer.setCompletionMode(QCompleter.PopupCompletion)
-            event.accept();
+            event.accept()
             return
         QPlainTextEdit.keyPressEvent(self, event)
         seltext = self.textUnderCursor(tc)
@@ -277,8 +277,6 @@ class ToolTipPlainText(QPlainTextEdit):
             QToolTip.showText(event.screenPos().toPoint(), toolTipText)
         # textCursor.clearSelection()
         # self.setTextCursor(self.textCursor())
-
-
 
     def lineNumberAreaWidth(self):
         digits = 1

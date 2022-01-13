@@ -807,7 +807,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     querytext = \
                         self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
                             "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
-            else:
+            elif "querytemplate" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["querytemplate"]!=None:
                 querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
                     "query"].replace("%%concept%%", concept)
             #if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:

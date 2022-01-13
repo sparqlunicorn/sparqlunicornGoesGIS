@@ -87,11 +87,12 @@ class DataSchemaQueryTask(QgsTask):
             # msgBox=QMessageBox()
             # msgBox.setText(str(myResponse))
             # msgBox.exec()
-            for ent in myResponse["entities"]:
-                print(ent)
-                if "en" in myResponse["entities"][ent]["labels"]:
-                    self.labels[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
-                i = i + 1
+            if "entities" in myResponse:
+                for ent in myResponse["entities"]:
+                    print(ent)
+                    if "en" in myResponse["entities"][ent]["labels"]:
+                        self.labels[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                    i = i + 1
         return True
 
     def finished(self, result):

@@ -1,5 +1,4 @@
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
@@ -8,7 +7,6 @@ from qgis.core import (
 )
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
-
 
 class GeoConceptsQueryTask(QgsTask):
 
@@ -35,7 +33,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.viewlist = []
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
@@ -66,9 +64,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.setPlainText(self.examplequery)
             self.sparql.columnvars = {}
         if len(self.resultlist) > 0:
-            first = True
             for concept in self.resultlist:
-                # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept["concept"], 256)
                 item.setText(SPARQLUtils.labelFromURI(concept["label"],self.triplestoreconf["prefixesrev"]))
@@ -77,7 +73,6 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setIcon(SPARQLUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-                #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept["concept"][concept["concept"].rfind('/') + 1:]] = "wd:" + \
@@ -96,7 +91,6 @@ class GeoConceptsQueryTask(QgsTask):
             self.dlg.viewselectactionGeoTree()
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
-                # self.layerconcepts.addItem(concept)
                 item = QStandardItem()
                 item.setData(concept, 256)
                 item.setText(SPARQLUtils.labelFromURI(concept,self.triplestoreconf["prefixesrev"]))
@@ -105,7 +99,6 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setIcon(SPARQLUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-                #item.appendRow(QStandardItem("Child"))
                 self.rootNode.appendRow(item)
                 if self.triplestoreconf["name"] == "Wikidata":
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
@@ -118,13 +111,7 @@ class GeoConceptsQueryTask(QgsTask):
                 else:
                     self.completerClassList["completerClassList"][
                         concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-                # item=QListWidgetItem()
-                # item.setData(1,concept)
-                # item.setText(concept[concept.rfind('/')+1:])
-                # self.geoClassList.addItem(item)
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
             self.dlg.viewselectactionGeoTree()
-        #if self.amountoflabels != -1:
-        #    self.layercount.setText("[" + str(self.amountoflabels) + "]")
