@@ -55,7 +55,7 @@ class InstanceQueryTask(QgsTask):
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
                                  Qt.ItemIsEnabled)
             itemchecked.setCheckState(Qt.Checked)
-            if rel in self.triplestoreconf["geometryproperty"]:
+            if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
                 myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                     (self.queryresult[rel]["valtype"] if "datatype" in self.queryresult[rel]["valtype"] else ""),
                     True,self.triplestoreconf)

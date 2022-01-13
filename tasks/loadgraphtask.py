@@ -50,29 +50,11 @@ class LoadGraphTask(QgsTask):
         if result == True:
             self.dlg.geoTreeViewModel.clear()
             self.maindlg.currentgraph = self.graph
-            """
-            for geo in self.geoconcepts:
-                item = QStandardItem()
-                item.setData(geo, 256)
-                item.setIcon(SPARQLUtils.geoclassicon)
-                item.setData(SPARQLUtils.geoclassnode,257)
-                item.setText(geo[geo.rfind('/') + 1:])
-                self.dlg.geoTreeViewModel.appendRow(item)
-            """
-            # comp=QCompleter(self.dlg.layerconcepts)
-            # comp.setCompletionMode(QCompleter.PopupCompletion)
-            # comp.setModel(self.dlg.layerconcepts.model())
-            # self.dlg.layerconcepts.setCompleter(comp)
             self.dlg.comboBox.addItem(str(self.graphname)+" [File]")
             index = len(self.triplestoreconf)
             self.triplestoreconf.append({})
             self.triplestoreconf[index] = self.gutils.configuration
             self.triplestoreconf[index]["endpoint"]=self.graph
-            """
-            self.dlg.inp_sparql2.setPlainText(
-                self.triplestoreconf[0]["querytemplate"][0]["query"].replace("%%concept%%", self.geoconcepts[0]))
-            self.dlg.inp_sparql2.columnvars = {}
-            """
             self.maindlg.loadedfromfile = True
             self.maindlg.justloadingfromfile = False
             if self.closedlg:

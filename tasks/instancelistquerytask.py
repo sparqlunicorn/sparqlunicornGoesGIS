@@ -9,12 +9,11 @@ MESSAGE_CATEGORY = 'InstanceListQueryTask'
 
 class InstanceListQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
-        self.graph=graph
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
@@ -28,33 +27,30 @@ class InstanceListQueryTask(QgsTask):
         if nodetype==SPARQLUtils.collectionclassnode:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { " + str(
-                        self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . OPTIONAL { ?con rdfs:label ?label . } }"), MESSAGE_CATEGORY, Qgis.Info)
+                        self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT ?con ?label WHERE {  <" + str(
-                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con rdfs:label ?label . } }"
+                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"
         else:
             if "geometryproperty" in self.triplestoreconf:
                 QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label ?hasgeo WHERE { ?con "+typeproperty+" " + str(
-                            self.treeNode.data(256)) + " . OPTIONAL { ?con rdfs:label ?label . } BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY, Qgis.Info)
+                            self.treeNode.data(256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY, Qgis.Info)
                 thequery="SELECT ?con ?label ?hasgeo WHERE { ?con <"+typeproperty+"> <" + str(
-                            self.treeNode.data(256)) + "> . OPTIONAL { ?con rdfs:label ?label . } BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
+                            self.treeNode.data(256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
             else:
                 QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
                         self.treeNode.data(
-                            256)) + " . OPTIONAL { ?con rdfs:label ?label . }}"), MESSAGE_CATEGORY,
+                            256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"), MESSAGE_CATEGORY,
                     Qgis.Info)
                 thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
                     self.treeNode.data(
-                        256)) + "> . OPTIONAL { ?con rdfs:label ?label . }}"
-        if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        else:
-            results=self.graph.query(thequery)
-        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                        256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.queryresult[result["con"]["value"]]={}
-            if "hasgeo" in result and result["hasgeo"]["value"]=="true":
+            if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
                 self.queryresult[result["con"]["value"]]["hasgeo"] = True
             else:
                 self.queryresult[result["con"]["value"]]["hasgeo"] = False
