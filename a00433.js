@@ -1,6 +1,6 @@
 var a00433 =
 [
-    [ "__init__", "a00433.html#adc07f2a55209516e7c88b0021b9a62c3", null ],
+    [ "__init__", "a00433.html#abe0d13f7ec8bff0af5c787427bda12dd", null ],
     [ "buildSearchDialog", "a00433.html#a8ba30c801fb03a6265193b413d3b8dda", null ],
     [ "createVarInputDialog", "a00433.html#a9428cac43073795e4166503ce80f6283", null ],
     [ "focusInEvent", "a00433.html#a43137cc37c25bc1aee85e3a5870e25c7", null ],
@@ -23,6 +23,7 @@ var a00433 =
     [ "completer", "a00433.html#a0542d0738923c5f3786f66ac644c9a42", null ],
     [ "currentcol", "a00433.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
     [ "currentrow", "a00433.html#a086f47cacf997373ef862200fcfb4612", null ],
+    [ "curtriplestoreconf", "a00433.html#af5195cb3ccf5b88598faef3432bb2434", null ],
     [ "errorline", "a00433.html#a227c8351ef43c0146b7d43d0afe1c00c", null ],
     [ "insertedtext", "a00433.html#a421749adb2826ff52a06e92b7552ffd8", null ],
     [ "interlinkdialog", "a00433.html#a816bebaf94e989ec4293bfee7a615a98", null ],

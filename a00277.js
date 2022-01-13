@@ -13,6 +13,7 @@ var a00277 =
     [ "removePrefixFromList", "a00277.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
     [ "resboxChangedEvent", "a00277.html#ad47996eb65c24be3f93a43f8dbd84990", null ],
     [ "addTripleStore", "a00277.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "chooseFileWidget", "a00277.html#a201a48d89c0cceca62ead78a83eb592e", null ],
     [ "comboBox", "a00277.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
     [ "dlg", "a00277.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "justloadingfromfile", "a00277.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
