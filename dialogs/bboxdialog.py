@@ -48,9 +48,10 @@ class NominatimText(QLineEdit):
 
 class BBOXDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, inp_sparql, triplestoreconf, endpointIndex):
+    def __init__(self, inp_sparql, triplestoreconf, endpointIndex,title="Choose BoundingBox"):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.inp_sparql = inp_sparql
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex

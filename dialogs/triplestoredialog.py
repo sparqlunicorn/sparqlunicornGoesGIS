@@ -15,9 +15,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 	
     triplestoreconf=""
 	
-    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox):
+    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox,title="Configure Own Triple Store"):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.triplestoreconf=triplestoreconf 
         self.prefixstore=prefixstore
         self.comboBox=comboBox

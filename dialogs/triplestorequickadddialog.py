@@ -12,13 +12,13 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/triplestorequickadddialog.ui'))
 
-
 class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
     triplestoreconf = ""
 
-    def __init__(self, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,dlg=None):
+    def __init__(self, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,dlg=None,title="Configure Own RDF Resource"):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.triplestoreconf = triplestoreconf
         self.maindlg=maindlg
         self.dlg=dlg
@@ -34,9 +34,9 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.chooseFileWidget.hide()
         self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(urlvalidator)
-        self.tripleStoreEdit.textChanged.connect(self.check_state1)
+        self.tripleStoreEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
-        self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)
+        self.tripleStoreCloseButton.clicked.connect(self.close)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
         self.rdfResourceComboBox.currentIndexChanged.connect(self.resboxChangedEvent)
@@ -48,9 +48,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         else:
             self.chooseFileWidget.hide()
             self.tripleStoreEdit.show()
-
-    def closeTripleStoreDialog(self):
-        self.close()
 
     def enableAuthentication(self):
         if self.useAuthenticationCheckBox.checkState():
@@ -100,34 +97,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                                            True)
                 QgsApplication.taskManager().addTask(self.qtask)
 
-    ## 
-    #  @brief Adds a new SPARQL endpoint to the triple store registry
-    #  
-    #  @param [in] self The object pointer
-    def addNewSPARQLEndpoint(self):
-        self.addTripleStore = True
-        self.applyCustomSPARQLEndPoint()
-
-    ## 
-    #  @brief Adds a prefix to the list of prefixes in the search dialog window.
-    #  
-    #  @param [in] self The object pointer
-    def addPrefixToList(self):
-        item = QListWidgetItem()
-        item.setData(0,
-                     "PREFIX " + self.tripleStorePrefixNameEdit.text() + ":<" + self.tripleStorePrefixEdit.text() + ">")
-        item.setText("PREFIX " + self.tripleStorePrefixNameEdit.text() + ":<" + self.tripleStorePrefixEdit.text() + ">")
-        self.prefixList.addItem(item)
-
-    ## 
-    #  @brief Removes a prefix from the list of prefixes in the search dialog window.
-    #  
-    #  @param [in] self The object pointer
-    def removePrefixFromList(self):
-        item = QListWidgetItem()
-        for item in self.prefixList.selectedItems():
-            self.prefixList.removeItemWidget(item)
-
     def applyCustomSPARQLEndPoint(self):
         if not self.testTripleStoreConnection(True):
             return
@@ -162,12 +131,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.triplestoreconf[index]["crs"] = self.epsgEdit.text()
         self.triplestoreconf[index]["active"] = self.activeCheckBox.isChecked()
         self.addTripleStore = False
-
-    def check_state1(self):
-        self.check_state(self.tripleStoreEdit)
-
-    def check_state2(self):
-        self.check_state(self.tripleStorePrefixEdit)
 
     def check_state(self, sender):
         validator = sender.validator()

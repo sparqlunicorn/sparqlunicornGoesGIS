@@ -80,13 +80,7 @@ class DataSchemaQueryTask(QgsTask):
         for att in atts:
             url = "https://www.wikidata.org/w/api.php"  # ?action=wbgetentities&format=json&language=en&ids="+atts
             postdata["ids"] = att
-            # msgBox=QMessageBox()
-            # msgBox.setText(str(postdata))
-            # msgBox.exec()
             myResponse = json.loads(requests.post(url, postdata).text)
-            # msgBox=QMessageBox()
-            # msgBox.setText(str(myResponse))
-            # msgBox.exec()
             if "entities" in myResponse:
                 for ent in myResponse["entities"]:
                     print(ent)
@@ -139,16 +133,6 @@ class DataSchemaQueryTask(QgsTask):
                         itembutton.setText("Click to load samples...")
                         self.searchResult.setItem(counter, 2, itembutton)
                     counter += 1
-                """
-                self.searchResult.insertRow(counter)
-                item = QTableWidgetItem()
-                item.setText("Associated styles")
-                item.setData(256, self.searchTerm)
-                self.searchResult.setItem(counter, 0, item)
-                itembutton = QTableWidgetItem()
-                itembutton.setText("Click to load styles...")
-                self.searchResult.setItem(counter, 1, itembutton)
-                """
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

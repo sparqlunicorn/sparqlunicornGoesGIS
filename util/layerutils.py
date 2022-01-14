@@ -46,10 +46,10 @@ class LayerUtils:
         return QVariant.String
 
     @staticmethod
-    def processLiteral(literal, literaltype, reproject,triplestoreconf):
+    def processLiteral(literal, literaltype, reproject,triplestoreconf=None):
         QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
         geom = None
-        if "literaltype" in triplestoreconf:
+        if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
         if literal.startswith("http"):
             res = SPARQLUtils.handleURILiteral(literal)

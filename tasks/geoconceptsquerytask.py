@@ -40,9 +40,13 @@ class GeoConceptsQueryTask(QgsTask):
         for result in results["results"]["bindings"]:
             self.viewlist.append(str(result[self.queryvar]["value"]))
         print(self.viewlist)
-        if self.getlabels and "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
-            "classlabelquery"] != "":
-            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
+        if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
+            "labelproperty"] != "":
+            if "classlabelquery" in self.triplestoreconf:
+                labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
+            else:
+                labels = SPARQLUtils.getLabelsForClasses(self.viewlist, None,
+                                                         self.triplestoreconf, self.triplestoreurl)
             print(labels)
             self.amountoflabels = len(labels)
             i = 0

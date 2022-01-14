@@ -31,8 +31,7 @@ class InstanceQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
                 "SELECT ?con ?rel ?val WHERE { "+ str(
                     self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-        thequery="SELECT ?rel ?val WHERE { <" + str(
-                    self.searchTerm) + ">  ?rel ?val . }"
+        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:

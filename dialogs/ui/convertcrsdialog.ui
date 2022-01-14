@@ -72,9 +72,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="chosenFileLabel">
-        <property name="text">
-         <string/>
+       <widget class="QgsFileWidget" name="mQgsFileWidget">
+        <property name="dialogTitle">
+         <string>Convert CRS</string>
         </property>
        </widget>
       </item>
@@ -324,6 +324,11 @@
   </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
+  </customwidget>
   <customwidget>
    <class>QgsProjectionSelectionWidget</class>
    <extends>QWidget</extends>

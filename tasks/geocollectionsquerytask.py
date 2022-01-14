@@ -13,7 +13,7 @@ MESSAGE_CATEGORY = 'GeoCollectionsQueryTask'
 class GeoCollectionsQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl, query, triplestoreconf, sparql, queryvar, labelvar, featureOrGeoCollection, layercount,
-                 geoClassList, examplequery, geoClassListGui, completerClassList, dlg,graph=None):
+                 geoClassList, examplequery, geoClassListGui, completerClassList, dlg):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -23,7 +23,6 @@ class GeoCollectionsQueryTask(QgsTask):
         self.layercount = layercount
         self.labelvar = labelvar
         self.classvar = queryvar
-        self.graph=graph
         self.featureOrGeoCollection=featureOrGeoCollection
         if featureOrGeoCollection:
             self.dlg.conceptViewTabWidget.setTabText(1, "FeatureCollections")
@@ -42,10 +41,7 @@ class GeoCollectionsQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-        else:
-            results=self.graph.query(self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)

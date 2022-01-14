@@ -36,7 +36,7 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         if "endpoint" in triplestoreconf[currentindex]:
             self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["endpoint"])
         self.tripleStoreURLEdit.setValidator(urlvalidator)
-        self.tripleStoreURLEdit.textChanged.connect(self.check_state1)
+        self.tripleStoreURLEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreURLEdit))
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
@@ -68,9 +68,6 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
             self.tripleStoreURLEdit.text(), self.tripleStoreURLEdit.text(), True, False, [], {}, None, None, False,
             None, progress)
         QgsApplication.taskManager().addTask(self.qtask)
-
-    def check_state1(self):
-        self.check_state(self.tripleStoreURLEdit)
 
     def check_state(self, sender):
         validator = sender.validator()

@@ -42,9 +42,10 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex):
+    def __init__(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Instance View"):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.concept=concept
         self.label=label
         self.prefixes=prefixes

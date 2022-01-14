@@ -9,7 +9,6 @@ from qgis.core import (
 
 MESSAGE_CATEGORY = 'EnrichmentQueryTask'
 
-
 ## Executes an enrichment task on a given layer with a given configuration.
 class EnrichmentQueryTask(QgsTask):
 

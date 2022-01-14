@@ -23,11 +23,12 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
-    def __init__(self, triplestoreconf={},prefixes=[], maindlg=None, parent=None):
+    def __init__(self, triplestoreconf={},prefixes=[],maindlg=None, parent=None,title="Convert Layer to Graph"):
         """Constructor."""
         super(ConvertLayerDialog, self).__init__(parent)
         self.setupUi(self)
         self.triplestoreconf = triplestoreconf
+        self.setWindowTitle(title)
         self.dlg = parent
         self.prefixes=prefixes
         self.maindlg = maindlg

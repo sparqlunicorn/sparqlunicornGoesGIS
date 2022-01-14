@@ -1,12 +1,11 @@
 from rdflib import *
-from osgeo import ogr
+
+from ..util.layerutils import LayerUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..util.crsexporttools import ConvertCRS
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import QgsProject, QgsGeometry,\
-    QgsCoordinateReferenceSystem, QgsCoordinateTransform
 from qgis.core import (
     QgsTask, QgsMessageLog,
 )
@@ -26,49 +25,6 @@ class ConvertCRSTask(QgsTask):
         self.convertFrom=convertFrom
         self.convertTo=convertTo
 
-    def processLiteral(self, literal, literaltype, reproject, projectto):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype) + " " + str(reproject), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("REPROJECT: " + str(reproject), MESSAGE_CATEGORY, Qgis.Info)
-        geom = None
-        if literaltype == "" or literaltype == None:
-            literaltype = SPARQLUtils.detectLiteralType(literal)
-        if "wkt" in literaltype.lower():
-            literal = literal.strip()
-            if literal.startswith("<http"):
-                index = literal.index(">") + 1
-                slashindex = literal.rfind("/") + 1
-                reproject = literal[slashindex:(index - 1)]
-                geom = QgsGeometry.fromWkt(literal[index:])
-            else:
-                reproject = "CRS84"
-                geom = QgsGeometry.fromWkt(literal)
-        elif "gml" in literaltype.lower():
-            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
-        elif "wkb" in literaltype.lower():
-            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
-        if geom != None and projectto != None:
-            if reproject != "CRS84":
-                sourceCrs = QgsCoordinateReferenceSystem("EPSG:" + str(reproject))
-            else:
-                sourceCrs = QgsCoordinateReferenceSystem("CRS:84")
-            destCrs = QgsCoordinateReferenceSystem(projectto)
-            QgsMessageLog.logMessage("CRS: " + str(destCrs.authid()), MESSAGE_CATEGORY, Qgis.Info)
-            if str(destCrs.authid()) not in self.crsdefs:
-                self.crsdefs[str(destCrs.authid())]=ConvertCRS().convertCRSFromWKTString(destCrs.toWkt(),set(),destCrs.authid())
-            QgsMessageLog.logMessage('PROJECTIT ' + str(sourceCrs.description()) + " " + str(projectto.description()),
-                                     MESSAGE_CATEGORY, Qgis.Info)
-            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-            geom.transform(tr)
-        QgsMessageLog.logMessage("CRS: " + str(self.crsdefs), MESSAGE_CATEGORY, Qgis.Info)
-        if geom != None and "wkt" in literaltype.lower():
-            return "<http://www.opengis.net/def/crs/EPSG/0/" + str(
-                str(projectto.authid())[str(projectto.authid()).rfind(':') + 1:]) + "> " + geom.asWkt()
-        if geom != None and "wkb" in literaltype.lower():
-            return geom.asWkb()
-        if geom != None:
-            return geom.asJson()
-        return None
-
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
@@ -84,7 +40,7 @@ class ConvertCRSTask(QgsTask):
                     QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
                         QgsMessageLog.logMessage('ISGEOLITERAL "{}"'.format(self.graph), MESSAGE_CATEGORY, Qgis.Info)
-                        newliteral = Literal(self.processLiteral(o, o.datatype, "", self.crsdef), datatype=o.datatype)
+                        newliteral = Literal(LayerUtils.processLiteral(o, o.datatype, "", self.crsdef), datatype=o.datatype)
                         self.graph.set((s, p, newliteral))
                         QgsMessageLog.logMessage('AFTER "{}"'.format(newliteral) + " - " + str(newliteral.datatype),
                                                  MESSAGE_CATEGORY, Qgis.Info)

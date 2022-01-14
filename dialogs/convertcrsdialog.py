@@ -24,10 +24,11 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
-    def __init__(self, triplestoreconf={}, maindlg=None, parent=None):
+    def __init__(self, triplestoreconf={}, maindlg=None, parent=None,title="Convert CRS"):
         """Constructor."""
         super(ConvertCRSDialog, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg

@@ -32,9 +32,6 @@ class SearchTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        # msgBox=QMessageBox()
-        # msgBox.setText(self.query+" - "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()+1]["endpoint"])
-        # msgBox.exec()
         if self.findProperty.isChecked():
             if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]:
                 self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][

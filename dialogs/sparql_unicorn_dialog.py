@@ -212,37 +212,26 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.classTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
-        self.filterConcepts.textChanged.connect(self.setFilterFromText)
+        self.filterConcepts.textChanged.connect(lambda: self.currentProxyModel.setFilterRegExp(self.filterConcepts.text()))
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
         self.inp_sparql2.move(10, 100)
         self.inp_sparql2.setMinimumSize(780, 471)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText(
-            "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
+            "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10")
         self.inp_sparql2.columnvars = {}
         self.inp_sparql2.textChanged.connect(self.validateSPARQL)
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
-        # self.areaconcepts.hide()
-        # self.areas.hide()
-        # self.label_8.hide()
-        # self.label_9.hide()
-        # self.savedQueries.hide()
-        # self.loadQuery.hide()
-        # self.saveQueryButton.hide()
-        # self.saveQueryName.hide()
-        # self.savedQueryLabel.hide()
-        # self.saveQueryName_2.hide()
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
-        self.actionConvert_RDF_Data.triggered.connect(self.buildConvertCRSDialog)
+        self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
-        self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
-        self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(self.buildConvertLayerDialog)
-        self.actionTriple_Store_Settings.triggered.connect(self.buildCustomTripleStoreDialog)
-        self.actionValidate_RDF_Data.triggered.connect(self.buildGraphValidationDialog)
-        self.actionConstraint_By_BBOX.triggered.connect(self.buildBBOXDialog)
+        self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
+        self.actionTriple_Store_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
+        self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
+        self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex()).exec())
         self.chooseLayerInterlink.clear()
         self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
         self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
@@ -250,7 +239,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.interlinkNameSpace.setValidator(urlvalidator)
-        self.interlinkNameSpace.textChanged.connect(self.check_state3)
+        self.interlinkNameSpace.textChanged.connect(lambda: self.searchTripleStoreDialog.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
         self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
@@ -271,7 +260,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
         self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
-        self.quickAddTripleStore.clicked.connect(self.buildQuickAddTripleStore)
+        self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
+                                                                 self.comboBox,self.maindlg,self).exec())
         self.show()
 
     def tripleStoreInfoDialog(self):
@@ -417,14 +407,23 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         actionclip.triggered.connect(self.copyClipBoard)
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
-        action.triggered.connect(self.openURL)
+        action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256))))
         if nodetype!=SPARQLUtils.instancenode and nodetype!=SPARQLUtils.geoinstancenode:
             actioninstancecount=QAction("Check instance count")
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
             actiondataschema = QAction("Query data schema")
             menu.addAction(actiondataschema)
-            actiondataschema.triggered.connect(self.dataSchemaView)
+            actiondataschema.triggered.connect(lambda: DataSchemaDialog(
+                self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256),
+                self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).text(),
+                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                self.triplestoreconf,self.prefixes,self.comboBox.currentIndex(),
+                "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256)),
+                                                                   self.triplestoreconf[
+                                                                       self.comboBox.currentIndex()][
+                                                                       "prefixesrev"])
+                ).exec_())
             actionqueryinstances = QAction("Query all instances")
             menu.addAction(actionqueryinstances)
             actionqueryinstances.triggered.connect(self.instanceList)
@@ -437,7 +436,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
             actionquerysomeinstances=QAction("Add some instances as new layer")
             menu.addAction(actionquerysomeinstances)
-            actionquerysomeinstances.triggered.connect(self.buildQueryLimitedInstancesDialog)
+            actionquerysomeinstances.triggered.connect(lambda: QueryLimitedInstancesDialog(
+                self.triplestoreconf[self.comboBox.currentIndex()],
+                self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256),
+                self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(257)
+            ).exec_())
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dataAllInstancesAsLayer)
@@ -460,12 +463,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentProxyModel = self.classTreeViewProxyModel
         self.createMenu(position)
 
-    def openURL(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        url = QUrl(concept)
-        QDesktopServices.openUrl(url)
-
     def copyClipBoard(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
@@ -487,27 +484,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         alreadyloadedindicator = self.currentContextModel.itemFromIndex(curindex).data(259)
-        label = self.currentContextModel.itemFromIndex(curindex).text()
         if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtaskinstanceList)
 
-    def dataSchemaView(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        label = self.currentContextModel.itemFromIndex(curindex).text()
-        self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.dataschemaDialog.setWindowTitle("Data Schema View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
-        self.dataschemaDialog.exec_()
-
     def dataInstanceView(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
         self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.instancedataDialog.setWindowTitle("Data Schema View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
+        self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
         self.instancedataDialog.exec_()
 
     def dataInstanceAsLayer(self):
@@ -596,9 +584,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                     self.currentContextModel.itemFromIndex(curindex),concept,self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtasksub)
 
-    def setFilterFromText(self):
-        self.currentProxyModel.setFilterRegExp(self.filterConcepts.text())
-
     def tabchanged(self,index):
         #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
         if self.currentProxyModel!=None:
@@ -613,63 +598,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         elif index==3:
             self.currentProxyModel=self.classTreeViewProxyModel
 
-    def buildConvertCRSDialog(self):
-        self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
-        self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
-        self.searchTripleStoreDialog.exec_()
-
-    def buildQueryLimitedInstancesDialog(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
-        self.queryLimitedInstanceDialog = QueryLimitedInstancesDialog(self.triplestoreconf[self.comboBox.currentIndex()], concept, nodetype)
-        self.queryLimitedInstanceDialog.setWindowTitle("Query limited instances")
-        self.queryLimitedInstanceDialog.exec_()
-
-    def buildConvertLayerDialog(self):
-        self.convertLayerDialog = ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes ,self.maindlg, self)
-        self.convertLayerDialog.setWindowTitle("Convert Layer to Graph")
-        self.convertLayerDialog.exec_()
-
-    ## 
-    #  @brief Creates a What To Enrich dialog with parameters given.
-    #  
-    #  @param self The object pointer
-    def buildQuickAddTripleStore(self):
-        self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                                 self.comboBox,self.maindlg,self)
-        self.searchTripleStoreDialog.setMinimumSize(580, 186)
-        self.searchTripleStoreDialog.setWindowTitle("Configure Own RDF Resource")
-        self.searchTripleStoreDialog.exec_()
-
-    ##
-    #  @brief Creates a What To Enrich dialog with parameters given.
-    #
-    #  @param self The object pointer
-    def buildGraphValidationDialog(self):
-        self.graphValidationDialog = GraphValidationDialog(self.triplestoreconf, self.maindlg, self)
-        self.graphValidationDialog.setWindowTitle("Validate Graph")
-        self.graphValidationDialog.exec_()
-
-    ## 
-    #  @brief Creates a What To Enrich dialog with parameters given.
-    #  
-    #  @param self The object pointer
-    def buildCustomTripleStoreDialog(self):
-        self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
-                                                         self.comboBox)
-        self.searchTripleStoreDialog.setMinimumSize(700, 500)
-        self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
-        self.searchTripleStoreDialog.exec_()
-
     def buildUploadRDFDialog(self):
         print("todo")
         #uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf)
         #uploaddialog.setMinimumSize(450, 250)
         #uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
         #uploaddialog.exec_()
-
-
 
     ## 
     #  @brief Creates a What To Enrich dialog with parameters given.
@@ -686,9 +620,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
         self.searchTripleStoreDialog.setWindowTitle("Enrichment Search")
         self.searchTripleStoreDialog.exec_()
-
-    def check_state3(self):
-        self.searchTripleStoreDialog.check_state(self.interlinkNameSpace)
 
     def createEnrichSearchDialog(self, row=-1, column=-1):
         if column == 1:
@@ -938,15 +869,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.interlinkdialog.exec_()
-
-    ## 
-    #  @brief Builds a boundingbox dialog allows to pick a bounding box for a SPARQL query.
-    #  
-    #  @param self The object pointer
-    def buildBBOXDialog(self):
-        self.d = BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex())
-        self.d.setWindowTitle("Choose BoundingBox")
-        self.d.exec_()
 
     ## 
     #  @brief Builds a value mapping dialog window for ther interlinking dialog.

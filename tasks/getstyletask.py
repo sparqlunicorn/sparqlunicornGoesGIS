@@ -9,7 +9,7 @@ MESSAGE_CATEGORY = 'GetStyleQueryTask'
 
 class GetStyleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,styleuri=None,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,styleuri=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -24,7 +24,7 @@ class GetStyleQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         con=self.treeNode.data(256)
         thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> geo:style <"+str(self.styleuri)+"> . "+ \
-                     "OPTIONAL {?style geost:pointStyle ?pointstyle. }\n"+\
+                     "OPTIONAL { ?style geost:pointStyle ?pointstyle. }\n"+\
                      "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
                      "OPTIONAL { ?style geost:polygonStyle ?polygonstyle. }\n"+\
                      "OPTIONAL { ?style geost:image ?img. }\n"+\
@@ -32,10 +32,7 @@ class GetStyleQueryTask(QgsTask):
                      "OPTIONAL { ?style geost:linestringImage ?linestringImage. }\n"+\
                      "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
                      "}"
-        if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        else:
-            results=self.graph.query(thequery)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.resultstyles=[]
         self.resultstyles.append(StyleObject())

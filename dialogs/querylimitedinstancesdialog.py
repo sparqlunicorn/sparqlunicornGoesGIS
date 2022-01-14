@@ -13,9 +13,10 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, triplestoreconf,concept,nodetype):
+    def __init__(self, triplestoreconf,concept,nodetype,title="Query limited instances"):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle(title)
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.nodetype=nodetype
