@@ -1,6 +1,6 @@
 var a00365 =
 [
-    [ "__init__", "a00365.html#a97aa18c37eb877b91d0c6e546114bdac", null ],
+    [ "__init__", "a00365.html#a8b86db525756bd835f2d614ef3886412", null ],
     [ "finished", "a00365.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00365.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "amountoflabels", "a00365.html#a920977da185a945b106fd389906f0fda", null ],

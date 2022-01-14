@@ -100,9 +100,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:af075c5781e0174e635863e938130c064"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3218189fb73d8b6b5484782a0bc9c041"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#a3218189fb73d8b6b5484782a0bc9c041">handleURILiteral</a> (uri)</td></tr>
 <tr class="separator:a3218189fb73d8b6b5484782a0bc9c041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3aa85880852a1ec220b5c94ed7fa462"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#ae3aa85880852a1ec220b5c94ed7fa462">getLabelsForClasses</a> (classes, query, triplestoreconf, triplestoreurl)</td></tr>
-<tr class="memdesc:ae3aa85880852a1ec220b5c94ed7fa462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a SPARQL endpoint specific query to find labels for given classes.  <a href="a00413.html#ae3aa85880852a1ec220b5c94ed7fa462">More...</a><br /></td></tr>
-<tr class="separator:ae3aa85880852a1ec220b5c94ed7fa462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c52ed8461dac7096838dbb676e164c6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00413.html#a4c52ed8461dac7096838dbb676e164c6">getLabelsForClasses</a> (classes, query, triplestoreconf, triplestoreurl, preferredlang=&quot;en&quot;)</td></tr>
+<tr class="memdesc:a4c52ed8461dac7096838dbb676e164c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a SPARQL endpoint specific query to find labels for given classes.  <a href="a00413.html#a4c52ed8461dac7096838dbb676e164c6">More...</a><br /></td></tr>
+<tr class="separator:a4c52ed8461dac7096838dbb676e164c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -357,8 +357,8 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ae3aa85880852a1ec220b5c94ed7fa462"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3aa85880852a1ec220b5c94ed7fa462">&#9670;&nbsp;</a></span>getLabelsForClasses()</h2>
+<a id="a4c52ed8461dac7096838dbb676e164c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c52ed8461dac7096838dbb676e164c6">&#9670;&nbsp;</a></span>getLabelsForClasses()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +388,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreurl</em>&#160;</td>
+          <td class="paramname"><em>triplestoreurl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preferredlang</em> = <code>&quot;en&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -412,40 +418,44 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl):</div>
+<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang=&quot;en&quot;):</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        result = {}</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="comment"># url=&quot;https://www.wikidata.org/w/api.php?action=wbgetentities&amp;props=labels&amp;ids=&quot;</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query:</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            vals = <span class="stringliteral">&quot;VALUES ?class { &quot;</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                vals += qid + <span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keywordflow">if</span> results == <span class="keyword">False</span>:</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                result[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            url = triplestoreconf[<span class="stringliteral">&quot;classlabelquery&quot;</span>]</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            i = 0</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <span class="keywordflow">if</span> (i % 50) == 0:</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                    print(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery))</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                    print(myResponse)</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                        print(ent)</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                            result[ent] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                i = i + 1</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">if</span> query==<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            query=<span class="stringliteral">&quot;SELECT ?class ?label WHERE { ?class &lt;&quot;</span>+triplestoreconf[<span class="stringliteral">&quot;typeproperty&quot;</span>]+<span class="stringliteral">&quot;&gt; %%concept%% . OPTIONAL { ?class &lt;&quot;</span>+triplestoreconf[<span class="stringliteral">&quot;labelproperty&quot;</span>]+<span class="stringliteral">&quot;&gt; ?label .\n FILTER langMatches(lang(?label), \&quot;&quot;</span>+str(preferredlang)+<span class="stringliteral">&quot;\&quot;) } OPTIONAL { ?class &lt;&quot;</span>+triplestoreconf[<span class="stringliteral">&quot;labelproperty&quot;</span>]+<span class="stringliteral">&quot;&gt; ?label . }}&quot;</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query:</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            vals = <span class="stringliteral">&quot;VALUES ?class { &quot;</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                vals += qid + <span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keywordflow">if</span> results == <span class="keyword">False</span>:</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                result[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]] = res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            url = triplestoreconf[<span class="stringliteral">&quot;classlabelquery&quot;</span>]</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            i = 0</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes:</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">if</span> (i % 50) == 0:</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                    print(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery))</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                    print(myResponse)</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                        print(ent)</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                        <span class="keywordflow">if</span> preferredlang <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                            result[ent] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][preferredlang][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                            result[ent] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                i = i + 1</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">return</span> result</div>
 </div><!-- fragment -->
 </div>
 </div>

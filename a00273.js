@@ -1,6 +1,6 @@
 var a00273 =
 [
-    [ "__init__", "a00273.html#ac6ef1909b43c27723c2a89de86988023", null ],
+    [ "__init__", "a00273.html#a17ca0630294c44734878c30786999969", null ],
     [ "addNewSPARQLEndpoint", "a00273.html#a34a78bc5f0927053db7797e886f20240", null ],
     [ "addPrefixToList", "a00273.html#a182c82bd713e327a2621e41cbeeb5845", null ],
     [ "applyCustomSPARQLEndPoint", "a00273.html#a7ab1931a2785e98a68d2547d73caad61", null ],

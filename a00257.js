@@ -1,6 +1,6 @@
 var a00257 =
 [
-    [ "__init__", "a00257.html#a592c0992f5ddbf27bd69fced81149910", null ],
+    [ "__init__", "a00257.html#a19adb67a27c87d28794d86f661d71318", null ],
     [ "queryWithLimit", "a00257.html#a8f00d7ecb3b1d33e795c22927f1318cf", null ],
     [ "concept", "a00257.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "nodetype", "a00257.html#a618f7f5866526d01adfc6c50c3250898", null ],

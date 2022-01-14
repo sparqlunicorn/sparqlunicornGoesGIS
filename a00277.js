@@ -1,16 +1,10 @@
 var a00277 =
 [
-    [ "__init__", "a00277.html#acfc748f0fea478a50074cd89078db79d", null ],
-    [ "addNewSPARQLEndpoint", "a00277.html#a34a78bc5f0927053db7797e886f20240", null ],
-    [ "addPrefixToList", "a00277.html#a182c82bd713e327a2621e41cbeeb5845", null ],
+    [ "__init__", "a00277.html#aaa3b7765f26ece7e66a5a3e7be5ae151", null ],
     [ "applyCustomSPARQLEndPoint", "a00277.html#a7ab1931a2785e98a68d2547d73caad61", null ],
     [ "check_state", "a00277.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state1", "a00277.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
-    [ "check_state2", "a00277.html#a9a1cb24b28540f37b69ea944b5834ecd", null ],
-    [ "closeTripleStoreDialog", "a00277.html#a29478b28b44bec57f44f7a180239211c", null ],
     [ "detectTripleStoreConfiguration", "a00277.html#afd5cbb47197ed025c14b33f40011c054", null ],
     [ "enableAuthentication", "a00277.html#a57f72da816cb9d7e387f64294ab706e8", null ],
-    [ "removePrefixFromList", "a00277.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
     [ "resboxChangedEvent", "a00277.html#ad47996eb65c24be3f93a43f8dbd84990", null ],
     [ "addTripleStore", "a00277.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
     [ "chooseFileWidget", "a00277.html#a201a48d89c0cceca62ead78a83eb592e", null ],

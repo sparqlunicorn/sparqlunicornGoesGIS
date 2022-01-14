@@ -1,6 +1,6 @@
 var a00333 =
 [
-    [ "__init__", "a00333.html#a6e8d51930d34595e719659f66966b380", null ],
+    [ "__init__", "a00333.html#adf7ff22e5b1ea37d003bbf2275fb2ddf", null ],
     [ "finished", "a00333.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00333.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "amount", "a00333.html#a7fb406750fcff703b1c7da34a23c187e", null ],

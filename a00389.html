@@ -73,8 +73,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b3b26661848bacfec67cacda1d77cb6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html#a3b3b26661848bacfec67cacda1d77cb6">detectColumnType</a> (resultmap)</td></tr>
 <tr class="memdesc:a3b3b26661848bacfec67cacda1d77cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects the type of a column which is to be entered into a QGIS vector layer.  <a href="a00389.html#a3b3b26661848bacfec67cacda1d77cb6">More...</a><br /></td></tr>
 <tr class="separator:a3b3b26661848bacfec67cacda1d77cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e90e81d31771c99736adb2e16e1a8f3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html#a7e90e81d31771c99736adb2e16e1a8f3">processLiteral</a> (literal, literaltype, reproject, triplestoreconf)</td></tr>
-<tr class="separator:a7e90e81d31771c99736adb2e16e1a8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8af2bd7b00b74fbde919f3f35f05ac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html#aef8af2bd7b00b74fbde919f3f35f05ac">processLiteral</a> (literal, literaltype, reproject, triplestoreconf=None)</td></tr>
+<tr class="separator:aef8af2bd7b00b74fbde919f3f35f05ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ab4400bb1d621394fec9af6ed12467b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html#a6ab4400bb1d621394fec9af6ed12467b">exportGeometryType</a> (curid, geom, vocab, literaltype, init, ttlstring)</td></tr>
 <tr class="separator:a6ab4400bb1d621394fec9af6ed12467b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae39fdf5bb286c926d659bcbf9fe38bc8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html#ae39fdf5bb286c926d659bcbf9fe38bc8">layerToTTLString</a> (layer, prefixes, vocab=&quot;GeoSPARQL&quot;, literaltype=[&quot;WKT&quot;], urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None, valuequeries=None, exportNameSpace=None, exportIdCol=None, exportSetClass=None)</td></tr>
@@ -820,8 +820,8 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a7e90e81d31771c99736adb2e16e1a8f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e90e81d31771c99736adb2e16e1a8f3">&#9670;&nbsp;</a></span>processLiteral()</h2>
+<a id="aef8af2bd7b00b74fbde919f3f35f05ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8af2bd7b00b74fbde919f3f35f05ac">&#9670;&nbsp;</a></span>processLiteral()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -851,7 +851,7 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreconf</em>&#160;</td>
+          <td class="paramname"><em>triplestoreconf</em> = <code>None</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -865,10 +865,10 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span>processLiteral(literal, literaltype, reproject,triplestoreconf):</div>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span>processLiteral(literal, literaltype, reproject,triplestoreconf=None):</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Process literal: &quot;</span> + str(literal) + <span class="stringliteral">&quot; &quot;</span> + str(literaltype))</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        geom = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;literaltype&quot;</span> <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> triplestoreconf!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;literaltype&quot;</span> <span class="keywordflow">in</span> triplestoreconf:</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            literaltype = triplestoreconf[<span class="stringliteral">&quot;literaltype&quot;</span>]</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            res = SPARQLUtils.handleURILiteral(literal)</div>

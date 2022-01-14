@@ -3,7 +3,7 @@ var a00413 =
     [ "detectLiteralType", "a00413.html#af075c5781e0174e635863e938130c064", null ],
     [ "executeQuery", "a00413.html#a390f1091745cd0ddbc900e80bcde5e3a", null ],
     [ "expandRelValToAmount", "a00413.html#a75ec67b8ee03aed176e014ccd7ecb3be", null ],
-    [ "getLabelsForClasses", "a00413.html#ae3aa85880852a1ec220b5c94ed7fa462", null ],
+    [ "getLabelsForClasses", "a00413.html#a4c52ed8461dac7096838dbb676e164c6", null ],
     [ "handleURILiteral", "a00413.html#a3218189fb73d8b6b5484782a0bc9c041", null ],
     [ "invertPrefixes", "a00413.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
     [ "labelFromURI", "a00413.html#a8d66b18f94f098b37701c05f1a838047", null ],

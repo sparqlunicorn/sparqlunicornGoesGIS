@@ -2,7 +2,6 @@ var a00301 =
 [
     [ "__init__", "a00301.html#a7a9e2e95095816354b568f4d4b9aa6bc", null ],
     [ "finished", "a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processLiteral", "a00301.html#af05d8aa0ef7a9307dfa5e0d690c9a98c", null ],
     [ "run", "a00301.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "convertFrom", "a00301.html#afea1666783c58d60d8f9a172c1d96335", null ],
     [ "convertTo", "a00301.html#a49a55dda21a6dbda2e0750035498c7cd", null ],
