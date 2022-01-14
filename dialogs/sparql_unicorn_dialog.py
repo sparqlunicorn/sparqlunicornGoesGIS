@@ -887,14 +887,13 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
-        if self.prefixes is not None and self.comboBox is not None and self.comboBox.currentIndex() is not None and self.comboBox.currentIndex() in self.prefixes and self.prefixes[
-            self.comboBox.currentIndex()] is not None \
-                and self.inp_sparql2.toPlainText() is not None \
-                and self.inp_sparql2.toPlainText() != "":
+        if self.inp_sparql2.toPlainText() is not None and self.inp_sparql2.toPlainText() != "":
             try:
-                if self.prefixes[self.comboBox.currentIndex()] != "":
+                if self.prefixes is not None and len(self.prefixes)>self.comboBox.currentIndex() and self.prefixes[self.comboBox.currentIndex()] != None and self.prefixes[self.comboBox.currentIndex()] != "":
                     prepareQuery(
                         "".join(self.prefixes[self.comboBox.currentIndex()]) + "\n" + self.inp_sparql2.toPlainText())
+                else:
+                    prepareQuery(self.inp_sparql2.toPlainText())
                 self.errorLabel.setText("Valid Query")
                 self.errorline = -1
                 self.sparqlhighlight.errorhighlightline = self.errorline
@@ -902,11 +901,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.inp_sparql2.errorline = None
             except Exception as e:
                 match = re.search(r'line:([0-9]+),', str(e))
-                match2 = re.search(r'col:([0-9]+),', str(e))
-                start = int(match.group(1)) - len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]) - 1
-                self.errorLabel.setText(re.sub("line:([0-9]+),", "line: " + str(start) + ",", str(e)))
-                self.inp_sparql2.errorline = start - 1
+                start=-1
+                if self.prefixes is not None and len(self.prefixes)>self.comboBox.currentIndex() and self.prefixes[
+                    self.comboBox.currentIndex()] != None and self.prefixes[self.comboBox.currentIndex()] != "" and match!=None:
+                    start = int(match.group(1)) - len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]) - 1
+                elif match!=None:
+                    start = int(match.group(1)) - 1
                 if "line" in str(e):
+                    self.errorLabel.setText(re.sub("line:([0-9]+),", "line: " + str(start) + ",", str(e)))
+                    self.inp_sparql2.errorline = start - 1
                     ex = str(e)
                     start = ex.find('line:') + 5
                     end = ex.find(',', start)
@@ -916,6 +919,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.sparqlhighlight.errorhighlightcol = ex[start2:end2]
                     self.sparqlhighlight.errorhighlightline = self.errorline
                     self.sparqlhighlight.currentline = 0
+                else:
+                    self.errorLabel.setText(str(e))
 
     ## 
     #  @brief Builds the search dialog to search for a concept or class.
