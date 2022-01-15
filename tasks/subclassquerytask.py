@@ -16,7 +16,6 @@ class SubClassQueryTask(QgsTask):
         self.triplestoreurl = triplestoreurl
         self.query = query
         self.dlg=dlg
-        self.graph=graph
         self.con=concept
         self.treeNode=treeNode
         self.triplestoreconf=triplestoreconf
