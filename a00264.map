@@ -1,4 +1,5 @@
-<map id="ClassTreeSortProxyModel" name="ClassTreeSortProxyModel">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,192,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="15,5,183,32"/>
+<map id="SearchDialog" name="SearchDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="47,80,155,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$a00953.html" title=" " alt="" coords="105,5,215,32"/>
 </map>

@@ -1,4 +1,5 @@
 var a00172 =
 [
-    [ "UploadRDFDialog", "a00281.html", "a00281" ]
+    [ "ClassTreeSortProxyModel", "a00269.html", "a00269" ],
+    [ "SPARQLunicornDialog", "a00273.html", "a00273" ]
 ];
