@@ -257,24 +257,52 @@ class SPARQLUtils:
             for res in results["results"]["bindings"]:
                 result[res["class"]["value"]] = res["label"]["value"]
         else:
-            url = triplestoreconf["classlabelquery"]
+            url = query
             i = 0
             qidquery = ""
             for qid in classes:
-                if "Q" in qid:
+                QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
+                if "wikidata" in triplestoreurl and "Q" in qid:
                     qidquery += "Q" + qid.split("Q")[1]
+                elif "wikidata" in triplestoreurl and "P" in qid:
+                    qidquery += "P" + qid.split("P")[1]
+                elif "wikidata" in triplestoreurl:
+                    result[qid] = qid
+                    continue
                 if (i % 50) == 0:
-                    print(url.replace("%%concepts%%", qidquery))
+                    while qidquery.endswith("|"):
+                        qidquery=qidquery[:-1]
+                    QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
                     myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
-                    print(myResponse)
+                    QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
+                    if "entities" in myResponse:
+                        for ent in myResponse["entities"]:
+                            print(ent)
+                            if preferredlang in myResponse["entities"][ent]["labels"]:
+                                result[ent] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
+                            elif "en" in myResponse["entities"][ent]["labels"]:
+                                result[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                            else:
+                                result[ent]=qid
+                    qidquery = ""
+                else:
+                    qidquery += "|"
+                i = i + 1
+            if qidquery!="":
+                while qidquery.endswith("|"):
+                    qidquery = qidquery[:-1]
+                QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
+                myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
+                QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+                # QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
+                if "entities" in myResponse:
                     for ent in myResponse["entities"]:
                         print(ent)
                         if preferredlang in myResponse["entities"][ent]["labels"]:
                             result[ent] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
                         elif "en" in myResponse["entities"][ent]["labels"]:
                             result[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
-                    qidquery = ""
-                else:
-                    qidquery += "|"
-                i = i + 1
+                        else:
+                            result[ent] = ""
         return result

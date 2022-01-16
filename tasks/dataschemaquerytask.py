@@ -1,5 +1,3 @@
-import json
-import requests
 from collections.abc import Iterable
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis
@@ -14,7 +12,7 @@ MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress,graph=None):
+    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
@@ -24,7 +22,6 @@ class DataSchemaQueryTask(QgsTask):
         self.prefixes = prefixes
         self.labels = None
         self.triplestoreconf=triplestoreconf
-        self.graph=graph
         self.progress = progress
         self.urilist = None
         self.sortedatt = None
@@ -37,56 +34,28 @@ class DataSchemaQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
-        concept = "<" + self.searchTerm + ">"
-        if self.graph==None:
-            if isinstance(self.prefixes, Iterable):
-                results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
-            else:
-                results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None","") + self.query,
-                                                   self.triplestoreconf)
+        if isinstance(self.prefixes, Iterable):
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
         else:
-            if isinstance(self.prefixes, Iterable):
-                results = self.graph.query("".join(self.prefixes) + self.query)
-            else:
-                results=self.graph.query(str(self.prefixes).replace("None","") + self.query)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None","") + self.query,
+                                                   self.triplestoreconf)
         if results == False:
             return False
         self.searchResult.clear()
         if len(results["results"]["bindings"]) == 0:
             return False
         maxcons = int(results["results"]["bindings"][0]["countcon"]["value"])
-        attlist = {}
-        self.urilist = {}
+        self.sortedatt = {}
         for result in results["results"]["bindings"]:
             if maxcons!=0 and str(maxcons)!="0":
-                attlist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = round(
-                    (int(result["countrel"]["value"]) / maxcons) * 100, 2)
-                self.urilist[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = result["rel"]["value"]
-        self.sortedatt = sorted(attlist.items(), reverse=True, key=lambda kv: kv[1])
-        self.labels = {}
-        postdata = {}
-        postdata["language"] = "en"
-        postdata["format"] = "json"
-        postdata["action"] = "wbgetentities"
-        atts = [""]
-        attcounter = 0
-        count = 0
-        for att in attlist.keys():
-            if att.startswith("P") and count < 50:
-                atts[attcounter] += att + "|"
-                count += 1
-        atts[0] = atts[0][:-1]
-        i = 0
-        for att in atts:
-            url = "https://www.wikidata.org/w/api.php"  # ?action=wbgetentities&format=json&language=en&ids="+atts
-            postdata["ids"] = att
-            myResponse = json.loads(requests.post(url, postdata).text)
-            if "entities" in myResponse:
-                for ent in myResponse["entities"]:
-                    print(ent)
-                    if "en" in myResponse["entities"][ent]["labels"]:
-                        self.labels[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
-                    i = i + 1
+                self.sortedatt[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = {"amount": round(
+                    (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
+        self.labels={}
+        self.labels=SPARQLUtils.getLabelsForClasses(self.sortedatt.keys(), self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
+                                        self.triplestoreurl)
+        for lab in self.labels:
+            if lab in self.sortedatt:
+                self.sortedatt[lab]["label"]=self.labels[lab]
         return True
 
     def finished(self, result):
@@ -102,9 +71,7 @@ class DataSchemaQueryTask(QgsTask):
             else:
                 counter=0
                 for att in self.sortedatt:
-                    if att[1] < 1:
-                        continue
-                    if att[0] in self.labels:
+                    if "label" in self.sortedatt[att]:
                         self.searchResult.insertRow(counter)
                         itemchecked=QTableWidgetItem()
                         itemchecked.setFlags(Qt.ItemIsUserCheckable |
@@ -112,8 +79,8 @@ class DataSchemaQueryTask(QgsTask):
                         itemchecked.setCheckState(Qt.Checked)
                         self.searchResult.setItem(counter, 0, itemchecked)
                         item = QTableWidgetItem()
-                        item.setText(self.labels[att[0]] + " (" + str(att[1]) + "%)")
-                        item.setData(256, self.urilist[att[0]])
+                        item.setText(str(self.sortedatt[att]["label"])+ " (" + str(self.sortedatt[att]["amount"]) + "%)")
+                        item.setData(256, str(self.sortedatt[att]["concept"]))
                         self.searchResult.setItem(counter, 1, item)
                         itembutton = QTableWidgetItem()
                         itembutton.setText("Click to load samples...")
@@ -126,8 +93,8 @@ class DataSchemaQueryTask(QgsTask):
                         itemchecked.setCheckState(Qt.Checked)
                         self.searchResult.setItem(counter, 0, itemchecked)
                         item = QTableWidgetItem()
-                        item.setText(SPARQLUtils.labelFromURI(self.urilist[att[0]]) + " (" + str(att[1]) + "%)")
-                        item.setData(256, self.urilist[att[0]])
+                        item.setText(SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"])) + " (" + str(self.sortedatt[att]["amount"]) + "%)")
+                        item.setData(256, str(self.sortedatt[att]["concept"]))
                         self.searchResult.setItem(counter, 1, item)
                         itembutton = QTableWidgetItem()
                         itembutton.setText("Click to load samples...")
@@ -135,6 +102,6 @@ class DataSchemaQueryTask(QgsTask):
                     counter += 1
         else:
             msgBox = QMessageBox()
-            msgBox.setText("The enrichment search query did not yield any results!")
+            msgBox.setText("The dataschema search query did not yield any results!")
             msgBox.exec()
         self.progress.close()

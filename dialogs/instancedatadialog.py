@@ -20,8 +20,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/instancedatadialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-
-
 class InstanceDataDialog(QDialog, FORM_CLASS):
 
     ##

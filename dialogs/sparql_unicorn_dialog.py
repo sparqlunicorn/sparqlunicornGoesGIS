@@ -163,8 +163,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql2.columnvars = {}
         self.inp_sparql2.textChanged.connect(self.validateSPARQL)
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
+        self.currentContext=self.classTreeView
+        self.currentProxyModel=self.classTreeViewProxyModel
+        self.currentContextModel=self.classTreeViewModel
+        self.conceptSelectAction()
         self.enrichTableResult.hide()
-        self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
+        self.queryTemplates.currentIndexChanged.connect(self.conceptSelectAction)
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
@@ -175,13 +179,13 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
-        self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectactionGeoTree)
-        self.classTreeView.selectionModel().currentChanged.connect(self.viewselectactionClassTree)
+        self.geoTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
+        self.classTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
         self.conceptViewTabWidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
-        self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
-        self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
+        self.featureCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
+        self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
         self.show()
@@ -513,12 +517,20 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.filterConcepts.setText("")
         if index==0:
             self.currentProxyModel=self.proxyModel
+            self.currentContext = self.geoTreeView
+            self.currentContextModel = self.geoTreeViewModel
         elif index==1:
             self.currentProxyModel=self.featureCollectionProxyModel
+            self.currentContext = self.featureCollectionClassList
+            self.currentContextModel = self.featureCollectionClassListModel
         elif index==2:
             self.currentProxyModel=self.geometryCollectionProxyModel
+            self.currentContext = self.geometryCollectionClassList
+            self.currentContextModel = self.geometryCollectionClassListModel
         elif index==3:
             self.currentProxyModel=self.classTreeViewProxyModel
+            self.currentContext = self.classTreeView
+            self.currentContextModel = self.classTreeViewModel
 
     def buildUploadRDFDialog(self):
         print("todo")
@@ -541,6 +553,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
+    """
     def viewselectactionGeometryCollection(self,selected=None, deselected=None):
         self.currentContext=self.geometryCollectionClassList
         self.currentProxyModel=self.geometryCollectionProxyModel
@@ -564,6 +577,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentProxyModel=self.proxyModel
         self.currentContextModel=self.geoTreeViewModel
         self.conceptSelectAction()
+    """
 
     def subclassQuerySelectAction(self):
         endpointIndex = self.comboBox.currentIndex()

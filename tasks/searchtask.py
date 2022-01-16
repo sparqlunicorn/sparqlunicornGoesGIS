@@ -33,19 +33,19 @@ class SearchTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         if self.findProperty.isChecked():
-            if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]:
-                self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][
-                    "propertyfromlabelquery"].replace("%%label%%", self.label)
+            if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
+                self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
+                    "propertyfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
         else:
-            if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]:
-                self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][
-                    "classfromlabelquery"].replace("%%label%%", self.label)
+            if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
+                self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
+                    "classfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
         if self.query == "":
             return
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)
             self.results = SPARQLUtils.executeQuery(self.triplestoreurl,
-                                               self.prefixes[self.tripleStoreEdit.currentIndex() + 1] + self.query,self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1])
+                                               self.prefixes[self.tripleStoreEdit.currentIndex()] + self.query,self.triplestoreconf[self.tripleStoreEdit.currentIndex()])
             if self.results == False:
                 return False
             # msgBox=QMessageBox()
@@ -82,6 +82,12 @@ class SearchTask(QgsTask):
             msgBox.exec()
             return
         if "SELECT" in self.query:
+            if self.results==False:
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("Error while performing search")
+                msgBox.setText("An error occured while performing the search")
+                msgBox.exec()
+                return
             if len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:
                 msgBox = QMessageBox()
                 msgBox.setWindowTitle("Empty search result")

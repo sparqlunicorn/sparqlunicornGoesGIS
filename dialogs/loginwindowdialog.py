@@ -21,9 +21,9 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.googleOAuthButton.clicked.connect(self.createGoogleDialog)
-        self.gitlabcomOAuthButton.clicked.connect(self.createGitlabcomDialog)
-        self.orcidOAuthButton.clicked.connect(self.createORCIDDialog)
-        self.githubOAuthButton.clicked.connect(self.createGithubDialog)
+        self.gitlabcomOAuthButton.clicked.connect(lambda: LoginWindow(self, "gitlabcom"))
+        self.orcidOAuthButton.clicked.connect(lambda: LoginWindow(self, "orcid"))
+        self.githubOAuthButton.clicked.connect(lambda: LoginWindow(self, "github"))
 
     def _loadFinished(self, result):
         self.page().toHtml(self.callable)
@@ -32,19 +32,11 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
         self.html = data
         
     def createGoogleDialog(self):
-        self.myWV = QWebView(None);
+        self.myWV = QWebView(None)
         self.myWV.load(QUrl(OAuthConfiguration.getAuthUrl("google")))#QUrl("http://www.google.de"))#OAuthConfiguration.AuthUrl["google"]))
         self.myWV.show()
         #LoginWindow(self, "google")
 
-    def createGitlabcomDialog(self):
-        LoginWindow(self, "gitlabcom")
-
-    def createGithubDialog(self):
-        LoginWindow(self, "github")
-
-    def createORCIDDialog(self):
-        LoginWindow(self, "orcid")
 
 class LoginWindow(QWebView):
     logged_in = QtCore.pyqtSignal(['QString'])

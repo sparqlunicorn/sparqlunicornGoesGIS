@@ -6,16 +6,14 @@ from qgis.PyQt import uic
 from qgis.gui import QgsMapCanvas, QgsMapToolPan
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY
+    QgsCoordinateTransform, QgsPointXY,QgsApplication, QgsMessageLog
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..tasks.findstylestask import FindStyleQueryTask
 from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 import os.path
-from qgis.core import (
-    QgsApplication, QgsMessageLog,
-)
+
 
 MESSAGE_CATEGORY = 'DataSchemaDialogggg'
 
@@ -23,8 +21,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataschemadialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-
-
 class DataSchemaDialog(QDialog, FORM_CLASS):
 
     ##
@@ -80,9 +76,6 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dataSchemaTableView.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
         self.dataSchemaTableView.insertRow(0)
-        item = QTableWidgetItem()
-        item.setText("Loading...")
-        self.dataSchemaTableView.setItem(0,0,item)
         self.dataSchemaTableView.setMouseTracking(True)
         self.dataSchemaTableView.cellClicked.connect(self.loadSamples)
         self.dataSchemaTableView.cellEntered.connect(self.showURI)
@@ -139,7 +132,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf[self.curindex])
+                                             column,row,self.triplestoreconf[self.curindex],self.dataSchemaTableView)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         elif row==self.dataSchemaTableView.rowCount()-1 and row not in self.alreadyloadedSample:

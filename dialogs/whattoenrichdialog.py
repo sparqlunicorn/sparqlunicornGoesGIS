@@ -1,7 +1,11 @@
 from qgis.PyQt.QtWidgets import QDialog, QComboBox, QTableWidgetItem, QProgressDialog
 from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
+from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..dialogs.searchdialog import SearchDialog
 from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
 import os.path
@@ -37,6 +41,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.prefixes = prefixes
         self.enrichtable = enrichtable
+        self.alreadyloadedSample=[]
         self.layer = layer
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
@@ -48,6 +53,12 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchButton2.clicked.connect(self.getAttributeStatistics)
         self.searchButton2.hide()
         self.applyButton.clicked.connect(self.applyConceptToColumn)
+        header =self.searchResult.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.searchResult.cellClicked.connect(self.loadSamples)
+        self.searchResult.cellEntered.connect(self.showURI)
+        self.searchResult.cellDoubleClicked.connect(self.openURL)
+
 
         ##
 
@@ -59,6 +70,31 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     #  @return Return description 
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row, column, -1, self.conceptSearchEdit)
+
+    def openURL(self,row,column):
+        if self.searchResult.item(row,column)!=None:
+            concept=str(self.searchResult.item(row,column).data(256))
+            if concept.startswith("http"):
+                url = QUrl(concept)
+                QDesktopServices.openUrl(url)
+
+    def showURI(self,row,column):
+        if self.searchResult.item(row,column)!=None:
+            concept=str(self.searchResult.item(row,column).data(256))
+            if concept.startswith("http"):
+                self.statusBarLabel.setText(concept)
+
+    def loadSamples(self,row,column):
+        if column==2 and row not in self.alreadyloadedSample and row!=self.searchResult.rowCount()-1:
+            relation = str(self.searchResult.item(row, column-1).data(256))
+            self.qtask2 = DataSampleQueryTask("Querying data sample for .... (" + str(relation) + ")",
+                                             self.triplestoreurl,
+                                             self,
+                                             self.conceptSearchEdit.text(),
+                                             relation,
+                                             column,row,self.triplestoreconf[self.tripleStoreEdit.currentIndex()],self.searchResult)
+            QgsApplication.taskManager().addTask(self.qtask2)
+            self.alreadyloadedSample.append(row)
 
     ## 
     #  @brief Builds the search dialog for the concept search
@@ -93,12 +129,12 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress.setCancelButton(None)
         self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
                                            endpoint_url,
-                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][
+                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                                                "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
                                                                                                             "?area"),
                                            self.conceptSearchEdit.text(),
                                            self.prefixes[self.tripleStoreEdit.currentIndex()],
-                                           self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1], progress)
+                                           self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 

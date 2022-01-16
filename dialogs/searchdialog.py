@@ -65,20 +65,17 @@ class SearchDialog(QDialog, FORM_CLASS):
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
         for triplestore in self.triplestoreconf:
-            if not "File" == triplestore["name"]:
-                self.tripleStoreEdit.addItem(triplestore["name"])
+            self.tripleStoreEdit.addItem(triplestore["name"])
         if addVocab != None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
-        self.tripleStoreEdit.setCurrentIndex(2)
-        #self.tripleStoreEdit.setEnabled(False)
         self.searchButton.clicked.connect(self.getClassesFromLabel)
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.costumproperty.setValidator(urlvalidator)
-        self.costumproperty.textChanged.connect(self.check_state3)
+        self.costumproperty.textChanged.connect(lambda: self.check_state(self.costumproperty))
         self.costumproperty.textChanged.emit(self.costumproperty.text())
-        self.costumpropertyButton.clicked.connect(self.applyConceptToColumn2)
+        self.costumpropertyButton.clicked.connect(lambda: self.applyConceptToColumn(True))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         s = QSettings()  # getting proxy from qgis options settings
         self.proxyEnabled = s.value("proxy/proxyEnabled")
@@ -92,9 +89,6 @@ class SearchDialog(QDialog, FORM_CLASS):
             proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
-
-    def check_state3(self):
-        self.check_state(self.costumproperty)
 
     # Checks the state of an input field in order to highlight it with an appropriate color.
     #  @param self The object pointer.
@@ -122,7 +116,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         label = self.conceptSearchEdit.text()
         if label == "":
             return
-        language = "en"
+        language = self.languageCBox.currentText()
         results = {}
         self.searchResult.clear()
         query = ""
@@ -141,24 +135,21 @@ class SearchDialog(QDialog, FORM_CLASS):
                 self.searchResult.addItem(item)
         else:
             if self.findProperty.isChecked():
-                if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]:
-                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["propertyfromlabelquery"].replace("%%label%%", label)
+                if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
+                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["propertyfromlabelquery"].replace("%%label%%", label)
             else:
-                if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]:
-                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["classfromlabelquery"].replace("%%label%%", label)
+                if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
+                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["classfromlabelquery"].replace("%%label%%", label)
             if query == "":
                 msgBox = QMessageBox()
                 msgBox.setText("No search query specified for this triplestore")
                 msgBox.exec()
                 return
-            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"],
-                            self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"],
+            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
                query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
             QgsApplication.taskManager().addTask(self.qtask)
         return viewlist
-
-    def applyConceptToColumn2(self):
-        self.applyConceptToColumn(True)
 
     # Applies the search result to a GUI element for which the search dialog was called.
     #  @param self The object pointer.
@@ -199,7 +190,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 item2 = QTableWidgetItem()
                 item2.setText(self.tripleStoreEdit.currentText())
-                item2.setData(0, self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"])
+                item2.setData(0, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"])
                 self.table.setItem(self.currentrow, self.currentcol, item)
-                self.table.setItem(self.currentrow, (self.currentcol + 1), item2)
+                self.table.setItem(self.currentrow, (self.currentcol), item2)
         self.close()

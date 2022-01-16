@@ -30,7 +30,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.tripleStoreEdit.setValidator(urlvalidator)
-        self.tripleStoreEdit.textChanged.connect(self.check_state1)
+        self.tripleStoreEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.epsgEdit.setValidator(QIntValidator(1, 100000))	
         prefixregex = QRegExp("[a-z]+")
@@ -45,10 +45,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         #self.exampleQuery.textChanged.connect(self.validateSPARQL)	
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)	
         self.tripleStorePrefixEdit.setValidator(urlvalidator)
-        self.tripleStorePrefixEdit.textChanged.connect(self.check_state2)
+        self.tripleStorePrefixEdit.textChanged.connect(lambda: self.check_state(self.tripleStorePrefixEdit))
         self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
-        self.tripleStoreCloseButton.clicked.connect(self.closeTripleStoreDialog)
+        self.tripleStoreCloseButton.clicked.connect(self.close)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
 		
     def loadTripleStoreConfig(self):
@@ -70,10 +70,6 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             else:
                 self.epsgEdit.setText("4326")
             self.exampleQuery.setPlainText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["querytemplate"][0]["query"])
-		
-		
-    def closeTripleStoreDialog(self):
-        self.close()
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
@@ -190,12 +186,6 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.triplestoreconf[index]["crs"]=self.epsgEdit.text()	
         self.triplestoreconf[index]["active"]=self.activeCheckBox.isChecked()
         self.addTripleStore=False
-		
-    def check_state1(self):
-        self.check_state(self.tripleStoreEdit)
-
-    def check_state2(self):
-        self.check_state(self.tripleStorePrefixEdit)
 
     def check_state(self,sender):
         validator = sender.validator()
@@ -207,5 +197,3 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         else:
             color = '#f6989d' # red
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
-		
-

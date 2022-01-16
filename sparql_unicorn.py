@@ -458,7 +458,7 @@ class SPARQLunicorn:
             self.dlg.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                 self.dlg.savedQueries.addItem(concept["label"])
-                
+
     def exportLayer2(self):
         self.exportLayer(None, None, None, None, None, None, self.dlg.exportTripleStore_2.isChecked())
 
@@ -575,7 +575,7 @@ class SPARQLunicorn:
                         item += " [File]"
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(0)
-            self.dlg.viewselectactionClassTree()
+            #self.dlg.viewselectactionClassTree()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.endpointselectaction()
             # self.dlg.exportTripleStore.hide()

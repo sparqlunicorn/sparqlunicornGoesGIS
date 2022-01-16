@@ -9,15 +9,15 @@ MESSAGE_CATEGORY = 'DataSampleQueryTask'
 
 class DataSampleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.column=column
-        self.graph=graph
         self.triplestoreconf=triplestoreconf
         self.row=row
+        self.tableWidget=tableWidget
         self.concept=concept
         self.relation=relation
         self.queryresult={}
@@ -58,5 +58,5 @@ class DataSampleQueryTask(QgsTask):
         item = QLabel()
         item.setOpenExternalLinks(True)
         item.setText(resstring)
-        self.dlg.dataSchemaTableView.takeItem(self.row,self.column)
-        self.dlg.dataSchemaTableView.setCellWidget(self.row,self.column,item)
+        self.tableWidget.takeItem(self.row,self.column)
+        self.tableWidget.setCellWidget(self.row,self.column,item)

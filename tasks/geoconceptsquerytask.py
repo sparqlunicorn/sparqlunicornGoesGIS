@@ -2,6 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
+from qgis.core import Qgis
 from qgis.core import (
     QgsTask, QgsMessageLog,
 )
@@ -47,13 +48,14 @@ class GeoConceptsQueryTask(QgsTask):
             else:
                 labels = SPARQLUtils.getLabelsForClasses(self.viewlist, None,
                                                          self.triplestoreconf, self.triplestoreurl)
-            print(labels)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)
             self.amountoflabels = len(labels)
             i = 0
-            sorted_labels = sorted(labels.items(), key=lambda x: x[1])
-            for lab in sorted_labels:
-                self.resultlist.append({"label":labels[lab[0]] + " (" + lab[0] + ")","concept":self.viewlist[i]})
+            self.resultlist=[]
+            for lab in labels:
+                self.resultlist.append({"label":labels[lab] + " (wd:" + lab + ")","concept":self.viewlist[i]})
                 i = i + 1
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):
@@ -92,7 +94,10 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectactionGeoTree()
+            self.dlg.currentProxyModel=self.dlg.proxyModel
+            self.dlg.currentContext = self.dlg.geoTreeView
+            self.dlg.currentContextModel = self.dlg.geoTreeViewModel
+            self.dlg.conceptSelectAction()
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
                 item = QStandardItem()
@@ -104,7 +109,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                 self.rootNode.appendRow(item)
-                if self.triplestoreconf["name"] == "Wikidata":
+                if self.triplestoreconf["name"] == "Wikidata" and "(" in concept:
                     self.completerClassList["completerClassList"][concept[concept.rfind('/') + 1:]] = "wd:" + \
                                                                                                       concept.split(
                                                                                                           "(")[
@@ -118,4 +123,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            self.dlg.viewselectactionGeoTree()
+            self.dlg.currentProxyModel = self.dlg.proxyModel
+            self.dlg.currentContext = self.dlg.geoTreeView
+            self.dlg.currentContextModel = self.dlg.geoTreeViewModel
+            self.dlg.conceptSelectAction()
