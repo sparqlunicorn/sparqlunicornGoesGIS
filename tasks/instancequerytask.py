@@ -63,7 +63,7 @@ class InstanceQueryTask(QgsTask):
                     'geometry': json.loads(myGeometryInstanceJSON)}
                 ]}
                 QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
-                self.features = QgsVectorLayer(json.dumps(geojson, sort_keys=True, indent=2), str(self.searchTerm),
+                self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),
                                         "ogr")
                 self.features.setCrs(QgsCoordinateReferenceSystem(3857))
                 QgsProject.instance().addMapLayer(self.features)

@@ -32,6 +32,8 @@ from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
 from rdflib.plugins.sparql import prepareQuery
+
+from ..util.ui.uiutils import UIUtils
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
 from ..util.ui.tooltipplaintext import ToolTipPlainText
 from ..util.sparqlutils import SPARQLUtils
@@ -96,18 +98,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.comboBox)
         self.layercount=0
-        self.geoTreeView.setHeaderHidden(True)
-        self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.geoTreeView.setAlternatingRowColors(True)
-        self.geoTreeView.setWordWrap(True)
         self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geoTreeView.customContextMenuRequested.connect(self.onContext)
         self.geoTreeViewModel = QStandardItemModel()
         self.geoTreeView.setModel(self.geoTreeViewModel)
-        self.classTreeView.setHeaderHidden(True)
-        self.classTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.classTreeView.setAlternatingRowColors(True)
-        self.classTreeView.setWordWrap(True)
         self.classTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.classTreeView.customContextMenuRequested.connect(self.onContext4)
         self.featureCollectionClassListModel = QStandardItemModel()
@@ -134,18 +128,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeViewModel.clear()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
-        self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.featureCollectionClassList.setAlternatingRowColors(True)
-        self.featureCollectionClassList.setWordWrap(True)
-        self.featureCollectionClassList.setHeaderHidden(True)
         self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext2)
         self.featureCollectionClassListModel.clear()
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
-        self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.geometryCollectionClassList.setAlternatingRowColors(True)
-        self.geometryCollectionClassList.setWordWrap(True)
-        self.geometryCollectionClassList.setHeaderHidden(True)
         self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext3)
         self.geometryCollectionClassListModel.clear()
@@ -263,8 +249,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if filename == "":
                 return
         result=set()
-        root=self.currentContextModel.invisibleRootItem()
-        self.iterateTree(root,result,False,True)
+        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,False,True,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
@@ -276,8 +261,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if filename == "":
                 return
         result=set()
-        root=self.currentContextModel.invisibleRootItem()
-        self.iterateTree(root,result,True,False)
+        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,True,False,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
@@ -289,40 +273,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if filename == "":
                 return
         result=set()
-        root=self.currentContextModel.invisibleRootItem()
-        self.iterateTree(root,result,False,False)
+        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,False,False,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
         return result
-
-    def iterateTree(self,node,result,visible,classesonly):
-        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node))+" "+str(node.rowCount()), MESSAGE_CATEGORY, Qgis.Info)
-        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
-        subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"
-        if "labelproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            labelproperty=self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"]
-        if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            typeproperty=self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"]
-        if "subclassproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            subclassproperty=self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"]
-        for i in range(node.rowCount()):
-            if node.child(i).hasChildren():
-                self.iterateTree(node.child(i),result,visible,classesonly)
-            if node.data(256)==None or (visible and not self.currentContext.visualRect(node.child(i).index()).isValid()):
-                continue
-            if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
-                result.add("<" + str(node.child(i).data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)),None))+"\" .\n")
-                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <"+subclassproperty+"> <"+str(node.data(256))+"> .\n")
-            elif not classesonly and node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
-                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <"+typeproperty+"> <"+str(node.data(256))+"> .\n")
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())

@@ -78,7 +78,7 @@ SELECT ?label ?geo ?item WHERE {
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -92,6 +92,18 @@ SELECT ?label ?geo ?item WHERE {
          <width>381</width>
          <height>591</height>
         </rect>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="headerHidden">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -108,6 +120,18 @@ SELECT ?label ?geo ?item WHERE {
          <height>591</height>
         </rect>
        </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="headerHidden">
+        <bool>true</bool>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="GeometryCollectionsTab">
@@ -122,6 +146,18 @@ SELECT ?label ?geo ?item WHERE {
          <width>381</width>
          <height>591</height>
         </rect>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="headerHidden">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -140,6 +176,9 @@ SELECT ?label ?geo ?item WHERE {
        </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
@@ -178,7 +217,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>10</x>
        <y>10</y>
        <width>781</width>
-       <height>91</height>
+       <height>81</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
@@ -207,8 +246,7 @@ SELECT ?label ?geo ?item WHERE {
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="SP_MessageBoxInformation">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="SP_MessageBoxInformation"/>
           </property>
          </widget>
         </item>
@@ -841,7 +879,7 @@ SELECT ?label ?geo ?item WHERE {
      <x>0</x>
      <y>0</y>
      <width>1181</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLinked_Data_Processing">

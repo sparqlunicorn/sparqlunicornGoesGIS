@@ -1,5 +1,4 @@
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QHeaderView
