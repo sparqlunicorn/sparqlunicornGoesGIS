@@ -2,9 +2,7 @@ var a00253 =
 [
     [ "__init__", "a00253.html#a82e7e3197aa35770eba7300065f8f1af", null ],
     [ "applyConceptToColumn", "a00253.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
-    [ "applyConceptToColumn2", "a00253.html#a2e38b4b1e21375cc0a3092b1862c5453", null ],
     [ "check_state", "a00253.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state3", "a00253.html#ace2b9b2398c60b5e5468418324fc7212", null ],
     [ "getClassesFromLabel", "a00253.html#a00c7d47f79ad9e7a9665d7588c9bd512", null ],
     [ "addVocab", "a00253.html#ac260fdbf23e7d137884620aa4c68c92f", null ],
     [ "bothOptions", "a00253.html#ac15ea5ca3c2948ec40b302b241c6493e", null ],

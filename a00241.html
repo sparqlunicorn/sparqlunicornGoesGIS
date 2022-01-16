@@ -99,12 +99,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a828c7df71b0e86f775916045240464e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0f57848626600d4b74a8ff044890850"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00241.html#ae0f57848626600d4b74a8ff044890850">createGoogleDialog</a> (self)</td></tr>
 <tr class="separator:ae0f57848626600d4b74a8ff044890850"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be880f2f13a1ec5ec598a1ecdd45c7d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00241.html#a9be880f2f13a1ec5ec598a1ecdd45c7d">createGitlabcomDialog</a> (self)</td></tr>
-<tr class="separator:a9be880f2f13a1ec5ec598a1ecdd45c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a085f123eccc32611b2e152b67a1a6970"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00241.html#a085f123eccc32611b2e152b67a1a6970">createGithubDialog</a> (self)</td></tr>
-<tr class="separator:a085f123eccc32611b2e152b67a1a6970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0150eae519b6b089f9eb754e8089565"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00241.html#ad0150eae519b6b089f9eb754e8089565">createORCIDDialog</a> (self)</td></tr>
-<tr class="separator:ad0150eae519b6b089f9eb754e8089565"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -153,12 +147,12 @@ Private Member Functions</h2></td></tr>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        super(QDialog, self).<a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.setupUi(self)</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.googleOAuthButton.clicked.connect(self.createGoogleDialog)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.gitlabcomOAuthButton.clicked.connect(self.createGitlabcomDialog)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.orcidOAuthButton.clicked.connect(self.createORCIDDialog)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.githubOAuthButton.clicked.connect(self.createGithubDialog)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.gitlabcomOAuthButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindow(self, <span class="stringliteral">&quot;gitlabcom&quot;</span>))</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.orcidOAuthButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindow(self, <span class="stringliteral">&quot;orcid&quot;</span>))</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.githubOAuthButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindow(self, <span class="stringliteral">&quot;github&quot;</span>))</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00241.html#a085f123eccc32611b2e152b67a1a6970">LoginWindowDialog.createGithubDialog()</a>, <a class="el" href="a00241.html#a9be880f2f13a1ec5ec598a1ecdd45c7d">LoginWindowDialog.createGitlabcomDialog()</a>, <a class="el" href="a00241.html#ae0f57848626600d4b74a8ff044890850">LoginWindowDialog.createGoogleDialog()</a>, and <a class="el" href="a00241.html#ad0150eae519b6b089f9eb754e8089565">LoginWindowDialog.createORCIDDialog()</a>.</p>
+<p class="reference">References <a class="el" href="a00241.html#ae0f57848626600d4b74a8ff044890850">LoginWindowDialog.createGoogleDialog()</a>.</p>
 
 </div>
 </div>
@@ -237,52 +231,6 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a085f123eccc32611b2e152b67a1a6970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a085f123eccc32611b2e152b67a1a6970">&#9670;&nbsp;</a></span>createGithubDialog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def createGithubDialog </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">def </span>createGithubDialog(self):</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        LoginWindow(self, <span class="stringliteral">&quot;github&quot;</span>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00241.html#a3047f94dcb7e376099d2e6d9856cb8fb">LoginWindowDialog.__init__()</a>.</p>
-
-</div>
-</div>
-<a id="a9be880f2f13a1ec5ec598a1ecdd45c7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9be880f2f13a1ec5ec598a1ecdd45c7d">&#9670;&nbsp;</a></span>createGitlabcomDialog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def createGitlabcomDialog </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span>createGitlabcomDialog(self):</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        LoginWindow(self, <span class="stringliteral">&quot;gitlabcom&quot;</span>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00241.html#a3047f94dcb7e376099d2e6d9856cb8fb">LoginWindowDialog.__init__()</a>.</p>
-
-</div>
-</div>
 <a id="ae0f57848626600d4b74a8ff044890850"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0f57848626600d4b74a8ff044890850">&#9670;&nbsp;</a></span>createGoogleDialog()</h2>
 
@@ -299,34 +247,12 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">def </span>createGoogleDialog(self):</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.myWV = QWebView(<span class="keywordtype">None</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.myWV = QWebView(<span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.myWV.load(QUrl(OAuthConfiguration.getAuthUrl(<span class="stringliteral">&quot;google&quot;</span>)))<span class="comment">#QUrl(&quot;http://www.google.de&quot;))#OAuthConfiguration.AuthUrl[&quot;google&quot;]))</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.myWV.show()</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="comment">#LoginWindow(self, &quot;google&quot;)</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00241.html#a3047f94dcb7e376099d2e6d9856cb8fb">LoginWindowDialog.__init__()</a>.</p>
-
-</div>
-</div>
-<a id="ad0150eae519b6b089f9eb754e8089565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0150eae519b6b089f9eb754e8089565">&#9670;&nbsp;</a></span>createORCIDDialog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def createORCIDDialog </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">def </span>createORCIDDialog(self):</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        LoginWindow(self, <span class="stringliteral">&quot;orcid&quot;</span>)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00241.html#a3047f94dcb7e376099d2e6d9856cb8fb">LoginWindowDialog.__init__()</a>.</p>
 

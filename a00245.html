@@ -147,17 +147,17 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">def </span><a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, app,provider):</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        super(LoginWindow, self).<a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.nam = self.page()</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.app = app</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.setUrl(QUrl(OAuthConfiguration.AuthUrl[provider]))</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.show()</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.loadFinished.connect(self._loadFinished)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">#interceptor = RequestInterceptor(self.app,provider)</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="comment">#self.page().profile().setRequestInterceptor(interceptor)</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        sys.exit(app.exec_())</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">def </span><a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, app,provider):</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        super(LoginWindow, self).<a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.nam = self.page()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.app = app</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.setUrl(QUrl(OAuthConfiguration.AuthUrl[provider]))</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.show()</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.loadFinished.connect(self._loadFinished)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="comment">#interceptor = RequestInterceptor(self.app,provider)</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">#self.page().profile().setRequestInterceptor(interceptor)</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        sys.exit(app.exec_())</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -195,9 +195,9 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">def </span>_loadFinished(self, result):</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.page().toHtml(self.callable)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">def </span>_loadFinished(self, result):</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.page().toHtml(self.callable)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00241.html#a828c7df71b0e86f775916045240464e2">LoginWindowDialog.callable()</a>, and <a class="el" href="a00245.html#a828c7df71b0e86f775916045240464e2">LoginWindow.callable()</a>.</p>
 
@@ -228,9 +228,9 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">def </span>callable(self, data):</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        self.html = data</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">def </span>callable(self, data):</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.html = data</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00245.html#a27b737395c35a2a45db65ae7028ed22c">LoginWindow._loadFinished()</a>.</p>
 
