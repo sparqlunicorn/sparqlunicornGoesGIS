@@ -396,6 +396,19 @@ class LayerUtils:
         result+="</graphml>"
         return result
 
+
+    ## Fetch the currently loaded layers.
+    @staticmethod
+    def loadLayerList(target):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        if not isinstance(target, list):
+            target=[target]
+        for elem in target:
+            elem.clear()
+        for layer in layers:
+            for elem in target:
+                elem.addItem(layer.name())
+
     ## Exports a layer as GeoJSONLD.
     #  @param self The object pointer.
     @staticmethod

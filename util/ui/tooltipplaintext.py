@@ -3,9 +3,9 @@ from qgis.PyQt.QtGui import QTextCursor, QPainter, QColor, QTextFormat
 from PyQt5.QtCore import Qt, QRect, QSize, QStringListModel
 from PyQt5 import QtCore
 from qgis.core import QgsProject, QgsMapLayer
-from ..dialogs.varinputdialog import VarInputDialog
-from ..dialogs.searchdialog import SearchDialog
-from ..util.sparqlutils import SPARQLUtils
+from ...dialogs.varinputdialog import VarInputDialog
+from ...dialogs.searchdialog import SearchDialog
+from ..sparqlutils import SPARQLUtils
 import re
 
 

@@ -13,7 +13,6 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/convertcrsdialog.ui'))
 
-
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):

@@ -458,24 +458,7 @@ class SPARQLunicorn:
             self.dlg.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                 self.dlg.savedQueries.addItem(concept["label"])
-
-    def useDefaultIDPropProcess(self):
-        self.dlg.findIDPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
-
-    def matchColumnValueFromTripleStore(self, toquery):
-        values = "VALUES ?vals { "
-        for queryval in toquery:
-            values += "\"" + queryval + "\""
-        values += "}"
-        results = SPARQLUtils.executeQuery("https://query.wikidata.org/sparql", """SELECT DISTINCT ?a
-        WHERE {
-          ?a wdt:P31 ?class .
-          ?a ?label ?vals .
-        } """)
-        for result in results["results"]["bindings"]:
-            self.viewlist.append(str(result["a"]["value"]))
-        return self.viewlist
-
+                
     def exportLayer2(self):
         self.exportLayer(None, None, None, None, None, None, self.dlg.exportTripleStore_2.isChecked())
 
@@ -538,9 +521,6 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
-    def createLoginWindow(self):
-        LoginWindowDialog(self).exec()
-
     def run(self):
         """Run method that performs all the real work"""
         # Create the dialog with elements (after translation) and keep reference
@@ -568,7 +548,6 @@ class SPARQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.autocomplete = json.loads(data3)
             self.prefixstore = json.loads(data4)
-
             counter = 0
             for store in self.triplestoreconf:
                 self.prefixes.append("")
@@ -604,10 +583,7 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(2)
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.oauthTestButton.hide()
-            self.dlg.oauthTestButton.clicked.connect(self.createLoginWindow)
-            # self.dlg.loadedLayers.clear()
+            self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
             self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
-            # self.dlg.geoClassList.doubleClicked.connect(self.create_unicorn_layer)
-            # self.dlg.exportLayers.clicked.connect(self.exportLayer2)
         else:
             self.dlg.show()

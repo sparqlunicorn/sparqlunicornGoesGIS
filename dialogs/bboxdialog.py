@@ -4,11 +4,11 @@ from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
     QgsCoordinateTransform, QgsPointXY
-from qgis.gui import QgsMapCanvas, QgsMapToolPan, QgsProjectionSelectionWidget
+from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
-from ..util.mappingtools import RectangleMapTool
-from ..util.mappingtools import CircleMapTool
-from ..util.mappingtools import PolygonMapTool
+from ..util.ui.mappingtools import RectangleMapTool
+from ..util.ui.mappingtools import CircleMapTool
+from ..util.ui.mappingtools import PolygonMapTool
 import os.path
 import json
 

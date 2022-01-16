@@ -1,7 +1,7 @@
 from qgis.PyQt.QtWidgets import QDialog, QMessageBox,QListWidgetItem, QTableWidgetItem
 from qgis.PyQt import uic
 from ..dialogs.searchdialog import SearchDialog
-from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..util.sparqlutils import SPARQLUtils
 import json
 import requests

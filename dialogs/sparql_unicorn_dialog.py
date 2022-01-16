@@ -27,17 +27,15 @@ import re
 import json
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt import QtCore
 from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
-from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
-from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel, QDesktopServices, QIcon
-from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
-    QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
+from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
+from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
 from rdflib.plugins.sparql import prepareQuery
-from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
-from ..util.tooltipplaintext import ToolTipPlainText
+from ..util.ui.tooltipplaintext import ToolTipPlainText
 from ..util.sparqlutils import SPARQLUtils
+from ..util.ui.classtreesortproxymodel import ClassTreeSortProxyModel
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
@@ -45,7 +43,7 @@ from ..dialogs.querylimitedinstancesdialog import QueryLimitedInstancesDialog
 from ..dialogs.graphvalidationdialog import GraphValidationDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
-from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.querylayertask import QueryLayerTask
 from ..tasks.subclassquerytask import SubClassQueryTask
 from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
@@ -61,64 +59,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/sparql_unicorn_dialog_base.ui'))
 
 MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
-
-class ClassTreeSortProxyModel(QSortFilterProxyModel):
-    """Sorting proxy model that always places folders on top."""
-    def __init__(self):
-        super().__init__()
-
-    def lessThan(self, left, right):
-        """Perform sorting comparison.
-
-        Since we know the sort order, we can ensure that folders always come first.
-        """
-        left_is_class = (left.data(257)==SPARQLUtils.classnode or left.data(257)==SPARQLUtils.geoclassnode)
-        left_data = str(left.data(Qt.DisplayRole))
-        right_is_class = (right.data(257)==SPARQLUtils.classnode or right.data(257)==SPARQLUtils.geoclassnode)
-        right_data = str(right.data(Qt.DisplayRole))
-        sort_order = self.sortOrder()
-
-        if left_is_class and not right_is_class:
-            result = sort_order == Qt.AscendingOrder
-        elif not left_is_class and right_is_class:
-            result = sort_order != Qt.AscendingOrder
-        else:
-            result = left_data < right_data
-        return result
-
-    def filter_accepts_row_itself(self, row_num, parent):
-        return super(ClassTreeSortProxyModel, self).filterAcceptsRow(row_num, parent)
-
-    def filter_accepts_any_parent(self, parent):
-        while parent.isValid():
-            if self.filter_accepts_row_itself(parent.row(), parent.parent()):
-                return True
-            parent = parent.parent()
-        return False
-    
-    def has_accepted_children(self, row_num, parent):
-        ''' Starting from the current node as root, traverse all
-            the descendants and test if any of the children match
-        '''
-        model = self.sourceModel()
-        source_index = model.index(row_num, 0, parent)
-
-        children_count =  model.rowCount(source_index)
-        for i in range(children_count):
-            if self.filterAcceptsRow(i, source_index):
-                return True
-        return False
-    
-    def filterAcceptsRow(self, source_row, source_parent):
-        # check if an item is currently accepted
-        if self.filter_accepts_row_itself(source_row, source_parent):
-            return True
-            # Traverse up all the way to root and check if any of them match
-        if self.filter_accepts_any_parent(source_parent):
-            return True
-        if self.has_accepted_children(source_row,source_parent):
-            return True
-        return False
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
@@ -225,32 +165,16 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.viewselectactionClassTree)
-        self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
         self.actionTriple_Store_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex()).exec())
-        self.chooseLayerInterlink.clear()
         self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
         self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
-        self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self)
-        self.interlinkNameSpace.setValidator(urlvalidator)
-        self.interlinkNameSpace.textChanged.connect(lambda: self.searchTripleStoreDialog.check_state(self.interlinkNameSpace))
-        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
-        self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
-        self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
-        self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
-        self.exportMappingButton.clicked.connect(self.interlinktab.exportMapping)
-        self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
-        self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-        self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
-        self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
         self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectactionGeoTree)
         self.classTreeView.selectionModel().currentChanged.connect(self.viewselectactionClassTree)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
@@ -258,8 +182,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionFeatureCollection)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.viewselectactionGeometryCollection)
-        self.refreshLayersInterlink.clicked.connect(self.loadUnicornLayers)
-        self.whattoenrich.clicked.connect(self.createWhatToEnrich)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
         self.show()
@@ -369,7 +291,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         with open(filename, 'w') as output_file:
             output_file.write("".join(result))
         return result
-        
+
     def iterateTree(self,node,result,visible,classesonly):
         QgsMessageLog.logMessage('Started task "{}"'.format(""+str(node))+" "+str(node.rowCount()), MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
@@ -605,60 +527,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")
         #uploaddialog.exec_()
 
-    ## 
-    #  @brief Creates a What To Enrich dialog with parameters given.
-    #  
-    #  @param self The object pointer
-    def createWhatToEnrich(self):
-        if self.enrichTable.rowCount() == 0:
-            return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        self.searchTripleStoreDialog = EnrichmentDialog(self.triplestoreconf, self.prefixes, self.enrichTable, layer,
-                                                        None, None)
-        self.searchTripleStoreDialog.setMinimumSize(700, 500)
-        self.searchTripleStoreDialog.setWindowTitle("Enrichment Search")
-        self.searchTripleStoreDialog.exec_()
-
-    def createEnrichSearchDialog(self, row=-1, column=-1):
-        if column == 1:
-            self.buildSearchDialog(row, column, False, self.enrichTable, False, False, None, self.addVocabConf)
-        if column == 6:
-            self.buildSearchDialog(row, column, False, self.enrichTable, False, False, None, self.addVocabConf)
-
-    def createEnrichSearchDialogProp(self, row=-1, column=-1):
-        self.buildSearchDialog(row, column, False, self.findIDPropertyEdit, True, False, None, self.addVocabConf)
-
-    ## 
-    #  @brief Creates a search dialog with parameters for interlinking.
-    #  
-    #  @param self The object pointer
-    #  @param row The row of the table for which to map the search result
-    #  @param column The column of the table for which to map the search result
-    def createInterlinkSearchDialog(self, row=-1, column=-1):
-        if column > 3 and column < 7:
-            self.buildSearchDialog(row, column, True, self.interlinkTable, True, False, None, self.addVocabConf)
-        elif column >= 7:
-            layers = QgsProject.instance().layerTreeRoot().children()
-            selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-            layer = layers[selectedLayerIndex].layer()
-            self.buildValueMappingDialog(row, column, True, self.interlinkTable, layer)
-        elif column == -1:
-            self.buildSearchDialog(row, column, -1, self.interlinkOwlClassInput, False, False, None, self.addVocabConf)
-
-    ## 
-    #  @brief Shows the configuration table after creating an enrichment result.
-    #  
-    #  @param  self The object pointer
-    #  
-    def showConfigTable(self):
-        self.enrichTableResult.hide()
-        self.enrichTable.show()
-        self.startEnrichment.setText("Start Enrichment")
-        self.startEnrichment.clicked.disconnect()
-        self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
-
     def collectionSelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
@@ -758,63 +626,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                    self.currentContextModel.itemFromIndex(curindex).text().rfind(
                                        '/') + 1:].lower().replace(" ", "_"))
 
-
-    def itemModelToMap(self, model):
-        resdict = {}
-        for row in range(model.rowCount()):
-            index = model.index(row, 0, self)
-            resdict[model.itemFromIndex(index).text()] = model.itemFromIndex(index).data(1)
-        return resdict
-
-        ##
-
-    #  @brief Deletes a row from the table in the enrichment dialog.
-    #
-    #  @param  send The sender of the request
-    #
-    def deleteEnrichRow(self, send):
-        w = send.sender().parent()
-        row = self.enrichTable.indexAt(w.pos()).row()
-        self.enrichTable.removeRow(row)
-        self.enrichTable.setCurrentCell(0, 0)
-
-    ## 
-    #  @brief Adds a new row to the table in the enrichment dialog.
-    #  
-    #  @param  self The object pointer
-    # 
-    def addEnrichRow(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
-        self.enrichTableResult.hide()
-        fieldnames = [field.name() for field in layer.fields()]
-        item = QTableWidgetItem("new_column")
-        # item.setFlags(QtCore.Qt.ItemIsEnabled)
-        row = self.enrichTable.rowCount()
-        self.enrichTable.insertRow(row)
-        self.enrichTable.setItem(row, 0, item)
-        cbox = QComboBox()
-        cbox.addItem("Get Remote")
-        cbox.addItem("No Enrichment")
-        cbox.addItem("Exclude")
-        self.enrichTable.setCellWidget(row, 3, cbox)
-        cbox = QComboBox()
-        cbox.addItem("Enrich Value")
-        cbox.addItem("Enrich URI")
-        cbox.addItem("Enrich Both")
-        self.enrichTable.setCellWidget(row, 4, cbox)
-        cbox = QComboBox()
-        for fieldd in fieldnames:
-            cbox.addItem(fieldd)
-        self.enrichTable.setCellWidget(row, 5, cbox)
-        itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-        self.enrichTable.setItem(row, 6, itemm)
-        itemm = QTableWidgetItem("")
-        self.enrichTable.setItem(row, 7, itemm)
-        itemm = QTableWidgetItem("")
-        self.enrichTable.setItem(row, 8, itemm)
-
     ## Validates the SPARQL query in the input field and outputs errors in a label.
     #  @param self The object pointer.
     def validateSPARQL(self):
@@ -853,13 +664,13 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 else:
                     self.errorLabel.setText(str(e))
 
-    ## 
+    ##
     #  @brief Builds the search dialog to search for a concept or class.
     #  @param  self The object pointer
     #  @param  row the row to insert the result
     #  @param  column the column to insert the result
     #  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
-    #  @param  table the GUI element to display the result 
+    #  @param  table the GUI element to display the result
     def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
                           currentprefixes=None, addVocabConf=None):
         self.currentcol = column
@@ -870,9 +681,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")
         self.interlinkdialog.exec_()
 
-    ## 
+    ##
     #  @brief Builds a value mapping dialog window for ther interlinking dialog.
-    #  
+    #
     #  @param self The object pointer
     #  @param row The row of the table for which to map the value
     #  @param column The column of the table for which to map the value
@@ -889,143 +700,3 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Get Value Mappings for column " + table.item(row, 3).text())
         self.interlinkdialog.exec_()
-
-    ## 
-    #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
-    #  
-    #  @param self The object pointer
-    def loadLayerForInterlink(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-        if len(layers) == 0:
-            return
-        layer = layers[selectedLayerIndex].layer()
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
-            while self.interlinkTable.rowCount() > 0:
-                self.interlinkTable.removeRow(0)
-            row = 0
-            self.interlinkTable.setHorizontalHeaderLabels(
-                ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
-                 "ValueConcepts"])
-            self.interlinkTable.setColumnCount(8)
-            for field in fieldnames:
-                item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                item2 = QTableWidgetItem()
-                item2.setCheckState(True)
-                item3 = QTableWidgetItem()
-                item3.setCheckState(False)
-                item4 = QTableWidgetItem()
-                item4.setCheckState(False)
-                self.interlinkTable.insertRow(row)
-                self.interlinkTable.setItem(row, 3, item)
-                self.interlinkTable.setItem(row, 0, item2)
-                self.interlinkTable.setItem(row, 1, item3)
-                self.interlinkTable.setItem(row, 2, item4)
-                cbox = QComboBox()
-                cbox.addItem("Automatic")
-                cbox.addItem("AnnotationProperty")
-                cbox.addItem("DataProperty")
-                cbox.addItem("ObjectProperty")
-                cbox.addItem("SubClass")
-                self.interlinkTable.setCellWidget(row, 5, cbox)
-                currentRowCount = self.interlinkTable.rowCount()
-                row += 1
-        except:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Layer not compatible for interlinking!")
-            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
-            msgBox.exec()
-            return
-
-    ##
-    #  @brief Loads a QGIS layer for enrichment into the enrichment dialog.
-    #  
-    #  @param self The object pointer
-    def loadLayerForEnrichment(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        if len(layers) == 0:
-            return
-        layer = layers[selectedLayerIndex].layer()
-        self.enrichTableResult.hide()
-        while self.enrichTableResult.rowCount() > 0:
-            self.enrichTableResult.removeRow(0);
-        self.enrichTable.show()
-        self.addEnrichedLayerRowButton.setEnabled(True)
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
-            while self.enrichTable.rowCount() > 0:
-                self.enrichTable.removeRow(0);
-            row = 0
-            self.enrichTable.setColumnCount(9)
-            self.enrichTable.setHorizontalHeaderLabels(
-                ["Column", "EnrichmentConcept", "TripleStore", "Strategy", "content", "ID Column", "ID Property",
-                 "ID Domain", "Language"])
-            for field in fieldnames:
-                item = QTableWidgetItem(field)
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                currentRowCount = self.enrichTable.rowCount()
-                self.enrichTable.insertRow(row)
-                self.enrichTable.setItem(row, 0, item)
-                cbox = QComboBox()
-                cbox.addItem("No Enrichment")
-                cbox.addItem("Keep Local")
-                cbox.addItem("Keep Remote")
-                cbox.addItem("Replace Local")
-                cbox.addItem("Merge")
-                cbox.addItem("Ask User")
-                cbox.addItem("Exclude")
-                self.enrichTable.setCellWidget(row, 3, cbox)
-                cbox = QComboBox()
-                cbox.addItem("Enrich Value")
-                cbox.addItem("Enrich URI")
-                cbox.addItem("Enrich Both")
-                self.enrichTable.setCellWidget(row, 4, cbox)
-                cbox = QComboBox()
-                for fieldd in fieldnames:
-                    cbox.addItem(fieldd)
-                self.enrichTable.setCellWidget(row, 5, cbox)
-                itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
-                self.enrichTable.setItem(row, 6, itemm)
-                itemm = QTableWidgetItem("")
-                self.enrichTable.setItem(row, 7, itemm)
-                itemm = QTableWidgetItem("")
-                self.enrichTable.setItem(row, 8, itemm)
-                celllayout = QHBoxLayout()
-                upbutton = QPushButton("Up")
-                removebutton = QPushButton("Remove", self)
-                removebutton.clicked.connect(self.deleteEnrichRow)
-                downbutton = QPushButton("Down")
-                celllayout.addWidget(upbutton)
-                celllayout.addWidget(downbutton)
-                celllayout.addWidget(removebutton)
-                w = QWidget()
-                w.setLayout(celllayout)
-                optitem = QTableWidgetItem()
-                # self.enrichTable.setCellWidget(row,4,w)
-                # self.enrichTable.setItem(row,3,cbox)
-                row += 1
-            self.originalRowCount = row
-        except:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Layer not compatible for enrichment!")
-            msgBox.setText("The chosen layer is not supported for enrichment. You possibly selected a raster layer")
-            msgBox.exec()
-            return
-
-    ## Fetch the currently loaded layers.
-    #  @param self The object pointer.
-    def loadUnicornLayers(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        # Populate the comboBox with names of all the loaded unicorn layers
-        self.loadedLayers.clear()
-        self.chooseLayerInterlink.clear()
-        self.chooseLayerEnrich.clear()
-        for layer in layers:
-            ucl = layer.name()
-            # if type(layer) == QgsMapLayer.VectorLayer:
-            self.loadedLayers.addItem(layer.name())
-            self.chooseLayerInterlink.addItem(layer.name())
-            self.chooseLayerEnrich.addItem(layer.name())

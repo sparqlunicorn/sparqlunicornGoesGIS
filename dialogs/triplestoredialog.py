@@ -3,7 +3,7 @@ from qgis.PyQt.QtCore import QRegExp,Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
-from ..util.sparqlhighlighter import SPARQLHighlighter
+from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 import os.path
 import json

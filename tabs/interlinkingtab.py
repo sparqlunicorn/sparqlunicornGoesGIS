@@ -3,8 +3,10 @@ import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog
-
+from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
+from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
+from qgis.PyQt.QtGui import QRegExpValidator
+from ..util.layerutils import LayerUtils
 
 ## Provides implementations for functions accessible from the interlinking tab
 class InterlinkingTab:
@@ -14,6 +16,24 @@ class InterlinkingTab:
 
     def __init__(self, dlg):
         self.dlg = dlg
+        self.chooseLayerInterlink=dlg.chooseLayerInterlink
+        self.chooseLayerInterlink.clear()
+        self.addVocabConf=None
+        self.interlinkTable=dlg.interlinkTable
+        self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
+        self.searchClass=dlg.searchClass
+        self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+        urlvalidator = QRegExpValidator(urlregex, self.dlg)
+        self.interlinkNameSpace=dlg.interlinkNameSpace
+        self.interlinkNameSpace.setValidator(urlvalidator)
+        self.dlg.refreshLayersInterlink.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
+        #self.interlinkNameSpace.textChanged.connect(lambda: self.dlg.searchTripleStoreDialog.check_state(self.interlinkNameSpace))
+        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
+        self.loadLayerInterlink=dlg.loadLayerInterlink
+        self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+        self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
+        self.dlg.importMappingButton.clicked.connect(self.loadMapping)
 
     ## Loads an enrichment mapping from a previously defined mapping file.
     #  @param self The object pointer.
@@ -24,6 +44,66 @@ class InterlinkingTab:
             fileNames = dialog.selectedFiles()
             filepath = fileNames[0].split(".")
             self.readMapping(fileNames[0])
+
+    ##
+    #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
+    #
+    #  @param self The object pointer
+    def loadLayerForInterlink(self):
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+        if len(layers) == 0:
+            return
+        layer = layers[selectedLayerIndex].layer()
+        try:
+            fieldnames = [field.name() for field in layer.fields()]
+            while self.interlinkTable.rowCount() > 0:
+                self.interlinkTable.removeRow(0)
+            row = 0
+            self.interlinkTable.setHorizontalHeaderLabels(
+                ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
+                 "ValueConcepts"])
+            self.interlinkTable.setColumnCount(8)
+            for field in fieldnames:
+                item = QTableWidgetItem(field)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                item2 = QTableWidgetItem()
+                item2.setCheckState(True)
+                item3 = QTableWidgetItem()
+                item3.setCheckState(False)
+                item4 = QTableWidgetItem()
+                item4.setCheckState(False)
+                self.interlinkTable.insertRow(row)
+                self.interlinkTable.setItem(row, 3, item)
+                self.interlinkTable.setItem(row, 0, item2)
+                self.interlinkTable.setItem(row, 1, item3)
+                self.interlinkTable.setItem(row, 2, item4)
+                cbox = QComboBox()
+                cbox.addItem("Automatic")
+                cbox.addItem("AnnotationProperty")
+                cbox.addItem("DataProperty")
+                cbox.addItem("ObjectProperty")
+                cbox.addItem("SubClass")
+                self.interlinkTable.setCellWidget(row, 5, cbox)
+                currentRowCount = self.interlinkTable.rowCount()
+                row += 1
+        except:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("Layer not compatible for interlinking!")
+            msgBox.setText("The chosen layer is not supported for interlinking. You possibly selected a raster layer")
+            msgBox.exec()
+            return
+
+    def createInterlinkSearchDialog(self, row=-1, column=-1):
+        if column > 3 and column < 7:
+            self.dlg.buildSearchDialog(row, column, True, self.interlinkTable, True, False, None, self.addVocabConf)
+        elif column >= 7:
+            layers = QgsProject.instance().layerTreeRoot().children()
+            selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
+            layer = layers[selectedLayerIndex].layer()
+            self.dlg.buildValueMappingDialog(row, column, True, self.interlinkTable, layer)
+        elif column == -1:
+            self.dlg.buildSearchDialog(row, column, -1, self.dlg.interlinkOwlClassInput, False, False, None, self.addVocabConf)
 
     ## Reads a concept mapping from a given XML file.
     #  @param self The object pointer.
