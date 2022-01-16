@@ -1,4 +1,4 @@
 var a00197 =
 [
-    [ "SubClassQueryTask", "a00369.html", "a00369" ]
+    [ "OAuthConfiguration", "a00385.html", "a00385" ]
 ];

@@ -1,4 +1,4 @@
 var a00174 =
 [
-    [ "TripleStoreQuickAddDialog", "a00281.html", "a00281" ]
+    [ "DataSchemaQueryTask", "a00297.html", "a00297" ]
 ];

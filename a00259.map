@@ -1,5 +1,6 @@
-<map id="QueryLimitedInstancesDialog" name="QueryLimitedInstancesDialog">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,220,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="17,5,91,32"/>
-<area shape="rect" id="node3" href="$a00953.html" title=" " alt="" coords="116,5,227,32"/>
+<map id="TripleStoreDialog" name="TripleStoreDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="93,95,227,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$a00841.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="240,5,299,32"/>
 </map>

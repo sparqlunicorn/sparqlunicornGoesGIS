@@ -1,16 +1,18 @@
 var a00353 =
 [
-    [ "__init__", "a00353.html#a587fd25dc8b30824fd057254dc7be1a0", null ],
+    [ "__init__", "a00353.html#a8b86db525756bd835f2d614ef3886412", null ],
     [ "finished", "a00353.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00353.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "amountoflabels", "a00353.html#a920977da185a945b106fd389906f0fda", null ],
+    [ "con", "a00353.html#a94534dee405e8dd38d894ae17bb288e6", null ],
+    [ "dlg", "a00353.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00353.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "features", "a00353.html#a6b54c7d82e1d89ae7994a88ce0c6889b", null ],
-    [ "mymap", "a00353.html#ab38ad98eb0ec5bd609169dd83133d317", null ],
-    [ "parentwindow", "a00353.html#a110f8af02848bbdf9316dcc57809972e", null ],
-    [ "prefixes", "a00353.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "queryresult", "a00353.html#a1bee14843933505be5e14e07c03f5f89", null ],
-    [ "searchResult", "a00353.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
-    [ "searchTerm", "a00353.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
+    [ "geoTreeViewModel", "a00353.html#ac718e6195097812dffa9cfd2407131ad", null ],
+    [ "progress", "a00353.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "query", "a00353.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
+    [ "resultlist", "a00353.html#af06316de4f3798fb8e2fd1c2846957ca", null ],
+    [ "treeNode", "a00353.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
     [ "triplestoreconf", "a00353.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00353.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "triplestoreurl", "a00353.html#a9b8734be629bbc1f64723d90a67861ab", null ],
+    [ "viewlist", "a00353.html#a64118717d69ab90e67efd8b24cb32bb3", null ]
 ];

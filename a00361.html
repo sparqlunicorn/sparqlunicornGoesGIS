@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: QueryLayerTask Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: EnrichmentTab Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,67 +63,108 @@ $(document).ready(function(){initNavTree('a00361.html',''); initResizable(); });
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00358.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">QueryLayerTask Class Reference</div>  </div>
+<div class="title">EnrichmentTab Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for QueryLayerTask:</div>
+Collaboration diagram for EnrichmentTab:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00360.png" border="0" usemap="#QueryLayerTask_inherit__map" alt="Inheritance graph"/></div>
-<map name="QueryLayerTask_inherit__map" id="QueryLayerTask_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" title=" " alt="" coords="31,5,107,32"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for QueryLayerTask:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00359.png" border="0" usemap="#QueryLayerTask_coll__map" alt="Collaboration graph"/></div>
-<map name="QueryLayerTask_coll__map" id="QueryLayerTask_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" title=" " alt="" coords="31,5,107,32"/>
+<div class="center"><img src="a00359.png" border="0" usemap="#EnrichmentTab_coll__map" alt="Collaboration graph"/></div>
+<map name="EnrichmentTab_coll__map" id="EnrichmentTab_coll__map">
+<area shape="rect" title=" " alt="" coords="47,109,165,136"/>
+<area shape="rect" title=" " alt="" coords="5,5,44,32"/>
+<area shape="rect" title=" " alt="" coords="162,5,213,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a235d4a29f3c837bfdaf6e2fe4a254e62"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a235d4a29f3c837bfdaf6e2fe4a254e62">__init__</a> (self, description, <a class="el" href="a00361.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a>, <a class="el" href="a00361.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a>, <a class="el" href="a00361.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a>, <a class="el" href="a00361.html#a2be679e131aa5f671200ce80927d4f47">allownongeo</a>, <a class="el" href="a00361.html#a2ff994e16bf9521154de4cf659a3b689">filename</a>, <a class="el" href="a00361.html#a991fd2c404665f13f536fc7791e53504">progress</a>, <a class="el" href="a00361.html#aa1caf11cc3fdcb08c90537fb2ffc6a2b">querydepth</a>=0)</td></tr>
-<tr class="separator:a235d4a29f3c837bfdaf6e2fe4a254e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad22709b2e67308af35f55680d5a026e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">run</a> (self)</td></tr>
-<tr class="separator:ad22709b2e67308af35f55680d5a026e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab368e533f681a396257e919f7acf52fd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ab368e533f681a396257e919f7acf52fd">processResults</a> (self, results, reproject, mandatoryvars, geooptional)</td></tr>
-<tr class="memdesc:ab368e533f681a396257e919f7acf52fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes query results and reformats them to a QGIS layer.  <a href="a00361.html#ab368e533f681a396257e919f7acf52fd">More...</a><br /></td></tr>
-<tr class="separator:ab368e533f681a396257e919f7acf52fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f4d426f44e2bbf0bcca08c50d1b5ee4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a> (self, result)</td></tr>
-<tr class="separator:a5f4d426f44e2bbf0bcca08c50d1b5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93626884d4600b8cf171d464a41099fd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a93626884d4600b8cf171d464a41099fd">__init__</a> (self, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">dlg</a>)</td></tr>
+<tr class="separator:a93626884d4600b8cf171d464a41099fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bec585636baa1304318e0da3bcca8e3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a0bec585636baa1304318e0da3bcca8e3">createWhatToEnrich</a> (self)</td></tr>
+<tr class="memdesc:a0bec585636baa1304318e0da3bcca8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a What To Enrich dialog with parameters given.  <a href="a00361.html#a0bec585636baa1304318e0da3bcca8e3">More...</a><br /></td></tr>
+<tr class="separator:a0bec585636baa1304318e0da3bcca8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0229f67169973a11be67544cdfa9e80f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a0229f67169973a11be67544cdfa9e80f">createEnrichSearchDialog</a> (self, row=-1, column=-1)</td></tr>
+<tr class="separator:a0229f67169973a11be67544cdfa9e80f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7775dd5ac22ed3a6f37edb833097f41"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#af7775dd5ac22ed3a6f37edb833097f41">createEnrichSearchDialogProp</a> (self, row=-1, column=-1)</td></tr>
+<tr class="separator:af7775dd5ac22ed3a6f37edb833097f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2caba5fdbabb1add496a3690ea2920"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">addEnrichRow</a> (self)</td></tr>
+<tr class="memdesc:aef2caba5fdbabb1add496a3690ea2920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new row to the table in the enrichment dialog.  <a href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">More...</a><br /></td></tr>
+<tr class="separator:aef2caba5fdbabb1add496a3690ea2920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56435cd18605ceb7d36ef96f1a1252a2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">loadLayerForEnrichment</a> (self)</td></tr>
+<tr class="memdesc:a56435cd18605ceb7d36ef96f1a1252a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a QGIS layer for enrichment into the enrichment dialog.  <a href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">More...</a><br /></td></tr>
+<tr class="separator:a56435cd18605ceb7d36ef96f1a1252a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04bb64f72568fb3fe1756fabc6c779b2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a04bb64f72568fb3fe1756fabc6c779b2">deleteEnrichRow</a> (self, send)</td></tr>
+<tr class="separator:a04bb64f72568fb3fe1756fabc6c779b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c0d7bb6decc89954e354bbd53ec602"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">enrichLayerProcess</a> (self)</td></tr>
+<tr class="memdesc:a56c0d7bb6decc89954e354bbd53ec602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the process of layer enrichment according to the options selected in the enrichment dialog.  <a href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">More...</a><br /></td></tr>
+<tr class="separator:a56c0d7bb6decc89954e354bbd53ec602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6b7d4f8799f96244e4515a0a633386"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#aca6b7d4f8799f96244e4515a0a633386">addEnrichedLayer</a> (self)</td></tr>
+<tr class="memdesc:aca6b7d4f8799f96244e4515a0a633386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a QGIS layer which has been previously enriched to QGIS.  <a href="a00361.html#aca6b7d4f8799f96244e4515a0a633386">More...</a><br /></td></tr>
+<tr class="separator:aca6b7d4f8799f96244e4515a0a633386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a325fd8cbbc7334bc6881a68afd0c327f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">showConfigTable</a> (self)</td></tr>
+<tr class="memdesc:a325fd8cbbc7334bc6881a68afd0c327f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows the configuration table after creating an enrichment result.  <a href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">More...</a><br /></td></tr>
+<tr class="separator:a325fd8cbbc7334bc6881a68afd0c327f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#adfcc23a6b0a5b7441daa1d4b43a6e881">exportEnrichedLayer</a> (self)</td></tr>
+<tr class="memdesc:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog.  <a href="a00361.html#adfcc23a6b0a5b7441daa1d4b43a6e881">More...</a><br /></td></tr>
+<tr class="separator:adfcc23a6b0a5b7441daa1d4b43a6e881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#aec2b4fd1f327cbebb003cfc415e8bccb">exception</a></td></tr>
-<tr class="separator:aec2b4fd1f327cbebb003cfc415e8bccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a991fd2c404665f13f536fc7791e53504"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a991fd2c404665f13f536fc7791e53504">progress</a></td></tr>
-<tr class="separator:a991fd2c404665f13f536fc7791e53504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1caf11cc3fdcb08c90537fb2ffc6a2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#aa1caf11cc3fdcb08c90537fb2ffc6a2b">querydepth</a></td></tr>
-<tr class="separator:aa1caf11cc3fdcb08c90537fb2ffc6a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b8734be629bbc1f64723d90a67861ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a9b8734be629bbc1f64723d90a67861ab">triplestoreurl</a></td></tr>
-<tr class="separator:a9b8734be629bbc1f64723d90a67861ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a330d24be0afd5a96238ca9e128328a2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a330d24be0afd5a96238ca9e128328a2d">triplestoreconf</a></td></tr>
-<tr class="separator:a330d24be0afd5a96238ca9e128328a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c84ba0942252fbf3bc9f20120a12ad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a6c84ba0942252fbf3bc9f20120a12ad1">query</a></td></tr>
-<tr class="separator:a6c84ba0942252fbf3bc9f20120a12ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2be679e131aa5f671200ce80927d4f47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a2be679e131aa5f671200ce80927d4f47">allownongeo</a></td></tr>
-<tr class="separator:a2be679e131aa5f671200ce80927d4f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ff994e16bf9521154de4cf659a3b689"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a2ff994e16bf9521154de4cf659a3b689">filename</a></td></tr>
-<tr class="separator:a2ff994e16bf9521154de4cf659a3b689"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbcc160ca774f07e0a53d4e0520808d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#abbcc160ca774f07e0a53d4e0520808d1">geojson</a></td></tr>
-<tr class="separator:abbcc160ca774f07e0a53d4e0520808d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b35c93890e49ff3f0c12e45ab19fa1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">chooseLayerEnrich</a></td></tr>
+<tr class="separator:ac3b35c93890e49ff3f0c12e45ab19fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcd5126fc28b5d7bf7f5eae6c1e808f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#adcd5126fc28b5d7bf7f5eae6c1e808f1">enrichTableResult</a></td></tr>
+<tr class="separator:adcd5126fc28b5d7bf7f5eae6c1e808f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d2b998b0dd082c0d221c69bc8b4c8c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">enrichTable</a></td></tr>
+<tr class="separator:a41d2b998b0dd082c0d221c69bc8b4c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aebd6ece91bc573de48d9e164244cdc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a8aebd6ece91bc573de48d9e164244cdc">addEnrichedLayerRowButton</a></td></tr>
+<tr class="separator:a8aebd6ece91bc573de48d9e164244cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f20e607efd22c0391d46905d6d32ecd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a6f20e607efd22c0391d46905d6d32ecd">addEnrichedLayerButton</a></td></tr>
+<tr class="separator:a6f20e607efd22c0391d46905d6d32ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9879db7517fa3ba962afb98e67d256ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a9879db7517fa3ba962afb98e67d256ba">startEnrichment</a></td></tr>
+<tr class="separator:a9879db7517fa3ba962afb98e67d256ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e3642406134b64d85ce0a4dd71820a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a8e3642406134b64d85ce0a4dd71820a2">exportInterlink</a></td></tr>
+<tr class="separator:a8e3642406134b64d85ce0a4dd71820a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5076d9ce6960333ce03084aa5a0bc820"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a5076d9ce6960333ce03084aa5a0bc820">loadLayerEnrich</a></td></tr>
+<tr class="separator:a5076d9ce6960333ce03084aa5a0bc820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d7d79c301fe64a9e15aef11005402f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a3d7d79c301fe64a9e15aef11005402f3">whattoenrich</a></td></tr>
+<tr class="separator:a3d7d79c301fe64a9e15aef11005402f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0918bd6ea96ed15f91ffdf7d9e91776a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a0918bd6ea96ed15f91ffdf7d9e91776a">searchTripleStoreDialog</a></td></tr>
+<tr class="separator:a0918bd6ea96ed15f91ffdf7d9e91776a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f706a761ec89c3b902ee489e8d7408"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a69f706a761ec89c3b902ee489e8d7408">originalRowCount</a></td></tr>
+<tr class="separator:a69f706a761ec89c3b902ee489e8d7408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a28e8c8cab7654b472c43f25f3005b3ad">exportIdCol</a></td></tr>
+<tr class="separator:a28e8c8cab7654b472c43f25f3005b3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a53c91b53a9e6f8aa2e992e979da8af83">exportNameSpace</a></td></tr>
+<tr class="separator:a53c91b53a9e6f8aa2e992e979da8af83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb9e994037d80a7ace5ae573c602d45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a4bb9e994037d80a7ace5ae573c602d45">exportSetClass</a></td></tr>
+<tr class="separator:a4bb9e994037d80a7ace5ae573c602d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94166918eca98bd0764f1c890ee2ec5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a94166918eca98bd0764f1c890ee2ec5b">valueconcept</a></td></tr>
+<tr class="separator:a94166918eca98bd0764f1c890ee2ec5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac26f04155f19a0850f23ab9c063ba611"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ac26f04155f19a0850f23ab9c063ba611">enrichedExport</a></td></tr>
+<tr class="separator:ac26f04155f19a0850f23ab9c063ba611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:afe27f37e04aafb99a9b48eae8506bc9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#afe27f37e04aafb99a9b48eae8506bc9a">enrichLayer</a> = None</td></tr>
+<tr class="separator:afe27f37e04aafb99a9b48eae8506bc9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1babc27d21e85ac2fa395cccac38d15"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ac1babc27d21e85ac2fa395cccac38d15">enrichedExport</a> = False</td></tr>
+<tr class="separator:ac1babc27d21e85ac2fa395cccac38d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ee3c07560eb98d17a382b71105bf98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">dlg</a> = None</td></tr>
+<tr class="separator:ad2ee3c07560eb98d17a382b71105bf98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09dec5fb4a23fd0028407eddbe26cc16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a09dec5fb4a23fd0028407eddbe26cc16">qtask</a> = None</td></tr>
+<tr class="separator:a09dec5fb4a23fd0028407eddbe26cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96db96b589de91ab2dd5f6f5836757de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a96db96b589de91ab2dd5f6f5836757de">originalRowCount</a> = 0</td></tr>
+<tr class="separator:a96db96b589de91ab2dd5f6f5836757de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52fdefb870f38c907e9fede14b52425f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00361.html#a52fdefb870f38c907e9fede14b52425f">enrichLayerCounter</a> = 0</td></tr>
+<tr class="separator:a52fdefb870f38c907e9fede14b52425f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">This shows how to subclass QgsTask</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a235d4a29f3c837bfdaf6e2fe4a254e62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a235d4a29f3c837bfdaf6e2fe4a254e62">&#9670;&nbsp;</a></span>__init__()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a93626884d4600b8cf171d464a41099fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93626884d4600b8cf171d464a41099fd">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,49 +179,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>description</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreurl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>query</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreconf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>allownongeo</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>progress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>querydepth</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>dlg</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -189,254 +188,39 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">def </span><a class="code" href="a00373.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress,querydepth=0):</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        super().<a class="code" href="a00373.html#af768e72071b11f2a420139fa04036c17">__init__</a>(description, QgsTask.CanCancel)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        self.exception = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.progress = progress</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.querydepth=querydepth</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.triplestoreurl = triplestoreurl</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.triplestoreconf = triplestoreconf</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.query = query</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.allownongeo = allownongeo</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.filename = filename</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.geojson = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">def </span><a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, dlg):</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.dlg = dlg</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.chooseLayerEnrich = dlg.chooseLayerEnrich</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.enrichTableResult = dlg.enrichTableResult</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.enrichTable = dlg.enrichTable</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.addEnrichedLayerRowButton = dlg.addEnrichedLayerRowButton</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.addEnrichedLayerButton = dlg.addEnrichedLayerButton</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.startEnrichment = dlg.startEnrichment</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.startEnrichment.clicked.connect(self.enrichLayerProcess)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.exportInterlink = dlg.exportInterlink</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.exportInterlink.clicked.connect(self.exportEnrichedLayer)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.loadLayerEnrich = dlg.loadLayerEnrich</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.whattoenrich = dlg.whattoenrich</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.whattoenrich.clicked.connect(self.createWhatToEnrich)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.dlg.refreshLayersEnrich.clicked.connect(<span class="keyword">lambda</span>: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00293.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00309.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00329.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00333.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a00317.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00313.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, and <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5f4d426f44e2bbf0bcca08c50d1b5ee4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f4d426f44e2bbf0bcca08c50d1b5ee4">&#9670;&nbsp;</a></span>finished()</h2>
+<a id="aca6b7d4f8799f96244e4515a0a633386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6b7d4f8799f96244e4515a0a633386">&#9670;&nbsp;</a></span>addEnrichedLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def finished </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">def </span><a class="code" href="a00373.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">if</span> self.geojson == <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.exception != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;An error occured while querying: &quot;</span> + str(self.exception))</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">if</span> self.geojson == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query yielded no results. Therefore no layer will be created!&quot;</span>)</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">if</span> self.geojson != <span class="keywordtype">None</span> <span class="keywordflow">and</span> isinstance(self.geojson, int) <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.allownongeo:</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The query did not retrieve a geometry result. However, there were &quot;</span> + str(</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                self.geojson) + <span class="stringliteral">&quot; non-geometry query results. You can retrieve them by allowing non-geometry queries!&quot;</span>)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> self.progress!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            self.progress.close()</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=<span class="keyword">True</span>), <span class="stringliteral">&quot;unicorn_&quot;</span> + self.filename, <span class="stringliteral">&quot;ogr&quot;</span>)</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        print(vlayer.isValid())</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        QgsProject.instance().addMapLayer(vlayer)</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        canvas = iface.mapCanvas()</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        canvas.setExtent(vlayer.extent())</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Add layer&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00361.html#a2be679e131aa5f671200ce80927d4f47">QueryLayerTask.allownongeo</a>, <a class="el" href="a00345.html#aec2b4fd1f327cbebb003cfc415e8bccb">InstanceAmountQueryTask.exception</a>, <a class="el" href="a00325.html#aec2b4fd1f327cbebb003cfc415e8bccb">FindStyleQueryTask.exception</a>, <a class="el" href="a00357.html#aec2b4fd1f327cbebb003cfc415e8bccb">LoadGraphTask.exception</a>, <a class="el" href="a00309.html#aec2b4fd1f327cbebb003cfc415e8bccb">DataSampleQueryTask.exception</a>, <a class="el" href="a00337.html#aec2b4fd1f327cbebb003cfc415e8bccb">GetStyleQueryTask.exception</a>, <a class="el" href="a00349.html#aec2b4fd1f327cbebb003cfc415e8bccb">InstanceListQueryTask.exception</a>, <a class="el" href="a00333.html#aec2b4fd1f327cbebb003cfc415e8bccb">GeoConceptsQueryTask.exception</a>, <a class="el" href="a00301.html#aec2b4fd1f327cbebb003cfc415e8bccb">ClassTreeQueryTask.exception</a>, <a class="el" href="a00321.html#aec2b4fd1f327cbebb003cfc415e8bccb">EnrichmentQueryTask.exception</a>, <a class="el" href="a00329.html#aec2b4fd1f327cbebb003cfc415e8bccb">GeoCollectionsQueryTask.exception</a>, <a class="el" href="a00353.html#aec2b4fd1f327cbebb003cfc415e8bccb">InstanceQueryTask.exception</a>, <a class="el" href="a00305.html#aec2b4fd1f327cbebb003cfc415e8bccb">ConvertCRSTask.exception</a>, <a class="el" href="a00317.html#aec2b4fd1f327cbebb003cfc415e8bccb">DetectTripleStoreTask.exception</a>, <a class="el" href="a00313.html#aec2b4fd1f327cbebb003cfc415e8bccb">DataSchemaQueryTask.exception</a>, <a class="el" href="a00361.html#aec2b4fd1f327cbebb003cfc415e8bccb">QueryLayerTask.exception</a>, <a class="el" href="a00341.html#aec2b4fd1f327cbebb003cfc415e8bccb">GraphValidationTask.exception</a>, <a class="el" href="a00305.html#a2ff994e16bf9521154de4cf659a3b689">ConvertCRSTask.filename</a>, <a class="el" href="a00361.html#a2ff994e16bf9521154de4cf659a3b689">QueryLayerTask.filename</a>, <a class="el" href="a00341.html#a2ff994e16bf9521154de4cf659a3b689">GraphValidationTask.filename</a>, <a class="el" href="a00357.html#abbcc160ca774f07e0a53d4e0520808d1">LoadGraphTask.geojson</a>, <a class="el" href="a00361.html#abbcc160ca774f07e0a53d4e0520808d1">QueryLayerTask.geojson</a>, <a class="el" href="a00357.html#a991fd2c404665f13f536fc7791e53504">LoadGraphTask.progress</a>, <a class="el" href="a00305.html#a991fd2c404665f13f536fc7791e53504">ConvertCRSTask.progress</a>, <a class="el" href="a00341.html#a991fd2c404665f13f536fc7791e53504">GraphValidationTask.progress</a>, <a class="el" href="a00361.html#a991fd2c404665f13f536fc7791e53504">QueryLayerTask.progress</a>, <a class="el" href="a00313.html#a991fd2c404665f13f536fc7791e53504">DataSchemaQueryTask.progress</a>, <a class="el" href="a00317.html#a991fd2c404665f13f536fc7791e53504">DetectTripleStoreTask.progress</a>, and <a class="el" href="a00321.html#a991fd2c404665f13f536fc7791e53504">EnrichmentQueryTask.progress</a>.</p>
-
-</div>
-</div>
-<a id="ab368e533f681a396257e919f7acf52fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab368e533f681a396257e919f7acf52fd">&#9670;&nbsp;</a></span>processResults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def processResults </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>results</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reproject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>mandatoryvars</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>geooptional</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Processes query results and reformats them to a QGIS layer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
-    <tr><td class="paramname">results</td><td>The query results </td></tr>
-    <tr><td class="paramname">reproject</td><td>The crs from which to reproject to WGS84 </td></tr>
-    <tr><td class="paramname">mandatoryvars</td><td>mandatoryvariables to find in the query result </td></tr>
-    <tr><td class="paramname">geooptional</td><td>indicates if a geometry is mandatory </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">def </span>processResults(self, results, reproject, mandatoryvars, geooptional):</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        latval = <span class="stringliteral">&quot;lat&quot;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        lonval = <span class="stringliteral">&quot;lon&quot;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="comment"># if len(mandatoryvars)&gt;1:</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="comment">#    lonval=mandatoryvars[1]</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        features = []</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        properties={}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        first = <span class="keyword">True</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        newobject = <span class="keyword">True</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        item = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        relval=<span class="keyword">False</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">for</span> result <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;item&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;geo&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> (</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    item == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] != item) <span class="keywordflow">and</span> <span class="stringliteral">&quot;geo&quot;</span> <span class="keywordflow">in</span> mandatoryvars:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                relval=<span class="keyword">True</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">if</span> item != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    del properties[<span class="stringliteral">&#39;geo&#39;</span>]</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    myGeometryInstanceJSON = LayerUtils.processLiteral(result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>], (</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> result[<span class="stringliteral">&quot;geo&quot;</span>] <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>), reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                               <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    features.append(feature)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                properties = {}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                item = result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;item&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;lat&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;lon&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> (</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    item == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] != item) <span class="keywordflow">and</span> <span class="stringliteral">&quot;lat&quot;</span> <span class="keywordflow">in</span> mandatoryvars <span class="keywordflow">and</span> <span class="stringliteral">&quot;lon&quot;</span> <span class="keywordflow">in</span> mandatoryvars:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                relval=<span class="keyword">True</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">if</span> item != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    del properties[<span class="stringliteral">&#39;lon&#39;</span>]</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    del properties[<span class="stringliteral">&#39;lat&#39;</span>]</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    myGeometryInstanceJSON = LayerUtils.processLiteral(</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                        <span class="stringliteral">&quot;POINT(&quot;</span> + str(float(result[lonval][<span class="stringliteral">&quot;value&quot;</span>])) + <span class="stringliteral">&quot; &quot;</span> + str(</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                            float(result[latval][<span class="stringliteral">&quot;value&quot;</span>])) + <span class="stringliteral">&quot;)&quot;</span>, <span class="stringliteral">&quot;wkt&quot;</span>, reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                               <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    features.append(feature)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                properties = {}</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                item = result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;item&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> geooptional <span class="keywordflow">and</span> (</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    item == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] != item):</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                relval=<span class="keyword">True</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">if</span> item != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                               <span class="stringliteral">&#39;geometry&#39;</span>: {}}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    features.append(feature)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                properties = {}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                item = result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                properties = {}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">for</span> var <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;head&quot;</span>][<span class="stringliteral">&quot;vars&quot;</span>]:</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                <span class="keywordflow">if</span> var <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    <span class="keywordflow">if</span> var == <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        properties[result[var][<span class="stringliteral">&quot;value&quot;</span>]] = result[<span class="stringliteral">&quot;val&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    <span class="keywordflow">elif</span> var != <span class="stringliteral">&quot;val&quot;</span>:</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        properties[var] = result[var][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;geo&quot;</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                myGeometryInstanceJSON = LayerUtils.processLiteral(result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>], (</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> result[<span class="stringliteral">&quot;geo&quot;</span>] <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>), reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>], <span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                features.append(feature)</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">elif</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> latval <span class="keywordflow">in</span> result <span class="keywordflow">and</span> lonval <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                myGeometryInstanceJSON = LayerUtils.processLiteral(</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="stringliteral">&quot;POINT(&quot;</span> + str(float(result[lonval][<span class="stringliteral">&quot;value&quot;</span>])) + <span class="stringliteral">&quot; &quot;</span> + str(float(result[latval][<span class="stringliteral">&quot;value&quot;</span>])) + <span class="stringliteral">&quot;)&quot;</span>,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    <span class="stringliteral">&quot;wkt&quot;</span>, reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                features.append(feature)</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">elif</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;rel&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;val&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="keywordflow">not</span> <span class="stringliteral">&quot;geo&quot;</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> geooptional:</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                feature = {<span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: {}}</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                features.append(feature)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">if</span> relval <span class="keywordflow">and</span> <span class="keywordflow">not</span> geooptional <span class="keywordflow">and</span> <span class="stringliteral">&quot;lat&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> result <span class="keywordflow">and</span> <span class="stringliteral">&quot;lon&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            myGeometryInstanceJSON = LayerUtils.processLiteral(result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>], (</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> result[<span class="stringliteral">&quot;geo&quot;</span>] <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>), reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            del properties[<span class="stringliteral">&#39;geo&#39;</span>]</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            feature = { <span class="stringliteral">&#39;id&#39;</span>:result[<span class="stringliteral">&quot;item&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>],<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            features.append(feature)</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">if</span> relval <span class="keywordflow">and</span> geooptional:</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="comment">#myGeometryInstanceJSON = LayerUtils.processLiteral(result[&quot;geo&quot;][&quot;value&quot;], (</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="comment">#    result[&quot;geo&quot;][&quot;datatype&quot;] if &quot;datatype&quot; in result[&quot;geo&quot;] else &quot;&quot;), reproject,self.triplestoreconf)</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            feature = {<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: {}}<span class="comment">#json.loads(myGeometryInstanceJSON)}</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            features.append(feature)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> len(features)==0:</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> geooptional:</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;item&quot;</span> <span class="keywordflow">in</span> properties:</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                    del properties[<span class="stringliteral">&#39;item&#39;</span>]</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;geo&quot;</span> <span class="keywordflow">in</span> properties:</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                    del properties[<span class="stringliteral">&#39;geo&#39;</span>]</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    myGeometryInstanceJSON = LayerUtils.processLiteral(result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>], (</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                    result[<span class="stringliteral">&quot;geo&quot;</span>][<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> result[<span class="stringliteral">&quot;geo&quot;</span>] <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>), reproject,self.triplestoreconf)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    feature = {<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: json.loads(myGeometryInstanceJSON)}</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    features.append(feature)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                feature = {<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: properties, <span class="stringliteral">&#39;geometry&#39;</span>: {}}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                features.append(feature)</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Number of features &#39;</span>+str(len(features)),</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">if</span> features == [] <span class="keywordflow">and</span> len(results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]) == 0:</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span> features == [] <span class="keywordflow">and</span> len(results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]) &gt; 0:</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="keywordflow">return</span> len(results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>])</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        geojson = {<span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;FeatureCollection&#39;</span>, <span class="stringliteral">&#39;features&#39;</span>: features}</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">return</span> geojson</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00345.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a00277.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00337.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00325.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00333.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00349.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a00289.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00285.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00297.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00309.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a00329.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00357.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00301.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a00261.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00265.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00353.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a00361.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a00313.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a00341.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a00317.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00321.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00273.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="ad22709b2e67308af35f55680d5a026e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad22709b2e67308af35f55680d5a026e0">&#9670;&nbsp;</a></span>run()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def run </td>
+          <td class="memname">def addEnrichedLayer </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -444,181 +228,970 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span><a class="code" href="a00373.html#ad22709b2e67308af35f55680d5a026e0">run</a>(self):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00208.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            self.description()),</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> results==<span class="keyword">False</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.<a class="code" href="a00208.html#a52de39c8ac6c67fc1d22018a93f82709">format</a>(</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            results),</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment"># geojson stuff</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.geojson = self.processResults(results,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                           (self.triplestoreconf[<span class="stringliteral">&quot;crs&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;crs&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span>),</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                           self.triplestoreconf[<span class="stringliteral">&quot;mandatoryvariables&quot;</span>][1:], self.allownongeo)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+
+<p>Adds a QGIS layer which has been previously enriched to QGIS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keyword">def </span>addEnrichedLayer(self):</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">if</span> self.enrichLayer == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            self.enrichLayer = layers[selectedLayerIndex].layer().clone()</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        self.enrichLayerCounter += 1</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        self.enrichLayer.setName(self.enrichLayer.name() + <span class="stringliteral">&quot;_enrich&quot;</span> + str(self.enrichLayerCounter))</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        self.enrichLayer.startEditing()</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        row = 0</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.enrichLayer.fields()]</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> self.enrichLayer.getFeatures():</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            fieldcounter = 0</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                <span class="keywordflow">if</span> self.dlg.enrichTableResult.item(row, fieldcounter) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                    f[field] = self.dlg.enrichTableResult.item(row, fieldcounter).text()</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                    f[field] = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                fieldcounter += 1</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            self.enrichLayer.updateFeature(f)</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            row += 1</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        self.enrichLayer.commitChanges()</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        iface.vectorLayerTools().stopEditing(self.enrichLayer)</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        QgsProject.instance().addMapLayer(self.enrichLayer, <span class="keyword">True</span>)</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        canvas = iface.mapCanvas()</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        canvas.setExtent(self.enrichLayer.extent())</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        iface.messageBar().pushMessage(<span class="stringliteral">&quot;Add layer&quot;</span>, <span class="stringliteral">&quot;OK&quot;</span>, level=Qgis.Success)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        self.dlg.close()</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00361.html#a2be679e131aa5f671200ce80927d4f47">QueryLayerTask.allownongeo</a>, <a class="el" href="a00317.html#a2661f439a4a94ffdcd5e47ae1da0bb1d">DetectTripleStoreTask.description</a>, <a class="el" href="a00208.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format()</a>, <a class="el" href="a00357.html#abbcc160ca774f07e0a53d4e0520808d1">LoadGraphTask.geojson</a>, <a class="el" href="a00361.html#abbcc160ca774f07e0a53d4e0520808d1">QueryLayerTask.geojson</a>, <a class="el" href="a00361.html#ab368e533f681a396257e919f7acf52fd">QueryLayerTask.processResults()</a>, <a class="el" href="a00333.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoConceptsQueryTask.query</a>, <a class="el" href="a00329.html#a6c84ba0942252fbf3bc9f20120a12ad1">GeoCollectionsQueryTask.query</a>, <a class="el" href="a00357.html#a6c84ba0942252fbf3bc9f20120a12ad1">LoadGraphTask.query</a>, <a class="el" href="a00313.html#a6c84ba0942252fbf3bc9f20120a12ad1">DataSchemaQueryTask.query</a>, <a class="el" href="a00301.html#a6c84ba0942252fbf3bc9f20120a12ad1">ClassTreeQueryTask.query</a>, <a class="el" href="a00361.html#a6c84ba0942252fbf3bc9f20120a12ad1">QueryLayerTask.query</a>, <a class="el" href="a00345.html#a330d24be0afd5a96238ca9e128328a2d">InstanceAmountQueryTask.triplestoreconf</a>, <a class="el" href="a00277.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00337.html#a330d24be0afd5a96238ca9e128328a2d">GetStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00289.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00325.html#a330d24be0afd5a96238ca9e128328a2d">FindStyleQueryTask.triplestoreconf</a>, <a class="el" href="a00333.html#a330d24be0afd5a96238ca9e128328a2d">GeoConceptsQueryTask.triplestoreconf</a>, <a class="el" href="a00349.html#a330d24be0afd5a96238ca9e128328a2d">InstanceListQueryTask.triplestoreconf</a>, <a class="el" href="a00285.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00297.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00309.html#a330d24be0afd5a96238ca9e128328a2d">DataSampleQueryTask.triplestoreconf</a>, <a class="el" href="a00329.html#a330d24be0afd5a96238ca9e128328a2d">GeoCollectionsQueryTask.triplestoreconf</a>, <a class="el" href="a00357.html#a330d24be0afd5a96238ca9e128328a2d">LoadGraphTask.triplestoreconf</a>, <a class="el" href="a00261.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a00301.html#a330d24be0afd5a96238ca9e128328a2d">ClassTreeQueryTask.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00265.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00353.html#a330d24be0afd5a96238ca9e128328a2d">InstanceQueryTask.triplestoreconf</a>, <a class="el" href="a00361.html#a330d24be0afd5a96238ca9e128328a2d">QueryLayerTask.triplestoreconf</a>, <a class="el" href="a00313.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaQueryTask.triplestoreconf</a>, <a class="el" href="a00341.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationTask.triplestoreconf</a>, <a class="el" href="a00321.html#a330d24be0afd5a96238ca9e128328a2d">EnrichmentQueryTask.triplestoreconf</a>, <a class="el" href="a00317.html#a330d24be0afd5a96238ca9e128328a2d">DetectTripleStoreTask.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00273.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, <a class="el" href="a00345.html#a9b8734be629bbc1f64723d90a67861ab">InstanceAmountQueryTask.triplestoreurl</a>, <a class="el" href="a00349.html#a9b8734be629bbc1f64723d90a67861ab">InstanceListQueryTask.triplestoreurl</a>, <a class="el" href="a00325.html#a9b8734be629bbc1f64723d90a67861ab">FindStyleQueryTask.triplestoreurl</a>, <a class="el" href="a00337.html#a9b8734be629bbc1f64723d90a67861ab">GetStyleQueryTask.triplestoreurl</a>, <a class="el" href="a00309.html#a9b8734be629bbc1f64723d90a67861ab">DataSampleQueryTask.triplestoreurl</a>, <a class="el" href="a00333.html#a9b8734be629bbc1f64723d90a67861ab">GeoConceptsQueryTask.triplestoreurl</a>, <a class="el" href="a00301.html#a9b8734be629bbc1f64723d90a67861ab">ClassTreeQueryTask.triplestoreurl</a>, <a class="el" href="a00321.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentQueryTask.triplestoreurl</a>, <a class="el" href="a00329.html#a9b8734be629bbc1f64723d90a67861ab">GeoCollectionsQueryTask.triplestoreurl</a>, <a class="el" href="a00353.html#a9b8734be629bbc1f64723d90a67861ab">InstanceQueryTask.triplestoreurl</a>, <a class="el" href="a00313.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaQueryTask.triplestoreurl</a>, <a class="el" href="a00361.html#a9b8734be629bbc1f64723d90a67861ab">QueryLayerTask.triplestoreurl</a>, <a class="el" href="a00317.html#a9b8734be629bbc1f64723d90a67861ab">DetectTripleStoreTask.triplestoreurl</a>, <a class="el" href="a00297.html#a9b8734be629bbc1f64723d90a67861ab">EnrichmentDialog.triplestoreurl</a>, <a class="el" href="a00249.html#a9b8734be629bbc1f64723d90a67861ab">InstanceDataDialog.triplestoreurl</a>, and <a class="el" href="a00241.html#a9b8734be629bbc1f64723d90a67861ab">DataSchemaDialog.triplestoreurl</a>.</p>
+<p class="reference">References <a class="el" href="a00293.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00309.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00329.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00333.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00317.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00313.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00361.html#afe27f37e04aafb99a9b48eae8506bc9a">EnrichmentTab.enrichLayer</a>, <a class="el" href="a00205.html#afe27f37e04aafb99a9b48eae8506bc9a">SPARQLunicorn.enrichLayer</a>, <a class="el" href="a00361.html#a52fdefb870f38c907e9fede14b52425f">EnrichmentTab.enrichLayerCounter</a>, and <a class="el" href="a00205.html#a52fdefb870f38c907e9fede14b52425f">SPARQLunicorn.enrichLayerCounter</a>.</p>
+
+</div>
+</div>
+<a id="aef2caba5fdbabb1add496a3690ea2920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef2caba5fdbabb1add496a3690ea2920">&#9670;&nbsp;</a></span>addEnrichRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def addEnrichRow </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new row to the table in the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">def </span>addEnrichRow(self):</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        self.enrichTableResult.hide()</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        item = QTableWidgetItem(<span class="stringliteral">&quot;new_column&quot;</span>)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment"># item.setFlags(QtCore.Qt.ItemIsEnabled)</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        row = self.enrichTable.rowCount()</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        self.enrichTable.insertRow(row)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        self.enrichTable.setItem(row, 0, item)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        cbox = QComboBox()</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Get Remote&quot;</span>)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;No Enrichment&quot;</span>)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Exclude&quot;</span>)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        self.enrichTable.setCellWidget(row, 3, cbox)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        cbox = QComboBox()</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich Value&quot;</span>)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich URI&quot;</span>)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich Both&quot;</span>)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        self.enrichTable.setCellWidget(row, 4, cbox)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        cbox = QComboBox()</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">for</span> fieldd <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            cbox.addItem(fieldd)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        self.enrichTable.setCellWidget(row, 5, cbox)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        itemm = QTableWidgetItem(<span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.enrichTable.setItem(row, 6, itemm)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        self.enrichTable.setItem(row, 7, itemm)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        self.enrichTable.setItem(row, 8, itemm)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>, and <a class="el" href="a00361.html#adcd5126fc28b5d7bf7f5eae6c1e808f1">EnrichmentTab.enrichTableResult</a>.</p>
+
+</div>
+</div>
+<a id="a0229f67169973a11be67544cdfa9e80f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0229f67169973a11be67544cdfa9e80f">&#9670;&nbsp;</a></span>createEnrichSearchDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def createEnrichSearchDialog </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">def </span>createEnrichSearchDialog(self, row=-1, column=-1):</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> column == 1:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            self.dlg.buildSearchDialog(row, column, <span class="keyword">False</span>, self.enrichTable, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.dlg.addVocabConf)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> column == 6:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            self.dlg.buildSearchDialog(row, column, <span class="keyword">False</span>, self.enrichTable, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>, self.dlg.addVocabConf)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00293.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00309.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00329.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00333.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a00317.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00313.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, and <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>.</p>
+
+</div>
+</div>
+<a id="af7775dd5ac22ed3a6f37edb833097f41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7775dd5ac22ed3a6f37edb833097f41">&#9670;&nbsp;</a></span>createEnrichSearchDialogProp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def createEnrichSearchDialogProp </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>row</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>column</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">def </span>createEnrichSearchDialogProp(self, row=-1, column=-1):</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        self.dlg.buildSearchDialog(row, column, <span class="keyword">False</span>, self.dlg.findIDPropertyEdit, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                   self.dlg.addVocabConf)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00293.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00309.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00329.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00333.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a00317.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00313.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, and <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
+
+</div>
+</div>
+<a id="a0bec585636baa1304318e0da3bcca8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bec585636baa1304318e0da3bcca8e3">&#9670;&nbsp;</a></span>createWhatToEnrich()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def createWhatToEnrich </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a What To Enrich dialog with parameters given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">def </span>createWhatToEnrich(self):</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> self.enrichTable.rowCount() == 0:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                        layer,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                        <span class="keywordtype">None</span>, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        self.searchTripleStoreDialog.setMinimumSize(700, 500)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.searchTripleStoreDialog.setWindowTitle(<span class="stringliteral">&quot;Enrichment Search&quot;</span>)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        self.searchTripleStoreDialog.exec_()</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, and <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>.</p>
+
+</div>
+</div>
+<a id="a04bb64f72568fb3fe1756fabc6c779b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04bb64f72568fb3fe1756fabc6c779b2">&#9670;&nbsp;</a></span>deleteEnrichRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def deleteEnrichRow </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>send</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">def </span>deleteEnrichRow(self, send):</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        w = send.sender().parent()</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        row = self.enrichTable.indexAt(w.pos()).row()</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        self.enrichTable.removeRow(row)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        self.enrichTable.setCurrentCell(0, 0)</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>.</p>
+
+</div>
+</div>
+<a id="a56c0d7bb6decc89954e354bbd53ec602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c0d7bb6decc89954e354bbd53ec602">&#9670;&nbsp;</a></span>enrichLayerProcess()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def enrichLayerProcess </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the process of layer enrichment according to the options selected in the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keyword">def </span>enrichLayerProcess(self):</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        self.enrichLayer = layers[selectedLayerIndex].layer().clone()</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        attlist = {}</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        itemlist = []</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        propertylist = []</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        excludelist = []</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        resultmap = {}</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        self.dlg.enrichTableResult.clear()</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        self.dlg.enrichTableResult.setRowCount(0)</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        self.dlg.enrichTableResult.setColumnCount(self.dlg.enrichTable.rowCount())</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        fieldnames = []</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.dlg.enrichTable.rowCount()):</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            fieldnames.append(self.dlg.enrichTable.item(row, 0).text())</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        self.dlg.enrichTableResult.setHorizontalHeaderLabels(fieldnames)</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        self.enrichLayer.startEditing()</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.dlg.enrichTable.rowCount()):</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            idfield = self.dlg.enrichTable.cellWidget(row, 5).currentText()</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            idprop = self.dlg.enrichTable.item(row, 6).text()</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            <span class="keywordflow">if</span> idprop == <span class="keywordtype">None</span> <span class="keywordflow">or</span> idprop == <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                msgBox = QMessageBox()</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                msgBox.setText(</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                    <span class="stringliteral">&quot;ID Property has not been specified for column &quot;</span> + str(self.dlg.enrichTable.item(row, 0).text()))</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                msgBox.exec()</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            item = self.dlg.enrichTable.item(row, 0).text()</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            propertyy = self.dlg.enrichTable.item(row, 1)</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            triplestoreurl = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            <span class="keywordflow">if</span> self.dlg.enrichTable.item(row, 2) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                triplestoreurl = self.dlg.enrichTable.item(row, 2).text()</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                print(self.dlg.enrichTable.item(row, 2).text())</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            content = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="keywordflow">if</span> self.dlg.enrichTable.cellWidget(row, 4) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                content = self.dlg.enrichTable.cellWidget(row, 4).currentText()</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            <span class="keywordflow">if</span> item != idfield:</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                propertylist.append(self.dlg.enrichTable.item(row, 1))</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            <span class="keywordflow">if</span> strategy == <span class="stringliteral">&quot;Exclude&quot;</span>:</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                excludelist.append(row)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <span class="keywordflow">if</span> strategy != <span class="stringliteral">&quot;No Enrichment&quot;</span> <span class="keywordflow">and</span> propertyy != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                progress = QProgressDialog(<span class="stringliteral">&quot;Enriching column &quot;</span> + self.dlg.enrichTable.item(row, 0).text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0,</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                                           0, self.dlg)</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                self.qtask = EnrichmentQueryTask(<span class="stringliteral">&quot;Enriching column: &quot;</span> + self.dlg.enrichTable.item(row, 0).text(),</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                                                 triplestoreurl, self.enrichLayer, strategy,</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                                                 self.dlg.enrichTable.item(row, 8).text(), row,</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                                                 len(self.enrichLayer.fields()),</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                                                 self.dlg.enrichTable.item(row, 0).text(), self.dlg.enrichTable,</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                                                 self.dlg.enrichTableResult, idfield, idprop,</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                                                 self.dlg.enrichTable.item(row, 1), content, progress,</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                                                 self.dlg.triplestoreconf)</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                rowww = 0</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                <span class="keywordflow">for</span> f <span class="keywordflow">in</span> self.enrichLayer.getFeatures():</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                    <span class="keywordflow">if</span> rowww &gt;= self.dlg.enrichTableResult.rowCount():</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        self.dlg.enrichTableResult.insertRow(rowww)</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    <span class="comment"># if item in f:</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                    newitem = QTableWidgetItem(str(f[item]))</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    self.dlg.enrichTableResult.setItem(rowww, row, newitem)</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    <span class="comment"># if &quot;;&quot; in str(newitem):</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                    <span class="comment">#    newitem.setBackground(QColor.red)</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                    print(str(newitem))</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                    rowww += 1</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            self.enrichLayer.commitChanges()</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            row += 1</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        iface.vectorLayerTools().stopEditing(self.enrichLayer)</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        self.enrichLayer.dataProvider().deleteAttributes(excludelist)</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        self.enrichLayer.updateFields()</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        self.dlg.enrichTable.hide()</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        self.dlg.enrichTableResult.show()</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        self.dlg.startEnrichment.setText(<span class="stringliteral">&quot;Enrichment Configuration&quot;</span>)</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        self.dlg.startEnrichment.clicked.disconnect()</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        self.dlg.startEnrichment.clicked.connect(self.dlg.showConfigTable)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        self.dlg.addEnrichedLayerRowButton.setEnabled(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <span class="keywordflow">return</span> self.enrichLayer</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00293.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00309.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00329.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00333.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">LoadGraphTask.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">SubClassQueryTask.dlg</a>, <a class="el" href="a00317.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00361.html#ad2ee3c07560eb98d17a382b71105bf98">EnrichmentTab.dlg</a>, <a class="el" href="a00313.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00361.html#afe27f37e04aafb99a9b48eae8506bc9a">EnrichmentTab.enrichLayer</a>, <a class="el" href="a00205.html#afe27f37e04aafb99a9b48eae8506bc9a">SPARQLunicorn.enrichLayer</a>, <a class="el" href="a00361.html#a09dec5fb4a23fd0028407eddbe26cc16">EnrichmentTab.qtask</a>, <a class="el" href="a00281.html#a09dec5fb4a23fd0028407eddbe26cc16">EnrichmentDialog.qtask</a>, <a class="el" href="a00225.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00269.html#a09dec5fb4a23fd0028407eddbe26cc16">UploadRDFDialog.qtask</a>, <a class="el" href="a00265.html#a09dec5fb4a23fd0028407eddbe26cc16">TripleStoreQuickAddDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00261.html#a09dec5fb4a23fd0028407eddbe26cc16">TripleStoreDialog.qtask</a>, <a class="el" href="a00237.html#a09dec5fb4a23fd0028407eddbe26cc16">InstanceDataDialog.qtask</a>, <a class="el" href="a00253.html#a09dec5fb4a23fd0028407eddbe26cc16">SearchDialog.qtask</a>, and <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="adfcc23a6b0a5b7441daa1d4b43a6e881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcc23a6b0a5b7441daa1d4b43a6e881">&#9670;&nbsp;</a></span>exportEnrichedLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def exportEnrichedLayer </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares datastructures to export enrichments of a given layer configured in the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keyword">def </span>exportEnrichedLayer(self):</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        self.exportIdCol = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        self.exportNameSpace = self.dlg.interlinkNameSpace.text()</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        self.exportSetClass = self.dlg.interlinkOwlClassInput.text()</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        propurilist = []</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        classurilist = []</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        includelist = []</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        proptypelist = []</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        valuemappings = {}</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        valuequeries = []</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.dlg.interlinkTable.rowCount()):</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            item = self.dlg.interlinkTable.item(row, 0)</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">if</span> item.checkState():</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                includelist.append(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 1).checkState():</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                    self.exportIdCol = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                    proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                    column = self.dlg.interlinkTable.item(row, 3).text()</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 4) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                        column = self.dlg.interlinkTable.item(row, 3).data(0)</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                        propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                        propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 5) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                        proptypelist.append(self.dlg.interlinkTable.item(row, 5).text())</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                        proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 6) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                        concept = self.dlg.interlinkTable.item(row, 6).data(0)</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                        self.dlg.exportColConfig[column] = concept</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                        classurilist.append(concept)</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                        classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                    <span class="keywordflow">if</span> self.dlg.interlinkTable.item(row, 7) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                        self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                        valuemappings[item.text()] = self.dlg.interlinkTable.item(row, 7).data(1)</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                        valuequeries.append({self.dlg.interlinkTable.item(row, 7).data(2),</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                                             self.dlg.interlinkTable.item(row, 7).data(3)})</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                includelist.append(<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                propurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                classurilist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                proptypelist.append(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        self.enrichedExport = <span class="keyword">True</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        self.dlg.maindlg.exportLayer(propurilist, classurilist, includelist, proptypelist, valuemappings, valuequeries,</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                                     self.dlg.exportTripleStore.isChecked())</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a56435cd18605ceb7d36ef96f1a1252a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56435cd18605ceb7d36ef96f1a1252a2">&#9670;&nbsp;</a></span>loadLayerForEnrichment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def loadLayerForEnrichment </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads a QGIS layer for enrichment into the enrichment dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">def </span>loadLayerForEnrichment(self):</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        layers = QgsProject.instance().layerTreeRoot().children()</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">if</span> len(layers) == 0:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        layer = layers[selectedLayerIndex].layer()</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        self.enrichTableResult.hide()</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">while</span> self.enrichTableResult.rowCount() &gt; 0:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            self.enrichTableResult.removeRow(0)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        self.enrichTable.show()</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        self.addEnrichedLayerRowButton.setEnabled(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">while</span> self.enrichTable.rowCount() &gt; 0:</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                self.enrichTable.removeRow(0)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            row = 0</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            self.enrichTable.setColumnCount(9)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            self.enrichTable.setHorizontalHeaderLabels(</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                [<span class="stringliteral">&quot;Column&quot;</span>, <span class="stringliteral">&quot;EnrichmentConcept&quot;</span>, <span class="stringliteral">&quot;TripleStore&quot;</span>, <span class="stringliteral">&quot;Strategy&quot;</span>, <span class="stringliteral">&quot;content&quot;</span>, <span class="stringliteral">&quot;ID Column&quot;</span>, <span class="stringliteral">&quot;ID Property&quot;</span>,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                 <span class="stringliteral">&quot;ID Domain&quot;</span>, <span class="stringliteral">&quot;Language&quot;</span>])</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">for</span> field <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                item = QTableWidgetItem(field)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                item.setFlags(QtCore.Qt.ItemIsEnabled)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                currentRowCount = self.enrichTable.rowCount()</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                self.enrichTable.insertRow(row)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                self.enrichTable.setItem(row, 0, item)</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;No Enrichment&quot;</span>)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Keep Local&quot;</span>)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Keep Remote&quot;</span>)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Replace Local&quot;</span>)</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Merge&quot;</span>)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Ask User&quot;</span>)</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Exclude&quot;</span>)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                self.enrichTable.setCellWidget(row, 3, cbox)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich Value&quot;</span>)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich URI&quot;</span>)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich Both&quot;</span>)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                self.enrichTable.setCellWidget(row, 4, cbox)</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                <span class="keywordflow">for</span> fieldd <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    cbox.addItem(fieldd)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                self.enrichTable.setCellWidget(row, 5, cbox)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                itemm = QTableWidgetItem(<span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>)</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                self.enrichTable.setItem(row, 6, itemm)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                self.enrichTable.setItem(row, 7, itemm)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                self.enrichTable.setItem(row, 8, itemm)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                celllayout = QHBoxLayout()</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                upbutton = QPushButton(<span class="stringliteral">&quot;Up&quot;</span>)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                removebutton = QPushButton(<span class="stringliteral">&quot;Remove&quot;</span>, self)</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                removebutton.clicked.connect(self.deleteEnrichRow)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                downbutton = QPushButton(<span class="stringliteral">&quot;Down&quot;</span>)</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                celllayout.addWidget(upbutton)</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                celllayout.addWidget(downbutton)</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                celllayout.addWidget(removebutton)</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                w = QWidget()</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                w.setLayout(celllayout)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                optitem = QTableWidgetItem()</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="comment"># self.enrichTable.setCellWidget(row,4,w)</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                <span class="comment"># self.enrichTable.setItem(row,3,cbox)</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                row += 1</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            self.originalRowCount = row</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            msgBox = QMessageBox()</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Layer not compatible for enrichment!&quot;</span>)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            msgBox.setText(<span class="stringliteral">&quot;The chosen layer is not supported for enrichment. You possibly selected a raster layer&quot;</span>)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00361.html#a8aebd6ece91bc573de48d9e164244cdc">EnrichmentTab.addEnrichedLayerRowButton</a>, <a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00361.html#a04bb64f72568fb3fe1756fabc6c779b2">EnrichmentTab.deleteEnrichRow()</a>, <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>, and <a class="el" href="a00361.html#adcd5126fc28b5d7bf7f5eae6c1e808f1">EnrichmentTab.enrichTableResult</a>.</p>
+
+</div>
+</div>
+<a id="a325fd8cbbc7334bc6881a68afd0c327f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a325fd8cbbc7334bc6881a68afd0c327f">&#9670;&nbsp;</a></span>showConfigTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def showConfigTable </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows the configuration table after creating an enrichment result. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keyword">def </span>showConfigTable(self):</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        self.enrichTableResult.hide()</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        self.enrichTable.show()</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        self.startEnrichment.setText(<span class="stringliteral">&quot;Start Enrichment&quot;</span>)</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        self.startEnrichment.clicked.disconnect()</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        self.startEnrichment.clicked.connect(self.enrichLayerProcess)</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>, <a class="el" href="a00361.html#adcd5126fc28b5d7bf7f5eae6c1e808f1">EnrichmentTab.enrichTableResult</a>, and <a class="el" href="a00361.html#a9879db7517fa3ba962afb98e67d256ba">EnrichmentTab.startEnrichment</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2be679e131aa5f671200ce80927d4f47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2be679e131aa5f671200ce80927d4f47">&#9670;&nbsp;</a></span>allownongeo</h2>
+<a id="a6f20e607efd22c0391d46905d6d32ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f20e607efd22c0391d46905d6d32ecd">&#9670;&nbsp;</a></span>addEnrichedLayerButton</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">allownongeo</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="aec2b4fd1f327cbebb003cfc415e8bccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec2b4fd1f327cbebb003cfc415e8bccb">&#9670;&nbsp;</a></span>exception</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">exception</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>.</p>
-
-</div>
-</div>
-<a id="a2ff994e16bf9521154de4cf659a3b689"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ff994e16bf9521154de4cf659a3b689">&#9670;&nbsp;</a></span>filename</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">filename</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>.</p>
-
-</div>
-</div>
-<a id="abbcc160ca774f07e0a53d4e0520808d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbcc160ca774f07e0a53d4e0520808d1">&#9670;&nbsp;</a></span>geojson</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">geojson</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>, and <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="a991fd2c404665f13f536fc7791e53504"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a991fd2c404665f13f536fc7791e53504">&#9670;&nbsp;</a></span>progress</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">progress</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00373.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">WhatToEnrichQueryTask.finished()</a>, and <a class="el" href="a00361.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">QueryLayerTask.finished()</a>.</p>
-
-</div>
-</div>
-<a id="a6c84ba0942252fbf3bc9f20120a12ad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c84ba0942252fbf3bc9f20120a12ad1">&#9670;&nbsp;</a></span>query</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">query</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00365.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">SearchTask.finished()</a>, <a class="el" href="a00369.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00365.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00373.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>.</p>
-
-</div>
-</div>
-<a id="aa1caf11cc3fdcb08c90537fb2ffc6a2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1caf11cc3fdcb08c90537fb2ffc6a2b">&#9670;&nbsp;</a></span>querydepth</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">querydepth</td>
+          <td class="memname">addEnrichedLayerButton</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a330d24be0afd5a96238ca9e128328a2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a330d24be0afd5a96238ca9e128328a2d">&#9670;&nbsp;</a></span>triplestoreconf</h2>
+<a id="a8aebd6ece91bc573de48d9e164244cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aebd6ece91bc573de48d9e164244cdc">&#9670;&nbsp;</a></span>addEnrichedLayerRowButton</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">triplestoreconf</td>
+          <td class="memname">addEnrichedLayerRowButton</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00437.html#a23922d07d709315a17189e6dc15bd000">ToolTipPlainText.mouseMoveEvent()</a>, <a class="el" href="a00361.html#ab368e533f681a396257e919f7acf52fd">QueryLayerTask.processResults()</a>, <a class="el" href="a00369.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00365.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, and <a class="el" href="a00373.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>.</p>
 
 </div>
 </div>
-<a id="a9b8734be629bbc1f64723d90a67861ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b8734be629bbc1f64723d90a67861ab">&#9670;&nbsp;</a></span>triplestoreurl</h2>
+<a id="ac3b35c93890e49ff3f0c12e45ab19fa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3b35c93890e49ff3f0c12e45ab19fa1">&#9670;&nbsp;</a></span>chooseLayerEnrich</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">triplestoreurl</td>
+          <td class="memname">chooseLayerEnrich</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00369.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00361.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00373.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, and <a class="el" href="a00365.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00361.html#a0bec585636baa1304318e0da3bcca8e3">EnrichmentTab.createWhatToEnrich()</a>, and <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>.</p>
+
+</div>
+</div>
+<a id="ad2ee3c07560eb98d17a382b71105bf98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ee3c07560eb98d17a382b71105bf98">&#9670;&nbsp;</a></span>dlg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">dlg = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00365.html#a93626884d4600b8cf171d464a41099fd">InterlinkingTab.__init__()</a>, <a class="el" href="a00361.html#a93626884d4600b8cf171d464a41099fd">EnrichmentTab.__init__()</a>, <a class="el" href="a00361.html#aca6b7d4f8799f96244e4515a0a633386">EnrichmentTab.addEnrichedLayer()</a>, <a class="el" href="a00361.html#a0229f67169973a11be67544cdfa9e80f">EnrichmentTab.createEnrichSearchDialog()</a>, <a class="el" href="a00361.html#af7775dd5ac22ed3a6f37edb833097f41">EnrichmentTab.createEnrichSearchDialogProp()</a>, <a class="el" href="a00365.html#aabb28be67cbf74b09579fbe0038b819e">InterlinkingTab.createInterlinkSearchDialog()</a>, <a class="el" href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">EnrichmentTab.enrichLayerProcess()</a>, <a class="el" href="a00365.html#ac0b79f251af60953125dc0c3807d8010">InterlinkingTab.exportMapping()</a>, <a class="el" href="a00365.html#ab38c44b08c637c238d983ebcab2ef845">InterlinkingTab.loadMapping()</a>, and <a class="el" href="a00365.html#a69357de86ed09826927e35b3c3378fcd">InterlinkingTab.readMapping()</a>.</p>
+
+</div>
+</div>
+<a id="ac1babc27d21e85ac2fa395cccac38d15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1babc27d21e85ac2fa395cccac38d15">&#9670;&nbsp;</a></span>enrichedExport <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool enrichedExport = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac26f04155f19a0850f23ab9c063ba611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26f04155f19a0850f23ab9c063ba611">&#9670;&nbsp;</a></span>enrichedExport <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichedExport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe27f37e04aafb99a9b48eae8506bc9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe27f37e04aafb99a9b48eae8506bc9a">&#9670;&nbsp;</a></span>enrichLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichLayer = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#aca6b7d4f8799f96244e4515a0a633386">EnrichmentTab.addEnrichedLayer()</a>, and <a class="el" href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">EnrichmentTab.enrichLayerProcess()</a>.</p>
+
+</div>
+</div>
+<a id="a52fdefb870f38c907e9fede14b52425f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52fdefb870f38c907e9fede14b52425f">&#9670;&nbsp;</a></span>enrichLayerCounter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int enrichLayerCounter = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#aca6b7d4f8799f96244e4515a0a633386">EnrichmentTab.addEnrichedLayer()</a>.</p>
+
+</div>
+</div>
+<a id="a41d2b998b0dd082c0d221c69bc8b4c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d2b998b0dd082c0d221c69bc8b4c8c">&#9670;&nbsp;</a></span>enrichTable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichTable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00361.html#a0229f67169973a11be67544cdfa9e80f">EnrichmentTab.createEnrichSearchDialog()</a>, <a class="el" href="a00361.html#a0bec585636baa1304318e0da3bcca8e3">EnrichmentTab.createWhatToEnrich()</a>, <a class="el" href="a00361.html#a04bb64f72568fb3fe1756fabc6c779b2">EnrichmentTab.deleteEnrichRow()</a>, <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>, and <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="adcd5126fc28b5d7bf7f5eae6c1e808f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcd5126fc28b5d7bf7f5eae6c1e808f1">&#9670;&nbsp;</a></span>enrichTableResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enrichTableResult</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>, and <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="a28e8c8cab7654b472c43f25f3005b3ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e8c8cab7654b472c43f25f3005b3ad">&#9670;&nbsp;</a></span>exportIdCol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportIdCol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e3642406134b64d85ce0a4dd71820a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e3642406134b64d85ce0a4dd71820a2">&#9670;&nbsp;</a></span>exportInterlink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportInterlink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a53c91b53a9e6f8aa2e992e979da8af83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c91b53a9e6f8aa2e992e979da8af83">&#9670;&nbsp;</a></span>exportNameSpace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportNameSpace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bb9e994037d80a7ace5ae573c602d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bb9e994037d80a7ace5ae573c602d45">&#9670;&nbsp;</a></span>exportSetClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exportSetClass</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5076d9ce6960333ce03084aa5a0bc820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5076d9ce6960333ce03084aa5a0bc820">&#9670;&nbsp;</a></span>loadLayerEnrich</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">loadLayerEnrich</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96db96b589de91ab2dd5f6f5836757de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96db96b589de91ab2dd5f6f5836757de">&#9670;&nbsp;</a></span>originalRowCount <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int originalRowCount = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69f706a761ec89c3b902ee489e8d7408"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f706a761ec89c3b902ee489e8d7408">&#9670;&nbsp;</a></span>originalRowCount <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">originalRowCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09dec5fb4a23fd0028407eddbe26cc16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09dec5fb4a23fd0028407eddbe26cc16">&#9670;&nbsp;</a></span>qtask</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">qtask = None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#a56c0d7bb6decc89954e354bbd53ec602">EnrichmentTab.enrichLayerProcess()</a>.</p>
+
+</div>
+</div>
+<a id="a0918bd6ea96ed15f91ffdf7d9e91776a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0918bd6ea96ed15f91ffdf7d9e91776a">&#9670;&nbsp;</a></span>searchTripleStoreDialog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">searchTripleStoreDialog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9879db7517fa3ba962afb98e67d256ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9879db7517fa3ba962afb98e67d256ba">&#9670;&nbsp;</a></span>startEnrichment</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">startEnrichment</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
+
+</div>
+</div>
+<a id="a94166918eca98bd0764f1c890ee2ec5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94166918eca98bd0764f1c890ee2ec5b">&#9670;&nbsp;</a></span>valueconcept</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">valueconcept</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d7d79c301fe64a9e15aef11005402f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d7d79c301fe64a9e15aef11005402f3">&#9670;&nbsp;</a></span>whattoenrich</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">whattoenrich</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00208_html_a52de39c8ac6c67fc1d22018a93f82709"><div class="ttname"><a href="a00208.html#a52de39c8ac6c67fc1d22018a93f82709">sparqlunicornGoesGIS.util.sparqlhighlighter.format</a></div><div class="ttdeci">def format(color, style='')</div><div class="ttdef"><b>Definition:</b> sparqlhighlighter.py:5</div></div>
-<div class="ttc" id="aa00373_html_a5f4d426f44e2bbf0bcca08c50d1b5ee4"><div class="ttname"><a href="a00373.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.finished</a></div><div class="ttdeci">def finished(self, result)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:85</div></div>
-<div class="ttc" id="aa00373_html_ad22709b2e67308af35f55680d5a026e0"><div class="ttname"><a href="a00373.html#ad22709b2e67308af35f55680d5a026e0">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.run</a></div><div class="ttdeci">def run(self)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:33</div></div>
-<div class="ttc" id="aa00373_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00373.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
+<div class="ttc" id="aa00357_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00357.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:16</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00158.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00179.html">tasks</a></li><li class="navelem"><a class="el" href="a00195.html">querylayertask</a></li><li class="navelem"><a class="el" href="a00361.html">QueryLayerTask</a></li>
+    <li class="navelem"><a class="el" href="a00190.html">enrichmenttab</a></li><li class="navelem"><a class="el" href="a00361.html">EnrichmentTab</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

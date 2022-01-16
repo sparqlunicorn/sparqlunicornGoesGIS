@@ -1,9 +1,11 @@
 var a00385 =
 [
-    [ "__init__", "a00385.html#ae64f0875afe3067b97ba370b354b9213", null ],
-    [ "convertCRSFromEPSG", "a00385.html#aeadf0eb248b756948230566b1d91f1c4", null ],
-    [ "convertCRSFromWKTString", "a00385.html#abea877407dfc1a942f94c1039ff863cb", null ],
-    [ "convertCRSFromWKTStringSet", "a00385.html#a39c7098f8401caf0100203e286491bc1", null ],
-    [ "crsToTTL", "a00385.html#a849242decae7230d1029251178b41783", null ],
-    [ "ttlhead", "a00385.html#ad382225511cbcbdfadae28d3f3641911", null ]
+    [ "getAuthUrl", "a00385.html#ad50702f3986e9735608dbe6c3c5d954d", null ],
+    [ "AuthUrl", "a00385.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
+    [ "ClientId", "a00385.html#a7f12c8ddfb00c508eb1ee63907d6493c", null ],
+    [ "ClientSecret", "a00385.html#a86726dfd09230f62e353b939407e7819", null ],
+    [ "RedirectScheme", "a00385.html#a53a91115cb4711210ec578b91efbecdb", null ],
+    [ "RedirectUrl", "a00385.html#ac239dd96726a1bae22f8f0f2362e3df0", null ],
+    [ "ResponseType", "a00385.html#a76ea639e13c617a28c4cac0e357875e3", null ],
+    [ "Scopes", "a00385.html#a08e85efb4b2f67fcb9ef90a5dda77d46", null ]
 ];
