@@ -37,20 +37,6 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startValidationButton.clicked.connect(self.startValidation)
         self.cancelButton.clicked.connect(self.close)
 
-    def check_state1(self):
-        self.check_state(self.graphURIEdit)
-
-    def check_state(self, sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b'  # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a'  # yellow
-        else:
-            color = '#f6989d'  # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
-
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)

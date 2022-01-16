@@ -5,6 +5,8 @@ from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+
+from ..util.ui.uiutils import UIUtils
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
@@ -34,7 +36,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.chooseFileWidget.hide()
         self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(urlvalidator)
-        self.tripleStoreEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreEdit))
+        self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.tripleStoreCloseButton.clicked.connect(self.close)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
@@ -132,13 +134,3 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.triplestoreconf[index]["active"] = self.activeCheckBox.isChecked()
         self.addTripleStore = False
 
-    def check_state(self, sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b'  # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a'  # yellow
-        else:
-            color = '#f6989d'  # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)

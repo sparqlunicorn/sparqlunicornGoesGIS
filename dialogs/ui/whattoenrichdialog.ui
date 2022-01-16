@@ -75,6 +75,12 @@
    </item>
    <item row="3" column="0" colspan="5">
     <widget class="QTableWidget" name="searchResult">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
      <property name="sortingEnabled">
       <bool>true</bool>
      </property>

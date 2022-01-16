@@ -3,6 +3,8 @@ from qgis.core import QgsProject, QgsApplication
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+
+from ..util.ui.uiutils import UIUtils
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 from SPARQLWrapper import SPARQLWrapper, BASIC
 import os.path
@@ -36,7 +38,7 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         if "endpoint" in triplestoreconf[currentindex]:
             self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["endpoint"])
         self.tripleStoreURLEdit.setValidator(urlvalidator)
-        self.tripleStoreURLEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreURLEdit))
+        self.tripleStoreURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreURLEdit))
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
@@ -68,17 +70,6 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
             self.tripleStoreURLEdit.text(), self.tripleStoreURLEdit.text(), True, False, [], {}, None, None, False,
             None, progress)
         QgsApplication.taskManager().addTask(self.qtask)
-
-    def check_state(self, sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b'  # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a'  # yellow
-        else:
-            color = '#f6989d'  # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     def compareLayers(layer1, layer2, idcolumn):
         changedTriples = ""

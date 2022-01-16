@@ -3,6 +3,8 @@ from qgis.PyQt.QtCore import QRegExp,Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
+
+from ..util.ui.uiutils import UIUtils
 from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 import os.path
@@ -30,7 +32,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.tripleStoreEdit.setValidator(urlvalidator)
-        self.tripleStoreEdit.textChanged.connect(lambda: self.check_state(self.tripleStoreEdit))
+        self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.epsgEdit.setValidator(QIntValidator(1, 100000))	
         prefixregex = QRegExp("[a-z]+")
@@ -45,7 +47,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         #self.exampleQuery.textChanged.connect(self.validateSPARQL)	
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)	
         self.tripleStorePrefixEdit.setValidator(urlvalidator)
-        self.tripleStorePrefixEdit.textChanged.connect(lambda: self.check_state(self.tripleStorePrefixEdit))
+        self.tripleStorePrefixEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStorePrefixEdit))
         self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.close)
@@ -187,13 +189,3 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.triplestoreconf[index]["active"]=self.activeCheckBox.isChecked()
         self.addTripleStore=False
 
-    def check_state(self,sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b' # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a' # yellow
-        else:
-            color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)

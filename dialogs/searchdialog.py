@@ -1,14 +1,13 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QTableWidgetItem
 from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt import uic
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
 from ..tasks.searchtask import SearchTask
-import urllib
+from ..util.ui.uiutils import UIUtils
 import os.path
 
 
@@ -73,36 +72,10 @@ class SearchDialog(QDialog, FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.costumproperty.setValidator(urlvalidator)
-        self.costumproperty.textChanged.connect(lambda: self.check_state(self.costumproperty))
+        self.costumproperty.textChanged.connect(lambda: UIUtils.check_state(self.costumproperty))
         self.costumproperty.textChanged.emit(self.costumproperty.text())
         self.costumpropertyButton.clicked.connect(lambda: self.applyConceptToColumn(True))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
-        s = QSettings()  # getting proxy from qgis options settings
-        self.proxyEnabled = s.value("proxy/proxyEnabled")
-        self.proxyType = s.value("proxy/proxyType")
-        self.proxyHost = s.value("proxy/proxyHost")
-        self.proxyPort = s.value("proxy/proxyPort")
-        self.proxyUser = s.value("proxy/proxyUser")
-        self.proxyPassword = s.value("proxy/proxyPassword")
-        if self.proxyHost!=None and self.proxyHost!="" and self.proxyPort!=None and self.proxyPort!="":
-            QgsMessageLog.logMessage('Proxy? '+str(self.proxyHost), MESSAGE_CATEGORY, Qgis.Info)
-            proxy = urllib.request.ProxyHandler({'http': self.proxyHost})
-            opener = urllib.request.build_opener(proxy)
-            urllib.request.install_opener(opener)
-
-    # Checks the state of an input field in order to highlight it with an appropriate color.
-    #  @param self The object pointer.
-    #  @param sender The sending object containing the validator
-    def check_state(self, sender):
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if state == QValidator.Acceptable:
-            color = '#c4df9b'  # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a'  # yellow
-        else:
-            color = '#f6989d'  # red
-        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     ##
     #  @brief Returns classes for a given label from a triple store.
@@ -155,7 +128,6 @@ class SearchDialog(QDialog, FORM_CLASS):
     #  @param self The object pointer.
     #  @param costumURI indicates if the the search result is a manually entered URI
     def applyConceptToColumn(self, costumURI=False):
-        print("test")
         if costumURI:
             if self.costumproperty.text() == "":
                 return
