@@ -1,8 +1,6 @@
 var a00221 =
 [
     [ "__init__", "a00221.html#a9cb492d74e64e3414dec22e8f5564bc5", null ],
-    [ "check_state", "a00221.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
-    [ "check_state1", "a00221.html#a452dcd98676575e133f2fd74a3a8bd01", null ],
     [ "loadFile", "a00221.html#a2ae2b21223fe5437d0cb6702451276de", null ],
     [ "loadURI", "a00221.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
     [ "startConversion", "a00221.html#a281b1c143a8afdfa22a668ec770e812b", null ],

@@ -79,7 +79,7 @@ Inheritance diagram for ConvertCRSDialog:</div>
 <map name="ConvertCRSDialog_inherit__map" id="ConvertCRSDialog_inherit__map">
 <area shape="rect" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="31,80,172,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00841.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00845.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -89,7 +89,7 @@ Collaboration diagram for ConvertCRSDialog:</div>
 <map name="ConvertCRSDialog_coll__map" id="ConvertCRSDialog_coll__map">
 <area shape="rect" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="31,80,172,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00841.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00845.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -99,10 +99,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9cb492d74e64e3414dec22e8f5564bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d01577d7db1ca48f36ea1ddc91b991a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00221.html#a9d01577d7db1ca48f36ea1ddc91b991a">toggleComboBoxes</a> (self)</td></tr>
 <tr class="separator:a9d01577d7db1ca48f36ea1ddc91b991a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a452dcd98676575e133f2fd74a3a8bd01"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00221.html#a452dcd98676575e133f2fd74a3a8bd01">check_state1</a> (self)</td></tr>
-<tr class="separator:a452dcd98676575e133f2fd74a3a8bd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee700008c6180fc09c43e84dd4cfc1f1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00221.html#aee700008c6180fc09c43e84dd4cfc1f1">check_state</a> (self, sender)</td></tr>
-<tr class="separator:aee700008c6180fc09c43e84dd4cfc1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae2b21223fe5437d0cb6702451276de"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00221.html#a2ae2b21223fe5437d0cb6702451276de">loadFile</a> (self)</td></tr>
 <tr class="separator:a2ae2b21223fe5437d0cb6702451276de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a281b1c143a8afdfa22a668ec770e812b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00221.html#a281b1c143a8afdfa22a668ec770e812b">startConversion</a> (self)</td></tr>
@@ -200,70 +196,6 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aee700008c6180fc09c43e84dd4cfc1f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee700008c6180fc09c43e84dd4cfc1f1">&#9670;&nbsp;</a></span>check_state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def check_state </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>sender</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">def </span>check_state(self, sender):</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        validator = sender.validator()</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        state = validator.validate(sender.text(), 0)[0]</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> state == QValidator.Acceptable:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            color = <span class="stringliteral">&#39;#c4df9b&#39;</span>  <span class="comment"># green</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">elif</span> state == QValidator.Intermediate:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            color = <span class="stringliteral">&#39;#fff79a&#39;</span>  <span class="comment"># yellow</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            color = <span class="stringliteral">&#39;#f6989d&#39;</span>  <span class="comment"># red</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        sender.setStyleSheet(<span class="stringliteral">&#39;QLineEdit { background-color: %s }&#39;</span> % color)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00233.html#a452dcd98676575e133f2fd74a3a8bd01">GraphValidationDialog.check_state1()</a>, and <a class="el" href="a00221.html#a452dcd98676575e133f2fd74a3a8bd01">ConvertCRSDialog.check_state1()</a>.</p>
-
-</div>
-</div>
-<a id="a452dcd98676575e133f2fd74a3a8bd01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a452dcd98676575e133f2fd74a3a8bd01">&#9670;&nbsp;</a></span>check_state1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def check_state1 </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">def </span>check_state1(self):</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.check_state(self.graphURIEdit)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#aee700008c6180fc09c43e84dd4cfc1f1">ConvertCRSDialog.check_state()</a>.</p>
-
-</div>
-</div>
 <a id="a2ae2b21223fe5437d0cb6702451276de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ae2b21223fe5437d0cb6702451276de">&#9670;&nbsp;</a></span>loadFile()</h2>
 
@@ -279,15 +211,15 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        dialog = QFileDialog(self.dlg)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            fileNames = dialog.selectedFiles()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            self.chosenFileLabel.setText(fileNames[0])</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        dialog = QFileDialog(self.dlg)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            fileNames = dialog.selectedFiles()</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            self.chosenFileLabel.setText(fileNames[0])</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, and <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
 
@@ -308,16 +240,16 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Load Graph&quot;</span>)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                       self.triplestoreconf, progress)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            progress.setWindowTitle(<span class="stringliteral">&quot;Load Graph&quot;</span>)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                       self.triplestoreconf, progress)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00221.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -338,21 +270,21 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">def </span>startConversion(self):</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph and converting CRS of graph: &quot;</span> + self.chosenFileLabel.text(), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                   0, 0, self)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Modifying graph&quot;</span>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">if</span> self.convertAllCheckBox.checkState():</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                        progress)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self, progress)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">def </span>startConversion(self):</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph and converting CRS of graph: &quot;</span> + self.chosenFileLabel.text(), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                   0, 0, self)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Modifying graph&quot;</span>)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> self.convertAllCheckBox.checkState():</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                        progress)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self, progress)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, and <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>.</p>
 
@@ -509,7 +441,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>The triple store configuration file. </p>
 
-<p class="reference">Referenced by <a class="el" href="a00221.html#a9cb492d74e64e3414dec22e8f5564bc5">ConvertCRSDialog.__init__()</a>, <a class="el" href="a00225.html#aed785251601438e09cc9e991dc6b0153">ConvertLayerDialog.__init__()</a>, <a class="el" href="a00233.html#a2dd85cc01ac4029612c2cd60e519e6e4">GraphValidationDialog.__init__()</a>, <a class="el" href="a00281.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00253.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00265.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00261.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00257.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00257.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00257.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00257.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00257.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00261.html#ab51f83eb5efc7744cb415accade74abc">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a00261.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00337.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceQueryTask.finished()</a>, <a class="el" href="a00341.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00237.html#a756573574530be17f03d879e17a42d84">InstanceDataDialog.getAttributes()</a>, <a class="el" href="a00281.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00229.html#a929e6379de0e9f6aa762a098436b1049">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a00273.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00253.html#a00c7d47f79ad9e7a9665d7588c9bd512">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a00257.html#a2365dab41d006ab637c9dcdccb43cd80">SPARQLunicornDialog.iterateTree()</a>, <a class="el" href="a00257.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00257.html#af6cc2e668959886868f74fce3d8bd783">SPARQLunicornDialog.loadSubClasses()</a>, <a class="el" href="a00261.html#a809e9724f3fb01cd74431f96ff40c928">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a00233.html#a527bac1321b550ce7d51f6ddf6d91566">GraphValidationDialog.loadURI()</a>, <a class="el" href="a00221.html#a527bac1321b550ce7d51f6ddf6d91566">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a00345.html#ab368e533f681a396257e919f7acf52fd">QueryLayerTask.processResults()</a>, <a class="el" href="a00229.html#aeb05e1da63d0ff3e0956945bf5a2f137">DataSchemaDialog.queryAllInstances()</a>, <a class="el" href="a00237.html#ab8553dbd65c6ed73a2a13468e53a1496">InstanceDataDialog.queryInstance()</a>, <a class="el" href="a00249.html#a8f00d7ecb3b1d33e795c22927f1318cf">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a00261.html#aebb0c8211d47ee1206755f7992455b62">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a00329.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00333.html#ad22709b2e67308af35f55680d5a026e0">InstanceListQueryTask.run()</a>, <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">FindStyleQueryTask.run()</a>, <a class="el" href="a00321.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">DataSampleQueryTask.run()</a>, <a class="el" href="a00353.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00337.html#ad22709b2e67308af35f55680d5a026e0">InstanceQueryTask.run()</a>, <a class="el" href="a00345.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">DataSchemaQueryTask.run()</a>, <a class="el" href="a00349.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00317.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00357.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00305.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, <a class="el" href="a00257.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00233.html#a81b041c0fd2cb302982b79567a787779">GraphValidationDialog.startValidation()</a>, <a class="el" href="a00257.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a00257.html#adf24f3a5813ea11f947d3c63e502893e">SPARQLunicornDialog.tripleStoreInfoDialog()</a>, and <a class="el" href="a00261.html#a630c34000dc83589645109cfc574c26b">TripleStoreDialog.writeConfiguration()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00221.html#a9cb492d74e64e3414dec22e8f5564bc5">ConvertCRSDialog.__init__()</a>, <a class="el" href="a00225.html#aed785251601438e09cc9e991dc6b0153">ConvertLayerDialog.__init__()</a>, <a class="el" href="a00233.html#a2dd85cc01ac4029612c2cd60e519e6e4">GraphValidationDialog.__init__()</a>, <a class="el" href="a00253.html#a12fe57a77d8c1181e5c85018b15667d9">SearchDialog.applyConceptToColumn()</a>, <a class="el" href="a00281.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, <a class="el" href="a00265.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreQuickAddDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00261.html#a7ab1931a2785e98a68d2547d73caad61">TripleStoreDialog.applyCustomSPARQLEndPoint()</a>, <a class="el" href="a00257.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00257.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00257.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00257.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00257.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00261.html#ab51f83eb5efc7744cb415accade74abc">TripleStoreDialog.deleteTripleStoreFunc()</a>, <a class="el" href="a00261.html#afd5cbb47197ed025c14b33f40011c054">TripleStoreDialog.detectTripleStoreConfiguration()</a>, <a class="el" href="a00337.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">InstanceQueryTask.finished()</a>, <a class="el" href="a00341.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">LoadGraphTask.finished()</a>, <a class="el" href="a00301.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">DetectTripleStoreTask.finished()</a>, <a class="el" href="a00237.html#a756573574530be17f03d879e17a42d84">InstanceDataDialog.getAttributes()</a>, <a class="el" href="a00281.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>, <a class="el" href="a00229.html#a929e6379de0e9f6aa762a098436b1049">DataSchemaDialog.getAttributeStatistics()</a>, <a class="el" href="a00253.html#a00c7d47f79ad9e7a9665d7588c9bd512">SearchDialog.getClassesFromLabel()</a>, <a class="el" href="a00273.html#a00c7d47f79ad9e7a9665d7588c9bd512">ValueMappingDialog.getClassesFromLabel()</a>, <a class="el" href="a00257.html#a2365dab41d006ab637c9dcdccb43cd80">SPARQLunicornDialog.iterateTree()</a>, <a class="el" href="a00257.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00257.html#af6cc2e668959886868f74fce3d8bd783">SPARQLunicornDialog.loadSubClasses()</a>, <a class="el" href="a00261.html#a809e9724f3fb01cd74431f96ff40c928">TripleStoreDialog.loadTripleStoreConfig()</a>, <a class="el" href="a00233.html#a527bac1321b550ce7d51f6ddf6d91566">GraphValidationDialog.loadURI()</a>, <a class="el" href="a00221.html#a527bac1321b550ce7d51f6ddf6d91566">ConvertCRSDialog.loadURI()</a>, <a class="el" href="a00345.html#ab368e533f681a396257e919f7acf52fd">QueryLayerTask.processResults()</a>, <a class="el" href="a00229.html#aeb05e1da63d0ff3e0956945bf5a2f137">DataSchemaDialog.queryAllInstances()</a>, <a class="el" href="a00237.html#ab8553dbd65c6ed73a2a13468e53a1496">InstanceDataDialog.queryInstance()</a>, <a class="el" href="a00249.html#a8f00d7ecb3b1d33e795c22927f1318cf">QueryLimitedInstancesDialog.queryWithLimit()</a>, <a class="el" href="a00261.html#aebb0c8211d47ee1206755f7992455b62">TripleStoreDialog.restoreFactory()</a>, <a class="el" href="a00329.html#ad22709b2e67308af35f55680d5a026e0">InstanceAmountQueryTask.run()</a>, <a class="el" href="a00333.html#ad22709b2e67308af35f55680d5a026e0">InstanceListQueryTask.run()</a>, <a class="el" href="a00309.html#ad22709b2e67308af35f55680d5a026e0">FindStyleQueryTask.run()</a>, <a class="el" href="a00321.html#ad22709b2e67308af35f55680d5a026e0">GetStyleQueryTask.run()</a>, <a class="el" href="a00293.html#ad22709b2e67308af35f55680d5a026e0">DataSampleQueryTask.run()</a>, <a class="el" href="a00353.html#ad22709b2e67308af35f55680d5a026e0">SubClassQueryTask.run()</a>, <a class="el" href="a00337.html#ad22709b2e67308af35f55680d5a026e0">InstanceQueryTask.run()</a>, <a class="el" href="a00345.html#ad22709b2e67308af35f55680d5a026e0">QueryLayerTask.run()</a>, <a class="el" href="a00297.html#ad22709b2e67308af35f55680d5a026e0">DataSchemaQueryTask.run()</a>, <a class="el" href="a00349.html#ad22709b2e67308af35f55680d5a026e0">SearchTask.run()</a>, <a class="el" href="a00317.html#ad22709b2e67308af35f55680d5a026e0">GeoConceptsQueryTask.run()</a>, <a class="el" href="a00357.html#ad22709b2e67308af35f55680d5a026e0">WhatToEnrichQueryTask.run()</a>, <a class="el" href="a00313.html#ad22709b2e67308af35f55680d5a026e0">GeoCollectionsQueryTask.run()</a>, <a class="el" href="a00305.html#ad22709b2e67308af35f55680d5a026e0">EnrichmentQueryTask.run()</a>, <a class="el" href="a00257.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00233.html#a81b041c0fd2cb302982b79567a787779">GraphValidationDialog.startValidation()</a>, <a class="el" href="a00257.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, <a class="el" href="a00257.html#adf24f3a5813ea11f947d3c63e502893e">SPARQLunicornDialog.tripleStoreInfoDialog()</a>, and <a class="el" href="a00261.html#a630c34000dc83589645109cfc574c26b">TripleStoreDialog.writeConfiguration()</a>.</p>
 
 </div>
 </div>

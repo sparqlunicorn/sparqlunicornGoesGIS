@@ -2,7 +2,6 @@ var a00265 =
 [
     [ "__init__", "a00265.html#aaa3b7765f26ece7e66a5a3e7be5ae151", null ],
     [ "applyCustomSPARQLEndPoint", "a00265.html#a7ab1931a2785e98a68d2547d73caad61", null ],
-    [ "check_state", "a00265.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
     [ "detectTripleStoreConfiguration", "a00265.html#afd5cbb47197ed025c14b33f40011c054", null ],
     [ "enableAuthentication", "a00265.html#a57f72da816cb9d7e387f64294ab706e8", null ],
     [ "resboxChangedEvent", "a00265.html#ad47996eb65c24be3f93a43f8dbd84990", null ],

@@ -4,7 +4,6 @@ var a00261 =
     [ "addNewSPARQLEndpoint", "a00261.html#a34a78bc5f0927053db7797e886f20240", null ],
     [ "addPrefixToList", "a00261.html#a182c82bd713e327a2621e41cbeeb5845", null ],
     [ "applyCustomSPARQLEndPoint", "a00261.html#a7ab1931a2785e98a68d2547d73caad61", null ],
-    [ "check_state", "a00261.html#aee700008c6180fc09c43e84dd4cfc1f1", null ],
     [ "createNewTripleStore", "a00261.html#aa5447b6794b47547c3db9b58ec8666ec", null ],
     [ "deleteTripleStoreFunc", "a00261.html#ab51f83eb5efc7744cb415accade74abc", null ],
     [ "detectTripleStoreConfiguration", "a00261.html#afd5cbb47197ed025c14b33f40011c054", null ],
