@@ -79,6 +79,7 @@ class InstanceQueryTask(QgsTask):
             item = QTableWidgetItem()
             item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
             item.setData(256, str(rel))
+            item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
             self.searchResult.setItem(counter, 1, item)
             itembutton = QTableWidgetItem()
             itembutton.setText(self.queryresult[rel]["val"])
