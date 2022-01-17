@@ -81,23 +81,24 @@ class InstanceQueryTask(QgsTask):
                 myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                     (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                     True,self.triplestoreconf)
-                geojson = {'type': 'FeatureCollection', 'features': [
-                {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
-                    'geometry': json.loads(myGeometryInstanceJSON)}
-                ]}
-                QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
-                self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),
-                                        "ogr")
-                self.features.setCrs(QgsCoordinateReferenceSystem(3857))
-                QgsProject.instance().addMapLayer(self.features)
-                layerlist=self.mymap.layers()
-                layerlist.insert(0,self.features)
-                self.features.invertSelection()
-                self.mymap.setLayers(layerlist)
-                self.mymap.setCurrentLayer(self.features)
-                self.mymap.zoomToSelected(self.features)
-                self.parentwindow.resize(QSize(self.parentwindow.width() + 250, self.parentwindow.height()))
-                self.mymap.show()
+                if myGeometryInstanceJSON!=None:
+                    geojson = {'type': 'FeatureCollection', 'features': [
+                    {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
+                        'geometry': json.loads(myGeometryInstanceJSON)}
+                    ]}
+                    QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
+                    self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),
+                                            "ogr")
+                    self.features.setCrs(QgsCoordinateReferenceSystem(3857))
+                    QgsProject.instance().addMapLayer(self.features)
+                    layerlist=self.mymap.layers()
+                    layerlist.insert(0,self.features)
+                    self.features.invertSelection()
+                    self.mymap.setLayers(layerlist)
+                    self.mymap.setCurrentLayer(self.features)
+                    self.mymap.zoomToSelected(self.features)
+                    self.parentwindow.resize(QSize(self.parentwindow.width() + 250, self.parentwindow.height()))
+                    self.mymap.show()
             self.searchResult.setItem(counter, 0, itemchecked)
             item = QTableWidgetItem()
             item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))

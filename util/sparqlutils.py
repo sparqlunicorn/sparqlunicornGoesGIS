@@ -32,7 +32,12 @@ class SPARQLUtils:
                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
                    "http://schema.org/geo": "ObjectProperty",
-                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty"}
+                   "http://geovocab.org/geometry": "ObjectProperty",
+                   "http://www.w3.org/ns/locn/geometry": "ObjectProperty",
+                   "http://rdfs.co/juso/geometry": "ObjectProperty",
+                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
+                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty",
+                   }
 
     graphResource = ["solid:forClass"]
 
@@ -285,7 +290,7 @@ class SPARQLUtils:
             i = 0
             qidquery = ""
             for qid in classes:
-                QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
                 if "wikidata" in triplestoreurl and "Q" in qid:
                     qidquery += "Q" + qid.split("Q")[1]
                 elif "wikidata" in triplestoreurl and "P" in qid:
