@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"a00365.html#ad8155062f83fdaf2cde17dd1ee12b335":[1,0,1,0,15],
+"a00365.html#afe27f37e04aafb99a9b48eae8506bc9a":[1,0,1,0,10],
 "a00369.html":[1,0,2,3,0,0],
 "a00369.html#a39c7098f8401caf0100203e286491bc1":[1,0,2,3,0,0,3],
 "a00369.html#a849242decae7230d1029251178b41783":[1,0,2,3,0,0,4],
@@ -110,8 +112,8 @@ var NAVTREEINDEX4 =
 "annotated.html":[1,0],
 "classes.html":[1,1],
 "files.html":[2,0],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_a.html":[1,3,0,1],
 "functions_b.html":[1,3,0,2],
 "functions_c.html":[1,3,0,3],
@@ -156,8 +158,8 @@ var NAVTREEINDEX4 =
 "functions_t.html":[1,3,0,19],
 "functions_u.html":[1,3,0,20],
 "functions_v.html":[1,3,0,21],
-"functions_vars.html":[1,3,2,0],
 "functions_vars.html":[1,3,2],
+"functions_vars.html":[1,3,2,0],
 "functions_vars_b.html":[1,3,2,1],
 "functions_vars_c.html":[1,3,2,2],
 "functions_vars_d.html":[1,3,2,3],
