@@ -918,7 +918,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">return</span> <span class="stringliteral">&quot;{\&quot;geometry\&quot;:null}&quot;</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">return</span> json.dumps(res[0])</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            literaltype = SPARQLUtils.detectLiteralType(literal)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            literaltype = SPARQLUtils.detectGeoLiteralType(literal)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;wkt&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            literal = literal.strip()</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;&lt;http&quot;</span>):</div>

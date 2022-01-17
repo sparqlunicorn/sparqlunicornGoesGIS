@@ -1,6 +1,6 @@
 var a00237 =
 [
-    [ "__init__", "a00237.html#a8580441a2657798799c8c1a9d2010270", null ],
+    [ "__init__", "a00237.html#a1b1de8350d17935fd0c85c8f6b92ccad", null ],
     [ "getAttributes", "a00237.html#a756573574530be17f03d879e17a42d84", null ],
     [ "openURL", "a00237.html#aa1d62c301dd8e26c9dce58b3dbf24349", null ],
     [ "pan", "a00237.html#a2ecfd77fcaecf54eabed081273f16b04", null ],
@@ -8,6 +8,7 @@ var a00237 =
     [ "showURI", "a00237.html#a03192685f283caeea3973a70ff9ca599", null ],
     [ "alreadyloadedSample", "a00237.html#acf65a34531091c482d3844fac8a32f6d", null ],
     [ "concept", "a00237.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "concepttype", "a00237.html#ad341a2945e04315008627d9d24aba557", null ],
     [ "curindex", "a00237.html#a0e2acf0c940b73a578c9b54967492155", null ],
     [ "label", "a00237.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
     [ "mts_layer", "a00237.html#a90dc809bbf3ab04604a3662090a747bc", null ],

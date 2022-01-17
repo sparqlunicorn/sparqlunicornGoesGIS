@@ -1,6 +1,6 @@
 var a00229 =
 [
-    [ "__init__", "a00229.html#ad960f7a1118d6f00e859da758e3eb365", null ],
+    [ "__init__", "a00229.html#a86212d0495198075dd87ba5d525327ab", null ],
     [ "getAttributeStatistics", "a00229.html#a929e6379de0e9f6aa762a098436b1049", null ],
     [ "loadSamples", "a00229.html#a6e2d41fa9ae00f552463de0279f86465", null ],
     [ "openURL", "a00229.html#aa1d62c301dd8e26c9dce58b3dbf24349", null ],
@@ -9,6 +9,7 @@ var a00229 =
     [ "showURI", "a00229.html#a03192685f283caeea3973a70ff9ca599", null ],
     [ "alreadyloadedSample", "a00229.html#acf65a34531091c482d3844fac8a32f6d", null ],
     [ "concept", "a00229.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "concepttype", "a00229.html#ad341a2945e04315008627d9d24aba557", null ],
     [ "curindex", "a00229.html#a0e2acf0c940b73a578c9b54967492155", null ],
     [ "label", "a00229.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
     [ "mts_layer", "a00229.html#a90dc809bbf3ab04604a3662090a747bc", null ],

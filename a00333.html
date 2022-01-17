@@ -215,7 +215,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">if</span> (self.treeNode.data(257)==SPARQLUtils.geoclassnode \</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    <span class="keywordflow">or</span> self.treeNode.data(257)==SPARQLUtils.collectionclassnode) <span class="keywordflow">and</span> self.queryresult[concept][<span class="stringliteral">&quot;hasgeo&quot;</span>]:</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                item.setData(SPARQLUtils.geoinstancenode,257)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                item.setIcon(SPARQLUtils.earthinstanceicon)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                item.setIcon(SPARQLUtils.geoinstanceicon)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                item.setToolTip(<span class="stringliteral">&quot;GeoInstance &quot;</span> + str(item.text()) + <span class="stringliteral">&quot;: &lt;br&gt;&quot;</span> + SPARQLUtils.treeNodeToolTip)</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                item.setData(SPARQLUtils.instancenode,257)</div>
