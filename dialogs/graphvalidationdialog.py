@@ -5,6 +5,8 @@ from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+
+from ..util.sparqlutils import SPARQLUtils
 from ..tasks.graphvalidationtask import GraphValidationTask
 from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
@@ -51,6 +53,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
                                    0, 0, self)
         progress.setWindowTitle("Graph Validation")
         progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         #if self.convertAllCheckBox.checkState():
         #    self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
@@ -64,6 +67,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)
             progress.setWindowModality(Qt.WindowModal)
+            progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,
                                        self.dlg, self.maindlg, self.triplestoreconf[0]["geoconceptquery"],

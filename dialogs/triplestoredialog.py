@@ -4,6 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
 
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
@@ -77,6 +78,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.show()
         self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),True,False,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,progress)
         QgsApplication.taskManager().addTask(self.qtask)
@@ -85,6 +87,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         progress = QProgressDialog("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.show()
         self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),False,True,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,progress)
         QgsApplication.taskManager().addTask(self.qtask)

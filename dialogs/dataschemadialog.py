@@ -166,6 +166,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         concept = "<" + self.concept + ">"
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,

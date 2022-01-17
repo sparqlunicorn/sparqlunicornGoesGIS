@@ -5,6 +5,8 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
+
+from ..util.sparqlutils import SPARQLUtils
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..dialogs.searchdialog import SearchDialog
 from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
@@ -126,6 +128,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
         progress.setWindowTitle("Enrichment Search Query")
         progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
                                            endpoint_url,

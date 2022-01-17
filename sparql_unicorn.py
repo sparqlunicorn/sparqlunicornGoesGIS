@@ -227,6 +227,7 @@ class SPARQLunicorn:
                 "Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0,
                 self.dlg)
         progress.setWindowTitle("Query layer")
+        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()

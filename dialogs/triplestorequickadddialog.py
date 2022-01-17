@@ -6,6 +6,7 @@ from qgis.core import QgsApplication
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 from ..tasks.loadgraphtask import LoadGraphTask
@@ -92,6 +93,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
                 progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.tripleStoreNameEdit.text(), fileNames, self,
                                            self.dlg, self.maindlg,
