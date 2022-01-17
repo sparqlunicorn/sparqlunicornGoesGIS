@@ -276,7 +276,7 @@ class SPARQLunicorn:
                                           query, self.triplestoreconf[self.dlg.comboBox.currentIndex()],
                                           self.dlg.inp_sparql2, queryvar, getlabels, self.dlg.layercount,
                                           self.dlg.geoTreeViewModel, examplequery, self.dlg.geoTreeView,
-                                          self.dlg.autocomplete, self.dlg)
+                                          self.dlg.autocomplete, self.dlg,self.dlg.queryResultLanguageCBox.currentText())
         QgsApplication.taskManager().addTask(self.qtask)
 
     def getClassTree(self):

@@ -12,7 +12,7 @@ MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 class GeoConceptsQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl, query, triplestoreconf, sparql, queryvar, getlabels, layercount,
-                 geoClassList, examplequery, geoClassListGui, completerClassList, dlg):
+                 geoClassList, examplequery, geoClassListGui, completerClassList, dlg,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -25,6 +25,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.completerClassList["completerClassList"] = {}
         self.queryvar = queryvar
         self.sparql = sparql
+        self.preferredlang=preferredlang
         self.geoClassListGui = geoClassListGui
         self.amountoflabels = -1
         self.geoClassList = geoClassList
@@ -44,10 +45,10 @@ class GeoConceptsQueryTask(QgsTask):
         if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
             "labelproperty"] != "":
             if "classlabelquery" in self.triplestoreconf:
-                labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
+                labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl,self.preferredlang)
             else:
                 labels = SPARQLUtils.getLabelsForClasses(self.viewlist, None,
-                                                         self.triplestoreconf, self.triplestoreurl)
+                                                         self.triplestoreconf, self.triplestoreurl,self.preferredlang)
             QgsMessageLog.logMessage('Started task "{}"'.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)
             self.amountoflabels = len(labels)
             i = 0

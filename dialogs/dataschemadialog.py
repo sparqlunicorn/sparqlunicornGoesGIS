@@ -95,23 +95,23 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         querydepth=self.graphQueryDepthBox.value()
         if int(querydepth)>1:
             query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf[self.curindex]["typeproperty"]+"> <" + str(
                 self.concept) + ">  .\n " +
             self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.triplestoreconf[self.curindex]["endpoint"],
             query,
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.triplestoreconf[self.curindex]["endpoint"],
             "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf[self.curindex]["typeproperty"]+"> <" + str(
                 self.concept) + "> .\n ?item ?rel ?val . " +
             self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def openURL(self,row,column):

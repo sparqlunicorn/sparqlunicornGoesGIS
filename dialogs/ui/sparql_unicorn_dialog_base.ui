@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1181</width>
-    <height>711</height>
+    <height>713</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,11 +74,11 @@ SELECT ?label ?geo ?item WHERE {
        <x>790</x>
        <y>40</y>
        <width>381</width>
-       <height>611</height>
+       <height>591</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -90,7 +90,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>591</height>
+         <height>571</height>
         </rect>
        </property>
        <property name="editTriggers">
@@ -117,7 +117,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>591</height>
+         <height>571</height>
         </rect>
        </property>
        <property name="editTriggers">
@@ -144,7 +144,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>591</height>
+         <height>571</height>
         </rect>
        </property>
        <property name="editTriggers">
@@ -171,7 +171,7 @@ SELECT ?label ?geo ?item WHERE {
          <x>0</x>
          <y>0</y>
          <width>381</width>
-         <height>591</height>
+         <height>571</height>
         </rect>
        </property>
        <property name="horizontalScrollBarPolicy">
@@ -369,6 +369,124 @@ SELECT ?label ?geo ?item WHERE {
        <widget class="QLineEdit" name="filterConcepts"/>
       </item>
      </layout>
+    </widget>
+    <widget class="QComboBox" name="queryResultLanguageCBox">
+     <property name="geometry">
+      <rect>
+       <x>968</x>
+       <y>640</y>
+       <width>201</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>en</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>de</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>fr</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>bg</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>cs</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>da</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>es</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>el</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>it</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>jp</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ko</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>nl</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>no</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>pl</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ru</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>sv</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>tr</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>zh</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>800</x>
+       <y>640</y>
+       <width>231</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Language for query results:</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">

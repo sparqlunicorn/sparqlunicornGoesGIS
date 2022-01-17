@@ -16,7 +16,7 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress,querydepth=0):
+    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress,querydepth=0,shortenURIs=False):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
@@ -24,6 +24,7 @@ class QueryLayerTask(QgsTask):
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.query = query
+        self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
         self.filename = filename
         self.geojson = None
@@ -105,9 +106,15 @@ class QueryLayerTask(QgsTask):
             for var in results["head"]["vars"]:
                 if var in result:
                     if var == "rel" and "val" in result:
-                        properties[result[var]["value"]] = result["val"]["value"]
+                        if self.shortenURIs:
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val"]["value"]
+                        else:
+                            properties[result[var]["value"]] = result["val"]["value"]
                     elif var != "val":
-                        properties[var] = result[var]["value"]
+                        if self.shortenURIs:
+                            properties[SPARQLUtils.labelFromURI(var)] = result[var]["value"]
+                        else:
+                            properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
                 myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)

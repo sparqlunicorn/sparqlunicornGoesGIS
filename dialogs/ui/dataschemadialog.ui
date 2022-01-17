@@ -126,6 +126,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="shortenURICheckBox">
+           <property name="text">
+            <string>Shorten URIs</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="queryAllInstancesButton">
            <property name="enabled">
             <bool>true</bool>
