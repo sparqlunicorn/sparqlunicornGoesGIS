@@ -1,11 +1,15 @@
 <RCC>
   <qresource prefix="icons">
-    <file>resources/icons/earthinstance.png</file>
+    <file>resources/icons/geoinstance.png</file>
     <file>resources/icons/class.png</file>
+    <file>resources/icons/annotationproperty.png</file>
+    <file>resources/icons/objectproperty.png</file>
+    <file>resources/icons/datatypeproperty.png</file>
     <file>resources/icons/sparqlunicorn.png</file>
     <file>resources/icons/featurecollection.png</file>
     <file>resources/icons/geometrycollection.png</file>
     <file>resources/icons/instance.png</file>
     <file>resources/icons/geoclass.png</file>
+    <file>resources/icons/halfgeoclass.png</file>
   </qresource>
 </RCC>

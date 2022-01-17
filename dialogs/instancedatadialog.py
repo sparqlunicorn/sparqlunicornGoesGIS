@@ -40,17 +40,23 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Instance View"):
+    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Instance View"):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.setWindowTitle(title)
         self.concept=concept
+        self.concepttype=concepttype
         self.label=label
         self.prefixes=prefixes
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         self.curindex=curindex
+        if concepttype==SPARQLUtils.geoinstancenode:
+            self.setWindowIcon(SPARQLUtils.geoinstanceicon)
+            self.setWindowTitle(title+" for GeoInstance")
+        else:
+            self.setWindowIcon(SPARQLUtils.instanceicon)
+            self.setWindowTitle(title+" for Instance")
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
         actionPan = QAction("Pan", self)

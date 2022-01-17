@@ -57,7 +57,7 @@ class LayerUtils:
                 return "{\"geometry\":null}"
             return json.dumps(res[0])
         if literaltype == "":
-            literaltype = SPARQLUtils.detectLiteralType(literal)
+            literaltype = SPARQLUtils.detectGeoLiteralType(literal)
         if "wkt" in literaltype.lower():
             literal = literal.strip()
             if literal.startswith("<http"):

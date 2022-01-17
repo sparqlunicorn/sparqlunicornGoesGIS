@@ -23,20 +23,28 @@ class SPARQLUtils:
                              "http://www.opengis.net/ont/geosparql#kmlLiteral": "kml",
                              "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"}
 
+    namespaces={"rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/"}
+
     graphResource = ["solid:forClass"]
 
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
 
+
     classicon=QIcon(":/icons/resources/icons/class.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
+    objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
+    datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
-    earthinstanceicon=QIcon(":/icons/resources/icons/earthinstance.png")
+    geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
     sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
     classnode="Class"
     geoclassnode="GeoClass"
     instancenode="Instance"
+    objectpropertynode="ObjectProperty"
+    datatypepropertynode="DatatypeProperty"
     geoinstancenode="GeoInstance"
     collectionclassnode="CollectionClass"
     instancesloadedindicator="InstancesLoaded"
@@ -201,7 +209,11 @@ class SPARQLUtils:
         return graph
 
     @staticmethod
-    def detectLiteralType(literal):
+    def detectLiteralTypeByURI(literal):
+        return ""
+
+    @staticmethod
+    def detectGeoLiteralType(literal):
         try:
             geom = QgsGeometry.fromWkt(literal)
             return "wkt"
@@ -272,9 +284,9 @@ class SPARQLUtils:
                 if (i % 50) == 0:
                     while qidquery.endswith("|"):
                         qidquery=qidquery[:-1]
-                    QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
                     myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
-                    QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
                     #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                     if "entities" in myResponse:
                         for ent in myResponse["entities"]:
@@ -292,9 +304,9 @@ class SPARQLUtils:
             if qidquery!="":
                 while qidquery.endswith("|"):
                     qidquery = qidquery[:-1]
-                QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
                 myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
-                QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
                 # QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                 if "entities" in myResponse:
                     for ent in myResponse["entities"]:

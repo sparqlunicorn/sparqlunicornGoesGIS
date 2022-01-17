@@ -53,7 +53,7 @@ class GraphValidationTask(QgsTask):
                     #QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
                         self.processinglog["literals"]["geoliterals"]["amount"]+=1
-                        detected=SPARQLUtils.detectLiteralType(o.value)
+                        detected=SPARQLUtils.detectGeoLiteralType(o.value)
                         if detected!=SPARQLUtils.supportedLiteralTypes[str(o.datatype)]:
                             #self.processinglog["literals"]["geoliterals"]["amount"] = self.processinglog["literals"]["geoliterals"]["amount"] + 1
                             self.errorlog.add("Error in triple: "+str(s)+" "+str(p)+" "+str(o)+":\n [ERR-LITTYPE]: Detected literal content "+str(detected)+" does not match claimed literal type "+str(o.datatype))

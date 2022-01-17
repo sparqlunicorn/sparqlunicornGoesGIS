@@ -297,6 +297,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(lambda: DataSchemaDialog(
                 self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256),
+                self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(257),
                 self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).text(),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 self.triplestoreconf,self.prefixes,self.comboBox.currentIndex(),
@@ -374,8 +375,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def dataInstanceView(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
         label = self.currentContextModel.itemFromIndex(curindex).text()
-        self.instancedataDialog = InstanceDataDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
         self.instancedataDialog.exec_()
 

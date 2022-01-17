@@ -41,17 +41,23 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, concept,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Schema View"):
+    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Schema View"):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.setWindowTitle(title)
         self.concept=concept
+        self.concepttype=concepttype
         self.label=label
         self.prefixes=prefixes
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         self.curindex=curindex
+        if concepttype==SPARQLUtils.geoclassnode:
+            self.setWindowIcon(SPARQLUtils.geoclassicon)
+            self.setWindowTitle(title+" for GeoClass")
+        else:
+            self.setWindowIcon(SPARQLUtils.classicon)
+            self.setWindowTitle(title+" for Class")
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
