@@ -48,16 +48,17 @@ class InstanceListQueryTask(QgsTask):
                         256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        for result in results["results"]["bindings"]:
-            self.queryresult[result["con"]["value"]]={}
-            if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
-                self.queryresult[result["con"]["value"]]["hasgeo"] = True
-            else:
-                self.queryresult[result["con"]["value"]]["hasgeo"] = False
-            if "label" in result:
-                self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
-            else:
-                self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])
+        if results!=False:
+            for result in results["results"]["bindings"]:
+                self.queryresult[result["con"]["value"]]={}
+                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
+                    self.queryresult[result["con"]["value"]]["hasgeo"] = True
+                else:
+                    self.queryresult[result["con"]["value"]]["hasgeo"] = False
+                if "label" in result:
+                    self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
+                else:
+                    self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])
         return True
 
     def finished(self, result):

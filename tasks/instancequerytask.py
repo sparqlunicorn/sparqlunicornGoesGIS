@@ -28,9 +28,7 @@ class InstanceQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-                "SELECT ?con ?rel ?val WHERE { "+ str(
-                    self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
         thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
@@ -91,8 +89,7 @@ class InstanceQueryTask(QgsTask):
                         'geometry': json.loads(myGeometryInstanceJSON)}
                     ]}
                     QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
-                    self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),
-                                            "ogr")
+                    self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
                     self.features.setCrs(QgsCoordinateReferenceSystem(3857))
                     QgsProject.instance().addMapLayer(self.features)
                     layerlist=self.mymap.layers()

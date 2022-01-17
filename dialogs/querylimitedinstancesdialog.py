@@ -10,7 +10,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/querylimitedinstancesdialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-
 class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
 
     def __init__(self, triplestoreconf,concept,nodetype,title="Query limited instances"):
