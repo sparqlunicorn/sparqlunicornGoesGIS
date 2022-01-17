@@ -54,17 +54,29 @@ class InstanceQueryTask(QgsTask):
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
                                  Qt.ItemIsEnabled)
             itemchecked.setCheckState(Qt.Checked)
-            if self.queryresult[rel]["val"].startswith("http"):
+            if rel in SPARQLUtils.geoproperties:
+                if SPARQLUtils.geoproperties[rel]=="DatatypeProperty":
+                    itemchecked.setIcon(SPARQLUtils.geodatatypepropertyicon)
+                    itemchecked.setToolTip("Geo Datatype Property")
+                    itemchecked.setText("GDP")
+                elif SPARQLUtils.geoproperties[rel]=="ObjectProperty":
+                    itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
+                    itemchecked.setToolTip("Geo Object Property")
+                    itemchecked.setText("GOP")
+            elif self.queryresult[rel]["val"].startswith("http"):
                     itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                     itemchecked.setToolTip("Object Property")
+                    itemchecked.setText("OP")
             elif SPARQLUtils.namespaces["rdfs"] in rel \
                         or SPARQLUtils.namespaces["owl"] in rel\
                         or SPARQLUtils.namespaces["dc"] in rel:
                     itemchecked.setIcon(SPARQLUtils.annotationpropertyicon)
                     itemchecked.setToolTip("Annotation Property")
+                    itemchecked.setText("AP")
             else:
                 itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
+                itemchecked.setText("DP")
             if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
                 myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                     (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),

@@ -2,7 +2,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST, BASIC, DIGEST
 import urllib
 import requests
 import sys
-import io
 from urllib.request import urlopen
 import json
 from qgis.core import Qgis, QgsGeometry
@@ -10,7 +9,6 @@ from qgis.core import QgsMessageLog
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
-from rdflib.plugins.sparql.results.jsonresults import JSONResultSerializer
 
 MESSAGE_CATEGORY = "SPARQLUtils"
 
@@ -25,6 +23,17 @@ class SPARQLUtils:
 
     namespaces={"rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/"}
 
+    geoproperties={"http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
+                   "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
+                   "http://schema.org/geo": "ObjectProperty",
+                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty"}
+
     graphResource = ["solid:forClass"]
 
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
@@ -34,8 +43,11 @@ class SPARQLUtils:
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
     annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
+    geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
     objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
+    geoobjectpropertyicon=QIcon(":/icons/resources/icons/geoobjectproperty.png")
     datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
+    geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
     geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
