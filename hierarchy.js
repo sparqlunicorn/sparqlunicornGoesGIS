@@ -2,7 +2,7 @@ var hierarchy =
 [
     [ "ConvertCRS", "a00369.html", null ],
     [ "EnrichmentTab", "a00361.html", null ],
-    [ "FORM_CLASS", "a00845.html", [
+    [ "FORM_CLASS", "a00837.html", [
       [ "BBOXDialog", "a00217.html", null ],
       [ "ConvertCRSDialog", "a00221.html", null ],
       [ "ConvertLayerDialog", "a00225.html", null ],
