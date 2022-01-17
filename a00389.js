@@ -29,6 +29,7 @@ var a00389 =
     [ "geoobjectpropertyicon", "a00389.html#aae697962e2bd879882993e9b4a1032a1", null ],
     [ "geoproperties", "a00389.html#aba7485239040e54e5eecbbf267d889e5", null ],
     [ "graphResource", "a00389.html#a574fc90f73d8e3838b39ea769b869bfb", null ],
+    [ "halfgeoclassicon", "a00389.html#ab3646ee0653ded9ce054bf051d5a1a70", null ],
     [ "instanceicon", "a00389.html#a7957119a35f294ef57eb7479c0a56953", null ],
     [ "instancenode", "a00389.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
     [ "instancesloadedindicator", "a00389.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],

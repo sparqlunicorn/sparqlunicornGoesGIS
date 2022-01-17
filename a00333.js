@@ -5,6 +5,7 @@ var a00333 =
     [ "run", "a00333.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "dlg", "a00333.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00333.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
+    [ "hasgeocount", "a00333.html#a847a73a528b964af271a2583561b42dc", null ],
     [ "queryresult", "a00333.html#a1bee14843933505be5e14e07c03f5f89", null ],
     [ "treeNode", "a00333.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
     [ "triplestoreconf", "a00333.html#a330d24be0afd5a96238ca9e128328a2d", null ],
