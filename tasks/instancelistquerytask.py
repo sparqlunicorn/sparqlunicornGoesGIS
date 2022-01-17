@@ -48,11 +48,13 @@ class InstanceListQueryTask(QgsTask):
                         256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        self.hasgeocount=0
         if results!=False:
             for result in results["results"]["bindings"]:
                 self.queryresult[result["con"]["value"]]={}
                 if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
+                    self.hasgeocount+=1
                 else:
                     self.queryresult[result["con"]["value"]]["hasgeo"] = False
                 if "label" in result:
@@ -67,6 +69,8 @@ class InstanceListQueryTask(QgsTask):
         if self.treeNode.data(258)==None:
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
+        if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)):
+            self.treeNode.setIcon(SPARQLUtils.halfgeoclassicon)
         self.treeNode.setData(SPARQLUtils.instancesloadedindicator,259)
         for concept in self.queryresult:
             item = QStandardItem()

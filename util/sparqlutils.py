@@ -49,6 +49,7 @@ class SPARQLUtils:
     classicon=QIcon(":/icons/resources/icons/class.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    halfgeoclassicon=QIcon(":/icons/resources/icons/halfgeoclass.png")
     annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
     geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
     objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
