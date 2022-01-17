@@ -79,7 +79,7 @@ Inheritance diagram for GraphValidationDialog:</div>
 <map name="GraphValidationDialog_inherit__map" id="GraphValidationDialog_inherit__map">
 <area shape="rect" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="17,80,185,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00837.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00841.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -89,7 +89,7 @@ Collaboration diagram for GraphValidationDialog:</div>
 <map name="GraphValidationDialog_coll__map" id="GraphValidationDialog_coll__map">
 <area shape="rect" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="17,80,185,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00837.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00841.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -171,20 +171,20 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Constructor.</pre> <div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">def </span><a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, triplestoreconf={}, maindlg=None, parent=None,title=&quot;Validate Graph&quot;):</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Constructor.&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        super(GraphValidationDialog, self).<a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(parent)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.setWindowTitle(title)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.triplestoreconf = triplestoreconf</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.dlg = parent</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.maindlg = maindlg</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        urlregex = QRegExp(<span class="stringliteral">&quot;http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+&quot;</span>)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        urlvalidator = QRegExpValidator(urlregex, self)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.loadDataFileButton.clicked.connect(self.loadFile)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.startValidationButton.clicked.connect(self.startValidation)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<pre class="fragment">Constructor.</pre> <div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">def </span><a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, triplestoreconf={}, maindlg=None, parent=None,title=&quot;Validate Graph&quot;):</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Constructor.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        super(GraphValidationDialog, self).<a class="code" href="a00357.html#af768e72071b11f2a420139fa04036c17">__init__</a>(parent)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.setWindowTitle(title)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.triplestoreconf = triplestoreconf</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.dlg = parent</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.maindlg = maindlg</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        urlregex = QRegExp(<span class="stringliteral">&quot;http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+&quot;</span>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        urlvalidator = QRegExpValidator(urlregex, self)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.loadDataFileButton.clicked.connect(self.loadFile)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.startValidationButton.clicked.connect(self.startValidation)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -206,17 +206,17 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        dialog = QFileDialog(self.dlg)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            fileNames = dialog.selectedFiles()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.chosenDataFile.setText(fileNames[0])</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">def </span>loadFile(self):</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        dialog = QFileDialog(self.dlg)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        dialog.setFileMode(QFileDialog.AnyFile)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.justloadingfromfile = <span class="keyword">True</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> dialog.exec_():</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            fileNames = dialog.selectedFiles()</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            filepath = fileNames[0].split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            self.chosenDataFile.setText(fileNames[0])</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, and <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, and <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>.</p>
 
 </div>
 </div>
@@ -235,17 +235,18 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                       self.triplestoreconf, progress)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">def </span>loadURI(self):</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> self.graphURIEdit.text() != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph from &quot;</span> + self.graphURIEdit.text(), <span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            self.qtask = LoadGraphTask(<span class="stringliteral">&quot;Loading Graph: &quot;</span> + self.graphURIEdit.text(), self.graphURIEdit.text(), self,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                       self.dlg, self.maindlg, self.triplestoreconf[0][<span class="stringliteral">&quot;geoconceptquery&quot;</span>],</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                       self.triplestoreconf, progress)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00221.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00233.html#a7a228f82cef256bf0c017634e4195718">GraphValidationDialog.maindlg</a>, <a class="el" href="a00225.html#a7a228f82cef256bf0c017634e4195718">ConvertLayerDialog.maindlg</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00225.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00225.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00233.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00205.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00221.html#a7a228f82cef256bf0c017634e4195718">ConvertCRSDialog.maindlg</a>, <a class="el" href="a00225.html#a7a228f82cef256bf0c017634e4195718">ConvertLayerDialog.maindlg</a>, <a class="el" href="a00233.html#a7a228f82cef256bf0c017634e4195718">GraphValidationDialog.maindlg</a>, <a class="el" href="a00225.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
 </div>
 </div>
@@ -264,22 +265,23 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span>startValidation(self):</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Validating graph: &quot;</span> + self.chosenDataFile.text(), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                   0, 0, self)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Graph Validation&quot;</span>)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">#if self.convertAllCheckBox.checkState():</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="comment">#    self.qtask = GraphValidationTask(&quot;Validating graph: &quot; + self.chosenDataFile.text(),</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="comment">#                                self.chosenDataFile.text(), self.chosenValidatorFile.text(),self.triplestoreconf,progress)</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment">#else:</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.qtask = GraphValidationTask(<span class="stringliteral">&quot;Validating graph: &quot;</span> + self.chosenDataFile.text(),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress,self)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">def </span>startValidation(self):</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Validating graph: &quot;</span> + self.chosenDataFile.text(), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                   0, 0, self)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Graph Validation&quot;</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment">#if self.convertAllCheckBox.checkState():</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">#    self.qtask = GraphValidationTask(&quot;Validating graph: &quot; + self.chosenDataFile.text(),</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="comment">#                                self.chosenDataFile.text(), self.chosenValidatorFile.text(),self.triplestoreconf,progress)</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">#else:</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        self.qtask = GraphValidationTask(<span class="stringliteral">&quot;Validating graph: &quot;</span> + self.chosenDataFile.text(),</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress,self)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00225.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
+<p class="reference">References <a class="el" href="a00221.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertCRSDialog.qtask</a>, <a class="el" href="a00225.html#a09dec5fb4a23fd0028407eddbe26cc16">ConvertLayerDialog.qtask</a>, <a class="el" href="a00233.html#a09dec5fb4a23fd0028407eddbe26cc16">GraphValidationDialog.qtask</a>, <a class="el" href="a00205.html#a09dec5fb4a23fd0028407eddbe26cc16">SPARQLunicorn.qtask</a>, <a class="el" href="a00229.html#a09dec5fb4a23fd0028407eddbe26cc16">DataSchemaDialog.qtask</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00225.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00233.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00229.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00217.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00205.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
 </div>
 </div>
