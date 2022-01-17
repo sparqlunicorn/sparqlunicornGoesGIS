@@ -29,6 +29,8 @@ class SPARQLUtils:
                    "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
                    "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "DatatypeProperty",
+                   "http://www.georss.org/georss/point": "DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
                    "http://schema.org/geo": "ObjectProperty",

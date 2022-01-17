@@ -40,6 +40,10 @@ class InstanceQueryTask(QgsTask):
                 self.queryresult[result["rel"]["value"]]={"rel":result["rel"]["value"],"val":result["val"]["value"]}
                 if "datatype" in result["val"]:
                     self.queryresult[result["rel"]["value"]]["valtype"]=result["val"]["datatype"]
+                elif not result["val"]["value"].startswith("http"):
+                    self.queryresult[result["rel"]["value"]]["valtype"] ="http://www.w3.org/2001/XMLSchema#string"
+                else:
+                    self.queryresult[result["rel"]["value"]]["valtype"] = result["val"]["value"]
         return True
 
     def finished(self, result):
@@ -58,11 +62,11 @@ class InstanceQueryTask(QgsTask):
                 if SPARQLUtils.geoproperties[rel]=="DatatypeProperty":
                     itemchecked.setIcon(SPARQLUtils.geodatatypepropertyicon)
                     itemchecked.setToolTip("Geo Datatype Property")
-                    itemchecked.setText("GDP")
+                    itemchecked.setText("GeoDP")
                 elif SPARQLUtils.geoproperties[rel]=="ObjectProperty":
                     itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
-                    itemchecked.setText("GOP")
+                    itemchecked.setText("GeoOP")
             elif self.queryresult[rel]["val"].startswith("http"):
                     itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                     itemchecked.setToolTip("Object Property")
@@ -107,6 +111,6 @@ class InstanceQueryTask(QgsTask):
             self.searchResult.setItem(counter, 1, item)
             itembutton = QTableWidgetItem()
             itembutton.setText(self.queryresult[rel]["val"])
-            itembutton.setData(256, self.queryresult[rel]["val"])
+            itembutton.setData(256, self.queryresult[rel]["valtype"])
             self.searchResult.setItem(counter, 2, itembutton)
             counter+=1
