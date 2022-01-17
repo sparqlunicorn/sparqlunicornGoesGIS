@@ -34,6 +34,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.chooseFileWidget=QgsFileWidget()
         self.gridLayout.addWidget(self.chooseFileWidget,4,1,Qt.AlignLeft)
         self.chooseFileWidget.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
+        self.chooseFileWidget.setStorageMode(QgsFileWidget.GetMultipleFiles)
         self.chooseFileWidget.hide()
         self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(urlvalidator)
@@ -117,7 +118,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             curprefixes.append(self.prefixList.item(i).text())
         if self.addTripleStore:
             index = len(self.triplestoreconf)
-            self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text())
+            self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text()+" [Endpoint]")
             self.triplestoreconf.append({})
             self.triplestoreconf[index]["querytemplate"] = []
             self.triplestoreconf[index]["querytemplate"].append({})
