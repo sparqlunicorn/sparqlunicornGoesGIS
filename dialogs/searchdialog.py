@@ -145,7 +145,7 @@ class SearchDialog(QDialog, FORM_CLASS):
                 viewlist = {k: v for k, v in d.iteritems() if label in k}
             for res in viewlist:
                 item = QListWidgetItem()
-                item.setData(1, val)
+                item.setData(256, val)
                 item.setText(key)
                 self.searchResult.addItem(item)
         else:
@@ -189,13 +189,13 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 item = QTableWidgetItem(self.searchResult.currentItem().text())
                 item.setText(self.searchResult.currentItem().text())
-            item.setData(1, toinsert)
+            item.setData(256, toinsert)
             if self.interlinkOrEnrich:
                 self.table.setItem(self.currentrow, self.currentcol, item)
             else:
                 item2 = QTableWidgetItem()
                 item2.setText(self.tripleStoreEdit.currentText())
-                item2.setData(0, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"])
+                item2.setData(257, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"])
                 self.table.setItem(self.currentrow, self.currentcol, item)
                 self.table.setItem(self.currentrow, (self.currentcol), item2)
         self.close()
