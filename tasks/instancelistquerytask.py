@@ -14,6 +14,7 @@ class InstanceListQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
+        self.hasgeocount=0
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
@@ -51,11 +52,15 @@ class InstanceListQueryTask(QgsTask):
         self.hasgeocount=0
         if results!=False:
             for result in results["results"]["bindings"]:
-                self.queryresult[result["con"]["value"]]={}
-                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
+                if result["con"]["value"] not in self.queryresult:
+                    self.queryresult[result["con"]["value"]]={}
+                if "hasgeo" not in self.queryresult[result["con"]["value"]] and "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
-                else:
+                    QgsMessageLog.logMessage('Started task "{}"'.format(
+                        str(result["con"]["value"])+" "+str(self.hasgeocount) + " " + str(len(self.queryresult))),
+                        MESSAGE_CATEGORY, Qgis.Info)
+                elif "hasgeo" not in self.queryresult[result["con"]["value"]]:
                     self.queryresult[result["con"]["value"]]["hasgeo"] = False
                 if "label" in result:
                     self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
@@ -65,12 +70,14 @@ class InstanceListQueryTask(QgsTask):
 
     def finished(self, result):
         QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.treeNode.text()), MESSAGE_CATEGORY, Qgis.Info)
+            self.treeNode.text()+" "+str(self.hasgeocount)+" "+str(len(self.queryresult))), MESSAGE_CATEGORY, Qgis.Info)
         if self.treeNode.data(258)==None:
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
         if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)):
             self.treeNode.setIcon(SPARQLUtils.halfgeoclassicon)
+        elif self.hasgeocount==0:
+            self.treeNode.setIcon(SPARQLUtils.classicon)
         self.treeNode.setData(SPARQLUtils.instancesloadedindicator,259)
         for concept in self.queryresult:
             item = QStandardItem()
