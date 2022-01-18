@@ -14,6 +14,7 @@ class InstanceListQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
+        self.hasgeocount=0
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
@@ -48,7 +49,6 @@ class InstanceListQueryTask(QgsTask):
                         256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        self.hasgeocount=0
         if results!=False:
             for result in results["results"]["bindings"]:
                 self.queryresult[result["con"]["value"]]={}
