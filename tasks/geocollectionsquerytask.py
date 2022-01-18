@@ -8,7 +8,6 @@ from qgis.core import (
 
 MESSAGE_CATEGORY = 'GeoCollectionsQueryTask'
 
-
 class GeoCollectionsQueryTask(QgsTask):
 
     def __init__(self, description, triplestoreurl, query, triplestoreconf, sparql, queryvar, labelvar, featureOrGeoCollection, layercount,

@@ -3,12 +3,9 @@ import json
 from ..util.layerutils import LayerUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
 
 MESSAGE_CATEGORY = 'QueryLayerTask'
 
@@ -16,13 +13,16 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress,querydepth=0,shortenURIs=False):
+    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress=None,querydepth=0,shortenURIs=False):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.querydepth=querydepth
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
+        if self.progress!=None:
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
         self.query = query
         self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
@@ -39,10 +39,14 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             results),
             MESSAGE_CATEGORY, Qgis.Info)
-        # geojson stuff
+        if self.progress!=None:
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         self.geojson = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
+        if self.geojson!=None:
+            self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         return True
 
     ## Processes query results and reformats them to a QGIS layer.
@@ -54,8 +58,6 @@ class QueryLayerTask(QgsTask):
     def processResults(self, results, reproject, mandatoryvars, geooptional):
         latval = "lat"
         lonval = "lon"
-        # if len(mandatoryvars)>1:
-        #    lonval=mandatoryvars[1]
         features = []
         properties={}
         first = True
@@ -183,9 +185,9 @@ class QueryLayerTask(QgsTask):
             return
         if self.progress!=None:
             self.progress.close()
-        vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-        print(vlayer.isValid())
-        QgsProject.instance().addMapLayer(vlayer)
-        canvas = iface.mapCanvas()
-        canvas.setExtent(vlayer.extent())
-        iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+        if self.vlayer!=None:
+            print(self.vlayer.isValid())
+            QgsProject.instance().addMapLayer(self.vlayer)
+            canvas = iface.mapCanvas()
+            canvas.setExtent(self.vlayer.extent())
+            iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)

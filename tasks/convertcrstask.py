@@ -4,11 +4,8 @@ from ..util.layerutils import LayerUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..util.crsexporttools import ConvertCRS
 from qgis.utils import iface
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
 
 MESSAGE_CATEGORY = 'ConvertCRSTask'
 

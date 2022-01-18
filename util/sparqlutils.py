@@ -276,7 +276,7 @@ class SPARQLUtils:
         result = {}
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if query==None:
-            query="SELECT ?class ?label WHERE { ?class <"+triplestoreconf["typeproperty"]+"> %%concept%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
+            query="SELECT ?class ?label WHERE { ?class <"+triplestoreconf["typeproperty"]+"> %%concepts%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
         if "SELECT" in query:
             vals = "VALUES ?class { "
             for qid in classes:

@@ -2,10 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt, QSize
-from qgis.core import QgsProject
-from qgis.core import (
-    QgsTask, QgsMessageLog
-)
+from qgis.core import QgsProject,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QTableWidgetItem
 import json
 

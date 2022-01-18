@@ -2,11 +2,8 @@ from rdflib import *
 import os
 from pyshacl import validate
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
 
 MESSAGE_CATEGORY = 'GraphValidationTask'
 

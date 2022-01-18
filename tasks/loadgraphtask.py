@@ -1,7 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
 from ..util.graphutils import GraphUtils
 from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.core import (QgsTask)
+from qgis.core import QgsTask
 from rdflib import Graph
 
 MESSAGE_CATEGORY = 'LoadGraphTask'
@@ -48,7 +48,6 @@ class LoadGraphTask(QgsTask):
 
     def finished(self, result):
         if result == True:
-            self.dlg.geoTreeViewModel.clear()
             self.maindlg.currentgraph = self.graph
             self.dlg.comboBox.addItem(str(self.graphname)+" [File]")
             index = len(self.triplestoreconf)

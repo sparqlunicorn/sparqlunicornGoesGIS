@@ -30,7 +30,7 @@ from qgis.PyQt import QtWidgets
 from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
-from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
+from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
 from ..util.ui.uiutils import UIUtils
@@ -411,25 +411,29 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        progress = QProgressDialog(
+            "Querying all instances for " + concept,"Abort", 0, 0, self)
+        progress.setWindowTitle("Query all instances")
+        progress.setWindowModality(Qt.WindowModal)
         if nodetype==SPARQLUtils.geoclassnode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0]+"\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],False, SPARQLUtils.labelFromURI(concept),None)
+                self.triplestoreconf[self.comboBox.currentIndex()],False, SPARQLUtils.labelFromURI(concept),progress)
             else:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def appStyles(self):
@@ -509,32 +513,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
-
-    """
-    def viewselectactionGeometryCollection(self,selected=None, deselected=None):
-        self.currentContext=self.geometryCollectionClassList
-        self.currentProxyModel=self.geometryCollectionProxyModel
-        self.currentContextModel=self.geometryCollectionClassListModel
-        self.collectionSelectAction()
-
-    def viewselectactionFeatureCollection(self,selected=None, deselected=None):
-        self.currentContext=self.featureCollectionClassList
-        self.currentProxyModel=self.featureCollectionProxyModel
-        self.currentContextModel=self.featureCollectionClassListModel
-        self.collectionSelectAction()
-
-    def viewselectactionClassTree(self):
-        self.currentContext=self.classTreeView
-        self.currentProxyModel=self.classTreeViewProxyModel
-        self.currentContextModel=self.classTreeViewModel
-        self.conceptSelectAction()
-
-    def viewselectactionGeoTree(self):
-        self.currentContext=self.geoTreeView
-        self.currentProxyModel=self.proxyModel
-        self.currentContextModel=self.geoTreeViewModel
-        self.conceptSelectAction()
-    """
 
     def subclassQuerySelectAction(self):
         endpointIndex = self.comboBox.currentIndex()

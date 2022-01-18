@@ -2,11 +2,8 @@ import json
 import os
 from ..util.graphutils import GraphUtils
 from qgis.utils import iface
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
 
 MESSAGE_CATEGORY = 'DetectTripleStoreTask'
 

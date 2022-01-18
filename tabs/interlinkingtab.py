@@ -4,8 +4,9 @@ from qgis.utils import iface
 from qgis.core import Qgis
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
-from qgis.PyQt.QtCore import QRegExp, QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QRegExpValidator
+
+from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
 
 ## Provides implementations for functions accessible from the interlinking tab
@@ -23,10 +24,8 @@ class InterlinkingTab:
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.searchClass=dlg.searchClass
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self.dlg)
         self.interlinkNameSpace=dlg.interlinkNameSpace
-        self.interlinkNameSpace.setValidator(urlvalidator)
+        self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
         self.dlg.refreshLayersInterlink.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
         #self.interlinkNameSpace.textChanged.connect(lambda: self.dlg.searchTripleStoreDialog.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())

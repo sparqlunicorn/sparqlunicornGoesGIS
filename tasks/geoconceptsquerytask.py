@@ -2,10 +2,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
-from qgis.core import Qgis
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
@@ -92,13 +89,6 @@ class GeoConceptsQueryTask(QgsTask):
                 else:
                     self.completerClassList["completerClassList"][
                         concept["concept"][concept["concept"].rfind('/') + 1:]] = "<" + concept + ">"
-            self.sparql.updateNewClassList()
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
-            self.dlg.currentProxyModel=self.dlg.proxyModel
-            self.dlg.currentContext = self.dlg.geoTreeView
-            self.dlg.currentContextModel = self.dlg.geoTreeViewModel
-            self.dlg.conceptSelectAction()
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
                 item = QStandardItem()
@@ -121,10 +111,10 @@ class GeoConceptsQueryTask(QgsTask):
                 else:
                     self.completerClassList["completerClassList"][
                         concept[concept.rfind('/') + 1:]] = "<" + concept + ">"
-            self.sparql.updateNewClassList()
-            self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
-                                                                  QItemSelectionModel.SelectCurrent)
-            self.dlg.currentProxyModel = self.dlg.proxyModel
-            self.dlg.currentContext = self.dlg.geoTreeView
-            self.dlg.currentContextModel = self.dlg.geoTreeViewModel
-            self.dlg.conceptSelectAction()
+        self.sparql.updateNewClassList()
+        self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
+                                                              QItemSelectionModel.SelectCurrent)
+        self.dlg.currentProxyModel = self.dlg.proxyModel
+        self.dlg.currentContext = self.dlg.geoTreeView
+        self.dlg.currentContextModel = self.dlg.geoTreeViewModel
+        self.dlg.conceptSelectAction()

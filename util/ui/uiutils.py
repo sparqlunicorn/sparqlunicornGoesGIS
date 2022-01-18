@@ -1,9 +1,12 @@
 
-from qgis.PyQt.QtGui import QValidator
-from ..sparqlutils import SPARQLUtils
 
+from ..sparqlutils import SPARQLUtils
+from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
 class UIUtils:
+
+    urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
     @staticmethod
     def check_state(sender):

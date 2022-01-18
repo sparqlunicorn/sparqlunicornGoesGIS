@@ -1,11 +1,15 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QTableWidgetItem
-from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QTableWidgetItem, QMenu, QAction,QApplication
 from qgis.PyQt import uic
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
+from qgis.PyQt.QtCore import Qt, QUrl, QEvent
+from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QDesktopServices
+
+from .dataschemadialog import DataSchemaDialog
+from ..util.sparqlutils import SPARQLUtils
 from ..tasks.searchtask import SearchTask
 from ..util.ui.uiutils import UIUtils
 import os.path
@@ -69,13 +73,51 @@ class SearchDialog(QDialog, FORM_CLASS):
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         self.searchButton.clicked.connect(self.getClassesFromLabel)
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self)
-        self.costumproperty.setValidator(urlvalidator)
+        self.searchResult.itemDoubleClicked.connect(self.openURL)
+        self.searchResult.installEventFilter(self)
+        self.costumproperty.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.costumproperty.textChanged.connect(lambda: UIUtils.check_state(self.costumproperty))
         self.costumproperty.textChanged.emit(self.costumproperty.text())
         self.costumpropertyButton.clicked.connect(lambda: self.applyConceptToColumn(True))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
+
+    def copyClipBoard(self):
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(concept, mode=cb.Clipboard)
+
+    def eventFilter(self, source, event):
+        if (event.type() == QEvent.ContextMenu and
+                source is self.searchResult):
+            item = source.itemAt(event.pos())
+            menu = QMenu("Menu", source)
+            actionclip = QAction("Copy IRI to clipboard")
+            menu.addAction(actionclip)
+            actionclip.triggered.connect(self.copyClipBoard)
+            action = QAction("Open in Webbrowser")
+            menu.addAction(action)
+            action.triggered.connect(lambda: self.openURL(item.data(256)))
+            actiondataschema = QAction("Query data schema")
+            menu.addAction(actiondataschema)
+            actiondataschema.triggered.connect(lambda: DataSchemaDialog(
+                item.data(256),
+                SPARQLUtils.classnode,
+                item.text(),
+                self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+                self.triplestoreconf, self.prefixes, self.tripleStoreEdit.currentIndex(),
+                "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(
+                    256)),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"])
+            ).exec_())
+            return True
+        return super(SearchDialog, self).eventFilter(source, event)
+
+    def openURL(self,item):
+        concept = str(item.data(256))
+        if concept.startswith("http"):
+            url = QUrl(concept)
+            QDesktopServices.openUrl(url)
 
     ##
     #  @brief Returns classes for a given label from a triple store.
@@ -107,22 +149,13 @@ class SearchDialog(QDialog, FORM_CLASS):
                 item.setText(key)
                 self.searchResult.addItem(item)
         else:
-            if self.findProperty.isChecked():
-                if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
-                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["propertyfromlabelquery"].replace("%%label%%", label)
-            else:
-                if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
-                    query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["classfromlabelquery"].replace("%%label%%", label)
-            if query == "":
-                msgBox = QMessageBox()
-                msgBox.setText("No search query specified for this triplestore")
-                msgBox.exec()
-                return
             self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
                query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
             QgsApplication.taskManager().addTask(self.qtask)
         return viewlist
+
+
 
     # Applies the search result to a GUI element for which the search dialog was called.
     #  @param self The object pointer.

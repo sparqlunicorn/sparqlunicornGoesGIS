@@ -19,7 +19,6 @@ class WhatToEnrichQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.query = query
-        self.progress = progress
         self.prefixes = prefixes
         self.triplestoreconf=triplestoreconf
         self.labels = None
@@ -51,7 +50,6 @@ class WhatToEnrichQueryTask(QgsTask):
                                                self.triplestoreconf)
         if results == False:
             return False
-
         if len(results["results"]["bindings"]) == 0:
             return False
         maxcons = int(results["results"]["bindings"][0]["countcon"]["value"])

@@ -2,14 +2,10 @@ import json
 import requests
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
 
 MESSAGE_CATEGORY = 'Search Class/Property Task'
-
 
 class SearchTask(QgsTask):
     """This shows how to subclass QgsTask"""
@@ -32,36 +28,36 @@ class SearchTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
+        if "labelproperty" in self.triplestoreconf and self.triplestoreconf["labelproperty"]!=None and self.triplestoreconf["labelproperty"].startswith("http"):
+            labelproperty=self.triplestoreconf["labelproperty"]
         if self.findProperty.isChecked():
             if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
                 self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                     "propertyfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
+            else:
+                self.query="SELECT DISTINCT ?class ?label { ?ind ?class ?obj . ?class <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
         else:
             if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
                 self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                     "classfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
-        if self.query == "":
+            else:
+                self.query="SELECT DISTINCT ?class ?label { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?class <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
+        QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
+        if self.query == "" or self.query==None:
             return
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)
             self.results = SPARQLUtils.executeQuery(self.triplestoreurl,
-                                               self.prefixes[self.tripleStoreEdit.currentIndex()] + self.query,self.triplestoreconf[self.tripleStoreEdit.currentIndex()])
+                                               self.prefixes[self.tripleStoreEdit.currentIndex()] + self.query,
+                                                    self.triplestoreconf[self.tripleStoreEdit.currentIndex()])
             if self.results == False:
                 return False
-            # msgBox=QMessageBox()
-            # msgBox.setText(str(results))
-            # msgBox.exec()
-            for res in self.results["results"]["bindings"]:
-                item = QListWidgetItem()
-                item.setData(1, str(res["class"]["value"]))
-                if "label" in res:
-                    item.setText(str(res["label"]["value"] + " (" + res["class"]["value"] + ")"))
-                else:
-                    item.setText(str(res["class"]["value"]))
-                self.searchResult.addItem(item)
         else:
+            QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
             myResponse = json.loads(requests.get(self.query).text)
             self.qids = []
+            QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
             for ent in myResponse["search"]:
                 qid = ent["concepturi"]
                 if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():
@@ -73,6 +69,7 @@ class SearchTask(QgsTask):
                 if "description" in ent:
                     label += "[" + ent["description"] + "]"
                 self.results[qid] = label
+        return True
 
     def finished(self, result):
         if self.query == "":
@@ -96,7 +93,12 @@ class SearchTask(QgsTask):
                 return
             for res in self.results["results"]["bindings"]:
                 item = QListWidgetItem()
-                item.setData(1, str(res["class"]["value"]))
+                if not self.findProperty.isChecked():
+                    item.setIcon(SPARQLUtils.classicon)
+                else:
+                    item.setIcon(SPARQLUtils.objectpropertyicon)
+                item.setToolTip(res["class"]["value"])
+                item.setData(256, str(res["class"]["value"]))
                 if "label" in res:
                     item.setText(str(res["label"]["value"] + " (" + res["class"]["value"] + ")"))
                 else:
@@ -106,7 +108,12 @@ class SearchTask(QgsTask):
             i = 0
             for result in self.results:
                 item = QListWidgetItem()
-                item.setData(1, self.qids[i])
+                if not self.findProperty.isChecked():
+                    item.setIcon(SPARQLUtils.classicon)
+                else:
+                    item.setIcon(SPARQLUtils.objectpropertyicon)
+                item.setData(256, self.qids[i])
+                item.setToolTip(self.qids[i])
                 item.setText(str(self.results[result]))
                 self.searchResult.addItem(item)
                 i += 1

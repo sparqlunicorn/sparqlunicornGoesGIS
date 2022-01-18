@@ -1,9 +1,6 @@
 from ..util.sparqlutils import SPARQLUtils
 from ..util.styleobject import StyleObject
-from qgis.core import Qgis
-from qgis.core import (
-    QgsTask, QgsMessageLog
-)
+from qgis.core import Qgis, QgsTask, QgsMessageLog
 
 MESSAGE_CATEGORY = 'GetStyleQueryTask'
 
@@ -16,7 +13,6 @@ class GetStyleQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.dlg=dlg
         self.styleuri=styleuri
-        self.graph=graph
         self.treeNode=treeNode
         self.amount=-1
 

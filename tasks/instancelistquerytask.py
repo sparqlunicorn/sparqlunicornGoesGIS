@@ -1,9 +1,6 @@
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtGui import QStandardItem
-from qgis.core import Qgis
-from qgis.core import (
- QgsTask, QgsMessageLog
-)
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 
 MESSAGE_CATEGORY = 'InstanceListQueryTask'
 
@@ -33,11 +30,22 @@ class InstanceListQueryTask(QgsTask):
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"
         else:
             if "geometryproperty" in self.triplestoreconf:
-                QgsMessageLog.logMessage('Started task "{}"'.format(
-                    "SELECT ?con ?label ?hasgeo WHERE { ?con "+typeproperty+" " + str(
-                            self.treeNode.data(256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con "+str(self.triplestoreconf["geometryproperty"])+" ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY, Qgis.Info)
-                thequery="SELECT ?con ?label ?hasgeo WHERE { ?con <"+typeproperty+"> <" + str(
-                            self.treeNode.data(256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con <"+str(self.triplestoreconf["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
+                if isinstance(self.triplestoreurl, str):
+                    QgsMessageLog.logMessage('Started task "{}"'.format(
+                        "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
+                            self.treeNode.data(
+                                256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con " + str(
+                            self.triplestoreconf["geometryproperty"]) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
+                        Qgis.Info)
+                    thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
+                        self.treeNode.data(
+                            256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con <" + str(
+                        self.triplestoreconf["geometryproperty"]) + "> ?wkt } AS ?hasgeo)}"
+                else:
+                    thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
+                        self.treeNode.data(
+                            256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } OPTIONAL { ?con <" + str(
+                        self.triplestoreconf["geometryproperty"]) + "> ?hasgeo } }"
             else:
                 QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
@@ -53,7 +61,7 @@ class InstanceListQueryTask(QgsTask):
             for result in results["results"]["bindings"]:
                 if result["con"]["value"] not in self.queryresult:
                     self.queryresult[result["con"]["value"]]={}
-                if "hasgeo" not in self.queryresult[result["con"]["value"]] and "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
+                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or not isinstance(self.triplestoreurl, str)):
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
                     QgsMessageLog.logMessage('Started task "{}"'.format(

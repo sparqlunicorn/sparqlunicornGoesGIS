@@ -28,8 +28,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.prefixstore = prefixstore
         self.comboBox = comboBox
         self.prefixes = prefixes
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self)
         self.recursiveResolvingCBox.hide()
         self.chooseFileWidget=QgsFileWidget()
         self.gridLayout.addWidget(self.chooseFileWidget,4,1,Qt.AlignLeft)
@@ -37,7 +35,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.chooseFileWidget.setStorageMode(QgsFileWidget.GetMultipleFiles)
         self.chooseFileWidget.hide()
         self.tripleStoreEdit.show()
-        self.tripleStoreEdit.setValidator(urlvalidator)
+        self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.tripleStoreCloseButton.clicked.connect(self.close)

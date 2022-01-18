@@ -1,22 +1,18 @@
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QHeaderView
-from qgis.core import (
-    QgsTask, QgsMessageLog
-)
 
 MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 
 class ClassTreeQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,graph=None):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
-        self.graph=graph
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.classTreeViewModel=self.dlg.classTreeViewModel
@@ -30,10 +26,26 @@ class ClassTreeQueryTask(QgsTask):
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
             self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]=="http://www.opengis.net/ont/geosparql#hasGeometry":
-            self.optionalpart="OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}"
+            if isinstance(self.triplestoreconf, str):
+                self.optionalpart = "OPTIONAL {BIND(EXISTS {?individual <" + str(
+                    self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
+                        "geometryproperty"]) + "> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}"
+
+            else:
+                self.optionalpart = "OPTIONAL {?individual <" + str(
+                    self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
+                        "geometryproperty"]) + "> ?lit . ?lit ?a ?hasgeo }"
+
             self.query+="{ ?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> ?subject . "+str(self.optionalpart)+"} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } .\n"
         elif "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"]!="":
-            self.optionalpart="OPTIONAL {BIND(EXISTS {?individual <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geometryproperty"])+"> ?wkt } AS ?hasgeo)}"
+            if isinstance(self.triplestoreconf,str):
+                self.optionalpart = "OPTIONAL {BIND(EXISTS {?individual <" + str(
+                    self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
+                        "geometryproperty"]) + "> ?wkt } AS ?hasgeo)}"
+            else:
+                self.optionalpart = "OPTIONAL {?individual <" + str(
+                    self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
+                        "geometryproperty"]) + "> ?hasgeo }"
             self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . "+str(self.optionalpart)+"} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  }  .\n"
         else:
             self.query += "{ ?individual <" + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"] + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  }  .\n"
@@ -59,10 +71,7 @@ class ClassTreeQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.classtreemap={"root":self.treeNode}
         self.subclassmap={"root":set()}
-        if self.graph==None:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-        else:
-            results=self.graph.query(self.query)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results=="Exists error":
             results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
         if results==False:
@@ -100,7 +109,6 @@ class ClassTreeQueryTask(QgsTask):
                         self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
                         self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
                         self.classtreemap[subval].setToolTip("Class "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:
@@ -129,9 +137,9 @@ class ClassTreeQueryTask(QgsTask):
 
 
     def finished(self, result):
-        self.classTreeViewModel.clear()
         QgsMessageLog.logMessage('Started task "{}"'.format(
             "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
+        self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
         self.alreadyprocessed=set()
