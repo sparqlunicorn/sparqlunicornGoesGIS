@@ -119,9 +119,9 @@ class EnrichmentTab:
         if len(layers) == 0:
             return
         layer = layers[selectedLayerIndex].layer()
-        self.enrichTableResult.hide()
-        while self.enrichTableResult.rowCount() > 0:
-            self.enrichTableResult.removeRow(0)
+        #self.enrichTableResult.hide()
+        #while self.enrichTableResult.rowCount() > 0:
+        #    self.enrichTableResult.removeRow(0)
         self.enrichTable.show()
         self.addEnrichedLayerRowButton.setEnabled(True)
         try:
@@ -165,7 +165,7 @@ class EnrichmentTab:
                 self.enrichTable.setItem(row, 8, itemm)
                 celllayout = QHBoxLayout()
                 upbutton = QPushButton("Up")
-                removebutton = QPushButton("Remove", self)
+                removebutton = QPushButton("Remove")
                 removebutton.clicked.connect(self.deleteEnrichRow)
                 downbutton = QPushButton("Down")
                 celllayout.addWidget(upbutton)

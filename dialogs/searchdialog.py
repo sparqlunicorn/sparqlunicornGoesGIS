@@ -168,7 +168,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         else:
             if self.searchResult.count() == 0:
                 return
-            toinsert = str(self.searchResult.currentItem().data(1))
+            toinsert = str(self.searchResult.currentItem().data(256))
         if self.bothOptions == True:
             haschanged = False
             if self.currentprefixes != None:
