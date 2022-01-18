@@ -704,9 +704,9 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">if</span> len(layers) == 0:</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        layer = layers[selectedLayerIndex].layer()</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        self.enrichTableResult.hide()</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">while</span> self.enrichTableResult.rowCount() &gt; 0:</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            self.enrichTableResult.removeRow(0)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">#self.enrichTableResult.hide()</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">#while self.enrichTableResult.rowCount() &gt; 0:</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="comment">#    self.enrichTableResult.removeRow(0)</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        self.enrichTable.show()</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        self.addEnrichedLayerRowButton.setEnabled(<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">try</span>:</div>
@@ -750,7 +750,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                self.enrichTable.setItem(row, 8, itemm)</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                celllayout = QHBoxLayout()</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                upbutton = QPushButton(<span class="stringliteral">&quot;Up&quot;</span>)</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                removebutton = QPushButton(<span class="stringliteral">&quot;Remove&quot;</span>, self)</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                removebutton = QPushButton(<span class="stringliteral">&quot;Remove&quot;</span>)</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                removebutton.clicked.connect(self.deleteEnrichRow)</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                downbutton = QPushButton(<span class="stringliteral">&quot;Down&quot;</span>)</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                celllayout.addWidget(upbutton)</div>
@@ -771,7 +771,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00361.html#a8aebd6ece91bc573de48d9e164244cdc">EnrichmentTab.addEnrichedLayerRowButton</a>, <a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00361.html#a04bb64f72568fb3fe1756fabc6c779b2">EnrichmentTab.deleteEnrichRow()</a>, <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>, and <a class="el" href="a00361.html#adcd5126fc28b5d7bf7f5eae6c1e808f1">EnrichmentTab.enrichTableResult</a>.</p>
+<p class="reference">References <a class="el" href="a00361.html#a8aebd6ece91bc573de48d9e164244cdc">EnrichmentTab.addEnrichedLayerRowButton</a>, <a class="el" href="a00361.html#ac3b35c93890e49ff3f0c12e45ab19fa1">EnrichmentTab.chooseLayerEnrich</a>, <a class="el" href="a00361.html#a04bb64f72568fb3fe1756fabc6c779b2">EnrichmentTab.deleteEnrichRow()</a>, and <a class="el" href="a00361.html#a41d2b998b0dd082c0d221c69bc8b4c8c">EnrichmentTab.enrichTable</a>.</p>
 
 </div>
 </div>
@@ -993,7 +993,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">EnrichmentTab.addEnrichRow()</a>, <a class="el" href="a00361.html#a56435cd18605ceb7d36ef96f1a1252a2">EnrichmentTab.loadLayerForEnrichment()</a>, and <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00361.html#aef2caba5fdbabb1add496a3690ea2920">EnrichmentTab.addEnrichRow()</a>, and <a class="el" href="a00361.html#a325fd8cbbc7334bc6881a68afd0c327f">EnrichmentTab.showConfigTable()</a>.</p>
 
 </div>
 </div>
