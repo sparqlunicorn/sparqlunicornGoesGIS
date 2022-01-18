@@ -6,7 +6,6 @@ var a00321 =
     [ "amount", "a00321.html#a7fb406750fcff703b1c7da34a23c187e", null ],
     [ "dlg", "a00321.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00321.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "graph", "a00321.html#a8ca49c796430e66a10450bfc2d218c81", null ],
     [ "resultstyles", "a00321.html#afaca0f5c5a444484f2ed9b8c9a09bfe4", null ],
     [ "styleuri", "a00321.html#a71ed0c1d973618e4e71f31ed45562163", null ],
     [ "treeNode", "a00321.html#a31ed64d43142fff4a68b7a148bec2f97", null ],

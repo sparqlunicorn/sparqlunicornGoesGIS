@@ -1,6 +1,6 @@
 var a00345 =
 [
-    [ "__init__", "a00345.html#a92476c3f1f1a523c3e31293154835604", null ],
+    [ "__init__", "a00345.html#a43bf707969d7676fbffbd826e79887fb", null ],
     [ "finished", "a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "processResults", "a00345.html#ab368e533f681a396257e919f7acf52fd", null ],
     [ "run", "a00345.html#ad22709b2e67308af35f55680d5a026e0", null ],
@@ -13,5 +13,6 @@ var a00345 =
     [ "querydepth", "a00345.html#aa1caf11cc3fdcb08c90537fb2ffc6a2b", null ],
     [ "shortenURIs", "a00345.html#a2eb2586a3117993dabc95cd4f9cc86d3", null ],
     [ "triplestoreconf", "a00345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ]
+    [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ],
+    [ "vlayer", "a00345.html#a571bd9fb80823c86e8bd6e5b97f1003b", null ]
 ];
