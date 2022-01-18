@@ -334,13 +334,13 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                item = QTableWidgetItem(self.searchResult.currentItem().text())</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                item.setText(self.searchResult.currentItem().text())</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            item.setData(1, toinsert)</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            item.setData(256, toinsert)</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">if</span> self.interlinkOrEnrich:</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                self.table.setItem(self.currentrow, self.currentcol, item)</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                item2 = QTableWidgetItem()</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                item2.setText(self.tripleStoreEdit.currentText())</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                item2.setData(0, self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                item2.setData(257, self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                self.table.setItem(self.currentrow, self.currentcol, item)</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                self.table.setItem(self.currentrow, (self.currentcol), item2)</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        self.close()</div>
@@ -494,7 +494,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                viewlist = {k: v <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> d.iteritems() <span class="keywordflow">if</span> label <span class="keywordflow">in</span> k}</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> viewlist:</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                item = QListWidgetItem()</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                item.setData(1, val)</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                item.setData(256, val)</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                item.setText(key)</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                self.searchResult.addItem(item)</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">else</span>:</div>
