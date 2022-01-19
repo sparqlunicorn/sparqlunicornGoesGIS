@@ -2,10 +2,8 @@ var a00253 =
 [
     [ "__init__", "a00253.html#a82e7e3197aa35770eba7300065f8f1af", null ],
     [ "applyConceptToColumn", "a00253.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
-    [ "copyClipBoard", "a00253.html#a64d7052a8b4910fe25963acde48560b0", null ],
     [ "getClassesFromLabel", "a00253.html#a00c7d47f79ad9e7a9665d7588c9bd512", null ],
     [ "onContext", "a00253.html#a99fa7fe54d832e9ede705c31718b8cb0", null ],
-    [ "openURL", "a00253.html#ac51ba104be2ec9ccd2137153a38e9d49", null ],
     [ "addVocab", "a00253.html#ac260fdbf23e7d137884620aa4c68c92f", null ],
     [ "bothOptions", "a00253.html#ac15ea5ca3c2948ec40b302b241c6493e", null ],
     [ "currentcol", "a00253.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],

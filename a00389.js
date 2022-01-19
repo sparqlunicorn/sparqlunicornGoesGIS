@@ -4,7 +4,7 @@ var a00389 =
     [ "detectLiteralTypeByURI", "a00389.html#afdcf0d66c9ed0c235ad7527a70077d49", null ],
     [ "executeQuery", "a00389.html#a390f1091745cd0ddbc900e80bcde5e3a", null ],
     [ "expandRelValToAmount", "a00389.html#a75ec67b8ee03aed176e014ccd7ecb3be", null ],
-    [ "getLabelsForClasses", "a00389.html#a4c52ed8461dac7096838dbb676e164c6", null ],
+    [ "getLabelsForClasses", "a00389.html#a832f9162e42cca69709651dfb4d3fc64", null ],
     [ "handleURILiteral", "a00389.html#a3218189fb73d8b6b5484782a0bc9c041", null ],
     [ "invertPrefixes", "a00389.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
     [ "labelFromURI", "a00389.html#a8d66b18f94f098b37701c05f1a838047", null ],

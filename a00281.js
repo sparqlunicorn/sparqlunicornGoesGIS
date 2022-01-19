@@ -16,6 +16,7 @@ var a00281 =
     [ "enrichtable", "a00281.html#afa736d201198c3312f2d2c6f7f534880", null ],
     [ "interlinkdialog", "a00281.html#a816bebaf94e989ec4293bfee7a615a98", null ],
     [ "interlinkOrEnrich", "a00281.html#a22becd814f00141dbdbb9167f5b9551f", null ],
+    [ "invprefixes", "a00281.html#a1815f627c40cff997fd4a4fd60c3c526", null ],
     [ "layer", "a00281.html#a95f2e9e3b2b2d837f962bcfb58a2011e", null ],
     [ "prefixes", "a00281.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "qtask", "a00281.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],

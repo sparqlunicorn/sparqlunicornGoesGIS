@@ -7,7 +7,6 @@ var a00257 =
     [ "buildValueMappingDialog", "a00257.html#a1659d7c9973dfca0d962d86f4195098b", null ],
     [ "collectionSelectAction", "a00257.html#af681f7cef8cc2aef0d790ba9dcb63bc5", null ],
     [ "conceptSelectAction", "a00257.html#a114e731483efe9ffd8abb769ce2ebaee", null ],
-    [ "copyClipBoard", "a00257.html#a64d7052a8b4910fe25963acde48560b0", null ],
     [ "createLayerFromTreeEntry", "a00257.html#af0f6ffe9e1e9affaaf0bc56ef3259c14", null ],
     [ "createMenu", "a00257.html#a446f1a8825012b76e3f33e3c1171a81d", null ],
     [ "dataAllInstancesAsLayer", "a00257.html#abfc0cb58bfe41e5710a6b9083cac16ec", null ],
