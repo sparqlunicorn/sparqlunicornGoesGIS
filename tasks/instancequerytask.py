@@ -83,7 +83,7 @@ class InstanceQueryTask(QgsTask):
                     True,self.triplestoreconf)
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
-                        float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + ")", "wkt", True, self.triplestoreconf)
+                        float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True, self.triplestoreconf)
                 if myGeometryInstanceJSON!=None:
                     geojson = {'type': 'FeatureCollection', 'features': [
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
