@@ -55,6 +55,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.currentrow = row
         self.table = table
         self.prefixes = prefixes
+        self.currentItem=None
         self.currentprefixes = currentprefixes
         self.bothOptions = bothOptions
         self.triplestoreconf = triplestoreconf
@@ -73,6 +74,8 @@ class SearchDialog(QDialog, FORM_CLASS):
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         self.searchButton.clicked.connect(self.getClassesFromLabel)
+        self.searchResult.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.searchResult.customContextMenuRequested.connect(self.onContext);
         self.searchResult.itemDoubleClicked.connect(self.openURL)
         self.searchResult.installEventFilter(self)
         self.costumproperty.setValidator(QRegExpValidator(UIUtils.urlregex, self))
@@ -82,36 +85,32 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.applyButton.clicked.connect(self.applyConceptToColumn)
 
     def copyClipBoard(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+        concept = self.currentItem.data(256)
         cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard)
         cb.setText(concept, mode=cb.Clipboard)
 
-    def eventFilter(self, source, event):
-        if (event.type() == QEvent.ContextMenu and
-                source is self.searchResult):
-            item = source.itemAt(event.pos())
-            menu = QMenu("Menu", source)
-            actionclip = QAction("Copy IRI to clipboard")
-            menu.addAction(actionclip)
-            actionclip.triggered.connect(self.copyClipBoard)
-            action = QAction("Open in Webbrowser")
-            menu.addAction(action)
-            action.triggered.connect(lambda: self.openURL(item.data(256)))
-            actiondataschema = QAction("Query data schema")
-            menu.addAction(actiondataschema)
-            actiondataschema.triggered.connect(lambda: DataSchemaDialog(
-                item.data(256),
-                SPARQLUtils.classnode,
-                item.text(),
-                self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
-                self.triplestoreconf, self.prefixes, self.tripleStoreEdit.currentIndex(),
-                "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(
-                    256)),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"])
-            ).exec_())
-            return True
-        return super(SearchDialog, self).eventFilter(source, event)
+    def onContext(self,position):
+        self.currentItem = self.searchResult.itemAt(position)
+        menu = QMenu("Menu", self)
+        actionclip = QAction("Copy IRI to clipboard")
+        menu.addAction(actionclip)
+        actionclip.triggered.connect(self.copyClipBoard)
+        action = QAction("Open in Webbrowser")
+        menu.addAction(action)
+        action.triggered.connect(lambda: self.openURL(self.currentItem))
+        actiondataschema = QAction("Query data schema")
+        menu.addAction(actiondataschema)
+        actiondataschema.triggered.connect(lambda: DataSchemaDialog(
+            self.currentItem.data(256),
+            SPARQLUtils.classnode,
+            self.currentItem.text(),
+            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+            self.triplestoreconf, self.prefixes, self.tripleStoreEdit.currentIndex(),
+            "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
+                256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
+        ).exec_())
+        menu.exec(self.searchResult.viewport().mapToGlobal(position))
 
     def openURL(self,item):
         concept = str(item.data(256))

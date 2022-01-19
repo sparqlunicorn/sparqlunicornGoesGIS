@@ -9,16 +9,20 @@ MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress):
+    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress,dlg):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.query = query
+        self.dlg=dlg
         self.progress = progress
         self.prefixes = prefixes
         self.labels = None
         self.triplestoreconf=triplestoreconf
+        if self.progress!=None:
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Executing query (1/2)")
         self.progress = progress
         self.urilist = None
         self.sortedatt = None
@@ -41,6 +45,9 @@ class DataSchemaQueryTask(QgsTask):
         self.searchResult.clear()
         if len(results["results"]["bindings"]) == 0:
             return False
+        if self.progress!=None:
+            newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+            self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         maxcons = int(results["results"]["bindings"][0]["countcon"]["value"])
         self.sortedatt = {}
         for result in results["results"]["bindings"]:
@@ -87,10 +94,12 @@ class DataSchemaQueryTask(QgsTask):
                             itemchecked.setIcon(SPARQLUtils.geodatatypepropertyicon)
                             itemchecked.setToolTip("Geo Datatype Property")
                             itemchecked.setText("GeoDP")
+                            self.dlg.setWindowIcon(SPARQLUtils.geoclassicon)
                         elif SPARQLUtils.geoproperties[curconcept] == "ObjectProperty":
                             itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
                             itemchecked.setToolTip("Geo Object Property")
                             itemchecked.setText("GeoOP")
+                            self.dlg.setWindowIcon(SPARQLUtils.geoclassicon)
                     elif SPARQLUtils.namespaces["rdfs"] in curconcept \
                             or SPARQLUtils.namespaces["owl"] in curconcept \
                             or SPARQLUtils.namespaces["dc"] in curconcept:
@@ -117,7 +126,7 @@ class DataSchemaQueryTask(QgsTask):
                     self.searchResult.setItem(counter, 1, item)
                     itembutton = QTableWidgetItem()
                     if "valtype" in self.sortedatt[att]:
-                        itembutton.setText("Click to load samples... ["+str(self.sortedatt[att]["valtype"]).replace("http://www.w3.org/2001/XMLSchema#","xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:")+"]")
+                        itembutton.setText("Click to load samples... ["+str(self.sortedatt[att]["valtype"]).replace("http://www.w3.org/2001/XMLSchema#","xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:").replace("http://www.opengis.net/ont/geosparql#","geo:")+"]")
                         itembutton.setData(256, str(self.sortedatt[att]["valtype"]))
                     else:
                         itembutton.setText("Click to load samples... [xsd:anyURI]")

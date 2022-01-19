@@ -174,5 +174,5 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                                "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            self.prefixes[self.curindex] if self.curindex in self.prefixes else None,
-                                           self.dataSchemaTableView,self.triplestoreconf[self.curindex], progress)
+                                           self.dataSchemaTableView,self.triplestoreconf[self.curindex], progress,self)
         QgsApplication.taskManager().addTask(self.qtask)
