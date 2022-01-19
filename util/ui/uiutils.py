@@ -1,8 +1,9 @@
 
-
 from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtCore import Qt, QUrl, QEvent
+from qgis.PyQt.QtGui import QDesktopServices
 
 class UIUtils:
 
@@ -21,6 +22,28 @@ class UIUtils:
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
 
     @staticmethod
+    def openListURL(item):
+        concept = str(item.data(256))
+        if concept.startswith("http"):
+            url = QUrl(concept)
+            QDesktopServices.openUrl(url)
+
+    def openTableURL(self,row,column):
+        if self.dataSchemaTableView.item(row,column)!=None:
+            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+            if concept.startswith("http"):
+                url = QUrl(concept)
+                QDesktopServices.openUrl(url)
+
+    def showTableURI(self,row,column):
+        if self.dataSchemaTableView.item(row,column)!=None:
+            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+            if concept.startswith("http"):
+                self.statusBarLabel.setText(concept)
+
+
+
+    @staticmethod
     def iterateTree(node,result,visible,classesonly,triplestoreconf,currentContext):
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
@@ -33,7 +56,7 @@ class UIUtils:
             subclassproperty=triplestoreconf["subclassproperty"]
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
-                UIUtils.iterateTree(node.child(i),result,visible,classesonly)
+                UIUtils.iterateTree(node.child(i),result,visible,classesonly,triplestoreconf,currentContext)
             if node.data(256)==None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:

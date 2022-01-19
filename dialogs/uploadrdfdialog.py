@@ -12,7 +12,6 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/uploadrdfdialog.ui'))
 
-
 ## Dialog to upload a generated RDF result to a triple store.
 class UploadRDFDialog(QDialog, FORM_CLASS):
     currentrow = ""
@@ -68,19 +67,6 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
             self.tripleStoreURLEdit.text(), self.tripleStoreURLEdit.text(), True, False, [], {}, None, None, False,
             None, progress)
         QgsApplication.taskManager().addTask(self.qtask)
-
-    def compareLayers(layer1, layer2, idcolumn):
-        changedTriples = ""
-        fieldnames = [field.name() for field in layer.fields()]
-        for f in layer1.getFeatures():
-            geom = f.geometry()
-            id = f[idcolumn]
-            expr = QgsExpression("\"" + idcolumn + "\"=" + id)
-            it = cLayer.getFeatures(QgsFeatureRequest(expr))
-            # if len(it)==0:
-            # Add new line
-            # elif len(it)>0:
-            # Compare
 
     ## Adds a new QGIS layer to a triplestore with a given address.
     #  @param self The object pointer.

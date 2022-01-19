@@ -1,10 +1,12 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem, QProgressDialog
 from qgis.PyQt.QtCore import Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
 from qgis.PyQt import uic
 from qgis.gui import QgsMapCanvas, QgsMapToolPan
 from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
     QgsCoordinateTransform, QgsPointXY,QgsApplication, QgsMessageLog
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
@@ -80,18 +82,31 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.pan()
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dataSchemaTableView.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
-        self.dataSchemaTableView.insertRow(0)
-        self.dataSchemaTableView.setMouseTracking(True)
-        self.dataSchemaTableView.cellClicked.connect(self.loadSamples)
-        self.dataSchemaTableView.cellEntered.connect(self.showURI)
-        self.dataSchemaTableView.cellDoubleClicked.connect(self.openURL)
+        self.tablemodel=QStandardItemModel()
+        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.insertRow(0)
+        self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setSourceModel(self.tablemodel)
+        self.filter_proxy_model.setFilterKeyColumn(1)
+        self.dataSchemaTableView.setModel(self.filter_proxy_model)
+        item = QStandardItem()
+        item.setText("Loading...")
+        self.tablemodel.setItem(0,0,item)
+        self.dataSchemaTableView.entered.connect(self.showURI)
+        self.dataSchemaTableView.doubleClicked.connect(self.openURL)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.dataSchemaTableView.clicked.connect(self.loadSamples)
+        self.dataSchemaTableView.entered.connect(self.showURI)
+        self.dataSchemaTableView.doubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
     def queryAllInstances(self):
+        self.tablemodel.clear()
         querydepth=self.graphQueryDepthBox.value()
         if int(querydepth)>1:
             query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
@@ -114,35 +129,37 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
-    def openURL(self,row,column):
-        if self.dataSchemaTableView.item(row,column)!=None:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+    def openURL(self,modelindex):
+        if self.dataSchemaTableView.model().data(modelindex)!=None:
+            concept=str(self.dataSchemaTableView.model().data(modelindex,256))
             if concept.startswith("http"):
                 url = QUrl(concept)
                 QDesktopServices.openUrl(url)
 
-    def showURI(self,row,column):
-        if self.dataSchemaTableView.item(row,column)!=None:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+    def showURI(self,modelindex):
+        if self.dataSchemaTableView.model().data(modelindex)!=None:
+            concept=str(self.dataSchemaTableView.model().data(modelindex,256))
             if concept.startswith("http"):
                 self.statusBarLabel.setText(concept)
 
     def pan(self):
         self.map_canvas.setMapTool(self.toolPan)
 
-    def loadSamples(self,row,column):
-        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.rowCount()-1:
-            relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
+    def loadSamples(self,modelindex):
+        row=modelindex.row()
+        column=modelindex.column()
+        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.model().rowCount()-1:
+            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
             self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf[self.curindex],self.dataSchemaTableView)
+                                             column,row,self.triplestoreconf[self.curindex],self.tablemodel,self.map_canvas)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
-        elif row==self.dataSchemaTableView.rowCount()-1 and row not in self.alreadyloadedSample:
-            relation = str(self.dataSchemaTableView.item(row, column-1).data(256))
+        elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
+            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
             self.qtask3 = FindStyleQueryTask("Querying styles for dataset.... (" + self.label + ")",
                                              self.triplestoreurl,
                                              self,
@@ -174,5 +191,5 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                                "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            self.prefixes[self.curindex] if self.curindex in self.prefixes else None,
-                                           self.dataSchemaTableView,self.triplestoreconf[self.curindex], progress,self)
+                                           self.tablemodel,self.triplestoreconf[self.curindex], progress,self)
         QgsApplication.taskManager().addTask(self.qtask)

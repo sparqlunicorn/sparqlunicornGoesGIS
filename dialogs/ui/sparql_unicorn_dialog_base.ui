@@ -14,6 +14,9 @@
    <string>SPARQLing Unicorn QGIS Plugin</string>
   </property>
   <widget class="QTabWidget" name="tabWidget">
+   <property name="contextMenuPolicy">
+    <enum>Qt::CustomContextMenu</enum>
+   </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
@@ -48,7 +51,7 @@ SELECT ?label ?geo ?item WHERE {
 } LIMIT 100</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="addLayerButton">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -78,7 +81,7 @@ SELECT ?label ?geo ?item WHERE {
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="geoConceptsTab">
       <attribute name="title">
@@ -92,6 +95,9 @@ SELECT ?label ?geo ?item WHERE {
          <width>381</width>
          <height>571</height>
         </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
        </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
@@ -120,6 +126,9 @@ SELECT ?label ?geo ?item WHERE {
          <height>571</height>
         </rect>
        </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -147,6 +156,9 @@ SELECT ?label ?geo ?item WHERE {
          <height>571</height>
         </rect>
        </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -173,6 +185,9 @@ SELECT ?label ?geo ?item WHERE {
          <width>381</width>
          <height>571</height>
         </rect>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
        </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -370,123 +385,123 @@ SELECT ?label ?geo ?item WHERE {
       </item>
      </layout>
     </widget>
-    <widget class="QComboBox" name="queryResultLanguageCBox">
+    <widget class="QWidget" name="horizontalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>968</x>
-       <y>640</y>
-       <width>201</width>
-       <height>22</height>
+       <x>790</x>
+       <y>630</y>
+       <width>381</width>
+       <height>31</height>
       </rect>
      </property>
-     <item>
-      <property name="text">
-       <string>en</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>de</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cs</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>da</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>es</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>el</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>it</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>jp</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ko</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>no</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>pl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ru</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>th</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>zh</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>640</y>
-       <width>231</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Language for query results:</string>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Language for query results:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="queryResultLanguageCBox">
+        <item>
+         <property name="text">
+          <string>en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>de</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cs</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>da</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>es</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>el</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>it</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>jp</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ko</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>no</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ru</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>th</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>zh</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
@@ -520,6 +535,9 @@ SELECT ?label ?geo ?item WHERE {
      <property name="columnCount">
       <number>8</number>
      </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>Export?</string>

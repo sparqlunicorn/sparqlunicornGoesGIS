@@ -6,6 +6,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..tasks.graphvalidationtask import GraphValidationTask
 from ..tasks.loadgraphtask import LoadGraphTask
@@ -33,8 +34,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg
-        urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        urlvalidator = QRegExpValidator(urlregex, self)
+        urlvalidator = QRegExpValidator(UIUtils.urlregex, self)
         self.loadDataFileButton.clicked.connect(self.loadFile)
         self.startValidationButton.clicked.connect(self.startValidation)
         self.cancelButton.clicked.connect(self.close)

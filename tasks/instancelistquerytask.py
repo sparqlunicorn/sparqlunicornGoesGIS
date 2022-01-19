@@ -30,22 +30,26 @@ class InstanceListQueryTask(QgsTask):
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"
         else:
             if "geometryproperty" in self.triplestoreconf:
+                if type(self.triplestoreconf["geometryproperty"]) is list:
+                    geometryproperty=self.triplestoreconf["geometryproperty"][0]
+                else:
+                    geometryproperty = self.triplestoreconf["geometryproperty"]
                 if isinstance(self.triplestoreurl, str):
                     QgsMessageLog.logMessage('Started task "{}"'.format(
                         "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
                             self.treeNode.data(
                                 256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con " + str(
-                            self.triplestoreconf["geometryproperty"]) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
+                            geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
                         Qgis.Info)
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(
                             256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con <" + str(
-                        self.triplestoreconf["geometryproperty"]) + "> ?wkt } AS ?hasgeo)}"
+                        geometryproperty) + "> ?wkt } AS ?hasgeo)}"
                 else:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(
                             256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } OPTIONAL { ?con <" + str(
-                        self.triplestoreconf["geometryproperty"]) + "> ?hasgeo } }"
+                        geometryproperty) + "> ?hasgeo } }"
             else:
                 QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(

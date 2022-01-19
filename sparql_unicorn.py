@@ -291,21 +291,19 @@ class SPARQLunicorn:
                 self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
                 self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.dlg.comboBox.currentIndex()])
-            QgsApplication.taskManager().addTask(self.qtaskctree)
         elif self.triplestoreconf[self.dlg.comboBox.currentIndex()]["type"] == "file":
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree...",
                 self.currentgraph,
                 self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.dlg.comboBox.currentIndex()])
-            QgsApplication.taskManager().addTask(self.qtaskctree)
         else:
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree for " + self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
                 self.triplestoreconf[self.dlg.comboBox.currentIndex()]["endpoint"],
                 self.dlg, self.dlg.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.dlg.comboBox.currentIndex()])
-            QgsApplication.taskManager().addTask(self.qtaskctree)
+        QgsApplication.taskManager().addTask(self.qtaskctree)
 
     def getGeoCollectionInstances(self, triplestoreurl, query, queryvar, graph, featureOrGeoCollection, examplequery):
         viewlist = []
@@ -576,7 +574,6 @@ class SPARQLunicorn:
                         item += " [File]"
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(0)
-            #self.dlg.viewselectactionClassTree()
             self.dlg.comboBox.currentIndexChanged.connect(self.endpointselectaction)
             self.endpointselectaction()
             # self.dlg.exportTripleStore.hide()
@@ -585,6 +582,6 @@ class SPARQLunicorn:
             # self.dlg.tabWidget.removeTab(1)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
-            self.dlg.pushButton.clicked.connect(self.create_unicorn_layer)
+            self.dlg.addLayerButton.clicked.connect(self.create_unicorn_layer)
         else:
             self.dlg.show()

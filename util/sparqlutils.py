@@ -272,11 +272,12 @@ class SPARQLUtils:
     #  @param classes array of classes to find labels for
     #  @param query the class label query
     @staticmethod
-    def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en"):
+    def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="class"):
         result = {}
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if query==None:
-            query="SELECT ?class ?label WHERE { ?class <"+triplestoreconf["typeproperty"]+"> %%concepts%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
+            if typeindicator=="class":
+                query="SELECT ?class ?label WHERE { ?class <"+triplestoreconf["typeproperty"]+"> %%concepts%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
         if "SELECT" in query:
             vals = "VALUES ?class { "
             for qid in classes:

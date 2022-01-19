@@ -25,36 +25,36 @@
 import os
 import re
 import json
-from qgis.PyQt import uic
-from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic, QtWidgets
 from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
-from ..util.ui.uiutils import UIUtils
+from .menu.conceptcontextmenu import ConceptContextMenu
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
-from ..util.ui.tooltipplaintext import ToolTipPlainText
-from ..util.sparqlutils import SPARQLUtils
-from ..util.ui.classtreesortproxymodel import ClassTreeSortProxyModel
-from ..tabs.enrichmenttab import EnrichmentTab
-from ..tabs.interlinkingtab import InterlinkingTab
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.querylimitedinstancesdialog import QueryLimitedInstancesDialog
 from ..dialogs.graphvalidationdialog import GraphValidationDialog
 from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
 from ..dialogs.searchdialog import SearchDialog
-from ..util.ui.sparqlhighlighter import SPARQLHighlighter
-from ..tasks.querylayertask import QueryLayerTask
-from ..tasks.subclassquerytask import SubClassQueryTask
-from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
-from ..tasks.instancelistquerytask import InstanceListQueryTask
 from ..dialogs.valuemappingdialog import ValueMappingDialog
 from ..dialogs.convertlayerdialog import ConvertLayerDialog
 from ..dialogs.bboxdialog import BBOXDialog
 from ..dialogs.dataschemadialog import DataSchemaDialog
 from ..dialogs.instancedatadialog import InstanceDataDialog
+from ..tabs.enrichmenttab import EnrichmentTab
+from ..tabs.interlinkingtab import InterlinkingTab
+from ..tasks.querylayertask import QueryLayerTask
+from ..tasks.subclassquerytask import SubClassQueryTask
+from ..tasks.instanceamountquerytask import InstanceAmountQueryTask
+from ..tasks.instancelistquerytask import InstanceListQueryTask
+from ..util.ui.uiutils import UIUtils
+from ..util.ui.tooltipplaintext import ToolTipPlainText
+from ..util.ui.sparqlhighlighter import SPARQLHighlighter
+from ..util.ui.classtreesortproxymodel import ClassTreeSortProxyModel
+from ..util.sparqlutils import SPARQLUtils
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -98,41 +98,25 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.comboBox)
         self.layercount=0
-        self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geoTreeView.customContextMenuRequested.connect(self.onContext)
         self.geoTreeViewModel = QStandardItemModel()
         self.geoTreeView.setModel(self.geoTreeViewModel)
-        self.classTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.classTreeView.customContextMenuRequested.connect(self.onContext4)
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.classTreeViewModel = QStandardItemModel()
-        self.proxyModel = ClassTreeSortProxyModel()
-        self.proxyModel.sort(0)
-        self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxyModel.setSourceModel(self.geoTreeViewModel)
-        self.featureCollectionProxyModel = ClassTreeSortProxyModel()
-        self.featureCollectionProxyModel.sort(0)
-        self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
-        self.geometryCollectionProxyModel = ClassTreeSortProxyModel()
-        self.geometryCollectionProxyModel.sort(0)
-        self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
-        self.classTreeViewProxyModel = ClassTreeSortProxyModel()
-        self.classTreeViewProxyModel.sort(0)
-        self.classTreeViewProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.classTreeViewProxyModel.setSourceModel(self.classTreeViewModel)
+        self.proxyModel = ClassTreeSortProxyModel(self.geoTreeViewModel)
+        self.featureCollectionProxyModel = ClassTreeSortProxyModel(self.featureCollectionClassListModel)
+        self.geometryCollectionProxyModel = ClassTreeSortProxyModel(self.geometryCollectionClassListModel)
+        self.classTreeViewProxyModel = ClassTreeSortProxyModel(self.classTreeViewModel)
         self.classTreeView.setModel(self.classTreeViewProxyModel)
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
-        self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext2)
         self.featureCollectionClassListModel.clear()
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
-        self.geometryCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext3)
         self.geometryCollectionClassListModel.clear()
         self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
@@ -168,7 +152,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.classTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
-        self.conceptViewTabWidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
@@ -285,7 +268,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
-        actionclip.triggered.connect(self.copyClipBoard)
+        actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex()))))
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(self.currentContextModel.itemFromIndex(self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())).data(256))))
@@ -327,9 +310,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dataAllInstancesAsLayer)
         else:
-            actiondataschema = QAction("Query data")
-            menu.addAction(actiondataschema)
-            actiondataschema.triggered.connect(self.dataInstanceView)
+            actiondataschema2 = QAction("Query data")
+            menu.addAction(actiondataschema2)
+            actiondataschema2.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dataInstanceAsLayer)
@@ -345,12 +328,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentProxyModel = self.classTreeViewProxyModel
         self.createMenu(position)
 
-    def copyClipBoard(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        cb = QApplication.clipboard()
-        cb.clear(mode=cb.Clipboard)
-        cb.setText(concept, mode=cb.Clipboard)
+    #def copyClipBoard(self):
+    #    curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+    #    concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+    #    cb = QApplication.clipboard()
+    #    cb.clear(mode=cb.Clipboard)
+    #    cb.setText(concept, mode=cb.Clipboard)
 
     def instanceCount(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())

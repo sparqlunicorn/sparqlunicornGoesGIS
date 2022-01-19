@@ -118,9 +118,9 @@ class WhatToEnrichQueryTask(QgsTask):
                     self.searchResult.setItem(counter, 0, itemchecked)
                     item = QTableWidgetItem()
                     if "label" in self.sortedatt[att]:
-                        item.setText(str(self.sortedatt[att]["label"])+ " (" + str(self.sortedatt[att]["amount"]) + "%)")
+                        item.setText(str(self.sortedatt[att]["label"])+" ("+SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"]),self.invprefixes)+") [" + str(self.sortedatt[att]["amount"]) + "%]")
                     else:
-                        item.setText(SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"])) + " (" + str(self.sortedatt[att]["amount"]) + "%)")
+                        item.setText(SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"]),self.invprefixes) + " [" + str(self.sortedatt[att]["amount"]) + "%]")
                     item.setData(256, str(self.sortedatt[att]["concept"]))
                     item.setToolTip("<html><b>Property URI</b> "+str(self.sortedatt[att]["concept"])+"<br>Double click to view definition in web browser")
                     self.searchResult.setItem(counter, 1, item)

@@ -2,22 +2,22 @@ from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt, QSize
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.core import QgsProject,QgsTask, QgsMessageLog
-from qgis.PyQt.QtWidgets import QTableWidgetItem
 import json
 
 MESSAGE_CATEGORY = 'InstanceQueryTask'
 
 class InstanceQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl, searchTerm, triplestoreconf, searchResult,mymap=None,features=None,parentwindow=None):
+    def __init__(self, description, triplestoreurl, searchTerm, triplestoreconf, searchResultModel,mymap=None,features=None,parentwindow=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.searchTerm=searchTerm
         self.features=features
+        self.searchResultModel=searchResultModel
         self.mymap=mymap
-        self.searchResult = searchResult
         self.prefixes= SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
         self.triplestoreconf=triplestoreconf
         self.parentwindow=parentwindow
@@ -42,14 +42,13 @@ class InstanceQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        while self.searchResult.rowCount()>0:
-            self.searchResult.removeRow(0)
-        self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Value"])
+        while self.searchResultModel.rowCount()>0:
+            self.searchResultModel.removeRow(0)
         counter=0
         for rel in self.queryresult:
             QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
-            self.searchResult.insertRow(counter)
-            itemchecked = QTableWidgetItem()
+            self.searchResultModel.insertRow(counter)
+            itemchecked = QStandardItem()
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
                                  Qt.ItemIsEnabled)
             itemchecked.setCheckState(Qt.Checked)
@@ -77,9 +76,14 @@ class InstanceQueryTask(QgsTask):
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
             if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
-                myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
+                myGeometryInstanceJSON=None
+                if isinstance(self.triplestoreconf["geometryproperty"],str):
+                    myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                     (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                     True,self.triplestoreconf)
+                elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
+                    myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
+                        float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + ")", "wkt", True, self.triplestoreconf)
                 if myGeometryInstanceJSON!=None:
                     geojson = {'type': 'FeatureCollection', 'features': [
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
@@ -87,24 +91,27 @@ class InstanceQueryTask(QgsTask):
                     ]}
                     QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
                     self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
-                    self.features.setCrs(QgsCoordinateReferenceSystem(3857))
-                    QgsProject.instance().addMapLayer(self.features)
+                    self.features.setCrs(QgsCoordinateReferenceSystem(4326))
                     layerlist=self.mymap.layers()
                     layerlist.insert(0,self.features)
-                    self.features.invertSelection()
                     self.mymap.setLayers(layerlist)
                     self.mymap.setCurrentLayer(self.features)
+                    self.features.selectAll()
                     self.mymap.zoomToSelected(self.features)
+                    self.features.removeSelection()
                     self.parentwindow.resize(QSize(self.parentwindow.width() + 250, self.parentwindow.height()))
                     self.mymap.show()
-            self.searchResult.setItem(counter, 0, itemchecked)
-            item = QTableWidgetItem()
+            self.searchResultModel.setItem(counter, 0, itemchecked)
+            item = QStandardItem()
             item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
-            item.setData(256, str(rel))
+            item.setData(str(rel),256)
             item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
-            self.searchResult.setItem(counter, 1, item)
-            itembutton = QTableWidgetItem()
+            self.searchResultModel.setItem(counter, 1, item)
+            itembutton = QStandardItem()
             itembutton.setText(self.queryresult[rel]["val"])
-            itembutton.setData(256, self.queryresult[rel]["valtype"])
-            self.searchResult.setItem(counter, 2, itembutton)
+            itembutton.setData(self.queryresult[rel]["valtype"],256)
+            self.searchResultModel.setItem(counter, 2, itembutton)
             counter+=1
+        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
+        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Value")

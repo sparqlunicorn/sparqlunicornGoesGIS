@@ -13,8 +13,8 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_5">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -54,9 +54,26 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="filterTableLabel">
+           <property name="text">
+            <string>Filter Table:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="filterTableEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QTableWidget" name="dataSchemaTableView">
+          <widget class="QTableView" name="dataSchemaTableView">
+           <property name="mouseTracking">
+            <bool>true</bool>
+           </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
@@ -66,39 +83,9 @@
            <property name="sortingEnabled">
             <bool>true</bool>
            </property>
-           <property name="columnCount">
-            <number>3</number>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>true</bool>
-           </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
            </attribute>
-           <attribute name="verticalHeaderCascadingSectionResizes">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderStretchLastSection">
-            <bool>false</bool>
-           </attribute>
-           <column>
-            <property name="text">
-             <string>Selection</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Attribute</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Sample Instances</string>
-            </property>
-           </column>
           </widget>
          </item>
          <item>

@@ -2,14 +2,15 @@ from collections.abc import Iterable
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis, QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox
+from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtWidgets import QMessageBox
 
 MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult,triplestoreconf, progress,dlg):
+    def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
@@ -17,8 +18,10 @@ class DataSchemaQueryTask(QgsTask):
         self.query = query
         self.dlg=dlg
         self.progress = progress
-        self.prefixes = prefixes
+        self.prefixes= prefixes
+        self.invprefixes=SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
         self.labels = None
+        self.searchResultModel=searchResultModel
         self.triplestoreconf=triplestoreconf
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
@@ -27,7 +30,6 @@ class DataSchemaQueryTask(QgsTask):
         self.urilist = None
         self.sortedatt = None
         self.searchTerm = searchTerm
-        self.searchResult = searchResult
         self.results = None
 
     def run(self):
@@ -42,7 +44,7 @@ class DataSchemaQueryTask(QgsTask):
                                                    self.triplestoreconf)
         if results == False:
             return False
-        self.searchResult.clear()
+        #self.searchResult.model().clear()
         if len(results["results"]["bindings"]) == 0:
             return False
         if self.progress!=None:
@@ -71,21 +73,20 @@ class DataSchemaQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        while self.searchResult.rowCount()>0:
-            self.searchResult.removeRow(0)
-        self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
+        while self.searchResultModel.rowCount()>0:
+            self.searchResultModel.removeRow(0)
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
                 self.searchResult.insertRow(0)
-                item = QTableWidgetItem()
+                item = QStandardItem()
                 item.setText("No results found")
-                self.searchResult.setItem(0,0,item)
+                self.searchResultModel.setItem(0,0,item)
             else:
                 counter=0
                 for att in self.sortedatt:
                     curconcept = self.sortedatt[att]["concept"]
-                    self.searchResult.insertRow(counter)
-                    itemchecked=QTableWidgetItem()
+                    self.searchResultModel.insertRow(counter)
+                    itemchecked=QStandardItem()
                     itemchecked.setFlags(Qt.ItemIsUserCheckable |
                               Qt.ItemIsEnabled)
                     itemchecked.setCheckState(Qt.Checked)
@@ -114,27 +115,30 @@ class DataSchemaQueryTask(QgsTask):
                         itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                         itemchecked.setToolTip("Object Property")
                         itemchecked.setText("OP")
-                    self.searchResult.setItem(counter, 0, itemchecked)
-                    item = QTableWidgetItem()
+                    self.searchResultModel.setItem(counter, 0, itemchecked)
+                    item = QStandardItem()
                     if "label" in self.sortedatt[att]:
-                        item.setText(str(self.sortedatt[att]["label"])+ " (" + str(self.sortedatt[att]["amount"]) + "%)")
+                        item.setText(str(self.sortedatt[att]["label"])+ " ("+SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"]),self.invprefixes)+") [" + str(self.sortedatt[att]["amount"]) + "%]")
                     else:
-                        item.setText(SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"])) + " (" + str(
+                        item.setText(SPARQLUtils.labelFromURI(str(self.sortedatt[att]["concept"]),self.invprefixes) + " (" + str(
                             self.sortedatt[att]["amount"]) + "%)")
-                    item.setData(256, str(self.sortedatt[att]["concept"]))
+                    item.setData(str(self.sortedatt[att]["concept"]),256)
                     item.setToolTip("<html><b>Property URI</b> "+str(self.sortedatt[att]["concept"])+"<br>Double click to view definition in web browser")
-                    self.searchResult.setItem(counter, 1, item)
-                    itembutton = QTableWidgetItem()
+                    self.searchResultModel.setItem(counter, 1, item)
+                    itembutton = QStandardItem()
                     if "valtype" in self.sortedatt[att]:
                         itembutton.setText("Click to load samples... ["+str(self.sortedatt[att]["valtype"]).replace("http://www.w3.org/2001/XMLSchema#","xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:").replace("http://www.opengis.net/ont/geosparql#","geo:")+"]")
-                        itembutton.setData(256, str(self.sortedatt[att]["valtype"]))
+                        itembutton.setData(str(self.sortedatt[att]["valtype"]),256)
                     else:
                         itembutton.setText("Click to load samples... [xsd:anyURI]")
-                        itembutton.setData(256, "http://www.w3.org/2001/XMLSchema#anyURI")
-                    self.searchResult.setItem(counter, 2, itembutton)
+                        itembutton.setData("http://www.w3.org/2001/XMLSchema#anyURI",256)
+                    self.searchResultModel.setItem(counter, 2, itembutton)
                     counter += 1
         else:
             msgBox = QMessageBox()
             msgBox.setText("The dataschema search query did not yield any results!")
             msgBox.exec()
+        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
+        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.progress.close()

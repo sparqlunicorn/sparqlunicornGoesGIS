@@ -23,26 +23,21 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
         self.cancelButton.clicked.connect(self.close)
 
     def queryWithLimit(self):
+        limitstatement = " LIMIT " + str(self.amountOfInstancesEdit.value())
+        if self.skipFirstInstancesEdit.value() > 0:
+            limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
         if self.nodetype == SPARQLUtils.geoclassnode:
             if "geotriplepattern" in self.triplestoreconf:
-                limitstatement="LIMIT "+str(self.amountOfInstancesEdit.value())
-                if self.skipFirstInstancesEdit.value() > 0:
-                    limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
                 thequery="SELECT ?" + " ?".join(self.triplestoreconf[
                                                "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
                         self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val . " +self.triplestoreconf["geotriplepattern"][0] + "\n }"
-                if self.skipFirstInstancesEdit.value()!="0":
-                    thequery+=" OFFSET "+str(self.skipFirstInstancesEdit.value())
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.triplestoreconf["endpoint"],
                     thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
             else:
-                limitstatement=" LIMIT "+str(self.amountOfInstancesEdit.value())
-                if self.skipFirstInstancesEdit.value() > 0:
-                    limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
                 thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
                         self.concept) + "> . } "+limitstatement+" }\n ?item ?rel ?val .\n }"
@@ -52,9 +47,6 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         else:
-            limitstatement=" LIMIT "+str(self.amountOfInstancesEdit.value())
-            if self.skipFirstInstancesEdit.value() > 0:
-                limitstatement += " OFFSET " + str(self.skipFirstInstancesEdit.value())
             thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                     self.triplestoreconf["typeproperty"]) + "> <" + str(
                     self.concept) + "> . } "+limitstatement+"} ?item ?rel ?val .\n }"

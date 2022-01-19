@@ -1,5 +1,4 @@
 from qgis.PyQt.QtWidgets import QDialog, QComboBox, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
@@ -42,6 +41,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.prefixes = prefixes
+        self.invprefixes=SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
         self.enrichtable = enrichtable
         self.alreadyloadedSample=[]
         self.layer = layer

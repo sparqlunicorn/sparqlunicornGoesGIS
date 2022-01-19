@@ -1,19 +1,18 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import QUrl, QAbstractTableModel
 from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
 from qgis.PyQt import uic
 from qgis.gui import QgsMapCanvas, QgsMapToolPan
 from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY
+    QgsCoordinateTransform, QgsPointXY, QgsApplication, QgsMessageLog
+from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
+from qgis.PyQt.QtGui import QStandardItemModel
 from ..tasks.instancequerytask import InstanceQueryTask
 from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 import os.path
-from qgis.core import (
-    QgsApplication, QgsMessageLog
-)
 
 MESSAGE_CATEGORY = 'InstanceDataDialogggg'
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -75,18 +74,25 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.map_canvas.setLayers([self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
-        self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.instanceDataTableView.setHorizontalHeaderLabels(["Attribute", "Value"])
-        self.instanceDataTableView.insertRow(0)
-        item = QTableWidgetItem()
+        self.tablemodel=QStandardItemModel()
+        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.insertRow(0)
+        self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setSourceModel(self.tablemodel)
+        self.filter_proxy_model.setFilterKeyColumn(1)
+        self.instanceDataTableView.setModel(self.filter_proxy_model)
+        item = QStandardItem()
         item.setText("Loading...")
-        self.instanceDataTableView.setItem(0,0,item)
-        self.instanceDataTableView.setMouseTracking(True)
-        self.instanceDataTableView.cellEntered.connect(self.showURI)
-        self.instanceDataTableView.cellDoubleClicked.connect(self.openURL)
+        self.tablemodel.setItem(0,0,item)
+        self.instanceDataTableView.entered.connect(self.showURI)
+        self.instanceDataTableView.doubleClicked.connect(self.openURL)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
@@ -104,7 +110,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.triplestoreconf[self.curindex]["endpoint"],query,
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
@@ -113,19 +119,19 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n ?item ?rel ?val . " +
             self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None)
+            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
-    def openURL(self,row,column):
-        if self.instanceDataTableView.item(row,column)!=None:
-            concept=str(self.instanceDataTableView.item(row,column).data(256))
+    def openURL(self,modelindex):
+        if self.instanceDataTableView.model().data(modelindex)!=None:
+            concept=str(self.instanceDataTableView.model().data(modelindex,256))
             if concept.startswith("http"):
                 url = QUrl(concept)
                 QDesktopServices.openUrl(url)
 
-    def showURI(self,row,column):
-        if self.instanceDataTableView.item(row,column)!=None:
-            concept=str(self.instanceDataTableView.item(row,column).data(256))
+    def showURI(self,modelindex):
+        if self.instanceDataTableView.model().data(modelindex)!=None:
+            concept=str(self.instanceDataTableView.model().data(modelindex,256))
             if concept.startswith("http"):
                 self.statusBarLabel.setText(concept)
 
@@ -142,10 +148,9 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
                                  Qgis.Info)
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
             return
-        concept = "<" + self.concept + ">"
         self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
                                            self.concept,
                                            self.triplestoreconf[self.curindex],
-                                           self.instanceDataTableView,self.map_canvas,self.vl,self)
+                                           self.tablemodel,self.map_canvas,self.vl,self)
         QgsApplication.taskManager().addTask(self.qtask)

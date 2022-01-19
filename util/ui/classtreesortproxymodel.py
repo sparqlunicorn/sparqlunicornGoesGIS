@@ -3,8 +3,12 @@ from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
 
 class ClassTreeSortProxyModel(QSortFilterProxyModel):
     """Sorting proxy model that always places folders on top."""
-    def __init__(self):
+    def __init__(self, sourcemodel=None):
         super().__init__()
+        self.sort(0)
+        self.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        if sourcemodel!=None:
+            self.setSourceModel(sourcemodel)
 
     def lessThan(self, left, right):
         """Perform sorting comparison.

@@ -1,9 +1,8 @@
-from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QSizePolicy
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QSizePolicy, QProgressDialog, QFileDialog
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt import uic
 from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
 from ..util.sparqlutils import SPARQLUtils

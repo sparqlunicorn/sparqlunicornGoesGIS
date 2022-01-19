@@ -75,6 +75,86 @@
        <string>fr</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>bg</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>cs</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>da</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>el</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>es</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>it</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>jp</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ko</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>nl</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>no</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>pl</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ru</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>sv</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>th</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>tr</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>zh</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item row="1" column="0">
@@ -100,6 +180,9 @@
    </item>
    <item row="5" column="0" colspan="6">
     <widget class="QListWidget" name="searchResult">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>

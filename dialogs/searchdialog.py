@@ -5,10 +5,10 @@ from qgis.core import (
     QgsApplication, QgsMessageLog
 )
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
-from qgis.PyQt.QtGui import QRegExpValidator
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QRegExpValidator,QDesktopServices
 
 from .dataschemadialog import DataSchemaDialog
+from .menu.conceptcontextmenu import ConceptContextMenu
 from ..util.sparqlutils import SPARQLUtils
 from ..tasks.searchtask import SearchTask
 from ..util.ui.uiutils import UIUtils
@@ -19,7 +19,6 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/searchdialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-
 class SearchDialog(QDialog, FORM_CLASS):
 
     currentrow = ""
@@ -74,28 +73,20 @@ class SearchDialog(QDialog, FORM_CLASS):
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         self.searchButton.clicked.connect(self.getClassesFromLabel)
-        self.searchResult.setContextMenuPolicy(Qt.CustomContextMenu)
         self.searchResult.customContextMenuRequested.connect(self.onContext);
-        self.searchResult.itemDoubleClicked.connect(self.openURL)
-        self.searchResult.installEventFilter(self)
+        self.searchResult.itemDoubleClicked.connect(UIUtils.openListURL)
         self.costumproperty.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.costumproperty.textChanged.connect(lambda: UIUtils.check_state(self.costumproperty))
         self.costumproperty.textChanged.emit(self.costumproperty.text())
         self.costumpropertyButton.clicked.connect(lambda: self.applyConceptToColumn(True))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
 
-    def copyClipBoard(self):
-        concept = self.currentItem.data(256)
-        cb = QApplication.clipboard()
-        cb.clear(mode=cb.Clipboard)
-        cb.setText(concept, mode=cb.Clipboard)
-
     def onContext(self,position):
         self.currentItem = self.searchResult.itemAt(position)
         menu = QMenu("Menu", self)
         actionclip = QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
-        actionclip.triggered.connect(self.copyClipBoard)
+        actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(lambda: self.openURL(self.currentItem))
@@ -111,12 +102,6 @@ class SearchDialog(QDialog, FORM_CLASS):
                 256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
         ).exec_())
         menu.exec(self.searchResult.viewport().mapToGlobal(position))
-
-    def openURL(self,item):
-        concept = str(item.data(256))
-        if concept.startswith("http"):
-            url = QUrl(concept)
-            QDesktopServices.openUrl(url)
 
     ##
     #  @brief Returns classes for a given label from a triple store.
