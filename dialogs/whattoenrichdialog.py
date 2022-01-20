@@ -2,9 +2,13 @@ from qgis.PyQt.QtWidgets import QDialog, QComboBox, QTableWidgetItem, QProgressD
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
+from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtCore import QSortFilterProxyModel
+from qgis.PyQt.QtGui import QDesktopServices,QStandardItem
 
+from ..tasks.dataschemaquerytask import DataSchemaQueryTask
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..dialogs.searchdialog import SearchDialog
@@ -41,28 +45,42 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.prefixes = prefixes
-        self.invprefixes=SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
         self.enrichtable = enrichtable
         self.alreadyloadedSample=[]
         self.layer = layer
+        self.tablemodel=QStandardItemModel()
+        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
+        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
+        self.tablemodel.insertRow(0)
+        self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setSourceModel(self.tablemodel)
+        self.filter_proxy_model.setFilterKeyColumn(1)
+        self.searchResult.setModel(self.filter_proxy_model)
+        fieldnames = [field.name() for field in layer.fields()]
+        for field in fieldnames:
+            self.idCBox.addItem(field)
+        item = QStandardItem()
+        item.setText("Loading...")
+        self.tablemodel.setItem(0,0,item)
+        self.searchResult.entered.connect(
+            lambda modelindex: UIUtils.showTableURI(modelindex, self.searchResult, self.statusBarLabel))
+        self.searchResult.doubleClicked.connect(
+            lambda modelindex: UIUtils.openTableURL(modelindex, self.searchResult))
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
-        self.costumpropertyLabel.hide()
-        self.inAreaEditText.hide()
-        self.searchButton2.clicked.connect(self.getAttributeStatistics)
-        self.searchButton2.hide()
+        #self.costumpropertyLabel.hide()
+        #self.inAreaEditText.hide()
+        #self.searchButton2.clicked.connect(self.getAttributeStatistics)
+        #self.searchButton2.hide()
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         header =self.searchResult.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.searchResult.cellClicked.connect(self.loadSamples)
-        self.searchResult.cellEntered.connect(self.showURI)
-        self.searchResult.cellDoubleClicked.connect(self.openURL)
+        self.searchResult.clicked.connect(self.loadSamples)
 
-
-        ##
 
     #  @brief Creates a search dialog to search for a concept.
     #  
@@ -73,28 +91,17 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row, column, -1, self.conceptSearchEdit)
 
-    def openURL(self,row,column):
-        if self.searchResult.item(row,column)!=None:
-            concept=str(self.searchResult.item(row,column).data(256))
-            if concept.startswith("http"):
-                url = QUrl(concept)
-                QDesktopServices.openUrl(url)
-
-    def showURI(self,row,column):
-        if self.searchResult.item(row,column)!=None:
-            concept=str(self.searchResult.item(row,column).data(256))
-            if concept.startswith("http"):
-                self.statusBarLabel.setText(concept)
-
-    def loadSamples(self,row,column):
-        if column==2 and row not in self.alreadyloadedSample and row!=self.searchResult.rowCount()-1:
-            relation = str(self.searchResult.item(row, column-1).data(256))
-            self.qtask2 = DataSampleQueryTask("Querying data sample for .... (" + str(relation) + ")",
+    def loadSamples(self,modelindex):
+        row=modelindex.row()
+        column=modelindex.column()
+        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.model().rowCount()-1:
+            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
+            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,
                                              self,
-                                             self.conceptSearchEdit.text(),
+                                             self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf[self.tripleStoreEdit.currentIndex()],self.searchResult)
+                                             column,row,self.triplestoreconf[self.curindex],self.tablemodel,self.map_canvas)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
 
@@ -130,14 +137,21 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
         progress.setCancelButton(None)
-        self.qtask = WhatToEnrichQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
-                                           endpoint_url,
-                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
-                                               "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
-                                                                                                            "?area"),
-                                           self.conceptSearchEdit.text(),
-                                           self.prefixes[self.tripleStoreEdit.currentIndex()],
-                                           self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress)
+        self.qtask =DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
+                                "whattoenrichquery"].replace("%%concept%%", concept),
+                            self.conceptSearchEdit.text(),
+                            self.prefixes[self.tripleStoreEdit.currentIndex()] if self.tripleStoreEdit.currentIndex() in self.prefixes else None,
+                            self.tablemodel, self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress, self)
+        #self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
+        #                                   endpoint_url,
+        #                                   self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
+        #                                       "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
+        #                                                                                                    "?area"),
+        #                                   self.conceptSearchEdit.text(),
+        #                                   self.prefixes[self.tripleStoreEdit.currentIndex()],
+        #                                   self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 

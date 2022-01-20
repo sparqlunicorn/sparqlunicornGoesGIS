@@ -6,7 +6,6 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/varinputdialog.ui'))
 
-
 ## Class representing the variable input dialog which maps geodataset columns to SPARQL query variables.
 class VarInputDialog(QDialog, FORM_CLASS):
     # The inputfield to which the result variable is saved
@@ -29,7 +28,6 @@ class VarInputDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         layers = QgsProject.instance().layerTreeRoot().children()
-        print(layers)
         self.inputfield = inputfield
         self.columnvars = columnvars
         self.chooseLayer.clear()

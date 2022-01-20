@@ -12,7 +12,6 @@ from rdflib import Graph
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/convertlayerdialog.ui'))
 
-
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
 class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):

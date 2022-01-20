@@ -1,9 +1,9 @@
-from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtCore import QVariant,QDateTime
 from qgis.core import (
     QgsMessageLog
 )
 from osgeo import ogr
-from qgis.core import Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 import uuid
 import re
 import json
@@ -25,25 +25,73 @@ class LayerUtils:
     def detectColumnType(resultmap):
         intcount = 0
         doublecount = 0
+        datecount=0
+        uricount=0
+        stringcount=0
         for res in resultmap:
             if resultmap[res] == None or resultmap[res] == "":
                 intcount += 1
                 doublecount += 1
                 continue
+            if isinstance(resultmap[res],QDateTime):
+                datecount+=1
+                continue
             if resultmap[res].isdigit():
                 intcount += 1
+                continue
             try:
                 float(resultmap[res])
                 doublecount += 1
+                continue
             except:
                 print("")
+            if resultmap[res].startswith("http"):
+                uricount+=1
+                continue
+            stringcount+=1
         QgsMessageLog.logMessage(str(intcount) + " - " + str(doublecount) + " - " + str(len(resultmap)),
                                  MESSAGE_CATEGORY, Qgis.Info)
         if intcount == len(resultmap):
             return QVariant.Int
         if doublecount == len(resultmap):
             return QVariant.Double
+        if datecount == len(resultmap):
+            return "xsd:date"
+        if uricount == len(resultmap):
+            return "xsd:anyURI"
         return QVariant.String
+
+    @staticmethod
+    def detectLayerColumnType(layer,columnindex):
+        features = layer.getFeatures()
+        columnmap={}
+        counter=0
+        for feat in features:
+            attrs = feat.attributes()
+            columnmap[counter]=attrs[columnindex]
+            counter+=1
+        return LayerUtils.detectColumnType(columnmap)
+
+    @staticmethod
+    def getLayerColumnAsList(layer,columnindex):
+        features = layer.getFeatures()
+        result=[]
+        counter=0
+        for feat in features:
+            attrs = feat.attributes()
+            result.append(attrs[columnindex])
+        return result
+
+    @staticmethod
+    def detectLayerColumnTypes(layer):
+        features = layer.getFeatures()
+        columnmap={}
+        feature = QgsFeature()
+        features.nextFeature(feature)
+        attrs = feature.attributes()
+        for i in range(0, len(attrs)):
+            columnmap[i]=LayerUtils.detectLayerColumnType(layer,i)
+        return LayerUtils.detectColumnType(columnmap)
 
     @staticmethod
     def processLiteral(literal, literaltype, reproject,triplestoreconf=None):

@@ -22,59 +22,56 @@
     </widget>
    </item>
    <item row="1" column="0">
+    <widget class="QLabel" name="idLabel">
+     <property name="text">
+      <string>Identifier:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
     <widget class="QLabel" name="tripleStoreLabel">
      <property name="text">
       <string>Triple Store:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="QComboBox" name="tripleStoreEdit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QLabel" name="costumpropertyLabel">
-     <property name="text">
-      <string>In Area:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLineEdit" name="inAreaEditText"/>
-   </item>
-   <item row="2" column="0" colspan="2">
+   <item row="8" column="0" colspan="2">
     <widget class="QPushButton" name="searchButton">
      <property name="text">
       <string>Search Properties for Enrichment</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="4">
+   <item row="10" column="5">
     <widget class="QPushButton" name="applyButton">
      <property name="text">
       <string>Apply</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="3" colspan="2">
+   <item row="0" column="3" colspan="3">
     <widget class="QPushButton" name="searchConceptButton">
      <property name="text">
       <string>Search Concept</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="3" colspan="2">
-    <widget class="QPushButton" name="searchButton2">
+   <item row="11" column="0" colspan="6">
+    <widget class="QLabel" name="statusBarLabel">
      <property name="text">
-      <string>Search Area Concept</string>
+      <string/>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="5">
-    <widget class="QTableWidget" name="searchResult">
+   <item row="1" column="3">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Language:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="6">
+    <widget class="QTableView" name="searchResult">
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -87,21 +84,9 @@
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
      </attribute>
-     <column>
-      <property name="text">
-       <string>Selection</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Sample Instances</string>
-      </property>
-     </column>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
@@ -111,10 +96,33 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="5">
-    <widget class="QLabel" name="statusBarLabel">
+   <item row="1" column="4" colspan="2">
+    <widget class="QComboBox" name="comboBox"/>
+   </item>
+   <item row="8" column="3" colspan="3">
+    <widget class="QPushButton" name="searchButton2">
      <property name="text">
-      <string/>
+      <string>Match Concepts for Identifier Attribute</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLabel" name="matchLabel">
+     <property name="text">
+      <string>Identifier Matching Strategy:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4" colspan="2">
+    <widget class="QComboBox" name="matchCBox"/>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QComboBox" name="idCBox"/>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QComboBox" name="tripleStoreEdit">
+     <property name="enabled">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

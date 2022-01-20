@@ -1,7 +1,6 @@
-from qgis.core import QgsProject
+from qgis.core import QgsProject, Qgis
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
-from qgis.core import Qgis
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
 from qgis.PyQt.QtGui import QRegExpValidator
@@ -63,6 +62,7 @@ class InterlinkingTab:
                 ["Export?", "IDColumn?", "GeoColumn?", "Column", "ColumnProperty", "PropertyType", "ColumnConcept",
                  "ValueConcepts"])
             self.interlinkTable.setColumnCount(8)
+            #columntypes=LayerUtils.detectLayerColumnTypes(layer)
             for field in fieldnames:
                 item = QTableWidgetItem(field)
                 item.setFlags(QtCore.Qt.ItemIsEnabled)

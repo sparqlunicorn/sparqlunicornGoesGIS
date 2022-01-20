@@ -1,9 +1,8 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
 from ..util.ui.uiutils import UIUtils
@@ -34,10 +33,24 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg
-        urlvalidator = QRegExpValidator(UIUtils.urlregex, self)
+        self.validationFileEdit=QLineEdit()
+        self.validationFileEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.validationFileEdit.textChanged.connect(lambda: UIUtils.check_state(self.validationFileEdit))
+        self.validationFileEdit.textChanged.emit(self.validationFileEdit.text())
+        self.gridLayout.addWidget(self.validationFileEdit,1,1,Qt.AlignLeft)
+        self.validationFileEdit.hide()
         self.loadDataFileButton.clicked.connect(self.loadFile)
         self.startValidationButton.clicked.connect(self.startValidation)
+        self.dataFileLocationCBox.currentIndexChanged.connect(self.dataLocBoxChangedEvent)
         self.cancelButton.clicked.connect(self.close)
+
+    def dataLocBoxChangedEvent(self):
+        if "File" in self.dataFileLocationCBox.currentText():
+            self.validationFileWidget.show()
+            self.validationFileEdit.hide()
+        else:
+            self.validationFileWidget.hide()
+            self.validationFileEdit.show()
 
     def loadFile(self):
         dialog = QFileDialog(self.dlg)

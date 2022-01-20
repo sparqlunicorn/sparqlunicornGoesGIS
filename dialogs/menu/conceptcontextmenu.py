@@ -1,10 +1,12 @@
 
-from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction
+from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
+
+from ...util.ui.uiutils import UIUtils
 from ...tasks.instanceamountquerytask import InstanceAmountQueryTask
 from ...tasks.instancelistquerytask import InstanceListQueryTask
 from ..dataschemadialog import DataSchemaDialog
@@ -14,8 +16,44 @@ from ...util.sparqlutils import SPARQLUtils
 
 class TabContextMenu:
 
-    def createTabeContextMenu(self):
+    def createTabContextMenu(self):
         print("here")
+
+    def saveClassesTreeToRDF(self, context, triplestoreconf):
+        filename, _filter = QFileDialog.getSaveFileName(
+                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        if filename == "":
+                return
+        result=set()
+        UIUtils.iterateTree(context.invisibleRootItem(),result,False,True,triplestoreconf,context)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
+        with open(filename, 'w') as output_file:
+            output_file.write("".join(result))
+        return result
+
+    def saveVisibleTreeToRDF(self, context, triplestoreconf):
+        filename, _filter = QFileDialog.getSaveFileName(
+                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        if filename == "":
+                return
+        result=set()
+        UIUtils.iterateTree(context.invisibleRootItem(),result,True,False,triplestoreconf,context)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
+        with open(filename, 'w') as output_file:
+            output_file.write("".join(result))
+        return result
+
+    def saveTreeToRDF(self, context, triplestoreconf):
+        filename, _filter = QFileDialog.getSaveFileName(
+                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        if filename == "":
+                return
+        result=set()
+        UIUtils.iterateTree(context.invisibleRootItem(),result,False,False,triplestoreconf,context)
+        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
+        with open(filename, 'w') as output_file:
+            output_file.write("".join(result))
+        return result
 
 class ConceptContextMenu:
 

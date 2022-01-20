@@ -508,365 +508,263 @@ SELECT ?label ?geo ?item WHERE {
     <attribute name="title">
      <string>Interlink</string>
     </attribute>
-    <widget class="QTableWidget" name="interlinkTable">
+    <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>140</y>
-       <width>1151</width>
-       <height>431</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>811</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>4</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="columnCount">
-      <number>8</number>
-     </property>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>Export?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>IDColumn?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>GeoColumn?</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Column</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ColumnProperty</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>PropertyType</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ColumnConcept</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>ValueConcept</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QPushButton" name="exportInterlink">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>590</y>
-       <width>521</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>3</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Export Result</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadLayerInterlink">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
+       <x>0</x>
        <y>10</y>
-       <width>93</width>
-       <height>28</height>
+       <width>1171</width>
+       <height>651</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Load Layer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="refreshLayersInterlink">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Refresh Layers</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="chooseLayerInterlink">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>10</y>
-       <width>561</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="interlinkOwlClassInput">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>50</y>
-       <width>551</width>
-       <height>22</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>50</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>OWL Class:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>110</y>
-       <width>251</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Table Colums to Concepts:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>80</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Target Namespace:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="interlinkNameSpace">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>80</y>
-       <width>551</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>http://www.github.com/sparqlunicorn#</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="searchClass">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>50</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Search Class</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="exportMappingButton">
-     <property name="geometry">
-      <rect>
-       <x>920</x>
-       <y>100</y>
-       <width>121</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export Mapping</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="importMappingButton">
-     <property name="geometry">
-      <rect>
-       <x>720</x>
-       <y>100</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Import Mapping</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="exportTripleStore">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>110</y>
-       <width>181</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export To Triple Store</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Table Colums to Concepts:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="searchClass">
+        <property name="text">
+         <string>Search Class</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="interlinkNameSpace">
+        <property name="text">
+         <string>http://www.github.com/sparqlunicorn#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>OWL Class:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="interlinkOwlClassInput"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="refreshLayersInterlink">
+        <property name="text">
+         <string>Refresh Layers</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="chooseLayerInterlink"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="loadLayerInterlink">
+        <property name="text">
+         <string>Load Layer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Target Namespace:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QPushButton" name="exportMappingButton">
+        <property name="text">
+         <string>Export Mapping</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QPushButton" name="importMappingButton">
+        <property name="text">
+         <string>Import Mapping</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="5">
+       <widget class="QTableWidget" name="interlinkTable">
+        <property name="minimumSize">
+         <size>
+          <width>811</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>4</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="columnCount">
+         <number>8</number>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Export?</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>IDColumn?</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>GeoColumn?</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Column</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>ColumnProperty</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>PropertyType</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>ColumnConcept</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>ValueConcept</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QCheckBox" name="exportTripleStore">
+        <property name="text">
+         <string>Export To Triple Store</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Detect Mapping</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" colspan="2">
+       <widget class="QPushButton" name="exportInterlink">
+        <property name="baseSize">
+         <size>
+          <width>3</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Export Result</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
      <string>Enrich (Experimental)</string>
     </attribute>
-    <widget class="QPushButton" name="loadLayerEnrich">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>30</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load Layer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="refreshLayersEnrich">
+    <widget class="QWidget" name="gridLayoutWidget_3">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
-       <width>121</width>
-       <height>25</height>
+       <y>10</y>
+       <width>1141</width>
+       <height>481</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Refresh Layers</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="chooseLayerEnrich">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>30</y>
-       <width>321</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="startEnrichment">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>610</y>
-       <width>201</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Start Enrichment</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="addEnrichedLayerButton">
-     <property name="geometry">
-      <rect>
-       <x>1000</x>
-       <y>610</y>
-       <width>161</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add enriched layer</string>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="enrichTable">
-     <property name="geometry">
-      <rect>
-       <x>25</x>
-       <y>101</y>
-       <width>1041</width>
-       <height>451</height>
-      </rect>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="1" column="0">
+       <widget class="QPushButton" name="addEnrichedLayerRowButton">
+        <property name="text">
+         <string>Add Row</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="startEnrichment">
+        <property name="text">
+         <string>Start Enrichment</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="addEnrichedLayerButton">
+        <property name="text">
+         <string>Add enriched layer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="chooseLayerEnrich"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="refreshLayersEnrich">
+        <property name="text">
+         <string>Refresh Layers</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="loadLayerEnrich">
+        <property name="text">
+         <string>Load Layer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QTableWidget" name="enrichTable"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="whattoenrich">
+        <property name="text">
+         <string>What to enrich?</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
     <widget class="QTableWidget" name="enrichTableResult">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>1141</width>
-       <height>501</height>
+       <x>40</x>
+       <y>490</y>
+       <width>945</width>
+       <height>193</height>
       </rect>
      </property>
-    </widget>
-    <widget class="QPushButton" name="addEnrichedLayerRowButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Row</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="whattoenrich">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>70</y>
-       <width>161</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>What to enrich?</string>
-     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_4">

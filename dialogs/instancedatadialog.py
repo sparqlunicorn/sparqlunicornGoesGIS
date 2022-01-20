@@ -1,6 +1,5 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem
-from qgis.PyQt.QtCore import QUrl, QAbstractTableModel
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
 from qgis.PyQt import uic
@@ -9,6 +8,8 @@ from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeome
     QgsCoordinateTransform, QgsPointXY, QgsApplication, QgsMessageLog
 from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
 from qgis.PyQt.QtGui import QStandardItemModel
+
+from ..util.ui.uiutils import UIUtils
 from ..tasks.instancequerytask import InstanceQueryTask
 from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
@@ -60,7 +61,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
-        actionPan.triggered.connect(self.pan)
+        actionPan.triggered.connect(lambda: self.map_canvas.setMapTool(self.toolPan))
         self.toolPan = QgsMapToolPan(self.map_canvas)
         self.toolPan.setAction(actionPan)
         self.map_canvas.hide()
@@ -73,7 +74,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers([self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        self.pan()
+        self.map_canvas.setMapTool(self.toolPan)
         self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -89,16 +90,13 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         item = QStandardItem()
         item.setText("Loading...")
         self.tablemodel.setItem(0,0,item)
-        self.instanceDataTableView.entered.connect(self.showURI)
-        self.instanceDataTableView.doubleClicked.connect(self.openURL)
+        self.instanceDataTableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex,self.instanceDataTableView,self.statusBarLabel))
+        self.instanceDataTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex,self.instanceDataTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
-
-    def pan(self):
-        self.map_canvas.setMapTool(self.toolPan)
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()
@@ -121,19 +119,6 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
             self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
             self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
-
-    def openURL(self,modelindex):
-        if self.instanceDataTableView.model().data(modelindex)!=None:
-            concept=str(self.instanceDataTableView.model().data(modelindex,256))
-            if concept.startswith("http"):
-                url = QUrl(concept)
-                QDesktopServices.openUrl(url)
-
-    def showURI(self,modelindex):
-        if self.instanceDataTableView.model().data(modelindex)!=None:
-            concept=str(self.instanceDataTableView.model().data(modelindex,256))
-            if concept.startswith("http"):
-                self.statusBarLabel.setText(concept)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.

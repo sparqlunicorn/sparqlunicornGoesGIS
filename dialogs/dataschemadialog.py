@@ -1,14 +1,15 @@
 
 from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem, QProgressDialog
 from qgis.PyQt.QtCore import Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
 from qgis.PyQt import uic
 from qgis.gui import QgsMapCanvas, QgsMapToolPan
 from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
     QgsCoordinateTransform, QgsPointXY,QgsApplication, QgsMessageLog
+
+from ..util.ui.uiutils import UIUtils
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..tasks.findstylestask import FindStyleQueryTask
@@ -66,7 +67,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
-        actionPan.triggered.connect(self.pan)
+        actionPan.triggered.connect(lambda: self.map_canvas.setMapTool(self.toolPan))
         self.toolPan = QgsMapToolPan(self.map_canvas)
         self.toolPan.setAction(actionPan)
         self.map_canvas.hide()
@@ -79,7 +80,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers([self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
-        self.pan()
+        self.map_canvas.setMapTool(self.toolPan)
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.tablemodel=QStandardItemModel()
@@ -94,12 +95,10 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         item = QStandardItem()
         item.setText("Loading...")
         self.tablemodel.setItem(0,0,item)
-        self.dataSchemaTableView.entered.connect(self.showURI)
-        self.dataSchemaTableView.doubleClicked.connect(self.openURL)
+        self.dataSchemaTableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.dataSchemaTableView, self.statusBarLabel))
+        self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
-        self.dataSchemaTableView.entered.connect(self.showURI)
-        self.dataSchemaTableView.doubleClicked.connect(self.openURL)
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
@@ -128,22 +127,6 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
             self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
-
-    def openURL(self,modelindex):
-        if self.dataSchemaTableView.model().data(modelindex)!=None:
-            concept=str(self.dataSchemaTableView.model().data(modelindex,256))
-            if concept.startswith("http"):
-                url = QUrl(concept)
-                QDesktopServices.openUrl(url)
-
-    def showURI(self,modelindex):
-        if self.dataSchemaTableView.model().data(modelindex)!=None:
-            concept=str(self.dataSchemaTableView.model().data(modelindex,256))
-            if concept.startswith("http"):
-                self.statusBarLabel.setText(concept)
-
-    def pan(self):
-        self.map_canvas.setMapTool(self.toolPan)
 
     def loadSamples(self,modelindex):
         row=modelindex.row()

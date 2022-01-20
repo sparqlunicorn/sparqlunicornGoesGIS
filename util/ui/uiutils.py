@@ -28,19 +28,20 @@ class UIUtils:
             url = QUrl(concept)
             QDesktopServices.openUrl(url)
 
-    def openTableURL(self,row,column):
-        if self.dataSchemaTableView.item(row,column)!=None:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+    @staticmethod
+    def openTableURL(modelindex,table):
+        if table.model().data(modelindex)!=None:
+            concept=str(table.model().data(modelindex,256))
             if concept.startswith("http"):
                 url = QUrl(concept)
                 QDesktopServices.openUrl(url)
 
-    def showTableURI(self,row,column):
-        if self.dataSchemaTableView.item(row,column)!=None:
-            concept=str(self.dataSchemaTableView.item(row,column).data(256))
+    @staticmethod
+    def showTableURI(modelindex,table,statusbar):
+        if table.model().data(modelindex)!=None:
+            concept=str(table.model().data(modelindex,256))
             if concept.startswith("http"):
-                self.statusBarLabel.setText(concept)
-
+                statusbar.setText(concept)
 
 
     @staticmethod

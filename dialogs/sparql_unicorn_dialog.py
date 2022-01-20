@@ -226,41 +226,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
 
-    def saveClassesTreeToRDF(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
-        if filename == "":
-                return
-        result=set()
-        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,False,True,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
-        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
-            output_file.write("".join(result))
-        return result
 
-    def saveVisibleTreeToRDF(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
-        if filename == "":
-                return
-        result=set()
-        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,True,False,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
-        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
-            output_file.write("".join(result))
-        return result
-
-    def saveTreeToRDF(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
-        if filename == "":
-                return
-        result=set()
-        UIUtils.iterateTree(self.currentContextModel.invisibleRootItem(),result,False,False,self.triplestoreconf[self.comboBox.currentIndex()],self.currentContext)
-        QgsMessageLog.logMessage('Started task "{}"'.format(""+str(result)), MESSAGE_CATEGORY, Qgis.Info)
-        with open(filename, 'w') as output_file:
-            output_file.write("".join(result))
-        return result
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
