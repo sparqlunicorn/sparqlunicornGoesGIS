@@ -1,19 +1,16 @@
 var a00349 =
 [
-    [ "__init__", "a00349.html#a2da3a70a1b4e4a20dc234b2fb9f30ab8", null ],
+    [ "__init__", "a00349.html#aedeffe08782e79a46086145c53158e97", null ],
     [ "finished", "a00349.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00349.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "amount", "a00349.html#a7fb406750fcff703b1c7da34a23c187e", null ],
+    [ "dlg", "a00349.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00349.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "findProperty", "a00349.html#aec9027007067a3aa3d0286c0a92c61d4", null ],
-    [ "label", "a00349.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
-    [ "language", "a00349.html#aa37aa8979934d47ac32fd96ecff32202", null ],
-    [ "prefixes", "a00349.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "progress", "a00349.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "qids", "a00349.html#a5553b08a46beb00537611b8c66a10bed", null ],
-    [ "query", "a00349.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "results", "a00349.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
-    [ "searchResult", "a00349.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
+    [ "matchcolumn", "a00349.html#af168c1718b096823956d8a9610ca1322", null ],
+    [ "matchingmethod", "a00349.html#a0b20765d639478feaae4943e52e9e4e0", null ],
+    [ "matchlayer", "a00349.html#a2f7d97895a1c16c9ade391995e70a7a8", null ],
+    [ "matchproperty", "a00349.html#a38d63621009f43b91b4c680c942b67d9", null ],
+    [ "treeNode", "a00349.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
     [ "triplestoreconf", "a00349.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "tripleStoreEdit", "a00349.html#a2f954fc5a00f58cea3af99dea474bab7", null ],
     [ "triplestoreurl", "a00349.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

@@ -1,4 +1,4 @@
 var a00180 =
 [
-    [ "GetStyleQueryTask", "a00321.html", "a00321" ]
+    [ "DataSchemaQueryTask", "a00305.html", "a00305" ]
 ];

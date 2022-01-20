@@ -1,4 +1,4 @@
 var a00173 =
 [
-    [ "DataSampleQueryTask", "a00293.html", "a00293" ]
+    [ "ValueMappingDialog", "a00281.html", "a00281" ]
 ];

@@ -1,18 +1,16 @@
 var a00345 =
 [
-    [ "__init__", "a00345.html#a43bf707969d7676fbffbd826e79887fb", null ],
+    [ "__init__", "a00345.html#abe7502501d4d14e4d896afb5783471d0", null ],
     [ "finished", "a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
-    [ "processResults", "a00345.html#ab368e533f681a396257e919f7acf52fd", null ],
     [ "run", "a00345.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "allownongeo", "a00345.html#a2be679e131aa5f671200ce80927d4f47", null ],
     [ "exception", "a00345.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filename", "a00345.html#a2ff994e16bf9521154de4cf659a3b689", null ],
-    [ "geojson", "a00345.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
-    [ "progress", "a00345.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00345.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "querydepth", "a00345.html#aa1caf11cc3fdcb08c90537fb2ffc6a2b", null ],
-    [ "shortenURIs", "a00345.html#a2eb2586a3117993dabc95cd4f9cc86d3", null ],
+    [ "features", "a00345.html#a6b54c7d82e1d89ae7994a88ce0c6889b", null ],
+    [ "mymap", "a00345.html#ab38ad98eb0ec5bd609169dd83133d317", null ],
+    [ "parentwindow", "a00345.html#a110f8af02848bbdf9316dcc57809972e", null ],
+    [ "prefixes", "a00345.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "queryresult", "a00345.html#a1bee14843933505be5e14e07c03f5f89", null ],
+    [ "searchResultModel", "a00345.html#a47177f6f056c672b44af1659582c1118", null ],
+    [ "searchTerm", "a00345.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
     [ "triplestoreconf", "a00345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "vlayer", "a00345.html#a571bd9fb80823c86e8bd6e5b97f1003b", null ]
+    [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

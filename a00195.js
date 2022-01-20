@@ -1,4 +1,4 @@
 var a00195 =
 [
-    [ "GraphUtils", "a00377.html", "a00377" ]
+    [ "SubClassQueryTask", "a00365.html", "a00365" ]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: StyleUtils Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: StringMatching Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,21 +61,44 @@ $(document).ready(function(){initNavTree('a00397.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00394.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">StyleUtils Class Reference</div>  </div>
+<div class="title">StringMatching Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for StringMatching:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00396.png" border="0" usemap="#StringMatching_inherit__map" alt="Inheritance graph"/></div>
+<map name="StringMatching_inherit__map" id="StringMatching_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,125,107"/>
+<area shape="rect" title=" " alt="" coords="36,5,95,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for StringMatching:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00395.png" border="0" usemap="#StringMatching_coll__map" alt="Collaboration graph"/></div>
+<map name="StringMatching_coll__map" id="StringMatching_coll__map">
+<area shape="rect" title=" " alt="" coords="11,124,131,151"/>
+<area shape="rect" title=" " alt="" coords="5,5,64,32"/>
+<area shape="rect" title=" " alt="" coords="89,5,127,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad873ae5f695bd0bc760e87f27575b76c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00397.html#ad873ae5f695bd0bc760e87f27575b76c">convertRDFStyleToSLD</a> (results)</td></tr>
-<tr class="separator:ad873ae5f695bd0bc760e87f27575b76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0a704cb6400c2ed3e12bdc9f49961571"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00397.html#a0a704cb6400c2ed3e12bdc9f49961571">LEVENSTHEIN</a> = 1</td></tr>
+<tr class="separator:a0a704cb6400c2ed3e12bdc9f49961571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a758dd7ea089ad385444edd082399c839"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00397.html#a758dd7ea089ad385444edd082399c839">HAMMING</a> = 2</td></tr>
+<tr class="separator:a758dd7ea089ad385444edd082399c839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace5889b077dc9caad3d4ac71c04ba9d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00397.html#ace5889b077dc9caad3d4ac71c04ba9d3">SUBSTRING</a> = 3</td></tr>
+<tr class="separator:ace5889b077dc9caad3d4ac71c04ba9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad873ae5f695bd0bc760e87f27575b76c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad873ae5f695bd0bc760e87f27575b76c">&#9670;&nbsp;</a></span>convertRDFStyleToSLD()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a758dd7ea089ad385444edd082399c839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a758dd7ea089ad385444edd082399c839">&#9670;&nbsp;</a></span>HAMMING</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -84,11 +107,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def convertRDFStyleToSLD </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>results</em></td><td>)</td>
-          <td></td>
+          <td class="memname">int HAMMING = 2</td>
         </tr>
       </table>
   </td>
@@ -97,13 +116,51 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">def </span>convertRDFStyleToSLD(results):</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        curStyleObject=StyleObject()</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">for</span> result <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;style&quot;</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                curStyleObject.styleId=result[<span class="stringliteral">&quot;style&quot;</span>]</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-</div><!-- fragment -->
+
+</div>
+</div>
+<a id="a0a704cb6400c2ed3e12bdc9f49961571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a704cb6400c2ed3e12bdc9f49961571">&#9670;&nbsp;</a></span>LEVENSTHEIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LEVENSTHEIN = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace5889b077dc9caad3d4ac71c04ba9d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace5889b077dc9caad3d4ac71c04ba9d3">&#9670;&nbsp;</a></span>SUBSTRING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SUBSTRING = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->
@@ -112,7 +169,7 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00149.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00192.html">util</a></li><li class="navelem"><a class="el" href="a00200.html">styleutils</a></li><li class="navelem"><a class="el" href="a00397.html">StyleUtils</a></li>
+    <li class="navelem"><a class="el" href="a00155.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00199.html">util</a></li><li class="navelem"><a class="el" href="a00204.html">matchingtools</a></li><li class="navelem"><a class="el" href="a00397.html">StringMatching</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

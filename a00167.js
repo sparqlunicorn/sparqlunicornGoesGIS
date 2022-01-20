@@ -1,4 +1,4 @@
 var a00167 =
 [
-    [ "ValueMappingDialog", "a00273.html", "a00273" ]
+    [ "QueryLimitedInstancesDialog", "a00257.html", "a00257" ]
 ];
