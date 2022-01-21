@@ -152,7 +152,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.classTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
-        self.conceptViewTabWidget.customContextMenuRequested.connect(lambda position: TabContextMenu("Menu", self.conceptViewTabWidget,self.currentContext.viewport().mapToGlobal(position)))
+        self.conceptViewTabWidget.customContextMenuRequested.connect(lambda position: TabContextMenu("Menu", self.conceptViewTabWidget,self.currentContext.viewport().mapToGlobal(position),self.triplestoreconf[self.comboBox.currentIndex()]))
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
@@ -212,8 +212,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentContextModel = self.geometryCollectionClassListModel
         self.currentProxyModel = self.geometryCollectionProxyModel
         self.createMenu(position)
-
-
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -290,7 +288,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #    cb = QApplication.clipboard()
     #    cb.clear(mode=cb.Clipboard)
     #    cb.setText(concept, mode=cb.Clipboard)
-
+    """
     def instanceCount(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
@@ -382,6 +380,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         #self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
         #self.dataschemaDialog.exec_()
+    """
 
     def createLayerFromTreeEntry(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -390,7 +389,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.dataAllInstancesAsLayer()
         elif nodetype==SPARQLUtils.geoinstancenode or nodetype==SPARQLUtils.instancenode:
             self.dataInstanceAsLayer()
-
+    """
     def loadSubClasses(self):
         print("Load SubClasses")
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
@@ -409,6 +408,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                     prefixestoadd + query,None,self,
                                     self.currentContextModel.itemFromIndex(curindex),concept,self.triplestoreconf[self.comboBox.currentIndex()])
             QgsApplication.taskManager().addTask(self.qtasksub)
+    """
+
 
     def tabchanged(self,index):
         #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
@@ -453,6 +454,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
+    """
     def subclassQuerySelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
         if endpointIndex == 0:
@@ -466,6 +468,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
+    """
+
 
     def conceptSelectAction(self):
         endpointIndex = self.comboBox.currentIndex()
