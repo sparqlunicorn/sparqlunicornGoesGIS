@@ -80,12 +80,6 @@ SELECT ?label ?geo ?item WHERE {
        <height>591</height>
       </rect>
      </property>
-     <property name="mouseTracking">
-      <bool>true</bool>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -238,7 +232,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>10</x>
        <y>10</y>
        <width>781</width>
-       <height>83</height>
+       <height>81</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
@@ -267,8 +261,7 @@ SELECT ?label ?geo ?item WHERE {
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="SP_MessageBoxInformation">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="SP_MessageBoxInformation"/>
           </property>
          </widget>
         </item>
@@ -706,7 +699,7 @@ SELECT ?label ?geo ?item WHERE {
        <x>20</x>
        <y>10</y>
        <width>1141</width>
-       <height>481</height>
+       <height>651</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
@@ -734,6 +727,9 @@ SELECT ?label ?geo ?item WHERE {
       <item row="0" column="1">
        <widget class="QComboBox" name="chooseLayerEnrich"/>
       </item>
+      <item row="2" column="0" colspan="3">
+       <widget class="QTableWidget" name="enrichTable"/>
+      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="refreshLayersEnrich">
         <property name="text">
@@ -748,9 +744,6 @@ SELECT ?label ?geo ?item WHERE {
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="3">
-       <widget class="QTableWidget" name="enrichTable"/>
-      </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="whattoenrich">
         <property name="text">
@@ -763,8 +756,8 @@ SELECT ?label ?geo ?item WHERE {
     <widget class="QTableWidget" name="enrichTableResult">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>490</y>
+       <x>-10</x>
+       <y>470</y>
        <width>945</width>
        <height>193</height>
       </rect>
@@ -920,7 +913,7 @@ SELECT ?label ?geo ?item WHERE {
      <x>0</x>
      <y>0</y>
      <width>1181</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLinked_Data_Processing">

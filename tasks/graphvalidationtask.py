@@ -13,7 +13,7 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class GraphValidationTask(QgsTask):
 
-    def __init__(self, description, filename, ruleset, triplestoreconf, progress,parent):
+    def __init__(self, description, filenames, ruleset, triplestoreconf, progress,parent):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
@@ -30,10 +30,15 @@ class GraphValidationTask(QgsTask):
         self.processinglog={}
         self.report=""
         self.errortypemap={}
-        self.filename = filename
+        self.filenames = filenames
 
     def run(self):
-        self.graph=SPARQLUtils.loadGraph(self.filename)
+        if isinstance(self.filenames,str):
+            self.graph=SPARQLUtils.loadGraph(self.filenames)
+        else:
+            self.graph=Graph()
+            for file in self.filenames:
+                SPARQLUtils.loadGraph(file,self.graph)
         self.rulesetgraph=SPARQLUtils.loadGraph(self.ruleset)
         self.processinglog["literals"] = {}
         self.processinglog["literals"]["geoliterals"] = {}

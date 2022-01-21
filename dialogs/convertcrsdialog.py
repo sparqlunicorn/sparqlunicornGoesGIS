@@ -1,6 +1,6 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
@@ -34,7 +34,6 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         self.projectionSelect.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
-        self.loadFromFileButton.clicked.connect(self.loadFile)
         self.startConversionButton.clicked.connect(self.startConversion)
         self.cancelButton.clicked.connect(self.close)
         self.convertAllCheckBox.stateChanged.connect(self.toggleComboBoxes)
@@ -65,14 +64,21 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowTitle("Modifying graph")
         progress.setCancelButton(None)
-        if self.convertAllCheckBox.checkState():
-            self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
-                                        progress)
+        fileNames = self.convertCRSFileWidget.splitFilePaths()
+        if self.convertCRSFileWidget.filePath()!="":
+            if self.convertAllCheckBox.checkState():
+                self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
+                                            self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
+                                            progress)
+            else:
+                self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
+                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), None, None, self, progress)
+            QgsApplication.taskManager().addTask(self.qtask)
         else:
-            self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                    self.chosenFileLabel.text(), self.projectionSelect.crs(), None, None, self, progress)
-        QgsApplication.taskManager().addTask(self.qtask)
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle("No file selected!")
+            msgBox.setText("No file was selected for conversion!")
+            msgBox.exec()
 
     def loadURI(self):
         if self.graphURIEdit.text() != "":

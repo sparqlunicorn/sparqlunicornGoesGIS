@@ -1,6 +1,6 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageBox
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
@@ -39,7 +39,6 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.validationFileEdit.textChanged.emit(self.validationFileEdit.text())
         self.gridLayout.addWidget(self.validationFileEdit,1,1,Qt.AlignLeft)
         self.validationFileEdit.hide()
-        self.loadDataFileButton.clicked.connect(self.loadFile)
         self.startValidationButton.clicked.connect(self.startValidation)
         self.dataFileLocationCBox.currentIndexChanged.connect(self.dataLocBoxChangedEvent)
         self.cancelButton.clicked.connect(self.close)
@@ -62,19 +61,41 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
             self.chosenDataFile.setText(fileNames[0])
 
     def startValidation(self):
-        progress = QProgressDialog("Validating graph: " + self.chosenDataFile.text(), "Abort",
-                                   0, 0, self)
-        progress.setWindowTitle("Graph Validation")
-        progress.setWindowModality(Qt.WindowModal)
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
-        progress.setCancelButton(None)
-        #if self.convertAllCheckBox.checkState():
-        #    self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
-        #                                self.chosenDataFile.text(), self.chosenValidatorFile.text(),self.triplestoreconf,progress)
-        #else:
-        self.qtask = GraphValidationTask("Validating graph: " + self.chosenDataFile.text(),
-                                        self.chosenDataFile.text(), self.chosenValidatorFile.currentText(),self.triplestoreconf,progress,self)
-        QgsApplication.taskManager().addTask(self.qtask)
+        if "RDF File" in self.dataFileLocationCBox.currentText():
+            fileNames=self.validationFileWidget.splitFilePaths(self.validationFileWidget.filePath())
+            if len(fileNames)>0:
+                progress = QProgressDialog("Validating graph: " + str(fileNames), "Abort",
+                                           0, 0, self)
+                progress.setWindowTitle("Graph Validation")
+                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setCancelButton(None)
+                self.qtask = GraphValidationTask("Validating graph: "+str(fileNames),
+                                                 fileNames, self.chosenValidatorFile.currentText(),
+                                                 self.triplestoreconf, progress, self)
+                QgsApplication.taskManager().addTask(self.qtask)
+            else:
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("No file selected!")
+                msgBox.setText("No data file was selected for validation!")
+                msgBox.exec()
+        elif "RDF Resource" in self.rdfResourceComboBox.currentText():
+            if self.validationFileEdit.text() != "":
+                progress = QProgressDialog("Validating graph: " + self.validationFileEdit.text(), "Abort",
+                                           0, 0, self)
+                progress.setWindowTitle("Graph Validation")
+                progress.setWindowModality(Qt.WindowModal)
+                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setCancelButton(None)
+                self.qtask = GraphValidationTask("Validating graph: "+str(self.validationFileEdit.text()),
+                                                 self.validationFileEdit.text(), self.chosenValidatorFile.currentText(),
+                                                 self.triplestoreconf, progress, self)
+                QgsApplication.taskManager().addTask(self.qtask)
+            else:
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle("No URL defined!")
+                msgBox.setText("No URL was defined for validation!")
+                msgBox.exec()
 
     def loadURI(self):
         if self.graphURIEdit.text() != "":

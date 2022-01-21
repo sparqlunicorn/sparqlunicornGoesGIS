@@ -216,7 +216,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
         ConceptContextMenu(self.triplestoreconf[self.comboBox.currentIndex()],self.prefixes,position,self.currentContext,self.currentContextModel.itemFromIndex(curindex))
 
 

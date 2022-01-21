@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>168</height>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,14 @@
        </item>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="3" column="0">
+      <widget class="QPushButton" name="startValidationButton">
+       <property name="text">
+        <string>Start Validation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <widget class="QComboBox" name="chosenValidatorFile">
        <item>
         <property name="text">
@@ -72,13 +79,6 @@
        </item>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="loadDataFileButton">
-       <property name="text">
-        <string>Load TTL File</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="dataFileLocationLabel">
        <property name="font">
@@ -92,7 +92,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
@@ -105,24 +105,17 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QgsFileWidget" name="validationFileWidget">
-       <property name="storageMode">
-        <enum>QgsFileWidget::GetMultipleFiles</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
+     <item row="3" column="1">
       <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="startValidationButton">
-       <property name="text">
-        <string>Start Validation</string>
+     <item row="1" column="1">
+      <widget class="QgsFileWidget" name="validationFileWidget">
+       <property name="storageMode">
+        <enum>QgsFileWidget::GetMultipleFiles</enum>
        </property>
       </widget>
      </item>

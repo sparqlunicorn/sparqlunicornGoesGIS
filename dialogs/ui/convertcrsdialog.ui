@@ -72,27 +72,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QgsFileWidget" name="mQgsFileWidget">
+       <widget class="QgsFileWidget" name="convertCRSFileWidget">
         <property name="dialogTitle">
          <string>Convert CRS</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="loadFromFileButton">
-        <property name="text">
-         <string>Load TTL File</string>
         </property>
        </widget>
       </item>
