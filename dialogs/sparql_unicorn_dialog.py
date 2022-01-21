@@ -218,6 +218,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        ConceptContextMenu(self.triplestoreconf[self.comboBox.currentIndex()],position,self.currentContext,self.currentContextModel.itemFromIndex(curindex))
+        """
         menu = QMenu("Menu", self.currentContext)
         actionclip=QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -273,6 +275,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         menu.addAction(actionapplicablestyles)
         actionapplicablestyles.triggered.connect(self.appStyles)
         menu.exec_(self.currentContext.viewport().mapToGlobal(position))
+        """
 
 
     def onContext4(self, position):
