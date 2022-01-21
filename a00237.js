@@ -1,13 +1,12 @@
 var a00237 =
 [
-    [ "__init__", "a00237.html#a86212d0495198075dd87ba5d525327ab", null ],
+    [ "__init__", "a00237.html#acdd50c98a6b4ad11096db60e1c31bc2b", null ],
     [ "getAttributeStatistics", "a00237.html#a929e6379de0e9f6aa762a098436b1049", null ],
     [ "loadSamples", "a00237.html#aba66981d86ff2e0da40636d9886cb217", null ],
     [ "queryAllInstances", "a00237.html#aeb05e1da63d0ff3e0956945bf5a2f137", null ],
     [ "alreadyloadedSample", "a00237.html#acf65a34531091c482d3844fac8a32f6d", null ],
     [ "concept", "a00237.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "concepttype", "a00237.html#ad341a2945e04315008627d9d24aba557", null ],
-    [ "curindex", "a00237.html#a0e2acf0c940b73a578c9b54967492155", null ],
     [ "filter_proxy_model", "a00237.html#a6d828fa188e4fc612101d64e2c7de582", null ],
     [ "label", "a00237.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
     [ "mts_layer", "a00237.html#a90dc809bbf3ab04604a3662090a747bc", null ],
