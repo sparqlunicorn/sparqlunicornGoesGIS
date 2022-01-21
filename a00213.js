@@ -25,7 +25,6 @@ var a00213 =
     [ "exportSetClass", "a00213.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
     [ "first_start", "a00213.html#aad1fed1f698792145456d4f39e711766", null ],
     [ "iface", "a00213.html#ac1e384ebf7a273611c4154df52d67d00", null ],
-    [ "loadedfromfile", "a00213.html#af516976445dcfe47b7e13f2eafaa8eb1", null ],
     [ "menu", "a00213.html#a905479d79c2aa8410d2fc374bc75cc5b", null ],
     [ "originalRowCount", "a00213.html#a96db96b589de91ab2dd5f6f5836757de", null ],
     [ "plugin_dir", "a00213.html#a2a0c7f0685d9b3e37941cdc508be18ae", null ],

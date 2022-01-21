@@ -46,6 +46,7 @@ var a00265 =
     [ "interlinktab", "a00265.html#a3e331810b0db0beb7dface60f8e05508", null ],
     [ "justloadingfromfile", "a00265.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
     [ "layercount", "a00265.html#a89df5aba5301855e361ee8da3fdac4d2", null ],
+    [ "loadedfromfile", "a00265.html#af516976445dcfe47b7e13f2eafaa8eb1", null ],
     [ "maindlg", "a00265.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "prefixes", "a00265.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "prefixstore", "a00265.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
