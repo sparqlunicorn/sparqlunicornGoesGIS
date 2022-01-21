@@ -88,7 +88,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
-        action.triggered.connect(lambda: self.openURL(self.currentItem))
+        action.triggered.connect(lambda: UIUtils.openListURL(self.currentItem))
         actiondataschema = QAction("Query data schema")
         menu.addAction(actiondataschema)
         actiondataschema.triggered.connect(lambda: DataSchemaDialog(
@@ -96,7 +96,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             SPARQLUtils.classnode,
             self.currentItem.text(),
             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
-            self.triplestoreconf, self.prefixes, self.tripleStoreEdit.currentIndex(),
+            self.triplestoreconf[self.tripleStoreEdit.currentIndex()], self.prefixes,
             "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
                 256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
         ).exec_())

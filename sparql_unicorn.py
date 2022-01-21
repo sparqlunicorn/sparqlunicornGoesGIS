@@ -312,10 +312,6 @@ class SPARQLunicorn:
                         item += " [File]"
                     self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(0)
-            # self.dlg.exportTripleStore.hide()
-            # self.dlg.exportTripleStore_2.hide()
-            # self.dlg.tabWidget.removeTab(2)
-            # self.dlg.tabWidget.removeTab(1)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
         else:

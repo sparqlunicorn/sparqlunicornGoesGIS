@@ -108,6 +108,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.classTreeView.setModel(self.classTreeViewProxyModel)
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
+        self.addLayerButton.clicked.connect(self.create_unicorn_layer)
         self.comboBox.currentIndexChanged.connect(self.endpointselectaction)
         self.endpointselectaction()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
