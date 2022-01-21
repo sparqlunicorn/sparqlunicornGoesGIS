@@ -32,7 +32,7 @@ from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
-from .menu.conceptcontextmenu import ConceptContextMenu
+from .menu.conceptcontextmenu import ConceptContextMenu, TabContextMenu
 from ..dialogs.convertcrsdialog import ConvertCRSDialog
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.querylimitedinstancesdialog import QueryLimitedInstancesDialog
@@ -152,7 +152,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.classTreeView.selectionModel().currentChanged.connect(self.conceptSelectAction)
         self.conceptViewTabWidget.currentChanged.connect(self.tabchanged)
-        self.conceptViewTabWidget.customContextMenuRequested.connect(self.tabContextMenu)
+        self.conceptViewTabWidget.customContextMenuRequested.connect(lambda position: TabContextMenu("Menu", self.conceptViewTabWidget,self.currentContext.viewport().mapToGlobal(position)))
         self.featureCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
@@ -212,19 +212,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentContextModel = self.geometryCollectionClassListModel
         self.currentProxyModel = self.geometryCollectionProxyModel
         self.createMenu(position)
-
-    def tabContextMenu(self,position):
-        menu = QMenu("Menu", self.conceptViewTabWidget)
-        actionsaveRDF=QAction("Save Contents as RDF")
-        menu.addAction(actionsaveRDF)
-        actionsaveRDF.triggered.connect(self.saveTreeToRDF)
-        actionsaveClassesRDF=QAction("Save Classes as RDF")
-        menu.addAction(actionsaveClassesRDF)
-        actionsaveClassesRDF.triggered.connect(self.saveClassesTreeToRDF)
-        actionsaveVisibleRDF=QAction("Save Visible Contents as RDF")
-        menu.addAction(actionsaveVisibleRDF)
-        actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
-        menu.exec_(self.currentContext.viewport().mapToGlobal(position))
 
 
 

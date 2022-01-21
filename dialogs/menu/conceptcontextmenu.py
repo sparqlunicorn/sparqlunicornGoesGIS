@@ -1,7 +1,8 @@
 
-from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog
+from qgis.PyQt.QtWidgets import QApplication, QMenu, QAction, QFileDialog
 from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtCore import QUrl
+from qgis._core import Qgis
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
@@ -13,11 +14,22 @@ from ..dataschemadialog import DataSchemaDialog
 from ..querylimitedinstancesdialog import QueryLimitedInstancesDialog
 from ...util.sparqlutils import SPARQLUtils
 
+MESSAGE_CATEGORY = 'ContextMenu'
 
-class TabContextMenu:
+class TabContextMenu(QMenu):
 
-    def createTabContextMenu(self):
-        print("here")
+    def __init__(self,name,parent,position):
+        super().__init__(name,parent)
+        actionsaveRDF = QAction("Save Contents as RDF")
+        self.addAction(actionsaveRDF)
+        actionsaveRDF.triggered.connect(self.saveTreeToRDF)
+        actionsaveClassesRDF = QAction("Save Classes as RDF")
+        self.addAction(actionsaveClassesRDF)
+        actionsaveClassesRDF.triggered.connect(self.saveClassesTreeToRDF)
+        actionsaveVisibleRDF = QAction("Save Visible Contents as RDF")
+        self.addAction(actionsaveVisibleRDF)
+        actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
+        self.exec_(position)
 
     def saveClassesTreeToRDF(self, context, triplestoreconf):
         filename, _filter = QFileDialog.getSaveFileName(
@@ -148,3 +160,4 @@ class ConceptContextMenu:
         cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard)
         cb.setText(concept, mode=cb.Clipboard)
+        
