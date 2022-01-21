@@ -40,7 +40,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Instance View"):
+    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,title="Data Instance View"):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.concept=concept
@@ -50,7 +50,6 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.curindex=curindex
         if concepttype==SPARQLUtils.geoinstancenode:
             self.setWindowIcon(SPARQLUtils.geoinstanceicon)
             self.setWindowTitle(title+" for GeoInstance")
@@ -75,7 +74,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.map_canvas.setLayers([self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.map_canvas.setMapTool(self.toolPan)
-        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.curindex]["prefixesrev"])+"</a>)")
+        self.instanceDataNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"])+"</a>)")
         header =self.instanceDataTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.tablemodel=QStandardItemModel()
@@ -95,29 +94,29 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.okButton.clicked.connect(self.close)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()
         if int(querydepth)>1:
-            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
+            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n" +
-            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
+            self.triplestoreconf["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
-            self.triplestoreconf[self.curindex]["endpoint"],query,
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf["endpoint"],query,
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
-            self.triplestoreconf[self.curindex]["endpoint"],
-            "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
+            self.triplestoreconf["endpoint"],
+            "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n ?item ?rel ?val . " +
-            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf["geotriplepattern"][0] + "\n }",
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     ##
@@ -126,16 +125,16 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
     def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "InstanceDataDialog", Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.curindex)+ " "+str(self.triplestoreconf[self.curindex]["endpoint"])), "DataSchemaDialog",
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "DataSchemaDialog",
                                  Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]["whattoenrichquery"]), "DataSchemaDialog",
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["whattoenrichquery"]), "DataSchemaDialog",
                                  Qgis.Info)
-        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
+        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
         self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
                                            self.concept,
-                                           self.triplestoreconf[self.curindex],
+                                           self.triplestoreconf,
                                            self.tablemodel,self.map_canvas,self.vl,self)
         QgsApplication.taskManager().addTask(self.qtask)

@@ -44,7 +44,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,curindex,title="Data Schema View"):
+    def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,title="Data Schema View"):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.concept=concept
@@ -54,7 +54,6 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
-        self.curindex=curindex
         if concepttype==SPARQLUtils.geoclassnode:
             self.setWindowIcon(SPARQLUtils.geoclassicon)
             self.setWindowTitle(title+" for GeoClass")
@@ -100,7 +99,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
         self.okButton.clicked.connect(self.close)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
 
 
@@ -108,24 +107,24 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.tablemodel.clear()
         querydepth=self.graphQueryDepthBox.value()
         if int(querydepth)>1:
-            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf[self.curindex]["typeproperty"]+"> <" + str(
+            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + ">  .\n " +
-            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
+            self.triplestoreconf["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
-            self.triplestoreconf[self.curindex]["endpoint"],
+            self.triplestoreconf["endpoint"],
             query,
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
-            self.triplestoreconf[self.curindex]["endpoint"],
-            "SELECT ?" + " ?".join(self.triplestoreconf[self.curindex][
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf[self.curindex]["typeproperty"]+"> <" + str(
+            self.triplestoreconf["endpoint"],
+            "SELECT ?" + " ?".join(self.triplestoreconf[
+                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + "> .\n ?item ?rel ?val . " +
-            self.triplestoreconf[self.curindex]["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf[self.curindex], False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf["geotriplepattern"][0] + "\n }",
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def loadSamples(self,modelindex):
@@ -138,7 +137,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf[self.curindex],self.tablemodel,self.map_canvas)
+                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
@@ -147,7 +146,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self.triplestoreurl,
                                              self,
                                              self.concept,
-                                             column,row,self.triplestoreconf[self.curindex])
+                                             column,row,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
@@ -156,12 +155,12 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]), "DataSchemaDialog", Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.curindex)+ " "+str(self.triplestoreconf[self.curindex]["endpoint"])), "DataSchemaDialog",
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "DataSchemaDialog", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "DataSchemaDialog",
                                  Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[self.curindex]["whattoenrichquery"]), "DataSchemaDialog",
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["whattoenrichquery"]), "DataSchemaDialog",
                                  Qgis.Info)
-        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf[self.curindex]:
+        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
         concept = "<" + self.concept + ">"
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
@@ -170,9 +169,9 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         progress.setCancelButton(None)
         self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
-                                           self.triplestoreconf[self.curindex][
+                                           self.triplestoreconf[
                                                "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
-                                           self.prefixes[self.curindex] if self.curindex in self.prefixes else None,
-                                           self.tablemodel,self.triplestoreconf[self.curindex], progress,self)
+                                           None,
+                                           self.tablemodel,self.triplestoreconf, progress,self)
         QgsApplication.taskManager().addTask(self.qtask)

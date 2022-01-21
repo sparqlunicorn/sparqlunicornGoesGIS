@@ -72,11 +72,19 @@ class TabContextMenu(QMenu):
 
 class ConceptContextMenu(QMenu):
 
-    def __init__(self,triplestoreconf,position,context,item,menu=None):
+    def __init__(self,triplestoreconf,prefixes,position,context,item,menu=None):
         super(ConceptContextMenu, self).__init__()
+        self.triplestoreconf=triplestoreconf
+        self.item=item
+        self.prefixes=prefixes
         if menu==None:
             menu = QMenu("Menu", context)
-        menu=ConceptContextMenu.createListContextMenu(item,menu)
+        actionclip = QAction("Copy IRI to clipboard")
+        menu.addAction(actionclip)
+        actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
+        action = QAction("Open in Webbrowser")
+        menu.addAction(action)
+        action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
         if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode:
             actioninstancecount = QAction("Check instance count")
             menu.addAction(actioninstancecount)
@@ -88,7 +96,7 @@ class ConceptContextMenu(QMenu):
                 item.data(257),
                 item.text(),
                 triplestoreconf["endpoint"],
-                triplestoreconf, self.prefixes, self.comboBox.currentIndex(),
+                triplestoreconf, self.prefixes,
                 "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(256)),
                                                                    triplestoreconf[
                                                                        "prefixesrev"])
@@ -131,7 +139,7 @@ class ConceptContextMenu(QMenu):
             menu = QMenu("Menu")
         actionclip = QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
-        actionclip.triggered.connect(ConceptContextMenu.copyClipBoard)
+        actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
@@ -141,110 +149,104 @@ class ConceptContextMenu(QMenu):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
-        # self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        # self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         # self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
         # self.dataschemaDialog.exec_()
 
     def dataInstanceView(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
-        label = self.currentContextModel.itemFromIndex(curindex).text()
-        self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
-        self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf[self.comboBox.currentIndex()]["prefixesrev"]))
+        concept = self.item.data(256)
+        nodetype = self.item.data(257)
+        label = self.item.text()
+        self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes)
+        self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
         self.instancedataDialog.exec_()
 
     def dataInstanceAsLayer(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        concept = self.item.data(256)
+        nodetype = self.item.data(257)
         if nodetype==SPARQLUtils.geoinstancenode:
-            if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            if "geotriplepattern" in self.triplestoreconf:
                 self.qlayerinstance = QueryLayerTask(
                     "Instance to Layer: " + str(concept),
-                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                    "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
-                    self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0] + "\n }",
-                    self.triplestoreconf[self.comboBox.currentIndex()], False, SPARQLUtils.labelFromURI(concept), None)
+                    self.triplestoreconf["endpoint"],
+                    "SELECT ?"+" ?".join(self.triplestoreconf["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
+                    self.triplestoreconf["geotriplepattern"][0] + "\n }",
+                    self.triplestoreconf, False, SPARQLUtils.labelFromURI(concept), None)
             else:
                 self.qlayerinstance = QueryLayerTask(
                 "Instance to Layer: " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                self.triplestoreconf["endpoint"],
                 "SELECT ?item ?rel ?val \n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val . \n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),None)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "Instance to Layer: " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+                self.triplestoreconf["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
+                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def dataAllInstancesAsLayer(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        concept = self.item.data(256)
+        nodetype = self.item.data(257)
         progress = QProgressDialog(
             "Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")
         progress.setWindowModality(Qt.WindowModal)
         if nodetype==SPARQLUtils.geoclassnode:
-            if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            if "geotriplepattern" in self.triplestoreconf:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0]+"\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],False, SPARQLUtils.labelFromURI(concept),progress)
+                    self.triplestoreconf["endpoint"],
+                "SELECT ?"+" ?".join(self.triplestoreconf["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf["geotriplepattern"][0]+"\n }",
+                self.triplestoreconf,False, SPARQLUtils.labelFromURI(concept),progress)
             else:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+                    self.triplestoreconf["endpoint"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
+                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),progress)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+                self.triplestoreconf["endpoint"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
+                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),progress)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def instanceCount(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        label = self.currentContextModel.itemFromIndex(curindex).text()
+        concept = self.item.data(256)
+        label = self.item.text()
         if not label.endswith("]"):
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
+                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceList(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        alreadyloadedindicator = self.currentContextModel.itemFromIndex(curindex).data(259)
+        concept = self.item.data(256)
+        alreadyloadedindicator = self.item.data(259)
         if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"], self, self.currentContextModel.itemFromIndex(curindex),self.triplestoreconf[self.comboBox.currentIndex()])
+                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtaskinstanceList)
 
     def loadSubClasses(self):
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        if "subclassquery" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            if "wikidata" in self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]:
-                query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
+        concept = self.item.data(256)
+        if "subclassquery" in self.triplestoreconf:
+            if "wikidata" in self.triplestoreconf["endpoint"]:
+                query=self.triplestoreconf["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
             else:
-                query=self.triplestoreconf[self.comboBox.currentIndex()]["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
+                query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
             prefixestoadd=""
-            for endpoint in self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]:
-                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"][
+            for endpoint in self.triplestoreconf["prefixes"]:
+                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][
                         endpoint] + "> \n"
-            self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
-                                    self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+            self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf["endpoint"],
+                                    self.triplestoreconf["endpoint"],
                                     prefixestoadd + query,None,self,
-                                    self.currentContextModel.itemFromIndex(curindex),concept,self.triplestoreconf[self.comboBox.currentIndex()])
+                                    self.item,concept,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtasksub)
 
     def subclassQuerySelectAction(self):
@@ -253,10 +255,9 @@ class ConceptContextMenu(QMenu):
             self.justloadingfromfile = False
             return
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
-                curindex) is not None:
-            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-            querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
+        if self.currentContext.selectionModel().currentIndex() is not None and self.item is not None:
+            concept = self.item.data(256)
+            querytext = self.triplestoreconf["querytemplate"][self.queryTemplates.currentIndex()][
             "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
