@@ -453,7 +453,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        actionclip.triggered.connect(<span class="keyword">lambda</span>: ConceptContextMenu.copyClipBoard(self.currentItem))</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        action = QAction(<span class="stringliteral">&quot;Open in Webbrowser&quot;</span>)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        menu.addAction(action)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        action.triggered.connect(<span class="keyword">lambda</span>: self.openURL(self.currentItem))</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        action.triggered.connect(<span class="keyword">lambda</span>: UIUtils.openListURL(self.currentItem))</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        actiondataschema = QAction(<span class="stringliteral">&quot;Query data schema&quot;</span>)</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        menu.addAction(actiondataschema)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        actiondataschema.triggered.connect(<span class="keyword">lambda</span>: DataSchemaDialog(</div>
@@ -461,7 +461,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            SPARQLUtils.classnode,</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            self.currentItem.text(),</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;endpoint&quot;</span>],</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            self.triplestoreconf, self.prefixes, self.tripleStoreEdit.currentIndex(),</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            self.triplestoreconf[self.tripleStoreEdit.currentIndex()], self.prefixes,</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="stringliteral">&quot;Data Schema View for &quot;</span> + SPARQLUtils.labelFromURI(str(self.currentItem.data(</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()][<span class="stringliteral">&quot;prefixesrev&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;prefixesrev&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.tripleStoreEdit.currentIndex()] <span class="keywordflow">else</span> {})</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        ).exec_())</div>
