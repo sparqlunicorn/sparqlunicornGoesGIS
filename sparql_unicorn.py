@@ -54,8 +54,6 @@ geoconcepts = ""
 ## The main SPARQL unicorn dialog.
 #
 class SPARQLunicorn:
-    """QGIS Plugin Implementation."""
-    loadedfromfile = False
 
     enrichedExport = False
 

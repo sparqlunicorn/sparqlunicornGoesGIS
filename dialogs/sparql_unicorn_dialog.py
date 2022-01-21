@@ -68,6 +68,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     ## Prefix map
     prefixes = None
 
+    """QGIS Plugin Implementation."""
+    loadedfromfile = False
+
     enrichtab = None
 
     interlinktab = None
