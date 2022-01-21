@@ -23,7 +23,6 @@ var a00265 =
     [ "saveQueryFunc", "a00265.html#a682224b1afdaba0ffd2c28095c6c25ce", null ],
     [ "subclassQuerySelectAction", "a00265.html#a9a93a0d29ab198c21181f42157af3d53", null ],
     [ "tabchanged", "a00265.html#afc200e4ad40491d6f9f166b39eb473cd", null ],
-    [ "tabContextMenu", "a00265.html#a1149380cebe7dd4f5421257bb7ddc3c9", null ],
     [ "tripleStoreInfoDialog", "a00265.html#adf24f3a5813ea11f947d3c63e502893e", null ],
     [ "validateSPARQL", "a00265.html#a9cc2b975c909acd6ab64eae2ccc6ea0c", null ],
     [ "addVocabConf", "a00265.html#a1c0f392d53979b034116808ade371029", null ],
