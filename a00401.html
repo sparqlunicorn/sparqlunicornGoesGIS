@@ -121,15 +121,15 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">def </span>matchString(originalString,comparisonString,matchingMethod,threshold):</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">if</span> matchingMethod==StringMatching.LEVENSTHEIN:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            <span class="keywordflow">return</span> QgsStringUtils.levenshteinDistance(originalString, comparisonString, <span class="keyword">False</span>)&lt;threshold</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">elif</span> matchingMethod==StringMatching.HAMMING:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keywordflow">return</span> QgsStringUtils.hammingDistance(originalString,comparisonString,<span class="keyword">False</span>)&lt;threshold</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">elif</span> matchingMethod==StringMatching.SUBSTRING:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keywordflow">return</span> len(comparisonString)/QgsStringUtils.longestCommonSubstring(originalString, comparisonString, <span class="keyword">False</span>)&gt;threshold</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">def </span>matchString(originalString,comparisonString,matchingMethod,threshold):</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">if</span> matchingMethod==StringMatching.LEVENSTHEIN:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="keywordflow">return</span> QgsStringUtils.levenshteinDistance(originalString, comparisonString, <span class="keyword">False</span>)&lt;threshold</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">elif</span> matchingMethod==StringMatching.HAMMING:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            <span class="keywordflow">return</span> QgsStringUtils.hammingDistance(originalString,comparisonString,<span class="keyword">False</span>)&lt;threshold</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">elif</span> matchingMethod==StringMatching.SUBSTRING:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keywordflow">return</span> len(comparisonString)/QgsStringUtils.longestCommonSubstring(originalString, comparisonString, <span class="keyword">False</span>)&gt;threshold</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -178,14 +178,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">def </span>matchStringMapToReference(map,reference,matchingMethod,threshold=0.8):</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        resmap=[]</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">for</span> curstr <span class="keywordflow">in</span> map:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">if</span> MatchingTools.matchString(reference,curstr,matchingMethod,threshold):</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                resmap.append(curstr)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> resmap</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">def </span>matchStringMapToReference(map,reference,matchingMethod,threshold=0.8):</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        resmap=[]</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">for</span> curstr <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordflow">if</span> MatchingTools.matchString(reference,curstr,matchingMethod,threshold):</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                resmap.append(curstr)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> resmap</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
