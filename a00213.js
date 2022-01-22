@@ -14,7 +14,6 @@ var a00213 =
     [ "addVocabConf", "a00213.html#a1c0f392d53979b034116808ade371029", null ],
     [ "autocomplete", "a00213.html#a0232b0ed4680bf785a599c4495843783", null ],
     [ "columnvars", "a00213.html#ae0b48044f5a1635491a0673852cf912c", null ],
-    [ "currentgraph", "a00213.html#a05fd4bc138cb46df393976d344afb712", null ],
     [ "dlg", "a00213.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "enrichedExport", "a00213.html#ac1babc27d21e85ac2fa395cccac38d15", null ],
     [ "enrichLayer", "a00213.html#afe27f37e04aafb99a9b48eae8506bc9a", null ],

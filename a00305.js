@@ -1,6 +1,6 @@
 var a00305 =
 [
-    [ "__init__", "a00305.html#a54884dd3f0447af0e2467ffe20f0d487", null ],
+    [ "__init__", "a00305.html#a067f1891e7d110100d2d5cfb7378554e", null ],
     [ "finished", "a00305.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00305.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "dlg", "a00305.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
@@ -14,6 +14,7 @@ var a00305 =
     [ "searchResultModel", "a00305.html#a47177f6f056c672b44af1659582c1118", null ],
     [ "searchTerm", "a00305.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
     [ "sortedatt", "a00305.html#a48ad5f81f31645c924cfff541c5add36", null ],
+    [ "styleprop", "a00305.html#a1451318d493b1d82979d80601a4b8b98", null ],
     [ "triplestoreconf", "a00305.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "triplestoreurl", "a00305.html#a9b8734be629bbc1f64723d90a67861ab", null ],
     [ "urilist", "a00305.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]

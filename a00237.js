@@ -14,7 +14,7 @@ var a00237 =
     [ "qlayerinstance", "a00237.html#a372686b3ca59f062b995140d963fadd6", null ],
     [ "qtask", "a00237.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
     [ "qtask2", "a00237.html#a39b0b293840045c1835cdd6fe7fd92bb", null ],
-    [ "qtask3", "a00237.html#a6d50eb3cf3371553e18aeea38638af8f", null ],
+    [ "styleprop", "a00237.html#a1451318d493b1d82979d80601a4b8b98", null ],
     [ "tablemodel", "a00237.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
     [ "toolPan", "a00237.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "triplestoreconf", "a00237.html#a330d24be0afd5a96238ca9e128328a2d", null ],

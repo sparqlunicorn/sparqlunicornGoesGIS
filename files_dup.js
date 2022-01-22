@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00890.html", null ],
-    [ "tasks/__init__.py", "a00893.html", null ],
-    [ "util/__init__.py", "a00896.html", null ],
+    [ "dialogs/__init__.py", "a00894.html", null ],
+    [ "tasks/__init__.py", "a00897.html", null ],
+    [ "util/__init__.py", "a00900.html", null ],
     [ "bboxdialog.py", "a00014.html", "a00014" ],
     [ "classtreequerytask.py", "a00062.html", "a00062" ],
     [ "convertcrsdialog.py", "a00017.html", "a00017" ],
@@ -58,9 +58,7 @@ var files_dup =
     [ "styleobject.py", "a00149.html", [
       [ "StyleObject", "a00413.html", "a00413" ]
     ] ],
-    [ "styleutils.py", "a00152.html", [
-      [ "StyleUtils", "a00417.html", "a00417" ]
-    ] ],
+    [ "styleutils.py", "a00152.html", "a00152" ],
     [ "subclassquerytask.py", "a00116.html", "a00116" ],
     [ "triplestoredialog.py", "a00044.html", "a00044" ],
     [ "triplestorequickadddialog.py", "a00047.html", "a00047" ],

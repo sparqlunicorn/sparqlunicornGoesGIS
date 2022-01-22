@@ -37,6 +37,7 @@ var a00409 =
     [ "objectpropertyicon", "a00409.html#a29892332bd12021109da053bd0576341", null ],
     [ "objectpropertynode", "a00409.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
     [ "sparqlunicornicon", "a00409.html#af31f1d72745504f1174b536238cbe11a", null ],
+    [ "styleproperties", "a00409.html#acb3b01974e4664d4be9f2833fcb096e9", null ],
     [ "supportedLiteralTypes", "a00409.html#a28a4112f838898d008910c4320f0732e", null ],
     [ "treeNodeToolTip", "a00409.html#ab6a3282f03c67eef3b4d08d300033335", null ]
 ];
