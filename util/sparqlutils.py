@@ -34,7 +34,7 @@ class SPARQLUtils:
                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
                    "http://schema.org/geo": "ObjectProperty",
-                   "http://geovocab.org/geometry": "ObjectProperty",
+                   "http://geovocab.org/geometry#geometry": "ObjectProperty",
                    "http://www.w3.org/ns/locn/geometry": "ObjectProperty",
                    "http://rdfs.co/juso/geometry": "ObjectProperty",
                    "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",

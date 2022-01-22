@@ -71,6 +71,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QTableView" name="dataSchemaTableView">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>75</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="mouseTracking">
             <bool>true</bool>
            </property>
@@ -89,7 +95,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QgsMapCanvas" name="map_canvas" native="true"/>
+          <widget class="QgsMapCanvas" name="map_canvas" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>35</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
