@@ -216,7 +216,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        ConceptContextMenu(self.triplestoreconf[self.comboBox.currentIndex()],self.prefixes,position,self.currentContext,self.currentContextModel.itemFromIndex(curindex))
+        if self.currentContextModel.itemFromIndex(curindex)!=None:
+            ConceptContextMenu(self.triplestoreconf[self.comboBox.currentIndex()],self.prefixes,position,self.currentContext,self.currentContextModel.itemFromIndex(curindex))
 
 
     ## Creates a layer from the result of the given SPARQL unicorn query.
