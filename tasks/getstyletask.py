@@ -19,7 +19,7 @@ class GetStyleQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         con=self.treeNode.data(256)
-        thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> geo:style <"+str(self.styleuri)+"> . "+ \
+        thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> <http://www.opengis.net/ont/geosparql#style> <"+str(self.styleuri)+"> . "+ \
                      "OPTIONAL { ?style geost:pointStyle ?pointstyle. }\n"+\
                      "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
                      "OPTIONAL { ?style geost:polygonStyle ?polygonstyle. }\n"+\

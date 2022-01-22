@@ -72,9 +72,10 @@ class TabContextMenu(QMenu):
 
 class ConceptContextMenu(QMenu):
 
-    def __init__(self,triplestoreconf,prefixes,position,context,item,menu=None):
+    def __init__(self,dlg,triplestoreconf,prefixes,position,context,item,menu=None):
         super(ConceptContextMenu, self).__init__()
         self.triplestoreconf=triplestoreconf
+        self.dlg=dlg
         self.item=item
         self.prefixes=prefixes
         if menu==None:
@@ -120,14 +121,14 @@ class ConceptContextMenu(QMenu):
             ).exec_())
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
             menu.addAction(actionaddallInstancesAsLayer)
-            actionaddallInstancesAsLayer.triggered.connect(self.dataAllInstancesAsLayer)
+            actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:
             actiondataschema = QAction("Query data")
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
             menu.addAction(actionaddInstanceAsLayer)
-            actionaddInstanceAsLayer.triggered.connect(self.dataInstanceAsLayer)
+            actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
         actionapplicablestyles = QAction("Find applicable styles")
         menu.addAction(actionapplicablestyles)
         actionapplicablestyles.triggered.connect(self.appStyles)
@@ -160,59 +161,6 @@ class ConceptContextMenu(QMenu):
         self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes)
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
         self.instancedataDialog.exec_()
-
-    def dataInstanceAsLayer(self):
-        concept = self.item.data(256)
-        nodetype = self.item.data(257)
-        if nodetype==SPARQLUtils.geoinstancenode:
-            if "geotriplepattern" in self.triplestoreconf:
-                self.qlayerinstance = QueryLayerTask(
-                    "Instance to Layer: " + str(concept),
-                    self.triplestoreconf["endpoint"],
-                    "SELECT ?"+" ?".join(self.triplestoreconf["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
-                    self.triplestoreconf["geotriplepattern"][0] + "\n }",
-                    self.triplestoreconf, False, SPARQLUtils.labelFromURI(concept), None)
-            else:
-                self.qlayerinstance = QueryLayerTask(
-                "Instance to Layer: " + str(concept),
-                self.triplestoreconf["endpoint"],
-                "SELECT ?item ?rel ?val \n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val . \n }",
-                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),None)
-        else:
-            self.qlayerinstance = QueryLayerTask(
-                "Instance to Layer: " + str(concept),
-                self.triplestoreconf["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
-                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),None)
-        QgsApplication.taskManager().addTask(self.qlayerinstance)
-
-    def dataAllInstancesAsLayer(self):
-        concept = self.item.data(256)
-        nodetype = self.item.data(257)
-        progress = QProgressDialog(
-            "Querying all instances for " + concept,"Abort", 0, 0, self)
-        progress.setWindowTitle("Query all instances")
-        progress.setWindowModality(Qt.WindowModal)
-        if nodetype==SPARQLUtils.geoclassnode:
-            if "geotriplepattern" in self.triplestoreconf:
-                self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                    self.triplestoreconf["endpoint"],
-                "SELECT ?"+" ?".join(self.triplestoreconf["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf["geotriplepattern"][0]+"\n }",
-                self.triplestoreconf,False, SPARQLUtils.labelFromURI(concept),progress)
-            else:
-                self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                    self.triplestoreconf["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
-                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),progress)
-        else:
-            self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                self.triplestoreconf["endpoint"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
-                self.triplestoreconf,True, SPARQLUtils.labelFromURI(concept),progress)
-        QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def instanceCount(self):
         concept = self.item.data(256)

@@ -72,7 +72,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         self.searchButton.clicked.connect(self.getClassesFromLabel)
-        self.searchResult.customContextMenuRequested.connect(self.onContext);
+        self.searchResult.customContextMenuRequested.connect(self.onContext)
         self.searchResult.itemDoubleClicked.connect(UIUtils.openListURL)
         self.costumproperty.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.costumproperty.textChanged.connect(lambda: UIUtils.check_state(self.costumproperty))

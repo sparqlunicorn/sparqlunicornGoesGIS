@@ -53,6 +53,11 @@
      </item>
      <item>
       <property name="text">
+       <string>NeoGeo Vocabulary</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>OSMRDF Vocabulary</string>
       </property>
      </item>

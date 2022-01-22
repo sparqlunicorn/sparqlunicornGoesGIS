@@ -51,15 +51,16 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.concepttype=concepttype
         self.label=label
         self.prefixes=prefixes
+        self.styleprop=[]
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         if concepttype==SPARQLUtils.geoclassnode:
             self.setWindowIcon(SPARQLUtils.geoclassicon)
-            self.setWindowTitle(title+" for GeoClass")
+            self.setWindowTitle(title+" (GeoClass)")
         else:
             self.setWindowIcon(SPARQLUtils.classicon)
-            self.setWindowTitle(title+" for Class")
+            self.setWindowTitle(title+" (Class)")
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -104,7 +105,6 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
 
 
     def queryAllInstances(self):
-        self.tablemodel.clear()
         querydepth=self.graphQueryDepthBox.value()
         if int(querydepth)>1:
             query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
@@ -113,24 +113,26 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.triplestoreconf["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
+            self.concept,
             self.triplestoreconf["endpoint"],
             query,
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
+                self.concept,
             self.triplestoreconf["endpoint"],
             "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + "> .\n ?item ?rel ?val . " +
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def loadSamples(self,modelindex):
         row=modelindex.row()
         column=modelindex.column()
-        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.model().rowCount()-1:
+        if column==2 and row not in self.alreadyloadedSample:
             relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
             self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,
@@ -140,14 +142,14 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              column,row,self.triplestoreconf,self.tablemodel,self.map_canvas)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
-        elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
-            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
-            self.qtask3 = FindStyleQueryTask("Querying styles for dataset.... (" + self.label + ")",
-                                             self.triplestoreurl,
-                                             self,
-                                             self.concept,
-                                             column,row,self.triplestoreconf)
-            QgsApplication.taskManager().addTask(self.qtask3)
+        #elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
+        #    relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
+        #    self.qtask3 = FindStyleQueryTask("Querying styles for dataset.... (" + self.label + ")",
+        #                                     self.triplestoreurl,
+        #                                     self,
+        #                                     self.concept,
+        #                                     column,row,self.triplestoreconf)
+        #    QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
@@ -173,5 +175,5 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                                "whattoenrichquery"].replace("%%concept%%", concept),
                                            self.concept,
                                            None,
-                                           self.tablemodel,self.triplestoreconf, progress,self)
+                                           self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)
         QgsApplication.taskManager().addTask(self.qtask)

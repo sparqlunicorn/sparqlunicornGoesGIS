@@ -15,7 +15,7 @@ from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 import os.path
 
-MESSAGE_CATEGORY = 'InstanceDataDialogggg'
+MESSAGE_CATEGORY = 'InstanceDataDialog'
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/instancedatadialog.ui'))
 
@@ -52,10 +52,10 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.triplestoreurl=triplestoreurl
         if concepttype==SPARQLUtils.geoinstancenode:
             self.setWindowIcon(SPARQLUtils.geoinstanceicon)
-            self.setWindowTitle(title+" for GeoInstance")
+            self.setWindowTitle(title+" (GeoInstance)")
         else:
             self.setWindowIcon(SPARQLUtils.instanceicon)
-            self.setWindowTitle(title+" for Instance")
+            self.setWindowTitle(title+" (Instance)")
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
         actionPan = QAction("Pan", self)
@@ -106,11 +106,13 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
             self.triplestoreconf["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
+            self.concept,
             self.triplestoreconf["endpoint"],query,
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
+            self.concept,
             self.triplestoreconf["endpoint"],
             "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
@@ -125,12 +127,10 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
     def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "DataSchemaDialog",
-                                 Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["whattoenrichquery"]), "DataSchemaDialog",
-                                 Qgis.Info)
-        if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "InstanceDataDialog",
+        #                         Qgis.Info)
+        if self.concept == "" or self.concept is None:
             return
         self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,

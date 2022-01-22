@@ -1,10 +1,12 @@
 import json
 
+from ..util.styleutils import StyleUtils
 from ..util.layerutils import LayerUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtXml import QDomDocument
 from qgis.core import QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 
 MESSAGE_CATEGORY = 'QueryLayerTask'
@@ -13,13 +15,15 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress=None,querydepth=0,shortenURIs=False):
+    def __init__(self, description,concept, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress=None,querydepth=0,shortenURIs=False,styleuri=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
+        self.concept=concept
         self.querydepth=querydepth
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
+        self.styleuri=styleuri
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
@@ -47,6 +51,15 @@ class QueryLayerTask(QgsTask):
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
         if self.geojson!=None:
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
+            QgsMessageLog.logMessage("Style URI Status: "+str(self.styleuri), MESSAGE_CATEGORY, Qgis.Info)
+            if self.styleuri!=None and self.styleuri!=[] and self.concept!=None:
+                QgsMessageLog.logMessage("Querying style definition",MESSAGE_CATEGORY, Qgis.Info)
+                mystyle=StyleUtils.queryStyleByURI(self.concept,self.triplestoreurl,self.triplestoreconf,self.styleuri).toSLD(self.filename)
+                QgsMessageLog.logMessage("Querying style definition II "+str(mystyle).replace("<","").replace(">",""),MESSAGE_CATEGORY, Qgis.Info)
+                myStyleDoc = QDomDocument()
+                myStyleDoc.setContent(mystyle, False)
+                errormsg=""
+                self.vlayer.readSld(myStyleDoc,errormsg)
         return True
 
     ## Processes query results and reformats them to a QGIS layer.

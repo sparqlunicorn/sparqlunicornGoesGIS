@@ -10,12 +10,13 @@ MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg):
+    def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg,styleprop):
         super().__init__(description, QgsTask.CanCancel)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.query = query
+        self.styleprop=styleprop
         self.dlg=dlg
         self.progress = progress
         self.prefixes= prefixes
@@ -101,6 +102,11 @@ class DataSchemaQueryTask(QgsTask):
                             itemchecked.setToolTip("Geo Object Property")
                             itemchecked.setText("GeoOP")
                             self.dlg.setWindowIcon(SPARQLUtils.geoclassicon)
+                    elif curconcept in SPARQLUtils.styleproperties:
+                        itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                        itemchecked.setToolTip("Style Object Property")
+                        itemchecked.setText("Style OP")
+                        self.styleprop.append(curconcept)
                     elif SPARQLUtils.namespaces["rdfs"] in curconcept \
                             or SPARQLUtils.namespaces["owl"] in curconcept \
                             or SPARQLUtils.namespaces["dc"] in curconcept:

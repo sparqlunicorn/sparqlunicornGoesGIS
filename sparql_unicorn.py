@@ -66,8 +66,6 @@ class SPARQLunicorn:
 
     qtask = None
 
-    currentgraph = None
-
     originalRowCount = 0
 
     enrichLayerCounter = 0

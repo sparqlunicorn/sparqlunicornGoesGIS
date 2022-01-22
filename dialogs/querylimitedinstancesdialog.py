@@ -34,6 +34,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                         self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val . " +self.triplestoreconf["geotriplepattern"][0] + "\n }"
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
+                    self.concept,
                     self.triplestoreconf["endpoint"],
                     thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
@@ -43,6 +44,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                         self.concept) + "> . } "+limitstatement+" }\n ?item ?rel ?val .\n }"
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
+                    self.concept,
                     self.triplestoreconf["endpoint"],
                     thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
@@ -52,6 +54,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.concept) + "> . } "+limitstatement+"} ?item ?rel ?val .\n }"
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
+                self.concept,
                 self.triplestoreconf["endpoint"],
                 thequery,
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)

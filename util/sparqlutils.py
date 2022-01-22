@@ -41,12 +41,15 @@ class SPARQLUtils:
                    "http://rdfs.co/juso/geometry": "ObjectProperty",
                    "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty",
-                   }
+    }
+
+    styleproperties={
+        "http://www.opengis.net/ont/geosparql#style"
+    }
 
     graphResource = ["solid:forClass"]
 
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
-
 
     classicon=QIcon(":/icons/resources/icons/class.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
@@ -74,6 +77,7 @@ class SPARQLUtils:
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
+        results=False
         if isinstance(triplestoreurl, str):
             s = QSettings()  # getting proxy from qgis options settings
             proxyEnabled = s.value("proxy/proxyEnabled")
@@ -139,9 +143,10 @@ class SPARQLUtils:
                     return False
         else:
             graph=triplestoreurl
-            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl)+" "+str(len(triplestoreurl)), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query), MESSAGE_CATEGORY, Qgis.Info)
-            results=json.loads(graph.query(query).serialize(format="json"))
+            if graph!=None:
+                results=json.loads(graph.query(query).serialize(format="json"))
         QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         return results
 
@@ -279,7 +284,7 @@ class SPARQLUtils:
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if query==None:
             if typeindicator=="class":
-                query="SELECT ?class ?label WHERE { ?class <"+triplestoreconf["typeproperty"]+"> %%concepts%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
+                query="SELECT ?class ?label WHERE { %%concepts%% . OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+triplestoreconf["labelproperty"]+"> ?label . }}"
         if "SELECT" in query:
             vals = "VALUES ?class { "
             for qid in classes:
