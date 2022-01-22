@@ -80,6 +80,9 @@ SELECT ?label ?geo ?item WHERE {
        <height>591</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>

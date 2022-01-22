@@ -1,6 +1,7 @@
 
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtWidgets import QMessageBox
 
 import json
 

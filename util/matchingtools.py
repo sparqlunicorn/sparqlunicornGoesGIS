@@ -8,8 +8,6 @@ class StringMatching(Enum):
 
 class MatchingTools:
 
-
-
     @staticmethod
     def matchString(originalString,comparisonString,matchingMethod,threshold):
         if matchingMethod==StringMatching.LEVENSTHEIN:

@@ -41,15 +41,12 @@ import json
 
 from rdflib import *
 
-# Initialize Qt resources from file resources.py
-from .tasks.querylayertask import QueryLayerTask
 # Import the code for the dialog
 from .dialogs.uploadrdfdialog import UploadRDFDialog
 from .dialogs.loginwindowdialog import LoginWindowDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
 
 geoconcepts = ""
-
 
 ## The main SPARQL unicorn dialog.
 #

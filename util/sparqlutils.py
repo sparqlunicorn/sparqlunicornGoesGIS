@@ -33,6 +33,8 @@ class SPARQLUtils:
                    "http://www.georss.org/georss/point": "DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
+                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude": "DatatypeProperty",
+                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
                    "http://schema.org/geo": "ObjectProperty",
                    "http://geovocab.org/geometry#geometry": "ObjectProperty",
                    "http://www.w3.org/ns/locn/geometry": "ObjectProperty",

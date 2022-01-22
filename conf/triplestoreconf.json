@@ -636,7 +636,7 @@
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
-        "geometryproperty":"http://www.opengis.net/ont/geosparql#hasGeometry",
+        "geometryproperty":["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude","http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude"],
 		"featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
         "geometrycollectionclasses":["http://www.opengis.net/ont/geosparql#GeometryCollection"],
 		"geoconceptquery": "",
@@ -644,7 +644,7 @@
         "geoconceptlimit": 500,
         "querytemplate": [{
             "label": "100 Random Geometries",
-            "query": "SELECT * WHERE {\n ?item a <%%concept%%>.\n ?item ont:hasLatitude ?lat.\n ?item ont:hasLongitude ?lon.\n ?item dcterms:title ?title .\n }\n ORDER BY ASC(?title)\n LIMIT 100"
+            "query": "SELECT * WHERE {\n ?item a <%%concept%%>.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude> ?lat.\n ?item <http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude> ?lon.\n ?item dcterms:title ?title .\n }\n ORDER BY ASC(?title)\n LIMIT 100"
         }],
         "crs": 4326,
         "staticconcepts": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Place",

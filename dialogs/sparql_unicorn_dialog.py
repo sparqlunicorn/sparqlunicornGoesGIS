@@ -365,7 +365,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.filterConcepts.setText("")
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn",
                                  Qgis.Info)
-        conceptlist = []
         self.geoTreeViewModel.clear()
         self.geometryCollectionClassListModel.clear()
         self.featureCollectionClassListModel.clear()
