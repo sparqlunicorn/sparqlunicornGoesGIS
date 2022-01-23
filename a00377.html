@@ -165,7 +165,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.interlinkNameSpace=dlg.interlinkNameSpace</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.dlg.refreshLayersInterlink.clicked.connect(<span class="keyword">lambda</span>: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="comment">#self.interlinkNameSpace.textChanged.connect(lambda: self.dlg.searchTripleStoreDialog.check_state(self.interlinkNameSpace))</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.interlinkNameSpace.textChanged.connect(<span class="keyword">lambda</span>: UIUtils.check_state(self.interlinkNameSpace))</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.loadLayerInterlink=dlg.loadLayerInterlink</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)</div>
