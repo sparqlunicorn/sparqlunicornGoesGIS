@@ -26,7 +26,7 @@ class InterlinkingTab:
         self.interlinkNameSpace=dlg.interlinkNameSpace
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
         self.dlg.refreshLayersInterlink.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
-        #self.interlinkNameSpace.textChanged.connect(lambda: self.dlg.searchTripleStoreDialog.check_state(self.interlinkNameSpace))
+        self.interlinkNameSpace.textChanged.connect(lambda: UIUtils.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
         self.loadLayerInterlink=dlg.loadLayerInterlink
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)

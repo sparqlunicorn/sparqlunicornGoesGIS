@@ -1,13 +1,13 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem, QProgressDialog
-from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QProgressDialog
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
-from qgis.gui import QgsMapCanvas, QgsMapToolPan
+from qgis.gui import QgsMapToolPan
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
-from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY,QgsApplication, QgsMessageLog
+from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
+    QgsApplication, QgsMessageLog
 
 from ..util.ui.uiutils import UIUtils
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
@@ -58,6 +58,9 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         if concepttype==SPARQLUtils.geoclassnode:
             self.setWindowIcon(SPARQLUtils.geoclassicon)
             self.setWindowTitle(title+" (GeoClass)")
+        elif concepttype==SPARQLUtils.collectionclassnode:
+            self.setWindowIcon(SPARQLUtils.featurecollectionicon)
+            self.setWindowTitle(title+" (CollectionClass)")
         else:
             self.setWindowIcon(SPARQLUtils.classicon)
             self.setWindowTitle(title+" (Class)")
@@ -164,6 +167,11 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                  Qgis.Info)
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
+        thequery=self.triplestoreconf["whattoenrichquery"]
+        if self.concepttype==SPARQLUtils.collectionclassnode:
+            thequery = self.triplestoreconf["whattoenrichquery"].replace(
+                "?con <" + self.triplestoreconf["typeproperty"] + "> %%concept%% .",
+                "%%concept%% rdfs:member ?con .")
         concept = "<" + self.concept + ">"
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
@@ -171,8 +179,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         progress.setCancelButton(None)
         self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
-                                           self.triplestoreconf[
-                                               "whattoenrichquery"].replace("%%concept%%", concept),
+                                           thequery.replace("%%concept%%", concept),
                                            self.concept,
                                            None,
                                            self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)

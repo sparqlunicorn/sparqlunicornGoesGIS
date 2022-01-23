@@ -1,13 +1,11 @@
-from PyQt5.QtWidgets import QProgressDialog
 from qgis.PyQt.QtWidgets import QApplication, QMenu, QAction, QFileDialog
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis._core import Qgis
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
-from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtCore import QUrl
 from ..instancedatadialog import InstanceDataDialog
-from ...tasks.querylayertask import QueryLayerTask
 from ...tasks.subclassquerytask import SubClassQueryTask
 from ...util.ui.uiutils import UIUtils
 from ...tasks.instanceamountquerytask import InstanceAmountQueryTask

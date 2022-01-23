@@ -26,12 +26,12 @@ import os
 import re
 import json
 from qgis.PyQt import uic, QtWidgets
-from qgis.core import QgsProject,QgsMessageLog, Qgis,QgsApplication
-from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices, QIcon
+from qgis.core import QgsMessageLog, Qgis,QgsApplication
+from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon, QStandardItem
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle, QProgressDialog
+from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
 from ..tasks.classtreequerytask import ClassTreeQueryTask
