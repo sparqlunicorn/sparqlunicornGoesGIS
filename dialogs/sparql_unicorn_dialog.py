@@ -705,21 +705,21 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                    self.concept,
+                    concept,
                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . "+self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0]+"\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],False, SPARQLUtils.labelFromURI(concept),progress)
             else:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                    self.concept,
+                    concept,
                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
-                self.concept,
+                concept,
                 self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
