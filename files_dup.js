@@ -55,9 +55,7 @@ var files_dup =
     [ "sparql_unicorn.py", "a00011.html", "a00011" ],
     [ "sparql_unicorn_dialog.py", "a00041.html", "a00041" ],
     [ "sparqlutils.py", "a00146.html", "a00146" ],
-    [ "styleobject.py", "a00149.html", [
-      [ "StyleObject", "a00413.html", "a00413" ]
-    ] ],
+    [ "styleobject.py", "a00149.html", "a00149" ],
     [ "styleutils.py", "a00152.html", "a00152" ],
     [ "subclassquerytask.py", "a00116.html", "a00116" ],
     [ "triplestoredialog.py", "a00044.html", "a00044" ],
