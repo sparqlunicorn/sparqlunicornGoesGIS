@@ -11,30 +11,8 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Convert CRS Dialog</string>
   </property>
-  <widget class="QLabel" name="fileLoadedLabel">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>60</y>
-     <width>62</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>481</width>
-     <height>371</height>
-    </rect>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="convertSRSLabel">
@@ -303,7 +281,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
