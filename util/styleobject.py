@@ -1,3 +1,10 @@
+from qgis.core import (
+    QgsApplication, QgsTask, QgsMessageLog
+)
+from qgis.core import Qgis
+
+MESSAGE_CATEGORY="Style Utils"
+
 class StyleObject():
 
     pointStyle={}
@@ -62,31 +69,31 @@ class StyleObject():
 
     def cssLiteralToXML(self,result,cssString):
         treemap={"Fill":{},"Stroke":{}}
+        QgsMessageLog.logMessage("Query results: " + str(cssString), MESSAGE_CATEGORY, Qgis.Info)
         if ";" in cssString:
             for statement in cssString.split(";"):
                 split = statement.split(":")
                 if "stroke" in split[0]:
-                    treemap["Stroke"][split[0]]=split[1]
+                    treemap["Stroke"][split[0].replace("\"","").replace(" ","")]=split[1].replace("\"","").replace(" ","")
                 elif "fill" in split[0]:
-                    treemap["Fill"][split[0]]=split[1]
+                    treemap["Fill"][split[0].replace("\"","").replace(" ","")]=split[1].replace("\"","").replace(" ","")
+            QgsMessageLog.logMessage("Query results: " + str(treemap), MESSAGE_CATEGORY, Qgis.Info)
             for key in treemap:
-                try:
+                #try:
                     result+="<sld:"+key+">\n"
                     for keyy in treemap[key]:
-                        result+="<sld:CssParameter name=\""+keyy+"\">\n"
-                        result+="<ogc:Literal>"+treemap[key][keyy]+"</ogc:Literal>\n"
-                        result+="</sld:CssParameter>\n"
+                        result+="<sld:CssParameter name=\""+keyy+"\">"+treemap[key][keyy]+"</sld:CssParameter>\n"
                     result+="</sld:"+key+">\n"
-                except:
-                    print("exception")
+                #except e:
+                #    QgsMessageLog.logMessage("Exception parsing css literal: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
         return result
 
     def toSLD(self,layername):
         builder="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        builder+="<sld:StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" version=\"1.1.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd\" xmlns:se=\"http://www.opengis.net/se\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+        builder+="<sld:StyledLayerDescriptor xmlns=\"http://www.opengis.net/ogc\" xmlns:ogc=\"http://www.opengis.net/ogc\" version=\"1.1.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd\" xmlns:se=\"http://www.opengis.net/se\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">\n"
         builder+="<sld:NamedLayer>\n"
-        builder+="<se:Name>"+str(layername)+"</se:Name>\n"
-        builder+="<se:Description></se:Description>\n"
+        builder+="<sld:Name>"+str(layername)+"</sld:Name>\n"
+        builder+="<sld:Description></sld:Description>\n"
         builder+="<sld:UserStyle>\n"
         builder+="<sld:FeatureTypeStyle>\n"
         builder+="<sld:Rule>\n"

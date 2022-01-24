@@ -54,12 +54,13 @@ class QueryLayerTask(QgsTask):
             QgsMessageLog.logMessage("Style URI Status: "+str(self.styleuri), MESSAGE_CATEGORY, Qgis.Info)
             if self.styleuri!=None and self.styleuri!=[] and self.concept!=None:
                 QgsMessageLog.logMessage("Querying style definition",MESSAGE_CATEGORY, Qgis.Info)
-                mystyle=StyleUtils.queryStyleByURI(self.concept,self.triplestoreurl,self.triplestoreconf,self.styleuri).toSLD(self.filename)
+                mystyle=StyleUtils.queryStyleByURI(self.concept,self.triplestoreurl,self.triplestoreconf,self.styleuri).toSLD("unicorn_" + self.filename)
                 QgsMessageLog.logMessage("Querying style definition II "+str(mystyle).replace("<","").replace(">",""),MESSAGE_CATEGORY, Qgis.Info)
                 myStyleDoc = QDomDocument()
                 myStyleDoc.setContent(mystyle, False)
                 errormsg=""
                 self.vlayer.readSld(myStyleDoc,errormsg)
+                QgsMessageLog.logMessage( "Querying style definition III " + str(errormsg), MESSAGE_CATEGORY,Qgis.Info)
         return True
 
     ## Processes query results and reformats them to a QGIS layer.

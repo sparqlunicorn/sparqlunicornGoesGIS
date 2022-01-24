@@ -70,10 +70,11 @@ class TabContextMenu(QMenu):
 
 class ConceptContextMenu(QMenu):
 
-    def __init__(self,dlg,triplestoreconf,prefixes,position,context,item,menu=None):
+    def __init__(self,dlg,triplestoreconf,prefixes,position,context,item,preferredlang=None,menu=None):
         super(ConceptContextMenu, self).__init__()
         self.triplestoreconf=triplestoreconf
         self.dlg=dlg
+        self.preferredlang=preferredlang
         self.item=item
         self.prefixes=prefixes
         if menu==None:
@@ -82,6 +83,7 @@ class ConceptContextMenu(QMenu):
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")
+        action.setIcon(SPARQLUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
         if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode:
@@ -89,6 +91,10 @@ class ConceptContextMenu(QMenu):
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
             actiondataschema = QAction("Query data schema")
+            if item.data(257) == SPARQLUtils.classnode:
+                actiondataschema.setIcon(SPARQLUtils.classicon)
+            else:
+                actiondataschema.setIcon(SPARQLUtils.geoclassicon)
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(lambda: DataSchemaDialog(
                 item.data(256),
@@ -122,6 +128,10 @@ class ConceptContextMenu(QMenu):
             actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:
             actiondataschema = QAction("Query data")
+            if item.data(257) == SPARQLUtils.instancenode:
+                actiondataschema.setIcon(SPARQLUtils.instanceicon)
+            elif item.data(257) == SPARQLUtils.geoinstancenode:
+                actiondataschema.setIcon(SPARQLUtils.geoinstanceicon)
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")

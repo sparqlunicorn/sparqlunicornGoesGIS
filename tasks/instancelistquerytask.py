@@ -6,10 +6,11 @@ MESSAGE_CATEGORY = 'InstanceListQueryTask'
 
 class InstanceListQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
+        self.preferredlang=preferredlang
         self.dlg=dlg
         self.hasgeocount=0
         self.triplestoreconf=triplestoreconf
@@ -19,15 +20,21 @@ class InstanceListQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
+        if "labelproperty" in self.triplestoreconf:
+            labelproperty=self.triplestoreconf["labelproperty"]
         nodetype=self.treeNode.data(257)
+        labelpattern="OPTIONAL { ?con <"+labelproperty+"> ?label . }"
+        if self.preferredlang!="en":
+            labelpattern="OPTIONAL { ?con <"+labelproperty+" > ?label.\n FILTER langMatches(lang(?label),  \""+str(self.preferredlang)+"\") } OPTIONAL { ?class <"+labelproperty+"> ?label . }"
         if nodetype==SPARQLUtils.collectionclassnode:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { " + str(
-                        self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"), MESSAGE_CATEGORY, Qgis.Info)
+                        self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
             thequery="SELECT ?con ?label WHERE {  <" + str(
-                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } }"
+                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . "+str(labelpattern)+" }"
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if type(self.triplestoreconf["geometryproperty"]) is list:
@@ -38,27 +45,27 @@ class InstanceListQueryTask(QgsTask):
                     QgsMessageLog.logMessage('Started task "{}"'.format(
                         "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
                             self.treeNode.data(
-                                256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con " + str(
+                                256)) + " . "+str(labelpattern)+" BIND(EXISTS {?con " + str(
                             geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
                         Qgis.Info)
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(
-                            256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } BIND(EXISTS {?con <" + str(
+                            256)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
                         geometryproperty) + "> ?wkt } AS ?hasgeo)}"
                 else:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(
-                            256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . } OPTIONAL { ?con <" + str(
+                            256)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
                         geometryproperty) + "> ?hasgeo } }"
             else:
                 QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
                         self.treeNode.data(
-                            256)) + " . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"), MESSAGE_CATEGORY,
+                            256)) + " . "+str(labelpattern)+" }"), MESSAGE_CATEGORY,
                     Qgis.Info)
                 thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
                     self.treeNode.data(
-                        256)) + "> . OPTIONAL { ?con <http://www.w3.org/2000/01/rdf-schema#label> ?label . }}"
+                        256)) + "> . "+str(labelpattern)+" }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:

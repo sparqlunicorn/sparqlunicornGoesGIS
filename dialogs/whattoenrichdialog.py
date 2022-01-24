@@ -90,8 +90,8 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def loadSamples(self,modelindex):
         row=modelindex.row()
         column=modelindex.column()
-        if column==2 and row not in self.alreadyloadedSample and row!=self.dataSchemaTableView.model().rowCount()-1:
-            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
+        if column==2 and row not in self.alreadyloadedSample and row!=self.searchResult.model().rowCount()-1:
+            relation = str(self.searchResult.model().index(row, column-1).data(256))
             self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,
                                              self,
