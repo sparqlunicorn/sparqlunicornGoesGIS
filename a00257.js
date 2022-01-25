@@ -1,9 +1,10 @@
 var a00257 =
 [
-    [ "__init__", "a00257.html#a19adb67a27c87d28794d86f661d71318", null ],
-    [ "queryWithLimit", "a00257.html#a8f00d7ecb3b1d33e795c22927f1318cf", null ],
-    [ "concept", "a00257.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "nodetype", "a00257.html#a618f7f5866526d01adfc6c50c3250898", null ],
-    [ "qlayerinstance", "a00257.html#a372686b3ca59f062b995140d963fadd6", null ],
-    [ "triplestoreconf", "a00257.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00257.html#af69c3a8f180ead6f0a55751c1c11fea7", null ],
+    [ "_loadFinished", "a00257.html#a27b737395c35a2a45db65ae7028ed22c", null ],
+    [ "callable", "a00257.html#a828c7df71b0e86f775916045240464e2", null ],
+    [ "app", "a00257.html#afe63fea7be31b0200b496d08bc6b517d", null ],
+    [ "html", "a00257.html#a8f99bc655183db169e126fc155ceb631", null ],
+    [ "logged_in", "a00257.html#a2dde74ef7a1b1433fa85f7aefe03952e", null ],
+    [ "nam", "a00257.html#a51416118072e894072c6e79857b054a0", null ]
 ];

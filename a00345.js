@@ -1,16 +1,13 @@
 var a00345 =
 [
-    [ "__init__", "a00345.html#abe7502501d4d14e4d896afb5783471d0", null ],
+    [ "__init__", "a00345.html#a733595491f69c404aacd9e9e19a986b2", null ],
     [ "finished", "a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00345.html#ad22709b2e67308af35f55680d5a026e0", null ],
+    [ "amount", "a00345.html#a7fb406750fcff703b1c7da34a23c187e", null ],
+    [ "dlg", "a00345.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00345.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "features", "a00345.html#a6b54c7d82e1d89ae7994a88ce0c6889b", null ],
-    [ "mymap", "a00345.html#ab38ad98eb0ec5bd609169dd83133d317", null ],
-    [ "parentwindow", "a00345.html#a110f8af02848bbdf9316dcc57809972e", null ],
-    [ "prefixes", "a00345.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "queryresult", "a00345.html#a1bee14843933505be5e14e07c03f5f89", null ],
-    [ "searchResultModel", "a00345.html#a47177f6f056c672b44af1659582c1118", null ],
-    [ "searchTerm", "a00345.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
+    [ "nodetype", "a00345.html#a618f7f5866526d01adfc6c50c3250898", null ],
+    [ "treeNode", "a00345.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
     [ "triplestoreconf", "a00345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];
