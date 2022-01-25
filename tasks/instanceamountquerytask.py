@@ -5,11 +5,12 @@ MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
 
 class InstanceAmountQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf):
+    def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,nodetype):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf=triplestoreconf
+        self.nodetype=nodetype
         self.dlg=dlg
         self.treeNode=treeNode
         self.amount=-1
@@ -19,8 +20,12 @@ class InstanceAmountQueryTask(QgsTask):
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
-        thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <"+typeproperty+"> <" + str(
-                    self.treeNode.data(256)) + "> . }"
+        if self.nodetype==SPARQLUtils.collectionclassnode:
+            thequery = "SELECT (COUNT(?con) as ?amount) WHERE { <" + str(
+                self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . }"
+        else:
+            thequery="SELECT (COUNT(?con) as ?amount) WHERE { ?con <"+typeproperty+"> <" + str(
+                        self.treeNode.data(256)) + "> . }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results != False:

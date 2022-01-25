@@ -92,7 +92,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample and row!=self.searchResult.model().rowCount()-1:
             relation = str(self.searchResult.model().index(row, column-1).data(256))
-            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
+            self.qtask2 = DataSampleQueryTask("Querying data sample.... (" + str(relation) + ")",
                                              self.triplestoreurl,
                                              self,
                                              self.concept,

@@ -67,7 +67,8 @@ class InstanceQueryTask(QgsTask):
                     itemchecked.setText("OP")
             elif SPARQLUtils.namespaces["rdfs"] in rel \
                         or SPARQLUtils.namespaces["owl"] in rel\
-                        or SPARQLUtils.namespaces["dc"] in rel:
+                        or SPARQLUtils.namespaces["dc"] in rel\
+                        or SPARQLUtils.namespaces["skos"] in rel:
                     itemchecked.setIcon(SPARQLUtils.annotationpropertyicon)
                     itemchecked.setToolTip("Annotation Property")
                     itemchecked.setText("AP")

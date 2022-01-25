@@ -125,6 +125,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext3)
         self.geometryCollectionClassListModel.clear()
+        self.featureCollectionClassList.doubleClicked.connect(self.createLayerFromTreeEntry)
+        self.geometryCollectionClassList.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.classTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
@@ -179,6 +181,16 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         thetext+="<tr><td>Endpoint</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"])+"</a></td></tr>"
         thetext+="<tr><td>Type Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</a></td></tr>"
         thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
+        if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext+= "<tr><td>Geometry Property</td><td><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "</a></td></tr>"
+        if "geoobjproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "\">" + str(
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "</a></td></tr>"
+        if "geoclasses" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "\">" + str(
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "</a></td></tr>"
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()
@@ -501,6 +513,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.dataAllInstancesAsLayer()
         elif nodetype==SPARQLUtils.geoinstancenode or nodetype==SPARQLUtils.instancenode:
             self.dataInstanceAsLayer()
+        elif nodetype==SPARQLUtils.collectionclassnode:
+            self.dataAllInstancesAsLayer()
 
     def tabchanged(self,index):
         #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
@@ -679,7 +693,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
                     "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
                     self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0] + "\n }",
-                    self.triplestoreconf[self.comboBox.currentIndex()], True, SPARQLUtils.labelFromURI(concept), None)
+                    self.triplestoreconf[self.comboBox.currentIndex()], False, SPARQLUtils.labelFromURI(concept), None)
             else:
                 self.qlayerinstance = QueryLayerTask(
                 "Instance to Layer: " + str(concept),
@@ -695,6 +709,19 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 "SELECT ?item ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
+
+    def subclassQuerySelectAction(self):
+        endpointIndex = self.comboBox.currentIndex()
+        if endpointIndex == 0:
+            self.justloadingfromfile = False
+            return
+        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
+        if self.currentContext.selectionModel().currentIndex() is not None and self.item is not None:
+            concept = self.item.data(256)
+            querytext = self.triplestoreconf["querytemplate"][self.queryTemplates.currentIndex()][
+            "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
+            self.inp_sparql2.setPlainText(querytext)
+            self.inp_sparql2.columnvars = {}
 
     def dataAllInstancesAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())

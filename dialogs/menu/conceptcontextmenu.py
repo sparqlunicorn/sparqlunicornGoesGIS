@@ -4,6 +4,8 @@ from qgis.core import (
     QgsApplication, QgsMessageLog
 )
 from qgis.PyQt.QtCore import QUrl
+
+from ...tasks.findrelatedgeoconcept import FindRelatedGeoConceptQueryTask
 from ..instancedatadialog import InstanceDataDialog
 from ...tasks.subclassquerytask import SubClassQueryTask
 from ...tasks.instanceamountquerytask import InstanceAmountQueryTask
@@ -40,6 +42,10 @@ class ConceptContextMenu(QMenu):
             actiondataschema = QAction("Query data schema")
             if item.data(257) == SPARQLUtils.classnode:
                 actiondataschema.setIcon(SPARQLUtils.classicon)
+                actionrelgeo = QAction("Check related geo concepts")
+                actionrelgeo.setIcon(SPARQLUtils.countinstancesicon)
+                menu.addAction(actionrelgeo)
+                actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             else:
                 actiondataschema.setIcon(SPARQLUtils.geoclassicon)
             menu.addAction(actiondataschema)
@@ -62,7 +68,7 @@ class ConceptContextMenu(QMenu):
                 action2.triggered.connect(self.loadSubClasses)
             actionsubclassquery = QAction("Create subclass query")
             menu.addAction(actionsubclassquery)
-            actionsubclassquery.triggered.connect(self.subclassQuerySelectAction)
+            actionsubclassquery.triggered.connect(self.dlg.subclassQuerySelectAction)
             actionquerysomeinstances = QAction("Add some instances as new layer")
             menu.addAction(actionquerysomeinstances)
             actionquerysomeinstances.triggered.connect(lambda: QueryLimitedInstancesDialog(
@@ -121,13 +127,23 @@ class ConceptContextMenu(QMenu):
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
         self.instancedataDialog.exec_()
 
+    def relatedGeoConcepts(self):
+        concept = self.item.data(256)
+        label = self.item.text()
+        if not label.endswith("]"):
+            self.qtaskinstance = FindRelatedGeoConceptQueryTask(
+                "Getting related geo concepts for " + str(concept),
+                self.triplestoreconf["endpoint"], self, concept,self.triplestoreconf)
+            QgsApplication.taskManager().addTask(self.qtaskinstance)
+
     def instanceCount(self):
         concept = self.item.data(256)
+        nodetype = self.item.data(257)
         label = self.item.text()
         if not label.endswith("]"):
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf)
+                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf,nodetype)
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceList(self):
@@ -155,19 +171,6 @@ class ConceptContextMenu(QMenu):
                                     prefixestoadd + query,None,self,
                                     self.item,concept,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtasksub)
-
-    def subclassQuerySelectAction(self):
-        endpointIndex = self.comboBox.currentIndex()
-        if endpointIndex == 0:
-            self.justloadingfromfile = False
-            return
-        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        if self.currentContext.selectionModel().currentIndex() is not None and self.item is not None:
-            concept = self.item.data(256)
-            querytext = self.triplestoreconf["querytemplate"][self.queryTemplates.currentIndex()][
-            "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
-            self.inp_sparql2.setPlainText(querytext)
-            self.inp_sparql2.columnvars = {}
 
     @staticmethod
     def copyClipBoard(item):

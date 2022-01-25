@@ -65,7 +65,7 @@ class DetectTripleStoreTask(QgsTask):
                 self.addTripleStore = False
                 self.prefixes.append("")
                 for prefix in self.gutils.configuration["prefixes"]:
-                    self.prefixes[index] += "PREFIX " + prefix + ":<" + self.gutils.configuration["prefixes"][prefix] + ">\n"
+                    self.prefixes[len(self.prefixes)-1] += "PREFIX " + prefix + ":<" + self.gutils.configuration["prefixes"][prefix] + ">\n"
                 if self.permanentAdd != None and self.permanentAdd:
                     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
                     f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")

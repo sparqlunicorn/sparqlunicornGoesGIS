@@ -29,18 +29,25 @@ class InstanceListQueryTask(QgsTask):
         labelpattern="OPTIONAL { ?con <"+labelproperty+"> ?label . }"
         if self.preferredlang!="en":
             labelpattern="OPTIONAL { ?con <"+labelproperty+" > ?label.\n FILTER langMatches(lang(?label),  \""+str(self.preferredlang)+"\") } OPTIONAL { ?class <"+labelproperty+"> ?label . }"
+        geometryproperty=None
+        if "geometryproperty" in self.triplestoreconf:
+            if type(self.triplestoreconf["geometryproperty"]) is list:
+                geometryproperty = self.triplestoreconf["geometryproperty"][0]
+            else:
+                geometryproperty = self.triplestoreconf["geometryproperty"]
         if nodetype==SPARQLUtils.collectionclassnode:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                     "SELECT ?con ?label WHERE { " + str(
                         self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
-            thequery="SELECT ?con ?label WHERE {  <" + str(
+            if "geometryproperty" in self.triplestoreconf:
+                thequery="SELECT ?con ?label ?hasgeo WHERE {  <" + str(
+                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ?con <" + str(
+                            geometryproperty) + "> ?wkt } AS ?hasgeo) }"
+            else:
+                thequery="SELECT ?con ?label WHERE {  <" + str(
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . "+str(labelpattern)+" }"
         else:
             if "geometryproperty" in self.triplestoreconf:
-                if type(self.triplestoreconf["geometryproperty"]) is list:
-                    geometryproperty=self.triplestoreconf["geometryproperty"][0]
-                else:
-                    geometryproperty = self.triplestoreconf["geometryproperty"]
                 if isinstance(self.triplestoreurl, str):
                     QgsMessageLog.logMessage('Started task "{}"'.format(
                         "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
