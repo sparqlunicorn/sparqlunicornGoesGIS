@@ -6,7 +6,10 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt.QtGui import QDesktopServices,QStandardItem
+from qgis.gui import QgsMapToolPan
+from qgis.PyQt.QtWidgets import QAction
 
+from qgis.core import QgsRasterLayer
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
@@ -48,6 +51,22 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.enrichtable = enrichtable
         self.alreadyloadedSample=[]
         self.layer = layer
+        """
+        actionPan = QAction("Pan", self)
+        actionPan.setCheckable(True)
+        actionPan.triggered.connect(lambda: self.map_canvas.setMapTool(self.toolPan))
+        self.toolPan = QgsMapToolPan(self.map_canvas)
+        self.toolPan.setAction(actionPan)
+        self.map_canvas.hide()
+        uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz&zmax=19&crs=EPSG3857"
+        self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
+        if not self.mts_layer.isValid():
+            print("Layer failed to load!")
+        self.map_canvas.setExtent(self.mts_layer.extent())
+        self.map_canvas.setLayers([self.mts_layer])
+        self.map_canvas.setCurrentLayer(self.mts_layer)
+        self.map_canvas.setMapTool(self.toolPan)
+        """
         self.tablemodel=QStandardItemModel()
         self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
         self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
@@ -95,9 +114,10 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             self.qtask2 = DataSampleQueryTask("Querying data sample.... (" + str(relation) + ")",
                                              self.triplestoreurl,
                                              self,
-                                             self.concept,
+                                             self.conceptSearchEdit.text(),
                                              relation,
-                                             column,row,self.triplestoreconf[self.curindex],self.tablemodel,self.map_canvas)
+                                             column,row,self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
+                                              self.tablemodel,None)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
 

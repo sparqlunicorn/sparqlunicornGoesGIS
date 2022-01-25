@@ -39,22 +39,23 @@ class DataSampleQueryTask(QgsTask):
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
-        #QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
-        for result in results["results"]["bindings"]:
-            self.queryresult.append({})
-            self.queryresult[counter]["value"]=result["val"]["value"]
-            self.queryresult[counter]["label"]=SPARQLUtils.labelFromURI(result["val"]["value"])
-            self.queryresult[counter]["amount"]=result["amount"]["value"]
-            if "val2" in result:
-                self.queryresult[counter]["value2"] = result["val2"]["value"]
-                self.queryresult[counter]["value2label"] = SPARQLUtils.labelFromURI(result["val2"]["value"])
-            if "datatype" in result["val"]:
-                self.queryresult[counter]["datatype"]=result["val"]["datatype"]
-                self.encounteredtypes.add(self.queryresult[counter]["datatype"])
-            else:
-                self.encounteredtypes.add("http://www.w3.org/2001/XMLSchema#anyURI")
-            counter+=1
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.queryresult), MESSAGE_CATEGORY, Qgis.Info)
+        if results!=False:
+            #QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
+            for result in results["results"]["bindings"]:
+                self.queryresult.append({})
+                self.queryresult[counter]["value"]=result["val"]["value"]
+                self.queryresult[counter]["label"]=SPARQLUtils.labelFromURI(result["val"]["value"])
+                self.queryresult[counter]["amount"]=result["amount"]["value"]
+                if "val2" in result:
+                    self.queryresult[counter]["value2"] = result["val2"]["value"]
+                    self.queryresult[counter]["value2label"] = SPARQLUtils.labelFromURI(result["val2"]["value"])
+                if "datatype" in result["val"]:
+                    self.queryresult[counter]["datatype"]=result["val"]["datatype"]
+                    self.encounteredtypes.add(self.queryresult[counter]["datatype"])
+                else:
+                    self.encounteredtypes.add("http://www.w3.org/2001/XMLSchema#anyURI")
+                counter+=1
+            #QgsMessageLog.logMessage('Started task "{}"'.format(self.queryresult), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self,result):
@@ -70,7 +71,7 @@ class DataSampleQueryTask(QgsTask):
         #    if counter%5==0:
         #        resstring+="<br/>"
         #    counter+=1
-        if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
+        if "geometryproperty" in self.triplestoreconf and self.mymap!=None and self.relation in self.triplestoreconf["geometryproperty"]:
             counter=1
             geocollection = {'type': 'FeatureCollection', 'features': []}
             for rel in self.queryresult:

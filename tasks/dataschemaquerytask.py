@@ -80,7 +80,7 @@ class DataSchemaQueryTask(QgsTask):
             self.searchResultModel.removeRow(0)
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
-                self.searchResult.insertRow(0)
+                self.searchResultModel.insertRow(0)
                 item = QStandardItem()
                 item.setText("No results found")
                 self.searchResultModel.setItem(0,0,item)

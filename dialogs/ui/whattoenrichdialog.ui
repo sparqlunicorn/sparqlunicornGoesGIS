@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
+    <width>827</width>
     <height>458</height>
    </rect>
   </property>
@@ -70,25 +70,6 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="0" colspan="6">
-    <widget class="QTableView" name="searchResult">
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-    </widget>
-   </item>
    <item row="0" column="1" colspan="2">
     <widget class="QLineEdit" name="conceptSearchEdit">
      <property name="enabled">
@@ -124,6 +105,25 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="6">
+    <widget class="QTableView" name="searchResult">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
     </widget>
    </item>
   </layout>
