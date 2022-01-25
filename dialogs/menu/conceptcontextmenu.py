@@ -34,6 +34,7 @@ class ConceptContextMenu(QMenu):
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
         if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode:
             actioninstancecount = QAction("Check instance count")
+            actioninstancecount.setIcon(SPARQLUtils.countinstancesicon)
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
             actiondataschema = QAction("Query data schema")
@@ -81,6 +82,10 @@ class ConceptContextMenu(QMenu):
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
+            if item.data(257) == SPARQLUtils.instancenode:
+                actionaddInstanceAsLayer.setIcon(SPARQLUtils.addinstanceicon)
+            elif item.data(257) == SPARQLUtils.geoinstancenode:
+                actionaddInstanceAsLayer.setIcon(SPARQLUtils.addgeoinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
         actionapplicablestyles = QAction("Find applicable styles")

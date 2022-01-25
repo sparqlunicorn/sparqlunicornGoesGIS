@@ -1,6 +1,15 @@
 <RCC>
   <qresource prefix="icons">
     <file>resources/icons/geoinstance.png</file>
+    <file>resources/icons/addclass.png</file>
+    <file>resources/icons/addgeoclass.png</file>
+    <file>resources/icons/addinstance.png</file>
+    <file>resources/icons/addgeoinstance.png</file>
+    <file>resources/icons/countinstances.png</file>
+    <file>resources/icons/featurecollectionToRDF.png</file>
+    <file>resources/icons/countinstances.png</file>
+    <file>resources/icons/linkeddata.png</file>
+    <file>resources/icons/validation2.png</file>
     <file>resources/icons/class.png</file>
     <file>resources/icons/annotationproperty.png</file>
     <file>resources/icons/geoannotationproperty.png</file>

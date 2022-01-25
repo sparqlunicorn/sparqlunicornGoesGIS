@@ -53,8 +53,15 @@ class SPARQLUtils:
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
 
     classicon=QIcon(":/icons/resources/icons/class.png")
+    addclassicon=QIcon(":/icons/resources/icons/addclass.png")
+    addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
+    addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
+    addinstanceicon=QIcon(":/icons/resources/icons/addinstance.png")
+    countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    linkeddataicon=QIcon(":/icons/resources/icons/linkeddata.png")
+    validationicon=QIcon(":/icons/resources/icons/validation2.png")
     halfgeoclassicon=QIcon(":/icons/resources/icons/halfgeoclass.png")
     annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
     geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
@@ -64,6 +71,7 @@ class SPARQLUtils:
     geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
+    featurecollectionToRDFicon=QIcon(":/icons/resources/icons/featurecollectionToRDF.png")
     geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
     sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
     classnode="Class"

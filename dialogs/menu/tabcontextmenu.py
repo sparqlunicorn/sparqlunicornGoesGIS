@@ -1,3 +1,4 @@
+from ...util.sparqlutils import SPARQLUtils
 from ...util.ui.uiutils import UIUtils
 from qgis._core import Qgis
 from qgis.PyQt.QtWidgets import QMenu, QAction, QFileDialog
@@ -11,12 +12,15 @@ class TabContextMenu(QMenu):
         super().__init__(name,parent)
         self.triplestoreconf=triplestoreconf
         actionsaveRDF = QAction("Save Contents as RDF")
+        actionsaveRDF.setIcon(SPARQLUtils.linkeddataicon)
         self.addAction(actionsaveRDF)
         actionsaveRDF.triggered.connect(self.saveTreeToRDF)
         actionsaveClassesRDF = QAction("Save Classes as RDF")
+        actionsaveClassesRDF.setIcon(SPARQLUtils.linkeddataicon)
         self.addAction(actionsaveClassesRDF)
         actionsaveClassesRDF.triggered.connect(self.saveClassesTreeToRDF)
         actionsaveVisibleRDF = QAction("Save Visible Contents as RDF")
+        actionsaveVisibleRDF.setIcon(SPARQLUtils.linkeddataicon)
         self.addAction(actionsaveVisibleRDF)
         actionsaveVisibleRDF.triggered.connect(self.saveVisibleTreeToRDF)
         self.exec_(position)

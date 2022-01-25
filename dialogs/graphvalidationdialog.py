@@ -30,6 +30,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         super(GraphValidationDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(title)
+        self.setWindowIcon(SPARQLUtils.validationicon)
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg
