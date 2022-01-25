@@ -36,6 +36,10 @@ class DataSampleQueryTask(QgsTask):
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE { ?con <" + typeproperty + "> <" + str(
                     self.concept) + "> . ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?val ?val2 LIMIT 100"
+            elif "geotriplepattern" in self.triplestoreconf:
+                query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <" + typeproperty + "> <" + str(
+                self.concept) + "> . "+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")+" } GROUP BY ?val LIMIT 100"
+
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
@@ -76,7 +80,7 @@ class DataSampleQueryTask(QgsTask):
             geocollection = {'type': 'FeatureCollection', 'features': []}
             for rel in self.queryresult:
                 myGeometryInstanceJSON=None
-                if isinstance(self.triplestoreconf["geometryproperty"],str):
+                if isinstance(self.triplestoreconf["geometryproperty"],str) or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
                     myGeometryInstanceJSON = LayerUtils.processLiteral(rel["value"],
                                                                        (rel["datatype"] if "datatype" in rel else ""),
                                                                        True, self.triplestoreconf)
