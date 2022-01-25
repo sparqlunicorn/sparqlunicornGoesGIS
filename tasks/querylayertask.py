@@ -168,6 +168,14 @@ class QueryLayerTask(QgsTask):
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
                     feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
                     features.append(feature)
+                if "lat" in properties and "lon" in properties:
+                    del properties['lat']
+                    del properties['lon']
+                    myGeometryInstanceJSON = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+                                                                       + " " + str(float(result[latval]["value"])) + ")",
+                    "wkt", reproject,self.triplestoreconf)
+                    feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                    features.append(feature)
             else:
                 feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
                 features.append(feature)
