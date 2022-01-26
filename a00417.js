@@ -45,6 +45,8 @@ var a00417 =
     [ "instancenode", "a00417.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
     [ "instancesloadedindicator", "a00417.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],
     [ "linkeddataicon", "a00417.html#ad4bd2e3961f77214efc9b52a5a220028", null ],
+    [ "linkedgeoclassicon", "a00417.html#a798696276ec1ab484c8f86e57f478677", null ],
+    [ "linkedgeoclassnode", "a00417.html#a82fc4d6bb1f6404ed5fee6a57cd5ac87", null ],
     [ "namespaces", "a00417.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertyicon", "a00417.html#a29892332bd12021109da053bd0576341", null ],
     [ "objectpropertynode", "a00417.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
