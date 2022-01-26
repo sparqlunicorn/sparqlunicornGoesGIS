@@ -58,6 +58,7 @@ class SPARQLUtils:
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
+    linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
     addclassicon=QIcon(":/icons/resources/icons/addclass.png")
     addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
     addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
@@ -82,6 +83,7 @@ class SPARQLUtils:
     sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
     classnode="Class"
     geoclassnode="GeoClass"
+    linkedgeoclassnode="LinkedGeoClass"
     instancenode="Instance"
     objectpropertynode="ObjectProperty"
     datatypepropertynode="DatatypeProperty"

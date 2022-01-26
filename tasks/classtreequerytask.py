@@ -86,29 +86,27 @@ class ClassTreeQueryTask(QgsTask):
                 self.classtreemap[subval]=QStandardItem()
                 self.classtreemap[subval].setData(subval,256)
                 if "label" in result:
-                    if "hasgeo" in result:
-                        self.classtreemap[subval].setText(
-                        result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"])+")")
-                        self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
-                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
-                        self.classtreemap[subval].setToolTip("GeoClass "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-                    else:
-                        self.classtreemap[subval].setText(
-                        result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"])+")")
-                        self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
-                        self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
-                        self.classtreemap[subval].setToolTip("Class "+str(self.classtreemap[subval].text())+": <br>"+str(SPARQLUtils.treeNodeToolTip))
+                    self.classtreemap[subval].setText(
+                        result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf[
+                            "prefixesrev"]) + ")")
                 else:
-                    if "hasgeo" in result:
-                        self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
-                        self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
-                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
-                        self.classtreemap[subval].setToolTip("GeoClass "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-                    else:
-                        self.classtreemap[subval].setText(SPARQLUtils.labelFromURI(subval,self.triplestoreconf["prefixesrev"]))
-                        self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
-                        self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
-                        self.classtreemap[subval].setToolTip("Class "+str(self.classtreemap[subval].text())+": <br>"+SPARQLUtils.treeNodeToolTip)
+                    self.classtreemap[subval].setText(
+                        SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
+                if "hasgeo" in result:
+                    self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
+                    self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
+                    self.classtreemap[subval].setToolTip(
+                        "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
+                    self.classtreemap[subval].setIcon(SPARQLUtils.linkedgeoclassicon)
+                    self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, 257)
+                    self.classtreemap[subval].setToolTip(
+                        "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                else:
+                    self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
+                    self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+                    self.classtreemap[subval].setToolTip(
+                        "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))
             if subval not in self.subclassmap:
                 self.subclassmap[subval]=set()
             if "supertype" in result:
