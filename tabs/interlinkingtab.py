@@ -1,3 +1,5 @@
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QStyle
 from qgis.core import QgsProject, Qgis
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
@@ -25,6 +27,7 @@ class InterlinkingTab:
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
         self.interlinkNameSpace=dlg.interlinkNameSpace
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
+        self.dlg.refreshLayersInterlink.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))
         self.dlg.refreshLayersInterlink.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
         self.interlinkNameSpace.textChanged.connect(lambda: UIUtils.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())

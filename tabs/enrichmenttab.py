@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from qgis.core import QgsProject, Qgis
 from qgis.utils import iface
 from qgis.PyQt import QtCore
@@ -5,9 +6,9 @@ from qgis.PyQt import QtCore
 from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from ..tasks.enrichmentquerytask import EnrichmentQueryTask
-from qgis.PyQt.QtWidgets import QMessageBox, QProgressDialog, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QProgressDialog
 from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
-    QAbstractItemView, QMessageBox, QApplication, QMenu, QAction, QFileDialog, QStyle
+     QMessageBox, QStyle
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
@@ -43,6 +44,7 @@ class EnrichmentTab:
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.whattoenrich = dlg.whattoenrich
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+        self.dlg.refreshLayersEnrich.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))
         self.dlg.refreshLayersEnrich.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
 
     ##
