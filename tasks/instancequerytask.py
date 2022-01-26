@@ -78,7 +78,7 @@ class InstanceQueryTask(QgsTask):
                 itemchecked.setText("DP")
             if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
                 myGeometryInstanceJSON=None
-                if isinstance(self.triplestoreconf["geometryproperty"],str):
+                if isinstance(self.triplestoreconf["geometryproperty"],str) or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
                     myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                     (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                     True,self.triplestoreconf)

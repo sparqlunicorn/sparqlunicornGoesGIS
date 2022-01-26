@@ -105,7 +105,7 @@ class DataSampleQueryTask(QgsTask):
             self.dlg.resize(QSize(self.dlg.width() + 250, self.dlg.height()))
             self.mymap.show()
         reslabelprop="label"
-        if len(self.triplestoreconf["geometryproperty"])>1 and self.triplestoreconf["geometryproperty"][1]==self.relation:
+        if "geometryproperty" in self.triplestoreconf and len(self.triplestoreconf["geometryproperty"])>1 and self.triplestoreconf["geometryproperty"][1]==self.relation:
             reslabelprop="value2label"
         for res in self.queryresult:
             if "http" in res:

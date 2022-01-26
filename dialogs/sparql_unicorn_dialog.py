@@ -189,7 +189,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "\">" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "</a></td></tr>"
         if "geoclasses" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
+            thetext += "<tr><td>Detected Geometry Classes</td><td><a href=\"" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "\">" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "</a></td></tr>"
         thetext+="</html>"
