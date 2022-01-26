@@ -109,11 +109,24 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
 
     def queryAllInstances(self):
         querydepth=self.graphQueryDepthBox.value()
+        checkeditems=[]
+        for row in range(self.tablemodel.rowCount()):
+            if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
+                relation = self.tablemodel.item(row, 1).data(256)
+                checkeditems.append(relation)
+        relstatement=" ?item ?rel ?val . "
+        if len(checkeditems)!=self.tablemodel.rowCount():
+            relstatement+=" VALUES ?rel {\n"
+            for item in checkeditems:
+                relstatement+=" <"+item+"> "
+            relstatement+="}"
+        if len(checkeditems)==0:
+            relstatement=""
         if int(querydepth)>1:
             query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + ">  .\n " +
-            self.triplestoreconf["geotriplepattern"][0] + "\n ?item ?rel ?val . }",querydepth)
+            self.triplestoreconf["geotriplepattern"][0] + "\n  "+str(relstatement)+" }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.concept,
@@ -127,7 +140,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.triplestoreconf["endpoint"],
             "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
-                self.concept) + "> .\n ?item ?rel ?val . " +
+                self.concept) + "> .\n "+str(relstatement)+" "+
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         QgsApplication.taskManager().addTask(self.qlayerinstance)

@@ -2,6 +2,7 @@ from collections.abc import Iterable
 
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
+from qgis.PyQt.QtCore import Qt
 from qgis.core import Qgis
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox
 from qgis.core import (
@@ -76,7 +77,6 @@ class WhatToEnrichQueryTask(QgsTask):
             self.searchResult.removeRow(0)
         self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
         self.searchResult.setMouseTracking(True)
-        counter = 0
         if self.sortedatt != None:
             if len(self.sortedatt)==0:
                 self.searchResult.insertRow(0)
@@ -84,7 +84,7 @@ class WhatToEnrichQueryTask(QgsTask):
                 item.setText("No results found")
                 self.searchResult.setItem(0,0,item)
             else:
-                UIUtils.fillAttributeTable(self.sortedatt, None, self.dlg, self.searchResultModel, SPARQLUtils.classnode,"Check this item if you want to enrich your dataset with it")
+                UIUtils.fillAttributeTable(self.sortedatt, None, self.dlg, self.searchResultModel, SPARQLUtils.classnode,"Check this item if you want to enrich your dataset with it",Qt.Unchecked)
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

@@ -1,13 +1,9 @@
-from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtGui import QStandardItem
-from qgis.core import QgsProject,QgsTask, QgsMessageLog
-from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
-import json
 from qgis.PyQt.QtCore import Qt, QSize
 
 MESSAGE_CATEGORY="UIUtils"
@@ -51,7 +47,7 @@ class UIUtils:
                 statusbar.setText(concept)
 
     @staticmethod
-    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,checkboxtooltip=""):
+    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,checkboxtooltip="",checkstate=Qt.Checked):
         counter = 0
         for att in queryresult:
             curconcept = queryresult[att]["concept"]
@@ -59,7 +55,7 @@ class UIUtils:
             itemchecked = QStandardItem()
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
                                  Qt.ItemIsEnabled)
-            itemchecked.setCheckState(Qt.Checked)
+            itemchecked.setCheckState(checkstate)
             itemchecked.setToolTip(checkboxtooltip)
             if curconcept in SPARQLUtils.geoproperties:
                 if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
