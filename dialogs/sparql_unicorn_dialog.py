@@ -108,6 +108,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.classTreeViewModel = QStandardItemModel()
+        self.quickAddTripleStore.setIcon(SPARQLUtils.linkeddataicon)
         self.proxyModel = ClassTreeSortProxyModel(self.geoTreeViewModel)
         self.featureCollectionProxyModel = ClassTreeSortProxyModel(self.featureCollectionClassListModel)
         self.geometryCollectionProxyModel = ClassTreeSortProxyModel(self.geometryCollectionClassListModel)

@@ -28,6 +28,10 @@ class ConceptContextMenu(QMenu):
         if menu==None:
             menu = QMenu("Menu", context)
         actionclip = QAction("Copy IRI to clipboard")
+        if item.data(257) == SPARQLUtils.instancenode or item.data(257) == SPARQLUtils.geoinstancenode:
+            actionclip.setIcon(SPARQLUtils.instancelinkicon)
+        elif item.data(257) == SPARQLUtils.classnode or item.data(257) == SPARQLUtils.geoclassnode:
+            actionclip.setIcon(SPARQLUtils.classlinkicon)
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")
@@ -41,13 +45,13 @@ class ConceptContextMenu(QMenu):
             actioninstancecount.triggered.connect(self.instanceCount)
             actiondataschema = QAction("Query data schema")
             if item.data(257) == SPARQLUtils.classnode:
-                actiondataschema.setIcon(SPARQLUtils.classicon)
+                actiondataschema.setIcon(SPARQLUtils.classschemaicon)
                 actionrelgeo = QAction("Check related geo concepts")
                 actionrelgeo.setIcon(SPARQLUtils.countinstancesicon)
                 menu.addAction(actionrelgeo)
                 actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             else:
-                actiondataschema.setIcon(SPARQLUtils.geoclassicon)
+                actiondataschema.setIcon(SPARQLUtils.geoclassschemaicon)
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(lambda: DataSchemaDialog(
                 item.data(256),
@@ -77,6 +81,10 @@ class ConceptContextMenu(QMenu):
                 item.data(257)
             ).exec_())
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
+            if item.data(257) == SPARQLUtils.instancenode:
+                actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addinstanceicon)
+            elif item.data(257) == SPARQLUtils.geoinstancenode:
+                actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addgeoinstanceicon)
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:

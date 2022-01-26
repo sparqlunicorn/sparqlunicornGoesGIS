@@ -56,13 +56,13 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         if concepttype==SPARQLUtils.geoclassnode:
-            self.setWindowIcon(SPARQLUtils.geoclassicon)
+            self.setWindowIcon(SPARQLUtils.geoclassschemaicon)
             self.setWindowTitle(title+" (GeoClass)")
         elif concepttype==SPARQLUtils.collectionclassnode:
             self.setWindowIcon(SPARQLUtils.featurecollectionicon)
             self.setWindowTitle(title+" (CollectionClass)")
         else:
-            self.setWindowIcon(SPARQLUtils.classicon)
+            self.setWindowIcon(SPARQLUtils.classschemaicon)
             self.setWindowTitle(title+" (Class)")
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)

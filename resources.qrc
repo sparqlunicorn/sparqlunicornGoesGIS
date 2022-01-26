@@ -11,6 +11,9 @@
     <file>resources/icons/linkeddata.png</file>
     <file>resources/icons/validation2.png</file>
     <file>resources/icons/class.png</file>
+    <file>resources/icons/classlink.png</file>
+    <file>resources/icons/classschema.png</file>
+    <file>resources/icons/geoclassschema.png</file>
     <file>resources/icons/annotationproperty.png</file>
     <file>resources/icons/geoannotationproperty.png</file>
     <file>resources/icons/objectproperty.png</file>
@@ -21,6 +24,7 @@
     <file>resources/icons/featurecollection.png</file>
     <file>resources/icons/geometrycollection.png</file>
     <file>resources/icons/instance.png</file>
+    <file>resources/icons/instancelink.png</file>
     <file>resources/icons/geoclass.png</file>
     <file>resources/icons/halfgeoclass.png</file>
   </qresource>

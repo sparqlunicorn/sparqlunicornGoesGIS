@@ -55,6 +55,9 @@ class SPARQLUtils:
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
 
     classicon=QIcon(":/icons/resources/icons/class.png")
+    classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
+    geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
+    classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
     addclassicon=QIcon(":/icons/resources/icons/addclass.png")
     addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
     addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
@@ -62,6 +65,7 @@ class SPARQLUtils:
     countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    instancelinkicon=QIcon(":/icons/resources/icons/instancelink.png")
     linkeddataicon=QIcon(":/icons/resources/icons/linkeddata.png")
     validationicon=QIcon(":/icons/resources/icons/validation2.png")
     halfgeoclassicon=QIcon(":/icons/resources/icons/halfgeoclass.png")

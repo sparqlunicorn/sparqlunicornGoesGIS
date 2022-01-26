@@ -29,6 +29,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.prefixes = prefixes
         self.recursiveResolvingCBox.hide()
         self.chooseFileWidget=QgsFileWidget()
+        self.setWindowIcon(SPARQLUtils.linkeddataicon)
         self.gridLayout.addWidget(self.chooseFileWidget,4,1,Qt.AlignLeft)
         self.chooseFileWidget.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         self.chooseFileWidget.setStorageMode(QgsFileWidget.GetMultipleFiles)
