@@ -49,6 +49,7 @@ class SearchDialog(QDialog, FORM_CLASS):
     def __init__(self, column, row, triplestoreconf, prefixes, interlinkOrEnrich, table, propOrClass=False, bothOptions=False, currentprefixes=None, addVocab=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(SPARQLUtils.searchclassicon)
         self.currentcol = column
         self.currentrow = row
         self.table = table

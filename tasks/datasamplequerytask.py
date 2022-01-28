@@ -85,7 +85,7 @@ class DataSampleQueryTask(QgsTask):
                     myGeometryInstanceJSON= LayerUtils.processLiteral(rel["value"],
                                                                        (rel["datatype"] if "datatype" in rel else ""),
                                                                        True, self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON:
+                    if "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
                         encounteredcrs.add(int(myGeometryInstanceJSON["crs"]))
                         del myGeometryInstanceJSON["crs"]
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:

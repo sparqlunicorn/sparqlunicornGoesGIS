@@ -1,4 +1,6 @@
 from qgis.PyQt.QtWidgets import QDialog
+from qgis.PyQt.QtWidgets import QStyle
+from qgis.PyQt.QtGui import QIcon
 import os
 from qgis.PyQt import uic
 
@@ -10,5 +12,6 @@ class AboutDialog(QDialog, FORM_CLASS):
     def __init__(self,):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.okButton.clicked.connect(self.close)
         self.show()

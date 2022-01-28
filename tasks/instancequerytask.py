@@ -28,7 +28,7 @@ class InstanceQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
         thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val .  }"
         if "geotriplepattern" in self.triplestoreconf:
-            thequery = "SELECT ?rel ?val ?"+"?".join(self.triplestoreconf["mandatoryvariables"][1:])+" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+"  }"
+            thequery = "SELECT ?rel ?val ?"+"?".join(self.triplestoreconf["mandatoryvariables"][1:])+" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . OPTIONAL { "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+" } }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
@@ -93,7 +93,7 @@ class InstanceQueryTask(QgsTask):
                         myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                         (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                         True,self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON:
+                    if "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
                         encounteredcrs=int(myGeometryInstanceJSON["crs"])
                         del myGeometryInstanceJSON["crs"]
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
