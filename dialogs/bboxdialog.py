@@ -6,6 +6,8 @@ from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, Q
     QgsCoordinateTransform, QgsPointXY
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
+
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.mappingtools import RectangleMapTool
 from ..util.ui.mappingtools import CircleMapTool
 from ..util.ui.mappingtools import PolygonMapTool
@@ -52,6 +54,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
+        self.setWindowIcon(SPARQLUtils.bboxicon)
         self.inp_sparql = inp_sparql
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex

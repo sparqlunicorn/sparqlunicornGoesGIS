@@ -14,6 +14,9 @@
     <file>resources/icons/queryinstances.png</file>
     <file>resources/icons/class.png</file>
     <file>resources/icons/subclass.png</file>
+    <file>resources/icons/rdffile.png</file>
+    <file>resources/icons/bboxicon.png</file>
+    <file>resources/icons/columnasvar.png</file>
     <file>resources/icons/classlink.png</file>
     <file>resources/icons/classschema.png</file>
     <file>resources/icons/geoclassschema.png</file>

@@ -5,6 +5,8 @@ from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+
+from ..util.sparqlutils import SPARQLUtils
 from ..tasks.convertcrstask import ConvertCRSTask
 from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
@@ -28,6 +30,7 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         super(ConvertCRSDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(title)
+        self.setWindowIcon(SPARQLUtils.rdffileicon)
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg

@@ -109,9 +109,9 @@ class ConceptContextMenu(QMenu):
             actionquerylinkedgeoconcept.setIcon(SPARQLUtils.linkedgeoclassicon)
             menu.addAction(actionquerylinkedgeoconcept)
             actionquerylinkedgeoconcept.triggered.connect(self.queryLinkedGeoConcept)
-        actionapplicablestyles = QAction("Find applicable styles")
-        menu.addAction(actionapplicablestyles)
-        actionapplicablestyles.triggered.connect(self.appStyles)
+        #actionapplicablestyles = QAction("Find applicable styles")
+        #menu.addAction(actionapplicablestyles)
+        #actionapplicablestyles.triggered.connect(self.appStyles)
         menu.exec_(context.viewport().mapToGlobal(position))
 
     @staticmethod
