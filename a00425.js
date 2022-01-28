@@ -50,6 +50,7 @@ var a00425 =
     [ "linkeddataicon", "a00425.html#ad4bd2e3961f77214efc9b52a5a220028", null ],
     [ "linkedgeoclassicon", "a00425.html#a798696276ec1ab484c8f86e57f478677", null ],
     [ "linkedgeoclassnode", "a00425.html#a82fc4d6bb1f6404ed5fee6a57cd5ac87", null ],
+    [ "linkedgeoobjectpropertyicon", "a00425.html#a346b2cd359a1aa773904117f8c6e121d", null ],
     [ "namespaces", "a00425.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertyicon", "a00425.html#a29892332bd12021109da053bd0576341", null ],
     [ "objectpropertynode", "a00425.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
