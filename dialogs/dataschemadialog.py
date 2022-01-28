@@ -155,7 +155,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas)
+                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas,self.concepttype)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         #elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:

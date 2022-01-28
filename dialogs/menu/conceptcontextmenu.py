@@ -53,6 +53,8 @@ class ConceptContextMenu(QMenu):
                 actionrelgeo.setIcon(SPARQLUtils.countinstancesicon)
                 menu.addAction(actionrelgeo)
                 actionrelgeo.triggered.connect(self.relatedGeoConcepts)
+            elif item.data(257) == SPARQLUtils.collectionclassnode:
+                actiondataschema.setIcon(SPARQLUtils.featurecollectionicon)
             else:
                 actiondataschema.setIcon(SPARQLUtils.geoclassschemaicon)
             menu.addAction(actiondataschema)
@@ -90,13 +92,13 @@ class ConceptContextMenu(QMenu):
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:
-            actiondataschema = QAction("Query data")
+            actiondataschemainstance = QAction("Query data")
             if item.data(257) == SPARQLUtils.instancenode:
-                actiondataschema.setIcon(SPARQLUtils.instanceicon)
+                actiondataschemainstance.setIcon(SPARQLUtils.instanceicon)
             elif item.data(257) == SPARQLUtils.geoinstancenode:
-                actiondataschema.setIcon(SPARQLUtils.geoinstanceicon)
-            menu.addAction(actiondataschema)
-            actiondataschema.triggered.connect(self.dataInstanceView)
+                actiondataschemainstance.setIcon(SPARQLUtils.geoinstanceicon)
+            menu.addAction(actiondataschemainstance)
+            actiondataschemainstance.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
             if item.data(257) == SPARQLUtils.instancenode:
                 actionaddInstanceAsLayer.setIcon(SPARQLUtils.addinstanceicon)
