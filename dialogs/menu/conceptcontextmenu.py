@@ -5,6 +5,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QUrl
 
+from ...tasks.querylayertask import QueryLayerTask
 from ...tasks.findrelatedgeoconcept import FindRelatedGeoConceptQueryTask
 from ..instancedatadialog import InstanceDataDialog
 from ...tasks.subclassquerytask import SubClassQueryTask
@@ -32,6 +33,8 @@ class ConceptContextMenu(QMenu):
             actionclip.setIcon(SPARQLUtils.instancelinkicon)
         elif item.data(257) == SPARQLUtils.classnode or item.data(257) == SPARQLUtils.geoclassnode:
             actionclip.setIcon(SPARQLUtils.classlinkicon)
+        elif item.data(257) == SPARQLUtils.linkedgeoclassnode:
+            actionclip.setIcon(SPARQLUtils.linkedgeoclassicon)
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")
@@ -71,9 +74,11 @@ class ConceptContextMenu(QMenu):
                 menu.addAction(action2)
                 action2.triggered.connect(self.loadSubClasses)
             actionsubclassquery = QAction("Create subclass query")
+            actionsubclassquery.setIcon(SPARQLUtils.subclassicon)
             menu.addAction(actionsubclassquery)
             actionsubclassquery.triggered.connect(self.dlg.subclassQuerySelectAction)
             actionquerysomeinstances = QAction("Add some instances as new layer")
+            actionquerysomeinstances.setIcon(SPARQLUtils.addfeaturecollectionicon)
             menu.addAction(actionquerysomeinstances)
             actionquerysomeinstances.triggered.connect(lambda: QueryLimitedInstancesDialog(
                 triplestoreconf,
@@ -81,10 +86,7 @@ class ConceptContextMenu(QMenu):
                 item.data(257)
             ).exec_())
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
-            if item.data(257) == SPARQLUtils.instancenode:
-                actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addinstanceicon)
-            elif item.data(257) == SPARQLUtils.geoinstancenode:
-                actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addgeoinstanceicon)
+            actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addfeaturecollectionicon)
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:
@@ -102,6 +104,11 @@ class ConceptContextMenu(QMenu):
                 actionaddInstanceAsLayer.setIcon(SPARQLUtils.addgeoinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
+        if item.data(257) == SPARQLUtils.linkedgeoclassnode:
+            actionquerylinkedgeoconcept = QAction("Query joined layer with linked geoconcept")
+            actionquerylinkedgeoconcept.setIcon(SPARQLUtils.linkedgeoclassicon)
+            menu.addAction(actionquerylinkedgeoconcept)
+            actionquerylinkedgeoconcept.triggered.connect(self.queryLinkedGeoConcept)
         actionapplicablestyles = QAction("Find applicable styles")
         menu.addAction(actionapplicablestyles)
         actionapplicablestyles.triggered.connect(self.appStyles)
@@ -134,6 +141,19 @@ class ConceptContextMenu(QMenu):
         self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes)
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
         self.instancedataDialog.exec_()
+
+    def queryLinkedGeoConcept(self):
+        concept = self.item.data(256)
+        nodetype = self.item.data(257)
+        linkedproperty=self.data(260)
+        label = self.item.text()
+        self.qlayerinstance = QueryLayerTask(
+            "Linked GeoClass to Layer: " + str(concept),
+            concept,
+            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+            "SELECT ?item ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . ?item <"+str(linkedproperty)+"> ?item2 . ?item2 ?rel2 ?val2 . \n }",
+            self.triplestoreconf[self.comboBox.currentIndex()], True, SPARQLUtils.labelFromURI(concept), None)
+
 
     def relatedGeoConcepts(self):
         concept = self.item.data(256)
@@ -172,9 +192,8 @@ class ConceptContextMenu(QMenu):
                 query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
-                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][
-                        endpoint] + "> \n"
-            self.qtasksub = SubClassQueryTask("Querying QGIS Layer from " + self.triplestoreconf["endpoint"],
+                    prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][endpoint] + "> \n"
+            self.qtasksub = SubClassQueryTask("Querying subclasses of " + self.triplestoreconf["endpoint"],
                                     self.triplestoreconf["endpoint"],
                                     prefixestoadd + query,None,self,
                                     self.item,concept,self.triplestoreconf)

@@ -11,7 +11,9 @@
     <file>resources/icons/linkeddata.png</file>
     <file>resources/icons/linkedgeoclass.png</file>
     <file>resources/icons/validation2.png</file>
+    <file>resources/icons/queryinstances.png</file>
     <file>resources/icons/class.png</file>
+    <file>resources/icons/subclass.png</file>
     <file>resources/icons/classlink.png</file>
     <file>resources/icons/classschema.png</file>
     <file>resources/icons/geoclassschema.png</file>

@@ -20,7 +20,6 @@ class SubClassQueryTask(QgsTask):
         self.treeNode=treeNode
         self.triplestoreconf=triplestoreconf
         self.amountoflabels = -1
-        self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.resultlist = []
         self.viewlist = []
 
@@ -35,9 +34,9 @@ class SubClassQueryTask(QgsTask):
         print(self.viewlist)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.viewlist), MESSAGE_CATEGORY, Qgis.Info)
         # self.layercount.setText("["+str(len(viewlist))+"]")
-        if "classlabelquery" in self.dlg.triplestoreconf and self.dlg.triplestoreconf[
+        if "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
             "classlabelquery"] != "":
-            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.dlg.triplestoreconf["classlabelquery"],self.dlg.triplestoreconf,self.triplestoreurl)
+            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
             print(labels)
             self.amountoflabels = len(labels)
             i = 0

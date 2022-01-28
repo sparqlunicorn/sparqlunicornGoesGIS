@@ -74,7 +74,6 @@ class InstanceListQueryTask(QgsTask):
                     self.treeNode.data(
                         256)) + "> . "+str(labelpattern)+" }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             for result in results["results"]["bindings"]:
                 if result["con"]["value"] not in self.queryresult:
@@ -82,9 +81,6 @@ class InstanceListQueryTask(QgsTask):
                 if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or not isinstance(self.triplestoreurl, str)):
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
-                    QgsMessageLog.logMessage('Started task "{}"'.format(
-                        str(result["con"]["value"])+" "+str(self.hasgeocount) + " " + str(len(self.queryresult))),
-                        MESSAGE_CATEGORY, Qgis.Info)
                 elif "hasgeo" not in self.queryresult[result["con"]["value"]]:
                     self.queryresult[result["con"]["value"]]["hasgeo"] = False
                 if "label" in result:
@@ -108,8 +104,6 @@ class InstanceListQueryTask(QgsTask):
             item = QStandardItem()
             item.setData(concept, 256)
             item.setText(self.queryresult[concept]["label"])
-            QgsMessageLog.logMessage(str(self.queryresult[concept]["hasgeo"]), MESSAGE_CATEGORY,
-                Qgis.Info)
             if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
                     or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)

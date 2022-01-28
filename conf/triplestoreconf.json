@@ -633,6 +633,8 @@
         "endpoint": "http://romanopendata.eu/sparql-endpoint",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "lat", "lon"],
+        "geoclasses": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Country","http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ModernSpot"],
+        "geoobjproperty": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",
