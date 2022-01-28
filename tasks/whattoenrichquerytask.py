@@ -84,7 +84,7 @@ class WhatToEnrichQueryTask(QgsTask):
                 item.setText("No results found")
                 self.searchResult.setItem(0,0,item)
             else:
-                UIUtils.fillAttributeTable(self.sortedatt, None, self.dlg, self.searchResultModel, SPARQLUtils.classnode,"Check this item if you want to enrich your dataset with it",Qt.Unchecked)
+                UIUtils.fillAttributeTable(self.sortedatt, None, self.dlg, self.searchResultModel,self.triplestoreconf, SPARQLUtils.classnode,"Check this item if you want to enrich your dataset with it",Qt.Unchecked)
         else:
             msgBox = QMessageBox()
             msgBox.setText("The enrichment search query did not yield any results!")

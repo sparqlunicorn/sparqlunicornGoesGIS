@@ -47,7 +47,7 @@ class UIUtils:
                 statusbar.setText(concept)
 
     @staticmethod
-    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,checkboxtooltip="",checkstate=Qt.Checked):
+    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Checked):
         counter = 0
         for att in queryresult:
             curconcept = queryresult[att]["concept"]
@@ -84,6 +84,10 @@ class UIUtils:
                 itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
+            elif "geoobjproperty" in triplestoreconf and att in triplestoreconf["geoobjproperty"]:
+                itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                itemchecked.setToolTip("Linked Geo Object Property")
+                itemchecked.setText("LGeoOP")
             else:
                 itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                 itemchecked.setToolTip("Object Property")

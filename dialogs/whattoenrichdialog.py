@@ -117,7 +117,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                              self.conceptSearchEdit.text(),
                                              relation,
                                              column,row,self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
-                                              self.tablemodel,None)
+                                              self.tablemodel,None,SPARQLUtils.geoclassnode)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
 

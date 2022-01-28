@@ -85,8 +85,8 @@ class DataSchemaQueryTask(QgsTask):
                 item.setText("No results found")
                 self.searchResultModel.setItem(0,0,item)
             else:
-                UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,
-                                           SPARQLUtils.classnode,
+                UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel
+                                           ,self.triplestoreconf,SPARQLUtils.classnode,
                                            "Check this item if you want it to be queried")
         else:
             msgBox = QMessageBox()

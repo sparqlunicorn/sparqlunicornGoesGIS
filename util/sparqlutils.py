@@ -79,6 +79,7 @@ class SPARQLUtils:
     geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
     objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
     geoobjectpropertyicon=QIcon(":/icons/resources/icons/geoobjectproperty.png")
+    linkedgeoobjectpropertyicon=QIcon(":/icons/resources/icons/linkedgeoobjectproperty.png")
     datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
     geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
