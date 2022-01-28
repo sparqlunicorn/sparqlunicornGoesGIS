@@ -66,6 +66,7 @@ class SPARQLUtils:
     countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
     subclassicon=QIcon(":/icons/resources/icons/subclass.png")
+    searchclassicon=QIcon(":/icons/resources/icons/searchclass.png")
     rdffileicon=QIcon(":/icons/resources/icons/rdffile.png")
     columnasvaricon=QIcon(":/icons/resources/icons/columnasvar.png")
     bboxicon=QIcon(":/icons/resources/icons/bboxicon.png")

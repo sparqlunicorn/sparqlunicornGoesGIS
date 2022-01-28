@@ -7,6 +7,7 @@ from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
 from qgis.PyQt.QtGui import QRegExpValidator
 
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
 
@@ -25,6 +26,7 @@ class InterlinkingTab:
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.searchClass=dlg.searchClass
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
+        self.searchClass.setIcon(SPARQLUtils.searchclassicon)
         self.interlinkNameSpace=dlg.interlinkNameSpace
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
         self.dlg.refreshLayersInterlink.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))

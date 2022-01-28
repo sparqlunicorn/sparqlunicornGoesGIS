@@ -40,7 +40,7 @@ class DataSampleQueryTask(QgsTask):
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { ?con <" + typeproperty + "> <" + str(
                 self.concept) + "> . "+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")+" } GROUP BY ?val LIMIT 100"
 
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
         if results!=False:
@@ -78,23 +78,32 @@ class DataSampleQueryTask(QgsTask):
         if "geometryproperty" in self.triplestoreconf and self.mymap!=None and self.relation in self.triplestoreconf["geometryproperty"]:
             counter=1
             geocollection = {'type': 'FeatureCollection', 'features': []}
+            encounteredcrs=set()
             for rel in self.queryresult:
                 myGeometryInstanceJSON=None
                 if isinstance(self.triplestoreconf["geometryproperty"],str) or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
-                    myGeometryInstanceJSON = LayerUtils.processLiteral(rel["value"],
+                    myGeometryInstanceJSON= LayerUtils.processLiteral(rel["value"],
                                                                        (rel["datatype"] if "datatype" in rel else ""),
                                                                        True, self.triplestoreconf)
+                    if "crs" in myGeometryInstanceJSON:
+                        encounteredcrs.add(int(myGeometryInstanceJSON["crs"]))
+                        del myGeometryInstanceJSON["crs"]
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(rel["value"])) + " " + str(
                         float(rel["value2"])) + ")", "wkt", True, self.triplestoreconf)
                 if myGeometryInstanceJSON!=None:
                     geojson = {'id': str(self.concept)+"_"+str(counter), 'type': 'Feature', 'properties': {},
-                        'geometry': json.loads(myGeometryInstanceJSON)}
+                        'geometry': myGeometryInstanceJSON}
                     geocollection["features"].append(geojson)
                     counter+=1
             QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)
             self.features = QgsVectorLayer(json.dumps(geocollection), str(self.concept),"ogr")
-            self.features.setCrs(QgsCoordinateReferenceSystem(4326))
+            if len(encounteredcrs)>0:
+                crs=self.features.crs()
+                crs.createFromId(encounteredcrs.pop())
+                self.features.setCrs(crs)
+            else:
+                self.features.setCrs(QgsCoordinateReferenceSystem(4326))
             layerlist=self.mymap.layers()
             layerlist.insert(0,self.features)
             self.mymap.setLayers(layerlist)

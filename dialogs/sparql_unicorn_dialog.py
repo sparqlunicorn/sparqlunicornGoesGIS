@@ -35,6 +35,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
+from .aboutdialog import AboutDialog
 from ..tasks.classtreequerytask import ClassTreeQueryTask
 from ..tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 from ..tasks.geoconceptsquerytask import GeoConceptsQueryTask
@@ -119,6 +120,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.addLayerButton.clicked.connect(self.create_unicorn_layer)
         self.comboBox.currentIndexChanged.connect(self.endpointselectaction)
         self.endpointselectaction()
+        self.detectMapping.hide()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
         self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext2)
@@ -151,6 +153,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.conceptSelectAction)
         self.actionConvert_RDF_Data.setIcon(SPARQLUtils.rdffileicon)
+        self.actionSearch_Concept_for_Query.setIcon(SPARQLUtils.searchclassicon)
+        self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
         self.actionLayer_Column_as_Variable.setIcon(SPARQLUtils.columnasvaricon)
@@ -162,6 +166,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex()).exec())
         self.actionConstraint_By_BBOX.setIcon(SPARQLUtils.bboxicon)
         self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.actionAbout.triggered.connect(lambda: AboutDialog().exec())
         self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
         self.tripleStoreInfoButton.clicked.connect(self.tripleStoreInfoDialog)
         self.loadQuery.clicked.connect(self.loadQueryFunc)
@@ -174,6 +179,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
+        self.tabchanged(0)
         self.show()
 
     def tripleStoreInfoDialog(self):
@@ -217,10 +223,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             f = open(os.path.join(__location__, 'savedqueries.json'), "w")
             f.write(json.dumps(self.savedQueriesJSON))
             f.close()
-
-    currentContext=None
-    currentContextModel=None
-    currentProxyModel=None
 
     def onContext(self,position):
         self.currentContext=self.geoTreeView
@@ -655,7 +657,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     #  @param  column the column to insert the result
     #  @param  interlinkOrEnrich indicates if the dialog is meant for interlinking or enrichment
     #  @param  table the GUI element to display the result
-    def buildSearchDialog(self, row, column, interlinkOrEnrich, table, propOrClass, bothOptions=False,
+    def buildSearchDialog(self, row=-1, column=-1, interlinkOrEnrich=False, table=None, propOrClass=1, bothOptions=False,
                           currentprefixes=None, addVocabConf=None):
         self.currentcol = column
         self.currentrow = row

@@ -26,9 +26,11 @@ class InstanceQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
+        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val .  }"
+        if "geotriplepattern" in self.triplestoreconf:
+            thequery = "SELECT ?rel ?val ?"+"?".join(self.triplestoreconf["mandatoryvariables"][1:])+" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+"  }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             if "rel" in result and "val" in result:
                 #QgsMessageLog.logMessage("Query results: " + str(result["rel"]["value"]), MESSAGE_CATEGORY, Qgis.Info)
@@ -39,6 +41,8 @@ class InstanceQueryTask(QgsTask):
                     self.queryresult[result["rel"]["value"]]["valtype"] ="http://www.w3.org/2001/XMLSchema#string"
                 else:
                     self.queryresult[result["rel"]["value"]]["valtype"] = result["val"]["value"]
+            if "geo" in result:
+                self.queryresult["geo"]={"value":result["geo"]["value"],"valtype":result["geo"]["datatype"]}
         return True
 
     def finished(self, result):
@@ -46,7 +50,7 @@ class InstanceQueryTask(QgsTask):
             self.searchResultModel.removeRow(0)
         counter=0
         for rel in self.queryresult:
-            QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
             self.searchResultModel.insertRow(counter)
             itemchecked = QStandardItem()
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
@@ -61,7 +65,7 @@ class InstanceQueryTask(QgsTask):
                     itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
-            elif self.queryresult[rel]["val"].startswith("http"):
+            elif rel!="geo" and self.queryresult[rel]["val"].startswith("http"):
                     itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                     itemchecked.setToolTip("Object Property")
                     itemchecked.setText("OP")
@@ -72,47 +76,65 @@ class InstanceQueryTask(QgsTask):
                     itemchecked.setIcon(SPARQLUtils.annotationpropertyicon)
                     itemchecked.setToolTip("Annotation Property")
                     itemchecked.setText("AP")
-            else:
+            elif rel!="geo":
                 itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
-            if "geometryproperty" in self.triplestoreconf and rel in self.triplestoreconf["geometryproperty"]:
+            if "geometryproperty" in self.triplestoreconf and (rel in self.triplestoreconf["geometryproperty"] or rel=="geo"):
                 myGeometryInstanceJSON=None
-                if isinstance(self.triplestoreconf["geometryproperty"],str) or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
-                    myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
-                    (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
-                    True,self.triplestoreconf)
+                encounteredcrs=None
+                if isinstance(self.triplestoreconf["geometryproperty"],str) \
+                        or (type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==1):
+                    if "geo" in self.queryresult:
+                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult["geo"]["value"],
+                        (self.queryresult["geo"]["valtype"] if "valtype" in self.queryresult["geo"] else ""),
+                        True,self.triplestoreconf)
+                    else:
+                        myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
+                        (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
+                        True,self.triplestoreconf)
+                    if "crs" in myGeometryInstanceJSON:
+                        encounteredcrs=int(myGeometryInstanceJSON["crs"])
+                        del myGeometryInstanceJSON["crs"]
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
                         float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True, self.triplestoreconf)
                 if myGeometryInstanceJSON!=None:
                     geojson = {'type': 'FeatureCollection', 'features': [
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
-                        'geometry': json.loads(myGeometryInstanceJSON)}
+                        'geometry': myGeometryInstanceJSON}
                     ]}
                     QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
                     self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
-                    self.features.setCrs(QgsCoordinateReferenceSystem(4326))
+                    featuress = self.features.getFeatures()
+                    geomcentroidpoint=None
+                    for feat in featuress:
+                        geomcentroidpoint = feat.geometry().centroid().asPoint()
+                    if encounteredcrs!=None:
+                        crs = self.features.crs()
+                        crs.createFromId(encounteredcrs)
+                        self.features.setCrs(crs)
+                    else:
+                        self.features.setCrs(QgsCoordinateReferenceSystem(4326))
                     layerlist=self.mymap.layers()
                     layerlist.insert(0,self.features)
                     self.mymap.setLayers(layerlist)
                     self.mymap.setCurrentLayer(self.features)
-                    self.features.selectAll()
-                    self.mymap.zoomToSelected(self.features)
-                    self.features.removeSelection()
-                    self.parentwindow.resize(QSize(self.parentwindow.width() + 250, self.parentwindow.height()))
+                    #if geomcentroidpoint != None:
+                    #    self.mymap.zoomWithCenter(geomcentroidpoint.x(), geomcentroidpoint.y(), True)
                     self.mymap.show()
-            self.searchResultModel.setItem(counter, 0, itemchecked)
-            item = QStandardItem()
-            item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
-            item.setData(str(rel),256)
-            item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
-            self.searchResultModel.setItem(counter, 1, item)
-            itembutton = QStandardItem()
-            itembutton.setText(self.queryresult[rel]["val"])
-            itembutton.setData(self.queryresult[rel]["valtype"],256)
-            self.searchResultModel.setItem(counter, 2, itembutton)
-            counter+=1
+            if rel!="geo":
+                self.searchResultModel.setItem(counter, 0, itemchecked)
+                item = QStandardItem()
+                item.setText(SPARQLUtils.labelFromURI(rel,self.prefixes))
+                item.setData(str(rel),256)
+                item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
+                self.searchResultModel.setItem(counter, 1, item)
+                itembutton = QStandardItem()
+                itembutton.setText(self.queryresult[rel]["val"])
+                itembutton.setData(self.queryresult[rel]["valtype"],256)
+                self.searchResultModel.setItem(counter, 2, itembutton)
+                counter+=1
         self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Value")
