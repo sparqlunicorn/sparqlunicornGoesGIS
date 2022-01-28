@@ -1,4 +1,4 @@
 var a00198 =
 [
-    [ "SearchTask", "a00369.html", "a00369" ]
+    [ "InstanceQueryTask", "a00361.html", "a00361" ]
 ];

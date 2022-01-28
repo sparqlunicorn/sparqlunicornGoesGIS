@@ -1,4 +1,5 @@
 var a00173 =
 [
-    [ "TripleStoreDialog", "a00273.html", "a00273" ]
+    [ "LoginWindow", "a00265.html", "a00265" ],
+    [ "LoginWindowDialog", "a00261.html", "a00261" ]
 ];

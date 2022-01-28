@@ -1,4 +1,4 @@
 var a00194 =
 [
-    [ "InstanceQueryTask", "a00353.html", "a00353" ]
+    [ "GetStyleQueryTask", "a00345.html", "a00345" ]
 ];

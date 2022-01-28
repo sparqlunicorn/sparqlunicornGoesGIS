@@ -1,6 +1,7 @@
 var a00035 =
 [
-    [ "QueryLimitedInstancesDialog", "a00261.html", "a00261" ],
+    [ "LoginWindowDialog", "a00261.html", "a00261" ],
+    [ "LoginWindow", "a00265.html", "a00265" ],
     [ "_", "a00035.html#a18f05aeddc212b523b40818fa2b87b33", null ],
     [ "FORM_CLASS", "a00035.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
 ];

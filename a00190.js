@@ -1,4 +1,4 @@
 var a00190 =
 [
-    [ "GetStyleQueryTask", "a00337.html", "a00337" ]
+    [ "FindRelatedGeoConceptQueryTask", "a00329.html", "a00329" ]
 ];

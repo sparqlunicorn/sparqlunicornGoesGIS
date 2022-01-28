@@ -1,14 +1,8 @@
 var a00401 =
 [
-    [ "detectColumnType", "a00401.html#a3b3b26661848bacfec67cacda1d77cb6", null ],
-    [ "detectLayerColumnType", "a00401.html#a7719daa9b701fee94681d6d677675cef", null ],
-    [ "detectLayerColumnTypes", "a00401.html#af428e0da9890c28e8471632877684873", null ],
-    [ "exportGeometryType", "a00401.html#a6ab4400bb1d621394fec9af6ed12467b", null ],
-    [ "exportLayerAsGeoJSONLD", "a00401.html#a664f3dbc39717e5f4219fc829744d719", null ],
-    [ "getLayerColumnAsList", "a00401.html#aa1a88978ad30c85e5b095f9d079d1547", null ],
-    [ "layerToDot", "a00401.html#a5d95f97b11e92ed3d36c88331d1d55aa", null ],
-    [ "layerToGraphML", "a00401.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
-    [ "layerToTTLString", "a00401.html#ae39fdf5bb286c926d659bcbf9fe38bc8", null ],
-    [ "loadLayerList", "a00401.html#a22c87d0316ac2af5a80b0e7609496924", null ],
-    [ "processLiteral", "a00401.html#aef8af2bd7b00b74fbde919f3f35f05ac", null ]
+    [ "geocode", "a00401.html#a1a79c88c50c84c8b1c966fd5bfbc29df", null ],
+    [ "handleResponse", "a00401.html#af5af50facce4d4c1e55416043b1f6dd2", null ],
+    [ "networkrequest", "a00401.html#a846ec42f7586b3ddea32e1eacad2f411", null ],
+    [ "manager", "a00401.html#a23416379944e641a8ad6bdbc95ef1859", null ],
+    [ "nominatimmap", "a00401.html#a87030b4985e39b57aeea787ef0af34b9", null ]
 ];

@@ -1,11 +1,6 @@
 var a00413 =
 [
-    [ "getAuthUrl", "a00413.html#ad50702f3986e9735608dbe6c3c5d954d", null ],
-    [ "AuthUrl", "a00413.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
-    [ "ClientId", "a00413.html#a7f12c8ddfb00c508eb1ee63907d6493c", null ],
-    [ "ClientSecret", "a00413.html#a86726dfd09230f62e353b939407e7819", null ],
-    [ "RedirectScheme", "a00413.html#a53a91115cb4711210ec578b91efbecdb", null ],
-    [ "RedirectUrl", "a00413.html#ac239dd96726a1bae22f8f0f2362e3df0", null ],
-    [ "ResponseType", "a00413.html#a76ea639e13c617a28c4cac0e357875e3", null ],
-    [ "Scopes", "a00413.html#a08e85efb4b2f67fcb9ef90a5dda77d46", null ]
+    [ "HAMMING", "a00413.html#a758dd7ea089ad385444edd082399c839", null ],
+    [ "LEVENSTHEIN", "a00413.html#a0a704cb6400c2ed3e12bdc9f49961571", null ],
+    [ "SUBSTRING", "a00413.html#ace5889b077dc9caad3d4ac71c04ba9d3", null ]
 ];

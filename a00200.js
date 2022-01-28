@@ -1,4 +1,4 @@
 var a00200 =
 [
-    [ "WhatToEnrichQueryTask", "a00377.html", "a00377" ]
+    [ "LoadGraphTask", "a00369.html", "a00369" ]
 ];
