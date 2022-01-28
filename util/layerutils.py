@@ -106,6 +106,7 @@ class LayerUtils:
             return json.dumps(res[0])
         if literaltype == "":
             literaltype = SPARQLUtils.detectGeoLiteralType(literal)
+        curcrs=None
         if "wkt" in literaltype.lower():
             literal = literal.strip()
             if literal.startswith("<http"):
@@ -113,6 +114,7 @@ class LayerUtils:
                 slashindex = literal.rfind("/") + 1
                 reproject = literal[slashindex:(index - 1)]
                 geom = QgsGeometry.fromWkt(literal[index:])
+                curcrs=literal[slashindex:(index - 1)]
             else:
                 geom = QgsGeometry.fromWkt(literal)
         elif "gml" in literaltype.lower():
@@ -127,7 +129,10 @@ class LayerUtils:
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
             geom.transform(tr)
         if geom != None:
-            return geom.asJson()
+            res=json.loads(geom.asJson())
+            if "crs"!=None:
+                res["crs"]=curcrs
+            return res
         return None
 
 

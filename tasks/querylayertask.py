@@ -46,11 +46,16 @@ class QueryLayerTask(QgsTask):
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
-        self.geojson = self.processResults(results,
+        res = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
+        self.geojson=res[0]
         if self.geojson!=None:
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
+            if len(res)>1 and res[1]!=None and res[1].isdigit():
+                crs=self.vlayer.crs()
+                crs.createFromId(int(res[1]))
+                self.vlayer.setCrs(crs)
             QgsMessageLog.logMessage("Style URI Status: "+str(self.styleuri), MESSAGE_CATEGORY, Qgis.Info)
             if self.styleuri!=None and self.styleuri!=[] and self.concept!=None:
                 QgsMessageLog.logMessage("Querying style definition",MESSAGE_CATEGORY, Qgis.Info)
@@ -78,6 +83,7 @@ class QueryLayerTask(QgsTask):
         newobject = True
         item = ""
         relval=False
+        crsset=set()
         for result in results["results"]["bindings"]:
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
@@ -87,8 +93,11 @@ class QueryLayerTask(QgsTask):
                     del properties['geo']
                     myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                         result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
+                    if "crs" in myGeometryInstanceJSON:
+                        crsset.add(myGeometryInstanceJSON["crs"])
+                        del myGeometryInstanceJSON["crs"]
                     feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties,
-                               'geometry': json.loads(myGeometryInstanceJSON)}
+                               'geometry': myGeometryInstanceJSON}
                     features.append(feature)
                 properties = {}
                 item = result["item"]["value"]
@@ -103,7 +112,7 @@ class QueryLayerTask(QgsTask):
                         "POINT(" + str(float(result[lonval]["value"])) + " " + str(
                             float(result[latval]["value"])) + ")", "wkt", reproject,self.triplestoreconf)
                     feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties,
-                               'geometry': json.loads(myGeometryInstanceJSON)}
+                               'geometry': myGeometryInstanceJSON}
                     features.append(feature)
                 properties = {}
                 item = result["item"]["value"]
@@ -134,13 +143,16 @@ class QueryLayerTask(QgsTask):
             if not "rel" in result and not "val" in result and "geo" in result:
                 myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                if "crs" in myGeometryInstanceJSON:
+                    crsset.add(myGeometryInstanceJSON["crs"])
+                    del myGeometryInstanceJSON["crs"]
+                feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
                 features.append(feature)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result:
                 myGeometryInstanceJSON = LayerUtils.processLiteral(
                     "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
                     "wkt", reproject,self.triplestoreconf)
-                feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
                 features.append(feature)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
                 feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties, 'geometry': {}}
@@ -148,9 +160,12 @@ class QueryLayerTask(QgsTask):
         if relval and not geooptional and "lat" not in result and "lon" not in result:
             myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
+            if "crs" in myGeometryInstanceJSON:
+                crsset.add(myGeometryInstanceJSON["crs"])
+                del myGeometryInstanceJSON["crs"]
             del properties['item']
             del properties['geo']
-            feature = { 'id':result["item"]["value"],'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+            feature = { 'id':result["item"]["value"],'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
             features.append(feature)
         if relval and geooptional:
             #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
@@ -166,7 +181,10 @@ class QueryLayerTask(QgsTask):
                     del properties['geo']
                     myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                    feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                    if "crs" in myGeometryInstanceJSON:
+                        crsset.add(myGeometryInstanceJSON["crs"])
+                        del myGeometryInstanceJSON["crs"]
+                    feature = {'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
                     features.append(feature)
                 if "lat" in properties and "lon" in properties:
                     del properties['lat']
@@ -174,7 +192,7 @@ class QueryLayerTask(QgsTask):
                     myGeometryInstanceJSON = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
                                                                        + " " + str(float(result[latval]["value"])) + ")",
                     "wkt", reproject,self.triplestoreconf)
-                    feature = {'type': 'Feature', 'properties': properties, 'geometry': json.loads(myGeometryInstanceJSON)}
+                    feature = {'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
                     features.append(feature)
             else:
                 feature = {'type': 'Feature', 'properties': properties, 'geometry': {}}
@@ -186,12 +204,12 @@ class QueryLayerTask(QgsTask):
         if features == [] and len(results["results"]["bindings"]) > 0:
             return len(results["results"]["bindings"])
         geojson = {'type': 'FeatureCollection', 'features': features}
-        return geojson
+        return [geojson,crsset.pop()]
 
     def finished(self, result):
         if self.geojson == None and self.exception != None:
             msgBox = QMessageBox()
-            msgBox.setText("An error occured while querying: " + str(self.exception))
+            msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
             return
         if self.geojson == None:
