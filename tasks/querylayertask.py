@@ -204,7 +204,9 @@ class QueryLayerTask(QgsTask):
         if features == [] and len(results["results"]["bindings"]) > 0:
             return len(results["results"]["bindings"])
         geojson = {'type': 'FeatureCollection', 'features': features}
-        return [geojson,crsset.pop()]
+        if len(crsset)>0:
+            return [geojson,crsset.pop()]
+        return [geojson]
 
     def finished(self, result):
         if self.geojson == None and self.exception != None:

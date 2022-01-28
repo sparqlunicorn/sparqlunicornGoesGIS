@@ -84,7 +84,7 @@ class UIUtils:
                 itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
-            elif "geoobjproperty" in triplestoreconf and att in triplestoreconf["geoobjproperty"]:
+            elif "geoobjproperty" in triplestoreconf and curconcept in triplestoreconf["geoobjproperty"]:
                 itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
                 itemchecked.setToolTip("Linked Geo Object Property")
                 itemchecked.setText("LGeoOP")
@@ -107,7 +107,7 @@ class UIUtils:
                 queryresult[att]["concept"]) + "<br>Double click to view definition in web browser")
             searchResultModel.setItem(counter, 1, item)
             itembutton = QStandardItem()
-            if nodetype==SPARQLUtils.classnode or nodetype==SPARQLUtils.geoclassnode:
+            if nodetype!=SPARQLUtils.instancenode and nodetype!=SPARQLUtils.geoinstancenode:
                 if "valtype" in queryresult[att]:
                     itembutton.setText("Click to load samples... [" + str(queryresult[att]["valtype"]).replace(
                         "http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -117,7 +117,7 @@ class UIUtils:
                 else:
                     itembutton.setText("Click to load samples... [xsd:anyURI]")
                     itembutton.setData("http://www.w3.org/2001/XMLSchema#anyURI", 256)
-            else:
+            elif "val" in queryresult[att]:
                 itembutton = QStandardItem()
                 itembutton.setText(queryresult[att]["val"])
                 itembutton.setData(queryresult[att]["valtype"], 256)
