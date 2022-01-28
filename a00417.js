@@ -12,6 +12,7 @@ var a00417 =
     [ "loadGraph", "a00417.html#a8357f44b5c6ddb5e8885e31af12ab638", null ],
     [ "shortenLiteral", "a00417.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "addclassicon", "a00417.html#afe4bb4d57b8cbec66e4fc0a3ed242478", null ],
+    [ "addfeaturecollectionicon", "a00417.html#a831a523af95b5eca802c7975743d977d", null ],
     [ "addgeoclassicon", "a00417.html#a9b6984d70f1c205919bae6a31f1bc9e6", null ],
     [ "addgeoinstanceicon", "a00417.html#a1fade142d2bc0a905080c14a4b233ef1", null ],
     [ "addinstanceicon", "a00417.html#a4eb956d4a5aa57dcbbec3522072563fd", null ],
@@ -52,6 +53,7 @@ var a00417 =
     [ "objectpropertynode", "a00417.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
     [ "sparqlunicornicon", "a00417.html#af31f1d72745504f1174b536238cbe11a", null ],
     [ "styleproperties", "a00417.html#acb3b01974e4664d4be9f2833fcb096e9", null ],
+    [ "subclassicon", "a00417.html#abdbe8d7d363e5088e987d0563948d8a1", null ],
     [ "supportedLiteralTypes", "a00417.html#a28a4112f838898d008910c4320f0732e", null ],
     [ "treeNodeToolTip", "a00417.html#ab6a3282f03c67eef3b4d08d300033335", null ],
     [ "validationicon", "a00417.html#a5e6e4e28aee4a82238ff77319ebe36c4", null ]

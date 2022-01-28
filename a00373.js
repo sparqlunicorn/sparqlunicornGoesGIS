@@ -7,7 +7,6 @@ var a00373 =
     [ "con", "a00373.html#a94534dee405e8dd38d894ae17bb288e6", null ],
     [ "dlg", "a00373.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00373.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "geoTreeViewModel", "a00373.html#ac718e6195097812dffa9cfd2407131ad", null ],
     [ "progress", "a00373.html#a991fd2c404665f13f536fc7791e53504", null ],
     [ "query", "a00373.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "resultlist", "a00373.html#af06316de4f3798fb8e2fd1c2846957ca", null ],
