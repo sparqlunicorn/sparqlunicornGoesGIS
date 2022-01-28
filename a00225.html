@@ -109,11 +109,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">def </span><a class="code" href="a00385.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,):</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        super(QDialog, self).<a class="code" href="a00385.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        self.okButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        self.show()</div>
+<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">def </span><a class="code" href="a00385.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,):</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        super(QDialog, self).<a class="code" href="a00385.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, <span class="stringliteral">&#39;SP_MessageBoxInformation&#39;</span>))))</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        self.okButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        self.show()</div>
 </div><!-- fragment -->
 </div>
 </div>
