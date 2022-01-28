@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"a00389.html#a56435cd18605ceb7d36ef96f1a1252a2":[1,0,0,0,9],
 "a00389.html#a56c0d7bb6decc89954e354bbd53ec602":[1,0,0,0,7],
 "a00389.html#a69f706a761ec89c3b902ee489e8d7408":[1,0,0,0,27],
 "a00389.html#a6f20e607efd22c0391d46905d6d32ecd":[1,0,0,0,11],
@@ -183,16 +184,16 @@ var NAVTREEINDEX4 =
 "annotated.html":[1,0],
 "classes.html":[1,1],
 "files.html":[2,0],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_a.html":[1,3,0,1],
 "functions_b.html":[1,3,0,2],
 "functions_c.html":[1,3,0,3],
 "functions_d.html":[1,3,0,4],
 "functions_e.html":[1,3,0,5],
 "functions_f.html":[1,3,0,6],
-"functions_func.html":[1,3,1,0],
 "functions_func.html":[1,3,1],
+"functions_func.html":[1,3,1,0],
 "functions_func_a.html":[1,3,1,1],
 "functions_func_b.html":[1,3,1,2],
 "functions_func_c.html":[1,3,1,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "functions_vars_p.html":[1,3,2,14],
 "functions_vars_q.html":[1,3,2,15],
 "functions_vars_r.html":[1,3,2,16],
-"functions_vars_s.html":[1,3,2,17],
-"functions_vars_t.html":[1,3,2,18]
+"functions_vars_s.html":[1,3,2,17]
 };
