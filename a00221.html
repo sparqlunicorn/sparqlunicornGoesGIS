@@ -428,7 +428,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">if</span> self.enrichedExport:</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        layer = layers[selectedLayerIndex].layer()</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span> exportToTripleStore:</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            ttlstring = LayerUtils.layerToTTLString(layer, <span class="stringliteral">&quot;&quot;</span>.join(self.prefixes[self.dlg.comboBox.currentIndex()]),</div>
