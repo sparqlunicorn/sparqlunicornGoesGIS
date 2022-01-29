@@ -69,6 +69,7 @@ class SPARQLUtils:
     searchclassicon=QIcon(":/icons/resources/icons/searchclass.png")
     rdffileicon=QIcon(":/icons/resources/icons/rdffile.png")
     columnasvaricon=QIcon(":/icons/resources/icons/columnasvar.png")
+    queryinstancesicon=QIcon(":/icons/resources/icons/queryinstances.png")
     bboxicon=QIcon(":/icons/resources/icons/bboxicon.png")
     instanceicon=QIcon(":/icons/resources/icons/instance.png")
     instancelinkicon=QIcon(":/icons/resources/icons/instancelink.png")

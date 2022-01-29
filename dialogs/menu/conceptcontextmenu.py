@@ -69,10 +69,12 @@ class ConceptContextMenu(QMenu):
                                                                        "prefixesrev"])
             ).exec_())
             actionqueryinstances = QAction("Query all instances")
+            actionqueryinstances.setIcon(SPARQLUtils.queryinstancesicon)
             menu.addAction(actionqueryinstances)
             actionqueryinstances.triggered.connect(self.instanceList)
             if "subclassquery" in triplestoreconf:
                 action2 = QAction("Load subclasses")
+                action2.setIcon(SPARQLUtils.subclassicon)
                 menu.addAction(action2)
                 action2.triggered.connect(self.loadSubClasses)
             actionsubclassquery = QAction("Create subclass query")

@@ -51,7 +51,8 @@ class InstanceQueryTask(QgsTask):
         counter=0
         for rel in self.queryresult:
             #QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
-            self.searchResultModel.insertRow(counter)
+            if rel!="geo":
+                self.searchResultModel.insertRow(counter)
             itemchecked = QStandardItem()
             itemchecked.setFlags(Qt.ItemIsUserCheckable |
                                  Qt.ItemIsEnabled)
