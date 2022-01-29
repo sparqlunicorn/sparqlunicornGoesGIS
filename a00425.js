@@ -54,6 +54,7 @@ var a00425 =
     [ "namespaces", "a00425.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertyicon", "a00425.html#a29892332bd12021109da053bd0576341", null ],
     [ "objectpropertynode", "a00425.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
+    [ "queryinstancesicon", "a00425.html#ae4aef5e9968fa261d6f41d87100e833c", null ],
     [ "rdffileicon", "a00425.html#a9ca0ed940363107125e521c9ec722403", null ],
     [ "searchclassicon", "a00425.html#a5b92d91588fcf81aa88c205b8c36aa63", null ],
     [ "sparqlunicornicon", "a00425.html#af31f1d72745504f1174b536238cbe11a", null ],
