@@ -324,42 +324,46 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A URI and possibly its label as a String </dd></dl>
 <div class="fragment"><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">def </span>applyConceptToColumn(self, costumURI=False):</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> self.layer.fields()]</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        item = QTableWidgetItem(</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            self.searchResult.currentItem().text()[0:self.searchResult.currentItem().text().rfind(<span class="stringliteral">&#39;(&#39;</span>) - 1])</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment"># item.setFlags(QtCore.Qt.ItemIsEnabled)</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        row = self.enrichtable.rowCount()</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        self.enrichtable.insertRow(row)</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        self.enrichtable.setItem(row, 0, item)</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        item = QTableWidgetItem()</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        item.setData(1, self.searchResult.currentItem().data(1))</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        item.setText(self.searchResult.currentItem().text())</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        self.enrichtable.setItem(row, 1, item)</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        item = QTableWidgetItem()</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        self.enrichtable.setItem(row, 2, item)</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        cbox = QComboBox()</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Get Remote&quot;</span>)</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;No Enrichment&quot;</span>)</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Exclude&quot;</span>)</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        self.enrichtable.setCellWidget(row, 3, cbox)</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        cbox = QComboBox()</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich Value&quot;</span>)</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich URI&quot;</span>)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        cbox.addItem(<span class="stringliteral">&quot;Enrich Both&quot;</span>)</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        self.enrichtable.setCellWidget(row, 4, cbox)</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        cbox = QComboBox()</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">for</span> fieldd <span class="keywordflow">in</span> fieldnames:</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            cbox.addItem(fieldd)</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        self.enrichtable.setCellWidget(row, 5, cbox)</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        itemm = QTableWidgetItem(<span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>)</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        self.enrichtable.setItem(row, 6, itemm)</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        itemm = QTableWidgetItem(self.conceptSearchEdit.text())</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        self.enrichtable.setItem(row, 7, itemm)</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        self.enrichtable.setItem(row, 8, itemm)</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        self.close()</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range(self.tablemodel.rowCount()):</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordflow">if</span> self.tablemodel.item(row, 0).checkState()==Qt.Checked:</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                relation = self.tablemodel.item(row, 1).data(256)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                text=self.tablemodel.item(row, 1).text()</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                item = QTableWidgetItem(</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                    text[0:text.rfind(<span class="stringliteral">&#39;(&#39;</span>) - 1])</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                <span class="comment"># item.setFlags(QtCore.Qt.ItemIsEnabled)</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                row = self.enrichtable.rowCount()</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                self.enrichtable.insertRow(row)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                self.enrichtable.setItem(row, 0, item)</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                item = QTableWidgetItem()</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                item.setData(256, relation)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                item.setText(text)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                self.enrichtable.setItem(row, 1, item)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                item = QTableWidgetItem()</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][<span class="stringliteral">&quot;endpoint&quot;</span>])</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                self.enrichtable.setItem(row, 2, item)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Get Remote&quot;</span>)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;No Enrichment&quot;</span>)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Exclude&quot;</span>)</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                self.enrichtable.setCellWidget(row, 3, cbox)</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich Value&quot;</span>)</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich URI&quot;</span>)</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Enrich Both&quot;</span>)</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                self.enrichtable.setCellWidget(row, 4, cbox)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                cbox = QComboBox()</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                <span class="keywordflow">for</span> fieldd <span class="keywordflow">in</span> fieldnames:</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                    cbox.addItem(fieldd)</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                self.enrichtable.setCellWidget(row, 5, cbox)</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                itemm = QTableWidgetItem(<span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>)</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                self.enrichtable.setItem(row, 6, itemm)</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                itemm = QTableWidgetItem(self.conceptSearchEdit.text())</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                self.enrichtable.setItem(row, 7, itemm)</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                itemm = QTableWidgetItem(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                self.enrichtable.setItem(row, 8, itemm)</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        self.close()</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00301.html#afa736d201198c3312f2d2c6f7f534880">EnrichmentDialog.enrichtable</a>, <a class="el" href="a00301.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentDialog.layer</a>, <a class="el" href="a00377.html#a0e243f776f08c4dd077c3bca68a755a2">SearchTask.searchResult</a>, <a class="el" href="a00385.html#a0e243f776f08c4dd077c3bca68a755a2">WhatToEnrichQueryTask.searchResult</a>, <a class="el" href="a00293.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00285.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00289.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00269.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00253.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00273.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00301.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00257.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00277.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00377.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
+<p class="reference">References <a class="el" href="a00301.html#afa736d201198c3312f2d2c6f7f534880">EnrichmentDialog.enrichtable</a>, <a class="el" href="a00301.html#a95f2e9e3b2b2d837f962bcfb58a2011e">EnrichmentDialog.layer</a>, <a class="el" href="a00301.html#a9f0c3e689661481a4da4ddb082c013f4">EnrichmentDialog.tablemodel</a>, <a class="el" href="a00257.html#a9f0c3e689661481a4da4ddb082c013f4">InstanceDataDialog.tablemodel</a>, <a class="el" href="a00249.html#a9f0c3e689661481a4da4ddb082c013f4">DataSchemaDialog.tablemodel</a>, <a class="el" href="a00293.html#aafcf1146e38f7f4733cbf5dc6a6fb147">ValueMappingDialog.triplestoreconf</a>, <a class="el" href="a00285.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreQuickAddDialog.triplestoreconf</a>, <a class="el" href="a00281.html#aafcf1146e38f7f4733cbf5dc6a6fb147">TripleStoreDialog.triplestoreconf</a>, <a class="el" href="a00289.html#aafcf1146e38f7f4733cbf5dc6a6fb147">UploadRDFDialog.triplestoreconf</a>, <a class="el" href="a00269.html#a330d24be0afd5a96238ca9e128328a2d">QueryLimitedInstancesDialog.triplestoreconf</a>, <a class="el" href="a00245.html#a330d24be0afd5a96238ca9e128328a2d">ConvertLayerDialog.triplestoreconf</a>, <a class="el" href="a00241.html#a330d24be0afd5a96238ca9e128328a2d">ConvertCRSDialog.triplestoreconf</a>, <a class="el" href="a00253.html#a330d24be0afd5a96238ca9e128328a2d">GraphValidationDialog.triplestoreconf</a>, <a class="el" href="a00273.html#aafcf1146e38f7f4733cbf5dc6a6fb147">SearchDialog.triplestoreconf</a>, <a class="el" href="a00301.html#aafcf1146e38f7f4733cbf5dc6a6fb147">EnrichmentDialog.triplestoreconf</a>, <a class="el" href="a00257.html#a330d24be0afd5a96238ca9e128328a2d">InstanceDataDialog.triplestoreconf</a>, <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">DataSchemaDialog.triplestoreconf</a>, <a class="el" href="a00237.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, <a class="el" href="a00221.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, <a class="el" href="a00277.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>, and <a class="el" href="a00377.html#a2f954fc5a00f58cea3af99dea474bab7">SearchTask.tripleStoreEdit</a>.</p>
 
 </div>
 </div>
@@ -853,7 +857,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00301.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00301.html#a12fe57a77d8c1181e5c85018b15667d9">EnrichmentDialog.applyConceptToColumn()</a>, and <a class="el" href="a00301.html#a50aab9cd6a6029812a4e7f9b6a42f756">EnrichmentDialog.getAttributeStatistics()</a>.</p>
 
 </div>
 </div>
