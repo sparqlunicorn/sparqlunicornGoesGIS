@@ -110,16 +110,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.classTreeViewModel = QStandardItemModel()
         self.quickAddTripleStore.setIcon(SPARQLUtils.linkeddataicon)
-        self.proxyModel = ClassTreeSortProxyModel(self.geoTreeViewModel)
+        self.geoTreeViewProxyModel = ClassTreeSortProxyModel(self.geoTreeViewModel)
         self.featureCollectionProxyModel = ClassTreeSortProxyModel(self.featureCollectionClassListModel)
         self.geometryCollectionProxyModel = ClassTreeSortProxyModel(self.geometryCollectionClassListModel)
         self.classTreeViewProxyModel = ClassTreeSortProxyModel(self.classTreeViewModel)
         self.classTreeView.setModel(self.classTreeViewProxyModel)
-        self.geoTreeView.setModel(self.proxyModel)
+        self.geoTreeView.setModel(self.geoTreeViewProxyModel)
         self.geoTreeViewModel.clear()
         self.addLayerButton.clicked.connect(self.create_unicorn_layer)
         self.comboBox.currentIndexChanged.connect(self.endpointselectaction)
-        self.endpointselectaction()
         self.detectMapping.hide()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
@@ -146,9 +145,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql2.columnvars = {}
         self.inp_sparql2.textChanged.connect(self.validateSPARQL)
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
-        self.currentContext=self.classTreeView
-        self.currentProxyModel=self.classTreeViewProxyModel
-        self.currentContextModel=self.classTreeViewModel
+        self.currentContext=self.geoTreeView
+        self.currentProxyModel=self.geoTreeViewProxyModel
+        self.currentContextModel=self.geoTreeViewModel
         self.conceptSelectAction()
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.conceptSelectAction)
@@ -179,7 +178,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
-        self.tabchanged(0)
+        self.endpointselectaction()
         self.show()
 
     def tripleStoreInfoDialog(self):
@@ -227,7 +226,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def onContext(self,position):
         self.currentContext=self.geoTreeView
         self.currentContextModel = self.geoTreeViewModel
-        self.currentProxyModel = self.proxyModel
+        self.currentProxyModel = self.geoTreeViewProxyModel
         self.createMenu(position)
 
     def onContext2(self, position):
@@ -506,6 +505,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.savedQueries.addItem(concept["label"])
 
 
+
     def onContext4(self, position):
         self.currentContext = self.classTreeView
         self.currentContextModel = self.classTreeViewModel
@@ -528,7 +528,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.currentProxyModel.setFilterRegExp("")
         self.filterConcepts.setText("")
         if index==0:
-            self.currentProxyModel=self.proxyModel
+            self.currentProxyModel=self.geoTreeViewProxyModel
             self.currentContext = self.geoTreeView
             self.currentContextModel = self.geoTreeViewModel
         elif index==1:

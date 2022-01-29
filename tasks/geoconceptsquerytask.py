@@ -114,7 +114,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.sparql.updateNewClassList()
         self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                               QItemSelectionModel.SelectCurrent)
-        self.dlg.currentProxyModel = self.dlg.proxyModel
+        self.dlg.currentProxyModel = self.dlg.geoTreeViewProxyModel
         self.dlg.currentContext = self.dlg.geoTreeView
         self.dlg.currentContextModel = self.dlg.geoTreeViewModel
         self.dlg.conceptSelectAction()

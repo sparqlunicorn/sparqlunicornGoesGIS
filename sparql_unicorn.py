@@ -200,7 +200,7 @@ class SPARQLunicorn:
         if self.enrichedExport:
             selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         else:
-            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
         layer = layers[selectedLayerIndex].layer()
         if exportToTripleStore:
             ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
