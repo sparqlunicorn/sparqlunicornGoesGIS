@@ -30,11 +30,13 @@ from qgis.PyQt.QtCore import QSettings, QCoreApplication, Qt, QItemSelectionMode
 from qgis.PyQt.QtGui import QIcon, QStandardItem
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox, QProgressDialog
 from qgis.core import QgsProject, QgsApplication
+
+
 from .resources import *
 import os.path
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
-from .util.sparqlutils import SPARQLUtils
+from .util.ui.uiutils import UIUtils
 from .util.layerutils import LayerUtils
 
 import json
@@ -289,7 +291,7 @@ class SPARQLunicorn:
             self.first_start = False
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
-            self.dlg.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+            self.dlg.setWindowIcon(UIUtils.sparqlunicornicon)
             self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:

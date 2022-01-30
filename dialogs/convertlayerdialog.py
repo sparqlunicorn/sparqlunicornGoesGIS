@@ -4,7 +4,7 @@ from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsProject
 from qgis.core import Qgis
 
-from ..util.sparqlutils import SPARQLUtils
+from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
 import os.path
 from qgis.utils import iface
@@ -28,7 +28,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         """Constructor."""
         super(ConvertLayerDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowIcon(SPARQLUtils.featurecollectionToRDFicon)
+        self.setWindowIcon(UIUtils.featurecollectionToRDFicon)
         self.triplestoreconf = triplestoreconf
         self.setWindowTitle(title)
         self.dlg = parent

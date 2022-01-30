@@ -1,5 +1,7 @@
 import json
 import requests
+
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -94,9 +96,9 @@ class SearchTask(QgsTask):
             for res in self.results["results"]["bindings"]:
                 item = QListWidgetItem()
                 if not self.findProperty.isChecked():
-                    item.setIcon(SPARQLUtils.classicon)
+                    item.setIcon(UIUtils.classicon)
                 else:
-                    item.setIcon(SPARQLUtils.objectpropertyicon)
+                    item.setIcon(UIUtils.objectpropertyicon)
                 item.setToolTip(res["class"]["value"])
                 item.setData(256, str(res["class"]["value"]))
                 if "label" in res:
@@ -109,9 +111,9 @@ class SearchTask(QgsTask):
             for result in self.results:
                 item = QListWidgetItem()
                 if not self.findProperty.isChecked():
-                    item.setIcon(SPARQLUtils.classicon)
+                    item.setIcon(UIUtils.classicon)
                 else:
-                    item.setIcon(SPARQLUtils.objectpropertyicon)
+                    item.setIcon(UIUtils.objectpropertyicon)
                 item.setData(256, self.qids[i])
                 item.setToolTip(self.qids[i])
                 item.setText(str(self.results[result]))

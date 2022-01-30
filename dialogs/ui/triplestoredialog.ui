@@ -6,210 +6,471 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>735</width>
-    <height>472</height>
+    <width>750</width>
+    <height>458</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="tripleStoreChooserLabel">
-     <property name="text">
-      <string>Choose Triple Store:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" colspan="5">
-    <widget class="QComboBox" name="tripleStoreChooser"/>
-   </item>
-   <item row="0" column="6">
-    <widget class="QPushButton" name="deleteTripleStore">
-     <property name="text">
-      <string>Delete Triple Store</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="tripleStoreNameLabel">
-     <property name="text">
-      <string>Triple Store Name:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="5">
+  <layout class="QGridLayout" name="gridLayout_5">
+   <item row="2" column="1">
     <widget class="QLineEdit" name="tripleStoreNameEdit">
+     <property name="whatsThis">
+      <string>The name of the RDF resource</string>
+     </property>
      <property name="text">
       <string>My cool triplestore!</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="6">
-    <widget class="QPushButton" name="newTripleStore">
-     <property name="text">
-      <string>New Triple Store</string>
-     </property>
-    </widget>
+   <item row="0" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="newTripleStore">
+       <property name="text">
+        <string>New Triple Store</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="deleteTripleStore">
+       <property name="text">
+        <string>Delete Triple Store</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="tripleStoreLabel">
-     <property name="text">
-      <string>Triple Store URL:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1" colspan="5">
-    <widget class="QLineEdit" name="tripleStoreEdit">
-     <property name="text">
-      <string>https://query.wikidata.org/sparql</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="6">
-    <widget class="QPushButton" name="testConnectButton">
-     <property name="text">
-      <string>Test Connection</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="queryVarEdit">
-     <property name="text">
-      <string>geo</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4" rowspan="2" colspan="2">
-    <widget class="QLineEdit" name="queryVarItemEdit">
-     <property name="text">
-      <string>item</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="6" rowspan="2">
-    <widget class="QPushButton" name="detectConfiguration">
-     <property name="text">
-      <string>Detect Configuration</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="epsgLabel">
-     <property name="text">
-      <string>EPSG Code:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QLineEdit" name="epsgEdit">
-     <property name="text">
-      <string>4326</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="2">
-    <widget class="QLabel" name="activeTripleStoreLabel">
-     <property name="text">
-      <string>Active:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3" colspan="2">
-    <widget class="QCheckBox" name="activeCheckBox">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="tripleStorePrefixNameLabel">
-     <property name="text">
-      <string>Prefix:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="tripleStorePrefixNameEdit">
-     <property name="text">
-      <string>wd</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2" colspan="4">
-    <widget class="QLineEdit" name="tripleStorePrefixEdit">
-     <property name="text">
-      <string>http://www.wikidata.org/entity/</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="6">
-    <widget class="QPushButton" name="addPrefixButton">
-     <property name="text">
-      <string>Add Prefix</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1">
-    <widget class="QPushButton" name="removePrefixButton">
-     <property name="text">
-      <string>Remove Selected Prefix</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="2">
-    <widget class="QLabel" name="prefixListLabel">
-     <property name="text">
-      <string>Prefixes:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="2" colspan="5">
-    <widget class="QLabel" name="exampleQueryLabel">
-     <property name="text">
-      <string>Example Query (optional):</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0" colspan="2">
-    <widget class="QListWidget" name="prefixList"/>
-   </item>
-   <item row="10" column="2" colspan="5">
-    <widget class="QPlainTextEdit" name="exampleQuery"/>
-   </item>
-   <item row="11" column="0" colspan="2">
+   <item row="9" column="0" colspan="2">
     <widget class="QPushButton" name="resetConfiguration">
      <property name="text">
       <string>Restore Default Triple Store Configuration</string>
      </property>
     </widget>
    </item>
-   <item row="11" column="2" colspan="4">
-    <widget class="QPushButton" name="tripleStoreApplyButton">
-     <property name="text">
-      <string>Apply</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="6">
-    <widget class="QPushButton" name="tripleStoreCloseButton">
-     <property name="text">
-      <string>Close</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="2">
-    <widget class="QLabel" name="queryVarItemLabel">
+    <widget class="QPushButton" name="detectConfiguration">
      <property name="text">
-      <string>Item Variable:</string>
+      <string>Detect Configuration</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="tripleStoreEdit">
+     <property name="text">
+      <string>https://query.wikidata.org/sparql</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="3">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="usernameLabel">
+     <property name="text">
+      <string>Username:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0" colspan="3">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Query Variables</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="queryVarItemEdit">
+         <property name="toolTip">
+          <string>The SPARQL query variable which identifies the feature id of the resulting QGIS layer</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>item</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="queryVarEdit">
+         <property name="text">
+          <string>geo</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="geometryVariableComboBox">
+         <item>
+          <property name="text">
+           <string>Single Variable</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lat/Lon Variables</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Configure default query variable names:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="firstGeometryVarLabel">
+         <property name="text">
+          <string>Single Variable (Lon):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="latVarEdit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="secondGeometryVarLabel">
+         <property name="text">
+          <string>Second Variable (Lat):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="queryVarLabel">
+         <property name="text">
+          <string>Geometry Variable:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="queryVarItemLabel">
+         <property name="text">
+          <string>Item Variable:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Property Mappings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="geometryPropertyEdit2"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="typePropertyEdit"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Geometry Property 1 (Lon):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="subclassPropertyEdit"/>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>If properties in the given knowledge graph deviate from default settings, please configure them here:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="geometryPropertyEdit1"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Type Property:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Subclass Property:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="labelPropertyEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Label Property:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Geometry Property 2 (Lat):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Collection Member Property:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="collectionMemberPropertyEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Prefix Configuration</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="4" column="1">
+        <widget class="QPushButton" name="removePrefixButton">
+         <property name="text">
+          <string>Remove Selected Prefix</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="addPrefixButton">
+         <property name="text">
+          <string>Add Prefix</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QListWidget" name="prefixList">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Configure prefixes to be used in SPARQL queries:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Example Queries</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="exampleQueryLabel_2">
+         <property name="text">
+          <string>Configure example queries here. Template variables such as %%concept%% may be replaced in query patterns</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="addExampleQueryButton">
+         <property name="text">
+          <string>Add Query</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="saveExampleQueryButton">
+         <property name="text">
+          <string>Save Query</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QPlainTextEdit" name="exampleQuery"/>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="exampleQueryLabel">
+           <property name="text">
+            <string>Example Queries:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="exampleQueryComboBox"/>
+         </item>
+         <item>
+          <widget class="QToolButton" name="varInfoButton">
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="testConnectButton">
+     <property name="text">
+      <string>Test Connection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="tripleStoreNameLabel">
+     <property name="text">
+      <string>RDF Resource Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="tripleStoreChooser"/>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="credentialUserName">
+     <property name="toolTip">
+      <string>The username for the chosen authentification method</string>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="tripleStoreChooserLabel">
+     <property name="text">
+      <string>Choose RDF Resource:</string>
      </property>
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="queryVarLabel">
+    <widget class="QLabel" name="tripleStoreLabel">
      <property name="text">
-      <string>Geometry Variable:</string>
+      <string>RDF Resource URL:</string>
      </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="tripleStoreApplyButton">
+       <property name="text">
+        <string>Apply</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="tripleStoreCloseButton">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="credentialPassword">
+     <property name="toolTip">
+      <string>The password for the chosen authentification method</string>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QComboBox" name="authenticationComboBox">
+     <item>
+      <property name="text">
+       <string>HTTP BASIC</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>HTTP DIGEST</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="passwordLabel">
+     <property name="text">
+      <string>Password:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="useAuthenticationCheckBox">
+     <property name="text">
+      <string>Use Authentication</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>RDF Resource Type:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="rdfResourceComboBox">
+     <item>
+      <property name="text">
+       <string>SPARQL Endpoint</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>RDF Resource from URI</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Local RDF File(s)</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>

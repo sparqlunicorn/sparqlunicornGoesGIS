@@ -6,7 +6,6 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 
 from ..util.ui.uiutils import UIUtils
-from ..util.sparqlutils import SPARQLUtils
 from ..tasks.graphvalidationtask import GraphValidationTask
 from ..tasks.loadgraphtask import LoadGraphTask
 import os.path
@@ -30,7 +29,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         super(GraphValidationDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(title)
-        self.setWindowIcon(SPARQLUtils.validationicon)
+        self.setWindowIcon(UIUtils.validationicon)
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg
@@ -69,7 +68,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
                                            0, 0, self)
                 progress.setWindowTitle("Graph Validation")
                 progress.setWindowModality(Qt.WindowModal)
-                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = GraphValidationTask("Validating graph: "+str(fileNames),
                                                  fileNames, self.chosenValidatorFile.currentText(),
@@ -86,7 +85,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
                                            0, 0, self)
                 progress.setWindowTitle("Graph Validation")
                 progress.setWindowModality(Qt.WindowModal)
-                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = GraphValidationTask("Validating graph: "+str(self.validationFileEdit.text()),
                                                  self.validationFileEdit.text(), self.chosenValidatorFile.currentText(),
@@ -102,7 +101,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)
             progress.setWindowModality(Qt.WindowModal)
-            progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+            progress.setWindowIcon(UIUtils.sparqlunicornicon)
             progress.setCancelButton(None)
             self.qtask = LoadGraphTask("Loading Graph: " + self.graphURIEdit.text(), self.graphURIEdit.text(), self,
                                        self.dlg, self.maindlg, self.triplestoreconf[0]["geoconceptquery"],

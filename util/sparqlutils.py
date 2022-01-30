@@ -6,7 +6,6 @@ from urllib.request import urlopen
 import json
 from qgis.core import Qgis, QgsGeometry
 from qgis.core import QgsMessageLog
-from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
 
@@ -54,41 +53,6 @@ class SPARQLUtils:
 
     authmethods={"HTTP BASIC":BASIC,"HTTP DIGEST":DIGEST}
 
-    classicon=QIcon(":/icons/resources/icons/class.png")
-    classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
-    geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
-    classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
-    linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
-    addclassicon=QIcon(":/icons/resources/icons/addclass.png")
-    addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
-    addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
-    addinstanceicon=QIcon(":/icons/resources/icons/addinstance.png")
-    countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
-    geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
-    subclassicon=QIcon(":/icons/resources/icons/subclass.png")
-    searchclassicon=QIcon(":/icons/resources/icons/searchclass.png")
-    rdffileicon=QIcon(":/icons/resources/icons/rdffile.png")
-    columnasvaricon=QIcon(":/icons/resources/icons/columnasvar.png")
-    queryinstancesicon=QIcon(":/icons/resources/icons/queryinstances.png")
-    bboxicon=QIcon(":/icons/resources/icons/bboxicon.png")
-    instanceicon=QIcon(":/icons/resources/icons/instance.png")
-    instancelinkicon=QIcon(":/icons/resources/icons/instancelink.png")
-    linkeddataicon=QIcon(":/icons/resources/icons/linkeddata.png")
-    validationicon=QIcon(":/icons/resources/icons/validation2.png")
-    halfgeoclassicon=QIcon(":/icons/resources/icons/halfgeoclass.png")
-    annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
-    geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
-    objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
-    geoobjectpropertyicon=QIcon(":/icons/resources/icons/geoobjectproperty.png")
-    linkedgeoobjectpropertyicon=QIcon(":/icons/resources/icons/linkedgeoobjectproperty.png")
-    datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
-    geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
-    geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
-    featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
-    addfeaturecollectionicon=QIcon(":/icons/resources/icons/addfeaturecollection.png")
-    featurecollectionToRDFicon=QIcon(":/icons/resources/icons/featurecollectionToRDF.png")
-    geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
-    sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
     classnode="Class"
     geoclassnode="GeoClass"
     linkedgeoclassnode="LinkedGeoClass"
@@ -99,6 +63,37 @@ class SPARQLUtils:
     collectionclassnode="CollectionClass"
     instancesloadedindicator="InstancesLoaded"
     treeNodeToolTip="Double click to load, right click for menu"
+
+    @staticmethod
+    def queryPreProcessing(query,triplestoreconf,concept=None,convertToCollectionForm=False):
+        QgsMessageLog.logMessage('Preprocessing"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        if convertToCollectionForm:
+            query=query.replace("?con %%typeproperty%% %%concept%% .","%%concept%% %%collectionmemberproperty%% ?con .")
+        if concept!=None:
+            if "wikidata" in triplestoreconf["endpoint"]:
+                query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
+            else:
+                query = query.replace("%%concept%%", "<" + str(concept) + ">")
+        typeproperty = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        if "typeproperty" in triplestoreconf:
+            typeproperty=triplestoreconf["typeproperty"]
+        subclassproperty = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        if "subclassproperty" in triplestoreconf:
+            subclassproperty=triplestoreconf["subclassproperty"]
+        labelproperty = "http://www.w3.org/2000/01/rdf-schema#label"
+        if "labelproperty" in triplestoreconf:
+            labelproperty =triplestoreconf["labelproperty"]
+        collectionmemberproperty="http://www.w3.org/2000/01/rdf-schema#member"
+        if "collectionmemberproperty" in triplestoreconf:
+            collectionmemberproperty=triplestoreconf["collectionmemberproperty"]
+        query=query.replace("%%subclassproperty%%","<"+subclassproperty+">")\
+            .replace("%%typeproperty%%","<"+typeproperty+">")\
+            .replace("%%labelproperty%%","<"+labelproperty+">")\
+            .replace("%%collectionmemberproperty%%","<"+collectionmemberproperty+">").replace("<<","<").replace(">>",">")
+        QgsMessageLog.logMessage('Preprocessing finished"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
+                             Qgis.Info)
+        return query
 
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):

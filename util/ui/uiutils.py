@@ -5,12 +5,57 @@ from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import Qt, QSize
+from qgis.PyQt.QtGui import QIcon
 
 MESSAGE_CATEGORY="UIUtils"
 
 class UIUtils:
 
     urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+
+    prefixregex = QRegExp("[a-z]+")
+
+    nominatimurl='https://nominatim.openstreetmap.org/search?format=json&q={address}'
+
+    sparqlvarregex=QRegExp("[A-Z] | [a-z] | [#x00C0-#x00D6] | [#x00D8-#x00F6] | [#x00F8-#x02FF] | [#x0370-#x037D] | [#x037F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]")
+
+    classicon=QIcon(":/icons/resources/icons/class.png")
+    classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
+    geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
+    classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
+    linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
+    addicon=QIcon(":/icons/resources/icons/add.png")
+    removeicon = QIcon(":/icons/resources/icons/remove.png")
+    addclassicon=QIcon(":/icons/resources/icons/addclass.png")
+    addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
+    addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
+    addinstanceicon=QIcon(":/icons/resources/icons/addinstance.png")
+    countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
+    geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
+    subclassicon=QIcon(":/icons/resources/icons/subclass.png")
+    searchclassicon=QIcon(":/icons/resources/icons/searchclass.png")
+    rdffileicon=QIcon(":/icons/resources/icons/rdffile.png")
+    columnasvaricon=QIcon(":/icons/resources/icons/columnasvar.png")
+    queryinstancesicon=QIcon(":/icons/resources/icons/queryinstances.png")
+    bboxicon=QIcon(":/icons/resources/icons/bboxicon.png")
+    instanceicon=QIcon(":/icons/resources/icons/instance.png")
+    instancelinkicon=QIcon(":/icons/resources/icons/instancelink.png")
+    linkeddataicon=QIcon(":/icons/resources/icons/linkeddata.png")
+    validationicon=QIcon(":/icons/resources/icons/validation2.png")
+    halfgeoclassicon=QIcon(":/icons/resources/icons/halfgeoclass.png")
+    annotationpropertyicon=QIcon(":/icons/resources/icons/annotationproperty.png")
+    geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
+    objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
+    geoobjectpropertyicon=QIcon(":/icons/resources/icons/geoobjectproperty.png")
+    linkedgeoobjectpropertyicon=QIcon(":/icons/resources/icons/linkedgeoobjectproperty.png")
+    datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
+    geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
+    geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
+    featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
+    addfeaturecollectionicon=QIcon(":/icons/resources/icons/addfeaturecollection.png")
+    featurecollectionToRDFicon=QIcon(":/icons/resources/icons/featurecollectionToRDF.png")
+    geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
+    sparqlunicornicon=QIcon(':/icons/resources/icons/sparqlunicorn.png')
 
     @staticmethod
     def check_state(sender):
@@ -59,17 +104,17 @@ class UIUtils:
             itemchecked.setToolTip(checkboxtooltip)
             if curconcept in SPARQLUtils.geoproperties:
                 if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
-                    itemchecked.setIcon(SPARQLUtils.geodatatypepropertyicon)
+                    itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
                     itemchecked.setToolTip("Geo Datatype Property")
                     itemchecked.setText("GeoDP")
-                    dlg.setWindowIcon(SPARQLUtils.geoclassicon)
+                    dlg.setWindowIcon(UIUtils.geoclassicon)
                 elif SPARQLUtils.geoproperties[curconcept] == "ObjectProperty":
-                    itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
+                    itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
-                    dlg.setWindowIcon(SPARQLUtils.geoclassicon)
+                    dlg.setWindowIcon(UIUtils.geoclassicon)
             elif curconcept in SPARQLUtils.styleproperties:
-                itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                itemchecked.setIcon(UIUtils.objectpropertyicon)
                 itemchecked.setToolTip("Style Object Property")
                 itemchecked.setText("Style OP")
                 #self.styleprop.append(curconcept)
@@ -77,19 +122,19 @@ class UIUtils:
                     or SPARQLUtils.namespaces["owl"] in curconcept \
                     or SPARQLUtils.namespaces["dc"] in curconcept \
                     or SPARQLUtils.namespaces["skos"] in curconcept:
-                itemchecked.setIcon(SPARQLUtils.annotationpropertyicon)
+                itemchecked.setIcon(UIUtils.annotationpropertyicon)
                 itemchecked.setToolTip("Annotation Property")
                 itemchecked.setText("AP")
             elif "valtype" in queryresult[att]:
-                itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
+                itemchecked.setIcon(UIUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
             elif "geoobjproperty" in triplestoreconf and curconcept in triplestoreconf["geoobjproperty"]:
-                itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                itemchecked.setIcon(UIUtils.objectpropertyicon)
                 itemchecked.setToolTip("Linked Geo Object Property")
                 itemchecked.setText("LGeoOP")
             else:
-                itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                itemchecked.setIcon(UIUtils.objectpropertyicon)
                 itemchecked.setToolTip("Object Property")
                 itemchecked.setText("OP")
             searchResultModel.setItem(counter, 0, itemchecked)

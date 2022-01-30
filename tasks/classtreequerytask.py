@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
@@ -93,17 +94,17 @@ class ClassTreeQueryTask(QgsTask):
                     self.classtreemap[subval].setText(
                         SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
                 if "hasgeo" in result:
-                    self.classtreemap[subval].setIcon(SPARQLUtils.geoclassicon)
+                    self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
                     self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
                     self.classtreemap[subval].setToolTip(
                         "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
-                    self.classtreemap[subval].setIcon(SPARQLUtils.linkedgeoclassicon)
+                    self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
                     self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, 257)
                     self.classtreemap[subval].setToolTip(
                         "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 else:
-                    self.classtreemap[subval].setIcon(SPARQLUtils.classicon)
+                    self.classtreemap[subval].setIcon(UIUtils.classicon)
                     self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
                     self.classtreemap[subval].setToolTip(
                         "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))

@@ -151,12 +151,15 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
         progress.setWindowTitle("Enrichment Search Query")
         progress.setWindowModality(Qt.WindowModal)
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+        progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        if "typeproperty" in self.triplestoreconf:
+            typeproperty=self.triplestoreconf["typeproperty"]
         self.qtask =DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
-                                "whattoenrichquery"].replace("%%concept%%", concept),
+                                "whattoenrichquery"].replace("%%concept%%", concept).replace("%%typeproperty%%","<"+str(typeproperty)+">"),
                             self.conceptSearchEdit.text(),
                             self.prefixes[self.tripleStoreEdit.currentIndex()] if self.tripleStoreEdit.currentIndex() in self.prefixes else None,
                             self.tablemodel, self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress, self)

@@ -26,7 +26,7 @@ class InterlinkingTab:
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.searchClass=dlg.searchClass
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-        self.searchClass.setIcon(SPARQLUtils.searchclassicon)
+        self.searchClass.setIcon(UIUtils.searchclassicon)
         self.interlinkNameSpace=dlg.interlinkNameSpace
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
         self.dlg.refreshLayersInterlink.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))

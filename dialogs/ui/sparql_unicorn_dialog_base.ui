@@ -729,8 +729,16 @@ SELECT ?label ?geo ?item WHERE {
     <addaction name="actionLayer_Column_as_Variable"/>
     <addaction name="actionSearch_Concept_for_Query"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionRDF_Resource_Settings"/>
+    <addaction name="actionPreferences"/>
+   </widget>
    <addaction name="menuLinked_Data_Processing"/>
    <addaction name="menuQuery_Helpers"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionConvert_RDF_Data">
@@ -776,6 +784,16 @@ SELECT ?label ?geo ?item WHERE {
   <action name="actionConvert_QGIS_Layer_To_RDF">
    <property name="text">
     <string>Convert QGIS Layer to RDF</string>
+   </property>
+  </action>
+  <action name="actionRDF_Resource_Settings">
+   <property name="text">
+    <string>RDF Resource Settings</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
    </property>
   </action>
  </widget>

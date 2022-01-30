@@ -7,7 +7,7 @@ from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, Q
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
 
-from ..util.sparqlutils import SPARQLUtils
+from ..util.ui.uiutils import UIUtils
 from ..util.ui.mappingtools import RectangleMapTool
 from ..util.ui.mappingtools import CircleMapTool
 from ..util.ui.mappingtools import PolygonMapTool
@@ -54,7 +54,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
-        self.setWindowIcon(SPARQLUtils.bboxicon)
+        self.setWindowIcon(UIUtils.bboxicon)
         self.inp_sparql = inp_sparql
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
@@ -82,7 +82,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.selectCircle.hide()
         self.crsdialog.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
         self.crsdialog.show()
-        self.nominatimurl = 'https://nominatim.openstreetmap.org/search?format=json&q={address}'
         self.panButton.clicked.connect(self.pan)
         self.selectCircle.clicked.connect(self.selectcircle)
         self.selectPolygon.clicked.connect(self.selectpolygon)
@@ -101,7 +100,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
 
     def geocode(self):
         try:
-            nominatimurl = self.nominatimurl.format(**{'address': self.geocodeSearch.text()})
+            nominatimurl = UIUtils.nominatimurl.format(**{'address': self.geocodeSearch.text()})
             self.networkrequest(nominatimurl)
         except Exception as e:
             msgBox = QMessageBox()

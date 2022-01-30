@@ -3,6 +3,7 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 import os
 
+from ..util.ui.uiutils import UIUtils
 from ..tasks.querylayertask import QueryLayerTask
 from ..util.sparqlutils import SPARQLUtils
 
@@ -16,6 +17,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
+        self.setWindowIcon(UIUtils.queryinstancesicon)
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.nodetype=nodetype

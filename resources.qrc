@@ -2,6 +2,7 @@
   <qresource prefix="icons">
     <file>resources/icons/geoinstance.png</file>
     <file>resources/icons/addclass.png</file>
+    <file>resources/icons/addfeaturecollection.png</file>
     <file>resources/icons/addgeoclass.png</file>
     <file>resources/icons/addinstance.png</file>
     <file>resources/icons/addgeoinstance.png</file>
@@ -19,6 +20,8 @@
     <file>resources/icons/searchclass.png</file>
     <file>resources/icons/columnasvar.png</file>
     <file>resources/icons/classlink.png</file>
+    <file>resources/icons/add.png</file>
+    <file>resources/icons/remove.png</file>
     <file>resources/icons/classschema.png</file>
     <file>resources/icons/geoclassschema.png</file>
     <file>resources/icons/annotationproperty.png</file>

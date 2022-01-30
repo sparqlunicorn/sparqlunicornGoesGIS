@@ -51,10 +51,10 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         if concepttype==SPARQLUtils.geoinstancenode:
-            self.setWindowIcon(SPARQLUtils.geoinstanceicon)
+            self.setWindowIcon(UIUtils.geoinstanceicon)
             self.setWindowTitle(title+" (GeoInstance)")
         else:
-            self.setWindowIcon(SPARQLUtils.instanceicon)
+            self.setWindowIcon(UIUtils.instanceicon)
             self.setWindowTitle(title+" (Instance)")
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))

@@ -30,6 +30,7 @@ class DetectTripleStoreTask(QgsTask):
         self.triplestoreurl = endpoint
         self.triplestoreconf = triplestoreconf
         self.testURL = testURL
+        self.message=""
         self.configuration = {}
         self.testConfiguration = testConfiguration
         self.message = ""
@@ -75,12 +76,12 @@ class DetectTripleStoreTask(QgsTask):
                     self.parentdialog.close()
         elif self.gutils.feasibleConfiguration:
             msgBox = QMessageBox()
-            msgBox.setText(self.gutils.message)
+            msgBox.setText("Automatic Detection Successful")
             msgBox.setWindowTitle("Automatic Detection Successful")
             msgBox.exec()
         else:
             msgBox = QMessageBox()
-            msgBox.setText(self.gutils.message)
+            msgBox.setText("Automatic Detection Failed")
             msgBox.setWindowTitle("Automatic Detection Failed")
             msgBox.exec()
         iface.messageBar().pushMessage("Detect Triple Store Configuration", "OK", level=Qgis.Success)

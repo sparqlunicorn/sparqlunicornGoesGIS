@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QColor
@@ -74,7 +75,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(SPARQLUtils.labelFromURI(concept["label"],self.triplestoreconf["prefixesrev"]))
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(SPARQLUtils.geoclassicon)
+                item.setIcon(UIUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                 self.rootNode.appendRow(item)
@@ -96,7 +97,7 @@ class GeoConceptsQueryTask(QgsTask):
                 item.setText(SPARQLUtils.labelFromURI(concept,self.triplestoreconf["prefixesrev"]))
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
-                item.setIcon(SPARQLUtils.geoclassicon)
+                item.setIcon(UIUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
                 self.rootNode.appendRow(item)

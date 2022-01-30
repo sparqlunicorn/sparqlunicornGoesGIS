@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -96,9 +97,9 @@ class InstanceListQueryTask(QgsTask):
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
         if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode:
-            self.treeNode.setIcon(SPARQLUtils.halfgeoclassicon)
+            self.treeNode.setIcon(UIUtils.halfgeoclassicon)
         elif self.hasgeocount==0 and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode:
-            self.treeNode.setIcon(SPARQLUtils.classicon)
+            self.treeNode.setIcon(UIUtils.classicon)
         self.treeNode.setData(SPARQLUtils.instancesloadedindicator,259)
         for concept in self.queryresult:
             item = QStandardItem()
@@ -107,10 +108,10 @@ class InstanceListQueryTask(QgsTask):
             if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
                     or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)
-                item.setIcon(SPARQLUtils.geoinstanceicon)
+                item.setIcon(UIUtils.geoinstanceicon)
                 item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             else:
                 item.setData(SPARQLUtils.instancenode,257)
-                item.setIcon(SPARQLUtils.instanceicon)
+                item.setIcon(UIUtils.instanceicon)
                 item.setToolTip("Instance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             self.treeNode.appendRow(item)

@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
@@ -59,26 +60,26 @@ class InstanceQueryTask(QgsTask):
             itemchecked.setCheckState(Qt.Checked)
             if rel in SPARQLUtils.geoproperties:
                 if SPARQLUtils.geoproperties[rel]=="DatatypeProperty":
-                    itemchecked.setIcon(SPARQLUtils.geodatatypepropertyicon)
+                    itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
                     itemchecked.setToolTip("Geo Datatype Property")
                     itemchecked.setText("GeoDP")
                 elif SPARQLUtils.geoproperties[rel]=="ObjectProperty":
-                    itemchecked.setIcon(SPARQLUtils.geoobjectpropertyicon)
+                    itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
             elif rel!="geo" and self.queryresult[rel]["val"].startswith("http"):
-                    itemchecked.setIcon(SPARQLUtils.objectpropertyicon)
+                    itemchecked.setIcon(UIUtils.objectpropertyicon)
                     itemchecked.setToolTip("Object Property")
                     itemchecked.setText("OP")
             elif SPARQLUtils.namespaces["rdfs"] in rel \
                         or SPARQLUtils.namespaces["owl"] in rel\
                         or SPARQLUtils.namespaces["dc"] in rel\
                         or SPARQLUtils.namespaces["skos"] in rel:
-                    itemchecked.setIcon(SPARQLUtils.annotationpropertyicon)
+                    itemchecked.setIcon(UIUtils.annotationpropertyicon)
                     itemchecked.setToolTip("Annotation Property")
                     itemchecked.setText("AP")
             elif rel!="geo":
-                itemchecked.setIcon(SPARQLUtils.datatypepropertyicon)
+                itemchecked.setIcon(UIUtils.datatypepropertyicon)
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
             if "geometryproperty" in self.triplestoreconf and (rel in self.triplestoreconf["geometryproperty"] or rel=="geo"):

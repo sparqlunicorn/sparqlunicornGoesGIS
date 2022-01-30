@@ -2,9 +2,11 @@ from qgis.PyQt.QtWidgets import QDialog, QMessageBox,QListWidgetItem,QProgressDi
 from qgis.PyQt.QtCore import QRegExp,Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QMessageBox, QStyle
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
 
-from ..util.sparqlutils import SPARQLUtils
+from .prefixdialog import PrefixDialog
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
@@ -18,76 +20,183 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 	
     triplestoreconf=""
 	
-    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox,title="Configure Own Triple Store"):
+    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox,title="Configure Own RDF Resource"):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
+        self.setWindowIcon(UIUtils.linkeddataicon)
         self.triplestoreconf=triplestoreconf 
         self.prefixstore=prefixstore
         self.comboBox=comboBox
         self.prefixes=prefixes
         for item in triplestoreconf:
-            self.tripleStoreChooser.addItem(item["name"])
-        self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)    
-        #self.addTripleStoreButton.clicked.connect(self.addNewSPARQLEndpoint)
+            self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
+        self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
+        self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
+        self.exampleQueryComboBox.currentIndexChanged.connect(self.updateExampleQueries)
         self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
-        self.epsgEdit.setValidator(QIntValidator(1, 100000))	
-        prefixregex = QRegExp("[a-z]+")
-        prefixvalidator = QRegExpValidator(prefixregex, self)
-        self.tripleStorePrefixNameEdit.setValidator(prefixvalidator)
-        self.addPrefixButton.clicked.connect(self.addPrefixToList)	
-        self.removePrefixButton.clicked.connect(self.removePrefixFromList)	
+        self.typePropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.typePropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.typePropertyEdit))
+        self.labelPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.labelPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.labelPropertyEdit))
+        self.collectionMemberPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.collectionMemberPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.collectionMemberPropertyEdit))
+        self.subclassPropertyEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.subclassPropertyEdit.textChanged.connect(lambda: UIUtils.check_state(self.subclassPropertyEdit))
+        self.geometryPropertyEdit1.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryPropertyEdit1.textChanged.connect(lambda: UIUtils.check_state(self.geometryPropertyEdit1))
+        self.geometryPropertyEdit2.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.geometryPropertyEdit2.textChanged.connect(lambda: UIUtils.check_state(self.geometryPropertyEdit2))
+        self.authenticationComboBox.hide()
+        self.credentialUserName.hide()
+        self.credentialPassword.hide()
+        self.usernameLabel.hide()
+        self.passwordLabel.hide()
+        self.latVarEdit.hide()
+        self.prefixList.itemDoubleClicked.connect(lambda item: PrefixDialog(self.prefixList,item.data(257),item.data(256)).exec())
+        self.secondGeometryVarLabel.hide()
         self.testConnectButton.clicked.connect(self.testTripleStoreConnection)
         self.deleteTripleStore.clicked.connect(self.deleteTripleStoreFunc)
         self.resetConfiguration.clicked.connect(self.restoreFactory)		
-        self.newTripleStore.clicked.connect(self.createNewTripleStore)		
-        #self.exampleQuery.textChanged.connect(self.validateSPARQL)	
-        self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)	
-        self.tripleStorePrefixEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
-        self.tripleStorePrefixEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStorePrefixEdit))
-        self.tripleStorePrefixEdit.textChanged.emit(self.tripleStorePrefixEdit.text())
+        self.newTripleStore.clicked.connect(self.createNewTripleStore)
+        self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.close)
+        self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
+        self.addPrefixButton.clicked.connect(lambda: PrefixDialog(self.prefixList).exec())
+        self.removePrefixButton.clicked.connect(self.removePrefixFromList)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
-		
+        self.varInfoButton.clicked.connect(self.createVarInfoDialog)
+        self.varInfoButton.setIcon(
+            QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.loadTripleStoreConfig()
+
+    def createVarInfoDialog(self):
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("SPARQL Query Templates Variables")
+        thetext="<html><h3>Template Variables for the usage in example queries</h3><table border=1 cellspacing=0><tr><th>Variable</th><th>Value</th></tr>"
+        thetext+="<tr><td>%%concept%%</td><td>The currently selected concept in the class tree</td></tr>"
+        if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext+="<tr><td>%%typeproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</td></tr>"
+        if "subclassproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext+="<tr><td>%%subclassproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"])+"</td></tr>"
+        if "labelproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            thetext+="<tr><td>%%labelproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</td></tr>"
+        if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
+            if isinstance(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"],str):
+                thetext+="<tr><td>%%geomproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"])+"</td></tr>"
+            elif isinstance(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"],list):
+                thetext+="<tr><td>%%geomproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"][0])+"</td></tr>"
+        thetext+="</html>"
+        msgBox.setText(thetext)
+        msgBox.exec()
+
+    def updateExampleQueries(self):
+        self.exampleQuery.setPlainText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["querytemplate"][self.exampleQueryComboBox.currentIndex()]["query"])
+
+    def switchQueryVariableInput(self):
+        if "Single Variable" in self.geometryVariableComboBox.currentText():
+            self.latVarEdit.hide()
+            self.secondGeometryVarLabel.hide()
+        else:
+            self.latVarEdit.show()
+            self.secondGeometryVarLabel.show()
+
+
+    def enableAuthentication(self):
+        if self.useAuthenticationCheckBox.checkState():
+            self.authenticationComboBox.show()
+            self.credentialUserName.show()
+            self.credentialPassword.show()
+            self.usernameLabel.show()
+            self.passwordLabel.show()
+        else:
+            self.authenticationComboBox.hide()
+            self.credentialUserName.hide()
+            self.credentialPassword.hide()
+            self.usernameLabel.hide()
+            self.passwordLabel.hide()
+
     def loadTripleStoreConfig(self):
         if self.tripleStoreChooser.currentIndex()<len(self.triplestoreconf):
-            self.tripleStoreEdit.setText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["endpoint"])
-            self.tripleStoreNameEdit.setText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])
+            curstore=self.triplestoreconf[self.tripleStoreChooser.currentIndex()]
+            self.tripleStoreEdit.setText(curstore["endpoint"])
+            self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
-            msgBox=QMessageBox()
-            msgBox.setWindowTitle("Mandatory variables missing!")
-            msgBox.setText("The SPARQL query is missing the following mandatory variables: ")
-            msgBox.exec()
-            for prefix in self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["prefixes"]:
-                self.prefixList.addItem(prefix)
+            if "type" in curstore:
+                if curstore["type"]=="sparqlendpoint":
+                    self.rdfResourceComboBox.setCurrentIndex(0)
+                elif curstore["type"]=="file":
+                    self.rdfResourceComboBox.setCurrentIndex(2)
+                else:
+                    self.rdfResourceComboBox.setCurrentIndex(1)
+            for prefix in curstore["prefixes"]:
+                item=QListWidgetItem()
+                item.setText(str(prefix)+": <"+str(curstore["prefixes"][prefix])+">")
+                item.setData(256,curstore["prefixes"][prefix])
+                item.setData(257,prefix)
+                self.prefixList.addItem(item)
             self.prefixList.sortItems()
-            if "active" in self.triplestoreconf[self.tripleStoreChooser.currentIndex()]:
-                self.activeCheckBox.setChecked(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["active"])
-            if "crs" in self.triplestoreconf[self.tripleStoreChooser.currentIndex()]:
-                self.epsgEdit.setText(str(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["crs"]))
+            if "labelproperty" in curstore:
+                self.labelPropertyEdit.setText(curstore["labelproperty"])
             else:
-                self.epsgEdit.setText("4326")
-            self.exampleQuery.setPlainText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["querytemplate"][0]["query"])
+                self.labelPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
+            if "typeproperty" in curstore:
+                self.typePropertyEdit.setText(curstore["typeproperty"])
+            else:
+                self.typePropertyEdit.setText("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+            if "subclassproperty" in curstore:
+                self.subclassPropertyEdit.setText(curstore["subclassproperty"])
+            else:
+                self.subclassPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#subClassOf")
+            if "collectionmemberproperty" in curstore:
+                self.collectionMemberPropertyEdit.setText(curstore["collectionmemberproperty"])
+            else:
+                self.collectionMemberPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#member")
+            if "geometryproperty" in curstore and isinstance(curstore["geometryproperty"],list):
+                if len(curstore["geometryproperty"])>0:
+                    self.geometryPropertyEdit1.setText(curstore["geometryproperty"][0])
+                if len(curstore["geometryproperty"]) > 1:
+                    self.geometryPropertyEdit2.setText(curstore["geometryproperty"][1])
+            elif "geometryproperty" in curstore and isinstance(curstore["geometryproperty"],str):
+                self.geometryPropertyEdit1.setText(
+                    curstore["geometryproperty"])
+                self.geometryPropertyEdit2.setText("")
+            else:
+                self.geometryPropertyEdit1.setText("")
+                self.geometryPropertyEdit2.setText("")
+            if "credentials" in curstore["geometryproperty"]:
+                self.enableAuthentication()
+            if "querytemplate" in curstore and isinstance(curstore["querytemplate"],list):
+                self.exampleQueryComboBox.clear()
+                for template in curstore["querytemplate"]:
+                    self.exampleQueryComboBox.addItem(template["label"])
+            self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+        progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),True,False,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,progress)
+        self.qtask=DetectTripleStoreTask("Checking connection to triple store "+self.tripleStoreEdit.text()+"...",
+                                         self.triplestoreconf,self.tripleStoreEdit.text(),
+                                         self.tripleStoreNameEdit.text(),self.credentialUserName.text(),
+            self.credentialPassword.text(), self.authenticationComboBox.currentText(),True,False,self.prefixes,
+                                         self.prefixstore,self.tripleStoreChooser,
+                                         self.comboBox,False,None,self,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 
     def detectTripleStoreConfiguration(self):	
         progress = QProgressDialog("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+        progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.show()
-        self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),False,True,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,progress)
+        self.qtask=DetectTripleStoreTask("Detecting configuration for triple store "+self.tripleStoreEdit.text()+"...",self.triplestoreconf,self.tripleStoreEdit.text(),self.tripleStoreNameEdit.text(),self.credentialUserName.text(),
+            self.credentialPassword.text(), self.authenticationComboBox.currentText(),False,True,self.prefixes,self.prefixstore,self.tripleStoreChooser,self.comboBox,False,None,self,progress)
         QgsApplication.taskManager().addTask(self.qtask)
 	
     ## 
@@ -144,10 +253,9 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     #  @brief Removes a prefix from the list of prefixes in the search dialog window.
     #  
     #  @param [in] self The object pointer
-    def removePrefixFromList(self):	
-        item=QListWidgetItem()	
+    def removePrefixFromList(self):
         for item in self.prefixList.selectedItems():
-            self.prefixList.removeItemWidget(item)
+            self.prefixList.takeItem(self.prefixList.row(item))
 
     def writeConfiguration(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -166,9 +274,9 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
            return	
         #self.endpoints.append(self.tripleStoreEdit.text())	
         self.comboBox.addItem(self.tripleStoreNameEdit.text())	
-        curprefixes=[]	
-        for i in range(self.prefixList.count()):	
-            curprefixes.append(self.prefixList.item(i).text()	)
+        curprefixes={}
+        for i in range(self.prefixList.count()):
+            curprefixes[self.prefixList.item(i).data(257)]=self.prefixList.item(i).data(256)
         if self.addTripleStore:
             index=len(self.triplestoreconf)
             self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text()	)
@@ -181,12 +289,24 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             index=self.tripleStoreChooser.currentIndex()
         self.triplestoreconf[index]={}
         self.triplestoreconf[index]["endpoint"]=self.tripleStoreEdit.text()
-        self.triplestoreconf[index]["name"]=self.tripleStoreNameEdit.text()	
+        self.triplestoreconf[index]["name"]=self.tripleStoreNameEdit.text()
+        if "SPARQL Endpoint" in self.rdfResourceComboBox.currentText():
+            self.triplestoreconf[index]["type"] = "sparqlendpoint"
+        elif "RDF File" in self.rdfResourceComboBox.currentText():
+            self.triplestoreconf[index]["type"] = "file"
+        if self.useAuthenticationCheckBox.checkState(Qt.Checked):
+            self.triplestoreconf[index]["auth"]={}
+            self.triplestoreconf[index]["auth"]["userCredential"] = self.credentialUserName.text()
+            self.triplestoreconf[index]["auth"]["userPassword"] = self.credentialPassword.text()
+            self.triplestoreconf[index]["auth"]["method"]=self.authenticationComboBox.currentText()
+        else:
+            self.triplestoreconf[index]["mandatoryvariables"]["auth"]={}
         self.triplestoreconf[index]["mandatoryvariables"]=[]
         self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarEdit.text())
-        self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarItemEdit.text())        
+        self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarItemEdit.text())
+        self.triplestoreconf[index]["labelproperty"]=self.labelPropertyEdit.text()
+        self.triplestoreconf[index]["typeproperty"]=self.typePropertyEdit.text()
+        self.triplestoreconf[index]["subclassproperty"]=self.subclassPropertyEdit.text()
         self.triplestoreconf[index]["prefixes"]=curprefixes
-        self.triplestoreconf[index]["crs"]=self.epsgEdit.text()	
-        self.triplestoreconf[index]["active"]=self.activeCheckBox.isChecked()
         self.addTripleStore=False
 

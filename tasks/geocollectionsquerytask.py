@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem
@@ -75,9 +76,9 @@ class GeoCollectionsQueryTask(QgsTask):
                 item.setData(concept["uri"], 256)
                 item.setData(SPARQLUtils.collectionclassnode, 257)
                 if self.featureOrGeoCollection:
-                    item.setIcon(SPARQLUtils.featurecollectionicon)
+                    item.setIcon(UIUtils.featurecollectionicon)
                 else:
-                    item.setIcon(SPARQLUtils.geometrycollectionicon)
+                    item.setIcon(UIUtils.geometrycollectionicon)
                 itemtext=""
                 if "label" in concept:
                     itemtext=concept["label"]+" ("+concept["uri"][concept["uri"].rfind('/') + 1:]+")"
@@ -113,10 +114,10 @@ class GeoCollectionsQueryTask(QgsTask):
                     itemtext+=" ["+str(concept["members"])+"]"
                 item.setText(itemtext)
                 if self.featureOrGeoCollection:
-                    item.setIcon(SPARQLUtils.featurecollectionicon)
+                    item.setIcon(UIUtils.featurecollectionicon)
                     item.setToolTip("FeatureCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 else:
-                    item.setIcon(SPARQLUtils.geometrycollectionicon)
+                    item.setIcon(UIUtils.geometrycollectionicon)
                     item.setToolTip("GeometryCollection " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 self.geoClassList.appendRow(item)
             self.sparql.updateNewClassList()

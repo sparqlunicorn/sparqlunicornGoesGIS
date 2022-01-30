@@ -3,6 +3,8 @@ from qgis.PyQt import uic
 from qgis.core import QgsProject
 import os.path
 
+from ..util.ui.uiutils import UIUtils
+
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/varinputdialog.ui'))
 
@@ -27,6 +29,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
     def __init__(self, parent, inputfield, columnvars):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(UIUtils.columnasvaricon)
         layers = QgsProject.instance().layerTreeRoot().children()
         self.inputfield = inputfield
         self.columnvars = columnvars

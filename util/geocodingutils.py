@@ -5,11 +5,14 @@ from qgis.PyQt.QtWidgets import QMessageBox
 
 import json
 
+from .ui.uiutils import UIUtils
+
+
 class GeocodingUtils:
 
     def geocode(self):
         try:
-            nominatimurl = self.nominatimurl.format(**{'address': self.geocodeSearch.text()})
+            nominatimurl = UIUtils.nominatimurl.format(**{'address': self.geocodeSearch.text()})
             self.networkrequest(nominatimurl)
         except Exception as e:
             msgBox = QMessageBox()

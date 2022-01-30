@@ -56,13 +56,13 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
         if concepttype==SPARQLUtils.geoclassnode:
-            self.setWindowIcon(SPARQLUtils.geoclassschemaicon)
+            self.setWindowIcon(UIUtils.geoclassschemaicon)
             self.setWindowTitle(title+" (GeoClass)")
         elif concepttype==SPARQLUtils.collectionclassnode:
-            self.setWindowIcon(SPARQLUtils.featurecollectionicon)
+            self.setWindowIcon(UIUtils.featurecollectionicon)
             self.setWindowTitle(title+" (CollectionClass)")
         else:
-            self.setWindowIcon(SPARQLUtils.classschemaicon)
+            self.setWindowIcon(UIUtils.classschemaicon)
             self.setWindowTitle(title+" (Class)")
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
@@ -180,19 +180,13 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
                                  Qgis.Info)
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
-        thequery=self.triplestoreconf["whattoenrichquery"]
-        if self.concepttype==SPARQLUtils.collectionclassnode:
-            thequery = self.triplestoreconf["whattoenrichquery"].replace(
-                "?con <" + self.triplestoreconf["typeproperty"] + "> %%concept%% .",
-                "%%concept%% rdfs:member ?con .")
-        concept = "<" + self.concept + ">"
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+        progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
         self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
                                            self.triplestoreurl,
-                                           thequery.replace("%%concept%%", concept),
+                                           SPARQLUtils.queryPreProcessing(self.triplestoreconf["whattoenrichquery"],self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
                                            self.concept,
                                            None,
                                            self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)

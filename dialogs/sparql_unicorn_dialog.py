@@ -35,7 +35,9 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog
 from rdflib.plugins.sparql import prepareQuery
 
+from ..util.ui.uiutils import UIUtils
 from .aboutdialog import AboutDialog
+from .preferencesdialog import PreferencesDialog
 from ..tasks.classtreequerytask import ClassTreeQueryTask
 from ..tasks.geocollectionsquerytask import GeoCollectionsQueryTask
 from ..tasks.geoconceptsquerytask import GeoConceptsQueryTask
@@ -109,7 +111,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.featureCollectionClassListModel = QStandardItemModel()
         self.geometryCollectionClassListModel = QStandardItemModel()
         self.classTreeViewModel = QStandardItemModel()
-        self.quickAddTripleStore.setIcon(SPARQLUtils.linkeddataicon)
+        self.quickAddTripleStore.setIcon(UIUtils.linkeddataicon)
         self.geoTreeViewProxyModel = ClassTreeSortProxyModel(self.geoTreeViewModel)
         self.featureCollectionProxyModel = ClassTreeSortProxyModel(self.featureCollectionClassListModel)
         self.geometryCollectionProxyModel = ClassTreeSortProxyModel(self.geometryCollectionClassListModel)
@@ -151,19 +153,21 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.conceptSelectAction()
         self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.conceptSelectAction)
-        self.actionConvert_RDF_Data.setIcon(SPARQLUtils.rdffileicon)
-        self.actionSearch_Concept_for_Query.setIcon(SPARQLUtils.searchclassicon)
+        self.actionRDF_Resource_Settings.setIcon(UIUtils.linkeddataicon)
+        self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
+        self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
+        self.actionConvert_RDF_Data.setIcon(UIUtils.rdffileicon)
+        self.actionSearch_Concept_for_Query.setIcon(UIUtils.searchclassicon)
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
-        self.actionLayer_Column_as_Variable.setIcon(SPARQLUtils.columnasvaricon)
+        self.actionLayer_Column_as_Variable.setIcon(UIUtils.columnasvaricon)
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
-        self.actionConvert_QGIS_Layer_To_RDF.setIcon(SPARQLUtils.featurecollectionToRDFicon)
-        self.actionTriple_Store_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
+        self.actionConvert_QGIS_Layer_To_RDF.setIcon(UIUtils.featurecollectionToRDFicon)
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
-        self.actionValidate_RDF_Data.setIcon(SPARQLUtils.validationicon)
+        self.actionValidate_RDF_Data.setIcon(UIUtils.validationicon)
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex()).exec())
-        self.actionConstraint_By_BBOX.setIcon(SPARQLUtils.bboxicon)
+        self.actionConstraint_By_BBOX.setIcon(UIUtils.bboxicon)
         self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.actionAbout.triggered.connect(lambda: AboutDialog().exec())
         self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
@@ -439,7 +443,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 item = QStandardItem()
                 item.setData(concept, 256)
                 item.setText(SPARQLUtils.labelFromURI(concept, self.triplestoreconf[endpointIndex]["prefixesrev"]))
-                item.setIcon(SPARQLUtils.geoclassicon)
+                item.setIcon(UIUtils.geoclassicon)
                 item.setData(SPARQLUtils.geoclassnode, 257)
                 self.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
                 self.geoTreeViewModel.appendRow(item)

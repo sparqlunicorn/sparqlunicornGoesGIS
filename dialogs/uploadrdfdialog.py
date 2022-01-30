@@ -32,6 +32,7 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.ttlstring = ttlstring
+        self.setWindowIcon(UIUtils.linkeddataicon)
         if "endpoint" in triplestoreconf[currentindex]:
             self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["endpoint"])
         self.tripleStoreURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))

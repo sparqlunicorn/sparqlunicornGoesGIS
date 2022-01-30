@@ -29,7 +29,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.prefixes = prefixes
         self.recursiveResolvingCBox.hide()
         self.chooseFileWidget=QgsFileWidget()
-        self.setWindowIcon(SPARQLUtils.linkeddataicon)
+        self.setWindowIcon(UIUtils.linkeddataicon)
         self.gridLayout.addWidget(self.chooseFileWidget,4,1,Qt.AlignLeft)
         self.chooseFileWidget.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         self.chooseFileWidget.setStorageMode(QgsFileWidget.GetMultipleFiles)
@@ -92,7 +92,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 progress = QProgressDialog("Loading Graph: " + fileNames[0], "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
                 progress.setWindowModality(Qt.WindowModal)
-                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.tripleStoreNameEdit.text(), fileNames, self,
                                            self.dlg, self.maindlg,

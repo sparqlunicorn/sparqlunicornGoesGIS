@@ -5,6 +5,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QUrl
 
+from ...util.ui.uiutils import UIUtils
 from ...tasks.querylayertask import QueryLayerTask
 from ...tasks.findrelatedgeoconcept import FindRelatedGeoConceptQueryTask
 from ..instancedatadialog import InstanceDataDialog
@@ -30,33 +31,33 @@ class ConceptContextMenu(QMenu):
             menu = QMenu("Menu", context)
         actionclip = QAction("Copy IRI to clipboard")
         if item.data(257) == SPARQLUtils.instancenode or item.data(257) == SPARQLUtils.geoinstancenode:
-            actionclip.setIcon(SPARQLUtils.instancelinkicon)
+            actionclip.setIcon(UIUtils.instancelinkicon)
         elif item.data(257) == SPARQLUtils.classnode or item.data(257) == SPARQLUtils.geoclassnode:
-            actionclip.setIcon(SPARQLUtils.classlinkicon)
+            actionclip.setIcon(UIUtils.classlinkicon)
         elif item.data(257) == SPARQLUtils.linkedgeoclassnode:
-            actionclip.setIcon(SPARQLUtils.linkedgeoclassicon)
+            actionclip.setIcon(UIUtils.linkedgeoclassicon)
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")
-        action.setIcon(SPARQLUtils.geoclassicon)
+        action.setIcon(UIUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
         if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode:
             actioninstancecount = QAction("Check instance count")
-            actioninstancecount.setIcon(SPARQLUtils.countinstancesicon)
+            actioninstancecount.setIcon(UIUtils.countinstancesicon)
             menu.addAction(actioninstancecount)
             actioninstancecount.triggered.connect(self.instanceCount)
             actiondataschema = QAction("Query data schema")
             if item.data(257) == SPARQLUtils.classnode:
-                actiondataschema.setIcon(SPARQLUtils.classschemaicon)
+                actiondataschema.setIcon(UIUtils.classschemaicon)
                 actionrelgeo = QAction("Check related geo concepts")
-                actionrelgeo.setIcon(SPARQLUtils.countinstancesicon)
+                actionrelgeo.setIcon(UIUtils.countinstancesicon)
                 menu.addAction(actionrelgeo)
                 actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             elif item.data(257) == SPARQLUtils.collectionclassnode:
-                actiondataschema.setIcon(SPARQLUtils.featurecollectionicon)
+                actiondataschema.setIcon(UIUtils.featurecollectionicon)
             else:
-                actiondataschema.setIcon(SPARQLUtils.geoclassschemaicon)
+                actiondataschema.setIcon(UIUtils.geoclassschemaicon)
             menu.addAction(actiondataschema)
             actiondataschema.triggered.connect(lambda: DataSchemaDialog(
                 item.data(256),
@@ -69,20 +70,20 @@ class ConceptContextMenu(QMenu):
                                                                        "prefixesrev"])
             ).exec_())
             actionqueryinstances = QAction("Query all instances")
-            actionqueryinstances.setIcon(SPARQLUtils.queryinstancesicon)
+            actionqueryinstances.setIcon(UIUtils.queryinstancesicon)
             menu.addAction(actionqueryinstances)
             actionqueryinstances.triggered.connect(self.instanceList)
             if "subclassquery" in triplestoreconf:
                 action2 = QAction("Load subclasses")
-                action2.setIcon(SPARQLUtils.subclassicon)
+                action2.setIcon(UIUtils.subclassicon)
                 menu.addAction(action2)
                 action2.triggered.connect(self.loadSubClasses)
             actionsubclassquery = QAction("Create subclass query")
-            actionsubclassquery.setIcon(SPARQLUtils.subclassicon)
+            actionsubclassquery.setIcon(UIUtils.subclassicon)
             menu.addAction(actionsubclassquery)
             actionsubclassquery.triggered.connect(self.dlg.subclassQuerySelectAction)
             actionquerysomeinstances = QAction("Add some instances as new layer")
-            actionquerysomeinstances.setIcon(SPARQLUtils.addfeaturecollectionicon)
+            actionquerysomeinstances.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionquerysomeinstances)
             actionquerysomeinstances.triggered.connect(lambda: QueryLimitedInstancesDialog(
                 triplestoreconf,
@@ -90,27 +91,27 @@ class ConceptContextMenu(QMenu):
                 item.data(257)
             ).exec_())
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
-            actionaddallInstancesAsLayer.setIcon(SPARQLUtils.addfeaturecollectionicon)
+            actionaddallInstancesAsLayer.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionaddallInstancesAsLayer)
             actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
         else:
             actiondataschemainstance = QAction("Query data")
             if item.data(257) == SPARQLUtils.instancenode:
-                actiondataschemainstance.setIcon(SPARQLUtils.instanceicon)
+                actiondataschemainstance.setIcon(UIUtils.instanceicon)
             elif item.data(257) == SPARQLUtils.geoinstancenode:
-                actiondataschemainstance.setIcon(SPARQLUtils.geoinstanceicon)
+                actiondataschemainstance.setIcon(UIUtils.geoinstanceicon)
             menu.addAction(actiondataschemainstance)
             actiondataschemainstance.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
             if item.data(257) == SPARQLUtils.instancenode:
-                actionaddInstanceAsLayer.setIcon(SPARQLUtils.addinstanceicon)
+                actionaddInstanceAsLayer.setIcon(UIUtils.addinstanceicon)
             elif item.data(257) == SPARQLUtils.geoinstancenode:
-                actionaddInstanceAsLayer.setIcon(SPARQLUtils.addgeoinstanceicon)
+                actionaddInstanceAsLayer.setIcon(UIUtils.addgeoinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
         if item.data(257) == SPARQLUtils.linkedgeoclassnode:
             actionquerylinkedgeoconcept = QAction("Query joined layer with linked geoconcept")
-            actionquerylinkedgeoconcept.setIcon(SPARQLUtils.linkedgeoclassicon)
+            actionquerylinkedgeoconcept.setIcon(UIUtils.linkedgeoclassicon)
             menu.addAction(actionquerylinkedgeoconcept)
             actionquerylinkedgeoconcept.triggered.connect(self.queryLinkedGeoConcept)
         #actionapplicablestyles = QAction("Find applicable styles")
@@ -190,10 +191,13 @@ class ConceptContextMenu(QMenu):
     def loadSubClasses(self):
         concept = self.item.data(256)
         if "subclassquery" in self.triplestoreconf:
+            subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"
+            if "subclassproperty" in self.triplestoreconf:
+                subclassproperty=self.triplestoreconf["subclassproperty"]
             if "wikidata" in self.triplestoreconf["endpoint"]:
-                query=self.triplestoreconf["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
+                query=self.triplestoreconf["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1])).replace("%%subclassproperty%%",str(subclassproperty))
             else:
-                query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">")
+                query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">").replace("%%subclassproperty%%",str(subclassproperty))
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
                     prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][endpoint] + "> \n"
