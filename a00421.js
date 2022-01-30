@@ -1,11 +1,11 @@
 var a00421 =
 [
-    [ "getAuthUrl", "a00421.html#ad50702f3986e9735608dbe6c3c5d954d", null ],
-    [ "AuthUrl", "a00421.html#acc51d89c18cc53d5e2541de54fb5862a", null ],
-    [ "ClientId", "a00421.html#a7f12c8ddfb00c508eb1ee63907d6493c", null ],
-    [ "ClientSecret", "a00421.html#a86726dfd09230f62e353b939407e7819", null ],
-    [ "RedirectScheme", "a00421.html#a53a91115cb4711210ec578b91efbecdb", null ],
-    [ "RedirectUrl", "a00421.html#ac239dd96726a1bae22f8f0f2362e3df0", null ],
-    [ "ResponseType", "a00421.html#a76ea639e13c617a28c4cac0e357875e3", null ],
-    [ "Scopes", "a00421.html#a08e85efb4b2f67fcb9ef90a5dda77d46", null ]
+    [ "__init__", "a00421.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
+    [ "detectNamespaces", "a00421.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
+    [ "detectTripleStoreConfiguration", "a00421.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
+    [ "testTripleStoreConnection", "a00421.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
+    [ "configuration", "a00421.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a00421.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "message", "a00421.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "testURL", "a00421.html#aacac69f65111f90a0c0d4749ff99a530", null ]
 ];

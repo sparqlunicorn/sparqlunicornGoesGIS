@@ -1,7 +1,7 @@
 var annotated_dup =
 [
-    [ "enrichmenttab", "a00205.html", "a00205" ],
-    [ "interlinkingtab", "a00206.html", "a00206" ],
-    [ "sparqlunicornGoesGIS", "a00161.html", "a00161" ],
-    [ "FORM_CLASS", "a00905.html", null ]
+    [ "enrichmenttab", "a00213.html", "a00213" ],
+    [ "interlinkingtab", "a00214.html", "a00214" ],
+    [ "sparqlunicornGoesGIS", "a00167.html", "a00167" ],
+    [ "FORM_CLASS", "a00925.html", null ]
 ];

@@ -1,5 +1,5 @@
 var a00433 =
 [
-    [ "convertRDFStyleToSLD", "a00433.html#ad873ae5f695bd0bc760e87f27575b76c", null ],
-    [ "queryStyleByURI", "a00433.html#a61d47424511bef2644a45d08b82df5ce", null ]
+    [ "matchString", "a00433.html#a1b12342331d63f2b938fe2b8c01d06d2", null ],
+    [ "matchStringMapToReference", "a00433.html#a1eaa2a067dded069874c4abc97a37ab6", null ]
 ];

@@ -1,4 +1,5 @@
-<map id="NominatimText" name="NominatimText">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,128,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="25,5,109,32"/>
+<map id="AboutDialog" name="AboutDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="50,80,153,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$a00925.html" title=" " alt="" coords="105,5,215,32"/>
 </map>

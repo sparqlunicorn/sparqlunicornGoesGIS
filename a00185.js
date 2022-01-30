@@ -1,4 +1,4 @@
 var a00185 =
 [
-    [ "ConvertCRSTask", "a00309.html", "a00309" ]
+    [ "TripleStoreDialog", "a00297.html", "a00297" ]
 ];

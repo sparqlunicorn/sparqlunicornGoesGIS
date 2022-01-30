@@ -1,4 +1,4 @@
 var a00186 =
 [
-    [ "DataSampleQueryTask", "a00313.html", "a00313" ]
+    [ "TripleStoreQuickAddDialog", "a00301.html", "a00301" ]
 ];

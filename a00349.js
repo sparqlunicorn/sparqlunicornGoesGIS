@@ -1,19 +1,14 @@
 var a00349 =
 [
-    [ "__init__", "a00349.html#aa6045edae1a0f13a4a49e72ada92a5c2", null ],
+    [ "__init__", "a00349.html#a3c8f0149a8a6b3856ccc5c77bbba54ca", null ],
     [ "finished", "a00349.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00349.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "errorlog", "a00349.html#a8b15bd2589e75c9ee368081cb8962996", null ],
-    [ "errortypemap", "a00349.html#a3be2d6bca505ea00b022220d2f352599", null ],
+    [ "column", "a00349.html#ae78e6e11a40e6dba1bae097358f97d15", null ],
+    [ "concept", "a00349.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "dlg", "a00349.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00349.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filenames", "a00349.html#a9f192a484d55d014215ba962492cde5e", null ],
-    [ "geoconcepts", "a00349.html#a6c60f2039bf7ed34f3291349b4637a0a", null ],
-    [ "graph", "a00349.html#a8ca49c796430e66a10450bfc2d218c81", null ],
-    [ "parent", "a00349.html#a457d913bff1ebc8671c1eca1c9d5fc03", null ],
-    [ "processinglog", "a00349.html#a1fd1e53d1248bfc9f5b9f54f8a84d4fb", null ],
-    [ "progress", "a00349.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "report", "a00349.html#a4b7febb5dfb963ed99f5e7870abce71b", null ],
-    [ "ruleset", "a00349.html#a8082f1d7fccb6e08b0ac02d565a98e3b", null ],
-    [ "rulesetgraph", "a00349.html#a6cfb2e21396098a34cfc42ac968e7348", null ],
-    [ "triplestoreconf", "a00349.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "queryresult", "a00349.html#a1bee14843933505be5e14e07c03f5f89", null ],
+    [ "row", "a00349.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
+    [ "triplestoreconf", "a00349.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "triplestoreurl", "a00349.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

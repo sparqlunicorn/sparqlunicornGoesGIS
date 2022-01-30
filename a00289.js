@@ -1,15 +1,22 @@
 var a00289 =
 [
-    [ "__init__", "a00289.html#a11c26a374ef30da345563e1f5459936a", null ],
-    [ "addNewLayerToTripleStore", "a00289.html#ad37f8ed07349b0ff9667607c64473225", null ],
-    [ "checkConnection", "a00289.html#ad3ee4f0a7774436bd1d9b8de64402137", null ],
+    [ "__init__", "a00289.html#a82e7e3197aa35770eba7300065f8f1af", null ],
+    [ "applyConceptToColumn", "a00289.html#a12fe57a77d8c1181e5c85018b15667d9", null ],
+    [ "getClassesFromLabel", "a00289.html#a00c7d47f79ad9e7a9665d7588c9bd512", null ],
+    [ "onContext", "a00289.html#a99fa7fe54d832e9ede705c31718b8cb0", null ],
+    [ "addVocab", "a00289.html#ac260fdbf23e7d137884620aa4c68c92f", null ],
+    [ "bothOptions", "a00289.html#ac15ea5ca3c2948ec40b302b241c6493e", null ],
+    [ "currentcol", "a00289.html#a486aeee0a5d3170bc193bc29caf8a7b8", null ],
+    [ "currentItem", "a00289.html#a2123ac1912b5db3d24e4f84978dcc623", null ],
+    [ "currentprefixes", "a00289.html#a725c1d251ccfbd60a4bae31cd2e6b7d0", null ],
     [ "currentrow", "a00289.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
-    [ "fieldname", "a00289.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
+    [ "currentrow", "a00289.html#a086f47cacf997373ef862200fcfb4612", null ],
     [ "interlinkOrEnrich", "a00289.html#a22becd814f00141dbdbb9167f5b9551f", null ],
+    [ "interlinkOrEnrich", "a00289.html#a69b33bf970ec8c6eac8e2cd4578172fc", null ],
+    [ "prefixes", "a00289.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "qtask", "a00289.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "searchResultMap", "a00289.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
     [ "table", "a00289.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "table", "a00289.html#ab172ed3d3d31ff02fc5f798fe7e1bfb8", null ],
     [ "triplestoreconf", "a00289.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
-    [ "ttlstring", "a00289.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
-    [ "valmaptable", "a00289.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
+    [ "triplestoreconf", "a00289.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

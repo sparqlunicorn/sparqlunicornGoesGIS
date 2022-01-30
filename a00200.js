@@ -1,4 +1,4 @@
 var a00200 =
 [
-    [ "LoadGraphTask", "a00369.html", "a00369" ]
+    [ "GeoCollectionsQueryTask", "a00353.html", "a00353" ]
 ];

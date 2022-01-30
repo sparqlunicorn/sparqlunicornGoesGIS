@@ -1,5 +1,4 @@
-<map id="SearchDialog" name="SearchDialog">
-<area shape="rect" id="node1" title=" " alt="" coords="47,80,155,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00905.html" title=" " alt="" coords="105,5,215,32"/>
+<map id="LoginWindow" name="LoginWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,115,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="14,5,106,32"/>
 </map>
