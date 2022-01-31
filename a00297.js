@@ -1,8 +1,27 @@
 var a00297 =
 [
-    [ "__init__", "a00297.html#a3047f94dcb7e376099d2e6d9856cb8fb", null ],
-    [ "getUserInformation", "a00297.html#aea3d6e87f3e13680be9d249ccdab7854", null ],
-    [ "interceptRequest", "a00297.html#aa20a76c1bc9a728ff7aa3dc56ea6bad2", null ],
-    [ "app", "a00297.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "oauthcode", "a00297.html#ac89f05d3eeb1c5c95ecd3fde0ffc1abd", null ]
+    [ "__init__", "a00297.html#aa4095cc8d215e89141f045fac4ef44e2", null ],
+    [ "addNewSPARQLEndpoint", "a00297.html#a34a78bc5f0927053db7797e886f20240", null ],
+    [ "addPrefixToList", "a00297.html#a182c82bd713e327a2621e41cbeeb5845", null ],
+    [ "applyCustomSPARQLEndPoint", "a00297.html#a7ab1931a2785e98a68d2547d73caad61", null ],
+    [ "createNewTripleStore", "a00297.html#aa5447b6794b47547c3db9b58ec8666ec", null ],
+    [ "createVarInfoDialog", "a00297.html#af7fc8789e065627b9a9c673c7fadbdce", null ],
+    [ "deleteTripleStoreFunc", "a00297.html#ab51f83eb5efc7744cb415accade74abc", null ],
+    [ "detectTripleStoreConfiguration", "a00297.html#afd5cbb47197ed025c14b33f40011c054", null ],
+    [ "enableAuthentication", "a00297.html#a57f72da816cb9d7e387f64294ab706e8", null ],
+    [ "loadTripleStoreConfig", "a00297.html#a809e9724f3fb01cd74431f96ff40c928", null ],
+    [ "removePrefixFromList", "a00297.html#af5a3b8318ec8d87a45d46caa5fd867e7", null ],
+    [ "restoreFactory", "a00297.html#aebb0c8211d47ee1206755f7992455b62", null ],
+    [ "switchQueryVariableInput", "a00297.html#a19e367cea499addb9cbef90c5c461683", null ],
+    [ "testTripleStoreConnection", "a00297.html#a92f0f35c62235de8c1bba4c25f7ede69", null ],
+    [ "updateExampleQueries", "a00297.html#a72164a98259109402fa91f9dece1286c", null ],
+    [ "writeConfiguration", "a00297.html#a630c34000dc83589645109cfc574c26b", null ],
+    [ "addTripleStore", "a00297.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "comboBox", "a00297.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
+    [ "prefixes", "a00297.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a00297.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
+    [ "qtask", "a00297.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "sparqlhighlighter", "a00297.html#af81c2262d69f9184819dac236925d02b", null ],
+    [ "triplestoreconf", "a00297.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "triplestoreconf", "a00297.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

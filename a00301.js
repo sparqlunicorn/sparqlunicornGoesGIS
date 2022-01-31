@@ -1,15 +1,19 @@
 var a00301 =
 [
-    [ "__init__", "a00301.html#ab53a8d674edc6e5e61f3ff4ca1fcebf9", null ],
-    [ "highlightBlock", "a00301.html#afea4c5245fe0920f4c2d9bcb0f92f327", null ],
-    [ "match_multiline", "a00301.html#aa301cb2fc9bf96ca7c8608527c4a38e1", null ],
-    [ "braces", "a00301.html#a8f0e4dd16633e09638c465813ed3fc55", null ],
-    [ "currentline", "a00301.html#a1be7dfac6c204d2592700475b5d73fd2", null ],
-    [ "errorhighlightcol", "a00301.html#a52246e67bcb2882ef295b832f02cc11d", null ],
-    [ "errorhighlightline", "a00301.html#abf462271f908cf9644b363030e9872c7", null ],
-    [ "keywords", "a00301.html#a0d17271000b81550ca6c5a1fde2f17f3", null ],
-    [ "operators", "a00301.html#a64882d3e5d2f6a8957801403d61570ef", null ],
-    [ "rules", "a00301.html#a595e07a99f60f22a6a29e4fca291ea28", null ],
-    [ "tri_double", "a00301.html#a9bb5ce69445e9b7228404340d7e226a3", null ],
-    [ "tri_single", "a00301.html#adb8c3b06bd36e64ec0b1e2053d8d992d", null ]
+    [ "__init__", "a00301.html#aaa3b7765f26ece7e66a5a3e7be5ae151", null ],
+    [ "applyCustomSPARQLEndPoint", "a00301.html#a7ab1931a2785e98a68d2547d73caad61", null ],
+    [ "detectTripleStoreConfiguration", "a00301.html#afd5cbb47197ed025c14b33f40011c054", null ],
+    [ "enableAuthentication", "a00301.html#a57f72da816cb9d7e387f64294ab706e8", null ],
+    [ "resboxChangedEvent", "a00301.html#ad47996eb65c24be3f93a43f8dbd84990", null ],
+    [ "addTripleStore", "a00301.html#af4a8aa8ceb4969b82047ab23c9d00c82", null ],
+    [ "chooseFileWidget", "a00301.html#a201a48d89c0cceca62ead78a83eb592e", null ],
+    [ "comboBox", "a00301.html#afcee2275fb7c24bb8979dd838f0dc90a", null ],
+    [ "dlg", "a00301.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00301.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00301.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "prefixes", "a00301.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "prefixstore", "a00301.html#a4d9e45fd666bc36c0602e3a0c6244b3c", null ],
+    [ "qtask", "a00301.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "triplestoreconf", "a00301.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "triplestoreconf", "a00301.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

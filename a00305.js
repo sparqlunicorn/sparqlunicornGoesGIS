@@ -1,8 +1,15 @@
 var a00305 =
 [
-    [ "__init__", "a00305.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00305.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00305.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "insertText", "a00305.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00305.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ]
+    [ "__init__", "a00305.html#a11c26a374ef30da345563e1f5459936a", null ],
+    [ "addNewLayerToTripleStore", "a00305.html#ad37f8ed07349b0ff9667607c64473225", null ],
+    [ "checkConnection", "a00305.html#ad3ee4f0a7774436bd1d9b8de64402137", null ],
+    [ "currentrow", "a00305.html#a9dd9ae4cdd3fd369783ecc127c418871", null ],
+    [ "fieldname", "a00305.html#a6aa91eb05e0f70d41e5ae3348922a469", null ],
+    [ "interlinkOrEnrich", "a00305.html#a22becd814f00141dbdbb9167f5b9551f", null ],
+    [ "qtask", "a00305.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "searchResultMap", "a00305.html#ab1c2bb7c4c08c1fad52520ab43f66f34", null ],
+    [ "table", "a00305.html#ab31a20ab07de26623b45757ffb619144", null ],
+    [ "triplestoreconf", "a00305.html#aafcf1146e38f7f4733cbf5dc6a6fb147", null ],
+    [ "ttlstring", "a00305.html#a3d5c5f8fd0529cd88f52bf58586cc0ec", null ],
+    [ "valmaptable", "a00305.html#afa678c21e5c99845c09c18d10cdbf7b5", null ]
 ];

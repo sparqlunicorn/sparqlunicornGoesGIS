@@ -1,5 +1,7 @@
-<map id="WarningLayerDlg" name="WarningLayerDlg">
-<area shape="rect" id="node1" title=" " alt="" coords="35,80,168,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" id="node3" href="$a00829.html" title=" " alt="" coords="105,5,215,32"/>
+<map id="SPARQLunicorn" name="SPARQLunicorn">
+<area shape="rect" id="node1" title="The main SPARQL unicorn dialog." alt="" coords="194,139,314,165"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,44,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="162,5,213,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="277,5,364,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="455,5,498,32"/>
 </map>
