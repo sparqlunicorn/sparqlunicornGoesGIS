@@ -185,6 +185,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def tripleStoreInfoDialog(self):
         msgBox = QMessageBox()
         msgBox.setWindowTitle("RDF Resource Information")
+        msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
         thetext="<html><h3>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0><tr><th>Information</th><th>Value</th></tr>"
         thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
         thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"

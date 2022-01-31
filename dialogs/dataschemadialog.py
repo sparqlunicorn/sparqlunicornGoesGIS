@@ -18,7 +18,7 @@ from ..util.sparqlutils import SPARQLUtils
 import os.path
 
 
-MESSAGE_CATEGORY = 'DataSchemaDialogggg'
+MESSAGE_CATEGORY = 'DataSchemaDialog'
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataschemadialog.ui'))
