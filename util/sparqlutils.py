@@ -71,7 +71,7 @@ class SPARQLUtils:
         if convertToCollectionForm:
             query=query.replace("?con %%typeproperty%% %%concept%% .","%%concept%% %%collectionmemberproperty%% ?con .")
         if concept!=None:
-            if "wikidata" in triplestoreconf["endpoint"]:
+            if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and "wikidata" in triplestoreconf["resource"]["url"]:
                 query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
             else:
                 query = query.replace("%%concept%%", "<" + str(concept) + ">")
@@ -98,7 +98,7 @@ class SPARQLUtils:
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
         results=False
-        if isinstance(triplestoreurl, str):
+        if triplestoreurl["type"]=="endpoint":
             s = QSettings()  # getting proxy from qgis options settings
             proxyEnabled = s.value("proxy/proxyEnabled")
             proxyType = s.value("proxy/proxyType")
@@ -112,7 +112,7 @@ class SPARQLUtils:
                 opener = urllib.request.build_opener(proxy)
                 urllib.request.install_opener(opener)
             QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
-            sparql = SPARQLWrapper(triplestoreurl)
+            sparql = SPARQLWrapper(triplestoreurl["url"])
             if triplestoreconf!=None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                     and triplestoreconf["auth"]["userCredential"]!="" \
                     and "userPassword" in triplestoreconf["auth"] \
@@ -133,7 +133,7 @@ class SPARQLUtils:
                     raise Exception
             except Exception as e:
                 try:
-                    sparql = SPARQLWrapper(triplestoreurl,
+                    sparql = SPARQLWrapper(triplestoreurl["url"],
                                            agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                     sparql.setQuery(query)
                     if triplestoreconf != None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
@@ -162,7 +162,7 @@ class SPARQLUtils:
                         return "Exists error"
                     return False
         else:
-            graph=triplestoreurl
+            graph=triplestoreurl["instance"]
             QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:

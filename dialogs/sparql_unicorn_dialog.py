@@ -413,8 +413,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "endpoint"] in self.savedQueriesJSON:
             for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
                 self.savedQueries.addItem(item["label"])
-        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
-            "endpoint"] != "" and (
+        if "resource" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
+            "resource"] != "" and (
                 not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[
             endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"] == []) and "geoconceptquery" in \
                 self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["geoconceptquery"] != "":
