@@ -1,7 +1,15 @@
 var a00281 =
 [
-    [ "__init__", "a00281.html#adbeaf2e931152c70fb444ca33974ae1a", null ],
-    [ "savePrefix", "a00281.html#a5cf9e9b8fa294a8f55d30e3fba3fd69d", null ],
-    [ "addOrEdit", "a00281.html#a660e3722e4c81323174ce41564054ec9", null ],
-    [ "prefixList", "a00281.html#ab8640857e2652eb06aafa358c16c1966", null ]
+    [ "__init__", "a00281.html#a8620be517032a623030c0d1401b11c70", null ],
+    [ "canvasMoveEvent", "a00281.html#a3a5b2ce6948e31a85277ced0b4a69ef7", null ],
+    [ "canvasPressEvent", "a00281.html#ab11a20c92f6de98959c5665e0f42ac36", null ],
+    [ "deactivate", "a00281.html#a2d696bdfbd4246718adc08224abb4a1a", null ],
+    [ "keyPressEvent", "a00281.html#afe9d900cd720fa60b68a2a4319cb7896", null ],
+    [ "reset", "a00281.html#a51829b63adb24ac48d350dee60181002", null ],
+    [ "canvas", "a00281.html#afa9e9838abb44338f7cbe41dc6f846d4", null ],
+    [ "iface", "a00281.html#ac1e384ebf7a273611c4154df52d67d00", null ],
+    [ "move", "a00281.html#a1eae2f0eb13d25eaa55d5334838178c1", null ],
+    [ "rb", "a00281.html#a8f610a49aea706583d0377479ad2e756", null ],
+    [ "selectionDone", "a00281.html#a67dca49abfdeb1b865b5411cb58bf51e", null ],
+    [ "status", "a00281.html#a015eb90e0de9f16e87bd149d4b9ce959", null ]
 ];
