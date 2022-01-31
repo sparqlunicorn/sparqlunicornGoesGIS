@@ -265,7 +265,7 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span><a class="code" href="a00401.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4">finished</a>(self, result):</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> result == <span class="keyword">True</span>:</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            self.maindlg.currentgraph = self.graph</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            self.dlg.comboBox.addItem(str(self.graphname)+<span class="stringliteral">&quot; [File]&quot;</span>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            self.dlg.comboBox.addItem(UIUtils.geoendpointicon, str(self.graphname)+<span class="stringliteral">&quot; [File]&quot;</span>)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            index = len(self.triplestoreconf)</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            self.triplestoreconf.append({})</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.triplestoreconf[index] = self.gutils.configuration</div>
