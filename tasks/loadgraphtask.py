@@ -49,7 +49,7 @@ class LoadGraphTask(QgsTask):
     def finished(self, result):
         if result == True:
             self.maindlg.currentgraph = self.graph
-            self.dlg.comboBox.addItem(str(self.graphname)+" [File]")
+            self.dlg.comboBox.addItem(UIUtils.geoendpointicon, str(self.graphname)+" [File]")
             index = len(self.triplestoreconf)
             self.triplestoreconf.append({})
             self.triplestoreconf[index] = self.gutils.configuration

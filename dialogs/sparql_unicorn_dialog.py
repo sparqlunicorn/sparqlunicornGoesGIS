@@ -32,7 +32,7 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon, QStandardItem
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog
+from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog, QSizePolicy
 from rdflib.plugins.sparql import prepareQuery
 
 from ..util.ui.uiutils import UIUtils
@@ -133,15 +133,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.geoTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
         self.classTreeView.doubleClicked.connect(self.createLayerFromTreeEntry)
-        #self.queryLimit.setValidator(QRegExpValidator(QRegExp("[0-9]*")))
         self.filterConcepts.textChanged.connect(lambda: self.currentProxyModel.setFilterRegExp(self.filterConcepts.text()))
         self.inp_sparql.hide()
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
-        self.gridLayout.addWidget(self.inp_sparql2,4,0,1,4,Qt.AlignLeft)
-        #self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.inp_sparql2.setMinimumSize(790, 471)
-        self.inp_sparql2.setMaximumSize(16777215,16777215)
+        self.gridLayout.addWidget(self.inp_sparql2,4,0,1,4)
+        self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10")
         self.inp_sparql2.columnvars = {}

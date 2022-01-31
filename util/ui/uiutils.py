@@ -25,6 +25,7 @@ class UIUtils:
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
     linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
     addicon=QIcon(":/icons/resources/icons/add.png")
+    geoendpointicon = QIcon(":/icons/resources/icons/geoendpoint.png")
     removeicon = QIcon(":/icons/resources/icons/remove.png")
     addclassicon=QIcon(":/icons/resources/icons/addclass.png")
     addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")

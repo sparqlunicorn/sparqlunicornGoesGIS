@@ -37,6 +37,7 @@
     <file>resources/icons/instance.png</file>
     <file>resources/icons/instancelink.png</file>
     <file>resources/icons/geoclass.png</file>
+    <file>resources/icons/geoendpoint.png</file>
     <file>resources/icons/halfgeoclass.png</file>
   </qresource>
 </RCC>

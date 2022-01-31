@@ -301,11 +301,17 @@ class SPARQLunicorn:
                         item += " --> "
                         for mandvar in triplestore["mandatoryvariables"]:
                             item += "?" + mandvar + " "
-                    if "type" in triplestore and triplestore["type"] == "sparqlendpoint":
-                        item += " [Endpoint]"
+                    if "type" in triplestore and triplestore["type"] == "geosparqlendpoint":
+                        item += " [GeoSPARQL Endpoint]"
+                        self.dlg.comboBox.addItem(UIUtils.geoendpointicon,item)
+                    elif "type" in triplestore and triplestore["type"] == "sparqlendpoint":
+                        item += " [SPARQL Endpoint]"
+                        self.dlg.comboBox.addItem(UIUtils.linkeddataicon,item)
                     elif "type" in triplestore and triplestore["type"] == "file":
                         item += " [File]"
-                    self.dlg.comboBox.addItem(item)
+                        self.dlg.comboBox.addItem(UIUtils.rdffileicon,item)
+                    else:
+                        self.dlg.comboBox.addItem(item)
             self.dlg.comboBox.setCurrentIndex(0)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())

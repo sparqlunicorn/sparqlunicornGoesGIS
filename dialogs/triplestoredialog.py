@@ -30,7 +30,16 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.comboBox=comboBox
         self.prefixes=prefixes
         for item in triplestoreconf:
-            self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
+            if "type" in item:
+                if item["type"] == "geosparqlendpoint":
+                    self.tripleStoreChooser.addItem(UIUtils.geoendpointicon, item["name"]+ " [GeoSPARQL Endpoint]")
+                elif item["type"]=="sparqlendpoint":
+                    self.tripleStoreChooser.addItem(UIUtils.linkeddataicon,item["name"] + " [SPARQL Endpoint]")
+                elif item["type"]=="file":
+                    self.tripleStoreChooser.addItem(UIUtils.rdffileicon,
+                                                    item["name"] + " [File]")
+                else:
+                    self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
         self.exampleQueryComboBox.currentIndexChanged.connect(self.updateExampleQueries)
@@ -122,11 +131,12 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     def loadTripleStoreConfig(self):
         if self.tripleStoreChooser.currentIndex()<len(self.triplestoreconf):
             curstore=self.triplestoreconf[self.tripleStoreChooser.currentIndex()]
-            self.tripleStoreEdit.setText(curstore["endpoint"])
+            if isinstance(curstore["endpoint"],str):
+                self.tripleStoreEdit.setText(curstore["endpoint"])
             self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
             if "type" in curstore:
-                if curstore["type"]=="sparqlendpoint":
+                if "sparqlendpoint" in curstore["type"]:
                     self.rdfResourceComboBox.setCurrentIndex(0)
                 elif curstore["type"]=="file":
                     self.rdfResourceComboBox.setCurrentIndex(2)
