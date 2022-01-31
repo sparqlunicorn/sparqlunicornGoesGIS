@@ -33,8 +33,8 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.ttlstring = ttlstring
         self.setWindowIcon(UIUtils.linkeddataicon)
-        if "endpoint" in triplestoreconf[currentindex]:
-            self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["endpoint"])
+        if "resource" in triplestoreconf[currentindex]:
+            self.tripleStoreURLEdit.setText(triplestoreconf[currentindex]["resource"])
         self.tripleStoreURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreURLEdit))
         self.tripleStoreURLEdit.textChanged.emit(self.tripleStoreURLEdit.text())
@@ -46,7 +46,8 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
             self.loadedLayers.add(ucl)
         endpointurls = []
         for item in triplestoreconf:
-            endpointurls.append(item["endpoint"])
+            if "url" in item["resource"]:
+                endpointurls.append(item["resource"]["url"])
         self.tripleStoreURLEdit.setCompleter(QCompleter(endpointurls))
         self.checkConnectionButton.clicked.connect(self.checkConnection)
         self.applyButton.clicked.connect(self.addNewLayerToTripleStore)

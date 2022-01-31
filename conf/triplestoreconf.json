@@ -1,7 +1,7 @@
 [
     {
         "name": "Atlantgis",
-        "type": "sparqlendpoint",
+        "type": "geosparqlendpoint",
         "prefixes": {
             "geosparql": "http://www.opengis.net/ont/geosparql#",
             "atlantgis": "http://atlantgis.squirrel.link/ontology#",
@@ -11,7 +11,7 @@
             "spatial": "http://geovocab.org/spatial#",
             "dcterms": "http://purl.org/dc/terms/"
         },
-        "endpoint": "http://digits.mainzed.org/atlantgis/sparql",
+        "resource": {"type": "endpoint","url": "http://digits.mainzed.org/atlantgis/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -78,7 +78,7 @@
             "gas": "http://www.bigdata.com/rdf/gas#",
             "hint": "http://www.bigdata.com/queryHints#"
         },
-        "endpoint": "https://query.wikidata.org/sparql",
+        "resource": {"type": "endpoint","url": "https://query.wikidata.org/sparql"},
         "bboxquery": {
             "type": "minmax",
             "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"
@@ -133,7 +133,7 @@
             "spatial": "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/",
             "gaz": "http://data.ordnancesurvey.co.uk/ontology/50kGazetteer/"
         },
-        "endpoint": "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql",
+        "resource": {"type": "endpoint","url": "http://data.ordnancesurvey.co.uk/datasets/os-linked-data/apis/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "easting", "northing"],
 		"featurecollectionclasses":["http://www.opengis.net/ont/geosparql#FeatureCollection"],
@@ -182,7 +182,7 @@
             "xsd": "http://www.w3.org/2001/XMLSchema#",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "http://nomisma.org/query",
+        "resource": {"type": "endpoint","url": "http://nomisma.org/query"},
         "mandatoryvariables": ["item", "lat", "lon"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -229,7 +229,7 @@
             "xsd": "http://www.w3.org/2001/XMLSchema#",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "http://kerameikos.org/query",
+        "resource": {"type": "endpoint","url": "http://kerameikos.org/query"},
         "mandatoryvariables": ["item", "lat", "lon"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -273,7 +273,7 @@
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "http://linkedgeodata.org/sparql",
+        "resource": {"type": "endpoint","url": "http://linkedgeodata.org/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "lat", "lon"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -320,7 +320,7 @@
             "lgdo": "http://linkedgeodata.org/ontology/",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "http://dbpedia.org/sparql",
+        "resource": {"type": "endpoint","url": "http://dbpedia.org/sparql"},
         "mandatoryvariables": ["item", "lat", "lon"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -364,7 +364,7 @@
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "http://factforge.net/repositories/ff-news",
+        "resource": {"type": "endpoint","url": "http://factforge.net/repositories/ff-news"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "lat", "lon"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -399,7 +399,7 @@
         },
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con <http://www.opengis.net/ont/geosparql#hasGeometry> ?coord .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) }  GROUP BY ?rel ?valtype ORDER BY DESC(?countrel)",
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-        "endpoint": "http://sandbox.mainzed.org/osi/sparql",
+        "resource": {"type": "endpoint","url": "http://digits.mainzed.org/osi/sparql"},
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -420,7 +420,7 @@
     },
     {
         "name": "Pleiades",
-        "type": "sparqlendpoint",
+        "type": "geosparqlendpoint",
         "prefixes": {
             "geosparql": "http://www.opengis.net/ont/geosparql#",
             "pleiades": "http://pleiades.stoa.org/places/vocab#",
@@ -432,7 +432,7 @@
             "timeperiod": "http://pleiades.stoa.org/vocabularies/time-periods/",
             "dcterms": "http://purl.org/dc/terms/"
         },
-        "endpoint": "http://digits.mainzed.org/pleiades/sparql",
+        "resource": {"type": "endpoint","url": "http://digits.mainzed.org/pleiades/sparql"},
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -465,7 +465,7 @@
         "active": true
     }, {
         "name": "Linked Ogham Data",
-        "type": "sparqlendpoint",
+        "type": "geosparqlendpoint",
         "prefixes": {
             "ogham": "http://lod.ogham.link/data/",
             "oghamonto": "http://ontology.ogham.link/",
@@ -479,7 +479,7 @@
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
-        "endpoint": "https://digits.mainzed.org/ogham/sparql",
+        "resource": {"type": "endpoint","url": "https://digits.mainzed.org/ogham/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -509,7 +509,7 @@
         "active": true
     }, {
         "name": "COVID-19",
-        "type": "sparqlendpoint",
+        "type": "geosparqlendpoint",
         "prefixes": {
             "geosparql": "http://www.opengis.net/ont/geosparql#",
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -519,7 +519,7 @@
             "covid19": "http://covid19.squirrel.link/ontology#",
             "world": "http://world.squirrel.link/ontology#"
         },
-        "endpoint": "http://sandbox.mainzed.org/covid19/sparql",
+        "resource": {"type": "endpoint","url": "http://digits.mainzed.org/covid19/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
@@ -552,7 +552,7 @@
         "active": true
     }, {
         "name": "Research Squirrel Engineers Triplestore",
-        "type": "sparqlendpoint",
+        "type": "geosparqlendpoint",
         "prefixes": {
             "geosparql": "http://www.opengis.net/ont/geosparql#",
             "owl": "http://www.w3.org/2002/07/owl#",
@@ -565,7 +565,7 @@
             "hw_road": "http://hadrianswall.squirrel.link/road#",
             "hw_wall": "http://hadrianswall.squirrel.link/wall#"
         },
-        "endpoint": "http://digits.mainzed.org/squirrels/sparql",
+        "resource": {"type": "endpoint","url": "http://digits.mainzed.org/squirrels/sparql"},
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
@@ -630,7 +630,7 @@
             "graffito": "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#sketch/"
         },
         "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } \n GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-        "endpoint": "http://romanopendata.eu/sparql-endpoint",
+        "resource": {"type": "endpoint","url": "http://romanopendata.eu/sparql-endpoint"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "lat", "lon"],
         "geoclasses": ["http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#Country","http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#ModernSpot"],
@@ -673,7 +673,7 @@
             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
             "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
         },
-        "endpoint": "https://sophox.org/sparql",
+        "resource": {"type": "endpoint","url": "https://sophox.org/sparql"},
         "mandatoryvariables": ["item", "geo"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",

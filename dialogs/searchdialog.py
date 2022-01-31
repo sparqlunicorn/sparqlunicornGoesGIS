@@ -96,7 +96,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             self.currentItem.data(256),
             SPARQLUtils.classnode,
             self.currentItem.text(),
-            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
             self.triplestoreconf[self.tripleStoreEdit.currentIndex()], self.prefixes,
             "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
                 256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
@@ -133,8 +133,8 @@ class SearchDialog(QDialog, FORM_CLASS):
                 item.setText(key)
                 self.searchResult.addItem(item)
         else:
-            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
-                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
             QgsApplication.taskManager().addTask(self.qtask)
         return viewlist
@@ -179,7 +179,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 item2 = QTableWidgetItem()
                 item2.setText(self.tripleStoreEdit.currentText())
-                item2.setData(257, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"])
+                item2.setData(257, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"])
                 self.table.setItem(self.currentrow, self.currentcol, item)
                 self.table.setItem(self.currentrow, (self.currentcol), item2)
         self.close()

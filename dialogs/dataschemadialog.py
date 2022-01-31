@@ -130,14 +130,14 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.concept,
-            self.triplestoreconf["endpoint"],
+            self.triplestoreconf["resource"],
             query,
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
                 self.concept,
-            self.triplestoreconf["endpoint"],
+            self.triplestoreconf["resource"],
             "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + "> .\n "+str(relstatement)+" "+
@@ -174,8 +174,6 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
     #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "DataSchemaDialog", Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "DataSchemaDialog",
-                                 Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["whattoenrichquery"]), "DataSchemaDialog",
                                  Qgis.Info)
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:

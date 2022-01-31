@@ -132,8 +132,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     def loadTripleStoreConfig(self):
         if self.tripleStoreChooser.currentIndex()<len(self.triplestoreconf):
             curstore=self.triplestoreconf[self.tripleStoreChooser.currentIndex()]
-            if isinstance(curstore["endpoint"],str):
-                self.tripleStoreEdit.setText(curstore["endpoint"])
+            if curstore["resource"]["type"]=="endpoint":
+                self.tripleStoreEdit.setText(curstore["resource"]["url"])
             self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
             if "type" in curstore:
@@ -299,7 +299,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         else:
             index=self.tripleStoreChooser.currentIndex()
         self.triplestoreconf[index]={}
-        self.triplestoreconf[index]["endpoint"]=self.tripleStoreEdit.text()
+        self.triplestoreconf[index]["resource"]={"type":"endpoint","url":self.tripleStoreEdit.text()}
         self.triplestoreconf[index]["name"]=self.tripleStoreNameEdit.text()
         if "SPARQL Endpoint" in self.rdfResourceComboBox.currentText():
             self.triplestoreconf[index]["type"] = "sparqlendpoint"

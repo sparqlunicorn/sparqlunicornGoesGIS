@@ -157,7 +157,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
         self.qtask =DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
-                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],
+                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                                 "whattoenrichquery"].replace("%%concept%%", concept).replace("%%typeproperty%%","<"+str(typeproperty)+">"),
                             self.conceptSearchEdit.text(),
@@ -196,7 +196,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 item.setText(text)
                 self.enrichtable.setItem(row, 1, item)
                 item = QTableWidgetItem()
-                item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["endpoint"])
+                item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["resource"])
                 self.enrichtable.setItem(row, 2, item)
                 cbox = QComboBox()
                 cbox.addItem("Get Remote")

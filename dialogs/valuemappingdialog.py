@@ -108,7 +108,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
                     "%%label%%", label)
         if "SELECT" in query:
             query = query.replace("%%label%%", label).replace("%%language%%", language)
-            results=SPARQLUtils.executeQuery(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["endpoint"],query)
+            results=SPARQLUtils.executeQuery(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],query)
             self.searchResultMap = {}
             for res in results["results"]["bindings"]:
                 item = QListWidgetItem()

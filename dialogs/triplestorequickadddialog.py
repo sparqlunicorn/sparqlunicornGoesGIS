@@ -125,7 +125,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         else:
             index = self.tripleStoreChooser.currentIndex()
         self.triplestoreconf[index] = {}
-        self.triplestoreconf[index]["endpoint"] = self.tripleStoreEdit.text()
+        self.triplestoreconf[index]["resource"] = {"type":"endpoint","url":self.tripleStoreEdit.text()}
         self.triplestoreconf[index]["name"] = self.tripleStoreNameEdit.text()
         self.triplestoreconf[index]["mandatoryvariables"] = []
         self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarEdit.text())

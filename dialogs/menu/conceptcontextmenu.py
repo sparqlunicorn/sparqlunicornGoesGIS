@@ -63,7 +63,7 @@ class ConceptContextMenu(QMenu):
                 item.data(256),
                 item.data(257),
                 item.text(),
-                triplestoreconf["endpoint"],
+                triplestoreconf["resource"],
                 triplestoreconf, self.prefixes,
                 "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(256)),
                                                                    triplestoreconf[
@@ -135,7 +135,7 @@ class ConceptContextMenu(QMenu):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(256)
         label = self.currentContextModel.itemFromIndex(curindex).text()
-        # self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
+        # self.dataschemaDialog = DataSchemaDialog(concept,label,self.triplestoreconf["resource"],self.triplestoreconf,self.prefixes,self.comboBox.currentIndex())
         # self.dataschemaDialog.setWindowTitle("Data Schema View for "+str(concept))
         # self.dataschemaDialog.exec_()
 
@@ -143,7 +143,7 @@ class ConceptContextMenu(QMenu):
         concept = self.item.data(256)
         nodetype = self.item.data(257)
         label = self.item.text()
-        self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["endpoint"],self.triplestoreconf,self.prefixes)
+        self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["resource"],self.triplestoreconf,self.prefixes)
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
         self.instancedataDialog.exec_()
 
@@ -155,9 +155,9 @@ class ConceptContextMenu(QMenu):
         self.qlayerinstance = QueryLayerTask(
             "Linked GeoClass to Layer: " + str(concept),
             concept,
-            self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"],
+            self.triplestoreconf["resource"],
             "SELECT ?item ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . ?item <"+str(linkedproperty)+"> ?item2 . ?item2 ?rel2 ?val2 . \n }",
-            self.triplestoreconf[self.comboBox.currentIndex()], True, SPARQLUtils.labelFromURI(concept), None)
+            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None)
 
 
     def relatedGeoConcepts(self):
@@ -166,7 +166,7 @@ class ConceptContextMenu(QMenu):
         if not label.endswith("]"):
             self.qtaskinstance = FindRelatedGeoConceptQueryTask(
                 "Getting related geo concepts for " + str(concept),
-                self.triplestoreconf["endpoint"], self, concept,self.triplestoreconf)
+                self.triplestoreconf["resource"], self, concept,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceCount(self):
@@ -176,7 +176,7 @@ class ConceptContextMenu(QMenu):
         if not label.endswith("]"):
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf,nodetype)
+                self.triplestoreconf["resource"], self, self.item,self.triplestoreconf,nodetype)
             QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceList(self):
@@ -185,7 +185,7 @@ class ConceptContextMenu(QMenu):
         if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
-                self.triplestoreconf["endpoint"], self, self.item,self.triplestoreconf)
+                self.triplestoreconf["resource"], self, self.item,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtaskinstanceList)
 
     def loadSubClasses(self):
@@ -194,15 +194,15 @@ class ConceptContextMenu(QMenu):
             subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"
             if "subclassproperty" in self.triplestoreconf:
                 subclassproperty=self.triplestoreconf["subclassproperty"]
-            if "wikidata" in self.triplestoreconf["endpoint"]:
+            if "wikidata" in self.triplestoreconf["resource"]:
                 query=self.triplestoreconf["subclassquery"].replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1])).replace("%%subclassproperty%%",str(subclassproperty))
             else:
                 query=self.triplestoreconf["subclassquery"].replace("%%concept%%","<"+str(concept)+">").replace("%%subclassproperty%%",str(subclassproperty))
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
                     prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][endpoint] + "> \n"
-            self.qtasksub = SubClassQueryTask("Querying subclasses of " + self.triplestoreconf["endpoint"],
-                                    self.triplestoreconf["endpoint"],
+            self.qtasksub = SubClassQueryTask("Querying subclasses of " + self.triplestoreconf["resource"],
+                                    self.triplestoreconf["resource"],
                                     prefixestoadd + query,None,self,
                                     self.item,concept,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtasksub)

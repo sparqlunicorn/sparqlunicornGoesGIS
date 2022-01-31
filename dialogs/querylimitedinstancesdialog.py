@@ -37,7 +37,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.concept,
-                    self.triplestoreconf["endpoint"],
+                    self.triplestoreconf["resource"],
                     thequery,
                     self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
             else:
@@ -47,7 +47,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(self.concept),
                     self.concept,
-                    self.triplestoreconf["endpoint"],
+                    self.triplestoreconf["resource"],
                     thequery,
                     self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         else:
@@ -57,7 +57,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
                 self.concept,
-                self.triplestoreconf["endpoint"],
+                self.triplestoreconf["resource"],
                 thequery,
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)

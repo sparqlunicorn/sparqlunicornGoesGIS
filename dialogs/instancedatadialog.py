@@ -120,14 +120,14 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.concept,
-            self.triplestoreconf["endpoint"],query,
+            self.triplestoreconf["resource"],query,
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),
                 self.shortenURICheckBox.isChecked())
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
             self.concept,
-            self.triplestoreconf["endpoint"],
+            self.triplestoreconf["resource"],
             "SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n "+str(relstatement)+" " +
@@ -143,7 +143,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #  @return A list of properties with their occurance given in percent
     def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["endpoint"])), "InstanceDataDialog",
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["resource"])), "InstanceDataDialog",
         #                         Qgis.Info)
         if self.concept == "" or self.concept is None:
             return

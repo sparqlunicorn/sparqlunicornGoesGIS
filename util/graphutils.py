@@ -53,11 +53,15 @@ class GraphUtils:
     def detectTripleStoreConfiguration(self,triplestorename,triplestoreurl,detectnamespaces,prefixstore,progress,credentialUserName=None,credentialPassword=None,authmethod=None):
         self.configuration = {}
         self.configuration["name"] = triplestorename
+        self.configuration["resource"]={}
         if isinstance(triplestoreurl,str):
             self.configuration["type"] = "sparqlendpoint"
+            self.configuration["resource"]["type"]="endpoint"
+            self.configuration["resource"]["url"] = triplestoreurl
         else:
             self.configuration["type"] = "file"
-        self.configuration["endpoint"] = triplestoreurl
+            self.configuration["resource"]["type"]="file"
+            self.configuration["resource"]["instance"] = triplestoreurl
         self.configuration["geoconceptlimit"] = 500
         self.configuration["crs"] = 4326
         if credentialUserName!=None and credentialUserName!="" and credentialPassword!=None and credentialPassword!=None:
@@ -92,13 +96,13 @@ class GraphUtils:
             "hasSchemaOrgGeo": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         capabilitylist=[]
-        if self.testTripleStoreConnection(triplestoreurl,testQueries["available"],credentialUserName,credentialPassword,authmethod):
+        if self.testTripleStoreConnection(self.configuration["resource"],testQueries["available"],credentialUserName,credentialPassword,authmethod):
             QgsMessageLog.logMessage("Triple Store "+str(triplestoreurl)+" is available!", MESSAGE_CATEGORY, Qgis.Info)
-            if self.testTripleStoreConnection(triplestoreurl,testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
+            if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
                                          Qgis.Info)
                 self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
-                if self.testTripleStoreConnection(triplestoreurl,testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
+                if self.testTripleStoreConnection(self.configuration["resource"],testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
                     self.configuration["bboxquery"][
@@ -122,7 +126,7 @@ class GraphUtils:
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
-            elif self.testTripleStoreConnection(triplestoreurl,testQueries["hasWgs84LatLon"],credentialUserName,credentialPassword,authmethod):
+            elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWgs84LatLon"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WGS84 Lat/Lon properties!",
                                          MESSAGE_CATEGORY,
                                          Qgis.Info)
@@ -145,7 +149,7 @@ class GraphUtils:
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\nWHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
-            elif self.testTripleStoreConnection(triplestoreurl,testQueries["hasSchemaOrgGeo"],credentialUserName,credentialPassword,authmethod):
+            elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasSchemaOrgGeo"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains Schema.org Lat/Lon properties!",MESSAGE_CATEGORY,Qgis.Info)
                 self.configuration["geometryproperty"] = ["https://schema.org/geo"]
                 self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>Schema.org Lat/long!</li></ul><br/>Would you like to add this SPARQL endpoint?"
@@ -166,9 +170,9 @@ class GraphUtils:
                     "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a <http://schema.org/latitude> ?lat . ?a <http://schema.org/longitude> ?lon . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
                 self.configuration[
                     "whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . ?con ?rel ?val . } GROUP BY ?rel ORDER BY DESC(?countrel)"
-            elif self.testTripleStoreConnection(triplestoreurl,testQueries["hasGeoJSON"],credentialUserName,credentialPassword,authmethod):
+            elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasGeoJSON"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains GeoJSON literals!",MESSAGE_CATEGORY,Qgis.Info)
-                if self.testTripleStoreConnection(triplestoreurl,testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
+                if self.testTripleStoreConnection(self.configuration["resource"],testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
                     self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
@@ -204,7 +208,7 @@ class GraphUtils:
             if detectnamespaces:
                 newtext = "\n".join(progress.labelText().split("\n")[0:-1])
                 progress.setLabelText(newtext + "\nCurrent Task: Namespace detection (1/3)")
-                res = set(self.detectNamespaces(-1,progress,triplestoreurl,credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(0,progress,triplestoreurl,credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(1,progress,triplestoreurl,credentialUserName,credentialPassword,authmethod))
+                res = set(self.detectNamespaces(-1,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(0,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(1,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod))
             i = 0
             for ns in res:
                 if ns != "http://" and ns.startswith("http://"):
@@ -215,13 +219,13 @@ class GraphUtils:
                         i = i + 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
-            if self.testTripleStoreConnection(testQueries["hasRDFSLabel"]) and self.testTripleStoreConnection(testQueries["hasRDFType"]):
+            if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasRDFSLabel"]) and self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasRDFType"]):
                 self.configuration[
                     "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
                 self.configuration[
                     "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             QgsMessageLog.logMessage(str("SELECT DISTINCT ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
-            results=SPARQLUtils.executeQuery(self.configuration["endpoint"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
+            results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
             if results!=False:
                 self.configuration["geoobjproperty"] = set()
                 self.configuration["geoclasses"] = set()
