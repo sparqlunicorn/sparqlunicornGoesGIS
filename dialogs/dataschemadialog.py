@@ -59,8 +59,11 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
             self.setWindowIcon(UIUtils.geoclassschemaicon)
             self.setWindowTitle(title+" (GeoClass)")
         elif concepttype==SPARQLUtils.collectionclassnode:
-            self.setWindowIcon(UIUtils.featurecollectionicon)
+            self.setWindowIcon(UIUtils.featurecollectionschemaicon)
             self.setWindowTitle(title+" (CollectionClass)")
+        elif concepttype==SPARQLUtils.linkedgeoclassnode:
+            self.setWindowIcon(UIUtils.linkedgeoclassschemaicon)
+            self.setWindowTitle(title+" (Linked Geo Class)")
         else:
             self.setWindowIcon(UIUtils.classschemaicon)
             self.setWindowTitle(title+" (Class)")
@@ -176,6 +179,13 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "DataSchemaDialog", Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["whattoenrichquery"]), "DataSchemaDialog",
                                  Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf),
+                                 "DataSchemaDialog",
+                                 Qgis.Info)
+        if "geoobjproperty" in self.triplestoreconf:
+            QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoobjproperty"]),
+                                     "DataSchemaDialog",
+                                     Qgis.Info)
         if self.concept == "" or self.concept is None or "whattoenrichquery" not in self.triplestoreconf:
             return
         progress = QProgressDialog("Querying dataset schema....", "Abort", 0, 0, self)

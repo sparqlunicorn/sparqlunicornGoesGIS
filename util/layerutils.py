@@ -107,7 +107,7 @@ class LayerUtils:
         if literaltype == "":
             literaltype = SPARQLUtils.detectGeoLiteralType(literal)
         curcrs=None
-        if "wkt" in literaltype.lower():
+        if "wkt" in literaltype.lower() or literaltype=="http://www.openlinksw.com/schemas/virtrdf#Geometry":
             literal = literal.strip()
             if literal.startswith("<http"):
                 index = literal.index(">") + 1

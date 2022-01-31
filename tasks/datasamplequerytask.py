@@ -87,8 +87,11 @@ class DataSampleQueryTask(QgsTask):
                     myGeometryInstanceJSON= LayerUtils.processLiteral(rel["value"],
                                                                        (rel["datatype"] if "datatype" in rel else ""),
                                                                        True, self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
-                        encounteredcrs.add(int(myGeometryInstanceJSON["crs"]))
+                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
+                        if myGeometryInstanceJSON["crs"]=="CRS84":
+                            encounteredcrs.add("4326")
+                        else:
+                            encounteredcrs.add(myGeometryInstanceJSON["crs"])
                         del myGeometryInstanceJSON["crs"]
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(rel["value"])) + " " + str(
@@ -102,7 +105,11 @@ class DataSampleQueryTask(QgsTask):
             self.features = QgsVectorLayer(json.dumps(geocollection), str(self.concept),"ogr")
             if len(encounteredcrs)>0:
                 crs=self.features.crs()
-                crs.createFromId(encounteredcrs.pop())
+                crsstring=encounteredcrs.pop()
+                if crsstring.isdigit():
+                    crs.createFromId(int(crsstring))
+                else:
+                    crs.createFromString(crsstring)
                 self.features.setCrs(crs)
             else:
                 self.features.setCrs(QgsCoordinateReferenceSystem(4326))

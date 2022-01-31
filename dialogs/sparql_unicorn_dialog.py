@@ -409,7 +409,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.triplestoreconf[endpointIndex]["prefixes"] != "":
             self.triplestoreconf[endpointIndex]["prefixesrev"] = SPARQLUtils.invertPrefixes(
                 self.triplestoreconf[endpointIndex]["prefixes"])
-        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and self.triplestoreconf[endpointIndex][
+        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and not isinstance(self.triplestoreconf[endpointIndex]["resource"]["url"] ,list) and self.triplestoreconf[endpointIndex][
             "resource"]["url"] in self.savedQueriesJSON:
             for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
                 self.savedQueries.addItem(item["label"])

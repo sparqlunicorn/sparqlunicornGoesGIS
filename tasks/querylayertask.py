@@ -54,7 +54,11 @@ class QueryLayerTask(QgsTask):
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
             if len(res)>1 and res[1]!=None and res[1].isdigit():
                 crs=self.vlayer.crs()
-                crs.createFromId(int(res[1]))
+                crsstring=res[1]
+                if crsstring.isdigit():
+                    crs.createFromId(crsstring)
+                else:
+                    crs.createFromString(crsstring)
                 self.vlayer.setCrs(crs)
             QgsMessageLog.logMessage("Style URI Status: "+str(self.styleuri), MESSAGE_CATEGORY, Qgis.Info)
             if self.styleuri!=None and self.styleuri!=[] and self.concept!=None:
@@ -93,7 +97,7 @@ class QueryLayerTask(QgsTask):
                     del properties['geo']
                     myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                         result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON:
+                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
                         crsset.add(myGeometryInstanceJSON["crs"])
                         del myGeometryInstanceJSON["crs"]
                     feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': properties,
@@ -143,7 +147,7 @@ class QueryLayerTask(QgsTask):
             if not "rel" in result and not "val" in result and "geo" in result:
                 myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                if "crs" in myGeometryInstanceJSON:
+                if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
                     crsset.add(myGeometryInstanceJSON["crs"])
                     del myGeometryInstanceJSON["crs"]
                 feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}
@@ -160,7 +164,7 @@ class QueryLayerTask(QgsTask):
         if relval and not geooptional and "lat" not in result and "lon" not in result:
             myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-            if "crs" in myGeometryInstanceJSON:
+            if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
                 crsset.add(myGeometryInstanceJSON["crs"])
                 del myGeometryInstanceJSON["crs"]
             del properties['item']
@@ -181,7 +185,7 @@ class QueryLayerTask(QgsTask):
                     del properties['geo']
                     myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON:
+                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
                         crsset.add(myGeometryInstanceJSON["crs"])
                         del myGeometryInstanceJSON["crs"]
                     feature = {'type': 'Feature', 'properties': properties, 'geometry': myGeometryInstanceJSON}

@@ -95,8 +95,11 @@ class InstanceQueryTask(QgsTask):
                         myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                         (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                         True,self.triplestoreconf)
-                    if "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
-                        encounteredcrs=int(myGeometryInstanceJSON["crs"])
+                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
+                        if myGeometryInstanceJSON["crs"]=="CRS84":
+                            encounteredcrs="urn:ogc:def:crs:OGC:1.3:CRS84"
+                        else:
+                            encounteredcrs=myGeometryInstanceJSON["crs"]
                         del myGeometryInstanceJSON["crs"]
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
@@ -114,7 +117,11 @@ class InstanceQueryTask(QgsTask):
                         geomcentroidpoint = feat.geometry().centroid().asPoint()
                     if encounteredcrs!=None:
                         crs = self.features.crs()
-                        crs.createFromId(encounteredcrs)
+                        crsstring = encounteredcrs
+                        if crsstring.isdigit():
+                            crs.createFromId(int(crsstring))
+                        else:
+                            crs.createFromString(crsstring)
                         self.features.setCrs(crs)
                     else:
                         self.features.setCrs(QgsCoordinateReferenceSystem(4326))

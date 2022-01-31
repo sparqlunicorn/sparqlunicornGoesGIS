@@ -55,7 +55,9 @@ class ConceptContextMenu(QMenu):
                 menu.addAction(actionrelgeo)
                 actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             elif item.data(257) == SPARQLUtils.collectionclassnode:
-                actiondataschema.setIcon(UIUtils.featurecollectionicon)
+                actiondataschema.setIcon(UIUtils.featurecollectionschemaicon)
+            elif item.data(257) == SPARQLUtils.linkedgeoclassnode:
+                actiondataschema.setIcon(UIUtils.linkedgeoclassschemaicon)
             else:
                 actiondataschema.setIcon(UIUtils.geoclassschemaicon)
             menu.addAction(actiondataschema)

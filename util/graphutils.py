@@ -89,10 +89,12 @@ class GraphUtils:
             "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
             "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
             "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
+            "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
             "hasGML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}",
             "hasKML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asKML ?c .}",
             "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
             "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
+            "hasWgs84Geometry": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:geometry ?c . }",
             "hasSchemaOrgGeo": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . }",
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         capabilitylist=[]
@@ -101,8 +103,14 @@ class GraphUtils:
             if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
                                          Qgis.Info)
-                self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
+                geomobjprop="http://www.opengis.net/ont/geosparql#hasGeometry"
+                if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasGeometry"],credentialUserName,credentialPassword,authmethod):
+                    self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
+                elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWgs84Geometry"],credentialUserName,credentialPassword,authmethod):
+                    self.configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#geometry"]
+                    geomobjprop="http://www.w3.org/2003/01/geo/wgs84_pos#geometry"
                 if self.testTripleStoreConnection(self.configuration["resource"],testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
+                    self.configuration["type"]="geosparqlendpoint"
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
                     self.configuration["bboxquery"][
@@ -113,14 +121,14 @@ class GraphUtils:
                 self.configuration["mandatoryvariables"] = ["item", "geo"]
                 self.configuration["querytemplate"] = []
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries",
-                                                            "query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%>.\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})
+                                                            "query": "SELECT ?item ?geo WHERE {\n ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <%%concept%%>.\n ?item <"+str(geomobjprop)+"> ?geom_obj .\n ?geom_obj <http://www.opengis.net/ont/geosparql#asWKT> ?geo .\n } LIMIT 10"})
                 self.configuration["featurecollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#FeatureCollection"]
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
-                self.configuration["geotriplepattern"]=["?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                self.configuration["geotriplepattern"]=["?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
@@ -173,6 +181,7 @@ class GraphUtils:
             elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasGeoJSON"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains GeoJSON literals!",MESSAGE_CATEGORY,Qgis.Info)
                 if self.testTripleStoreConnection(self.configuration["resource"],testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
+                    self.configuration["type"]="geosparqlendpoint"
                     self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"

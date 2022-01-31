@@ -1,5 +1,6 @@
 from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices
@@ -24,6 +25,7 @@ class UIUtils:
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
     linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
+    linkedgeoclassschemaicon=QIcon(":/icons/resources/icons/linkedgeoclassschema.png")
     addicon=QIcon(":/icons/resources/icons/add.png")
     geoendpointicon = QIcon(":/icons/resources/icons/geoendpoint.png")
     removeicon = QIcon(":/icons/resources/icons/remove.png")
@@ -53,6 +55,7 @@ class UIUtils:
     geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
+    featurecollectionschemaicon=QIcon(":/icons/resources/icons/featurecollectionschema.png")
     addfeaturecollectionicon=QIcon(":/icons/resources/icons/addfeaturecollection.png")
     featurecollectionToRDFicon=QIcon(":/icons/resources/icons/featurecollectionToRDF.png")
     geoinstanceicon=QIcon(":/icons/resources/icons/geoinstance.png")
@@ -131,7 +134,7 @@ class UIUtils:
                 itemchecked.setToolTip("DataType Property")
                 itemchecked.setText("DP")
             elif "geoobjproperty" in triplestoreconf and curconcept in triplestoreconf["geoobjproperty"]:
-                itemchecked.setIcon(UIUtils.objectpropertyicon)
+                itemchecked.setIcon(UIUtils.linkedgeoobjectpropertyicon)
                 itemchecked.setToolTip("Linked Geo Object Property")
                 itemchecked.setText("LGeoOP")
             else:

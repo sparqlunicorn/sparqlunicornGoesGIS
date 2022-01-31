@@ -30,7 +30,7 @@ class SPARQLUtils:
                    "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
                    "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "DatatypeProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
                    "http://www.georss.org/georss/point": "DatatypeProperty",
                    "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
@@ -48,6 +48,11 @@ class SPARQLUtils:
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"
     }
+
+    latlongeomproperties=[
+        ("http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude","http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude"),
+        ("http://www.w3.org/2003/01/geo/wgs84_pos#long","http://www.w3.org/2003/01/geo/wgs84_pos#lat")
+                          ]
 
     graphResource = ["solid:forClass"]
 

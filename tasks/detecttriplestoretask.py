@@ -1,5 +1,7 @@
 import json
 import os
+
+from ..util.ui.uiutils import UIUtils
 from ..util.graphutils import GraphUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -57,7 +59,10 @@ class DetectTripleStoreTask(QgsTask):
             if msgBox.exec() != QMessageBox.Yes:
                 return
             else:
-                self.comboBox.addItem(self.triplestorename)
+                if "type" in self.gutils.configuration and self.gutils.configuration["type"]=="geosparqlendpoint":
+                    self.comboBox.addItem(UIUtils.geoendpointicon, self.triplestorename + " [GeoSPARQL Endpoint]")
+                else:
+                    self.comboBox.addItem(UIUtils.linkeddataicon,self.triplestorename+" [SPARQL Endpoint]")
                 if self.tripleStoreChooser != None:
                     self.tripleStoreChooser.addItem(self.triplestorename)
                 index = len(self.triplestoreconf)
