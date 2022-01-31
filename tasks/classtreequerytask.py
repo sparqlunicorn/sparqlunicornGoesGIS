@@ -101,6 +101,7 @@ class ClassTreeQueryTask(QgsTask):
                 elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
                     self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
                     self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, 257)
+
                     self.classtreemap[subval].setToolTip(
                         "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 else:
