@@ -207,18 +207,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         msgBox.exec()
 
     def loadQueryFunc(self):
-        if self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
+        if "url" in self.triplestoreconf[self.comboBox.currentIndex()] and self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"] in self.savedQueriesJSON:
             self.inp_sparql2.setPlainText(
-                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]][
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"]][
                     self.savedQueries.currentIndex()]["query"])
 
     def saveQueryFunc(self):
         queryName = self.saveQueryName.text()
         if queryName is not None and queryName != "":
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            if not self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"] in self.savedQueriesJSON:
-                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]] = []
-            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["endpoint"]].append(
+            if "url" in self.triplestoreconf[self.comboBox.currentIndex()]["resource"] and not self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"] in self.savedQueriesJSON:
+                self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"]] = []
+            self.savedQueriesJSON[self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"]].append(
                 {"label": queryName, "query": self.inp_sparql2.toPlainText()})
             self.savedQueries.addItem(queryName)
             f = open(os.path.join(__location__, 'savedqueries.json'), "w")
@@ -409,9 +409,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.triplestoreconf[endpointIndex]["prefixes"] != "":
             self.triplestoreconf[endpointIndex]["prefixesrev"] = SPARQLUtils.invertPrefixes(
                 self.triplestoreconf[endpointIndex]["prefixes"])
-        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
-            "endpoint"] in self.savedQueriesJSON:
-            for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
+        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and self.triplestoreconf[endpointIndex][
+            "resource"]["url"] in self.savedQueriesJSON:
+            for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
                 self.savedQueries.addItem(item["label"])
         if "resource" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "resource"] != "" and (
@@ -501,9 +501,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                 self.queryTemplates.addItem(concept["label"])
-        if "endpoint" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["endpoint"] in self.savedQueriesJSON:
+        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and self.triplestoreconf[endpointIndex]["resource"]["url"] in self.savedQueriesJSON:
             self.savedQueries.clear()
-            for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["endpoint"]]:
+            for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
                 self.savedQueries.addItem(concept["label"])
 
 
