@@ -46,283 +46,6 @@ border-radius:20px;}
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="tripleStoreChooserLabel">
-          <property name="maximumSize">
-           <size>
-            <width>124</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Choose Triple Store:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="tripleStoreChooser">
-          <property name="minimumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:10px;
-
-border-color:rgb(45, 45, 45);
-
-background-color: rgb(253, 252, 250);
-selection-background-color: rgb(255, 255, 255);
-selection-color:rgb(0, 81, 135);</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="2" rowspan="4">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QPushButton" name="deleteTripleStore">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Delete Triple Store</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="newTripleStore">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>New Triple Store</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="testConnectButton">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Test Connection</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="detectConfiguration">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Detect Configuration</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="tripleStoreNameLabel">
-          <property name="maximumSize">
-           <size>
-            <width>112</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Triple Store Name:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="tripleStoreNameEdit">
-          <property name="minimumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:10px;
-
-border-color:rgb(45, 45, 45);
-
-background-color: rgb(253, 252, 250);</string>
-          </property>
-          <property name="text">
-           <string>My cool triplestore!</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="tripleStoreLabel">
-          <property name="maximumSize">
-           <size>
-            <width>103</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
-          </property>
-          <property name="text">
-           <string>Triple Store URL:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="tripleStoreEdit">
-          <property name="minimumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>401</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:10px;
-
-border-color:rgb(45, 45, 45);
-
-background-color: rgb(253, 252, 250);</string>
-          </property>
-          <property name="text">
-           <string>https://query.wikidata.org/sparql</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item row="3" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
@@ -376,14 +99,14 @@ background-color: rgb(253, 252, 250);</string>
         </item>
        </layout>
       </item>
-      <item row="4" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item row="2" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QLabel" name="epsgLabel">
+         <widget class="QLabel" name="tripleStoreLabel">
           <property name="maximumSize">
            <size>
-            <width>70</width>
-            <height>20</height>
+            <width>103</width>
+            <height>25</height>
            </size>
           </property>
           <property name="font">
@@ -397,22 +120,22 @@ background-color: rgb(253, 252, 250);</string>
            <string notr="true">color:rgb(0, 81, 135);</string>
           </property>
           <property name="text">
-           <string>EPSG Code:</string>
+           <string>Triple Store URL:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="epsgEdit">
+         <widget class="QLineEdit" name="tripleStoreEdit">
           <property name="minimumSize">
            <size>
-            <width>171</width>
-            <height>20</height>
+            <width>401</width>
+            <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>171</width>
-            <height>20</height>
+            <width>401</width>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -423,7 +146,7 @@ border-color:rgb(45, 45, 45);
 background-color: rgb(253, 252, 250);</string>
           </property>
           <property name="text">
-           <string>4326</string>
+           <string>https://query.wikidata.org/sparql</string>
           </property>
          </widget>
         </item>
@@ -496,14 +219,14 @@ background-color: rgb(253, 252, 250);</string>
         </item>
        </layout>
       </item>
-      <item row="5" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item row="0" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLabel" name="tripleStorePrefixNameLabel">
+         <widget class="QLabel" name="tripleStoreChooserLabel">
           <property name="maximumSize">
            <size>
-            <width>39</width>
-            <height>20</height>
+            <width>124</width>
+            <height>25</height>
            </size>
           </property>
           <property name="font">
@@ -517,22 +240,77 @@ background-color: rgb(253, 252, 250);</string>
            <string notr="true">color:rgb(0, 81, 135);</string>
           </property>
           <property name="text">
-           <string>Prefix:</string>
+           <string>Choose Triple Store:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="tripleStorePrefixNameEdit">
+         <widget class="QComboBox" name="tripleStoreChooser">
           <property name="minimumSize">
            <size>
-            <width>171</width>
-            <height>20</height>
+            <width>401</width>
+            <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>171</width>
-            <height>20</height>
+            <width>401</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);
+selection-background-color: rgb(255, 255, 255);
+selection-color:rgb(0, 81, 135);</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="tripleStoreNameLabel">
+          <property name="maximumSize">
+           <size>
+            <width>112</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0, 81, 135);</string>
+          </property>
+          <property name="text">
+           <string>Triple Store Name:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="tripleStoreNameEdit">
+          <property name="minimumSize">
+           <size>
+            <width>401</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>401</width>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -543,80 +321,7 @@ border-color:rgb(45, 45, 45);
 background-color: rgb(253, 252, 250);</string>
           </property>
           <property name="text">
-           <string>wd</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="6" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLabel" name="queryVarItemLabel">
-            <property name="minimumSize">
-             <size>
-              <width>67</width>
-              <height>21</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>9</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
-            </property>
-            <property name="text">
-             <string>Item Variable:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="queryVarItemEdit">
-            <property name="styleSheet">
-             <string notr="true">border-radius:5px;
-
-border-color:rgb(45, 45, 45);
-
-background-color: rgb(253, 252, 250);</string>
-            </property>
-            <property name="text">
-             <string>item</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addPrefixButton">
-          <property name="minimumSize">
-           <size>
-            <width>151</width>
-            <height>23</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
-border-radius:10px;
-color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Add Prefix</string>
+           <string>My cool triplestore!</string>
           </property>
          </widget>
         </item>
@@ -857,6 +562,301 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="epsgLabel">
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0, 81, 135);</string>
+          </property>
+          <property name="text">
+           <string>EPSG Code:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="epsgEdit">
+          <property name="minimumSize">
+           <size>
+            <width>171</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>171</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+          </property>
+          <property name="text">
+           <string>4326</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="tripleStorePrefixNameLabel">
+          <property name="maximumSize">
+           <size>
+            <width>39</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0, 81, 135);</string>
+          </property>
+          <property name="text">
+           <string>Prefix:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="tripleStorePrefixNameEdit">
+          <property name="minimumSize">
+           <size>
+            <width>171</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>171</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:10px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+          </property>
+          <property name="text">
+           <string>wd</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="6" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="queryVarItemLabel">
+            <property name="minimumSize">
+             <size>
+              <width>67</width>
+              <height>21</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(0, 81, 135);</string>
+            </property>
+            <property name="text">
+             <string>Item Variable:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="queryVarItemEdit">
+            <property name="styleSheet">
+             <string notr="true">border-radius:5px;
+
+border-color:rgb(45, 45, 45);
+
+background-color: rgb(253, 252, 250);</string>
+            </property>
+            <property name="text">
+             <string>item</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="addPrefixButton">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>23</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Add Prefix</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="2" rowspan="4">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="deleteTripleStore">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Delete Triple Store</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="newTripleStore">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>New Triple Store</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="testConnectButton">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Test Connection</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="detectConfiguration">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(0, 127, 165);
+border-radius:10px;
+color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Detect Configuration</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

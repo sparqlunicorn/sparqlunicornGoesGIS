@@ -53,12 +53,15 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 self.tripleStoreEdit.setEnabled(True)
                 # me
         self.searchButton.clicked.connect(self.getAttributeStatistics)
+        self.searchButton.setToolTip('Will search properties that can be enriched.')
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
+        self.searchConceptButton.setToolTip('will search the concept that was type')
         self.costumpropertyLabel.hide()
         self.inAreaEditText.hide()
         self.searchButton2.clicked.connect(self.getAttributeStatistics)
         self.searchButton2.hide()
         self.applyButton.clicked.connect(self.applyConceptToColumn)
+        self.applyButton.setToolTip('Applies the selected property')
         # me
 
         # tripleStoreEdit.activated[str].connect(self.onActivated)

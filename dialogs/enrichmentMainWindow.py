@@ -8,7 +8,7 @@ from qgis.core import QgsProject
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.core import Qgis
-from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog
+from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QToolTip
 from ..dialogs.whattoenrichdialog import EnrichmentDialog
 from ..enrichmenttab import EnrichmentTab
 from ..interlinkingtab import InterlinkingTab
@@ -25,7 +25,7 @@ from qgis.core import QgsApplication
 from ..dialogs.warningLayerdlg import WarningLayerDlg
 from ..dialogs.triplestoredialog import TripleStoreDialog
 from ..dialogs.searchdialog import SearchDialog
-
+from ..util.tooltipplaintext import ToolTipPlainText
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/Enrichment.ui'))
@@ -55,11 +55,17 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
 
         self.enrichTable.cellClicked.connect(self.createEnrichSearchDialog)
+        #self.enrichTable.cellClicked.setToolTip('Will open the interlink search dialog when clicked.')
         self.addEnrichedLayerButton.clicked.connect(self.enrichtab.addEnrichedLayer)
+        self.addEnrichedLayerButton.setToolTip('Will add the enriched layer to QGIS layers when clicked')
         self.startEnrichment.clicked.connect(self.enrichtab.enrichLayerProcess)
+        self.startEnrichment.setToolTip('Will start enriching the selected layers when clicked.')
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
+        self.loadLayerEnrich.setToolTip('Loads your current layer in the "Enrichment Table"')
         self.addEnrichedLayerRowButton.clicked.connect(self.addEnrichRow)
+        self.addEnrichedLayerRowButton.setToolTip('Will add a row to the "Enrichment Table" when clicked')
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
+        self.whattoenrich.setToolTip('will open the "Enrichment Search" dialog when clicked.')
         # self.refreshLayersEnrich.clicked.connect(self.sparqlunicorndlg.loadUnicornLayers)
 
 

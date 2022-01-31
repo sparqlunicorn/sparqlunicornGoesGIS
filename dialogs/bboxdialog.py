@@ -254,8 +254,26 @@ class BBOXDialog(QDialog, FORM_CLASS):
                                                                                                             '}') + 1:]
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
+                #Removes useless space inside the point syntaxe
                 p2= pointt2.asWkt().replace(" (", "(")
                 p4= pointt4.asWkt().replace(" (", "(")
+                #Inverse latitude and longitude coordinates for point 2
+                # c=pointt2.asWkt().split('(')
+                # print(c)
+                # c=c[1].split(')')
+                # print(c)
+                # c=c[0].split(' ')
+                # print(c)
+                # p2= "Point(" + c[1] + " " + c[0] + ")"
+                #Inverse latitude and longitude coordinates for point 4
+                #c=pointt4.asWkt().split('(')
+                #print(c)
+                #c=c[1].split(')')
+                # print(c)
+                # c=c[0].split(' ')
+                # print(c)
+                # p4= "Point(" + c[1] + " " + c[0] + ")"
+
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
                     "query"].replace("%%minPoint%%", p2).replace("%%maxPoint%%",p4) + curquery[curquery.rfind('}') + 1:]
                 curquery=curquery.replace("/geosparql","/ont/geosparql")

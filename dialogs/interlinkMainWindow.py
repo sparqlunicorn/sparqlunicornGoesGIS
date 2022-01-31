@@ -63,7 +63,7 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
         self.importMappingButton.clicked.connect(self.interlinktab.loadMapping)
         self.importMappingButton.setToolTip('When clicked this will open your file directory and allow you to import a mapping of your choosing.')
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
-        self.loadLayerInterlink.setToolTip('will load your current layer in the "Interlink Table" ')
+        self.loadLayerInterlink.setToolTip('1-will load your current layer in the "Interlink Table" ')
         self.exportInterlink.clicked.connect(self.enrichtab.exportEnrichedLayer)
         self.exportInterlink.setToolTip('When clicked this will open your file directory and allow you to export the interlink that you just created.')
 

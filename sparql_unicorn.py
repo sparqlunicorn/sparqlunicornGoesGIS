@@ -94,7 +94,7 @@ class SPARQLunicorn:
 
     prefixes = []
 
-
+    
 
 
     def __init__(self, iface):
