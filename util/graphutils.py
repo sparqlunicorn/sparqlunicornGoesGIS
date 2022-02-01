@@ -233,11 +233,11 @@ class GraphUtils:
                     "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
                 self.configuration[
                     "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            QgsMessageLog.logMessage(str("SELECT DISTINCT ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
+            QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
             if results!=False:
                 self.configuration["geoobjproperty"] = set()
-                self.configuration["geoclasses"] = set()
+                self.configuration["geoclasses"] = {}
                 for result in results["results"]["bindings"]:
                     if "rel" in result \
                             and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"]\
@@ -245,7 +245,9 @@ class GraphUtils:
                             and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
                         self.configuration["geoobjproperty"].add(result["rel"]["value"])
                         if "acon" in result:
-                            self.configuration["geoclasses"].add(result["acon"]["value"])
+                            if result["acon"]["value"] not in self.configuration["geoclasses"]:
+                                self.configuration["geoclasses"][result["acon"]["value"]]=set()
+                            self.configuration["geoclasses"][result["acon"]["value"]].add(result["acon"]["value"])
                 QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"

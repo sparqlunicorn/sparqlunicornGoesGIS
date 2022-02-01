@@ -40,7 +40,7 @@ class DetectTripleStoreTask(QgsTask):
         self.gutils=GraphUtils(self.testURL)
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description+" "+str(self.testURL)+" "+str(self.testConfiguration)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description+" "+str(self.testURL)+" "+str(self.testConfiguration)), MESSAGE_CATEGORY, Qgis.Info)
         if self.testURL and not self.testConfiguration:
             self.gutils.testTripleStoreConnection(self.triplestoreurl)
             return True

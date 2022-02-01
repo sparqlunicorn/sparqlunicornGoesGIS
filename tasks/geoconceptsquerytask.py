@@ -47,14 +47,14 @@ class GeoConceptsQueryTask(QgsTask):
             else:
                 labels = SPARQLUtils.getLabelsForClasses(self.viewlist, None,
                                                          self.triplestoreconf, self.triplestoreurl,self.preferredlang)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)
             self.amountoflabels = len(labels)
             i = 0
             self.resultlist=[]
             for lab in labels:
                 self.resultlist.append({"label":labels[lab] + " (wd:" + lab + ")","concept":self.viewlist[i]})
                 i = i + 1
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):

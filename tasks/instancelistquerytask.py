@@ -98,7 +98,7 @@ class InstanceListQueryTask(QgsTask):
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
         if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode:
             self.treeNode.setIcon(UIUtils.halfgeoclassicon)
-        elif self.hasgeocount==0 and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode:
+        elif self.hasgeocount==0 and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode and self.treeNode.data(257)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.classicon)
         self.treeNode.setData(SPARQLUtils.instancesloadedindicator,259)
         for concept in self.queryresult:
@@ -106,10 +106,15 @@ class InstanceListQueryTask(QgsTask):
             item.setData(concept, 256)
             item.setText(self.queryresult[concept]["label"])
             if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
-                    or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) and self.queryresult[concept]["hasgeo"]:
+                    or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) \
+                    and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)
                 item.setIcon(UIUtils.geoinstanceicon)
                 item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+            elif self.treeNode.data(257)==SPARQLUtils.linkedgeoclassnode:
+                item.setData(SPARQLUtils.linkedgeoinstancenode,257)
+                item.setIcon(UIUtils.linkedgeoinstanceicon)
+                item.setToolTip("Linked GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             else:
                 item.setData(SPARQLUtils.instancenode,257)
                 item.setIcon(UIUtils.instanceicon)

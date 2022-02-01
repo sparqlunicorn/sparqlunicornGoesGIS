@@ -61,6 +61,7 @@ class SPARQLUtils:
     classnode="Class"
     geoclassnode="GeoClass"
     linkedgeoclassnode="LinkedGeoClass"
+    linkedgeoinstancenode="LinkedGeoInstance"
     instancenode="Instance"
     objectpropertynode="ObjectProperty"
     datatypepropertynode="DatatypeProperty"
@@ -172,7 +173,7 @@ class SPARQLUtils:
             QgsMessageLog.logMessage("Query: " + str(query), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:
                 results=json.loads(graph.query(query).serialize(format="json"))
-        QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod

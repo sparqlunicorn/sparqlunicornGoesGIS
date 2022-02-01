@@ -42,7 +42,8 @@ class ConceptContextMenu(QMenu):
         action.setIcon(UIUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(256))))
-        if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode:
+        if item.data(257) != SPARQLUtils.instancenode and item.data(257) != SPARQLUtils.geoinstancenode\
+                and item.data(257) != SPARQLUtils.linkedgeoinstancenode:
             actioninstancecount = QAction("Check instance count")
             actioninstancecount.setIcon(UIUtils.countinstancesicon)
             menu.addAction(actioninstancecount)
@@ -102,6 +103,8 @@ class ConceptContextMenu(QMenu):
                 actiondataschemainstance.setIcon(UIUtils.instanceicon)
             elif item.data(257) == SPARQLUtils.geoinstancenode:
                 actiondataschemainstance.setIcon(UIUtils.geoinstanceicon)
+            elif item.data(257) == SPARQLUtils.linkedgeoinstancenode:
+                actiondataschemainstance.setIcon(UIUtils.linkedgeoinstanceicon)
             menu.addAction(actiondataschemainstance)
             actiondataschemainstance.triggered.connect(self.dataInstanceView)
             actionaddInstanceAsLayer = QAction("Add instance as new layer")
@@ -152,15 +155,18 @@ class ConceptContextMenu(QMenu):
     def queryLinkedGeoConcept(self):
         concept = self.item.data(256)
         nodetype = self.item.data(257)
-        linkedproperty=self.data(260)
+        linkedproperty=self.item.data(260)
         label = self.item.text()
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        if "typeproperty" in self.triplestoreconf:
+            typeproperty=self.triplestoreconf["typeproperty"]
         self.qlayerinstance = QueryLayerTask(
             "Linked GeoClass to Layer: " + str(concept),
             concept,
             self.triplestoreconf["resource"],
-            "SELECT ?item ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . ?item <"+str(linkedproperty)+"> ?item2 . ?item2 ?rel2 ?val2 . \n }",
+            "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?con)\n  ?item <"+str(typeproperty)+"> ?con . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n }",
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None)
-
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def relatedGeoConcepts(self):
         concept = self.item.data(256)

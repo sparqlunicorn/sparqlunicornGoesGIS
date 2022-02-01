@@ -263,7 +263,7 @@ class ToolTipPlainText(QPlainTextEdit):
                     word = word[word.rfind("/") + 1:-1]
                 self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
                                                                   self.selector.currentIndex(),
-                                                                self.triplestoreconf,self.curtriplestoreconf["endpoint"])
+                                                                self.triplestoreconf,self.curtriplestoreconf["resource"]["url"])
                 toolTipText = self.savedLabels[word]
             else:
                 toolTipText = word

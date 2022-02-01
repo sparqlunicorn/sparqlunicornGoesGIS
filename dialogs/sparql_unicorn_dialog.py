@@ -137,7 +137,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql.hide()
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
-        self.gridLayout.addWidget(self.inp_sparql2,4,0,1,4)
+        self.gridLayout.addWidget(self.inp_sparql2,5,0,1,4)
         self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10")
@@ -194,14 +194,16 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
         if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
             thetext+= "<tr><td>Geometry Property</td><td><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "</a></td></tr>"
+        geoprops=""
         if "geoobjproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
+            geoprops += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "\">" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "</a></td></tr>"
+        thetext+=geoprops
         if "geoclasses" in self.triplestoreconf[self.comboBox.currentIndex()]:
             thetext += "<tr><td>Detected Geometry Classes</td><td><a href=\"" + str(
-                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "\">" + str(
-                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"]) + "</a></td></tr>"
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()) + "\">" + str(
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()) + "</a></td></tr>"
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()
@@ -275,7 +277,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 "Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0,
                 self)
         progress.setWindowTitle("Query layer")
-        progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+        progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setWindowModality(Qt.WindowModal)
         progress.setCancelButton(None)
         progress.show()

@@ -7,10 +7,13 @@
     <file>resources/icons/addinstance.png</file>
     <file>resources/icons/addgeoinstance.png</file>
     <file>resources/icons/countinstances.png</file>
+    <file>resources/icons/featurecollectionschema.png</file>
     <file>resources/icons/featurecollectionToRDF.png</file>
     <file>resources/icons/countinstances.png</file>
     <file>resources/icons/linkeddata.png</file>
     <file>resources/icons/linkedgeoclass.png</file>
+    <file>resources/icons/linkedgeoclassschema.png</file>
+    <file>resources/icons/linkedgeoinstance.png</file>
     <file>resources/icons/validation2.png</file>
     <file>resources/icons/queryinstances.png</file>
     <file>resources/icons/class.png</file>
