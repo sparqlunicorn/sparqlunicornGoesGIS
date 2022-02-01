@@ -60,7 +60,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
             self.setWindowIcon(UIUtils.instanceicon)
             self.setWindowTitle(title+" (Instance)")
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem(3857))
+        self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:3857"))
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
         actionPan.triggered.connect(lambda: self.map_canvas.setMapTool(self.toolPan))
@@ -69,8 +69,6 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.map_canvas.hide()
         uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz&zmax=19&crs=EPSG3857"
         self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
-        QgsMessageLog.logMessage(str(self.mts_layer), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage(str(self.mts_layer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
         if not self.mts_layer.isValid():
             print("Layer failed to load!")
         self.map_canvas.setExtent(self.mts_layer.extent())
@@ -99,7 +97,6 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
         self.show()
 
@@ -148,9 +145,6 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent
     def getAttributes(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql"):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestoreconf["resource"])), "InstanceDataDialog",
-        #                         Qgis.Info)
         if self.concept == "" or self.concept is None:
             return
         self.qtask = InstanceQueryTask("Querying dataset schema.... (" + self.label + ")",

@@ -95,7 +95,7 @@ class LayerUtils:
 
     @staticmethod
     def processLiteral(literal, literaltype, reproject,triplestoreconf=None):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
+        #QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
@@ -125,7 +125,7 @@ class LayerUtils:
             geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom != None and reproject != "":
             sourceCrs = QgsCoordinateReferenceSystem(reproject)
-            destCrs = QgsCoordinateReferenceSystem(4326)
+            destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326")
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
             geom.transform(tr)
         if geom != None:

@@ -37,9 +37,9 @@ class InstanceListQueryTask(QgsTask):
             else:
                 geometryproperty = self.triplestoreconf["geometryproperty"]
         if nodetype==SPARQLUtils.collectionclassnode:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                    "SELECT ?con ?label WHERE { " + str(
-                        self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #        "SELECT ?con ?label WHERE { " + str(
+            #            self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
             if "geometryproperty" in self.triplestoreconf:
                 thequery="SELECT ?con ?label ?hasgeo WHERE {  <" + str(
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ?con <" + str(
@@ -50,12 +50,12 @@ class InstanceListQueryTask(QgsTask):
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if isinstance(self.triplestoreurl, str):
-                    QgsMessageLog.logMessage('Started task "{}"'.format(
-                        "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
-                            self.treeNode.data(
-                                256)) + " . "+str(labelpattern)+" BIND(EXISTS {?con " + str(
-                            geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
-                        Qgis.Info)
+                    #QgsMessageLog.logMessage('Started task "{}"'.format(
+                    #    "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
+                    #       self.treeNode.data(
+                    #            256)) + " . "+str(labelpattern)+" BIND(EXISTS {?con " + str(
+                    #        geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
+                    #    Qgis.Info)
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(
                             256)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
@@ -66,11 +66,11 @@ class InstanceListQueryTask(QgsTask):
                             256)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
                         geometryproperty) + "> ?hasgeo } }"
             else:
-                QgsMessageLog.logMessage('Started task "{}"'.format(
-                    "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
-                        self.treeNode.data(
-                            256)) + " . "+str(labelpattern)+" }"), MESSAGE_CATEGORY,
-                    Qgis.Info)
+                #QgsMessageLog.logMessage('Started task "{}"'.format(
+                #    "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
+                #        self.treeNode.data(
+                #            256)) + " . "+str(labelpattern)+" }"), MESSAGE_CATEGORY,
+                #    Qgis.Info)
                 thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
                     self.treeNode.data(
                         256)) + "> . "+str(labelpattern)+" }"

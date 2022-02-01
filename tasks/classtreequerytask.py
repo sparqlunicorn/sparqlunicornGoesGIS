@@ -69,7 +69,7 @@ class ClassTreeQueryTask(QgsTask):
                     }"""
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.classtreemap={"root":self.treeNode}
         self.subclassmap={"root":set()}
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
@@ -78,7 +78,7 @@ class ClassTreeQueryTask(QgsTask):
         if results==False:
             return False
         hasparent={}
-        QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)        
+        #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             subval=result["subject"]["value"]
             if subval==None or subval=="":
@@ -101,8 +101,8 @@ class ClassTreeQueryTask(QgsTask):
                 elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
                     self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
                     self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, 257)
-                    QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
-                                             Qgis.Info)
+                    #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
+                    #                         Qgis.Info)
                     self.classtreemap[subval].setData(self.triplestoreconf["geoclasses"][subval][0],260)
                     self.classtreemap[subval].setToolTip(
                         "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
@@ -122,7 +122,7 @@ class ClassTreeQueryTask(QgsTask):
         for cls in self.classtreemap:
             if cls not in hasparent and cls!="root":
                 self.subclassmap["root"].add(cls)
-        QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
@@ -139,8 +139,8 @@ class ClassTreeQueryTask(QgsTask):
 
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(
+        #    "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")

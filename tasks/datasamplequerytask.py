@@ -27,8 +27,8 @@ class DataSampleQueryTask(QgsTask):
         self.encounteredtypes=set()
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
@@ -42,7 +42,7 @@ class DataSampleQueryTask(QgsTask):
             elif "geotriplepattern" in self.triplestoreconf:
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" "+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")+" } GROUP BY ?val LIMIT 100"
 
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
         if results!=False:
@@ -101,7 +101,7 @@ class DataSampleQueryTask(QgsTask):
                         'geometry': myGeometryInstanceJSON}
                     geocollection["features"].append(geojson)
                     counter+=1
-            QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)
             self.features = QgsVectorLayer(json.dumps(geocollection), str(self.concept),"ogr")
             if len(encounteredcrs)>0:
                 crs=self.features.crs()
@@ -112,7 +112,7 @@ class DataSampleQueryTask(QgsTask):
                     crs.createFromString(crsstring)
                 self.features.setCrs(crs)
             else:
-                self.features.setCrs(QgsCoordinateReferenceSystem(4326))
+                self.features.setCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326"))
             layerlist=self.mymap.layers()
             layerlist.insert(0,self.features)
             self.mymap.setLayers(layerlist)

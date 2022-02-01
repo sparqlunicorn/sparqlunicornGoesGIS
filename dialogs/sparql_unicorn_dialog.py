@@ -369,7 +369,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 viewlist.append(str(row[0]))
                 self.autocomplete["completerClassList"][row] = str(row[0])
             return viewlist
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
         if featureOrGeoCollection:
             self.qtaskfeature = GeoCollectionsQueryTask("Querying FeatureCollections from " + str(triplestoreurl),
                                                         triplestoreurl,
@@ -397,8 +397,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         endpointIndex = self.comboBox.currentIndex()
         self.queryTemplates.clear()
         self.filterConcepts.setText("")
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn",
-                                 Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn",
+                                 #Qgis.Info)
         self.geoTreeViewModel.clear()
         self.geometryCollectionClassListModel.clear()
         self.featureCollectionClassListModel.clear()
@@ -460,7 +460,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.getClassTree()
         if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             if "featurecollectionclasses" in self.triplestoreconf[endpointIndex] and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != None and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != "" and \
@@ -473,7 +473,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             else:
                 rep = "<http://www.opengis.net/ont/geosparql#FeatureCollection>"
                 querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["resource"],
                                            querymod, "colinstance", None,
                                            True, None)
@@ -490,7 +490,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             else:
                 rep = "<http://www.opengis.net/ont/geosparql#GeometryCollection>"
                 querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             self.getGeoCollectionInstances(self.triplestoreconf[endpointIndex]["resource"],
                                            querymod, "colinstance", None,
                                            False, None)

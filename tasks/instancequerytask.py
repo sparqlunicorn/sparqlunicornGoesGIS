@@ -25,8 +25,8 @@ class InstanceQueryTask(QgsTask):
         self.queryresult={}
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
         thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val .  }"
         if "geotriplepattern" in self.triplestoreconf:
             thequery = "SELECT ?rel ?val ?"+"?".join(self.triplestoreconf["mandatoryvariables"][1:])+" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . OPTIONAL { "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+" } }"
@@ -128,7 +128,7 @@ class InstanceQueryTask(QgsTask):
                             crs.createFromString(crsstring)
                         self.features.setCrs(crs)
                     else:
-                        self.features.setCrs(QgsCoordinateReferenceSystem(4326))
+                        self.features.setCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326"))
                     layerlist=self.mymap.layers()
                     layerlist.insert(0,self.features)
                     self.mymap.setLayers(layerlist)
