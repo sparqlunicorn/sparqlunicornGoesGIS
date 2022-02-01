@@ -1110,7 +1110,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            geom.transform(tr)</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            res=json.loads(geom.asJson())</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;crs&quot;</span>!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">if</span> curcrs!=<span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                res[<span class="stringliteral">&quot;crs&quot;</span>]=curcrs</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">return</span> res</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>

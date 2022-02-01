@@ -50,8 +50,6 @@ var hierarchy =
     [ "QDialog", null, [
       [ "AboutDialog", "a00233.html", null ],
       [ "BBOXDialog", "a00245.html", null ],
-      [ "DataSchemaDialog", "a00257.html", null ],
-      [ "InstanceDataDialog", "a00265.html", null ],
       [ "LoginWindowDialog", "a00269.html", null ],
       [ "PreferencesDialog", "a00277.html", null ],
       [ "PrefixDialog", "a00281.html", null ],
@@ -92,5 +90,9 @@ var hierarchy =
     ] ],
     [ "QWebView", null, [
       [ "LoginWindow", "a00273.html", null ]
+    ] ],
+    [ "QWidget", null, [
+      [ "DataSchemaDialog", "a00257.html", null ],
+      [ "InstanceDataDialog", "a00265.html", null ]
     ] ]
 ];
