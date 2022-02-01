@@ -91,6 +91,9 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 self.tripleStoreEdit.addItem(triplestore["name"])
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableComboBox.currentIndexChanged.connect(
+            lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         header =self.searchResult.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -147,30 +150,16 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                labellang="en", inarea="wd:Q183"):
         if self.conceptSearchEdit.text() == "":
             return
-        concept = "<" + self.conceptSearchEdit.text() + ">"
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
-        progress.setWindowTitle("Enrichment Search Query")
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
-        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        if "typeproperty" in self.triplestoreconf:
-            typeproperty=self.triplestoreconf["typeproperty"]
-        self.qtask =DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
-                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
-                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
-                                "whattoenrichquery"].replace("%%concept%%", concept).replace("%%typeproperty%%","<"+str(typeproperty)+">"),
-                            self.conceptSearchEdit.text(),
-                            self.prefixes[self.tripleStoreEdit.currentIndex()] if self.tripleStoreEdit.currentIndex() in self.prefixes else None,
-                            self.tablemodel, self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress, self)
-        #self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
-        #                                   endpoint_url,
-        #                                   self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
-        #                                       "whattoenrichquery"].replace("%%concept%%", concept).replace("%%area%%",
-        #                                                                                                    "?area"),
-        #                                   self.conceptSearchEdit.text(),
-        #                                   self.prefixes[self.tripleStoreEdit.currentIndex()],
-        #                                   self.searchResult,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress)
+        self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
+                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
+                                           SPARQLUtils.queryPreProcessing(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["whattoenrichquery"],self.triplestoreconf,self.conceptSearchEdit.text(),False),
+                                           self.conceptSearchEdit.text(),
+                                           self.prefixes[self.tripleStoreEdit.currentIndex()] if self.tripleStoreEdit.currentIndex() in self.prefixes else None,
+                                           self.tablemodel,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress,self)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 

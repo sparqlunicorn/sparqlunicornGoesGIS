@@ -19,7 +19,7 @@ class InstanceListQueryTask(QgsTask):
         self.queryresult={}
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
         if "typeproperty" in self.triplestoreconf:
@@ -91,8 +91,8 @@ class InstanceListQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.treeNode.text()+" "+str(self.hasgeocount)+" "+str(len(self.queryresult))), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(
+        #    self.treeNode.text()+" "+str(self.hasgeocount)+" "+str(len(self.queryresult))), MESSAGE_CATEGORY, Qgis.Info)
         if self.treeNode.data(258)==None:
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")

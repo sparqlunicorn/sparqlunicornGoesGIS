@@ -135,6 +135,8 @@ class SPARQLUtils:
             sparql.setMethod(GET)
             sparql.setReturnFormat(JSON)
             try:
+                if len(query)>2000:
+                    raise Exception
                 results = sparql.queryAndConvert()
                 if "status_code" in results:
                     QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
@@ -186,6 +188,8 @@ class SPARQLUtils:
 
     @staticmethod
     def labelFromURI(uri,prefixlist=None):
+        if not uri.startswith("http"):
+            return uri
         if "#" in uri:
             prefix=uri[:uri.rfind("#")+1]
             if prefixlist!=None and prefix in prefixlist:

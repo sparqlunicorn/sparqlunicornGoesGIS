@@ -165,7 +165,7 @@ class ConceptContextMenu(QMenu):
             concept,
             self.triplestoreconf["resource"],
             "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?con)\n  ?item <"+str(typeproperty)+"> ?con . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n } ORDER BY ?item",
-            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None)
+            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def relatedGeoConcepts(self):

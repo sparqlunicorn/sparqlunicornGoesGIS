@@ -133,7 +133,7 @@ class SearchDialog(QDialog, FORM_CLASS):
                 item.setText(key)
                 self.searchResult.addItem(item)
         else:
-            self.qtask=SearchTask("Searching classes/properties for "+label+" in "+self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
+            self.qtask=SearchTask("Searching classes/properties for "+str(label)+" in "+str(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"]["url"]),
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
             QgsApplication.taskManager().addTask(self.qtask)

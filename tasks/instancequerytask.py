@@ -113,7 +113,7 @@ class InstanceQueryTask(QgsTask):
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
                         'geometry': myGeometryInstanceJSON}
                     ]}
-                    QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
                     self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
                     featuress = self.features.getFeatures()
                     geomcentroidpoint=None

@@ -52,7 +52,7 @@ class GeoConceptsQueryTask(QgsTask):
             i = 0
             self.resultlist=[]
             for lab in labels:
-                self.resultlist.append({"label":labels[lab] + " (wd:" + lab + ")","concept":self.viewlist[i]})
+                self.resultlist.append({"label":labels[lab] + " ("+SPARQLUtils.labelFromURI(lab,self.triplestoreconf["prefixesrev"]) + ")","concept":self.viewlist[i]})
                 i = i + 1
             #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
@@ -89,7 +89,7 @@ class GeoConceptsQueryTask(QgsTask):
                                                                                                           ")", "")
                 else:
                     self.completerClassList["completerClassList"][
-                        concept["concept"][concept["concept"].rfind('/') + 1:]] = "<" + concept + ">"
+                        item.text()] = "<" + str(concept["concept"]) + ">"
         elif len(self.viewlist) > 0:
             for concept in self.viewlist:
                 item = QStandardItem()
