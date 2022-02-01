@@ -144,7 +144,7 @@ class UIUtils:
                 itemchecked.setText("OP")
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
-            if "label" in queryresult[att]:
+            if "label" in queryresult[att] and queryresult[att]["label"]!="":
                 item.setText(str(queryresult[att]["label"]) + " (" + SPARQLUtils.labelFromURI(
                     str(queryresult[att]["concept"]), invprefixes) + ") [" + str(
                     queryresult[att]["amount"]) + "%]")

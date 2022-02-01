@@ -45,11 +45,9 @@ class DataSchemaQueryTask(QgsTask):
         else:
             results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None","") + self.query,
                                                    self.triplestoreconf)
-        if results == False:
+        if results == False or len(results["results"]["bindings"]) == 0:
             return False
         #self.searchResult.model().clear()
-        if len(results["results"]["bindings"]) == 0:
-            return False
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
@@ -61,18 +59,14 @@ class DataSchemaQueryTask(QgsTask):
                     (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
                 if "valtype" in result and result["valtype"]["value"]!="":
                     self.sortedatt[result["rel"]["value"]]["valtype"]=result["valtype"]["value"]
-        self.labels={}
         if "propertylabelquery" in self.triplestoreconf:
-            self.labels=SPARQLUtils.getLabelsForClasses(self.sortedatt.keys(), self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
+            self.sortedatt=SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
                                         self.triplestoreurl)
         else:
-            self.labels = SPARQLUtils.getLabelsForClasses(self.sortedatt.keys(),
+            self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt,
                                                           None,
                                                           self.triplestoreconf,
                                                           self.triplestoreurl)
-        for lab in self.labels:
-            if lab in self.sortedatt:
-                self.sortedatt[lab]["label"]=self.labels[lab]
         return True
 
     def finished(self, result):

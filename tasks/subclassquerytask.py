@@ -21,8 +21,7 @@ class SubClassQueryTask(QgsTask):
         self.treeNode=treeNode
         self.triplestoreconf=triplestoreconf
         self.amountoflabels = -1
-        self.resultlist = []
-        self.viewlist = []
+        self.resultlist = {}
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
@@ -31,45 +30,33 @@ class SubClassQueryTask(QgsTask):
             return False
         QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
-            self.viewlist.append(str(result["subclass"]["value"]))
-        print(self.viewlist)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.viewlist), MESSAGE_CATEGORY, Qgis.Info)
+            self.resultlist[str(result["subclass"]["value"])]={"concept":str(result["subclass"]["value"])}
         # self.layercount.setText("["+str(len(viewlist))+"]")
         if "classlabelquery" in self.triplestoreconf and self.triplestoreconf[
             "classlabelquery"] != "":
-            labels = SPARQLUtils.getLabelsForClasses(self.viewlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
-            print(labels)
-            self.amountoflabels = len(labels)
-            i = 0
-            sorted_labels = sorted(labels.items(), key=lambda x: x[1])
-            for lab in sorted_labels:
-                self.resultlist.append(labels[lab[0]] + " (" + lab[0] + ")")
-                i = i + 1
+            self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl)
+            #print(labels)
+            #self.amountoflabels = len(labels)
+            #i = 0
+            #sorted_labels = sorted(labels.items(), key=lambda x: x[1])
+            #for lab in sorted_labels:
+            #    self.resultlist.append(labels[lab[0]] + " (" + lab[0] + ")")
+            #    i = i + 1
         return True
 
     def finished(self, result):
-        if len(self.resultlist) > 0:
-            first = True
-            for concept in self.resultlist:
-                if concept!=self.con:
-                    item = QStandardItem()
-                    item.setData(concept, 256)
-                    item.setText(SPARQLUtils.labelFromURI(concept))
-                    item.setForeground(QColor(0,0,0))
-                    item.setEditable(False)
-                    item.setIcon(UIUtils.classicon)
-                    item.setData(SPARQLUtils.classnode, 257)
-                    self.treeNode.appendRow(item)
-        elif len(self.viewlist) > 0:
-            for concept in self.viewlist:
-                if concept!=self.con:
-                    item = QStandardItem()
-                    item.setData(concept, 256)
-                    item.setText(SPARQLUtils.labelFromURI(concept))
-                    item.setForeground(QColor(0,0,0))
-                    item.setEditable(False)
-                    item.setIcon(UIUtils.classicon)
-                    item.setData(SPARQLUtils.classnode, 257)
-                    self.treeNode.appendRow(item)
+        for concept in self.resultlist:
+            if self.resultlist[concept]!=self.con:
+                item = QStandardItem()
+                item.setData(concept, 256)
+                if "label" in self.resultlist[concept]:
+                    item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept])+")")
+                else:
+                    item.setText(SPARQLUtils.labelFromURI(self.resultlist[concept]))
+                item.setForeground(QColor(0,0,0))
+                item.setEditable(False)
+                item.setIcon(UIUtils.classicon)
+                item.setData(SPARQLUtils.classnode, 257)
+                self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

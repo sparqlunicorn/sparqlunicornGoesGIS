@@ -63,13 +63,9 @@ class WhatToEnrichQueryTask(QgsTask):
             if "valtype" in result and result["valtype"]["value"] != "":
                 self.sortedatt[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]]["valtype"] = \
                 result["valtype"]["value"]
-        self.labels = {}
-        self.labels = SPARQLUtils.getLabelsForClasses(self.sortedatt.keys(), self.triplestoreconf["propertylabelquery"],
+        self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"],
                                                       self.triplestoreconf,
                                                       self.triplestoreurl)
-        for lab in self.labels:
-            if lab in self.sortedatt:
-                self.sortedatt[lab]["label"] = self.labels[lab]
         return True
 
     def finished(self, result):

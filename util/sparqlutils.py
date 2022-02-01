@@ -312,35 +312,47 @@ class SPARQLUtils:
     #  @param query the class label query
     @staticmethod
     def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="class"):
-        result = {}
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if query==None:
             if typeindicator=="class":
-                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n}"
+                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n} "
         if "SELECT" in query:
             vals = "VALUES ?class {\n "
-            for qid in classes:
+            for qid in classes.keys():
                 vals += "<"+qid + "> \n"
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
+            #QgsMessageLog.logMessage("Querying for "+str(len(vals))+" concepts", MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(triplestoreurl, query)
+            result=classes
             if results == False:
                 return result
+            #QgsMessageLog.logMessage("Got " + str(len(results)) + " labels", MESSAGE_CATEGORY, Qgis.Info)
             for res in results["results"]["bindings"]:
-                if "label" in res:
-                    result[res["class"]["value"]] = res["label"]["value"]
+                if res["class"]["value"] in classes and "label" in res:
+                    classes[res["class"]["value"]]["label"]=res["label"]["value"]
+                else:
+                    classes[res["class"]["value"]]["label"] = ""
         else:
             url = query
             i = 0
             qidquery = ""
-            for qid in classes:
-                #QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
-                if "wikidata" in triplestoreurl and "Q" in qid:
+            wdprefix = ""
+            firstkey=next(iter(classes))
+            result=classes
+            QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)
+            if "Q" in firstkey:
+                wdprefix = "http://www.wikidata.org/entity/"
+            elif "P" in firstkey:
+                wdprefix = "http://www.wikidata.org/prop/direct/"
+            for qid in classes.keys():
+                QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
+                if "wikidata" in triplestoreurl["url"] and "Q" in qid:
                     qidquery += "Q" + qid.split("Q")[1]
-                elif "wikidata" in triplestoreurl and "P" in qid:
+                elif "wikidata" in triplestoreurl["url"] and "P" in qid:
                     qidquery += "P" + qid.split("P")[1]
-                elif "wikidata" in triplestoreurl:
-                    result[qid] = qid
+                elif "wikidata" in triplestoreurl["url"]:
+                    result[qid]["label"] = qid
                     continue
                 if (i % 50) == 0:
                     while qidquery.endswith("|"):
@@ -351,13 +363,17 @@ class SPARQLUtils:
                     #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                     if "entities" in myResponse:
                         for ent in myResponse["entities"]:
-                            print(ent)
-                            if preferredlang in myResponse["entities"][ent]["labels"]:
-                                result[ent] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
-                            elif "en" in myResponse["entities"][ent]["labels"]:
-                                result[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                            #QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
+                            if ent.startswith("P"):
+                                wdprefix="http://www.wikidata.org/prop/direct/"
                             else:
-                                result[ent]=qid
+                                wdprefix=""
+                            if preferredlang in myResponse["entities"][ent]["labels"]:
+                                result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
+                            elif "en" in myResponse["entities"][ent]["labels"]:
+                                result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                            else:
+                                result[wdprefix+ent]["label"]=qid
                     qidquery = ""
                 else:
                     qidquery += "|"
@@ -368,14 +384,14 @@ class SPARQLUtils:
                 #QgsMessageLog.logMessage(str(url.replace("%%concepts%%", qidquery)), MESSAGE_CATEGORY, Qgis.Info)
                 myResponse = json.loads(requests.get(url.replace("%%concepts%%", qidquery)).text)
                 #QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)
-                # QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                 if "entities" in myResponse:
                     for ent in myResponse["entities"]:
                         print(ent)
                         if preferredlang in myResponse["entities"][ent]["labels"]:
-                            result[ent] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
+                            result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
                         elif "en" in myResponse["entities"][ent]["labels"]:
-                            result[ent] = myResponse["entities"][ent]["labels"]["en"]["value"]
+                            result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"]["en"]["value"]
                         else:
-                            result[ent] = ""
+                            result[wdprefix+ent]["label"] = ""
         return result

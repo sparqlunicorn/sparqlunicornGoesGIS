@@ -127,7 +127,7 @@ class GraphUtils:
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .} ORDER BY ?class"
                 self.configuration["geotriplepattern"]=["?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
@@ -149,7 +149,7 @@ class GraphUtils:
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon .} ORDER BY ?class"
                 self.configuration["geotriplepattern"]=[" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
@@ -170,7 +170,7 @@ class GraphUtils:
                 self.configuration["geometrycollectionclasses"] = [
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://schema.org/geo> ?item_geo . ?item_geo <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <http://schema.org/geo> ?item_geo . ?item_geo <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon .} ORDER BY ?class"
                 self.configuration["geotriplepattern"]=[" ?item <http://schema.org/geo> ?item_geo . ?item_geo <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
@@ -201,7 +201,7 @@ class GraphUtils:
                 self.configuration["querytemplate"].append({"label": "10 Random Geometries (All Attributes",
                                                             "query": "SELECT DISTINCT ?item ?rel ?val ?geo WHERE {\n ?item rdf:type <%%concept%%> .\n ?item ?rel ?val . \n ?val <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo .\n}\n LIMIT 100"})
                 self.configuration[
-                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item ?rel ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .}"
+                    "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item ?rel ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?wkt .} ORDER BY ?class"
                 self.configuration["geotriplepattern"]=[" ?item ?rel ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . "]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
