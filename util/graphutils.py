@@ -247,7 +247,9 @@ class GraphUtils:
                         if "acon" in result:
                             if result["acon"]["value"] not in self.configuration["geoclasses"]:
                                 self.configuration["geoclasses"][result["acon"]["value"]]=set()
-                            self.configuration["geoclasses"][result["acon"]["value"]].add(result["acon"]["value"])
+                            self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
+                for cls in self.configuration["geoclasses"]:
+                    self.configuration["geoclasses"][cls]=list(self.configuration["geoclasses"][cls])
                 QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"

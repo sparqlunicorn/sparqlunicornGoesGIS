@@ -104,6 +104,8 @@ class SPARQLUtils:
     @staticmethod
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
         results=False
+        QgsMessageLog.logMessage(str(triplestoreurl), MESSAGE_CATEGORY,
+                                 Qgis.Info)
         if triplestoreurl["type"]=="endpoint":
             s = QSettings()  # getting proxy from qgis options settings
             proxyEnabled = s.value("proxy/proxyEnabled")
@@ -310,18 +312,19 @@ class SPARQLUtils:
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         if query==None:
             if typeindicator=="class":
-                query="SELECT ?class ?label WHERE { %%concepts%% . OPTIONAL { ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER langMatches(lang(?label), \""+str(preferredlang)+"\") } OPTIONAL { ?class <"+str(triplestoreconf["labelproperty"])+"> ?label . }}"
+                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n}"
         if "SELECT" in query:
-            vals = "VALUES ?class { "
+            vals = "VALUES ?class {\n "
             for qid in classes:
-                vals += qid + " "
+                vals += "<"+qid + "> \n"
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
             results = SPARQLUtils.executeQuery(triplestoreurl, query)
             if results == False:
                 return result
             for res in results["results"]["bindings"]:
-                result[res["class"]["value"]] = res["label"]["value"]
+                if "label" in res:
+                    result[res["class"]["value"]] = res["label"]["value"]
         else:
             url = query
             i = 0

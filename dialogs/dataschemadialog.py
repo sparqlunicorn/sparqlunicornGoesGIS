@@ -1,5 +1,5 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QProgressDialog
+from qgis.PyQt.QtWidgets import QDialog, QWidget, QHeaderView, QProgressDialog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
 from qgis.gui import QgsMapToolPan
@@ -24,7 +24,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataschemadialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-class DataSchemaDialog(QDialog, FORM_CLASS):
+class DataSchemaDialog(QWidget, FORM_CLASS):
 
     ##
     #  @brief Initializes the search dialog
@@ -45,7 +45,7 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
     #  @details More details
     #
     def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,title="Data Schema View"):
-        super(QDialog, self).__init__()
+        super(QWidget, self).__init__()
         self.setupUi(self)
         self.concept=concept
         self.concepttype=concepttype
@@ -105,9 +105,11 @@ class DataSchemaDialog(QDialog, FORM_CLASS):
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
+        self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "DataSchemaDialog", Qgis.Info)
         self.getAttributeStatistics(self.concept,triplestoreurl)
+        self.show()
 
 
     def queryAllInstances(self):

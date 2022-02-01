@@ -61,6 +61,28 @@
      <item>
       <widget class="QLineEdit" name="filterTableEdit"/>
      </item>
+     <item>
+      <widget class="QComboBox" name="filterTableComboBox">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>Selection</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Attribute</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Value</string>
+        </property>
+       </item>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

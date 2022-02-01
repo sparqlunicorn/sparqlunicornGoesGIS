@@ -67,6 +67,10 @@ class InstanceQueryTask(QgsTask):
                     itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
+            elif "geoobjproperty" in self.triplestoreconf and rel in self.triplestoreconf["geoobjproperty"]:
+                itemchecked.setIcon(UIUtils.linkedgeoobjectpropertyicon)
+                itemchecked.setToolTip("Linked Geo Object Property")
+                itemchecked.setText("LGeoOP")
             elif rel!="geo" and self.queryresult[rel]["val"].startswith("http"):
                     itemchecked.setIcon(UIUtils.objectpropertyicon)
                     itemchecked.setToolTip("Object Property")

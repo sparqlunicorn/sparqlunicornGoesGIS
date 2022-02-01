@@ -1,5 +1,5 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QHeaderView, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QDialog,QWidget, QHeaderView, QTableWidgetItem
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
 from qgis.PyQt import uic
@@ -20,7 +20,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/instancedatadialog.ui'))
 
 # Class representing a search dialog which may be used to search for concepts or properties.
-class InstanceDataDialog(QDialog, FORM_CLASS):
+class InstanceDataDialog(QWidget, FORM_CLASS):
 
     ##
     #  @brief Initializes the search dialog
@@ -41,7 +41,7 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
     #  @details More details
     #
     def __init__(self, concept,concepttype,label,triplestoreurl,triplestoreconf,prefixes,title="Data Instance View"):
-        super(QDialog, self).__init__()
+        super(QWidget, self).__init__()
         self.setupUi(self)
         self.concept=concept
         self.concepttype=concepttype
@@ -53,6 +53,9 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         if concepttype==SPARQLUtils.geoinstancenode:
             self.setWindowIcon(UIUtils.geoinstanceicon)
             self.setWindowTitle(title+" (GeoInstance)")
+        elif concepttype==SPARQLUtils.linkedgeoinstancenode:
+            self.setWindowIcon(UIUtils.linkedgeoinstanceicon)
+            self.setWindowTitle(title+" (Linked GeoInstance)")
         else:
             self.setWindowIcon(UIUtils.instanceicon)
             self.setWindowTitle(title+" (Instance)")
@@ -93,9 +96,12 @@ class InstanceDataDialog(QDialog, FORM_CLASS):
         self.instanceDataTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex,self.instanceDataTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
+        self.filterTableComboBox.currentIndexChanged.connect(
+            lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf), "InstanceDataDialog", Qgis.Info)
         self.getAttributes(self.concept,triplestoreurl)
+        self.show()
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()

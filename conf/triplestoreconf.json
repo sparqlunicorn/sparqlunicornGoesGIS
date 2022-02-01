@@ -14,6 +14,8 @@
         "resource": {"type": "endpoint","url": "http://digits.mainzed.org/atlantgis/sparql"},
         "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
         "mandatoryvariables": ["item", "geo"],
+        "geoclasses": {"http://atlantgis.squirrel.link/ontology/Find":["http://atlantgis.squirrel.link/ontology/site"]},
+        "geoobjproperty": ["http://atlantgis.squirrel.link/ontology/site"],
         "typeproperty":"http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "labelproperty":"http://www.w3.org/2000/01/rdf-schema#label",
         "subclassproperty":"http://www.w3.org/2000/01/rdf-schema#subClassOf",

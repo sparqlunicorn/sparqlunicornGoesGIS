@@ -51,12 +51,18 @@ class QueryLayerTask(QgsTask):
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
         self.geojson=res[0]
         if self.geojson!=None:
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                self.geojson),
+                MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-            if len(res)>1 and res[1]!=None and res[1].isdigit():
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                self.vlayer.featureCount()),
+                MESSAGE_CATEGORY, Qgis.Info)
+            if len(res)>1 and res[1]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[1]
                 if crsstring.isdigit():
-                    crs.createFromId(crsstring)
+                    crs.createFromId(int(crsstring))
                 else:
                     crs.createFromString(crsstring)
                 self.vlayer.setCrs(crs)
@@ -70,6 +76,8 @@ class QueryLayerTask(QgsTask):
                 errormsg=""
                 self.vlayer.readSld(myStyleDoc,errormsg)
                 QgsMessageLog.logMessage( "Querying style definition III " + str(errormsg), MESSAGE_CATEGORY,Qgis.Info)
+            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
+            QgsProject.instance().addMapLayer(self.vlayer)
         return True
 
     ## Processes query results and reformats them to a QGIS layer.
@@ -139,6 +147,11 @@ class QueryLayerTask(QgsTask):
                             properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val"]["value"]
                         else:
                             properties[result[var]["value"]] = result["val"]["value"]
+                        if var == "rel2" and "val2" in result:
+                            if self.shortenURIs:
+                                properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val2"]["value"]
+                            else:
+                                properties[result[var]["value"]] = result["val2"]["value"]
                     elif var != "val":
                         if self.shortenURIs:
                             properties[SPARQLUtils.labelFromURI(var)] = result[var]["value"]
@@ -232,8 +245,6 @@ class QueryLayerTask(QgsTask):
         if self.progress!=None:
             self.progress.close()
         if self.vlayer!=None:
-            print(self.vlayer.isValid())
-            QgsProject.instance().addMapLayer(self.vlayer)
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)

@@ -57,10 +57,10 @@ class DataSchemaQueryTask(QgsTask):
         self.sortedatt = {}
         for result in results["results"]["bindings"]:
             if maxcons!=0 and str(maxcons)!="0":
-                self.sortedatt[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]] = {"amount": round(
+                self.sortedatt[result["rel"]["value"]] = {"amount": round(
                     (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
                 if "valtype" in result and result["valtype"]["value"]!="":
-                    self.sortedatt[result["rel"]["value"][result["rel"]["value"].rfind('/') + 1:]]["valtype"]=result["valtype"]["value"]
+                    self.sortedatt[result["rel"]["value"]]["valtype"]=result["valtype"]["value"]
         self.labels={}
         if "propertylabelquery" in self.triplestoreconf:
             self.labels=SPARQLUtils.getLabelsForClasses(self.sortedatt.keys(), self.triplestoreconf["propertylabelquery"], self.triplestoreconf,

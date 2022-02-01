@@ -71,7 +71,7 @@ class ConceptContextMenu(QMenu):
                 "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(256)),
                                                                    triplestoreconf[
                                                                        "prefixesrev"])
-            ).exec_())
+            ))
             actionqueryinstances = QAction("Query all instances")
             actionqueryinstances.setIcon(UIUtils.queryinstancesicon)
             menu.addAction(actionqueryinstances)
@@ -150,7 +150,7 @@ class ConceptContextMenu(QMenu):
         label = self.item.text()
         self.instancedataDialog = InstanceDataDialog(concept,nodetype,label,self.triplestoreconf["resource"],self.triplestoreconf,self.prefixes)
         self.instancedataDialog.setWindowTitle("Data Instance View for "+SPARQLUtils.labelFromURI(str(concept),self.triplestoreconf["prefixesrev"]))
-        self.instancedataDialog.exec_()
+        #self.instancedataDialog.exec_()
 
     def queryLinkedGeoConcept(self):
         concept = self.item.data(256)
@@ -164,7 +164,7 @@ class ConceptContextMenu(QMenu):
             "Linked GeoClass to Layer: " + str(concept),
             concept,
             self.triplestoreconf["resource"],
-            "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?con)\n  ?item <"+str(typeproperty)+"> ?con . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n }",
+            "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n BIND( <" + str(concept) + "> AS ?con)\n  ?item <"+str(typeproperty)+"> ?con . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n } ORDER BY ?item",
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 

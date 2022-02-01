@@ -130,7 +130,7 @@ class LayerUtils:
             geom.transform(tr)
         if geom != None:
             res=json.loads(geom.asJson())
-            if "crs"!=None:
+            if curcrs!=None:
                 res["crs"]=curcrs
             return res
         return None
