@@ -280,9 +280,9 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                geometryproperty = self.triplestoreconf[<span class="stringliteral">&quot;geometryproperty&quot;</span>]</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.collectionclassnode:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="stringliteral">&quot;SELECT ?con ?label WHERE { &quot;</span> + str(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                        self.treeNode.data(256)) + <span class="stringliteral">&quot;http://www.w3.org/2000/01/rdf-schema#member ?con . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; }&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="comment">#        &quot;SELECT ?con ?label WHERE { &quot; + str(</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="comment">#            self.treeNode.data(256)) + &quot;http://www.w3.org/2000/01/rdf-schema#member ?con . &quot;+str(labelpattern)+&quot; }&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geometryproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf:</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?con ?label ?hasgeo WHERE {  &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                        self.treeNode.data(256)) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?con .\n &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot;\n BIND(EXISTS { ?con &lt;&quot;</span> + str(</div>
@@ -293,12 +293,12 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geometryproperty&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf:</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">if</span> isinstance(self.triplestoreurl, str):</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                        <span class="stringliteral">&quot;SELECT ?con ?label ?hasgeo WHERE { ?con &quot;</span> + typeproperty + <span class="stringliteral">&quot; &quot;</span> + str(</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                            self.treeNode.data(</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                256)) + <span class="stringliteral">&quot; . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; BIND(EXISTS {?con &quot;</span> + str(</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                            geometryproperty) + <span class="stringliteral">&quot; ?wkt } AS ?hasgeo)}&quot;</span>), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        Qgis.Info)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    <span class="comment">#    &quot;SELECT ?con ?label ?hasgeo WHERE { ?con &quot; + typeproperty + &quot; &quot; + str(</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    <span class="comment">#       self.treeNode.data(</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    <span class="comment">#            256)) + &quot; . &quot;+str(labelpattern)+&quot; BIND(EXISTS {?con &quot; + str(</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="comment">#        geometryproperty) + &quot; ?wkt } AS ?hasgeo)}&quot;), MESSAGE_CATEGORY,</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <span class="comment">#    Qgis.Info)</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    thequery = <span class="stringliteral">&quot;SELECT ?con ?label ?hasgeo WHERE { ?con &lt;&quot;</span> + typeproperty + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        self.treeNode.data(</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                            256)) + <span class="stringliteral">&quot;&gt; . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; BIND(EXISTS {?con &lt;&quot;</span> + str(</div>
@@ -309,11 +309,11 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                            256)) + <span class="stringliteral">&quot;&gt; . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; OPTIONAL { ?con &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                        geometryproperty) + <span class="stringliteral">&quot;&gt; ?hasgeo } }&quot;</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    <span class="stringliteral">&quot;SELECT ?con ?label WHERE { ?con &quot;</span> + typeproperty + <span class="stringliteral">&quot; &quot;</span> + str(</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                        self.treeNode.data(</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                            256)) + <span class="stringliteral">&quot; . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; }&quot;</span>), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    Qgis.Info)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="comment">#    &quot;SELECT ?con ?label WHERE { ?con &quot; + typeproperty + &quot; &quot; + str(</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="comment">#        self.treeNode.data(</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="comment">#            256)) + &quot; . &quot;+str(labelpattern)+&quot; }&quot;), MESSAGE_CATEGORY,</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="comment">#    Qgis.Info)</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                thequery = <span class="stringliteral">&quot;SELECT ?con ?label WHERE { ?con &lt;&quot;</span> + typeproperty + <span class="stringliteral">&quot;&gt; &lt;&quot;</span> + str(</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    self.treeNode.data(</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                        256)) + <span class="stringliteral">&quot;&gt; . &quot;</span>+str(labelpattern)+<span class="stringliteral">&quot; }&quot;</span></div>

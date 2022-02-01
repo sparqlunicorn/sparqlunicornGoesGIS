@@ -1075,7 +1075,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">def </span>processLiteral(literal, literaltype, reproject,triplestoreconf=None):</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Process literal: &quot;</span> + str(literal) + <span class="stringliteral">&quot; &quot;</span> + str(literaltype))</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Process literal: &quot; + str(literal) + &quot; &quot; + str(literaltype))</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        geom = <span class="keywordtype">None</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> triplestoreconf!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;literaltype&quot;</span> <span class="keywordflow">in</span> triplestoreconf:</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            literaltype = triplestoreconf[<span class="stringliteral">&quot;literaltype&quot;</span>]</div>
@@ -1105,7 +1105,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span> <span class="keywordflow">and</span> reproject != <span class="stringliteral">&quot;&quot;</span>:</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            sourceCrs = QgsCoordinateReferenceSystem(reproject)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            destCrs = QgsCoordinateReferenceSystem(4326)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(<span class="stringliteral">&quot;EPSG:4326&quot;</span>)</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            geom.transform(tr)</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span>:</div>
