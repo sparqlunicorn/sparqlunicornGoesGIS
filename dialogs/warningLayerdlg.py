@@ -7,7 +7,9 @@ from qgis.PyQt import QtWidgets
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/warningLayer.ui'))
 
-
+##
+#The WarningLayerDlg class contains the warning layer dialogs variables and methodes
+#@Antoine
 class WarningLayerDlg(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
