@@ -37,10 +37,19 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         self.startConversionButton.clicked.connect(self.startConversion)
         self.cancelButton.clicked.connect(self.close)
         # self.loadFromURIButton.clicked.connect(self.loadURI)
+##
+
+#  check_state1 methode checks  the validity of an edited graph URI
+#
+#@Antoine
 
     def check_state1(self):
         self.check_state(self.graphURIEdit)
+##
 
+#The check_state methode checks the validity of a senders request
+#
+#@Antoine
     def check_state(self, sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
@@ -51,7 +60,11 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         else:
             color = '#f6989d'  # red
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
+##
 
+#The loadFile methode loads a file from your computer
+#
+#@Antoine
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -60,7 +73,11 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
             fileNames = dialog.selectedFiles()
             filepath = fileNames[0].split(".")
             self.chosenFileLabel.setText(fileNames[0])
+##
 
+# The startConversion methode allows the conversion of a graph's CRS
+#
+#@Antoine
     def startConversion(self):
         progress = QProgressDialog("Loading Graph and converting CRS of graph: " + self.chosenFileLabel.text(), "Abort",
                                    0, 0, self)
@@ -69,7 +86,11 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
                                     self.chosenFileLabel.text(), self.projectionSelect.crs(), self, progress)
         QgsApplication.taskManager().addTask(self.qtask)
+##
 
+#The loadURI methode allows the user to load graph URIs
+#
+#@Antoine
     def loadURI(self):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)

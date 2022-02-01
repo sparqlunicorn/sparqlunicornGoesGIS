@@ -54,7 +54,14 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 MESSAGE_CATEGORY = 'SPARQLUnicornDialog'
 
 ##
+# @brief This main dialog window is a previous version of the Qgis plugin before
+#became the Spalod Qgis plugin
+#@Antoine
+
+##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
+#
+
 class SPARQLunicornDialog(QtWidgets.QDialog, FORM_CLASS):
     ## The triple store configuration file
     triplestoreconf = None
