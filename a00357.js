@@ -20,6 +20,5 @@ var a00357 =
     [ "rootNode", "a00357.html#a057f9de4afe85dad22a6bedc06424f58", null ],
     [ "sparql", "a00357.html#a5aaa29c2caf68aa0175c11c073a4213c", null ],
     [ "triplestoreconf", "a00357.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00357.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "viewlist", "a00357.html#a64118717d69ab90e67efd8b24cb32bb3", null ]
+    [ "triplestoreurl", "a00357.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

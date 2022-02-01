@@ -12,6 +12,5 @@ var a00397 =
     [ "resultlist", "a00397.html#af06316de4f3798fb8e2fd1c2846957ca", null ],
     [ "treeNode", "a00397.html#a31ed64d43142fff4a68b7a148bec2f97", null ],
     [ "triplestoreconf", "a00397.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00397.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "viewlist", "a00397.html#a64118717d69ab90e67efd8b24cb32bb3", null ]
+    [ "triplestoreurl", "a00397.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];
