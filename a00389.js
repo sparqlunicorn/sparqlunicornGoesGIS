@@ -1,6 +1,7 @@
 var a00389 =
 [
     [ "__init__", "a00389.html#aa8500bf6b4a58cf022d8ce72f886c973", null ],
+    [ "dropUnwantedKeys", "a00389.html#abc490d57249f10848897158c9e30a931", null ],
     [ "finished", "a00389.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "processResults", "a00389.html#ab368e533f681a396257e919f7acf52fd", null ],
     [ "run", "a00389.html#ad22709b2e67308af35f55680d5a026e0", null ],

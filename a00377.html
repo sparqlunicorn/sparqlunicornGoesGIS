@@ -296,7 +296,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    {<span class="stringliteral">&#39;id&#39;</span>: str(self.searchTerm), <span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;Feature&#39;</span>, <span class="stringliteral">&#39;properties&#39;</span>: {},</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                        <span class="stringliteral">&#39;geometry&#39;</span>: myGeometryInstanceJSON}</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    ]}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    <span class="comment">#QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),<span class="stringliteral">&quot;ogr&quot;</span>)</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    featuress = self.features.getFeatures()</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    geomcentroidpoint=<span class="keywordtype">None</span></div>
