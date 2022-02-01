@@ -25,6 +25,7 @@ var a00441 =
     [ "instancesloadedindicator", "a00441.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],
     [ "latlongeomproperties", "a00441.html#abf16cda5517f8bbcf2dda7bdb5f0d374", null ],
     [ "linkedgeoclassnode", "a00441.html#a82fc4d6bb1f6404ed5fee6a57cd5ac87", null ],
+    [ "linkedgeoinstancenode", "a00441.html#adcd00b5daa1460bfbeaf4081eddcce0b", null ],
     [ "namespaces", "a00441.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertynode", "a00441.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
     [ "styleproperties", "a00441.html#acb3b01974e4664d4be9f2833fcb096e9", null ],

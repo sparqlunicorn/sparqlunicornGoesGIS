@@ -390,14 +390,14 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                labels = SPARQLUtils.getLabelsForClasses(self.viewlist, <span class="keywordtype">None</span>,</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                         self.triplestoreconf, self.triplestoreurl,self.preferredlang)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(labels)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            self.amountoflabels = len(labels)</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            i = 0</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            self.resultlist=[]</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">for</span> lab <span class="keywordflow">in</span> labels:</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                self.resultlist.append({<span class="stringliteral">&quot;label&quot;</span>:labels[lab] + <span class="stringliteral">&quot; (wd:&quot;</span> + lab + <span class="stringliteral">&quot;)&quot;</span>,<span class="stringliteral">&quot;concept&quot;</span>:self.viewlist[i]})</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                i = i + 1</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 </div><!-- fragment -->
