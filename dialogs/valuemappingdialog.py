@@ -11,7 +11,10 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/valuemappingdialog.ui'))
 
-
+##
+#The ValueMappingDialog class contains all the variables and methods for the
+#value mapping dialog
+#@Antoine
 class ValueMappingDialog(QDialog, FORM_CLASS):
     currentrow = ""
 
@@ -74,7 +77,9 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
         self.addMappingButton.clicked.connect(self.addMappingToTable)
         self.deleteRowButton.clicked.connect(self.deleteSelectedRow)
         self.applyButton.clicked.connect(self.applyMapping)
-
+##
+#The addMappingToTable lets the user add a specific mapping to the Interlink Table
+#@Antoine
     def addMappingToTable(self):
         if self.foundClass.text() != "":
             row = self.valmaptable.rowCount()
@@ -84,13 +89,17 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
             self.valmaptable.setItem(row, 0, item)
             self.valmaptable.setItem(row, 1, item2)
             self.foundClass.setText("")
-
+##
+#The deleteSelectedRow lets users delete a selected row from the Table
+#@Antoine
     def deleteSelectedRow(self):
         for index in self.valmaptable.selectedIndexes():
             self.valmaptable.removeRow(index.row())
 
     """Returns classes for a given label from a triple store."""
-
+##
+#The get getClassesFromLabel Returns classes for a given label from a triple store
+#@Antoine
     def getClassesFromLabel(self, comboBox):
         viewlist = []
         resultlist = []
@@ -136,10 +145,15 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
                 item.setText(str(results[result]))
                 self.searchResult.addItem(item)
         return viewlist
+##
+#The createValueMappingSearchDialog allows the opening of the Value Mapping Search dialog
 
+#@Antoine
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row, column, -1, self.foundClass)
-
+##
+#The buildSearchDialog allows the opening of the Search dialog
+#@Antoine
     def buildSearchDialog(self, row, column, interlinkOrEnrich, table):
         self.currentcol = column
         self.currentrow = row
@@ -147,7 +161,9 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
         self.interlinkdialog.setMinimumSize(650, 500)
         self.interlinkdialog.setWindowTitle("Search Property or Class")
         self.interlinkdialog.exec_()
-
+##
+#The applyMapping allows user to use their mapping when the apply mapping button is clicked
+#@Antoine
     def applyMapping(self):
         resmap = {}
         for row in range(self.valmaptable.rowCount()):
