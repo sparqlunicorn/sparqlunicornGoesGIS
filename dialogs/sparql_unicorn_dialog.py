@@ -103,22 +103,39 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
         ##
         #States that the prefixes instance equals the prefixes String
+        #
         self.prefixes = prefixes
+        ##
         #States that the maindlg instance equals the maindlg String
+        #
         self.maindlg = maindlg
+        ##
         #States that the savedQueriesJSON instance equals the savedQueriesJSON String
+        #
         self.savedQueriesJSON = savedQueriesJSON
+
         # self.enrichtab = EnrichmentTab(self)
         # self.interlinktab = InterlinkingTab(self)
+
+        ##
         #States that the addVocabConf instance equals the addVocabConf String
+        #
         self.addVocabConf = addVocabConf
+        ##
         #States that the autocomplete instance equals the autocomplete String
+        #
         self.autocomplete = autocomplete
+        ##
         #States that the autocomplete instance equals the autocomplete String
+        #
         self.prefixstore = prefixstore
+        ##
         #States that the triplestoreconf instance equals the triplestoreconf String
+        #
         self.triplestoreconf = triplestoreconf
+        ##
         #States that the searchTripleStoreDialog instance equals the TripleStoreDialog Class
+        #
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.endpointCB)
 
 
@@ -128,45 +145,141 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
         ##
         #The line below defines the inp_sparql2 object's position on the dialog
+        #
+        #@Antoine
         self.inp_sparql2.move(10, 130)
-        #The line below determins the inp_sparql2 object's minimum size
+        ##
+        #The line below determines the inp_sparql2 object's minimum size
+        #
+        #@Antoine
         self.inp_sparql2.setMinimumSize(780, 431)
+        ##
         #The line below determines the text's size
+        #
+        #@Antoine
         self.inp_sparql2.document().defaultFont().setPointSize(16)
-        #The line below determines
+        ##
+        #The line below determines the default text in the query text edit while using wikidata as the selected
+        #triplestore
+        #
+        #@Antoine
         self.inp_sparql2.setPlainText(
             "SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n ?item <http://www.wikidata.org/prop:P123> ?def .\n}")
         self.inp_sparql2.columnvars = {}
+        ##
         #The line below determines that when the text inside "inp_sparql2"
         #is changed, "inp_sparql2" will connect itself to "validateSPARQL"
+        #
+        #@Antoine
         self.inp_sparql2.textChanged.connect(self.validateSPARQL)
-        #This line determines 
+        ##
+        #This line determines the sparqlhighlight is inp_sparql2's SPARQLHighlighter
+        #
+        #@Antoine
         self.sparqlhighlight = SPARQLHighlighter(self.inp_sparql2)
+        ##
+        #This line determines that the geoTreeView's header is hidden
+        #
+        #@Antoine
         self.geoTreeView.setHeaderHidden(True)
+        ##
+        #This line calls QAbstractItemView's NoEditTriggers to geoTreeView
+        #
+        #@Antoine
         self.geoTreeView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        ##
+        # This line determines that the geoTreeView has alternating row colours
+        #
+        #@Antoine
         self.geoTreeView.setAlternatingRowColors(True)
+        ##
+        #This line determines that the geoTreeView is word wrapped
+        #
+        #@Antoine
         self.geoTreeView.setWordWrap(True)
+        ##
+        #This line determines that geoTreeView calls the CustomContextMenu
+        #from Qt
+        #
+        #@Antoine
         self.geoTreeView.setContextMenuPolicy(Qt.CustomContextMenu)
+        ##
+        #This line connects the "customContextMenuRequested" to "onContext"
+        #
+        #@Antoine
         self.geoTreeView.customContextMenuRequested.connect(self.onContext)
+        ##
+        #This line determines that the "geoTreeViewModel" is equivalent to
+        #the "QStandardItemModel()"
+        #
+        #@Antoine
         self.geoTreeViewModel = QStandardItemModel()
+        ##
+        #This line determines that the model used for geoTreeView is "geoTreeViewModel"
+        #
+        #@Antoine
         self.geoTreeView.setModel(self.geoTreeViewModel)
+        ##
+        #This line determines that "featureCollectionClassListModel" is equivalent
+        # to "QStandardItemModel()"
+        #
+        #@Antoine
         self.featureCollectionClassListModel = QStandardItemModel()
+        ##
+        #This line determines that "geometryCollectionClassListModel" is equivalent
+        # to "QStandardItemModel()"
+        #
+        #@Antoine
         self.geometryCollectionClassListModel = QStandardItemModel()
+        ##
+        #These lines determines that "proxyModel" is equivalent to
+        #"QSortFilterProxyModel(self)"
+        #@param proxyModel calls "CaseInsensitive" from Qt
+        #@param proxyModel calls the geoTreeViewModel from self
+        #@Antoine
         self.proxyModel = QSortFilterProxyModel(self)
         self.proxyModel.sort(0)
         self.proxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxyModel.setSourceModel(self.geoTreeViewModel)
+        ##
+        #featureCollectionProxyModel:
+        #
+        #featureCollectionProxyModel is equivalent to QSortFilterProxyModel(self)
+        #featureCollectionProxyModel calls CaseInsensitive from Qt
+        # featureCollectionProxyModel calls featureCollectionClassListModel from self
+        #@Antoine
         self.featureCollectionProxyModel = QSortFilterProxyModel(self)
         self.featureCollectionProxyModel.sort(0)
         self.featureCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.featureCollectionProxyModel.setSourceModel(self.featureCollectionClassListModel)
+        ##
+        #geometryCollectionProxyModel:
+        #
+        #geometryCollectionProxyModel is equivalent to QSortFilterProxyModel(self)
+        #geometryCollectionProxyModel calls CaseInsensitive from Qt
+        #geometryCollectionProxyModel calls geometryCollectionClassListModel from self
+        #@Antoine
         self.geometryCollectionProxyModel = QSortFilterProxyModel(self)
         self.geometryCollectionProxyModel.sort(0)
         self.geometryCollectionProxyModel.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.geometryCollectionProxyModel.setSourceModel(self.geometryCollectionClassListModel)
+        ##
+        #geoTreeView:
+        #
+        #geoTreeView calls proxyModel from self to set its Mode
+        #geoTreeViewModel calls the clear methode
+        # rootNode is equivalent geoTreeView's invisibleRootItem
+        #@Antoine
         self.geoTreeView.setModel(self.proxyModel)
         self.geoTreeViewModel.clear()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
+        ##
+        #featureCollectionClassList:
+        #featureCollectionClassList calls featureCollectionProxyModel from self to
+        #set its model
+        #featureCollectionClassList calls NoEditTriggers from QAbstractItemView
+        # to set its Edit Triggers
+        #@Antoine
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)
         self.featureCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.featureCollectionClassList.setAlternatingRowColors(True)
@@ -174,6 +287,22 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.featureCollectionClassList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.featureCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.featureCollectionClassListModel.clear()
+
+        ##
+        #geometryCollectionClassList:
+        #
+        #geometryCollectionClassList calls geometryCollectionProxyModel from self
+        #to set its Model
+        #geometryCollectionClassList calls NoEditTriggers from QAbstractItemView
+        # to set its Edit Triggers
+        #geometryCollectionClassList has Alternating Row Colors set as True
+        #geometryCollectionClassList has its word wrap set as True
+        #geometryCollectionClassList calls CustomContextMenu from Qt to set its
+        #context menu policy
+        #geometryCollectionClassList's customContextMenuRequested connects to onContext
+        #in self
+        #geometryCollectionClassListModel calls the clear methode
+        #@Antoine
         self.geometryCollectionClassList.setModel(self.geometryCollectionProxyModel)
         self.geometryCollectionClassList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.geometryCollectionClassList.setAlternatingRowColors(True)
@@ -182,63 +311,158 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.customContextMenuRequested.connect(self.onContext)
         self.geometryCollectionClassListModel.clear()
 
+        ##
+        #filterConcepts's "textChanged connect "setFilterFromText" in self
+        #
+        #@Antoine
         self.filterConcepts.textChanged.connect(self.setFilterFromText)
+
+        ##
+        #Allows the user to view the selection of query templates
+        #
+        #@Antoine
         self.queryTemplates.currentIndexChanged.connect(self.viewselectaction)
+
+        ##
+        #loadQuery:
+        #When the load Query button is clicked this activates the loadQueryFunc
+        #When the user hovers over the loadQuery button the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.loadQuery.clicked.connect(self.loadQueryFunc)
         self.loadQuery.setToolTip('Will load a previously saved query')
+
+        ##
+        #geoTreeView's "selectionModel" connects itself to "viewselectaction" via
+        #"currentChanged"
+        #
+        #@Antoine
         self.geoTreeView.selectionModel().currentChanged.connect(self.viewselectaction)
+
+        ##
+        #When the user selects the load graph submenu this will open the "LoadGraphDialog"
+        #When the user hovers over the load graph submenu the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.actionLoad_Graph.triggered.connect(self.buildLoadGraphDialog)
         self.actionLoad_Graph.setToolTip('Will open the Load Graph dialog if selected')
+
+        ##
+        #when the user selects the Quick Add TripleStore submenu this will open the
+        #"Quick Add TripleStore Dialog"
+        #When the user hovers over the load graph submenu the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.actionAdd_Endpoint.triggered.connect(self.buildQuickAddTripleStore)
         self.actionAdd_Endpoint.setToolTip('Will open the Add Endpoint dialog if selected')
+
+        ##
+        #when the user clicks on the load TripleStore button this will open the
+        #"buildCustomTripleStoreDialog"
+        #When the user hovers over the load TripleStore button the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.loadTripleStoreButton.clicked.connect(self.buildCustomTripleStoreDialog)
         self.loadTripleStoreButton.setToolTip('Loads your selected triplestore from the "Unicorn plugin" ')
+
+        ##
+        #when the user clicks on the save Query button this will activate the
+        #"saveQueryFunc"
+        #When the user hovers over the save Query button the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.saveQueryButton.clicked.connect(self.saveQueryFunc)
         self.saveQueryButton.setToolTip('Saves your query in the "Unicorn" plugin')
+
+        ##
+        #when the user selects the Convert TTL to CRS submenu this will open the
+        #"Convert CRS Dialog"
+        #When the user hovers over the Convert TTL to CRS  submenu the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
+        self.actionConvert_TTL_CRS.triggered.setToolTip('Allows you to convert TTL files To CRS')
+
+        ##
+        #when the user clicks on the BBox button this will activate
+        #"getPointFromCanvas" and open the BBox Dialog
+        #When the user hovers over the save BBox button the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.bboxButton.clicked.connect(self.getPointFromCanvas)
         self.bboxButton.setToolTip('When clicked opens the BBOX dialog')
+
+        ##
+        #when the user selects the Interlink submenu this will open the
+        #"Interlink Dialog"
+        #When the user hovers over the Interlink submenu the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.actionInterlink.triggered.connect(self.buildInterlinkDlg)
         self.actionInterlink.setToolTip('Will open the Interlink window if selected')
+        ##
+        #when the user selects the Enrichment submenu this will open the
+        #"Enrichment Dialog"
+        #When the user hovers over the Enrichment submenu the setToolTip will activate
+        #and it's text will appear
+        #@Antoine
         self.actionEnrichment.triggered.connect(self.buildEnrichmentDlg)
         self.actionEnrichment.setToolTip('Will open the Enrichment window if selected')
+        ##
+        #when the user click on the loadUnicorn layers button this will
+        #load your current unicorn layers in the plugin
+        #When the user hovers over the  load loadUnicorn layers button will activate
+        #and it's text will appear
+        #@Antoine
         self.btn_loadunicornlayers.clicked.connect(self.loadUnicornLayers)
         self.btn_loadunicornlayers.setToolTip('Loads the layer you selected from the "Unicorn plugin" ')
+        ##
+        #This is the loadUnicornLayers methode
+        #@Antoine
         self.loadUnicornLayers()
 
+        ##
+        #The buildEnrichmentDlg methode determines that enrichmentdlg is equivalent to the EnrichmentMainWindow class
+        #so that when the Enrichment menu is selected the Enrichment window will open
+        #@Antoine
     def buildEnrichmentDlg(self):
         enrichmentdlg = EnrichmentMainWindow(QgsProject.instance().layerTreeRoot().children(), self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)
         enrichmentdlg.show()
 
+            ##
+            #The buildInterlinkDlg methode determines that interlinkdlg is equivalent to the InterlinkMainWindow class
+            #so that when the Interlink menu is selected the Enrichment window will open
+            #@Antoine
     def buildInterlinkDlg(self):
         # self.interlinkdlg = InterlinkMainWindow(self)
         # initialisation of the Interlink MainWindow
         interlinkdlg = InterlinkMainWindow(QgsProject.instance().layerTreeRoot().children(), self.maindlg, self.addVocabConf, self.triplestoreconf, self.prefixes, self.prefixstore, self.endpointCB, self)
         interlinkdlg.show()
+
         ##
-        #  @brief Creates a What To Enrich dialog with parameters given.
-        #
-        #  @param self The object pointer
+        #The buildLoadGraphDialog methode determines that searchTripleStoreDialog is equivalent to the LoadGraphDialog class
+        #so that when the Load Graph menu is selected the Load Graph Dialog will open
+        #@Antoine
     def buildLoadGraphDialog(self):
         self.searchTripleStoreDialog = LoadGraphDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Load Graph")
         self.searchTripleStoreDialog.exec_()
-
 ##
-#  @brief Creates a What To Enrich dialog with parameters given.
-#
-#  @param self The object pointer
+#The buildQuickAddTripleStore methode determines that searchTripleStoreDialog is equivalent to the TripleStoreQuickAddDialog class
+#so that when the QuickAddTripleStore menu is selected the Quick Add TripleStore Dialog will open
+#@Antoine
     def buildQuickAddTripleStore(self):
-
         self.searchTripleStoreDialog = TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
         self.endpointCB)
         self.searchTripleStoreDialog.setMinimumSize(580, 186)
         self.searchTripleStoreDialog.setWindowTitle("Configure Own Triple Store")
         self.searchTripleStoreDialog.exec_()
 
-# builds the "buildCustomTripleStoreDialog" which pops up when the user clicks on the "loadTripleStoreButton" (Configure Triple)
+##
+#The buildCustomTripleStoreDialog methode determines that searchTripleStoreDialog is equivalent to the TripleStoreDialog class
+#so that when the TripleStore Dialog button is clicked the Quick Add TripleStore Dialog will open
+#@Antoine
     def buildCustomTripleStoreDialog(self):
-
         self.searchTripleStoreDialog = TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                          self.endpointCB)
         self.searchTripleStoreDialog.setMinimumSize(700, 500)
@@ -248,7 +472,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def setFilterFromText(self):
         self.proxyModel.setFilterRegExp(self.filterConcepts.text())
 
-# this functions allows the users to save queries in a json.dump
+##
+#The saveQueryFunc allows users to save their queries when clicking on the Save Query button after having
+#written the name of their query.
+#@Antoine
     def saveQueryFunc(self):
         queryName = self.saveQueryName.text()
         if queryName is not None and queryName != "":
@@ -264,7 +491,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
 
 
-# creates the dialog for converting CRS
+##
+#The buildConvertCRSDialog methode determines that searchTripleStoreDialog is equivalent to the ConvertCRSDialog class
+#so that when the Convert CRS button is clicked the Convert CRS Dialog will open
+#@Antoine
     def buildConvertCRSDialog(self):
         self.searchTripleStoreDialog = ConvertCRSDialog(self.triplestoreconf, self.maindlg, self)
         self.searchTripleStoreDialog.setWindowTitle("Convert CRS")
@@ -301,7 +531,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.sparqlhighlight.errorhighlightline = self.errorline
                     self.sparqlhighlight.currentline = 0
 
-# allow the user to load already saved queries
+##
+#The loadQueryFunc allows users to load their previously saved queries in the Qgis Plugin.
+#@Antoine
     def loadQueryFunc(self):
         if self.triplestoreconf[self.endpointCB.currentIndex()]["endpoint"] in self.savedQueriesJSON:
             self.inp_sparql2.setPlainText(
@@ -369,7 +601,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         url = QUrl(concept)
         QDesktopServices.openUrl(url)
 
-
+##
+#The loadUnicornLayers allows users to load their current plugin layers
+#
+#@Antoine
     def loadUnicornLayers(self):
         layers = QgsProject.instance().layerTreeRoot().children()
         # Populate the comboBox with names of all the loaded unicorn layers
