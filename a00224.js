@@ -1,4 +1,5 @@
 var a00224 =
 [
-    [ "StyleUtils", "a00449.html", "a00449" ]
+    [ "MatchingTools", "a00441.html", "a00441" ],
+    [ "StringMatching", "a00437.html", "a00437" ]
 ];

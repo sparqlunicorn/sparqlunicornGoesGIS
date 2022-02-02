@@ -1,26 +1,27 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="26,309,101,336"/>
-<area shape="rect" id="node2" href="$a00233.html" title=" " alt="" coords="225,563,328,589"/>
-<area shape="rect" id="node3" href="$a00245.html" title=" " alt="" coords="226,613,327,640"/>
-<area shape="rect" id="node4" href="$a00269.html" title=" " alt="" coords="201,5,352,32"/>
-<area shape="rect" id="node5" href="$a00277.html" title=" " alt="" coords="206,56,347,83"/>
-<area shape="rect" id="node6" href="$a00281.html" title=" " alt="" coords="226,107,327,133"/>
-<area shape="rect" id="node7" href="$a00285.html" title=" " alt="" coords="169,157,384,184"/>
-<area shape="rect" id="node8" href="$a00289.html" title=" " alt="" coords="223,208,331,235"/>
-<area shape="rect" id="node9" href="$a00297.html" title=" " alt="" coords="210,259,343,285"/>
-<area shape="rect" id="node10" href="$a00301.html" title=" " alt="" coords="179,309,374,336"/>
-<area shape="rect" id="node11" href="$a00305.html" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="208,360,345,387"/>
-<area shape="rect" id="node12" href="$a00309.html" title=" " alt="" coords="199,411,355,437"/>
-<area shape="rect" id="node13" href="$a00313.html" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="217,461,336,488"/>
-<area shape="rect" id="node14" href="$a00317.html" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="207,512,346,539"/>
-<area shape="rect" id="node15" title=" " alt="" coords="24,689,103,716"/>
-<area shape="rect" id="node16" href="$a00257.html" title=" " alt="" coords="203,715,350,741"/>
-<area shape="rect" id="node17" href="$a00265.html" title=" " alt="" coords="201,664,352,691"/>
-<area shape="rect" id="node18" href="$a00925.html" title=" " alt="" coords="8,461,119,488"/>
-<area shape="rect" id="node19" href="$a00249.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="206,765,347,792"/>
-<area shape="rect" id="node20" href="$a00253.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="201,816,352,843"/>
-<area shape="rect" id="node21" href="$a00261.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="193,867,361,893"/>
-<area shape="rect" id="node22" href="$a00293.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="195,917,358,944"/>
-<area shape="rect" id="node23" title=" " alt="" coords="26,816,101,843"/>
-<area shape="rect" id="node24" title=" " alt="" coords="5,917,121,944"/>
+<area shape="rect" id="node1" title=" " alt="" coords="26,335,101,361"/>
+<area shape="rect" id="node2" href="$a00237.html" title=" " alt="" coords="225,512,328,539"/>
+<area shape="rect" id="node3" href="$a00249.html" title=" " alt="" coords="226,563,327,589"/>
+<area shape="rect" id="node4" href="$a00265.html" title=" " alt="" coords="197,613,357,640"/>
+<area shape="rect" id="node5" href="$a00277.html" title=" " alt="" coords="201,664,352,691"/>
+<area shape="rect" id="node6" href="$a00285.html" title=" " alt="" coords="206,5,347,32"/>
+<area shape="rect" id="node7" href="$a00289.html" title=" " alt="" coords="226,56,327,83"/>
+<area shape="rect" id="node8" href="$a00293.html" title=" " alt="" coords="169,107,384,133"/>
+<area shape="rect" id="node9" href="$a00297.html" title=" " alt="" coords="223,157,331,184"/>
+<area shape="rect" id="node10" href="$a00305.html" title=" " alt="" coords="210,208,343,235"/>
+<area shape="rect" id="node11" href="$a00309.html" title=" " alt="" coords="179,259,374,285"/>
+<area shape="rect" id="node12" href="$a00313.html" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="208,309,345,336"/>
+<area shape="rect" id="node13" href="$a00317.html" title=" " alt="" coords="199,360,355,387"/>
+<area shape="rect" id="node14" href="$a00321.html" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="217,411,336,437"/>
+<area shape="rect" id="node15" href="$a00325.html" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="207,461,346,488"/>
+<area shape="rect" id="node16" title=" " alt="" coords="24,740,103,767"/>
+<area shape="rect" id="node17" href="$a00261.html" title=" " alt="" coords="203,715,350,741"/>
+<area shape="rect" id="node18" href="$a00273.html" title=" " alt="" coords="201,765,352,792"/>
+<area shape="rect" id="node19" href="$a00933.html" title=" " alt="" coords="8,487,119,513"/>
+<area shape="rect" id="node20" href="$a00253.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="206,816,347,843"/>
+<area shape="rect" id="node21" href="$a00257.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="201,867,352,893"/>
+<area shape="rect" id="node22" href="$a00269.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="193,917,361,944"/>
+<area shape="rect" id="node23" href="$a00301.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="195,968,358,995"/>
+<area shape="rect" id="node24" title=" " alt="" coords="26,867,101,893"/>
+<area shape="rect" id="node25" title=" " alt="" coords="5,968,121,995"/>
 </map>

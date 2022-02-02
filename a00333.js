@@ -1,21 +1,15 @@
 var a00333 =
 [
-    [ "__init__", "a00333.html#afdb286186ba7b4c07ed8d2cb44b92db8", null ],
+    [ "__init__", "a00333.html#a7a9e2e95095816354b568f4d4b9aa6bc", null ],
     [ "finished", "a00333.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00333.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "dlg", "a00333.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "convertFrom", "a00333.html#afea1666783c58d60d8f9a172c1d96335", null ],
+    [ "convertTo", "a00333.html#a49a55dda21a6dbda2e0750035498c7cd", null ],
+    [ "crsdef", "a00333.html#a833c3fbda4bca0e0f0c2a5c418654fa9", null ],
+    [ "crsdefs", "a00333.html#a40e92e9aad5a9dbd477d921260a4a33f", null ],
+    [ "dialog", "a00333.html#a3d2da04d187a7112445f18a9f20b39ef", null ],
     [ "exception", "a00333.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "invprefixes", "a00333.html#a1815f627c40cff997fd4a4fd60c3c526", null ],
-    [ "labels", "a00333.html#abc325fc13d4194905c1786e24ee447f0", null ],
-    [ "prefixes", "a00333.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "progress", "a00333.html#a991fd2c404665f13f536fc7791e53504", null ],
-    [ "query", "a00333.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "results", "a00333.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
-    [ "searchResultModel", "a00333.html#a47177f6f056c672b44af1659582c1118", null ],
-    [ "searchTerm", "a00333.html#a2e03a9ba37f49da2200795b1080ef4f4", null ],
-    [ "sortedatt", "a00333.html#a48ad5f81f31645c924cfff541c5add36", null ],
-    [ "styleprop", "a00333.html#a1451318d493b1d82979d80601a4b8b98", null ],
-    [ "triplestoreconf", "a00333.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00333.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "urilist", "a00333.html#ac03da770856c2a61cdcfa3124a6d17e8", null ]
+    [ "filename", "a00333.html#a2ff994e16bf9521154de4cf659a3b689", null ],
+    [ "graph", "a00333.html#a8ca49c796430e66a10450bfc2d218c81", null ],
+    [ "progress", "a00333.html#a991fd2c404665f13f536fc7791e53504", null ]
 ];

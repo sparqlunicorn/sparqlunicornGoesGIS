@@ -1,4 +1,4 @@
 var a00208 =
 [
-    [ "LoadGraphTask", "a00385.html", "a00385" ]
+    [ "InstanceAmountQueryTask", "a00377.html", "a00377" ]
 ];

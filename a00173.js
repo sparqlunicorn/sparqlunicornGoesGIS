@@ -1,6 +1,4 @@
 var a00173 =
 [
-    [ "BBOXDialog", "a00245.html", "a00245" ],
-    [ "NominatimText", "a00241.html", "a00241" ],
-    [ "SPARQLCompleter", "a00237.html", "a00237" ]
+    [ "SPARQLunicorn", "a00233.html", "a00233" ]
 ];
