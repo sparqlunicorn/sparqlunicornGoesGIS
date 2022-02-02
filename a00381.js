@@ -6,6 +6,7 @@ var a00381 =
     [ "dlg", "a00381.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00381.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "hasgeocount", "a00381.html#a847a73a528b964af271a2583561b42dc", null ],
+    [ "linkedgeocount", "a00381.html#ab5cbf8d06795e52f1650b858db018a75", null ],
     [ "preferredlang", "a00381.html#af09711ee571e250a7000c2ea988d9bc3", null ],
     [ "queryresult", "a00381.html#a1bee14843933505be5e14e07c03f5f89", null ],
     [ "treeNode", "a00381.html#a31ed64d43142fff4a68b7a148bec2f97", null ],

@@ -640,8 +640,10 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            self.dlg.comboBox.setCurrentIndex(0)</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            self.dlg.oauthTestButton.hide()</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            self.dlg.oauthTestButton.clicked.connect(<span class="keyword">lambda</span>: LoginWindowDialog(self).exec())</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            self.dlg.show()</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            self.dlg.endpointselectaction()</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            self.dlg.show()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00233.html#aad1fed1f698792145456d4f39e711766">SPARQLunicorn.first_start</a>.</p>
 

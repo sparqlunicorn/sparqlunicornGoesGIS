@@ -188,7 +188,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.validationFileEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.validationFileEdit.textChanged.connect(<span class="keyword">lambda</span>: UIUtils.check_state(self.validationFileEdit))</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.validationFileEdit.textChanged.emit(self.validationFileEdit.text())</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.gridLayout.addWidget(self.validationFileEdit,1,1,Qt.AlignLeft)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.gridLayout.addWidget(self.validationFileEdit,1,1,1,1)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.validationFileEdit.hide()</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.startValidationButton.clicked.connect(self.startValidation)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.dataFileLocationCBox.currentIndexChanged.connect(self.dataLocBoxChangedEvent)</div>

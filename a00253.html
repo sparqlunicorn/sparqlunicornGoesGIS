@@ -271,20 +271,20 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">def </span>startConversion(self):</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph and converting CRS of graph: &quot;</span> + self.chosenFileLabel.text(), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                   0, 0, self)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Modifying graph&quot;</span>)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        fileNames = self.convertCRSFileWidget.splitFilePaths()</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        fileNames = self.convertCRSFileWidget.splitFilePaths(self.convertCRSFileWidget.filePath())</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        progress = QProgressDialog(<span class="stringliteral">&quot;Loading Graph and converting CRS of graph: &quot;</span> + str(fileNames), <span class="stringliteral">&quot;Abort&quot;</span>,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                   0, 0, self)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Modifying graph&quot;</span>)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        progress.setCancelButton(<span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> self.convertCRSFileWidget.filePath()!=<span class="stringliteral">&quot;&quot;</span>:</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">if</span> self.convertAllCheckBox.checkState():</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                            self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph(s): &quot;</span> + str(fileNames),</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                            fileNames[0], self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                            progress)</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph: &quot;</span> + self.chosenFileLabel.text(),</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self, progress)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                self.qtask = ConvertCRSTask(<span class="stringliteral">&quot;Converting CRS of Graph(s): &quot;</span> + str(fileNames),</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                        fileNames[0], self.projectionSelect.crs(), <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, self, progress)</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            QgsApplication.taskManager().addTask(self.qtask)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            msgBox = QMessageBox()</div>
