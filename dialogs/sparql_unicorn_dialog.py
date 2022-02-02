@@ -381,7 +381,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         #and it's text will appear
         #@Antoine
         self.actionConvert_TTL_CRS.triggered.connect(self.buildConvertCRSDialog)
-        self.actionConvert_TTL_CRS.triggered.setToolTip('Allows you to convert TTL files To CRS')
+        #self.actionConvert_TTL_CRS.triggered.setToolTip('Allows you to convert TTL files To CRS')
 
         ##
         #when the user clicks on the BBox button this will activate

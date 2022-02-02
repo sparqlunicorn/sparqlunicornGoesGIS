@@ -9,7 +9,7 @@ from .dialogs.warningLayerdlg import WarningLayerDlg
 class EnrichmentTab:
     enrichLayer = None
 
-    enrichedExport = False
+    #enrichedExport = False
 
     dlg = None
 
@@ -175,7 +175,7 @@ class EnrichmentTab:
                         proptypelist.append("")
                     if self.dlg.interlinkTable.item(row, 6) != None:
                         concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        self.exportColConfig[column] = concept
+                        self.dlg.exportColConfig[column] = concept
                         classurilist.append(concept)
                     else:
                         classurilist.append("")
@@ -189,6 +189,8 @@ class EnrichmentTab:
                 propurilist.append("")
                 classurilist.append("")
                 proptypelist.append("")
-        self.enrichedExport = True
+        self.dlg.maindlg.enrichedExport = True
+        self.dlg.maindlg.enrichedLayer = self.dlg.chooseLayerInterlink.currentIndex()
         self.dlg.maindlg.exportLayer(propurilist, classurilist, includelist, proptypelist, valuemappings, valuequeries,
                                      self.dlg.exportTripleStore.isChecked())
+        self.dlg.maindlg.enrichedExport = False

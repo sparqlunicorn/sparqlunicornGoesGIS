@@ -41,6 +41,8 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     ## The triple store configuration file
 
     sparqlunicorndlg = None
+    exportColConfig = {}
+
 
     def __init__(self,layers, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, maindlg=None,  parent=None):
         """Constructor."""

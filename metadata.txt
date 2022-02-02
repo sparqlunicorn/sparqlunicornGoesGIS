@@ -3,29 +3,30 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=SPARQLing Unicorn QGIS Plugin
+name=SpaLOD
 qgisMinimumVersion=3.0
-description=This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
-version=0.12.2
-author=SPARQL Unicorn, Florian Thiery, Timo Homburg
-email=qgisplugin@sparqlunicorn.link
+description=Fork of SPARQLunicorn
+version=0.1
+author=HAFSAOUI A, PONCIANO C , PONCIANO JJ
+email=antoinehafsaoui@gmail.com
 
-about=Adds a layer from Wikidata and other Linked Data SPARQL endpoints. Just insert a SPARQL query for Geo-Items and get a new vector layer into QGIS.
-repository=https://github.com/sparqlunicorn/sparqlunicornGoesGIS
-tracker=https://github.com/sparqlunicorn/sparqlunicornGoesGIS/issues
+about=Fork of the SPARQL Unicorn plugin for a simplified usage.
 
+tracker=http://bugs
+repository=http://repo
 # End of mandatory metadata
 
 # Recommended items:
 
 hasProcessingProvider=no
-changelog=0.12.2 Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions<br>0.12.1 Fix for lat/lon based triple stores, polygon BBOX<br>0.12 Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores<br>0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query<br>0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries<br>0.9: Add triplestore functionallity, add more endpoints<br>0.8: Syntax Highlighting and query validation, support for bbox queries, import and export of rdf files, Preloading of geoconcepts from triple stores<br>0.7: add support for DBpedia and GeoNames<br>0.6: add support for linkedgeodata.org<br>0.5: add support for kerameikos.org<br>0.4: add support for nomisma.org<br>0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint<br>0.2: bugfixes and more user comfort<br>0.1: initial commit
+# Uncomment the following line and add your changelog:
+# changelog=
 
 # Tags are comma separated with spaces allowed
-tags=Wikidata,SPARQL,Nomisma,Kerameikos,Ordnance Survey,OpenStreetMap,LinkedGeodata,GeoNames,DBpedia,COVID19,AtlantGIS,Sophox,Roman Open Data,Pleiades
+tags=python
 
-homepage=http://sparqlunicorn.link
-category=Vector
+homepage=http://homepage
+category=Plugins
 icon=icon.png
 # experimental flag
 experimental=True
@@ -39,7 +40,8 @@ deprecated=False
 # plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
-#category=Vector
+# category=
 
 # If the plugin can run on QGIS Server.
 server=False
+

@@ -58,11 +58,16 @@ geoconcepts = ""
 
 ## The main SPARQL unicorn dialog.
 #
-class SPARQLunicorn:
+class SpaLOD:
     """QGIS Plugin Implementation."""
+
     loadedfromfile = False
 
     enrichedExport = False
+
+    selectedLayerIndex = None
+
+    enrichedLayer = None
 
     exportNameSpace = None
 
@@ -86,7 +91,7 @@ class SPARQLunicorn:
 
     savedQueriesJSON = {}
 
-    exportColConfig = {}
+    #exportColConfig = {}
 
     valueconcept = {}
 
@@ -94,7 +99,8 @@ class SPARQLunicorn:
 
     prefixes = []
 
-    
+
+
 
 
     def __init__(self, iface):
@@ -563,12 +569,12 @@ class SPARQLunicorn:
                 print(str(classurilist) + "\n")
                 print(str(includelist) + "\n")
                 if urilist != None and urilist[fieldcounter] != "":
-                    if  selectedLayerIndex == -1:
+                    if  self.selectedLayerIndex == -1:
                         dlg = WarningLayerDlg()
                         dlg.show()
                         dlg.exec_()
-                    else:
-                        layer = layers[selectedLayerIndex].layer()
+                    #else:
+                        #layer = layers[self.selectedLayerIndex].layer()
                     print(urilist)
                     if not urilist[fieldcounter].startswith("http"):
                         print("Does not start with http")
@@ -680,22 +686,26 @@ class SPARQLunicorn:
                     valuequeries=None, exportToTripleStore=False):
         layers = QgsProject.instance().layerTreeRoot().children()
         if self.enrichedExport:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
+            self.selectedLayerIndex = self.enrichedLayer #self.dlg.chooseLayerInterlink.currentIndex()
         else:
-            selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
+            self.selectedLayerIndex = self.dlg.loadedLayers.currentIndex()
 
-        if  selectedLayerIndex == -1:
+        if  self.selectedLayerIndex == -1:
             dlg = WarningLayerDlg()
             dlg.show()
             dlg.exec_()
 
         else:
 
-            layer = layers[selectedLayerIndex].layer()
+            layer = layers[self.selectedLayerIndex].layer()
 
             if exportToTripleStore:
-                ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+                if enrichedExport == True :
+                    ttlstring = self.layerToTTLString(self.enrichedExport, urilist, classurilist, includelist, proptypelist, valuemappings,
                                                   valuequeries)
+                else:
+                    ttlstring = self.layerToTTLString(layer, urilist, classurilist, includelist, proptypelist, valuemappings,
+                                                      valuequeries)
                 uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.endpointCB.currentIndex())
                 uploaddialog.setMinimumSize(450, 250)
                 uploaddialog.setWindowTitle("Upload interlinked dataset to triple store ")

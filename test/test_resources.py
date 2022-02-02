@@ -8,9 +8,9 @@
 
 """
 
-__author__ = 'rse@fthiery.de'
-__date__ = '2019-10-28'
-__copyright__ = 'Copyright 2019, SPARQL Unicorn'
+__author__ = 'antoinehafsaoui@gmail.com'
+__date__ = '2022-02-02'
+__copyright__ = 'Copyright 2022, HAFSAOUI A, PONCIANO C , PONCIANO JJ'
 
 import unittest
 
@@ -18,7 +18,7 @@ from qgis.PyQt.QtGui import QIcon
 
 
 
-class SPAQLunicornDialogTest(unittest.TestCase):
+class SpaLODDialogTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):
@@ -31,12 +31,12 @@ class SPAQLunicornDialogTest(unittest.TestCase):
 
     def test_icon_png(self):
         """Test we can click OK."""
-        path = ':/plugins/SPAQLunicorn/icon.png'
+        path = ':/plugins/SpaLOD/icon.png'
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(SPAQLunicornResourcesTest)
+    suite = unittest.makeSuite(SpaLODResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
