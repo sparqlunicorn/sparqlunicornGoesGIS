@@ -77,7 +77,6 @@ class QueryLayerTask(QgsTask):
                 self.vlayer.readSld(myStyleDoc,errormsg)
                 QgsMessageLog.logMessage( "Querying style definition III " + str(errormsg), MESSAGE_CATEGORY,Qgis.Info)
             QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
-            QgsProject.instance().addMapLayer(self.vlayer)
         return True
 
     def dropUnwantedKeys(self,properties):
@@ -249,6 +248,7 @@ class QueryLayerTask(QgsTask):
         if self.progress!=None:
             self.progress.close()
         if self.vlayer!=None:
+            QgsProject.instance().addMapLayer(self.vlayer)
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)

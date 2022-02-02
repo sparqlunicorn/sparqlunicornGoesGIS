@@ -36,6 +36,8 @@ class ConceptContextMenu(QMenu):
             actionclip.setIcon(UIUtils.classlinkicon)
         elif item.data(257) == SPARQLUtils.linkedgeoclassnode:
             actionclip.setIcon(UIUtils.linkedgeoclassicon)
+        elif item.data(257) == SPARQLUtils.collectionclassnode:
+            actionclip.setIcon(UIUtils.featurecollectionlinkicon)
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(item))
         action = QAction("Open in Webbrowser")

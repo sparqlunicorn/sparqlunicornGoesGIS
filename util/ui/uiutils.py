@@ -56,6 +56,7 @@ class UIUtils:
     geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
     featurecollectionicon=QIcon(":/icons/resources/icons/featurecollection.png")
+    featurecollectionlinkicon=QIcon(":/icons/resources/icons/featurecollectionlink.png")
     featurecollectionschemaicon=QIcon(":/icons/resources/icons/featurecollectionschema.png")
     addfeaturecollectionicon=QIcon(":/icons/resources/icons/addfeaturecollection.png")
     featurecollectionToRDFicon=QIcon(":/icons/resources/icons/featurecollectionToRDF.png")
