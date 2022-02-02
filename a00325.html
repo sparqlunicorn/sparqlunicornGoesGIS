@@ -349,7 +349,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                item.setText(text)</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                self.enrichtable.setItem(row, 1, item)</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                item = QTableWidgetItem()</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][<span class="stringliteral">&quot;resource&quot;</span>])</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                item.setText(str(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1][<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]))</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                self.enrichtable.setItem(row, 2, item)</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                cbox = QComboBox()</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                cbox.addItem(<span class="stringliteral">&quot;Get Remote&quot;</span>)</div>
