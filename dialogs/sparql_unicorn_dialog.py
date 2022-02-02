@@ -147,12 +147,12 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentContext=self.geoTreeView
         self.currentProxyModel=self.geoTreeViewProxyModel
         self.currentContextModel=self.geoTreeViewModel
-        self.conceptSelectAction()
         self.enrichTableResult.hide()
-        self.queryTemplates.currentIndexChanged.connect(self.conceptSelectAction)
+        self.queryTemplates.currentIndexChanged.connect(self.changeQueryTemplate)
         self.actionRDF_Resource_Settings.setIcon(UIUtils.linkeddataicon)
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
+        self.actionPreferences.setVisible(False)
         self.actionConvert_RDF_Data.setIcon(UIUtils.rdffileicon)
         self.actionSearch_Concept_for_Query.setIcon(UIUtils.searchclassicon)
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
@@ -181,6 +181,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
         self.show()
+
+    def changeQueryTemplate(self):
+        self.inp_sparql2.setPlainText(self.queryTemplates.itemData(self.queryTemplates.currentIndex()))
+        self.conceptSelectAction()
 
     def tripleStoreInfoDialog(self):
         msgBox = QMessageBox()
@@ -502,11 +506,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         """
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
-                self.queryTemplates.addItem(concept["label"])
+                self.queryTemplates.addItem(concept["label"],concept["query"])
         if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and isinstance(self.triplestoreconf[endpointIndex]["resource"]["url"],str) and self.triplestoreconf[endpointIndex]["resource"]["url"] in self.savedQueriesJSON:
             self.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
-                self.savedQueries.addItem(concept["label"])
+                self.savedQueries.addItem(concept["label"],concept["query"])
 
 
 
@@ -570,10 +574,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_sparql2.columnvars = {}
 
     def conceptSelectAction(self):
-        endpointIndex = self.comboBox.currentIndex()
-        if endpointIndex == 0:
-            self.justloadingfromfile = False
-            return
         concept = ""
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
@@ -584,21 +584,17 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             concept = "Q" + self.currentContextModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
         elif self.currentContextModel.itemFromIndex(curindex) is not None:
             concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        if "querytemplate" in self.triplestoreconf[endpointIndex]:
-            if "wd:Q%%concept%% ." in \
-                    self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()]["query"]:
+        if self.queryTemplates.count()>0:
+            if "wd:Q%%concept%% ." in self.queryTemplates.itemData(self.queryTemplates.currentIndex()):
                 querytext = ""
                 if concept != None and concept.startswith("http"):
                     querytext = \
-                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
                 elif concept != None:
                     querytext = \
-                        self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                            "query"].replace("wd:Q%%concept%% .", "wd:" + concept + " .")
-            elif "querytemplate" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["querytemplate"]!=None:
-                querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
-                    "query"].replace("%%concept%%", concept)
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+            else:
+                querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("%%concept%%", concept)
             #if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
             #    querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
             #elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
