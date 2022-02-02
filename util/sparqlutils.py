@@ -77,7 +77,7 @@ class SPARQLUtils:
         if convertToCollectionForm:
             query=query.replace("?con %%typeproperty%% %%concept%% .","%%concept%% %%collectionmemberproperty%% ?con .")
         if concept!=None:
-            if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and "wikidata" in triplestoreconf["resource"]["url"]:
+            if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and "wikidata" in triplestoreconf["resource"]["url"] and concept[concept.find('(')+1:-1].startswith("Q"):
                 query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
             else:
                 query = query.replace("%%concept%%", "<" + str(concept) + ">")

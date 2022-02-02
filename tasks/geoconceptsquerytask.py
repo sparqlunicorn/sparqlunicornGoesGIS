@@ -72,7 +72,7 @@ class GeoConceptsQueryTask(QgsTask):
             item.setData(SPARQLUtils.geoclassnode, 257)
             item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
             self.rootNode.appendRow(item)
-            if self.triplestoreconf["name"] == "Wikidata" and "label" in self.resultlist[concept]:
+            if self.triplestoreconf["name"] == "Wikidata" and "label" in self.resultlist[concept] and "(" in item.text():
                 self.completerClassList["completerClassList"][self.resultlist[concept]["concept"][self.resultlist[concept]["concept"].rfind('/') + 1:]] = "wd:" + \
                                                                                                   item.text().split(
                                                                                                       "(")[
