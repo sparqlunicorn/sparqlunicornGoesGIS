@@ -123,15 +123,5 @@ class GeoCollectionsQueryTask(QgsTask):
             self.sparql.updateNewClassList()
             self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
                                                                   QItemSelectionModel.SelectCurrent)
-            if self.featureOrGeoCollection:
-                self.dlg.currentContext = self.dlg.featureCollectionClassList
-                self.dlg.currentProxyModel = self.dlg.featureCollectionProxyModel
-                self.dlg.currentContextModel = self.dlg.featureCollectionClassListModel
-                self.dlg.collectionSelectAction()
-            else:
-                self.dlg.currentContext = self.dlg.geometryCollectionClassList
-                self.dlg.currentProxyModel = self.dlg.geometryCollectionProxyModel
-                self.dlg.currentContextModel = self.dlg.geometryCollectionClassListModel
-                self.dlg.collectionSelectAction()
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

@@ -81,6 +81,13 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             self.idCBox.addItem(field)
         item = QStandardItem()
         item.setText("Loading...")
+        self.idLabel.hide()
+        self.idCBox.hide()
+        self.label.hide()
+        self.languageComboBox.hide()
+        self.matchLabel.hide()
+        self.matchCBox.hide()
+        self.searchButton2.hide()
         self.tablemodel.setItem(0,0,item)
         self.searchResult.entered.connect(
             lambda modelindex: UIUtils.showTableURI(modelindex, self.searchResult, self.statusBarLabel))

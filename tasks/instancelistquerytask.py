@@ -14,6 +14,7 @@ class InstanceListQueryTask(QgsTask):
         self.preferredlang=preferredlang
         self.dlg=dlg
         self.hasgeocount=0
+        self.linkedgeocount=0
         self.triplestoreconf=triplestoreconf
         self.treeNode=treeNode
         self.queryresult={}
@@ -42,8 +43,8 @@ class InstanceListQueryTask(QgsTask):
             #            self.treeNode.data(256)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
             if "geometryproperty" in self.triplestoreconf:
                 thequery="SELECT ?con ?label ?hasgeo WHERE {  <" + str(
-                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ?con <" + str(
-                            geometryproperty) + "> ?wkt } AS ?hasgeo) }"
+                        self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ""?con <" + str(
+                            geometryproperty) + "> ?wkt"" } AS ?hasgeo) }"
             else:
                 thequery="SELECT ?con ?label WHERE {  <" + str(
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . "+str(labelpattern)+" }"
@@ -82,13 +83,15 @@ class InstanceListQueryTask(QgsTask):
             for result in results["results"]["bindings"]:
                 if result["con"]["value"] not in self.queryresult:
                     self.queryresult[result["con"]["value"]]={}
-                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
+                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or (isinstance(result["hasgeo"]["value"],str) and result["hasgeo"]["value"]!="" and result["hasgeo"]["value"]!="0" and result["hasgeo"]["value"]!="false")):
+                    QgsMessageLog.logMessage('Started task "{}"'.format(result["hasgeo"]["value"]), MESSAGE_CATEGORY,Qgis.Info)
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
                 else:
                     self.queryresult[result["con"]["value"]]["hasgeo"] = False
-                if "linkedgeo" in result and (result["linkedgeo"]["value"]=="true" or result["linkedgeo"]["value"]=="1"):
+                if "linkedgeo" in result and (result["linkedgeo"]["value"]=="true" or result["linkedgeo"]["value"]=="1" or (isinstance(result["linkedgeo"]["value"],str) and result["linkedgeo"]["value"]!="" and result["linkedgeo"]["value"]!="0" and result["linkedgeo"]["value"]!="false")):
                     self.queryresult[result["con"]["value"]]["linkedgeo"] = True
+                    self.linkedgeocount += 1
                 else:
                     self.queryresult[result["con"]["value"]]["linkedgeo"] = False
                 if "label" in result:

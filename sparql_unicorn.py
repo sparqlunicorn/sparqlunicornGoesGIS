@@ -315,5 +315,7 @@ class SPARQLunicorn:
             self.dlg.comboBox.setCurrentIndex(0)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
+            self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())
+            self.dlg.endpointselectaction()
         else:
             self.dlg.show()

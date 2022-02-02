@@ -180,7 +180,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geometryCollectionClassList.selectionModel().currentChanged.connect(self.collectionSelectAction)
         self.quickAddTripleStore.clicked.connect(lambda: TripleStoreQuickAddDialog(self.triplestoreconf, self.prefixes, self.prefixstore,
                                                                  self.comboBox,self.maindlg,self).exec())
-        self.endpointselectaction()
         self.show()
 
     def tripleStoreInfoDialog(self):
@@ -504,7 +503,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if "querytemplate" in self.triplestoreconf[endpointIndex]:
             for concept in self.triplestoreconf[endpointIndex]["querytemplate"]:
                 self.queryTemplates.addItem(concept["label"])
-        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and self.triplestoreconf[endpointIndex]["resource"]["url"] in self.savedQueriesJSON:
+        if "resource" in self.triplestoreconf[endpointIndex] and "url" in self.triplestoreconf[endpointIndex]["resource"] and isinstance(self.triplestoreconf[endpointIndex]["resource"]["url"],str) and self.triplestoreconf[endpointIndex]["resource"]["url"] in self.savedQueriesJSON:
             self.savedQueries.clear()
             for concept in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
                 self.savedQueries.addItem(concept["label"])
@@ -756,6 +755,21 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     concept,
                     self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
                 "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n } ORDER BY ?item",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+        elif nodetype == SPARQLUtils.collectionclassnode:
+            if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
+                self.qlayerinstance = QueryLayerTask(
+                "All Instances to Layer: " + str(concept),
+                    concept,
+                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
+                "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item . ?item ?rel ?val . "+self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0]+"\n } ORDER BY ?item",
+                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+            else:
+                self.qlayerinstance = QueryLayerTask(
+                "All Instances to Layer: " + str(concept),
+                    concept,
+                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
+                "SELECT ?item ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item .\n ?item ?rel ?val .\n } ORDER BY ?item",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
         else:
             self.qlayerinstance = QueryLayerTask(

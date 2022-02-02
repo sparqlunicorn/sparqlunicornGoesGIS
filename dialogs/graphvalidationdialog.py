@@ -37,7 +37,7 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.validationFileEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.validationFileEdit.textChanged.connect(lambda: UIUtils.check_state(self.validationFileEdit))
         self.validationFileEdit.textChanged.emit(self.validationFileEdit.text())
-        self.gridLayout.addWidget(self.validationFileEdit,1,1,Qt.AlignLeft)
+        self.gridLayout.addWidget(self.validationFileEdit,1,1,1,1)
         self.validationFileEdit.hide()
         self.startValidationButton.clicked.connect(self.startValidation)
         self.dataFileLocationCBox.currentIndexChanged.connect(self.dataLocBoxChangedEvent)

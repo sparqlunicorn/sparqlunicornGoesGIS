@@ -62,20 +62,20 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
             self.chosenFileLabel.setText(fileNames[0])
 
     def startConversion(self):
-        progress = QProgressDialog("Loading Graph and converting CRS of graph: " + self.chosenFileLabel.text(), "Abort",
+        fileNames = self.convertCRSFileWidget.splitFilePaths(self.convertCRSFileWidget.filePath())
+        progress = QProgressDialog("Loading Graph and converting CRS of graph: " + str(fileNames), "Abort",
                                    0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowTitle("Modifying graph")
         progress.setCancelButton(None)
-        fileNames = self.convertCRSFileWidget.splitFilePaths()
         if self.convertCRSFileWidget.filePath()!="":
             if self.convertAllCheckBox.checkState():
-                self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                            self.chosenFileLabel.text(), self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
+                self.qtask = ConvertCRSTask("Converting CRS of Graph(s): " + str(fileNames),
+                                            fileNames[0], self.projectionSelect.crs(), self.convertFromComboBox, self.convertToComboBox, self,
                                             progress)
             else:
-                self.qtask = ConvertCRSTask("Converting CRS of Graph: " + self.chosenFileLabel.text(),
-                                        self.chosenFileLabel.text(), self.projectionSelect.crs(), None, None, self, progress)
+                self.qtask = ConvertCRSTask("Converting CRS of Graph(s): " + str(fileNames),
+                                        fileNames[0], self.projectionSelect.crs(), None, None, self, progress)
             QgsApplication.taskManager().addTask(self.qtask)
         else:
             msgBox = QMessageBox()

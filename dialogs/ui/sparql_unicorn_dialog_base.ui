@@ -92,7 +92,7 @@
            <enum>Qt::CustomContextMenu</enum>
           </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="geoConceptsTab">
            <attribute name="title">
