@@ -293,14 +293,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                     self.triplestoreconf[endpointIndex]["resource"],
                                     prefixestoadd + query, self.triplestoreconf[endpointIndex],
                                     True, self.inp_label.text(), progress)
-        #if isinstance(endpoint_url, str):
-        #
-        #else:
-        #    self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["name"]),
-        #                                None,
-        #                                self.triplestoreconf[endpointIndex]["resource"],
-        #                                prefixestoadd + query, self.triplestoreconf[endpointIndex],
-        #                                True, self.inp_label.text(), progress)
         QgsApplication.taskManager().addTask(self.qtask)
         # self.close()
 
