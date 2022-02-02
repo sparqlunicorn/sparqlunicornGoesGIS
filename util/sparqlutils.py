@@ -340,13 +340,13 @@ class SPARQLUtils:
             wdprefix = ""
             firstkey=next(iter(classes))
             result=classes
-            QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)
             if "Q" in firstkey:
                 wdprefix = "http://www.wikidata.org/entity/"
             elif "P" in firstkey:
                 wdprefix = "http://www.wikidata.org/prop/direct/"
             for qid in classes.keys():
-                QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)
                 if "wikidata" in triplestoreurl["url"] and "Q" in qid:
                     qidquery += "Q" + qid.split("Q")[1]
                 elif "wikidata" in triplestoreurl["url"] and "P" in qid:
@@ -366,6 +366,8 @@ class SPARQLUtils:
                             #QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
                             if ent.startswith("P"):
                                 wdprefix="http://www.wikidata.org/prop/direct/"
+                            elif ent.startswith("Q"):
+                                wdprefix="http://www.wikidata.org/entity/"
                             else:
                                 wdprefix=""
                             if preferredlang in myResponse["entities"][ent]["labels"]:

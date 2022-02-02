@@ -260,10 +260,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def create_unicorn_layer(self):
         endpointIndex = self.comboBox.currentIndex()
         query = self.inp_sparql2.toPlainText()
-        if self.loadedfromfile:
-            endpoint_url = self.triplestoreconf[endpointIndex]["resource"]["instance"]
-        else:
-            endpoint_url = self.triplestoreconf[endpointIndex]["resource"]["url"]
         missingmandvars = []
         for mandvar in self.triplestoreconf[endpointIndex]["mandatoryvariables"]:
             if mandvar not in query:
@@ -274,10 +270,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             msgBox.setText("The SPARQL query is missing the following mandatory variables: " + str(missingmandvars))
             msgBox.exec()
             return
-        if isinstance(endpoint_url, str):
-            progress = QProgressDialog("Querying layer from " + str(endpoint_url) + "...", "Abort", 0, 0, self)
-        else:
-            progress = QProgressDialog(
+        progress = QProgressDialog(
                 "Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0,
                 self)
         progress.setWindowTitle("Query layer")
@@ -295,18 +288,19 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if not self.triplestoreconf[endpointIndex]["prefixes"][endpoint] in queryprefixes:
                 prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[endpointIndex]["prefixes"][
                     endpoint] + "> \n"
-        if isinstance(endpoint_url, str):
-            self.qtask = QueryLayerTask("Querying QGIS Layer from " + endpoint_url,
-                                        None,
-                                        endpoint_url,
-                                        prefixestoadd + query, self.triplestoreconf[endpointIndex],
-                                        True, self.inp_label.text(), progress)
-        else:
-            self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["name"]),
-                                        None,
-                                        endpoint_url,
-                                        prefixestoadd + query, self.triplestoreconf[endpointIndex],
-                                        True, self.inp_label.text(), progress)
+        self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["resource"]),
+                                    None,
+                                    self.triplestoreconf[endpointIndex]["resource"],
+                                    prefixestoadd + query, self.triplestoreconf[endpointIndex],
+                                    True, self.inp_label.text(), progress)
+        #if isinstance(endpoint_url, str):
+        #
+        #else:
+        #    self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["name"]),
+        #                                None,
+        #                                self.triplestoreconf[endpointIndex]["resource"],
+        #                                prefixestoadd + query, self.triplestoreconf[endpointIndex],
+        #                                True, self.inp_label.text(), progress)
         QgsApplication.taskManager().addTask(self.qtask)
         # self.close()
 
