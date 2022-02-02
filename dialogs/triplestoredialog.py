@@ -4,9 +4,11 @@ from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
 
 from .prefixdialog import PrefixDialog
+from .examplequerydialog import ExampleQueryDialog
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.sparqlhighlighter import SPARQLHighlighter
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
@@ -42,7 +44,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                     self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
-        self.exampleQueryComboBox.currentIndexChanged.connect(self.updateExampleQueries)
+        self.exampleQueryComboBox.currentIndexChanged.connect(lambda: self.exampleQuery.setPlainText(self.exampleQueryComboBox.itemData(self.exampleQueryComboBox.currentIndex())))
         self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
@@ -78,6 +80,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.deleteTripleStore.clicked.connect(self.deleteTripleStoreFunc)
         self.resetConfiguration.clicked.connect(self.restoreFactory)		
         self.newTripleStore.clicked.connect(self.createNewTripleStore)
+        self.addExampleQueryButton.clicked.connect(lambda: ExampleQueryDialog(self.exampleQueryComboBox).exec())
+        self.editQueryNameButton.clicked.connect(lambda: ExampleQueryDialog(self.exampleQueryComboBox,self.exampleQueryComboBox.currentText()).exec())
+        self.saveExampleQueryButton.clicked.connect(lambda: self.exampleQueryComboBox.setItemData(self.exampleQueryComboBox.currentIndex(),self.exampleQuery.toPlainText()))
+        self.removeExampleQueryButton.clicked.connect(lambda: self.exampleQueryComboBox.removeItem(self.exampleQueryComboBox.currentIndex()))
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.close)
@@ -110,9 +116,6 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()
-
-    def updateExampleQueries(self):
-        self.exampleQuery.setPlainText(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["querytemplate"][self.exampleQueryComboBox.currentIndex()]["query"])
 
     def switchQueryVariableInput(self):
         if "Single Variable" in self.geometryVariableComboBox.currentText():
@@ -174,6 +177,22 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 self.collectionMemberPropertyEdit.setText(curstore["collectionmemberproperty"])
             else:
                 self.collectionMemberPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#member")
+            if "featurecollectionclasses" in curstore:
+                self.featureCollectionURIEdit.setText(curstore["featurecollectionclasses"][0])
+            else:
+                self.featureCollectionURIEdit.setText("http://www.opengis.net/ont/geosparql#FeatureCollection")
+            if "geometrycollectionclasses" in curstore:
+                self.geometryCollectionURIEdit.setText(curstore["geometrycollectionclasses"][0])
+            else:
+                self.geometryCollectionURIEdit.setText("http://www.opengis.net/ont/geosparql#GeometryCollection")
+            if "geometryclasses" in curstore:
+                self.geometryClassURIEdit.setText(curstore["geometryclasses"][0])
+            else:
+                self.geometryClassURIEdit.setText("http://www.opengis.net/ont/geosparql#Geometry")
+            if "classes" in curstore:
+                self.classURIEdit.setText(curstore["classes"][0])
+            else:
+                self.classURIEdit.setText("http://www.w3.org/2002/07/owl#Class")
             if "geometryproperty" in curstore and isinstance(curstore["geometryproperty"],list):
                 if len(curstore["geometryproperty"])>0:
                     self.geometryPropertyEdit1.setText(curstore["geometryproperty"][0])
@@ -186,12 +205,14 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             else:
                 self.geometryPropertyEdit1.setText("")
                 self.geometryPropertyEdit2.setText("")
-            if "credentials" in curstore["geometryproperty"]:
+            if "auth" in curstore:
                 self.enableAuthentication()
+                self.credentialUserName.setText(curstore["auth"]["userCredential"])
+                self.credentialPassword.setText(curstore["auth"]["userPassword"])
             if "querytemplate" in curstore and isinstance(curstore["querytemplate"],list):
                 self.exampleQueryComboBox.clear()
                 for template in curstore["querytemplate"]:
-                    self.exampleQueryComboBox.addItem(template["label"])
+                    self.exampleQueryComboBox.addItem(template["label"],template["query"])
             self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
@@ -299,11 +320,6 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         if self.addTripleStore:
             index=len(self.triplestoreconf)
             self.tripleStoreChooser.addItem(self.tripleStoreNameEdit.text()	)
-            self.triplestoreconf.append({})
-            self.triplestoreconf[index]["querytemplate"]=[]
-            self.triplestoreconf[index]["querytemplate"].append({})
-            self.triplestoreconf[index]["querytemplate"][0]["label"]="Example Query"
-            self.triplestoreconf[index]["querytemplate"][0]["query"]=self.exampleQuery.toPlainText()
         else:
             index=self.tripleStoreChooser.currentIndex()
         self.triplestoreconf[index]={}
@@ -326,6 +342,17 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.triplestoreconf[index]["labelproperty"]=self.labelPropertyEdit.text()
         self.triplestoreconf[index]["typeproperty"]=self.typePropertyEdit.text()
         self.triplestoreconf[index]["subclassproperty"]=self.subclassPropertyEdit.text()
+        self.triplestoreconf[index]["collectionmemberproperty"]=self.collectionMemberPropertyEdit.text()
+        self.triplestoreconf[index]["geometrycollectionclasses"] = [self.geometryCollectionClassURIEdit.text()]
+        self.triplestoreconf[index]["featurecollectionclasses"] = [self.featureCollectionClassURIEdit.text()]
+        self.triplestoreconf[index]["geometryclasses"] = [self.geometryClassURIEdit.text()]
+        self.triplestoreconf[index]["classes"] = [self.classURIEdit.text()]
+        self.triplestoreconf.append({})
+        self.triplestoreconf[index]["querytemplate"] = []
+        for i in range(self.exampleQueryComboBox.count()):
+            self.triplestoreconf[index]["querytemplate"].append({})
+            self.triplestoreconf[index]["querytemplate"][i]["label"] = self.exampleQueryComboBox.itemText(i)
+            self.triplestoreconf[index]["querytemplate"][i]["query"] = self.exampleQueryComboBox.itemData(i)
         self.triplestoreconf[index]["prefixes"]=curprefixes
         self.addTripleStore=False
 

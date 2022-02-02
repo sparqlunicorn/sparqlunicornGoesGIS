@@ -47,6 +47,11 @@ class InstanceListQueryTask(QgsTask):
             else:
                 thequery="SELECT ?con ?label WHERE {  <" + str(
                         self.treeNode.data(256)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . "+str(labelpattern)+" }"
+        elif nodetype==SPARQLUtils.linkedgeoclassnode:
+            thequery = "SELECT ?con ?label ?hasgeo ?linkedgeo WHERE { ?con <" + typeproperty + "> <" + str(
+                self.treeNode.data(256)) + "> . " + str(labelpattern) + " BIND(EXISTS {?con <" + str(
+                geometryproperty) + "> ?wkt } AS ?hasgeo)  BIND(EXISTS {?con <" + str(
+                self.treeNode.data(260)) + "> ?lgeo } AS ?linkedgeo)}"
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if isinstance(self.triplestoreurl, str):
@@ -57,13 +62,11 @@ class InstanceListQueryTask(QgsTask):
                     #        geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
                     #    Qgis.Info)
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(
-                            256)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
+                        self.treeNode.data(256)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
                         geometryproperty) + "> ?wkt } AS ?hasgeo)}"
                 else:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(
-                            256)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
+                        self.treeNode.data(256)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
                         geometryproperty) + "> ?hasgeo } }"
             else:
                 #QgsMessageLog.logMessage('Started task "{}"'.format(
@@ -79,11 +82,15 @@ class InstanceListQueryTask(QgsTask):
             for result in results["results"]["bindings"]:
                 if result["con"]["value"] not in self.queryresult:
                     self.queryresult[result["con"]["value"]]={}
-                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or not isinstance(self.triplestoreurl, str)):
+                if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1"):
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
-                elif "hasgeo" not in self.queryresult[result["con"]["value"]]:
+                else:
                     self.queryresult[result["con"]["value"]]["hasgeo"] = False
+                if "linkedgeo" in result and (result["linkedgeo"]["value"]=="true" or result["linkedgeo"]["value"]=="1"):
+                    self.queryresult[result["con"]["value"]]["linkedgeo"] = True
+                else:
+                    self.queryresult[result["con"]["value"]]["linkedgeo"] = False
                 if "label" in result:
                     self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
                 else:
@@ -96,7 +103,7 @@ class InstanceListQueryTask(QgsTask):
         if self.treeNode.data(258)==None:
             self.treeNode.setData(str(len(self.queryresult)),258)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
-        if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode:
+        if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode and self.treeNode.data(257)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.halfgeoclassicon)
         elif self.hasgeocount==0 and self.treeNode.data(257)!=SPARQLUtils.collectionclassnode and self.treeNode.data(257)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.classicon)
@@ -106,12 +113,13 @@ class InstanceListQueryTask(QgsTask):
             item.setData(concept, 256)
             item.setText(self.queryresult[concept]["label"])
             if (self.treeNode.data(257)==SPARQLUtils.geoclassnode \
-                    or self.treeNode.data(257)==SPARQLUtils.collectionclassnode) \
+                    or self.treeNode.data(257)==SPARQLUtils.collectionclassnode
+                or self.treeNode.data(257)==SPARQLUtils.linkedgeoclassnode) \
                     and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,257)
                 item.setIcon(UIUtils.geoinstanceicon)
                 item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
-            elif self.treeNode.data(257)==SPARQLUtils.linkedgeoclassnode:
+            elif self.treeNode.data(257)==SPARQLUtils.linkedgeoclassnode and self.queryresult[concept]["linkedgeo"]:
                 item.setData(SPARQLUtils.linkedgeoinstancenode,257)
                 item.setIcon(UIUtils.linkedgeoinstanceicon)
                 item.setToolTip("Linked GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
