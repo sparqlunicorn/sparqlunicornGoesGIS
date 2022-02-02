@@ -291,8 +291,6 @@ class SPARQLunicorn:
             self.first_start = False
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
-            self.dlg.setWindowIcon(UIUtils.sparqlunicornicon)
-            self.dlg.inp_sparql.hide()
             self.dlg.comboBox.clear()
             for triplestore in self.triplestoreconf:
                 if triplestore["active"]:

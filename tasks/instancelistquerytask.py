@@ -84,7 +84,7 @@ class InstanceListQueryTask(QgsTask):
                 if result["con"]["value"] not in self.queryresult:
                     self.queryresult[result["con"]["value"]]={}
                 if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or (isinstance(result["hasgeo"]["value"],str) and result["hasgeo"]["value"]!="" and result["hasgeo"]["value"]!="0" and result["hasgeo"]["value"]!="false")):
-                    QgsMessageLog.logMessage('Started task "{}"'.format(result["hasgeo"]["value"]), MESSAGE_CATEGORY,Qgis.Info)
+                    #QgsMessageLog.logMessage('Started task "{}"'.format(result["hasgeo"]["value"]), MESSAGE_CATEGORY,Qgis.Info)
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
                 else:

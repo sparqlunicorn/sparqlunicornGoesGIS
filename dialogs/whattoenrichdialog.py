@@ -192,7 +192,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 item.setText(text)
                 self.enrichtable.setItem(row, 1, item)
                 item = QTableWidgetItem()
-                item.setText(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["resource"])
+                item.setText(str(self.triplestoreconf[self.tripleStoreEdit.currentIndex() + 1]["resource"]["url"]))
                 self.enrichtable.setItem(row, 2, item)
                 cbox = QComboBox()
                 cbox.addItem("Get Remote")

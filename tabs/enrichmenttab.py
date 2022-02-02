@@ -3,7 +3,7 @@ from qgis.core import QgsProject, Qgis
 from qgis.utils import iface
 from qgis.PyQt import QtCore
 
-from ..util.sparqlutils import SPARQLUtils
+from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
 from ..tasks.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QProgressDialog
@@ -243,7 +243,7 @@ class EnrichmentTab:
                 progress = QProgressDialog("Enriching column " + self.dlg.enrichTable.item(row, 0).text(), "Abort", 0,
                                            0, self.dlg)
                 progress.setWindowModality(Qt.WindowModal)
-                progress.setWindowIcon(SPARQLUtils.sparqlunicornicon)
+                progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
                 self.qtask = EnrichmentQueryTask("Enriching column: " + self.dlg.enrichTable.item(row, 0).text(),
                                                  triplestoreurl, self.enrichLayer, strategy,
@@ -275,7 +275,7 @@ class EnrichmentTab:
         self.dlg.enrichTableResult.show()
         self.dlg.startEnrichment.setText("Enrichment Configuration")
         self.dlg.startEnrichment.clicked.disconnect()
-        self.dlg.startEnrichment.clicked.connect(self.dlg.showConfigTable)
+        self.dlg.startEnrichment.clicked.connect(self.showConfigTable)
         self.dlg.addEnrichedLayerRowButton.setEnabled(False)
         return self.enrichLayer
 

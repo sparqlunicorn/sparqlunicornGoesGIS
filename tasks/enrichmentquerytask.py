@@ -44,6 +44,10 @@ class EnrichmentQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
+        curtriplestoreconf=None
+        for elem in self.triplestoreconf:
+            if "resource" in elem and "url" in elem["resource"] and self.triplestoreurl in elem["resource"]["url"]:
+                curtriplestoreconf=elem
         attlist = {}
         attlist[self.item] = []
         attlist[self.idfield] = {}
@@ -68,17 +72,17 @@ class EnrichmentQueryTask(QgsTask):
                 query += "\"" + str(it) + "\" "
         query += " } . \n"
         proppp = self.propertyy.data(1)
-        if self.propertyy.data(1).startswith("//"):
+        if proppp!=None and self.propertyy.data(1).startswith("//"):
             proppp = "http:" + proppp
-        if self.table.item(self.row, 7).text() != "" and "wikidata" in self.triplestoreurl:
-            query += "?item wdt:P31 <" + self.table.item(self.row, 7).text() + "> .\n"
+        if self.table.item(self.row, 7).text() != "" and "wikidata" in curtriplestoreconf["resource"]["url"]:
+            query += "?item wdt:P31 <" + str(self.table.item(self.row, 7).text()) + "> .\n"
         else:
-            query += "?item rdf:type <" + self.table.item(self.row, 7).text() + "> .\n"
-        query += "?item <" + self.idprop + "> ?vals .\n"
-        query += "?item <" + proppp + "> ?val . \n"
-        if (self.content == "Enrich Value" or self.content == "Enrich Both") and not "wikidata" in self.triplestoreurl:
+            query += "?item rdf:type <" + str(self.table.item(self.row, 7).text()) + "> .\n"
+        query += "?item <" + str(self.idprop) + "> ?vals .\n"
+        query += "?item <" + str(proppp) + "> ?val . \n"
+        if (self.content == "Enrich Value" or self.content == "Enrich Both") and not "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "OPTIONAL{ ?val rdfs:label ?valLabel }"
-        elif (self.content == "Enrich Value" or self.content == "Enrich Both") and "wikidata" in self.triplestoreurl:
+        elif (self.content == "Enrich Value" or self.content == "Enrich Both") and "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE]," + self.language + "\". }\n"
         query += "} "
         QgsMessageLog.logMessage("proppp: " + str(proppp),
@@ -87,13 +91,11 @@ class EnrichmentQueryTask(QgsTask):
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage(query,
                                  MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage(self.triplestoreurl,
+        QgsMessageLog.logMessage(curtriplestoreconf["resource"]["url"],
                                  MESSAGE_CATEGORY, Qgis.Info)
-        print(self.triplestoreurl)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(curtriplestoreconf["resource"],query,curtriplestoreconf)
         if results==False:
             return False
-        print(str(results))
         # resultcounter=0
         for resultcounter in results["results"]["bindings"]:
             if self.content == "Enrich Value":
