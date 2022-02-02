@@ -4,6 +4,7 @@ var a00301 =
     [ "buildSearchDialog", "a00301.html#aa2c34a4ef6a92497a04fcaa8d4ec7e73", null ],
     [ "buildUploadRDFDialog", "a00301.html#a07c4c98000f13673906dd4e74ead51b6", null ],
     [ "buildValueMappingDialog", "a00301.html#a1659d7c9973dfca0d962d86f4195098b", null ],
+    [ "changeQueryTemplate", "a00301.html#aa12b9283bea7f4afbca5be8519dff9f3", null ],
     [ "collectionSelectAction", "a00301.html#af681f7cef8cc2aef0d790ba9dcb63bc5", null ],
     [ "conceptSelectAction", "a00301.html#a114e731483efe9ffd8abb769ce2ebaee", null ],
     [ "create_unicorn_layer", "a00301.html#afb699b236ce4e28e8d4fabc71b0a63e1", null ],
