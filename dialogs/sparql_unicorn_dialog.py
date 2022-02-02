@@ -595,10 +595,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                         self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
                 querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("%%concept%%", concept)
-            #if self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") != -1:
-            #    querytext = querytext[0:querytext.rfind("LIMIT")] + "LIMIT " + self.queryLimit.text()
-            #elif self.queryLimit.text().isnumeric() and querytext.rfind("LIMIT") == -1:
-            #    querytext = querytext + " LIMIT " + self.queryLimit.text()
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
