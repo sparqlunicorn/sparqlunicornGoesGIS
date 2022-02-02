@@ -12,7 +12,10 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/uploadrdfdialog.ui'))
 
 
-## Dialog to upload a generated RDF result to a triple store.
+##
+#This is the UploadRDFDialog class which contains all of the variables and
+#methodes for the Upload RDF Dialog
+#@Antoine
 class UploadRDFDialog(QDialog, FORM_CLASS):
     currentrow = ""
 
@@ -46,11 +49,11 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         self.checkConnectionButton.clicked.connect(self.checkConnection)
         self.applyButton.clicked.connect(self.addNewLayerToTripleStore)
 
-    ## 
+    ##
     #  @brief Checks the connection to a triple store which has been defined by a given internet address.
-    #  
+    #
     #  @param self The object pointer
-    #  @return True if the connection was successful, false otherwise 
+    #  @return True if the connection was successful, false otherwise
     def checkConnection(self, calledfromotherfunction=False, showMessageBox=True,
                         query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store " + self.tripleStoreURLEdit.text() + "...",
@@ -63,10 +66,14 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
             self.tripleStoreURLEdit.text(), self.tripleStoreURLEdit.text(), True, False, [], {}, None, None, False,
             None, progress)
         QgsApplication.taskManager().addTask(self.qtask)
-
+##
+#The check_state1 methode checks the state of the tripleStoreURLEdit
+#@Antoine
     def check_state1(self):
         self.check_state(self.tripleStoreURLEdit)
-
+##
+#check_state verifies the state of validator
+#@Antoine
     def check_state(self, sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
@@ -77,6 +84,8 @@ class UploadRDFDialog(QDialog, FORM_CLASS):
         else:
             color = '#f6989d'  # red
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
+##
+#The compareLayers methode allows the comparing of different layers
 
     def compareLayers(layer1, layer2, idcolumn):
         changedTriples = ""

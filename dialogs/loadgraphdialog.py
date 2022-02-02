@@ -15,6 +15,8 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
+#
+#@Antoine
 class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
     ## The triple store configuration file
     triplestoreconf = None
@@ -37,10 +39,18 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
         self.graphURIEdit.textChanged.emit(self.graphURIEdit.text())
         self.loadFromFileButton.clicked.connect(self.loadFile)
         self.loadFromURIButton.clicked.connect(self.loadURI)
+##
 
+#  check_state1 methode checks  the validity of an edited graph URI
+#
+#@Antoine
     def check_state1(self):
         self.check_state(self.graphURIEdit)
+##
 
+#The check_state methode checks the validity of a senders request
+#
+#@Antoine
     def check_state(self, sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
@@ -51,7 +61,11 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
         else:
             color = '#f6989d'  # red
         sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
+##
 
+#The loadFile methode loads a file containing a graph from your computer
+#
+#@Antoine
     def loadFile(self):
         dialog = QFileDialog(self.dlg)
         dialog.setFileMode(QFileDialog.AnyFile)
@@ -65,7 +79,11 @@ class LoadGraphDialog(QtWidgets.QDialog, FORM_CLASS):
             self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], fileNames[0], self, self.dlg, self.maindlg,
                                        self.triplestoreconf[0]["geoconceptquery"], self.triplestoreconf, progress, True)
             QgsApplication.taskManager().addTask(self.qtask)
+##
 
+#The loadURI methode loads a graph's URI to your computer
+#
+#@Antoine
     def loadURI(self):
         if self.graphURIEdit.text() != "":
             progress = QProgressDialog("Loading Graph from " + self.graphURIEdit.text(), "Abort", 0, 0, self)

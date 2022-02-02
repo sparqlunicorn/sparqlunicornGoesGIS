@@ -11,7 +11,13 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/whattoenrichdialog.ui'))
 
 
-## Enrichment dialog to enrich properties to a geodataset.
+##
+#Enrichment dialog to enrich properties to a geodataset.
+
+##
+#The EnrichmentDialog class contains all the methodes and the variables for the
+#Enrichment dialog
+#@Antoine
 class EnrichmentDialog(QDialog, FORM_CLASS):
     # Indicates the position within the given GUI element to which the result is returned.
     currentrow = ""
@@ -52,14 +58,41 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 self.tripleStoreEdit.setCurrentIndex(2)
                 self.tripleStoreEdit.setEnabled(True)
                 # me
+        ##
+        #When the search button is clicked "getAttributeStatistics" will be called
+        #The searchButton's tool tips text will appear if the user hovers over it's
+        #button
+        #@Antoine
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchButton.setToolTip('Will search properties that can be enriched.')
+        ##
+        #When the search concept button is clicked the createValueMappingSearchDialog will
+        #open in the plugin
+        #The searchConceptButton tool tips text will appear if the user hovers over it's
+        #button
+        #@Antoine
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.searchConceptButton.setToolTip('will search the concept that was type')
+        ##
+        #The costumpropertyLabel is hidden
+        #@Antoine
         self.costumpropertyLabel.hide()
+        ##
+        #The inAreaEditText is hidden
+        #@Antoine
         self.inAreaEditText.hide()
+        ##
+        #When search searchButton2 is clicked "getAttributeStatistics" will be called
+        #@Antoine
         self.searchButton2.clicked.connect(self.getAttributeStatistics)
+        #searchButton2 is hidden
         self.searchButton2.hide()
+        ##
+        #When the Apply button is clicked the selected concept will be added
+        #to the enrich table's column
+        #The applyButton's tool tips text will appear if the user hovers over it's
+        #button
+        #@Antoine
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         self.applyButton.setToolTip('Applies the selected property')
         # me

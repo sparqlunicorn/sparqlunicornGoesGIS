@@ -32,7 +32,11 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 MESSAGE_CATEGORY = 'Enrichment MainWindow'
 
+##
 
+#The Main window of the Enrichment feature containing the "EnrichmentMainWindow" class
+#
+#@Antoine
 class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     ## The triple store configuration file
 
@@ -109,7 +113,7 @@ class EnrichmentMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
     #     self.buildSearchDialog(row, column, False, self.findIDPropertyEdit, True, False, None, self.addVocabConf)
 
 
-        ##
+    ##
 
     #  @brief Deletes a row from the table in the enrichment dialog.
     #
