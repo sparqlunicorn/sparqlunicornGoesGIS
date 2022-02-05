@@ -66,7 +66,6 @@ class CircleMapTool(QgsMapTool):
         QgsMapTool.deactivate(self)
 
     def rbcircle(self, rb, center, edgePoint, N):
-        '''Fonction qui affiche une rubberband sous forme de cercle'''
         r = sqrt(center.sqrDist(edgePoint))
         self.rb.reset(QgsWkbTypes.PolygonGeometry)
         for itheta in range(N + 1):
@@ -77,7 +76,6 @@ class CircleMapTool(QgsMapTool):
 
 
 class PolygonMapTool(QgsMapTool):
-    '''Outil de sélection par polygone, tiré de selectPlusFr'''
 
     selectionDone = pyqtSignal()
     move = pyqtSignal()

@@ -38,6 +38,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 from .util.ui.uiutils import UIUtils
 from .util.layerutils import LayerUtils
+from .util.configutils import ConfigUtils
 
 import json
 
@@ -262,6 +263,9 @@ class SPARQLunicorn:
             if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
                 with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
                     data = myfile.read()
+                    if ConfigUtils.isOldConfigurationFile(json.loads(data)):
+                        with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
+                            data = myfile.read()
             else:
                 with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
                     data = myfile.read()
