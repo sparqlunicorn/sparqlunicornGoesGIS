@@ -32,6 +32,9 @@ class InterlinkMainWindow(QtWidgets.QMainWindow, FORM_CLASS):
 
     enrichtab = None
 
+    exportColConfig = {}
+
+
     def __init__(self, layers, maindlg, addVocabConf, triplestoreconf, prefixes, prefixstore, comboBox, dlg=None,  parent=None):
         """Constructor."""
         super(InterlinkMainWindow, self).__init__(parent)

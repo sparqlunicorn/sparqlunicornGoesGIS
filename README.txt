@@ -1,10 +1,10 @@
 Plugin Builder Results
 
-Your plugin SPAQLunicorn was created in:
-    D:/src/sparqlunicornGoesGIS\sparql_unicorn
+Your plugin SpaLOD was created in:
+    C:/Users/pc-asus/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins\spalod
 
 Your QGIS plugin directory is located at:
-    C:/Users/thiery.RGZM/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
+    C:/Users/pc-asus/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
 
 What's Next:
 
@@ -17,11 +17,11 @@ What's Next:
 
   * Test the plugin by enabling it in the QGIS plugin manager
 
-  * Customize it by editing the implementation file: ``sparql_unicorn.py``
+  * Customize it by editing the implementation file: ``spalod.py``
 
   * Create your own custom icon, replacing the default icon.png
 
-  * Modify your user interface by opening SPAQLunicorn_dialog_base.ui in Qt Designer
+  * Modify your user interface by opening SpaLOD_dialog_base.ui in Qt Designer
 
   * You can use the Makefile to compile your Ui and resource files when
     you make changes. This requires GNU make (gmake)

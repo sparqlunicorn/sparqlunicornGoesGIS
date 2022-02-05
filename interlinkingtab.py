@@ -152,7 +152,7 @@ class InterlinkingTab:
                             xmlmapping += "prop=\"subclass\" "
                     if self.dlg.interlinkTable.item(row, 6) != None:
                         concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        self.exportColConfig[column] = concept
+                        self.dlg.exportColConfig[column] = concept
                         classurilist.append(concept)
                         xmlmapping += "concept=\"" + self.dlg.interlinkTable.item(row, 6).data(1) + "\" "
                     else:

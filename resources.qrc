@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/sparql_unicorn" >
+    <qresource prefix="/plugins/spalod" >
         <file>icon.png</file>
     </qresource>
 </RCC>

@@ -8,26 +8,26 @@
 
 """
 
-__author__ = 'rse@fthiery.de'
-__date__ = '2019-10-28'
-__copyright__ = 'Copyright 2019, SPARQL Unicorn'
+__author__ = 'antoinehafsaoui@gmail.com'
+__date__ = '2022-02-02'
+__copyright__ = 'Copyright 2022, HAFSAOUI A, PONCIANO C , PONCIANO JJ'
 
 import unittest
 
 from qgis.PyQt.QtGui import QDialogButtonBox, QDialog
 
-from sparql_unicorn_dialog import SPAQLunicornDialog
+from spalod_dialog import SpaLODDialog
 
 from utilities import get_qgis_app
 QGIS_APP = get_qgis_app()
 
 
-class SPAQLunicornDialogTest(unittest.TestCase):
+class SpaLODDialogTest(unittest.TestCase):
     """Test dialog works."""
 
     def setUp(self):
         """Runs before each test."""
-        self.dialog = SPAQLunicornDialog(None)
+        self.dialog = SpaLODDialog(None)
 
     def tearDown(self):
         """Runs after each test."""
@@ -49,7 +49,7 @@ class SPAQLunicornDialogTest(unittest.TestCase):
         self.assertEqual(result, QDialog.Rejected)
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(SPAQLunicornDialogTest)
+    suite = unittest.makeSuite(SpaLODDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 

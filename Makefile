@@ -1,12 +1,12 @@
 #/***************************************************************************
-# SPAQLunicorn
+# SpaLOD
 #
-# This plugin adds a GeoJSON layer from a Wikidata SPARQL query.
+# Fork of SPARQLunicorn
 #							 -------------------
-#		begin				: 2019-10-28
+#		begin				: 2022-02-02
 #		git sha				: $Format:%H$
-#		copyright			: (C) 2019 by SPARQL Unicorn
-#		email				: rse@fthiery.de
+#		copyright			: (C) 2022 by HAFSAOUI A, PONCIANO C , PONCIANO JJ
+#		email				: antoinehafsaoui@gmail.com
 # ***************************************************************************/
 #
 #/***************************************************************************
@@ -38,15 +38,15 @@ LOCALES =
 # translation
 SOURCES = \
 	__init__.py \
-	sparql_unicorn.py sparql_unicorn_dialog.py
+	spalod.py spalod_dialog.py
 
-PLUGINNAME = sparql_unicorn
+PLUGINNAME = spalod
 
 PY_FILES = \
 	__init__.py \
-	sparql_unicorn.py sparql_unicorn_dialog.py
+	spalod.py spalod_dialog.py
 
-UI_FILES = sparql_unicorn_dialog_base.ui
+UI_FILES = spalod_dialog_base.ui
 
 EXTRAS = metadata.txt icon.png
 
@@ -65,7 +65,7 @@ PEP8EXCLUDE=pydev,resources.py,conf.py,third_party,ui
 #	* Windows:
 #	  AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins'
 
-QGISDIR=C:\Users\thiery.RGZM\AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
+QGISDIR=C:\Users\pc-asus\AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins
 
 #################################################
 # Normally you would not need to edit below here
