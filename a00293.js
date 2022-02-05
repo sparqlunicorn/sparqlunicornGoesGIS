@@ -1,9 +1,7 @@
 var a00293 =
 [
-    [ "__init__", "a00293.html#a19adb67a27c87d28794d86f661d71318", null ],
-    [ "queryWithLimit", "a00293.html#a8f00d7ecb3b1d33e795c22927f1318cf", null ],
-    [ "concept", "a00293.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "nodetype", "a00293.html#a618f7f5866526d01adfc6c50c3250898", null ],
-    [ "qlayerinstance", "a00293.html#a372686b3ca59f062b995140d963fadd6", null ],
-    [ "triplestoreconf", "a00293.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "__init__", "a00293.html#adbeaf2e931152c70fb444ca33974ae1a", null ],
+    [ "savePrefix", "a00293.html#a5cf9e9b8fa294a8f55d30e3fba3fd69d", null ],
+    [ "addOrEdit", "a00293.html#a660e3722e4c81323174ce41564054ec9", null ],
+    [ "prefixList", "a00293.html#ab8640857e2652eb06aafa358c16c1966", null ]
 ];

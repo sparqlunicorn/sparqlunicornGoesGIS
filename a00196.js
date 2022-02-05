@@ -1,4 +1,4 @@
 var a00196 =
 [
-    [ "ClassTreeQueryTask", "a00329.html", "a00329" ]
+    [ "VarInputDialog", "a00325.html", "a00325" ]
 ];

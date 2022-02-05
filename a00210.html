@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: sparqlunicornGoesGIS.tasks.instancequerytask Namespace Reference</title>
+<title>SPARQLingUnicornQGISPlugin: sparqlunicornGoesGIS.tasks.graphvalidationtask Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,21 +64,48 @@ $(document).ready(function(){initNavTree('a00210.html',''); initResizable(); });
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">sparqlunicornGoesGIS.tasks.instancequerytask Namespace Reference</div>  </div>
+<div class="title">sparqlunicornGoesGIS.tasks.graphvalidationtask Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00385.html">InstanceQueryTask</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00377.html">GraphValidationTask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a graph from an RDF file either by providing an internet address or a file path.  <a href="a00377.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a964735b6bbac75792f1ff19bab17c5e3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00210.html#a964735b6bbac75792f1ff19bab17c5e3">MESSAGE_CATEGORY</a> = '<a class="el" href="a00385.html">InstanceQueryTask</a>'</td></tr>
+<tr class="memitem:a964735b6bbac75792f1ff19bab17c5e3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00210.html#a964735b6bbac75792f1ff19bab17c5e3">MESSAGE_CATEGORY</a> = '<a class="el" href="a00377.html">GraphValidationTask</a>'</td></tr>
 <tr class="separator:a964735b6bbac75792f1ff19bab17c5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83830bba8506511f45d73393d552347e"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00210.html#a83830bba8506511f45d73393d552347e">rulesets</a> = {&quot;GeoSPARQL 1.0 Validation&quot;:[&quot;../validation/geosparql10_validation.ttl&quot;],&quot;GeoSPARQL 1.1 Validation&quot;:[&quot;../validation/geosparql11_validation.ttl&quot;],&quot;GeoSPARQL Extended Ruleset Validation&quot;:[&quot;../validation/geosparql11ext_validation.ttl&quot;]}</td></tr>
+<tr class="separator:a83830bba8506511f45d73393d552347e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e694fe358598ca0a8e995e3e683c655"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00210.html#a4e694fe358598ca0a8e995e3e683c655">__location__</a> = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</td></tr>
+<tr class="separator:a4e694fe358598ca0a8e995e3e683c655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a4e694fe358598ca0a8e995e3e683c655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e694fe358598ca0a8e995e3e683c655">&#9670;&nbsp;</a></span>__location__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a964735b6bbac75792f1ff19bab17c5e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a964735b6bbac75792f1ff19bab17c5e3">&#9670;&nbsp;</a></span>MESSAGE_CATEGORY</h2>
 
@@ -86,7 +113,21 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string MESSAGE_CATEGORY = '<a class="el" href="a00385.html">InstanceQueryTask</a>'</td>
+          <td class="memname">string MESSAGE_CATEGORY = '<a class="el" href="a00377.html">GraphValidationTask</a>'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83830bba8506511f45d73393d552347e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83830bba8506511f45d73393d552347e">&#9670;&nbsp;</a></span>rulesets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dictionary rulesets = {&quot;GeoSPARQL 1.0 Validation&quot;:[&quot;../validation/geosparql10_validation.ttl&quot;],&quot;GeoSPARQL 1.1 Validation&quot;:[&quot;../validation/geosparql11_validation.ttl&quot;],&quot;GeoSPARQL Extended Ruleset Validation&quot;:[&quot;../validation/geosparql11ext_validation.ttl&quot;]}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -99,7 +140,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00170.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00195.html">tasks</a></li><li class="navelem"><a class="el" href="a00210.html">instancequerytask</a></li>
+    <li class="navelem"><a class="el" href="a00173.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00198.html">tasks</a></li><li class="navelem"><a class="el" href="a00210.html">graphvalidationtask</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

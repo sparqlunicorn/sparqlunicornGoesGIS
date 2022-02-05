@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: GeocodingUtils Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: ConfigUtils Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,167 +61,83 @@ $(document).ready(function(){initNavTree('a00425.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a00422.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">GeocodingUtils Class Reference</div>  </div>
+<div class="title">ConfigUtils Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a79c88c50c84c8b1c966fd5bfbc29df"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a1a79c88c50c84c8b1c966fd5bfbc29df">geocode</a> (self)</td></tr>
-<tr class="separator:a1a79c88c50c84c8b1c966fd5bfbc29df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a846ec42f7586b3ddea32e1eacad2f411"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a846ec42f7586b3ddea32e1eacad2f411">networkrequest</a> (self, nurl)</td></tr>
-<tr class="separator:a846ec42f7586b3ddea32e1eacad2f411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5af50facce4d4c1e55416043b1f6dd2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#af5af50facce4d4c1e55416043b1f6dd2">handleResponse</a> (self, reply)</td></tr>
-<tr class="separator:af5af50facce4d4c1e55416043b1f6dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a23416379944e641a8ad6bdbc95ef1859"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a23416379944e641a8ad6bdbc95ef1859">manager</a></td></tr>
-<tr class="separator:a23416379944e641a8ad6bdbc95ef1859"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87030b4985e39b57aeea787ef0af34b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a87030b4985e39b57aeea787ef0af34b9">nominatimmap</a></td></tr>
-<tr class="separator:a87030b4985e39b57aeea787ef0af34b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a59012f8c3172f59e365367f89ebe3db9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a59012f8c3172f59e365367f89ebe3db9">isOldConfigurationFile</a> (configjson)</td></tr>
+<tr class="separator:a59012f8c3172f59e365367f89ebe3db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f3484d55ba73df564aecaac0d303d4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00425.html#a13f3484d55ba73df564aecaac0d303d4">migrateOldConfigurationFile</a> (configjson)</td></tr>
+<tr class="separator:a13f3484d55ba73df564aecaac0d303d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1a79c88c50c84c8b1c966fd5bfbc29df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a79c88c50c84c8b1c966fd5bfbc29df">&#9670;&nbsp;</a></span>geocode()</h2>
+<a id="a59012f8c3172f59e365367f89ebe3db9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59012f8c3172f59e365367f89ebe3db9">&#9670;&nbsp;</a></span>isOldConfigurationFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def geocode </td>
+          <td class="memname">def isOldConfigurationFile </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>configjson</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">def </span>geocode(self):</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            nominatimurl = UIUtils.nominatimurl.format(**{<span class="stringliteral">&#39;address&#39;</span>: self.geocodeSearch.text()})</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            self.networkrequest(nominatimurl)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Mandatory variables missing!&quot;</span>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            msgBox.setText(str(e))</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00425.html#a846ec42f7586b3ddea32e1eacad2f411">GeocodingUtils.networkrequest()</a>, and <a class="el" href="a00249.html#a846ec42f7586b3ddea32e1eacad2f411">BBOXDialog.networkrequest()</a>.</p>
-
-</div>
-</div>
-<a id="af5af50facce4d4c1e55416043b1f6dd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5af50facce4d4c1e55416043b1f6dd2">&#9670;&nbsp;</a></span>handleResponse()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def handleResponse </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reply</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span>handleResponse(self, reply):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        er = reply.error()</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> er == QNetworkReply.NoError:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            bytes_string = reply.readAll()</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            print(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            results = json.loads(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            self.nominatimmap = {}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            chooselist = []</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">for</span> rec <span class="keywordflow">in</span> results:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                chooselist.append(rec[<span class="stringliteral">&#39;display_name&#39;</span>])</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                self.nominatimmap[rec[<span class="stringliteral">&#39;display_name&#39;</span>]] = [rec[<span class="stringliteral">&#39;lon&#39;</span>], rec[<span class="stringliteral">&#39;lat&#39;</span>]]</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            print(<span class="stringliteral">&quot;Error occured: &quot;</span>, er)</div>
+<div class="fragment"><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keyword">def </span>isOldConfigurationFile(configjson):</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> configjson:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;endpoint&quot;</span> <span class="keywordflow">in</span> item:</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a846ec42f7586b3ddea32e1eacad2f411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a846ec42f7586b3ddea32e1eacad2f411">&#9670;&nbsp;</a></span>networkrequest()</h2>
+<a id="a13f3484d55ba73df564aecaac0d303d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f3484d55ba73df564aecaac0d303d4">&#9670;&nbsp;</a></span>migrateOldConfigurationFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def networkrequest </td>
+          <td class="memname">def migrateOldConfigurationFile </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>configjson</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>nurl</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">def </span>networkrequest(self, nurl):</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">global</span> reply</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.manager = QNetworkAccessManager()</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        url = QUrl(nurl)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        request = QNetworkRequest(url)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.manager.finished.connect(self.handleResponse)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.manager.get(request)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">def </span>migrateOldConfigurationFile(configjson):</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">for</span> item <span class="keywordflow">in</span> configjson:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;endpoint&quot;</span> <span class="keywordflow">in</span> item:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                item[<span class="stringliteral">&quot;resource&quot;</span>]={<span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;endpoint&quot;</span>,<span class="stringliteral">&quot;url&quot;</span>:item[<span class="stringliteral">&quot;endpoint&quot;</span>]}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                del item[<span class="stringliteral">&quot;endpoint&quot;</span>]</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">return</span> configjson</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00425.html#a1a79c88c50c84c8b1c966fd5bfbc29df">GeocodingUtils.geocode()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a23416379944e641a8ad6bdbc95ef1859"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23416379944e641a8ad6bdbc95ef1859">&#9670;&nbsp;</a></span>manager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">manager</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a87030b4985e39b57aeea787ef0af34b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87030b4985e39b57aeea787ef0af34b9">&#9670;&nbsp;</a></span>nominatimmap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">nominatimmap</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 </div>
 </div>
 </div><!-- contents -->
@@ -230,7 +146,7 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00170.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00219.html">util</a></li><li class="navelem"><a class="el" href="a00221.html">geocodingutils</a></li><li class="navelem"><a class="el" href="a00425.html">GeocodingUtils</a></li>
+    <li class="navelem"><a class="el" href="a00173.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00222.html">util</a></li><li class="navelem"><a class="el" href="a00223.html">configutils</a></li><li class="navelem"><a class="el" href="a00425.html">ConfigUtils</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
