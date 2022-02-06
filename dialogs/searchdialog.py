@@ -93,13 +93,13 @@ class SearchDialog(QDialog, FORM_CLASS):
         actiondataschema = QAction("Query data schema")
         menu.addAction(actiondataschema)
         actiondataschema.triggered.connect(lambda: DataSchemaDialog(
-            self.currentItem.data(256),
+            self.currentItem.data(UIUtils.dataslot_conceptURI),
             SPARQLUtils.classnode,
             self.currentItem.text(),
             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
             self.triplestoreconf[self.tripleStoreEdit.currentIndex()], self.prefixes,
             "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
-                256)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
+                UIUtils.dataslot_conceptURI)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
         ).exec_())
         menu.exec(self.searchResult.viewport().mapToGlobal(position))
 

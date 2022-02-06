@@ -179,7 +179,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         fieldnames = [field.name() for field in self.layer.fields()]
         for row in range(self.tablemodel.rowCount()):
             if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
-                relation = self.tablemodel.item(row, 1).data(256)
+                relation = self.tablemodel.item(row, 1).data(UIUtils.dataslot_conceptURI)
                 text=self.tablemodel.item(row, 1).text()
                 item = QTableWidgetItem(
                     text[0:text.rfind('(') - 1])
@@ -188,7 +188,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 self.enrichtable.insertRow(row)
                 self.enrichtable.setItem(row, 0, item)
                 item = QTableWidgetItem()
-                item.setData(256, relation)
+                item.setData(UIUtils.dataslot_conceptURI, relation)
                 item.setText(text)
                 self.enrichtable.setItem(row, 1, item)
                 item = QTableWidgetItem()

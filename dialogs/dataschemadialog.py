@@ -114,7 +114,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         checkeditems=[]
         for row in range(self.tablemodel.rowCount()):
             if self.tablemodel.item(row, 0).checkState()==Qt.Checked:
-                relation = self.tablemodel.item(row, 1).data(256)
+                relation = self.tablemodel.item(row, 1).data(UIUtils.dataslot_conceptURI)
                 checkeditems.append(relation)
         relstatement=" ?item ?rel ?val . "
         if len(checkeditems)!=self.tablemodel.rowCount():
@@ -151,7 +151,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         row=modelindex.row()
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample:
-            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
+            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(UIUtils.dataslot_conceptURI))
             self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
                                              self.triplestoreurl,
                                              self,

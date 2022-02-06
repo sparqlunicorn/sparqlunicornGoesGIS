@@ -48,7 +48,7 @@ class SubClassQueryTask(QgsTask):
         for concept in self.resultlist:
             if self.resultlist[concept]!=self.con:
                 item = QStandardItem()
-                item.setData(concept, 256)
+                item.setData(concept, UIUtils.dataslot_conceptURI)
                 if "label" in self.resultlist[concept]:
                     item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept])+")")
                 else:
@@ -56,7 +56,7 @@ class SubClassQueryTask(QgsTask):
                 item.setForeground(QColor(0,0,0))
                 item.setEditable(False)
                 item.setIcon(UIUtils.classicon)
-                item.setData(SPARQLUtils.classnode, 257)
+                item.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
                 self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")

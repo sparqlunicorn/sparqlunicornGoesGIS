@@ -434,10 +434,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(conceptlist)) + ")")
             for concept in conceptlist:
                 item = QStandardItem()
-                item.setData(concept, 256)
+                item.setData(concept, UIUtils.dataslot_conceptURI)
                 item.setText(SPARQLUtils.labelFromURI(concept, self.triplestoreconf[endpointIndex]["prefixesrev"]))
                 item.setIcon(UIUtils.geoclassicon)
-                item.setData(SPARQLUtils.geoclassnode, 257)
+                item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
                 self.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
                 self.geoTreeViewModel.appendRow(item)
             self.inp_sparql2.updateNewClassList()
@@ -511,7 +511,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def createLayerFromTreeEntry(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
         if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.classnode:
             self.dataAllInstancesAsLayer()
         elif nodetype==SPARQLUtils.geoinstancenode or nodetype==SPARQLUtils.instancenode:
@@ -556,7 +556,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
                 curindex) is not None:
-            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+            concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
             querytext = self.triplestoreconf[endpointIndex]["querytemplate"][self.queryTemplates.currentIndex()][
             "query"].replace("?item a <%%concept%%>", "<"+concept+"> rdfs:member ?item ")
             self.inp_sparql2.setPlainText(querytext)
@@ -572,7 +572,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 self.currentContextModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
             concept = "Q" + self.currentContextModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
         elif self.currentContextModel.itemFromIndex(curindex) is not None:
-            concept = self.currentContextModel.itemFromIndex(curindex).data(256)
+            concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
         if self.queryTemplates.count()>0:
             if "wd:Q%%concept%% ." in self.queryTemplates.itemData(self.queryTemplates.currentIndex()):
                 querytext = ""
@@ -674,8 +674,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def dataInstanceAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
         if nodetype==SPARQLUtils.geoinstancenode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 self.qlayerinstance = QueryLayerTask(
@@ -716,8 +716,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def dataAllInstancesAsLayer(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
-        concept = self.currentContextModel.itemFromIndex(curindex).data(256)
-        nodetype = self.currentContextModel.itemFromIndex(curindex).data(257)
+        concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
+        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
         progress = QProgressDialog(
             "Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")

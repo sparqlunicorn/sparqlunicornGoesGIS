@@ -20,6 +20,14 @@ class UIUtils:
 
     sparqlvarregex=QRegExp("[A-Z] | [a-z] | [#x00C0-#x00D6] | [#x00D8-#x00F6] | [#x00F8-#x02FF] | [#x0370-#x037D] | [#x037F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]")
 
+    dataslot_conceptURI=256
+
+    dataslot_nodetype=257
+
+    dataslot_instanceamount=258
+
+    dataslot_instancesloaded=259
+
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
@@ -85,7 +93,7 @@ class UIUtils:
     @staticmethod
     def openTableURL(modelindex,table):
         if table.model().data(modelindex)!=None:
-            concept=str(table.model().data(modelindex,256))
+            concept=str(table.model().data(modelindex,UIUtils.dataslot_conceptURI))
             if concept.startswith("http"):
                 url = QUrl(concept)
                 QDesktopServices.openUrl(url)
@@ -93,7 +101,7 @@ class UIUtils:
     @staticmethod
     def showTableURI(modelindex,table,statusbar):
         if table.model().data(modelindex)!=None:
-            concept=str(table.model().data(modelindex,256))
+            concept=str(table.model().data(modelindex,UIUtils.dataslot_conceptURI))
             if concept.startswith("http"):
                 statusbar.setText(concept)
 
@@ -153,7 +161,7 @@ class UIUtils:
                 item.setText(
                     SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes) + " (" + str(
                         queryresult[att]["amount"]) + "%)")
-            item.setData(str(queryresult[att]["concept"]), 256)
+            item.setData(str(queryresult[att]["concept"]), UIUtils.dataslot_conceptURI)
             item.setToolTip("<html><b>Property URI</b> " + str(
                 queryresult[att]["concept"]) + "<br>Double click to view definition in web browser")
             searchResultModel.setItem(counter, 1, item)
@@ -164,14 +172,14 @@ class UIUtils:
                         "http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                                                              "rdf:").replace(
                         "http://www.opengis.net/ont/geosparql#", "geo:") + "]")
-                    itembutton.setData(str(queryresult[att]["valtype"]), 256)
+                    itembutton.setData(str(queryresult[att]["valtype"]), UIUtils.dataslot_conceptURI)
                 else:
                     itembutton.setText("Click to load samples... [xsd:anyURI]")
-                    itembutton.setData("http://www.w3.org/2001/XMLSchema#anyURI", 256)
+                    itembutton.setData("http://www.w3.org/2001/XMLSchema#anyURI", UIUtils.dataslot_conceptURI)
             elif "val" in queryresult[att]:
                 itembutton = QStandardItem()
                 itembutton.setText(queryresult[att]["val"])
-                itembutton.setData(queryresult[att]["valtype"], 256)
+                itembutton.setData(queryresult[att]["valtype"], UIUtils.dataslot_conceptURI)
             searchResultModel.setItem(counter, 2, itembutton)
             counter += 1
 
@@ -189,16 +197,16 @@ class UIUtils:
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
                 UIUtils.iterateTree(node.child(i),result,visible,classesonly,triplestoreconf,currentContext)
-            if node.data(256)==None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
+            if node.data(UIUtils.dataslot_conceptURI)==None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
-            if node.child(i).data(257)==SPARQLUtils.geoclassnode or node.child(i).data(257)==SPARQLUtils.classnode:
-                result.add("<" + str(node.child(i).data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)),None))+"\" .\n")
-                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(256)),None))+"\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <"+subclassproperty+"> <"+str(node.data(256))+"> .\n")
-            elif not classesonly and node.child(i).data(257)==SPARQLUtils.geoinstancenode or node.child(i).data(257)==SPARQLUtils.instancenode:
-                result.add("<" + str(node.data(256)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
-                result.add("<" + str(node.data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(256)), None)) + "\" .\n")
-                result.add("<" + str(node.child(i).data(256)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(256)), None)) + "\" .\n")
-                result.add("<"+str(node.child(i).data(256))+"> <"+typeproperty+"> <"+str(node.data(256))+"> .\n")
+            if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
+                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+subclassproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")
+            elif not classesonly and node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoinstancenode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.instancenode:
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
+                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+typeproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")

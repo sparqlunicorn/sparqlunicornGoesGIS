@@ -11,7 +11,6 @@ from rdflib import Graph
 
 MESSAGE_CATEGORY = "SPARQLUtils"
 
-
 class SPARQLUtils:
     supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral": "wkt",
                              "http://www.opengis.net/ont/geosparql#gmlLiteral": "gml",

@@ -85,7 +85,7 @@ class ClassTreeQueryTask(QgsTask):
                 continue
             if subval not in self.classtreemap:
                 self.classtreemap[subval]=QStandardItem()
-                self.classtreemap[subval].setData(subval,256)
+                self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
                 if "label" in result:
                     self.classtreemap[subval].setText(
                         result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf[
@@ -95,12 +95,12 @@ class ClassTreeQueryTask(QgsTask):
                         SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
                 if "hasgeo" in result:
                     self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, 257)
+                    self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
                     self.classtreemap[subval].setToolTip(
                         "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
                     self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, 257)
+                    self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, UIUtils.dataslot_nodetype)
                     #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
                     #                         Qgis.Info)
                     self.classtreemap[subval].setData(self.triplestoreconf["geoclasses"][subval][0],260)
@@ -108,7 +108,7 @@ class ClassTreeQueryTask(QgsTask):
                         "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
                 else:
                     self.classtreemap[subval].setIcon(UIUtils.classicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.classnode, 257)
+                    self.classtreemap[subval].setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
                     self.classtreemap[subval].setToolTip(
                         "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))
             if subval not in self.subclassmap:

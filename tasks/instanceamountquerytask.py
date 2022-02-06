@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 
@@ -32,4 +33,4 @@ class InstanceAmountQueryTask(QgsTask):
         #    self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
         if self.amount!=-1:
             self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
-            self.treeNode.setData(str(self.amount),258)
+            self.treeNode.setData(str(self.amount),UIUtils.dataslot_instanceamount)

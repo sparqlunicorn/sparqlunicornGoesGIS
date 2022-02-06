@@ -61,7 +61,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.sparql.columnvars = {}
         for concept in self.resultlist:
             item = QStandardItem()
-            item.setData(self.resultlist[concept]["concept"], 256)
+            item.setData(self.resultlist[concept]["concept"], UIUtils.dataslot_conceptURI)
             if "label" in self.resultlist[concept] and self.resultlist[concept]["label"]!="":
                 item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"],self.triplestoreconf["prefixesrev"]) + ")")
             else:
@@ -69,7 +69,7 @@ class GeoConceptsQueryTask(QgsTask):
             item.setForeground(QColor(0,0,0))
             item.setEditable(False)
             item.setIcon(UIUtils.geoclassicon)
-            item.setData(SPARQLUtils.geoclassnode, 257)
+            item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
             item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
             self.rootNode.appendRow(item)
             if self.triplestoreconf["name"] == "Wikidata" and "label" in self.resultlist[concept] and "(" in item.text():
