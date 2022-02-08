@@ -129,7 +129,7 @@ class SearchDialog(QDialog, FORM_CLASS):
                 viewlist = {k: v for k, v in d.iteritems() if label in k}
             for res in viewlist:
                 item = QListWidgetItem()
-                item.setData(256, val)
+                item.setData(UIUtils.dataslot_conceptURI, val)
                 item.setText(key)
                 self.searchResult.addItem(item)
         else:
@@ -152,7 +152,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         else:
             if self.searchResult.count() == 0:
                 return
-            toinsert = str(self.searchResult.currentItem().data(256))
+            toinsert = str(self.searchResult.currentItem().data(UIUtils.dataslot_conceptURI))
         if self.bothOptions == True:
             haschanged = False
             if self.currentprefixes != None:

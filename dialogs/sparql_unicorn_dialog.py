@@ -708,7 +708,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             return
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         if self.currentContext.selectionModel().currentIndex() is not None and self.item is not None:
-            concept = self.item.data(256)
+            concept = self.item.data(UIUtils.dataslot_conceptURI)
             querytext = self.triplestoreconf["querytemplate"][self.queryTemplates.currentIndex()][
             "query"].replace("?item a <%%concept%%>", "?item a ?con . ?con rdfs:subClassOf* <"+concept+"> ")
             self.inp_sparql2.setPlainText(querytext)

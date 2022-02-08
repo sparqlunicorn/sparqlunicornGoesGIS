@@ -154,13 +154,15 @@ class UIUtils:
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
             if "label" in queryresult[att] and queryresult[att]["label"]!="":
-                item.setText(str(queryresult[att]["label"]) + " (" + SPARQLUtils.labelFromURI(
-                    str(queryresult[att]["concept"]), invprefixes) + ") [" + str(
-                    queryresult[att]["amount"]) + "%]")
+                thetext=str(queryresult[att]["label"]) + " (" + SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes) + ")"
+                if "amount" in queryresult[att]:
+                    thetext+="[" + str(queryresult[att]["amount"]) + "%]"
+                item.setText(thetext)
             else:
-                item.setText(
-                    SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes) + " (" + str(
-                        queryresult[att]["amount"]) + "%)")
+                thetext=SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)
+                if "amount" in queryresult[att]:
+                    thetext+="[" + str(queryresult[att]["amount"]) + "%]"
+                item.setText(thetext)
             item.setData(str(queryresult[att]["concept"]), UIUtils.dataslot_conceptURI)
             item.setToolTip("<html><b>Property URI</b> " + str(
                 queryresult[att]["concept"]) + "<br>Double click to view definition in web browser")

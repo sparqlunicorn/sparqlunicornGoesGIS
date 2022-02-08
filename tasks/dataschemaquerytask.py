@@ -51,12 +51,17 @@ class DataSchemaQueryTask(QgsTask):
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
-        maxcons = int(results["results"]["bindings"][0]["countcon"]["value"])
+        maxcons = -1
+        if "countcon" in results["results"]["bindings"][0]:
+            maxcons=int(results["results"]["bindings"][0]["countcon"]["value"])
         self.sortedatt = {}
         for result in results["results"]["bindings"]:
             if maxcons!=0 and str(maxcons)!="0":
-                self.sortedatt[result["rel"]["value"]] = {"amount": round(
-                    (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
+                if "countrel" in result:
+                    self.sortedatt[result["rel"]["value"]] = {"amount": round(
+                        (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
+                else:
+                    self.sortedatt[result["rel"]["value"]] = {"concept": result["rel"]["value"]}
                 if "valtype" in result and result["valtype"]["value"]!="":
                     self.sortedatt[result["rel"]["value"]]["valtype"]=result["valtype"]["value"]
         if "propertylabelquery" in self.triplestoreconf:

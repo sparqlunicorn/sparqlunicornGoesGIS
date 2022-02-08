@@ -181,10 +181,17 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
+        thequery=self.triplestoreconf["whattoenrichquery"]
+        if "resource" in self.triplestoreconf \
+            and "type" in self.triplestoreconf["resource"] \
+            and self.triplestoreconf["resource"]["type"] == "endpoint" \
+            and "sparql11" in self.triplestoreconf["resource"] \
+            and self.triplestoreconf["resource"]["sparql11"] == False:
+                thequery = "SELECT ?rel \nWHERE\n{ ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val.}\nGROUP BY ?rel\nORDER BY ?rel"
         self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
-                                           self.triplestoreurl,
-                                           SPARQLUtils.queryPreProcessing(self.triplestoreconf["whattoenrichquery"],self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
-                                           self.concept,
-                                           None,
-                                           self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)
+                               self.triplestoreurl,
+                               SPARQLUtils.queryPreProcessing(thequery,self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
+                               self.concept,
+                               None,
+                               self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)
         QgsApplication.taskManager().addTask(self.qtask)

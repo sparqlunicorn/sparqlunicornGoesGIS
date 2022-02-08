@@ -85,6 +85,7 @@ class GraphUtils:
                                           "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"}
         testQueries = {
             "geosparql": "PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}",
+            "sparql11":"SELECT ?a ?b ?c WHERE { ?a ?b ?c . BIND( <http://www.opengis.net/ont/geosparql#> AS ?b) } LIMIT 1",
             "available": "SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",
             "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
             "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
@@ -99,7 +100,14 @@ class GraphUtils:
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         capabilitylist=[]
         if self.testTripleStoreConnection(self.configuration["resource"],testQueries["available"],credentialUserName,credentialPassword,authmethod):
-            QgsMessageLog.logMessage("Triple Store "+str(triplestoreurl)+" is available!", MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " is available!", MESSAGE_CATEGORY,
+                                     Qgis.Info)
+            if self.testTripleStoreConnection(self.configuration["resource"],testQueries["sparql11"],credentialUserName,credentialPassword,authmethod):
+                self.configuration["resource"]["sparql11"]=True
+            else:
+                self.configuration["resource"]["sparql11"] = False
+            QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " SPARQL 1.1 Compatibility: "+str(self.configuration["resource"]["sparql11"]), MESSAGE_CATEGORY,
+                                     Qgis.Info)
             if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
                 QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
                                          Qgis.Info)
