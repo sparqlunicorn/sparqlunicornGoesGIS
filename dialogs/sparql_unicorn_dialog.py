@@ -195,6 +195,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         thetext="<html><h3>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0><tr><th>Information</th><th>Value</th></tr>"
         thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
         thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"
+        if "sparql11" in self.triplestoreconf[self.comboBox.currentIndex()]["resource"] and self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["sparql11"]:
+            thetext += "<tr><td>SPARQL 1.1</td><td>Supported</td></tr>"
+        else:
+            thetext += "<tr><td>SPARQL 1.1</td><td>Not Supported</td></tr>"
+        if "type" in self.triplestoreconf[self.comboBox.currentIndex()] and self.triplestoreconf[self.comboBox.currentIndex()]["type"]=="geosparqlendpoint":
+            thetext += "<tr><td>GeoSPARQL 1.0</td><td>Supported</td></tr>"
+        else:
+            thetext += "<tr><td>GeoSPARQL 1.0</td><td>Not Supported</td></tr>"
         thetext+="<tr><td>Endpoint</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"])+"</a></td></tr>"
         thetext+="<tr><td>Type Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</a></td></tr>"
         thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
@@ -682,7 +690,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     "Instance to Layer: " + str(concept),
                     concept,
                     self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                    "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n BIND( <" + str(concept) + "> AS ?item)\n ?item ?rel ?val . " +
+                    "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <" + str(concept) + "> ?rel ?val . " +
                     self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0] + "\n }",
                     self.triplestoreconf[self.comboBox.currentIndex()], False, SPARQLUtils.labelFromURI(concept), None)
             else:
@@ -690,14 +698,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 "Instance to Layer: " + str(concept),
                     concept,
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                "SELECT ?item ?rel ?val \n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val . \n }",
+                "SELECT ?rel ?val \n WHERE\n {\n <"+str(concept)+"> ?rel ?val . \n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "Instance to Layer: " + str(concept),
                 concept,
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n BIND( <"+str(concept)+"> AS ?item)\n ?item ?rel ?val .\n }",
+                "SELECT ?rel ?val\n WHERE\n {\n <"+str(concept)+"> ?rel ?val .\n }",
                 self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 

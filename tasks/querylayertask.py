@@ -24,6 +24,7 @@ class QueryLayerTask(QgsTask):
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.styleuri=styleuri
+        self.vlayer=None
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
@@ -51,9 +52,9 @@ class QueryLayerTask(QgsTask):
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
         self.geojson=res[0]
         if self.geojson!=None:
-            #QgsMessageLog.logMessage('Started task "{}"'.format(
-            #    self.geojson),
-            #    MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                self.geojson),
+                MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    self.vlayer.featureCount()),
@@ -108,6 +109,9 @@ class QueryLayerTask(QgsTask):
         relval=False
         crsset=set()
         for result in results["results"]["bindings"]:
+            if self.concept!=None and "item" not in result and not "?item " in self.query:
+                result["item"]={}
+                result["item"]["value"]=self.concept
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
                 relval=True
@@ -229,6 +233,8 @@ class QueryLayerTask(QgsTask):
         return [geojson]
 
     def finished(self, result):
+        QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         if self.geojson == None and self.exception != None:
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
@@ -239,15 +245,17 @@ class QueryLayerTask(QgsTask):
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
             return
-        if self.geojson != None and isinstance(self.geojson, int) and not self.allownongeo:
-            msgBox = QMessageBox()
-            msgBox.setText("The query did not retrieve a geometry result. However, there were " + str(
-                self.geojson) + " non-geometry query results. You can retrieve them by allowing non-geometry queries!")
-            msgBox.exec()
-            return
+        #if self.geojson != None and isinstance(self.geojson, int) and not self.allownongeo:
+        #    msgBox = QMessageBox()
+        #    msgBox.setText("The query did not retrieve a geometry result. However, there were " + str(
+        #        self.geojson) + " non-geometry query results. You can retrieve them by allowing non-geometry queries!")
+        #    msgBox.exec()
+        #    return
         if self.progress!=None:
             self.progress.close()
         if self.vlayer!=None:
+            QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
+                                     MESSAGE_CATEGORY, Qgis.Info)
             QgsProject.instance().addMapLayer(self.vlayer)
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())

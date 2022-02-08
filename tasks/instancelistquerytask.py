@@ -49,10 +49,10 @@ class InstanceListQueryTask(QgsTask):
                 thequery="SELECT ?con ?label WHERE {  <" + str(
                         self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con . "+str(labelpattern)+" }"
         elif nodetype==SPARQLUtils.linkedgeoclassnode:
-            thequery = "SELECT ?con ?label ?hasgeo ?linkedgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(labelpattern) + " BIND(EXISTS {?con <" + str(
-                geometryproperty) + "> ?wkt } AS ?hasgeo)  BIND(EXISTS {?con <" + str(
-                self.treeNode.data(260)) + "> ?lgeo } AS ?linkedgeo)}"
+            thequery = "SELECT ?con ?label ?hasgeo ?linkedgeo WHERE {\n ?con <" + typeproperty + "> <" + str(
+                self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> .\n " + str(labelpattern) + "\n OPTIONAL {?con <" + str(
+                geometryproperty) + "> ?hasgeo . }\n  OPTIONAL {?con <" + str(
+                self.treeNode.data(UIUtils.dataslot_linkedconceptrel)) + "> ?linkedgeo . }\n }"
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if isinstance(self.triplestoreurl, str):
@@ -125,6 +125,7 @@ class InstanceListQueryTask(QgsTask):
             elif self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode and self.queryresult[concept]["linkedgeo"]:
                 item.setData(SPARQLUtils.linkedgeoinstancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.linkedgeoinstanceicon)
+                item.setData(self.treeNode.data(UIUtils.dataslot_linkedconceptrel),UIUtils.dataslot_linkedconceptrel)
                 item.setToolTip("Linked GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             else:
                 item.setData(SPARQLUtils.instancenode,UIUtils.dataslot_nodetype)

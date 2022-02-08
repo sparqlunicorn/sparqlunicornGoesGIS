@@ -36,6 +36,8 @@ class ConceptContextMenu(QMenu):
             actionclip.setIcon(UIUtils.classlinkicon)
         elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode:
             actionclip.setIcon(UIUtils.linkedgeoclassicon)
+        elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoinstancenode:
+            actionclip.setIcon(UIUtils.linkedgeoinstanceicon)
         elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.collectionclassnode:
             actionclip.setIcon(UIUtils.featurecollectionlinkicon)
         menu.addAction(actionclip)
@@ -114,6 +116,8 @@ class ConceptContextMenu(QMenu):
                 actionaddInstanceAsLayer.setIcon(UIUtils.addinstanceicon)
             elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.geoinstancenode:
                 actionaddInstanceAsLayer.setIcon(UIUtils.addgeoinstanceicon)
+            elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoinstancenode:
+                actionaddInstanceAsLayer.setIcon(UIUtils.addinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
         if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode:
@@ -121,6 +125,11 @@ class ConceptContextMenu(QMenu):
             actionquerylinkedgeoconcept.setIcon(UIUtils.linkedgeoclassicon)
             menu.addAction(actionquerylinkedgeoconcept)
             actionquerylinkedgeoconcept.triggered.connect(self.queryLinkedGeoConcept)
+        elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoinstancenode:
+            actionquerylinkedgeoinstance = QAction("Query joined layer with linked geoinstance")
+            actionquerylinkedgeoinstance.setIcon(UIUtils.linkedgeoinstanceicon)
+            menu.addAction(actionquerylinkedgeoinstance)
+            actionquerylinkedgeoinstance.triggered.connect(self.queryLinkedGeoInstance)
         #actionapplicablestyles = QAction("Find applicable styles")
         #menu.addAction(actionapplicablestyles)
         #actionapplicablestyles.triggered.connect(self.appStyles)
@@ -157,7 +166,7 @@ class ConceptContextMenu(QMenu):
     def queryLinkedGeoConcept(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         nodetype = self.item.data(UIUtils.dataslot_nodetype)
-        linkedproperty=self.item.data(260)
+        linkedproperty=self.item.data(UIUtils.dataslot_linkedconceptrel)
         label = self.item.text()
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
@@ -167,6 +176,19 @@ class ConceptContextMenu(QMenu):
             concept,
             self.triplestoreconf["resource"],
             "SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n ?item <"+str(typeproperty)+"> <"+str(concept)+"> . \n ?item ?rel ?val .\n ?item <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n } ORDER BY ?item",
+            self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
+
+    def queryLinkedGeoInstance(self):
+        concept = self.item.data(UIUtils.dataslot_conceptURI)
+        linkedproperty=self.item.data(UIUtils.dataslot_linkedconceptrel)
+        thequery="SELECT ?"+str(" ?".join(self.triplestoreconf["mandatoryvariables"]))
+        thequery=thequery.replace("?item", "")
+        self.qlayerinstance = QueryLayerTask(
+            "Linked Geo Instance to Layer: " + str(concept),
+            concept,
+            self.triplestoreconf["resource"],
+            thequery+" ?item2 ?rel ?val ?rel2 ?val2 \n WHERE\n {\n <"+str(concept)+"> ?rel ?val .\n <"+str(concept)+"> <"+str(linkedproperty)+"> ?item2 .\n ?item2 ?rel2 ?val2 .\n "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item","?item2")+" \n }",
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
@@ -191,7 +213,7 @@ class ConceptContextMenu(QMenu):
 
     def instanceList(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
-        alreadyloadedindicator = self.item.data(259)
+        alreadyloadedindicator = self.item.data(UIUtils.dataslot_instancesloaded)
         if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
