@@ -28,6 +28,8 @@ class UIUtils:
 
     dataslot_instancesloaded=259
 
+    dataslot_linkedconceptrel=260
+
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
@@ -41,6 +43,8 @@ class UIUtils:
     addclassicon=QIcon(":/icons/resources/icons/addclass.png")
     addgeoclassicon=QIcon(":/icons/resources/icons/addgeoclass.png")
     addgeoinstanceicon=QIcon(":/icons/resources/icons/addgeoinstance.png")
+    addlinkedgeoinstanceicon = QIcon(":/icons/resources/icons/addlinkedgeoinstance.png")
+    addlinkedgeoclassicon = QIcon(":/icons/resources/icons/addlinkedgeoclass.png")
     addinstanceicon=QIcon(":/icons/resources/icons/addinstance.png")
     countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
