@@ -28,11 +28,7 @@ class UIUtils:
 
     dataslot_instancesloaded=259
 
-<<<<<<< HEAD
     dataslot_linkedconceptrel=260
-=======
-    dataslot_linkedconceptrel = 260
->>>>>>> 4edf7a4b6f28c2dd80de0e89c62b09ea662bf576
 
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
