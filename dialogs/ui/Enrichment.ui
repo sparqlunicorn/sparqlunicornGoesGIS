@@ -19,10 +19,19 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow#Enrichment{
+background-color: rgb(140, 140, 140);
+	
+Border-radius:20px;
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">QObject#centralwidget{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}</string>
+	background-color: rgb(255, 255, 255);
+}</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="1" column="0">
@@ -35,9 +44,10 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
       </property>
       <property name="styleSheet">
        <string notr="true">QObject#frame{
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+	background-color: rgb(140, 140, 140);
 	
-border-radius:20px;}
+Border-radius:20px;}
+
 </string>
       </property>
       <property name="frameShape">
@@ -72,7 +82,7 @@ border-radius:20px;}
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color:rgb(0, 81, 135);</string>
+            <string notr="true">color:rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Layer :</string>
@@ -146,9 +156,10 @@ selection-color:rgb(0, 81, 135);</string>
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
+            <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
            </property>
            <property name="text">
             <string>Load Layer</string>
@@ -212,9 +223,10 @@ color: rgb(255, 255, 255);</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:rgb(0, 127, 165);
+               <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
               </property>
               <property name="text">
                <string>Start Enrichment</string>
@@ -265,9 +277,10 @@ color: rgb(255, 255, 255);</string>
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:rgb(0, 127, 165);
+               <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
               </property>
               <property name="text">
                <string>Add enriched layer</string>
@@ -325,9 +338,10 @@ color: rgb(255, 255, 255);</string>
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
+            <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);
+
 </string>
            </property>
            <property name="text">
@@ -379,9 +393,10 @@ color: rgb(255, 255, 255);
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color:rgb(0, 127, 165);
+            <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
            </property>
            <property name="text">
             <string>What to enrich?</string>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>879</width>
-    <height>519</height>
+    <width>884</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -21,7 +21,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QObject#whatToEnrichtDialog{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}
+	background-color: rgb(255, 255, 255);
+}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -35,7 +36,8 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
      </property>
      <property name="styleSheet">
       <string notr="true">QObject#frame{
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+	
+	background-color: rgb(140, 140, 140);
 	
 border-radius:20px;}
 
@@ -82,7 +84,7 @@ border-radius:20px;}
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
+              <string notr="true">color: rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>Search ID Concept:</string>
@@ -154,7 +156,7 @@ background-color: rgb(253, 252, 250);</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
+              <string notr="true">color: rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>Triple Store:</string>
@@ -241,7 +243,7 @@ selection-color:rgb(0, 81, 135);</string>
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color:rgb(0, 127, 165);
+          <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
          </property>
@@ -281,7 +283,7 @@ color: rgb(255, 255, 255);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
+             <string notr="true">color: rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>In Area:</string>
@@ -326,7 +328,7 @@ color: rgb(255, 255, 255);</string>
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color:rgb(0, 127, 165);
+          <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
          </property>
@@ -361,7 +363,7 @@ color: rgb(255, 255, 255);</string>
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:rgb(0, 127, 165);
+         <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
         </property>
@@ -395,7 +397,7 @@ color: rgb(255, 255, 255);</string>
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:rgb(0, 127, 165);
+         <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);</string>
         </property>
@@ -445,7 +447,7 @@ color: rgb(255, 255, 255);</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color:rgb(0, 81, 135);</string>
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Search Results</string>

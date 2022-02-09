@@ -15,7 +15,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QObject#VarInputDialog{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}
+background-color:rgb(255,255,255);
+}
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -29,9 +30,10 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
      </property>
      <property name="styleSheet">
       <string notr="true">QObject#frame{
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+background-color: rgb(140, 140, 140);
 	
-border-radius:20px;}
+Border-radius:20px;}
+
 </string>
      </property>
      <property name="frameShape">
@@ -63,7 +65,7 @@ border-radius:20px;}
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:rgb(0, 81, 135);</string>
+         <string notr="true">color:rgb(0, 0, 0);</string>
         </property>
         <property name="text">
          <string>Choose Layer:</string>
@@ -135,7 +137,7 @@ selection-color:rgb(0, 81, 135);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0,0,0);</string>
           </property>
           <property name="text">
            <string>Choose Field:</string>
@@ -195,7 +197,7 @@ selection-color:rgb(0, 81, 135);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0,0,0);</string>
           </property>
           <property name="text">
            <string>Is Label</string>
@@ -224,7 +226,7 @@ selection-color:rgb(0, 81, 135);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0,0,0);</string>
           </property>
           <property name="text">
            <string>Label Lang:</string>
@@ -1195,7 +1197,7 @@ selection-color:rgb(0, 81, 135);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0,0,0);</string>
           </property>
           <property name="text">
            <string>Variable Name:</string>
@@ -1247,7 +1249,7 @@ border-color:rgb(45, 45, 45);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0,0,0);</string>
           </property>
           <property name="text">
            <string>Variable Type:</string>
@@ -1337,9 +1339,10 @@ selection-color:rgb(0, 81, 135);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">
-background-color:rgb(0, 127, 165);
+background-color:rgb(189, 24, 29);
 border-radius:10px;
 color: rgb(255, 255, 255);
+
 </string>
         </property>
         <property name="text">

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>641</height>
+    <height>758</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -21,7 +21,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QObject#TripleStoreDialog{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}</string>
+background-color:(255,255,255);
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -34,9 +35,10 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
      </property>
      <property name="styleSheet">
       <string notr="true">QObject#frame{
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+	background-color: rgb(140, 140, 140);
 	
-border-radius:20px;}
+Border-radius:20px;}
+
 </string>
      </property>
      <property name="frameShape">
@@ -64,7 +66,7 @@ border-radius:20px;}
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>Geometry Variable:</string>
@@ -90,7 +92,9 @@ border-radius:20px;}
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color: rgb(0, 127, 127);</string>
           </property>
           <property name="text">
            <string>geo</string>
@@ -117,7 +121,7 @@ background-color: rgb(253, 252, 250);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>Triple Store URL:</string>
@@ -143,7 +147,9 @@ background-color: rgb(253, 252, 250);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color:rgb(0, 127, 127);</string>
           </property>
           <property name="text">
            <string>https://query.wikidata.org/sparql</string>
@@ -172,7 +178,7 @@ background-color: rgb(253, 252, 250);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
+             <string notr="true">color:rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>Active:</string>
@@ -209,6 +215,7 @@ background-color: rgb(253, 252, 250);</string>
            <string notr="true">border-radius:10px;
 
 border-color:rgb(45, 45, 45);
+color: rgb(0, 127, 127);
 
 background-color: rgb(253, 252, 250);</string>
           </property>
@@ -237,7 +244,7 @@ background-color: rgb(253, 252, 250);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>Choose Triple Store:</string>
@@ -292,7 +299,7 @@ selection-color:rgb(0, 81, 135);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>Triple Store Name:</string>
@@ -318,7 +325,9 @@ selection-color:rgb(0, 81, 135);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color:rgb(0,127,127)</string>
           </property>
           <property name="text">
            <string>My cool triplestore!</string>
@@ -347,7 +356,7 @@ background-color: rgb(253, 252, 250);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
+             <string notr="true">color:rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>Prefixes:</string>
@@ -379,9 +388,10 @@ background-color: rgb(253, 252, 250);</string>
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 127, 165);
+             <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
             </property>
             <property name="text">
              <string>Remove Selected Prefix</string>
@@ -404,7 +414,7 @@ color: rgb(255, 255, 255);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
+             <string notr="true">color:rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>Example Query (optional):</string>
@@ -484,9 +494,10 @@ background-color: rgb(253, 252, 250);</string>
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 127, 165);
+             <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
             </property>
             <property name="text">
              <string>Restore Default Triple Store Configuration</string>
@@ -518,9 +529,10 @@ color: rgb(255, 255, 255);</string>
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 127, 165);
+             <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
             </property>
             <property name="text">
              <string>Apply</string>
@@ -552,9 +564,10 @@ color: rgb(255, 255, 255);</string>
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 127, 165);
+             <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
             </property>
             <property name="text">
              <string>Close</string>
@@ -583,7 +596,7 @@ color: rgb(255, 255, 255);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>EPSG Code:</string>
@@ -609,7 +622,9 @@ color: rgb(255, 255, 255);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color: rgb(0, 127, 127);</string>
           </property>
           <property name="text">
            <string>4326</string>
@@ -636,7 +651,7 @@ background-color: rgb(253, 252, 250);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:rgb(0, 81, 135);</string>
+           <string notr="true">color:rgb(0, 0, 0);</string>
           </property>
           <property name="text">
            <string>Prefix:</string>
@@ -662,7 +677,9 @@ background-color: rgb(253, 252, 250);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color: rgb(0, 127, 127);</string>
           </property>
           <property name="text">
            <string>wd</string>
@@ -691,7 +708,7 @@ background-color: rgb(253, 252, 250);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:rgb(0, 81, 135);</string>
+             <string notr="true">color:rgb(0, 0, 0);</string>
             </property>
             <property name="text">
              <string>Item Variable:</string>
@@ -705,7 +722,9 @@ background-color: rgb(253, 252, 250);</string>
 
 border-color:rgb(45, 45, 45);
 
-background-color: rgb(253, 252, 250);</string>
+background-color: rgb(253, 252, 250);
+
+color: rgb(0, 127, 127);</string>
             </property>
             <property name="text">
              <string>item</string>
@@ -733,9 +752,10 @@ background-color: rgb(253, 252, 250);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>Add Prefix</string>
@@ -765,9 +785,10 @@ color: rgb(255, 255, 255);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>Delete Triple Store</string>
@@ -793,9 +814,10 @@ color: rgb(255, 255, 255);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>New Triple Store</string>
@@ -821,9 +843,10 @@ color: rgb(255, 255, 255);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>Test Connection</string>
@@ -849,9 +872,10 @@ color: rgb(255, 255, 255);</string>
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0, 127, 165);
+           <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
           </property>
           <property name="text">
            <string>Detect Configuration</string>

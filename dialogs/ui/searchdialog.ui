@@ -15,7 +15,11 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QObject#SearchDialog{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795455 rgba(0, 57, 70, 255), stop:0.5625 rgba(0, 85, 104, 255), stop:0.954545 rgba(0, 107, 131, 255));}</string>
+	color: rgb(255, 255, 255);
+}
+	
+
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
@@ -28,9 +32,11 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0795
      </property>
      <property name="styleSheet">
       <string notr="true">QObject#frame{
-	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.0113636 rgba(113, 181, 190, 255));
+background-color: rgb(140, 140, 140);
 	
-border-radius:20px;}
+Border-radius:20px;}
+
+
 </string>
      </property>
      <property name="frameShape">
@@ -73,7 +79,7 @@ border-radius:20px;}
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
+              <string notr="true">color:rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>Search Concept:</string>
@@ -128,9 +134,10 @@ border-color:rgb(45, 45, 45);</string>
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color:rgb(0, 127, 165);
+              <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
              </property>
              <property name="text">
               <string>Search</string>
@@ -163,7 +170,7 @@ color: rgb(255, 255, 255);</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
+              <string notr="true">color:rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>TripleStore:</string>
@@ -239,7 +246,7 @@ selection-color:rgb(0, 81, 135);</string>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color:rgb(0, 81, 135);</string>
+              <string notr="true">color:rgb(0, 0, 0);</string>
              </property>
              <property name="text">
               <string>Define Own URI:</string>
@@ -294,9 +301,10 @@ border-color:rgb(45, 45, 45);</string>
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color:rgb(0, 127, 165);
+              <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
              </property>
              <property name="text">
               <string>Use Own URI</string>
@@ -348,7 +356,7 @@ color: rgb(255, 255, 255);</string>
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">color:rgb(0, 81, 135);</string>
+            <string notr="true">color:rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Class</string>
@@ -380,7 +388,7 @@ color: rgb(255, 255, 255);</string>
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
-            <string notr="true">color:rgb(0, 81, 135);</string>
+            <string notr="true">color:rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Property</string>
@@ -409,9 +417,10 @@ color: rgb(255, 255, 255);</string>
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color:rgb(0, 127, 165);
+         <string notr="true">background-color:rgb(189, 24, 29);
 border-radius:10px;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+</string>
         </property>
         <property name="text">
          <string>Apply</string>
@@ -443,7 +452,7 @@ color: rgb(255, 255, 255);</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">color:rgb(0, 81, 135);</string>
+            <string notr="true">color:rgb(0, 0, 0);</string>
            </property>
            <property name="text">
             <string>Search Results</string>
