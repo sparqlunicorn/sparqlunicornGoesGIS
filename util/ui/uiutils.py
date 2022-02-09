@@ -28,6 +28,8 @@ class UIUtils:
 
     dataslot_instancesloaded=259
 
+    dataslot_linkedconceptrel = 260
+
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
