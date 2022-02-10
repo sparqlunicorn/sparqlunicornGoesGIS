@@ -20,7 +20,7 @@ identifiers:
   - description: This is the archived snapshot of version 0.14
     type: doi
     value: "10.5281/zenodo.5977770"
-license: GPL-2.0 License
+license: GPL-2.0-only
 repository-code: "https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
 keywords:
   - "Linked Open Data"
