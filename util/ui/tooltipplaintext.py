@@ -2,6 +2,8 @@ from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip, QMessageBox, QWidget, 
 from qgis.PyQt.QtGui import QTextCursor, QPainter, QColor, QTextFormat
 from PyQt5.QtCore import Qt, QRect, QSize, QStringListModel
 from PyQt5 import QtCore
+from qgis.core import QgsMessageLog
+from qgis.core import Qgis
 from qgis.core import QgsProject, QgsMapLayer
 from ...dialogs.varinputdialog import VarInputDialog
 from ...dialogs.searchdialog import SearchDialog
@@ -257,20 +259,20 @@ class ToolTipPlainText(QPlainTextEdit):
             word = textCursor.selectedText()
             print("Tooltip Word")
             if word in self.savedLabels:
-                toolTipText = self.savedLabels[word]
+                toolTipText = self.savedLabels[word][word.replace("wd:", "http://www.wikidata.org/entity/").replace("wdt:", "http://www.wikidata.org/prop/direct/")]["label"]
             elif "wikidata" in word or word.startswith("wd:") or word.startswith("wdt:"):
                 if "http" in word:
                     word = word[word.rfind("/") + 1:-1]
-                self.savedLabels[word] = SPARQLUtils.getLabelsForClasses([word.replace("wd:", "").replace("wdt:", "")],
-                                                                  self.selector.currentIndex(),
-                                                                self.triplestoreconf,self.curtriplestoreconf["resource"]["url"])
-                toolTipText = self.savedLabels[word]
+                self.savedLabels[word] = SPARQLUtils.getLabelsForClasses(
+                    {word.replace("wd:", "http://www.wikidata.org/entity/").replace("wdt:", "http://www.wikidata.org/prop/direct/"):{}},
+                    self.triplestoreconf[self.selector.currentIndex()]["classlabelquery"],
+                    self.triplestoreconf[self.selector.currentIndex()],
+                    self.triplestoreconf[self.selector.currentIndex()]["resource"])
+                toolTipText = self.savedLabels[word][word.replace("wd:", "http://www.wikidata.org/entity/").replace("wdt:", "http://www.wikidata.org/prop/direct/")]["label"]
             else:
                 toolTipText = word
-            if ":" in word and toolTipText != word:
-                toolTipText = str(word[str(word).index(":") + 1:]) + ":" + str(toolTipText)
-            elif toolTipText != word:
-                toolTipText = word + ":" + toolTipText
+            if toolTipText != word:
+                toolTipText = str(word) + ": " + str(toolTipText)
             # Put the hover over in an easy to read spot
             pos = self.cursorRect(self.textCursor()).bottomRight()
             # The pos could also be set to event.pos() if you want it directly under the mouse

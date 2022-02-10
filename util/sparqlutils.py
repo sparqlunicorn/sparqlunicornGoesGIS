@@ -366,13 +366,14 @@ class SPARQLUtils:
                     #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                     if "entities" in myResponse:
                         for ent in myResponse["entities"]:
-                            #QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
+                            QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
                             if ent.startswith("P"):
                                 wdprefix="http://www.wikidata.org/prop/direct/"
                             elif ent.startswith("Q"):
                                 wdprefix="http://www.wikidata.org/entity/"
                             else:
                                 wdprefix=""
+                            QgsMessageLog.logMessage(str(result), MESSAGE_CATEGORY, Qgis.Info)
                             if preferredlang in myResponse["entities"][ent]["labels"]:
                                 result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
                             elif "en" in myResponse["entities"][ent]["labels"]:
