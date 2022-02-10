@@ -102,8 +102,8 @@ class LayerUtils:
         if literal.startswith("http"):
             res = SPARQLUtils.handleURILiteral(literal)
             if res == None:
-                return "{\"geometry\":null}"
-            return json.dumps(res[0])
+                return json.loads("{\"geometry\":{}}")
+            return res[0]
         if literaltype == "":
             literaltype = SPARQLUtils.detectGeoLiteralType(literal)
         curcrs=None
