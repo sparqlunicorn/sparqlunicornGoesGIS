@@ -1,5 +1,6 @@
 __pycache__/
 conf/triplestoreconf_personal.json
+tasks/triplestoreconf_personal.json
 dependencies/isodate/__pycache__/
 dependencies/rdflib/__pycache__/
 dependencies/pyshacl/__pycache__/

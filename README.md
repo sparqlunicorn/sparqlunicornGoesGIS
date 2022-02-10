@@ -1,5 +1,6 @@
 # SPARQLing Unicorn QGIS Plugin
 
+[![CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml/badge.svg)](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml)
 [![Join the chat at https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin](https://badges.gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin.svg)](https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
@@ -28,6 +29,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 ### Change Log
 
+-   0.14.1: Improved Compatibility for SPARQL 1.0 Endpoints, Automated Configuration Updates, Fixes for GeoShapes
 -   0.14: New icon set, UI design using layouts, improved item views, reworked triple store configuration, support for wgs84:geometry, graph validation with pyshacl, convert layer to neogeo RDF, began multilanguage literal support, mark linked geo concepts
 -   0.13.1: fixed icons and RDF export
 -   0.13: Added classtree for navigation, support for SPARQL endpoints with HTTP Auth, support for GeoSPARQL 1.1 FeatureCollections, Added context menu for classtree, Added support for schema.org encoded geometries, smaller bugfixes

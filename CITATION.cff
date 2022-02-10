@@ -1,5 +1,4 @@
-cff-version: 1.1.0
-message: If you use this software, please cite it as below.
+cff-version: 1.2.0
 authors:
   - family-names: Thiery
     given-names: Florian
@@ -7,7 +6,37 @@ authors:
   - family-names: Homburg
     given-names: Timo
     orcid: https://orcid.org/0000-0002-9499-5840
+  - name: "The SPARQL Unicorn by the Research Squirrel Engineers Network"
 title: "SPARQLing Unicorn QGIS Plugin"
-version: 0.14
+abstract: This plugin adds a GeoJSON layer from SPARQL enpoint queries.
+version: 0.14.1
+type: software
 doi: 10.5281/zenodo.3786814
-date-released: 2021-11-26
+date-released: 2022-02-10
+identifiers:
+  - description: This is the collection of archived snapshots of all versions of CeraTyOnt
+    type: doi
+    value: "10.5281/zenodo.3786814"
+  - description: This is the archived snapshot of version 0.14
+    type: doi
+    value: "10.5281/zenodo.5977770"
+license: GPL-2.0 License
+repository-code: "https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
+keywords:
+  - "Linked Open Data"
+  - "Wikidata"
+  - "GeoSPARQL"
+contact:
+  - affiliation: "Research Squirrel Engineers Network"
+    email: qgisplugin@sparqlunicorn.link
+    family-names: Florian
+    given-names: Thiery
+preferred-citation:
+  authors:
+    - family-names: Thiery
+      given-names: Florian
+    - family-names: Homburg
+      given-names: Timo
+  title: "SPARQLing Unicorn QGIS Plugin"
+  type: software
+  year: 2022

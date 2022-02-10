@@ -1,0 +1,5 @@
+FOR /d /r . %d IN ("__pycache__") DO @IF EXIST "%d" rd /s /q "%d"
+
+FOR /d /r . %d IN (".git") DO @IF EXIST "%d" rd /s /q "%d"
+
+FOR /d /r . %d IN (".github") DO @IF EXIST "%d" rd /s /q "%d"
