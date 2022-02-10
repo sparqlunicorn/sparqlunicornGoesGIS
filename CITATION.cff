@@ -23,6 +23,27 @@ identifiers:
   - description: This is the archived snapshot of version 0.14
     type: doi
     value: "10.5281/zenodo.5977770"
+  - description: This is the archived snapshot of version 0.13.1
+    type: doi
+    value: "10.5281/zenodo.5748245"
+  - description: This is the archived snapshot of version 0.13
+    type: doi
+    value: "10.5281/zenodo.5730528"
+  - description: This is the archived snapshot of version 0.12.2
+    type: doi
+    value: "10.5281/zenodo.4927687"
+  - description: This is the archived snapshot of version 0.12.1
+    type: doi
+    value: "10.5281/zenodo.4455962"
+  - description: This is the archived snapshot of version 0.12
+    type: doi
+    value: "10.5281/zenodo.4443324"
+  - description: This is the archived snapshot of version 0.11
+    type: doi
+    value: "10.5281/zenodo.3931255"
+  - description: This is the archived snapshot of version 0.10
+    type: doi
+    value: "10.5281/zenodo.3786819"
 repository-code: "https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
 keywords:
   - "Linked Open Data"
