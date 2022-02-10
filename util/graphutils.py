@@ -15,9 +15,9 @@ class GraphUtils:
         self.testURL=testURL
 
     def testTripleStoreConnection(self, triplestoreurl, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",credentialUserName=None,credentialPassword=None,authmethod=None):
-        QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
@@ -100,17 +100,17 @@ class GraphUtils:
             "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"}
         capabilitylist=[]
         if self.testTripleStoreConnection(self.configuration["resource"],testQueries["available"],credentialUserName,credentialPassword,authmethod):
-            QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " is available!", MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " is available!", MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             if self.testTripleStoreConnection(self.configuration["resource"],testQueries["sparql11"],credentialUserName,credentialPassword,authmethod):
                 self.configuration["resource"]["sparql11"]=True
             else:
                 self.configuration["resource"]["sparql11"] = False
-            QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " SPARQL 1.1 Compatibility: "+str(self.configuration["resource"]["sparql11"]), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " SPARQL 1.1 Compatibility: "+str(self.configuration["resource"]["sparql11"]), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
-                QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
-                                         Qgis.Info)
+                #QgsMessageLog.logMessage("Triple Store " + str(triplestoreurl) + " contains WKT literals!", MESSAGE_CATEGORY,
+                #                         Qgis.Info)
                 geomobjprop="http://www.opengis.net/ont/geosparql#hasGeometry"
                 if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasGeometry"],credentialUserName,credentialPassword,authmethod):
                     self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
@@ -241,7 +241,7 @@ class GraphUtils:
                     "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
                 self.configuration[
                     "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
+            #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
             if results!=False:
                 self.configuration["geoobjproperty"] = set()
@@ -258,7 +258,7 @@ class GraphUtils:
                             self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
                 for cls in self.configuration["geoclasses"]:
                     self.configuration["geoclasses"][cls]=list(self.configuration["geoclasses"][cls])
-                QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
+                #QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False

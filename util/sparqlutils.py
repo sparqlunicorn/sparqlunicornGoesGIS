@@ -312,10 +312,16 @@ class SPARQLUtils:
     @staticmethod
     def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="class"):
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
+        result = classes
         if query==None:
             if typeindicator=="class":
                 query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n} "
-        if "SELECT" in query:
+        if "SELECT" in query and "resource" in triplestoreconf \
+                and "type" in triplestoreconf["resource"] \
+                and ((triplestoreconf["resource"]["type"]=="endpoint"
+                and "sparql11" in triplestoreconf["resource"]
+                and triplestoreconf["resource"]["sparql11"]==True)
+                or triplestoreconf["resource"]["type"]!="endpoint"):
             vals = "VALUES ?class {\n "
             for qid in classes.keys():
                 vals += "<"+qid + "> \n"
@@ -323,7 +329,6 @@ class SPARQLUtils:
             query = query.replace("%%concepts%%", vals)
             #QgsMessageLog.logMessage("Querying for "+str(len(vals))+" concepts", MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(triplestoreurl, query)
-            result=classes
             if results == False:
                 return result
             #QgsMessageLog.logMessage("Got " + str(len(results)) + " labels", MESSAGE_CATEGORY, Qgis.Info)
@@ -332,13 +337,12 @@ class SPARQLUtils:
                     classes[res["class"]["value"]]["label"]=res["label"]["value"]
                 else:
                     classes[res["class"]["value"]]["label"] = ""
-        else:
+        elif query.startswith("http"):
             url = query
             i = 0
             qidquery = ""
             wdprefix = ""
             firstkey=next(iter(classes))
-            result=classes
             #QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)
             if "Q" in firstkey:
                 wdprefix = "http://www.wikidata.org/entity/"

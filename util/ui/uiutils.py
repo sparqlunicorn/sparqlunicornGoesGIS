@@ -1,6 +1,5 @@
 from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
-from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices
@@ -160,12 +159,12 @@ class UIUtils:
             if "label" in queryresult[att] and queryresult[att]["label"]!="":
                 thetext=str(queryresult[att]["label"]) + " (" + SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes) + ")"
                 if "amount" in queryresult[att]:
-                    thetext+="[" + str(queryresult[att]["amount"]) + "%]"
+                    thetext+=" [" + str(queryresult[att]["amount"]) + "%]"
                 item.setText(thetext)
             else:
                 thetext=SPARQLUtils.labelFromURI(str(queryresult[att]["concept"]), invprefixes)
                 if "amount" in queryresult[att]:
-                    thetext+="[" + str(queryresult[att]["amount"]) + "%]"
+                    thetext+=" [" + str(queryresult[att]["amount"]) + "%]"
                 item.setText(thetext)
             item.setData(str(queryresult[att]["concept"]), UIUtils.dataslot_conceptURI)
             item.setToolTip("<html><b>Property URI</b> " + str(
