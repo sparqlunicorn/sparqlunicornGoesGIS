@@ -1082,8 +1082,8 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            res = SPARQLUtils.handleURILiteral(literal)</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">if</span> res == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keywordflow">return</span> <span class="stringliteral">&quot;{\&quot;geometry\&quot;:null}&quot;</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">return</span> json.dumps(res[0])</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keywordflow">return</span> json.loads(<span class="stringliteral">&quot;{\&quot;geometry\&quot;:{}}&quot;</span>)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">return</span> res[0]</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;&quot;</span>:</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            literaltype = SPARQLUtils.detectGeoLiteralType(literal)</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        curcrs=<span class="keywordtype">None</span></div>
