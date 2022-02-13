@@ -1,6 +1,6 @@
 var a00261 =
 [
-    [ "__init__", "a00261.html#a4baeb631cc5de3d75a4f07ed6240af6b", null ],
+    [ "__init__", "a00261.html#a451e9b6d1660309c0524f7bcc877aea6", null ],
     [ "getRelatedClassStatistics", "a00261.html#ab38673676181b88d13488104a69c7088", null ],
     [ "concept", "a00261.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "filter_proxy_model", "a00261.html#a6d828fa188e4fc612101d64e2c7de582", null ],
