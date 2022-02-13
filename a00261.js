@@ -1,11 +1,10 @@
 var a00261 =
 [
-    [ "__init__", "a00261.html#aed785251601438e09cc9e991dc6b0153", null ],
-    [ "startConversion", "a00261.html#a281b1c143a8afdfa22a668ec770e812b", null ],
-    [ "vocabularyCBoxIndexChanged", "a00261.html#aa15861c0689e000858a9505b9616cf03", null ],
-    [ "dlg", "a00261.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "maindlg", "a00261.html#a7a228f82cef256bf0c017634e4195718", null ],
-    [ "prefixes", "a00261.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "__init__", "a00261.html#a4baeb631cc5de3d75a4f07ed6240af6b", null ],
+    [ "getRelatedClassStatistics", "a00261.html#ab38673676181b88d13488104a69c7088", null ],
+    [ "concept", "a00261.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "filter_proxy_model", "a00261.html#a6d828fa188e4fc612101d64e2c7de582", null ],
     [ "qtask", "a00261.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "tablemodel", "a00261.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
     [ "triplestoreconf", "a00261.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

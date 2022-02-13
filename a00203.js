@@ -1,4 +1,4 @@
 var a00203 =
 [
-    [ "DetectTripleStoreTask", "a00349.html", "a00349" ]
+    [ "ClassTreeQueryTask", "a00341.html", "a00341" ]
 ];

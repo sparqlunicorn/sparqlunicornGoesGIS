@@ -1,4 +1,4 @@
 var a00209 =
 [
-    [ "GetStyleQueryTask", "a00373.html", "a00373" ]
+    [ "FindRelatedConceptQueryTask", "a00365.html", "a00365" ]
 ];
