@@ -5,9 +5,10 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QUrl
 
+from ..clusterviewdialog import ClusterViewDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.querylayertask import QueryLayerTask
-from ...tasks.findrelatedgeoconcept import FindRelatedGeoConceptQueryTask
+from ...tasks.findrelatedconceptquerytask import FindRelatedConceptQueryTask
 from ..instancedatadialog import InstanceDataDialog
 from ...tasks.subclassquerytask import SubClassQueryTask
 from ...tasks.instanceamountquerytask import InstanceAmountQueryTask
@@ -46,6 +47,10 @@ class ConceptContextMenu(QMenu):
         action.setIcon(UIUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(UIUtils.dataslot_conceptURI))))
+        relconaction = QAction("Show related concepts")
+        relconaction.setIcon(UIUtils.geoclassicon)
+        menu.addAction(relconaction)
+        relconaction.triggered.connect(lambda: ClusterViewDialog(triplestoreconf,item.data(UIUtils.dataslot_conceptURI)).exec())
         if item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.instancenode and item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.geoinstancenode\
                 and item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.linkedgeoinstancenode:
             actioninstancecount = QAction("Check instance count")
@@ -196,7 +201,7 @@ class ConceptContextMenu(QMenu):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         label = self.item.text()
         if not label.endswith("]"):
-            self.qtaskinstance = FindRelatedGeoConceptQueryTask(
+            self.qtaskinstance = FindRelatedConceptQueryTask(
                 "Getting related geo concepts for " + str(concept),
                 self.triplestoreconf["resource"], self, concept,self.triplestoreconf)
             QgsApplication.taskManager().addTask(self.qtaskinstance)
