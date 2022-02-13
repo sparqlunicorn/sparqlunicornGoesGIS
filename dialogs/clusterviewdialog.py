@@ -19,9 +19,10 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 class ClusterViewDialog(QDialog, FORM_CLASS):
 
-    def __init__(self,concept,triplestoreconf):
+    def __init__(self,triplestoreconf,concept):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle("Related Concepts to "+str(concept))
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
@@ -35,6 +36,11 @@ class ClusterViewDialog(QDialog, FORM_CLASS):
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.tableView.setModel(self.filter_proxy_model)
+        self.clusterView.hide()
+        self.tableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))
+        self.tableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.tableView))
+        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.show()
         self.getRelatedClassStatistics()
 
@@ -42,12 +48,8 @@ class ClusterViewDialog(QDialog, FORM_CLASS):
     def getRelatedClassStatistics(self):
         if self.concept == "" or self.concept is None:
             return
-        progress = QProgressDialog("Querying related classes....", "Abort", 0, 0, self)
-        progress.setWindowModality(Qt.WindowModal)
-        progress.setWindowIcon(UIUtils.sparqlunicornicon)
-        progress.setCancelButton(None)
         self.qtask = FindRelatedConceptQueryTask("Querying related classes.... (" + str(self.concept) + ")",
-                               self.triplestoreurl,
+                               self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
                                self.triplestoreconf)
