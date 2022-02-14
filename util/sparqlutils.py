@@ -4,7 +4,7 @@ import requests
 import sys
 from urllib.request import urlopen
 import json
-from qgis.core import Qgis, QgsGeometry
+from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
 from qgis.core import QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
@@ -290,49 +290,75 @@ class SPARQLUtils:
         return ""
 
     @staticmethod
+    def mergeLayers(layer1,geojson):
+        result=[]
+        if "properties" not in geojson:
+            geojson["properties"]={}
+        feats1 = layer1.getFeatures()
+        for feature in feats1:
+            curfeature={"type":"Feature","id":feature.id,"properties":{},"geometry":feature.geometry().asJson()}
+            if "properties" in geojson:
+                for prop in geojson["properties"]:
+                    curfeature["properties"][prop]=geojson["properties"][prop]
+            for attr in feature:
+                curfeature["properties"][attr] = feature[attr]
+            result.append(curfeature)
+        return result
+
+    @staticmethod
     def handleGeoJSONFile(myjson,currentlayergeojson,onlygeo):
         result=[]
         if "data" in myjson and "type" in myjson["data"] and myjson["data"]["type"] == "FeatureCollection":
             features = myjson["data"]["features"]
             curcounter = 0
             for feat in features:
-                if not onlygeo:
-                    if currentlayergeojson != None:
-                        if "id" in feat and curcounter > 0:
-                            feat["id"] = feat["id"] + "_" + str(curcounter)
-                        if "properties" in currentlayergeojson:
-                            if "properties" not in feat:
-                                feat["properties"] = {}
-                            for prop in currentlayergeojson["properties"]:
-                                feat["properties"][prop] = currentlayergeojson["properties"][prop]
-                        result.append(feat)
-                    else:
-                        result.append(feat["geometry"])
+                if currentlayergeojson==None:
+                    result.append(feat["geometry"])
                 else:
-                    if currentlayergeojson != None:
-                        if "properties" in feat:
-                            del feat["properties"]
-                        if "id" in feat and curcounter > 0:
-                            feat["id"] = feat["id"] + "_" + str(curcounter)
-                        if "properties" in currentlayergeojson:
-                            if "properties" not in feat:
-                                feat["properties"] = {}
-                            for prop in currentlayergeojson["properties"]:
-                                feat["properties"][prop] = currentlayergeojson["properties"][prop]
-                        result.append(feat)
-                    else:
-                        result.append(feat["geometry"])
+                    if onlygeo and "properties" in feat:
+                        del feat["properties"]
+                    if "id" in feat and curcounter > 0:
+                        feat["id"] = feat["id"] + "_" + str(curcounter)
+                    if "properties" in currentlayergeojson:
+                        if "properties" not in feat:
+                            feat["properties"] = {}
+                        for prop in currentlayergeojson["properties"]:
+                            feat["properties"][prop] = currentlayergeojson["properties"][prop]
+                    result.append(feat)
                 curcounter = 1
 
     @staticmethod
     def handleURILiteral(uri,currentlayergeojson,onlygeo=True):
-        if uri.startswith("http") and (uri.endswith(".map") or uri.endswith("geojson")):
-            try:
-                f = urlopen(uri)
-                myjson = json.loads(f.read())
-                return SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)
-            except Exception as e:
-                QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(e))
+        if uri.startswith("http"):
+            if uri.endswith(".map") or uri.endswith("geojson"):
+                try:
+                    f = urlopen(uri)
+                    myjson = json.loads(f.read())
+                    return SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)
+                except Exception as e:
+                    QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(e))
+            elif uri.startswith("http") and uri.endswith(".kml"):
+                try:
+                    f = urlopen(uri)
+                    kmlfile=f.read()
+                    f=open("temp.kml","w")
+                    f.write(kmlfile)
+                    f.close()
+                    vlayer = QgsVectorLayer("temp.kml", "layer", "ogr")
+                    return SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)
+                except Exception as e:
+                    QgsMessageLog.logMessage("Error getting kml " + str(uri) + " - " + str(e))
+            elif uri.startswith("http") and uri.endswith(".gml"):
+                try:
+                    f = urlopen(uri)
+                    gmlfile=f.read()
+                    f=open("temp.gml","w")
+                    f.write(kmlfile)
+                    f.close()
+                    vlayer = QgsVectorLayer("temp.gml", "layer", "ogr")
+                    return SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)
+                except Exception as e:
+                    QgsMessageLog.logMessage("Error getting gml " + str(uri) + " - " + str(e))
         return None
 
     ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
