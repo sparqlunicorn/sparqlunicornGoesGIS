@@ -116,13 +116,14 @@ class QueryLayerTask(QgsTask):
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
                 relval=True
                 if item != "":
-                    myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-                        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
-                        crsset.add(myGeometryInstanceJSON["crs"])
-                        del myGeometryInstanceJSON["crs"]
-                    feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': myGeometryInstanceJSON}
+                    feature= LayerUtils.processLiteral(result["geo"]["value"], (
+                        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                        {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                               'geometry': {}},
+                        self.triplestoreconf)
+                    if feature != None and "crs" in feature:
+                        crsset.add(feature["crs"])
+                        del feature["crs"]
                     features.append(feature)
                 properties = {}
                 item = result["item"]["value"]
@@ -130,11 +131,10 @@ class QueryLayerTask(QgsTask):
                     item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
                 relval=True
                 if item != "":
-                    myGeometryInstanceJSON = LayerUtils.processLiteral(
+                    feature = LayerUtils.processLiteral(
                         "POINT(" + str(float(result[lonval]["value"])) + " " + str(
-                            float(result[latval]["value"])) + ")", "wkt", reproject,self.triplestoreconf)
-                    feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': myGeometryInstanceJSON}
+                            float(result[latval]["value"])) + ")", "wkt", reproject,{'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                               'geometry': {}},self.triplestoreconf)
                     features.append(feature)
                 properties = {}
                 item = result["item"]["value"]
@@ -173,29 +173,33 @@ class QueryLayerTask(QgsTask):
                         else:
                             properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
-                    crsset.add(myGeometryInstanceJSON["crs"])
-                    del myGeometryInstanceJSON["crs"]
-                feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': myGeometryInstanceJSON}
+                feature = LayerUtils.processLiteral(result["geo"]["value"], (
+                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                    {'id': result["item"]["value"], 'type': 'Feature',
+                    'properties': self.dropUnwantedKeys(properties),'geometry': {}},
+                     self.triplestoreconf)
+                if feature!=None and "crs" in feature:
+                    crsset.add(feature["crs"])
+                    del feature["crs"]
                 features.append(feature)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result:
-                myGeometryInstanceJSON = LayerUtils.processLiteral(
+                feature = LayerUtils.processLiteral(
                     "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
-                    "wkt", reproject,self.triplestoreconf)
-                feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': myGeometryInstanceJSON}
+                    "wkt", reproject,
+                    {'id': result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                     'geometry': {}},
+                    self.triplestoreconf)
                 features.append(feature)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
                 feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}
                 features.append(feature)
         if relval and not geooptional and "lat" not in result and "lon" not in result:
-            myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-            if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
-                crsset.add(myGeometryInstanceJSON["crs"])
-                del myGeometryInstanceJSON["crs"]
-            feature = { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': myGeometryInstanceJSON}
+            feature = LayerUtils.processLiteral(result["geo"]["value"], (
+                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
+            if feature!=None and "crs" in feature:
+                crsset.add(feature["crs"])
+                del feature["crs"]
             features.append(feature)
         if relval and geooptional:
             #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
@@ -205,18 +209,18 @@ class QueryLayerTask(QgsTask):
         if len(features)==0:
             if not geooptional:
                 if "geo" in properties:
-                    myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON:
-                        crsset.add(myGeometryInstanceJSON["crs"])
-                        del myGeometryInstanceJSON["crs"]
-                    feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': myGeometryInstanceJSON}
+                    feature = LayerUtils.processLiteral(result["geo"]["value"], (
+                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                    {'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
+                    self.triplestoreconf)
+                    if feature!=None and "crs" in feature:
+                        crsset.add(feature["crs"])
+                        del feature["crs"]
                     features.append(feature)
                 if "lat" in properties and "lon" in properties:
-                    myGeometryInstanceJSON = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+                    feature = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
                                                                        + " " + str(float(result[latval]["value"])) + ")",
-                    "wkt", reproject,self.triplestoreconf)
-                    feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': myGeometryInstanceJSON}
+                    "wkt", reproject,{'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
                     features.append(feature)
             else:
                 feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}

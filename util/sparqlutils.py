@@ -290,19 +290,49 @@ class SPARQLUtils:
         return ""
 
     @staticmethod
-    def handleURILiteral(uri):
-        result = []
-        if uri.startswith("http") and uri.endswith(".map"):
+    def handleGeoJSONFile(myjson,currentlayergeojson,onlygeo):
+        result=[]
+        if "data" in myjson and "type" in myjson["data"] and myjson["data"]["type"] == "FeatureCollection":
+            features = myjson["data"]["features"]
+            curcounter = 0
+            for feat in features:
+                if not onlygeo:
+                    if currentlayergeojson != None:
+                        if "id" in feat and curcounter > 0:
+                            feat["id"] = feat["id"] + "_" + str(curcounter)
+                        if "properties" in currentlayergeojson:
+                            if "properties" not in feat:
+                                feat["properties"] = {}
+                            for prop in currentlayergeojson["properties"]:
+                                feat["properties"][prop] = currentlayergeojson["properties"][prop]
+                        result.append(feat)
+                    else:
+                        result.append(feat["geometry"])
+                else:
+                    if currentlayergeojson != None:
+                        if "properties" in feat:
+                            del feat["properties"]
+                        if "id" in feat and curcounter > 0:
+                            feat["id"] = feat["id"] + "_" + str(curcounter)
+                        if "properties" in currentlayergeojson:
+                            if "properties" not in feat:
+                                feat["properties"] = {}
+                            for prop in currentlayergeojson["properties"]:
+                                feat["properties"][prop] = currentlayergeojson["properties"][prop]
+                        result.append(feat)
+                    else:
+                        result.append(feat["geometry"])
+                curcounter = 1
+
+    @staticmethod
+    def handleURILiteral(uri,currentlayergeojson,onlygeo=True):
+        if uri.startswith("http") and (uri.endswith(".map") or uri.endswith("geojson")):
             try:
                 f = urlopen(uri)
                 myjson = json.loads(f.read())
-                if "data" in myjson and "type" in myjson["data"] and myjson["data"]["type"] == "FeatureCollection":
-                    features = myjson["data"]["features"]
-                    for feat in features:
-                        result.append(feat["geometry"])
-                return result
-            except:
-                QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(sys.exc_info()[0]))
+                return SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)
+            except Exception as e:
+                QgsMessageLog.logMessage("Error getting geoshape " + str(uri) + " - " + str(e))
         return None
 
     ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.

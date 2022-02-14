@@ -94,11 +94,11 @@ class InstanceQueryTask(QgsTask):
                     if "geo" in self.queryresult:
                         myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult["geo"]["value"],
                         (self.queryresult["geo"]["valtype"] if "valtype" in self.queryresult["geo"] else ""),
-                        True,self.triplestoreconf)
+                        True,None,self.triplestoreconf)
                     else:
                         myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                         (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
-                        True,self.triplestoreconf)
+                        True,None,self.triplestoreconf)
                     if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
                         if myGeometryInstanceJSON["crs"]=="CRS84":
                             encounteredcrs="urn:ogc:def:crs:OGC:1.3:CRS84"
@@ -107,7 +107,7 @@ class InstanceQueryTask(QgsTask):
                         del myGeometryInstanceJSON["crs"]
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
-                        float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True, self.triplestoreconf)
+                        float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True,None, self.triplestoreconf)
                 if myGeometryInstanceJSON!=None:
                     geojson = {'type': 'FeatureCollection', 'features': [
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},

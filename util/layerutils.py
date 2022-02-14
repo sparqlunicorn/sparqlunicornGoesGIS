@@ -94,13 +94,13 @@ class LayerUtils:
         return LayerUtils.detectColumnType(columnmap)
 
     @staticmethod
-    def processLiteral(literal, literaltype, reproject,triplestoreconf=None):
+    def processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):
         #QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
         if literal.startswith("http"):
-            res = SPARQLUtils.handleURILiteral(literal)
+            res = SPARQLUtils.handleURILiteral(literal,currentlayergeojson)
             if res == None:
                 return json.loads("{\"geometry\":{}}")
             return res[0]
@@ -130,6 +130,11 @@ class LayerUtils:
             geom.transform(tr)
         if geom != None:
             res=json.loads(geom.asJson())
+            if currentlayergeojson!=None:
+                currentlayergeojson["geometry"]=res
+                if curcrs != None:
+                    currentlayergeojson["crs"]=curcrs
+                return currentlayergeojson
             if curcrs!=None:
                 res["crs"]=curcrs
             return res
