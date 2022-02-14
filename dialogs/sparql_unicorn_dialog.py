@@ -465,11 +465,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != None and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != "" and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != []:
-                valstatement = " VALUES ?collclass { "
-                for featclass in self.triplestoreconf[endpointIndex]["featurecollectionclasses"]:
-                    valstatement += "<" + str(featclass) + "> "
-                valstatement += "} "
-                querymod = query.replace("%%concept%% .", "?collclass . " + str(valstatement))
+                if len(self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]) > 1:
+                    valstatement = " VALUES ?collclass { "
+                    for featclass in self.triplestoreconf[endpointIndex]["featurecollectionclasses"]:
+                        valstatement += "<" + str(featclass) + "> "
+                    valstatement += "} "
+                    querymod = query.replace("%%concept%% .", "?collclass . " + str(valstatement))
+                else:
+                    querymod = query.replace("%%concept%% .", "<" + str(
+                        self.triplestoreconf[endpointIndex]["featurecollectionclasses"][0]) + "> . ")
             else:
                 rep = "<http://www.opengis.net/ont/geosparql#FeatureCollection>"
                 querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)
@@ -482,11 +486,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != None and \
                     self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != "" and \
                     self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != []:
-                valstatement = " VALUES ?collclass { "
-                for geoclass in self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]:
-                    valstatement += "<" + str(geoclass) + "> "
-                valstatement += "} "
-                querymod = query.replace("%%concept%% .", "?collclass . " + str(valstatement))
+                if len(self.triplestoreconf[endpointIndex]["geometrycollectionclasses"])>1:
+                    valstatement = " VALUES ?collclass { "
+                    for geoclass in self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]:
+                        valstatement += "<" + str(geoclass) + "> "
+                    valstatement += "} "
+                    querymod = query.replace("%%concept%% .", "?collclass . " + str(valstatement))
+                else:
+                    querymod = query.replace("%%concept%% .", "<"+str(self.triplestoreconf[endpointIndex]["geometrycollectionclasses"][0])+"> . ")
             else:
                 rep = "<http://www.opengis.net/ont/geosparql#GeometryCollection>"
                 querymod = str(self.triplestoreconf[endpointIndex]["geocollectionquery"]).replace("%%concept%% .", rep)

@@ -34,8 +34,8 @@ class FindRelatedConceptQueryTask(QgsTask):
         for result in results["results"]["bindings"]:
             if "rel" in result and "val" in result and result["rel"]["value"]!="":
                 if result["rel"]["value"] not in self.queryresult:
-                    self.queryresult[result["rel"]["value"]]={} \
-                    self.queryresult[result["rel"]["value"]]["values"]=set()
+                    self.queryresult[result["rel"]["value"]]=set()
+                    #self.queryresult[result["rel"]["value"]]["values"]=set()
                 self.queryresult[result["rel"]["value"]].add(result["val"]["value"])
         return True
 

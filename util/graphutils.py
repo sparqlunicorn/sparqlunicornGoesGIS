@@ -114,10 +114,15 @@ class GraphUtils:
                 geomobjprop="http://www.opengis.net/ont/geosparql#hasGeometry"
                 if self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasGeometry"],credentialUserName,credentialPassword,authmethod):
                     self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
+                    geomobjprop = "http://www.opengis.net/ont/geosparql#hasGeometry"
                 elif self.testTripleStoreConnection(self.configuration["resource"],testQueries["hasWgs84Geometry"],credentialUserName,credentialPassword,authmethod):
                     self.configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#geometry"]
                     geomobjprop="http://www.w3.org/2003/01/geo/wgs84_pos#geometry"
+                else:
+                    geomobjprop=None
+                    self.configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asWKT"]
                 if self.testTripleStoreConnection(self.configuration["resource"],testQueries["geosparql"],credentialUserName,credentialPassword,authmethod):
+                    self.configuration["resource"]["geosparql10"] = True
                     self.configuration["type"]="geosparqlendpoint"
                     self.configuration["bboxquery"] = {}
                     self.configuration["bboxquery"]["type"] = "geosparql"
@@ -125,6 +130,7 @@ class GraphUtils:
                         "query"] = "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
                     self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>GeoSPARQL Query Capabilities</li><li>WKT Literals</li></ul>Would you like to add this SPARQL endpoint?"
                 else:
+                    self.configuration["resource"]["geosparql10"] = False
                     self.message = "URL depicts a valid SPARQL Endpoint with the following capabilities: <ul><li>No GeoSPARQL Query Capabilities</li><li>WKT Literals</li></ul><br/>Would you like to add this SPARQL endpoint?"
                 self.configuration["mandatoryvariables"] = ["item", "geo"]
                 self.configuration["querytemplate"] = []
@@ -136,7 +142,10 @@ class GraphUtils:
                     "http://www.opengis.net/ont/geosparql#GeometryCollection"]
                 self.configuration[
                     "geoconceptquery"] = "SELECT DISTINCT ?class WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .} ORDER BY ?class"
-                self.configuration["geotriplepattern"]=["?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
+                if geomobjprop==None:
+                    self.configuration["geotriplepattern"] = ["?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
+                else:
+                    self.configuration["geotriplepattern"]=["?item <"+str(geomobjprop)+"> ?item_geom . ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo ."]
                 self.configuration[
                     "geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }"
                 self.configuration["subclassquery"]="SELECT DISTINCT ?subclass ?label WHERE { ?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?subclass . ?a ?rel ?a_geom . ?a_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass rdfs:label ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
