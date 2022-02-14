@@ -11,6 +11,7 @@ var a00465 =
     [ "labelFromURI", "a00465.html#a8d66b18f94f098b37701c05f1a838047", null ],
     [ "loadAdditionalGraphResources", "a00465.html#a26da799374792519f34753f24ebf64a0", null ],
     [ "loadGraph", "a00465.html#a8357f44b5c6ddb5e8885e31af12ab638", null ],
+    [ "mergeLayers", "a00465.html#a986e83759bc4ae9ac33ecd49f61bd766", null ],
     [ "queryPreProcessing", "a00465.html#a4490b9c0a0abb70b2867d7b1bb783a0b", null ],
     [ "shortenLiteral", "a00465.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "annotationnamespaces", "a00465.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
