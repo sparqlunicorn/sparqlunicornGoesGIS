@@ -123,19 +123,20 @@ class SearchDialog(QDialog, FORM_CLASS):
         if self.tripleStoreEdit.currentIndex() > len(self.triplestoreconf):
             if self.findProperty.isChecked():
                 self.addVocab[self.addVocab.keys()[position - len(self.triplestoreconf)]]["source"]["properties"]
-                viewlist = {k: v for k, v in d.iteritems() if label in k}
+                viewlist = {k: v for k, v in self.addVocab[self.addVocab.keys()[position - len(self.triplestoreconf)]]["source"]["properties"].iteritems() if label in k}
             else:
                 self.addVocab[self.addVocab.keys()[position - len(self.triplestoreconf)]]["source"]["classes"]
-                viewlist = {k: v for k, v in d.iteritems() if label in k}
+                viewlist = {k: v for k, v in self.addVocab[self.addVocab.keys()[position - len(self.triplestoreconf)]]["source"]["properties"].iteritems() if label in k}
             for res in viewlist:
                 item = QListWidgetItem()
-                item.setData(UIUtils.dataslot_conceptURI, val)
-                item.setText(key)
+                item.setData(UIUtils.dataslot_conceptURI, res)
+                item.setText(res)
                 self.searchResult.addItem(item)
         else:
             self.qtask=SearchTask("Searching classes/properties for "+str(label)+" in "+str(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"]["url"]),
                             self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
-               query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,self.searchResult,self.prefixes,label,language,None)
+               query,self.triplestoreconf,self.findProperty,self.tripleStoreEdit,
+                                  self.searchResult,self.prefixes,label,language,None)
             QgsApplication.taskManager().addTask(self.qtask)
         return viewlist
 

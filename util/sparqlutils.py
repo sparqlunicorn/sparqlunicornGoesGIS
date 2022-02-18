@@ -1,7 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST, BASIC, DIGEST
 import urllib
 import requests
-import sys
 from urllib.request import urlopen
 import json
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
@@ -41,6 +40,7 @@ class SPARQLUtils:
                    "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
                    "http://rdfs.co/juso/geometry": "ObjectProperty",
                    "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
+                   "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty",
     }
 
@@ -353,7 +353,7 @@ class SPARQLUtils:
                     f = urlopen(uri)
                     gmlfile=f.read()
                     f=open("temp.gml","w")
-                    f.write(kmlfile)
+                    f.write(gmlfile)
                     f.close()
                     vlayer = QgsVectorLayer("temp.gml", "layer", "ogr")
                     return SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)
