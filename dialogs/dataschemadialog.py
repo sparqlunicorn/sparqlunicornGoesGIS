@@ -127,7 +127,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         if int(querydepth)>1:
             query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
-                self.concept) + ">  .\n " +
+                self.concept) + "> .\n " +
             self.triplestoreconf["geotriplepattern"][0] + "\n  "+str(relstatement)+" }",querydepth)
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),

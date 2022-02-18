@@ -698,7 +698,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     concept,
                     self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
                     "SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <" + str(concept) + "> ?rel ?val . " +
-                    self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0] + "\n }",
+                    self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"][0].replace("?item","<"+str(concept)+">") + "\n }",
                     self.triplestoreconf[self.comboBox.currentIndex()], False, SPARQLUtils.labelFromURI(concept), None)
             else:
                 self.qlayerinstance = QueryLayerTask(
