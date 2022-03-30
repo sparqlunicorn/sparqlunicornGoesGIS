@@ -51,6 +51,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.concepttype=concepttype
         self.label=label
         self.prefixes=prefixes
+        self.selected=True
         self.styleprop=[]
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
@@ -103,11 +104,19 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
+        self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
         self.getAttributeStatistics(self.concept,triplestoreurl)
         self.show()
 
+    def toggleSelect(self):
+        self.selected=not self.selected
+        for row in range(self.tablemodel.rowCount()):
+            if self.selected:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+            else:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
 
     def queryAllInstances(self):
         querydepth=self.graphQueryDepthBox.value()
@@ -152,7 +161,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         column=modelindex.column()
         if column==2 and row not in self.alreadyloadedSample:
             relation = str(self.dataSchemaTableView.model().index(row, column-1).data(UIUtils.dataslot_conceptURI))
-            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + self.label + ")",
+            self.qtask2 = DataSampleQueryTask("Querying dataset schema.... (" + str(self.label)+ ")",
                                              self.triplestoreurl,
                                              self,
                                              self.concept,
@@ -188,7 +197,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             and "sparql11" in self.triplestoreconf["resource"] \
             and self.triplestoreconf["resource"]["sparql11"] == False:
                 thequery = "SELECT ?rel \nWHERE\n{ ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val.}\nGROUP BY ?rel\nORDER BY ?rel"
-        self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + self.label + ")",
+        self.qtask = DataSchemaQueryTask("Querying dataset schema.... (" + str(self.label) + ")",
                                self.triplestoreurl,
                                SPARQLUtils.queryPreProcessing(thequery,self.triplestoreconf,self.concept,self.concepttype==SPARQLUtils.collectionclassnode),
                                self.concept,

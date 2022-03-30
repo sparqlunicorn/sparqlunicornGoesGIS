@@ -47,6 +47,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.concepttype=concepttype
         self.label=label
         self.prefixes=prefixes
+        self.selected=True
         self.alreadyloadedSample=[]
         self.triplestoreconf=triplestoreconf
         self.triplestoreurl=triplestoreurl
@@ -94,11 +95,20 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.instanceDataTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex,self.instanceDataTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
+        self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
         self.getAttributes(self.concept,triplestoreurl)
         self.show()
+
+    def toggleSelect(self):
+        self.selected=not self.selected
+        for row in range(self.tablemodel.rowCount()):
+            if self.selected:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+            else:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
 
     def queryInstance(self):
         querydepth = self.graphQueryDepthBox.value()

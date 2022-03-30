@@ -83,6 +83,13 @@
        </item>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="toggleSelectionButton">
+       <property name="text">
+        <string>Toggle Selection</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
