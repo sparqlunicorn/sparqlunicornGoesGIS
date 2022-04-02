@@ -1,11 +1,15 @@
 from qgis.PyQt.QtWidgets import QDialog, QAction, QMessageBox, QCompleter, QLineEdit
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY
+    QgsCoordinateTransform, QgsPointXY, QgsPoint
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
+from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
+from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
+from qgis.core import QgsMessageLog
 
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.mappingtools import RectangleMapTool
@@ -17,6 +21,7 @@ import json
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/bboxdialog.ui'))
 
+MESSAGE_CATEGORY = 'BBOXDialog'
 
 class SPARQLCompleter(QCompleter):
     insertText = QtCore.pyqtSignal(str)
@@ -24,8 +29,26 @@ class SPARQLCompleter(QCompleter):
     def __init__(self, autocomplete, parent=None):
         QCompleter.__init__(self, autocomplete, parent)
         self.setCompletionMode(QCompleter.PopupCompletion)
-        # self.setFilterMode(Qt.MatchContains)
+        self.setFilterMode(Qt.MatchContains)
+        self.source_model=None
+        self.setModel(QStandardItemModel())
         # self.highlighted.connect(self.setHighlighted)
+
+    def setModel(self, model):
+        self.source_model = model
+        super(SPARQLCompleter, self).setModel(self.source_model)
+
+    def updateModel(self):
+        local_completion_prefix = self.local_completion_prefix
+        class InnerProxyModel(QSortFilterProxyModel):
+            def filterAcceptsRow(self, sourceRow, sourceParent):
+                index0 = self.sourceModel().index(sourceRow, 0, sourceParent)
+                QgsMessageLog.logMessage("Chosen data: " + str(index0.data(256)), MESSAGE_CATEGORY, Qgis.Info)
+                self.zoomToCoordinates(index0)
+                return local_completion_prefix.lower() in self.sourceModel().data(index0).lower()
+        proxy_model = InnerProxyModel()
+        proxy_model.setSourceModel(self.source_model)
+        super(SPARQLCompleter, self).setModel(proxy_model)
 
     def setHighlighted(self, text):
         self.lastSelected = text
@@ -36,16 +59,15 @@ class SPARQLCompleter(QCompleter):
 
 class NominatimText(QLineEdit):
 
-    def __init__(self, parent, nominatimmap, map_canvas):
-        super(self.__class__, self).__init__(parent)
-        self.nominatimmap = nominatimmap
+    def __init__(self, map_canvas):
+        super(self.__class__, self).__init__()
         self.map_canvas = map_canvas
 
     def insertCompletion(self, completion):
-        self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0], self.nominatimmap[completion][1], True)
-
-    def setMap(self, nominatimmap):
-        self.nominatimmap = nominatimmap
+        scale = 50
+        rect = QgsRectangle(completion.data(256).x() - scale, completion.data(256).y() - scale, completion.data(256).x() + scale, completion.data(256).y() + scale)
+        self.map_canvas.setExtent(rect)
+        self.map_canvas.refresh()
 
 
 class BBOXDialog(QDialog, FORM_CLASS):
@@ -56,6 +78,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.bboxicon)
         self.inp_sparql = inp_sparql
+        self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -89,9 +112,9 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
         self.zoomOut.clicked.connect(self.map_canvas.zoomOut)
         self.b2.clicked.connect(self.setBBOXExtentQuery)
-        self.searchButton.hide()
-        self.searchPlace.hide()
-        self.geocodeSearch.hide()
+        #self.geocodeSearch=NominatimText(self.map_canvas)
+        self.geocodeSearch.setCompleter(self.sparqlcompleter)
+        self.geocodeSearch.textChanged.connect(self.geocode)
         layers = QgsProject.instance().layerTreeRoot().children()
         for layer in layers:
             self.chooseBBOXLayer.addItem(layer.name())
@@ -122,25 +145,26 @@ class BBOXDialog(QDialog, FORM_CLASS):
             bytes_string = reply.readAll()
             print(str(bytes_string, 'utf-8'))
             results = json.loads(str(bytes_string, 'utf-8'))
-            self.nominatimmap = {}
-            chooselist = []
+            choosemodel=self.sparqlcompleter.model()
+            choosemodel.clear()
             for rec in results:
-                chooselist.append(rec['display_name'])
-                self.nominatimmap[rec['display_name']] = [rec['lon'], rec['lat']]
-            completer = SPARQLCompleter(chooselist)
-            #self.geocodeSearch.setMap(self.nominatimmap)
-            #self.geocodeSearch.setCompleter(completer)
-            #self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0], self.nominatimmap[completion][1], True)
-            self.geocodeSearch.insertCompletion.connect(self.zoomToCoordinates)
-            completer.popup().show()
+                curitem=QStandardItem(rec['display_name'])
+                curitem.setData(QgsPoint(float(rec['lat']),float(rec['lon'])),256)
+                choosemodel.appendRow(curitem)
+            QgsMessageLog.logMessage("Nominatim Response: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            popupp=self.sparqlcompleter.popup()
+            popupp.x=self.geocodeSearch.x()
+            popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
+            popupp.show()
         else:
             print("Error occured: ", er)
 
     def zoomToCoordinates(self, completion):
-        msgBox = QMessageBox()
-        msgBox.setText(completion)
-        msgBox.exec()
-        self.map_canvas.zoomWithCenter(self.nominatimmap[completion][0], self.nominatimmap[completion][1], True)
+        scale = 50
+        rect = QgsRectangle(completion.data(256).x() - scale, completion.data(256).y() - scale, completion.data(256).x() + scale, completion.data(256).y() + scale)
+        self.map_canvas.setExtent(rect)
+        self.map_canvas.refresh()
+        #self.map_canvas.zoomWithCenter(, completion.data(256).y(), True)
 
     def pan(self):
         self.map_canvas.setMapTool(self.toolPan)
