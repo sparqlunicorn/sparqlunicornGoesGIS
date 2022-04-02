@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00958.html", null ],
-    [ "tasks/__init__.py", "a00961.html", null ],
-    [ "util/__init__.py", "a00964.html", null ],
+    [ "dialogs/__init__.py", "a00962.html", null ],
+    [ "tasks/__init__.py", "a00965.html", null ],
+    [ "util/__init__.py", "a00968.html", null ],
     [ "aboutdialog.py", "a00014.html", "a00014" ],
     [ "bboxdialog.py", "a00017.html", "a00017" ],
     [ "classtreequerytask.py", "a00077.html", "a00077" ],
