@@ -1,19 +1,15 @@
 from qgis.PyQt.QtWidgets import QDialog, QAction, QMessageBox, QCompleter, QLineEdit
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
-from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt import QtCore
-from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
     QgsCoordinateTransform, QgsPointXY, QgsPoint, QgsRectangle
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
-from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
+from qgis.core import Qgis, QgsGeometry,QgsVectorLayer,QgsFeature
 from qgis.core import QgsMessageLog
 
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonMapTool
-from ..util.geocodingutils import GeocodingUtils
+from ..util.geocodingutils import GeocodingUtils, SPARQLCompleter
 import os.path
 import json
 
@@ -22,56 +18,9 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 MESSAGE_CATEGORY = 'BBOXDialog'
 
-class SPARQLCompleter(QCompleter):
-    insertText = QtCore.pyqtSignal(str)
-
-    def __init__(self, autocomplete, parent=None):
-        QCompleter.__init__(self, autocomplete, parent)
-        self.setCompletionMode(QCompleter.PopupCompletion)
-        self.setFilterMode(Qt.MatchContains)
-        self.source_model=None
-        self.setModel(QStandardItemModel())
-        # self.highlighted.connect(self.setHighlighted)
-
-    def setModel(self, model):
-        self.source_model = model
-        super(SPARQLCompleter, self).setModel(self.source_model)
-
-    def updateModel(self):
-        local_completion_prefix = self.local_completion_prefix
-        class InnerProxyModel(QSortFilterProxyModel):
-            def filterAcceptsRow(self, sourceRow, sourceParent):
-                index0 = self.sourceModel().index(sourceRow, 0, sourceParent)
-                QgsMessageLog.logMessage("Chosen data: " + str(index0.data(256)), MESSAGE_CATEGORY, Qgis.Info)
-                self.zoomToCoordinates(index0)
-                return local_completion_prefix.lower() in self.sourceModel().data(index0).lower()
-        proxy_model = InnerProxyModel()
-        proxy_model.setSourceModel(self.source_model)
-        super(SPARQLCompleter, self).setModel(proxy_model)
-
-    def setHighlighted(self, text):
-        self.lastSelected = text
-
-    def getSelected(self):
-        return self.lastSelected
-
-
-class NominatimText(QLineEdit):
-
-    def __init__(self, map_canvas):
-        super(self.__class__, self).__init__()
-        self.map_canvas = map_canvas
-
-    def insertCompletion(self, completion):
-        scale = 50
-        rect = QgsRectangle(completion.data(256).x() - scale, completion.data(256).y() - scale, completion.data(256).x() + scale, completion.data(256).y() + scale)
-        self.map_canvas.setExtent(rect)
-        self.map_canvas.refresh()
-
-
 class BBOXDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, inp_sparql, triplestoreconf, endpointIndex,title="Choose BoundingBox"):
+    def __init__(self, inp_sparql, triplestoreconf, endpointIndex,title="Choose Geospatial Constraint"):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
@@ -81,8 +30,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.vl_geocoding = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.vl_extent = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.vl_geocoding = QgsVectorLayer("Point", "temporary_polygons", "memory")
+        self.vl_layerextent = QgsVectorLayer("Polygon", "temporary_points", "memory")
         self.layerExtentOrBBOX = False
         self.map_canvas.setMinimumSize(500, 475)
         actionPan = QAction("Pan", self)
@@ -103,7 +52,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
         self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
         self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
-        self.map_canvas_layerextent.setLayers([self.vl_extent, self.mts_layer])
+        self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.selectCircle.hide()
@@ -116,74 +65,66 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
         self.zoomOut.clicked.connect(self.map_canvas.zoomOut)
         self.b2.clicked.connect(self.setBBOXExtentQuery)
-        #self.geocodeSearch=NominatimText(self.map_canvas)
         self.geocodeSearch.setCompleter(self.sparqlcompleter)
         self.geocodeSearchButton.clicked.connect(self.geocodeInput)
-        #self.geocodeSearch.textChanged.connect(geocode)
+        self.geocodeSearch.textChanged.connect(self.insertCompletion)
+        self.chooseBBOXLayer.setModel(QStandardItemModel())
         layers = QgsProject.instance().layerTreeRoot().children()
         for layer in layers:
-            self.chooseBBOXLayer.addItem(layer.name())
+            curitem=QStandardItem(layer.name())
+            curitem.setData(layer.layer().extent(),256)
+            curitem.setData(layer.layer().crs(), 257)
+            self.chooseBBOXLayer.model().appendRow(curitem)
+        self.chooseBBOXLayer.currentIndexChanged.connect(self.showExtent)
         self.b1.clicked.connect(self.setBBOXInQuery)
+
+    def showExtent(self):
+        geom=self.chooseBBOXLayer.currentData(256)
+        crs = self.chooseBBOXLayer.currentData(257)
+        self.vl_layerextent.startEditing()
+        feat = QgsFeature()
+        feat.setGeometry(QgsGeometry.fromRect(geom))
+        self.vl_layerextent.addFeature(feat)
+        self.vl_layerextent.commitChanges()
+        self.vl_layerextent.setCrs(crs)
+        self.vl_layerextent.updateExtents()
+
+    def insertCompletion(self, completion):
+        if(completion==self.geocodeSearch.completer().currentCompletion()):
+            geom=self.geocodeSearch.completer().completionModel().sourceModel().itemFromIndex(self.geocodeSearch.completer().completionModel().mapToSource(self.geocodeSearch.completer().currentIndex())).data(256)
+            crs=self.geocodeSearch.completer().completionModel().sourceModel().itemFromIndex(self.geocodeSearch.completer().completionModel().mapToSource(self.geocodeSearch.completer().currentIndex())).data(257)
+            self.vl_geocoding.startEditing()
+            feat = QgsFeature()
+            feat.setGeometry(geom)
+            self.vl_geocoding.addFeature(feat)
+            self.vl_geocoding.commitChanges()
+            self.vl_geocoding.setCrs(crs)
+            self.vl_geocoding.updateExtents()
+
 
     def geocodeInput(self):
         searchString=self.geocodeSearch.text()
         geocoder=self.geocoderSelection.currentText()
         if geocoder=="Nominatim":
+            QgsMessageLog.logMessage("Geocoding: " + str(searchString), MESSAGE_CATEGORY, Qgis.Info)
             results=GeocodingUtils.geocodeWithAPI(searchString)
             QgsMessageLog.logMessage("Nominatim Response: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             choosemodel=self.sparqlcompleter.model()
             choosemodel.clear()
             for rec in results:
                 if rec.isValid():
+                    QgsMessageLog.logMessage("Nominatim Response: " + str(rec.geometry().asWkt()), MESSAGE_CATEGORY, Qgis.Info)
                     curitem=QStandardItem(rec.identifier())
                     curitem.setData(rec.geometry(),256)
                     curitem.setData(rec.crs(), 257)
                     curitem.setData(rec.viewport(), 258)
+                    QgsMessageLog.logMessage("Nominatim Response: " + str(curitem.data(256)), MESSAGE_CATEGORY,
+                                             Qgis.Info)
                     choosemodel.appendRow(curitem)
             popupp=self.sparqlcompleter.popup()
             popupp.x=self.geocodeSearch.x()
             popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
             popupp.show()
-
-    """
-    def geocode(self):
-        try:
-            nominatimurl = UIUtils.nominatimurl.format(**{'address': self.geocodeSearch.text()})
-            self.networkrequest(nominatimurl)
-        except Exception as e:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Mandatory variables missing!")
-            msgBox.setText(str(e))
-            msgBox.exec()
-
-    def networkrequest(self, nurl):
-        global reply
-        self.manager = QNetworkAccessManager()
-        url = QUrl(nurl)
-        request = QNetworkRequest(url)
-        self.manager.finished.connect(self.handleResponse)
-        self.manager.get(request)
-
-    def handleResponse(self, reply):
-        er = reply.error()
-        if er == QNetworkReply.NoError:
-            bytes_string = reply.readAll()
-            print(str(bytes_string, 'utf-8'))
-            results = json.loads(str(bytes_string, 'utf-8'))
-            choosemodel=self.sparqlcompleter.model()
-            choosemodel.clear()
-            for rec in results:
-                curitem=QStandardItem(rec['display_name'])
-                curitem.setData(QgsPoint(float(rec['lat']),float(rec['lon'])),256)
-                choosemodel.appendRow(curitem)
-            QgsMessageLog.logMessage("Nominatim Response: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-            popupp=self.sparqlcompleter.popup()
-            popupp.x=self.geocodeSearch.x()
-            popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
-            popupp.show()
-        else:
-            print("Error occured: ", er)
-    """
 
     def zoomToCoordinates(self, completion):
         scale = 50

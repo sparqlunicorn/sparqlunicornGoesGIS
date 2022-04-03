@@ -1,8 +1,13 @@
 
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt import QtCore
+from qgis.core import Qgis
+from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt, QUrl
+from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
+from qgis.PyQt.QtWidgets import QCompleter,QMessageBox,QLineEdit
+from qgis.core import QgsMessageLog
 from qgis.core import (
+    QgsRectangle,
     QgsNominatimGeocoder,
     QgsGeocoderContext,
     QgsCoordinateTransformContext,
@@ -13,6 +18,39 @@ from qgis.core import (
 import json
 
 from .ui.uiutils import UIUtils
+
+
+class SPARQLCompleter(QCompleter):
+    insertText = QtCore.pyqtSignal(str)
+
+    def __init__(self, autocomplete, parent=None):
+        QCompleter.__init__(self, autocomplete, parent)
+        self.setCompletionMode(QCompleter.PopupCompletion)
+        self.setFilterMode(Qt.MatchContains)
+        self.source_model=None
+        self.setModel(QStandardItemModel())
+        # self.highlighted.connect(self.setHighlighted)
+
+    def setModel(self, model):
+        self.source_model = model
+        super(SPARQLCompleter, self).setModel(self.source_model)
+
+    def updateModel(self):
+        local_completion_prefix = self.local_completion_prefix
+        class InnerProxyModel(QSortFilterProxyModel):
+            def filterAcceptsRow(self, sourceRow, sourceParent):
+                index0 = self.sourceModel().index(sourceRow, 0, sourceParent)
+                self.zoomToCoordinates(index0)
+                return local_completion_prefix.lower() in self.sourceModel().data(index0).lower()
+        proxy_model = InnerProxyModel()
+        proxy_model.setSourceModel(self.source_model)
+        super(SPARQLCompleter, self).setModel(proxy_model)
+
+    def setHighlighted(self, text):
+        self.lastSelected = text
+
+    def getSelected(self):
+        return self.lastSelected
 
 
 class QgsNominatimRevGeocoder(QgsNominatimGeocoder):
