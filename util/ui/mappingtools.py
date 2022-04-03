@@ -1,9 +1,25 @@
-from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand, QgsMapTool
+from qgis.gui import QgsMapToolEmitPoint, QgsMapCanvas, QgsRubberBand, QgsMapTool, QgsMapToolPan
 from qgis.PyQt.QtCore import pyqtSignal, QUrl, Qt
+from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QColor, QKeySequence
 from qgis.core import QgsProject, Qgis, QgsRasterLayer, QgsPointXY, QgsRectangle, QgsDistanceArea, QgsWkbTypes
 from math import sqrt, pi, cos, sin
 
+
+class MapUtils:
+
+    @staticmethod
+    def initMapToolOSM(mapwidget,templayer=None):
+        uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz"
+        mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
+        if not mts_layer.isValid():
+            print("Layer failed to load!")
+        mapwidget.setExtent(mts_layer.extent())
+        if templayer!=None:
+            mapwidget.setLayers([templayer, mts_layer])
+        else:
+            mapwidget.setLayers([mts_layer])
+        mapwidget.setCurrentLayer(mts_layer)
 
 class CircleMapTool(QgsMapTool):
     '''Outil de sélection par cercle, tiré de selectPlusFr'''

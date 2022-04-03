@@ -11,119 +11,207 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Geospatial Constraint Selection Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
+   <item row="1" column="1">
+    <widget class="QPushButton" name="b1">
+     <property name="text">
+      <string>Apply Constraint</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="6" column="2">
-      <widget class="QPushButton" name="selectCircle">
-       <property name="text">
-        <string>Select Circle</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="chooseLayerLabel">
-       <property name="text">
-        <string>Choose Layer Extent:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="zoomIn">
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="panButton">
-       <property name="text">
-        <string>Pan</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="selectButton">
-       <property name="text">
-        <string>Select BBOX</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2">
-      <widget class="QPushButton" name="b1">
-       <property name="text">
-        <string>Apply BBOX</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QPushButton" name="zoomOut">
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QPushButton" name="b2">
-       <property name="text">
-        <string>Apply Layer Extent</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QComboBox" name="chooseBBOXLayer"/>
-     </item>
-     <item row="8" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="bboxCRSLabel">
        <property name="text">
         <string>BBOX CRS:</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="8" column="1">
-      <widget class="QgsProjectionSelectionWidget" name="crsdialog"/>
-     </item>
-     <item row="5" column="2">
-      <widget class="QPushButton" name="selectPolygon">
-       <property name="text">
-        <string>Select Polygon</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="searchButton">
-       <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="searchPlace">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Search Place:</string>
+        <string>Select your geospatial constraint using one of the options below:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" rowspan="6" colspan="2">
-      <widget class="QgsMapCanvas" name="map_canvas" native="true"/>
+     <item row="1" column="0" colspan="3">
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="tabWidgetPage1" native="true">
+        <attribute name="title">
+         <string>BBOX By Map Tool</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="zoomIn">
+           <property name="text">
+            <string>+</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QPushButton" name="selectButton">
+           <property name="text">
+            <string>Select BBOX</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QPushButton" name="selectCircle">
+           <property name="text">
+            <string>Select Circle</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="zoomOut">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="panButton">
+           <property name="text">
+            <string>Pan</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QPushButton" name="selectPolygon">
+           <property name="text">
+            <string>Select Polygon</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" rowspan="6">
+          <widget class="QgsMapCanvas" name="map_canvas" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabWidgetPage2" native="true">
+        <attribute name="title">
+         <string>BBOX by Geocoding</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="geocodeSearch"/>
+         </item>
+         <item row="1" column="0" colspan="4">
+          <widget class="QgsMapCanvas" name="map_canvas_geocoding" native="true"/>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="geocodeSearchButton">
+           <property name="text">
+            <string>Search</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="searchPlace">
+           <property name="text">
+            <string>Search Place:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="geocoderSelection">
+           <item>
+            <property name="text">
+             <string>Nominatim</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabWidgetPage3" native="true">
+        <attribute name="title">
+         <string>BBOX By Layer Extent</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="0" column="1">
+          <widget class="QComboBox" name="chooseBBOXLayer"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="chooseLayerLabel">
+           <property name="text">
+            <string>Choose Layer Extent:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QgsMapCanvas" name="map_canvas_layerextent" native="true"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="b2">
+           <property name="text">
+            <string>Apply Layer Extent</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabWidgetPage4" native="true">
+        <attribute name="title">
+         <string>BBOX By Area Property</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>551</width>
+           <height>371</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="1">
+           <widget class="QComboBox" name="areaPropertyComboBox"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="areaPropertySelectedConceptComboBox"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="areaPropertySelectedConcept">
+            <property name="text">
+             <string>Selected Concept:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="areaPropertyLabel">
+            <property name="text">
+             <string>Area Property:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Test Amount of Applicable Instances</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="amountOfApplicableInstancesResult">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="geocodeSearch"/>
+     <item row="10" column="1" colspan="2">
+      <widget class="QgsProjectionSelectionWidget" name="crsdialog"/>
      </item>
     </layout>
    </item>

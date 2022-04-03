@@ -11,18 +11,21 @@ from rdflib import Graph
 MESSAGE_CATEGORY = "SPARQLUtils"
 
 class SPARQLUtils:
-    supportedLiteralTypes = {"http://www.opengis.net/ont/geosparql#wktLiteral": "wkt",
+    supportedLiteralTypes = {
+                             "http://www.opengis.net/ont/geosparql#wktLiteral": "wkt",
                              "http://www.opengis.net/ont/geosparql#gmlLiteral": "gml",
                              "http://www.opengis.net/ont/geosparql#wkbLiteral": "wkb",
                              "http://www.opengis.net/ont/geosparql#geoJSONLiteral": "geojson",
                              "http://www.opengis.net/ont/geosparql#kmlLiteral": "kml",
-                             "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"}
+                             "http://www.opengis.net/ont/geosparql#dggsLiteral": "dggs"
+                             }
 
     namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
 
     annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 
-    geoproperties={"http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
+    geoproperties={
+                   "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
@@ -40,8 +43,9 @@ class SPARQLUtils:
                    "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
                    "http://rdfs.co/juso/geometry": "ObjectProperty",
                    "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
+                   "https://database.factgrid.de/prop/direct/P48": "DatatypeProperty",
                    "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
-                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty",
+                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
     styleproperties={

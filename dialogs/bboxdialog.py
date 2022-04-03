@@ -4,7 +4,7 @@ from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY, QgsPoint
+    QgsCoordinateTransform, QgsPointXY, QgsPoint, QgsRectangle
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
@@ -12,9 +12,8 @@ from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
 from qgis.core import QgsMessageLog
 
 from ..util.ui.uiutils import UIUtils
-from ..util.ui.mappingtools import RectangleMapTool
-from ..util.ui.mappingtools import CircleMapTool
-from ..util.ui.mappingtools import PolygonMapTool
+from ..util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonMapTool
+from ..util.geocodingutils import GeocodingUtils
 import os.path
 import json
 
@@ -82,9 +81,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.vl_geocoding = QgsVectorLayer("Point", "temporary_points", "memory")
+        self.vl_extent = QgsVectorLayer("Point", "temporary_points", "memory")
         self.layerExtentOrBBOX = False
         self.map_canvas.setMinimumSize(500, 475)
-        self.nominatimmap = {}
         actionPan = QAction("Pan", self)
         actionPan.setCheckable(True)
         actionPan.triggered.connect(self.pan)
@@ -100,6 +100,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas.setMapTool(self.rect_tool)
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas.setLayers([self.vl, self.mts_layer])
+        self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
+        self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
+        self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
+        self.map_canvas_layerextent.setLayers([self.vl_extent, self.mts_layer])
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.selectCircle.hide()
@@ -114,13 +118,34 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.b2.clicked.connect(self.setBBOXExtentQuery)
         #self.geocodeSearch=NominatimText(self.map_canvas)
         self.geocodeSearch.setCompleter(self.sparqlcompleter)
-        self.geocodeSearch.textChanged.connect(self.geocode)
+        self.geocodeSearchButton.clicked.connect(self.geocodeInput)
+        #self.geocodeSearch.textChanged.connect(geocode)
         layers = QgsProject.instance().layerTreeRoot().children()
         for layer in layers:
             self.chooseBBOXLayer.addItem(layer.name())
-        self.searchButton.clicked.connect(self.geocode)
         self.b1.clicked.connect(self.setBBOXInQuery)
 
+    def geocodeInput(self):
+        searchString=self.geocodeSearch.text()
+        geocoder=self.geocoderSelection.currentText()
+        if geocoder=="Nominatim":
+            results=GeocodingUtils.geocodeWithAPI(searchString)
+            QgsMessageLog.logMessage("Nominatim Response: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            choosemodel=self.sparqlcompleter.model()
+            choosemodel.clear()
+            for rec in results:
+                if rec.isValid():
+                    curitem=QStandardItem(rec.identifier())
+                    curitem.setData(rec.geometry(),256)
+                    curitem.setData(rec.crs(), 257)
+                    curitem.setData(rec.viewport(), 258)
+                    choosemodel.appendRow(curitem)
+            popupp=self.sparqlcompleter.popup()
+            popupp.x=self.geocodeSearch.x()
+            popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
+            popupp.show()
+
+    """
     def geocode(self):
         try:
             nominatimurl = UIUtils.nominatimurl.format(**{'address': self.geocodeSearch.text()})
@@ -158,6 +183,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             popupp.show()
         else:
             print("Error occured: ", er)
+    """
 
     def zoomToCoordinates(self, completion):
         scale = 50
