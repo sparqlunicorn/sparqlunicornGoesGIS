@@ -1,9 +1,7 @@
 var a00257 =
 [
     [ "__init__", "a00257.html#a0c21f1aed6630d610e075980cb6da4b1", null ],
-    [ "geocode", "a00257.html#a1a79c88c50c84c8b1c966fd5bfbc29df", null ],
-    [ "handleResponse", "a00257.html#af5af50facce4d4c1e55416043b1f6dd2", null ],
-    [ "networkrequest", "a00257.html#a846ec42f7586b3ddea32e1eacad2f411", null ],
+    [ "geocodeInput", "a00257.html#a15c6a85a780c7886726807c5b9b217fb", null ],
     [ "pan", "a00257.html#a2ecfd77fcaecf54eabed081273f16b04", null ],
     [ "selectarea", "a00257.html#ab0c24de48d8d2ee4dd3d1ced40240f82", null ],
     [ "selectcircle", "a00257.html#a0fdf1a27549d13b04c89ed9e5f49c58c", null ],
@@ -17,9 +15,7 @@ var a00257 =
     [ "endpointIndex", "a00257.html#a21502d8768436cf2ce0f12de36797aba", null ],
     [ "inp_sparql", "a00257.html#a78dd7b812e193157111968de8437452c", null ],
     [ "layerExtentOrBBOX", "a00257.html#a4c1b62fb75c2d7840ffbde051044c449", null ],
-    [ "manager", "a00257.html#a23416379944e641a8ad6bdbc95ef1859", null ],
     [ "mts_layer", "a00257.html#a90dc809bbf3ab04604a3662090a747bc", null ],
-    [ "nominatimmap", "a00257.html#a87030b4985e39b57aeea787ef0af34b9", null ],
     [ "poly_tool", "a00257.html#a06083c65633006bf4cb30692abd28bb2", null ],
     [ "polygon", "a00257.html#ab82259f2d5be8dbbb27e0a0c37de9ef7", null ],
     [ "rect_tool", "a00257.html#afa7762e508c69c794a5578cf048e0c4d", null ],
@@ -27,5 +23,7 @@ var a00257 =
     [ "sparqlcompleter", "a00257.html#a934ff90338e419a442dc4bebd8ba879c", null ],
     [ "toolPan", "a00257.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "triplestoreconf", "a00257.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "vl", "a00257.html#a3b8faf024ce1e723b98817e20cd69ff6", null ]
+    [ "vl", "a00257.html#a3b8faf024ce1e723b98817e20cd69ff6", null ],
+    [ "vl_extent", "a00257.html#a9ace172d4b4fc984f539decd3bf43ffe", null ],
+    [ "vl_geocoding", "a00257.html#ae32330499526c2d23321bf61fe00b376", null ]
 ];

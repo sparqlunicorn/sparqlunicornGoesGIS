@@ -3,7 +3,7 @@ var hierarchy =
     [ "ConfigUtils", "a00433.html", null ],
     [ "ConvertCRS", "a00437.html", null ],
     [ "EnrichmentTab", "a00425.html", null ],
-    [ "FORM_CLASS", "a00953.html", [
+    [ "FORM_CLASS", "a00981.html", [
       [ "AboutDialog", "a00245.html", null ],
       [ "BBOXDialog", "a00257.html", null ],
       [ "ClusterViewDialog", "a00261.html", null ],
@@ -26,12 +26,12 @@ var hierarchy =
       [ "VarInputDialog", "a00333.html", null ],
       [ "EnrichmentDialog", "a00337.html", null ]
     ] ],
-    [ "GeocodingUtils", "a00441.html", null ],
-    [ "GraphUtils", "a00445.html", null ],
+    [ "GeocodingUtils", "a00445.html", null ],
+    [ "GraphUtils", "a00449.html", null ],
     [ "InterlinkingTab", "a00429.html", null ],
-    [ "LayerUtils", "a00449.html", null ],
-    [ "MatchingTools", "a00457.html", null ],
-    [ "OAuthConfiguration", "a00461.html", null ],
+    [ "LayerUtils", "a00453.html", null ],
+    [ "MatchingTools", "a00461.html", null ],
+    [ "OAuthConfiguration", "a00465.html", null ],
     [ "QDialog", null, [
       [ "ConvertCRSDialog", "a00265.html", null ],
       [ "ConvertLayerDialog", "a00269.html", null ],
@@ -41,11 +41,11 @@ var hierarchy =
       [ "SPARQLunicornDialog", "a00313.html", null ]
     ] ],
     [ "SPARQLunicorn", "a00241.html", null ],
-    [ "SPARQLUtils", "a00465.html", null ],
-    [ "StyleObject", "a00469.html", null ],
-    [ "StyleUtils", "a00473.html", null ],
+    [ "SPARQLUtils", "a00469.html", null ],
+    [ "StyleObject", "a00473.html", null ],
+    [ "StyleUtils", "a00477.html", null ],
     [ "Enum", null, [
-      [ "StringMatching", "a00453.html", null ]
+      [ "StringMatching", "a00457.html", null ]
     ] ],
     [ "QCompleter", null, [
       [ "SPARQLCompleter", "a00249.html", null ]
@@ -66,6 +66,9 @@ var hierarchy =
       [ "ValueMappingDialog", "a00329.html", null ],
       [ "VarInputDialog", "a00333.html", null ],
       [ "EnrichmentDialog", "a00337.html", null ]
+    ] ],
+    [ "QgsNominatimGeocoder", null, [
+      [ "QgsNominatimRevGeocoder", "a00441.html", null ]
     ] ],
     [ "QgsTask", null, [
       [ "ClassTreeQueryTask", "a00341.html", null ],

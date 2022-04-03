@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00962.html", null ],
-    [ "tasks/__init__.py", "a00965.html", null ],
-    [ "util/__init__.py", "a00968.html", null ],
+    [ "dialogs/__init__.py", "a00990.html", null ],
+    [ "tasks/__init__.py", "a00993.html", null ],
+    [ "util/__init__.py", "a00996.html", null ],
     [ "aboutdialog.py", "a00014.html", "a00014" ],
     [ "bboxdialog.py", "a00017.html", "a00017" ],
     [ "classtreequerytask.py", "a00077.html", "a00077" ],
@@ -27,7 +27,8 @@ var files_dup =
     [ "findrelatedconceptquerytask.py", "a00095.html", "a00095" ],
     [ "findstylestask.py", "a00098.html", "a00098" ],
     [ "geocodingutils.py", "a00152.html", [
-      [ "GeocodingUtils", "a00441.html", "a00441" ]
+      [ "QgsNominatimRevGeocoder", "a00441.html", "a00441" ],
+      [ "GeocodingUtils", "a00445.html", "a00445" ]
     ] ],
     [ "geocollectionsquerytask.py", "a00101.html", "a00101" ],
     [ "geoconceptsquerytask.py", "a00104.html", "a00104" ],
@@ -47,11 +48,11 @@ var files_dup =
     [ "loadgraphtask.py", "a00125.html", "a00125" ],
     [ "loginwindowdialog.py", "a00041.html", "a00041" ],
     [ "matchingtools.py", "a00161.html", [
-      [ "StringMatching", "a00453.html", "a00453" ],
-      [ "MatchingTools", "a00457.html", "a00457" ]
+      [ "StringMatching", "a00457.html", "a00457" ],
+      [ "MatchingTools", "a00461.html", "a00461" ]
     ] ],
     [ "oauth.py", "a00164.html", [
-      [ "OAuthConfiguration", "a00461.html", "a00461" ]
+      [ "OAuthConfiguration", "a00465.html", "a00465" ]
     ] ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
     [ "preferencesdialog.py", "a00044.html", "a00044" ],

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: GeocodingUtils Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: QgsNominatimRevGeocoder Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,35 +65,84 @@ $(document).ready(function(){initNavTree('a00441.html',''); initResizable(); });
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00438.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">GeocodingUtils Class Reference</div>  </div>
+<div class="title">QgsNominatimRevGeocoder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for QgsNominatimRevGeocoder:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00440.png" border="0" usemap="#QgsNominatimRevGeocoder_inherit__map" alt="Inheritance graph"/></div>
+<map name="QgsNominatimRevGeocoder_inherit__map" id="QgsNominatimRevGeocoder_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,212,107"/>
+<area shape="rect" title=" " alt="" coords="17,5,200,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for QgsNominatimRevGeocoder:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00439.png" border="0" usemap="#QgsNominatimRevGeocoder_coll__map" alt="Collaboration graph"/></div>
+<map name="QgsNominatimRevGeocoder_coll__map" id="QgsNominatimRevGeocoder_coll__map">
+<area shape="rect" title=" " alt="" coords="5,80,212,107"/>
+<area shape="rect" title=" " alt="" coords="17,5,200,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a79c88c50c84c8b1c966fd5bfbc29df"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a1a79c88c50c84c8b1c966fd5bfbc29df">geocode</a> (self)</td></tr>
-<tr class="separator:a1a79c88c50c84c8b1c966fd5bfbc29df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a846ec42f7586b3ddea32e1eacad2f411"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a846ec42f7586b3ddea32e1eacad2f411">networkrequest</a> (self, nurl)</td></tr>
-<tr class="separator:a846ec42f7586b3ddea32e1eacad2f411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5af50facce4d4c1e55416043b1f6dd2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#af5af50facce4d4c1e55416043b1f6dd2">handleResponse</a> (self, reply)</td></tr>
-<tr class="separator:af5af50facce4d4c1e55416043b1f6dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d1b605d712900b0d04ce6788f32abe"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#ac4d1b605d712900b0d04ce6788f32abe">__init__</a> (self, <a class="el" href="a00441.html#a84a45817ab421efc1e1ac39ccfcff2f7">endpointReverse</a>=&quot;https://nominatim.openstreetmap.org/reverse&quot;)</td></tr>
+<tr class="separator:ac4d1b605d712900b0d04ce6788f32abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af775bd05363da54958bd28e5dbe4a2a9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#af775bd05363da54958bd28e5dbe4a2a9">flags</a> (self)</td></tr>
+<tr class="separator:af775bd05363da54958bd28e5dbe4a2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6b28ee63be5a1625de5b256fa3a06a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a0a6b28ee63be5a1625de5b256fa3a06a">geocodeFeature</a> (self, feature, context, feedback=None)</td></tr>
+<tr class="separator:a0a6b28ee63be5a1625de5b256fa3a06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a23416379944e641a8ad6bdbc95ef1859"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a23416379944e641a8ad6bdbc95ef1859">manager</a></td></tr>
-<tr class="separator:a23416379944e641a8ad6bdbc95ef1859"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87030b4985e39b57aeea787ef0af34b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a87030b4985e39b57aeea787ef0af34b9">nominatimmap</a></td></tr>
-<tr class="separator:a87030b4985e39b57aeea787ef0af34b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84a45817ab421efc1e1ac39ccfcff2f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00441.html#a84a45817ab421efc1e1ac39ccfcff2f7">endpointReverse</a></td></tr>
+<tr class="separator:a84a45817ab421efc1e1ac39ccfcff2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1a79c88c50c84c8b1c966fd5bfbc29df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a79c88c50c84c8b1c966fd5bfbc29df">&#9670;&nbsp;</a></span>geocode()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac4d1b605d712900b0d04ce6788f32abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d1b605d712900b0d04ce6788f32abe">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def geocode </td>
+          <td class="memname">def __init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>endpointReverse</em> = <code>&quot;https://nominatim.openstreetmap.org/reverse&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, endpointReverse=&quot;https://nominatim.openstreetmap.org/reverse<span class="stringliteral">&quot;):</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="stringliteral">        super().<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="stringliteral">        self.endpointReverse = endpointReverse</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="stringliteral"></span> </div>
+<span class="stringliteral"></div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af775bd05363da54958bd28e5dbe4a2a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af775bd05363da54958bd28e5dbe4a2a9">&#9670;&nbsp;</a></span>flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def flags </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -101,29 +150,20 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">def </span>geocode(self):</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            nominatimurl = UIUtils.nominatimurl.format(**{<span class="stringliteral">&#39;address&#39;</span>: self.geocodeSearch.text()})</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            self.networkrequest(nominatimurl)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Mandatory variables missing!&quot;</span>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            msgBox.setText(str(e))</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">def </span>flags(self):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> QgsGeocoderInterface.Flag.GeocodesStrings &amp; QgsGeocoderInterface.Flag.GeocodesFeatures</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00441.html#a846ec42f7586b3ddea32e1eacad2f411">GeocodingUtils.networkrequest()</a>, and <a class="el" href="a00257.html#a846ec42f7586b3ddea32e1eacad2f411">BBOXDialog.networkrequest()</a>.</p>
-
 </div>
 </div>
-<a id="af5af50facce4d4c1e55416043b1f6dd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5af50facce4d4c1e55416043b1f6dd2">&#9670;&nbsp;</a></span>handleResponse()</h2>
+<a id="a0a6b28ee63be5a1625de5b256fa3a06a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6b28ee63be5a1625de5b256fa3a06a">&#9670;&nbsp;</a></span>geocodeFeature()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def handleResponse </td>
+          <td class="memname">def geocodeFeature </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -132,48 +172,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reply</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span>handleResponse(self, reply):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        er = reply.error()</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> er == QNetworkReply.NoError:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            bytes_string = reply.readAll()</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            print(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            results = json.loads(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            self.nominatimmap = {}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            chooselist = []</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">for</span> rec <span class="keywordflow">in</span> results:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                chooselist.append(rec[<span class="stringliteral">&#39;display_name&#39;</span>])</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                self.nominatimmap[rec[<span class="stringliteral">&#39;display_name&#39;</span>]] = [rec[<span class="stringliteral">&#39;lon&#39;</span>], rec[<span class="stringliteral">&#39;lat&#39;</span>]]</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            print(<span class="stringliteral">&quot;Error occured: &quot;</span>, er)</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a846ec42f7586b3ddea32e1eacad2f411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a846ec42f7586b3ddea32e1eacad2f411">&#9670;&nbsp;</a></span>networkrequest()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def networkrequest </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
+          <td class="paramname"><em>feature</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>nurl</em>&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>feedback</em> = <code>None</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -182,42 +193,29 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">def </span>networkrequest(self, nurl):</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">global</span> reply</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.manager = QNetworkAccessManager()</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        url = QUrl(nurl)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        request = QNetworkRequest(url)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.manager.finished.connect(self.handleResponse)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.manager.get(request)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">def </span>geocodeFeature(self, feature, context, feedback=None):</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        pt = feature.geometry().asPoint()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        lon, lat = pt.x(), pt.y()</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        url = f<span class="stringliteral">&quot;{self.endpointReverse}?lat={lat}&amp;lon={lon}&amp;format=json&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        request = QgsBlockingNetworkRequest()</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        request.get(QNetworkRequest(QUrl(url)))</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        reply = request.reply()</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        content = reply.content()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        jsonContent = json.loads(content.data().decode())</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> self.jsonToResult(jsonContent)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="a00441.html#a1a79c88c50c84c8b1c966fd5bfbc29df">GeocodingUtils.geocode()</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a23416379944e641a8ad6bdbc95ef1859"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23416379944e641a8ad6bdbc95ef1859">&#9670;&nbsp;</a></span>manager</h2>
+<a id="a84a45817ab421efc1e1ac39ccfcff2f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84a45817ab421efc1e1ac39ccfcff2f7">&#9670;&nbsp;</a></span>endpointReverse</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">manager</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a87030b4985e39b57aeea787ef0af34b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87030b4985e39b57aeea787ef0af34b9">&#9670;&nbsp;</a></span>nominatimmap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">nominatimmap</td>
+          <td class="memname">endpointReverse</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,11 +224,12 @@ Public Attributes</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aa00421_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00421.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00176.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00226.html">util</a></li><li class="navelem"><a class="el" href="a00229.html">geocodingutils</a></li><li class="navelem"><a class="el" href="a00441.html">GeocodingUtils</a></li>
+    <li class="navelem"><a class="el" href="a00176.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00226.html">util</a></li><li class="navelem"><a class="el" href="a00229.html">geocodingutils</a></li><li class="navelem"><a class="el" href="a00441.html">QgsNominatimRevGeocoder</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
