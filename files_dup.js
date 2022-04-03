@@ -1,15 +1,15 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00990.html", null ],
-    [ "tasks/__init__.py", "a00993.html", null ],
-    [ "util/__init__.py", "a00996.html", null ],
+    [ "dialogs/__init__.py", "a00986.html", null ],
+    [ "tasks/__init__.py", "a00989.html", null ],
+    [ "util/__init__.py", "a00992.html", null ],
     [ "aboutdialog.py", "a00014.html", "a00014" ],
     [ "bboxdialog.py", "a00017.html", "a00017" ],
     [ "classtreequerytask.py", "a00077.html", "a00077" ],
     [ "clusterviewdialog.py", "a00020.html", "a00020" ],
     [ "configutils.py", "a00146.html", [
-      [ "ConfigUtils", "a00433.html", "a00433" ]
+      [ "ConfigUtils", "a00425.html", "a00425" ]
     ] ],
     [ "convertcrsdialog.py", "a00023.html", "a00023" ],
     [ "convertcrstask.py", "a00080.html", "a00080" ],
@@ -21,14 +21,15 @@ var files_dup =
     [ "detecttriplestoretask.py", "a00089.html", "a00089" ],
     [ "enrichmentquerytask.py", "a00092.html", "a00092" ],
     [ "enrichmenttab.py", "a00140.html", [
-      [ "EnrichmentTab", "a00425.html", "a00425" ]
+      [ "EnrichmentTab", "a00417.html", "a00417" ]
     ] ],
     [ "examplequerydialog.py", "a00032.html", "a00032" ],
     [ "findrelatedconceptquerytask.py", "a00095.html", "a00095" ],
     [ "findstylestask.py", "a00098.html", "a00098" ],
     [ "geocodingutils.py", "a00152.html", [
-      [ "QgsNominatimRevGeocoder", "a00441.html", "a00441" ],
-      [ "GeocodingUtils", "a00445.html", "a00445" ]
+      [ "SPARQLCompleter", "a00433.html", "a00433" ],
+      [ "QgsNominatimRevGeocoder", "a00437.html", "a00437" ],
+      [ "GeocodingUtils", "a00441.html", "a00441" ]
     ] ],
     [ "geocollectionsquerytask.py", "a00101.html", "a00101" ],
     [ "geoconceptsquerytask.py", "a00104.html", "a00104" ],
@@ -41,18 +42,18 @@ var files_dup =
     [ "instancelistquerytask.py", "a00116.html", "a00116" ],
     [ "instancequerytask.py", "a00119.html", "a00119" ],
     [ "interlinkingtab.py", "a00143.html", [
-      [ "InterlinkingTab", "a00429.html", "a00429" ]
+      [ "InterlinkingTab", "a00421.html", "a00421" ]
     ] ],
     [ "layermatchingtask.py", "a00122.html", "a00122" ],
     [ "layerutils.py", "a00158.html", "a00158" ],
     [ "loadgraphtask.py", "a00125.html", "a00125" ],
     [ "loginwindowdialog.py", "a00041.html", "a00041" ],
     [ "matchingtools.py", "a00161.html", [
-      [ "StringMatching", "a00457.html", "a00457" ],
-      [ "MatchingTools", "a00461.html", "a00461" ]
+      [ "StringMatching", "a00453.html", "a00453" ],
+      [ "MatchingTools", "a00457.html", "a00457" ]
     ] ],
     [ "oauth.py", "a00164.html", [
-      [ "OAuthConfiguration", "a00465.html", "a00465" ]
+      [ "OAuthConfiguration", "a00461.html", "a00461" ]
     ] ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
     [ "preferencesdialog.py", "a00044.html", "a00044" ],

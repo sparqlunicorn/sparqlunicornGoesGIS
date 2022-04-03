@@ -1,11 +1,14 @@
 var a00449 =
 [
-    [ "__init__", "a00449.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
-    [ "detectNamespaces", "a00449.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
-    [ "detectTripleStoreConfiguration", "a00449.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
-    [ "testTripleStoreConnection", "a00449.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
-    [ "configuration", "a00449.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
-    [ "feasibleConfiguration", "a00449.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
-    [ "message", "a00449.html#ab8140947611504abcb64a4c277effcf5", null ],
-    [ "testURL", "a00449.html#aacac69f65111f90a0c0d4749ff99a530", null ]
+    [ "detectColumnType", "a00449.html#a3b3b26661848bacfec67cacda1d77cb6", null ],
+    [ "detectLayerColumnType", "a00449.html#a7719daa9b701fee94681d6d677675cef", null ],
+    [ "detectLayerColumnTypes", "a00449.html#af428e0da9890c28e8471632877684873", null ],
+    [ "exportGeometryType", "a00449.html#a6ab4400bb1d621394fec9af6ed12467b", null ],
+    [ "exportLayerAsGeoJSONLD", "a00449.html#a664f3dbc39717e5f4219fc829744d719", null ],
+    [ "getLayerColumnAsList", "a00449.html#aa1a88978ad30c85e5b095f9d079d1547", null ],
+    [ "layerToDot", "a00449.html#a5d95f97b11e92ed3d36c88331d1d55aa", null ],
+    [ "layerToGraphML", "a00449.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
+    [ "layerToTTLString", "a00449.html#ae39fdf5bb286c926d659bcbf9fe38bc8", null ],
+    [ "loadLayerList", "a00449.html#a22c87d0316ac2af5a80b0e7609496924", null ],
+    [ "processLiteral", "a00449.html#ace96e1bc42f11bf906d902cba69ed490", null ]
 ];

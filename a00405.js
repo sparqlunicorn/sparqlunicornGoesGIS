@@ -1,21 +1,19 @@
 var a00405 =
 [
-    [ "__init__", "a00405.html#aed911fa9f6546b7e1985162737243eea", null ],
+    [ "__init__", "a00405.html#a2da3a70a1b4e4a20dc234b2fb9f30ab8", null ],
     [ "finished", "a00405.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00405.html#ad22709b2e67308af35f55680d5a026e0", null ],
-    [ "closedlg", "a00405.html#a01d3a280b1bc20b6cced47816c605adf", null ],
-    [ "detectnamespaces", "a00405.html#a7a6b1696fa7494898c29bf9463a9e73c", null ],
-    [ "dlg", "a00405.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00405.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
-    [ "filenames", "a00405.html#a9f192a484d55d014215ba962492cde5e", null ],
-    [ "geoconcepts", "a00405.html#a6c60f2039bf7ed34f3291349b4637a0a", null ],
-    [ "geojson", "a00405.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
-    [ "graph", "a00405.html#a8ca49c796430e66a10450bfc2d218c81", null ],
-    [ "graphname", "a00405.html#a2c26623604042773d2fc849c0f27bcb4", null ],
-    [ "gutils", "a00405.html#ab12bc51f8501ab832fce8f046512e317", null ],
-    [ "loadgraphdlg", "a00405.html#a0f81c7694b2710fbbf3c33940f4cba64", null ],
-    [ "maindlg", "a00405.html#a7a228f82cef256bf0c017634e4195718", null ],
+    [ "findProperty", "a00405.html#aec9027007067a3aa3d0286c0a92c61d4", null ],
+    [ "label", "a00405.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
+    [ "language", "a00405.html#aa37aa8979934d47ac32fd96ecff32202", null ],
+    [ "prefixes", "a00405.html#a302e350558edcbbd7b85927b33550548", null ],
     [ "progress", "a00405.html#a991fd2c404665f13f536fc7791e53504", null ],
+    [ "qids", "a00405.html#a5553b08a46beb00537611b8c66a10bed", null ],
     [ "query", "a00405.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
-    [ "triplestoreconf", "a00405.html#a330d24be0afd5a96238ca9e128328a2d", null ]
+    [ "results", "a00405.html#a339bb5524b06e496a6aaa0a97a4a8d21", null ],
+    [ "searchResult", "a00405.html#a0e243f776f08c4dd077c3bca68a755a2", null ],
+    [ "triplestoreconf", "a00405.html#a330d24be0afd5a96238ca9e128328a2d", null ],
+    [ "tripleStoreEdit", "a00405.html#a2f954fc5a00f58cea3af99dea474bab7", null ],
+    [ "triplestoreurl", "a00405.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];
