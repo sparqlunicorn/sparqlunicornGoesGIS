@@ -88,6 +88,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.chooseBBOXLayer.model().appendRow(curitem)
         self.chooseBBOXLayer.currentIndexChanged.connect(self.showExtent)
         self.b1.clicked.connect(self.setBBOXInQuery)
+        self.showExtent()
 
     def showExtent(self):
         geom=self.chooseBBOXLayer.currentData(256)
@@ -102,9 +103,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.vl_layerextent.commitChanges()
         self.vl_layerextent.setCrs(crs)
         self.vl_layerextent.updateExtents()
-        #ids = [feat.id() for feat in self.vl_layerextent.getFeatures()]
-        #self.vl_layerextent.setSelectedFeatures(ids)
+        self.vl_layerextent.invertSelection()
         self.map_canvas_layerextent.zoomToSelected(self.vl_layerextent)
+        self.map_canvas_layerextent.zoomOut()
+        self.map_canvas_layerextent.zoomOut()
 
     def insertCompletion(self, completion):
         if(completion==self.geocodeSearch.completer().currentCompletion()):
@@ -119,9 +121,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.vl_geocoding.commitChanges()
             self.vl_geocoding.setCrs(crs)
             self.vl_geocoding.updateExtents()
-            #ids = [feat.id() for feat in self.vl_geocoding.getFeatures()]
-            #self.vl_geocoding.setSelectedFeatures(ids)
+            self.vl_geocoding.invertSelection()
             self.map_canvas_geocoding.zoomToSelected(self.vl_geocoding)
+            self.map_canvas_geocoding.zoomOut()
+            self.map_canvas_geocoding.zoomOut()
 
 
     def geocodeInput(self):

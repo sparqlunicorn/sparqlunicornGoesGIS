@@ -21,7 +21,7 @@
        <enum>Qt::CustomContextMenu</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="queryTab">
        <attribute name="title">
@@ -633,13 +633,10 @@ SELECT ?label ?geo ?item WHERE {
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="1">
          <layout class="QGridLayout" name="gridLayout_7">
-          <item row="0" column="2">
-           <widget class="QComboBox" name="chooseLayerEnrich"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="refreshLayersEnrich">
+          <item row="3" column="3">
+           <widget class="QPushButton" name="addEnrichedLayerButton">
             <property name="text">
-             <string>Refresh Layers</string>
+             <string>Add enriched layer</string>
             </property>
            </widget>
           </item>
@@ -647,13 +644,6 @@ SELECT ?label ?geo ?item WHERE {
            <widget class="QPushButton" name="addEnrichedLayerRowButton">
             <property name="text">
              <string>Add Row</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QPushButton" name="whattoenrich">
-            <property name="text">
-             <string>What to enrich?</string>
             </property>
            </widget>
           </item>
@@ -671,36 +661,55 @@ SELECT ?label ?geo ?item WHERE {
             </property>
            </widget>
           </item>
-          <item row="3" column="3">
-           <widget class="QPushButton" name="addEnrichedLayerButton">
+          <item row="0" column="2">
+           <widget class="QComboBox" name="chooseLayerEnrich"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="refreshLayersEnrich">
             <property name="text">
-             <string>Add enriched layer</string>
+             <string>Refresh Layers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QPushButton" name="whattoenrich">
+            <property name="text">
+             <string>What to enrich?</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1" colspan="3">
-           <widget class="QTableWidget" name="enrichTable">
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
+           <widget class="QStackedWidget" name="stackedWidget">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="page">
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0">
+               <widget class="QTableWidget" name="enrichTable">
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_2">
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QTableWidget" name="enrichTableResult">
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
         </item>
        </layout>
-       <widget class="QTableWidget" name="enrichTableResult">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>true</bool>
-        </attribute>
-       </widget>
       </widget>
      </widget>
     </item>

@@ -156,6 +156,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="shortenURICheckBox">
+           <property name="toolTip">
+            <string>If checked, shortens URIs in vector layer columns</string>
+           </property>
            <property name="text">
             <string>Shorten URIs</string>
            </property>
