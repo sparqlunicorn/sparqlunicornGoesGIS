@@ -26,12 +26,15 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.bboxicon)
         self.inp_sparql = inp_sparql
+        self.rectangle = False
+        self.circle = False
+        self.polygon = True
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.vl_geocoding = QgsVectorLayer("Point", "temporary_polygons", "memory")
-        self.vl_layerextent = QgsVectorLayer("Polygon", "temporary_points", "memory")
+        self.vl_layerextent = QgsVectorLayer("Polygon", "temporary_polys", "memory")
         self.layerExtentOrBBOX = False
         self.map_canvas.setMinimumSize(500, 475)
         actionPan = QAction("Pan", self)
@@ -39,6 +42,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
         actionPan.triggered.connect(self.pan)
         self.toolPan = QgsMapToolPan(self.map_canvas)
         self.toolPan.setAction(actionPan)
+        self.toolPan3 = QgsMapToolPan(self.map_canvas_layerextent)
+        self.toolPan2 = QgsMapToolPan(self.map_canvas_geocoding)
+        self.toolPan2.setAction(actionPan)
+        self.toolPan3.setAction(actionPan)
         uri = "url=http://a.tile.openstreetmap.org/{z}/{x}/{y}.png&zmin=0&type=xyz"
         self.mts_layer = QgsRasterLayer(uri, 'OSM', 'wms')
         if not self.mts_layer.isValid():
@@ -51,8 +58,12 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas.setLayers([self.vl, self.mts_layer])
         self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
         self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
+        self.map_canvas_geocoding.setMapTool(self.toolPan2)
+        self.map_canvas_geocoding.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
         self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
+        self.map_canvas_layerextent.setMapTool(self.toolPan3)
+        self.map_canvas_layerextent.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.pan()
         self.selectCircle.hide()
@@ -82,24 +93,35 @@ class BBOXDialog(QDialog, FORM_CLASS):
         geom=self.chooseBBOXLayer.currentData(256)
         crs = self.chooseBBOXLayer.currentData(257)
         self.vl_layerextent.startEditing()
+        listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
+        self.vl_layerextent.deleteFeatures(listOfIds)
         feat = QgsFeature()
+        QgsMessageLog.logMessage("Geocoding: " + str(QgsGeometry.fromRect(geom).asWkt()), MESSAGE_CATEGORY, Qgis.Info)
         feat.setGeometry(QgsGeometry.fromRect(geom))
         self.vl_layerextent.addFeature(feat)
         self.vl_layerextent.commitChanges()
         self.vl_layerextent.setCrs(crs)
         self.vl_layerextent.updateExtents()
+        #ids = [feat.id() for feat in self.vl_layerextent.getFeatures()]
+        #self.vl_layerextent.setSelectedFeatures(ids)
+        self.map_canvas_layerextent.zoomToSelected(self.vl_layerextent)
 
     def insertCompletion(self, completion):
         if(completion==self.geocodeSearch.completer().currentCompletion()):
             geom=self.geocodeSearch.completer().completionModel().sourceModel().itemFromIndex(self.geocodeSearch.completer().completionModel().mapToSource(self.geocodeSearch.completer().currentIndex())).data(256)
             crs=self.geocodeSearch.completer().completionModel().sourceModel().itemFromIndex(self.geocodeSearch.completer().completionModel().mapToSource(self.geocodeSearch.completer().currentIndex())).data(257)
             self.vl_geocoding.startEditing()
+            listOfIds = [feat.id() for feat in self.vl_geocoding.getFeatures()]
+            self.vl_geocoding.deleteFeatures(listOfIds)
             feat = QgsFeature()
             feat.setGeometry(geom)
             self.vl_geocoding.addFeature(feat)
             self.vl_geocoding.commitChanges()
             self.vl_geocoding.setCrs(crs)
             self.vl_geocoding.updateExtents()
+            #ids = [feat.id() for feat in self.vl_geocoding.getFeatures()]
+            #self.vl_geocoding.setSelectedFeatures(ids)
+            self.map_canvas_geocoding.zoomToSelected(self.vl_geocoding)
 
 
     def geocodeInput(self):
@@ -169,6 +191,11 @@ class BBOXDialog(QDialog, FORM_CLASS):
 
     def setBBOXInQuery(self):
         sourceCrs = None
+        polygon=None
+        pointt1=None
+        pointt2=None
+        pointt3=None
+        pointt4=None
         if self.layerExtentOrBBOX:
             xMax = self.mts_layer.extent().xMaximum()
             xMin = self.mts_layer.extent().xMinimum()
@@ -178,6 +205,9 @@ class BBOXDialog(QDialog, FORM_CLASS):
             pointt2 = QgsGeometry.fromPointXY(QgsPointXY(xMin, yMin))
             pointt3 = QgsGeometry.fromPointXY(QgsPointXY(xMin, yMax))
             pointt4 = QgsGeometry.fromPointXY(QgsPointXY(xMax, yMax))
+            polygon = QgsGeometry.fromPolylineXY(
+                [pointt1.asPoint(), pointt2.asPoint(), pointt3.asPoint(), pointt4.asPoint()])
+            self.polygon=True
             sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
         else:
             sourceCrs = QgsCoordinateReferenceSystem(self.mts_layer.crs())
@@ -192,6 +222,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 pointt3 = QgsGeometry.fromWkt(self.circ_tool.point3.asWkt())
                 pointt4 = QgsGeometry.fromWkt(self.circ_tool.point4.asWkt())
             else:
+                self.rectangle=True
                 pointt1 = QgsGeometry.fromWkt(self.rect_tool.point1.asWkt())
                 pointt2 = QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
                 pointt3 = QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
@@ -204,7 +235,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     pointt4.transform(tr)
                 polygon = QgsGeometry.fromPolylineXY(
                     [pointt1.asPoint(), pointt2.asPoint(), pointt3.asPoint(), pointt4.asPoint()])
-        center = polygon.centroid()
+        if polygon!=None:
+            center = polygon.centroid()
         # distance = QgsDistanceArea()
         # distance.setSourceCrs(destCrs)
         # distance.setEllipsoidalMode(True)
