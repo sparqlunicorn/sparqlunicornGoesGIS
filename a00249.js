@@ -24,6 +24,8 @@ var a00249 =
     [ "rectangle", "a00249.html#a4af379d75971a888c6b6af1450a1e509", null ],
     [ "sparqlcompleter", "a00249.html#a934ff90338e419a442dc4bebd8ba879c", null ],
     [ "toolPan", "a00249.html#af85acd51bc896510da060834a7b6b890", null ],
+    [ "toolPan2", "a00249.html#a034d7f0884eb9262387386ca9dd9baa2", null ],
+    [ "toolPan3", "a00249.html#a25a44a2f4e0e06d80b06657860189641", null ],
     [ "triplestoreconf", "a00249.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "vl", "a00249.html#a3b8faf024ce1e723b98817e20cd69ff6", null ],
     [ "vl_geocoding", "a00249.html#ae32330499526c2d23321bf61fe00b376", null ],
