@@ -29,6 +29,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.rectangle = False
         self.circle = False
         self.polygon = True
+        self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.endpointIndex = endpointIndex
