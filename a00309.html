@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afd5cbb47197ed025c14b33f40011c054"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00309.html#afd5cbb47197ed025c14b33f40011c054">detectTripleStoreConfiguration</a> (self)</td></tr>
 <tr class="separator:afd5cbb47197ed025c14b33f40011c054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34a78bc5f0927053db7797e886f20240"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00309.html#a34a78bc5f0927053db7797e886f20240">addNewSPARQLEndpoint</a> (self)</td></tr>
-<tr class="memdesc:a34a78bc5f0927053db7797e886f20240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addes a new SPARQL endpoint to the triple store registry.  <a href="a00309.html#a34a78bc5f0927053db7797e886f20240">More...</a><br /></td></tr>
+<tr class="memdesc:a34a78bc5f0927053db7797e886f20240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new SPARQL endpoint to the triple store registry.  <a href="a00309.html#a34a78bc5f0927053db7797e886f20240">More...</a><br /></td></tr>
 <tr class="separator:a34a78bc5f0927053db7797e886f20240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab51f83eb5efc7744cb415accade74abc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00309.html#ab51f83eb5efc7744cb415accade74abc">deleteTripleStoreFunc</a> (self)</td></tr>
 <tr class="memdesc:ab51f83eb5efc7744cb415accade74abc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addes a new SPARQL endpoint to the triple store registry.  <a href="a00309.html#ab51f83eb5efc7744cb415accade74abc">More...</a><br /></td></tr>
@@ -252,7 +252,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self.usernameLabel.hide()</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        self.passwordLabel.hide()</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        self.latVarEdit.hide()</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        self.prefixList.itemDoubleClicked.connect(<span class="keyword">lambda</span> item: PrefixDialog(self.prefixList,item.data(257),item.data(256)).exec())</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        self.prefixList.itemDoubleClicked.connect(<span class="keyword">lambda</span> item: PrefixDialog(self.prefixList,prefixstore,item.data(257),item.data(256)).exec())</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        self.secondGeometryVarLabel.hide()</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        self.testConnectButton.clicked.connect(self.testTripleStoreConnection)</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        self.deleteTripleStore.clicked.connect(self.deleteTripleStoreFunc)</div>
@@ -266,7 +266,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)     </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        self.tripleStoreCloseButton.clicked.connect(self.close)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        self.addPrefixButton.clicked.connect(<span class="keyword">lambda</span>: PrefixDialog(self.prefixList).exec())</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        self.addPrefixButton.clicked.connect(<span class="keyword">lambda</span>: PrefixDialog(self.prefixList,prefixstore).exec())</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        self.removePrefixButton.clicked.connect(self.removePrefixFromList)</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        self.varInfoButton.clicked.connect(self.createVarInfoDialog)</div>
@@ -294,7 +294,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Addes a new SPARQL endpoint to the triple store registry. </p>
+<p>Adds a new SPARQL endpoint to the triple store registry. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The object pointer </td></tr>
