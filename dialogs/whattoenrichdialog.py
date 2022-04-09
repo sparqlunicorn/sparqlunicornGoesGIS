@@ -81,13 +81,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             self.idCBox.addItem(field)
         item = QStandardItem()
         item.setText("Loading...")
-        self.idLabel.hide()
-        self.idCBox.hide()
-        self.label.hide()
-        self.languageComboBox.hide()
-        self.matchLabel.hide()
-        self.matchCBox.hide()
-        self.searchButton2.hide()
+        self.matchingGroupBox.hide()
         self.tablemodel.setItem(0,0,item)
         self.searchResult.entered.connect(
             lambda modelindex: UIUtils.showTableURI(modelindex, self.searchResult, self.statusBarLabel))
@@ -99,6 +93,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.conceptSearchEdit.textChanged.connect(lambda: self.matchingGroupBox.show())
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.applyButton.clicked.connect(self.applyConceptToColumn)

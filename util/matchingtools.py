@@ -5,6 +5,7 @@ class StringMatching(Enum):
      LEVENSTHEIN = 1
      HAMMING = 2
      SUBSTRING = 3
+     FUZZYSCORE = 4
 
 class MatchingTools:
 
@@ -14,6 +15,8 @@ class MatchingTools:
             return QgsStringUtils.levenshteinDistance(originalString, comparisonString, False)<threshold
         elif matchingMethod==StringMatching.HAMMING:
             return QgsStringUtils.hammingDistance(originalString,comparisonString,False)<threshold
+        elif matchingMethod==StringMatching.FUZZYSCORE:
+            return QgsStringUtils.fuzzyScore(originalString,comparisonString)<threshold
         elif matchingMethod==StringMatching.SUBSTRING:
             return len(comparisonString)/QgsStringUtils.longestCommonSubstring(originalString, comparisonString, False)>threshold
         return False

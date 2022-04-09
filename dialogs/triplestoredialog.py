@@ -74,7 +74,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.usernameLabel.hide()
         self.passwordLabel.hide()
         self.latVarEdit.hide()
-        self.prefixList.itemDoubleClicked.connect(lambda item: PrefixDialog(self.prefixList,item.data(257),item.data(256)).exec())
+        self.prefixList.itemDoubleClicked.connect(lambda item: PrefixDialog(self.prefixList,prefixstore,item.data(257),item.data(256)).exec())
         self.secondGeometryVarLabel.hide()
         self.testConnectButton.clicked.connect(self.testTripleStoreConnection)
         self.deleteTripleStore.clicked.connect(self.deleteTripleStoreFunc)
@@ -88,7 +88,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)	
         self.tripleStoreCloseButton.clicked.connect(self.close)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
-        self.addPrefixButton.clicked.connect(lambda: PrefixDialog(self.prefixList).exec())
+        self.addPrefixButton.clicked.connect(lambda: PrefixDialog(self.prefixList,prefixstore).exec())
         self.removePrefixButton.clicked.connect(self.removePrefixFromList)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.varInfoButton.clicked.connect(self.createVarInfoDialog)
@@ -240,7 +240,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         QgsApplication.taskManager().addTask(self.qtask)
 	
     ## 
-    #  @brief Addes a new SPARQL endpoint to the triple store registry
+    #  @brief Adds a new SPARQL endpoint to the triple store registry
     #  
     #  @param [in] self The object pointer
     def addNewSPARQLEndpoint(self):

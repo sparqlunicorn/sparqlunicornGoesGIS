@@ -6,1074 +6,1209 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>827</width>
-    <height>458</height>
+    <width>828</width>
+    <height>474</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="conceptSearchLabel">
-     <property name="text">
-      <string>Search ID Concept:</string>
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="matchingGroupBox">
+     <property name="title">
+      <string>Enrichment Step 2: With an identified concept that describes your dataset, find potential matches in the triple store:</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="1">
+       <widget class="QComboBox" name="tripleStoreEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="idLabel">
+        <property name="text">
+         <string>Identifier:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="idCBox"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="matchLabel">
+        <property name="text">
+         <string>Identifier Matching Strategy:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QComboBox" name="matchCBox">
+        <item>
+         <property name="text">
+          <string>Regular Expression</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Levenshtein Distance</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Hamming Distance</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Language:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="tripleStoreLabel">
+        <property name="text">
+         <string>Triple Store:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="languageComboBox">
+        <item>
+         <property name="text">
+          <string>en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ab</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>aa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>af</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ak</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sq</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>am</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ar</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>an</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>as</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>av</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ae</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ay</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>az</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bm</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ba</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>el</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>be</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bh</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bs</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>br</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>my</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ca</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ch</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ny</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>zh</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>eu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kw</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>co</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cs</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>da</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>dv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>dz</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>eo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>et</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ee</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fj</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ff</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>gl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ka</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>de</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>gn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>gu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ht</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ha</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>he</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hz</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ho</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>hu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ia</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>id</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ie</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ga</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ig</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ik</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>io</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>is</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>it</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>iu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ja</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>jv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ks</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>km</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ki</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>rw</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ky</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ko</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ku</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>kj</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>la</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lb</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>li</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ln</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lt</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>gv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ms</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ml</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mt</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mh</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>mn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>na</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nd</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ne</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ng</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nb</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>no</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ii</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>nr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>oc</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>oj</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>om</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>or</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>os</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ps</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>pt</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>qu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>rm</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>rn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ro</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ru</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sc</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sd</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>se</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sm</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>gd</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>si</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>so</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>st</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>es</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>su</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sw</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ss</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>sv</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ta</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>te</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>th</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ti</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>bo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tl</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tn</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>to</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tr</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ts</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tt</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>tw</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ug</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>uk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ur</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>uz</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ve</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>vi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>vo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>wa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>cy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>wo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>fy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>xh</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>yi</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>yo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>za</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>zu</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QPushButton" name="searchButton2">
+        <property name="text">
+         <string>Match Concepts for Identifier Attribute</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="tripleStoreLabel">
-     <property name="text">
-      <string>Triple Store:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="5">
+   <item row="8" column="1">
     <widget class="QPushButton" name="applyButton">
      <property name="text">
       <string>Apply</string>
      </property>
     </widget>
    </item>
-   <item row="13" column="0" colspan="6">
+   <item row="8" column="0">
     <widget class="QLabel" name="statusBarLabel">
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
-   <item row="3" column="4" colspan="2">
-    <widget class="QComboBox" name="matchCBox"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="idLabel">
-     <property name="text">
-      <string>Identifier:</string>
+   <item row="0" column="0" colspan="2">
+    <widget class="QGroupBox" name="searchConceptGroupBox">
+     <property name="title">
+      <string>Enrichment Step 1: Search a concept that describes the dataset you would like to enrich in a semantic database:</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="conceptSearchLabel">
+          <property name="toolTip">
+           <string>Search a concept which represents your current dataset</string>
+          </property>
+          <property name="text">
+           <string>Search ID Concept:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="conceptSearchEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="searchConceptButton">
+          <property name="text">
+           <string>Search Concept</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="3" column="1" colspan="2">
-    <widget class="QComboBox" name="tripleStoreEdit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Language:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QLabel" name="matchLabel">
-     <property name="text">
-      <string>Identifier Matching Strategy:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="2">
-    <widget class="QPushButton" name="searchButton">
-     <property name="text">
-      <string>Search Properties for Enrichment</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4" colspan="2">
-    <widget class="QComboBox" name="languageComboBox">
-     <item>
-      <property name="text">
-       <string>en</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ab</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>aa</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>af</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ak</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sq</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>am</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ar</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>an</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>hy</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>as</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>av</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ae</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ay</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>az</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bm</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ba</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>el</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>be</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bh</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bs</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>br</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>my</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ca</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ch</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ny</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>zh</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>eu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kw</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>co</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>hr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cs</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>da</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>dv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>dz</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>eo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>et</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ee</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fj</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ff</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ka</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>de</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ht</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ha</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>he</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>hz</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>hi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ho</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>hu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ia</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>id</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ie</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ga</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ig</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ik</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>io</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>is</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>it</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>iu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ja</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>jv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ks</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kk</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>km</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ki</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>rw</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ky</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ko</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ku</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>kj</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>la</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lb</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>li</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ln</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lt</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>lv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mk</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ms</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ml</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mt</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mh</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>mn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>na</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nd</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ne</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ng</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nb</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>no</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ii</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>nr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>oc</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>oj</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>om</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>or</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>os</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>pa</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>pi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fa</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>pl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ps</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>pt</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>qu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>rm</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>rn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ro</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ru</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sa</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sc</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sd</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>se</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sm</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gd</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>si</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sk</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>so</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>st</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>es</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>su</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sw</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ss</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>sv</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ta</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>te</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tg</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>th</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ti</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>bo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tk</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tl</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tn</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>to</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tr</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ts</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tt</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>tw</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ug</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>uk</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ur</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>uz</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>ve</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>vi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>vo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>wa</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>cy</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>wo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>fy</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>xh</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>yi</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>yo</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>za</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>zu</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="11" column="0" colspan="6">
-    <widget class="QTableView" name="searchResult">
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <attribute name="horizontalHeaderStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-    </widget>
-   </item>
-   <item row="10" column="3" colspan="3">
-    <widget class="QComboBox" name="filterTableComboBox">
+   <item row="6" column="1">
+    <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
-     <item>
-      <property name="text">
-       <string>Selection</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Attribute</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Sample Instances</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QLineEdit" name="conceptSearchEdit">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="QComboBox" name="idCBox"/>
-   </item>
-   <item row="8" column="3" colspan="3">
-    <widget class="QPushButton" name="searchButton2">
-     <property name="text">
-      <string>Match Concepts for Identifier Attribute</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3" colspan="3">
-    <widget class="QPushButton" name="searchConceptButton">
-     <property name="text">
-      <string>Search Concept</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Filter Table:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QLineEdit" name="filterTableEdit"/>
-   </item>
-   <item row="9" column="0" colspan="6">
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
+     <widget class="QWidget" name="emptyTab"/>
+     <widget class="QWidget" name="matchingConceptsTab">
+      <widget class="QWidget" name="gridLayoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>791</width>
+         <height>221</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Your search yielded X many matching concepts shown in the table below. If you aree with this matching, proceed to enrichment property selection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <widget class="QTableView" name="matchingConceptsResult">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="filterMatchingConceptsTableEdit"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QComboBox" name="filterMatchingConceptsComboBox">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <item>
+           <property name="text">
+            <string>Selection</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Attribute</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sample Instances</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Filter Table:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="searchButton">
+          <property name="text">
+           <string>Search Properties for Enrichment</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="chooseEnrichmentPropertiesTab">
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>20</y>
+         <width>791</width>
+         <height>201</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="2">
+         <widget class="QComboBox" name="filterTableComboBox">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <item>
+           <property name="text">
+            <string>Selection</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Attribute</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sample Instances</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Filter Table:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="filterTableEdit"/>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QTableView" name="searchResult">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="backToMatchingSearchButton">
+          <property name="text">
+           <string>Back to Matching Search</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
    </item>
   </layout>
