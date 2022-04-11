@@ -1,4 +1,4 @@
 var a00192 =
 [
-    [ "PrefixDialog", "a00293.html", "a00293" ]
+    [ "InstanceDataDialog", "a00281.html", "a00281" ]
 ];

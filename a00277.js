@@ -1,22 +1,15 @@
 var a00277 =
 [
-    [ "__init__", "a00277.html#a9e300d9eb595e779004918cc77974d7f", null ],
-    [ "getAttributes", "a00277.html#a756573574530be17f03d879e17a42d84", null ],
-    [ "queryInstance", "a00277.html#ab8553dbd65c6ed73a2a13468e53a1496", null ],
-    [ "toggleSelect", "a00277.html#aaec5b188bffca11b921023e514043833", null ],
-    [ "alreadyloadedSample", "a00277.html#acf65a34531091c482d3844fac8a32f6d", null ],
-    [ "concept", "a00277.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "concepttype", "a00277.html#ad341a2945e04315008627d9d24aba557", null ],
-    [ "filter_proxy_model", "a00277.html#a6d828fa188e4fc612101d64e2c7de582", null ],
-    [ "label", "a00277.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
-    [ "mts_layer", "a00277.html#a90dc809bbf3ab04604a3662090a747bc", null ],
+    [ "__init__", "a00277.html#a2dd85cc01ac4029612c2cd60e519e6e4", null ],
+    [ "dataLocBoxChangedEvent", "a00277.html#a21c5009f82ae76090e9e53f1721ddf95", null ],
+    [ "loadFile", "a00277.html#a2ae2b21223fe5437d0cb6702451276de", null ],
+    [ "loadURI", "a00277.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
+    [ "startValidation", "a00277.html#a81b041c0fd2cb302982b79567a787779", null ],
+    [ "dlg", "a00277.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "justloadingfromfile", "a00277.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "maindlg", "a00277.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "prefixes", "a00277.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "qlayerinstance", "a00277.html#a372686b3ca59f062b995140d963fadd6", null ],
     [ "qtask", "a00277.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "selected", "a00277.html#a2224ec0958a602aef926b6a3715e094e", null ],
-    [ "tablemodel", "a00277.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
-    [ "toolPan", "a00277.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "triplestoreconf", "a00277.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00277.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "vl", "a00277.html#a3b8faf024ce1e723b98817e20cd69ff6", null ]
+    [ "validationFileEdit", "a00277.html#a630410a61fd6702dd1c5e32b2d972f8f", null ]
 ];

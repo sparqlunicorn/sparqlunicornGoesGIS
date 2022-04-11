@@ -1,4 +1,4 @@
 var a00189 =
 [
-    [ "InstanceDataDialog", "a00277.html", "a00277" ]
+    [ "DataSchemaDialog", "a00269.html", "a00269" ]
 ];

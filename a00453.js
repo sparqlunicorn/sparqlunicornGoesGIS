@@ -1,7 +1,11 @@
 var a00453 =
 [
-    [ "FUZZYSCORE", "a00453.html#ad5570b7f4b79a1a94207c040307271f2", null ],
-    [ "HAMMING", "a00453.html#a758dd7ea089ad385444edd082399c839", null ],
-    [ "LEVENSTHEIN", "a00453.html#a0a704cb6400c2ed3e12bdc9f49961571", null ],
-    [ "SUBSTRING", "a00453.html#ace5889b077dc9caad3d4ac71c04ba9d3", null ]
+    [ "__init__", "a00453.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
+    [ "detectNamespaces", "a00453.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
+    [ "detectTripleStoreConfiguration", "a00453.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
+    [ "testTripleStoreConnection", "a00453.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
+    [ "configuration", "a00453.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a00453.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "message", "a00453.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "testURL", "a00453.html#aacac69f65111f90a0c0d4749ff99a530", null ]
 ];

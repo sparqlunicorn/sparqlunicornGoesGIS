@@ -1,4 +1,4 @@
 var a00209 =
 [
-    [ "FindRelatedConceptQueryTask", "a00357.html", "a00357" ]
+    [ "DataSchemaQueryTask", "a00349.html", "a00349" ]
 ];

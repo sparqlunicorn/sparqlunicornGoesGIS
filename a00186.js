@@ -1,4 +1,4 @@
 var a00186 =
 [
-    [ "DataSchemaDialog", "a00265.html", "a00265" ]
+    [ "ClusterViewDialog", "a00257.html", "a00257" ]
 ];

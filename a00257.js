@@ -1,14 +1,10 @@
 var a00257 =
 [
-    [ "__init__", "a00257.html#a9cb492d74e64e3414dec22e8f5564bc5", null ],
-    [ "loadFile", "a00257.html#a2ae2b21223fe5437d0cb6702451276de", null ],
-    [ "loadURI", "a00257.html#a527bac1321b550ce7d51f6ddf6d91566", null ],
-    [ "startConversion", "a00257.html#a281b1c143a8afdfa22a668ec770e812b", null ],
-    [ "toggleComboBoxes", "a00257.html#a9d01577d7db1ca48f36ea1ddc91b991a", null ],
-    [ "dlg", "a00257.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
-    [ "justloadingfromfile", "a00257.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
-    [ "maindlg", "a00257.html#a7a228f82cef256bf0c017634e4195718", null ],
-    [ "prefixes", "a00257.html#a302e350558edcbbd7b85927b33550548", null ],
+    [ "__init__", "a00257.html#a451e9b6d1660309c0524f7bcc877aea6", null ],
+    [ "getRelatedClassStatistics", "a00257.html#ab38673676181b88d13488104a69c7088", null ],
+    [ "concept", "a00257.html#a8797c550322dd66573e3ff76efea346e", null ],
+    [ "filter_proxy_model", "a00257.html#a6d828fa188e4fc612101d64e2c7de582", null ],
     [ "qtask", "a00257.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
+    [ "tablemodel", "a00257.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
     [ "triplestoreconf", "a00257.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];
