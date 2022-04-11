@@ -1,12 +1,10 @@
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.core import QgsProject,QgsTask, QgsMessageLog
+import json
 
-MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
 
-##
-# @brief This QgsTask executes a query which assesses
-class InstanceAmountQueryTask(QgsTask):
+class FindFeaturesInAreaTask(QgsTask):
 
     def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,nodetype):
         super().__init__(description, QgsTask.CanCancel)

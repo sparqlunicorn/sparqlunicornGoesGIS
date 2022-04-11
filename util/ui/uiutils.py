@@ -109,6 +109,46 @@ class UIUtils:
                 statusbar.setText(concept)
 
     @staticmethod
+    def detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult=None,att=None,dlg=None):
+        if curconcept in SPARQLUtils.geoproperties:
+            if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
+                itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
+                itemchecked.setToolTip("Geo Datatype Property")
+                itemchecked.setText("GeoDP")
+                if dlg != None:
+                    dlg.setWindowIcon(UIUtils.geoclassicon)
+            elif SPARQLUtils.geoproperties[curconcept] == "ObjectProperty":
+                itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
+                itemchecked.setToolTip("Geo Object Property")
+                itemchecked.setText("GeoOP")
+                if dlg!=None:
+                    dlg.setWindowIcon(UIUtils.geoclassicon)
+        elif curconcept in SPARQLUtils.styleproperties:
+            itemchecked.setIcon(UIUtils.objectpropertyicon)
+            itemchecked.setToolTip("Style Object Property")
+            itemchecked.setText("Style OP")
+        elif SPARQLUtils.namespaces["rdfs"] in curconcept \
+                or SPARQLUtils.namespaces["owl"] in curconcept \
+                or SPARQLUtils.namespaces["dc"] in curconcept \
+                or SPARQLUtils.namespaces["skos"] in curconcept:
+            itemchecked.setIcon(UIUtils.annotationpropertyicon)
+            itemchecked.setToolTip("Annotation Property")
+            itemchecked.setText("AP")
+        elif "valtype" in queryresult[att]:
+            itemchecked.setIcon(UIUtils.datatypepropertyicon)
+            itemchecked.setToolTip("DataType Property")
+            itemchecked.setText("DP")
+        elif "geoobjproperty" in triplestoreconf and curconcept in triplestoreconf["geoobjproperty"]:
+            itemchecked.setIcon(UIUtils.linkedgeoobjectpropertyicon)
+            itemchecked.setToolTip("Linked Geo Object Property")
+            itemchecked.setText("LGeoOP")
+        else:
+            itemchecked.setIcon(UIUtils.objectpropertyicon)
+            itemchecked.setToolTip("Object Property")
+            itemchecked.setText("OP")
+        return itemchecked
+
+    @staticmethod
     def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Checked):
         counter = 0
         for att in queryresult:
@@ -119,6 +159,8 @@ class UIUtils:
                                  Qt.ItemIsEnabled)
             itemchecked.setCheckState(checkstate)
             itemchecked.setToolTip(checkboxtooltip)
+            itemchecked=UIUtils.detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult,att,dlg)
+            """
             if curconcept in SPARQLUtils.geoproperties:
                 if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
                     itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
@@ -154,6 +196,7 @@ class UIUtils:
                 itemchecked.setIcon(UIUtils.objectpropertyicon)
                 itemchecked.setToolTip("Object Property")
                 itemchecked.setText("OP")
+            """
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
             if "label" in queryresult[att] and queryresult[att]["label"]!="":

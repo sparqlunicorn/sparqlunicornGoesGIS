@@ -15,7 +15,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/graphvalidationdialog.ui'))
 
 ##
-#  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
+#  Class representing the graph validation dialog.
 class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
     ## The triple store configuration file
     triplestoreconf = None

@@ -10,7 +10,7 @@ from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
 MESSAGE_CATEGORY = 'Search Class/Property Task'
 
 class SearchTask(QgsTask):
-    """This shows how to subclass QgsTask"""
+
 
     def __init__(self, description, triplestoreurl, query, triplestoreconf, findProperty, tripleStoreEdit, searchResult,
                  prefixes, label, language, progress):
