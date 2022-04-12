@@ -1,17 +1,17 @@
-from qgis.PyQt.QtWidgets import QDialog, QAction, QMessageBox, QCompleter, QLineEdit
+from qgis.PyQt.QtWidgets import QDialog, QAction, QMessageBox
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
-from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY, QgsPoint, QgsRectangle
+from qgis.core import QgsRasterLayer, QgsProject, QgsCoordinateReferenceSystem, \
+    QgsCoordinateTransform, QgsPointXY, QgsRectangle
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt import uic
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer,QgsFeature
 from qgis.core import QgsMessageLog
 
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonMapTool
 from ..util.geocodingutils import GeocodingUtils, SPARQLCompleter
 import os.path
-import json
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/bboxdialog.ui'))
@@ -193,7 +193,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             msgBox.setText("No layer has been loaded in QGIS to get an extent from!")
             msgBox.exec()
 
-    def setBBOXInQuery(self):
+    def setBBOXInQuery(self,bbox):
         sourceCrs = None
         polygon=None
         pointt1=None
@@ -254,6 +254,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.curbbox.append(pointt3)
             self.curbbox.append(pointt4)
             self.close()
+            curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf[self.endpointIndex],self.curbbox,widthm,curquery)
+            """
             if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
@@ -276,12 +278,17 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     "query"].replace("%%lat%%", str(center.asPoint().y())).replace("%%lon%%",
                                                                                    str(center.asPoint().x())).replace(
                     "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+            """
         elif polygon:
             widthm = 100
             if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
                 curquery = curquery[0:curquery.rfind(
                     '}')] + "FILTER(geof:sfIntersects(?geo,\"" + polygon.asWkt() + "\"^^geo:wktLiteral))"
+            else:
+                curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf[self.endpointIndex], polygon.boundingBox(),
+                                                             widthm, curquery)
+            """
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
                 curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
@@ -296,5 +303,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     "query"].replace("%%lat%%", str(polygon.boundingBox().center().asPoint().y())).replace("%%lon%%",
                                                                                                            str(polygon.boundingBox().center().asPoint().x())).replace(
                     "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+            """
         self.inp_sparql.setPlainText(curquery)
         self.close()

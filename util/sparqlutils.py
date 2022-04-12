@@ -105,29 +105,37 @@ class SPARQLUtils:
         return query
 
     @staticmethod
-    def constructBBOXQuerySegment(triplestoreconf,bboxpoints,widthm):
+    def constructBBOXQuerySegment(triplestoreconf,bboxpoints,widthm=None,curquery=None):
         if "bboxquery" in triplestoreconf and \
                 triplestoreconf["bboxquery"]["type"] == "geosparql":
-            curquery = curquery[0:curquery.rfind('}')] + triplestoreconf["bboxquery"][
+            filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",
-                                                                               str(pointt3.asPoint().x())).replace(
-                "%%y1%%", str(pointt1.asPoint().y())).replace("%%y2%%",
-                                                              str(pointt3.asPoint().y())) + "}\n" + curquery[
-                                                                                                    curquery.rfind(
-                                                                                                        '}') + 1:]
+                                                                               str(bboxpoints[2].asPoint().x())).replace(
+                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",
+                                                              str(bboxpoints[2].asPoint().y())) + "}\n"
+            if curquery!=None:
+                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+            else:
+                return filterstatement
         elif "bboxquery" in triplestoreconf and \
                 triplestoreconf["bboxquery"]["type"] == "minmax":
-            curquery = curquery[0:curquery.rfind('}')] + triplestoreconf["bboxquery"][
-                "query"].replace("%%minPoint%%", bboxpoints[1].asWkt()).replace("%%maxPoint%%",
-                                                                          bboxpoints[3].asWkt()) + curquery[
-                                                                                             curquery.rfind(
-                                                                                                 '}') + 1:]
+            filterstatement=triplestoreconf["bboxquery"][
+                "query"].replace("%%minPoint%%", bboxpoints[1].asWkt()).replace("%%maxPoint%%", bboxpoints[3].asWkt())
+            if curquery!=None:
+                curquery = curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+                return curquery
+            else:
+                return filterstatement
         elif "bboxquery" in triplestoreconf and \
                 triplestoreconf["bboxquery"]["type"] == "pointdistance":
-            curquery = curquery[0:curquery.rfind('}')] + triplestoreconf["bboxquery"][
-                "query"].replace("%%lat%%", str(center.asPoint().y())).replace("%%lon%%",
-                                                                               str(center.asPoint().x())).replace(
-                "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
+            filterstatement=triplestoreconf["bboxquery"][
+                "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).\
+                replace("%%lon%%",str(bboxpoints[0].asPoint().x()))\
+                .replace("%%distance%%", str(widthm / 1000))
+            if curquery!=None:
+                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+            else:
+                return filterstatement
 
     @staticmethod
     ## Executes a SPARQL query using RDFlib, with or without credentials and tries GET and POST query methods and uses proxy settings

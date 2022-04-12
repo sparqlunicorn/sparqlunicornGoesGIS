@@ -1,8 +1,6 @@
 from pyproj import CRS
 from qgis.core import Qgis
-from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog,
-)
+from qgis.core import QgsMessageLog
 
 MESSAGE_CATEGORY = 'ExportCRSTools'
 

@@ -4,7 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import (
     QgsApplication, QgsMessageLog
 )
-from qgis.PyQt.QtGui import QRegExpValidator,QDesktopServices
+from qgis.PyQt.QtGui import QRegExpValidator
 
 from .dataschemadialog import DataSchemaDialog
 from .menu.conceptcontextmenu import ConceptContextMenu

@@ -1,16 +1,13 @@
-from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtWidgets import QStyle
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
+from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 import os
 from qgis.PyQt import uic
-from qgis.PyQt.QtWidgets import QDialog, QWidget, QHeaderView, QProgressDialog
-from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
-    QgsApplication, QgsMessageLog
+from qgis.PyQt.QtWidgets import QDialog
+from qgis.core import QgsApplication, QgsMessageLog
 
-from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..tasks.findrelatedconceptquerytask import FindRelatedConceptQueryTask
 

@@ -1,4 +1,4 @@
-from qgis.PyQt.QtWidgets import QApplication, QMenu, QAction, QFileDialog
+from qgis.PyQt.QtWidgets import QApplication, QMenu, QAction
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.core import (
     QgsApplication, QgsMessageLog

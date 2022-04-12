@@ -1,9 +1,7 @@
 from ..util.sparqlutils import SPARQLUtils
 
 from qgis.core import Qgis
-from qgis.core import (
-    QgsTask, QgsMessageLog,
-)
+from qgis.core import QgsMessageLog
 
 MESSAGE_CATEGORY = 'GraphUtils'
 
@@ -27,6 +25,13 @@ class GraphUtils:
             self.feasibleConfiguration = True
             return True
         return results
+
+    def detectTripleStoreType(self,configuration):
+        testQueries={
+            "geosparql": "PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}",
+            "sparql11": "SELECT ?a ?b ?c WHERE { ?a ?b ?c . BIND( <http://www.opengis.net/ont/geosparql#> AS ?b) } LIMIT 1"
+        }
+
 
     def detectNamespaces(self, subpredobj,progress,triplestoreurl,credentialUserName=None,credentialPassword=None,authmethod=None):
         if subpredobj < 0 or subpredobj == None:

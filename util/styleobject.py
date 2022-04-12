@@ -1,6 +1,4 @@
-from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog
-)
+from qgis.core import QgsMessageLog
 from qgis.core import Qgis
 
 MESSAGE_CATEGORY="Style Utils"

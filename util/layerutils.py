@@ -3,7 +3,7 @@ from qgis.core import (
     QgsMessageLog
 )
 from osgeo import ogr
-from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 import uuid
 import re
 import json

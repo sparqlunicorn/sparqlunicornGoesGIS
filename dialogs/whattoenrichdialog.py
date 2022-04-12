@@ -3,19 +3,15 @@ from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QStandardItemModel
-from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QSortFilterProxyModel
-from qgis.PyQt.QtGui import QDesktopServices,QStandardItem
-from qgis.gui import QgsMapToolPan
-from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtGui import QStandardItem
 
-from qgis.core import QgsRasterLayer
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..tasks.datasamplequerytask import DataSampleQueryTask
 from ..dialogs.searchdialog import SearchDialog
-from ..tasks.whattoenrichquerytask import WhatToEnrichQueryTask
 import os.path
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(

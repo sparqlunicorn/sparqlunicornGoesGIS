@@ -1,4 +1,3 @@
-from ...util.sparqlutils import SPARQLUtils
 from ...util.ui.uiutils import UIUtils
 from qgis._core import Qgis
 from qgis.PyQt.QtWidgets import QMenu, QAction, QFileDialog

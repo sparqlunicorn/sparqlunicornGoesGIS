@@ -1,11 +1,10 @@
-from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QListWidgetItem, QSizePolicy, QProgressDialog, QFileDialog
-from qgis.PyQt.QtCore import QRegExp, Qt
+from qgis.PyQt.QtWidgets import QDialog, QMessageBox, QSizePolicy, QProgressDialog
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
 from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtGui import QRegExpValidator
 
-from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..tasks.detecttriplestoretask import DetectTripleStoreTask
 from ..tasks.loadgraphtask import LoadGraphTask

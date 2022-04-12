@@ -1,11 +1,10 @@
-from qgis.PyQt.QtWidgets import QDialog, QMessageBox,QListWidgetItem,QProgressDialog
-from qgis.PyQt.QtCore import QRegExp,Qt
+from qgis.PyQt.QtWidgets import QDialog, QListWidgetItem,QProgressDialog
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle
-from qgis.PyQt.QtGui import QStandardItem
-from qgis.PyQt.QtGui import QRegExpValidator,QValidator,QIntValidator
+from qgis.PyQt.QtGui import QRegExpValidator
 
 from .prefixdialog import PrefixDialog
 from .examplequerydialog import ExampleQueryDialog

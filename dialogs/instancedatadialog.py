@@ -1,11 +1,10 @@
 
-from qgis.PyQt.QtWidgets import QDialog,QWidget, QHeaderView, QTableWidgetItem
+from qgis.PyQt.QtWidgets import QWidget, QHeaderView
 from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtGui import QDesktopServices, QStandardItem
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt import uic
-from qgis.gui import QgsMapCanvas, QgsMapToolPan
-from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, QgsPointXY, QgsApplication, QgsMessageLog
+from qgis.gui import QgsMapToolPan
+from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, QgsApplication, QgsMessageLog
 from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt
 from qgis.PyQt.QtGui import QStandardItemModel
 

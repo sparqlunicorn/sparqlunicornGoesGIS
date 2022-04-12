@@ -3,7 +3,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageBox
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtGui import QRegExpValidator
 
 from ..util.ui.uiutils import UIUtils
 from ..tasks.graphvalidationtask import GraphValidationTask

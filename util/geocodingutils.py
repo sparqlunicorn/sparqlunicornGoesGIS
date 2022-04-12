@@ -1,10 +1,9 @@
 
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from qgis.PyQt import QtCore
-from qgis.core import Qgis
 from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt, QUrl
-from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
-from qgis.PyQt.QtWidgets import QCompleter,QMessageBox,QLineEdit
+from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtWidgets import QCompleter,QMessageBox
 from qgis.core import QgsMessageLog
 from qgis.core import (
     QgsRectangle,

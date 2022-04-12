@@ -1,12 +1,12 @@
 
-from qgis.PyQt.QtWidgets import QDialog, QWidget, QHeaderView, QProgressDialog
+from qgis.PyQt.QtWidgets import QWidget, QHeaderView, QProgressDialog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
 from qgis.gui import QgsMapToolPan
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
-from qgis.core import Qgis, QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
+from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
     QgsApplication, QgsMessageLog
 
 from ..util.ui.uiutils import UIUtils

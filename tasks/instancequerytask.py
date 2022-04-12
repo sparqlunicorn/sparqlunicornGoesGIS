@@ -1,10 +1,10 @@
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
-from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
-from qgis.PyQt.QtCore import Qt, QSize
+from qgis.core import Qgis, QgsVectorLayer, QgsCoordinateReferenceSystem
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItem
-from qgis.core import QgsProject,QgsTask, QgsMessageLog
+from qgis.core import QgsTask, QgsMessageLog
 import json
 
 MESSAGE_CATEGORY = 'InstanceQueryTask'

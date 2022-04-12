@@ -4,7 +4,7 @@ from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtGui import QRegExpValidator
 
 from ..util.ui.uiutils import UIUtils
 from ..tasks.convertcrstask import ConvertCRSTask

@@ -7,7 +7,6 @@ from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
 from qgis.PyQt.QtGui import QRegExpValidator
 
-from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
 

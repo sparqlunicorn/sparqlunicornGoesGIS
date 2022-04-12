@@ -1,6 +1,4 @@
-from qgis.core import (
-    QgsApplication, QgsTask, QgsMessageLog
-)
+from qgis.core import QgsMessageLog
 from .styleobject import StyleObject
 from .sparqlutils import SPARQLUtils
 from qgis.core import Qgis
