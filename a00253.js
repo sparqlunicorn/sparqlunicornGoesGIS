@@ -8,7 +8,7 @@ var a00253 =
     [ "selectcircle", "a00253.html#a0fdf1a27549d13b04c89ed9e5f49c58c", null ],
     [ "selectpolygon", "a00253.html#a9312642afe8db09575bb8e6a2433c98f", null ],
     [ "setBBOXExtentQuery", "a00253.html#a9f814d876c9a64ddaa37954c49b2a590", null ],
-    [ "setBBOXInQuery", "a00253.html#a6d309f7c5cecf20100946f3ccbf72e79", null ],
+    [ "setBBOXInQuery", "a00253.html#aab44d3bf1b8efacfe73f27220f58069d", null ],
     [ "showExtent", "a00253.html#a1ca463346f49253b00c8e0c3e678f28c", null ],
     [ "zoomToCoordinates", "a00253.html#aa2b926f6f14bc0141d1f57d3e1ec749d", null ],
     [ "circ_tool", "a00253.html#a2ba4baa20054c1b03082429649e16ed5", null ],

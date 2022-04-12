@@ -111,9 +111,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">def </span>batchGeocoding(self):</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        print(<span class="stringliteral">&quot;Batch geocoding stub&quot;</span>)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">def </span>batchGeocoding(self):</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        print(<span class="stringliteral">&quot;Batch geocoding stub&quot;</span>)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -132,16 +132,16 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">def </span>geocode(self):</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            nominatimurl = UIUtils.nominatimurl.format(**{<span class="stringliteral">&#39;address&#39;</span>: self.geocodeSearch.text()})</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            self.networkrequest(nominatimurl)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            msgBox = QMessageBox()</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Mandatory variables missing!&quot;</span>)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            msgBox.setText(str(e))</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            msgBox.exec()</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">def </span>geocode(self):</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            nominatimurl = UIUtils.nominatimurl.format(**{<span class="stringliteral">&#39;address&#39;</span>: self.geocodeSearch.text()})</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            self.networkrequest(nominatimurl)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            msgBox = QMessageBox()</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            msgBox.setWindowTitle(<span class="stringliteral">&quot;Mandatory variables missing!&quot;</span>)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            msgBox.setText(str(e))</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            msgBox.exec()</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00449.html#a846ec42f7586b3ddea32e1eacad2f411">GeocodingUtils.networkrequest()</a>.</p>
 
@@ -170,12 +170,12 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">def </span>geocodeWithAPI(address):</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        n = QgsNominatimGeocoder()</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        context = QgsGeocoderContext(QgsCoordinateTransformContext())</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        out = n.geocodeString(address, context)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> out</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">def </span>geocodeWithAPI(address):</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        n = QgsNominatimGeocoder()</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        context = QgsGeocoderContext(QgsCoordinateTransformContext())</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        out = n.geocodeString(address, context)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> out</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -204,19 +204,19 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">def </span>handleResponse(self, reply):</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        er = reply.error()</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> er == QNetworkReply.NoError:</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            bytes_string = reply.readAll()</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            print(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            results = json.loads(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            self.nominatimmap = {}</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            chooselist = []</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">for</span> rec <span class="keywordflow">in</span> results:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                chooselist.append(rec[<span class="stringliteral">&#39;display_name&#39;</span>])</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                self.nominatimmap[rec[<span class="stringliteral">&#39;display_name&#39;</span>]] = [rec[<span class="stringliteral">&#39;lon&#39;</span>], rec[<span class="stringliteral">&#39;lat&#39;</span>]]</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            print(<span class="stringliteral">&quot;Error occured: &quot;</span>, er)</div>
+<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">def </span>handleResponse(self, reply):</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        er = reply.error()</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> er == QNetworkReply.NoError:</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            bytes_string = reply.readAll()</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            print(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            results = json.loads(str(bytes_string, <span class="stringliteral">&#39;utf-8&#39;</span>))</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            self.nominatimmap = {}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            chooselist = []</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">for</span> rec <span class="keywordflow">in</span> results:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                chooselist.append(rec[<span class="stringliteral">&#39;display_name&#39;</span>])</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                self.nominatimmap[rec[<span class="stringliteral">&#39;display_name&#39;</span>]] = [rec[<span class="stringliteral">&#39;lon&#39;</span>], rec[<span class="stringliteral">&#39;lat&#39;</span>]]</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            print(<span class="stringliteral">&quot;Error occured: &quot;</span>, er)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -245,14 +245,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">def </span>networkrequest(self, nurl):</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">global</span> reply</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        self.manager = QNetworkAccessManager()</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        url = QUrl(nurl)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        request = QNetworkRequest(url)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        self.manager.finished.connect(self.handleResponse)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.manager.get(request)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">def </span>networkrequest(self, nurl):</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">global</span> reply</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.manager = QNetworkAccessManager()</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        url = QUrl(nurl)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        request = QNetworkRequest(url)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        self.manager.finished.connect(self.handleResponse)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        self.manager.get(request)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="a00449.html#a1a79c88c50c84c8b1c966fd5bfbc29df">GeocodingUtils.geocode()</a>.</p>
 
@@ -281,12 +281,12 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">def </span>reversegeocodeWithAPI(feature):</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        n = QgsNominatimRevGeocoder()</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        context = QgsGeocoderContext(QgsCoordinateTransformContext())</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        out = n.geocodeFeature(feature, context)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> out</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">def </span>reversegeocodeWithAPI(feature):</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        n = QgsNominatimRevGeocoder()</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        context = QgsGeocoderContext(QgsCoordinateTransformContext())</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        out = n.geocodeFeature(feature, context)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> out</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>

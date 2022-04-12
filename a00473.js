@@ -1,6 +1,6 @@
 var a00473 =
 [
-    [ "constructBBOXQuerySegment", "a00473.html#ad99b536c772fe1f30af0c6a938e83fdd", null ],
+    [ "constructBBOXQuerySegment", "a00473.html#ad5db598ddd5c08ea8345d135f7e6b0b9", null ],
     [ "detectGeoLiteralType", "a00473.html#a97f09427c956a191bed89636f91c1afa", null ],
     [ "detectLiteralTypeByURI", "a00473.html#afdcf0d66c9ed0c235ad7527a70077d49", null ],
     [ "executeQuery", "a00473.html#a390f1091745cd0ddbc900e80bcde5e3a", null ],

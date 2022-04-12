@@ -75,7 +75,7 @@ Inheritance diagram for ExampleQueryDialog:</div>
 <map name="ExampleQueryDialog_inherit__map" id="ExampleQueryDialog_inherit__map">
 <area shape="rect" title=" " alt="" coords="21,80,181,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00985.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00961.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -85,7 +85,7 @@ Collaboration diagram for ExampleQueryDialog:</div>
 <map name="ExampleQueryDialog_coll__map" id="ExampleQueryDialog_coll__map">
 <area shape="rect" title=" " alt="" coords="21,80,181,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00985.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00961.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -135,19 +135,19 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,queryList,queryName=None):</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        super(QDialog, self).<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Add Example Query&quot;</span>)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        self.queryList=queryList</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        self.addOrEdit=<span class="keyword">True</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">if</span> queryName!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            self.addOrEdit=<span class="keyword">False</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            self.setWindowTitle(<span class="stringliteral">&quot;Edit Example Query Title&quot;</span>)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            self.queryNameEdit.setText(queryName)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.okButton.clicked.connect(self.saveQuery)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,queryList,queryName=None):</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        super(QDialog, self).<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Add Example Query&quot;</span>)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        self.queryList=queryList</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        self.addOrEdit=<span class="keyword">True</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span> queryName!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            self.addOrEdit=<span class="keyword">False</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            self.setWindowTitle(<span class="stringliteral">&quot;Edit Example Query Title&quot;</span>)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            self.queryNameEdit.setText(queryName)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        self.cancelButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.okButton.clicked.connect(self.saveQuery)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -167,13 +167,13 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">def </span>saveQuery(self):</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> self.addOrEdit:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            self.queryList.addItem(self.queryNameEdit.text())</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            self.queryList.setCurrentIndex(self.queryList.count()-1)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            self.queryList.setItemText(self.queryList.currentIndex(),self.queryNameEdit.text())</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.close()</div>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">def </span>saveQuery(self):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> self.addOrEdit:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            self.queryList.addItem(self.queryNameEdit.text())</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            self.queryList.setCurrentIndex(self.queryList.count()-1)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            self.queryList.setItemText(self.queryList.currentIndex(),self.queryNameEdit.text())</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.close()</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00273.html#a660e3722e4c81323174ce41564054ec9">ExampleQueryDialog.addOrEdit</a>, and <a class="el" href="a00273.html#abf14f69d428f0b1d1d9ad10d9b040ec6">ExampleQueryDialog.queryList</a>.</p>
 

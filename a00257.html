@@ -75,7 +75,7 @@ Inheritance diagram for ClusterViewDialog:</div>
 <map name="ClusterViewDialog_inherit__map" id="ClusterViewDialog_inherit__map">
 <area shape="rect" title=" " alt="" coords="30,80,173,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00985.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00961.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -85,7 +85,7 @@ Collaboration diagram for ClusterViewDialog:</div>
 <map name="ClusterViewDialog_coll__map" id="ClusterViewDialog_coll__map">
 <area shape="rect" title=" " alt="" coords="30,80,173,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,80,32"/>
-<area shape="rect" href="a00985.html" title=" " alt="" coords="105,5,215,32"/>
+<area shape="rect" href="a00961.html" title=" " alt="" coords="105,5,215,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -141,32 +141,32 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,triplestoreconf,concept):</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        super(QDialog, self).<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.setupUi(self)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Related Concepts to &quot;</span>+str(concept))</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.triplestoreconf=triplestoreconf</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.concept=concept</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, <span class="stringliteral">&#39;SP_MessageBoxInformation&#39;</span>))))</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.closeButton.clicked.connect(self.close)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.tablemodel=QStandardItemModel()</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.tablemodel.setHeaderData(0, Qt.Horizontal, <span class="stringliteral">&quot;Selection&quot;</span>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.tablemodel.setHeaderData(1, Qt.Horizontal, <span class="stringliteral">&quot;Attribute&quot;</span>)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.tablemodel.setHeaderData(2, Qt.Horizontal, <span class="stringliteral">&quot;Sample Instances&quot;</span>)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.tablemodel.insertRow(0)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.filter_proxy_model = QSortFilterProxyModel()</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.filter_proxy_model.setSourceModel(self.tablemodel)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.filter_proxy_model.setFilterKeyColumn(1)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.tableView.setModel(self.filter_proxy_model)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.clusterView.hide()</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.tableView.entered.connect(<span class="keyword">lambda</span> modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.tableView.doubleClicked.connect(<span class="keyword">lambda</span> modelindex: UIUtils.openTableURL(modelindex, self.tableView))</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.filterTableComboBox.currentIndexChanged.connect(<span class="keyword">lambda</span>: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.show()</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.getRelatedClassStatistics()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self,triplestoreconf,concept):</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        super(QDialog, self).<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        self.setupUi(self)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Related Concepts to &quot;</span>+str(concept))</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        self.triplestoreconf=triplestoreconf</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.concept=concept</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, <span class="stringliteral">&#39;SP_MessageBoxInformation&#39;</span>))))</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.closeButton.clicked.connect(self.close)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.tablemodel=QStandardItemModel()</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.tablemodel.setHeaderData(0, Qt.Horizontal, <span class="stringliteral">&quot;Selection&quot;</span>)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.tablemodel.setHeaderData(1, Qt.Horizontal, <span class="stringliteral">&quot;Attribute&quot;</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.tablemodel.setHeaderData(2, Qt.Horizontal, <span class="stringliteral">&quot;Sample Instances&quot;</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.tablemodel.insertRow(0)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.filter_proxy_model = QSortFilterProxyModel()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.filter_proxy_model.setSourceModel(self.tablemodel)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.filter_proxy_model.setFilterKeyColumn(1)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.tableView.setModel(self.filter_proxy_model)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.clusterView.hide()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.tableView.entered.connect(<span class="keyword">lambda</span> modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.tableView.doubleClicked.connect(<span class="keyword">lambda</span> modelindex: UIUtils.openTableURL(modelindex, self.tableView))</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.filterTableComboBox.currentIndexChanged.connect(<span class="keyword">lambda</span>: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.show()</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.getRelatedClassStatistics()</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -186,15 +186,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">def </span>getRelatedClassStatistics(self):</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> self.concept == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> self.concept <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.qtask = FindRelatedConceptQueryTask(<span class="stringliteral">&quot;Querying related classes.... (&quot;</span> + str(self.concept) + <span class="stringliteral">&quot;)&quot;</span>,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                               self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                               self.tablemodel,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                               self.concept,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                               self.triplestoreconf)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="fragment"><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">def </span>getRelatedClassStatistics(self):</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> self.concept == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> self.concept <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.qtask = FindRelatedConceptQueryTask(<span class="stringliteral">&quot;Querying related classes.... (&quot;</span> + str(self.concept) + <span class="stringliteral">&quot;)&quot;</span>,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                               self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                               self.tablemodel,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                               self.concept,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                               self.triplestoreconf)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00257.html#a8797c550322dd66573e3ff76efea346e">ClusterViewDialog.concept</a>.</p>
 
