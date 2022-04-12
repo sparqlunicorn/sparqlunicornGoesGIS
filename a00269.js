@@ -18,6 +18,7 @@ var a00269 =
     [ "selected", "a00269.html#a2224ec0958a602aef926b6a3715e094e", null ],
     [ "styleprop", "a00269.html#a1451318d493b1d82979d80601a4b8b98", null ],
     [ "tablemodel", "a00269.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
+    [ "templayer", "a00269.html#a778907fc59ab61707d8a566969b8516e", null ],
     [ "toolPan", "a00269.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "triplestoreconf", "a00269.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "triplestoreurl", "a00269.html#a9b8734be629bbc1f64723d90a67861ab", null ],

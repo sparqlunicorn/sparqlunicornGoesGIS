@@ -20,6 +20,7 @@ var a00473 =
     [ "classnode", "a00473.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00473.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
     [ "datatypepropertynode", "a00473.html#aa0daac064737190f501c49003c46d025", null ],
+    [ "exception", "a00473.html#a2387fb71295a4c6a4b0feeaa424809f5", null ],
     [ "geoclassnode", "a00473.html#abe5ec0a47371449485744620d324f1f3", null ],
     [ "geoinstancenode", "a00473.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
     [ "geoproperties", "a00473.html#aba7485239040e54e5eecbbf267d889e5", null ],

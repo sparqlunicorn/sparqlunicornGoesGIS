@@ -1,6 +1,6 @@
 var a00345 =
 [
-    [ "__init__", "a00345.html#ac60fdb3c9059001b817e093b35fed59e", null ],
+    [ "__init__", "a00345.html#a22dc332069145329a77590eeef79dbf2", null ],
     [ "finished", "a00345.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00345.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "column", "a00345.html#ae78e6e11a40e6dba1bae097358f97d15", null ],
@@ -15,6 +15,7 @@ var a00345 =
     [ "relation", "a00345.html#a87e75f78a11b7995d1386f9851405666", null ],
     [ "row", "a00345.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
     [ "tableWidget", "a00345.html#ad3017b774cf7ada6e807826ec0a5f4ca", null ],
+    [ "templayer", "a00345.html#a778907fc59ab61707d8a566969b8516e", null ],
     [ "triplestoreconf", "a00345.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "triplestoreurl", "a00345.html#a9b8734be629bbc1f64723d90a67861ab", null ]
 ];

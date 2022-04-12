@@ -1,6 +1,6 @@
 var a00253 =
 [
-    [ "__init__", "a00253.html#ad4664cc5ba6cf933364ed39730c5d32b", null ],
+    [ "__init__", "a00253.html#ac2d073f781c85fd42ae1d2ab833259e7", null ],
     [ "geocodeInput", "a00253.html#a15c6a85a780c7886726807c5b9b217fb", null ],
     [ "insertCompletion", "a00253.html#ae951a11f594110260b86cee2ddb2d8df", null ],
     [ "pan", "a00253.html#a2ecfd77fcaecf54eabed081273f16b04", null ],
@@ -14,7 +14,6 @@ var a00253 =
     [ "circ_tool", "a00253.html#a2ba4baa20054c1b03082429649e16ed5", null ],
     [ "circle", "a00253.html#abf7c2c3a34f5da034b14e89486f97f16", null ],
     [ "curbbox", "a00253.html#a413f81b64559e001701299e7e4e2cd81", null ],
-    [ "endpointIndex", "a00253.html#a21502d8768436cf2ce0f12de36797aba", null ],
     [ "inp_sparql", "a00253.html#a78dd7b812e193157111968de8437452c", null ],
     [ "layerExtentOrBBOX", "a00253.html#a4c1b62fb75c2d7840ffbde051044c449", null ],
     [ "mts_layer", "a00253.html#a90dc809bbf3ab04604a3662090a747bc", null ],
