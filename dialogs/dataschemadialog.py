@@ -9,6 +9,7 @@ from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
     QgsApplication, QgsMessageLog
 
+from .bboxdialog import BBOXDialog
 from ..util.ui.uiutils import UIUtils
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
 from ..tasks.datasamplequerytask import DataSampleQueryTask
@@ -50,6 +51,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.concept=concept
         self.concepttype=concepttype
         self.label=label
+        self.templayer=None
         self.prefixes=prefixes
         self.selected=True
         self.styleprop=[]
@@ -104,6 +106,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
+        self.geospatialConstraintButton.clicked.connect(lambda: BBOXDialog(None,self.triplestoreconf,self.templayer).exec())
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
@@ -166,7 +169,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas,self.concepttype)
+                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas,self.concepttype,self.templayer)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         #elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:

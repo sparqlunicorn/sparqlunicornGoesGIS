@@ -42,6 +42,7 @@ class WhatToEnrichQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
+        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
         if self.searchTerm == "":
             return False
         if isinstance(self.prefixes, Iterable):

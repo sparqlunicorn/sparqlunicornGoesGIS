@@ -10,13 +10,14 @@ MESSAGE_CATEGORY = 'DataSampleQueryTask'
 
 class DataSampleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype):
+    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype,templayer=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.nodetype=nodetype
         self.column=column
+        self.templayer=templayer
         self.mymap=mymap
         self.triplestoreconf=triplestoreconf
         self.row=row
@@ -41,7 +42,6 @@ class DataSampleQueryTask(QgsTask):
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?val ?val2 LIMIT 100"
             elif "geotriplepattern" in self.triplestoreconf:
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" "+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")+" } GROUP BY ?val LIMIT 100"
-
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
@@ -117,6 +117,7 @@ class DataSampleQueryTask(QgsTask):
             layerlist.insert(0,self.features)
             self.mymap.setLayers(layerlist)
             self.mymap.setCurrentLayer(self.features)
+            self.templayer=self.features
             self.features.selectAll()
             self.mymap.zoomToSelected(self.features)
             self.features.removeSelection()

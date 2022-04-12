@@ -72,6 +72,7 @@ class SPARQLUtils:
     collectionclassnode="CollectionClass"
     instancesloadedindicator="InstancesLoaded"
     treeNodeToolTip="Double click to load, right click for menu"
+    exception=""
 
     @staticmethod
     def queryPreProcessing(query,triplestoreconf,concept=None,convertToCollectionForm=False):
@@ -205,6 +206,7 @@ class SPARQLUtils:
                         raise Exception
                 except:
                     QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
+                    SPARQLUtils.exception=str(e)
                     if "OntopUnsupportedInputQueryException: The expression Exists" in str(e):
                         return "Exists error"
                     return False

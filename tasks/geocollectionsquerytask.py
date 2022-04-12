@@ -40,6 +40,7 @@ class GeoCollectionsQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False

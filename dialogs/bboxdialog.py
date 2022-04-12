@@ -20,7 +20,7 @@ MESSAGE_CATEGORY = 'BBOXDialog'
 
 class BBOXDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, inp_sparql, triplestoreconf, endpointIndex,title="Choose Geospatial Constraint"):
+    def __init__(self, inp_sparql, triplestoreconf, templayer=None, title="Choose Geospatial Constraint"):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
@@ -29,10 +29,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.rectangle = False
         self.circle = False
         self.polygon = True
+        QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
         self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
-        self.endpointIndex = endpointIndex
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
         self.vl_geocoding = QgsVectorLayer("Point", "temporary_polygons", "memory")
         self.vl_layerextent = QgsVectorLayer("Polygon", "temporary_polys", "memory")
@@ -56,13 +56,18 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.poly_tool = PolygonMapTool(self.map_canvas)
         self.map_canvas.setMapTool(self.rect_tool)
         self.map_canvas.setExtent(self.mts_layer.extent())
-        self.map_canvas.setLayers([self.vl, self.mts_layer])
         self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
-        self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
+        self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
+        if templayer!=None:
+            self.map_canvas.setLayers([self.vl, templayer, self.mts_layer])
+            self.map_canvas_geocoding.setLayers([self.vl_geocoding,templayer, self.mts_layer])
+            self.map_canvas_layerextent.setLayers([self.vl_layerextent,templayer, self.mts_layer])
+        else:
+            self.map_canvas.setLayers([self.vl, self.mts_layer])
+            self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
+            self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
         self.map_canvas_geocoding.setMapTool(self.toolPan2)
         self.map_canvas_geocoding.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-        self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
-        self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
         self.map_canvas_layerextent.setMapTool(self.toolPan3)
         self.map_canvas_layerextent.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         self.map_canvas.setCurrentLayer(self.mts_layer)

@@ -165,7 +165,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionConvert_QGIS_Layer_To_RDF.setIcon(UIUtils.featurecollectionToRDFicon)
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionValidate_RDF_Data.setIcon(UIUtils.validationicon)
-        self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf, self.comboBox.currentIndex()).exec())
+        self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())
         self.actionConstraint_By_BBOX.setIcon(UIUtils.bboxicon)
         self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
         self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
@@ -579,6 +579,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def conceptSelectAction(self):
         concept = ""
+        endpointIndex = self.comboBox.currentIndex()
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
                 curindex) is not None and re.match(r'.*Q[0-9]+.*', self.currentContextModel.itemFromIndex(
@@ -593,12 +594,15 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 querytext = ""
                 if concept != None and concept.startswith("http"):
                     querytext = \
-                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
                 elif concept != None:
                     querytext = \
-                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
-                querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("%%concept%%", concept)
+                querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("%%concept%%", concept)
+            QgsMessageLog.logMessage('Started task "{}"'.format("Concept: " + str(concept)), MESSAGE_CATEGORY,
+                                     Qgis.Info)
+            querytext=SPARQLUtils.queryPreProcessing(querytext,self.triplestoreconf[endpointIndex],concept)
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(

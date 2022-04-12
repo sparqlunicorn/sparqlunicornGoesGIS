@@ -126,11 +126,11 @@
     "querytemplate": [
       {
         "label": "Item+Label",
-        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
+        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
       },
       {
         "label": "All Attributes",
-        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 wd:Q%%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
+        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P31 %%concept%% .\n ?item wdt:P625 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
       },
       {
         "label": "100 Hospitals",

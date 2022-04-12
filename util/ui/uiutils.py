@@ -6,6 +6,7 @@ from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QIcon
+from qgis.core import QgsMessageLog
 
 MESSAGE_CATEGORY="UIUtils"
 
@@ -134,7 +135,9 @@ class UIUtils:
             itemchecked.setIcon(UIUtils.annotationpropertyicon)
             itemchecked.setToolTip("Annotation Property")
             itemchecked.setText("AP")
-        elif "valtype" in queryresult[att]:
+        elif att!=None and queryresult!=None \
+                and "valtype" in queryresult[att]:
+            QgsMessageLog.logMessage("Att " + str(queryresult[att]))
             itemchecked.setIcon(UIUtils.datatypepropertyicon)
             itemchecked.setToolTip("DataType Property")
             itemchecked.setText("DP")
