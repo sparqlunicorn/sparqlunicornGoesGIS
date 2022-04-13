@@ -124,6 +124,7 @@ class GraphUtils:
             configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#long",
                                                       "http://www.w3.org/2003/01/geo/wgs84_pos#lat"]
             configuration["mandatoryvariables"] = ["item", "lat","lon"]
+            configuration["geotriplepattern"].append(" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ")
             gottype = True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeo"],
                                        credentialUserName, credentialPassword, authmethod):
@@ -137,11 +138,15 @@ class GraphUtils:
             geoconceptquery+="OPTIONAL { ?item %%typeproperty%% ?class . "+str(pat)+" }\n"
         geoconceptquery+="} ORDER BY ?class"
         configuration["geoconceptquery"] = geoconceptquery
-        configuration["querytemplate"].append(
-            {"label": "10 Random Geometries",
-             "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n "+str(configuration["geotriplepattern"][0])+"\n } LIMIT 10"})
+        if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
+            self.configuration["querytemplate"].append(
+                {"label": "10 Random Geometries",
+                 "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n "+str(self.configuration["geotriplepattern"][0])+"\n } LIMIT 10"})
+            self.configuration[
+                "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . " + str(
+                configuration["geotriplepattern"][
+                    0]) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
         self.configuration["geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }"
-        self.configuration["subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . "+str(configuration["geotriplepattern"][0])+" ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
         return gottype
 
     ## Detects namespaces available in the given triple store in subject, predicate and object position
@@ -235,23 +240,24 @@ class GraphUtils:
                 self.configuration[
                     "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
-            results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a %%typeproperty%% ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
-            if results!=False:
-                self.configuration["geoobjproperty"] = set()
-                self.configuration["geoclasses"] = {}
-                for result in results["results"]["bindings"]:
-                    if "rel" in result \
-                            and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"]\
-                            and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"]\
-                            and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
-                        self.configuration["geoobjproperty"].add(result["rel"]["value"])
-                        if "acon" in result:
-                            if result["acon"]["value"] not in self.configuration["geoclasses"]:
-                                self.configuration["geoclasses"][result["acon"]["value"]]=set()
-                            self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
-                for cls in self.configuration["geoclasses"]:
-                    self.configuration["geoclasses"][cls]=list(self.configuration["geoclasses"][cls])
-                #QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
+            if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
+                results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <"+str(self.configuration["typeproperty"])+"> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
+                if results!=False:
+                    self.configuration["geoobjproperty"] = set()
+                    self.configuration["geoclasses"] = {}
+                    for result in results["results"]["bindings"]:
+                        if "rel" in result \
+                                and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"]\
+                                and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"]\
+                                and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
+                            self.configuration["geoobjproperty"].add(result["rel"]["value"])
+                            if "acon" in result:
+                                if result["acon"]["value"] not in self.configuration["geoclasses"]:
+                                    self.configuration["geoclasses"][result["acon"]["value"]]=set()
+                                self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
+                    for cls in self.configuration["geoclasses"]:
+                        self.configuration["geoclasses"][cls]=list(self.configuration["geoclasses"][cls])
+                    #QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False
