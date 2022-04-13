@@ -40,9 +40,9 @@
      <item row="1" column="0" colspan="3">
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
-       <widget class="QWidget" name="tabWidgetPage1" native="true">
+       <widget class="QWidget" name="tabWidgetPage1">
         <attribute name="title">
          <string>BBOX By Map Tool</string>
         </attribute>
@@ -94,7 +94,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tabWidgetPage2" native="true">
+       <widget class="QWidget" name="tabWidgetPage2">
         <attribute name="title">
          <string>BBOX by Geocoding</string>
         </attribute>
@@ -130,13 +130,13 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tabWidgetPage3" native="true">
+       <widget class="QWidget" name="tabWidgetPage3">
         <attribute name="title">
          <string>BBOX By Layer Extent</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="1">
-          <widget class="QComboBox" name="chooseBBOXLayer"/>
+         <item row="1" column="0" colspan="2">
+          <widget class="QgsMapCanvas" name="map_canvas_layerextent" native="true"/>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="chooseLayerLabel">
@@ -145,19 +145,12 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QgsMapCanvas" name="map_canvas_layerextent" native="true"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QPushButton" name="b2">
-           <property name="text">
-            <string>Apply Layer Extent</string>
-           </property>
-          </widget>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="chooseBBOXLayer"/>
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tabWidgetPage4" native="true">
+       <widget class="QWidget" name="tabWidgetPage4">
         <attribute name="title">
          <string>BBOX By Area Property</string>
         </attribute>

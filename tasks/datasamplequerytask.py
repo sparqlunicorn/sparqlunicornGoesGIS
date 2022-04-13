@@ -10,14 +10,14 @@ MESSAGE_CATEGORY = 'DataSampleQueryTask'
 
 class DataSampleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype,templayer=None):
+    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.nodetype=nodetype
         self.column=column
-        self.templayer=templayer
+        self.templayer=None
         self.mymap=mymap
         self.triplestoreconf=triplestoreconf
         self.row=row
@@ -102,25 +102,25 @@ class DataSampleQueryTask(QgsTask):
                     geocollection["features"].append(geojson)
                     counter+=1
             #QgsMessageLog.logMessage(str(geocollection), MESSAGE_CATEGORY, Qgis.Info)
-            self.features = QgsVectorLayer(json.dumps(geocollection), str(self.concept),"ogr")
+            self.templayer = QgsVectorLayer(json.dumps(geocollection), str(self.concept),"ogr")
             if len(encounteredcrs)>0:
-                crs=self.features.crs()
+                crs=self.templayer.crs()
                 crsstring=encounteredcrs.pop()
                 if crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:
                     crs.createFromString(crsstring)
-                self.features.setCrs(crs)
+                self.templayer.setCrs(crs)
             else:
-                self.features.setCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326"))
+                self.templayer.setCrs(QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326"))
             layerlist=self.mymap.layers()
-            layerlist.insert(0,self.features)
+            layerlist.insert(0,self.templayer)
             self.mymap.setLayers(layerlist)
-            self.mymap.setCurrentLayer(self.features)
-            self.templayer=self.features
-            self.features.selectAll()
-            self.mymap.zoomToSelected(self.features)
-            self.features.removeSelection()
+            self.mymap.setCurrentLayer(self.templayer)
+            QgsMessageLog.logMessage(str(self.templayer), MESSAGE_CATEGORY, Qgis.Info)
+            self.templayer.selectAll()
+            self.mymap.zoomToSelected(self.templayer)
+            self.templayer.removeSelection()
             self.dlg.resize(QSize(self.dlg.width() + 250, self.dlg.height()))
             self.mymap.show()
         reslabelprop="label"

@@ -63,7 +63,7 @@ class DetectTripleStoreTask(QgsTask):
                     self.comboBox.addItem(UIUtils.geoendpointicon, self.triplestorename + " [GeoSPARQL Endpoint]")
                 else:
                     self.comboBox.addItem(UIUtils.linkeddataicon,self.triplestorename+" [SPARQL Endpoint]")
-                if self.tripleStoreChooser != None:
+                if self.tripleStoreChooser is not None:
                     self.tripleStoreChooser.addItem(self.triplestorename)
                 index = len(self.triplestoreconf)
                 self.triplestoreconf.append({})
@@ -72,12 +72,12 @@ class DetectTripleStoreTask(QgsTask):
                 self.prefixes.append("")
                 for prefix in self.gutils.configuration["prefixes"]:
                     self.prefixes[len(self.prefixes)-1] += "PREFIX " + prefix + ":<" + self.gutils.configuration["prefixes"][prefix] + ">\n"
-                if self.permanentAdd != None and self.permanentAdd:
+                if self.permanentAdd is not None and self.permanentAdd:
                     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
                     f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")
                     f.write(json.dumps(self.triplestoreconf, indent=2))
                     f.close()
-                if self.parentdialog != None:
+                if self.parentdialog is not None:
                     self.parentdialog.close()
         elif self.gutils.feasibleConfiguration:
             msgBox = QMessageBox()

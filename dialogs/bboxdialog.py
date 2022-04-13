@@ -20,7 +20,7 @@ MESSAGE_CATEGORY = 'BBOXDialog'
 
 class BBOXDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, inp_sparql, triplestoreconf, templayer=None, title="Choose Geospatial Constraint"):
+    def __init__(self, inp_sparql, triplestoreconf, title="Choose Geospatial Constraint",templayer=None, mapcanvas=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
@@ -29,6 +29,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.rectangle = False
         self.circle = False
         self.polygon = True
+        self.templayer=templayer
         QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
         self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
@@ -58,19 +59,31 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas.setExtent(self.mts_layer.extent())
         self.map_canvas_geocoding.setExtent(self.mts_layer.extent())
         self.map_canvas_layerextent.setExtent(self.mts_layer.extent())
-        if templayer!=None:
-            self.map_canvas.setLayers([self.vl, templayer, self.mts_layer])
-            self.map_canvas_geocoding.setLayers([self.vl_geocoding,templayer, self.mts_layer])
-            self.map_canvas_layerextent.setLayers([self.vl_layerextent,templayer, self.mts_layer])
-        else:
-            self.map_canvas.setLayers([self.vl, self.mts_layer])
-            self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
-            self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
         self.map_canvas_geocoding.setMapTool(self.toolPan2)
         self.map_canvas_geocoding.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         self.map_canvas_layerextent.setMapTool(self.toolPan3)
         self.map_canvas_layerextent.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-        self.map_canvas.setCurrentLayer(self.mts_layer)
+        self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
+        if self.templayer!=None:
+            self.templayer.invertSelection()
+            self.map_canvas.setLayers([self.vl, self.templayer, self.mts_layer])
+            self.map_canvas.zoomToSelected(self.templayer)
+            self.map_canvas.zoomOut()
+            self.map_canvas.zoomOut()
+            self.map_canvas_geocoding.setLayers([self.vl_geocoding,self.templayer, self.mts_layer])
+            self.map_canvas_geocoding.zoomToSelected(self.templayer)
+            self.map_canvas_geocoding.zoomOut()
+            self.map_canvas_geocoding.zoomOut()
+            self.map_canvas_layerextent.setLayers([self.vl_layerextent,self.templayer, self.mts_layer])
+            if len(QgsProject.instance().layerTreeRoot().children()) > 0:
+                self.map_canvas_layerextent.zoomToSelected(self.templayer)
+                self.map_canvas_layerextent.zoomOut()
+                self.map_canvas_layerextent.zoomOut()
+            self.templayer.invertSelection()
+        else:
+            self.map_canvas.setLayers([self.vl, self.mts_layer])
+            self.map_canvas_geocoding.setLayers([self.vl_geocoding, self.mts_layer])
+            self.map_canvas_layerextent.setLayers([self.vl_layerextent, self.mts_layer])
         self.pan()
         self.selectCircle.hide()
         self.crsdialog.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
@@ -81,11 +94,11 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.selectButton.clicked.connect(self.selectarea)
         self.zoomIn.clicked.connect(self.map_canvas.zoomIn)
         self.zoomOut.clicked.connect(self.map_canvas.zoomOut)
-        self.b2.clicked.connect(self.setBBOXExtentQuery)
         self.geocodeSearch.setCompleter(self.sparqlcompleter)
         self.geocodeSearchButton.clicked.connect(self.geocodeInput)
         self.geocodeSearch.textChanged.connect(self.insertCompletion)
         self.chooseBBOXLayer.setModel(QStandardItemModel())
+        self.b1.clicked.connect(self.setBBOXInQuery)
         layers = QgsProject.instance().layerTreeRoot().children()
         for layer in layers:
             curitem=QStandardItem(layer.name())
@@ -93,26 +106,27 @@ class BBOXDialog(QDialog, FORM_CLASS):
             curitem.setData(layer.layer().crs(), 257)
             self.chooseBBOXLayer.model().appendRow(curitem)
         self.chooseBBOXLayer.currentIndexChanged.connect(self.showExtent)
-        self.b1.clicked.connect(self.setBBOXInQuery)
-        self.showExtent()
+        if len(layers)>0:
+            self.showExtent()
 
     def showExtent(self):
         geom=self.chooseBBOXLayer.currentData(256)
         crs = self.chooseBBOXLayer.currentData(257)
-        self.vl_layerextent.startEditing()
-        listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
-        self.vl_layerextent.deleteFeatures(listOfIds)
-        feat = QgsFeature()
-        QgsMessageLog.logMessage("Geocoding: " + str(QgsGeometry.fromRect(geom).asWkt()), MESSAGE_CATEGORY, Qgis.Info)
-        feat.setGeometry(QgsGeometry.fromRect(geom))
-        self.vl_layerextent.addFeature(feat)
-        self.vl_layerextent.commitChanges()
-        self.vl_layerextent.setCrs(crs)
-        self.vl_layerextent.updateExtents()
-        self.vl_layerextent.invertSelection()
-        self.map_canvas_layerextent.zoomToSelected(self.vl_layerextent)
-        self.map_canvas_layerextent.zoomOut()
-        self.map_canvas_layerextent.zoomOut()
+        if geom!=None:
+            self.vl_layerextent.startEditing()
+            listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
+            self.vl_layerextent.deleteFeatures(listOfIds)
+            feat = QgsFeature()
+            QgsMessageLog.logMessage("Geocoding: " + str(QgsGeometry.fromRect(geom).asWkt()), MESSAGE_CATEGORY, Qgis.Info)
+            feat.setGeometry(QgsGeometry.fromRect(geom))
+            self.vl_layerextent.addFeature(feat)
+            self.vl_layerextent.commitChanges()
+            self.vl_layerextent.setCrs(crs)
+            self.vl_layerextent.updateExtents()
+            self.vl_layerextent.invertSelection()
+            self.map_canvas_layerextent.zoomToSelected(self.vl_layerextent)
+            self.map_canvas_layerextent.zoomOut()
+            self.map_canvas_layerextent.zoomOut()
 
     def insertCompletion(self, completion):
         if(completion==self.geocodeSearch.completer().currentCompletion()):
@@ -153,9 +167,10 @@ class BBOXDialog(QDialog, FORM_CLASS):
                                              Qgis.Info)
                     choosemodel.appendRow(curitem)
             popupp=self.sparqlcompleter.popup()
-            popupp.x=self.geocodeSearch.x()
-            popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
             popupp.show()
+            #popupp.x=self.geocodeSearch.x()
+            #popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
+            #
 
     def zoomToCoordinates(self, completion):
         scale = 50

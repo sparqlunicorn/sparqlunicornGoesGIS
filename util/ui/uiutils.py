@@ -179,7 +179,7 @@ class UIUtils:
                 queryresult[att]["concept"]) + "<br>Double click to view definition in web browser")
             searchResultModel.setItem(counter, 1, item)
             itembutton = QStandardItem()
-            if nodetype!=SPARQLUtils.instancenode and nodetype!=SPARQLUtils.geoinstancenode:
+            if nodetype is not SPARQLUtils.instancenode and nodetype is not SPARQLUtils.geoinstancenode:
                 if "valtype" in queryresult[att]:
                     itembutton.setText("Click to load samples... [" + str(queryresult[att]["valtype"]).replace(
                         "http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -210,7 +210,7 @@ class UIUtils:
         for i in range(node.rowCount()):
             if node.child(i).hasChildren():
                 UIUtils.iterateTree(node.child(i),result,visible,classesonly,triplestoreconf,currentContext)
-            if node.data(UIUtils.dataslot_conceptURI)==None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
+            if node.data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
                 result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")

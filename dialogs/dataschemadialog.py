@@ -7,7 +7,7 @@ from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtGui import QStandardItem,QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
-    QgsApplication, QgsMessageLog
+    QgsApplication, QgsMessageLog, Qgis
 
 from .bboxdialog import BBOXDialog
 from ..util.ui.uiutils import UIUtils
@@ -51,7 +51,6 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.concept=concept
         self.concepttype=concepttype
         self.label=label
-        self.templayer=None
         self.prefixes=prefixes
         self.selected=True
         self.styleprop=[]
@@ -106,7 +105,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.dataSchemaTableView.clicked.connect(self.loadSamples)
-        self.geospatialConstraintButton.clicked.connect(lambda: BBOXDialog(None,self.triplestoreconf,self.templayer).exec())
+        self.geospatialConstraintButton.clicked.connect(self.loadBBOXDialog)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.okButton.clicked.connect(self.close)
@@ -146,7 +145,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             self.concept,
             self.triplestoreconf["resource"],
             query,
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None, self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
@@ -159,6 +158,11 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
+    def loadBBOXDialog(self):
+        if self.map_canvas.layerCount()>1:
+            previewlayer=self.map_canvas.layers()[0]
+            BBOXDialog(None, self.triplestoreconf, "Choose Geospatial Constraint to query layer "+str(self.concept[self.concept.rfind('/')+1:]),previewlayer,self.map_canvas).exec()
+
     def loadSamples(self,modelindex):
         row=modelindex.row()
         column=modelindex.column()
@@ -169,7 +173,8 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                                              self,
                                              self.concept,
                                              relation,
-                                             column,row,self.triplestoreconf,self.tablemodel,self.map_canvas,self.concepttype,self.templayer)
+                                             column,row,self.triplestoreconf,self.tablemodel,
+                                            self.map_canvas,self.concepttype)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
         #elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
