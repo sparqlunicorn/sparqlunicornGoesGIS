@@ -20,9 +20,10 @@ MESSAGE_CATEGORY = 'BBOXDialog'
 
 class BBOXDialog(QDialog, FORM_CLASS):
 
-    def __init__(self, inp_sparql, triplestoreconf, title="Choose Geospatial Constraint",templayer=None, mapcanvas=None):
+    def __init__(self, inp_sparql, triplestoreconf, title="Choose Geospatial Constraint",templayer=None, ext_map_canvas=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
+        self.ext_map_canvas=ext_map_canvas
         self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.bboxicon)
         self.inp_sparql = inp_sparql
@@ -214,6 +215,15 @@ class BBOXDialog(QDialog, FORM_CLASS):
             msgBox.exec()
 
     def setBBOXInQuery(self,bbox):
+        if self.ext_map_canvas!=None:
+            layerlist = self.ext_map_canvas.layers()
+            if self.tabWidget.currentIndex()==0:
+                layerlist.insert(1, QgsVectorLayer(self.vl.source(), self.vl.name(), self.vl.providerType()))
+            if self.tabWidget.currentIndex()==1:
+                layerlist.insert(1, QgsVectorLayer(self.vl_geocoding.source(), self.vl_geocoding.name(), self.vl_geocoding.providerType()))
+            if self.tabWidget.currentIndex()==2:
+                layerlist.insert(1, QgsVectorLayer(self.vl_layerextent.source(), self.vl_layerextent.name(), self.vl_layerextent.providerType()))
+            self.ext_map_canvas.setLayers(layerlist)
         sourceCrs = None
         polygon=None
         pointt1=None
@@ -265,7 +275,9 @@ class BBOXDialog(QDialog, FORM_CLASS):
         # distance.setSourceCrs(destCrs)
         # distance.setEllipsoidalMode(True)
         # distance.setEllipsoid('WGS84')
-        curquery = self.inp_sparql.toPlainText()
+        curquery=""
+        if self.inp_sparql!=None:
+            curquery = self.inp_sparql.toPlainText()
         if self.rectangle or self.circle:
             widthm = 100  # distance.measureLine(pointt1, pointt2)
             self.curbbox = []
@@ -324,5 +336,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
                                                                                                            str(polygon.boundingBox().center().asPoint().x())).replace(
                     "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
             """
-        self.inp_sparql.setPlainText(curquery)
+        if self.inp_sparql is not None:
+            self.inp_sparql.setPlainText(curquery)
         self.close()
