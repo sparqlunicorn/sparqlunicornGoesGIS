@@ -1,6 +1,6 @@
 var a00253 =
 [
-    [ "__init__", "a00253.html#ac2d073f781c85fd42ae1d2ab833259e7", null ],
+    [ "__init__", "a00253.html#a6e66e4e0529f0c083414b35501809d0d", null ],
     [ "geocodeInput", "a00253.html#a15c6a85a780c7886726807c5b9b217fb", null ],
     [ "insertCompletion", "a00253.html#ae951a11f594110260b86cee2ddb2d8df", null ],
     [ "pan", "a00253.html#a2ecfd77fcaecf54eabed081273f16b04", null ],
@@ -22,6 +22,7 @@ var a00253 =
     [ "rect_tool", "a00253.html#afa7762e508c69c794a5578cf048e0c4d", null ],
     [ "rectangle", "a00253.html#a4af379d75971a888c6b6af1450a1e509", null ],
     [ "sparqlcompleter", "a00253.html#a934ff90338e419a442dc4bebd8ba879c", null ],
+    [ "templayer", "a00253.html#a778907fc59ab61707d8a566969b8516e", null ],
     [ "toolPan", "a00253.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "toolPan2", "a00253.html#a034d7f0884eb9262387386ca9dd9baa2", null ],
     [ "toolPan3", "a00253.html#a25a44a2f4e0e06d80b06657860189641", null ],

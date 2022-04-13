@@ -2,6 +2,7 @@ var a00269 =
 [
     [ "__init__", "a00269.html#acdd50c98a6b4ad11096db60e1c31bc2b", null ],
     [ "getAttributeStatistics", "a00269.html#a929e6379de0e9f6aa762a098436b1049", null ],
+    [ "loadBBOXDialog", "a00269.html#a501c3a5f40cbe3d645965f24dabd9239", null ],
     [ "loadSamples", "a00269.html#aba66981d86ff2e0da40636d9886cb217", null ],
     [ "queryAllInstances", "a00269.html#aeb05e1da63d0ff3e0956945bf5a2f137", null ],
     [ "toggleSelect", "a00269.html#aaec5b188bffca11b921023e514043833", null ],
@@ -18,7 +19,6 @@ var a00269 =
     [ "selected", "a00269.html#a2224ec0958a602aef926b6a3715e094e", null ],
     [ "styleprop", "a00269.html#a1451318d493b1d82979d80601a4b8b98", null ],
     [ "tablemodel", "a00269.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
-    [ "templayer", "a00269.html#a778907fc59ab61707d8a566969b8516e", null ],
     [ "toolPan", "a00269.html#af85acd51bc896510da060834a7b6b890", null ],
     [ "triplestoreconf", "a00269.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "triplestoreurl", "a00269.html#a9b8734be629bbc1f64723d90a67861ab", null ],

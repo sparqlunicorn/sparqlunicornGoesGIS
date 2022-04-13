@@ -339,7 +339,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    self.comboBox.addItem(UIUtils.geoendpointicon, self.triplestorename + <span class="stringliteral">&quot; [GeoSPARQL Endpoint]&quot;</span>)</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    self.comboBox.addItem(UIUtils.linkeddataicon,self.triplestorename+<span class="stringliteral">&quot; [SPARQL Endpoint]&quot;</span>)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span> self.tripleStoreChooser != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span> self.tripleStoreChooser <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    self.tripleStoreChooser.addItem(self.triplestorename)</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                index = len(self.triplestoreconf)</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                self.triplestoreconf.append({})</div>
@@ -348,12 +348,12 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                self.prefixes.append(<span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">for</span> prefix <span class="keywordflow">in</span> self.gutils.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>]:</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    self.prefixes[len(self.prefixes)-1] += <span class="stringliteral">&quot;PREFIX &quot;</span> + prefix + <span class="stringliteral">&quot;:&lt;&quot;</span> + self.gutils.configuration[<span class="stringliteral">&quot;prefixes&quot;</span>][prefix] + <span class="stringliteral">&quot;&gt;\n&quot;</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keywordflow">if</span> self.permanentAdd != <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.permanentAdd:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keywordflow">if</span> self.permanentAdd <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.permanentAdd:</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    f = open(os.path.join(__location__, <span class="stringliteral">&#39;triplestoreconf_personal.json&#39;</span>), <span class="stringliteral">&quot;w&quot;</span>)</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    f.write(json.dumps(self.triplestoreconf, indent=2))</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    f.close()</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> self.parentdialog != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> self.parentdialog <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    self.parentdialog.close()</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">elif</span> self.gutils.feasibleConfiguration:</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            msgBox = QMessageBox()</div>
