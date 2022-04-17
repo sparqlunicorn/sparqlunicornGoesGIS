@@ -338,4 +338,4 @@ class BBOXDialog(QDialog, FORM_CLASS):
             """
         if self.inp_sparql is not None:
             self.inp_sparql.setPlainText(curquery)
-        self.close()
+        self.accept()

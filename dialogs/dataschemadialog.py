@@ -161,7 +161,10 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
     def loadBBOXDialog(self):
         if self.map_canvas.layerCount()>1:
             previewlayer=self.map_canvas.layers()[0]
-            BBOXDialog(None, self.triplestoreconf, "Choose Geospatial Constraint to query layer "+str(self.concept[self.concept.rfind('/')+1:]),previewlayer,self.map_canvas).exec()
+            dia=BBOXDialog(None, self.triplestoreconf, "Choose Geospatial Constraint to query layer "+str(self.concept[self.concept.rfind('/')+1:]),
+                       previewlayer,self.map_canvas)
+            res=dia.exec()
+            dia.setBBOXInQuery(None)
 
     def loadSamples(self,modelindex):
         row=modelindex.row()

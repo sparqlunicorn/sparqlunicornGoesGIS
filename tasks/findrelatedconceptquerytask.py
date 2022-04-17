@@ -22,21 +22,29 @@ class FindRelatedConceptQueryTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if "sparql11" in self.triplestoreurl and self.triplestoreurl["sparql11"]:
-            thequery = "SELECT (COUNT(?rel) AS ?relcount) ?rel COUNT(?item) ?val (COUNT(?val) AS ?valcount) WHERE { ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
-                self.concept) + "> . ?con ?rel ?item . OPTIONAL { ?item  <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . } }"
-        else:
-            thequery="SELECT ?rel ?val WHERE { ?con <"+str(self.triplestoreconf["typeproperty"])+"> <"+str(self.concept)+"> . ?con ?rel ?item . OPTIONAL { ?item  <"+str(self.triplestoreconf["typeproperty"])+"> ?val . } }"
+        rightsidequery = "SELECT ?rel ?val WHERE { ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
+            self.concept) + "> . ?con ?rel ?item . OPTIONAL { ?item  <" + str(
+            self.triplestoreconf["typeproperty"]) + "> ?val . } }"
+        leftsidequery = "SELECT ?rel ?val WHERE { ?tocon <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . ?tocon ?rel ?con . ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
+            self.concept) + "> . }"
         QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,leftsidequery,self.triplestoreconf)
+        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, rightsidequery, self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.queryresult={}
+        self.queryresult2 = {}
         for result in results["results"]["bindings"]:
             if "rel" in result and "val" in result and result["rel"]["value"]!="":
                 if result["rel"]["value"] not in self.queryresult:
                     self.queryresult[result["rel"]["value"]]=set()
                     #self.queryresult[result["rel"]["value"]]["values"]=set()
                 self.queryresult[result["rel"]["value"]].add(result["val"]["value"])
+        for result in results2["results"]["bindings"]:
+            if "rel" in result and "val" in result and result["rel"]["value"]!="":
+                if result["rel"]["value"] not in self.queryresult:
+                    self.queryresult2[result["rel"]["value"]]=set()
+                    #self.queryresult[result["rel"]["value"]]["values"]=set()
+                self.queryresult2[result["rel"]["value"]].add(result["val"]["value"])
         return True
 
     def finished(self, result):
@@ -46,33 +54,36 @@ class FindRelatedConceptQueryTask(QgsTask):
             self.searchResultModel.removeRow(0)
         counter=0
         for rel in self.queryresult:
-            #QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
-            if SPARQLUtils.namespaces["rdf"] in rel or SPARQLUtils.namespaces["rdfs"] in rel \
-                or SPARQLUtils.namespaces["owl"] in rel \
-                or SPARQLUtils.namespaces["dc"] in rel \
-                or SPARQLUtils.namespaces["skos"] in rel:
-                continue
-            if rel!="geo":
+            for val in self.queryresult[rel]:
                 self.searchResultModel.insertRow(counter)
-            itemchecked = QStandardItem()
-            itemchecked.setFlags(Qt.ItemIsUserCheckable |
-                                 Qt.ItemIsEnabled)
-            itemchecked.setCheckState(Qt.Checked)
-            itemchecked=UIUtils.detectItemNodeType(itemchecked,rel,self.triplestoreconf,self.queryresult,rel)
-            if rel!="geo":
-                self.searchResultModel.setItem(counter, 0, itemchecked)
-                item = QStandardItem()
-                item.setText(str(SPARQLUtils.labelFromURI(rel)))
-                item.setData(str(rel),UIUtils.dataslot_conceptURI)
-                item.setToolTip("<html><b>Property URI</b> " + str(rel) + "<br>Double click to view definition in web browser")
-                self.searchResultModel.setItem(counter, 1, item)
-                itembutton = QStandardItem()
-                for val in self.queryresult[rel]:
-                    mystring=""
-                    mystring+=str(val)+" "
-                    itembutton.setText(mystring)
-                self.searchResultModel.setItem(counter, 2, itembutton)
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(str(val)))
+                curitem.setToolTip(str(val))
+                curitem.setIcon(UIUtils.classicon)
+                self.searchResultModel.setItem(counter, 0, curitem)
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(rel))
+                curitem.setToolTip(rel)
+                self.searchResultModel.setItem(counter, 1, curitem)
+                self.searchResultModel.setItem(counter, 2, QStandardItem())
+                self.searchResultModel.setItem(counter, 3, QStandardItem())
                 counter+=1
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Value")
+        for rel in self.queryresult2:
+            for val in self.queryresult2[rel]:
+                self.searchResultModel.insertRow(counter)
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(rel))
+                curitem.setToolTip(rel)
+                self.searchResultModel.setItem(counter, 2, curitem)
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(str(val)))
+                curitem.setToolTip(str(val))
+                curitem.setIcon(UIUtils.classicon)
+                self.searchResultModel.setItem(counter, 3, curitem)
+                self.searchResultModel.setItem(counter, 0, QStandardItem())
+                self.searchResultModel.setItem(counter, 1, QStandardItem())
+                counter+=1
+        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Incoming Concept")
+        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Incoming Relation")
+        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Outgoing Relation")
+        self.searchResultModel.setHeaderData(3, Qt.Horizontal, "Outgoing Concept")

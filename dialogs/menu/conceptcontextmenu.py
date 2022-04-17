@@ -60,10 +60,6 @@ class ConceptContextMenu(QMenu):
             actiondataschema = QAction("Query data schema")
             if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.classnode:
                 actiondataschema.setIcon(UIUtils.classschemaicon)
-                actionrelgeo = QAction("Check related geo concepts")
-                actionrelgeo.setIcon(UIUtils.countinstancesicon)
-                menu.addAction(actionrelgeo)
-                actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.collectionclassnode:
                 actiondataschema.setIcon(UIUtils.featurecollectionschemaicon)
             elif item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode:
@@ -81,6 +77,10 @@ class ConceptContextMenu(QMenu):
                                                                    triplestoreconf[
                                                                        "prefixesrev"])
             ))
+            actionrelgeo = QAction("Check related geo concepts")
+            actionrelgeo.setIcon(UIUtils.countinstancesicon)
+            menu.addAction(actionrelgeo)
+            actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             actionqueryinstances = QAction("Query all instances")
             actionqueryinstances.setIcon(UIUtils.queryinstancesicon)
             menu.addAction(actionqueryinstances)
@@ -200,11 +200,12 @@ class ConceptContextMenu(QMenu):
     def relatedGeoConcepts(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         label = self.item.text()
-        if not label.endswith("]"):
-            self.qtaskinstance = FindRelatedConceptQueryTask(
-                "Getting related geo concepts for " + str(concept),
-                self.triplestoreconf["resource"], self, concept,self.triplestoreconf)
-            QgsApplication.taskManager().addTask(self.qtaskinstance)
+        ClusterViewDialog(self.triplestoreconf,concept).exec()
+        #if not label.endswith("]"):
+        #    self.qtaskinstance = FindRelatedConceptQueryTask(
+        #        "Getting related geo concepts for " + str(concept),
+        #        self.triplestoreconf["resource"], self, concept,self.triplestoreconf)
+        #    QgsApplication.taskManager().addTask(self.qtaskinstance)
 
     def instanceCount(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
