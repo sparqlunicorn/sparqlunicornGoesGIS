@@ -93,58 +93,62 @@ class ClassTreeQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        self.classtreemap={"root":self.treeNode}
-        self.subclassmap={"root":set()}
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-        if results=="Exists error":
-            results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
-        if results==False:
-            return False
-        hasparent={}
-        #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
-        for result in results["results"]["bindings"]:
-            subval=result["subject"]["value"]
-            if subval is None or subval=="":
-                continue
-            if subval not in self.classtreemap:
-                self.classtreemap[subval]=QStandardClassTreeItem()
-                self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
-                if "label" in result:
-                    self.classtreemap[subval].setText(
-                        result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf[
-                            "prefixesrev"]) + ")")
-                else:
-                    self.classtreemap[subval].setText(
-                        SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
-                if "hasgeo" in result:
-                    self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
-                    self.classtreemap[subval].setToolTip(
-                        "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
-                elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
-                    self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, UIUtils.dataslot_nodetype)
-                    #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
-                    #                         Qgis.Info)
-                    self.classtreemap[subval].setData(self.triplestoreconf["geoclasses"][subval][0],260)
-                    self.classtreemap[subval].setToolTip(
-                        "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
-                else:
-                    self.classtreemap[subval].setIcon(UIUtils.classicon)
-                    self.classtreemap[subval].setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
-                    self.classtreemap[subval].setToolTip(
-                        "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))
-            if subval not in self.subclassmap:
-                self.subclassmap[subval]=set()
-            if "supertype" in result:
-                if not result["supertype"]["value"] in self.subclassmap:
-                    self.subclassmap[result["supertype"]["value"]] = set()
-                if result["supertype"]["value"]!=subval and not result["supertype"]["value"] in self.subclassmap[subval]:
-                    self.subclassmap[result["supertype"]["value"]].add(subval)
-                    hasparent[subval]=True
-        for cls in self.classtreemap:
-            if cls not in hasparent and cls!="root":
-                self.subclassmap["root"].add(cls)
+        if os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json")):
+            self.classtreemap=None
+            self.subclassmap=None
+        else:
+            self.classtreemap={"root":self.treeNode}
+            self.subclassmap={"root":set()}
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
+            if results=="Exists error":
+                results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
+            if results==False:
+                return False
+            hasparent={}
+            #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
+            for result in results["results"]["bindings"]:
+                subval=result["subject"]["value"]
+                if subval is None or subval=="":
+                    continue
+                if subval not in self.classtreemap:
+                    self.classtreemap[subval]=QStandardClassTreeItem()
+                    self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
+                    if "label" in result:
+                        self.classtreemap[subval].setText(
+                            result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf[
+                                "prefixesrev"]) + ")")
+                    else:
+                        self.classtreemap[subval].setText(
+                            SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
+                    if "hasgeo" in result:
+                        self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
+                        self.classtreemap[subval].setToolTip(
+                            "GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                    elif "geoclasses" in self.triplestoreconf and subval in self.triplestoreconf["geoclasses"]:
+                        self.classtreemap[subval].setIcon(UIUtils.linkedgeoclassicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.linkedgeoclassnode, UIUtils.dataslot_nodetype)
+                        #QgsMessageLog.logMessage('Started task "{}"'.format(self.triplestoreconf["geoclasses"]), MESSAGE_CATEGORY,
+                        #                         Qgis.Info)
+                        self.classtreemap[subval].setData(self.triplestoreconf["geoclasses"][subval][0],260)
+                        self.classtreemap[subval].setToolTip(
+                            "Class linked to a GeoClass " + str(self.classtreemap[subval].text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
+                    else:
+                        self.classtreemap[subval].setIcon(UIUtils.classicon)
+                        self.classtreemap[subval].setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
+                        self.classtreemap[subval].setToolTip(
+                            "Class " + str(self.classtreemap[subval].text()) + ": <br>" + str(SPARQLUtils.treeNodeToolTip))
+                if subval not in self.subclassmap:
+                    self.subclassmap[subval]=set()
+                if "supertype" in result:
+                    if not result["supertype"]["value"] in self.subclassmap:
+                        self.subclassmap[result["supertype"]["value"]] = set()
+                    if result["supertype"]["value"]!=subval and not result["supertype"]["value"] in self.subclassmap[subval]:
+                        self.subclassmap[result["supertype"]["value"]].add(subval)
+                        hasparent[subval]=True
+            for cls in self.classtreemap:
+                if cls not in hasparent and cls!="root":
+                    self.subclassmap["root"].add(cls)
         #QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
@@ -166,13 +170,22 @@ class ClassTreeQueryTask(QgsTask):
         #    "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
-        self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
-        self.alreadyprocessed=set()
-        self.classtreemap["root"]=self.rootNode
-        self.buildTree("root",self.classtreemap,self.subclassmap,[])
-        f = open(os.path.join(__location__,"../tmp/classtree/"+str(self.triplestoreconf["resource"]["url"].replace("/","_"))+".json"), "w")
-        f.write(json.dumps(self.classtreemap,indent=2,default=ConfigUtils.dumper,sort_keys=True))
-        f.close()
+        if self.classtreemap==None and self.subclassmap==None:
+            UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
+                         "../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json"))
+        else:
+            self.alreadyprocessed=set()
+            self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
+            self.classtreemap["root"]=self.rootNode
+            self.buildTree("root",self.classtreemap,self.subclassmap,[])
+            QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
+                         "../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
+            f = open(os.path.join(__location__,"../tmp/classtree/"+str(self.triplestoreconf["resource"]["url"].replace("/","_").replace(":","_"))+".json"), "w")
+            res={"text": "root"}
+            UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
+            QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
+            f.close()
         self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dlg.classTreeView.header().setStretchLastSection(False)
         self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
