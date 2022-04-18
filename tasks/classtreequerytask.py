@@ -171,8 +171,9 @@ class ClassTreeQueryTask(QgsTask):
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         if self.classtreemap==None and self.subclassmap==None:
-            UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
+            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
                          "../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json"))
+            self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
         else:
             self.alreadyprocessed=set()
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")

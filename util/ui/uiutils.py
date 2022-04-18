@@ -283,17 +283,20 @@ class UIUtils:
         with open(filepath, 'r') as f:
             jsontree = json.load(f)
         QgsMessageLog.logMessage("JSONTREE: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
-        UIUtils.iterateTree(rootNode,jsontree["children"],True)
+        elemcount=0
+        elemcount=UIUtils.iterateTree(rootNode,jsontree["children"],elemcount)
+        return elemcount
 
 
 
     @staticmethod
-    def iterateTree(curnode,jsontree,first):
+    def iterateTree(curnode,jsontree,elemcount):
         #QgsMessageLog.logMessage("JSONTree: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
         for elem in jsontree:
             QgsMessageLog.logMessage("Elem: " + str(elem), MESSAGE_CATEGORY, Qgis.Info)
             if elem=={}:
                 continue
+            elemcount+=1
             curitem=QStandardItem()
             if "text" in elem:
                 curitem.setText(elem["text"])
@@ -311,7 +314,8 @@ class UIUtils:
             curnode.appendRow(curitem)
             if "children" in elem and not isinstance(elem, str) and isinstance(elem["children"], list) and elem[
                 "children"] != []:
-                UIUtils.iterateTree(curitem, elem["children"], False)
+                elemcount=UIUtils.iterateTree(curitem, elem["children"], elemcount)
+        return elemcount
 
 
 
