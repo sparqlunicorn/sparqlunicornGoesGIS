@@ -240,8 +240,11 @@ class UIUtils:
         result["conceptURI"] = node.data(UIUtils.dataslot_conceptURI)
         if node.data(UIUtils.dataslot_instanceamount) is not None:
             result["instanceamount"] = node.data(UIUtils.dataslot_instanceamount)
-        result["text"] = SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)))
-        result["nodetype"] = node.data(UIUtils.dataslot_conceptURI)
+        if "[" in node.text() and "]" in node.text():
+            result["text"] = node.text()[0:node.text().rfind("[")]
+        else:
+            result["text"] = node.text()
+        result["nodetype"] = node.data(UIUtils.dataslot_nodetype)
         childcounter=0
         for i in range(node.rowCount()):
             result["children"].append({})
@@ -254,7 +257,7 @@ class UIUtils:
                 if node.child(i).data(UIUtils.dataslot_instanceamount) is not None:
                     result["children"][i]["instanceamount"]=node.child(i).data(UIUtils.dataslot_instanceamount)
                 if "[" in node.child(i).text() and "]" in node.child(i).text():
-                    result["children"][i]["text"]=node.child(i).text()[0:node.child(i).rfind("[")]
+                    result["children"][i]["text"]=node.child(i).text()[0:node.child(i).text().rfind("[")]
                 else:
                     result["children"][i]["text"]=node.child(i).text()
                 result["children"][i]["nodetype"]=str(node.child(i).data(UIUtils.dataslot_nodetype))
@@ -263,7 +266,7 @@ class UIUtils:
                 if node.child(i).data(UIUtils.dataslot_instanceamount) is not None:
                     result["children"][i]["instanceamount"]=node.child(i).data(UIUtils.dataslot_instanceamount)
                 if "[" in node.child(i).text() and "]" in node.child(i).text():
-                    result["children"][i]["text"]=node.child(i)[0:node.child(i).rfind("[")]
+                    result["children"][i]["text"]=node.child(i).text()[0:node.child(i).text().rfind("[")]
                 else:
                     result["children"][i]["text"]=node.child(i).text()
                 result["children"][i]["nodetype"]=str(node.child(i).data(UIUtils.dataslot_nodetype))
