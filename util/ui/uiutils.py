@@ -96,7 +96,7 @@ class UIUtils:
 
     @staticmethod
     def openTableURL(modelindex,table):
-        if table.model().data(modelindex)!=None:
+        if table.model().data(modelindex) is not None:
             concept=str(table.model().data(modelindex,UIUtils.dataslot_conceptURI))
             if concept.startswith("http"):
                 url = QUrl(concept)
@@ -104,7 +104,7 @@ class UIUtils:
 
     @staticmethod
     def showTableURI(modelindex,table,statusbar):
-        if table.model().data(modelindex)!=None:
+        if table.model().data(modelindex) is not None:
             concept=str(table.model().data(modelindex,UIUtils.dataslot_conceptURI))
             if concept.startswith("http"):
                 statusbar.setText(concept)
@@ -135,7 +135,7 @@ class UIUtils:
             itemchecked.setIcon(UIUtils.annotationpropertyicon)
             itemchecked.setToolTip("Annotation Property")
             itemchecked.setText("AP")
-        elif att!=None and queryresult!=None \
+        elif att!=None and queryresult is not None \
                 and "valtype" in queryresult[att]:
             itemchecked.setIcon(UIUtils.datatypepropertyicon)
             itemchecked.setToolTip("DataType Property")
@@ -198,6 +198,34 @@ class UIUtils:
 
     @staticmethod
     def iterateTree(node,result,visible,classesonly,triplestoreconf,currentContext):
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
+        subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        if "labelproperty" in triplestoreconf:
+            labelproperty=triplestoreconf["labelproperty"]
+        if "typeproperty" in triplestoreconf:
+            typeproperty=triplestoreconf["typeproperty"]
+        if "subclassproperty" in triplestoreconf:
+            subclassproperty=triplestoreconf["subclassproperty"]
+        for i in range(node.rowCount()):
+            if node.child(i).hasChildren():
+                UIUtils.iterateTree(node.child(i),result,visible,classesonly,triplestoreconf,currentContext)
+            if node.data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
+                continue
+            if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \""+str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)),None))+"\" .\n")
+                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+subclassproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")
+            elif not classesonly and node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoinstancenode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.instancenode:
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+typeproperty+"> <http://www.w3.org/2002/07/owl#Class> .\n")
+                result.add("<" + str(node.data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
+                result.add("<" + str(node.child(i).data(UIUtils.dataslot_conceptURI)) + "> <"+labelproperty+"> \"" + str(SPARQLUtils.labelFromURI(str(node.child(i).data(UIUtils.dataslot_conceptURI)), None)) + "\" .\n")
+                result.add("<"+str(node.child(i).data(UIUtils.dataslot_conceptURI))+"> <"+typeproperty+"> <"+str(node.data(UIUtils.dataslot_conceptURI))+"> .\n")
+
+    @staticmethod
+    def iterateTreeToJSON(node,result,visible,classesonly,triplestoreconf,currentContext):
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
         subclassproperty="http://www.w3.org/2000/01/rdf-schema#subClassOf"

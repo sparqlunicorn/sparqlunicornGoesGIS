@@ -1,11 +1,17 @@
 from ..util.ui.uiutils import UIUtils
+from ..util.configutils import ConfigUtils
+from ..util.ui.qstandardclasstreeitem import QStandardClassTreeItem
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QHeaderView
+import os
+import json
 
 MESSAGE_CATEGORY = 'ClassTreeQueryTask'
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 class ClassTreeQueryTask(QgsTask):
 
@@ -98,10 +104,10 @@ class ClassTreeQueryTask(QgsTask):
         #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             subval=result["subject"]["value"]
-            if subval==None or subval=="":
+            if subval is None or subval=="":
                 continue
             if subval not in self.classtreemap:
-                self.classtreemap[subval]=QStandardItem()
+                self.classtreemap[subval]=QStandardClassTreeItem()
                 self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
                 if "label" in result:
                     self.classtreemap[subval].setText(
@@ -164,6 +170,9 @@ class ClassTreeQueryTask(QgsTask):
         self.alreadyprocessed=set()
         self.classtreemap["root"]=self.rootNode
         self.buildTree("root",self.classtreemap,self.subclassmap,[])
+        f = open(os.path.join(__location__,"../tmp/classtree/"+str(self.triplestoreconf["resource"]["url"].replace("/","_"))+".json"), "w")
+        f.write(json.dumps(self.classtreemap,indent=2,default=ConfigUtils.dumper,sort_keys=True))
+        f.close()
         self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.dlg.classTreeView.header().setStretchLastSection(False)
         self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
