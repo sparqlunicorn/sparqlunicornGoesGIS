@@ -25,3 +25,10 @@ class ConfigUtils:
                 item["resource"]={"type": "endpoint","url":item["endpoint"]}
                 del item["endpoint"]
         return configjson
+
+    @staticmethod
+    def dumper(obj):
+        try:
+            return obj.toJSON()
+        except:
+            return obj.__dict__
