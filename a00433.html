@@ -76,8 +76,41 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a13f3484d55ba73df564aecaac0d303d4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00433.html#a13f3484d55ba73df564aecaac0d303d4">migrateOldConfigurationFile</a> (configjson)</td></tr>
 <tr class="memdesc:a13f3484d55ba73df564aecaac0d303d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Migrates an old triplestore.conf file to its newer version.  <a href="a00433.html#a13f3484d55ba73df564aecaac0d303d4">More...</a><br /></td></tr>
 <tr class="separator:a13f3484d55ba73df564aecaac0d303d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad89397f40a9015b2b1272cf5fe9016c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00433.html#ad89397f40a9015b2b1272cf5fe9016c9">dumper</a> (obj)</td></tr>
+<tr class="separator:ad89397f40a9015b2b1272cf5fe9016c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad89397f40a9015b2b1272cf5fe9016c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad89397f40a9015b2b1272cf5fe9016c9">&#9670;&nbsp;</a></span>dumper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def dumper </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">def </span>dumper(obj):</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">return</span> obj.toJSON()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">return</span> obj.__dict__</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a59012f8c3172f59e365367f89ebe3db9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59012f8c3172f59e365367f89ebe3db9">&#9670;&nbsp;</a></span>isOldConfigurationFile()</h2>
 
@@ -155,6 +188,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                item[<span class="stringliteral">&quot;resource&quot;</span>]={<span class="stringliteral">&quot;type&quot;</span>: <span class="stringliteral">&quot;endpoint&quot;</span>,<span class="stringliteral">&quot;url&quot;</span>:item[<span class="stringliteral">&quot;endpoint&quot;</span>]}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                del item[<span class="stringliteral">&quot;endpoint&quot;</span>]</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> configjson</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
