@@ -120,7 +120,7 @@ class UIUtils:
                 statusbar.setText(concept)
 
     @staticmethod
-    def detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult=None,att=None,dlg=None):
+    def detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult=None,att=None,dlg=None,text=None,tooltip=None):
         if curconcept in SPARQLUtils.geoproperties:
             if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
                 itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
@@ -158,6 +158,10 @@ class UIUtils:
             itemchecked.setIcon(UIUtils.objectpropertyicon)
             itemchecked.setToolTip("Object Property")
             itemchecked.setText("OP")
+        if text!=None:
+            itemchecked.setText(text)
+        if tooltip!=None:
+            itemchecked.setToolTip(tooltip)
         return itemchecked
 
     @staticmethod

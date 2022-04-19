@@ -62,9 +62,8 @@ class FindRelatedConceptQueryTask(QgsTask):
                 curitem.setIcon(UIUtils.classicon)
                 self.searchResultModel.setItem(counter, 0, curitem)
                 curitem=QStandardItem()
-                curitem.setText(SPARQLUtils.labelFromURI(rel))
-                curitem.setToolTip(rel)
-                curitem.setIcon(UIUtils.objectpropertyicon)
+                UIUtils.detectItemNodeType(curitem, rel, self.triplestoreconf, None, None, None,
+                                           SPARQLUtils.labelFromURI(rel), rel)
                 self.searchResultModel.setItem(counter, 1, curitem)
                 self.searchResultModel.setItem(counter, 2, QStandardItem())
                 self.searchResultModel.setItem(counter, 3, QStandardItem())
@@ -73,9 +72,7 @@ class FindRelatedConceptQueryTask(QgsTask):
             for val in self.queryresult2[rel]:
                 self.searchResultModel.insertRow(counter)
                 curitem=QStandardItem()
-                curitem.setText(SPARQLUtils.labelFromURI(rel))
-                curitem.setToolTip(rel)
-                curitem.setIcon(UIUtils.objectpropertyicon)
+                UIUtils.detectItemNodeType(curitem,rel,self.triplestoreconf,None,None,None,SPARQLUtils.labelFromURI(rel),rel)
                 self.searchResultModel.setItem(counter, 2, curitem)
                 curitem=QStandardItem()
                 curitem.setText(SPARQLUtils.labelFromURI(str(val)))
