@@ -250,7 +250,7 @@ class UIUtils:
             result["children"].append({})
             if node.child(i).hasChildren():
                 UIUtils.iterateTreeToJSON(node.child(i),result["children"][i],visible,classesonly,triplestoreconf,currentContext)
-            if node.data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
+            if node.child(i).data(UIUtils.dataslot_conceptURI) is None or (visible and not currentContext.visualRect(node.child(i).index()).isValid()):
                 continue
             if node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode or node.child(i).data(UIUtils.dataslot_nodetype)==SPARQLUtils.classnode:
                 result["children"][i]["conceptURI"]=node.child(i).data(UIUtils.dataslot_conceptURI)

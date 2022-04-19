@@ -264,8 +264,16 @@ class SPARQLunicorn:
                 os.mkdir(os.path.join(__location__, "tmp"))
             if not os.path.exists(os.path.join(__location__, "tmp/classtree")):
                 os.mkdir(os.path.join(__location__, "tmp/classtree"))
+            else:
+                dir=os.path.join(__location__, "tmp/classtree")
+                for f in os.listdir(dir):
+                    os.remove(os.path.join(dir, f))
             if not os.path.exists(os.path.join(__location__, "tmp/geoconcepts")):
                 os.mkdir(os.path.join(__location__, "tmp/geoconcepts"))
+            else:
+                dir=os.path.join(__location__, "tmp/geoconcepts")
+                for f in os.listdir(dir):
+                    os.remove(os.path.join(dir, f))
             if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
                 with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
                     data = myfile.read()
