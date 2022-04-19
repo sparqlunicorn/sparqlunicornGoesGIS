@@ -13,6 +13,7 @@ var a00377 =
     [ "geoTreeViewModel", "a00377.html#ac718e6195097812dffa9cfd2407131ad", null ],
     [ "getlabels", "a00377.html#a9038167bc2020ad8e2f9c4774fba2024", null ],
     [ "layercount", "a00377.html#a89df5aba5301855e361ee8da3fdac4d2", null ],
+    [ "loadfromfile", "a00377.html#a7088d42361606ee5fbb471605da44463", null ],
     [ "preferredlang", "a00377.html#af09711ee571e250a7000c2ea988d9bc3", null ],
     [ "query", "a00377.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "queryvar", "a00377.html#af35f8507723f20ef5ac0973814f6e536", null ],

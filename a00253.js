@@ -30,5 +30,6 @@ var a00253 =
     [ "triplestoreconf", "a00253.html#a330d24be0afd5a96238ca9e128328a2d", null ],
     [ "vl", "a00253.html#a3b8faf024ce1e723b98817e20cd69ff6", null ],
     [ "vl_geocoding", "a00253.html#ae32330499526c2d23321bf61fe00b376", null ],
+    [ "vl_geocoding2", "a00253.html#a4549b45ce7e75d1e5bfc179bb5400feb", null ],
     [ "vl_layerextent", "a00253.html#a0692916bba62cdecfed3d24477b070ed", null ]
 ];

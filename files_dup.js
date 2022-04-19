@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00974.html", null ],
-    [ "tasks/__init__.py", "a00977.html", null ],
-    [ "util/__init__.py", "a00980.html", null ],
+    [ "dialogs/__init__.py", "a00982.html", null ],
+    [ "tasks/__init__.py", "a00985.html", null ],
+    [ "util/__init__.py", "a00988.html", null ],
     [ "aboutdialog.py", "a00014.html", "a00014" ],
     [ "bboxdialog.py", "a00017.html", "a00017" ],
     [ "classtreequerytask.py", "a00077.html", "a00077" ],
@@ -29,11 +29,7 @@ var files_dup =
     ] ],
     [ "findrelatedconceptquerytask.py", "a00098.html", "a00098" ],
     [ "findstylestask.py", "a00101.html", "a00101" ],
-    [ "geocodingutils.py", "a00155.html", [
-      [ "SPARQLCompleter", "a00441.html", "a00441" ],
-      [ "QgsNominatimRevGeocoder", "a00445.html", "a00445" ],
-      [ "GeocodingUtils", "a00449.html", "a00449" ]
-    ] ],
+    [ "geocodingutils.py", "a00155.html", "a00155" ],
     [ "geocollectionsquerytask.py", "a00104.html", "a00104" ],
     [ "geoconceptsquerytask.py", "a00107.html", "a00107" ],
     [ "getstyletask.py", "a00110.html", "a00110" ],
