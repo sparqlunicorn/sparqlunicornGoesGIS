@@ -317,7 +317,9 @@ class UIUtils:
                 elemcount=UIUtils.iterateTree(curitem, elem["children"], elemcount)
         return elemcount
 
-
+    def mergeJSONTree(self,jsontree_one,jsontree_two):
+        print("Merge class trees")
+        classindex1={}
 
 
 

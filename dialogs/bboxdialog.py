@@ -12,6 +12,7 @@ from ..util.ui.uiutils import UIUtils
 from ..util.ui.mappingtools import RectangleMapTool,CircleMapTool,PolygonMapTool
 from ..util.geocodingutils import GeocodingUtils, SPARQLCompleter
 import os.path
+import json
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/bboxdialog.ui'))
@@ -36,7 +37,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
-        self.vl_geocoding = QgsVectorLayer("Point", "temporary_polygons", "memory")
+        self.vl_geocoding = QgsVectorLayer("Polygon", "temporary_polygons", "memory")
         self.vl_layerextent = QgsVectorLayer("Polygon", "temporary_polys", "memory")
         self.layerExtentOrBBOX = False
         self.map_canvas.setMinimumSize(500, 475)
@@ -136,11 +137,14 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.vl_geocoding.startEditing()
             listOfIds = [feat.id() for feat in self.vl_geocoding.getFeatures()]
             self.vl_geocoding.deleteFeatures(listOfIds)
-            feat = QgsFeature()
-            feat.setGeometry(geom)
-            self.vl_geocoding.addFeature(feat)
+            self.vl_geocoding2=QgsVectorLayer(json.dumps(geom), "mygeojson", "ogr")
+            #feat = QgsFeature()
+            #feat.setGeometry(QgsGeometry.fromJson(geom))
+            features=self.vl_geocoding2.getFeatures()
+            for feat in features:
+                self.vl_geocoding.addFeature(feat)
             self.vl_geocoding.commitChanges()
-            self.vl_geocoding.setCrs(crs)
+            #self.vl_geocoding.setCrs(crs)
             self.vl_geocoding.updateExtents()
             self.vl_geocoding.invertSelection()
             self.map_canvas_geocoding.zoomToSelected(self.vl_geocoding)
@@ -153,17 +157,18 @@ class BBOXDialog(QDialog, FORM_CLASS):
         geocoder=self.geocoderSelection.currentText()
         if geocoder=="Nominatim":
             QgsMessageLog.logMessage("Geocoding: " + str(searchString), MESSAGE_CATEGORY, Qgis.Info)
-            results=GeocodingUtils.geocodeWithAPI(searchString)
+            gc=GeocodingUtils()
+            results=gc.geocode(searchString)
             QgsMessageLog.logMessage("Nominatim Response: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             choosemodel=self.sparqlcompleter.model()
             choosemodel.clear()
             for rec in results:
-                if rec.isValid():
-                    QgsMessageLog.logMessage("Nominatim Response: " + str(rec.geometry().asWkt()), MESSAGE_CATEGORY, Qgis.Info)
-                    curitem=QStandardItem(rec.identifier())
-                    curitem.setData(rec.geometry(),256)
-                    curitem.setData(rec.crs(), 257)
-                    curitem.setData(rec.viewport(), 258)
+                if "class" in rec and rec["class"]=="boundary":
+                    QgsMessageLog.logMessage("Nominatim Response: " + str(rec["geojson"]), MESSAGE_CATEGORY, Qgis.Info)
+                    curitem=QStandardItem(rec["display_name"])
+                    curitem.setData(rec["geojson"],256)
+                    #curitem.setData(rec.crs(), 257)
+                    curitem.setData(rec["boundingbox"], 258)
                     QgsMessageLog.logMessage("Nominatim Response: " + str(curitem.data(256)), MESSAGE_CATEGORY,
                                              Qgis.Info)
                     choosemodel.appendRow(curitem)
@@ -171,7 +176,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
             popupp.show()
             #popupp.x=self.geocodeSearch.x()
             #popupp.y=self.geocodeSearch.y()+self.geocodeSearch.height()
-            #
 
     def zoomToCoordinates(self, completion):
         scale = 50

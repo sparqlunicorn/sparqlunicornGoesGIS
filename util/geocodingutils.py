@@ -4,17 +4,22 @@ from qgis.PyQt import QtCore
 from qgis.PyQt.QtCore import QSortFilterProxyModel, Qt, QUrl
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtWidgets import QCompleter,QMessageBox
-from qgis.core import QgsMessageLog
+from qgis.core import QgsMessageLog, Qgis
 from qgis.core import (
     QgsRectangle,
     QgsNominatimGeocoder,
     QgsGeocoderContext,
     QgsCoordinateTransformContext,
     QgsGeocoderInterface,
-    QgsBlockingNetworkRequest
+    QgsBlockingNetworkRequest,
+    QgsNetworkAccessManager,
+    QgsNetworkReplyContent
 )
 
 import json
+import requests
+
+MESSAGE_CATEGORY="GeocodingUtils"
 
 from .ui.uiutils import UIUtils
 
@@ -64,7 +69,7 @@ class QgsNominatimRevGeocoder(QgsNominatimGeocoder):
     def geocodeFeature(self, feature, context, feedback=None):
         pt = feature.geometry().asPoint()
         lon, lat = pt.x(), pt.y()
-        url = f"{self.endpointReverse}?lat={lat}&lon={lon}&format=json"
+        url = f"{self.endpointReverse}?lat={lat}&lon={lon}polygon_geojson=1&format=json"
         request = QgsBlockingNetworkRequest()
         request.get(QNetworkRequest(QUrl(url)))
         reply = request.reply()
@@ -91,34 +96,52 @@ class GeocodingUtils:
         out = n.geocodeFeature(feature, context)
         return out
 
-    def geocode(self):
-        try:
-            nominatimurl = UIUtils.nominatimurl.format(**{'address': self.geocodeSearch.text()})
-            self.networkrequest(nominatimurl)
-        except Exception as e:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Mandatory variables missing!")
-            msgBox.setText(str(e))
-            msgBox.exec()
+    def geocode(self,text):
+        nominatimurl = UIUtils.nominatimurl.format(**{'address': text})
+        nominatimurl+="&polygon_geojson=1"
+        QgsMessageLog.logMessage("Request URL: " + str(nominatimurl), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        response = requests.get(nominatimurl).json()
+        QgsMessageLog.logMessage("Handling response: " + str(response), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        return response
+        """
+        request = QNetworkRequest(QUrl(nominatimurl))
+        request.setHeader(QNetworkRequest.UserAgentHeader, 'PyQGIS@GIS-OPS.com')
+        man=QgsNetworkAccessManager.instance()
+        man.finished.connect(self.handleResponse)
+        reply =man.get(request)
+        status_code = reply.attribute(QNetworkRequest.HttpStatusCodeAttribute)
+        QgsMessageLog.logMessage("Geocoding: " + str(nominatimurl), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        QgsMessageLog.logMessage("Sent nominatim query: " + str(nominatimurl)+"  "+str(reply), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        #self.networkrequest(nominatimurl)
+        """
 
     def networkrequest(self, nurl):
         global reply
-        self.manager = QNetworkAccessManager()
+        self.manager = QgsNetworkAccessManager()
         url = QUrl(nurl)
         request = QNetworkRequest(url)
-        self.manager.finished.connect(self.handleResponse)
-        self.manager.get(request)
+        res=self.manager.get(request)
+        res.finished.connect(self.handleResponse)
+
 
     def handleResponse(self, reply):
+        QgsMessageLog.logMessage("Handling respoonse: " + str(reply.content), MESSAGE_CATEGORY,
+                                 Qgis.Info)
         er = reply.error()
         if er == QNetworkReply.NoError:
-            bytes_string = reply.readAll()
-            print(str(bytes_string, 'utf-8'))
-            results = json.loads(str(bytes_string, 'utf-8'))
+            QgsMessageLog.logMessage("No error!", MESSAGE_CATEGORY,Qgis.Info)
+            QgsMessageLog.logMessage(str(reply), MESSAGE_CATEGORY, Qgis.Info)
+            results = json.loads(str(reply, 'utf-8'))
+            QgsMessageLog.logMessage("JSON: " + str(results), MESSAGE_CATEGORY,Qgis.Info)
             self.nominatimmap = {}
             chooselist = []
             for rec in results:
                 chooselist.append(rec['display_name'])
                 self.nominatimmap[rec['display_name']] = [rec['lon'], rec['lat']]
         else:
-            print("Error occured: ", er)
+            QgsMessageLog.logMessage("Error occured: " + str(er), MESSAGE_CATEGORY,
+                                     Qgis.Info)

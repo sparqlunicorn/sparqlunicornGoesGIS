@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
+    <width>1136</width>
     <height>444</height>
    </rect>
   </property>
@@ -93,13 +93,16 @@
           <enum>Qt::NoPen</enum>
          </property>
          <property name="sortingEnabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderMinimumSectionSize">
           <number>30</number>
+         </attribute>
+         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+          <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderStretchLastSection">
           <bool>true</bool>

@@ -35,23 +35,27 @@ class GeoConceptsQueryTask(QgsTask):
         self.geoTreeViewModel=self.dlg.geoTreeViewModel
         self.examplequery = examplequery
         self.resultlist = {}
+        self.loadfromfile=False
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-        if results==False:
-            return False
-        for result in results["results"]["bindings"]:
-            self.resultlist[str(result[self.queryvar]["value"])]={"concept":str(result[self.queryvar]["value"])}
-        if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
-            "labelproperty"] != "":
-            if "classlabelquery" in self.triplestoreconf:
-                self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl,self.preferredlang)
-            else:
-                self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, None,
-                                                         self.triplestoreconf, self.triplestoreurl,self.preferredlang)
-            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
+        if os.path.exists(os.path.join(__location__,"../tmp/geoconcepts/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json")):
+            self.loadfromfile=True
+        else:
+            #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+            self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
+            results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
+            if results==False:
+                return False
+            for result in results["results"]["bindings"]:
+                self.resultlist[str(result[self.queryvar]["value"])]={"concept":str(result[self.queryvar]["value"])}
+            if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
+                "labelproperty"] != "":
+                if "classlabelquery" in self.triplestoreconf:
+                    self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, self.triplestoreconf["classlabelquery"],self.triplestoreconf,self.triplestoreurl,self.preferredlang)
+                else:
+                    self.resultlist = SPARQLUtils.getLabelsForClasses(self.resultlist, None,
+                                                             self.triplestoreconf, self.triplestoreurl,self.preferredlang)
+                #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.resultlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):
@@ -61,41 +65,46 @@ class GeoConceptsQueryTask(QgsTask):
         self.geoClassListGui.header().setStretchLastSection(False)
         self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
-        self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.resultlist)) + ")")
-        if self.examplequery != None:
-            self.sparql.setPlainText(self.examplequery)
-            self.sparql.columnvars = {}
-        for concept in self.resultlist:
-            item = QStandardItem()
-            item.setData(self.resultlist[concept]["concept"], UIUtils.dataslot_conceptURI)
-            if "label" in self.resultlist[concept] and self.resultlist[concept]["label"]!="":
-                item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"],self.triplestoreconf["prefixesrev"]) + ")")
-            else:
-                item.setText(SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"],self.triplestoreconf["prefixesrev"]))
-            item.setForeground(QColor(0,0,0))
-            item.setEditable(False)
-            item.setIcon(UIUtils.geoclassicon)
-            item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
-            item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
-            self.rootNode.appendRow(item)
-            if self.triplestoreconf["name"] == "Wikidata" and "label" in self.resultlist[concept] and "(" in item.text():
-                self.completerClassList["completerClassList"][self.resultlist[concept]["concept"][self.resultlist[concept]["concept"].rfind('/') + 1:]] = "wd:" + \
-                                                                                                  item.text().split(
-                                                                                                      "(")[
-                                                                                                      1].replace(
-                                                                                                      " ",
-                                                                                                      "_").replace(
-                                                                                                      ")", "")
-            else:
-                self.completerClassList["completerClassList"][
-                    item.text()] = "<" + str(self.resultlist[concept]["concept"]) + ">"
-        self.sparql.updateNewClassList()
-        self.geoTreeViewModel.selectionModel().setCurrentIndex(self.geoTreeViewModelindex(0, 0),
-                                                              QItemSelectionModel.SelectCurrent)
-        f = open(os.path.join(__location__, "../tmp/geoconcepts/" + str(
-            self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":", "_")) + ".json"), "w")
-        res = {"text": "root"}
-        UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-        QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
-        f.write(json.dumps(res, indent=2, default=ConfigUtils.dumper, sort_keys=True))
-        f.close()
+        if self.loadfromfile:
+            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
+                         "../tmp/geoconcepts/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json"))
+            self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(elemcount) + ")")
+        else:
+            self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.resultlist)) + ")")
+            if self.examplequery != None:
+                self.sparql.setPlainText(self.examplequery)
+                self.sparql.columnvars = {}
+            for concept in self.resultlist:
+                item = QStandardItem()
+                item.setData(self.resultlist[concept]["concept"], UIUtils.dataslot_conceptURI)
+                if "label" in self.resultlist[concept] and self.resultlist[concept]["label"]!="":
+                    item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"],self.triplestoreconf["prefixesrev"]) + ")")
+                else:
+                    item.setText(SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"],self.triplestoreconf["prefixesrev"]))
+                item.setForeground(QColor(0,0,0))
+                item.setEditable(False)
+                item.setIcon(UIUtils.geoclassicon)
+                item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
+                item.setToolTip("GeoClass "+str(item.text())+": <br>"+SPARQLUtils.treeNodeToolTip)
+                self.rootNode.appendRow(item)
+                if self.triplestoreconf["name"] == "Wikidata" and "label" in self.resultlist[concept] and "(" in item.text():
+                    self.completerClassList["completerClassList"][self.resultlist[concept]["concept"][self.resultlist[concept]["concept"].rfind('/') + 1:]] = "wd:" + \
+                                                                                                      item.text().split(
+                                                                                                          "(")[
+                                                                                                          1].replace(
+                                                                                                          " ",
+                                                                                                          "_").replace(
+                                                                                                          ")", "")
+                else:
+                    self.completerClassList["completerClassList"][
+                        item.text()] = "<" + str(self.resultlist[concept]["concept"]) + ">"
+            self.sparql.updateNewClassList()
+            #self.geoTreeViewModel.selectionModel().setCurrentIndex(self.geoTreeViewModelindex(0, 0),
+            #                                                      QItemSelectionModel.SelectCurrent)
+            f = open(os.path.join(__location__, "../tmp/geoconcepts/" + str(
+                self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":", "_")) + ".json"), "w")
+            res = {"text": "root"}
+            UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
+            QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            f.write(json.dumps(res, indent=2, default=ConfigUtils.dumper, sort_keys=True))
+            f.close()
