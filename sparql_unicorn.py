@@ -260,6 +260,12 @@ class SPARQLunicorn:
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
             __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            if not os.path.exists(os.path.join(__location__, "tmp")):
+                os.mkdir(os.path.join(__location__, "tmp"))
+            if not os.path.exists(os.path.join(__location__, "tmp/classtree")):
+                os.mkdir(os.path.join(__location__, "tmp/classtree"))
+            if not os.path.exists(os.path.join(__location__, "tmp/geoconcepts")):
+                os.mkdir(os.path.join(__location__, "tmp/geoconcepts"))
             if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
                 with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
                     data = myfile.read()

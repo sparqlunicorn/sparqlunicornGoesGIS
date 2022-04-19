@@ -1,11 +1,16 @@
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
+from ..util.configutils import ConfigUtils
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import Qgis,QgsTask, QgsMessageLog
+import os
+import json
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 class GeoConceptsQueryTask(QgsTask):
 
@@ -85,5 +90,12 @@ class GeoConceptsQueryTask(QgsTask):
                 self.completerClassList["completerClassList"][
                     item.text()] = "<" + str(self.resultlist[concept]["concept"]) + ">"
         self.sparql.updateNewClassList()
-        self.geoClassListGui.selectionModel().setCurrentIndex(self.geoClassList.index(0, 0),
+        self.geoTreeViewModel.selectionModel().setCurrentIndex(self.geoTreeViewModelindex(0, 0),
                                                               QItemSelectionModel.SelectCurrent)
+        f = open(os.path.join(__location__, "../tmp/geoconcepts/" + str(
+            self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":", "_")) + ".json"), "w")
+        res = {"text": "root"}
+        UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
+        QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+        f.write(json.dumps(res, indent=2, default=ConfigUtils.dumper, sort_keys=True))
+        f.close()
