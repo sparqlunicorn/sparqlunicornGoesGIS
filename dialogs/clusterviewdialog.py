@@ -31,8 +31,9 @@ class ClusterViewDialog(QDialog, FORM_CLASS):
         self.tablemodel.setHeaderData(3, Qt.Horizontal, "Target Concept")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
-        self.filter_proxy_model.setFilterKeyColumn(1)
+        self.filter_proxy_model.setFilterKeyColumn(3)
         self.tableView.setModel(self.filter_proxy_model)
         self.clusterView.hide()
         self.tableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))
@@ -50,5 +51,5 @@ class ClusterViewDialog(QDialog, FORM_CLASS):
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
-                               self.triplestoreconf)
+                               self.triplestoreconf,self.tableView)
         QgsApplication.taskManager().addTask(self.qtask)

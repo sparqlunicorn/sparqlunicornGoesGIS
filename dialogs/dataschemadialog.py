@@ -66,9 +66,11 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         elif concepttype==SPARQLUtils.linkedgeoclassnode:
             self.setWindowIcon(UIUtils.linkedgeoclassschemaicon)
             self.setWindowTitle(title+" (Linked Geo Class)")
+            self.geospatialConstraintButton.hide()
         else:
             self.setWindowIcon(UIUtils.classschemaicon)
             self.setWindowTitle(title+" (Class)")
+            self.geospatialConstraintButton.hide()
         self.dataSchemaNameLabel.setText(str(label)+" (<a href=\""+str(concept)+"\">"+str(concept[concept.rfind('/')+1:])+"</a>)")
         self.queryAllInstancesButton.clicked.connect(self.queryAllInstances)
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -95,6 +97,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.dataSchemaTableView.setModel(self.filter_proxy_model)

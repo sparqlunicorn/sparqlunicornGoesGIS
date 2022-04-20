@@ -84,6 +84,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.instanceDataTableView.setModel(self.filter_proxy_model)

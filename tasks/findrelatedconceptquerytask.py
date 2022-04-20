@@ -4,6 +4,7 @@ from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtWidgets import QHeaderView
 import json
 
 from qgis.PyQt.QtCore import Qt, QSize
@@ -12,11 +13,12 @@ MESSAGE_CATEGORY = 'FindRelatedConceptQueryTask'
 
 class FindRelatedConceptQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,triplestoreconf):
+    def __init__(self, description, triplestoreurl,dlg,concept,triplestoreconf,searchResult):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.searchResultModel=dlg
+        self.searchResult=searchResult
         self.triplestoreconf=triplestoreconf
         self.concept=concept
 
@@ -63,26 +65,41 @@ class FindRelatedConceptQueryTask(QgsTask):
                 self.searchResultModel.setItem(counter, 0, curitem)
                 curitem=QStandardItem()
                 UIUtils.detectItemNodeType(curitem, rel, self.triplestoreconf, None, None, None,
-                                           SPARQLUtils.labelFromURI(rel), rel)
+                                           SPARQLUtils.labelFromURI(rel)+"         ", rel)
                 self.searchResultModel.setItem(counter, 1, curitem)
-                self.searchResultModel.setItem(counter, 2, QStandardItem())
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
+                curitem.setIcon(UIUtils.classicon)
+                self.searchResultModel.setItem(counter, 2, curitem)
                 self.searchResultModel.setItem(counter, 3, QStandardItem())
+                self.searchResultModel.setItem(counter, 4, QStandardItem())
                 counter+=1
         for rel in self.queryresult2:
             for val in self.queryresult2[rel]:
                 self.searchResultModel.insertRow(counter)
                 curitem=QStandardItem()
-                UIUtils.detectItemNodeType(curitem,rel,self.triplestoreconf,None,None,None,SPARQLUtils.labelFromURI(rel),rel)
+                UIUtils.detectItemNodeType(curitem,rel,self.triplestoreconf,None,None,None,SPARQLUtils.labelFromURI(rel)+"         ",rel)
+                self.searchResultModel.setItem(counter, 3, curitem)
+                curitem=QStandardItem()
+                curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
+                curitem.setIcon(UIUtils.classicon)
                 self.searchResultModel.setItem(counter, 2, curitem)
                 curitem=QStandardItem()
                 curitem.setText(SPARQLUtils.labelFromURI(str(val)))
                 curitem.setToolTip(str(val))
                 curitem.setIcon(UIUtils.classicon)
-                self.searchResultModel.setItem(counter, 3, curitem)
+                self.searchResultModel.setItem(counter, 4, curitem)
                 self.searchResultModel.setItem(counter, 0, QStandardItem())
                 self.searchResultModel.setItem(counter, 1, QStandardItem())
                 counter+=1
         self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Incoming Concept")
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Incoming Relation")
-        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Outgoing Relation")
-        self.searchResultModel.setHeaderData(3, Qt.Horizontal, "Outgoing Concept")
+        self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Concept")
+        self.searchResultModel.setHeaderData(3, Qt.Horizontal, "Outgoing Relation")
+        self.searchResultModel.setHeaderData(4, Qt.Horizontal, "Outgoing Concept")
+        header=self.searchResult.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)

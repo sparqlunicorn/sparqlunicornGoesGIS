@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1136</width>
+    <width>824</width>
     <height>444</height>
    </rect>
   </property>
@@ -28,19 +28,35 @@
      </item>
      <item>
       <widget class="QComboBox" name="filterTableComboBox">
+       <property name="currentIndex">
+        <number>3</number>
+       </property>
+       <property name="modelColumn">
+        <number>0</number>
+       </property>
        <item>
         <property name="text">
-         <string>Attribute</string>
+         <string>Incoming Concept</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Selection</string>
+         <string>Incoming Relation</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Value</string>
+         <string>Concept</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Outgoing Relation</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Outgoing Concept</string>
         </property>
        </item>
       </widget>
@@ -99,7 +115,7 @@
           <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>30</number>
+          <number>50</number>
          </attribute>
          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
           <bool>true</bool>
@@ -109,6 +125,9 @@
          </attribute>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>21</number>
          </attribute>
         </widget>
        </item>
