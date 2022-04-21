@@ -29,21 +29,29 @@ class InstanceQueryTask(QgsTask):
         #QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
         thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val .  }"
         if "geotriplepattern" in self.triplestoreconf:
-            thequery = "SELECT ?rel ?val ?"+"?".join(self.triplestoreconf["mandatoryvariables"][1:])+" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . OPTIONAL { "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+" } }"
+            thequery = "SELECT ?rel ?val "
+            if "mandatoryvariables" in self.triplestoreconf and len(self.triplestoreconf["mandatoryvariables"])>0:
+                thequery+="?"
+                thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
+            thequery+=" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "
+            if "geotriplepattern" in self.triplestoreconf and len(self.triplestoreconf["geotriplepattern"])>0:
+                thequery+="OPTIONAL { "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+" } "
+            thequery+="}"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        for result in results["results"]["bindings"]:
-            if "rel" in result and "val" in result:
-                #QgsMessageLog.logMessage("Query results: " + str(result["rel"]["value"]), MESSAGE_CATEGORY, Qgis.Info)
-                self.queryresult[result["rel"]["value"]]={"rel":result["rel"]["value"],"val":result["val"]["value"]}
-                if "datatype" in result["val"]:
-                    self.queryresult[result["rel"]["value"]]["valtype"]=result["val"]["datatype"]
-                elif not result["val"]["value"].startswith("http"):
-                    self.queryresult[result["rel"]["value"]]["valtype"] ="http://www.w3.org/2001/XMLSchema#string"
-                else:
-                    self.queryresult[result["rel"]["value"]]["valtype"] = result["val"]["value"]
-            if "geo" in result:
-                self.queryresult["geo"]={"value":result["geo"]["value"],"valtype":result["geo"]["datatype"]}
+        if results!=False:
+            #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            for result in results["results"]["bindings"]:
+                if "rel" in result and "val" in result:
+                    #QgsMessageLog.logMessage("Query results: " + str(result["rel"]["value"]), MESSAGE_CATEGORY, Qgis.Info)
+                    self.queryresult[result["rel"]["value"]]={"rel":result["rel"]["value"],"val":result["val"]["value"]}
+                    if "datatype" in result["val"]:
+                        self.queryresult[result["rel"]["value"]]["valtype"]=result["val"]["datatype"]
+                    elif not result["val"]["value"].startswith("http"):
+                        self.queryresult[result["rel"]["value"]]["valtype"] ="http://www.w3.org/2001/XMLSchema#string"
+                    else:
+                        self.queryresult[result["rel"]["value"]]["valtype"] = result["val"]["value"]
+                if "geo" in result:
+                    self.queryresult["geo"]={"value":result["geo"]["value"],"valtype":result["geo"]["datatype"]}
         return True
 
     def finished(self, result):
@@ -67,6 +75,10 @@ class InstanceQueryTask(QgsTask):
                     itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
+            elif rel in SPARQLUtils.georelationproperties:
+                itemchecked.setIcon(UIUtils.georelationpropertyicon)
+                itemchecked.setToolTip("Geo Relation Property")
+                itemchecked.setText("GeoRelP")
             elif "geoobjproperty" in self.triplestoreconf and rel in self.triplestoreconf["geoobjproperty"]:
                 itemchecked.setIcon(UIUtils.linkedgeoobjectpropertyicon)
                 itemchecked.setToolTip("Linked Geo Object Property")

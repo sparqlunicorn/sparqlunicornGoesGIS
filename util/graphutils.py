@@ -15,12 +15,14 @@ class GraphUtils:
         "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
         "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
+        "hasJusoGeometry": "PREFIX juso:<http://rdfs.co/juso/> ASK { ?a juso:geometry ?c .}",
         "hasGML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGML ?c .}",
         "hasKML": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asKML ?c .}",
         "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
         "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
         "hasWgs84Geometry": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:geometry ?c . }",
-        "hasSchemaOrgGeo": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . }",
+        "hasSchemaOrgGeoLatLon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c geo:longitude ?e . }",
+        "hasSchemaOrgGeoPolygon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c .  ?c schema:polygon ?d . }",
         "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
     }
 
@@ -54,6 +56,7 @@ class GraphUtils:
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         self.configuration["whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
         self.configuration["staticconcepts"] = []
+        self.configuration["mandatoryvariables"] = []
         self.configuration["active"] = True
         self.configuration["prefixes"] = {"owl": "http://www.w3.org/2002/07/owl#",
                                           "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -126,12 +129,19 @@ class GraphUtils:
             configuration["mandatoryvariables"] = ["item", "lat","lon"]
             configuration["geotriplepattern"].append(" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ")
             gottype = True
-        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeo"],
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLon"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["https://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ")
+            gottype = True
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoPolygon"],
+                                       credentialUserName, credentialPassword, authmethod):
+            capabilitylist.append("Schema.org Geo Polygon")
+            configuration["mandatoryvariables"] = ["item", "geo"]
+            configuration["geometryproperty"] = ["https://schema.org/geo"]
+            configuration["geotriplepattern"].append(" ?item_geom <https://schema.org/polygon> ?geo . ")
             gottype = True
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
         for pat in configuration["geotriplepattern"]:

@@ -14,6 +14,7 @@ MESSAGE_CATEGORY="UIUtils"
 
 class UIUtils:
 
+
     urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
     prefixregex = QRegExp("[a-z]+")
@@ -41,6 +42,7 @@ class UIUtils:
     linkedgeoinstanceicon=QIcon(":/icons/resources/icons/linkedgeoinstance.png")
     linkedgeoclassschemaicon=QIcon(":/icons/resources/icons/linkedgeoclassschema.png")
     addicon=QIcon(":/icons/resources/icons/add.png")
+    georelationpropertyicon = QIcon(":/icons/resources/icons/georelationproperty.png")
     geoendpointicon = QIcon(":/icons/resources/icons/geoendpoint.png")
     removeicon = QIcon(":/icons/resources/icons/remove.png")
     addclassicon=QIcon(":/icons/resources/icons/addclass.png")
@@ -138,6 +140,10 @@ class UIUtils:
             itemchecked.setIcon(UIUtils.objectpropertyicon)
             itemchecked.setToolTip("Style Object Property")
             itemchecked.setText("Style OP")
+        elif curconcept in SPARQLUtils.georelationproperties:
+            itemchecked.setIcon(UIUtils.georelationpropertyicon)
+            itemchecked.setToolTip("Geo Relation Property")
+            itemchecked.setText("GeoRelP")
         elif SPARQLUtils.namespaces["rdfs"] in curconcept \
                 or SPARQLUtils.namespaces["owl"] in curconcept \
                 or SPARQLUtils.namespaces["dc"] in curconcept \
@@ -276,9 +282,10 @@ class UIUtils:
                 result["children"][i]["nodetype"]=str(node.child(i).data(UIUtils.dataslot_nodetype))
         if result["children"]==[]:
             del result["children"]
-        for child in result["children"]:
-            if child=={}:
-                result["children"].remove(child)
+        if "children" in result:
+            for child in result["children"]:
+                if child=={}:
+                    result["children"].remove(child)
 
 
     @staticmethod
@@ -320,6 +327,10 @@ class UIUtils:
                 "children"] != []:
                 elemcount=UIUtils.iterateTree(curitem, elem["children"], elemcount)
         return elemcount
+
+    def treeToFlatJSON(self,rootNode):
+        if rootNode.hasChildren():
+            print("hasChildren")
 
     def mergeJSONTree(self,jsontree_one,jsontree_two):
         print("Merge class trees")
