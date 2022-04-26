@@ -33,6 +33,7 @@
     <file>resources/icons/annotationproperty.png</file>
     <file>resources/icons/geoannotationproperty.png</file>
     <file>resources/icons/objectproperty.png</file>
+    <file>resources/icons/geodataobjectproperty.png</file>
     <file>resources/icons/geoobjectproperty.png</file>
     <file>resources/icons/linkedgeoobjectproperty.png</file>
     <file>resources/icons/datatypeproperty.png</file>

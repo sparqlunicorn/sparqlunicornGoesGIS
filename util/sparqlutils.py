@@ -1,4 +1,4 @@
-from SPARQLWrapper import SPARQLWrapper, JSON, GET, POST, BASIC, DIGEST
+from SPARQLWrapper import SPARQLWrapper, JSON, RDFXML, GET, POST, BASIC, DIGEST
 import urllib
 import requests
 from urllib.request import urlopen
@@ -235,13 +235,14 @@ class SPARQLUtils:
                 sparql.setCredentials(triplestoreconf["auth"]["userCredential"], triplestoreconf["auth"]["userPassword"])
             sparql.setQuery(query)
             sparql.setMethod(GET)
-            sparql.setReturnFormat(JSON)
+            #sparql.setReturnFormat(JSON)
             try:
                 if len(query)>2000:
                     raise Exception
                 results = sparql.queryAndConvert()
+                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if "status_code" in results:
-                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     raise Exception
             except Exception as e:
                 try:
@@ -263,10 +264,10 @@ class SPARQLUtils:
                         sparql.setCredentials(triplestoreconf["auth"]["userCredential"],
                                               triplestoreconf["auth"]["userPassword"])
                     sparql.setMethod(POST)
-                    sparql.setReturnFormat(JSON)
+                    #sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
+                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if "status_code" in results:
-                        QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                         raise Exception
                 except:
                     QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
