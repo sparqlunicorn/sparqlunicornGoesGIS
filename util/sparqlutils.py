@@ -235,7 +235,7 @@ class SPARQLUtils:
                 sparql.setCredentials(triplestoreconf["auth"]["userCredential"], triplestoreconf["auth"]["userPassword"])
             sparql.setQuery(query)
             sparql.setMethod(GET)
-            #sparql.setReturnFormat(JSON)
+            sparql.setReturnFormat(JSON)
             try:
                 if len(query)>2000:
                     raise Exception
@@ -264,7 +264,7 @@ class SPARQLUtils:
                         sparql.setCredentials(triplestoreconf["auth"]["userCredential"],
                                               triplestoreconf["auth"]["userPassword"])
                     sparql.setMethod(POST)
-                    #sparql.setReturnFormat(JSON)
+                    sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
                     QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if "status_code" in results:
