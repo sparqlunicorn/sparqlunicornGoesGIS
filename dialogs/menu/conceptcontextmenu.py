@@ -77,7 +77,7 @@ class ConceptContextMenu(QMenu):
                                                                    triplestoreconf[
                                                                        "prefixesrev"])
             ))
-            actionrelgeo = QAction("Check related geo concepts")
+            actionrelgeo = QAction("Check related concepts")
             actionrelgeo.setIcon(UIUtils.countinstancesicon)
             menu.addAction(actionrelgeo)
             actionrelgeo.triggered.connect(self.relatedGeoConcepts)

@@ -37,6 +37,7 @@
     <file>resources/icons/geoobjectproperty.png</file>
     <file>resources/icons/linkedgeoobjectproperty.png</file>
     <file>resources/icons/datatypeproperty.png</file>
+    <file>resources/icons/geodataobjecttypeproperty.png</file>
     <file>resources/icons/geodatatypeproperty.png</file>
     <file>resources/icons/sparqlunicorn.png</file>
     <file>resources/icons/featurecollection.png</file>
