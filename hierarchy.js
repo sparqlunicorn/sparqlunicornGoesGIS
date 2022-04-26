@@ -3,7 +3,7 @@ var hierarchy =
     [ "ConfigUtils", "a00433.html", null ],
     [ "ConvertCRS", "a00437.html", null ],
     [ "EnrichmentTab", "a00425.html", null ],
-    [ "FORM_CLASS", "a00973.html", [
+    [ "FORM_CLASS", "a00977.html", [
       [ "AboutDialog", "a00249.html", null ],
       [ "BBOXDialog", "a00253.html", null ],
       [ "ClusterViewDialog", "a00257.html", null ],
