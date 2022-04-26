@@ -9,32 +9,64 @@ format.
 
 """
 
-__version__ = "1.8.5"
+__version__ = "2.0.0"
 """The version of SPARQLWrapper"""
 
-__authors__ = "Ivan Herman, Sergio Fernández, Carlos Tejo Alonso, Alexey Zakhlestin"
-"""The primary authors of SPARQLWrapper"""
+__agent__: str = f"sparqlwrapper {__version__} (rdflib.github.io/sparqlwrapper)"
 
-__license__ = "W3C® SOFTWARE NOTICE AND LICENSE, http://www.w3.org/Consortium/Legal/copyright-software"
-"""The license governing the use and distribution of SPARQLWrapper"""
-
-__url__ = "http://rdflib.github.io/sparqlwrapper"
-"""The URL for SPARQLWrapper's homepage"""
-
-__contact__ = "rdflib-dev@googlegroups.com"
-"""Mail list to contact to other people RDFLib and SPARQLWrappers folks and developers"""
-
-__date__ = "2019-04-18"
-"""Last update"""
-
-__agent__ = "sparqlwrapper %s (rdflib.github.io/sparqlwrapper)" % __version__
-
-
-from .Wrapper import SPARQLWrapper
-from .Wrapper import XML, JSON, TURTLE, N3, JSONLD, RDF, RDFXML, CSV, TSV
-from .Wrapper import GET, POST
-from .Wrapper import SELECT, CONSTRUCT, ASK, DESCRIBE, INSERT, DELETE
-from .Wrapper import URLENCODED, POSTDIRECTLY
-from .Wrapper import BASIC, DIGEST
 
 from .SmartWrapper import SPARQLWrapper2
+from .sparql_dataframe import get_sparql_dataframe
+from .Wrapper import (
+    ASK,
+    BASIC,
+    CONSTRUCT,
+    CSV,
+    DELETE,
+    DESCRIBE,
+    DIGEST,
+    GET,
+    INSERT,
+    JSON,
+    JSONLD,
+    N3,
+    POST,
+    POSTDIRECTLY,
+    RDF,
+    RDFXML,
+    SELECT,
+    TSV,
+    TURTLE,
+    URLENCODED,
+    XML,
+    QueryResult,
+    SPARQLWrapper,
+)
+
+__all__ = [
+    "SPARQLWrapper2",
+    "get_sparql_dataframe",
+    "ASK",
+    "BASIC",
+    "CONSTRUCT",
+    "CSV",
+    "DELETE",
+    "DESCRIBE",
+    "DIGEST",
+    "GET",
+    "INSERT",
+    "JSON",
+    "JSONLD",
+    "N3",
+    "POST",
+    "POSTDIRECTLY",
+    "RDF",
+    "RDFXML",
+    "SELECT",
+    "TSV",
+    "TURTLE",
+    "URLENCODED",
+    "XML",
+    "QueryResult",
+    "SPARQLWrapper",
+]

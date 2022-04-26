@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: SPARQLWrapper
+Version: 2.0.0
+Summary: SPARQL Endpoint interface to Python
+Home-page: http://rdflib.github.io/sparqlwrapper
+Download-URL: https://github.com/RDFLib/sparqlwrapper/releases
+Author: Ivan Herman, Sergio Fernández, Carlos Tejo Alonso, Alexey Zakhlestin
+Author-email: rdflib-dev@googlegroups.com
+License: W3C SOFTWARE NOTICE AND LICENSE
+Project-URL: Home, https://rdflib.github.io/sparqlwrapper
+Project-URL: Documentation, https://sparqlwrapper.readthedocs.io
+Project-URL: Source, https://github.com/RDFLib/sparqlwrapper
+Project-URL: Tracker, https://github.com/RDFLib/sparqlwrapper/issues
+Keywords: python,sparql,rdf,rdflib
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: W3C License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+License-File: LICENSE.txt
+License-File: AUTHORS.md
+Requires-Dist: rdflib (>=6.1.1)
+Provides-Extra: dev
+Requires-Dist: setuptools (>=3.7.1) ; extra == 'dev'
+Requires-Dist: mypy (>=0.931) ; extra == 'dev'
+Requires-Dist: pandas (>=1.3.5) ; extra == 'dev'
+Requires-Dist: pandas-stubs (>=1.2.0.48) ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: sphinx (<5) ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Provides-Extra: keepalive
+Requires-Dist: keepalive (>=0.5) ; extra == 'keepalive'
+Provides-Extra: pandas
+Requires-Dist: pandas (>=1.3.5) ; extra == 'pandas'
+
+This is a wrapper around a SPARQL service. It helps in creating the query URI and, possibly, convert the result into a more manageable format.
+
