@@ -95,6 +95,8 @@ class SPARQLUtils:
                    "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
                    "http://schema.org/geo": "ObjectProperty",
                    "https://schema.org/geo": "ObjectProperty",
+                   "http://purl.org/dc/terms/coverage":"DatatypeProperty",
+                   "http://purl.org/dc/terms/spatial":"DatatypeProperty",
                    "http://schema.org/longitude": "DatatypeProperty",
                    "https://schema.org/longitude": "DatatypeProperty",
                    "http://schema.org/latitude": "DatatypeProperty",

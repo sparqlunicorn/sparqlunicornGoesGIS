@@ -257,6 +257,7 @@ class GraphUtils:
                     self.configuration["geoclasses"] = {}
                     for result in results["results"]["bindings"]:
                         if "rel" in result \
+                                and result["rel"]["value"] not in SPARQLUtils.georelationproperties\
                                 and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"]\
                                 and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"]\
                                 and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
