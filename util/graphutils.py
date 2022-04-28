@@ -12,6 +12,7 @@ class GraphUtils:
         "sparql11": "SELECT ?a ?b ?c WHERE { ?a ?b ?c . BIND( <http://www.opengis.net/ont/geosparql#> AS ?b) } LIMIT 1",
         "available": "SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",
         "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
+        "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
         "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
@@ -244,11 +245,11 @@ class GraphUtils:
                         i = i + 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
-            if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasRDFSLabel"]) and self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasRDFType"]):
-                self.configuration[
-                    "classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-                self.configuration[
-                    "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+            if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
+                self.configuration["labelproperty"]="http://www.w3.org/2004/02/skos/core#prefLabel"
+            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+            self.configuration[
+                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
                 results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <"+str(self.configuration["typeproperty"])+"> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
