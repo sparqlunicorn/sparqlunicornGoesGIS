@@ -20,6 +20,7 @@ var a00473 =
     [ "authmethods", "a00473.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classnode", "a00473.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00473.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
+    [ "commentproperties", "a00473.html#a005adfb0073d3ff83d90a00871ae7112", null ],
     [ "datatypepropertynode", "a00473.html#aa0daac064737190f501c49003c46d025", null ],
     [ "exception", "a00473.html#a2387fb71295a4c6a4b0feeaa424809f5", null ],
     [ "geoclassnode", "a00473.html#abe5ec0a47371449485744620d324f1f3", null ],
@@ -34,6 +35,7 @@ var a00473 =
     [ "linkedgeoinstancenode", "a00473.html#adcd00b5daa1460bfbeaf4081eddcce0b", null ],
     [ "namespaces", "a00473.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertynode", "a00473.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
+    [ "relationproperties", "a00473.html#ab2c8eb4954e2f8428c109bba1d5a9ab0", null ],
     [ "styleproperties", "a00473.html#acb3b01974e4664d4be9f2833fcb096e9", null ],
     [ "supportedLiteralTypes", "a00473.html#a28a4112f838898d008910c4320f0732e", null ],
     [ "treeNodeToolTip", "a00473.html#ab6a3282f03c67eef3b4d08d300033335", null ]
