@@ -28,6 +28,16 @@ class SPARQLUtils:
         "https://schema.org/address": "ObjectProperty"
     }
 
+    commentproperties={
+        "http://www.w3.org/2004/02/skos/core#definition":"DatatypeProperty",
+        "http://www.w3.org/2000/01/rdf-schema#comment": "DatatypeProperty",
+        "http://purl.org/dc/elements/1.1/description": "DatatypeProperty"
+    }
+
+    relationproperties={
+        "http://www.w3.org/2000/01/rdf-schema#seeAlso":"ObjectProperty"
+    }
+
     georelationproperties={
         "http://www.opengis.net/ont/geosparql#sfEquals": {"type": "ObjectProperty", "relation": "equals"},
         "http://www.opengis.net/ont/geosparql#sfContains": {"type": "ObjectProperty", "relation": "contains"},
