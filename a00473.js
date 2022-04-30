@@ -30,6 +30,7 @@ var a00473 =
     [ "graphResource", "a00473.html#a574fc90f73d8e3838b39ea769b869bfb", null ],
     [ "instancenode", "a00473.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
     [ "instancesloadedindicator", "a00473.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],
+    [ "labelproperties", "a00473.html#a1d421946042f084950a2184bdd0a2ad9", null ],
     [ "latlongeomproperties", "a00473.html#abf16cda5517f8bbcf2dda7bdb5f0d374", null ],
     [ "linkedgeoclassnode", "a00473.html#a82fc4d6bb1f6404ed5fee6a57cd5ac87", null ],
     [ "linkedgeoinstancenode", "a00473.html#adcd00b5daa1460bfbeaf4081eddcce0b", null ],
