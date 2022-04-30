@@ -88,7 +88,11 @@ class DataSchemaQueryTask(QgsTask):
                                            SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried")
         else:
             msgBox = QMessageBox()
-            msgBox.setText("The dataschema search query did not yield any results!")
+            msgBox.setWindowTitle("Dataschema search query not successful")
+            if SPARQLUtils.exception!=None:
+                msgBox.setText("The dataschema search query encountered the following error:\n"+SPARQLUtils.exception)
+            else:
+                msgBox.setText("The dataschema search query did not yield any results!")
             msgBox.exec()
         self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")

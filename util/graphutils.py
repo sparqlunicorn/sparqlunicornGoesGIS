@@ -13,6 +13,7 @@ class GraphUtils:
         "available": "SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",
         "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
+        "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
         "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
         "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
@@ -245,6 +246,8 @@ class GraphUtils:
                         i = i + 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
+            if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasDCTermsTitleLabel"]):
+                self.configuration["labelproperty"]="http://purl.org/dc/terms/title"
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
                 self.configuration["labelproperty"]="http://www.w3.org/2004/02/skos/core#prefLabel"
             self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "

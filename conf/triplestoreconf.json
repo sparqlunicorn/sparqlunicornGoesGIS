@@ -52,16 +52,7 @@
       }
     ],
     "crs": 4326,
-    "staticconcepts": [
-      "http://atlantgis.squirrel.link/ontology#ArchaeologicalSite",
-      "http://atlantgis.squirrel.link/ontology/CoastLine",
-      "http://atlantgis.squirrel.link/ontology/LandType",
-      "http://atlantgis.squirrel.link/ontology/Goldkupfererz",
-      "http://atlantgis.squirrel.link/ontology/Zinn",
-      "http://atlantgis.squirrel.link/ontology/Silber",
-      "http://atlantgis.squirrel.link/ontology#Stream",
-      "http://atlantgis.squirrel.link/ontology#Voronoi"
-    ],
+    "staticconcepts": [],
     "active": true
   },
   {
@@ -1687,7 +1678,7 @@
       "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#fallsWithin"
     ],
     "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": "http://www.w3.org/2000/01/rdf-schema#label",
+    "labelproperty": "http://purl.org/dc/terms/title",
     "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
     "geometryproperty": [
       "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude",
