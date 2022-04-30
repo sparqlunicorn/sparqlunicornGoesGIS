@@ -1,6 +1,7 @@
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.PyQt.QtWidgets import QMessageBox
 
 MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
 
@@ -36,3 +37,8 @@ class InstanceAmountQueryTask(QgsTask):
         if self.amount!=-1:
             self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
             self.treeNode.setData(str(self.amount),UIUtils.dataslot_instanceamount)
+        if SPARQLUtils.exception!=None:
+            msgBox = QMessageBox()
+            msgBox.setTitle("An error occurred!")
+            msgBox.setText(SPARQLUtils.exception)
+            msgBox.exec_()

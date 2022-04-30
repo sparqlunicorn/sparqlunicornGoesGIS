@@ -34,6 +34,7 @@ class SPARQLUtils:
         "http://www.w3.org/2004/02/skos/core#altLabel": "DatatypeProperty",
         "https://schema.org/name": "DatatypeProperty",
         "https://schema.org/alternateName": "DatatypeProperty",
+        "http://purl.org/dc/terms/title": "DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#altSymbol": "DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#hiddenLabel": "DatatypeProperty",
         "http://www.w3.org/2000/01/rdf-schema#label": "DatatypeProperty"
@@ -46,6 +47,7 @@ class SPARQLUtils:
         "http://www.w3.org/2004/02/skos/core#historyNote": "DatatypeProperty",
         "https://schema.org/description":"DatatypeProperty",
         "http://www.w3.org/2000/01/rdf-schema#comment": "DatatypeProperty",
+        "http://purl.org/dc/terms/description": "DatatypeProperty",
         "http://purl.org/dc/elements/1.1/description": "DatatypeProperty"
     }
 
@@ -241,6 +243,7 @@ class SPARQLUtils:
     ## Executes a SPARQL query using RDFlib, with or without credentials and tries GET and POST query methods and uses proxy settings
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
         results=False
+        SPARQLUtils.exception = None
         QgsMessageLog.logMessage(str(triplestoreurl), MESSAGE_CATEGORY,
                                  Qgis.Info)
         if triplestoreurl["type"]=="endpoint":

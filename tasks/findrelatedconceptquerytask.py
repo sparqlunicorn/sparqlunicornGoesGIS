@@ -21,6 +21,12 @@ class FindRelatedConceptQueryTask(QgsTask):
         self.searchResult=searchResult
         self.triplestoreconf=triplestoreconf
         self.concept=concept
+        while self.searchResultModel.rowCount()>0:
+            self.searchResultModel.removeRow(0)
+        self.searchResultModel.insertRow(0)
+        curitem = QStandardItem()
+        curitem.setText("Loading...")
+        self.searchResultModel.setItem(0, 0, curitem)
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
