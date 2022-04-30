@@ -79,6 +79,18 @@ class InstanceQueryTask(QgsTask):
                 itemchecked.setIcon(UIUtils.georelationpropertyicon)
                 itemchecked.setToolTip("Geo Relation Property")
                 itemchecked.setText("GeoRelP")
+            elif rel in SPARQLUtils.commentproperties:
+                itemchecked.setIcon(UIUtils.commentannotationpropertyicon)
+                itemchecked.setToolTip("Description Property")
+                itemchecked.setText("Description Property")
+            elif rel in SPARQLUtils.labelproperties:
+                itemchecked.setIcon(UIUtils.labelannotationpropertyicon)
+                itemchecked.setToolTip("Label Property")
+                itemchecked.setText("Label Property")
+            elif rel in SPARQLUtils.relationproperties:
+                itemchecked.setIcon(UIUtils.relationobjectpropertyicon)
+                itemchecked.setToolTip("Relation Property")
+                itemchecked.setText("Relation Property")
             elif "geoobjproperty" in self.triplestoreconf and rel in self.triplestoreconf["geoobjproperty"]:
                 itemchecked.setIcon(UIUtils.linkedgeoobjectpropertyicon)
                 itemchecked.setToolTip("Linked Geo Object Property")

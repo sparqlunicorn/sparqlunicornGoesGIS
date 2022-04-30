@@ -28,14 +28,36 @@ class SPARQLUtils:
         "https://schema.org/address": "ObjectProperty"
     }
 
+    labelproperties={
+        "http://www.w3.org/2004/02/skos/core#prefLabel":"DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#prefSymbol": "DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#altLabel": "DatatypeProperty",
+        "https://schema.org/name": "DatatypeProperty",
+        "https://schema.org/alternateName": "DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#altSymbol": "DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#hiddenLabel": "DatatypeProperty",
+        "http://www.w3.org/2000/01/rdf-schema#label": "DatatypeProperty"
+    }
+
     commentproperties={
         "http://www.w3.org/2004/02/skos/core#definition":"DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#note": "DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#scopeNote": "DatatypeProperty",
+        "http://www.w3.org/2004/02/skos/core#historyNote": "DatatypeProperty",
+        "https://schema.org/description":"DatatypeProperty",
         "http://www.w3.org/2000/01/rdf-schema#comment": "DatatypeProperty",
         "http://purl.org/dc/elements/1.1/description": "DatatypeProperty"
     }
 
     relationproperties={
-        "http://www.w3.org/2000/01/rdf-schema#seeAlso":"ObjectProperty"
+        "http://www.w3.org/2000/01/rdf-schema#seeAlso":"ObjectProperty",
+        "http://www.w3.org/2000/01/rdf-schema#subClassOf": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#related": "ObjectProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#exactMatch":"ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#closeMatch": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#broader": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#narrower": "ObjectProperty",
     }
 
     georelationproperties={

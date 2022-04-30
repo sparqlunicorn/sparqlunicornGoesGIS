@@ -68,7 +68,10 @@ class UIUtils:
     geoannotationpropertyicon=QIcon(":/icons/resources/icons/geoannotationproperty.png")
     objectpropertyicon=QIcon(":/icons/resources/icons/objectproperty.png")
     geoobjectpropertyicon=QIcon(":/icons/resources/icons/geoobjectproperty.png")
+    labelannotationpropertyicon = QIcon(":/icons/resources/icons/labelannotationproperty.png")
+    commentannotationpropertyicon = QIcon(":/icons/resources/icons/commentannotationproperty.png")
     linkedgeoobjectpropertyicon=QIcon(":/icons/resources/icons/linkedgeoobjectproperty.png")
+    relationobjectpropertyicon = QIcon(":/icons/resources/icons/relationobjectproperty.png")
     datatypepropertyicon=QIcon(":/icons/resources/icons/datatypeproperty.png")
     geodatatypepropertyicon=QIcon(":/icons/resources/icons/geodatatypeproperty.png")
     geometrycollectionicon=QIcon(":/icons/resources/icons/geometrycollection.png")
@@ -144,6 +147,18 @@ class UIUtils:
             itemchecked.setIcon(UIUtils.georelationpropertyicon)
             itemchecked.setToolTip("Geo Relation Property")
             itemchecked.setText("GeoRelP")
+        elif curconcept in SPARQLUtils.commentproperties:
+            itemchecked.setIcon(UIUtils.commentannotationpropertyicon)
+            itemchecked.setToolTip("Description Property")
+            itemchecked.setText("Description Property")
+        elif curconcept in SPARQLUtils.labelproperties:
+            itemchecked.setIcon(UIUtils.labelannotationpropertyicon)
+            itemchecked.setToolTip("Label Property")
+            itemchecked.setText("Label Property")
+        elif curconcept in SPARQLUtils.relationproperties:
+            itemchecked.setIcon(UIUtils.relationobjectpropertyicon)
+            itemchecked.setToolTip("Relation Property")
+            itemchecked.setText("Relation Property")
         elif SPARQLUtils.namespaces["rdfs"] in curconcept \
                 or SPARQLUtils.namespaces["owl"] in curconcept \
                 or SPARQLUtils.namespaces["dc"] in curconcept \

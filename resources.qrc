@@ -19,6 +19,8 @@
     <file>resources/icons/linkedgeoinstance.png</file>
     <file>resources/icons/validation2.png</file>
     <file>resources/icons/queryinstances.png</file>
+    <file>resources/icons/georelationproperty.png</file>
+    <file>resources/icons/relationobjectproperty.png</file>
     <file>resources/icons/class.png</file>
     <file>resources/icons/subclass.png</file>
     <file>resources/icons/rdffile.png</file>
@@ -26,6 +28,8 @@
     <file>resources/icons/searchclass.png</file>
     <file>resources/icons/columnasvar.png</file>
     <file>resources/icons/classlink.png</file>
+    <file>resources/icons/labelannotationproperty.png</file>
+    <file>resources/icons/commentannotationproperty.png</file>
     <file>resources/icons/add.png</file>
     <file>resources/icons/remove.png</file>
     <file>resources/icons/classschema.png</file>
