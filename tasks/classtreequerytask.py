@@ -94,7 +94,7 @@ class ClassTreeQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace(":","_")) + ".json")):
+        if os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace("\\","_").replace(":","_")) + ".json")):
             self.classtreemap=None
             self.subclassmap=None
         else:
@@ -178,7 +178,7 @@ class ClassTreeQueryTask(QgsTask):
             msgBox.exec_()
         elif self.classtreemap==None and self.subclassmap==None:
             elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
-                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace(":","_")) + ".json"))
+                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("\\","_").replace(":","_")) + ".json"))
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
         else:
             self.alreadyprocessed=set()
@@ -186,8 +186,8 @@ class ClassTreeQueryTask(QgsTask):
             self.classtreemap["root"]=self.rootNode
             self.buildTree("root",self.classtreemap,self.subclassmap,[])
             QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
-                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
-            f = open(os.path.join(__location__,"../tmp/classtree/"+str(str(self.triplestoreconf["resource"]["url"]).replace("/","_").replace(":","_"))+".json"), "w")
+                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
+            f = open(os.path.join(__location__,"../tmp/classtree/"+str(str(self.triplestoreconf["resource"]["url"]).replace("/","_").replace("\\","_").replace(":","_"))+".json"), "w")
             res={"text": "root"}
             UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
             QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
