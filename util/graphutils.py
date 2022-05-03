@@ -23,7 +23,7 @@ class GraphUtils:
         "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
         "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
         "hasWgs84Geometry": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:geometry ?c . }",
-        "hasSchemaOrgGeoLatLon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c geo:longitude ?e . }",
+        "hasSchemaOrgGeoLatLon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c schema:longitude ?e . }",
         "hasSchemaOrgGeoPolygon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c .  ?c schema:polygon ?d . }",
         "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
     }
