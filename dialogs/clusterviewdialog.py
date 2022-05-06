@@ -39,12 +39,18 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.tableView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.clusterView.hide()
         self.tableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))
-        self.tableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.tableView))
+        self.tableView.doubleClicked.connect(lambda modelindex: self.showRelatedFromIndex(modelindex))
         self.tableView.customContextMenuRequested.connect(self.onContext)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.show()
+        self.currentItem=None
         self.getRelatedClassStatistics()
+
+    def showRelatedFromIndex(self,modelindex):
+        self.currentItem=self.tablemodel.data(modelindex)
+        if self.tablemodel.data(modelindex) is not None:
+            self.showRelated(self.tablemodel.data(modelindex))
 
     def showRelated(self,item):
         self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)

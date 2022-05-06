@@ -1,12 +1,8 @@
-from ..util.layerutils import LayerUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
-from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtWidgets import QHeaderView
-import json
-
 from qgis.PyQt.QtCore import Qt, QSize
 
 MESSAGE_CATEGORY = 'FindRelatedConceptQueryTask'
@@ -36,7 +32,7 @@ class FindRelatedConceptQueryTask(QgsTask):
             self.triplestoreconf["labelproperty"]) + "> ?label . } OPTIONAL { ?rel  <" + str(
             self.triplestoreconf["labelproperty"]) + "> ?rellabel . }}"
         leftsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE { ?tocon <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . ?tocon ?rel ?con . ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
-            self.concept) + "> . OPTIONAL { ?con <" + str(self.triplestoreconf["labelproperty"]) + "> ?label . } OPTIONAL { ?rel  <" + str(
+            self.concept) + "> . OPTIONAL { ?val <" + str(self.triplestoreconf["labelproperty"]) + "> ?label . } OPTIONAL { ?rel  <" + str(
             self.triplestoreconf["labelproperty"]) + "> ?rellabel . }}"
         QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,leftsidequery,self.triplestoreconf)
