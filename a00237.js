@@ -1,4 +1,6 @@
 var a00237 =
 [
-    [ "OAuthConfiguration", "a00469.html", "a00469" ]
+    [ "GeocodingUtils", "a00453.html", "a00453" ],
+    [ "QgsNominatimRevGeocoder", "a00449.html", "a00449" ],
+    [ "SPARQLCompleter", "a00445.html", "a00445" ]
 ];

@@ -1,4 +1,4 @@
 var a00212 =
 [
-    [ "FindFeaturesInAreaTask", "a00361.html", "a00361" ]
+    [ "DataSampleQueryTask", "a00349.html", "a00349" ]
 ];

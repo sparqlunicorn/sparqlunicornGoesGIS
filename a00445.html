@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: QgsNominatimRevGeocoder Class Reference</title>
+<title>SPARQLingUnicornQGISPlugin: SPARQLCompleter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,47 +63,59 @@ $(document).ready(function(){initNavTree('a00445.html',''); initResizable(); });
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00442.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">QgsNominatimRevGeocoder Class Reference</div>  </div>
+<div class="title">SPARQLCompleter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for QgsNominatimRevGeocoder:</div>
+Inheritance diagram for SPARQLCompleter:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00444.png" border="0" usemap="#QgsNominatimRevGeocoder_inherit__map" alt="Inheritance graph"/></div>
-<map name="QgsNominatimRevGeocoder_inherit__map" id="QgsNominatimRevGeocoder_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,212,107"/>
-<area shape="rect" title=" " alt="" coords="17,5,200,32"/>
+<div class="center"><img src="a00444.png" border="0" usemap="#SPARQLCompleter_inherit__map" alt="Inheritance graph"/></div>
+<map name="SPARQLCompleter_inherit__map" id="SPARQLCompleter_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,145,107"/>
+<area shape="rect" title=" " alt="" coords="25,5,125,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for QgsNominatimRevGeocoder:</div>
+Collaboration diagram for SPARQLCompleter:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00443.png" border="0" usemap="#QgsNominatimRevGeocoder_coll__map" alt="Collaboration graph"/></div>
-<map name="QgsNominatimRevGeocoder_coll__map" id="QgsNominatimRevGeocoder_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,212,107"/>
-<area shape="rect" title=" " alt="" coords="17,5,200,32"/>
+<div class="center"><img src="a00443.png" border="0" usemap="#SPARQLCompleter_coll__map" alt="Collaboration graph"/></div>
+<map name="SPARQLCompleter_coll__map" id="SPARQLCompleter_coll__map">
+<area shape="rect" title=" " alt="" coords="5,80,145,107"/>
+<area shape="rect" title=" " alt="" coords="25,5,125,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac4d1b605d712900b0d04ce6788f32abe"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#ac4d1b605d712900b0d04ce6788f32abe">__init__</a> (self, <a class="el" href="a00445.html#a84a45817ab421efc1e1ac39ccfcff2f7">endpointReverse</a>=&quot;https://nominatim.openstreetmap.org/reverse&quot;)</td></tr>
-<tr class="separator:ac4d1b605d712900b0d04ce6788f32abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af775bd05363da54958bd28e5dbe4a2a9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#af775bd05363da54958bd28e5dbe4a2a9">flags</a> (self)</td></tr>
-<tr class="separator:af775bd05363da54958bd28e5dbe4a2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a6b28ee63be5a1625de5b256fa3a06a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a0a6b28ee63be5a1625de5b256fa3a06a">geocodeFeature</a> (self, feature, context, feedback=None)</td></tr>
-<tr class="separator:a0a6b28ee63be5a1625de5b256fa3a06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ab5ffa5495e7eacbe9a86ab9b63ea8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8">__init__</a> (self, autocomplete, parent=None)</td></tr>
+<tr class="separator:ae8ab5ffa5495e7eacbe9a86ab9b63ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e36c2d842bf4fe8788f931d3d80e8a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#ae1e36c2d842bf4fe8788f931d3d80e8a">setModel</a> (self, model)</td></tr>
+<tr class="separator:ae1e36c2d842bf4fe8788f931d3d80e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90269ea4c6aa5645909d0d10f35e98e9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a90269ea4c6aa5645909d0d10f35e98e9">updateModel</a> (self)</td></tr>
+<tr class="separator:a90269ea4c6aa5645909d0d10f35e98e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47706ce8363cc5ef40a774d742500b7f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a47706ce8363cc5ef40a774d742500b7f">setHighlighted</a> (self, text)</td></tr>
+<tr class="separator:a47706ce8363cc5ef40a774d742500b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7ac3af9d822a1125ccc14e7005b9a5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a6c7ac3af9d822a1125ccc14e7005b9a5">getSelected</a> (self)</td></tr>
+<tr class="separator:a6c7ac3af9d822a1125ccc14e7005b9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a84a45817ab421efc1e1ac39ccfcff2f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a84a45817ab421efc1e1ac39ccfcff2f7">endpointReverse</a></td></tr>
-<tr class="separator:a84a45817ab421efc1e1ac39ccfcff2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82531dcb37eb09983a78b6a8d1db559f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a82531dcb37eb09983a78b6a8d1db559f">source_model</a></td></tr>
+<tr class="separator:a82531dcb37eb09983a78b6a8d1db559f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1e195246a1ed7645f58bc8f7cc56a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#a8f1e195246a1ed7645f58bc8f7cc56a6">lastSelected</a></td></tr>
+<tr class="separator:a8f1e195246a1ed7645f58bc8f7cc56a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ad7e9e4dbb45732be7200fef92bc674a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00445.html#ad7e9e4dbb45732be7200fef92bc674a8">insertText</a> = QtCore.pyqtSignal(str)</td></tr>
+<tr class="separator:ad7e9e4dbb45732be7200fef92bc674a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac4d1b605d712900b0d04ce6788f32abe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4d1b605d712900b0d04ce6788f32abe">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="ae8ab5ffa5495e7eacbe9a86ab9b63ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ab5ffa5495e7eacbe9a86ab9b63ea8">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -118,7 +130,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>endpointReverse</em> = <code>&quot;https://nominatim.openstreetmap.org/reverse&quot;</code>&#160;</td>
+          <td class="paramname"><em>autocomplete</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>None</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -127,22 +145,26 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">def </span><a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, endpointReverse=&quot;https://nominatim.openstreetmap.org/reverse<span class="stringliteral">&quot;):</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="stringliteral">        super().<a class="code" href="a00421.html#af768e72071b11f2a420139fa04036c17">__init__</a>()</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="stringliteral">        self.endpointReverse = endpointReverse</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="stringliteral"></span> </div>
-<span class="stringliteral"></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">def </span><a class="code" href="a00425.html#af768e72071b11f2a420139fa04036c17">__init__</a>(self, autocomplete, parent=None):</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        QCompleter.__init__(self, autocomplete, parent)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.setCompletionMode(QCompleter.PopupCompletion)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.setFilterMode(Qt.MatchContains)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.source_model=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.setModel(QStandardItemModel())</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="comment"># self.highlighted.connect(self.setHighlighted)</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af775bd05363da54958bd28e5dbe4a2a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af775bd05363da54958bd28e5dbe4a2a9">&#9670;&nbsp;</a></span>flags()</h2>
+<a id="a6c7ac3af9d822a1125ccc14e7005b9a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c7ac3af9d822a1125ccc14e7005b9a5">&#9670;&nbsp;</a></span>getSelected()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def flags </td>
+          <td class="memname">def getSelected </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -150,20 +172,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">def </span>flags(self):</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> QgsGeocoderInterface.Flag.GeocodesStrings &amp; QgsGeocoderInterface.Flag.GeocodesFeatures</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">def </span>getSelected(self):</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> self.lastSelected</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00445.html#a8f1e195246a1ed7645f58bc8f7cc56a6">SPARQLCompleter.lastSelected</a>.</p>
+
 </div>
 </div>
-<a id="a0a6b28ee63be5a1625de5b256fa3a06a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a6b28ee63be5a1625de5b256fa3a06a">&#9670;&nbsp;</a></span>geocodeFeature()</h2>
+<a id="a47706ce8363cc5ef40a774d742500b7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47706ce8363cc5ef40a774d742500b7f">&#9670;&nbsp;</a></span>setHighlighted()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def geocodeFeature </td>
+          <td class="memname">def setHighlighted </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -172,19 +197,7 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>feature</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>feedback</em> = <code>None</code>&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -193,43 +206,142 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">def </span>geocodeFeature(self, feature, context, feedback=None):</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        pt = feature.geometry().asPoint()</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        lon, lat = pt.x(), pt.y()</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        url = f<span class="stringliteral">&quot;{self.endpointReverse}?lat={lat}&amp;lon={lon}polygon_geojson=1&amp;format=json&quot;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        request = QgsBlockingNetworkRequest()</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        request.get(QNetworkRequest(QUrl(url)))</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        reply = request.reply()</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        content = reply.content()</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        jsonContent = json.loads(content.data().decode())</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> self.jsonToResult(jsonContent)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">def </span>setHighlighted(self, text):</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.lastSelected = text</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a84a45817ab421efc1e1ac39ccfcff2f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a45817ab421efc1e1ac39ccfcff2f7">&#9670;&nbsp;</a></span>endpointReverse</h2>
+<a id="ae1e36c2d842bf4fe8788f931d3d80e8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1e36c2d842bf4fe8788f931d3d80e8a">&#9670;&nbsp;</a></span>setModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">endpointReverse</td>
+          <td class="memname">def setModel </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>model</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">def </span>setModel(self, model):</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.source_model = model</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        super(SPARQLCompleter, self).setModel(self.source_model)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00445.html#a82531dcb37eb09983a78b6a8d1db559f">SPARQLCompleter.source_model</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00445.html#a90269ea4c6aa5645909d0d10f35e98e9">SPARQLCompleter.updateModel()</a>.</p>
+
+</div>
+</div>
+<a id="a90269ea4c6aa5645909d0d10f35e98e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90269ea4c6aa5645909d0d10f35e98e9">&#9670;&nbsp;</a></span>updateModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def updateModel </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">def </span>updateModel(self):</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        local_completion_prefix = self.local_completion_prefix</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">class </span>InnerProxyModel(QSortFilterProxyModel):</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keyword">def </span>filterAcceptsRow(self, sourceRow, sourceParent):</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                index0 = self.sourceModel().index(sourceRow, 0, sourceParent)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                self.zoomToCoordinates(index0)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="keywordflow">return</span> local_completion_prefix.lower() <span class="keywordflow">in</span> self.sourceModel().data(index0).lower()</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        proxy_model = InnerProxyModel()</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        proxy_model.setSourceModel(self.source_model)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        super(SPARQLCompleter, self).setModel(proxy_model)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="a00445.html#ae1e36c2d842bf4fe8788f931d3d80e8a">SPARQLCompleter.setModel()</a>, <a class="el" href="a00445.html#a82531dcb37eb09983a78b6a8d1db559f">SPARQLCompleter.source_model</a>, and <a class="el" href="a00257.html#aa2b926f6f14bc0141d1f57d3e1ec749d">BBOXDialog.zoomToCoordinates()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad7e9e4dbb45732be7200fef92bc674a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7e9e4dbb45732be7200fef92bc674a8">&#9670;&nbsp;</a></span>insertText</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">insertText = QtCore.pyqtSignal(str)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f1e195246a1ed7645f58bc8f7cc56a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1e195246a1ed7645f58bc8f7cc56a6">&#9670;&nbsp;</a></span>lastSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">lastSelected</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00445.html#a6c7ac3af9d822a1125ccc14e7005b9a5">SPARQLCompleter.getSelected()</a>.</p>
+
+</div>
+</div>
+<a id="a82531dcb37eb09983a78b6a8d1db559f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82531dcb37eb09983a78b6a8d1db559f">&#9670;&nbsp;</a></span>source_model</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">source_model</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="a00445.html#ae1e36c2d842bf4fe8788f931d3d80e8a">SPARQLCompleter.setModel()</a>, and <a class="el" href="a00445.html#a90269ea4c6aa5645909d0d10f35e98e9">SPARQLCompleter.updateModel()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aa00421_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00421.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
+<div class="ttc" id="aa00425_html_af768e72071b11f2a420139fa04036c17"><div class="ttname"><a href="a00425.html#af768e72071b11f2a420139fa04036c17">sparqlunicornGoesGIS.tasks.whattoenrichquerytask.WhatToEnrichQueryTask.__init__</a></div><div class="ttdeci">def __init__(self, description, triplestoreurl, query, searchTerm, prefixes, searchResult, triplestoreconf, progress)</div><div class="ttdef"><b>Definition:</b> whattoenrichquerytask.py:18</div></div>
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00179.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00230.html">util</a></li><li class="navelem"><a class="el" href="a00233.html">geocodingutils</a></li><li class="navelem"><a class="el" href="a00445.html">QgsNominatimRevGeocoder</a></li>
+    <li class="navelem"><a class="el" href="a00182.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00234.html">util</a></li><li class="navelem"><a class="el" href="a00237.html">geocodingutils</a></li><li class="navelem"><a class="el" href="a00445.html">SPARQLCompleter</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

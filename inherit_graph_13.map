@@ -1,3 +1,29 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$a00245.html" title="The main SPARQL unicorn dialog." alt="" coords="5,5,125,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="26,360,101,387"/>
+<area shape="rect" id="node2" href="$a00253.html" title=" " alt="" coords="225,613,328,640"/>
+<area shape="rect" id="node3" href="$a00257.html" title=" " alt="" coords="226,664,327,691"/>
+<area shape="rect" id="node4" href="$a00277.html" title=" " alt="" coords="209,715,345,741"/>
+<area shape="rect" id="node5" href="$a00281.html" title=" " alt="" coords="197,5,357,32"/>
+<area shape="rect" id="node6" href="$a00293.html" title=" " alt="" coords="201,56,352,83"/>
+<area shape="rect" id="node7" href="$a00297.html" title=" " alt="" coords="206,107,347,133"/>
+<area shape="rect" id="node8" href="$a00301.html" title=" " alt="" coords="226,157,327,184"/>
+<area shape="rect" id="node9" href="$a00305.html" title=" " alt="" coords="169,208,384,235"/>
+<area shape="rect" id="node10" href="$a00309.html" title=" " alt="" coords="223,259,331,285"/>
+<area shape="rect" id="node11" href="$a00317.html" title=" " alt="" coords="210,309,343,336"/>
+<area shape="rect" id="node12" href="$a00321.html" title=" " alt="" coords="179,360,374,387"/>
+<area shape="rect" id="node13" href="$a00325.html" title="Dialog to upload a generated RDF result to a triple store." alt="" coords="208,411,345,437"/>
+<area shape="rect" id="node14" href="$a00329.html" title=" " alt="" coords="199,461,355,488"/>
+<area shape="rect" id="node15" href="$a00333.html" title="Class representing the variable input dialog which maps geodataset columns to SPARQL query variables." alt="" coords="217,512,336,539"/>
+<area shape="rect" id="node16" href="$a00337.html" title="Enrichment dialog to enrich properties to a geodataset." alt="" coords="207,563,346,589"/>
+<area shape="rect" id="node17" title=" " alt="" coords="24,816,103,843"/>
+<area shape="rect" id="node18" href="$a00261.html" title=" " alt="" coords="205,765,348,792"/>
+<area shape="rect" id="node19" href="$a00273.html" title=" " alt="" coords="203,816,350,843"/>
+<area shape="rect" id="node20" href="$a00289.html" title=" " alt="" coords="201,867,352,893"/>
+<area shape="rect" id="node21" href="$a00969.html" title=" " alt="" coords="8,537,119,564"/>
+<area shape="rect" id="node22" href="$a00265.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="206,917,347,944"/>
+<area shape="rect" id="node23" href="$a00269.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="201,968,352,995"/>
+<area shape="rect" id="node24" href="$a00285.html" title="Class representing the graph validation dialog." alt="" coords="193,1019,361,1045"/>
+<area shape="rect" id="node25" href="$a00313.html" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="195,1069,358,1096"/>
+<area shape="rect" id="node26" title=" " alt="" coords="26,968,101,995"/>
+<area shape="rect" id="node27" title=" " alt="" coords="5,1069,121,1096"/>
 </map>

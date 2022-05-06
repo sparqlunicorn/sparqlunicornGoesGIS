@@ -1,4 +1,4 @@
 var a00238 =
 [
-    [ "SPARQLUtils", "a00473.html", "a00473" ]
+    [ "GraphUtils", "a00457.html", "a00457" ]
 ];

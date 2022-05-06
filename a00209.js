@@ -1,4 +1,25 @@
 var a00209 =
 [
-    [ "DataSchemaQueryTask", "a00349.html", "a00349" ]
+    [ "classtreequerytask", "a00210.html", "a00210" ],
+    [ "convertcrstask", "a00211.html", "a00211" ],
+    [ "datasamplequerytask", "a00212.html", "a00212" ],
+    [ "dataschemaquerytask", "a00213.html", "a00213" ],
+    [ "detecttriplestoretask", "a00214.html", "a00214" ],
+    [ "enrichmentquerytask", "a00215.html", "a00215" ],
+    [ "findfeaturesinareatask", "a00216.html", "a00216" ],
+    [ "findrelatedconceptquerytask", "a00217.html", "a00217" ],
+    [ "findstylestask", "a00218.html", "a00218" ],
+    [ "geocollectionsquerytask", "a00219.html", "a00219" ],
+    [ "geoconceptsquerytask", "a00220.html", "a00220" ],
+    [ "getstyletask", "a00221.html", "a00221" ],
+    [ "graphvalidationtask", "a00222.html", "a00222" ],
+    [ "instanceamountquerytask", "a00223.html", "a00223" ],
+    [ "instancelistquerytask", "a00224.html", "a00224" ],
+    [ "instancequerytask", "a00225.html", "a00225" ],
+    [ "layermatchingtask", "a00226.html", "a00226" ],
+    [ "loadgraphtask", "a00227.html", "a00227" ],
+    [ "querylayertask", "a00228.html", "a00228" ],
+    [ "searchtask", "a00229.html", "a00229" ],
+    [ "subclassquerytask", "a00230.html", "a00230" ],
+    [ "whattoenrichquerytask", "a00231.html", "a00231" ]
 ];

@@ -1,5 +1,7 @@
 var a00465 =
 [
-    [ "matchString", "a00465.html#a1b12342331d63f2b938fe2b8c01d06d2", null ],
-    [ "matchStringMapToReference", "a00465.html#a1eaa2a067dded069874c4abc97a37ab6", null ]
+    [ "FUZZYSCORE", "a00465.html#ad5570b7f4b79a1a94207c040307271f2", null ],
+    [ "HAMMING", "a00465.html#a758dd7ea089ad385444edd082399c839", null ],
+    [ "LEVENSTHEIN", "a00465.html#a0a704cb6400c2ed3e12bdc9f49961571", null ],
+    [ "SUBSTRING", "a00465.html#ace5889b077dc9caad3d4ac71c04ba9d3", null ]
 ];

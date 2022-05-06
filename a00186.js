@@ -1,4 +1,25 @@
 var a00186 =
 [
-    [ "ClusterViewDialog", "a00257.html", "a00257" ]
+    [ "aboutdialog", "a00187.html", "a00187" ],
+    [ "bboxdialog", "a00188.html", "a00188" ],
+    [ "clusterviewdialog", "a00189.html", "a00189" ],
+    [ "convertcrsdialog", "a00190.html", "a00190" ],
+    [ "convertlayerdialog", "a00191.html", "a00191" ],
+    [ "dataschemadialog", "a00192.html", "a00192" ],
+    [ "errormessagebox", "a00193.html", "a00193" ],
+    [ "examplequerydialog", "a00194.html", "a00194" ],
+    [ "graphvalidationdialog", "a00195.html", "a00195" ],
+    [ "instancedatadialog", "a00196.html", "a00196" ],
+    [ "loginwindowdialog", "a00197.html", "a00197" ],
+    [ "preferencesdialog", "a00198.html", "a00198" ],
+    [ "prefixdialog", "a00199.html", "a00199" ],
+    [ "querylimitedinstancesdialog", "a00200.html", "a00200" ],
+    [ "searchdialog", "a00201.html", "a00201" ],
+    [ "sparql_unicorn_dialog", "a00202.html", "a00202" ],
+    [ "triplestoredialog", "a00203.html", "a00203" ],
+    [ "triplestorequickadddialog", "a00204.html", "a00204" ],
+    [ "uploadrdfdialog", "a00205.html", "a00205" ],
+    [ "valuemappingdialog", "a00206.html", "a00206" ],
+    [ "varinputdialog", "a00207.html", "a00207" ],
+    [ "whattoenrichdialog", "a00208.html", "a00208" ]
 ];

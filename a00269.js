@@ -1,26 +1,11 @@
 var a00269 =
 [
-    [ "__init__", "a00269.html#acdd50c98a6b4ad11096db60e1c31bc2b", null ],
-    [ "getAttributeStatistics", "a00269.html#a929e6379de0e9f6aa762a098436b1049", null ],
-    [ "loadBBOXDialog", "a00269.html#a501c3a5f40cbe3d645965f24dabd9239", null ],
-    [ "loadSamples", "a00269.html#aba66981d86ff2e0da40636d9886cb217", null ],
-    [ "queryAllInstances", "a00269.html#aeb05e1da63d0ff3e0956945bf5a2f137", null ],
-    [ "toggleSelect", "a00269.html#aaec5b188bffca11b921023e514043833", null ],
-    [ "alreadyloadedSample", "a00269.html#acf65a34531091c482d3844fac8a32f6d", null ],
-    [ "concept", "a00269.html#a8797c550322dd66573e3ff76efea346e", null ],
-    [ "concepttype", "a00269.html#ad341a2945e04315008627d9d24aba557", null ],
-    [ "filter_proxy_model", "a00269.html#a6d828fa188e4fc612101d64e2c7de582", null ],
-    [ "label", "a00269.html#a22f45a3cb4f074e609f58ebaeef0ecf9", null ],
-    [ "mts_layer", "a00269.html#a90dc809bbf3ab04604a3662090a747bc", null ],
+    [ "__init__", "a00269.html#aed785251601438e09cc9e991dc6b0153", null ],
+    [ "startConversion", "a00269.html#a281b1c143a8afdfa22a668ec770e812b", null ],
+    [ "vocabularyCBoxIndexChanged", "a00269.html#aa15861c0689e000858a9505b9616cf03", null ],
+    [ "dlg", "a00269.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
+    [ "maindlg", "a00269.html#a7a228f82cef256bf0c017634e4195718", null ],
     [ "prefixes", "a00269.html#a302e350558edcbbd7b85927b33550548", null ],
-    [ "qlayerinstance", "a00269.html#a372686b3ca59f062b995140d963fadd6", null ],
     [ "qtask", "a00269.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
-    [ "qtask2", "a00269.html#a39b0b293840045c1835cdd6fe7fd92bb", null ],
-    [ "selected", "a00269.html#a2224ec0958a602aef926b6a3715e094e", null ],
-    [ "styleprop", "a00269.html#a1451318d493b1d82979d80601a4b8b98", null ],
-    [ "tablemodel", "a00269.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
-    [ "toolPan", "a00269.html#af85acd51bc896510da060834a7b6b890", null ],
-    [ "triplestoreconf", "a00269.html#a330d24be0afd5a96238ca9e128328a2d", null ],
-    [ "triplestoreurl", "a00269.html#a9b8734be629bbc1f64723d90a67861ab", null ],
-    [ "vl", "a00269.html#a3b8faf024ce1e723b98817e20cd69ff6", null ]
+    [ "triplestoreconf", "a00269.html#a330d24be0afd5a96238ca9e128328a2d", null ]
 ];

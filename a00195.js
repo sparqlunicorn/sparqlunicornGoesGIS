@@ -1,4 +1,4 @@
 var a00195 =
 [
-    [ "PrefixDialog", "a00297.html", "a00297" ]
+    [ "GraphValidationDialog", "a00285.html", "a00285" ]
 ];

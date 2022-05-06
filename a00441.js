@@ -1,11 +1,9 @@
 var a00441 =
 [
-    [ "__init__", "a00441.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00441.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00441.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "setModel", "a00441.html#ae1e36c2d842bf4fe8788f931d3d80e8a", null ],
-    [ "updateModel", "a00441.html#a90269ea4c6aa5645909d0d10f35e98e9", null ],
-    [ "insertText", "a00441.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00441.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ],
-    [ "source_model", "a00441.html#a82531dcb37eb09983a78b6a8d1db559f", null ]
+    [ "__init__", "a00441.html#ae64f0875afe3067b97ba370b354b9213", null ],
+    [ "convertCRSFromEPSG", "a00441.html#aeadf0eb248b756948230566b1d91f1c4", null ],
+    [ "convertCRSFromWKTString", "a00441.html#abea877407dfc1a942f94c1039ff863cb", null ],
+    [ "convertCRSFromWKTStringSet", "a00441.html#a39c7098f8401caf0100203e286491bc1", null ],
+    [ "crsToTTL", "a00441.html#a849242decae7230d1029251178b41783", null ],
+    [ "ttlhead", "a00441.html#ad382225511cbcbdfadae28d3f3641911", null ]
 ];

@@ -1,4 +1,4 @@
 var a00185 =
 [
-    [ "BBOXDialog", "a00253.html", "a00253" ]
+    [ "SPARQLunicorn", "a00249.html", "a00249" ]
 ];
