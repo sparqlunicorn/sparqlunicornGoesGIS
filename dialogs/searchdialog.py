@@ -100,7 +100,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             self.triplestoreconf[self.tripleStoreEdit.currentIndex()], self.prefixes,
             "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
                 UIUtils.dataslot_conceptURI)),self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["prefixesrev"] if "prefixesrev" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()] else {})
-        ).exec_())
+        ))
         menu.exec(self.searchResult.viewport().mapToGlobal(position))
 
     ##

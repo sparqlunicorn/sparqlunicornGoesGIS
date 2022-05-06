@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 
+from ..dialogs.errormessagebox import ErrorMessageBox
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis, QgsTask, QgsMessageLog
@@ -87,8 +88,8 @@ class DataSchemaQueryTask(QgsTask):
                 UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,
                                            SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried")
         else:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("Dataschema search query not successful")
+            msgBox = ErrorMessageBox("Dataschema search query not successful","")
+            msgBox.setWindowTitle()
             if SPARQLUtils.exception!=None:
                 msgBox.setText("The dataschema search query encountered the following error:\n"+SPARQLUtils.exception)
             else:

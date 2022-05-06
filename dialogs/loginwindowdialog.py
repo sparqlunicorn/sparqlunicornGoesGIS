@@ -1,7 +1,6 @@
 import sys
-from PyQt5 import QtCore
-from PyQt5.QtWebKitWidgets import QWebView
-from PyQt5.QtCore import QUrl
+from qgis.PyQt import QtCore
+from qgis.PyQt.QtCore import QUrl
 from ..util.oauth import OAuthConfiguration
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
@@ -21,9 +20,11 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.googleOAuthButton.clicked.connect(self.createGoogleDialog)
+        """
         self.gitlabcomOAuthButton.clicked.connect(lambda: LoginWindow(self, "gitlabcom"))
         self.orcidOAuthButton.clicked.connect(lambda: LoginWindow(self, "orcid"))
         self.githubOAuthButton.clicked.connect(lambda: LoginWindow(self, "github"))
+        """
 
     def _loadFinished(self, result):
         self.page().toHtml(self.callable)
@@ -32,13 +33,17 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
         self.html = data
         
     def createGoogleDialog(self):
-        self.myWV = QWebView(None)
+        """
+        self.myWV = QWebEngineView(None)
         self.myWV.load(QUrl(OAuthConfiguration.getAuthUrl("google")))#QUrl("http://www.google.de"))#OAuthConfiguration.AuthUrl["google"]))
         self.myWV.show()
+        """
+        print("To be implemented")
         #LoginWindow(self, "google")
 
 
-class LoginWindow(QWebView):
+"""
+class LoginWindow(QWebEngineView):
     logged_in = QtCore.pyqtSignal(['QString'])
 
     def __init__(self, app,provider):
@@ -57,4 +62,4 @@ class LoginWindow(QWebView):
 
     def callable(self, data):
         self.html = data
-
+"""

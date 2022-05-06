@@ -35,6 +35,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog, QSizePolicy
 from rdflib.plugins.sparql import prepareQuery
 
+from .errormessagebox import ErrorMessageBox
 from ..util.ui.uiutils import UIUtils
 from .aboutdialog import AboutDialog
 from .preferencesdialog import PreferencesDialog
@@ -189,10 +190,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.conceptSelectAction()
 
     def tripleStoreInfoDialog(self):
-        msgBox = QMessageBox()
-        msgBox.setWindowTitle("RDF Resource Information")
+        msgBox = ErrorMessageBox("RDF Resource Information","")
         msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
-        thetext="<html><h3>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0><tr><th>Information</th><th>Value</th></tr>"
+        thetext="<html height=100%><h3 align=center>Information about "+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</h3><table border=1 cellspacing=0 align=center><tr><th>Information</th><th>Value</th></tr>"
         thetext+="<tr><td>Name</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+"</td></tr>"
         thetext+="<tr><td>Type</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["type"])+"</td></tr>"
         if "sparql11" in self.triplestoreconf[self.comboBox.currentIndex()]["resource"] and self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["sparql11"]:
@@ -207,17 +207,17 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         thetext+="<tr><td>Type Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</a></td></tr>"
         thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
         if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext+= "<tr><td>Geometry Property</td><td><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]) + "</a></td></tr>"
+            thetext+= "<tr><td>Geometry Property</td><td style=\"word-wrap: break-word\"><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]).replace("[","").replace("]","") + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]).replace(" ","<br/>") + "</a></td></tr>"
         geoprops=""
         if "geoobjproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
             geoprops += "<tr><td>Detected Geom Properties</td><td><a href=\"" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "\">" + str(
-                self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]) + "</a></td></tr>"
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoobjproperty"]).replace(" ","<br/>").replace("[","").replace("]","").replace("'","") + "</a></td></tr>"
         thetext+=geoprops
         if "geoclasses" in self.triplestoreconf[self.comboBox.currentIndex()]:
             thetext += "<tr><td>Detected Geometry Classes</td><td><a href=\"" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()) + "\">" + str(
-                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()) + "</a></td></tr>"
+                self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()).replace("dict_keys(","").replace(" ","<br/>").replace("'","").replace("[","").replace("]","")[0:-1] + "</a></td></tr>"
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()

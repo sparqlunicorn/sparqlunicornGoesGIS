@@ -1,5 +1,5 @@
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QStyle
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QStyle
 from qgis.core import QgsProject, Qgis
 import xml.etree.ElementTree as ET
 from qgis.utils import iface

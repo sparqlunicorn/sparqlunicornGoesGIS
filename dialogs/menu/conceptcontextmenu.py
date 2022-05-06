@@ -200,7 +200,7 @@ class ConceptContextMenu(QMenu):
     def relatedGeoConcepts(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         label = self.item.text()
-        ClusterViewDialog(self.triplestoreconf,concept).exec()
+        ClusterViewDialog(self.triplestoreconf,concept)
         #if not label.endswith("]"):
         #    self.qtaskinstance = FindRelatedConceptQueryTask(
         #        "Getting related geo concepts for " + str(concept),

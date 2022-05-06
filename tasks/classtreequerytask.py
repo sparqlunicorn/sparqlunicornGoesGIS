@@ -1,10 +1,11 @@
 from ..util.ui.uiutils import UIUtils
 from ..util.configutils import ConfigUtils
 from ..util.ui.qstandardclasstreeitem import QStandardClassTreeItem
+from ..dialogs.errormessagebox import ErrorMessageBox
 from ..util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QHeaderView,QMessageBox
+from qgis.PyQt.QtWidgets import QHeaderView
 import os
 import json
 
@@ -104,6 +105,7 @@ class ClassTreeQueryTask(QgsTask):
             if results=="Exists error":
                 results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
             if results==False:
+                SPARQLUtils.exception="No results"
                 return False
             hasparent={}
             #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
@@ -172,9 +174,7 @@ class ClassTreeQueryTask(QgsTask):
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         if SPARQLUtils.exception!=None:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle(str(self.description)+": An error occurred!")
-            msgBox.setText(SPARQLUtils.exception)
+            msgBox = ErrorMessageBox(str(self.description)+": An error occurred!",SPARQLUtils.exception)
             msgBox.exec_()
         elif self.classtreemap==None and self.subclassmap==None:
             elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
