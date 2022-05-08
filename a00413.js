@@ -1,6 +1,6 @@
 var a00413 =
 [
-    [ "__init__", "a00413.html#aa8500bf6b4a58cf022d8ce72f886c973", null ],
+    [ "__init__", "a00413.html#a3ea7b469524eaca176ef3ac9182f0341", null ],
     [ "dropUnwantedKeys", "a00413.html#abc490d57249f10848897158c9e30a931", null ],
     [ "finished", "a00413.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "processResults", "a00413.html#ab368e533f681a396257e919f7acf52fd", null ],
@@ -10,6 +10,7 @@ var a00413 =
     [ "exception", "a00413.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "filename", "a00413.html#a2ff994e16bf9521154de4cf659a3b689", null ],
     [ "geojson", "a00413.html#abbcc160ca774f07e0a53d4e0520808d1", null ],
+    [ "preferredlang", "a00413.html#af09711ee571e250a7000c2ea988d9bc3", null ],
     [ "progress", "a00413.html#a991fd2c404665f13f536fc7791e53504", null ],
     [ "query", "a00413.html#a6c84ba0942252fbf3bc9f20120a12ad1", null ],
     [ "querydepth", "a00413.html#aa1caf11cc3fdcb08c90537fb2ffc6a2b", null ],

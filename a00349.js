@@ -1,6 +1,6 @@
 var a00349 =
 [
-    [ "__init__", "a00349.html#ac60fdb3c9059001b817e093b35fed59e", null ],
+    [ "__init__", "a00349.html#a52140ce65cbb2634e5378295a3e40a58", null ],
     [ "finished", "a00349.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00349.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "column", "a00349.html#ae78e6e11a40e6dba1bae097358f97d15", null ],
@@ -10,6 +10,7 @@ var a00349 =
     [ "exception", "a00349.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "mymap", "a00349.html#ab38ad98eb0ec5bd609169dd83133d317", null ],
     [ "nodetype", "a00349.html#a618f7f5866526d01adfc6c50c3250898", null ],
+    [ "preferredlang", "a00349.html#af09711ee571e250a7000c2ea988d9bc3", null ],
     [ "queryresult", "a00349.html#a1bee14843933505be5e14e07c03f5f89", null ],
     [ "relation", "a00349.html#a87e75f78a11b7995d1386f9851405666", null ],
     [ "row", "a00349.html#ad42e2d1ad172100a2cd1338656cf0425", null ],
