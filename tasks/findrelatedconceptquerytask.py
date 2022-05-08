@@ -9,11 +9,12 @@ MESSAGE_CATEGORY = 'FindRelatedConceptQueryTask'
 
 class FindRelatedConceptQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,triplestoreconf,searchResult):
+    def __init__(self, description, triplestoreurl,dlg,concept,triplestoreconf,searchResult,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.searchResultModel=dlg
+        self.preferredlang=preferredlang
         self.searchResult=searchResult
         self.triplestoreconf=triplestoreconf
         self.concept=concept
@@ -28,11 +29,14 @@ class FindRelatedConceptQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         rightsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE { ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
             self.concept) + "> . ?con ?rel ?item . ?item  <" + str(
-            self.triplestoreconf["typeproperty"]) + "> ?val . OPTIONAL { ?val  <" + str(
-            self.triplestoreconf["labelproperty"]) + "> ?label . } OPTIONAL { ?rel  <" + str(
+            self.triplestoreconf["typeproperty"]) + "> ?val .\n OPTIONAL { ?val  <" + str(
+            self.triplestoreconf["labelproperty"]) + "> ?label .\n FILTER(LANG(?label) = \""+str(self.preferredlang)+"\") }\n OPTIONAL { ?val  <" + str(
+            self.triplestoreconf["labelproperty"]) + "> ?label .}\nOPTIONAL { ?rel  <" + str(
+            self.triplestoreconf["labelproperty"]) + "> ?rellabel . \n FILTER(LANG(?rellabel) = \""+str(self.preferredlang)+"\") }\n OPTIONAL { ?rel  <" + str(
             self.triplestoreconf["labelproperty"]) + "> ?rellabel . }}"
         leftsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE { ?tocon <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . ?tocon ?rel ?con . ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
-            self.concept) + "> . OPTIONAL { ?val <" + str(self.triplestoreconf["labelproperty"]) + "> ?label . } OPTIONAL { ?rel  <" + str(
+            self.concept) + "> . OPTIONAL { ?val <" + str(self.triplestoreconf["labelproperty"]) + "> ?label .\n FILTER(LANG(?label) = \""+str(self.preferredlang)+"\") }\nOPTIONAL{?val <" + str(self.triplestoreconf["labelproperty"]) + "> ?label . }\n OPTIONAL { ?rel  <" + str(
+            self.triplestoreconf["labelproperty"]) + "> ?rellabel . \n FILTER(LANG(?rellabel) = \""+str(self.preferredlang)+"\") }\nOPTIONAL{ ?rel  <" + str(
             self.triplestoreconf["labelproperty"]) + "> ?rellabel . }}"
         QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,leftsidequery,self.triplestoreconf)

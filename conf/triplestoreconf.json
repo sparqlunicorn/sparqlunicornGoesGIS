@@ -224,7 +224,7 @@
     ],
     "classfromlabelquery": "SELECT DISTINCT ?class { ?class <https://database.factgrid.de/prop/direct/P2> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
     "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P2 %%concept%% . ?con wdt:P48 ?coord . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
+    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P2 %%concept%% . OPTIONAL {?con wdt:P48 ?coord . } ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
     "geoconceptlimit": 500,
     "staticconcepts": [],
     "active": true

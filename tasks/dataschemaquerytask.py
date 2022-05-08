@@ -89,7 +89,6 @@ class DataSchemaQueryTask(QgsTask):
                                            SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried")
         else:
             msgBox = ErrorMessageBox("Dataschema search query not successful","")
-            msgBox.setWindowTitle()
             if SPARQLUtils.exception!=None:
                 msgBox.setText("The dataschema search query encountered the following error:\n"+SPARQLUtils.exception)
             else:
