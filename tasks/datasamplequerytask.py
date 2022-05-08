@@ -10,12 +10,13 @@ MESSAGE_CATEGORY = 'DataSampleQueryTask'
 
 class DataSampleQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype):
+    def __init__(self, description, triplestoreurl,dlg,concept,relation,column,row,triplestoreconf,tableWidget,mymap,nodetype,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.dlg=dlg
         self.nodetype=nodetype
+        self.preferredlang=preferredlang
         self.column=column
         self.templayer=None
         self.mymap=mymap
@@ -36,7 +37,7 @@ class DataSampleQueryTask(QgsTask):
         typepattern="?con <"+typeproperty+"> <" + str(self.concept) + "> ."
         if self.nodetype==SPARQLUtils.collectionclassnode:
             typepattern="<" + str(self.concept) + ">  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
-        query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation) + "> ?val } GROUP BY ?val LIMIT 100"
+        query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"
         if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?val ?val2 LIMIT 100"

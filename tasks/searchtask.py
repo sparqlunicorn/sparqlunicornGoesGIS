@@ -1,6 +1,7 @@
 import json
 import requests
 
+from ..dialogs.errormessagebox import ErrorMessageBox
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
@@ -82,9 +83,8 @@ class SearchTask(QgsTask):
             return
         if "SELECT" in self.query:
             if self.results==False:
-                msgBox = QMessageBox()
-                msgBox.setWindowTitle("Error while performing search")
-                msgBox.setText("An error occured while performing the search")
+                msgBox = ErrorMessageBox("Error while performing search","")
+                msgBox.setText("An error occured while performing the search:\n"+str(SPARQLUtils.exception))
                 msgBox.exec()
                 return
             if len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:

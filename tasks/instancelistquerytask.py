@@ -28,9 +28,7 @@ class InstanceListQueryTask(QgsTask):
         if "labelproperty" in self.triplestoreconf:
             labelproperty=self.triplestoreconf["labelproperty"]
         nodetype=self.treeNode.data(UIUtils.dataslot_nodetype)
-        labelpattern="OPTIONAL { ?con <"+labelproperty+"> ?label . }"
-        if self.preferredlang!="en":
-            labelpattern="OPTIONAL { ?con <"+labelproperty+" > ?label.\n FILTER langMatches(lang(?label),  \""+str(self.preferredlang)+"\") } OPTIONAL { ?class <"+labelproperty+"> ?label . }"
+        labelpattern="OPTIONAL { ?con <"+labelproperty+"> ?label . FILTER(LANG(?label) =  \""+str(self.preferredlang)+"\") }\n OPTIONAL { ?con <"+labelproperty+"> ?label . }\n"
         geometryproperty=None
         if "geometryproperty" in self.triplestoreconf:
             if type(self.triplestoreconf["geometryproperty"]) is list:
