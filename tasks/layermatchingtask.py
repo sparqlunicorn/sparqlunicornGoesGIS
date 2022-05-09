@@ -26,7 +26,6 @@ class LayerMatchingTask(QgsTask):
         thequery="SELECT ?val WHERE { ?con <"+typeproperty+"> <" + str(
                     self.treeNode.data(256)) + "> . ?con <"+self.matchproperty+"> ?val }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         resmap={}
         for result in results["results"]["bindings"]:
             if "val" in result:

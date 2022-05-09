@@ -59,12 +59,10 @@ class InstanceQueryTask(QgsTask):
             self.searchResultModel.removeRow(0)
         counter=0
         for rel in self.queryresult:
-            #QgsMessageLog.logMessage("Query results: " + str(rel), MESSAGE_CATEGORY, Qgis.Info)
             if rel!="geo":
                 self.searchResultModel.insertRow(counter)
             itemchecked = QStandardItem()
-            itemchecked.setFlags(Qt.ItemIsUserCheckable |
-                                 Qt.ItemIsEnabled)
+            itemchecked.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
             itemchecked.setCheckState(Qt.Checked)
             if rel in SPARQLUtils.geoproperties:
                 if SPARQLUtils.geoproperties[rel] == "DatatypeProperty":
@@ -137,7 +135,6 @@ class InstanceQueryTask(QgsTask):
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
                         'geometry': myGeometryInstanceJSON}
                     ]}
-                    #QgsMessageLog.logMessage(str(geojson), MESSAGE_CATEGORY, Qgis.Info)
                     self.features = QgsVectorLayer(json.dumps(geojson), str(self.searchTerm),"ogr")
                     featuress = self.features.getFeatures()
                     geomcentroidpoint=None

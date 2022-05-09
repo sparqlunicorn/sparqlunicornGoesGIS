@@ -39,15 +39,12 @@ class GeoCollectionsQueryTask(QgsTask):
         self.viewlist = []
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(results)), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             viewlistentry={}
-            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.queryvar)), MESSAGE_CATEGORY, Qgis.Info)
             if self.queryvar in result:
                 self.viewlist.append(viewlistentry)
                 viewlistentry["uri"]=str(result[self.queryvar]["value"])
@@ -57,7 +54,6 @@ class GeoCollectionsQueryTask(QgsTask):
                     viewlistentry["class"] = str(result[self.classvar]["value"])
                 if "members" in result:
                     viewlistentry["members"] = str(result["members"]["value"])
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.viewlist)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):
