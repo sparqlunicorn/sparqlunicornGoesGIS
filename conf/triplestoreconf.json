@@ -1393,7 +1393,7 @@
       "geo"
     ],
     "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": "http://www.w3.org/2000/01/rdf-schema#label",
+    "labelproperty": "http://purl.org/dc/terms/title",
     "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
     "geometryproperty": "http://www.opengis.net/ont/geosparql#hasGeometry",
     "featurecollectionclasses": [
