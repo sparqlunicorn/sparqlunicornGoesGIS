@@ -201,17 +201,17 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">def </span>getRelatedClassStatistics(self):</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> self.concept == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> self.concept <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        self.qtask = FindRelatedConceptQueryTask(<span class="stringliteral">&quot;Querying related classes.... (&quot;</span> + str(self.concept) + <span class="stringliteral">&quot;)&quot;</span>,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                               self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                               self.tablemodel,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                               self.concept,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                               self.nodetype,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                               self.triplestoreconf,self.tableView)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">def </span>getRelatedClassStatistics(self):</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> self.concept == <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">or</span> self.concept <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        self.qtask = FindRelatedConceptQueryTask(<span class="stringliteral">&quot;Querying related classes.... (&quot;</span> + str(self.concept) + <span class="stringliteral">&quot;)&quot;</span>,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                               self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                               self.tablemodel,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                               self.concept,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                               self.nodetype,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                               self.triplestoreconf,self.tableView)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        QgsApplication.taskManager().addTask(self.qtask)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00261.html#a8797c550322dd66573e3ff76efea346e">ClusterViewDialog.concept</a>.</p>
 
@@ -244,31 +244,31 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">def </span>onContext(self, position):</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        self.currentItem = self.tableView.indexAt(position)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        menu = QMenu(<span class="stringliteral">&quot;Menu&quot;</span>, self)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        actionclip = QAction(<span class="stringliteral">&quot;Copy IRI to clipboard&quot;</span>)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        menu.addAction(actionclip)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">#actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        action = QAction(<span class="stringliteral">&quot;Open in Webbrowser&quot;</span>)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        menu.addAction(action)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        action.triggered.connect(<span class="keyword">lambda</span>: UIUtils.openListURL(self.currentItem))</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        actiondataschema = QAction(<span class="stringliteral">&quot;Query data schema&quot;</span>)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        menu.addAction(actiondataschema)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        actiondataschema.triggered.connect(<span class="keyword">lambda</span>: DataSchemaDialog(</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            self.currentItem.data(UIUtils.dataslot_conceptURI),</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            self.currentItem.data(UIUtils.dataslot_nodetype),</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            self.currentItem.data(0),</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            self.triplestoreconf, self.triplestoreconf[<span class="stringliteral">&quot;prefixes&quot;</span>],</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="stringliteral">&quot;Data Schema View for &quot;</span> + SPARQLUtils.labelFromURI(str(self.currentItem.data(</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                UIUtils.dataslot_conceptURI)),</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                self.triplestoreconf[<span class="stringliteral">&quot;prefixesrev&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;prefixesrev&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">else</span> {})</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        ))</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        actionshowrelated = QAction(<span class="stringliteral">&quot;Show related concepts&quot;</span>)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        menu.addAction(actionshowrelated)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        actionshowrelated.triggered.connect(self.showRelated)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        menu.exec(self.tableView.viewport().mapToGlobal(position))</div>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">def </span>onContext(self, position):</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        self.currentItem = self.tableView.indexAt(position)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        menu = QMenu(<span class="stringliteral">&quot;Menu&quot;</span>, self)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        actionclip = QAction(<span class="stringliteral">&quot;Copy IRI to clipboard&quot;</span>)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        menu.addAction(actionclip)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="comment">#actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        action = QAction(<span class="stringliteral">&quot;Open in Webbrowser&quot;</span>)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        menu.addAction(action)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        action.triggered.connect(<span class="keyword">lambda</span>: UIUtils.openListURL(self.currentItem))</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        actiondataschema = QAction(<span class="stringliteral">&quot;Query data schema&quot;</span>)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        menu.addAction(actiondataschema)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        actiondataschema.triggered.connect(<span class="keyword">lambda</span>: DataSchemaDialog(</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            self.currentItem.data(UIUtils.dataslot_conceptURI),</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            self.currentItem.data(UIUtils.dataslot_nodetype),</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            self.currentItem.data(0),</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            self.triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            self.triplestoreconf, self.triplestoreconf[<span class="stringliteral">&quot;prefixes&quot;</span>],</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="stringliteral">&quot;Data Schema View for &quot;</span> + SPARQLUtils.labelFromURI(str(self.currentItem.data(</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                UIUtils.dataslot_conceptURI)),</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                self.triplestoreconf[<span class="stringliteral">&quot;prefixesrev&quot;</span>] <span class="keywordflow">if</span> <span class="stringliteral">&quot;prefixesrev&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf <span class="keywordflow">else</span> {})</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ))</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        actionshowrelated = QAction(<span class="stringliteral">&quot;Show related concepts&quot;</span>)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        menu.addAction(actionshowrelated)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        actionshowrelated.triggered.connect(self.showRelated)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        menu.exec(self.tableView.viewport().mapToGlobal(position))</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00261.html#a2123ac1912b5db3d24e4f84978dcc623">ClusterViewDialog.currentItem</a>, <a class="el" href="a00261.html#a18833bf60037f9c8ec1729760e96eb00">ClusterViewDialog.showRelated()</a>, <a class="el" href="a00261.html#a330d24be0afd5a96238ca9e128328a2d">ClusterViewDialog.triplestoreconf</a>, <a class="el" href="a00257.html#a330d24be0afd5a96238ca9e128328a2d">BBOXDialog.triplestoreconf</a>, and <a class="el" href="a00249.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>.</p>
 
@@ -299,15 +299,15 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">def </span>showRelated(self,item):</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;NODETYPE: &quot;</span> + str(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;NODETYPE: &quot;</span> + str(self.concept), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.tablemodel.clear()</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Related concept to &quot;</span>+str(self.concept))</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        self.getRelatedClassStatistics()</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">def </span>showRelated(self,item):</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;NODETYPE: &quot;</span> + str(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;NODETYPE: &quot;</span> + str(self.concept), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        self.tablemodel.clear()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        self.setWindowTitle(<span class="stringliteral">&quot;Related concept to &quot;</span>+str(self.concept))</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        self.getRelatedClassStatistics()</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00261.html#a8797c550322dd66573e3ff76efea346e">ClusterViewDialog.concept</a>, <a class="el" href="a00261.html#a2123ac1912b5db3d24e4f84978dcc623">ClusterViewDialog.currentItem</a>, <a class="el" href="a00261.html#ab38673676181b88d13488104a69c7088">ClusterViewDialog.getRelatedClassStatistics()</a>, <a class="el" href="a00261.html#a618f7f5866526d01adfc6c50c3250898">ClusterViewDialog.nodetype</a>, and <a class="el" href="a00261.html#a9f0c3e689661481a4da4ddb082c013f4">ClusterViewDialog.tablemodel</a>.</p>
 
@@ -341,10 +341,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">def </span>showRelatedFromIndex(self,modelindex):</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.currentItem=self.tablemodel.data(modelindex)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> self.tablemodel.data(modelindex) <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            self.showRelated(self.tablemodel.data(modelindex))</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;MODELINDEX: &quot;</span> + str(modelindex), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.currentItem=self.tablemodel.data(modelindex)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> self.tablemodel.data(modelindex) <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            self.showRelated(self.tablemodel.data(modelindex))</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00261.html#a2123ac1912b5db3d24e4f84978dcc623">ClusterViewDialog.currentItem</a>, <a class="el" href="a00261.html#a18833bf60037f9c8ec1729760e96eb00">ClusterViewDialog.showRelated()</a>, and <a class="el" href="a00261.html#a9f0c3e689661481a4da4ddb082c013f4">ClusterViewDialog.tablemodel</a>.</p>
 

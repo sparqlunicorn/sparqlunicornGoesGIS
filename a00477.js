@@ -17,6 +17,7 @@ var a00477 =
     [ "shortenLiteral", "a00477.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "addressproperties", "a00477.html#aff22325bb2af79521134cbb4ba9e3564", null ],
     [ "annotationnamespaces", "a00477.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
+    [ "annotationpropertynode", "a00477.html#a8f74ccf3adbe6f344ad3c05d2b3d630e", null ],
     [ "authmethods", "a00477.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classnode", "a00477.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00477.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
