@@ -169,6 +169,7 @@ class SPARQLUtils:
     instancenode="Instance"
     objectpropertynode="ObjectProperty"
     datatypepropertynode="DatatypeProperty"
+    annotationpropertynode="AnnotationProperty"
     geoinstancenode="GeoInstance"
     collectionclassnode="CollectionClass"
     instancesloadedindicator="InstancesLoaded"

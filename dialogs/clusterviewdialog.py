@@ -52,6 +52,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.getRelatedClassStatistics()
 
     def showRelatedFromIndex(self,modelindex):
+        QgsMessageLog.logMessage("MODELINDEX: " + str(modelindex), MESSAGE_CATEGORY, Qgis.Info)
         self.currentItem=self.tablemodel.data(modelindex)
         if self.tablemodel.data(modelindex) is not None:
             self.showRelated(self.tablemodel.data(modelindex))

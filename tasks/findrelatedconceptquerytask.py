@@ -133,10 +133,6 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
-            #curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
-            #curitem.setIcon(UIUtils.classicon)
-            #curitem.setData(str(self.concept), UIUtils.dataslot_conceptURI)
-            #curitem.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
             self.searchResultModel.setItem(counter, 1, curitem)
             counter+=1
         for val in self.queryresult2:
@@ -144,10 +140,6 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
-            #curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
-            #curitem.setIcon(UIUtils.classicon)
-            #curitem.setData(str(self.concept), UIUtils.dataslot_conceptURI)
-            #curitem.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
             self.searchResultModel.setItem(counter, 1, curitem)
             curitem = QStandardItem()
             if self.queryresult2[val] != "":
