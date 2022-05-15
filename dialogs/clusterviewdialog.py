@@ -4,6 +4,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt import uic
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.core import QgsApplication, QgsMessageLog
 import os
 
@@ -14,6 +15,8 @@ from ..tasks.findrelatedconceptquerytask import FindRelatedConceptQueryTask
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/clusterviewdialog.ui'))
+
+MESSAGE_CATEGORY = 'ClusterviewDialog'
 
 class ClusterViewDialog(QWidget, FORM_CLASS):
 
@@ -31,6 +34,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Outgoing Relation")
         self.tablemodel.setHeaderData(3, Qt.Horizontal, "Target Concept")
         self.tablemodel.insertRow(0)
+        self.nodetype=SPARQLUtils.classnode
         self.filter_proxy_model = QSortFilterProxyModel()
         self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
@@ -54,6 +58,9 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
 
     def showRelated(self,item):
         self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)
+        self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)
+        QgsMessageLog.logMessage("NODETYPE: " + str(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("NODETYPE: " + str(self.concept), MESSAGE_CATEGORY, Qgis.Info)
         self.tablemodel.clear()
         self.setWindowTitle("Related concept to "+str(self.concept))
         self.getRelatedClassStatistics()
@@ -65,6 +72,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
+                               self.nodetype,
                                self.triplestoreconf,self.tableView)
         QgsApplication.taskManager().addTask(self.qtask)
 
@@ -81,7 +89,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         menu.addAction(actiondataschema)
         actiondataschema.triggered.connect(lambda: DataSchemaDialog(
             self.currentItem.data(UIUtils.dataslot_conceptURI),
-            SPARQLUtils.classnode,
+            self.currentItem.data(UIUtils.dataslot_nodetype),
             self.currentItem.data(0),
             self.triplestoreconf["resource"],
             self.triplestoreconf, self.triplestoreconf["prefixes"],
