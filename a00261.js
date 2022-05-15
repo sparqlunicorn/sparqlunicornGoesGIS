@@ -8,6 +8,7 @@ var a00261 =
     [ "concept", "a00261.html#a8797c550322dd66573e3ff76efea346e", null ],
     [ "currentItem", "a00261.html#a2123ac1912b5db3d24e4f84978dcc623", null ],
     [ "filter_proxy_model", "a00261.html#a6d828fa188e4fc612101d64e2c7de582", null ],
+    [ "nodetype", "a00261.html#a618f7f5866526d01adfc6c50c3250898", null ],
     [ "qtask", "a00261.html#a09dec5fb4a23fd0028407eddbe26cc16", null ],
     [ "tablemodel", "a00261.html#a9f0c3e689661481a4da4ddb082c013f4", null ],
     [ "triplestoreconf", "a00261.html#a330d24be0afd5a96238ca9e128328a2d", null ]
