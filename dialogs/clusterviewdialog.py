@@ -20,10 +20,14 @@ MESSAGE_CATEGORY = 'ClusterviewDialog'
 
 class ClusterViewDialog(QWidget, FORM_CLASS):
 
-    def __init__(self,triplestoreconf,concept):
+    def __init__(self,triplestoreconf,concept,label=""):
         super(QWidget, self).__init__()
         self.setupUi(self)
-        self.setWindowTitle("Related Concepts to "+str(concept))
+        self.label=label
+        if self.label!=None and self.label!="":
+            self.setWindowTitle("Related Concepts to " + str(label))
+        else:
+            self.setWindowTitle("Related Concepts to "+str(concept))
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
@@ -54,16 +58,19 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
     def showRelatedFromIndex(self,modelindex):
         QgsMessageLog.logMessage("MODELINDEX: " + str(modelindex), MESSAGE_CATEGORY, Qgis.Info)
         self.currentItem=self.tablemodel.data(modelindex)
+        self.label=self.currentItem.text()
         if self.tablemodel.data(modelindex) is not None:
             self.showRelated(self.tablemodel.data(modelindex))
 
     def showRelated(self,item):
         self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)
         self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)
-        QgsMessageLog.logMessage("NODETYPE: " + str(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("NODETYPE: " + str(self.concept), MESSAGE_CATEGORY, Qgis.Info)
+        self.label=self.currentItem.data(0)
         self.tablemodel.clear()
-        self.setWindowTitle("Related concept to "+str(self.concept))
+        if self.label!=None and self.label!="":
+            self.setWindowTitle("Related concept to " + str(self.label))
+        else:
+            self.setWindowTitle("Related concept to "+str(self.concept))
         self.getRelatedClassStatistics()
 
     def getRelatedClassStatistics(self):
@@ -73,6 +80,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
+                               self.label,
                                self.nodetype,
                                self.triplestoreconf,self.tableView)
         QgsApplication.taskManager().addTask(self.qtask)

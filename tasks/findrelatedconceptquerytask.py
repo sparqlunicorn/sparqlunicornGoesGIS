@@ -9,7 +9,7 @@ MESSAGE_CATEGORY = 'FindRelatedConceptQueryTask'
 
 class FindRelatedConceptQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,nodetype,triplestoreconf,searchResult,preferredlang="en"):
+    def __init__(self, description, triplestoreurl,dlg,concept,label,nodetype,triplestoreconf,searchResult,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -19,6 +19,7 @@ class FindRelatedConceptQueryTask(QgsTask):
         self.searchResult=searchResult
         self.triplestoreconf=triplestoreconf
         self.concept=concept
+        self.label=label
         while self.searchResultModel.rowCount()>0:
             self.searchResultModel.removeRow(0)
         self.searchResultModel.insertRow(0)
@@ -133,6 +134,8 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
+            if self.label != None and self.label != "":
+                curitem.setText(self.label)
             self.searchResultModel.setItem(counter, 1, curitem)
             counter+=1
         for val in self.queryresult2:
@@ -140,6 +143,8 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
+            if self.label != None and self.label != "":
+                curitem.setText(self.label)
             self.searchResultModel.setItem(counter, 1, curitem)
             curitem = QStandardItem()
             if self.queryresult2[val] != "":
@@ -182,7 +187,10 @@ class FindRelatedConceptQueryTask(QgsTask):
                     curitem.setText(str(self.queryresult[rel][val]["rellabel"])+" ("+SPARQLUtils.labelFromURI(rel)+")")
                 self.searchResultModel.setItem(counter, 1, curitem)
                 curitem=QStandardItem()
-                curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
+                if self.label!=None and self.label!="":
+                    curitem.setText(self.label)
+                else:
+                    curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
                 curitem.setIcon(UIUtils.classicon)
                 curitem.setData(str(self.concept),UIUtils.dataslot_conceptURI)
                 curitem.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
@@ -199,7 +207,10 @@ class FindRelatedConceptQueryTask(QgsTask):
                     curitem.setText(str(self.queryresult2[rel][val]["rellabel"])+" ("+SPARQLUtils.labelFromURI(rel)+")")
                 self.searchResultModel.setItem(counter, 3, curitem)
                 curitem=QStandardItem()
-                curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
+                if self.label!=None and self.label!="":
+                    curitem.setText(self.label)
+                else:
+                    curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
                 curitem.setIcon(UIUtils.classicon)
                 curitem.setData(str(self.concept),UIUtils.dataslot_conceptURI)
                 curitem.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
