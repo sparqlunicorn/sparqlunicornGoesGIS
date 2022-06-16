@@ -65,7 +65,9 @@ class GeoConceptsQueryTask(QgsTask):
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
         if self.loadfromfile:
             elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
-                         "../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("\\","_").replace("['","").replace("']","").replace(":","_")) + ".json"))
+                         "../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_")
+                                                     .replace("\\","_").replace("['","").replace("']","").replace(":","_"))
+                                                                              + ".json"))
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(elemcount) + ")")
         else:
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.resultlist)) + ")")
