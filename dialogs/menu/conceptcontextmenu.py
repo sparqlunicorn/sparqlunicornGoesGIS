@@ -210,8 +210,8 @@ class ConceptContextMenu(QMenu):
     def instanceCount(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         nodetype = self.item.data(UIUtils.dataslot_nodetype)
-        label = self.item.text()
-        if not label.endswith("]"):
+        amount=self.item.data(UIUtils.dataslot_instanceamount)
+        if amount is None:
             self.qtaskinstance = InstanceAmountQueryTask(
                 "Getting instance count for " + str(concept),
                 self.triplestoreconf["resource"], self, self.item,self.triplestoreconf,nodetype)
@@ -219,8 +219,15 @@ class ConceptContextMenu(QMenu):
 
     def instanceList(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
+        nodetype = self.item.data(UIUtils.dataslot_nodetype)
         alreadyloadedindicator = self.item.data(UIUtils.dataslot_instancesloaded)
+        amount=self.item.data(UIUtils.dataslot_instanceamount)
         if alreadyloadedindicator!=SPARQLUtils.instancesloadedindicator:
+            if amount is None:
+                self.qtaskinstance = InstanceAmountQueryTask(
+                    "Getting instance count for " + str(concept),
+                    self.triplestoreconf["resource"], self, self.item, self.triplestoreconf, nodetype)
+                QgsApplication.taskManager().addTask(self.qtaskinstance)
             self.qtaskinstanceList = InstanceListQueryTask(
                 "Getting instance count for " + str(concept),
                 self.triplestoreconf["resource"], self, self.item,self.triplestoreconf)

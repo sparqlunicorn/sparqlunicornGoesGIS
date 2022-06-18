@@ -33,6 +33,7 @@ class UIUtils:
 
     dataslot_linkedconceptrel=260
 
+    dataslot_geoinstanceamount = 261
 
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
