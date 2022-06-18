@@ -1064,15 +1064,6 @@
      </property>
      <widget class="QWidget" name="emptyTab"/>
      <widget class="QWidget" name="matchingConceptsTab">
-      <widget class="QWidget" name="gridLayoutWidget_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>20</y>
-         <width>791</width>
-         <height>221</height>
-        </rect>
-       </property>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0" colspan="3">
          <widget class="QLabel" name="label_4">
@@ -1140,18 +1131,8 @@
          </widget>
         </item>
        </layout>
-      </widget>
      </widget>
      <widget class="QWidget" name="chooseEnrichmentPropertiesTab">
-      <widget class="QWidget" name="gridLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>20</y>
-         <width>791</width>
-         <height>201</height>
-        </rect>
-       </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="2">
          <widget class="QComboBox" name="filterTableComboBox">
@@ -1212,7 +1193,6 @@
          </widget>
         </item>
        </layout>
-      </widget>
      </widget>
     </widget>
    </item>
