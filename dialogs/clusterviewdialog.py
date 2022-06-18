@@ -4,6 +4,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt import uic
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.core import QgsApplication, QgsMessageLog
 import os
 
@@ -15,12 +16,18 @@ from ..tasks.findrelatedconceptquerytask import FindRelatedConceptQueryTask
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/clusterviewdialog.ui'))
 
+MESSAGE_CATEGORY = 'ClusterviewDialog'
+
 class ClusterViewDialog(QWidget, FORM_CLASS):
 
-    def __init__(self,triplestoreconf,concept):
+    def __init__(self,triplestoreconf,concept,label=""):
         super(QWidget, self).__init__()
         self.setupUi(self)
-        self.setWindowTitle("Related Concepts to "+str(concept))
+        self.label=label
+        if self.label!=None and self.label!="":
+            self.setWindowTitle("Related Concepts to " + str(label))
+        else:
+            self.setWindowTitle("Related Concepts to "+str(concept))
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
@@ -31,6 +38,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Outgoing Relation")
         self.tablemodel.setHeaderData(3, Qt.Horizontal, "Target Concept")
         self.tablemodel.insertRow(0)
+        self.nodetype=SPARQLUtils.classnode
         self.filter_proxy_model = QSortFilterProxyModel()
         self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.filter_proxy_model.setSourceModel(self.tablemodel)
@@ -48,14 +56,21 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.getRelatedClassStatistics()
 
     def showRelatedFromIndex(self,modelindex):
+        QgsMessageLog.logMessage("MODELINDEX: " + str(modelindex), MESSAGE_CATEGORY, Qgis.Info)
         self.currentItem=self.tablemodel.data(modelindex)
+        self.label=self.currentItem.text()
         if self.tablemodel.data(modelindex) is not None:
             self.showRelated(self.tablemodel.data(modelindex))
 
     def showRelated(self,item):
         self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)
+        self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)
+        self.label=self.currentItem.data(0)
         self.tablemodel.clear()
-        self.setWindowTitle("Related concept to "+str(self.concept))
+        if self.label!=None and self.label!="":
+            self.setWindowTitle("Related concept to " + str(self.label))
+        else:
+            self.setWindowTitle("Related concept to "+str(self.concept))
         self.getRelatedClassStatistics()
 
     def getRelatedClassStatistics(self):
@@ -65,6 +80,8 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
+                               self.label,
+                               self.nodetype,
                                self.triplestoreconf,self.tableView)
         QgsApplication.taskManager().addTask(self.qtask)
 
@@ -81,7 +98,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         menu.addAction(actiondataschema)
         actiondataschema.triggered.connect(lambda: DataSchemaDialog(
             self.currentItem.data(UIUtils.dataslot_conceptURI),
-            SPARQLUtils.classnode,
+            self.currentItem.data(UIUtils.dataslot_nodetype),
             self.currentItem.data(0),
             self.triplestoreconf["resource"],
             self.triplestoreconf, self.triplestoreconf["prefixes"],

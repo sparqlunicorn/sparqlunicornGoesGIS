@@ -8,6 +8,7 @@ from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt.QtGui import QStandardItem
 
 from ..tasks.dataschemaquerytask import DataSchemaQueryTask
+from ..tasks.layermatchingtask import LayerMatchingTask
 from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..tasks.datasamplequerytask import DataSampleQueryTask
@@ -72,17 +73,28 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.filter_proxy_model.setSourceModel(self.tablemodel)
         self.filter_proxy_model.setFilterKeyColumn(1)
         self.searchResult.setModel(self.filter_proxy_model)
+        self.tablemodel2=QStandardItemModel()
+        self.tablemodel2.setHeaderData(0, Qt.Horizontal, "Concept")
+        self.tablemodel2.setHeaderData(1, Qt.Horizontal, "Matching Attribute")
+        self.tablemodel2.insertRow(0)
+        self.filter_proxy_model2 = QSortFilterProxyModel()
+        self.filter_proxy_model2.setSourceModel(self.tablemodel2)
+        self.filter_proxy_model2.setFilterKeyColumn(1)
+        self.matchingConceptsResult.setModel(self.filter_proxy_model2)
         fieldnames = [field.name() for field in layer.fields()]
         for field in fieldnames:
             self.idCBox.addItem(field)
         item = QStandardItem()
         item.setText("Loading...")
+        self.matchConceptsButton.clicked.connect(self.matchConceptsForIdentifier)
         self.matchingGroupBox.hide()
         self.tablemodel.setItem(0,0,item)
         self.searchResult.entered.connect(
             lambda modelindex: UIUtils.showTableURI(modelindex, self.searchResult, self.statusBarLabel))
         self.searchResult.doubleClicked.connect(
             lambda modelindex: UIUtils.openTableURL(modelindex, self.searchResult))
+        self.matchingConceptsResult.doubleClicked.connect(
+            lambda modelindex: UIUtils.openTableURL(modelindex, self.matchingConceptsResult))
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
@@ -97,6 +109,16 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.searchResult.clicked.connect(self.loadSamples)
 
+
+    def matchConceptsForIdentifier(self):
+        self.qtask3 = LayerMatchingTask("Matching candidates for chosen layer....",
+                                          None,
+                                          self.layer,
+                                          self.idCBox.currentIndex(),
+                                          self.matchCBox.currentText(),
+                                          self, self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
+                                          self.conceptSearchEdit.text(),self.tablemodel2,self.languageComboBox.currentText())
+        QgsApplication.taskManager().addTask(self.qtask3)
 
     #  @brief Creates a search dialog to search for a concept.
     #  

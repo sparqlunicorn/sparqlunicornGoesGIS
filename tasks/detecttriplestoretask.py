@@ -1,6 +1,8 @@
 import json
 import os
 
+from ..dialogs.errormessagebox import ErrorMessageBox
+from ..util.sparqlutils import SPARQLUtils
 from ..util.ui.uiutils import UIUtils
 from ..util.graphutils import GraphUtils
 from qgis.utils import iface
@@ -85,8 +87,7 @@ class DetectTripleStoreTask(QgsTask):
             msgBox.setWindowTitle("Automatic Detection Successful")
             msgBox.exec()
         else:
-            msgBox = QMessageBox()
-            msgBox.setText("Automatic Detection Failed")
-            msgBox.setWindowTitle("Automatic Detection Failed")
+            msgBox = ErrorMessageBox("Automatic Detection Failed","")
+            msgBox.setText("Automatic Detection Failed:\n"+str(SPARQLUtils.exception))
             msgBox.exec()
         iface.messageBar().pushMessage("Detect Triple Store Configuration", "OK", level=Qgis.Success)

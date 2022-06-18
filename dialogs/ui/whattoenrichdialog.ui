@@ -48,6 +48,11 @@
        <widget class="QComboBox" name="matchCBox">
         <item>
          <property name="text">
+          <string>Exact Matching</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>Regular Expression</string>
          </property>
         </item>
@@ -992,7 +997,7 @@
        </widget>
       </item>
       <item row="2" column="0" colspan="2">
-       <widget class="QPushButton" name="searchButton2">
+       <widget class="QPushButton" name="matchConceptsButton">
         <property name="text">
          <string>Match Concepts for Identifier Attribute</string>
         </property>

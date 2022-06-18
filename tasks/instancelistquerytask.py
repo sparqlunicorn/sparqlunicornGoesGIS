@@ -20,7 +20,6 @@ class InstanceListQueryTask(QgsTask):
         self.queryresult={}
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
         if "typeproperty" in self.triplestoreconf:
@@ -54,12 +53,6 @@ class InstanceListQueryTask(QgsTask):
         else:
             if "geometryproperty" in self.triplestoreconf:
                 if isinstance(self.triplestoreurl, str):
-                    #QgsMessageLog.logMessage('Started task "{}"'.format(
-                    #    "SELECT ?con ?label ?hasgeo WHERE { ?con " + typeproperty + " " + str(
-                    #       self.treeNode.data(
-                    #            UIUtils.dataslot_conceptURI)) + " . "+str(labelpattern)+" BIND(EXISTS {?con " + str(
-                    #        geometryproperty) + " ?wkt } AS ?hasgeo)}"), MESSAGE_CATEGORY,
-                    #    Qgis.Info)
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
                         geometryproperty) + "> ?wkt } AS ?hasgeo)}"
@@ -68,11 +61,6 @@ class InstanceListQueryTask(QgsTask):
                         self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
                         geometryproperty) + "> ?hasgeo } }"
             else:
-                #QgsMessageLog.logMessage('Started task "{}"'.format(
-                #    "SELECT ?con ?label WHERE { ?con " + typeproperty + " " + str(
-                #        self.treeNode.data(
-                #            UIUtils.dataslot_conceptURI)) + " . "+str(labelpattern)+" }"), MESSAGE_CATEGORY,
-                #    Qgis.Info)
                 thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
                     self.treeNode.data(
                         UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" }"
@@ -82,7 +70,6 @@ class InstanceListQueryTask(QgsTask):
                 if result["con"]["value"] not in self.queryresult:
                     self.queryresult[result["con"]["value"]]={}
                 if "hasgeo" in result and (result["hasgeo"]["value"]=="true" or result["hasgeo"]["value"]=="1" or (isinstance(result["hasgeo"]["value"],str) and result["hasgeo"]["value"]!="" and result["hasgeo"]["value"]!="0" and result["hasgeo"]["value"]!="false")):
-                    #QgsMessageLog.logMessage('Started task "{}"'.format(result["hasgeo"]["value"]), MESSAGE_CATEGORY,Qgis.Info)
                     self.queryresult[result["con"]["value"]]["hasgeo"] = True
                     self.hasgeocount+=1
                 else:
@@ -99,8 +86,6 @@ class InstanceListQueryTask(QgsTask):
         return True
 
     def finished(self, result):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(
-        #    self.treeNode.text()+" "+str(self.hasgeocount)+" "+str(len(self.queryresult))), MESSAGE_CATEGORY, Qgis.Info)
         if self.treeNode.data(UIUtils.dataslot_instanceamount)==None:
             self.treeNode.setData(str(len(self.queryresult)),UIUtils.dataslot_instanceamount)
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")

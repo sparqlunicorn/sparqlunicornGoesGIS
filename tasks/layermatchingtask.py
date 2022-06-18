@@ -1,52 +1,80 @@
-from util.layerutils import LayerUtils
+from ..util.ui.uiutils import UIUtils
+from ..util.layerutils import LayerUtils
 from ..util.matchingtools import MatchingTools
 from ..util.sparqlutils import SPARQLUtils
+from qgis.PyQt.QtGui import QStandardItem
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 
 MESSAGE_CATEGORY = 'InstanceAmountQueryTask'
 
 class LayerMatchingTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,matchproperty,matchlayer,matchcolumn,matchingmethod,dlg,treeNode,triplestoreconf):
+    def __init__(self, description, matchproperty,matchlayer,matchcolumn,matchingmethod,dlg,triplestoreconf,matchingtype,tablemodel,matchinglanguage):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.matchproperty=matchproperty
         self.matchlayer=matchlayer
         self.matchcolumn=matchcolumn
         self.matchingmethod=matchingmethod
-        self.triplestoreurl = triplestoreurl
+        self.matchingtype=matchingtype
+        self.matchinglanguage=matchinglanguage
+        self.triplestoreurl = triplestoreconf["resource"]
         self.triplestoreconf=triplestoreconf
+        self.tablemodel=tablemodel
         self.dlg=dlg
-        self.treeNode=treeNode
         self.amount=-1
+        self.resmap={}
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        thequery="SELECT ?val WHERE { ?con <"+typeproperty+"> <" + str(
-                    self.treeNode.data(256)) + "> . ?con <"+self.matchproperty+"> ?val }"
+        if "typeproperty" in self.triplestoreconf:
+            typeproperty=self.triplestoreconf["typeproperty"]
+        if self.matchproperty==None:
+            self.matchproperty="http://www.w3.org/2000/01/rdf-schema#label"
+        columnvallist = LayerUtils.getLayerColumnAsList(self.matchlayer, self.matchcolumn)
+        if "Exact Matching" in self.matchingmethod or "Regular Expression" in self.matchingmethod:
+            thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . "
+            matchvalstatement="VALUES ?val { "
+            for val in columnvallist:
+                if self.matchinglanguage!=None:
+                    matchvalstatement += "\"" + val + "\"@"+str(self.matchinglanguage)+" "
+                else:
+                    matchvalstatement+="\""+val+"\" "
+            matchvalstatement+="}"
+            thequery+=matchvalstatement+" }"
+        else:
+            thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
-        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        resmap={}
+        self.resmap={}
         for result in results["results"]["bindings"]:
-            if "val" in result:
-                resmap[result["val"]["value"]]=True
-        columnvallist=LayerUtils.getLayerColumnAsList(self.matchlayer,self.matchcolumn)
+            if "val" in result and "con" in result:
+                self.resmap[result["val"]["value"]]={"con":str(result["con"]["value"]),"val":str(result["val"]["value"])}
         matched={}
         matchcounter=0
         for value in columnvallist:
-            if value in resmap:
-                matched[value]=resmap[value]
+            if value in self.resmap:
+                matched[value]=self.resmap[value]
                 matchcounter+=1
         for value in columnvallist:
             if value not in matched:
-                curmap=MatchingTools.matchStringMapToReference(resmap.keys(),value,self.matchingmethod)
+                curmap=MatchingTools.matchStringMapToReference(self.resmap.keys(),value,self.matchingmethod)
 
         return True
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.treeNode.text()+" ["+str(self.amount)+"]"), MESSAGE_CATEGORY, Qgis.Info)
-        if self.amount!=-1:
-            self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
-            self.treeNode.setData(str(self.amount),258)
+        counter=0
+        while self.tablemodel.rowCount()>0:
+            self.tablemodel.removeRow(0)
+        for val in self.resmap:
+            self.tablemodel.insertRow(counter)
+            itemchecked = QStandardItem()
+            itemchecked.setText(self.resmap[val]["con"])
+            itemchecked.setIcon(UIUtils.instanceicon)
+            self.tablemodel.setItem(counter, 0, itemchecked)
+            itemchecked = QStandardItem()
+            itemchecked.setText(self.resmap[val]["val"])
+            itemchecked.setIcon(UIUtils.datatypepropertyicon)
+            self.tablemodel.setItem(counter, 1, itemchecked)
+            counter+=1
+        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))
