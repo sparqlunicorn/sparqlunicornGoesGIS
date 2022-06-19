@@ -66,15 +66,21 @@ class LayerMatchingTask(QgsTask):
         counter=0
         while self.tablemodel.rowCount()>0:
             self.tablemodel.removeRow(0)
-        for val in self.resmap:
+        if len(self.resmap)==0:
             self.tablemodel.insertRow(counter)
             itemchecked = QStandardItem()
-            itemchecked.setText(self.resmap[val]["con"])
-            itemchecked.setIcon(UIUtils.instanceicon)
+            itemchecked.setText("No results found!")
             self.tablemodel.setItem(counter, 0, itemchecked)
-            itemchecked = QStandardItem()
-            itemchecked.setText(self.resmap[val]["val"])
-            itemchecked.setIcon(UIUtils.datatypepropertyicon)
-            self.tablemodel.setItem(counter, 1, itemchecked)
-            counter+=1
+        else:
+            for val in self.resmap:
+                self.tablemodel.insertRow(counter)
+                itemchecked = QStandardItem()
+                itemchecked.setText(self.resmap[val]["con"])
+                itemchecked.setIcon(UIUtils.instanceicon)
+                self.tablemodel.setItem(counter, 0, itemchecked)
+                itemchecked = QStandardItem()
+                itemchecked.setText(self.resmap[val]["val"])
+                itemchecked.setIcon(UIUtils.datatypepropertyicon)
+                self.tablemodel.setItem(counter, 1, itemchecked)
+                counter+=1
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))

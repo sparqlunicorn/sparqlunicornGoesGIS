@@ -168,6 +168,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     #  @return A list of properties with their occurance given in percent
     def getAttributeStatistics(self, concept="wd:Q3914", endpoint_url="https://query.wikidata.org/sparql",
                                labellang="en", inarea="wd:Q183"):
+        self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(2))
         if self.conceptSearchEdit.text() == "":
             return
         progress = QProgressDialog("Executing enrichment search query....", "Abort", 0, 0, self)
@@ -179,7 +180,10 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                            SPARQLUtils.queryPreProcessing(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["whattoenrichquery"],self.triplestoreconf,self.conceptSearchEdit.text(),False),
                                            self.conceptSearchEdit.text(),
                                            self.prefixes[self.tripleStoreEdit.currentIndex()] if self.tripleStoreEdit.currentIndex() in self.prefixes else None,
-                                           self.tablemodel,self.triplestoreconf[self.tripleStoreEdit.currentIndex()], progress,self)
+                                           self.tablemodel,
+                                           self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
+                                           progress,
+                                           self,None,self.conceptstoenrich)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 
