@@ -254,18 +254,24 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        counter=0</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">while</span> self.tablemodel.rowCount()&gt;0:</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            self.tablemodel.removeRow(0)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">for</span> val <span class="keywordflow">in</span> self.resmap:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> len(self.resmap)==0:</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            self.tablemodel.insertRow(counter)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            itemchecked = QStandardItem()</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            itemchecked.setText(self.resmap[val][<span class="stringliteral">&quot;con&quot;</span>])</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            itemchecked.setIcon(UIUtils.instanceicon)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            self.tablemodel.setItem(counter, 0, itemchecked)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            itemchecked = QStandardItem()</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            itemchecked.setText(self.resmap[val][<span class="stringliteral">&quot;val&quot;</span>])</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            itemchecked.setIcon(UIUtils.datatypepropertyicon)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            self.tablemodel.setItem(counter, 1, itemchecked)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            counter+=1</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            itemchecked.setText(<span class="stringliteral">&quot;No results found!&quot;</span>)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            self.tablemodel.setItem(counter, 0, itemchecked)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">for</span> val <span class="keywordflow">in</span> self.resmap:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                self.tablemodel.insertRow(counter)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                itemchecked = QStandardItem()</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                itemchecked.setText(self.resmap[val][<span class="stringliteral">&quot;con&quot;</span>])</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                itemchecked.setIcon(UIUtils.instanceicon)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                self.tablemodel.setItem(counter, 0, itemchecked)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                itemchecked = QStandardItem()</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                itemchecked.setText(self.resmap[val][<span class="stringliteral">&quot;val&quot;</span>])</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                itemchecked.setIcon(UIUtils.datatypepropertyicon)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                self.tablemodel.setItem(counter, 1, itemchecked)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                counter+=1</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00365.html#ad2ee3c07560eb98d17a382b71105bf98">FindFeaturesInAreaTask.dlg</a>, <a class="el" href="a00373.html#ad2ee3c07560eb98d17a382b71105bf98">FindStyleQueryTask.dlg</a>, <a class="el" href="a00385.html#ad2ee3c07560eb98d17a382b71105bf98">GetStyleQueryTask.dlg</a>, <a class="el" href="a00397.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceListQueryTask.dlg</a>, <a class="el" href="a00349.html#ad2ee3c07560eb98d17a382b71105bf98">DataSampleQueryTask.dlg</a>, <a class="el" href="a00393.html#ad2ee3c07560eb98d17a382b71105bf98">InstanceAmountQueryTask.dlg</a>, <a class="el" href="a00377.html#ad2ee3c07560eb98d17a382b71105bf98">GeoCollectionsQueryTask.dlg</a>, <a class="el" href="a00341.html#ad2ee3c07560eb98d17a382b71105bf98">ClassTreeQueryTask.dlg</a>, <a class="el" href="a00381.html#ad2ee3c07560eb98d17a382b71105bf98">GeoConceptsQueryTask.dlg</a>, <a class="el" href="a00353.html#ad2ee3c07560eb98d17a382b71105bf98">DataSchemaQueryTask.dlg</a>, <a class="el" href="a00405.html#ad2ee3c07560eb98d17a382b71105bf98">LayerMatchingTask.dlg</a>, <a class="el" href="a00321.html#ad2ee3c07560eb98d17a382b71105bf98">TripleStoreQuickAddDialog.dlg</a>, <a class="el" href="a00269.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertLayerDialog.dlg</a>, <a class="el" href="a00285.html#ad2ee3c07560eb98d17a382b71105bf98">GraphValidationDialog.dlg</a>, <a class="el" href="a00265.html#ad2ee3c07560eb98d17a382b71105bf98">ConvertCRSDialog.dlg</a>, <a class="el" href="a00249.html#ad2ee3c07560eb98d17a382b71105bf98">SPARQLunicorn.dlg</a>, <a class="el" href="a00405.html#a236c8bd2a8487748ee4b893cfd654edc">LayerMatchingTask.resmap</a>, <a class="el" href="a00405.html#a9f0c3e689661481a4da4ddb082c013f4">LayerMatchingTask.tablemodel</a>, <a class="el" href="a00261.html#a9f0c3e689661481a4da4ddb082c013f4">ClusterViewDialog.tablemodel</a>, <a class="el" href="a00337.html#a9f0c3e689661481a4da4ddb082c013f4">EnrichmentDialog.tablemodel</a>, <a class="el" href="a00289.html#a9f0c3e689661481a4da4ddb082c013f4">InstanceDataDialog.tablemodel</a>, and <a class="el" href="a00273.html#a9f0c3e689661481a4da4ddb082c013f4">DataSchemaDialog.tablemodel</a>.</p>
 
