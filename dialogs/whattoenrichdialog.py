@@ -95,15 +95,20 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
             lambda modelindex: UIUtils.openTableURL(modelindex, self.searchResult))
         self.matchingConceptsResult.doubleClicked.connect(
             lambda modelindex: UIUtils.openTableURL(modelindex, self.matchingConceptsResult))
+        self.matchingConceptsResult.entered.connect(
+            lambda modelindex: UIUtils.showTableURI(modelindex, self.matchingConceptsResult, self.statusBarLabel))
         for triplestore in self.triplestoreconf:
             if not "File" == triplestore["name"]:
                 self.tripleStoreEdit.addItem(triplestore["name"])
         self.searchButton.clicked.connect(self.getAttributeStatistics)
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
+        self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegExp)
         self.conceptSearchEdit.textChanged.connect(lambda: self.matchingGroupBox.show())
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
+        self.filterMatchingConceptsComboBox.currentIndexChanged.connect(
+            lambda: self.filter_proxy_model2.setFilterKeyColumn(self.filterMatchingConceptsComboBox.currentIndex()))
         self.applyButton.clicked.connect(self.applyConceptToColumn)
         header =self.searchResult.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -175,6 +180,10 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
+        conceptstoenrich=[]
+        for row in range(self.tablemodel2.rowCount(self.matchingConceptsResult.rootIndex())):
+            child_index = self.tablemodel.index(row, 0, self.matchingConceptsResult.rootIndex())
+            conceptstoenrich.append(child_index.data(0))
         self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
                                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],
                                            SPARQLUtils.queryPreProcessing(self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["whattoenrichquery"],self.triplestoreconf,self.conceptSearchEdit.text(),False),
@@ -183,7 +192,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                            self.tablemodel,
                                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
                                            progress,
-                                           self,None,self.conceptstoenrich)
+                                           self,None,conceptstoenrich)
         QgsApplication.taskManager().addTask(self.qtask)
 
     ## 
