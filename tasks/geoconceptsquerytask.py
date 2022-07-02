@@ -6,6 +6,7 @@ from qgis.PyQt.QtGui import QStandardItem,QColor
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
+from os.path import exists
 import json
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
@@ -63,11 +64,12 @@ class GeoConceptsQueryTask(QgsTask):
         self.geoClassListGui.header().setStretchLastSection(False)
         self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.rootNode=self.geoTreeViewModel.invisibleRootItem()
-        if self.loadfromfile:
-            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
+        path=os.path.join(__location__,
                          "../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_")
                                                      .replace("\\","_").replace("['","").replace("']","").replace(":","_"))
-                                                                              + ".json"))
+                                                                              + ".json")
+        if self.loadfromfile and exists(path):
+            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(elemcount) + ")")
         else:
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.resultlist)) + ")")

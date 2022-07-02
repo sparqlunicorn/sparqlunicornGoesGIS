@@ -7,6 +7,7 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QHeaderView
 import os
+from os.path import exists
 import json
 
 MESSAGE_CATEGORY = 'ClassTreeQueryTask'
@@ -45,7 +46,6 @@ class ClassTreeQueryTask(QgsTask):
                 self.optionalpart = "OPTIONAL {BIND(EXISTS {?individual ?a ?lit . ?lit <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
                         "geometryproperty"]) + "> ?wkt } AS ?hasgeo)}"
-
             else:
                 self.optionalpart = "OPTIONAL {?individual ?a ?lit . ?lit <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
@@ -96,7 +96,7 @@ class ClassTreeQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
+        if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.classtreemap=None
             self.subclassmap=None
         else:
@@ -174,14 +174,15 @@ class ClassTreeQueryTask(QgsTask):
         #    "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
+        path=os.path.join(__location__,
+                             "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
         if SPARQLUtils.exception!=None:
             msgBox = ErrorMessageBox(str(self.description)+": An error occurred!",SPARQLUtils.exception)
             msgBox.exec_()
-        elif self.classtreemap==None and self.subclassmap==None:
-            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,os.path.join(__location__,
-                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json"))
+        elif self.classtreemap==None and self.subclassmap==None and exists(path):
+            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
-        else:
+        elif self.classtreemap!=None and self.subclassmap!=None:
             self.alreadyprocessed=set()
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
             self.classtreemap["root"]=self.rootNode

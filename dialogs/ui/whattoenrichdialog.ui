@@ -1066,9 +1066,9 @@
      <widget class="QWidget" name="matchingConceptsTab">
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0" colspan="3">
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="enrichmentSearchResultLabel">
          <property name="text">
-          <string>Your search yielded X many matching concepts shown in the table below. If you aree with this matching, proceed to enrichment property selection</string>
+          <string>Matching Concept results</string>
          </property>
         </widget>
        </item>
@@ -1140,7 +1140,7 @@
      </widget>
      <widget class="QWidget" name="chooseEnrichmentPropertiesTab">
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="2">
+       <item row="1" column="2">
         <widget class="QComboBox" name="filterTableComboBox">
          <property name="currentIndex">
           <number>1</number>
@@ -1162,17 +1162,24 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="filterTableEdit"/>
+       </item>
+       <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Filter Table:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="filterTableEdit"/>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="toggleSelectionButton">
+         <property name="text">
+          <string>Toggle Selection</string>
+         </property>
+        </widget>
        </item>
-       <item row="1" column="0" colspan="3">
+       <item row="2" column="0" colspan="4">
         <widget class="QTableView" name="searchResult">
          <property name="mouseTracking">
           <bool>true</bool>
@@ -1194,10 +1201,17 @@
          </attribute>
         </widget>
        </item>
-       <item row="2" column="2">
+       <item row="3" column="3">
         <widget class="QPushButton" name="backToMatchingSearchButton">
          <property name="text">
           <string>Back to Matching Search</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="4">
+        <widget class="QLabel" name="propertyMatchingResultLabel">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

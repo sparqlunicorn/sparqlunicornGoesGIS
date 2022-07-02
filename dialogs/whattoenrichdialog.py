@@ -18,6 +18,7 @@ import os.path
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/whattoenrichdialog.ui'))
 
+MESSAGE_CATEGORY = 'WhatToEnrichDialog'
 
 ## Enrichment dialog to enrich properties to a geodataset.
 class EnrichmentDialog(QDialog, FORM_CLASS):
@@ -77,9 +78,12 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.tablemodel2.setHeaderData(0, Qt.Horizontal, "Concept")
         self.tablemodel2.setHeaderData(1, Qt.Horizontal, "Matching Attribute")
         self.tablemodel2.insertRow(0)
+        self.selected=True
+        self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filter_proxy_model2 = QSortFilterProxyModel()
         self.filter_proxy_model2.setSourceModel(self.tablemodel2)
         self.filter_proxy_model2.setFilterKeyColumn(1)
+        self.backToMatchingSearchButton.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(1)))
         self.matchingConceptsResult.setModel(self.filter_proxy_model2)
         fieldnames = [field.name() for field in layer.fields()]
         for field in fieldnames:
@@ -134,6 +138,15 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def createValueMappingSearchDialog(self, row=-1, column=-1):
         self.buildSearchDialog(row, column, -1, self.conceptSearchEdit)
 
+    def toggleSelect(self):
+        self.selected=not self.selected
+        for row in range(self.tablemodel.rowCount()):
+            if self.selected:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Checked)
+            else:
+                self.tablemodel.item(row, 0).setCheckState(Qt.Unchecked)
+
+
     def loadSamples(self,modelindex):
         row=modelindex.row()
         column=modelindex.column()
@@ -182,7 +195,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         progress.setCancelButton(None)
         conceptstoenrich=[]
         for row in range(self.tablemodel2.rowCount(self.matchingConceptsResult.rootIndex())):
-            child_index = self.tablemodel.index(row, 0, self.matchingConceptsResult.rootIndex())
+            child_index = self.tablemodel2.index(row, 0, self.matchingConceptsResult.rootIndex())
             conceptstoenrich.append(child_index.data(0))
         self.qtask = DataSchemaQueryTask("Get Property Enrichment Candidates (" + self.conceptSearchEdit.text() + ")",
                                            self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"],

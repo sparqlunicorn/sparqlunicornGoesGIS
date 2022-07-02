@@ -21,6 +21,7 @@ class LayerMatchingTask(QgsTask):
         self.triplestoreurl = triplestoreconf["resource"]
         self.triplestoreconf=triplestoreconf
         self.tablemodel=tablemodel
+        self.columnvallist=None
         self.dlg=dlg
         self.amount=-1
         self.resmap={}
@@ -32,11 +33,11 @@ class LayerMatchingTask(QgsTask):
             typeproperty=self.triplestoreconf["typeproperty"]
         if self.matchproperty==None:
             self.matchproperty="http://www.w3.org/2000/01/rdf-schema#label"
-        columnvallist = LayerUtils.getLayerColumnAsList(self.matchlayer, self.matchcolumn)
+        self.columnvallist = LayerUtils.getLayerColumnAsList(self.matchlayer, self.matchcolumn)
         if "Exact Matching" in self.matchingmethod or "Regular Expression" in self.matchingmethod:
             thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . "
             matchvalstatement="VALUES ?val { "
-            for val in columnvallist:
+            for val in self.columnvallist:
                 if self.matchinglanguage!=None:
                     matchvalstatement += "\"" + val + "\"@"+str(self.matchinglanguage)+" "
                 else:
@@ -52,11 +53,11 @@ class LayerMatchingTask(QgsTask):
                 self.resmap[result["val"]["value"]]={"con":str(result["con"]["value"]),"val":str(result["val"]["value"])}
         matched={}
         matchcounter=0
-        for value in columnvallist:
+        for value in self.columnvallist:
             if value in self.resmap:
                 matched[value]=self.resmap[value]
                 matchcounter+=1
-        for value in columnvallist:
+        for value in self.columnvallist:
             if value not in matched:
                 curmap=MatchingTools.matchStringMapToReference(self.resmap.keys(),value,self.matchingmethod)
 
@@ -71,6 +72,7 @@ class LayerMatchingTask(QgsTask):
             itemchecked = QStandardItem()
             itemchecked.setText("No results found!")
             self.tablemodel.setItem(counter, 0, itemchecked)
+            self.dlg.enrichmentSearchResultLabel.setText("<html><b>The matching task found no results for your selection</b></html>")
         else:
             for val in self.resmap:
                 self.tablemodel.insertRow(counter)
@@ -83,4 +85,7 @@ class LayerMatchingTask(QgsTask):
                 itemchecked.setIcon(UIUtils.datatypepropertyicon)
                 self.tablemodel.setItem(counter, 1, itemchecked)
                 counter+=1
+        if self.columnvallist!=None:
+            self.dlg.enrichmentSearchResultLabel.setText(
+                "<html><b>The matching task found "+str(len(self.resmap))+" results for your selection. That is "+str(round(((len(self.resmap)/len(self.columnvallist))*100),2))+"% ("+str(len(self.resmap))+"/"+str(len(self.columnvallist))+") of all instances in the original layer</html>")
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))

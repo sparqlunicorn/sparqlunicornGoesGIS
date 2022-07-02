@@ -13,7 +13,7 @@ MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 class DataSchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg,styleprop=None):
+    def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg,styleprop=None,conceptstoenrich=None):
         super().__init__(description, QgsTask.CanCancel)
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         self.exception = None
@@ -21,6 +21,7 @@ class DataSchemaQueryTask(QgsTask):
         self.query = query
         self.styleprop=styleprop
         self.dlg=dlg
+        self.conceptstoenrich=conceptstoenrich
         self.progress = progress
         self.prefixes= prefixes
         self.invprefixes=SPARQLUtils.invertPrefixes(triplestoreconf["prefixes"])
@@ -41,6 +42,19 @@ class DataSchemaQueryTask(QgsTask):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
+        whattoenrichquery="""SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype
+            WHERE { 
+            ?con %%typeproperty%% %%concept%% .
+            ?con ?rel ?val .
+            BIND( datatype(?val) AS ?valtype ) }
+            GROUP BY ?rel ?valtype
+            ORDER BY DESC(?countrel)"""
+        if self.conceptstoenrich!=None:
+            cons="VALUES ?con {"
+            for con in self.conceptstoenrich:
+                cons+="<"+str(con)+"> "
+            cons+="}\n"
+            self.query=whattoenrichquery.replace("?con %%typeproperty%% %%concept%% .",cons)
         if isinstance(self.prefixes, Iterable):
             results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
         else:
@@ -98,3 +112,5 @@ class DataSchemaQueryTask(QgsTask):
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.progress.close()
+        if self.conceptstoenrich!=None:
+            self.dlg.propertyMatchingResultLabel.setText("<html><b>The following properties can be enriched for the "+str(len(self.conceptstoenrich))+" matched concepts</b></html>")
