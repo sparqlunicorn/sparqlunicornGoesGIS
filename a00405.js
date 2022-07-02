@@ -4,6 +4,7 @@ var a00405 =
     [ "finished", "a00405.html#a5f4d426f44e2bbf0bcca08c50d1b5ee4", null ],
     [ "run", "a00405.html#ad22709b2e67308af35f55680d5a026e0", null ],
     [ "amount", "a00405.html#a7fb406750fcff703b1c7da34a23c187e", null ],
+    [ "columnvallist", "a00405.html#a1f43469d5c840ce9cf6a7b5987c9ee71", null ],
     [ "dlg", "a00405.html#ad2ee3c07560eb98d17a382b71105bf98", null ],
     [ "exception", "a00405.html#aec2b4fd1f327cbebb003cfc415e8bccb", null ],
     [ "matchcolumn", "a00405.html#af168c1718b096823956d8a9610ca1322", null ],
