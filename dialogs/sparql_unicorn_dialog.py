@@ -140,7 +140,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
                                             self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
         self.gridLayout.addWidget(self.inp_sparql2,5,0,1,4)
-        self.gridLayout_7.addWidget(self.enrichTableResult,4,1,1,3)
         self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.inp_sparql2.document().defaultFont().setPointSize(16)
         self.inp_sparql2.setPlainText("SELECT ?item ?lat ?lon WHERE {\n ?item ?b ?c .\n} LIMIT 10")
@@ -150,7 +149,6 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentContext=self.geoTreeView
         self.currentProxyModel=self.geoTreeViewProxyModel
         self.currentContextModel=self.geoTreeViewModel
-        self.enrichTableResult.hide()
         self.queryTemplates.currentIndexChanged.connect(self.changeQueryTemplate)
         self.actionRDF_Resource_Settings.setIcon(UIUtils.linkeddataicon)
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())

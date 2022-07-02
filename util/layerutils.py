@@ -95,7 +95,7 @@ class LayerUtils:
 
     @staticmethod
     def processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):
-        #QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
+        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]

@@ -42,9 +42,9 @@ class QueryLayerTask(QgsTask):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
-        #QgsMessageLog.logMessage('Started task "{}"'.format(
-        #    results),
-        #    MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            results),
+            MESSAGE_CATEGORY, Qgis.Info)
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
@@ -202,30 +202,29 @@ class QueryLayerTask(QgsTask):
                 crsset.add(feature["crs"])
                 del feature["crs"]
             features.append(feature)
-        if relval and geooptional:
-            #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-            #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-            feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}#json.loads(myGeometryInstanceJSON)}
+        #if relval and geooptional:
+        #    #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
+        #    #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
+        #    feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}#json.loads(myGeometryInstanceJSON)}
+        #    features.append(feature)
+        #if len(features)==0:
+        if "geo" in properties:
+            feature = LayerUtils.processLiteral(result["geo"]["value"], (
+            result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+            {'id':result["item"]["value"], 'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
+            self.triplestoreconf)
+            if feature!=None and "crs" in feature:
+                crsset.add(feature["crs"])
+                del feature["crs"]
             features.append(feature)
-        if len(features)==0:
-            if not geooptional:
-                if "geo" in properties:
-                    feature = LayerUtils.processLiteral(result["geo"]["value"], (
-                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-                    {'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
-                    self.triplestoreconf)
-                    if feature!=None and "crs" in feature:
-                        crsset.add(feature["crs"])
-                        del feature["crs"]
-                    features.append(feature)
-                if "lat" in properties and "lon" in properties:
-                    feature = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
-                                                                       + " " + str(float(result[latval]["value"])) + ")",
-                    "wkt", reproject,{'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
-                    features.append(feature)
-            else:
-                feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}
-                features.append(feature)
+        if "lat" in properties and "lon" in properties:
+            feature = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+                                                               + " " + str(float(result[latval]["value"])) + ")",
+            "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
+            features.append(feature)
+            #else:
+            #    feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}
+            #    features.append(feature)
         QgsMessageLog.logMessage('Number of features '+str(len(features)),
             MESSAGE_CATEGORY, Qgis.Info)
         if features == [] and len(results["results"]["bindings"]) == 0:

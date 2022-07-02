@@ -83,7 +83,8 @@ class EnrichmentTab:
         layers = QgsProject.instance().layerTreeRoot().children()
         selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
         layer = layers[selectedLayerIndex].layer()
-        self.enrichTableResult.hide()
+        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(0))
+        #self.enrichTableResult.hide()
         fieldnames = [field.name() for field in layer.fields()]
         item = QTableWidgetItem("new_column")
         # item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -122,9 +123,10 @@ class EnrichmentTab:
             return
         layer = layers[selectedLayerIndex].layer()
         #self.enrichTableResult.hide()
-        #while self.enrichTableResult.rowCount() > 0:
-        #    self.enrichTableResult.removeRow(0)
-        self.enrichTable.show()
+        while self.enrichTableResult.rowCount() > 0:
+            self.enrichTableResult.removeRow(0)
+        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(0))
+        #self.enrichTable.show()
         self.addEnrichedLayerRowButton.setEnabled(True)
         try:
             fieldnames = [field.name() for field in layer.fields()]
@@ -271,8 +273,9 @@ class EnrichmentTab:
         iface.vectorLayerTools().stopEditing(self.enrichLayer)
         self.enrichLayer.dataProvider().deleteAttributes(excludelist)
         self.enrichLayer.updateFields()
-        self.dlg.enrichTable.hide()
-        self.dlg.enrichTableResult.show()
+        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))
+        #self.dlg.enrichTable.hide()
+        #self.dlg.enrichTableResult.show()
         self.dlg.startEnrichment.setText("Enrichment Configuration")
         self.dlg.startEnrichment.clicked.disconnect()
         self.dlg.startEnrichment.clicked.connect(self.showConfigTable)
@@ -315,8 +318,7 @@ class EnrichmentTab:
     #  @param  self The object pointer
     #
     def showConfigTable(self):
-        self.enrichTableResult.hide()
-        self.enrichTable.show()
+        self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(0))
         self.startEnrichment.setText("Start Enrichment")
         self.startEnrichment.clicked.disconnect()
         self.startEnrichment.clicked.connect(self.enrichLayerProcess)

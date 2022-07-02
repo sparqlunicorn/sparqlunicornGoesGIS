@@ -1,3 +1,4 @@
+from ..util.ui.uiutils import UIUtils
 from ..util.sparqlutils import SPARQLUtils
 from ..util.layerutils import LayerUtils
 from qgis.PyQt.QtCore import QVariant
@@ -71,8 +72,8 @@ class EnrichmentQueryTask(QgsTask):
             else:
                 query += "\"" + str(it) + "\" "
         query += " } . \n"
-        proppp = self.propertyy.data(1)
-        if proppp!=None and self.propertyy.data(1).startswith("//"):
+        proppp = self.propertyy.data(UIUtils.dataslot_conceptURI)
+        if proppp!=None and self.propertyy.data(UIUtils.dataslot_conceptURI).startswith("//"):
             proppp = "http:" + proppp
         if self.table.item(self.row, 7).text() != "" and "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "?item wdt:P31 <" + str(self.table.item(self.row, 7).text()) + "> .\n"
