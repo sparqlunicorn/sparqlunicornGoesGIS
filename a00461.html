@@ -1081,7 +1081,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">def </span>processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Process literal: &quot; + str(literal) + &quot; &quot; + str(literaltype))</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Process literal: &quot;</span> + str(literal) + <span class="stringliteral">&quot; &quot;</span> + str(literaltype))</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        geom = <span class="keywordtype">None</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> triplestoreconf!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;literaltype&quot;</span> <span class="keywordflow">in</span> triplestoreconf:</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            literaltype = triplestoreconf[<span class="stringliteral">&quot;literaltype&quot;</span>]</div>
