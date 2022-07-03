@@ -525,7 +525,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def createLayerFromTreeEntry(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
-        if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.classnode:
+        if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.classnode or nodetype==SPARQLUtils.halfgeoclassnode:
             self.dataAllInstancesAsLayer()
         elif nodetype==SPARQLUtils.geoinstancenode or nodetype==SPARQLUtils.instancenode:
             self.dataInstanceAsLayer()
@@ -739,7 +739,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")
         progress.setWindowModality(Qt.WindowModal)
-        if nodetype==SPARQLUtils.geoclassnode:
+        if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.halfgeoclassnode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),

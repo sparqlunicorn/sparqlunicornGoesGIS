@@ -26,6 +26,7 @@ class QueryLayerTask(QgsTask):
         self.triplestoreconf = triplestoreconf
         self.styleuri=styleuri
         self.vlayer=None
+        self.vlayernongeo=None
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
@@ -34,6 +35,7 @@ class QueryLayerTask(QgsTask):
         self.allownongeo = allownongeo
         self.filename = filename
         self.geojson = None
+        self.nongeojson = None
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(
@@ -51,7 +53,13 @@ class QueryLayerTask(QgsTask):
         res = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
+        QgsMessageLog.logMessage('Query result'.format(
+            res),
+            MESSAGE_CATEGORY, Qgis.Info)
         self.geojson=res[0]
+        self.nongeojson=res[1]
+        if self.nongeojson!=None:
+            self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         if self.geojson!=None:
             QgsMessageLog.logMessage('Started task "{}"'.format(
                 self.geojson),
@@ -60,9 +68,9 @@ class QueryLayerTask(QgsTask):
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    self.vlayer.featureCount()),
             #    MESSAGE_CATEGORY, Qgis.Info)
-            if len(res)>1 and res[1]!=None:
+            if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
-                crsstring=res[1]
+                crsstring=res[2]
                 if crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:
@@ -93,6 +101,16 @@ class QueryLayerTask(QgsTask):
         properties.pop("val2", None)
         return properties
 
+
+    def addFeatureToCorrectCollection(self,feature,features,nongeofeatures,crsset):
+        if feature["geometry"] == None:
+            nongeofeatures.append(feature)
+        else:
+            features.append(feature)
+        if feature != None and "crs" in feature:
+            crsset.add(feature["crs"])
+            del feature["crs"]
+
     ## Processes query results and reformats them to a QGIS layer.
     #  @param self The object pointer.
     #  @param results The query results
@@ -103,6 +121,7 @@ class QueryLayerTask(QgsTask):
         latval = "lat"
         lonval = "lon"
         features = []
+        nongeofeatures=[]
         properties={}
         first = True
         newobject = True
@@ -117,35 +136,29 @@ class QueryLayerTask(QgsTask):
                     item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
                 relval=True
                 if item != "":
-                    feature= LayerUtils.processLiteral(result["geo"]["value"], (
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                         result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
                         {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
                                'geometry': {}},
-                        self.triplestoreconf)
-                    if feature != None and "crs" in feature:
-                        crsset.add(feature["crs"])
-                        del feature["crs"]
-                    features.append(feature)
+                        self.triplestoreconf),features,nongeofeatures,crsset)
                 properties = {}
                 item = result["item"]["value"]
             if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (
                     item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
                 relval=True
                 if item != "":
-                    feature = LayerUtils.processLiteral(
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
                         "POINT(" + str(float(result[lonval]["value"])) + " " + str(
                             float(result[latval]["value"])) + ")", "wkt", reproject,{'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': {}},self.triplestoreconf)
-                    features.append(feature)
+                               'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
                 properties = {}
                 item = result["item"]["value"]
             if "item" in result and "rel" in result and "val" in result and geooptional and (
                     item == "" or result["item"]["value"] != item):
                 relval=True
                 if item != "":
-                    feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': {}}
-                    features.append(feature)
+                    self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                               'geometry': {}},features,nongeofeatures,crsset)
                 properties = {}
                 item = result["item"]["value"]
             if "rel" not in result and "val" not in result:
@@ -174,34 +187,24 @@ class QueryLayerTask(QgsTask):
                         else:
                             properties[var] = result[var]["value"]
             if not "rel" in result and not "val" in result and "geo" in result:
-                feature = LayerUtils.processLiteral(result["geo"]["value"], (
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                     result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
                     {'id': result["item"]["value"], 'type': 'Feature',
                     'properties': self.dropUnwantedKeys(properties),'geometry': {}},
-                     self.triplestoreconf)
-                if feature!=None and "crs" in feature:
-                    crsset.add(feature["crs"])
-                    del feature["crs"]
-                features.append(feature)
+                     self.triplestoreconf),features,nongeofeatures,crsset)
             elif not "rel" in result and not "val" in result and latval in result and lonval in result:
-                feature = LayerUtils.processLiteral(
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
                     "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
                     "wkt", reproject,
                     {'id': result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
                      'geometry': {}},
-                    self.triplestoreconf)
-                features.append(feature)
+                    self.triplestoreconf),features,nongeofeatures,crsset)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
-                feature = {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}
-                features.append(feature)
+                self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
         if relval and not geooptional and "lat" not in result and "lon" not in result:
-            feature = LayerUtils.processLiteral(result["geo"]["value"], (
+            self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-                { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
-            if feature!=None and "crs" in feature:
-                crsset.add(feature["crs"])
-                del feature["crs"]
-            features.append(feature)
+                { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
         #if relval and geooptional:
         #    #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
         #    #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
@@ -209,42 +212,42 @@ class QueryLayerTask(QgsTask):
         #    features.append(feature)
         #if len(features)==0:
         if "geo" in properties:
-            feature = LayerUtils.processLiteral(result["geo"]["value"], (
+            self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
             result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
             {'id':result["item"]["value"], 'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
-            self.triplestoreconf)
-            if feature!=None and "crs" in feature:
-                crsset.add(feature["crs"])
-                del feature["crs"]
-            features.append(feature)
-        if "lat" in properties and "lon" in properties:
-            feature = LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+            self.triplestoreconf),features,nongeofeatures,crsset)
+        elif "lat" in properties and "lon" in properties:
+            self.addFeatureToCorrectCollection(LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
                                                                + " " + str(float(result[latval]["value"])) + ")",
-            "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf)
-            features.append(feature)
-            #else:
-            #    feature = {'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}
-            #    features.append(feature)
+            "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+        else:
+            self.addFeatureToCorrectCollection({'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
         QgsMessageLog.logMessage('Number of features '+str(len(features)),
             MESSAGE_CATEGORY, Qgis.Info)
         if features == [] and len(results["results"]["bindings"]) == 0:
-            return None
-        if features == [] and len(results["results"]["bindings"]) > 0:
-            return len(results["results"]["bindings"])
+            return [None,None,None]
+        #if features == [] and len(results["results"]["bindings"]) > 0:
+        #    return len(results["results"]["bindings"])
         geojson = {'type': 'FeatureCollection', 'features': features}
+        if len(nongeofeatures)>0:
+            geojsonnongeo = {'type': 'FeatureCollection', 'features': nongeofeatures}
+        else:
+            geojsonnongeo=None
         if len(crsset)>0:
-            return [geojson,crsset.pop()]
-        return [geojson]
+            return [geojson,geojsonnongeo,crsset.pop()]
+        return [geojson,geojsonnongeo,None]
 
     def finished(self, result):
         QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
                                  MESSAGE_CATEGORY, Qgis.Info)
         if self.geojson == None and self.exception != None:
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
             return
-        if self.geojson == None:
+        if self.geojson == None and self.nongeojson==None:
             msgBox = QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
@@ -266,3 +269,5 @@ class QueryLayerTask(QgsTask):
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
+        if self.vlayernongeo!=None:
+            QgsProject.instance().addMapLayer(self.vlayernongeo)

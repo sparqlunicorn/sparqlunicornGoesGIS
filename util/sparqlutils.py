@@ -165,6 +165,7 @@ class SPARQLUtils:
     classnode="Class"
     geoclassnode="GeoClass"
     linkedgeoclassnode="LinkedGeoClass"
+    halfgeoclassnode="HalfGeoClass"
     linkedgeoinstancenode="LinkedGeoInstance"
     instancenode="Instance"
     objectpropertynode="ObjectProperty"

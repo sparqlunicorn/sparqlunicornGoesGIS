@@ -91,21 +91,25 @@ class InstanceListQueryTask(QgsTask):
             self.treeNode.setText(self.treeNode.text()+" ["+str(len(self.queryresult))+"]")
         if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.collectionclassnode and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.halfgeoclassicon)
+            self.treeNode.setData(SPARQLUtils.halfgeoclassnode, UIUtils.dataslot_nodetype)
         elif self.hasgeocount==0 and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.collectionclassnode and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.classicon)
+            self.treeNode.setData(SPARQLUtils.classnode,UIUtils.dataslot_nodetype)
         self.treeNode.setData(SPARQLUtils.instancesloadedindicator,UIUtils.dataslot_instancesloaded)
         for concept in self.queryresult:
             item = QStandardItem()
             item.setData(concept, UIUtils.dataslot_conceptURI)
             item.setText(self.queryresult[concept]["label"])
             if (self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.geoclassnode \
-                    or self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.collectionclassnode
-                or self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode) \
+                    or self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.collectionclassnode \
+                    or self.treeNode.data(UIUtils.dataslot_nodetype) == SPARQLUtils.halfgeoclassnode \
+                    or self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode) \
                     and self.queryresult[concept]["hasgeo"]:
                 item.setData(SPARQLUtils.geoinstancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.geoinstanceicon)
                 item.setToolTip("GeoInstance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
-            elif self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode and self.queryresult[concept]["linkedgeo"]:
+            elif self.treeNode.data(UIUtils.dataslot_nodetype)==SPARQLUtils.linkedgeoclassnode \
+                    and self.queryresult[concept]["linkedgeo"]:
                 item.setData(SPARQLUtils.linkedgeoinstancenode,UIUtils.dataslot_nodetype)
                 item.setIcon(UIUtils.linkedgeoinstanceicon)
                 item.setData(self.treeNode.data(UIUtils.dataslot_linkedconceptrel),UIUtils.dataslot_linkedconceptrel)
