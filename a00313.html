@@ -812,7 +812,7 @@ Static Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keyword">def </span>createLayerFromTreeEntry(self):</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.classnode:</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.classnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.halfgeoclassnode:</div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;            self.dataAllInstancesAsLayer()</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keywordflow">elif</span> nodetype==SPARQLUtils.geoinstancenode <span class="keywordflow">or</span> nodetype==SPARQLUtils.instancenode:</div>
 <div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;            self.dataInstanceAsLayer()</div>
@@ -885,7 +885,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            <span class="stringliteral">&quot;Querying all instances for &quot;</span> + concept,<span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
 <div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Query all instances&quot;</span>)</div>
 <div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode:</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.halfgeoclassnode:</div>
 <div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
 <div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
 <div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>

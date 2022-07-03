@@ -29,6 +29,7 @@ var a00477 =
     [ "geoproperties", "a00477.html#aba7485239040e54e5eecbbf267d889e5", null ],
     [ "georelationproperties", "a00477.html#a6060a0aca4fd3add3a87094afddd15ce", null ],
     [ "graphResource", "a00477.html#a574fc90f73d8e3838b39ea769b869bfb", null ],
+    [ "halfgeoclassnode", "a00477.html#ab6b6b4c1c9f5cf1ca7899924d33fca8c", null ],
     [ "instancenode", "a00477.html#a5e97724ca0b22642839ab3dfff960c7d", null ],
     [ "instancesloadedindicator", "a00477.html#adee79af3fe72a42cbdecae3df9a0cbed", null ],
     [ "labelproperties", "a00477.html#a1d421946042f084950a2184bdd0a2ad9", null ],
