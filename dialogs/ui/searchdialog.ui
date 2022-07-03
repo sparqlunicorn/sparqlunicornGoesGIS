@@ -21,9 +21,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" rowspan="2" colspan="2">
-    <widget class="QComboBox" name="tripleStoreEdit"/>
-   </item>
    <item row="3" column="4" rowspan="2">
     <widget class="QPushButton" name="costumpropertyButton">
      <property name="text">
@@ -1008,6 +1005,9 @@
       <bool>false</bool>
      </property>
     </widget>
+   </item>
+   <item row="1" column="1" rowspan="2" colspan="4">
+    <widget class="QComboBox" name="tripleStoreEdit"/>
    </item>
   </layout>
  </widget>

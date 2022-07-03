@@ -67,8 +67,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         if not bothOptions:
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
-        for triplestore in self.triplestoreconf:
-            self.tripleStoreEdit.addItem(triplestore["name"])
+        UIUtils.createTripleStoreCBox(self.tripleStoreEdit,self.triplestoreconf)
         if addVocab != None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])

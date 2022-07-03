@@ -310,24 +310,7 @@ class SPARQLunicorn:
             self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
             self.dlg.comboBox.clear()
-            for triplestore in self.triplestoreconf:
-                if triplestore["active"]:
-                    item = triplestore["name"]
-                    if "mandatoryvariables" in triplestore and len(triplestore["mandatoryvariables"]) > 0:
-                        item += " --> "
-                        for mandvar in triplestore["mandatoryvariables"]:
-                            item += "?" + mandvar + " "
-                    if "type" in triplestore and triplestore["type"] == "geosparqlendpoint":
-                        item += " [GeoSPARQL Endpoint]"
-                        self.dlg.comboBox.addItem(UIUtils.geoendpointicon,item)
-                    elif "type" in triplestore and triplestore["type"] == "sparqlendpoint":
-                        item += " [SPARQL Endpoint]"
-                        self.dlg.comboBox.addItem(UIUtils.linkeddataicon,item)
-                    elif "type" in triplestore and triplestore["type"] == "file":
-                        item += " [File]"
-                        self.dlg.comboBox.addItem(UIUtils.rdffileicon,item)
-                    else:
-                        self.dlg.comboBox.addItem(item)
+            UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)
             self.dlg.comboBox.setCurrentIndex(0)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())

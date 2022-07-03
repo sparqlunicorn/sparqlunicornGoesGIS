@@ -92,6 +92,28 @@ class UIUtils:
     }
 
     @staticmethod
+    def createTripleStoreCBox(cbox,triplestoreconf):
+        for triplestore in triplestoreconf:
+            if triplestore["active"]:
+                item = triplestore["name"]
+                if "mandatoryvariables" in triplestore and len(triplestore["mandatoryvariables"]) > 0:
+                    item += " --> "
+                    for mandvar in triplestore["mandatoryvariables"]:
+                        item += "?" + mandvar + " "
+                if "type" in triplestore and triplestore["type"] == "geosparqlendpoint":
+                    item += " [GeoSPARQL Endpoint]"
+                    cbox.addItem(UIUtils.geoendpointicon, item)
+                elif "type" in triplestore and triplestore["type"] == "sparqlendpoint":
+                    item += " [SPARQL Endpoint]"
+                    cbox.addItem(UIUtils.linkeddataicon, item)
+                elif "type" in triplestore and triplestore["type"] == "file":
+                    item += " [File]"
+                    cbox.addItem(UIUtils.rdffileicon, item)
+                else:
+                    cbox.addItem(item)
+        cbox.setCurrentIndex(0)
+
+    @staticmethod
     def check_state(sender):
         validator = sender.validator()
         state = validator.validate(sender.text(), 0)[0]
