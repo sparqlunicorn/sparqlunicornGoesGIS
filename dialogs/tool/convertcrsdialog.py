@@ -38,7 +38,6 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
         urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         urlvalidator = QRegExpValidator(urlregex, self)
         self.startConversionButton.clicked.connect(self.startConversion)
-        self.cancelButton.clicked.connect(self.close)
         self.convertAllCheckBox.stateChanged.connect(self.toggleComboBoxes)
         # self.loadFromURIButton.clicked.connect(self.loadURI)
 

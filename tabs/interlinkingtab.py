@@ -1,6 +1,4 @@
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QStyle
-from qgis.core import QgsProject, Qgis
+from qgis.core import QgsProject, Qgis,QgsMapLayerProxyModel
 import xml.etree.ElementTree as ET
 from qgis.utils import iface
 from qgis.PyQt import QtCore
@@ -8,7 +6,6 @@ from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QCom
 from qgis.PyQt.QtGui import QRegExpValidator
 
 from ..util.ui.uiutils import UIUtils
-from ..util.layerutils import LayerUtils
 
 ## Provides implementations for functions accessible from the interlinking tab
 class InterlinkingTab:
@@ -25,15 +22,13 @@ class InterlinkingTab:
         self.interlinkTable.cellClicked.connect(self.createInterlinkSearchDialog)
         self.searchClass=dlg.searchClass
         self.searchClass.clicked.connect(self.createInterlinkSearchDialog)
-        self.searchClass.setIcon(UIUtils.searchclassicon)
         self.interlinkNameSpace=dlg.interlinkNameSpace
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
-        self.dlg.refreshLayersInterlink.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))
-        self.dlg.refreshLayersInterlink.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
         self.interlinkNameSpace.textChanged.connect(lambda: UIUtils.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
         self.loadLayerInterlink=dlg.loadLayerInterlink
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
+        self.chooseLayerInterlink.setFilters(QgsMapLayerProxyModel.PointLayer|QgsMapLayerProxyModel.LineLayer|QgsMapLayerProxyModel.PolygonLayer|QgsMapLayerProxyModel.NoGeometry)
         self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
         self.dlg.importMappingButton.clicked.connect(self.loadMapping)
 
@@ -52,11 +47,9 @@ class InterlinkingTab:
     #
     #  @param self The object pointer
     def loadLayerForInterlink(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerInterlink.currentIndex()
-        if len(layers) == 0:
+        if len(self.chooseLayerInterlink) == 0:
             return
-        layer = layers[selectedLayerIndex].layer()
+        layer=self.chooseLayerInterlink.currentLayer()
         try:
             fieldnames = [field.name() for field in layer.fields()]
             while self.interlinkTable.rowCount() > 0:

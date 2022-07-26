@@ -30,32 +30,11 @@ class VarInputDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(UIUtils.columnasvaricon)
-        layers = QgsProject.instance().layerTreeRoot().children()
         self.inputfield = inputfield
         self.columnvars = columnvars
-        self.chooseLayer.clear()
-        for layer in layers:
-            self.chooseLayer.addItem(layer.name())
-        self.chooseLayer.currentIndexChanged.connect(self.layerselectaction)
-        self.chooseField.clear()
         self.applyButton.clicked.connect(self.applyVar)
-        self.layerselectaction()
+        self.chooseField.setLayer(self.chooseLayer.currentLayer())
 
-    ## 
-    #  @brief Refreshes the layer column view of the dialog when a new layer is selected.
-    #  
-    #  @param self The object pointer     
-    def layerselectaction(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        index = self.chooseLayer.currentIndex()
-        layer = layers[index].layer()
-        self.chooseField.clear()
-        try:
-            fieldnames = [field.name() for field in layer.fields()]
-            for field in fieldnames:
-                self.chooseField.addItem(field)
-        except:
-            print("No vector layer")
 
     ## 
     #  @brief Inserts a variable into the query as stated in the query dialog.
@@ -65,9 +44,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
     #  @details The variable will be inserted and the corresponding SPARQL VALUES statement will be generated in the background
     #  
     def applyVar(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        index = self.chooseLayer.currentIndex()
-        layer = layers[index].layer()
+        layer = self.chooseLayer.currentLayer()
         layername = self.chooseLayer.currentText()
         fieldname = self.chooseField.currentText()
         if layer.featureCount() == 0:

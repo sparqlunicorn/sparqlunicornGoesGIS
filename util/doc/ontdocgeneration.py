@@ -224,31 +224,38 @@ htmltemplate = """
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,outpath,graph):
         self.prefixes=prefixes
-        self.namespaceshort = "cuneidict"
-        self.prefixnamespace = "http://purl.org/cuneiform/"
-        self.outpath = "signlist_htmls/"
-        prefixes["reversed"]["http://purl.org/cuneiform/"] = "cunei"
-        prefixes["reversed"]["http://purl.org/graphemon/"] = "graphemon"
+        self.prefixnamespace = prefixnamespace
+        self.namespaceshort = prefixnsshort
+        self.outpath=outpath
+        self.graph=graph
+        if prefixnamespace==None or prefixnsshort==None:
+            self.namespaceshort = "suni"
+            self.prefixnamespace = "http://purl.org/suni/"
+        if outpath==None:
+            self.outpath = "suni_htmls/"
+        prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
-    def generateOntDocForNameSpace(self, outpath, prefixnamespace,corpusid,g,prefixes,geoconccepts,dataformat):
+    def generateOntDocForNameSpace(self, outpath, prefixnamespace,dataformat):
+        uritolabel={}
+        corpusid=self.namespaceshort
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
         labeltouri = {}
         uritolabel = {}
         subjectstorender = set()
-        for sub in g.subjects():
+        for sub in self.graph.subjects():
             if prefixnamespace in sub:
                 subjectstorender.add(sub)
-                for obj in g.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
+                for obj in self.graph.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                     labeltouri[str(obj)] = str(sub)
                     uritolabel[str(sub)] = str(obj)
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            f.write(self.getClassTree(g, uritolabel))
+            f.write(self.getClassTree(self.graph, uritolabel))
             f.close()
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(stylesheet)
@@ -278,8 +285,8 @@ class OntDocGeneration:
                     if outpath not in paths:
                         paths[outpath] = []
                     paths[outpath].append(path + "/index.html")
-                self.createHTML(outpath + path, g.predicate_objects(subj), subj, prefixnamespace, g.subject_predicates(subj),
-                           g,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js")
+                self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
+                           self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js")
                 subtorencounter += 1
                 print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             except:
@@ -297,7 +304,7 @@ class OntDocGeneration:
                 f.close()
 
 
-    def getClassTree(graph, uritolabel,g):
+    def getClassTree(self,graph, uritolabel):
         classquery = """PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
@@ -322,7 +329,7 @@ class OntDocGeneration:
                 ?subject != owl:NamedIndividual &&\n
                 ?subject != owl:Ontology) )\n
         }"""
-        results = g.query(classquery)
+        results = graph.query(classquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
             "geoclass": {"icon": "static/icons/geoclass.png"},
@@ -417,7 +424,7 @@ class OntDocGeneration:
                         for i in range(0, checkdepth):
                             rellink = "../" + rellink
                         rellink += "/index.html"
-                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + namespaceshort + ":" + str(
+                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
                             str(tup[1][tup[1].rfind('/') + 1:])) + ")</span></a></td>"
                     else:
                         res = self.replaceNameSpacesInLabel(tup[1])
@@ -452,7 +459,7 @@ class OntDocGeneration:
                     rellink = "../" + rellink
                 rellink += "/index.html"
                 label = rellink.replace("/index.html", "")
-                tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + namespaceshort + ":" + str(
+                tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
                     str(tup[1][tup[1].rfind('/') + 1:])) + ")</span></a></span> of</td>"
             else:
                 res = self.replaceNameSpacesInLabel(tup[1])
@@ -473,7 +480,7 @@ class OntDocGeneration:
                         for i in range(0, checkdepth):
                             rellink = "../" + rellink
                         rellink += "/index.html"
-                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + namespaceshort + ":" + str(
+                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
                             str(tup[0][tup[0].rfind('/') + 1:])) + ")</span></a></td>"
                     else:
                         res = self.replaceNameSpacesInLabel(tup[0])
@@ -510,7 +517,7 @@ class OntDocGeneration:
             for i in range(0, checkdepth):
                 rellink4 = "../" + rellink4
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{prefixpath}}", prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
@@ -519,7 +526,7 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2))
             else:
-                f.write(htmltemplate.replace("{{prefixpath}}", prefixnamespace).replace("{{toptitle}}", str(subject[
+                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", str(subject[
                                                                                                             subject.rfind(
                                                                                                                 "/") + 1:])).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",

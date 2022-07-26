@@ -1,8 +1,7 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QFileDialog
-from qgis.core import QgsProject
-from qgis.core import Qgis
+from qgis.core import QgsProject,QgsMapLayerProxyModel, Qgis
 
 from ...util.ui.uiutils import UIUtils
 from ...util.layerutils import LayerUtils
@@ -34,14 +33,10 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlg = parent
         self.prefixes=prefixes
         self.maindlg = maindlg
-        layers = QgsProject.instance().layerTreeRoot().children()
-        self.loadedLayers.clear()
-        for layer in layers:
-            ucl = layer.name()
-            self.loadedLayers.addItem(ucl)
+        self.loadedLayers.setFilters(
+            QgsMapLayerProxyModel.PointLayer | QgsMapLayerProxyModel.LineLayer | QgsMapLayerProxyModel.PolygonLayer | QgsMapLayerProxyModel.NoGeometry)
         self.convertToRDFButton.clicked.connect(self.startConversion)
         self.vocabularyCBox.currentIndexChanged.connect(self.vocabularyCBoxIndexChanged)
-        self.cancelButton.clicked.connect(self.close)
 
     def vocabularyCBoxIndexChanged(self):
         if "GeoSPARQL" not in self.vocabularyCBox.currentText():
@@ -51,8 +46,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
 
 
     def startConversion(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        layer = layers[self.loadedLayers.currentIndex()].layer()
+        layer = self.loadedLayers.currentLayer()
         filename, _filter = QFileDialog.getSaveFileName(
             self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
         if filename == "":

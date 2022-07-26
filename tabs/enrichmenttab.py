@@ -1,16 +1,13 @@
-from PyQt5.QtGui import QIcon
-from qgis.core import QgsProject, Qgis
+from qgis.core import QgsApplication, QgsProject, Qgis,QgsMapLayerProxyModel
 from qgis.utils import iface
 from qgis.PyQt import QtCore
 
 from ..util.ui.uiutils import UIUtils
-from ..util.layerutils import LayerUtils
 from ..tasks.query.enrichment.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QProgressDialog
 from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
      QMessageBox, QStyle
 from qgis.PyQt.QtCore import Qt
-from qgis.core import QgsApplication
 from ..dialogs.tool.whattoenrichdialog import EnrichmentDialog
 
 
@@ -42,10 +39,10 @@ class EnrichmentTab:
         self.exportInterlink.clicked.connect(self.exportEnrichedLayer)
         self.loadLayerEnrich = dlg.loadLayerEnrich
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
+        self.addEnrichedLayerRowButton.hide()
+        self.chooseLayerEnrich.setFilters(QgsMapLayerProxyModel.PointLayer|QgsMapLayerProxyModel.LineLayer|QgsMapLayerProxyModel.PolygonLayer|QgsMapLayerProxyModel.NoGeometry)
         self.whattoenrich = dlg.whattoenrich
         self.whattoenrich.clicked.connect(self.createWhatToEnrich)
-        self.dlg.refreshLayersEnrich.setIcon(QIcon(self.dlg.style().standardIcon(getattr(QStyle, 'SP_BrowserReload'))))
-        self.dlg.refreshLayersEnrich.clicked.connect(lambda: LayerUtils.loadLayerList([self.dlg.chooseLayerInterlink,self.dlg.chooseLayerEnrich]))
 
     ##
     #  @brief Creates a What To Enrich dialog with parameters given.
@@ -54,9 +51,7 @@ class EnrichmentTab:
     def createWhatToEnrich(self):
         if self.enrichTable.rowCount() == 0:
             return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+        layer = self.chooseLayerEnrich.currentLayer()
         self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,
                                                         layer,
                                                         None, None)
@@ -80,9 +75,7 @@ class EnrichmentTab:
     #  @param  self The object pointer
     #
     def addEnrichRow(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+        layer = self.chooseLayerEnrich.currentLayer()
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(0))
         #self.enrichTableResult.hide()
         fieldnames = [field.name() for field in layer.fields()]
@@ -117,11 +110,9 @@ class EnrichmentTab:
     #
     #  @param self The object pointer
     def loadLayerForEnrichment(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.chooseLayerEnrich.currentIndex()
-        if len(layers) == 0:
+        if len(self.chooseLayerEnrich) == 0:
             return
-        layer = layers[selectedLayerIndex].layer()
+        layer = self.chooseLayerEnrich.currentLayer()
         #self.enrichTableResult.hide()
         while self.enrichTableResult.rowCount() > 0:
             self.enrichTableResult.removeRow(0)
@@ -202,9 +193,9 @@ class EnrichmentTab:
     ## Starts the process of layer enrichment according to the options selected in the enrichment dialog.
     #  @param self The object pointer.
     def enrichLayerProcess(self):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        self.enrichLayer = layers[selectedLayerIndex].layer().clone()
+        #layers = QgsProject.instance().layerTreeRoot().children()
+        #selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        self.enrichLayer = layer = self.chooseLayerEnrich.currentLayer().clone()
         attlist = {}
         itemlist = []
         propertylist = []
@@ -286,9 +277,9 @@ class EnrichmentTab:
     #  @param self The object pointer.
     def addEnrichedLayer(self):
         if self.enrichLayer == None:
-            layers = QgsProject.instance().layerTreeRoot().children()
-            selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-            self.enrichLayer = layers[selectedLayerIndex].layer().clone()
+            #layers = QgsProject.instance().layerTreeRoot().children()
+            #selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+            self.enrichLayer = self.chooseLayerEnrich.currentLayer().clone()
         self.enrichLayerCounter += 1
         self.enrichLayer.setName(self.enrichLayer.name() + "_enrich" + str(self.enrichLayerCounter))
         self.enrichLayer.startEditing()

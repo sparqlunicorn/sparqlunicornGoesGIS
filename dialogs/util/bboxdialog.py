@@ -99,21 +99,14 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.geocodeSearch.setCompleter(self.sparqlcompleter)
         self.geocodeSearchButton.clicked.connect(self.geocodeInput)
         self.geocodeSearch.textChanged.connect(self.insertCompletion)
-        self.chooseBBOXLayer.setModel(QStandardItemModel())
         self.b1.clicked.connect(self.setBBOXInQuery)
-        layers = QgsProject.instance().layerTreeRoot().children()
-        for layer in layers:
-            curitem=QStandardItem(layer.name())
-            curitem.setData(layer.layer().extent(),256)
-            curitem.setData(layer.layer().crs(), 257)
-            self.chooseBBOXLayer.model().appendRow(curitem)
         self.chooseBBOXLayer.currentIndexChanged.connect(self.showExtent)
-        if len(layers)>0:
+        if len(self.chooseBBOXLayer)>0:
             self.showExtent()
 
     def showExtent(self):
-        geom=self.chooseBBOXLayer.currentData(256)
-        crs = self.chooseBBOXLayer.currentData(257)
+        geom=self.chooseBBOXLayer.currentLayer().extent()
+        crs = self.chooseBBOXLayer.currentLayer().crs()
         if geom!=None:
             self.vl_layerextent.startEditing()
             listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
@@ -207,8 +200,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
 
     def setBBOXExtentQuery(self):
         if len(QgsProject.instance().layerTreeRoot().children()) > 0:
-            self.mts_layer = QgsProject.instance().layerTreeRoot().children()[
-                self.chooseBBOXLayer.currentIndex()].layer()
+            self.mts_layer = self.chooseBBOXLayer.currentLayer()
             self.layerExtentOrBBOX = True
             self.setBBOXInQuery()
             self.close()

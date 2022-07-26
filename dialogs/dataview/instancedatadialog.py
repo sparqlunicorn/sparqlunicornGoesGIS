@@ -98,7 +98,6 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
-        self.okButton.clicked.connect(self.close)
         self.getAttributes(self.concept,triplestoreurl)
         self.show()
 

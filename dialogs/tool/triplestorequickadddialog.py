@@ -37,7 +37,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
-        self.tripleStoreCloseButton.clicked.connect(self.close)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
         self.rdfResourceComboBox.currentIndexChanged.connect(self.resboxChangedEvent)

@@ -567,5 +567,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>tripleStoreCloseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TripleStoreDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>787</x>
+     <y>445</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

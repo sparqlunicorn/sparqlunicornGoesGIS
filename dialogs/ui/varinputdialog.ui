@@ -28,9 +28,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="chooseLayer"/>
-   </item>
    <item row="6" column="0">
     <widget class="QPushButton" name="applyButton">
      <property name="text">
@@ -44,9 +41,6 @@
       <string>Choose Layer:</string>
      </property>
     </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="chooseField"/>
    </item>
    <item row="1" column="4">
     <widget class="QComboBox" name="labelLang">
@@ -1020,8 +1014,43 @@
      </item>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QgsMapLayerComboBox" name="chooseLayer"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QgsFieldComboBox" name="chooseField"/>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFieldComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsfieldcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>chooseLayer</sender>
+   <signal>layerChanged(QgsMapLayer*)</signal>
+   <receiver>chooseField</receiver>
+   <slot>setLayer(QgsMapLayer*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>186</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

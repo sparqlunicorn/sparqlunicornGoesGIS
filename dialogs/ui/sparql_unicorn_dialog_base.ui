@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>SPARQLing Unicorn QGIS Plugin</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/resources/icons/sparqlunicorn.png</normaloff>:/icons/resources/icons/sparqlunicorn.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -434,6 +438,10 @@ SELECT ?label ?geo ?item WHERE {
           <property name="text">
            <string>Quick Add RDF Resource</string>
           </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/resources/icons/linkeddata.png</normaloff>:/icons/resources/icons/linkeddata.png</iconset>
+          </property>
          </widget>
         </item>
        </layout>
@@ -456,34 +464,49 @@ SELECT ?label ?geo ?item WHERE {
         <string>Interlink</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="3" column="1">
-         <widget class="QPushButton" name="detectMapping">
+        <item row="2" column="2">
+         <widget class="QPushButton" name="searchClass">
           <property name="text">
-           <string>Detect Mapping</string>
+           <string>Search Class</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/resources/icons/searchclass.png</normaloff>:/icons/resources/icons/searchclass.png</iconset>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="chooseLayerInterlink"/>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="interlinkOwlClassInput"/>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
            <string>OWL Class:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="4" column="1">
+         <widget class="QPushButton" name="detectMapping">
+          <property name="text">
+           <string>Detect Mapping</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
            <string>Target Namespace:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="interlinkOwlClassInput"/>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="interlinkNameSpace">
+          <property name="text">
+           <string>http://www.github.com/sparqlunicorn#</string>
+          </property>
+         </widget>
         </item>
-        <item row="5" column="1" colspan="2">
+        <item row="6" column="1" colspan="2">
          <widget class="QPushButton" name="exportInterlink">
           <property name="baseSize">
            <size>
@@ -503,28 +526,14 @@ SELECT ?label ?geo ?item WHERE {
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="searchClass">
-          <property name="text">
-           <string>Search Class</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="interlinkNameSpace">
-          <property name="text">
-           <string>http://www.github.com/sparqlunicorn#</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
+        <item row="4" column="3">
          <widget class="QPushButton" name="importMappingButton">
           <property name="text">
            <string>Import Mapping</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0" colspan="5">
+        <item row="5" column="0" colspan="5">
          <widget class="QTableWidget" name="interlinkTable">
           <property name="minimumSize">
            <size>
@@ -589,38 +598,48 @@ SELECT ?label ?geo ?item WHERE {
           </column>
          </widget>
         </item>
-        <item row="3" column="4">
+        <item row="4" column="4">
          <widget class="QPushButton" name="exportMappingButton">
           <property name="text">
            <string>Export Mapping</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QCheckBox" name="exportTripleStore">
-          <property name="text">
-           <string>Export To Triple Store</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="loadLayerInterlink">
-          <property name="text">
-           <string>Load Layer</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
            <string>Table Colums to Concepts:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="refreshLayersInterlink">
+        <item row="1" column="2">
+         <widget class="QPushButton" name="loadLayerInterlink">
           <property name="text">
-           <string>Refresh Layers</string>
+           <string>Load Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QCheckBox" name="exportTripleStore">
+          <property name="text">
+           <string>Export To Triple Store</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QgsMapLayerComboBox" name="chooseLayerInterlink">
+          <property name="allowEmptyLayer">
+           <bool>true</bool>
+          </property>
+          <property name="showCrs">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Interlink Layer:</string>
           </property>
          </widget>
         </item>
@@ -633,48 +652,10 @@ SELECT ?label ?geo ?item WHERE {
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="1">
          <layout class="QGridLayout" name="gridLayout_7">
-          <item row="3" column="3">
-           <widget class="QPushButton" name="addEnrichedLayerButton">
-            <property name="text">
-             <string>Add enriched layer</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="addEnrichedLayerRowButton">
-            <property name="text">
-             <string>Add Row</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QPushButton" name="loadLayerEnrich">
-            <property name="text">
-             <string>Load Layer</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="startEnrichment">
-            <property name="text">
-             <string>Start Enrichment</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QComboBox" name="chooseLayerEnrich"/>
-          </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="refreshLayersEnrich">
+           <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>Refresh Layers</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QPushButton" name="whattoenrich">
-            <property name="text">
-             <string>What to enrich?</string>
+             <string>Choose a layer to enrich:</string>
             </property>
            </widget>
           </item>
@@ -707,6 +688,51 @@ SELECT ?label ?geo ?item WHERE {
             </widget>
            </widget>
           </item>
+          <item row="3" column="3">
+           <widget class="QPushButton" name="addEnrichedLayerButton">
+            <property name="text">
+             <string>Add enriched layer</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QPushButton" name="whattoenrich">
+            <property name="text">
+             <string>What to enrich?</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="startEnrichment">
+            <property name="text">
+             <string>Start Enrichment</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="loadLayerEnrich">
+            <property name="text">
+             <string>Load Layer</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="addEnrichedLayerRowButton">
+            <property name="text">
+             <string>Add Row</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QgsMapLayerComboBox" name="chooseLayerEnrich">
+            <property name="allowEmptyLayer">
+             <bool>true</bool>
+            </property>
+            <property name="showCrs">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -731,6 +757,7 @@ SELECT ?label ?geo ?item WHERE {
     <addaction name="actionConvert_RDF_Data"/>
     <addaction name="actionValidate_RDF_Data"/>
     <addaction name="actionConvert_QGIS_Layer_To_RDF"/>
+    <addaction name="actionCreate_Ontology_Documentation"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -759,11 +786,19 @@ SELECT ?label ?geo ?item WHERE {
    <addaction name="menuHelp"/>
   </widget>
   <action name="actionConvert_RDF_Data">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/rdffile.png</normaloff>:/icons/resources/icons/rdffile.png</iconset>
+   </property>
    <property name="text">
     <string>Convert RDF Data</string>
    </property>
   </action>
   <action name="actionValidate_RDF_Data">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/validation2.png</normaloff>:/icons/resources/icons/validation2.png</iconset>
+   </property>
    <property name="text">
     <string>Validate RDF Data</string>
    </property>
@@ -784,26 +819,46 @@ SELECT ?label ?geo ?item WHERE {
    </property>
   </action>
   <action name="actionConstraint_By_BBOX">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/bboxicon.png</normaloff>:/icons/resources/icons/bboxicon.png</iconset>
+   </property>
    <property name="text">
     <string>Constraint By BBOX</string>
    </property>
   </action>
   <action name="actionLayer_Column_as_Variable">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/columnasvar.png</normaloff>:/icons/resources/icons/columnasvar.png</iconset>
+   </property>
    <property name="text">
     <string>Layer Column as Variable</string>
    </property>
   </action>
   <action name="actionSearch_Concept_for_Query">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/searchclass.png</normaloff>:/icons/resources/icons/searchclass.png</iconset>
+   </property>
    <property name="text">
     <string>Search Concept for Query</string>
    </property>
   </action>
   <action name="actionConvert_QGIS_Layer_To_RDF">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/featurecollectionToRDF.png</normaloff>:/icons/resources/icons/featurecollectionToRDF.png</iconset>
+   </property>
    <property name="text">
     <string>Convert QGIS Layer to RDF</string>
    </property>
   </action>
   <action name="actionRDF_Resource_Settings">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/linkeddata.png</normaloff>:/icons/resources/icons/linkeddata.png</iconset>
+   </property>
    <property name="text">
     <string>RDF Resource Settings</string>
    </property>
@@ -813,7 +868,21 @@ SELECT ?label ?geo ?item WHERE {
     <string>Preferences</string>
    </property>
   </action>
+  <action name="actionCreate_Ontology_Documentation">
+   <property name="text">
+    <string>Create Ontology Documentation</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+
+ </resources>
  <connections/>
 </ui>

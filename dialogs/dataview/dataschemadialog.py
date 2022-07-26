@@ -110,7 +110,6 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         self.geospatialConstraintButton.clicked.connect(self.loadBBOXDialog)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
-        self.okButton.clicked.connect(self.close)
         self.getAttributeStatistics(self.concept,triplestoreurl)
         self.show()
 

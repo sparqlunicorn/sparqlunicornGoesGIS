@@ -16,127 +16,10 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="credentialPassword">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="tripleStoreNameLabel_2">
        <property name="text">
-        <string/>
-       </property>
-       <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="tripleStoreLabel">
-       <property name="text">
-        <string>RDF Resource URL:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="tripleStoreNameEdit">
-       <property name="text">
-        <string>My cool triplestore!</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="tripleStoreNameLabel">
-       <property name="text">
-        <string>RDF Resource Name:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="credentialUserName">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QComboBox" name="rdfResourceComboBox">
-       <item>
-        <property name="text">
-         <string>SPARQL Endpoint</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>RDF Resource from URI </string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Local RDF File(s)</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QCheckBox" name="useAuthenticationCheckBox">
-       <property name="text">
-        <string>Use Authentication</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="usernameLabel">
-       <property name="text">
-        <string>Username (Optional):</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="passwordLabel">
-       <property name="text">
-        <string>Password (Optional):</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="rdfResourceTypeLabel">
-       <property name="text">
-        <string>RDF Resource Type:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="authenticationComboBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string>HTTP BASIC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>HTTP DIGEST</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QCheckBox" name="recursiveResolvingCBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Recursive Resolving</string>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
+        <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
        </property>
       </widget>
      </item>
@@ -186,10 +69,127 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="tripleStoreNameLabel_2">
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="tripleStoreNameEdit">
        <property name="text">
-        <string>Enter a name and a RDF resource URL here to try autoconfiguration</string>
+        <string>My cool triplestore!</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="credentialUserName">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="passwordLabel">
+       <property name="text">
+        <string>Password (Optional):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="credentialPassword">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="tripleStoreNameLabel">
+       <property name="text">
+        <string>RDF Resource Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="authenticationComboBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>HTTP BASIC</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>HTTP DIGEST</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="tripleStoreLabel">
+       <property name="text">
+        <string>RDF Resource URL:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QCheckBox" name="useAuthenticationCheckBox">
+       <property name="text">
+        <string>Use Authentication</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="rdfResourceTypeLabel">
+       <property name="text">
+        <string>RDF Resource Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="rdfResourceComboBox">
+       <item>
+        <property name="text">
+         <string>SPARQL Endpoint</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RDF Resource from URI </string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Local RDF File(s)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QCheckBox" name="recursiveResolvingCBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Recursive Resolving</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="usernameLabel">
+       <property name="text">
+        <string>Username (Optional):</string>
        </property>
       </widget>
      </item>
@@ -198,5 +198,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>tripleStoreCloseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TripleStoreDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>494</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>311</x>
+     <y>147</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

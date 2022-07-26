@@ -36,6 +36,7 @@ from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog, QSizePolic
 from rdflib.plugins.sparql import prepareQuery
 
 from .info.errormessagebox import ErrorMessageBox
+from .tool.ontdocdialog import OntDocDialog
 from ..util.ui.uiutils import UIUtils
 from .info.aboutdialog import AboutDialog
 from .conf.preferencesdialog import PreferencesDialog
@@ -150,22 +151,16 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentProxyModel=self.geoTreeViewProxyModel
         self.currentContextModel=self.geoTreeViewModel
         self.queryTemplates.currentIndexChanged.connect(self.changeQueryTemplate)
-        self.actionRDF_Resource_Settings.setIcon(UIUtils.linkeddataicon)
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
         self.actionPreferences.setVisible(False)
-        self.actionConvert_RDF_Data.setIcon(UIUtils.rdffileicon)
-        self.actionSearch_Concept_for_Query.setIcon(UIUtils.searchclassicon)
+        self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self).exec())
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
-        self.actionLayer_Column_as_Variable.setIcon(UIUtils.columnasvaricon)
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
-        self.actionConvert_QGIS_Layer_To_RDF.setIcon(UIUtils.featurecollectionToRDFicon)
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
-        self.actionValidate_RDF_Data.setIcon(UIUtils.validationicon)
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())
-        self.actionConstraint_By_BBOX.setIcon(UIUtils.bboxicon)
         self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
         self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.actionAbout.triggered.connect(lambda: AboutDialog().exec())

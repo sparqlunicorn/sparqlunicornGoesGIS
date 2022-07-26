@@ -13,5 +13,4 @@ class AboutDialog(QDialog, FORM_CLASS):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
-        self.okButton.clicked.connect(self.close)
         self.show()

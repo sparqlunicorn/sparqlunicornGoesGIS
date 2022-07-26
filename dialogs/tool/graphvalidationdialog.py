@@ -41,7 +41,6 @@ class GraphValidationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.validationFileEdit.hide()
         self.startValidationButton.clicked.connect(self.startValidation)
         self.dataFileLocationCBox.currentIndexChanged.connect(self.dataLocBoxChangedEvent)
-        self.cancelButton.clicked.connect(self.close)
 
     def dataLocBoxChangedEvent(self):
         if "File" in self.dataFileLocationCBox.currentText():

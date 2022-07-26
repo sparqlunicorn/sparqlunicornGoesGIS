@@ -32,7 +32,6 @@ class PrefixDialog(QDialog, FORM_CLASS):
         if uri!=None:
             self.addOrEdit=False
             self.uriEdit.setText(uri)
-        self.cancelButton.clicked.connect(self.close)
         self.saveButton.clicked.connect(self.savePrefix)
 
     def checkSuggestion(self):

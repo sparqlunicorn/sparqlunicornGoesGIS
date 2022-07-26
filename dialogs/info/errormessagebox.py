@@ -13,7 +13,6 @@ class ErrorMessageBox(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.setWindowTitle(title)
         self.errorLabel.setText(message)
-        self.confirmButton.clicked.connect(self.close)
 
     def setText(self,text):
         self.errorLabel.setText(text)

@@ -31,7 +31,6 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
-        self.closeButton.clicked.connect(self.close)
         self.tablemodel=QStandardItemModel()
         self.tablemodel.setHeaderData(0, Qt.Horizontal, "Ingoing Concept")
         self.tablemodel.setHeaderData(1, Qt.Horizontal, "Ingoing Relation")
