@@ -49,7 +49,7 @@ class ConceptContextMenu(QMenu):
         relconaction = QAction("Show related concepts")
         relconaction.setIcon(UIUtils.geoclassicon)
         menu.addAction(relconaction)
-        relconaction.triggered.connect(lambda: ClusterViewDialog(triplestoreconf,item.data(UIUtils.dataslot_conceptURI),item.text()).exec())
+        relconaction.triggered.connect(lambda: ClusterViewDialog(triplestoreconf,item.data(UIUtils.dataslot_conceptURI),item.text()))
         if item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.instancenode and item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.geoinstancenode\
                 and item.data(UIUtils.dataslot_nodetype) != SPARQLUtils.linkedgeoinstancenode:
             actioninstancecount = QAction("Check instance count")

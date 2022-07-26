@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>474</width>
-    <height>141</height>
+    <height>138</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,6 +44,9 @@
    </item>
    <item row="1" column="4">
     <widget class="QComboBox" name="labelLang">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
      <item>
       <property name="text">
        <string>en</string>

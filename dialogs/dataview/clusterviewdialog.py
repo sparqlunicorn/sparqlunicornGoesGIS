@@ -46,7 +46,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.tableView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.clusterView.hide()
         self.tableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.tableView, self.statusBarLabel))
-        self.tableView.doubleClicked.connect(lambda modelindex: self.showRelatedFromIndex(modelindex))
+        self.tableView.doubleClicked.connect(self.showRelatedFromIndex)
         self.tableView.customContextMenuRequested.connect(self.onContext)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
@@ -54,12 +54,18 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.currentItem=None
         self.getRelatedClassStatistics()
 
-    def showRelatedFromIndex(self,modelindex):
-        QgsMessageLog.logMessage("MODELINDEX: " + str(modelindex), MESSAGE_CATEGORY, Qgis.Info)
-        self.currentItem=self.tablemodel.data(modelindex)
-        self.label=self.currentItem.text()
-        if self.tablemodel.data(modelindex) is not None:
-            self.showRelated(self.tablemodel.data(modelindex))
+    def showRelatedFromIndex(self):
+        row=None
+        col=None
+        for idx in self.tableView.selectionModel().selectedIndexes():
+            row = idx.row()
+            col = idx.column()
+        if row==None or col==None:
+            return
+        self.currentItem=self.tablemodel.item(row,col)
+        if self.currentItem is not None:
+            self.label=self.currentItem.text()
+            self.showRelated(self.currentItem)
 
     def showRelated(self,item):
         self.concept=self.currentItem.data(UIUtils.dataslot_conceptURI)
