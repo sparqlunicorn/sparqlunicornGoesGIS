@@ -19,7 +19,7 @@ var files_dup =
       [ "MatchingTools", "a00105.html", "a00105" ]
     ] ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
-    [ "resources.py", "a00008.html", "a00008" ],
+    [ "resources_rc.py", "a00008.html", "a00008" ],
     [ "sparql_unicorn.py", "a00011.html", "a00011" ],
     [ "sparql_unicorn_dialog.py", "a00014.html", "a00014" ],
     [ "sparqlutils.py", "a00038.html", "a00038" ]
