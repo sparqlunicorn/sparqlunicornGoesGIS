@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLingUnicornQGISPlugin: findrelatedconceptquerytask.py File Reference</title>
+<title>SPARQLingUnicornQGISPlugin: StringMatching Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,36 +61,139 @@ $(document).ready(function(){initNavTree('a00101.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a00098.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">findrelatedconceptquerytask.py File Reference</div>  </div>
+<div class="title">StringMatching Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for StringMatching:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00100.png" border="0" usemap="#StringMatching_inherit__map" alt="Inheritance graph"/></div>
+<map name="StringMatching_inherit__map" id="StringMatching_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,125,107"/>
+<area shape="rect" title=" " alt="" coords="36,5,95,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for StringMatching:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00099.png" border="0" usemap="#StringMatching_coll__map" alt="Collaboration graph"/></div>
+<map name="StringMatching_coll__map" id="StringMatching_coll__map">
+<area shape="rect" title=" " alt="" coords="11,139,131,165"/>
+<area shape="rect" title=" " alt="" coords="5,5,64,32"/>
+<area shape="rect" title=" " alt="" coords="89,5,127,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00369.html">FindRelatedConceptQueryTask</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00217"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00217.html">sparqlunicornGoesGIS.tasks.findrelatedconceptquerytask</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a964735b6bbac75792f1ff19bab17c5e3"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00217.html#a964735b6bbac75792f1ff19bab17c5e3">MESSAGE_CATEGORY</a> = 'FindRelatedConceptQueryTask'</td></tr>
-<tr class="separator:a964735b6bbac75792f1ff19bab17c5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0a704cb6400c2ed3e12bdc9f49961571"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00101.html#a0a704cb6400c2ed3e12bdc9f49961571">LEVENSTHEIN</a> = 1</td></tr>
+<tr class="separator:a0a704cb6400c2ed3e12bdc9f49961571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a758dd7ea089ad385444edd082399c839"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00101.html#a758dd7ea089ad385444edd082399c839">HAMMING</a> = 2</td></tr>
+<tr class="separator:a758dd7ea089ad385444edd082399c839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace5889b077dc9caad3d4ac71c04ba9d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00101.html#ace5889b077dc9caad3d4ac71c04ba9d3">SUBSTRING</a> = 3</td></tr>
+<tr class="separator:ace5889b077dc9caad3d4ac71c04ba9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5570b7f4b79a1a94207c040307271f2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00101.html#ad5570b7f4b79a1a94207c040307271f2">FUZZYSCORE</a> = 4</td></tr>
+<tr class="separator:ad5570b7f4b79a1a94207c040307271f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad5570b7f4b79a1a94207c040307271f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5570b7f4b79a1a94207c040307271f2">&#9670;&nbsp;</a></span>FUZZYSCORE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FUZZYSCORE = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a758dd7ea089ad385444edd082399c839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a758dd7ea089ad385444edd082399c839">&#9670;&nbsp;</a></span>HAMMING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int HAMMING = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a704cb6400c2ed3e12bdc9f49961571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a704cb6400c2ed3e12bdc9f49961571">&#9670;&nbsp;</a></span>LEVENSTHEIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LEVENSTHEIN = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace5889b077dc9caad3d4ac71c04ba9d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace5889b077dc9caad3d4ac71c04ba9d3">&#9670;&nbsp;</a></span>SUBSTRING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SUBSTRING = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_ff2f1db7d3fcf6d9810be7915ed78eb1.html">tasks</a></li><li class="navelem"><a class="el" href="a00101.html">findrelatedconceptquerytask.py</a></li>
+    <li class="navelem"><a class="el" href="a00041.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00050.html">util</a></li><li class="navelem"><a class="el" href="a00055.html">matchingtools</a></li><li class="navelem"><a class="el" href="a00101.html">StringMatching</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

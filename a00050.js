@@ -1,6 +1,9 @@
 var a00050 =
 [
-    [ "PrefixDialog", "a00301.html", "a00301" ],
-    [ "_", "a00050.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00050.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
+    [ "crsexporttools", "a00051.html", "a00051" ],
+    [ "geocodingutils", "a00052.html", "a00052" ],
+    [ "graphutils", "a00053.html", "a00053" ],
+    [ "layerutils", "a00054.html", "a00054" ],
+    [ "matchingtools", "a00055.html", "a00055" ],
+    [ "sparqlutils", "a00056.html", "a00056" ]
 ];

@@ -1,7 +1,9 @@
 var a00077 =
 [
-    [ "EnrichmentDialog", "a00337.html", "a00337" ],
-    [ "_", "a00077.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00077.html#a0357d3c7a5047524e1543f2f43bc3e38", null ],
-    [ "MESSAGE_CATEGORY", "a00077.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
+    [ "__init__", "a00077.html#ae64f0875afe3067b97ba370b354b9213", null ],
+    [ "convertCRSFromEPSG", "a00077.html#aeadf0eb248b756948230566b1d91f1c4", null ],
+    [ "convertCRSFromWKTString", "a00077.html#abea877407dfc1a942f94c1039ff863cb", null ],
+    [ "convertCRSFromWKTStringSet", "a00077.html#a39c7098f8401caf0100203e286491bc1", null ],
+    [ "crsToTTL", "a00077.html#a849242decae7230d1029251178b41783", null ],
+    [ "ttlhead", "a00077.html#ad382225511cbcbdfadae28d3f3641911", null ]
 ];

@@ -1,6 +1,10 @@
 var a00023 =
 [
-    [ "ConvertCRSDialog", "a00265.html", "a00265" ],
-    [ "_", "a00023.html#a18f05aeddc212b523b40818fa2b87b33", null ],
-    [ "FORM_CLASS", "a00023.html#a0357d3c7a5047524e1543f2f43bc3e38", null ]
+    [ "ConvertCRS", "a00077.html", "a00077" ],
+    [ "coordinatesystem", "a00023.html#ab917cb271c08fce9f859d62565e0a5bc", null ],
+    [ "MESSAGE_CATEGORY", "a00023.html#a964735b6bbac75792f1ff19bab17c5e3", null ],
+    [ "projections", "a00023.html#a51cb939b03c0197c4ba616fc987f0ec6", null ],
+    [ "scope", "a00023.html#a5129d254cebd1c40a1ca197296c63612", null ],
+    [ "spheroids", "a00023.html#ad582a75539ba3f34dc919aae08fed3bf", null ],
+    [ "units", "a00023.html#ac6c6a45da7cf833ccfb52549e0126c8d", null ]
 ];
