@@ -35,7 +35,7 @@ class UIUtils:
 
     dataslot_geoinstanceamount = 261
 
-    classicon=QIcon(":/icons/resources/icons/class.png")
+    classicon=QIcon(":/icons/resources/icons/discovery.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
@@ -348,7 +348,9 @@ class UIUtils:
         elemcount=UIUtils.iterateTree(rootNode,jsontree["children"],elemcount)
         return elemcount
 
-
+    @staticmethod
+    def iterateTreeToJSTree():
+        print("Tree to JSTree Export")
 
     @staticmethod
     def iterateTree(curnode,jsontree,elemcount):
@@ -383,7 +385,7 @@ class UIUtils:
             print("hasChildren")
 
     def mergeJSONTree(self,jsontree_one,jsontree_two):
-        print("Merge class trees")
+        print("Merge discovery trees")
         classindex1={}
 
 

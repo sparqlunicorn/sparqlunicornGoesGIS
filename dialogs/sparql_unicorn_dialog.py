@@ -35,24 +35,24 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog, QSizePolicy
 from rdflib.plugins.sparql import prepareQuery
 
-from .errormessagebox import ErrorMessageBox
+from .info.errormessagebox import ErrorMessageBox
 from ..util.ui.uiutils import UIUtils
-from .aboutdialog import AboutDialog
-from .preferencesdialog import PreferencesDialog
-from ..tasks.classtreequerytask import ClassTreeQueryTask
-from ..tasks.geocollectionsquerytask import GeoCollectionsQueryTask
-from ..tasks.geoconceptsquerytask import GeoConceptsQueryTask
-from ..tasks.querylayertask import QueryLayerTask
+from .info.aboutdialog import AboutDialog
+from .conf.preferencesdialog import PreferencesDialog
+from ..tasks.query.discovery.classtreequerytask import ClassTreeQueryTask
+from ..tasks.query.discovery.geocollectionsquerytask import GeoCollectionsQueryTask
+from ..tasks.query.discovery.geoconceptsquerytask import GeoConceptsQueryTask
+from ..tasks.query.querylayertask import QueryLayerTask
 from .menu.conceptcontextmenu import ConceptContextMenu
 from .menu.tabcontextmenu import TabContextMenu
-from ..dialogs.convertcrsdialog import ConvertCRSDialog
-from ..dialogs.triplestoredialog import TripleStoreDialog
-from ..dialogs.graphvalidationdialog import GraphValidationDialog
-from ..dialogs.triplestorequickadddialog import TripleStoreQuickAddDialog
-from ..dialogs.searchdialog import SearchDialog
-from ..dialogs.valuemappingdialog import ValueMappingDialog
-from ..dialogs.convertlayerdialog import ConvertLayerDialog
-from ..dialogs.bboxdialog import BBOXDialog
+from .tool.convertcrsdialog import ConvertCRSDialog
+from .conf.triplestoredialog import TripleStoreDialog
+from .tool.graphvalidationdialog import GraphValidationDialog
+from .tool.triplestorequickadddialog import TripleStoreQuickAddDialog
+from .util.searchdialog import SearchDialog
+from .util.valuemappingdialog import ValueMappingDialog
+from .tool.convertlayerdialog import ConvertLayerDialog
+from .util.bboxdialog import BBOXDialog
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
 from ..util.ui.tooltipplaintext import ToolTipPlainText
@@ -427,11 +427,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.classTreeViewModel.appendRow(item)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
-                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
+                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "discovery", None,
                                     True, self.triplestoreconf[endpointIndex]["examplequery"])
             elif "geoconceptquery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
-                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
+                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "discovery", None,
                                     True, None)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "staticconcepts"] != []:
@@ -653,7 +653,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.errorLabel.setText(str(e))
 
     ##
-    #  @brief Builds the search dialog to search for a concept or class.
+    #  @brief Builds the search dialog to search for a concept or discovery.
     #  @param  self The object pointer
     #  @param  row the row to insert the result
     #  @param  column the column to insert the result

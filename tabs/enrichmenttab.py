@@ -5,13 +5,13 @@ from qgis.PyQt import QtCore
 
 from ..util.ui.uiutils import UIUtils
 from ..util.layerutils import LayerUtils
-from ..tasks.enrichmentquerytask import EnrichmentQueryTask
+from ..tasks.query.enrichment.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QProgressDialog
 from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
      QMessageBox, QStyle
 from qgis.PyQt.QtCore import Qt
 from qgis.core import QgsApplication
-from ..dialogs.whattoenrichdialog import EnrichmentDialog
+from ..dialogs.tool.whattoenrichdialog import EnrichmentDialog
 
 
 class EnrichmentTab:

@@ -98,7 +98,7 @@ class SPARQLHighlighter(QSyntaxHighlighter):
             # 'def' followed by an identifier
             (r'([?]\w+)', 1, STYLES['defclass']),
             (r'([<][h][t][t][p][:][/][/]\w+[>])', 0, STYLES['uri']),
-            # 'class' followed by an identifier
+            # 'discovery' followed by an identifier
             (r'(\w+[:]\w+)', 1, STYLES['uri']),
 
             # From '#' until a newline

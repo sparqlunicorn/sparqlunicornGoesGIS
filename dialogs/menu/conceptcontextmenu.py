@@ -1,20 +1,19 @@
 from qgis.PyQt.QtWidgets import QApplication, QMenu, QAction
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.core import (
-    QgsApplication, QgsMessageLog
+    QgsApplication
 )
 from qgis.PyQt.QtCore import QUrl
 
-from ..clusterviewdialog import ClusterViewDialog
+from ..dataview.clusterviewdialog import ClusterViewDialog
 from ...util.ui.uiutils import UIUtils
-from ...tasks.querylayertask import QueryLayerTask
-from ...tasks.findrelatedconceptquerytask import FindRelatedConceptQueryTask
-from ..instancedatadialog import InstanceDataDialog
-from ...tasks.subclassquerytask import SubClassQueryTask
-from ...tasks.instanceamountquerytask import InstanceAmountQueryTask
-from ...tasks.instancelistquerytask import InstanceListQueryTask
-from ..dataschemadialog import DataSchemaDialog
-from ..querylimitedinstancesdialog import QueryLimitedInstancesDialog
+from ...tasks.query.querylayertask import QueryLayerTask
+from ..dataview.instancedatadialog import InstanceDataDialog
+from ...tasks.query.discovery.subclassquerytask import SubClassQueryTask
+from ...tasks.query.instance.instanceamountquerytask import InstanceAmountQueryTask
+from ...tasks.query.instance.instancelistquerytask import InstanceListQueryTask
+from ..dataview.dataschemadialog import DataSchemaDialog
+from ..util.querylimitedinstancesdialog import QueryLimitedInstancesDialog
 from ...util.sparqlutils import SPARQLUtils
 
 MESSAGE_CATEGORY = 'ContextMenu'

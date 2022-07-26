@@ -24,13 +24,12 @@
 """
 
 from qgis.utils import iface
-from qgis.core import Qgis, QgsMessageLog
+from qgis.core import Qgis
 
-from qgis.PyQt.QtCore import QSettings, QCoreApplication, Qt, QItemSelectionModel, QTranslator
-from qgis.PyQt.QtGui import QIcon, QStandardItem
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QMessageBox, QProgressDialog
-from qgis.core import QgsProject, QgsApplication
-
+from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction, QFileDialog
+from qgis.core import QgsProject
 
 from .resources import *
 import os.path
@@ -38,15 +37,15 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 from .util.ui.uiutils import UIUtils
 from .util.layerutils import LayerUtils
-from .util.configutils import ConfigUtils
+from .util.conf.configutils import ConfigUtils
 
 import json
 
 from rdflib import *
 
 # Import the code for the dialog
-from .dialogs.uploadrdfdialog import UploadRDFDialog
-from .dialogs.loginwindowdialog import LoginWindowDialog
+from .dialogs.util.uploadrdfdialog import UploadRDFDialog
+from .dialogs.util.loginwindowdialog import LoginWindowDialog
 from .dialogs.sparql_unicorn_dialog import SPARQLunicornDialog
 
 geoconcepts = ""
@@ -88,7 +87,7 @@ class SPARQLunicorn:
     def __init__(self, iface):
         """Constructor.
 
-        :param iface: An interface instance that will be passed to this class
+        :param iface: An interface instance that will be passed to this discovery
             which provides the hook by which you can manipulate the QGIS
             application at run time.
         :type iface: QgsInterface
@@ -171,10 +170,8 @@ class SPARQLunicorn:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         # a = str('numpy' in sys.modules)
         # iface.messageBar().pushMessage("load libs", a, level=Qgis.Success)
-
-        icon_path = ':/icons/resources/icons/sparqlunicorn.png'
         self.add_action(
-            icon_path,
+            UIUtils.sparqlunicornicon,
             text=self.tr(u'Adds GeoJSON layer from a Wikidata'),
             callback=self.run,
             parent=self.iface.mainWindow())

@@ -145,10 +145,10 @@ class GraphUtils:
             configuration["geometryproperty"] = ["https://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item_geom <https://schema.org/polygon> ?geo . ")
             gottype = True
-        geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
+        geoconceptquery="SELECT DISTINCT ?discovery WHERE {\n"
         for pat in configuration["geotriplepattern"]:
-            geoconceptquery+="OPTIONAL { ?item %%typeproperty%% ?class . "+str(pat)+" }\n"
-        geoconceptquery+="} ORDER BY ?class"
+            geoconceptquery+="OPTIONAL { ?item %%typeproperty%% ?discovery . "+str(pat)+" }\n"
+        geoconceptquery+="} ORDER BY ?discovery"
         configuration["geoconceptquery"] = geoconceptquery
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
             self.configuration["querytemplate"].append(
@@ -250,9 +250,9 @@ class GraphUtils:
                 self.configuration["labelproperty"]="http://purl.org/dc/terms/title"
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
                 self.configuration["labelproperty"]="http://www.w3.org/2004/02/skos/core#prefLabel"
-            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?discovery ?label { ?discovery %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?discovery %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             self.configuration[
-                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+                "propertyfromlabelquery"] = "SELECT DISTINCT ?discovery ?label { ?discovery %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?discovery %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
                 results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <"+str(self.configuration["typeproperty"])+"> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")

@@ -2,11 +2,9 @@ from qgis.PyQt.QtWidgets import QPlainTextEdit, QToolTip, QMessageBox, QWidget, 
 from qgis.PyQt.QtGui import QTextCursor, QPainter, QColor, QTextFormat
 from PyQt5.QtCore import Qt, QRect, QSize, QStringListModel
 from PyQt5 import QtCore
-from qgis.core import QgsMessageLog
-from qgis.core import Qgis
 from qgis.core import QgsProject, QgsMapLayer
-from ...dialogs.varinputdialog import VarInputDialog
-from ...dialogs.searchdialog import SearchDialog
+from ...dialogs.util.varinputdialog import VarInputDialog
+from ...dialogs.util.searchdialog import SearchDialog
 from ..sparqlutils import SPARQLUtils
 import re
 
