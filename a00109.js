@@ -5,7 +5,7 @@ var a00109 =
     [ "detectLiteralTypeByURI", "a00109.html#afdcf0d66c9ed0c235ad7527a70077d49", null ],
     [ "executeQuery", "a00109.html#a390f1091745cd0ddbc900e80bcde5e3a", null ],
     [ "expandRelValToAmount", "a00109.html#a75ec67b8ee03aed176e014ccd7ecb3be", null ],
-    [ "getLabelsForClasses", "a00109.html#a3bf7f2872a868cfae995777e6caabc4b", null ],
+    [ "getLabelsForClasses", "a00109.html#a832f9162e42cca69709651dfb4d3fc64", null ],
     [ "handleGeoJSONFile", "a00109.html#ac923bb335a710856f41206d01b556a73", null ],
     [ "handleURILiteral", "a00109.html#a4779e31875fe90885b788bf945897c94", null ],
     [ "invertPrefixes", "a00109.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],

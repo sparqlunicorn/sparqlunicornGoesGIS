@@ -298,7 +298,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        self.exportIdCol = <span class="stringliteral">&quot;&quot;</span></div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        self.exportNameSpace = self.dlg.interlinkNameSpace.text()</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        self.exportSetClass = self.dlg.interlinkOwlClassInput.text()</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;discovery=\&quot;&quot;</span> + self.dlg.interlinkOwlClassInput.text() + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;class=\&quot;&quot;</span> + self.dlg.interlinkOwlClassInput.text() + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;namespace=\&quot;&quot;</span> + self.dlg.interlinkNameSpace.text() + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        propurilist = []</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        classurilist = []</div>
@@ -516,7 +516,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            root = tree.getroot()</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            filedata = root.find(<span class="stringliteral">&#39;file&#39;</span>)[0]</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            self.dlg.interlinkNameSpace.setText(filedata.get(<span class="stringliteral">&quot;namespace&quot;</span>))</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            self.dlg.interlinkOwlClassInput.setText(filedata.get(<span class="stringliteral">&quot;discovery&quot;</span>))</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            self.dlg.interlinkOwlClassInput.setText(filedata.get(<span class="stringliteral">&quot;class&quot;</span>))</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">for</span> neighbor <span class="keywordflow">in</span> root.iter(<span class="stringliteral">&#39;column&#39;</span>):</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                name = neighbor.get(<span class="stringliteral">&quot;name&quot;</span>)</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                proptype = neighbor.get(<span class="stringliteral">&quot;prop&quot;</span>)</div>

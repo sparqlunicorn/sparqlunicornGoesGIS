@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9cc2b975c909acd6ab64eae2ccc6ea0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the SPARQL query in the input field and outputs errors in a label.  <a href="a00065.html#a9cc2b975c909acd6ab64eae2ccc6ea0c">More...</a><br /></td></tr>
 <tr class="separator:a9cc2b975c909acd6ab64eae2ccc6ea0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2c34a4ef6a92497a04fcaa8d4ec7e73"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00065.html#aa2c34a4ef6a92497a04fcaa8d4ec7e73">buildSearchDialog</a> (self, row=-1, column=-1, interlinkOrEnrich=False, table=None, propOrClass=1, bothOptions=False, currentprefixes=None, <a class="el" href="a00065.html#a1c0f392d53979b034116808ade371029">addVocabConf</a>=None)</td></tr>
-<tr class="memdesc:aa2c34a4ef6a92497a04fcaa8d4ec7e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog to search for a concept or discovery.  <a href="a00065.html#aa2c34a4ef6a92497a04fcaa8d4ec7e73">More...</a><br /></td></tr>
+<tr class="memdesc:aa2c34a4ef6a92497a04fcaa8d4ec7e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the search dialog to search for a concept or class.  <a href="a00065.html#aa2c34a4ef6a92497a04fcaa8d4ec7e73">More...</a><br /></td></tr>
 <tr class="separator:aa2c34a4ef6a92497a04fcaa8d4ec7e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1659d7c9973dfca0d962d86f4195098b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00065.html#a1659d7c9973dfca0d962d86f4195098b">buildValueMappingDialog</a> (self, row, column, interlinkOrEnrich, table, layer)</td></tr>
 <tr class="memdesc:a1659d7c9973dfca0d962d86f4195098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a value mapping dialog window for ther interlinking dialog.  <a href="a00065.html#a1659d7c9973dfca0d962d86f4195098b">More...</a><br /></td></tr>
@@ -478,7 +478,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Builds the search dialog to search for a concept or discovery. </p>
+<p>Builds the search dialog to search for a concept or class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">self</td><td>The object pointer </td></tr>
@@ -1037,11 +1037,11 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            self.classTreeViewModel.appendRow(item)</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;examplequery&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex]:</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                self.getGeoConcepts(self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;                                    self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], <span class="stringliteral">&quot;discovery&quot;</span>, <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;                                    self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], <span class="stringliteral">&quot;class&quot;</span>, <span class="keywordtype">None</span>,</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;                                    <span class="keyword">True</span>, self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;examplequery&quot;</span>])</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;geoconceptquery&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex]:</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;                self.getGeoConcepts(self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;                                    self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], <span class="stringliteral">&quot;discovery&quot;</span>, <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;                                    self.triplestoreconf[endpointIndex][<span class="stringliteral">&quot;geoconceptquery&quot;</span>], <span class="stringliteral">&quot;class&quot;</span>, <span class="keywordtype">None</span>,</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                                    <span class="keyword">True</span>, <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;staticconcepts&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[endpointIndex] <span class="keywordflow">and</span> self.triplestoreconf[endpointIndex][</div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;            <span class="stringliteral">&quot;staticconcepts&quot;</span>] != []:</div>
