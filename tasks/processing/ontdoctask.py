@@ -1,52 +1,42 @@
-from util.sparqlutils import SPARQLUtils
-from util.graphutils import GraphUtils
-from util.ui.uiutils import UIUtils
+from ...util.doc.ontdocgeneration import OntDocGeneration
+from ...util.sparqlutils import SPARQLUtils
+from ...util.graphutils import GraphUtils
+from ...util.ui.uiutils import UIUtils
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsTask
 from rdflib import Graph
 
-MESSAGE_CATEGORY = 'OntDocumentationTask'
+MESSAGE_CATEGORY = 'OntDocTask'
 
-class OntDocumentationTask(QgsTask):
+class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace, progress):
+    def __init__(self, description, graphname, namespace,prefixes,outpath, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
+        self.prefixes=prefixes
         self.graphname=graphname
         self.namespace=namespace
+        self.outpath=outpath
 
     def run(self):
         if isinstance(self.filenames,str):
-            self.graph=SPARQLUtils.loadGraph(self.filenames)
+            self.graph=SPARQLUtils.loadGraph(self.graphname)
         else:
             self.graph=Graph()
-            for file in self.filenames:
+            for file in self.graphname:
                 SPARQLUtils.loadGraph(file,self.graph)
-        self.geoconcepts = []
-        if self.graph != None:
-            self.gutils.detectTripleStoreConfiguration(self.graphname, self.graph, self.detectnamespaces,
-                                                       {"normal": {}, "reversed": {}}, self.progress)
-            results = self.graph.query(self.query)
-            for row in results:
-                self.geoconcepts.append(str(row[0]))
-            return True
-        return False
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, self.namespace[self.namespace.rfind('/')+1:], self.outpath, self.graph)
+        ontdoc.generateOntDocForNameSpace(self.outpath,self.namespace)
+        return True
 
     def finished(self, result):
         if result == True:
-            self.maindlg.currentgraph = self.graph
-            self.dlg.comboBox.addItem(UIUtils.rdffileicon, str(self.graphname)+" [File]")
-            index = len(self.triplestoreconf)
-            self.triplestoreconf.append({})
-            self.triplestoreconf[index] = self.gutils.configuration
-            self.triplestoreconf[index]["resource"]={"type":"file","instance":self.graph,"url":self.filenames}
-            self.maindlg.loadedfromfile = True
-            self.maindlg.justloadingfromfile = False
-            if self.closedlg:
-                self.loadgraphdlg.close()
+            msgBox = QMessageBox()
+            msgBox.setText("Ontology documentation finished in folder "+str(self.outpath))
+            msgBox.exec()
         else:
             msgBox = QMessageBox()
-            msgBox.setText(self.exception)
+            msgBox.setText("Ontology documentation failed!")
             msgBox.exec()
         self.progress.close()
