@@ -163,7 +163,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             choosemodel=self.sparqlcompleter.model()
             choosemodel.clear()
             for rec in results:
-                if "discovery" in rec and rec["discovery"]=="boundary":
+                if "class" in rec and rec["class"]=="boundary":
                     QgsMessageLog.logMessage("Nominatim Response: " + str(rec["geojson"]), MESSAGE_CATEGORY, Qgis.Info)
                     curitem=QStandardItem(rec["display_name"])
                     curitem.setData(rec["geojson"],256)

@@ -36,8 +36,8 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
     #  @param prefixes A list of prefixes known to the plugin
     #  @param interlinkOrEnrich indicates whether this dialog was called from an enrichment or interlinking dialog
     #  @param table The GUI element ot return the result to
-    #  @param propOrClass indicates whether a discovery or a property can be searched
-    #  @param bothOptions indicates whether both a discovery or property may be searched
+    #  @param propOrClass indicates whether a class or a property can be searched
+    #  @param bothOptions indicates whether both a class or property may be searched
     #  @param currentprefixes Description for currentprefixes
     #  @param addVocab Description for addVocab
     #  @return Return description
@@ -192,7 +192,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
         #    QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
-    #  @brief Gives statistics about most commonly occuring properties from a certain discovery in a given triple store.
+    #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
     #  
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent

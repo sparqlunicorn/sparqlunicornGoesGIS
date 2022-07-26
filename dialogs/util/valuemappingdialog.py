@@ -112,9 +112,9 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
             self.searchResultMap = {}
             for res in results["results"]["bindings"]:
                 item = QListWidgetItem()
-                item.setData(0, str(res["discovery"]["value"]))
+                item.setData(0, str(res["class"]["value"]))
                 item.setText(str(res["label"]["value"]))
-                self.searchResultMap[res["label"]["value"]] = res["discovery"]["value"]
+                self.searchResultMap[res["label"]["value"]] = res["class"]["value"]
                 self.searchResult.addItem(item)
         else:
             myResponse = json.loads(requests.get(query).text)

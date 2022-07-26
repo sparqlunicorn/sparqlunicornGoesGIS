@@ -427,11 +427,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.classTreeViewModel.appendRow(item)
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
-                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "discovery", None,
+                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
                                     True, self.triplestoreconf[endpointIndex]["examplequery"])
             elif "geoconceptquery" in self.triplestoreconf[endpointIndex]:
                 self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
-                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "discovery", None,
+                                    self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
                                     True, None)
         elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
             "staticconcepts"] != []:
@@ -653,7 +653,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                     self.errorLabel.setText(str(e))
 
     ##
-    #  @brief Builds the search dialog to search for a concept or discovery.
+    #  @brief Builds the search dialog to search for a concept or class.
     #  @param  self The object pointer
     #  @param  row the row to insert the result
     #  @param  column the column to insert the result

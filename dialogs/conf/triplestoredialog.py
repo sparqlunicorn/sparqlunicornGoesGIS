@@ -100,7 +100,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         msgBox.setWindowTitle("SPARQL Query Templates Variables")
         msgBox.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))
         thetext="<html><h3>Template Variables for the usage in example queries</h3><table border=1 cellspacing=0><tr><th>Variable</th><th>Value</th></tr>"
-        thetext+="<tr><td>%%concept%%</td><td>The currently selected concept in the discovery tree</td></tr>"
+        thetext+="<tr><td>%%concept%%</td><td>The currently selected concept in the class tree</td></tr>"
         if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
             thetext+="<tr><td>%%typeproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</td></tr>"
         if "subclassproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:

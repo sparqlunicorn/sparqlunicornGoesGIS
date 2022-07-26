@@ -25,7 +25,7 @@ class OAuthConfiguration:
                  }))
         return None
 """
-discovery RequestInterceptor(QWebEngineUrlRequestInterceptor):
+class RequestInterceptor(QWebEngineUrlRequestInterceptor):
 
     oauthcode=None
 
@@ -42,7 +42,7 @@ discovery RequestInterceptor(QWebEngineUrlRequestInterceptor):
                 self.oauthcode=params['code']
 
 
-discovery GoogleRequestInterceptor(RequestInterceptor):
+class GoogleRequestInterceptor(RequestInterceptor):
 	
 	def __init__(self, app):
         super(RequestInterceptor, self).__init__()
@@ -60,7 +60,7 @@ discovery GoogleRequestInterceptor(RequestInterceptor):
 		res = r.json()
         user=UserMetaData()
  
-discovery ORCIDRequestInterceptor(RequestInterceptor):
+class ORCIDRequestInterceptor(RequestInterceptor):
 	
 	def __init__(self, app):
         super(RequestInterceptor, self).__init__()
@@ -75,7 +75,7 @@ discovery ORCIDRequestInterceptor(RequestInterceptor):
 				
     def getUserInformation(self):
 
-discovery GithubRequestInterceptor(RequestInterceptor):
+class GithubRequestInterceptor(RequestInterceptor):
 	
 	def __init__(self, app):
         super(RequestInterceptor, self).__init__()
@@ -91,7 +91,7 @@ discovery GithubRequestInterceptor(RequestInterceptor):
     def getUserInformation(self):
 
 
-discovery UserMetaData:
+class UserMetaData:
 
     username=None
 	 
@@ -109,7 +109,7 @@ discovery UserMetaData:
 	
     
 
-discovery GitlabRequestInterceptor(RequestInterceptor):
+class GitlabRequestInterceptor(RequestInterceptor):
 	
 	def __init__(self, app):
         super(RequestInterceptor, self).__init__()

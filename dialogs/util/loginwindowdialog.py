@@ -42,7 +42,7 @@ class LoginWindowDialog(QDialog, FORM_CLASS):
 
 
 """
-discovery LoginWindow(QWebEngineView):
+class LoginWindow(QWebEngineView):
     logged_in = QtCore.pyqtSignal(['QString'])
 
     def __init__(self, app,provider):

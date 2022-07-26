@@ -51,7 +51,7 @@ class GeoCollectionsQueryTask(QgsTask):
                 if self.labelvar in result:
                     viewlistentry["label"]=str(result[self.labelvar]["value"])
                 if self.classvar in result:
-                    viewlistentry["discovery"] = str(result[self.classvar]["value"])
+                    viewlistentry["class"] = str(result[self.classvar]["value"])
                 if "members" in result:
                     viewlistentry["members"] = str(result["members"]["value"])
         return True

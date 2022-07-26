@@ -179,7 +179,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.interlinkdialog.exec_()
 
     ## 
-    #  @brief Gives statistics about most commonly occuring properties from a certain discovery in a given triple store.
+    #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.
     #  
     #  @param [in] self The object pointer
     #  @return A list of properties with their occurance given in percent

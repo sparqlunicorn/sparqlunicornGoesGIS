@@ -35,7 +35,7 @@ class UIUtils:
 
     dataslot_geoinstanceamount = 261
 
-    classicon=QIcon(":/icons/resources/icons/discovery.png")
+    classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
@@ -385,7 +385,7 @@ class UIUtils:
             print("hasChildren")
 
     def mergeJSONTree(self,jsontree_one,jsontree_two):
-        print("Merge discovery trees")
+        print("Merge class trees")
         classindex1={}
 
 

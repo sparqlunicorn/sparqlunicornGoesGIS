@@ -39,13 +39,13 @@ class SearchTask(QgsTask):
                 self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                     "propertyfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
             else:
-                self.query="SELECT DISTINCT ?discovery ?label { ?ind ?discovery ?obj . ?discovery <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
+                self.query="SELECT DISTINCT ?class ?label { ?ind ?class ?obj . ?class <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
         else:
             if "classfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
                 self.query = self.triplestoreconf[self.tripleStoreEdit.currentIndex()][
                     "classfromlabelquery"].replace("%%label%%", self.label).replace("%%language%%", self.language)
             else:
-                self.query="SELECT DISTINCT ?discovery ?label { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?discovery . ?discovery <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
+                self.query="SELECT DISTINCT ?class ?label { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?class <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
         QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
         if self.query == "" or self.query==None:
             return
@@ -99,12 +99,12 @@ class SearchTask(QgsTask):
                     item.setIcon(UIUtils.classicon)
                 else:
                     item.setIcon(UIUtils.objectpropertyicon)
-                item.setToolTip(res["discovery"]["value"])
-                item.setData(256, str(res["discovery"]["value"]))
+                item.setToolTip(res["class"]["value"])
+                item.setData(256, str(res["class"]["value"]))
                 if "label" in res:
-                    item.setText(str(res["label"]["value"] + " (" + res["discovery"]["value"] + ")"))
+                    item.setText(str(res["label"]["value"] + " (" + res["class"]["value"] + ")"))
                 else:
-                    item.setText(str(res["discovery"]["value"]))
+                    item.setText(str(res["class"]["value"]))
                 self.searchResult.addItem(item)
         else:
             i = 0

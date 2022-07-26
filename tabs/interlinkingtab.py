@@ -117,7 +117,7 @@ class InterlinkingTab:
             root = tree.getroot()
             filedata = root.find('file')[0]
             self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
-            self.dlg.interlinkOwlClassInput.setText(filedata.get("discovery"))
+            self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))
             for neighbor in root.iter('column'):
                 name = neighbor.get("name")
                 proptype = neighbor.get("prop")
@@ -201,7 +201,7 @@ class InterlinkingTab:
         self.exportIdCol = ""
         self.exportNameSpace = self.dlg.interlinkNameSpace.text()
         self.exportSetClass = self.dlg.interlinkOwlClassInput.text()
-        xmlmappingheader += "discovery=\"" + self.dlg.interlinkOwlClassInput.text() + "\" "
+        xmlmappingheader += "class=\"" + self.dlg.interlinkOwlClassInput.text() + "\" "
         xmlmappingheader += "namespace=\"" + self.dlg.interlinkNameSpace.text() + "\" "
         propurilist = []
         classurilist = []

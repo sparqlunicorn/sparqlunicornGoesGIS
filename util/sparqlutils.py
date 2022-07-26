@@ -509,21 +509,21 @@ class SPARQLUtils:
     ## Executes a SPARQL endpoint specific query to find labels for given classes. The query may be configured in the configuration file.
     #  @param self The object pointer.
     #  @param classes array of classes to find labels for
-    #  @param query the discovery label query
+    #  @param query the class label query
     @staticmethod
-    def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="discovery"):
+    def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="class"):
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         result = classes
         if query==None:
-            if typeindicator=="discovery":
-                query="SELECT ?discovery ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?discovery <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?discovery <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n} "
+            if typeindicator=="class":
+                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n} "
         if "SELECT" in query and "resource" in triplestoreconf \
                 and "type" in triplestoreconf["resource"] \
                 and ((triplestoreconf["resource"]["type"]=="endpoint"
                 and "sparql11" in triplestoreconf["resource"]
                 and triplestoreconf["resource"]["sparql11"]==True)
                 or triplestoreconf["resource"]["type"]!="endpoint"):
-            vals = "VALUES ?discovery {\n "
+            vals = "VALUES ?class {\n "
             for qid in classes.keys():
                 vals += "<"+qid + "> \n"
             vals += "}\n"
@@ -534,10 +534,10 @@ class SPARQLUtils:
                 return result
             #QgsMessageLog.logMessage("Got " + str(len(results)) + " labels", MESSAGE_CATEGORY, Qgis.Info)
             for res in results["results"]["bindings"]:
-                if res["discovery"]["value"] in classes and "label" in res:
-                    classes[res["discovery"]["value"]]["label"]=res["label"]["value"]
+                if res["class"]["value"] in classes and "label" in res:
+                    classes[res["class"]["value"]]["label"]=res["label"]["value"]
                 else:
-                    classes[res["discovery"]["value"]]["label"] = ""
+                    classes[res["class"]["value"]]["label"] = ""
         elif query.startswith("http"):
             url = query
             i = 0
