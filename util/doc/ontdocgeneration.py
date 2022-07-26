@@ -3,10 +3,14 @@ from rdflib import Graph
 from rdflib import URIRef
 import os
 import json
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 import sys
 
+from ..layerutils import LayerUtils
+from ..sparqlutils import SPARQLUtils
+
 startscripts = """
-  var baseurl="http://purl.org/cuneiform/dict/"
+  var baseurl="{{baseurl}}"
   $( function() {
     var availableTags = Object.keys(search)
     $( "#search" ).autocomplete({
@@ -208,6 +212,8 @@ htmltemplate = """
   GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
   Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
 </div><html><head><title>{{toptitle}}</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -217,28 +223,92 @@ htmltemplate = """
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.9/jstree.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
 <script src="{{startscriptpath}}"></script>
 </head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b></div>
-</div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button></div></div><div class="container-fluid"><div class="row-fluid" id="main-wrapper"><table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table><div id="footer"><div class="container-fluid"></div></div></body></html>"""
+</div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button></div></div><div class="container-fluid"><div class="row-fluid" id="main-wrapper">
+"""
 
+maptemplate="""
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+<script>
+/*** Leaflet.geojsonCSS
+ * @author Alexander Burtsev, http://burtsev.me, 2014
+ * @license MIT*/
+!function(a){a.L&&L.GeoJSON&&(L.GeoJSON.CSS=L.GeoJSON.extend({initialize:function(a,b){var c=L.extend({},b,{onEachFeature:function(a,c){b&&b.onEachFeature&&b.onEachFeature(a,c);var d=a.style,e=a.popupTemplate;d&&(c instanceof L.Marker?d.icon&&c.setIcon(L.icon(d.icon)):c.setStyle(d)),e&&a.properties&&c.bindPopup(L.Util.template(e,a.properties))}});L.setOptions(this,c),this._layers={},a&&this.addData(a)}}),L.geoJson.css=function(a,b){return new L.GeoJSON.CSS(a,b)})}(window,document);
+</script>
+<div id="map" style="height:500px;z-index: 0;"></div>
+<script>
+var overlayMaps={}
+var map = L.map('map',{fullscreenControl: true,fullscreenControlOptions: {position: 'topleft'}}).setView([51.505, -0.09], 13);
+	var layer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	});
+	var baseMaps = {
+        "OSM": layer
+	};
+baseMaps["OSM"].addTo(map);
+	L.control.scale({
+	position: 'bottomright',
+	imperial: false
+	}).addTo(map);
+	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
+	var bounds = L.latLngBounds([]);
+	props={}
+	var feature = { "type": "Feature", 'properties': props, "geometry": {{geometry}} };
+	layerr=L.geoJSON.css(feature,{
+	pointToLayer: function(feature, latlng){
+                  var greenIcon = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+                return L.marker(latlng, {icon: greenIcon});
+    },onEachFeature: function (feature, layer) {
+    var popup="<b><a href=\\"+feature.id+\\" class=\\"footeruri\\" target=\\"_blank\\">\\"+feature.id+\\"</a></b><br/><ul>"
+    for(prop in feature.properties){
+        popup+="<li>"+prop+" : "+feature.properties[prop]+"</li>"
+    }
+    popup+="</ul>"
+    layer.bindPopup(popup)}})
+	layerr.addTo(map)
+    var layerBounds = layerr.getBounds();
+    bounds.extend(layerBounds);
+    map.fitBounds(bounds);
+</script>
+"""
+
+htmltabletemplate="""
+<table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table>"""
+
+htmlfooter="""<div id="footer"><div class="container-fluid"></div></div></body></html>"""
 
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,outpath,graph):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
-        self.namespaceshort = prefixnsshort
+        self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.graph=graph
-        if prefixnamespace==None or prefixnsshort==None:
+        if prefixnamespace==None or prefixnsshort==None or prefixnamespace=="" or prefixnsshort=="":
             self.namespaceshort = "suni"
             self.prefixnamespace = "http://purl.org/suni/"
         if outpath==None:
             self.outpath = "suni_htmls/"
-        prefixes["reversed"]["http://purl.org/suni/"] = "suni"
+        else:
+            self.outpath = self.outpath.replace("\\", "/")
+            if not outpath.endswith("/"):
+                self.outpath += "/"
+        #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
-    def generateOntDocForNameSpace(self, outpath, prefixnamespace,dataformat):
+    def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         uritolabel={}
+        outpath=self.outpath
         corpusid=self.namespaceshort
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
@@ -261,7 +331,7 @@ class OntDocGeneration:
             f.write(stylesheet)
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
-            f.write(startscripts)
+            f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
             f.close()
         pathmap = {}
         paths = {}
@@ -269,28 +339,29 @@ class OntDocGeneration:
         subtorencounter = 0
         for subj in subjectstorender:
             path = subj.replace(prefixnamespace, "")
-            try:
-                if "/" in path:
-                    addpath = ""
-                    for pathelem in path.split("/"):
-                        addpath += pathelem + "/"
-                        if not os.path.isdir(outpath + addpath):
-                            os.mkdir(outpath + addpath)
-                    if outpath + path[0:path.rfind('/')] + "/" not in paths:
-                        paths[outpath + path[0:path.rfind('/')] + "/"] = []
-                    paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
-                else:
-                    if not os.path.isdir(outpath + path):
-                        os.mkdir(outpath + path)
-                    if outpath not in paths:
-                        paths[outpath] = []
-                    paths[outpath].append(path + "/index.html")
-                self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
-                           self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js")
-                subtorencounter += 1
-                print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
-            except:
-                print("error")
+            #try:
+            if "/" in path:
+                addpath = ""
+                for pathelem in path.split("/"):
+                    addpath += pathelem + "/"
+                    if not os.path.isdir(outpath + addpath):
+                        os.mkdir(outpath + addpath)
+                if outpath + path[0:path.rfind('/')] + "/" not in paths:
+                    paths[outpath + path[0:path.rfind('/')] + "/"] = []
+                paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
+            else:
+                if not os.path.isdir(outpath + path):
+                    os.mkdir(outpath + path)
+                if outpath not in paths:
+                    paths[outpath] = []
+                paths[outpath].append(path + "/index.html")
+            self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js")
+            subtorencounter += 1
+            print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
+            #except Exception as e:
+            #    print(e)
+            #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         # print(paths)
         for path in paths:
             indexhtml = "<html><head></head><body><h1>" + str(path) + "</h1><ul style=\"height: 100%; overflow: auto\">"
@@ -360,7 +431,7 @@ class OntDocGeneration:
                                "type": "class",
                                "text": cls[cls.rfind('/') + 1:]})
             else:
-                if cls["label"] != None:
+                if "label" in cls and cls["label"] != None:
                     result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
                                    "text": ress[cls]["label"] + " (" + cls[cls.rfind('/') + 1:] + ")"})
@@ -383,12 +454,18 @@ class OntDocGeneration:
     def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename):
         tablecontents = ""
         isodd = False
+        geojsonrep=None
         savepath = savepath.replace("\\", "/")
+        QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
+        QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
         if savepath.endswith("/"):
-            checkdepth = savepath.replace(baseurl, "").count("/") - 1
+            savepath+="/"
+        if savepath.endswith("/"):
+            checkdepth = subject.replace(baseurl, "").count("/")
         else:
-            checkdepth = savepath.replace(baseurl, "").count("/")
-        checkdepth -= 1
+            checkdepth = subject.replace(baseurl, "").count("/")
+        QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
+        checkdepth+=1
         print("Checkdepth: " + str(checkdepth))
         foundlabel = ""
         for tup in predobjs:
@@ -415,7 +492,7 @@ class OntDocGeneration:
             if str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#label":
                 foundlabel = tup[1]
             if len(tup) > 0:
-                if "http" in tup[1]:
+                if tup[1].startswith("http"):
                     label = str(tup[1][tup[1].rfind('/') + 1:])
                     for obj in graph.objects(tup[1], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                         label = str(obj)
@@ -441,6 +518,8 @@ class OntDocGeneration:
                             tup[1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                             tup[1].datatype) + "\">" + str(
                             tup[1].datatype[tup[1].datatype.rfind('/') + 1:]) + "</a>)</small></td>"
+                        if str(tup[0]) in SPARQLUtils.geoproperties:
+                            geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
                     else:
                         tablecontents += "<td class=\"wrapword\">" + str(tup[
                                                                              1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></td>"
@@ -471,7 +550,7 @@ class OntDocGeneration:
                     tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
                         tup[1]) + "\">" + str(tup[1][tup[1].rfind('/') + 1:]) + "</a></span> of</td>"
             if len(tup) > 0:
-                if "http" in tup[0]:
+                if tup[0].startswith("http"):
                     label = str(tup[0][tup[0].rfind('/') + 1:])
                     for obj in graph.objects(tup[0], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                         label = str(obj)
@@ -525,6 +604,7 @@ class OntDocGeneration:
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2))
+
             else:
                 f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", str(subject[
                                                                                                             subject.rfind(
@@ -532,10 +612,15 @@ class OntDocGeneration:
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
-                                                                                                    subject[subject.rfind(
+                                                                                                    subject[
+                                                                                                    subject.rfind(
                                                                                                         "/") + 1:]) + "</a>").replace(
-                    "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}",
+                    "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2))
+            if geojsonrep!=None:
+                f.write(maptemplate.replace("{{geometry}}",json.dumps(geojsonrep)))
+            f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
+            f.write(htmlfooter)
             f.close()
 

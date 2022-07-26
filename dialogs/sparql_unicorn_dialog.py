@@ -154,7 +154,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
         self.actionPreferences.setVisible(False)
-        self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self).exec())
+        self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self.triplestoreconf,self.prefixstore).exec())
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)

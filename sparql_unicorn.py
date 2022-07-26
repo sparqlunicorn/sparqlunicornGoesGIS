@@ -196,12 +196,7 @@ class SPARQLunicorn:
     #  @param self The object pointer.
     def exportLayer(self, urilist=None, classurilist=None, includelist=None, proptypelist=None, valuemappings=None,
                     valuequeries=None, exportToTripleStore=False):
-        layers = QgsProject.instance().layerTreeRoot().children()
-        if self.enrichedExport:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        else:
-            selectedLayerIndex = self.dlg.chooseLayerInterlink.currentIndex()
-        layer = layers[selectedLayerIndex].layer()
+        layer = self.dlg.chooseLayerInterlink.currentLayer()
         if exportToTripleStore:
             ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
                                                     urilist, classurilist, includelist, proptypelist, valuemappings,

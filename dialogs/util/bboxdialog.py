@@ -33,7 +33,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.polygon = True
         self.templayer=templayer
         QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
-        self.tabWidget.removeTab(3)
+        #self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")

@@ -2,6 +2,7 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageBox
 from qgis.core import QgsApplication
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from ...tasks.processing.ontdoctask import OntDocTask
 
@@ -22,10 +23,12 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
-    def __init__(self, triplestoreconf={}, maindlg=None, parent=None,title="Ontology Documentation"):
+    def __init__(self, triplestoreconf={}, prefixes=None, parent=None,title="Ontology Documentation"):
         """Constructor."""
-        super(OntDocDialog, self).__init__(parent)
+        super(OntDocDialog, self).__init__()
         self.setupUi(self)
+        self.triplestoreconf=triplestoreconf
+        self.prefixes=prefixes
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
 
 
@@ -36,8 +39,14 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
-
+        graphname=self.inputRDFFileWidget.filePath()
+        QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
+        if graphname==None or graphname=="":
+                graphname="test"
+        namespace=self.namespaceCBox.currentText()
+        if namespace==None or namespace=="":
+                namespace="http://lod.squirrel.link/data/"
         self.qtask = OntDocTask("Creating ontology documentation... ",
-                                         "", self.chosenValidatorFile.currentText(),
-                                         self.triplestoreconf, progress, self)
+                                         graphname, namespace,self.prefixes,
+                                        self.outFolderWidget.filePath(), progress)
         QgsApplication.taskManager().addTask(self.qtask)
