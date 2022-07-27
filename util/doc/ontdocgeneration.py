@@ -56,6 +56,66 @@ function followLink(thelink=null){
     location.href=rest
 }
 
+function changeDefLink(){
+	$('#formatlink').attr('href',definitionlinks[$('#format').val()]);
+}
+
+function changeDefLink2(){
+	$('#formatlink2').attr('href',definitionlinks[$('#format2').val()]);
+}
+
+var definitionlinks={
+"covjson":"https://covjson.org",
+"csv":"https://tools.ietf.org/html/rfc4180",
+"cipher":"https://neo4j.com/docs/cypher-manual/current/",
+"esrijson":"https://doc.arcgis.com/de/iot/ingest/esrijson.htm",
+"geohash":"http://geohash.org",
+"json":"https://geojson.org",
+"gdf":"https://www.cs.nmsu.edu/~joemsong/software/ChiNet/GDF.pdf",
+"geojsonld":"http://geojson.org/geojson-ld/",
+"geojsonseq":"https://tools.ietf.org/html/rfc8142",
+"geouri":"https://tools.ietf.org/html/rfc5870",
+"gexf":"https://gephi.org/gexf/format/",
+"gml":"https://www.ogc.org/standards/gml",
+"gml2":"https://gephi.org/users/supported-graph-formats/gml-format/",
+"gpx":"https://www.topografix.com/gpx.asp",
+"graphml":"http://graphml.graphdrawing.org",
+"gxl":"http://www.gupro.de/GXL/Introduction/intro.html",
+"hdt":"https://www.w3.org/Submission/2011/03/",
+"hextuples":"https://github.com/ontola/hextuples",
+"html":"https://html.spec.whatwg.org",
+"jsonld":"https://json-ld.org",
+"jsonn":"",
+"jsonp":"http://jsonp.eu",
+"jsonseq":"https://tools.ietf.org/html/rfc7464",
+"kml":"https://www.ogc.org/standards/kml",
+"latlon":"",
+"mapml":"https://maps4html.org/MapML/spec/",
+"mvt":"https://docs.mapbox.com/vector-tiles/reference/",
+"n3":"https://www.w3.org/TeamSubmission/n3/",
+"nq":"https://www.w3.org/TR/n-quads/",
+"nt":"https://www.w3.org/TR/n-triples/",
+"olc":"https://github.com/google/open-location-code/blob/master/docs/specification.md",
+"osm":"https://wiki.openstreetmap.org/wiki/OSM_XML",
+"osmlink":"",
+"rdfxml":"https://www.w3.org/TR/rdf-syntax-grammar/",
+"rdfjson":"https://www.w3.org/TR/rdf-json/",
+"rt":"https://afs.github.io/rdf-thrift/rdf-binary-thrift.html",
+"svg":"https://www.w3.org/TR/SVG11/",
+"tgf":"https://docs.yworks.com/yfiles/doc/developers-guide/tgf.html",
+"tlp":"https://tulip.labri.fr/TulipDrupal/?q=tlp-file-format",
+"trig":"https://www.w3.org/TR/trig/",
+"trix":"https://www.hpl.hp.com/techreports/2004/HPL-2004-56.html",
+"ttl":"https://www.w3.org/TR/turtle/",
+"wkb":"https://www.iso.org/standard/40114.html",
+"wkt":"https://www.iso.org/standard/40114.html",
+"xls":"http://www.openoffice.org/sc/excelfileformat.pdf",
+"xlsx":"http://www.openoffice.org/sc/excelfileformat.pdf",
+"xyz":"https://gdal.org/drivers/raster/xyz.html",
+"yaml":"https://yaml.org"
+}
+
+
 function setupJSTree(){
     console.log("setupJSTree")
     tree["contextmenu"]={}
@@ -80,16 +140,14 @@ function setupJSTree(){
     $('#jstree').bind("dblclick.jstree", function (event) {
         var node = $(event.target).closest("li");
         var data = node[0].id
-        console.log(data)
-        console.log(node)
-        if(data.includes("http://purl.org/cuneiform/dict/")){
+        if(data.includes(baseurl)){
             followLink(data)
+        }else{
+            window.open(data, '_blank');
         }
-        window.open(data, '_blank');
     });
     var to = false;
 	$('#classsearch').keyup(function () {
-		console.log("KEY UP")
         if(to) { clearTimeout(to); }
         to = setTimeout(function () {
             var v = $('#classsearch').val();
@@ -223,10 +281,101 @@ htmltemplate = """
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.9/jstree.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<script src="{{startscriptpath}}"></script></head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b></div>
+</div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
+{{exports}}
+</select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
+<button id="downloadButton" onclick="download()">Download</button><br/>
+</div></div><div class="container-fluid"><div class="row-fluid" id="main-wrapper">
+"""
 
-<script src="{{startscriptpath}}"></script>
-</head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b></div>
-</div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button></div></div><div class="container-fluid"><div class="row-fluid" id="main-wrapper">
+imagestemplate="""
+<div class="image">
+<img src="{{image}}" style="max-width:500px;max-height:500px" alt="Depiction of $resource.label" title="Depiction of {{title}}" />
+</div>
+"""
+
+nongeoexports="""
+<option value="csv">Comma Separated Values (CSV)</option>
+<option value="cipher">Cypher Neo4J (Cypher)</option>
+<option value="exijson">EXI4JSON</option>
+<option value="gdf">Graph Definition File (GDF)</option>
+<option value="geojson">(Geo)JSON</option>
+<option value="gexf">Graph Exchange XML Format (GEXF)</option>
+<option value="gml2">Graph Modeling Language (GML)</option>
+<option value="graphml">Graph Markup Language (GraphML)</option>
+<option value="gxl">Graph Exchange Language (GXL)</option>
+<option value="json">JSON-LD</option>
+<option value="jsonp">JSONP</option>
+<option value="hextuples">HexTuples RDF</option>
+<option value="n3">Notation3 (N3)</option>
+<option value="nq">NQuads (NQ)</option>
+<option value="nt">NTriples (NT)</option>
+<option value="rdfexi">RDF/EXI (EXI)</option>
+<option value="rdfjson">RDF/JSON</option>
+<option value="rt">RDF/Thrift (RT)</option>
+<option value="xml">RDF/XML</option>
+<option value="tgf">Trivial Graph Format (TGF)</option>
+<option value="tlp">Tulip File Format (TLP)</option>
+<option value="ttl">Turtle (TTL)</option>
+<option value="trig">RDF TriG</option>
+<option value="trix">Triples in XML (TriX)</option>
+<option value="xls">MS Excel (XLS)</option>
+<option value="xlsx">Excel Spreadsheet (XLSX)</option>
+<option value="yaml">YAML Ain't Markup Language (YAML)</option>
+"""
+
+geoexports="""
+<option value="covjson">CoverageJSON (COVJSON)</option>
+<option value="csv">Comma Separated Values (CSV)</option>
+<option value="cipher">Cypher Neo4J (Cypher)</option>
+<option value="esrijson">ESRIJSON</option>
+<option value="exijson">EXI4JSON</option>
+<option value="gdf">Graph Definition File (GDF)</option>
+<option value="geohash">GeoHash</option>
+<option value="geojson">(Geo)JSON</option>
+<option value="geojsonld">GeoJSON-LD</option>
+<option value="geouri">GeoURI</option> 
+<option value="gexf">Graph Exchange XML Format (GEXF)</option>
+<option value="gml">Geography Markup Language (GML)</option>
+<option value="gml2">Graph Modeling Language (GML)</option>
+<option value="googlemapslink">Google Maps Link</option>
+<option value="gpx">GPS Exchange Format (GPX)</option>
+<option value="graphml">Graph Markup Language (GraphML)</option>
+<option value="grass">GRASS Vector ASCII Format (GRASS)</option>
+<option value="gxl">Graph Exchange Language (GXL)</option>
+<option value="json">JSON-LD</option>
+<option value="jsonp">JSONP</option>
+<option value="hextuples">HexTuples RDF</option>
+<option value="kml">Keyhole Markup Language (KML)</option>
+<option value="latlontext">LatLonText</option>
+<option value="mapml">Map Markup Language (MapML)</option>
+<option value="n3">Notation3 (N3)</option>
+<option value="nq">NQuads (NQ)</option>
+<option value="nt">NTriples (NT)</option>
+<option value="olc">Open Location Code (OLC)</option>
+<option value="osmlink">OSM Link</option>
+<option value="osm">OSM/XML (OSM)</option>
+<option value="rdfexi">RDF/EXI (EXI)</option>
+<option value="rdfjson">RDF/JSON</option>
+<option value="rt">RDF/Thrift (RT)</option>
+<option value="xml">RDF/XML</option>
+<option value="svg">Scalable Vector Graphics (SVG)</option>
+<option value="tgf">Trivial Graph Format (TGF)</option>
+<option value="tlp">Tulip File Format (TLP)</option>
+<option value="topojson">TopoJSON</option>
+<option value="ttl">Turtle (TTL)</option>
+<option value="trig">RDF TriG</option>
+<option value="trix">Triples in XML (TriX)</option>
+<option value="twkb">Tiny Well-Known-Binary (TWKB)</option>
+<option value="wkb">Well-Known-Binary (WKB)</option>
+<option value="wkt">Well-Known-Text (WKT)</option>
+<option value="ewkt">Extended Well-Known-Text (EWKT)</option>
+<option value="x3d">X3D Format (X3D)</option>
+<option value="xls">MS Excel (XLS)</option>
+<option value="xlsx">Excel Spreadsheet (XLSX)</option>
+<option value="xyz">XYZ ASCII Format (XYZ)</option>
+<option value="yaml">YAML Ain't Markup Language (YAML)</option>
 """
 
 maptemplate="""
@@ -256,7 +405,7 @@ baseMaps["OSM"].addTo(map);
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
-	var feature = { "type": "Feature", 'properties': props, "geometry": {{geometry}} };
+	var feature = { "type": "Feature", 'properties': {{props}}, "geometry": {{geometry}} };
 	layerr=L.geoJSON.css(feature,{
 	pointToLayer: function(feature, latlng){
                   var greenIcon = new L.Icon({
@@ -269,9 +418,21 @@ baseMaps["OSM"].addTo(map);
                 });
                 return L.marker(latlng, {icon: greenIcon});
     },onEachFeature: function (feature, layer) {
-    var popup="<b><a href=\\"+feature.id+\\" class=\\"footeruri\\" target=\\"_blank\\">\\"+feature.id+\\"</a></b><br/><ul>"
+    var popup="<b><a href=\\"{{featureid}}\\" class=\\"footeruri\\" target=\\"_blank\\">{{featureidabb}}</a></b><br/><ul>"
     for(prop in feature.properties){
-        popup+="<li>"+prop+" : "+feature.properties[prop]+"</li>"
+        popup+="<li>"
+        if(prop.startsWith("http")){
+            popup+="<a href=\\"+prop+\\" target=\\"_blank\\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=prop
+        }
+        popup+=" : "
+        if(feature.properties[prop].startsWith("http")){
+            popup+="<a href=\\"+feature.properties[prop]+\\" target=\\"_blank\\">"+feature.properties[prop].substring(feature.properties[prop].lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=feature.properties[prop]
+        }
+        popup+="</li>"
     }
     popup+="</ul>"
     layer.bindPopup(popup)}})
@@ -285,7 +446,10 @@ baseMaps["OSM"].addTo(map);
 htmltabletemplate="""
 <table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table>"""
 
-htmlfooter="""<div id="footer"><div class="container-fluid"></div></div></body></html>"""
+htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
+{{exports}}
+</select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
+<button id="downloadButton" onclick="download()">Download</button><br/></div></div></body></html>"""
 
 class OntDocGeneration:
 
@@ -455,6 +619,7 @@ class OntDocGeneration:
         tablecontents = ""
         isodd = False
         geojsonrep=None
+        foundimages=[]
         savepath = savepath.replace("\\", "/")
         QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
         QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
@@ -468,7 +633,9 @@ class OntDocGeneration:
         checkdepth+=1
         print("Checkdepth: " + str(checkdepth))
         foundlabel = ""
+        predobjmap={}
         for tup in predobjs:
+            predobjmap[str(tup[0])]=str(tup[1])
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
             else:
@@ -492,6 +659,8 @@ class OntDocGeneration:
             if str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#label":
                 foundlabel = tup[1]
             if len(tup) > 0:
+                if list(filter(str(tup[1]).endswith, SPARQLUtils.imageextensions)) != []:
+                    foundimages.append(str(tup[1]))
                 if tup[1].startswith("http"):
                     label = str(tup[1][tup[1].rfind('/') + 1:])
                     for obj in graph.objects(tup[1], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
@@ -595,6 +764,10 @@ class OntDocGeneration:
             rellink4 = "startscripts.js"
             for i in range(0, checkdepth):
                 rellink4 = "../" + rellink4
+            if geojsonrep != None:
+                myexports=geoexports
+            else:
+                myexports=nongeoexports
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
@@ -603,8 +776,7 @@ class OntDocGeneration:
                                                                                                     foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}",
                                                                                                "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2))
-
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports))
             else:
                 f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", str(subject[
                                                                                                             subject.rfind(
@@ -617,10 +789,15 @@ class OntDocGeneration:
                                                                                                         "/") + 1:]) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports))
+            for image in foundimages:
+                f.write(imagestemplate.replace("{{image}}",image))
             if geojsonrep!=None:
-                f.write(maptemplate.replace("{{geometry}}",json.dumps(geojsonrep)))
+                f.write(maptemplate.replace("{{geometry}}",json.dumps(geojsonrep))
+                        .replace("{{featureid}}",str(subject))
+                        .replace("{{featureidabb}}",str(subject)[str(subject).rfind("/")+1:])
+                        .replace("{{props}}",json.dumps(predobjmap,sort_keys=True)))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
-            f.write(htmlfooter)
+            f.write(htmlfooter.replace("{{exports}}",myexports))
             f.close()
 

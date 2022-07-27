@@ -149,6 +149,8 @@ class SPARQLUtils:
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
+    imageextensions=[".jpg",".png",".gif",".tif"]
+
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"
     }
