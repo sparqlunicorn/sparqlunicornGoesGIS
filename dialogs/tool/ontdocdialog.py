@@ -35,15 +35,16 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def extractNamespaces(self,filename):
         try:
+            QgsMessageLog.logMessage("Parsing file for namespace", "OntdocDialog", Qgis.Info)
             g = Graph()
-            g.parse(filename)
+            g.parse(filename,format="ttl")
             namespaces=set()
             for sub in g.subjects():
                 namespaces.add(sub[0:sub.rfind("/")+1])
             self.namespaceCBox.clear()
             self.namespaceCBox.addItems(namespaces)
-        except:
-            print("error")
+        except Exception as e:
+            QgsMessageLog.logMessage("Exception occurred: "+str(e), "OntdocDialog", Qgis.Info)
 
     def createDocumentation(self):
         progress = QProgressDialog("Creating ontology documentation... ", "Abort",

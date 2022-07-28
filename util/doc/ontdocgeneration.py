@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from rdflib import Graph
 from rdflib import URIRef
+from rdflib.plugins.sparql import prepareQuery
 import os
 import json
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -451,6 +452,31 @@ htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:
 </select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
 <button id="downloadButton" onclick="download()">Download</button><br/></div></div></body></html>"""
 
+classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
+        SELECT DISTINCT ?subject ?label ?supertype\n
+        WHERE {\n
+           { ?individual rdf:type ?subject . } UNION { ?subject rdf:type owl:Class . } .\n
+           OPTIONAL { ?subject rdfs:subClassOf ?supertype } .\n
+           OPTIONAL { ?subject rdfs:label ?label. filter(langMatches(lang(?label),\"en\")) }
+           OPTIONAL { ?subject rdfs:label ?label }.\n
+            FILTER (\n
+                (\n
+                ?subject != owl:Class &&\n
+                ?subject != rdf:List &&\n
+                ?subject != rdf:Property &&\n
+                ?subject != rdfs:Class &&\n
+                ?subject != rdfs:Datatype &&\n
+                ?subject != rdfs:ContainerMembershipProperty &&\n
+                ?subject != owl:DatatypeProperty &&\n
+                ?subject != owl:AnnotationProperty &&\n
+                ?subject != owl:Restriction &&\n
+                ?subject != owl:ObjectProperty &&\n
+                ?subject != owl:NamedIndividual &&\n
+                ?subject != owl:Ontology) )\n
+        }"""
+
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,outpath,graph):
@@ -459,6 +485,7 @@ class OntDocGeneration:
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.graph=graph
+        self.preparedclassquery=prepareQuery(classtreequery)
         if prefixnamespace==None or prefixnsshort==None or prefixnamespace=="" or prefixnsshort=="":
             self.namespaceshort = "suni"
             self.prefixnamespace = "http://purl.org/suni/"
@@ -485,11 +512,31 @@ class OntDocGeneration:
                 for obj in self.graph.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                     labeltouri[str(obj)] = str(sub)
                     uritolabel[str(sub)] = str(obj)
+        if os.path.exists(outpath + corpusid + '_search.js'):
+            try:
+                with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
+                    data = json.loads(f.read().replace("var search=",""))
+                    for key in data:
+                        labeltouri[key]=data[key]
+            except:
+                print("error")
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
+        prevtree=[]
+        if os.path.exists(outpath + corpusid + '_classtree.js'):
+            try:
+                with open(outpath + corpusid + '_classtree.js', 'r', encoding='utf-8') as f:
+                    prevtree = json.loads(f.read().replace("var tree=",""))
+                    for key in data:
+                        labeltouri[key]=data[key]
+            except:
+                print("error")
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            f.write(self.getClassTree(self.graph, uritolabel))
+            tree=self.getClassTree(self.graph, uritolabel)
+            for tr in prevtree:
+                tree["core"]["data"].append(tr)
+            f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(stylesheet)
@@ -540,31 +587,7 @@ class OntDocGeneration:
 
 
     def getClassTree(self,graph, uritolabel):
-        classquery = """PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
-        SELECT DISTINCT ?subject ?label ?supertype\n
-        WHERE {\n
-           { ?individual rdf:type ?subject . } UNION { ?subject rdf:type owl:Class . } .\n
-           OPTIONAL { ?subject rdfs:subClassOf ?supertype } .\n
-           OPTIONAL { ?subject rdfs:label ?label. filter(langMatches(lang(?label),\"en\")) }
-           OPTIONAL { ?subject rdfs:label ?label }.\n
-            FILTER (\n
-                (\n
-                ?subject != owl:Class &&\n
-                ?subject != rdf:List &&\n
-                ?subject != rdf:Property &&\n
-                ?subject != rdfs:Class &&\n
-                ?subject != rdfs:Datatype &&\n
-                ?subject != rdfs:ContainerMembershipProperty &&\n
-                ?subject != owl:DatatypeProperty &&\n
-                ?subject != owl:AnnotationProperty &&\n
-                ?subject != owl:Restriction &&\n
-                ?subject != owl:ObjectProperty &&\n
-                ?subject != owl:NamedIndividual &&\n
-                ?subject != owl:Ontology) )\n
-        }"""
-        results = graph.query(classquery)
+        results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
             "geoclass": {"icon": "static/icons/geoclass.png"},
@@ -604,7 +627,7 @@ class OntDocGeneration:
                                    "type": "class",
                                    "text": cls[cls.rfind('/') + 1:]})
         tree["core"]["data"] = result
-        return "var tree=" + json.dumps(tree, indent=2)
+        return tree
 
 
     def replaceNameSpacesInLabel(self,uri):
