@@ -26,6 +26,7 @@ var a00109 =
     [ "exception", "a00109.html#a2387fb71295a4c6a4b0feeaa424809f5", null ],
     [ "geoclassnode", "a00109.html#abe5ec0a47371449485744620d324f1f3", null ],
     [ "geoinstancenode", "a00109.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
+    [ "geopointerproperties", "a00109.html#acaa3fbe31c81ff2f677aa266ed2c24bc", null ],
     [ "geoproperties", "a00109.html#aba7485239040e54e5eecbbf267d889e5", null ],
     [ "georelationproperties", "a00109.html#a6060a0aca4fd3add3a87094afddd15ce", null ],
     [ "graphResource", "a00109.html#a574fc90f73d8e3838b39ea769b869bfb", null ],
