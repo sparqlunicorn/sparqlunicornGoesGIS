@@ -116,6 +116,18 @@ class SPARQLUtils:
         "https://schema.org/geoWithin": {"type": "ObjectProperty", "relation": "within"}
     }
 
+    geopointerproperties={
+        "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
+        "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
+        "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
+        "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
+        "http://schema.org/geo": "ObjectProperty",
+        "https://schema.org/geo": "ObjectProperty",
+        "http://geovocab.org/geometry#geometry": "ObjectProperty",
+        "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
+        "http://rdfs.co/juso/geometry": "ObjectProperty"
+    }
+
     geoproperties={
                    "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",

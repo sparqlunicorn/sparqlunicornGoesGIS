@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from rdflib import Graph
-from rdflib import URIRef
+from rdflib import URIRef, Literal
 from rdflib.plugins.sparql import prepareQuery
 import os
 import json
@@ -280,9 +280,9 @@ htmltemplate = """
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.9/jstree.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<script src="{{startscriptpath}}"></script></head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b></div>
+<script src="{{startscriptpath}}"></script></head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -406,7 +406,7 @@ baseMaps["OSM"].addTo(map);
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
-	var feature = { "type": "Feature", 'properties': {{props}}, "geometry": {{geometry}} };
+	var feature = {{myfeature}};
 	layerr=L.geoJSON.css(feature,{
 	pointToLayer: function(feature, latlng){
                   var greenIcon = new L.Icon({
@@ -419,7 +419,7 @@ baseMaps["OSM"].addTo(map);
                 });
                 return L.marker(latlng, {icon: greenIcon});
     },onEachFeature: function (feature, layer) {
-    var popup="<b><a href=\\"{{featureid}}\\" class=\\"footeruri\\" target=\\"_blank\\">{{featureidabb}}</a></b><br/><ul>"
+    var popup="<b><a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
     for(prop in feature.properties){
         popup+="<li>"
         if(prop.startsWith("http")){
@@ -518,8 +518,8 @@ class OntDocGeneration:
                     data = json.loads(f.read().replace("var search=",""))
                     for key in data:
                         labeltouri[key]=data[key]
-            except:
-                print("error")
+            except Exception as e:
+                QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
@@ -527,15 +527,15 @@ class OntDocGeneration:
         if os.path.exists(outpath + corpusid + '_classtree.js'):
             try:
                 with open(outpath + corpusid + '_classtree.js', 'r', encoding='utf-8') as f:
-                    prevtree = json.loads(f.read().replace("var tree=",""))
-                    for key in data:
-                        labeltouri[key]=data[key]
-            except:
-                print("error")
+                    prevtree = json.loads(f.read().replace("var tree=",""))["core"]["data"]
+            except Exception as e:
+                QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            tree=self.getClassTree(self.graph, uritolabel)
+            classidset=set()
+            tree=self.getClassTree(self.graph, uritolabel,classidset)
             for tr in prevtree:
-                tree["core"]["data"].append(tr)
+                if tr["id"] not in classidset:
+                    tree["core"]["data"].append(tr)
             f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
@@ -586,15 +586,15 @@ class OntDocGeneration:
                 f.close()
 
 
-    def getClassTree(self,graph, uritolabel):
+    def getClassTree(self,graph, uritolabel,classidset):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
-            "geoclass": {"icon": "static/icons/geoclass.png"},
+            "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
             "instance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png"},
-            "geoinstance": {"icon": "static/icons/geoinstance.png"}
+            "geoinstance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoinstance.png"}
         },
-                "core": {"check_callback": True, "data": []}}
+        "core": {"check_callback": True, "data": []}}
         result = []
         ress = {}
         classeswithinstances = {}
@@ -613,6 +613,7 @@ class OntDocGeneration:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
                                    "text": str(obj)[str(obj).rfind('/') + 1:]})
+                classidset.add(str(obj))
             if ress[cls]["super"] == None:
                 result.append({"id": cls, "parent": "#",
                                "type": "class",
@@ -626,6 +627,7 @@ class OntDocGeneration:
                     result.append({"id": cls, "parent": "#",
                                    "type": "class",
                                    "text": cls[cls.rfind('/') + 1:]})
+            classidset.add(str(cls))
         tree["core"]["data"] = result
         return tree
 
@@ -644,25 +646,28 @@ class OntDocGeneration:
         geojsonrep=None
         foundimages=[]
         savepath = savepath.replace("\\", "/")
-        QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
-        QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
         if savepath.endswith("/"):
             savepath+="/"
         if savepath.endswith("/"):
             checkdepth = subject.replace(baseurl, "").count("/")
         else:
             checkdepth = subject.replace(baseurl, "").count("/")
-        QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
         checkdepth+=1
         print("Checkdepth: " + str(checkdepth))
         foundlabel = ""
         predobjmap={}
+        isgeocollection=False
         for tup in predobjs:
             predobjmap[str(tup[0])]=str(tup[1])
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
             else:
                 tablecontents += "<tr class=\"even\">"
+            if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and (str(tup[1])=="http://www.opengis.net/ont/geosparql#FeatureCollection" or str(tup[1])=="http://www.opengis.net/ont/geosparql#GeometryCollection"):
+                isgeocollection=True
             if baseurl in str(tup[0]):
                 rellink = str(tup[0]).replace(baseurl, "")
                 for i in range(0, checkdepth):
@@ -685,6 +690,11 @@ class OntDocGeneration:
                 if list(filter(str(tup[1]).endswith, SPARQLUtils.imageextensions)) != []:
                     foundimages.append(str(tup[1]))
                 if tup[1].startswith("http"):
+                    if str(tup[0]) in SPARQLUtils.geopointerproperties:
+                        for geotup in graph.predicate_objects(tup[1]):
+                            if str(geotup[0]) in SPARQLUtils.geoproperties:
+                                geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
+
                     label = str(tup[1][tup[1].rfind('/') + 1:])
                     for obj in graph.objects(tup[1], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                         label = str(obj)
@@ -705,7 +715,7 @@ class OntDocGeneration:
                             tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
                                 tup[1]) + "\">" + label + "</a></td>"
                 else:
-                    if not isinstance(tup[1], URIRef) and tup[1].datatype != None:
+                    if isinstance(tup[1], Literal) and tup[1].datatype != None:
                         tablecontents += "<td class=\"wrapword\">" + str(
                             tup[1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                             tup[1].datatype) + "\">" + str(
@@ -763,7 +773,7 @@ class OntDocGeneration:
                             tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
                                 tup[0]) + "\">" + label + "</a></td>"
                 else:
-                    if not isinstance(tup[0], URIRef) and tup[0].datatype != None:
+                    if isinstance(tup[0], Literal) and tup[0].datatype != None:
                         tablecontents += "<td class=\"wrapword\">" + str(
                             tup[0]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                             tup[0].datatype) + "\">" + str(
@@ -815,11 +825,23 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports))
             for image in foundimages:
                 f.write(imagestemplate.replace("{{image}}",image))
-            if geojsonrep!=None:
-                f.write(maptemplate.replace("{{geometry}}",json.dumps(geojsonrep))
-                        .replace("{{featureid}}",str(subject))
-                        .replace("{{featureidabb}}",str(subject)[str(subject).rfind("/")+1:])
-                        .replace("{{props}}",json.dumps(predobjmap,sort_keys=True)))
+            if geojsonrep!=None and not isgeocollection:
+                jsonfeat={"type": "Feature", 'id':str(subject), 'properties': predobjmap, "geometry": geojsonrep}
+                f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)))
+            elif isgeocollection:
+                featcoll={"type":"FeatureCollection", "id":subject, "features":[]}
+                for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
+                    for geoinstance in graph.predicate_objects(memberid):
+                        geojsonrep=None
+                        if str(geoinstance[0]) in SPARQLUtils.geoproperties and isinstance(geoinstance[1],Literal):
+                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "")
+                        elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
+                            for geotup in graph.predicate_objects(geoinstance[1]):
+                                if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
+                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
+                        if geojsonrep!=None:
+                            featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
+                f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports))
             f.close()
