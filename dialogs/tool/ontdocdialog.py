@@ -6,6 +6,7 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 from ...tasks.processing.ontdoctask import OntDocTask
 
+from rdflib import Graph
 from ...util.ui.uiutils import UIUtils
 import os.path
 
@@ -30,7 +31,19 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.triplestoreconf=triplestoreconf
         self.prefixes=prefixes
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
+        self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
 
+    def extractNamespaces(self,filename):
+        try:
+            g = Graph()
+            g.parse(filename)
+            namespaces=set()
+            for sub in g.subjects():
+                namespaces.add(sub[0:sub.rfind("/")+1])
+            self.namespaceCBox.clear()
+            self.namespaceCBox.addItems(namespaces)
+        except:
+            print("error")
 
     def createDocumentation(self):
         progress = QProgressDialog("Creating ontology documentation... ", "Abort",
