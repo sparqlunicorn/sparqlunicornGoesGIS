@@ -265,12 +265,7 @@ z-index: 10;
   .sidenav a {font-size: 18px;}
 }"""
 
-htmltemplate = """
-<div id="mySidenav" class="sidenav" style="overflow:auto;">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
-  Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
-</div><html><head><title>{{toptitle}}</title>
+htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
@@ -282,7 +277,13 @@ htmltemplate = """
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<script src="{{startscriptpath}}"></script></head><body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
+<script src="{{startscriptpath}}"></script></head>
+<div id="mySidenav" class="sidenav" style="overflow:auto;">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
+  Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
+</div>
+<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -703,27 +704,27 @@ class OntDocGeneration:
                         for i in range(0, checkdepth):
                             rellink = "../" + rellink
                         rellink += "/index.html"
-                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
+                        tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
                             str(tup[1][tup[1].rfind('/') + 1:])) + ")</span></a></td>"
                     else:
                         res = self.replaceNameSpacesInLabel(tup[1])
                         if res != None:
-                            tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
+                            tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" target=\"_blank\" href=\"" + str(
                                 tup[1]) + "\">" + label + " <span style=\"color: #666;\">(" + res[
                                                  "uri"] + ")</span></a></td>"
                         else:
-                            tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
+                            tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" target=\"_blank\" href=\"" + str(
                                 tup[1]) + "\">" + label + "</a></td>"
                 else:
                     if isinstance(tup[1], Literal) and tup[1].datatype != None:
-                        tablecontents += "<td class=\"wrapword\">" + str(
+                        tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\""+str(tup[1].datatype)+"\">" + str(
                             tup[1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                             tup[1].datatype) + "\">" + str(
                             tup[1].datatype[tup[1].datatype.rfind('/') + 1:]) + "</a>)</small></td>"
                         if str(tup[0]) in SPARQLUtils.geoproperties:
                             geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
                     else:
-                        tablecontents += "<td class=\"wrapword\">" + str(tup[
+                        tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(tup[
                                                                              1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
@@ -809,7 +810,7 @@ class OntDocGeneration:
                                                                                                     foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}",
                                                                                                "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
                 f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", str(subject[
                                                                                                             subject.rfind(
@@ -822,7 +823,7 @@ class OntDocGeneration:
                                                                                                         "/") + 1:]) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             for image in foundimages:
                 f.write(imagestemplate.replace("{{image}}",image))
             if geojsonrep!=None and not isgeocollection:
