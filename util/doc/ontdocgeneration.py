@@ -661,6 +661,7 @@ class OntDocGeneration:
         foundlabel = ""
         predobjmap={}
         isgeocollection=False
+        ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         for tup in predobjs:
             predobjmap[str(tup[0])]=str(tup[1])
             if isodd:
@@ -691,6 +692,7 @@ class OntDocGeneration:
                 if list(filter(str(tup[1]).endswith, SPARQLUtils.imageextensions)) != []:
                     foundimages.append(str(tup[1]))
                 if tup[1].startswith("http"):
+                    ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> <"+str(tup[1])+"> .\n")
                     if str(tup[0]) in SPARQLUtils.geopointerproperties:
                         for geotup in graph.predicate_objects(tup[1]):
                             if str(geotup[0]) in SPARQLUtils.geoproperties:
@@ -717,6 +719,7 @@ class OntDocGeneration:
                                 tup[1]) + "\">" + label + "</a></td>"
                 else:
                     if isinstance(tup[1], Literal) and tup[1].datatype != None:
+                        ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
                         tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\""+str(tup[1].datatype)+"\">" + str(
                             tup[1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                             tup[1].datatype) + "\">" + str(
@@ -724,6 +727,7 @@ class OntDocGeneration:
                         if str(tup[0]) in SPARQLUtils.geoproperties:
                             geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
                     else:
+                        ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\" .\n")
                         tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(tup[
                                                                              1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></td>"
             else:
@@ -785,6 +789,7 @@ class OntDocGeneration:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
             isodd = not isodd
+        ttlf.close()
         with open(savepath + "/index.html", 'w', encoding='utf-8') as f:
             rellink = searchfilename
             for i in range(0, checkdepth):
