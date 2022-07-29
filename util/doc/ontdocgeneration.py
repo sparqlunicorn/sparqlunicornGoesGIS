@@ -116,6 +116,18 @@ var definitionlinks={
 "yaml":"https://yaml.org"
 }
 
+function getDataSchemaDialog(nodeid){
+     $.getJSON(nodeid, function(result){
+        dialogcontent="<h3>Data Schema Dialog for "+nodeid+"</h3><table><tr><th>Relation</th><th>Value</th></tr>"
+        for(res in result){
+            dialogcontent+="<tr><td><a href=\\""+res+"\\" target=\\"_blank\\">"+res+"</a></td><td><a href=\\""+result[res]+"\\" target=\\"_blank\\">"+result[res]+"</a></td></tr>"
+        }
+        dialogcontent+="</table>"
+		dialogcontent+="<button id=\\"closebutton\\" onclick='$(\\"#dataschemadialog\\").dialog(\\"close\\")'>Close</button>"
+		document.getElementById("dataschemadialog").innerHTML=dialogcontent
+		$("#dataschemadialog").dialog("open")
+      });
+}
 
 function setupJSTree(){
     console.log("setupJSTree")
@@ -130,9 +142,18 @@ function setupJSTree(){
                 "icon": baseurl+"static/icons/classlink.png",
                 "action": function (obj) {
                     newlink=rewriteLink(node.id)
-                    console.log(newlink)
                     var win = window.open(newlink, '_blank');
                     win.focus();
+                }
+            }, 
+            "loaddataschema": {
+                "separator_before": false,
+                "separator_after": false,
+                "label": "Load dataschema for class",
+                "action": function (obj) {
+                    if(node.id.includes(baseurl)){
+                        getDataSchemaDialog(rewriteLink(node.id).replace(".html",".json")) 
+                    }                                         
                 }
             }
         };
@@ -287,8 +308,8 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button><br/>
-</div></div><div class="container-fluid"><div class="row-fluid" id="main-wrapper">
+<button id="downloadButton" onclick="download()">Download</button><br/></div></div><dialog id="dataschemadialog" width="500" height="500" modal="true"></dialog>
+<div class="container-fluid"><div class="row-fluid" id="main-wrapper">
 """
 
 imagestemplate="""
@@ -445,6 +466,8 @@ baseMaps["OSM"].addTo(map);
 </script>
 """
 
+htmlcommenttemplate="""<p class="comment">{{comment}}</p>"""
+
 htmltabletemplate="""
 <table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table>"""
 
@@ -499,20 +522,20 @@ class OntDocGeneration:
         #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
-        uritolabel={}
         outpath=self.outpath
         corpusid=self.namespaceshort
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
         labeltouri = {}
         uritolabel = {}
+        uritotreeitem={}
         subjectstorender = set()
         for sub in self.graph.subjects():
             if prefixnamespace in sub:
                 subjectstorender.add(sub)
                 for obj in self.graph.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                     labeltouri[str(obj)] = str(sub)
-                    uritolabel[str(sub)] = str(obj)
+                    uritolabel[str(sub)] = {"label":str(obj)}
         if os.path.exists(outpath + corpusid + '_search.js'):
             try:
                 with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
@@ -531,14 +554,11 @@ class OntDocGeneration:
                     prevtree = json.loads(f.read().replace("var tree=",""))["core"]["data"]
             except Exception as e:
                 QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
-        with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            classidset=set()
-            tree=self.getClassTree(self.graph, uritolabel,classidset)
-            for tr in prevtree:
-                if tr["id"] not in classidset:
-                    tree["core"]["data"].append(tr)
-            f.write("var tree=" + json.dumps(tree, indent=2))
-            f.close()
+        classidset=set()
+        tree=self.getClassTree(self.graph, uritolabel,classidset,uritotreeitem)
+        for tr in prevtree:
+            if tr["id"] not in classidset:
+                tree["core"]["data"].append(tr)
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(stylesheet)
             f.close()
@@ -568,13 +588,17 @@ class OntDocGeneration:
                     paths[outpath] = []
                 paths[outpath].append(path + "/index.html")
             self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
-                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js")
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem)
             subtorencounter += 1
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             #except Exception as e:
             #    print(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         # print(paths)
+        with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
+            f.write("var tree=" + json.dumps(tree, indent=2))
+            f.close()
+        QgsMessageLog.logMessage("BaseURL " + str(uritotreeitem), "OntdocGeneration", Qgis.Info)
         for path in paths:
             indexhtml = "<html><head></head><body><h1>" + str(path) + "</h1><ul style=\"height: 100%; overflow: auto\">"
             for pathlink in paths[path]:
@@ -587,11 +611,13 @@ class OntDocGeneration:
                 f.close()
 
 
-    def getClassTree(self,graph, uritolabel,classidset):
+    def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
             "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
+            "geocollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geometrycollection.png"},
+            "featurecollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/featurecollection.png"},
             "instance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png"},
             "geoinstance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoinstance.png"}
         },
@@ -609,11 +635,12 @@ class OntDocGeneration:
                 if str(obj) in uritolabel:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
-                                   "text": uritolabel[str(obj)] + " (" + str(obj)[str(obj).rfind('/') + 1:] + ")"})
+                                   "text": uritolabel[str(obj)]["label"] + " (" + str(obj)[str(obj).rfind('/') + 1:] + ")"})
                 else:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
                                    "text": str(obj)[str(obj).rfind('/') + 1:]})
+                uritotreeitem[str(obj)] = result[-1]
                 classidset.add(str(obj))
             if ress[cls]["super"] == None:
                 result.append({"id": cls, "parent": "#",
@@ -628,6 +655,7 @@ class OntDocGeneration:
                     result.append({"id": cls, "parent": "#",
                                    "type": "class",
                                    "text": cls[cls.rfind('/') + 1:]})
+                uritotreeitem[str(cls)] = result[-1]
             classidset.add(str(cls))
         tree["core"]["data"] = result
         return tree
@@ -641,7 +669,7 @@ class OntDocGeneration:
         return None
 
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem):
         tablecontents = ""
         isodd = False
         geojsonrep=None
@@ -661,6 +689,7 @@ class OntDocGeneration:
         foundlabel = ""
         predobjmap={}
         isgeocollection=False
+        comment=None
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         for tup in predobjs:
             predobjmap[str(tup[0])]=str(tup[1])
@@ -697,7 +726,6 @@ class OntDocGeneration:
                         for geotup in graph.predicate_objects(tup[1]):
                             if str(geotup[0]) in SPARQLUtils.geoproperties:
                                 geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
-
                     label = str(tup[1][tup[1].rfind('/') + 1:])
                     for obj in graph.objects(tup[1], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                         label = str(obj)
@@ -718,6 +746,8 @@ class OntDocGeneration:
                             tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" target=\"_blank\" href=\"" + str(
                                 tup[1]) + "\">" + label + "</a></td>"
                 else:
+                    if str(tup[0]) in SPARQLUtils.commentproperties:
+                        comment=str(tup[1])
                     if isinstance(tup[1], Literal) and tup[1].datatype != None:
                         ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
                         tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\""+str(tup[1].datatype)+"\">" + str(
@@ -790,6 +820,9 @@ class OntDocGeneration:
             tablecontents += "</tr>"
             isodd = not isodd
         ttlf.close()
+        with open(savepath + "/index.json", 'w', encoding='utf-8') as f:
+            f.write(json.dumps(predobjmap))
+            f.close()
         with open(savepath + "/index.html", 'w', encoding='utf-8') as f:
             rellink = searchfilename
             for i in range(0, checkdepth):
@@ -831,7 +864,11 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             for image in foundimages:
                 f.write(imagestemplate.replace("{{image}}",image))
+            if comment!=None:
+                f.write(htmlcommenttemplate.replace("{{comment}}",comment))
             if geojsonrep!=None and not isgeocollection:
+                if str(subject) in uritotreeitem:
+                    uritotreeitem[str(subject)]["type"]="geoinstance"
                 jsonfeat={"type": "Feature", 'id':str(subject), 'properties': predobjmap, "geometry": geojsonrep}
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)))
             elif isgeocollection:
@@ -841,7 +878,9 @@ class OntDocGeneration:
                         geojsonrep=None
                         if str(geoinstance[0]) in SPARQLUtils.geoproperties and isinstance(geoinstance[1],Literal):
                             geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "")
+                            uritotreeitem[str(subject)]["type"] = "geocollection"
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
+                            uritotreeitem[str(subject)]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
                                 if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
