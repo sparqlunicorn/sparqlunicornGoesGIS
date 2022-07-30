@@ -595,6 +595,7 @@ class OntDocGeneration:
             #    print(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         # print(paths)
+        self.assignGeoClassesToTree(tree)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
@@ -624,7 +625,6 @@ class OntDocGeneration:
         "core": {"check_callback": True, "data": []}}
         result = []
         ress = {}
-        classeswithinstances = {}
         for res in results:
             print(res)
             if "_:" not in str(res["subject"]) and str(res["subject"]).startswith("http"):
@@ -659,6 +659,25 @@ class OntDocGeneration:
             classidset.add(str(cls))
         tree["core"]["data"] = result
         return tree
+
+    def assignGeoClassesToTree(self,tree):
+        classlist={}
+        for item in tree["core"]["data"]:
+            if item["type"]=="class":
+                classlist[item["id"]]={"items":0,"geoitems":0,"item":item}
+        for item in tree["core"]["data"]:
+            if item["type"]=="instance" and item["parent"] in classlist:
+                classlist[item["parent"]]["items"]+=1
+            elif item["type"] == "instance" and item["parent"] in classlist:
+                classlist[item["parent"]]["items"]+=1
+                classlist[item["parent"]]["geoitems"]+=1
+        for item in classlist:
+            if classlist[item]["items"]==classlist[item]["geoitems"] and classlist[item]["items"]>0 and classlist[item]["geoitems"]>0:
+                classlist[item]["item"]["type"]="geoclass"
+            elif classlist[item]["items"]>classlist[item]["geoitems"] and classlist[item]["geoitems"]>0:
+                classlist[item]["item"]["type"]="halfgeoclass"
+            else:
+                classlist[item]["item"]["type"] = "class"
 
 
     def replaceNameSpacesInLabel(self,uri):
