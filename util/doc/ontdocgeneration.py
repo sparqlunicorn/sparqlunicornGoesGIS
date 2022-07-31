@@ -177,9 +177,9 @@ function labelFromURI(uri,label){
         return uri
 }
 
-function getDataSchemaDialog(nodeid){
+function getDataSchemaDialog(nodeid,nodelabel){
      $.getJSON(nodeid, function(result){
-        dialogcontent="<h3><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Instance <a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\">"+nodeid.replace('/index.json','').replace('../','')+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
+        dialogcontent="<h3><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Instance <a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\">"+nodelabel+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
         for(res in result){
             dialogcontent+="<tr>"
             if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
@@ -236,7 +236,7 @@ function setupJSTree(){
                     console.log(node.id)
                     console.log(baseurl)
                     if(node.id.includes(baseurl)){
-                        getDataSchemaDialog(rewriteLink(node.id).replace(".html",".json")) 
+                        getDataSchemaDialog(rewriteLink(node.id).replace(".html",".json"),node.text) 
                     }                                         
                 }
             }
