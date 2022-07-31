@@ -10,7 +10,35 @@ import sys
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 
-startscripts = """
+startscripts = """var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
+var annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
+var geoproperties={
+                   "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
+                   "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
+                   "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
+                   "http://www.georss.org/georss/point": "DatatypeProperty",
+                   "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
+                   "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
+                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude": "DatatypeProperty",
+                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
+                   "http://schema.org/geo": "ObjectProperty",
+                   "http://schema.org/polygon": "DatatypeProperty",
+                   "https://schema.org/geo": "ObjectProperty",
+                   "https://schema.org/polygon": "DatatypeProperty",
+                   "http://geovocab.org/geometry#geometry": "ObjectProperty",
+                   "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
+                   "http://rdfs.co/juso/geometry": "ObjectProperty",
+                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
+                   "https://database.factgrid.de/prop/direct/P48": "DatatypeProperty",
+                   "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
+                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
+}
+
   var baseurl="{{baseurl}}"
   $( function() {
     var availableTags = Object.keys(search)
@@ -21,13 +49,6 @@ startscripts = """
     setupJSTree()
   } );
 
-function loadClasses(){
-	if($('#geoclasses').prop('checked')){
-		getAllClasses();
-	}else{
-		getClassHierarchy([]);
-	}
-}
 function openNav() {
   document.getElementById("mySidenav").style.width = "400px";
 }
@@ -116,16 +137,76 @@ var definitionlinks={
 "yaml":"https://yaml.org"
 }
 
+function shortenURI(uri){
+	prefix=""
+	if(typeof(uri)!="undefined"){
+		for(namespace in namespaces){
+			if(uri.includes(namespaces[namespace])){
+				prefix=namespace+":"
+				break
+			}
+		}
+	}
+	if(typeof(uri)!= "undefined" && uri.includes("#")){
+		return prefix+uri.substring(uri.lastIndexOf('#')+1)
+	}
+	if(typeof(uri)!= "undefined" && uri.includes("/")){
+		return prefix+uri.substring(uri.lastIndexOf("/")+1)
+	}
+	return uri
+}
+
+function labelFromURI(uri,label){
+        if(uri.includes("#")){
+        	prefix=uri.substring(0,uri.lastIndexOf('#')-1)
+        	if(label!=null){
+        		return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
+        	
+        	}else{
+				return uri.substring(uri.lastIndexOf('#')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"        	
+        	}
+       	}
+        if(uri.includes("/")){
+            prefix=uri.substring(0,uri.lastIndexOf('/')-1)
+            if(label!=null){
+            	return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")" 
+            }else{
+        		return uri.substring(uri.lastIndexOf('/')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
+            }
+       	}
+        return uri
+}
+
 function getDataSchemaDialog(nodeid){
      $.getJSON(nodeid, function(result){
-        dialogcontent="<h3>Data Schema Dialog for "+nodeid+"</h3><table><tr><th>Relation</th><th>Value</th></tr>"
+        dialogcontent="<h3><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Instance <a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\">"+nodeid.replace('/index.json','').replace('../','')+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
         for(res in result){
-            dialogcontent+="<tr><td><a href=\\""+res+"\\" target=\\"_blank\\">"+res+"</a></td><td><a href=\\""+result[res]+"\\" target=\\"_blank\\">"+result[res]+"</a></td></tr>"
+            dialogcontent+="<tr>"
+            if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
+				dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Geo Object Property</td>"
+			}else if(result[res].startsWith("http")){
+				dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Object Property\\"/>Object Property</td>"
+            }else{
+                finished=false
+                for(ns in annotationnamespaces){
+                    if(res.includes(annotationnamespaces[ns])){
+                        dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>Annotation Property</td>"
+                        finished=true
+                    }
+                }
+                if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
+                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Geo Datatype Property</td>"
+                }else if(!finished){
+                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Datatype Property</td>"
+                }
+            }    
+            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a></td><td><a href=\\""+result[res]+"\\" target=\\"_blank\\">"+result[res].substring(result[res].lastIndexOf('/')+1)+"</a></td></tr>"
         }
         dialogcontent+="</table>"
-		dialogcontent+="<button id=\\"closebutton\\" onclick='$(\\"#dataschemadialog\\").dialog(\\"close\\")'>Close</button>"
+		dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
+		console.log(dialogcontent)
 		document.getElementById("dataschemadialog").innerHTML=dialogcontent
-		$("#dataschemadialog").dialog("open")
+		document.getElementById("dataschemadialog").showModal();
       });
 }
 
@@ -151,6 +232,9 @@ function setupJSTree(){
                 "separator_after": false,
                 "label": "Load dataschema for class",
                 "action": function (obj) {
+                    console.log(obj)
+                    console.log(node.id)
+                    console.log(baseurl)
                     if(node.id.includes(baseurl)){
                         getDataSchemaDialog(rewriteLink(node.id).replace(".html",".json")) 
                     }                                         
@@ -617,6 +701,7 @@ class OntDocGeneration:
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
             "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
+            "halfgeoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/halfgeoclass.png"},
             "geocollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geometrycollection.png"},
             "featurecollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/featurecollection.png"},
             "instance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png"},
@@ -668,7 +753,7 @@ class OntDocGeneration:
         for item in tree["core"]["data"]:
             if item["type"]=="instance" and item["parent"] in classlist:
                 classlist[item["parent"]]["items"]+=1
-            elif item["type"] == "instance" and item["parent"] in classlist:
+            elif item["type"] == "geoinstance" and item["parent"] in classlist:
                 classlist[item["parent"]]["items"]+=1
                 classlist[item["parent"]]["geoitems"]+=1
         for item in classlist:
