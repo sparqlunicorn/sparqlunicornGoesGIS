@@ -177,50 +177,96 @@ function labelFromURI(uri,label){
         return uri
 }
 
-function getDataSchemaDialog(nodeid,nodelabel){
-     $.getJSON(nodeid, function(result){
-        dialogcontent="<h3><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Instance <a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\">"+nodelabel+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
-        for(res in result){
-            dialogcontent+="<tr>"
-            if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
-				dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Geo Object Property</td>"
-			}else if(result[res].startsWith("http")){
-				dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Object Property\\"/>Object Property</td>"
-            }else{
-                finished=false
-                for(ns in annotationnamespaces){
-                    if(res.includes(annotationnamespaces[ns])){
-                        dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>Annotation Property</td>"
-                        finished=true
-                    }
+function formatHTMLTableForResult(result,nodeicon){
+    dialogcontent=""
+    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
+    for(res in result){
+        dialogcontent+="<tr>"
+        if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
+            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Geo Object Property</td>"
+        }else if((result[res][0]+"").startsWith("http")){
+            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Object Property\\"/>Object Property</td>"
+        }else{
+            finished=false
+            for(ns in annotationnamespaces){
+                if(res.includes(annotationnamespaces[ns])){
+                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>Annotation Property</td>"
+                    finished=true
                 }
-                if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
-                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Geo Datatype Property</td>"
-                }else if(!finished){
-                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Datatype Property</td>"
+            }
+            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
+                dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Geo Datatype Property</td>"
+            }else if(!finished){
+                dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Datatype Property</td>"
+            }
+        }    
+        dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a></td>"
+        if(Array.isArray(result[res]) && result[res].length>1){
+            dialogcontent+="<td><ul>"
+            for(resitem of result[res]){
+                if((resitem+"").startsWith("http")){
+                    dialogcontent+="<li><a href=\\""+rewriteLink(resitem)+"\\" target=\\"_blank\\">"+shortenURI(resitem)+"</a></li>"
+                }else{
+                    dialogcontent+="<li>"+resitem+"</li>"
                 }
-            }    
-            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a></td><td><a href=\\""+result[res]+"\\" target=\\"_blank\\">"+result[res].substring(result[res].lastIndexOf('/')+1)+"</a></td></tr>"
+            }
+            dialogcontent+="</ul></td>"
+        }else if((result[res][0]+"").startsWith("http")){
+            dialogcontent+="<td><a href=\\""+rewriteLink(result[res]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res]+"")+"</a></td>"
+        }else{
+            dialogcontent+="<td>"+result[res]+"</td>"
         }
-        dialogcontent+="</table>"
-		dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
-		console.log(dialogcontent)
-		document.getElementById("dataschemadialog").innerHTML=dialogcontent
-		document.getElementById("dataschemadialog").showModal();
-      });
+        dialogcontent+="</tr>"
+    }
+    dialogcontent+="</table>"
+    dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
+    return dialogcontent
+}
+
+function getDataSchemaDialog(node){
+     nodeid=rewriteLink(node.id).replace(".html",".json")
+     nodelabel=node.text
+     nodetype=node.type
+     nodeicon=node.icon
+     props={}
+     if("data" in node){
+        props=node.data
+     }
+     console.log(nodetype)
+     if(nodetype=="class" || nodetype=="geoclass"){
+        console.log(props)
+        dialogcontent=formatHTMLTableForResult(props,nodeicon)
+        document.getElementById("dataschemadialog").innerHTML=dialogcontent
+        document.getElementById("dataschemadialog").showModal();
+     }else{
+         $.getJSON(nodeid, function(result){
+            dialogcontent=formatHTMLTableForResult(result,nodeicon)
+            document.getElementById("dataschemadialog").innerHTML=dialogcontent
+            document.getElementById("dataschemadialog").showModal();
+          });
+    }
 }
 
 function setupJSTree(){
     console.log("setupJSTree")
     tree["contextmenu"]={}
     tree["core"]["check_callback"]=true
+    tree["sort"]=function(a, b) {
+        a1 = this.get_node(a);
+        b1 = this.get_node(b);
+        if (a1.icon == b1.icon){
+            return (a1.text > b1.text) ? 1 : -1;
+        } else {
+            return (a1.icon > b1.icon) ? 1 : -1;
+        }
+    }
     tree["contextmenu"]["items"]=function (node) {
         return {
             "lookupdefinition": {
                 "separator_before": false,
                 "separator_after": false,
                 "label": "Lookup definition",
-                "icon": baseurl+"static/icons/classlink.png",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
                 "action": function (obj) {
                     newlink=rewriteLink(node.id)
                     var win = window.open(newlink, '_blank');
@@ -230,13 +276,16 @@ function setupJSTree(){
             "loaddataschema": {
                 "separator_before": false,
                 "separator_after": false,
+                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/instance.png",
                 "label": "Load dataschema for class",
                 "action": function (obj) {
-                    console.log(obj)
+                    console.log(node)
                     console.log(node.id)
                     console.log(baseurl)
                     if(node.id.includes(baseurl)){
-                        getDataSchemaDialog(rewriteLink(node.id).replace(".html",".json"),node.text) 
+                        getDataSchemaDialog(node) 
+                    }else if(node.type=="class" || node.type=="geoclass"){
+                        getDataSchemaDialog(node) 
                     }                                         
                 }
             }
@@ -529,13 +578,25 @@ baseMaps["OSM"].addTo(map);
     for(prop in feature.properties){
         popup+="<li>"
         if(prop.startsWith("http")){
-            popup+="<a href=\\"+prop+\\" target=\\"_blank\\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+            popup+="<a href=\\""+prop+"\\" target=\\"_blank\\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
         }else{
             popup+=prop
         }
         popup+=" : "
-        if(feature.properties[prop].startsWith("http")){
-            popup+="<a href=\\"+feature.properties[prop]+\\" target=\\"_blank\\">"+feature.properties[prop].substring(feature.properties[prop].lastIndexOf('/')+1)+"</a>"
+        if(feature.properties[prop].length>1){
+            popup+="<ul>"
+            for(item of feature.properties[prop]){
+                popup+="<li>"
+                if((item+"").startsWith("http")){
+                    popup+="<a href=\\""+item+"\\" target=\\"_blank\\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
+                }else{
+                    popup+=item
+                }
+                popup+="</li>"           
+            }
+            popup+="</ul>"
+        }else if((feature.properties[prop][0]+"").startsWith("http")){
+            popup+="<a href=\\""+rewriteLink(feature.properties[prop][0])+"\\" target=\\"_blank\\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
         }else{
             popup+=feature.properties[prop]
         }
@@ -550,7 +611,7 @@ baseMaps["OSM"].addTo(map);
 </script>
 """
 
-htmlcommenttemplate="""<p class="comment">{{comment}}</p>"""
+htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 
 htmltabletemplate="""
 <table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table>"""
@@ -720,26 +781,26 @@ class OntDocGeneration:
                 if str(obj) in uritolabel:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
-                                   "text": uritolabel[str(obj)]["label"] + " (" + str(obj)[str(obj).rfind('/') + 1:] + ")"})
+                                   "text": uritolabel[str(obj)]["label"] + " (" + str(obj)[str(obj).rfind('/') + 1:] + ")", "data":{}})
                 else:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
-                                   "text": str(obj)[str(obj).rfind('/') + 1:]})
+                                   "text": str(obj)[str(obj).rfind('/') + 1:],"data":{}})
                 uritotreeitem[str(obj)] = result[-1]
                 classidset.add(str(obj))
             if ress[cls]["super"] == None:
                 result.append({"id": cls, "parent": "#",
                                "type": "class",
-                               "text": cls[cls.rfind('/') + 1:]})
+                               "text": cls[cls.rfind('/') + 1:],"data":{}})
             else:
                 if "label" in cls and cls["label"] != None:
                     result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
-                                   "text": ress[cls]["label"] + " (" + cls[cls.rfind('/') + 1:] + ")"})
+                                   "text": ress[cls]["label"] + " (" + cls[cls.rfind('/') + 1:] + ")","data":{}})
                 else:
-                    result.append({"id": cls, "parent": "#",
+                    result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
-                                   "text": cls[cls.rfind('/') + 1:]})
+                                   "text": cls[cls.rfind('/') + 1:],"data":{}})
                 uritotreeitem[str(cls)] = result[-1]
             classidset.add(str(cls))
         tree["core"]["data"] = result
@@ -753,10 +814,11 @@ class OntDocGeneration:
         for item in tree["core"]["data"]:
             if item["type"]=="instance" and item["parent"] in classlist:
                 classlist[item["parent"]]["items"]+=1
-            elif item["type"] == "geoinstance" and item["parent"] in classlist:
+            elif (item["type"] == "geoinstance" or item["type"]=="featurecollection" or item["type"]=="geocollection") and item["parent"] in classlist:
                 classlist[item["parent"]]["items"]+=1
                 classlist[item["parent"]]["geoitems"]+=1
         for item in classlist:
+            classlist[item]["item"]["text"]=classlist[item]["item"]["text"]+" ["+str(classlist[item]["items"])+"]"
             if classlist[item]["items"]==classlist[item]["geoitems"] and classlist[item]["items"]>0 and classlist[item]["geoitems"]>0:
                 classlist[item]["item"]["type"]="geoclass"
             elif classlist[item]["items"]>classlist[item]["geoitems"] and classlist[item]["geoitems"]>0:
@@ -772,6 +834,53 @@ class OntDocGeneration:
                         "ns": self.prefixes["reversed"][ns]}
         return None
 
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep):
+        if str(object).startswith("http"):
+            if ttlf != None:
+                ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
+            if str(pred) in SPARQLUtils.geopointerproperties:
+                for geotup in graph.predicate_objects(object):
+                    if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
+                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
+            label = str(str(object)[str(object).rfind('/') + 1:])
+            for obj in graph.objects(object, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
+                label = str(obj)
+            if baseurl in str(object):
+                rellink = str(object).replace(baseurl, "")
+                for i in range(0, checkdepth):
+                    rellink = "../" + rellink
+                rellink += "/index.html"
+                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
+                    str(str(object)[str(object).rfind('/') + 1:])) + ")</span></a></span>"
+            else:
+                res = self.replaceNameSpacesInLabel(str(object))
+                if res != None:
+                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
+                        object) + "\" target=\"_blank\" href=\"" + str(
+                        object) + "\">" + label + " <span style=\"color: #666;\">(" + res[
+                                         "uri"] + ")</span></a></span>"
+                else:
+                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
+                        object) + "\" target=\"_blank\" href=\"" + str(
+                        object) + "\">" + label + "</a></span>"
+        else:
+            if isinstance(object, Literal) and object.datatype != None:
+                if ttlf!=None:
+                    ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
+                    object.datatype) + "> .\n")
+                tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                    object) + "\" datatype=\"" + str(object.datatype) + "\">" + str(
+                    object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                    object.datatype) + "\">" + str(
+                    object.datatype[object.datatype.rfind('/') + 1:]) + "</a>)</small></span>"
+                if str(pred) in SPARQLUtils.geoproperties and isinstance(object,Literal):
+                    geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "")
+            else:
+                if ttlf!=None:
+                    ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
+                tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                    object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        return {"html":tablecontents,"geojson":geojsonrep}
 
     def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem):
         tablecontents = ""
@@ -794,131 +903,118 @@ class OntDocGeneration:
         predobjmap={}
         isgeocollection=False
         comment=None
+        parentclass=None
+        if str(subject) in uritotreeitem and uritotreeitem[str(subject)]["parent"].startswith("http"):
+            parentclass=str(uritotreeitem[str(subject)]["parent"])
+            uritotreeitem[parentclass]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
-        for tup in predobjs:
-            predobjmap[str(tup[0])]=str(tup[1])
+        for tup in sorted(predobjs,key=lambda tup: tup[0]):
+            if str(tup[0]) not in predobjmap:
+                predobjmap[str(tup[0])]=[]
+            predobjmap[str(tup[0])].append(tup[1])
+            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass]["data"]:
+                uritotreeitem[parentclass]["data"][str(tup[0])]=0
+            if parentclass!=None:
+                uritotreeitem[parentclass]["data"][str(tup[0])]+=1
+                uritotreeitem[parentclass]["instancecount"]+=1
+        for tup in sorted(predobjmap):
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
             else:
                 tablecontents += "<tr class=\"even\">"
-            if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and (str(tup[1])=="http://www.opengis.net/ont/geosparql#FeatureCollection" or str(tup[1])=="http://www.opengis.net/ont/geosparql#GeometryCollection"):
+            if str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
                 isgeocollection=True
-            if baseurl in str(tup[0]):
-                rellink = str(tup[0]).replace(baseurl, "")
+                uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"]["instancecount"] += 1
+            elif str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
+                isgeocollection=True
+                uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
+            if baseurl in str(tup):
+                rellink = str(tup).replace(baseurl, "")
                 for i in range(0, checkdepth):
                     rellink = "../" + rellink
                 rellink += "/index.html"
                 label = rellink.replace("/index.html", "")
                 tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span></td>"
             else:
-                res = self.replaceNameSpacesInLabel(tup[0])
+                res = self.replaceNameSpacesInLabel(tup)
                 if res != None:
                     tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup[0]) + "\">" + str(tup[0][tup[0].rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
+                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
                                          "uri"] + ")</span></a></span></td>"
                 else:
                     tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup[0]) + "\">" + str(tup[0][tup[0].rfind('/') + 1:]) + "</a></span></td>"
-            if str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#label":
-                foundlabel = tup[1]
-            if len(tup) > 0:
-                if list(filter(str(tup[1]).endswith, SPARQLUtils.imageextensions)) != []:
-                    foundimages.append(str(tup[1]))
-                if tup[1].startswith("http"):
-                    ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> <"+str(tup[1])+"> .\n")
-                    if str(tup[0]) in SPARQLUtils.geopointerproperties:
-                        for geotup in graph.predicate_objects(tup[1]):
-                            if str(geotup[0]) in SPARQLUtils.geoproperties:
-                                geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
-                    label = str(tup[1][tup[1].rfind('/') + 1:])
-                    for obj in graph.objects(tup[1], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
-                        label = str(obj)
-                    if baseurl in tup[1]:
-                        rellink = str(tup[1]).replace(baseurl, "")
-                        for i in range(0, checkdepth):
-                            rellink = "../" + rellink
-                        rellink += "/index.html"
-                        tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
-                            str(tup[1][tup[1].rfind('/') + 1:])) + ")</span></a></td>"
-                    else:
-                        res = self.replaceNameSpacesInLabel(tup[1])
-                        if res != None:
-                            tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" target=\"_blank\" href=\"" + str(
-                                tup[1]) + "\">" + label + " <span style=\"color: #666;\">(" + res[
-                                                 "uri"] + ")</span></a></td>"
-                        else:
-                            tablecontents += "<td class=\"wrapword\"><a property=\""+str(tup[0])+"\" resource=\""+str(tup[1])+"\" target=\"_blank\" href=\"" + str(
-                                tup[1]) + "\">" + label + "</a></td>"
+                        tup[0]) + "\">" + str(tup[tup.rfind('/') + 1:]) + "</a></span></td>"
+            if str(tup) == "http://www.w3.org/2000/01/rdf-schema#label":
+                foundlabel = str(predobjmap[tup][0])
+            if str(tup) in SPARQLUtils.commentproperties:
+                comment = str(predobjmap[tup][0])
+            if list(filter(str(tup).endswith, SPARQLUtils.imageextensions)) != []:
+                foundimages.append(str(predobjmap[tup][0]))
+            if len(predobjmap[tup]) > 0:
+                if len(predobjmap[tup])>1:
+                    tablecontents+="<td class=\"wrapword\"><ul>"
+                    for item in predobjmap[tup]:
+                        tablecontents+="<li>"
+                        res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
+                                              baseurl, checkdepth,geojsonrep)
+                        tablecontents = res["html"]
+                        geojsonrep = res["geojson"]
+                        tablecontents += "</li>"
+                    tablecontents+="</ul></td>"
                 else:
-                    if str(tup[0]) in SPARQLUtils.commentproperties:
-                        comment=str(tup[1])
-                    if isinstance(tup[1], Literal) and tup[1].datatype != None:
-                        ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
-                        tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\""+str(tup[1].datatype)+"\">" + str(
-                            tup[1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
-                            tup[1].datatype) + "\">" + str(
-                            tup[1].datatype[tup[1].datatype.rfind('/') + 1:]) + "</a>)</small></td>"
-                        if str(tup[0]) in SPARQLUtils.geoproperties:
-                            geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
-                    else:
-                        ttlf.write("<" + str(subject) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\" .\n")
-                        tablecontents += "<td class=\"wrapword\" property=\""+str(tup[0])+"\" content=\""+str(tup[1])+"\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(tup[
-                                                                             1]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></td>"
+                    tablecontents+="<td class=\"wrapword\">"
+                    res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
+                                              baseurl, checkdepth,geojsonrep)
+                    tablecontents=res["html"]
+                    geojsonrep=res["geojson"]
+                    tablecontents+="</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
             isodd = not isodd
-        for tup in subpreds:
+        subpredsmap={}
+        for tup in sorted(subpreds,key=lambda tup: tup[0]):
+            if str(tup[1]) not in subpredsmap:
+                subpredsmap[str(tup[1])]=[]
+            subpredsmap[str(tup[1])].append(tup[0])
+        for tup in subpredsmap:
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
             else:
                 tablecontents += "<tr class=\"even\">"
-            if baseurl in str(tup[1]):
-                rellink = str(tup[1]).replace(baseurl, "")
+            if baseurl in str(tup):
+                rellink = str(tup).replace(baseurl, "")
                 for i in range(0, checkdepth):
                     rellink = "../" + rellink
                 rellink += "/index.html"
                 label = rellink.replace("/index.html", "")
                 tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
-                    str(tup[1][tup[1].rfind('/') + 1:])) + ")</span></a></span> of</td>"
+                    str(tup[tup.rfind('/') + 1:])) + ")</span></a></span> of</td>"
             else:
-                res = self.replaceNameSpacesInLabel(tup[1])
+                res = self.replaceNameSpacesInLabel(tup)
                 if res != None:
                     tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup[1]) + "\">" + str(tup[1][tup[1].rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
+                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
                                          "uri"] + ")</span></a></span> of</td>"
                 else:
                     tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup[1]) + "\">" + str(tup[1][tup[1].rfind('/') + 1:]) + "</a></span> of</td>"
-            if len(tup) > 0:
-                if tup[0].startswith("http"):
-                    label = str(tup[0][tup[0].rfind('/') + 1:])
-                    for obj in graph.objects(tup[0], URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
-                        label = str(obj)
-                    if baseurl in tup[0]:
-                        rellink = str(tup[0]).replace(baseurl, "")
-                        for i in range(0, checkdepth):
-                            rellink = "../" + rellink
-                        rellink += "/index.html"
-                        tablecontents += "<td class=\"wrapword\"><a href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
-                            str(tup[0][tup[0].rfind('/') + 1:])) + ")</span></a></td>"
-                    else:
-                        res = self.replaceNameSpacesInLabel(tup[0])
-                        if res != None:
-                            tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
-                                tup[0]) + "\">" + label + " <span style=\"color: #666;\">(" + res[
-                                                 "uri"] + ")</span></a></td>"
-                        else:
-                            tablecontents += "<td class=\"wrapword\"><a target=\"_blank\" href=\"" + str(
-                                tup[0]) + "\">" + label + "</a></td>"
+                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + "</a></span> of</td>"
+            if len(subpredsmap[tup]) > 0:
+                if len(subpredsmap[tup]) > 1:
+                    tablecontents += "<td class=\"wrapword\"><ul>"
+                    for item in subpredsmap[tup]:
+                        tablecontents += "<li>"
+                        res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
+                                                             baseurl, checkdepth, geojsonrep)
+                        tablecontents = res["html"]
+                        tablecontents += "</li>"
+                    tablecontents += "</ul></td>"
                 else:
-                    if isinstance(tup[0], Literal) and tup[0].datatype != None:
-                        tablecontents += "<td class=\"wrapword\">" + str(
-                            tup[0]) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
-                            tup[0].datatype) + "\">" + str(
-                            tup[0].datatype[tup[0].datatype.rfind('/') + 1:]) + "</a>)</small></td>"
-                    else:
-                        tablecontents += "<td class=\"wrapword\">" + str(tup[0]) + "</td>"
+                    tablecontents += "<td class=\"wrapword\">"
+                    res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
+                                                         baseurl, checkdepth, geojsonrep)
+                    tablecontents = res["html"]
+                    tablecontents += "</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
