@@ -438,7 +438,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> self.enrichTable.rowCount() == 0:</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        layer = self.chooseLayerEnrich.currentLayer()</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.languagemap,self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                        layer,</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                        <span class="keywordtype">None</span>, <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.searchTripleStoreDialog.setMinimumSize(700, 500)</div>

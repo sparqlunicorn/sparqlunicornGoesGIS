@@ -1,6 +1,6 @@
 var a00065 =
 [
-    [ "__init__", "a00065.html#a998dc8b211a0ec6ae1e7f23bf47371f6", null ],
+    [ "__init__", "a00065.html#a9730b620a7d55e8756fe215c72511fc8", null ],
     [ "buildSearchDialog", "a00065.html#aa2c34a4ef6a92497a04fcaa8d4ec7e73", null ],
     [ "buildUploadRDFDialog", "a00065.html#a07c4c98000f13673906dd4e74ead51b6", null ],
     [ "buildValueMappingDialog", "a00065.html#a1659d7c9973dfca0d962d86f4195098b", null ],
@@ -51,6 +51,7 @@ var a00065 =
     [ "interlinkdialog", "a00065.html#a816bebaf94e989ec4293bfee7a615a98", null ],
     [ "interlinktab", "a00065.html#a3e331810b0db0beb7dface60f8e05508", null ],
     [ "justloadingfromfile", "a00065.html#a66e60c99e2cb67bdae8d0e12cba73350", null ],
+    [ "languagemap", "a00065.html#a399a9e2610a521ee23b0655ac3324037", null ],
     [ "layercount", "a00065.html#a89df5aba5301855e361ee8da3fdac4d2", null ],
     [ "loadedfromfile", "a00065.html#af516976445dcfe47b7e13f2eafaa8eb1", null ],
     [ "maindlg", "a00065.html#a7a228f82cef256bf0c017634e4195718", null ],
