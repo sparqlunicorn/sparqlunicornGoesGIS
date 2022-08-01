@@ -58,18 +58,25 @@ function closeNav() {
 }
 
 function rewriteLink(thelink){
+    console.log(thelink)
     if(thelink==null){
         rest=search[document.getElementById('search').value].replace(baseurl,"")
     }else{
         rest=thelink.replace(baseurl,"")
     }
-    count=rest.split("/").length
+    console.log(rest)
+    count=0
+    if(!indexpage){
+        count=rest.split("/").length
+    }
+    console.log(count)
     counter=0
     while(counter<count){
         rest="../"+rest
         counter+=1
     }
     rest+="/index.html"
+    console.log(rest)
     return rest
 }
 
@@ -179,7 +186,7 @@ function labelFromURI(uri,label){
 
 function formatHTMLTableForResult(result,nodeicon){
     dialogcontent=""
-    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1><tr><th>Type</th><th>Relation</th><th>Value</th></tr>"
+    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=dataschematable><thead><tr><th>Type</th><th>Relation</th><th>Value</th></tr></thead><tbody>"
     for(res in result){
         dialogcontent+="<tr>"
         if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
@@ -218,7 +225,7 @@ function formatHTMLTableForResult(result,nodeicon){
         }
         dialogcontent+="</tr>"
     }
-    dialogcontent+="</table>"
+    dialogcontent+="</tbody></table>"
     dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
     return dialogcontent
 }
@@ -237,11 +244,13 @@ function getDataSchemaDialog(node){
         console.log(props)
         dialogcontent=formatHTMLTableForResult(props,nodeicon)
         document.getElementById("dataschemadialog").innerHTML=dialogcontent
+        $('#dataschematable').DataTable();
         document.getElementById("dataschemadialog").showModal();
      }else{
          $.getJSON(nodeid, function(result){
             dialogcontent=formatHTMLTableForResult(result,nodeicon)
             document.getElementById("dataschemadialog").innerHTML=dialogcontent
+            $('#dataschematable').DataTable();
             document.getElementById("dataschemadialog").showModal();
           });
     }
@@ -266,17 +275,27 @@ function setupJSTree(){
                 "separator_before": false,
                 "separator_after": false,
                 "label": "Lookup definition",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/searchclass.png",
                 "action": function (obj) {
                     newlink=rewriteLink(node.id)
                     var win = window.open(newlink, '_blank');
                     win.focus();
                 }
             }, 
+            "copyuriclipboard":{
+                "separator_before": false,
+                "separator_after": false,
+                "label": "Copy URI to clipboard",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
+                "action":function(obj){
+                    copyText=node.id
+                    navigator.clipboard.writeText(copyText);
+                }    
+            },
             "loaddataschema": {
                 "separator_before": false,
                 "separator_after": false,
-                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/instance.png",
+                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/classschema.png",
                 "label": "Load dataschema for class",
                 "action": function (obj) {
                     console.log(node)
@@ -423,11 +442,13 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -436,8 +457,8 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
   Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
-</div>
-<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static Pubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
+</div><script>var indexpage={{indexpage}}</script>
+<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -574,7 +595,12 @@ baseMaps["OSM"].addTo(map);
                 });
                 return L.marker(latlng, {icon: greenIcon});
     },onEachFeature: function (feature, layer) {
-    var popup="<b><a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+    var popup="<b>"
+    if("label" in feature && feature.label!=""){
+        popup+="<a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.label+"</a></b><br/><ul>"
+    }else{
+        popup+="<a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+    }
     for(prop in feature.properties){
         popup+="<li>"
         if(prop.startsWith("http")){
@@ -614,7 +640,7 @@ baseMaps["OSM"].addTo(map);
 htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 
 htmltabletemplate="""
-<table border=1 width=100% class=description><tr><th>Property</th><th>Value</th></tr>{{tablecontent}}</table>"""
+<table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table>"""
 
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
@@ -746,11 +772,18 @@ class OntDocGeneration:
             f.close()
         QgsMessageLog.logMessage("BaseURL " + str(uritotreeitem), "OntdocGeneration", Qgis.Info)
         for path in paths:
-            indexhtml = "<html><head></head><body><h1>" + str(path) + "</h1><ul style=\"height: 100%; overflow: auto\">"
-            for pathlink in paths[path]:
-                label = pathlink.replace("/index.html", "")
-                indexhtml += "<li><a href=\"" + str(pathlink) + "\">" + label + "</a></li>"
-            indexhtml += "</ul></body></html>"
+            indexhtml = htmltemplate.replace("{{toptitle}}","Index page for " + str(prefixnamespace)).replace("{{title}}","Index page for " + str(prefixnamespace)).replace(
+                    "{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{classtreefolderpath}}", outpath + corpusid + "_classtree.js").replace(
+                    "{{baseurl}}", prefixnamespace).replace(
+                    "{{scriptfolderpath}}", outpath + corpusid + '_search.js').replace("{{indexpage}}","true")
+            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"
+            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1><thead><tr><th>Class</th><th>Number of instances</th></tr></thead><tbody>"
+            for item in tree["core"]["data"]:
+                if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
+                    indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
+                    indexhtml+="<td>"+str(item["instancecount"])+"</td></tr>"
+            indexhtml += "</tbody></table>"
+            indexhtml+=htmlfooter
             print(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -818,7 +851,8 @@ class OntDocGeneration:
                 classlist[item["parent"]]["items"]+=1
                 classlist[item["parent"]]["geoitems"]+=1
         for item in classlist:
-            classlist[item]["item"]["text"]=classlist[item]["item"]["text"]+" ["+str(classlist[item]["items"])+"]"
+            if classlist[item]["items"]>0:
+                classlist[item]["item"]["text"]=classlist[item]["item"]["text"]+" ["+str(classlist[item]["items"])+"]"
             if classlist[item]["items"]==classlist[item]["geoitems"] and classlist[item]["items"]>0 and classlist[item]["geoitems"]>0:
                 classlist[item]["item"]["type"]="geoclass"
             elif classlist[item]["items"]>classlist[item]["geoitems"] and classlist[item]["geoitems"]>0:
@@ -1042,7 +1076,7 @@ class OntDocGeneration:
                 myexports=nongeoexports
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
+                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
                                                                                                     foundlabel) + "</a>").replace(
@@ -1050,7 +1084,7 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", str(subject[
+                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", str(subject[
                                                                                                             subject.rfind(
                                                                                                                 "/") + 1:])).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
@@ -1069,7 +1103,7 @@ class OntDocGeneration:
             if geojsonrep!=None and not isgeocollection:
                 if str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)]["type"]="geoinstance"
-                jsonfeat={"type": "Feature", 'id':str(subject), 'properties': predobjmap, "geometry": geojsonrep}
+                jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)))
             elif isgeocollection:
                 featcoll={"type":"FeatureCollection", "id":subject, "features":[]}

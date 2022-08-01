@@ -869,6 +869,10 @@ SELECT ?label ?geo ?item WHERE {
    </property>
   </action>
   <action name="actionCreate_Ontology_Documentation">
+   <property name="icon">
+    <iconset resource="../../resources.qrc">
+     <normaloff>:/icons/resources/icons/ontdoc.png</normaloff>:/icons/resources/icons/ontdoc.png</iconset>
+   </property>
    <property name="text">
     <string>Create Ontology Documentation</string>
    </property>
@@ -882,7 +886,6 @@ SELECT ?label ?geo ?item WHERE {
   </customwidget>
  </customwidgets>
  <resources>
-
  </resources>
  <connections/>
 </ui>

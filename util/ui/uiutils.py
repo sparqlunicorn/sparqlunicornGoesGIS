@@ -41,6 +41,7 @@ class UIUtils:
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
     geoclassschemaicon=QIcon(":/icons/resources/icons/geoclassschema.png")
     classlinkicon=QIcon(":/icons/resources/icons/classlink.png")
+    ontdocicon=QIcon(":/icons/resources/icons/ontdoc.png")
     linkedgeoclassicon=QIcon(":/icons/resources/icons/linkedgeoclass.png")
     linkedgeoinstanceicon=QIcon(":/icons/resources/icons/linkedgeoinstance.png")
     linkedgeoclassschemaicon=QIcon(":/icons/resources/icons/linkedgeoclassschema.png")

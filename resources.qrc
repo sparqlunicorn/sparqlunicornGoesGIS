@@ -22,6 +22,7 @@
     <file>resources/icons/georelationproperty.png</file>
     <file>resources/icons/relationobjectproperty.png</file>
     <file>resources/icons/class.png</file>
+    <file>resources/icons/ontdoc.png</file>
     <file>resources/icons/subclass.png</file>
     <file>resources/icons/rdffile.png</file>
     <file>resources/icons/bboxicon.png</file>
