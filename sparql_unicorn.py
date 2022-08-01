@@ -28,6 +28,7 @@ from qgis.core import Qgis
 
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject
 
@@ -278,6 +279,8 @@ class SPARQLunicorn:
             # parse file
             with open(os.path.join(__location__, 'owl/addvocabconf.json'), 'r') as myfile:
                 data2 = myfile.read()
+            with open(os.path.join(__location__, 'owl/languages.json'), 'r') as myfile:
+                datalangs = myfile.read()
             with open(os.path.join(__location__, 'owl/vocabs.json'), 'r') as myfile:
                 data3 = myfile.read()
             with open(os.path.join(__location__, 'owl/prefixes.json'), 'r') as myfile:
@@ -288,6 +291,7 @@ class SPARQLunicorn:
                 self.savedQueriesJSON = json.loads(data5)
             self.triplestoreconf = json.loads(data)
             self.addVocabConf = json.loads(data2)
+            self.languagemap=json.loads(datalangs)
             self.autocomplete = json.loads(data3)
             self.prefixstore = json.loads(data4)
             counter = 0
@@ -299,9 +303,10 @@ class SPARQLunicorn:
             self.addVocabConf = json.loads(data2)
             self.saveTripleStoreConfig()
             self.first_start = False
-            self.dlg = SPARQLunicornDialog(self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
+            self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
             self.dlg.comboBox.clear()
+            UIUtils.createLanguageSelectionCBox(self.dlg.queryResultLanguageCBox,self.languagemap)
             UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)
             self.dlg.comboBox.setCurrentIndex(0)
             self.dlg.oauthTestButton.hide()

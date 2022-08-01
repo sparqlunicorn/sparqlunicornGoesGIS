@@ -52,7 +52,7 @@ class EnrichmentTab:
         if self.enrichTable.rowCount() == 0:
             return
         layer = self.chooseLayerEnrich.currentLayer()
-        self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,
+        self.searchTripleStoreDialog = EnrichmentDialog(self.dlg.languagemap,self.dlg.triplestoreconf, self.dlg.prefixes, self.enrichTable,
                                                         layer,
                                                         None, None)
         self.searchTripleStoreDialog.setMinimumSize(700, 500)

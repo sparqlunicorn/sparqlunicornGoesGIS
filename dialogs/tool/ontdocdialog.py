@@ -24,7 +24,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
-    def __init__(self, triplestoreconf={}, prefixes=None, parent=None,title="Ontology Documentation"):
+    def __init__(self, languagemap,triplestoreconf={}, prefixes=None, parent=None,title="Ontology Documentation"):
         """Constructor."""
         super(OntDocDialog, self).__init__()
         self.setupUi(self)
@@ -32,6 +32,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.prefixes=prefixes
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
+        UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
     def extractNamespaces(self,filename):
         try:

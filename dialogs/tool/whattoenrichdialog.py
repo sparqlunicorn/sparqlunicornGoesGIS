@@ -7,6 +7,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt.QtGui import QStandardItem
 
+from ...tasks.query.discovery.datasamplequerytask import DataSampleQueryTask
 from ...tasks.query.discovery.dataschemaquerytask import DataSchemaQueryTask
 from ...tasks.processing.layermatchingtask import LayerMatchingTask
 from ...util.ui.uiutils import UIUtils
@@ -38,10 +39,11 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     # @param layer the layer to enrich
     # @param classid the classid to use for enrichment
     # @param triplestoreurl the url of the triplestore to use for enrichment
-    def __init__(self, triplestoreconf, prefixes, enrichtable, layer, classid="", triplestoreurl=""):
+    def __init__(self, languagemap,triplestoreconf, prefixes, enrichtable, layer, classid="", triplestoreurl=""):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.classid = classid
+        self.languagemap=languagemap
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         self.prefixes = prefixes
@@ -172,7 +174,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
     def buildSearchDialog(self, row, column, interlinkOrEnrich, table):
         self.currentcol = column
         self.currentrow = row
-        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
+        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, self.languagemap, interlinkOrEnrich, table,
                                             True)
         self.interlinkdialog.setMinimumSize(650, 500)
         self.interlinkdialog.setWindowTitle("Search Property or Class")

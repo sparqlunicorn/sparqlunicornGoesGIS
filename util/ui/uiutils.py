@@ -2,7 +2,7 @@ from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QIcon
@@ -34,6 +34,8 @@ class UIUtils:
     dataslot_linkedconceptrel=260
 
     dataslot_geoinstanceamount = 261
+
+    dataslot_language = 262
 
     classicon=QIcon(":/icons/resources/icons/class.png")
     classschemaicon=QIcon(":/icons/resources/icons/classschema.png")
@@ -111,6 +113,18 @@ class UIUtils:
                     cbox.addItem(UIUtils.rdffileicon, item)
                 else:
                     cbox.addItem(item)
+        cbox.setCurrentIndex(0)
+
+    @staticmethod
+    def createLanguageSelectionCBox(cbox,languagemap):
+        cbox.clear()
+        model =QStandardItemModel()
+        cbox.setModel(model)
+        for lang in languagemap:
+            curitem=QStandardItem()
+            curitem.setText(languagemap[lang])
+            curitem.setData(lang,UIUtils.dataslot_language)
+            model.appendRow(curitem)
         cbox.setCurrentIndex(0)
 
     @staticmethod

@@ -90,7 +90,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     columnvars = {}
 
-    def __init__(self, triplestoreconf={}, prefixes=[], addVocabConf={}, autocomplete={},
+    def __init__(self, languagemap={},triplestoreconf={}, prefixes=[], addVocabConf={}, autocomplete={},
                  prefixstore={"normal": {}, "reversed": {}}, savedQueriesJSON={}, maindlg=None, parent=None):
         """Constructor."""
         super(SPARQLunicornDialog, self).__init__(parent)
@@ -99,6 +99,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.setCentralWidget(self.tabWidget)
         self.prefixes = prefixes
         self.maindlg = maindlg
+        self.languagemap=languagemap
         self.savedQueriesJSON = savedQueriesJSON
         self.enrichtab = EnrichmentTab(self)
         self.interlinktab = InterlinkingTab(self)
@@ -154,7 +155,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
         self.actionPreferences.setVisible(False)
-        self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self.triplestoreconf,self.prefixstore).exec())
+        self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self.languagemap,self.triplestoreconf,self.prefixstore).exec())
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
@@ -255,7 +256,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def createMenu(self,position):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         if self.currentContextModel.itemFromIndex(curindex)!=None:
-            ConceptContextMenu(self,self.triplestoreconf[self.comboBox.currentIndex()],self.prefixes,position,self.currentContext,self.currentContextModel.itemFromIndex(curindex),self.queryResultLanguageCBox.currentText())
+            ConceptContextMenu(self,self.triplestoreconf[self.comboBox.currentIndex()],self.prefixes,position,self.currentContext,self.currentContextModel.itemFromIndex(curindex),self.queryResultLanguageCBox.currentData(UIUtils.dataslot_language))
 
 
     ## Creates a layer from the result of the given SPARQL unicorn query.
@@ -323,7 +324,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                           query, self.triplestoreconf[self.comboBox.currentIndex()],
                                           self.inp_sparql2, queryvar, getlabels, self.layercount,
                                           self.geoTreeViewModel, examplequery, self.geoTreeView,
-                                          self.autocomplete, self,self.queryResultLanguageCBox.currentText())
+                                          self.autocomplete, self,self.queryResultLanguageCBox.currentData(UIUtils.dataslot_language))
         QgsApplication.taskManager().addTask(self.qtask)
 
     def getClassTree(self):
@@ -658,7 +659,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                           currentprefixes=None, addVocabConf=None):
         self.currentcol = column
         self.currentrow = row
-        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes, interlinkOrEnrich, table,
+        self.interlinkdialog = SearchDialog(column, row, self.triplestoreconf, self.prefixes,self.languagemap, interlinkOrEnrich, table,
                                             propOrClass, bothOptions, currentprefixes, addVocabConf)
         self.interlinkdialog.setMinimumSize(650, 400)
         self.interlinkdialog.setWindowTitle("Search Interlink Concept")

@@ -4,7 +4,7 @@ from qgis.PyQt import uic
 from qgis.core import (
     QgsApplication
 )
-from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtGui import QRegExpValidator, QStandardItemModel
 
 from ...dialogs.dataview.dataschemadialog import DataSchemaDialog
 from ...dialogs.menu.conceptcontextmenu import ConceptContextMenu
@@ -46,7 +46,7 @@ class SearchDialog(QDialog, FORM_CLASS):
     #
     #  @details More details
     #
-    def __init__(self, column, row, triplestoreconf, prefixes, interlinkOrEnrich, table, propOrClass=False, bothOptions=False, currentprefixes=None, addVocab=None):
+    def __init__(self, column, row, triplestoreconf, prefixes,languagemap, interlinkOrEnrich, table, propOrClass=False, bothOptions=False, currentprefixes=None, addVocab=None):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(UIUtils.searchclassicon)
@@ -68,6 +68,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             self.findProperty.setEnabled(False)
             self.findConcept.setEnabled(False)
         UIUtils.createTripleStoreCBox(self.tripleStoreEdit,self.triplestoreconf)
+        UIUtils.createLanguageSelectionCBox(self.languageCBox,languagemap)
         if addVocab != None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
@@ -114,7 +115,7 @@ class SearchDialog(QDialog, FORM_CLASS):
         label = self.conceptSearchEdit.text()
         if label == "":
             return
-        language = self.languageCBox.currentText()
+        language = self.languageCBox.currentData(UIUtils.dataslot_language)
         results = {}
         self.searchResult.clear()
         query = ""
