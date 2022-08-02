@@ -146,7 +146,7 @@ class UIUtils:
 
     @staticmethod
     def openListURL(item):
-        concept = str(item.data(256))
+        concept = str(item.data(UIUtils.dataslot_conceptURI))
         if concept.startswith("http"):
             url = QUrl(concept)
             QDesktopServices.openUrl(url)

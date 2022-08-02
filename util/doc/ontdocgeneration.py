@@ -682,6 +682,7 @@ class OntDocGeneration:
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.license=license
+        self.licenseuri=None
         self.labellang=labellang
         self.graph=graph
         self.preparedclassquery=prepareQuery(classtreequery)
@@ -703,7 +704,7 @@ class OntDocGeneration:
             spl=self.license.split(" ")
             res= """<span style="float:right;margin-left:auto;margin-right:0px;text-align:right">This work is released under <a rel="license" target="_blank" href="http://creativecommons.org/licenses/"""+str(spl[1]).lower()+"/"+str(spl[2])+"""/">
             <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/"""+str(spl[1]).lower()+"""/"""+str(spl[2])+"""/80x15.png"/></a></span>"""
-            #res+="""<br/></p>"""
+            self.licenseuri="http://creativecommons.org/licenses/"+str(spl[1]).lower()+"/"+str(spl[2])
             return res
         else:
             return """All rights reserved."""
@@ -1070,6 +1071,8 @@ class OntDocGeneration:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
             isodd = not isodd
+        if self.licenseuri!=None:
+            ttlf.write("<"+str(subject)+"> <http://purl.org/dc/elements/1.1/license> <"+self.licenseuri+"> .\n")
         ttlf.close()
         with open(savepath + "/index.json", 'w', encoding='utf-8') as f:
             f.write(json.dumps(predobjmap))

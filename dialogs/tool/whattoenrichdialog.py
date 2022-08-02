@@ -6,6 +6,8 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt.QtGui import QStandardItem
+from qgis.core import QgsMessageLog
+from qgis.core import Qgis
 
 from ...tasks.query.discovery.datasamplequerytask import DataSampleQueryTask
 from ...tasks.query.discovery.dataschemaquerytask import DataSchemaQueryTask
@@ -108,7 +110,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.searchConceptButton.clicked.connect(self.createValueMappingSearchDialog)
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.filterMatchingConceptsTableEdit.textChanged.connect(self.filter_proxy_model2.setFilterRegExp)
-        self.conceptSearchEdit.textChanged.connect(lambda: self.matchingGroupBox.show())
+        self.conceptSearchEdit.textChanged.connect(self.searchResultObtained)
         self.filterTableComboBox.currentIndexChanged.connect(
             lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.filterMatchingConceptsComboBox.currentIndexChanged.connect(
@@ -117,6 +119,15 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         header =self.searchResult.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.searchResult.clicked.connect(self.loadSamples)
+
+    def searchResultObtained(self,text):
+        QgsMessageLog.logMessage("FILEPATH: " + str(text), MESSAGE_CATEGORY, Qgis.Info)
+        if text[0].isdigit():
+            spl=text.split("_")
+            QgsMessageLog.logMessage("FILEPATH: " + str(spl), MESSAGE_CATEGORY, Qgis.Info)
+            self.tripleStoreEdit.setCurrentIndex(int(spl[0]))
+            self.conceptSearchEdit.setText(spl[1])
+            self.matchingGroupBox.show()
 
 
     def matchConceptsForIdentifier(self):

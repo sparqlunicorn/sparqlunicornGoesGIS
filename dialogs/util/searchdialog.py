@@ -166,7 +166,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 self.table.insertPlainText("<" + toinsert + ">")
         elif self.interlinkOrEnrich == -1:
-            self.table.setText(str(toinsert))
+            self.table.setText(str(self.tripleStoreEdit.currentIndex())+"_"+str(toinsert))
         else:
             if costumURI:
                 item = QTableWidgetItem(toinsert)
@@ -174,13 +174,13 @@ class SearchDialog(QDialog, FORM_CLASS):
             else:
                 item = QTableWidgetItem(self.searchResult.currentItem().text())
                 item.setText(self.searchResult.currentItem().text())
-            item.setData(256, toinsert)
+            item.setData(UIUtils.dataslot_conceptURI, toinsert)
             if self.interlinkOrEnrich:
                 self.table.setItem(self.currentrow, self.currentcol, item)
             else:
                 item2 = QTableWidgetItem()
                 item2.setText(self.tripleStoreEdit.currentText())
-                item2.setData(257, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"])
+                item2.setData(UIUtils.dataslot_nodetype, self.triplestoreconf[self.tripleStoreEdit.currentIndex()]["resource"])
                 self.table.setItem(self.currentrow, self.currentcol, item)
                 self.table.setItem(self.currentrow, (self.currentcol), item2)
         self.close()
