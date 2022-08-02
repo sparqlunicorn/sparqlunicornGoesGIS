@@ -140,7 +140,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.filterConcepts.textChanged.connect(lambda: self.currentProxyModel.setFilterRegExp(self.filterConcepts.text()))
         self.inp_sparql.hide()
         self.inp_sparql2 = ToolTipPlainText(self.queryTab, self.triplestoreconf, self.comboBox, self.columnvars,
-                                            self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()])
+                                            self.prefixes, self.autocomplete,self.triplestoreconf[self.comboBox.currentIndex()],self.languagemap)
         self.gridLayout.addWidget(self.inp_sparql2,5,0,1,4)
         self.inp_sparql2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.inp_sparql2.document().defaultFont().setPointSize(16)

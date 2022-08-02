@@ -645,7 +645,9 @@ htmltabletemplate="""
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button><br/></div></div></body></html>"""
+<button id="downloadButton" onclick="download()">Download</button>{{license}}</div></div></body></html>"""
+
+licensetemplate=""""""
 
 classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
@@ -674,11 +676,13 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,outpath,graph):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
+        self.license=license
+        self.labellang=labellang
         self.graph=graph
         self.preparedclassquery=prepareQuery(classtreequery)
         if prefixnamespace==None or prefixnsshort==None or prefixnamespace=="" or prefixnsshort=="":
@@ -692,6 +696,18 @@ class OntDocGeneration:
                 self.outpath += "/"
         #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
+    def processLicense(self):
+        if self.license==None or self.license=="" or self.license=="No License Statement":
+            return ""
+        if self.license.startswith("CC"):
+            spl=self.license.split(" ")
+            res= """<span style="float:right;margin-left:auto;margin-right:0px;text-align:right">This work is released under <a rel="license" target="_blank" href="http://creativecommons.org/licenses/"""+str(spl[1]).lower()+"/"+str(spl[2])+"""/">
+            <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/"""+str(spl[1]).lower()+"""/"""+str(spl[2])+"""/80x15.png"/></a></span>"""
+            #res+="""<br/></p>"""
+            return res
+        else:
+            return """All rights reserved."""
+
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
         corpusid=self.namespaceshort
@@ -700,6 +716,7 @@ class OntDocGeneration:
         labeltouri = {}
         uritolabel = {}
         uritotreeitem={}
+        curlicense=self.processLicense()
         subjectstorender = set()
         for sub in self.graph.subjects():
             if prefixnamespace in sub:
@@ -759,7 +776,7 @@ class OntDocGeneration:
                     paths[outpath] = []
                 paths[outpath].append(path + "/index.html")
             self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
-                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem)
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense)
             subtorencounter += 1
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             #except Exception as e:
@@ -783,7 +800,7 @@ class OntDocGeneration:
                     indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
                     indexhtml+="<td>"+str(item["instancecount"])+"</td></tr>"
             indexhtml += "</tbody></table>"
-            indexhtml+=htmlfooter
+            indexhtml+=htmlfooter.replace("{{license}}",curlicense)
             print(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -916,7 +933,7 @@ class OntDocGeneration:
                     object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
         return {"html":tablecontents,"geojson":geojsonrep}
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense):
         tablecontents = ""
         isodd = False
         geojsonrep=None
@@ -1122,6 +1139,6 @@ class OntDocGeneration:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
-            f.write(htmlfooter.replace("{{exports}}",myexports))
+            f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
 

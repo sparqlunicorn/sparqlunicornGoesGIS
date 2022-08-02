@@ -62,6 +62,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         if namespace==None or namespace=="":
                 namespace="http://lod.squirrel.link/data/"
         self.qtask = OntDocTask("Creating ontology documentation... ",
-                                         graphname, namespace,self.prefixes,
+                                         graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
+                                        self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
                                         self.outFolderWidget.filePath(), progress)
         QgsApplication.taskManager().addTask(self.qtask)

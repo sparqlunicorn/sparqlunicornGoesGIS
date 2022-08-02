@@ -20,31 +20,14 @@
       <string>Enrichment Step 2: With an identified concept that describes your dataset, find potential matches in the triple store:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QComboBox" name="tripleStoreEdit">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="idLabel">
+      <item row="0" column="2">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Identifier:</string>
+         <string>Language:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="idCBox"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="matchLabel">
-        <property name="text">
-         <string>Identifier Matching Strategy:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
+      <item row="2" column="3">
        <widget class="QComboBox" name="matchCBox">
         <item>
          <property name="text">
@@ -68,22 +51,21 @@
         </item>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label">
+      <item row="0" column="0">
+       <widget class="QLabel" name="idLabel">
         <property name="text">
-         <string>Language:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="tripleStoreLabel">
-        <property name="text">
-         <string>Triple Store:</string>
+         <string>Identifier:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
        <widget class="QComboBox" name="languageComboBox">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::NoInsert</enum>
+        </property>
         <item>
          <property name="text">
           <string>en</string>
@@ -996,12 +978,36 @@
         </item>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="3" column="0" colspan="2">
        <widget class="QPushButton" name="matchConceptsButton">
         <property name="text">
          <string>Match Concepts for Identifier Attribute</string>
         </property>
        </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="tripleStoreEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="tripleStoreLabel">
+        <property name="text">
+         <string>Triple Store:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="matchLabel">
+        <property name="text">
+         <string>Identifier Matching Strategy:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QgsFieldComboBox" name="idCBox"/>
       </item>
      </layout>
     </widget>
@@ -1221,6 +1227,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFieldComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsfieldcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

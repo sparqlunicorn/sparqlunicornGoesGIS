@@ -66,6 +66,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.map_canvas.setCurrentLayer(self.mts_layer)
         self.map_canvas.setMapTool(self.toolPan)
         """
+        UIUtils.createLanguageSelectionCBox(self.languageComboBox,self.languagemap)
         self.tablemodel=QStandardItemModel()
         self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
         self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
@@ -86,9 +87,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
         self.filter_proxy_model2.setFilterKeyColumn(1)
         self.backToMatchingSearchButton.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.stackedWidget.widget(1)))
         self.matchingConceptsResult.setModel(self.filter_proxy_model2)
-        fieldnames = [field.name() for field in layer.fields()]
-        for field in fieldnames:
-            self.idCBox.addItem(field)
+        self.idCBox.setLayer(layer)
         item = QStandardItem()
         item.setText("Loading...")
         self.matchConceptsButton.clicked.connect(self.matchConceptsForIdentifier)

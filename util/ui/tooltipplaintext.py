@@ -52,12 +52,13 @@ class ToolTipPlainText(QPlainTextEdit):
 
     changedCompleterSetting = False
 
-    def __init__(self, parent, triplestoreconfig, selector, columnvars, prefixes, autocomplete,curtriplestoreconf):
+    def __init__(self, parent, triplestoreconfig, selector, columnvars, prefixes, autocomplete,curtriplestoreconf,languagemap):
         super(self.__class__, self).__init__(parent)
         self.lineNumberArea = LineNumberArea(self)
         self.autocomplete = autocomplete
         self.autocomplete["completerClassList"] = {}
         self.changedCompleterSetting = False
+        self.languagemap=languagemap
         self.curtriplestoreconf=curtriplestoreconf
         self.completer = SPARQLCompleter(autocomplete)
         self.completer.setWidget(self)
@@ -229,7 +230,7 @@ class ToolTipPlainText(QPlainTextEdit):
             msgBox.setText("No vector layer has been loaded in QGIS to create a query variable from.")
             msgBox.exec()
             return
-        self.interlinkdialog = VarInputDialog(self, self, self.columnvars)
+        self.interlinkdialog = VarInputDialog(self, self, self.columnvars,self.languagemap)
         self.interlinkdialog.setMinimumSize(650, 120)
         self.interlinkdialog.setWindowTitle("Select Column as Variable")
         self.interlinkdialog.exec_()

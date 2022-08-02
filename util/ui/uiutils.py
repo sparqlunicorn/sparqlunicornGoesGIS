@@ -1,11 +1,11 @@
 from ..sparqlutils import SPARQLUtils
 from qgis.PyQt.QtCore import QRegExp
-from qgis.PyQt.QtGui import QRegExpValidator, QValidator
+from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
 from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel
 from qgis.PyQt.QtGui import QStandardItem
 from qgis.PyQt.QtCore import Qt, QSize
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QCompleter
 from qgis.core import QgsMessageLog
 from qgis.core import Qgis
 import json
@@ -126,6 +126,10 @@ class UIUtils:
             curitem.setText(languagemap[lang])
             curitem.setData(lang,UIUtils.dataslot_language)
             model.appendRow(curitem)
+        comp=QCompleter(languagemap.values(), cbox)
+        comp.setCaseSensitivity(Qt.CaseInsensitive)
+        comp.setCompletionMode(QCompleter.PopupCompletion)
+        cbox.setCompleter(comp)
         cbox.setCurrentIndex(0)
 
     @staticmethod

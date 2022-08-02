@@ -26,7 +26,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
     #  @param parent A parent window if available
     #  @param inputfield The inputfield to which the variable will be saved
     #  @param columnvars A map of already existing variable mappings  
-    def __init__(self, parent, inputfield, columnvars):
+    def __init__(self, parent, inputfield, columnvars,languagemap):
         super(QDialog, self).__init__()
         self.setupUi(self)
         self.setWindowIcon(UIUtils.columnasvaricon)
@@ -34,6 +34,7 @@ class VarInputDialog(QDialog, FORM_CLASS):
         self.columnvars = columnvars
         self.applyButton.clicked.connect(self.applyVar)
         self.chooseField.setLayer(self.chooseLayer.currentLayer())
+        UIUtils.createLanguageSelectionCBox(self.labelLang,languagemap)
 
 
     ## 
