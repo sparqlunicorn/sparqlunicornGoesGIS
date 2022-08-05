@@ -1,6 +1,7 @@
 #
 #
 from rdflib.store import Store
+from rdflib.util import _coalesce
 
 __all__ = ["SimpleMemory", "Memory"]
 
@@ -45,33 +46,33 @@ class SimpleMemory(Store):
         spo = self.__spo
         try:
             po = spo[subject]
-        except:
+        except:  # noqa: E722
             po = spo[subject] = {}
         try:
             o = po[predicate]
-        except:
+        except:  # noqa: E722
             o = po[predicate] = {}
         o[object] = 1
 
         pos = self.__pos
         try:
             os = pos[predicate]
-        except:
+        except:  # noqa: E722
             os = pos[predicate] = {}
         try:
             s = os[object]
-        except:
+        except:  # noqa: E722
             s = os[object] = {}
         s[subject] = 1
 
         osp = self.__osp
         try:
             sp = osp[object]
-        except:
+        except:  # noqa: E722
             sp = osp[object] = {}
         try:
             p = sp[subject]
-        except:
+        except:  # noqa: E722
             p = sp[subject] = {}
         p[predicate] = 1
 
@@ -87,7 +88,7 @@ class SimpleMemory(Store):
         if subject != ANY:  # subject is given
             spo = self.__spo
             if subject in spo:
-                subjectDictionary = spo[subject]
+                subjectDictionary = spo[subject]  # noqa: N806
                 if predicate != ANY:  # subject+predicate is given
                     if predicate in subjectDictionary:
                         if object != ANY:  # subject+predicate+object is given
@@ -115,7 +116,7 @@ class SimpleMemory(Store):
         elif predicate != ANY:  # predicate is given, subject unbound
             pos = self.__pos
             if predicate in pos:
-                predicateDictionary = pos[predicate]
+                predicateDictionary = pos[predicate]  # noqa: N806
                 if object != ANY:  # predicate+object is given, subject unbound
                     if object in predicateDictionary:
                         for s in predicateDictionary[object].keys():
@@ -129,14 +130,14 @@ class SimpleMemory(Store):
         elif object != ANY:  # object is given, subject+predicate unbound
             osp = self.__osp
             if object in osp:
-                objectDictionary = osp[object]
+                objectDictionary = osp[object]  # noqa: N806
                 for s in objectDictionary.keys():
                     for p in objectDictionary[s].keys():
                         yield (s, p, object), self.__contexts()
         else:  # subject+predicate+object unbound
             spo = self.__spo
             for s in spo.keys():
-                subjectDictionary = spo[s]
+                subjectDictionary = spo[s]  # noqa: N806
                 for p in subjectDictionary.keys():
                     for o in subjectDictionary[p].keys():
                         yield (s, p, o), self.__contexts()
@@ -148,9 +149,27 @@ class SimpleMemory(Store):
             i += 1
         return i
 
-    def bind(self, prefix, namespace):
-        self.__prefix[namespace] = prefix
-        self.__namespace[prefix] = namespace
+    def bind(self, prefix, namespace, override=True):
+        # should be identical to `Memory.bind`
+        bound_namespace = self.__namespace.get(prefix)
+        bound_prefix = _coalesce(
+            self.__prefix.get(namespace),
+            self.__prefix.get(bound_namespace),
+        )
+        if override:
+            if bound_prefix is not None:
+                del self.__namespace[bound_prefix]
+            if bound_namespace is not None:
+                del self.__prefix[bound_namespace]
+            self.__prefix[namespace] = prefix
+            self.__namespace[prefix] = namespace
+        else:
+            self.__prefix[_coalesce(bound_namespace, namespace)] = _coalesce(
+                bound_prefix, prefix
+            )
+            self.__namespace[_coalesce(bound_prefix, prefix)] = _coalesce(
+                bound_namespace, namespace
+            )
 
     def namespace(self, prefix):
         return self.__namespace.get(prefix, None)
@@ -165,12 +184,12 @@ class SimpleMemory(Store):
     def __contexts(self):
         return (c for c in [])  # TODO: best way to return empty generator
 
-    def query(self, query, initNs, initBindings, queryGraph, **kwargs):
+    def query(self, query, initNs, initBindings, queryGraph, **kwargs):  # noqa: N803
         super(SimpleMemory, self).query(
             query, initNs, initBindings, queryGraph, **kwargs
         )
 
-    def update(self, update, initNs, initBindings, queryGraph, **kwargs):
+    def update(self, update, initNs, initBindings, queryGraph, **kwargs):  # noqa: N803
         super(SimpleMemory, self).update(
             update, initNs, initBindings, queryGraph, **kwargs
         )
@@ -328,7 +347,7 @@ class Memory(Store):
         elif subject is not None:  # subject is given
             spo = self.__spo
             if subject in spo:
-                subjectDictionary = spo[subject]
+                subjectDictionary = spo[subject]  # noqa: N806
                 if predicate is not None:  # subject+predicate is given
                     if predicate in subjectDictionary:
                         if object_ is not None:  # subject+predicate+object is given
@@ -364,7 +383,7 @@ class Memory(Store):
         elif predicate is not None:  # predicate is given, subject unbound
             pos = self.__pos
             if predicate in pos:
-                predicateDictionary = pos[predicate]
+                predicateDictionary = pos[predicate]  # noqa: N806
                 if object_ is not None:  # predicate+object is given, subject unbound
                     if object_ in predicateDictionary:
                         for s in list(predicateDictionary[object_].keys()):
@@ -382,7 +401,7 @@ class Memory(Store):
         elif object_ is not None:  # object is given, subject+predicate unbound
             osp = self.__osp
             if object_ in osp:
-                objectDictionary = osp[object_]
+                objectDictionary = osp[object_]  # noqa: N806
                 for s in list(objectDictionary.keys()):
                     for p in list(objectDictionary[s].keys()):
                         triple = (s, p, object_)
@@ -392,16 +411,34 @@ class Memory(Store):
             # Shouldn't get here if all other cases above worked correctly.
             spo = self.__spo
             for s in list(spo.keys()):
-                subjectDictionary = spo[s]
+                subjectDictionary = spo[s]  # noqa: N806
                 for p in list(subjectDictionary.keys()):
                     for o in list(subjectDictionary[p].keys()):
                         triple = (s, p, o)
                         if self.__triple_has_context(triple, req_ctx):
                             yield triple, self.__contexts(triple)
 
-    def bind(self, prefix, namespace):
-        self.__prefix[namespace] = prefix
-        self.__namespace[prefix] = namespace
+    def bind(self, prefix, namespace, override=True):
+        # should be identical to `SimpleMemory.bind`
+        bound_namespace = self.__namespace.get(prefix)
+        bound_prefix = _coalesce(
+            self.__prefix.get(namespace),
+            self.__prefix.get(bound_namespace),
+        )
+        if override:
+            if bound_prefix is not None:
+                del self.__namespace[bound_prefix]
+            if bound_namespace is not None:
+                del self.__prefix[bound_namespace]
+            self.__prefix[namespace] = prefix
+            self.__namespace[prefix] = namespace
+        else:
+            self.__prefix[_coalesce(bound_namespace, namespace)] = _coalesce(
+                bound_prefix, prefix
+            )
+            self.__namespace[_coalesce(bound_prefix, prefix)] = _coalesce(
+                bound_namespace, namespace
+            )
 
     def namespace(self, prefix):
         return self.__namespace.get(prefix, None)
@@ -493,7 +530,7 @@ class Memory(Store):
         if triple_context == self.__defaultContexts:
             del self.__tripleContexts[triple]
 
-    def __get_context_for_triple(self, triple, skipQuoted=False):
+    def __get_context_for_triple(self, triple, skipQuoted=False):  # noqa: N803
         """return a list of contexts (str) for the triple, skipping
         quoted contexts if skipQuoted==True"""
 
@@ -545,8 +582,8 @@ class Memory(Store):
             if ctx_str is not None
         )
 
-    def query(self, query, initNs, initBindings, queryGraph, **kwargs):
+    def query(self, query, initNs, initBindings, queryGraph, **kwargs):  # noqa: N803
         super(Memory, self).query(query, initNs, initBindings, queryGraph, **kwargs)
 
-    def update(self, update, initNs, initBindings, queryGraph, **kwargs):
+    def update(self, update, initNs, initBindings, queryGraph, **kwargs):  # noqa: N803
         super(Memory, self).update(update, initNs, initBindings, queryGraph, **kwargs)

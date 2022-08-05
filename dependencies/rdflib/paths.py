@@ -64,8 +64,8 @@ Path(http://xmlns.com/foaf/0.1/knows / http://xmlns.com/foaf/0.1/name)
 >>> FOAF.name|FOAF.givenName
 Path(http://xmlns.com/foaf/0.1/name | http://xmlns.com/foaf/0.1/givenName)
 
-Modifiers (?, *, +) are done using * (the multiplication operator) and
-the strings '*', '?', '+', also defined as constants in this file.
+Modifiers (?, \*, +) are done using \* (the multiplication operator) and
+the strings '\*', '?', '+', also defined as constants in this file.
 
 >>> FOAF.knows*OneOrMore
 Path(http://xmlns.com/foaf/0.1/knows+)
@@ -181,8 +181,13 @@ No vars specified:
 """
 
 
-from rdflib.term import URIRef, Node
-from typing import Union, Callable
+from functools import total_ordering
+from typing import TYPE_CHECKING, Callable, Iterator, Optional, Tuple, Union
+
+from rdflib.term import Node, URIRef
+
+if TYPE_CHECKING:
+    from rdflib.graph import Graph, _ObjectType, _SubjectType
 
 
 # property paths
@@ -192,6 +197,7 @@ OneOrMore = "+"
 ZeroOrOne = "?"
 
 
+@total_ordering
 class Path(object):
 
     __or__: Callable[["Path", Union["URIRef", "Path"]], "AlternativePath"]
@@ -200,14 +206,13 @@ class Path(object):
     __truediv__: Callable[["Path", Union["URIRef", "Path"]], "SequencePath"]
     __mul__: Callable[["Path", str], "MulPath"]
 
-    def eval(self, graph, subj=None, obj=None):
+    def eval(
+        self,
+        graph: "Graph",
+        subj: Optional["_SubjectType"] = None,
+        obj: Optional["_ObjectType"] = None,
+    ) -> Iterator[Tuple["_SubjectType", "_ObjectType"]]:
         raise NotImplementedError()
-
-    def __hash__(self):
-        return hash(repr(self))
-
-    def __eq__(self, other):
-        return repr(self) == repr(other)
 
     def __lt__(self, other):
         if not isinstance(other, (Path, Node)):
@@ -215,22 +220,6 @@ class Path(object):
                 "unorderable types: %s() < %s()" % (repr(self), repr(other))
             )
         return repr(self) < repr(other)
-
-    def __le__(self, other):
-        if not isinstance(other, (Path, Node)):
-            raise TypeError(
-                "unorderable types: %s() < %s()" % (repr(self), repr(other))
-            )
-        return repr(self) <= repr(other)
-
-    def __ne__(self, other):
-        return not self == other
-
-    def __gt__(self, other):
-        return not self <= other
-
-    def __ge__(self, other):
-        return not self < other
 
 
 class InvPath(Path):
@@ -372,7 +361,7 @@ class MulPath(Path):
                 # (even literals)
                 # we cannot do this without going through ALL triples
                 # unless we keep an index of all terms somehow
-                # but lets just hope this query doesnt happen very often...
+                # but let's just hope this query doesn't happen very often...
                 for s, o in graph.subject_objects(None):
                     if s not in seen1:
                         seen1.add(s)
@@ -498,10 +487,7 @@ def neg_path(p):
 
 
 if __name__ == "__main__":
-
-    import doctest
-
-    doctest.testmod()
+    pass
 else:
     # monkey patch
     # (these cannot be directly in terms.py

@@ -65,12 +65,13 @@ class QueryLayerTask(QgsTask):
                 self.geojson),
                 MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-            #QgsMessageLog.logMessage('Started task "{}"'.format(
-            #    self.vlayer.featureCount()),
-            #    MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                res),
+                MESSAGE_CATEGORY, Qgis.Info)
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
+
                 if crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:

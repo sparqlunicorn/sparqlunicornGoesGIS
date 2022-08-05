@@ -5,18 +5,17 @@ This is an RDFLib store around Ivan Herman et al.'s SPARQL service wrapper.
 This was first done in layer-cake, and then ported to RDFLib
 
 """
-import re
 import collections
+import re
+from typing import Any, Callable, Dict, Optional, Tuple, Union
+
+from rdflib import BNode, Variable
+from rdflib.graph import DATASET_DEFAULT_GRAPH_ID
+from rdflib.plugins.stores.regexmatching import NATIVE_REGEX
+from rdflib.store import Store
+from rdflib.term import Node
 
 from .sparqlconnector import SPARQLConnector
-
-from rdflib.plugins.stores.regexmatching import NATIVE_REGEX
-
-from rdflib.store import Store
-from rdflib import Variable, BNode
-from rdflib.graph import DATASET_DEFAULT_GRAPH_ID
-from rdflib.term import Node
-from typing import Any, Callable, Dict, Optional, Union, Tuple
 
 # Defines some SPARQL keywords
 LIMIT = "LIMIT"
@@ -37,7 +36,7 @@ def _node_to_sparql(node) -> str:
     return node.n3()
 
 
-class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
+class SPARQLStore(SPARQLConnector, Store):
     """An RDFLib store around a SPARQL endpoint
 
     This is context-aware and should work as expected
@@ -100,7 +99,7 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
         sparql11: bool = True,
         context_aware: bool = True,
         node_to_sparql: NodeToSparql = _node_to_sparql,
-        returnFormat: str = "xml",
+        returnFormat: str = "xml",  # noqa: N803
         auth: Optional[Tuple[str, str]] = None,
         **sparqlconnector_kwargs,
     ):
@@ -148,10 +147,20 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
     def add(self, _, context=None, quoted=False):
         raise TypeError("The SPARQL store is read only")
 
-    def addN(self, quads):
+    def addN(self, quads):  # noqa: N802
         raise TypeError("The SPARQL store is read only")
 
     def remove(self, _, context):
+        raise TypeError("The SPARQL store is read only")
+
+    def update(
+        self,
+        query,
+        initNs={},  # noqa: N803
+        initBindings={},
+        queryGraph=None,
+        DEBUG=False,
+    ):
         raise TypeError("The SPARQL store is read only")
 
     def _query(self, *args, **kwargs):
@@ -172,7 +181,12 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
         )
 
     def query(
-        self, query, initNs=None, initBindings=None, queryGraph=None, DEBUG=False
+        self,
+        query,
+        initNs=None,  # noqa: N803
+        initBindings=None,
+        queryGraph=None,
+        DEBUG=False,
     ):
         self.debug = DEBUG
         assert isinstance(query, str)
@@ -208,6 +222,7 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
 
         **context** may include three parameter
         to refine the underlying query:
+
         * LIMIT: an integer to limit the number of results
         * OFFSET: an integer to enable paging of results
         * ORDERBY: an instance of Variable('s'), Variable('o') or Variable('p') or, by default, the first 'None' from the given triple
@@ -219,17 +234,15 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
               the walking path on the graph)
             - Using OFFSET without defining LIMIT will discard the first OFFSET - 1 results
 
-        ``
-        a_graph.LIMIT = limit
-        a_graph.OFFSET = offset
-        triple_generator = a_graph.triples(mytriple):
-          # do something
-          # Removes LIMIT and OFFSET if not required for the next triple() calls
-        del a_graph.LIMIT
-        del a_graph.OFFSET
-        ``
+        .. code-block:: python
 
-
+            a_graph.LIMIT = limit
+            a_graph.OFFSET = offset
+            triple_generator = a_graph.triples(mytriple):
+            # do something
+            # Removes LIMIT and OFFSET if not required for the next triple() calls
+            del a_graph.LIMIT
+            del a_graph.OFFSET
         """
 
         s, p, o = spo
@@ -364,7 +377,10 @@ class SPARQLStore(SPARQLConnector, Store):  # type: ignore[misc]
         return (row.name for row in result)
 
     # Namespace persistence interface implementation
-    def bind(self, prefix, namespace):
+    def bind(self, prefix, namespace, override=True):
+        bound_prefix = self.prefix(namespace)
+        if override and bound_prefix:
+            del self.nsBindings[bound_prefix]
         self.nsBindings[prefix] = namespace
 
     def prefix(self, namespace):
@@ -505,7 +521,7 @@ class SPARQLUpdateStore(SPARQLStore):
         update_endpoint: Optional[str] = None,
         sparql11: bool = True,
         context_aware: bool = True,
-        postAsEncoded: bool = True,
+        postAsEncoded: bool = True,  # noqa: N803
         autocommit: bool = True,
         dirty_reads: bool = False,
         **kwds,
@@ -536,12 +552,12 @@ class SPARQLUpdateStore(SPARQLStore):
         self._updates = 0
 
     def open(self, configuration: Union[str, Tuple[str, str]], create=False):
-        """This method is included so that calls to this Store via Graph, e.g.
+        """
+        This method is included so that calls to this Store via Graph, e.g.
         Graph("SPARQLStore"), can set the required parameters
-
         """
         if type(configuration) == str:
-            self.query_endpoint = configuration  # type: ignore[assignment]
+            self.query_endpoint = configuration
         elif type(configuration) == tuple:
             self.query_endpoint = configuration[0]
             self.update_endpoint = configuration[1]
@@ -572,9 +588,10 @@ class SPARQLUpdateStore(SPARQLStore):
         return SPARQLStore.__len__(self, *args, **kwargs)
 
     # TODO: FIXME: open is defined twice
-    def open(self, configuration, create=False):  # type: ignore[no-redef]
+    def open(self, configuration, create=False):  # type: ignore[no-redef]  # noqa: F811
         """
         sets the endpoint URLs for this SPARQLStore
+
         :param configuration: either a tuple of (query_endpoint, update_endpoint),
             or a string with the endpoint which is configured as query and update endpoint
         :param create: if True an exception is thrown.
@@ -629,7 +646,7 @@ class SPARQLUpdateStore(SPARQLStore):
         if self.autocommit:
             self.commit()
 
-    def addN(self, quads):
+    def addN(self, quads):  # noqa: N802
         """Add a list of quads to the store."""
         if not self.update_endpoint:
             raise Exception("UpdateEndpoint is not set - call 'open'")
@@ -679,7 +696,7 @@ class SPARQLUpdateStore(SPARQLStore):
         if self.autocommit:
             self.commit()
 
-    def setTimeout(self, timeout):
+    def setTimeout(self, timeout):  # noqa: N802
         self._timeout = int(timeout)
 
     def _update(self, update):
@@ -688,7 +705,14 @@ class SPARQLUpdateStore(SPARQLStore):
 
         SPARQLConnector.update(self, update)
 
-    def update(self, query, initNs={}, initBindings={}, queryGraph=None, DEBUG=False):
+    def update(
+        self,
+        query,
+        initNs={},  # noqa: N803
+        initBindings={},
+        queryGraph=None,
+        DEBUG=False,
+    ):
         """
         Perform a SPARQL Update Query against the endpoint,
         INSERT, LOAD, DELETE etc.
@@ -793,7 +817,7 @@ class SPARQLUpdateStore(SPARQLStore):
                     ):
                         # In this case, adding graph_block_start and
                         # graph_block_end results in an empty GRAPH block. Some
-                        # enpoints (e.g. TDB) can not handle this. Therefore
+                        # endpoints (e.g. TDB) can not handle this. Therefore
                         # remove the previously added block_start.
                         modified_query.pop()
                         modified_query.append(since_previous_pos)

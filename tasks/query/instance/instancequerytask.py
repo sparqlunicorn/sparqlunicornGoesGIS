@@ -139,7 +139,11 @@ class InstanceQueryTask(QgsTask):
                     featuress = self.features.getFeatures()
                     geomcentroidpoint=None
                     for feat in featuress:
-                        geomcentroidpoint = feat.geometry().centroid().asPoint()
+                        try:
+                            if feat.geometry()!=None and feat.geometry().centroid()!=None:
+                                geomcentroidpoint = feat.geometry().centroid().asPoint()
+                        except:
+                            print("error")
                     if encounteredcrs!=None:
                         crs = self.features.crs()
                         crsstring = encounteredcrs

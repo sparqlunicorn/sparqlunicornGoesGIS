@@ -6,33 +6,32 @@ using setEvalFn
 
 """
 
-import sys
-import re
-import math
-import random
-import uuid
-import hashlib
 import datetime as py_datetime  # naming conflict with function within this module
-
-from functools import reduce
-
-from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
-
+import hashlib
+import math
 import operator as pyop  # python operators
-
-import isodate
-
-from rdflib.plugins.sparql.parserutils import CompValue, Expr
-from rdflib.plugins.sparql.datatypes import XSD_DTs, type_promotion
-from rdflib.plugins.sparql.datatypes import XSD_DateTime_DTs, XSD_Duration_DTs
-from rdflib import URIRef, BNode, Variable, Literal, XSD, RDF
-from rdflib.term import Node
-
+import random
+import re
+import sys
+import uuid
+import warnings
+from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
+from functools import reduce
 from urllib.parse import quote
 
+import isodate
 from pyparsing import ParseResults
 
+from rdflib import RDF, XSD, BNode, Literal, URIRef, Variable
+from rdflib.plugins.sparql.datatypes import (
+    XSD_DateTime_DTs,
+    XSD_DTs,
+    XSD_Duration_DTs,
+    type_promotion,
+)
+from rdflib.plugins.sparql.parserutils import CompValue, Expr
 from rdflib.plugins.sparql.sparql import SPARQLError, SPARQLTypeError
+from rdflib.term import Node
 
 
 def Builtin_IRI(expr, ctx):
@@ -66,7 +65,7 @@ def Builtin_isNUMERIC(expr, ctx):
     try:
         numeric(expr.arg)
         return Literal(True)
-    except:
+    except:  # noqa: E722
         return Literal(False)
 
 
@@ -299,10 +298,10 @@ def Builtin_CONCAT(expr, ctx):
 
     # dt/lang passed on only if they all match
 
-    dt = set(x.datatype for x in expr.arg)
+    dt = set(x.datatype for x in expr.arg if isinstance(x, Literal))
     dt = dt.pop() if len(dt) == 1 else None
 
-    lang = set(x.language for x in expr.arg)
+    lang = set(x.language for x in expr.arg if isinstance(x, Literal))
     lang = lang.pop() if len(lang) == 1 else None
 
     return Literal("".join(string(x) for x in expr.arg), datatype=dt, lang=lang)
@@ -611,10 +610,17 @@ def custom_function(uri, override=False, raw=False):
     return decorator
 
 
-def unregister_custom_function(uri, func):
-    if _CUSTOM_FUNCTIONS.get(uri, (None, None))[0] != func:
-        raise ValueError("This function is not registered as %s" % uri.n3())
-    del _CUSTOM_FUNCTIONS[uri]
+def unregister_custom_function(uri, func=None):
+    """
+    The 'func' argument is included for compatibility with existing code.
+    A previous implementation checked that the function associated with
+    the given uri was actually 'func', but this is not necessary as the
+    uri should uniquely identify the function.
+    """
+    if _CUSTOM_FUNCTIONS.get(uri):
+        del _CUSTOM_FUNCTIONS[uri]
+    else:
+        warnings.warn("This function is not registered as %s" % uri.n3())
 
 
 def Function(e, ctx):
@@ -663,7 +669,7 @@ def default_cast(e, ctx):
     if not isinstance(x, Literal):
         raise SPARQLError("Can only cast Literals to non-string data-types")
 
-    if x.datatype and not x.datatype in XSD_DTs:
+    if x.datatype and not x.datatype in XSD_DTs:  # noqa: E713
         raise SPARQLError("Cannot cast literal with unknown datatype: %r" % x.datatype)
 
     if e.iri == XSD.dateTime:
@@ -671,7 +677,7 @@ def default_cast(e, ctx):
             raise SPARQLError("Cannot cast %r to XSD:dateTime" % x.datatype)
         try:
             return Literal(isodate.parse_datetime(x), datatype=e.iri)
-        except:
+        except:  # noqa: E722
             raise SPARQLError("Cannot interpret '%r' as datetime" % x)
 
     if x.datatype == XSD.dateTime:
@@ -680,7 +686,7 @@ def default_cast(e, ctx):
     if e.iri in (XSD.float, XSD.double):
         try:
             return Literal(float(x), datatype=e.iri)
-        except:
+        except:  # noqa: E722
             raise SPARQLError("Cannot interpret '%r' as float" % x)
 
     elif e.iri == XSD.decimal:
@@ -688,13 +694,13 @@ def default_cast(e, ctx):
             raise SPARQLError("Cannot interpret '%r' as decimal" % x)
         try:
             return Literal(Decimal(x), datatype=e.iri)
-        except:
+        except:  # noqa: E722
             raise SPARQLError("Cannot interpret '%r' as decimal" % x)
 
     elif e.iri == XSD.integer:
         try:
             return Literal(int(x), datatype=XSD.integer)
-        except:
+        except:  # noqa: E722
             raise SPARQLError("Cannot interpret '%r' as int" % x)
 
     elif e.iri == XSD.boolean:

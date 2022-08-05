@@ -73,10 +73,7 @@ Only in second::
     _:cb558f30e21ddfc05ca53108348338ade8
         <http://example.org/ns#label> "B" .
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
+from __future__ import absolute_import, division, print_function
 
 # TODO:
 # - Doesn't handle quads.
@@ -92,23 +89,23 @@ __all__ = [
     "similar",
 ]
 
-from rdflib.graph import Graph, ConjunctiveGraph, ReadOnlyGraphAggregate
-from rdflib.term import BNode, Node, URIRef
-from hashlib import sha256
-
-from datetime import datetime
 from collections import defaultdict
+from datetime import datetime
+from hashlib import sha256
 from typing import (
-    Set,
-    Dict,
     TYPE_CHECKING,
-    Union,
-    List,
-    Tuple,
     Callable,
-    Optional,
+    Dict,
     Iterator,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Union,
 )
+
+from rdflib.graph import ConjunctiveGraph, Graph, ReadOnlyGraphAggregate, _TripleType
+from rdflib.term import BNode, IdentifiedNode, Node, URIRef
 
 if TYPE_CHECKING:
     from _hashlib import HASH
@@ -214,7 +211,7 @@ Stats = Dict[str, Union[int, str]]
 class Color:
     def __init__(
         self,
-        nodes: List[Node],
+        nodes: List[IdentifiedNode],
         hashfunc: HashFunc,
         color: ColorItemTuple = (),
         hash_cache: HashCache = None,
@@ -284,7 +281,6 @@ class Color:
         )
 
 
-_TripleT = List[Node]
 _HashT = Callable[[], "HASH"]
 
 
@@ -306,7 +302,7 @@ class _TripleCanonicalizer(object):
     def _initial_color(self) -> List[Color]:
         """Finds an initial color for the graph.
 
-        Finds an initial color fo the graph by finding all blank nodes and
+        Finds an initial color of the graph by finding all blank nodes and
         non-blank nodes that are adjacent. Nodes that are not adjacent to blank
         nodes are not included, as they are a) already colored (by URI or literal)
         and b) do not factor into the color of any blank node.
@@ -329,7 +325,9 @@ class _TripleCanonicalizer(object):
                     self._neighbors[p].add(p)
         if len(bnodes) > 0:
             return [Color(list(bnodes), self.hashfunc, hash_cache=self._hash_cache)] + [
-                Color([x], self.hashfunc, x, hash_cache=self._hash_cache)
+                # type error: List item 0 has incompatible type "Union[IdentifiedNode, Literal]"; expected "IdentifiedNode"
+                # type error: Argument 3 to "Color" has incompatible type "Union[IdentifiedNode, Literal]"; expected "Tuple[Tuple[Union[int, str], URIRef, Union[int, str]], ...]"
+                Color([x], self.hashfunc, x, hash_cache=self._hash_cache)  # type: ignore[list-item, arg-type]
                 for x in others
             ]
         else:
@@ -428,7 +426,6 @@ class _TripleCanonicalizer(object):
         candidates = self._get_candidates(coloring)
         best: List[List[Color]] = []
         best_score = None
-        best_experimental = None
         best_experimental_score = None
         last_coloring = None
         generator: Dict[Node, Set[Node]] = defaultdict(set)
@@ -512,7 +509,9 @@ class _TripleCanonicalizer(object):
         if stats is not None:
             stats["color_count"] = len(coloring)
 
-        bnode_labels = dict([(c.nodes[0], c.hash_color()) for c in coloring])
+        bnode_labels: Dict[Node, str] = dict(
+            [(c.nodes[0], c.hash_color()) for c in coloring]
+        )
         if stats is not None:
             stats["canonicalize_triples_runtime"] = _total_seconds(
                 datetime.now() - start_coloring
@@ -522,7 +521,9 @@ class _TripleCanonicalizer(object):
             yield result
 
     def _canonicalize_bnodes(
-        self, triple: Tuple[Node, Node, Node], labels: Dict[Node, str]
+        self,
+        triple: "_TripleType",
+        labels: Dict[Node, str],
     ):
         for term in triple:
             if isinstance(term, BNode):
@@ -531,7 +532,7 @@ class _TripleCanonicalizer(object):
                 yield term
 
 
-def to_isomorphic(graph):
+def to_isomorphic(graph: Graph) -> IsomorphicGraph:
     if isinstance(graph, IsomorphicGraph):
         return graph
     result = IsomorphicGraph()
@@ -541,7 +542,7 @@ def to_isomorphic(graph):
     return result
 
 
-def isomorphic(graph1, graph2):
+def isomorphic(graph1: Graph, graph2: Graph) -> bool:
     """Compare graph for equality.
 
     Uses an algorithm to compute unique hashes which takes bnodes into account.
@@ -577,7 +578,9 @@ def isomorphic(graph1, graph2):
     return gd1 == gd2
 
 
-def to_canonical_graph(g1, stats=None):
+def to_canonical_graph(
+    g1: Graph, stats: Optional[Stats] = None
+) -> ReadOnlyGraphAggregate:
     """Creates a canonical, read-only graph.
 
     Creates a canonical, read-only graph where all bnode id:s are based on
@@ -588,7 +591,7 @@ def to_canonical_graph(g1, stats=None):
     return ReadOnlyGraphAggregate([graph])
 
 
-def graph_diff(g1, g2):
+def graph_diff(g1: Graph, g2: Graph) -> Tuple[Graph, Graph, Graph]:
     """Returns three sets of triples: "in both", "in first" and "in second"."""
     # bnodes have deterministic values in canonical graphs:
     cg1 = to_canonical_graph(g1)
@@ -602,7 +605,7 @@ def graph_diff(g1, g2):
 _MOCK_BNODE = BNode()
 
 
-def similar(g1, g2):
+def similar(g1: Graph, g2: Graph):
     """Checks if the two graphs are "similar".
 
     Checks if the two graphs are "similar", by comparing sorted triples where
@@ -615,12 +618,12 @@ def similar(g1, g2):
     return all(t1 == t2 for (t1, t2) in _squashed_graphs_triples(g1, g2))
 
 
-def _squashed_graphs_triples(g1, g2):
+def _squashed_graphs_triples(g1: Graph, g2: Graph):
     for (t1, t2) in zip(sorted(_squash_graph(g1)), sorted(_squash_graph(g2))):
         yield t1, t2
 
 
-def _squash_graph(graph):
+def _squash_graph(graph: Graph):
     return (_squash_bnodes(triple) for triple in graph)
 
 

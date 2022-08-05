@@ -3,6 +3,7 @@ import urllib
 import requests
 from urllib.request import urlopen
 import json
+from osgeo import ogr
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
 from qgis.core import QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
@@ -332,7 +333,7 @@ class SPARQLUtils:
         else:
             graph=triplestoreurl["instance"]
             QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
-            QgsMessageLog.logMessage("Query: " + str(query), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:
                 results=json.loads(graph.query(query).serialize(format="json"))
         QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
@@ -444,6 +445,11 @@ class SPARQLUtils:
         try:
             json.loads(literal)
             return "geojson"
+        except:
+            print("no geojson")
+        try:
+            ogr.CreateGeometryFromGML(literal)
+            return "gml"
         except:
             print("no geojson")
         return ""

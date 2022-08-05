@@ -95,7 +95,7 @@ class LayerUtils:
 
     @staticmethod
     def processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " " + str(literaltype))
+        QgsMessageLog.logMessage("Process literal: " + str(literal) + " --- " + str(literaltype))
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
@@ -118,7 +118,15 @@ class LayerUtils:
             else:
                 geom = QgsGeometry.fromWkt(literal)
         elif "gml" in literaltype.lower():
-            geom=QgsGeometry.fromWkb(ogr.CreateGeometryFromGML(literal).ExportToWkb())
+            if "EPSG" in literal and "http" in literal:
+                srspart=literal[literal.find("srsName="):literal.find(">")]
+                curcrs=srspart.replace("srsName=\"http://www.opengis.net/def/crs/EPSG/0/","")
+                curcrs=curcrs.replace("\"","")
+            elif "EPSG" in literal and "http" not in literal:
+                srspart = literal[literal.find("srsName="):literal.find(">")]
+                curcrs=srspart.replace("srsName=\"EPSG:","")
+                curcrs=curcrs.replace("\"", "")
+            geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():

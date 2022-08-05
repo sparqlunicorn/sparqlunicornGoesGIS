@@ -95,7 +95,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"],self.testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
             capabilitylist.append("WKT Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
-            if "geometryproperty" not  in configuration:
+            if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asWKT"]
             configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ")
             gottype=True
@@ -104,7 +104,7 @@ class GraphUtils:
             capabilitylist.append("GML Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asGML> ?geo . ")
-            if "geometryproperty" not  in configuration:
+            if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asGML"]
             gottype = True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasKML"],

@@ -7,17 +7,16 @@ try: ``csv2rdf --help``
 
 """
 
-import sys
-import re
-import csv
-import getopt
-import fileinput
 import codecs
-import time
-import datetime
-import warnings
-
 import configparser
+import csv
+import datetime
+import fileinput
+import getopt
+import re
+import sys
+import time
+import warnings
 from urllib.parse import quote
 
 import rdflib
@@ -94,7 +93,7 @@ uris = {}
 
 def toProperty(label):
     """
-    CamelCase + lowercase inital a string
+    CamelCase + lowercase initial a string
 
 
     FIRST_NM => firstNm

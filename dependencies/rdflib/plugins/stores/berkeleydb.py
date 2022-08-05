@@ -1,10 +1,11 @@
 import logging
-from threading import Thread
-from os.path import exists, abspath
 from os import mkdir
-from rdflib.store import Store, VALID_STORE, NO_STORE
-from rdflib.term import URIRef
+from os.path import abspath, exists
+from threading import Thread
 from urllib.request import pathname2url
+
+from rdflib.store import NO_STORE, VALID_STORE, Store
+from rdflib.term import URIRef
 
 
 def bb(u):
@@ -78,7 +79,7 @@ class BerkeleyDB(Store):
 
     identifier = property(__get_identifier)
 
-    def _init_db_environment(self, homeDir, create=True):
+    def _init_db_environment(self, homeDir, create=True):  # noqa: N803
         if not exists(homeDir):
             if create is True:
                 mkdir(homeDir)
@@ -99,7 +100,7 @@ class BerkeleyDB(Store):
     def open(self, path, create=True):
         if not has_bsddb:
             return NO_STORE
-        homeDir = path
+        homeDir = path  # noqa: N806
 
         if self.__identifier is None:
             self.__identifier = URIRef(pathname2url(abspath(homeDir)))
@@ -300,15 +301,12 @@ class BerkeleyDB(Store):
     def __remove(self, spo, c, quoted=False, txn=None):
         s, p, o = spo
         cspo, cpos, cosp = self.__indicies
-        contexts_value = (
-            cspo.get(
-                "^".encode("latin-1").join(
-                    ["".encode("latin-1"), s, p, o, "".encode("latin-1")]
-                ),
-                txn=txn,
-            )
-            or "".encode("latin-1")
-        )
+        contexts_value = cspo.get(
+            "^".encode("latin-1").join(
+                ["".encode("latin-1"), s, p, o, "".encode("latin-1")]
+            ),
+            txn=txn,
+        ) or "".encode("latin-1")
         contexts = set(contexts_value.split("^".encode("latin-1")))
         contexts.discard(c)
         contexts_value = "^".encode("latin-1").join(contexts)
@@ -469,14 +467,21 @@ class BerkeleyDB(Store):
         cursor.close()
         return count
 
-    def bind(self, prefix, namespace):
+    def bind(self, prefix, namespace, override=True):
         prefix = prefix.encode("utf-8")
         namespace = namespace.encode("utf-8")
         bound_prefix = self.__prefix.get(namespace)
-        if bound_prefix:
-            self.__namespace.delete(bound_prefix)
-        self.__prefix[namespace] = prefix
-        self.__namespace[prefix] = namespace
+        bound_namespace = self.__namespace.get(prefix)
+        if override:
+            if bound_prefix:
+                self.__namespace.delete(bound_prefix)
+            if bound_namespace:
+                self.__prefix.delete(bound_namespace)
+            self.__prefix[namespace] = prefix
+            self.__namespace[prefix] = namespace
+        else:
+            self.__prefix[bound_namespace or namespace] = bound_prefix or prefix
+            self.__namespace[bound_prefix or prefix] = bound_namespace or namespace
 
     def namespace(self, prefix):
         prefix = prefix.encode("utf-8")
