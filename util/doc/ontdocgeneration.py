@@ -195,8 +195,8 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td>"
-            dialogcontent+="<td><a href=\\""+res+"\\">"
+            dialogcontent+="<tr><td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\" target=\\"_blank\\">"+shortenURI(instance)+"</a></td>"
+            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"
             finished=false
             for(ns in annotationnamespaces){
                 if(res.includes(annotationnamespaces[ns])){
@@ -210,7 +210,7 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                 dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }
             dialogcontent+=shortenURI(res)+"</a></td>"
-            dialogcontent+="<td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
+            dialogcontent+="<td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\" target=\\"_blank\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
         }
     }
     for(res in result["to"]){
@@ -218,8 +218,8 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td></td><td></td><td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td>"
-            dialogcontent+="<td><a href=\\""+res+"\\">"
+            dialogcontent+="<tr><td></td><td></td><td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\" target=\\"_blank\\">"+nodelabel+"</a></td>"
+            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"
             finished=false
             for(ns in annotationnamespaces){
                 if(res.includes(annotationnamespaces[ns])){
@@ -233,7 +233,7 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                 dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }
             dialogcontent+=shortenURI(res)+"</a></td>"
-            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td></tr>"
+            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\" target=\\"_blank\\">"+shortenURI(instance)+"</a></td></tr>"
         }
     }
     dialogcontent+="</tbody></table>"
@@ -278,7 +278,7 @@ function formatHTMLTableForResult(result,nodeicon){
         }else if((result[res][0]+"").startsWith("http")){
             dialogcontent+="<td><a href=\\""+rewriteLink(result[res]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res]+"")+"</a></td>"
         }else{
-            dialogcontent+="<td>"+result[res]+"</td>"
+            dialogcontent+="<td>"+result[res]["instancecount"]+"</td>"
         }
         dialogcontent+="</tr>"
     }
