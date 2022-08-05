@@ -204,10 +204,10 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                     finished=true
                 }
             }
-            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }else if(!finished){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }
             dialogcontent+=shortenURI(res)+"</a></td>"
             dialogcontent+="<td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
@@ -227,10 +227,10 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                     finished=true
                 }
             }
-            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }else if(!finished){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
             }
             dialogcontent+=shortenURI(res)+"</a></td>"
             dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td></tr>"
