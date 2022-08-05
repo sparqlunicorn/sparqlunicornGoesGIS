@@ -709,26 +709,6 @@ class OntDocGeneration:
         else:
             return """All rights reserved."""
 
-    def generateRelationsBetweenClasses(self,graph):
-        classes=graph.subject_objects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"))
-        relresult={}
-        for cls in classes:
-            subject=cls[0]
-            clsobject=cls[1]
-            if subject not in relresult:
-                relresult[str(clsobject)]={}
-            for tup in graph.predicate_objects(subject):
-                predicate=tup[0]
-                object=tup[1]
-                if str(predicate) not in relresult[str(clsobject)]:
-                    relresult[str(clsobject)][str(predicate)]={}
-                for objtypes in graph.objects(object,URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
-                    if str(objtypes) not in relresult[str(clsobject)][str(predicate)]:
-                        relresult[str(clsobject)][str(predicate)][str(objtypes)]=0
-                    relresult[str(clsobject)][str(predicate)][str(objtypes)]+=1
-        return relresult
-
-
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
         corpusid=self.namespaceshort
@@ -745,7 +725,6 @@ class OntDocGeneration:
                 for obj in self.graph.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
                     labeltouri[str(obj)] = str(sub)
                     uritolabel[str(sub)] = {"label":str(obj)}
-        clsrelations=self.generateRelationsBetweenClasses(self.graph)
         if os.path.exists(outpath + corpusid + '_search.js'):
             try:
                 with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
@@ -774,9 +753,6 @@ class OntDocGeneration:
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
             f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
-            f.close()
-        with open(outpath + "classrelations.js", 'w', encoding='utf-8') as f:
-            f.write("var clsrelations="+json.dumps(clsrelations))
             f.close()
         pathmap = {}
         paths = {}
@@ -998,7 +974,7 @@ class OntDocGeneration:
                 for item in graph.objects(tup[1],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
                     if item not in uritotreeitem[parentclass]["data"][str(tup[0])]:
                         uritotreeitem[parentclass]["data"][str(tup[0])][item] = 0
-                    uritotreeitem[parentclass]["data"][str(tup[0])][item]+=1                    
+                    uritotreeitem[parentclass]["data"][str(tup[0])][item]+=1
         for tup in sorted(predobjmap):
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
