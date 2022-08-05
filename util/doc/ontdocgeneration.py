@@ -184,6 +184,33 @@ function labelFromURI(uri,label){
         return uri
 }
 
+function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
+    dialogcontent=""
+    if(nodelabel.includes("[")){
+        nodelabel=nodelabel.substring(0,nodelabel.lastIndexOf("[")-1)
+    }
+    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=classrelationstable><thead><tr><th>Incoming Concept</th><th>Incoming Relation</th><th>Concept</th><th>Outgoing Relation</th><th>Outgoing Concept</th></tr></thead><tbody>"
+    for(res in result["from"]){
+        for(instance in result["from"][res]){
+            if(instance=="instancecount"){
+                continue;
+            }
+            dialogcontent+="<tr><td><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td><td><a href=\\""+res+"\\">"+shortenURI(res)+"</a></td><td><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
+        }
+    }
+    for(res in result["to"]){
+        for(instance in result["to"][res]){
+            if(instance=="instancecount"){
+                continue;
+            }
+            dialogcontent+="<tr><td></td><td></td><td><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td><a href=\\""+res+"\\">"+shortenURI(res)+"</a></td><td><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td></tr>"
+        }
+    }
+    dialogcontent+="</tbody></table>"
+    dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"classrelationdialog\\").close()'>Close</button>"
+    return dialogcontent
+}
+
 function formatHTMLTableForResult(result,nodeicon){
     dialogcontent=""
     dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=dataschematable><thead><tr><th>Type</th><th>Relation</th><th>Value</th></tr></thead><tbody>"
@@ -230,6 +257,25 @@ function formatHTMLTableForResult(result,nodeicon){
     return dialogcontent
 }
 
+function getClassRelationDialog(node){
+     nodeid=rewriteLink(node.id).replace(".html",".json")
+     nodelabel=node.text
+     nodetype=node.type
+     nodeicon=node.icon
+     props={}
+     if("data" in node){
+        props=node.data
+     }
+     console.log(nodetype)
+     if(nodetype=="class" || nodetype=="geoclass"){
+        console.log(props)
+        dialogcontent=formatHTMLTableForClassRelations(props,nodeicon,nodelabel,nodeid)
+        document.getElementById("classrelationdialog").innerHTML=dialogcontent
+        $('#classrelationstable').DataTable();
+        document.getElementById("classrelationdialog").showModal();
+     }
+}
+
 function getDataSchemaDialog(node){
      nodeid=rewriteLink(node.id).replace(".html",".json")
      nodelabel=node.text
@@ -242,7 +288,7 @@ function getDataSchemaDialog(node){
      console.log(nodetype)
      if(nodetype=="class" || nodetype=="geoclass"){
         console.log(props)
-        dialogcontent=formatHTMLTableForResult(props,nodeicon)
+        dialogcontent=formatHTMLTableForResult(props["to"],nodeicon)
         document.getElementById("dataschemadialog").innerHTML=dialogcontent
         $('#dataschematable').DataTable();
         document.getElementById("dataschemadialog").showModal();
@@ -290,6 +336,18 @@ function setupJSTree(){
                 "action":function(obj){
                     copyText=node.id
                     navigator.clipboard.writeText(copyText);
+                }    
+            },
+            "discoverrelations":{
+                "separator_before": false,
+                "separator_after": false,
+                "label": "Discover class relations",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
+                "action":function(obj){
+                    console.log("class relations")
+                    if(node.type=="class" || node.type=="geoclass"){
+                        getClassRelationDialog(node)
+                    }
                 }    
             },
             "loaddataschema": {
@@ -462,7 +520,7 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button><br/></div></div><dialog id="dataschemadialog" width="500" height="500" modal="true"></dialog>
+<button id="downloadButton" onclick="download()">Download</button><br/></div></div><dialog id="classrelationdialog" width="500" height="500" modal="true"></dialog><dialog id="dataschemadialog" width="500" height="500" modal="true"></dialog>
 <div class="container-fluid"><div class="row-fluid" id="main-wrapper">
 """
 
@@ -960,21 +1018,23 @@ class OntDocGeneration:
             parentclass=str(uritotreeitem[str(subject)]["parent"])
             uritotreeitem[parentclass]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
+        uritotreeitem[parentclass]["data"]["to"]={}
+        uritotreeitem[parentclass]["data"]["from"]={}
         for tup in sorted(predobjs,key=lambda tup: tup[0]):
             if str(tup[0]) not in predobjmap:
                 predobjmap[str(tup[0])]=[]
             predobjmap[str(tup[0])].append(tup[1])
-            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass]["data"]:
-                uritotreeitem[parentclass]["data"][str(tup[0])]={}
-                uritotreeitem[parentclass]["data"][str(tup[0])]["instancecount"] = 0
+            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass]["data"]["to"]:
+                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]={}
+                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]["instancecount"] = 0
             if parentclass!=None:
-                uritotreeitem[parentclass]["data"][str(tup[0])]["instancecount"]+=1
+                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]["instancecount"]+=1
                 uritotreeitem[parentclass]["instancecount"]+=1
             if isinstance(tup[1],URIRef):
                 for item in graph.objects(tup[1],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
-                    if item not in uritotreeitem[parentclass]["data"][str(tup[0])]:
-                        uritotreeitem[parentclass]["data"][str(tup[0])][item] = 0
-                    uritotreeitem[parentclass]["data"][str(tup[0])][item]+=1
+                    if item not in uritotreeitem[parentclass]["data"]["to"][str(tup[0])]:
+                        uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item] = 0
+                    uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item]+=1
         for tup in sorted(predobjmap):
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
@@ -1035,6 +1095,14 @@ class OntDocGeneration:
             if str(tup[1]) not in subpredsmap:
                 subpredsmap[str(tup[1])]=[]
             subpredsmap[str(tup[1])].append(tup[0])
+            if parentclass!=None and str(tup[1]) not in uritotreeitem[parentclass]["data"]["from"]:
+                uritotreeitem[parentclass]["data"]["from"][str(tup[1])]={}
+                uritotreeitem[parentclass]["data"]["from"][str(tup[1])]["instancecount"] = 0
+            if isinstance(tup[0],URIRef):
+                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                    if item not in uritotreeitem[parentclass]["data"]["from"][str(tup[1])]:
+                        uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item] = 0
+                    uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item]+=1
         for tup in subpredsmap:
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
