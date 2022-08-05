@@ -195,7 +195,22 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td><td><a href=\\""+res+"\\">"+shortenURI(res)+"</a></td><td><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
+            dialogcontent+="<tr><td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td>"
+            dialogcontent+="<td><a href=\\""+res+"\\">"
+            finished=false
+            for(ns in annotationnamespaces){
+                if(res.includes(annotationnamespaces[ns])){
+                    dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>"
+                    finished=true
+                }
+            }
+            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            }else if(!finished){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            }
+            dialogcontent+=shortenURI(res)+"</a></td>"
+            dialogcontent+="<td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
         }
     }
     for(res in result["to"]){
@@ -203,7 +218,22 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td></td><td></td><td><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td><td><a href=\\""+res+"\\">"+shortenURI(res)+"</a></td><td><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td></tr>"
+            dialogcontent+="<tr><td></td><td></td><td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\">"+nodelabel+"</a></td>"
+            dialogcontent+="<td><a href=\\""+res+"\\">"
+            finished=false
+            for(ns in annotationnamespaces){
+                if(res.includes(annotationnamespaces[ns])){
+                    dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>"
+                    finished=true
+                }
+            }
+            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            }else if(!finished){
+                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
+            }
+            dialogcontent+=shortenURI(res)+"</a></td>"
+            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\">"+shortenURI(instance)+"</a></td></tr>"
         }
     }
     dialogcontent+="</tbody></table>"
