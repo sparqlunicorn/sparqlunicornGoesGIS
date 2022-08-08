@@ -97,7 +97,7 @@ class ClassTreeQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(self.triplestoreconf["resource"]["url"].replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
+        if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.classtreemap=None
             self.subclassmap=None
         else:
