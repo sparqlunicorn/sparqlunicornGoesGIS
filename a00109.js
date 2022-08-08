@@ -14,6 +14,7 @@ var a00109 =
     [ "loadGraph", "a00109.html#a8357f44b5c6ddb5e8885e31af12ab638", null ],
     [ "mergeLayers", "a00109.html#a986e83759bc4ae9ac33ecd49f61bd766", null ],
     [ "queryPreProcessing", "a00109.html#a4490b9c0a0abb70b2867d7b1bb783a0b", null ],
+    [ "resolvePropertyToTriplePattern", "a00109.html#aa275115bbaba2e60c5af46fa498092ba", null ],
     [ "shortenLiteral", "a00109.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "addressproperties", "a00109.html#aff22325bb2af79521134cbb4ba9e3564", null ],
     [ "annotationnamespaces", "a00109.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
