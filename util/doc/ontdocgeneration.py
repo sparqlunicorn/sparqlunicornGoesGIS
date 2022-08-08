@@ -278,7 +278,7 @@ function formatHTMLTableForResult(result,nodeicon){
         }else if((result[res][0]+"").startsWith("http")){
             dialogcontent+="<td><a href=\\""+rewriteLink(result[res]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res]+"")+"</a></td>"
         }else{
-            dialogcontent+="<td>"+result[res]["instancecount"]+"</td>"
+            dialogcontent+="<td>"+result[res][0]+"</td>"
         }
         dialogcontent+="</tr>"
     }
