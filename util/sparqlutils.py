@@ -162,7 +162,7 @@ class SPARQLUtils:
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
-    imageextensions=[".jpg",".png",".gif",".tif"]
+    imageextensions=[".jpg",".png",".gif",".tif",".svg","<svg"]
 
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"

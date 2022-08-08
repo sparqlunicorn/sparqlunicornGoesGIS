@@ -560,6 +560,12 @@ imagestemplate="""
 </div>
 """
 
+imagestemplatesvg="""
+<div class="image" style="max-width:500px;max-height:500px">
+{{image}}
+</div>
+"""
+
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
 <option value="cipher">Cypher Neo4J (Cypher)</option>
@@ -1009,7 +1015,7 @@ class OntDocGeneration:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
                     object.datatype) + "> .\n")
                 tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                    object) + "\" datatype=\"" + str(object.datatype) + "\">" + str(
+                    object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"" + str(object.datatype) + "\">" + str(
                     object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                     object.datatype) + "\">" + str(
                     object.datatype[object.datatype.rfind('/') + 1:]) + "</a>)</small></span>"
@@ -1096,12 +1102,14 @@ class OntDocGeneration:
                 foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
                 comment = str(predobjmap[tup][0])
-            if list(filter(str(tup).endswith, SPARQLUtils.imageextensions)) != []:
-                foundimages.append(str(predobjmap[tup][0]))
             if len(predobjmap[tup]) > 0:
                 if len(predobjmap[tup])>1:
                     tablecontents+="<td class=\"wrapword\"><ul>"
                     for item in predobjmap[tup]:
+                        if str(item).startswith("http"):
+                            for ext in SPARQLUtils.imageextensions:
+                                if str(item).endswith(ext):
+                                    foundimages.append(str(item))
                         tablecontents+="<li>"
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
                                               baseurl, checkdepth,geojsonrep)
@@ -1111,6 +1119,10 @@ class OntDocGeneration:
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
+                    if str(predobjmap[tup]).startswith("http"):
+                        for ext in SPARQLUtils.imageextensions:
+                            if str(predobjmap[tup]).endswith(ext):
+                                foundimages.append(str(predobjmap[tup]))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
                                               baseurl, checkdepth,geojsonrep)
                     tablecontents=res["html"]
@@ -1221,7 +1233,10 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             for image in foundimages:
-                f.write(imagestemplate.replace("{{image}}",image))
+                if "<svg" in image:
+                    f.write(imagestemplatesvg.replace("{{image}}",str(image)))
+                else:
+                    f.write(imagestemplate.replace("{{image}}",str(image)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
             if geojsonrep!=None and not isgeocollection:
