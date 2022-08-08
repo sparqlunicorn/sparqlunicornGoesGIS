@@ -217,7 +217,7 @@ class SPARQLUtils:
             collectionmemberproperty=triplestoreconf["collectionmemberproperty"]
         query=query.replace("%%subclassproperty%%","<"+subclassproperty+">")\
             .replace("%%typeproperty%%","<"+typeproperty+">")\
-            .replace("%%labelproperty%%","<"+labelproperty+">")\
+            .replace("%%labelproperty%%","<"+labelproperty[0]+">")\
             .replace("%%collectionmemberproperty%%","<"+collectionmemberproperty+">").replace("<<","<").replace(">>",">")
         QgsMessageLog.logMessage('Preprocessing finished"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
                              Qgis.Info)
@@ -536,7 +536,7 @@ class SPARQLUtils:
         result = classes
         if query==None:
             if typeindicator=="class":
-                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n FILTER(langMatches(lang(?label), \""+str(preferredlang)+"\"))\n }\n OPTIONAL {\n ?class <"+str(triplestoreconf["labelproperty"])+"> ?label .\n } \n} "
+                query="SELECT ?class ?label\n WHERE { %%concepts%%  \n "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",triplestoreconf,"OPTIONAL","FILTER(LANG(?label) = \""+str(preferredlang)+"\") ")+" \n} "
         if "SELECT" in query and "resource" in triplestoreconf \
                 and "type" in triplestoreconf["resource"] \
                 and ((triplestoreconf["resource"]["type"]=="endpoint"
@@ -622,3 +622,27 @@ class SPARQLUtils:
                         else:
                             result[wdprefix+ent]["label"] = ""
         return result
+
+    @staticmethod
+    def resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False):
+        if filterstatement==None:
+            filterstatement=""
+        propidcleaned=propertyid.replace("%","")
+        if propidcleaned in triplestoreconf:
+            res=""
+            for propid in triplestoreconf[propidcleaned]:
+                thepattern=str(itemvar)+" <"+str(propid)+"> "+str(propvar)+" .\n "+filterstatement
+                if proplabel and "url" in triplestoreconf["resource"] and (
+                        "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"][
+                    "url"]):
+                    thepattern="?prop <http://wikiba.se/ontology#directClaim> "+str(itemvar)+" . ?prop <"+str(propid)+"> "+str(propvar)+" .\n"+filterstatement
+                if patterntype=="OPTIONAL":
+                    res+="OPTIONAL { "+thepattern+"}\n"
+                else:
+                    res+=thepattern
+            return res
+        if proplabel and "url" in triplestoreconf["resource"] and (
+                "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]):
+            return "?prop <http://wikiba.se/ontology#directClaim> "+str(itemvar)+" . ?prop "+str(propertyid)+" "+str(propvar)+" .\n"
+        else:
+            return str(itemvar)+" "+str(propertyid)+" "+str(propvar)+" .\n"

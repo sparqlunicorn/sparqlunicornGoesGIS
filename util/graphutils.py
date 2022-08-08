@@ -54,7 +54,7 @@ class GraphUtils:
             self.configuration["auth"]["userPassword"] = credentialPassword
             self.configuration["auth"]["method"]=authmethod
         self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        self.configuration["labelproperty"] = "http://www.w3.org/2000/01/rdf-schema#label"
+        self.configuration["labelproperty"] = ["http://www.w3.org/2000/01/rdf-schema#label"]
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         self.configuration["whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
         self.configuration["staticconcepts"] = []
@@ -247,12 +247,12 @@ class GraphUtils:
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasDCTermsTitleLabel"]):
-                self.configuration["labelproperty"]="http://purl.org/dc/terms/title"
+                self.configuration["labelproperty"].append("http://purl.org/dc/terms/title")
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
-                self.configuration["labelproperty"]="http://www.w3.org/2004/02/skos/core#prefLabel"
-            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+                self.configuration["labelproperty"].append("http://www.w3.org/2004/02/skos/core#prefLabel")
+            self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             self.configuration[
-                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . ?class %%labelproperty%% ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
                 results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <"+str(self.configuration["typeproperty"])+"> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")

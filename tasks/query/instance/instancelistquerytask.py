@@ -27,7 +27,7 @@ class InstanceListQueryTask(QgsTask):
         if "labelproperty" in self.triplestoreconf:
             labelproperty=self.triplestoreconf["labelproperty"]
         nodetype=self.treeNode.data(UIUtils.dataslot_nodetype)
-        labelpattern="OPTIONAL { ?con <"+labelproperty+"> ?label . FILTER(LANG(?label) =  \""+str(self.preferredlang)+"\") }\n OPTIONAL { ?con <"+labelproperty+"> ?label . }\n"
+        labelpattern=SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?con",self.triplestoreconf,"OPTIONAL","FILTER(LANG(?label) =  \""+str(self.preferredlang)+"\") ")+" "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?con",self.triplestoreconf,"OPTIONAL",None)
         geometryproperty=None
         if "geometryproperty" in self.triplestoreconf:
             if type(self.triplestoreconf["geometryproperty"]) is list:
