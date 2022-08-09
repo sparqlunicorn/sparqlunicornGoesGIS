@@ -770,11 +770,12 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,progress):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
+        self.progress=progress
         self.license=license
         self.licenseuri=None
         self.labellang=labellang
@@ -802,6 +803,10 @@ class OntDocGeneration:
             return res
         else:
             return """All rights reserved."""
+
+    def updateProgressBar(self,currentsubject,allsubjects):
+        newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
+        self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" URIs... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
@@ -870,9 +875,16 @@ class OntDocGeneration:
                 if outpath not in paths:
                     paths[outpath] = []
                 paths[outpath].append(path + "/index.html")
+            if os.path.exists(outpath + path+"/index.ttl"):
+                try:
+                    self.graph.parse(outpath + path+"/index.ttl")
+                except Exception as e:
+                    print(e)
             self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
                        self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense)
             subtorencounter += 1
+            if subtorencounter%500==0:
+                self.updateProgressBar(subtorencounter,subtorenderlen)
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             #except Exception as e:
             #    print(e)
@@ -964,7 +976,10 @@ class OntDocGeneration:
                 classlist[item["parent"]]["geoitems"]+=1
         for item in classlist:
             if classlist[item]["items"]>0:
-                classlist[item]["item"]["text"]=classlist[item]["item"]["text"]+" ["+str(classlist[item]["items"])+"]"
+                if classlist[item]["item"]["text"].endswith("]"):
+                    classlist[item]["item"]["text"]=classlist[item]["item"]["text"][0:classlist[item]["item"]["text"].rfind("[")-1]+" ["+str(classlist[item]["items"])+"]"
+                else:
+                    classlist[item]["item"]["text"]=classlist[item]["item"]["text"]+" ["+str(classlist[item]["items"])+"]"
             if classlist[item]["items"]==classlist[item]["geoitems"] and classlist[item]["items"]>0 and classlist[item]["geoitems"]>0:
                 classlist[item]["item"]["type"]="geoclass"
             elif classlist[item]["items"]>classlist[item]["geoitems"] and classlist[item]["geoitems"]>0:
@@ -1028,6 +1043,33 @@ class OntDocGeneration:
                     object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
         return {"html":tablecontents,"geojson":geojsonrep}
 
+    def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
+        label = str(str(tup)[str(tup).rfind('/') + 1:])
+        for obj in graph.objects(tup, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
+            label = str(obj)
+        tablecontents += "<td class=\"property\">"
+        if reverse:
+            tablecontents+="Is "
+        if baseurl in str(tup):
+            rellink = str(tup).replace(baseurl, "")
+            for i in range(0, checkdepth):
+                rellink = "../" + rellink
+            rellink += "/index.html"
+            tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span>"
+        else:
+            res = self.replaceNameSpacesInLabel(tup)
+            if res != None:
+                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
+                    tup) + "\">" + label + " <span style=\"color: #666;\">(" + res[
+                                     "uri"] + ")</span></a></span>"
+            else:
+                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
+                    tup[0]) + "\">" + label + "</a></span>"
+        if reverse:
+            tablecontents+=" of"
+        tablecontents += "</td>"
+        return tablecontents
+
     def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense):
         tablecontents = ""
         isodd = False
@@ -1052,10 +1094,15 @@ class OntDocGeneration:
         parentclass=None
         if str(subject) in uritotreeitem and uritotreeitem[str(subject)]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)]["parent"])
+            if parentclass not in uritotreeitem:
+                uritotreeitem[parentclass]={"id": parentclass, "parent": "#",
+                                   "type": "class",
+                                   "text": str(parentclass)[str(parentclass).rfind('/') + 1:],"data":{}}
             uritotreeitem[parentclass]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
-        uritotreeitem[parentclass]["data"]["to"]={}
-        uritotreeitem[parentclass]["data"]["from"]={}
+        if parentclass!=None:
+            uritotreeitem[parentclass]["data"]["to"]={}
+            uritotreeitem[parentclass]["data"]["from"]={}
         for tup in sorted(predobjs,key=lambda tup: tup[0]):
             if str(tup[0]) not in predobjmap:
                 predobjmap[str(tup[0])]=[]
@@ -1068,9 +1115,10 @@ class OntDocGeneration:
                 uritotreeitem[parentclass]["instancecount"]+=1
             if isinstance(tup[1],URIRef):
                 for item in graph.objects(tup[1],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
-                    if item not in uritotreeitem[parentclass]["data"]["to"][str(tup[0])]:
-                        uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item] = 0
-                    uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item]+=1
+                    if parentclass!=None:
+                        if item not in uritotreeitem[parentclass]["data"]["to"][str(tup[0])]:
+                            uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item] = 0
+                        uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item]+=1
         for tup in sorted(predobjmap):
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
@@ -1082,22 +1130,7 @@ class OntDocGeneration:
             elif str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
-            if baseurl in str(tup):
-                rellink = str(tup).replace(baseurl, "")
-                for i in range(0, checkdepth):
-                    rellink = "../" + rellink
-                rellink += "/index.html"
-                label = rellink.replace("/index.html", "")
-                tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span></td>"
-            else:
-                res = self.replaceNameSpacesInLabel(tup)
-                if res != None:
-                    tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
-                                         "uri"] + ")</span></a></span></td>"
-                else:
-                    tablecontents += "<td class=\"property\"><span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup[0]) + "\">" + str(tup[tup.rfind('/') + 1:]) + "</a></span></td>"
+            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,False)
             if str(tup) == "http://www.w3.org/2000/01/rdf-schema#label":
                 foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
@@ -1142,31 +1175,16 @@ class OntDocGeneration:
                 uritotreeitem[parentclass]["data"]["from"][str(tup[1])]["instancecount"] = 0
             if isinstance(tup[0],URIRef):
                 for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
-                    if item not in uritotreeitem[parentclass]["data"]["from"][str(tup[1])]:
-                        uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item] = 0
-                    uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item]+=1
+                    if parentclass!=None:
+                        if item not in uritotreeitem[parentclass]["data"]["from"][str(tup[1])]:
+                            uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item] = 0
+                        uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item]+=1
         for tup in subpredsmap:
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
             else:
                 tablecontents += "<tr class=\"even\">"
-            if baseurl in str(tup):
-                rellink = str(tup).replace(baseurl, "")
-                for i in range(0, checkdepth):
-                    rellink = "../" + rellink
-                rellink += "/index.html"
-                label = rellink.replace("/index.html", "")
-                tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
-                    str(tup[tup.rfind('/') + 1:])) + ")</span></a></span> of</td>"
-            else:
-                res = self.replaceNameSpacesInLabel(tup)
-                if res != None:
-                    tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + " <span style=\"color: #666;\">(" + res[
-                                         "uri"] + ")</span></a></span> of</td>"
-                else:
-                    tablecontents += "<td class=\"property\">Is <span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                        tup) + "\">" + str(tup[tup.rfind('/') + 1:]) + "</a></span> of</td>"
+            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
             if len(subpredsmap[tup]) > 0:
                 if len(subpredsmap[tup]) > 1:
                     tablecontents += "<td class=\"wrapword\"><ul>"

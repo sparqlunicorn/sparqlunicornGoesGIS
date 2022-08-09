@@ -36,7 +36,7 @@ class OntDocTask(QgsTask):
             nsshort=self.namespace[self.namespace[0:-1].rfind('/') + 1:]
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph)
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.progress)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         return True
 
