@@ -36,6 +36,7 @@ class SPARQLUtils:
         "https://schema.org/name": "DatatypeProperty",
         "https://schema.org/alternateName": "DatatypeProperty",
         "http://purl.org/dc/terms/title": "DatatypeProperty",
+        "http://purl.org/dc/elements/1.1/title":"DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#altSymbol": "DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#hiddenLabel": "DatatypeProperty",
         "http://www.w3.org/2000/01/rdf-schema#label": "DatatypeProperty"
@@ -162,7 +163,9 @@ class SPARQLUtils:
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
-    imageextensions=[".jpg",".png",".gif",".tif",".svg","<svg"]
+    imageextensions=[".apng",".bmp",".cur",".ico",".jpg",".jpeg",".png",".gif",".tif",".svg","<svg"]
+
+    meshextensions=[".ply",".nxs",".nxz"]
 
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"

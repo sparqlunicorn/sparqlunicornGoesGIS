@@ -41,9 +41,9 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             g.parse(filename,format="ttl")
             namespaces=set()
             for sub in g.subjects():
-                namespaces.add(sub[0:sub.rfind("/")+1])
+                namespaces.add(str(sub)[0:str(sub).rfind("/")+1])
             self.namespaceCBox.clear()
-            self.namespaceCBox.addItems(namespaces)
+            self.namespaceCBox.addItems(sorted(namespaces))
         except Exception as e:
             QgsMessageLog.logMessage("Exception occurred: "+str(e), "OntdocDialog", Qgis.Info)
 

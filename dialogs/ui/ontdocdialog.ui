@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>716</width>
+    <width>1073</width>
     <height>289</height>
    </rect>
   </property>
@@ -148,6 +148,12 @@
    </item>
    <item row="4" column="1">
     <widget class="QComboBox" name="preferredLabelLangCBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::NoInsert</enum>
+     </property>
      <item>
       <property name="text">
        <string>en</string>
@@ -177,7 +183,14 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QComboBox" name="namespaceCBox"/>
+    <widget class="QComboBox" name="namespaceCBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::NoInsert</enum>
+     </property>
+    </widget>
    </item>
    <item row="3" column="1">
     <widget class="QgsFileWidget" name="outFolderWidget">
