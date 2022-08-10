@@ -163,6 +163,29 @@ function shortenURI(uri){
 	return uri
 }
 
+var presenter = null;
+function setup3dhop(meshurl,meshformat) { 
+  presenter = new Presenter("draw-canvas");  
+  presenter.setScene({
+    meshes: {
+			"mesh_1" : { url: meshurl,  mType: format}
+		},
+		modelInstances : {
+			"model_1" : { 
+				mesh  : "mesh_1",
+				color : [0.8, 0.7, 0.75]
+			}
+		}
+  });
+}
+
+function start3dhop(meshurl,meshformat){
+    init3dhop();
+	setup3dhop(meshurl,meshformat);
+	resizeCanvas(640,480);
+  	moveToolbar(20,20);  
+}
+
 function labelFromURI(uri,label){
         if(uri.includes("#")){
         	prefix=uri.substring(0,uri.lastIndexOf('#')-1)
@@ -554,17 +577,28 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <div class="container-fluid"><div class="row-fluid" id="main-wrapper">
 """
 
-imagestemplate="""
-<div class="image">
+imagestemplate="""<div class="image">
 <img src="{{image}}" style="max-width:500px;max-height:500px" alt="Depiction of $resource.label" title="Depiction of {{title}}" />
 </div>
 """
 
-imagestemplatesvg="""
-<div class="image" style="max-width:500px;max-height:500px">
+imagestemplatesvg="""<div class="image" style="max-width:500px;max-height:500px">
 {{image}}
 </div>
 """
+
+image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/stylesheet/3dhop.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/spidergl.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/presenter.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/nexus.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/ply.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable_pan.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_pantilt.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_sphere.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/init.js"></script>
+<div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+<canvas id="draw-canvas"/></div><script>$(document).ready(function(){start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
@@ -649,8 +683,7 @@ geoexports="""
 <option value="yaml">YAML Ain't Markup Language (YAML)</option>
 """
 
-maptemplate="""
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+maptemplate="""<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
 <script>
 /*** Leaflet.geojsonCSS
@@ -808,6 +841,29 @@ class OntDocGeneration:
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
         self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" URIs... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
 
+    def processSubjectPath(self,outpath,paths,path):
+        if "/" in path:
+            addpath = ""
+            for pathelem in path.split("/"):
+                addpath += pathelem + "/"
+                if not os.path.isdir(outpath + addpath):
+                    os.mkdir(outpath + addpath)
+            if outpath + path[0:path.rfind('/')] + "/" not in paths:
+                paths[outpath + path[0:path.rfind('/')] + "/"] = []
+            paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
+        else:
+            if not os.path.isdir(outpath + path):
+                os.mkdir(outpath + path)
+            if outpath not in paths:
+                paths[outpath] = []
+            paths[outpath].append(path + "/index.html")
+        if os.path.exists(outpath + path + "/index.ttl"):
+            try:
+                self.graph.parse(outpath + path + "/index.ttl")
+            except Exception as e:
+                print(e)
+        return paths
+
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
         corpusid=self.namespaceshort
@@ -821,9 +877,11 @@ class OntDocGeneration:
         for sub in self.graph.subjects():
             if prefixnamespace in sub:
                 subjectstorender.add(sub)
-                for obj in self.graph.objects(sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
-                    labeltouri[str(obj)] = str(sub)
-                    uritolabel[str(sub)] = {"label":str(obj)}
+                for tup in self.graph.predicate_objects(sub):
+                    if str(tup[0]) in SPARQLUtils.labelproperties:
+                        labeltouri[str(tup[1])] = str(sub)
+                        uritolabel[str(sub)] = {"label":str(tup[1])}
+                        break
         if os.path.exists(outpath + corpusid + '_search.js'):
             try:
                 with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
@@ -855,46 +913,48 @@ class OntDocGeneration:
             f.close()
         pathmap = {}
         paths = {}
+        postprocessing=Graph()
         subtorenderlen = len(subjectstorender)
         subtorencounter = 0
         for subj in subjectstorender:
             path = subj.replace(prefixnamespace, "")
-            #try:
-            if "/" in path:
-                addpath = ""
-                for pathelem in path.split("/"):
-                    addpath += pathelem + "/"
-                    if not os.path.isdir(outpath + addpath):
-                        os.mkdir(outpath + addpath)
-                if outpath + path[0:path.rfind('/')] + "/" not in paths:
-                    paths[outpath + path[0:path.rfind('/')] + "/"] = []
-                paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
-            else:
-                if not os.path.isdir(outpath + path):
-                    os.mkdir(outpath + path)
-                if outpath not in paths:
-                    paths[outpath] = []
-                paths[outpath].append(path + "/index.html")
+            paths=self.processSubjectPath(outpath,paths,path)
             if os.path.exists(outpath + path+"/index.ttl"):
                 try:
                     self.graph.parse(outpath + path+"/index.ttl")
                 except Exception as e:
                     print(e)
             self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
-                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense)
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
             subtorencounter += 1
             if subtorencounter%500==0:
+                subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             #except Exception as e:
             #    print(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
-        # print(paths)
+        QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
+        for subj in postprocessing.subjects():
+            path = str(subj).replace(prefixnamespace, "")
+            paths=self.processSubjectPath(outpath,paths,path)
+            if os.path.exists(outpath + path+"/index.ttl"):
+                try:
+                    self.graph.parse(outpath + path+"/index.ttl")
+                except Exception as e:
+                    print(e)
+            self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
+            subtorencounter += 1
+            if subtorencounter%500==0:
+                subtorenderlen=len(subjectstorender)+len(postprocessing)
+                self.updateProgressBar(subtorencounter,subtorenderlen)
+            print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.assignGeoClassesToTree(tree)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
-        QgsMessageLog.logMessage("BaseURL " + str(uritotreeitem), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("BaseURL " + str(uritotreeitem), "OntdocGeneration", Qgis.Info)
         for path in paths:
             indexhtml = htmltemplate.replace("{{toptitle}}","Index page for " + str(prefixnamespace)).replace("{{title}}","Index page for " + str(prefixnamespace)).replace(
                     "{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{classtreefolderpath}}", outpath + corpusid + "_classtree.js").replace(
@@ -1004,8 +1064,10 @@ class OntDocGeneration:
                     if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
                         geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
             label = str(str(object)[str(object).rfind('/') + 1:])
-            for obj in graph.objects(object, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
-                label = str(obj)
+            for tup in graph.predicate_objects(object):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    label = str(tup[1])
+                    break
             if baseurl in str(object):
                 rellink = str(object).replace(baseurl, "")
                 for i in range(0, checkdepth):
@@ -1045,8 +1107,10 @@ class OntDocGeneration:
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         label = str(str(tup)[str(tup).rfind('/') + 1:])
-        for obj in graph.objects(tup, URIRef("http://www.w3.org/2000/01/rdf-schema#label")):
-            label = str(obj)
+        for obj in graph.predicate_objects(object):
+            if str(obj[0]) in SPARQLUtils.labelproperties:
+                label = str(obj[1])
+                break
         tablecontents += "<td class=\"property\">"
         if reverse:
             tablecontents+="Is "
@@ -1070,11 +1134,12 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
         tablecontents = ""
         isodd = False
         geojsonrep=None
-        foundimages=[]
+        foundimages=set()
+        found3dimages=set()
         savepath = savepath.replace("\\", "/")
         #QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
         #QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
@@ -1131,7 +1196,7 @@ class OntDocGeneration:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,False)
-            if str(tup) == "http://www.w3.org/2000/01/rdf-schema#label":
+            if str(tup) in SPARQLUtils.labelproperties:
                 foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
                 comment = str(predobjmap[tup][0])
@@ -1142,7 +1207,10 @@ class OntDocGeneration:
                         if str(item).startswith("http"):
                             for ext in SPARQLUtils.imageextensions:
                                 if str(item).endswith(ext):
-                                    foundimages.append(str(item))
+                                    foundimages.add(str(item))
+                            for ext in SPARQLUtils.meshextensions:
+                                if str(item).endswith(ext):
+                                    found3dimages.add(str(item))
                         tablecontents+="<li>"
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
                                               baseurl, checkdepth,geojsonrep)
@@ -1155,7 +1223,10 @@ class OntDocGeneration:
                     if str(predobjmap[tup]).startswith("http"):
                         for ext in SPARQLUtils.imageextensions:
                             if str(predobjmap[tup]).endswith(ext):
-                                foundimages.append(str(predobjmap[tup]))
+                                foundimages.add(str(predobjmap[tup]))
+                            for ext in SPARQLUtils.meshextensions:
+                                if str(predobjmap[tup]).endswith(ext):
+                                    found3dimages.add(str(predobjmap[tup]))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
                                               baseurl, checkdepth,geojsonrep)
                     tablecontents=res["html"]
@@ -1190,6 +1261,9 @@ class OntDocGeneration:
                     tablecontents += "<td class=\"wrapword\"><ul>"
                     for item in subpredsmap[tup]:
                         tablecontents += "<li>"
+                        if item not in subjectstorender and baseurl in str(item):
+                            QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject), "OntdocGeneration", Qgis.Info)
+                            postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
                                                              baseurl, checkdepth, geojsonrep)
                         tablecontents = res["html"]
@@ -1197,6 +1271,11 @@ class OntDocGeneration:
                     tablecontents += "</ul></td>"
                 else:
                     tablecontents += "<td class=\"wrapword\">"
+                    if subpredsmap[tup][0] not in subjectstorender and baseurl in str(subpredsmap[tup][0]):
+                        QgsMessageLog.logMessage(
+                            "Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject),
+                            "OntdocGeneration", Qgis.Info)
+                        postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
                                                          baseurl, checkdepth, geojsonrep)
                     tablecontents = res["html"]
@@ -1250,13 +1329,19 @@ class OntDocGeneration:
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
+            if comment!=None:
+                f.write(htmlcommenttemplate.replace("{{comment}}",comment))
+            if found3dimages!=[]:
+                curitem=next(iter(found3dimages))
+                format="ply"
+                if ".nxs" in curitem or ".nxz" in curitem:
+                    format="nexus"
+                f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
             for image in foundimages:
                 if "<svg" in image:
                     f.write(imagestemplatesvg.replace("{{image}}",str(image)))
                 else:
                     f.write(imagestemplate.replace("{{image}}",str(image)))
-            if comment!=None:
-                f.write(htmlcommenttemplate.replace("{{comment}}",comment))
             if geojsonrep!=None and not isgeocollection:
                 if str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)]["type"]="geoinstance"
