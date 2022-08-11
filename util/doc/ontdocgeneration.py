@@ -558,7 +558,8 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
@@ -592,13 +593,13 @@ image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/presenter.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/nexus.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/ply.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_sphere.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable_pan.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_pantilt.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_sphere.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/init.js"></script>
 <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-<canvas id="draw-canvas"/></div><script>$(document).ready(function(){start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
+<canvas id="draw-canvas"></canvas></div><script>$(document).ready(function(){start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
@@ -961,11 +962,16 @@ class OntDocGeneration:
                     "{{baseurl}}", prefixnamespace).replace(
                     "{{scriptfolderpath}}", outpath + corpusid + '_search.js').replace("{{indexpage}}","true")
             indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"
-            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1><thead><tr><th>Class</th><th>Number of instances</th></tr></thead><tbody>"
+            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
                     indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
-                    indexhtml+="<td>"+str(item["instancecount"])+"</td></tr>"
+                    indexhtml+="<td>"+str(item["instancecount"])+"</td>"
+                    for item2 in tree["core"]["data"]:
+                        if item2["parent"]==item["id"]:
+                            indexhtml+="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+str(item2["id"]).replace(prefixnamespace,"")+"/index.html\">"+str(item2["text"])+"</a></td>"
+                            break
+                    indexhtml+="</tr>"
             indexhtml += "</tbody></table>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense)
             print(path)
@@ -1332,12 +1338,14 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
-            if found3dimages!=[]:
-                curitem=next(iter(found3dimages))
-                format="ply"
-                if ".nxs" in curitem or ".nxz" in curitem:
-                    format="nexus"
-                f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
+            if len(found3dimages)>0:
+                print("Found 3D Model: "+str(foundimages))
+                for curitem in found3dimages:
+                    format="ply"
+                    if ".nxs" in curitem or ".nxz" in curitem:
+                        format="nexus"
+                    f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
+                    break
             for image in foundimages:
                 if "<svg" in image:
                     f.write(imagestemplatesvg.replace("{{image}}",str(image)))
