@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from rdflib import Graph
-from rdflib import URIRef, Literal
+from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
 import os
 import json
@@ -875,7 +875,7 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         subjectstorender = set()
         for sub in self.graph.subjects():
-            if prefixnamespace in sub:
+            if prefixnamespace in sub or isinstance(sub,BNode):
                 subjectstorender.add(sub)
                 for tup in self.graph.predicate_objects(sub):
                     if str(tup[0]) in SPARQLUtils.labelproperties:
@@ -1056,7 +1056,7 @@ class OntDocGeneration:
         return None
 
     def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep):
-        if str(object).startswith("http"):
+        if str(object).startswith("http") or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
             if str(pred) in SPARQLUtils.geopointerproperties:
@@ -1068,12 +1068,13 @@ class OntDocGeneration:
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
                     break
-            if baseurl in str(object):
+            if baseurl in str(object) or isinstance(object,BNode):
                 rellink = str(object).replace(baseurl, "")
                 for i in range(0, checkdepth):
                     rellink = "../" + rellink
                 rellink += "/index.html"
-                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
+                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" \
+                    + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
                     str(str(object)[str(object).rfind('/') + 1:])) + ")</span></a></span>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
