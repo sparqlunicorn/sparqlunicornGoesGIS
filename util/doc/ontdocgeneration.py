@@ -1331,12 +1331,14 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
-            if found3dimages!=[]:
-                curitem=next(iter(found3dimages))
-                format="ply"
-                if ".nxs" in curitem or ".nxz" in curitem:
-                    format="nexus"
-                f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
+            if len(found3dimages)>0:
+                print("Found 3D Model: "+str(foundimages))
+                for curitem in found3dimages:
+                    format="ply"
+                    if ".nxs" in curitem or ".nxz" in curitem:
+                        format="nexus"
+                    f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
+                    break
             for image in foundimages:
                 if "<svg" in image:
                     f.write(imagestemplatesvg.replace("{{image}}",str(image)))
