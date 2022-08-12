@@ -22,6 +22,7 @@ var a00109 =
     [ "authmethods", "a00109.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classnode", "a00109.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00109.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
+    [ "collectionrelationproperties", "a00109.html#ac2991204b1f681ec710d1a6a20cc8b3c", null ],
     [ "commentproperties", "a00109.html#a005adfb0073d3ff83d90a00871ae7112", null ],
     [ "datatypepropertynode", "a00109.html#aa0daac064737190f501c49003c46d025", null ],
     [ "exception", "a00109.html#a2387fb71295a4c6a4b0feeaa424809f5", null ],
@@ -45,5 +46,7 @@ var a00109 =
     [ "relationproperties", "a00109.html#ab2c8eb4954e2f8428c109bba1d5a9ab0", null ],
     [ "styleproperties", "a00109.html#acb3b01974e4664d4be9f2833fcb096e9", null ],
     [ "supportedLiteralTypes", "a00109.html#a28a4112f838898d008910c4320f0732e", null ],
-    [ "treeNodeToolTip", "a00109.html#ab6a3282f03c67eef3b4d08d300033335", null ]
+    [ "treeNodeToolTip", "a00109.html#ab6a3282f03c67eef3b4d08d300033335", null ],
+    [ "unitproperties", "a00109.html#a8bb5af10e474f8f5f9c0567994211e7d", null ],
+    [ "valueproperties", "a00109.html#a133bbb34aa6486c797ebc8bf635599bb", null ]
 ];
