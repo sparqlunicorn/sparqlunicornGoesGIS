@@ -42,6 +42,19 @@ class SPARQLUtils:
         "http://www.w3.org/2000/01/rdf-schema#label": "DatatypeProperty"
     }
 
+    collectionrelationproperties={
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
+    }
+
+    valueproperties={
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty"
+    }
+
+    unitproperties={
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit":"ObjectProperty"
+    }
+
     commentproperties={
         "http://www.w3.org/2004/02/skos/core#definition":"DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#note": "DatatypeProperty",

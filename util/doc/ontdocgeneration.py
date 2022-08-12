@@ -39,7 +39,6 @@ var geoproperties={
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
 }
 
-  var baseurl="{{baseurl}}"
   $( function() {
     var availableTags = Object.keys(search)
     $( "#search" ).autocomplete({
@@ -168,7 +167,7 @@ function setup3dhop(meshurl,meshformat) {
   presenter = new Presenter("draw-canvas");  
   presenter.setScene({
     meshes: {
-			"mesh_1" : { url: meshurl,  mType: format}
+			"mesh_1" : { url: "https://heidicon.ub.uni-heidelberg.de/eas/partitions/5/0/841000/841087/915b9bd695eba26eb54a03d6077d49be0d0df419/application/x-nexus-nxz/HT_07-31-95_3D_GMOCF_r1.50_n4_v512.volume_FuncValColor_Legacy.nxz" }
 		},
 		modelInstances : {
 			"model_1" : { 
@@ -558,6 +557,7 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'https://*';">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -569,8 +569,9 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
   Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
-</div><script>var indexpage={{indexpage}}</script>
-<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
+</div><script>var indexpage={{indexpage}}
+var baseurl="{{baseurl}}"</script>
+<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurlhtml}}">{{baseurlhtml}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -588,18 +589,27 @@ imagestemplatesvg="""<div class="image" style="max-width:500px;max-height:500px"
 </div>
 """
 
-image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/stylesheet/3dhop.css"/>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/spidergl.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/presenter.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/nexus.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/ply.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_sphere.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_turntable_pan.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/trackball_pantilt.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP/minimal/js/init.js"></script>
-<div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-<canvas id="draw-canvas"></canvas></div><script>$(document).ready(function(){start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
+image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/stylesheet/3dhop.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/spidergl.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/corto.em.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/corto.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/presenter.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/nexus.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/ply.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_sphere.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_turntable.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_turntable_pan.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_pantilt.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/init.js"></script>
+<div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()"><div id="tdhlg"></div>
+<div id="toolbar"><img id="home"     title="Home"                  src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/home.png"            /><br/>
+<img id="zoomin"   title="Zoom In"               src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/zoomin.png"          /><br/>
+<img id="zoomout"  title="Zoom Out"              src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/zoomout.png"         /><br/>
+<img id="light_on" title="Disable Light Control" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/lightcontrol_on.png" style="position:absolute; visibility:hidden;"/>
+<img id="light"    title="Enable Light Control"  src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/lightcontrol.png"    /><br/>
+<img id="full_on"  title="Exit Full Screen"      src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full_on.png"         style="position:absolute; visibility:hidden;"/>
+<img id="full"     title="Full Screen"           src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full.png"            />
+</div><canvas id="draw-canvas" style="background-color:white"></canvas></div>"""
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
@@ -910,7 +920,7 @@ class OntDocGeneration:
             f.write(stylesheet)
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
-            f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
+            f.write(startscripts)
             f.close()
         pathmap = {}
         paths = {}
@@ -955,24 +965,34 @@ class OntDocGeneration:
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
-        #QgsMessageLog.logMessage("BaseURL " + str(uritotreeitem), "OntdocGeneration", Qgis.Info)
         for path in paths:
-            indexhtml = htmltemplate.replace("{{toptitle}}","Index page for " + str(prefixnamespace)).replace("{{title}}","Index page for " + str(prefixnamespace)).replace(
-                    "{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{classtreefolderpath}}", outpath + corpusid + "_classtree.js").replace(
-                    "{{baseurl}}", prefixnamespace).replace(
-                    "{{scriptfolderpath}}", outpath + corpusid + '_search.js').replace("{{indexpage}}","true")
+            QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
+            checkdepth = self.checkDepthFromPath(path, outpath, path)-1
+            sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
+            classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
+            stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
+            scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
+            nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
+            QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
+            indexhtml = htmltemplate.replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink)\
+                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink)
+            if nslink==prefixnamespace:
+                indexhtml=indexhtml.replace("{{indexpage}}","true")
+            else:
+                indexhtml = indexhtml.replace("{{indexpage}}", "false")
             indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"
-            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
+            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
                     indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
                     indexhtml+="<td>"+str(item["instancecount"])+"</td>"
                     for item2 in tree["core"]["data"]:
                         if item2["parent"]==item["id"]:
-                            indexhtml+="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+str(item2["id"]).replace(prefixnamespace,"")+"/index.html\">"+str(item2["text"])+"</a></td>"
+                            checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
+                            indexhtml+="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(item2["id"]),True)+"\">"+str(item2["text"])+"</a></td>"
                             break
                     indexhtml+="</tr>"
-            indexhtml += "</tbody></table>"
+            indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense)
             print(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
@@ -980,9 +1000,11 @@ class OntDocGeneration:
                 f.close()
 
 
+
+
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
-        tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {}, "types": {
+        tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
             "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
             "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
             "halfgeoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/halfgeoclass.png"},
@@ -1001,29 +1023,46 @@ class OntDocGeneration:
         print(ress)
         for cls in ress:
             for obj in graph.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(cls)):
+                res = self.replaceNameSpacesInLabel(str(obj))
                 if str(obj) in uritolabel:
+                    restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
+                    if res!=None:
+                        restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
-                                   "text": uritolabel[str(obj)]["label"] + " (" + str(obj)[str(obj).rfind('/') + 1:] + ")", "data":{}})
+                                   "text": restext, "data":{}})
                 else:
+                    restext= self.shortenURI(str(obj))
+                    if res!=None:
+                        restext+= " (" + res["uri"] + ")"
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
-                                   "text": str(obj)[str(obj).rfind('/') + 1:],"data":{}})
+                                   "text": restext,"data":{}})
                 uritotreeitem[str(obj)] = result[-1]
                 classidset.add(str(obj))
+            res = self.replaceNameSpacesInLabel(str(cls))
             if ress[cls]["super"] == None:
+                restext = self.shortenURI(str(cls))
+                if res != None:
+                    restext += " (" + res["uri"] + ")"
                 result.append({"id": cls, "parent": "#",
                                "type": "class",
-                               "text": cls[cls.rfind('/') + 1:],"data":{}})
+                               "text": restext,"data":{}})
             else:
                 if "label" in cls and cls["label"] != None:
+                    restext = ress[cls]["label"] + " (" + self.shortenURI(str(cls)) + ")"
+                    if res != None:
+                        restext = ress[cls]["label"] + " (" + res["uri"] + ")"
                     result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
-                                   "text": ress[cls]["label"] + " (" + cls[cls.rfind('/') + 1:] + ")","data":{}})
+                                   "text": restext + ")","data":{}})
                 else:
+                    restext = self.shortenURI(str(cls))
+                    if res != None:
+                        restext += " (" + res["uri"] + ")"
                     result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
-                                   "text": cls[cls.rfind('/') + 1:],"data":{}})
+                                   "text": restext,"data":{}})
                 uritotreeitem[str(cls)] = result[-1]
             classidset.add(str(cls))
         tree["core"]["data"] = result
@@ -1053,6 +1092,12 @@ class OntDocGeneration:
             else:
                 classlist[item]["item"]["type"] = "class"
 
+    def shortenURI(self,uri):
+        if uri!=None and "#" in uri:
+            return uri[uri.rfind('#')+1:]
+        if uri!=None and "/" in uri:
+            return uri[uri.rfind('/')+1:]
+        return uri
 
     def replaceNameSpacesInLabel(self,uri):
         for ns in self.prefixes["reversed"]:
@@ -1061,27 +1106,54 @@ class OntDocGeneration:
                         "ns": self.prefixes["reversed"][ns]}
         return None
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep):
-        if str(object).startswith("http") or isinstance(object,BNode):
+    def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
+        rellink = str(item).replace(baseurl, "")
+        for i in range(0, checkdepth):
+            rellink = "../" + rellink
+        if withindex:
+            rellink += "/index.html"
+        #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
+        return rellink
+
+    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundimages,found3dimages,label):
+        geoprop=False
+        incollection=False
+        if pred in SPARQLUtils.geopointerproperties:
+            geoprop=True
+        if pred in SPARQLUtils.collectionrelationproperties:
+            incollection=True
+        foundval=None
+        foundunit=None
+        for tup in graph.predicate_objects(object):
+            if str(tup[0]) in SPARQLUtils.labelproperties:
+                label=str(tup[1])
+            if geoprop and str(tup[0]) in SPARQLUtils.geoproperties and isinstance(tup[1], Literal):
+                geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
+            if incollection and str(tup[0]) in SPARQLUtils.imageextensions:
+                foundimages.add(str(tup[1]))
+            if incollection and str(tup[0]) in SPARQLUtils.meshextensions:
+                found3dimages.add(str(tup[1]))
+            if str(tup[0]) in SPARQLUtils.valueproperties and isinstance(tup[1],Literal):
+                foundval=tup[1]
+            if str(tup[0]) in SPARQLUtils.unitproperties and isinstance(tup[1],URIRef):
+                foundunit=str(tup[1])
+        if foundunit!=None and foundval!=None and label!=None:
+            label+=" "+str(foundval)+" ["+str(self.shortenURI(foundunit))+"]"
+        return {"geojsonrep":geojsonrep,"label":label}
+
+
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundimages,found3dimages):
+        if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
-            if str(pred) in SPARQLUtils.geopointerproperties:
-                for geotup in graph.predicate_objects(object):
-                    if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
-                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
-            label = str(str(object)[str(object).rfind('/') + 1:])
-            for tup in graph.predicate_objects(object):
-                if str(tup[0]) in SPARQLUtils.labelproperties:
-                    label = str(tup[1])
-                    break
+            label = str(self.shortenURI(str(object)))
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundimages,found3dimages,label)
+            label=mydata["label"]
+            geojsonrep=mydata["geojsonrep"]
             if baseurl in str(object) or isinstance(object,BNode):
-                rellink = str(object).replace(baseurl, "")
-                for i in range(0, checkdepth):
-                    rellink = "../" + rellink
-                rellink += "/index.html"
+                rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
                 tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" \
-                    + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(
-                    str(str(object)[str(object).rfind('/') + 1:])) + ")</span></a></span>"
+                    + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a></span>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
@@ -1095,25 +1167,44 @@ class OntDocGeneration:
                         object) + "\">" + label + "</a></span>"
         else:
             if isinstance(object, Literal) and object.datatype != None:
+                res = self.replaceNameSpacesInLabel(str(object.datatype))
                 if ttlf!=None:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
                     object.datatype) + "> .\n")
-                tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                    object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"" + str(object.datatype) + "\">" + str(
-                    object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
-                    object.datatype) + "\">" + str(
-                    object.datatype[object.datatype.rfind('/') + 1:]) + "</a>)</small></span>"
+                if res != None:
+                    tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
+                        object.datatype) + "\">" + str(
+                        object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + res["uri"]+ "</a>)</small></span>"
+                else:
+                    tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
+                        object.datatype) + "\">" + str(
+                        object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 if str(pred) in SPARQLUtils.geoproperties and isinstance(object,Literal):
                     geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "")
             else:
-                if ttlf!=None:
+                if ttlf != None:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
-                tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                    object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+                if object.language != None:
+                    tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
+                                                                                 "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(
+                        object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
+                                                                                                                "'") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(
+                        object.language) + "</a>)</small></span>"
+                else:
+                    tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
+                                                                                 "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
+                                                                                 "'") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
         return {"html":tablecontents,"geojson":geojsonrep}
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
-        label = str(str(tup)[str(tup).rfind('/') + 1:])
+        label = self.shortenURI(str(tup))
         for obj in graph.predicate_objects(object):
             if str(obj[0]) in SPARQLUtils.labelproperties:
                 label = str(obj[1])
@@ -1122,17 +1213,13 @@ class OntDocGeneration:
         if reverse:
             tablecontents+="Is "
         if baseurl in str(tup):
-            rellink = str(tup).replace(baseurl, "")
-            for i in range(0, checkdepth):
-                rellink = "../" + rellink
-            rellink += "/index.html"
+            rellink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth,str(tup),True)
             tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span>"
         else:
             res = self.replaceNameSpacesInLabel(tup)
             if res != None:
                 tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                    tup) + "\">" + label + " <span style=\"color: #666;\">(" + res[
-                                     "uri"] + ")</span></a></span>"
+                    tup) + "\">" + label + " <span style=\"color: #666;\">(" + res["uri"] + ")</span></a></span>"
             else:
                 tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
                     tup[0]) + "\">" + label + "</a></span>"
@@ -1141,17 +1228,7 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
-        tablecontents = ""
-        isodd = False
-        geojsonrep=None
-        foundimages=set()
-        found3dimages=set()
-        savepath = savepath.replace("\\", "/")
-        #QgsMessageLog.logMessage("BaseURL " + str(baseurl), "OntdocGeneration", Qgis.Info)
-        #QgsMessageLog.logMessage("SavePath " + str(savepath), "OntdocGeneration", Qgis.Info)
-        if savepath.endswith("/"):
-            savepath+="/"
+    def checkDepthFromPath(self,savepath,baseurl,subject):
         if savepath.endswith("/"):
             checkdepth = subject.replace(baseurl, "").count("/")
         else:
@@ -1159,6 +1236,20 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
         checkdepth+=1
         print("Checkdepth: " + str(checkdepth))
+        return checkdepth
+
+    def getAccessFromBaseURL(self,baseurl,savepath):
+        QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
+        return savepath.replace(baseurl, "")
+
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
+        tablecontents = ""
+        isodd = False
+        geojsonrep=None
+        foundimages=set()
+        found3dimages=set()
+        savepath = savepath.replace("\\", "/")
+        checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
         predobjmap={}
         isgeocollection=False
@@ -1169,7 +1260,7 @@ class OntDocGeneration:
             if parentclass not in uritotreeitem:
                 uritotreeitem[parentclass]={"id": parentclass, "parent": "#",
                                    "type": "class",
-                                   "text": str(parentclass)[str(parentclass).rfind('/') + 1:],"data":{}}
+                                   "text": self.shortenURI(str(parentclass)),"data":{}}
             uritotreeitem[parentclass]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         if parentclass!=None:
@@ -1211,31 +1302,31 @@ class OntDocGeneration:
                 if len(predobjmap[tup])>1:
                     tablecontents+="<td class=\"wrapword\"><ul>"
                     for item in predobjmap[tup]:
-                        if str(item).startswith("http"):
+                        if "http" in str(item):
                             for ext in SPARQLUtils.imageextensions:
-                                if str(item).endswith(ext):
+                                if ext in str(item):
                                     foundimages.add(str(item))
                             for ext in SPARQLUtils.meshextensions:
-                                if str(item).endswith(ext):
+                                if ext in str(item):
                                     found3dimages.add(str(item))
                         tablecontents+="<li>"
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep)
+                                              baseurl, checkdepth,geojsonrep,foundimages,found3dimages)
                         tablecontents = res["html"]
                         geojsonrep = res["geojson"]
                         tablecontents += "</li>"
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
-                    if str(predobjmap[tup]).startswith("http"):
+                    if "http" in str(predobjmap[tup]):
                         for ext in SPARQLUtils.imageextensions:
-                            if str(predobjmap[tup]).endswith(ext):
-                                foundimages.add(str(predobjmap[tup]))
-                            for ext in SPARQLUtils.meshextensions:
-                                if str(predobjmap[tup]).endswith(ext):
-                                    found3dimages.add(str(predobjmap[tup]))
+                            if ext in str(predobjmap[tup]):
+                                foundimages.add(str(predobjmap[tup][0]))
+                        for ext in SPARQLUtils.meshextensions:
+                            if ext in str(predobjmap[tup]):
+                                found3dimages.add(str(predobjmap[tup][0]))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep)
+                                              baseurl, checkdepth,geojsonrep,foundimages,found3dimages)
                     tablecontents=res["html"]
                     geojsonrep=res["geojson"]
                     tablecontents+="</td>"
@@ -1272,7 +1363,7 @@ class OntDocGeneration:
                             QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject), "OntdocGeneration", Qgis.Info)
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
-                                                             baseurl, checkdepth, geojsonrep)
+                                                             baseurl, checkdepth, geojsonrep,foundimages,found3dimages)
                         tablecontents = res["html"]
                         tablecontents += "</li>"
                     tablecontents += "</ul></td>"
@@ -1284,7 +1375,7 @@ class OntDocGeneration:
                             "OntdocGeneration", Qgis.Info)
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
-                                                         baseurl, checkdepth, geojsonrep)
+                                                         baseurl, checkdepth, geojsonrep,foundimages,found3dimages)
                     tablecontents = res["html"]
                     tablecontents += "</td>"
             else:
@@ -1298,24 +1389,16 @@ class OntDocGeneration:
             f.write(json.dumps(predobjmap))
             f.close()
         with open(savepath + "/index.html", 'w', encoding='utf-8') as f:
-            rellink = searchfilename
-            for i in range(0, checkdepth):
-                rellink = "../" + rellink
-            rellink2 = classtreename
-            for i in range(0, checkdepth):
-                rellink2 = "../" + rellink2
-            rellink3 = "style.css"
-            for i in range(0, checkdepth):
-                rellink3 = "../" + rellink3
-            rellink4 = "startscripts.js"
-            for i in range(0, checkdepth):
-                rellink4 = "../" + rellink4
+            rellink=self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,searchfilename,False)
+            rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
+            rellink3 =self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
+            rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
             if geojsonrep != None:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{baseurlhtml}}",baseurl).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
@@ -1324,22 +1407,15 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", str(subject[
-                                                                                                            subject.rfind(
-                                                                                                                "/") + 1:])).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}",
-                                                                                                "<a href=\"" + str(
-                                                                                                    subject) + "\">" + str(
-                                                                                                    subject[
-                                                                                                    subject.rfind(
-                                                                                                        "/") + 1:]) + "</a>").replace(
+                f.write(htmltemplate.replace("{{baseurlhtml}}",baseurl).replace("{{baseurl}}",baseurl).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
             if len(found3dimages)>0:
-                print("Found 3D Model: "+str(foundimages))
+                print("Found 3D Model: "+str(found3dimages))
                 for curitem in found3dimages:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
