@@ -660,56 +660,18 @@ nongeoexports="""
 """
 
 geoexports="""
-<option value="covjson">CoverageJSON (COVJSON)</option>
 <option value="csv">Comma Separated Values (CSV)</option>
-<option value="cipher">Cypher Neo4J (Cypher)</option>
-<option value="esrijson">ESRIJSON</option>
-<option value="exijson">EXI4JSON</option>
-<option value="gdf">Graph Definition File (GDF)</option>
-<option value="geohash">GeoHash</option>
 <option value="geojson">(Geo)JSON</option>
 <option value="geojsonld">GeoJSON-LD</option>
 <option value="geouri">GeoURI</option> 
-<option value="gexf">Graph Exchange XML Format (GEXF)</option>
-<option value="gml">Geography Markup Language (GML)</option>
-<option value="gml2">Graph Modeling Language (GML)</option>
-<option value="googlemapslink">Google Maps Link</option>
-<option value="gpx">GPS Exchange Format (GPX)</option>
-<option value="graphml">Graph Markup Language (GraphML)</option>
-<option value="grass">GRASS Vector ASCII Format (GRASS)</option>
-<option value="gxl">Graph Exchange Language (GXL)</option>
 <option value="json">JSON-LD</option>
-<option value="jsonp">JSONP</option>
-<option value="hextuples">HexTuples RDF</option>
 <option value="kml">Keyhole Markup Language (KML)</option>
 <option value="latlontext">LatLonText</option>
 <option value="mapml">Map Markup Language (MapML)</option>
-<option value="n3">Notation3 (N3)</option>
-<option value="nq">NQuads (NQ)</option>
-<option value="nt">NTriples (NT)</option>
-<option value="olc">Open Location Code (OLC)</option>
 <option value="osmlink">OSM Link</option>
-<option value="osm">OSM/XML (OSM)</option>
-<option value="rdfexi">RDF/EXI (EXI)</option>
-<option value="rdfjson">RDF/JSON</option>
-<option value="rt">RDF/Thrift (RT)</option>
-<option value="xml">RDF/XML</option>
-<option value="svg">Scalable Vector Graphics (SVG)</option>
-<option value="tgf">Trivial Graph Format (TGF)</option>
-<option value="tlp">Tulip File Format (TLP)</option>
-<option value="topojson">TopoJSON</option>
-<option value="ttl">Turtle (TTL)</option>
-<option value="trig">RDF TriG</option>
-<option value="trix">Triples in XML (TriX)</option>
-<option value="twkb">Tiny Well-Known-Binary (TWKB)</option>
-<option value="wkb">Well-Known-Binary (WKB)</option>
+<option value="ttl" selected>Turtle (TTL)</option>
 <option value="wkt">Well-Known-Text (WKT)</option>
-<option value="ewkt">Extended Well-Known-Text (EWKT)</option>
-<option value="x3d">X3D Format (X3D)</option>
-<option value="xls">MS Excel (XLS)</option>
-<option value="xlsx">Excel Spreadsheet (XLSX)</option>
 <option value="xyz">XYZ ASCII Format (XYZ)</option>
-<option value="yaml">YAML Ain't Markup Language (YAML)</option>
 """
 
 maptemplate="""<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
@@ -1014,14 +976,15 @@ class OntDocGeneration:
             indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
-                    indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
-                    indexhtml+="<td>"+str(item["instancecount"])+"</td>"
+                    exitem=None
                     for item2 in tree["core"]["data"]:
-                        if item2["parent"]==item["id"]:
+                        if item2["parent"]==item["id"] and (item2["type"]=="instance" or item2["type"]=="geoinstance") and nslink in item2["id"]:
                             checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
-                            indexhtml+="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(item2["id"]),True)+"\">"+str(item2["text"])+"</a></td>"
+                            exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(item2["id"]),True)+"\">"+str(item2["text"])+"</a></td>"
                             break
-                    indexhtml+="</tr>"
+                    if exitem!=None:
+                        indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
+                        indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
             print(path)
