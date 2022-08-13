@@ -1294,7 +1294,7 @@ class OntDocGeneration:
                 if len(predobjmap[tup])>1:
                     tablecontents+="<td class=\"wrapword\"><ul>"
                     for item in predobjmap[tup]:
-                        if "http" in str(item):
+                        if isinstance(item,URIRef) or "<svg" in str(item):
                             for ext in SPARQLUtils.imageextensions:
                                 if ext in str(item):
                                     foundimages.add(str(item))
@@ -1310,7 +1310,7 @@ class OntDocGeneration:
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
-                    if "http" in str(predobjmap[tup]):
+                    if isinstance(predobjmap[tup],URIRef) or "<svg" in str(predobjmap[tup]):
                         for ext in SPARQLUtils.imageextensions:
                             if ext in str(predobjmap[tup]):
                                 foundimages.add(str(predobjmap[tup][0]))
