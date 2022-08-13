@@ -56,6 +56,46 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
 
+function exportGeoJSON(){
+    if(typeof(feature) !== "undefined"){
+        saveTextAsFile(JSON.stringify(feature),"geojson")
+    }
+}
+
+function downloadFile(filePath){
+    var link=document.createElement('a');
+    link.href = filePath;
+    link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
+    link.click();
+}
+
+function saveTextAsFile(tosave,fileext){
+    var a = document.createElement('a');
+    a.style = "display: none";  
+    var blob= new Blob([tosave], {type:'text/plain'});
+    var url = window.URL.createObjectURL(blob);
+    var filename = "res."+fileext;
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);  
+    }, 1000);
+}
+
+function download(){
+    format=$('#format').val()
+    if(format=="geojson"){
+        exportGeoJSON()
+    }else if(format=="ttl"){
+        downloadFile("index.ttl")
+    }else if(format=="json"){
+        downloadFile("index.json")
+    }
+}
+
 function rewriteLink(thelink){
     console.log(thelink)
     if(thelink==null){
@@ -557,12 +597,13 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'https://*';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net; img-src https://*; child-src https://*;">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.19/dist/rdflib.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 <script src="{{startscriptpath}}"></script></head>
 <div id="mySidenav" class="sidenav" style="overflow:auto;">
@@ -613,32 +654,9 @@ image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
-<option value="cipher">Cypher Neo4J (Cypher)</option>
-<option value="exijson">EXI4JSON</option>
-<option value="gdf">Graph Definition File (GDF)</option>
 <option value="geojson">(Geo)JSON</option>
-<option value="gexf">Graph Exchange XML Format (GEXF)</option>
-<option value="gml2">Graph Modeling Language (GML)</option>
-<option value="graphml">Graph Markup Language (GraphML)</option>
-<option value="gxl">Graph Exchange Language (GXL)</option>
 <option value="json">JSON-LD</option>
-<option value="jsonp">JSONP</option>
-<option value="hextuples">HexTuples RDF</option>
-<option value="n3">Notation3 (N3)</option>
-<option value="nq">NQuads (NQ)</option>
-<option value="nt">NTriples (NT)</option>
-<option value="rdfexi">RDF/EXI (EXI)</option>
-<option value="rdfjson">RDF/JSON</option>
-<option value="rt">RDF/Thrift (RT)</option>
-<option value="xml">RDF/XML</option>
-<option value="tgf">Trivial Graph Format (TGF)</option>
-<option value="tlp">Tulip File Format (TLP)</option>
-<option value="ttl">Turtle (TTL)</option>
-<option value="trig">RDF TriG</option>
-<option value="trix">Triples in XML (TriX)</option>
-<option value="xls">MS Excel (XLS)</option>
-<option value="xlsx">Excel Spreadsheet (XLSX)</option>
-<option value="yaml">YAML Ain't Markup Language (YAML)</option>
+<option value="ttl" selected>Turtle (TTL)</option>
 """
 
 geoexports="""
@@ -966,6 +984,7 @@ class OntDocGeneration:
             f.write("var tree=" + json.dumps(tree, indent=2))
             f.close()
         for path in paths:
+            ttlf = open(path + "index.ttl", "w", encoding="utf-8")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
             checkdepth = self.checkDepthFromPath(path, outpath, path)-1
             sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
@@ -973,9 +992,20 @@ class OntDocGeneration:
             stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
             scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
             nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
+            for sub in self.graph.subjects():
+                if nslink in sub:
+                    for tup in self.graph.predicate_objects(sub):
+                        if isinstance(tup[1],Literal):
+                            if tup[1].datatype!=None:
+                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
+                            else:
+                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\" .\n")
+                        elif isinstance(tup[1],URIRef):
+                            ttlf.write("<"+str(sub)+"> <"+str(tup[0])+"> <"+str(tup[1])+"> .\n")
+            ttlf.close()
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
             indexhtml = htmltemplate.replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink)\
-                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink)
+                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
             if nslink==prefixnamespace:
                 indexhtml=indexhtml.replace("{{indexpage}}","true")
             else:
@@ -993,13 +1023,11 @@ class OntDocGeneration:
                             break
                     indexhtml+="</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
-            indexhtml+=htmlfooter.replace("{{license}}",curlicense)
+            indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
             print(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
-
-
 
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
@@ -1171,17 +1199,18 @@ class OntDocGeneration:
                 if ttlf!=None:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
                     object.datatype) + "> .\n")
+                objstring=str(object)
+                if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
+                    objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + str(
-                        object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + res["uri"]+ "</a>)</small></span>"
                 else:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + str(
-                        object) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 if str(pred) in SPARQLUtils.geoproperties and isinstance(object,Literal):
                     geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "")
