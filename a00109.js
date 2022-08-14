@@ -19,6 +19,7 @@ var a00109 =
     [ "addressproperties", "a00109.html#aff22325bb2af79521134cbb4ba9e3564", null ],
     [ "annotationnamespaces", "a00109.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
     [ "annotationpropertynode", "a00109.html#a8f74ccf3adbe6f344ad3c05d2b3d630e", null ],
+    [ "audioextensions", "a00109.html#a35b5b511cf373da486918971f1ff2ee5", null ],
     [ "authmethods", "a00109.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classnode", "a00109.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
     [ "collectionclassnode", "a00109.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
@@ -48,5 +49,6 @@ var a00109 =
     [ "supportedLiteralTypes", "a00109.html#a28a4112f838898d008910c4320f0732e", null ],
     [ "treeNodeToolTip", "a00109.html#ab6a3282f03c67eef3b4d08d300033335", null ],
     [ "unitproperties", "a00109.html#a8bb5af10e474f8f5f9c0567994211e7d", null ],
-    [ "valueproperties", "a00109.html#a133bbb34aa6486c797ebc8bf635599bb", null ]
+    [ "valueproperties", "a00109.html#a133bbb34aa6486c797ebc8bf635599bb", null ],
+    [ "videoextensions", "a00109.html#a50ccf79b85cf417944f40a501d232b6d", null ]
 ];
