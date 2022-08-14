@@ -363,6 +363,36 @@ function start3dhop(meshurl,meshformat){
   	moveToolbar(20,20);  
 }
 
+let camera, scene, renderer;
+
+function init(domelement,verts) {
+    camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 100 );
+    camera.position.z = 145;
+    scene = new THREE.Scene();
+	vertarray=[]
+    for(vert in verts){
+        vertarray.append(vert["x"])
+        vertarray.append(vert["y"])
+        vertarray.append(vert["z"])
+    }
+    vertices=new Float32Array(vertarray)
+    const geometry =new THREE.BufferGeometry( ); 
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );    
+    const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF } );
+    const mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+    renderer = new THREE.WebGLRenderer( { antialias: false } );
+		renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.querySelector(domelement).appendChild( renderer.domElement );		
+	const controls = new THREE.OrbitControls( camera, renderer.domElement );
+}
+
+function animate() {
+    requestAnimationFrame( animate );
+    renderer.render( scene, camera );
+}
+
 function labelFromURI(uri,label){
         if(uri.includes("#")){
         	prefix=uri.substring(0,uri.lastIndexOf('#')-1)
@@ -738,6 +768,7 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.min.js"></script>
 <script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.19/dist/rdflib.min.js"></script>
@@ -762,8 +793,32 @@ imagestemplate="""<div class="image">
 </div>
 """
 
+videotemplate="""
+<div class="video">
+<video width="320" height="240" controls>
+  <source src="{{video}}">
+Your browser does not support the video tag.
+</video>
+</div>
+"""
+
+audiotemplate="""
+<div class="audio">
+<audio controls>
+  <source src="{{audio}}">
+Your browser does not support the audio element.
+</audio>
+</div>
+"""
+
 imagestemplatesvg="""<div class="image" style="max-width:500px;max-height:500px">
 {{image}}
+</div>
+"""
+
+threejstemplate="""
+<div class="threejscontainer">
+
 </div>
 """
 

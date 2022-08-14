@@ -180,6 +180,10 @@ class SPARQLUtils:
 
     meshextensions=[".ply",".nxs",".nxz"]
 
+    videoextensions = [".avi", ".mp4", ".ogv"]
+
+    audioextensions = [".aac", ".mp3", ".mkv", ".ogg", ".opus", ".wav"]
+
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"
     }
