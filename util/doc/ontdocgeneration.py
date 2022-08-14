@@ -62,6 +62,142 @@ function exportGeoJSON(){
     }
 }
 
+function exportCSV(){
+    rescsv=""
+    if(typeof(feature)!=="undefined"){
+        if("features" in feature){
+           for(feat of feature["features"]){
+                rescsv+="\\""+feat["geometry"]["type"].toUpperCase()+"("
+                feat["geometry"].coordinates.forEach(function(p,i){
+                //	console.log(p)
+                    if(i<feat["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';
+                    else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';
+                })
+                rescsv+=")\\","
+                if("properties" in feat){
+                    if(gottitle==false){
+                       rescsvtitle="\\"the_geom\\","
+                       for(prop in feat["properties"]){
+                          rescsvtitle+="\\""+prop+"\\","
+                       }
+                       rescsvtitle+="\\n"
+                       rescsv=rescsvtitle+rescsv
+                       gottitle=true
+                    }
+                    for(prop of feat["properties"]){
+                        rescsv+="\\""+prop+"\\","
+                    }
+                }
+                rescsv+="\\n"
+           }
+        }else{
+            gottitle=false
+            rescsv+="\\""+feature["geometry"]["type"].toUpperCase()+"("
+            feature["geometry"].coordinates.forEach(function(p,i){
+            //	console.log(p)
+                if(i<feature["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';
+                else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';
+            })
+            rescsv+=")\\","
+            if("properties" in feature){
+                if(gottitle==false){
+                   rescsvtitle=""
+                   for(prop in feature["properties"]){
+                      rescsvtitle+="\\""+prop+"\\","
+                   }
+                   rescsvtitle+="\\n"
+                   rescsv=rescsvtitle+rescsv
+                   gottitle=true
+                }
+                for(prop of feature["properties"]){
+                    rescsv+="\\""+prop+"\\","
+                }
+            }
+        }
+        saveTextAsFile(rescsv,".csv")
+    }else if(typeof(nongeofeature)!=="undefined"){
+        if("features" in nongeofeature){
+           for(feat of nongeofeature["features"]){
+                if("properties" in feat){
+                    if(gottitle==false){
+                       rescsvtitle="\\"the_geom\\","
+                       for(prop in feat["properties"]){
+                          rescsvtitle+="\\""+prop+"\\","
+                       }
+                       rescsvtitle+="\\n"
+                       rescsv=rescsvtitle+rescsv
+                       gottitle=true
+                    }
+                    for(prop of feat["properties"]){
+                        rescsv+="\\""+prop+"\\","
+                    }
+                }
+                rescsv+="\\n"
+           }
+        }else{
+            gottitle=false
+            if("properties" in nongeofeature){
+                if(gottitle==false){
+                   rescsvtitle=""
+                   for(prop in nongeofeature["properties"]){
+                      rescsvtitle+="\\""+prop+"\\","
+                   }
+                   rescsvtitle+="\\n"
+                   rescsv=rescsvtitle+rescsv
+                   gottitle=true
+                }
+                for(prop of nongeofeature["properties"]){
+                    rescsv+="\\""+prop+"\\","
+                }
+            }
+        }
+        saveTextAsFile(rescsv,".csv")
+    }
+}
+
+function setSVGDimensions(){ 
+    $('.svgview').each(function(i, obj) {
+        console.log(obj)
+        console.log($(obj).children().first()[0])
+        svgbbox=$(obj).children().first()[0].getBoundingClientRect();
+        newviewport=""+(svgbbox.x-5)+" "+(svgbbox.y-5)+" "+(svgbbox.width+5)+" "+(svgbbox.height+5)
+        $(obj).attr("viewBox",newviewport)
+        $(obj).attr("width",svgbbox.width+10)
+        $(obj).attr("height",svgbbox.height+10)
+    });
+}
+
+function exportWKT(){
+    if(typeof(feature)!=="undefined"){
+        reswkt=""
+        if("features" in feature){
+            for(feat of feature["features"]){
+                reswkt+=feat["geometry"]["type"].toUpperCase()+"("
+                feat["geometry"].coordinates.forEach(function(p,i){
+                //	console.log(p)
+                    if(i<feat["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';
+                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';
+                })
+                for(coord of feat["geometry"]["coordinates"]){
+                    reswkt+=""
+                }
+                reswkt+=")\\n"
+            }
+        }else{
+                reswkt+=feature["geometry"]["type"].toUpperCase()+"("
+                feature["geometry"].coordinates.forEach(function(p,i){
+                    if(i<feature["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';
+                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';
+                })
+                for(coord of feature["geometry"]["coordinates"]){
+                    reswkt+=""
+                }
+                reswkt+=")\\n"
+        }
+        saveTextAsFile(reswkt,".wkt")
+    }
+}
+
 function downloadFile(filePath){
     var link=document.createElement('a');
     link.href = filePath;
@@ -93,6 +229,8 @@ function download(){
         downloadFile("index.ttl")
     }else if(format=="json"){
         downloadFile("index.json")
+    }else if(format=="csv"){
+        exportCSV()
     }
 }
 
@@ -597,7 +735,6 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
 <link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.jsdelivr.net; img-src https://*; child-src https://*;">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -662,16 +799,15 @@ nongeoexports="""
 geoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
 <option value="geojson">(Geo)JSON</option>
-<option value="geojsonld">GeoJSON-LD</option>
+<!--<option value="geojsonld">GeoJSON-LD</option>
 <option value="geouri">GeoURI</option> 
 <option value="json">JSON-LD</option>
 <option value="kml">Keyhole Markup Language (KML)</option>
 <option value="latlontext">LatLonText</option>
 <option value="mapml">Map Markup Language (MapML)</option>
-<option value="osmlink">OSM Link</option>
+<option value="osmlink">OSM Link</option>-->
 <option value="ttl" selected>Turtle (TTL)</option>
 <option value="wkt">Well-Known-Text (WKT)</option>
-<option value="xyz">XYZ ASCII Format (XYZ)</option>
 """
 
 maptemplate="""<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
@@ -700,7 +836,7 @@ baseMaps["OSM"].addTo(map);
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
-	var feature = {{myfeature}};
+	var feature = {{myfeature}}
 	layerr=L.geoJSON.css(feature,{
 	pointToLayer: function(feature, latlng){
                   var greenIcon = new L.Icon({
@@ -755,6 +891,8 @@ baseMaps["OSM"].addTo(map);
 </script>
 """
 
+nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
+
 htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 
 htmltabletemplate="""
@@ -763,7 +901,7 @@ htmltabletemplate="""
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button>{{license}}</div></div></body></html>"""
+<button id="downloadButton" onclick="download()">Download</button>{{license}}</div></div><script>setSVGDimensions()</script></body></html>"""
 
 licensetemplate=""""""
 
@@ -1416,7 +1554,10 @@ class OntDocGeneration:
                     break
             for image in foundimages:
                 if "<svg" in image:
-                    f.write(imagestemplatesvg.replace("{{image}}",str(image)))
+                    if "<svg>" in image:
+                        f.write(imagestemplatesvg.replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
+                    else:
+                        f.write(imagestemplatesvg.replace("{{image}}",str(image)))
                 else:
                     f.write(imagestemplate.replace("{{image}}",str(image)))
             if geojsonrep!=None and not isgeocollection:
@@ -1440,6 +1581,8 @@ class OntDocGeneration:
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
+            else:
+                f.write(nonmaptemplate.replace("{{myfeature}}",json.dumps({"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": None})))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
