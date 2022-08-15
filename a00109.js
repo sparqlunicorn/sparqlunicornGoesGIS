@@ -27,6 +27,7 @@ var a00109 =
     [ "commentproperties", "a00109.html#a005adfb0073d3ff83d90a00871ae7112", null ],
     [ "datatypepropertynode", "a00109.html#aa0daac064737190f501c49003c46d025", null ],
     [ "exception", "a00109.html#a2387fb71295a4c6a4b0feeaa424809f5", null ],
+    [ "fileextensionmap", "a00109.html#a3dc35b21caaa1890332dba3e2296b432", null ],
     [ "geoclassnode", "a00109.html#abe5ec0a47371449485744620d324f1f3", null ],
     [ "geoinstancenode", "a00109.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
     [ "geopointerproperties", "a00109.html#acaa3fbe31c81ff2f677aa266ed2c24bc", null ],
