@@ -176,6 +176,32 @@ class SPARQLUtils:
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
+    fileextensionmap={
+        ".apng":"image",
+        ".bmp":"image",
+        ".cur":"image",
+        ".ico":"image",
+        ".jpg":"image",
+        ".jpeg":"image",
+        ".png":"image",
+        ".gif":"image",
+        ".tif":"image",
+        ".svg":"image",
+        "<svg":"image",
+        ".ply":"mesh",
+        ".nxs":"mesh",
+        ".nxz":"mesh",
+        ".avi":"video",
+        ".mp4":"video",
+        ".ogv":"video",
+        ".aac":"audio",
+        ".mp3":"audio",
+        ".mkv":"audio",
+        ".ogg":"audio",
+        ".opus":"audio",
+        ".wav":"audio"
+    }
+
     imageextensions=[".apng",".bmp",".cur",".ico",".jpg",".jpeg",".png",".gif",".tif",".svg","<svg"]
 
     meshextensions=[".ply",".nxs",".nxz"]

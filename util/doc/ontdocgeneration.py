@@ -159,11 +159,31 @@ function setSVGDimensions(){
     $('.svgview').each(function(i, obj) {
         console.log(obj)
         console.log($(obj).children().first()[0])
-        svgbbox=$(obj).children().first()[0].getBoundingClientRect();
-        newviewport=""+(svgbbox.x-5)+" "+(svgbbox.y-5)+" "+(svgbbox.width+5)+" "+(svgbbox.height+5)
+        maxx=Number.MIN_VALUE
+        maxy=Number.MIN_VALUE
+        minx=Number.MAX_VALUE
+        miny=Number.MAX_VALUE
+        $(obj).children().each(function(i){
+            svgbbox=$(this)[0].getBoundingClientRect()
+            console.log(svgbbox)
+            if(svgbbox.x+svgbbox.width>maxx){
+                maxx=svgbbox.x+svgbbox.width
+            }
+            if(svgbbox.y+svgbbox.height>maxy){
+                maxy=svgbbox.y+svgbbox.height
+            }
+            if(svgbbox.y<miny){
+                miny=svgbbox.y
+            }
+            if(svgbbox.x<minx){
+                minx=svgbbox.x
+            }
+        });
+        console.log(""+(minx)+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25))
+        newviewport=""+((minx)-(maxx-minx))+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)
         $(obj).attr("viewBox",newviewport)
-        $(obj).attr("width",svgbbox.width+10)
-        $(obj).attr("height",svgbbox.height+10)
+        $(obj).attr("width",((maxx-minx))+10)
+        $(obj).attr("height",((maxy-miny)+10))
     });
 }
 
@@ -1299,7 +1319,7 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundimages,found3dimages,label):
+    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,label):
         geoprop=False
         incollection=False
         if pred in SPARQLUtils.geopointerproperties:
@@ -1314,9 +1334,9 @@ class OntDocGeneration:
             if geoprop and str(tup[0]) in SPARQLUtils.geoproperties and isinstance(tup[1], Literal):
                 geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
             if incollection and str(tup[0]) in SPARQLUtils.imageextensions:
-                foundimages.add(str(tup[1]))
+                foundmedia["image"].add(str(tup[1]))
             if incollection and str(tup[0]) in SPARQLUtils.meshextensions:
-                found3dimages.add(str(tup[1]))
+                foundmedia["mesh"].add(str(tup[1]))
             if str(tup[0]) in SPARQLUtils.valueproperties and isinstance(tup[1],Literal):
                 foundval=tup[1]
             if str(tup[0]) in SPARQLUtils.unitproperties and isinstance(tup[1],URIRef):
@@ -1326,12 +1346,12 @@ class OntDocGeneration:
         return {"geojsonrep":geojsonrep,"label":label}
 
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundimages,found3dimages):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundmedia):
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
             label = str(self.shortenURI(str(object)))
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundimages,found3dimages,label)
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,label)
             label=mydata["label"]
             geojsonrep=mydata["geojsonrep"]
             if baseurl in str(object) or isinstance(object,BNode):
@@ -1431,8 +1451,7 @@ class OntDocGeneration:
         tablecontents = ""
         isodd = False
         geojsonrep=None
-        foundimages=set()
-        found3dimages=set()
+        foundmedia={"audio":set(),"video":set(),"image":set(),"mesh":set()}
         savepath = savepath.replace("\\", "/")
         checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
@@ -1487,31 +1506,29 @@ class OntDocGeneration:
                 if len(predobjmap[tup])>1:
                     tablecontents+="<td class=\"wrapword\"><ul>"
                     for item in predobjmap[tup]:
-                        if isinstance(item,URIRef) or "<svg" in str(item):
-                            for ext in SPARQLUtils.imageextensions:
-                                if ext in str(item):
-                                    foundimages.add(str(item))
-                            for ext in SPARQLUtils.meshextensions:
-                                if ext in str(item):
-                                    found3dimages.add(str(item))
+                        if "<svg" in str(item):
+                            foundmedia["image"].add(str(item))
+                        elif isinstance(item,URIRef):
+                            ext="."+''.join(filter(str.isalpha,str(item).split(".")[-1]))
+                            if ext in SPARQLUtils.fileextensionmap:
+                                foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
                         tablecontents+="<li>"
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep,foundimages,found3dimages)
+                                              baseurl, checkdepth,geojsonrep,foundmedia)
                         tablecontents = res["html"]
                         geojsonrep = res["geojson"]
                         tablecontents += "</li>"
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
-                    if isinstance(predobjmap[tup],URIRef) or "<svg" in str(predobjmap[tup]):
-                        for ext in SPARQLUtils.imageextensions:
-                            if ext in str(predobjmap[tup]):
-                                foundimages.add(str(predobjmap[tup][0]))
-                        for ext in SPARQLUtils.meshextensions:
-                            if ext in str(predobjmap[tup]):
-                                found3dimages.add(str(predobjmap[tup][0]))
+                    if "<svg" in str(predobjmap[tup]):
+                        foundmedia["image"].add(str(predobjmap[tup][0]))
+                    elif isinstance(predobjmap[tup], URIRef):
+                        ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup]).split(".")[-1]))
+                        if ext in SPARQLUtils.fileextensionmap:
+                            foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(predobjmap[tup][0]))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep,foundimages,found3dimages)
+                                              baseurl, checkdepth,geojsonrep,foundmedia)
                     tablecontents=res["html"]
                     geojsonrep=res["geojson"]
                     tablecontents+="</td>"
@@ -1548,7 +1565,7 @@ class OntDocGeneration:
                             QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject), "OntdocGeneration", Qgis.Info)
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundimages,found3dimages)
+                                                             baseurl, checkdepth, geojsonrep,foundmedia)
                         tablecontents = res["html"]
                         tablecontents += "</li>"
                     tablecontents += "</ul></td>"
@@ -1560,7 +1577,7 @@ class OntDocGeneration:
                             "OntdocGeneration", Qgis.Info)
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
-                                                         baseurl, checkdepth, geojsonrep,foundimages,found3dimages)
+                                                         baseurl, checkdepth, geojsonrep,foundmedia)
                     tablecontents = res["html"]
                     tablecontents += "</td>"
             else:
@@ -1599,15 +1616,15 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
-            if len(found3dimages)>0:
-                print("Found 3D Model: "+str(found3dimages))
-                for curitem in found3dimages:
+            if len(foundmedia["mesh"])>0:
+                print("Found 3D Model: "+str(foundmedia["mesh"]))
+                for curitem in foundmedia["mesh"]:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
                         format="nexus"
                     f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
                     break
-            for image in foundimages:
+            for image in foundmedia["image"]:
                 if "<svg" in image:
                     if "<svg>" in image:
                         f.write(imagestemplatesvg.replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
@@ -1615,6 +1632,10 @@ class OntDocGeneration:
                         f.write(imagestemplatesvg.replace("{{image}}",str(image)))
                 else:
                     f.write(imagestemplate.replace("{{image}}",str(image)))
+            for audio in foundmedia["audio"]:
+                f.write(audiotemplate.replace("{{audio}}",str(audio)))
+            for video in foundmedia["video"]:
+                f.write(videotemplate.replace("{{video}}",str(video)))
             if geojsonrep!=None and not isgeocollection:
                 if str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)]["type"]="geoinstance"
