@@ -62,97 +62,112 @@ function exportGeoJSON(){
     }
 }
 
-function exportCSV(){
-    rescsv=""
-    if(typeof(feature)!=="undefined"){
-        if("features" in feature){
-           for(feat of feature["features"]){
-                rescsv+="\\""+feat["geometry"]["type"].toUpperCase()+"("
-                feat["geometry"].coordinates.forEach(function(p,i){
-                //	console.log(p)
-                    if(i<feat["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';
-                    else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';
-                })
-                rescsv+=")\\","
-                if("properties" in feat){
-                    if(gottitle==false){
-                       rescsvtitle="\\"the_geom\\","
-                       for(prop in feat["properties"]){
-                          rescsvtitle+="\\""+prop+"\\","
-                       }
-                       rescsvtitle+="\\n"
-                       rescsv=rescsvtitle+rescsv
-                       gottitle=true
-                    }
-                    for(prop of feat["properties"]){
-                        rescsv+="\\""+prop+"\\","
-                    }
-                }
-                rescsv+="\\n"
-           }
-        }else{
-            gottitle=false
-            rescsv+="\\""+feature["geometry"]["type"].toUpperCase()+"("
-            feature["geometry"].coordinates.forEach(function(p,i){
-            //	console.log(p)
-                if(i<feature["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';
-                else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';
-            })
-            rescsv+=")\\","
-            if("properties" in feature){
-                if(gottitle==false){
-                   rescsvtitle=""
-                   for(prop in feature["properties"]){
-                      rescsvtitle+="\\""+prop+"\\","
-                   }
-                   rescsvtitle+="\\n"
-                   rescsv=rescsvtitle+rescsv
-                   gottitle=true
-                }
-                for(prop of feature["properties"]){
-                    rescsv+="\\""+prop+"\\","
-                }
-            }
-        }
-        saveTextAsFile(rescsv,".csv")
-    }else if(typeof(nongeofeature)!=="undefined"){
-        if("features" in nongeofeature){
-           for(feat of nongeofeature["features"]){
-                if("properties" in feat){
-                    if(gottitle==false){
-                       rescsvtitle="\\"the_geom\\","
-                       for(prop in feat["properties"]){
-                          rescsvtitle+="\\""+prop+"\\","
-                       }
-                       rescsvtitle+="\\n"
-                       rescsv=rescsvtitle+rescsv
-                       gottitle=true
-                    }
-                    for(prop of feat["properties"]){
-                        rescsv+="\\""+prop+"\\","
-                    }
-                }
-                rescsv+="\\n"
-           }
-        }else{
-            gottitle=false
-            if("properties" in nongeofeature){
-                if(gottitle==false){
-                   rescsvtitle=""
-                   for(prop in nongeofeature["properties"]){
-                      rescsvtitle+="\\""+prop+"\\","
-                   }
-                   rescsvtitle+="\\n"
-                   rescsv=rescsvtitle+rescsv
-                   gottitle=true
-                }
-                for(prop of nongeofeature["properties"]){
-                    rescsv+="\\""+prop+"\\","
-                }
-            }
-        }
-        saveTextAsFile(rescsv,".csv")
-    }
+function parseWKTStringToJSON(wktstring){	
+    wktstring=wktstring.substring(wktstring.lastIndexOf('(')+1,wktstring.lastIndexOf(')')-1)	
+    resjson=[]	
+    for(coordset of wktstring.split(",")){	
+        curobject={}	
+        coords=coordset.split(" ")	
+        if(coords.length==3){	
+            resjson.append({"x":coords[0],"y":coords[1],"z":coords[2]})	
+        }else{	
+            resjson.append({"x":coords[0],"y":coords[1]})	
+        }	
+    }	
+    return resjson	
+}
+
+	function exportCSV(){	
+    rescsv=""	
+    if(typeof(feature)!=="undefined"){	
+        if("features" in feature){	
+           for(feat of feature["features"]){	
+                rescsv+="\\""+feat["geometry"]["type"].toUpperCase()+"("	
+                feat["geometry"].coordinates.forEach(function(p,i){	
+                //	console.log(p)	
+                    if(i<feat["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';	
+                    else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';	
+                })	
+                rescsv+=")\\","	
+                if("properties" in feat){	
+                    if(gottitle==false){	
+                       rescsvtitle="\\"the_geom\\","	
+                       for(prop in feat["properties"]){	
+                          rescsvtitle+="\\""+prop+"\\","	
+                       }	
+                       rescsvtitle+="\\n"	
+                       rescsv=rescsvtitle+rescsv	
+                       gottitle=true	
+                    }	
+                    for(prop in feat["properties"]){	
+                        rescsv+="\\""+feat["properties"][prop]+"\\","	
+                    }	
+                }	
+                rescsv+="\\n"	
+           }	
+        }else{	
+            gottitle=false	
+            rescsv+="\\""+feature["geometry"]["type"].toUpperCase()+"("	
+            feature["geometry"].coordinates.forEach(function(p,i){	
+            //	console.log(p)	
+                if(i<feature["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';	
+                else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';	
+            })	
+            rescsv+=")\\","	
+            if("properties" in feature){	
+                if(gottitle==false){	
+                   rescsvtitle=""	
+                   for(prop in feature["properties"]){	
+                      rescsvtitle+="\\""+prop+"\\","	
+                   }	
+                   rescsvtitle+="\\n"	
+                   rescsv=rescsvtitle+rescsv	
+                   gottitle=true	
+                }	
+                for(prop in feature["properties"]){	
+                    rescsv+="\\""+feature["properties"][prop]+"\\","	
+                }	
+            }	
+        }	
+        saveTextAsFile(rescsv,".csv")	
+    }else if(typeof(nongeofeature)!=="undefined"){	
+        if("features" in nongeofeature){	
+           for(feat of nongeofeature["features"]){	
+                if("properties" in feat){	
+                    if(gottitle==false){	
+                       rescsvtitle="\\"the_geom\\","	
+                       for(prop in feat["properties"]){	
+                          rescsvtitle+="\\""+prop+"\\","	
+                       }	
+                       rescsvtitle+="\\n"	
+                       rescsv=rescsvtitle+rescsv	
+                       gottitle=true	
+                    }	
+                    for(prop in feat["properties"]){	
+                        rescsv+="\\""+feat["properties"][prop]+"\\","	
+                    }	
+                }	
+                rescsv+="\\n"	
+           }	
+        }else{	
+            gottitle=false	
+            if("properties" in nongeofeature){	
+                if(gottitle==false){	
+                   rescsvtitle=""	
+                   for(prop in nongeofeature["properties"]){	
+                      rescsvtitle+="\\""+prop+"\\","	
+                   }	
+                   rescsvtitle+="\\n"	
+                   rescsv=rescsvtitle+rescsv	
+                   gottitle=true	
+                }	
+                for(prop in nongeofeature["properties"]){	
+                    rescsv+="\\""+nongeofeature["properties"][prop]+"\\","	
+                }	
+            }	
+        }	
+        saveTextAsFile(rescsv,".csv")	
+    }	
 }
 
 function setSVGDimensions(){ 
@@ -164,7 +179,7 @@ function setSVGDimensions(){
         minx=Number.MAX_VALUE
         miny=Number.MAX_VALUE
         $(obj).children().each(function(i){
-            svgbbox=$(this)[0].getBoundingClientRect()
+            svgbbox=$(this)[0].getBBox()
             console.log(svgbbox)
             if(svgbbox.x+svgbbox.width>maxx){
                 maxx=svgbbox.x+svgbbox.width
@@ -180,42 +195,52 @@ function setSVGDimensions(){
             }
         });
         console.log(""+(minx)+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25))
-        newviewport=""+((minx)-(maxx-minx))+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)
+        newviewport=""+((minx))+" "+(miny)+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)
         $(obj).attr("viewBox",newviewport)
         $(obj).attr("width",((maxx-minx))+10)
         $(obj).attr("height",((maxy-miny)+10))
+        console.log($(obj).hasClass("svgoverlay"))
+        if($(obj).hasClass("svgoverlay")){
+            naturalWidth=$(obj).prev()[0].naturalWidth
+            naturalHeight=$(obj).prev()[0].naturalHeight
+            currentWidth=$(obj).prev()[0].width
+            currentHeight=$(obj).prev()[0].height
+            overlayposX = (currentWidth/naturalWidth) * minx;
+            overlayposY = (currentHeight/naturalHeight) * miny;
+            overlayposWidth = ((currentWidth/naturalWidth) * maxx)-overlayposX;
+            overlayposHeight = ((currentHeight/naturalHeight) * maxy)-overlayposY;
+            $(obj).css({top: overlayposY+"px", left:overlayposX+"px", position:"absolute"})
+            $(obj).attr("height",overlayposHeight)
+            $(obj).attr("width",overlayposWidth)
+        }
     });
 }
 
-function exportWKT(){
-    if(typeof(feature)!=="undefined"){
-        reswkt=""
-        if("features" in feature){
-            for(feat of feature["features"]){
-                reswkt+=feat["geometry"]["type"].toUpperCase()+"("
-                feat["geometry"].coordinates.forEach(function(p,i){
-                //	console.log(p)
-                    if(i<feat["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';
-                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';
-                })
-                for(coord of feat["geometry"]["coordinates"]){
-                    reswkt+=""
-                }
-                reswkt+=")\\n"
-            }
-        }else{
-                reswkt+=feature["geometry"]["type"].toUpperCase()+"("
-                feature["geometry"].coordinates.forEach(function(p,i){
-                    if(i<feature["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';
-                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';
-                })
-                for(coord of feature["geometry"]["coordinates"]){
-                    reswkt+=""
-                }
-                reswkt+=")\\n"
-        }
-        saveTextAsFile(reswkt,".wkt")
-    }
+
+
+function exportWKT(){	
+    if(typeof(feature)!=="undefined"){	
+        reswkt=""	
+        if("features" in feature){	
+            for(feat of feature["features"]){	
+                reswkt+=feat["geometry"]["type"].toUpperCase()+"("	
+                feat["geometry"].coordinates.forEach(function(p,i){	
+                //	console.log(p)	
+                    if(i<feat["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';	
+                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';	
+                })	
+                reswkt+=")\\n"	
+            }	
+        }else{	
+                reswkt+=feature["geometry"]["type"].toUpperCase()+"("	
+                feature["geometry"].coordinates.forEach(function(p,i){	
+                    if(i<feature["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';	
+                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';	
+                })	
+                reswkt+=")\\n"	
+        }	
+        saveTextAsFile(reswkt,".wkt")	
+    }	
 }
 
 function downloadFile(filePath){
@@ -249,6 +274,8 @@ function download(){
         downloadFile("index.ttl")
     }else if(format=="json"){
         downloadFile("index.json")
+    }else if(format=="wkt"){	
+        exportWKT()	
     }else if(format=="csv"){
         exportCSV()
     }
@@ -808,8 +835,25 @@ var baseurl="{{baseurl}}"</script>
 <div class="container-fluid"><div class="row-fluid" id="main-wrapper">
 """
 
-imagestemplate="""<div class="image">
-<img src="{{image}}" style="max-width:500px;max-height:500px" alt="Depiction of $resource.label" title="Depiction of {{title}}" />
+imagecarouselheader="""<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner">"""
+
+imagecarouselfooter="""</div> <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a></div>"""
+
+imagestemplate="""<div class="{{carousel}}">
+<img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" />
+</div>
+"""
+
+imageswithannotemplate="""<div class="{{carousel}}">
+<img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" />
+{{svganno}}
 </div>
 """
 
@@ -831,7 +875,7 @@ Your browser does not support the audio element.
 </div>
 """
 
-imagestemplatesvg="""<div class="image" style="max-width:500px;max-height:500px">
+imagestemplatesvg="""<div class="{{carousel}}" style="max-width:485px;max-height:500px">
 {{image}}
 </div>
 """
@@ -862,7 +906,8 @@ image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-
 <img id="light"    title="Enable Light Control"  src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/lightcontrol.png"    /><br/>
 <img id="full_on"  title="Exit Full Screen"      src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full_on.png"         style="position:absolute; visibility:hidden;"/>
 <img id="full"     title="Full Screen"           src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full.png"            />
-</div><canvas id="draw-canvas" style="background-color:white"></canvas></div>"""
+</div><canvas id="draw-canvas" style="background-color:white"></canvas></div><script>$(document).ready(function(){	
+start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
@@ -1328,9 +1373,14 @@ class OntDocGeneration:
             incollection=True
         foundval=None
         foundunit=None
+        imageannos=set()
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 label=str(tup[1])
+            if pred=="http://www.w3.org/ns/oa#hasSelector" and tup[0]==URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and tup[1]==URIRef("http://www.w3.org/ns/oa#SVGSelector"):
+                for svglit in graph.objects(object,URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value")):
+                    if "<svg" in str(svglit):
+                        imageannos.add(str(svglit))
             if geoprop and str(tup[0]) in SPARQLUtils.geoproperties and isinstance(tup[1], Literal):
                 geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
             if incollection and str(tup[0]) in SPARQLUtils.imageextensions:
@@ -1343,10 +1393,10 @@ class OntDocGeneration:
                 foundunit=str(tup[1])
         if foundunit!=None and foundval!=None and label!=None:
             label+=" "+str(foundval)+" ["+str(self.shortenURI(foundunit))+"]"
-        return {"geojsonrep":geojsonrep,"label":label}
+        return {"geojsonrep":geojsonrep,"label":label,"foundmedia":foundmedia,"imageannos":imageannos}
 
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundmedia):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos):
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
@@ -1354,6 +1404,8 @@ class OntDocGeneration:
             mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,label)
             label=mydata["label"]
             geojsonrep=mydata["geojsonrep"]
+            foundmedia=mydata["foundmedia"]
+            imageannos=mydata["imageannos"]
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
                 tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" \
@@ -1406,7 +1458,7 @@ class OntDocGeneration:
                                                                                  "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
                                                                                  "'") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        return {"html":tablecontents,"geojson":geojsonrep}
+        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos}
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         label = self.shortenURI(str(tup))
@@ -1455,6 +1507,7 @@ class OntDocGeneration:
         savepath = savepath.replace("\\", "/")
         checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
+        imageannos=set()
         predobjmap={}
         isgeocollection=False
         comment=None
@@ -1514,9 +1567,11 @@ class OntDocGeneration:
                                 foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
                         tablecontents+="<li>"
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia)
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos)
                         tablecontents = res["html"]
                         geojsonrep = res["geojson"]
+                        foundmedia = res["foundmedia"]
+                        imageannos=res["imageannos"]
                         tablecontents += "</li>"
                     tablecontents+="</ul></td>"
                 else:
@@ -1528,9 +1583,11 @@ class OntDocGeneration:
                         if ext in SPARQLUtils.fileextensionmap:
                             foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(predobjmap[tup][0]))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia)
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos)
                     tablecontents=res["html"]
                     geojsonrep=res["geojson"]
+                    foundmedia=res["foundmedia"]
+                    imageannos = res["imageannos"]
                     tablecontents+="</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
@@ -1565,8 +1622,10 @@ class OntDocGeneration:
                             QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject), "OntdocGeneration", Qgis.Info)
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia)
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos)
                         tablecontents = res["html"]
+                        foundmedia = res["foundmedia"]
+                        imageannos = res["imageannos"]
                         tablecontents += "</li>"
                     tablecontents += "</ul></td>"
                 else:
@@ -1577,8 +1636,10 @@ class OntDocGeneration:
                             "OntdocGeneration", Qgis.Info)
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
-                                                         baseurl, checkdepth, geojsonrep,foundmedia)
+                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos)
                     tablecontents = res["html"]
+                    foundmedia = res["foundmedia"]
+                    imageannos = res["imageannos"]
                     tablecontents += "</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
@@ -1624,14 +1685,26 @@ class OntDocGeneration:
                         format="nexus"
                     f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
                     break
-            for image in foundmedia["image"]:
-                if "<svg" in image:
-                    if "<svg>" in image:
-                        f.write(imagestemplatesvg.replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
+            carousel="image"
+            if len(foundmedia["image"])>3:
+                carousel="carousel-item active"
+            if len(imageannos)>0 and len(foundmedia["image"])>0:
+                for image in foundmedia["image"]:
+                    annostring=""
+                    for anno in imageannos:
+                        annostring+=anno.replace("<svg>","<svg class=\"svgview\" fill=\"#044B94\" fill-opacity=\"0.4\">")
+                    f.write(imageswithannotemplate.replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{svganno}}",annostring).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+            else:
+                f.write(imagecarouselheader)
+                for image in foundmedia["image"]:
+                    if "<svg" in image:
+                        if "<svg>" in image:
+                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                        else:
+                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
                     else:
-                        f.write(imagestemplatesvg.replace("{{image}}",str(image)))
-                else:
-                    f.write(imagestemplate.replace("{{image}}",str(image)))
+                        f.write(imagestemplate.replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                    f.write(imagecarouselfooter)
             for audio in foundmedia["audio"]:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
             for video in foundmedia["video"]:

@@ -43,7 +43,7 @@ class SPARQLUtils:
     }
 
     collectionrelationproperties={
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#member":"ObjectProperty",
     }
 
     valueproperties={
