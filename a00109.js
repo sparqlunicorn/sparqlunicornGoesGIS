@@ -22,6 +22,7 @@ var a00109 =
     [ "audioextensions", "a00109.html#a35b5b511cf373da486918971f1ff2ee5", null ],
     [ "authmethods", "a00109.html#a7370ab7d6e323deb62ca13a9149915a5", null ],
     [ "classnode", "a00109.html#a6d4a1839adfb663372bf95fd65b0e039", null ],
+    [ "collectionclasses", "a00109.html#a122bc94b95a13ec95c6d50569b2e87bb", null ],
     [ "collectionclassnode", "a00109.html#a670cc0c66359d5042a42639aa6a9e11a", null ],
     [ "collectionrelationproperties", "a00109.html#ac2991204b1f681ec710d1a6a20cc8b3c", null ],
     [ "commentproperties", "a00109.html#a005adfb0073d3ff83d90a00871ae7112", null ],
