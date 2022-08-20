@@ -29,6 +29,8 @@ class SPARQLUtils:
         "https://schema.org/address": "ObjectProperty"
     }
 
+    collectionclasses=["http://www.opengis.net/ont/geosparql#FeatureCollection","http://www.opengis.net/ont/geosparql#GeometryCollection","http://www.opengis.net/ont/geosparql#SpatialObjectCollection","http://www.w3.org/2004/02/skos/core#Collection","http://www.w3.org/2004/02/skos/core#OrderedCollection","https://www.w3.org/ns/activitystreams#Collection","https://www.w3.org/ns/activitystreams#OrderedCollection"]
+
     labelproperties={
         "http://www.w3.org/2004/02/skos/core#prefLabel":"DatatypeProperty",
         "http://www.w3.org/2004/02/skos/core#prefSymbol": "DatatypeProperty",
@@ -44,6 +46,7 @@ class SPARQLUtils:
 
     collectionrelationproperties={
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#member":"ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#member": "ObjectProperty",
     }
 
     valueproperties={
