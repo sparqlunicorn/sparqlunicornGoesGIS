@@ -35,9 +35,11 @@ class InstanceQueryTask(QgsTask):
                 thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
             thequery+=" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "
             if "geotriplepattern" in self.triplestoreconf and len(self.triplestoreconf["geotriplepattern"])>0:
-                thequery+="OPTIONAL { "+str(self.triplestoreconf["geotriplepattern"][0]).replace("?item ","<"+str(self.searchTerm)+"> ")+" } "
+                for geopat in self.triplestoreconf["geotriplepattern"]:
+                    thequery += "OPTIONAL { " + str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ") + " } "
             thequery+="}"
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        QgsMessageLog.logMessage("Query results: " + str(thequery), MESSAGE_CATEGORY, Qgis.Info)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery.replace("?item",""),self.triplestoreconf)
         if results!=False:
             #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             for result in results["results"]["bindings"]:

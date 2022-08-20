@@ -28,6 +28,11 @@ class InstanceListQueryTask(QgsTask):
             labelproperty=self.triplestoreconf["labelproperty"]
         nodetype=self.treeNode.data(UIUtils.dataslot_nodetype)
         labelpattern=SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?con",self.triplestoreconf,"OPTIONAL","FILTER(LANG(?label) =  \""+str(self.preferredlang)+"\") ")+" "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?con",self.triplestoreconf,"OPTIONAL",None)
+        geotriplepattern=None
+        if "geotriplepattern" in self.triplestoreconf:
+            geotriplepattern=""
+            for geopat in self.triplestoreconf["geotriplepattern"]:
+                geotriplepattern+="OPTIONAL { "+geopat.replace("?geo","?hasgeo").replace("?item","?con")+" }\n"
         geometryproperty=None
         if "geometryproperty" in self.triplestoreconf:
             if type(self.triplestoreconf["geometryproperty"]) is list:
@@ -35,9 +40,6 @@ class InstanceListQueryTask(QgsTask):
             else:
                 geometryproperty = self.triplestoreconf["geometryproperty"]
         if nodetype==SPARQLUtils.collectionclassnode:
-            #QgsMessageLog.logMessage('Started task "{}"'.format(
-            #        "SELECT ?con ?label WHERE { " + str(
-            #            self.treeNode.data(UIUtils.dataslot_conceptURI)) + "http://www.w3.org/2000/01/rdf-schema#member ?con . "+str(labelpattern)+" }"), MESSAGE_CATEGORY, Qgis.Info)
             if "geometryproperty" in self.triplestoreconf:
                 thequery="SELECT ?con ?label ?hasgeo WHERE {  <" + str(
                         self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> <http://www.w3.org/2000/01/rdf-schema#member> ?con .\n "+str(labelpattern)+"\n BIND(EXISTS { ""?con <" + str(
@@ -52,19 +54,22 @@ class InstanceListQueryTask(QgsTask):
                 self.treeNode.data(UIUtils.dataslot_linkedconceptrel)) + "> ?linkedgeo . }\n }"
         else:
             if "geometryproperty" in self.triplestoreconf:
-                if isinstance(self.triplestoreurl, str):
+                if geotriplepattern!=None:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" BIND(EXISTS {?con <" + str(
-                        geometryproperty) + "> ?wkt } AS ?hasgeo)}"
+                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(
+                        labelpattern) + " "+str(geotriplepattern)+" }"
                 else:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
-                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" OPTIONAL { ?con <" + str(
+                        self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(
+                        labelpattern) + " OPTIONAL { ?con <" + str(
                         geometryproperty) + "> ?hasgeo } }"
             else:
                 thequery = "SELECT ?con ?label WHERE { ?con <" + typeproperty + "> <" + str(
                     self.treeNode.data(
                         UIUtils.dataslot_conceptURI)) + "> . "+str(labelpattern)+" }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        QgsMessageLog.logMessage("Process literal: " + str(results),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             for result in results["results"]["bindings"]:
                 if result["con"]["value"] not in self.queryresult:
@@ -83,6 +88,12 @@ class InstanceListQueryTask(QgsTask):
                     self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
                 else:
                     self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])
+        QgsMessageLog.logMessage("Process literal: " + str(self.queryresult),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Process literal: " + str(self.hasgeocount),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Process literal: " + str(self.treeNode.data(UIUtils.dataslot_nodetype)),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):
@@ -92,6 +103,9 @@ class InstanceListQueryTask(QgsTask):
         if(self.hasgeocount>0 and self.hasgeocount<len(self.queryresult)) and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.collectionclassnode and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.halfgeoclassicon)
             self.treeNode.setData(SPARQLUtils.halfgeoclassnode, UIUtils.dataslot_nodetype)
+        elif(self.hasgeocount>0 and self.hasgeocount==len(self.queryresult)) and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.collectionclassnode and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.linkedgeoclassnode:
+            self.treeNode.setIcon(UIUtils.geoclassicon)
+            self.treeNode.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
         elif self.hasgeocount==0 and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.collectionclassnode and self.treeNode.data(UIUtils.dataslot_nodetype)!=SPARQLUtils.linkedgeoclassnode:
             self.treeNode.setIcon(UIUtils.classicon)
             self.treeNode.setData(SPARQLUtils.classnode,UIUtils.dataslot_nodetype)

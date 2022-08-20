@@ -88,22 +88,26 @@ class GraphUtils:
                                           credentialUserName, credentialPassword, authmethod):
             configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
             geomobjprop = "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . "
+            configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
         elif self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasWgs84Geometry"],
                                             credentialUserName, credentialPassword, authmethod):
             configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#geometry"]
             geomobjprop="?item <http://www.w3.org/2003/01/geo/wgs84_pos#geometry> ?item_geom . "
+            configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
         if self.testTripleStoreConnection(configuration["resource"],self.testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
             capabilitylist.append("WKT Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
             if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asWKT"]
             configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ")
+            configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ")
             gottype=True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasGML"],
                                           credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("GML Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asGML> ?geo . ")
+            configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asGML> ?geo . ")
             if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asGML"]
             gottype = True
@@ -112,6 +116,7 @@ class GraphUtils:
             capabilitylist.append("KML Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asKML> ?geo . ")
+            configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asKML> ?geo . ")
             if "geometryproperty" not  in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asKML"]
             gottype = True
@@ -120,6 +125,7 @@ class GraphUtils:
             capabilitylist.append("GeoJSON Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ")
+            configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ")
             if "geometryproperty" not  in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asGeoJSON"]
             gottype = True

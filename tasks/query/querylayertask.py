@@ -129,6 +129,8 @@ class QueryLayerTask(QgsTask):
         item = ""
         relval=False
         crsset=set()
+        QgsMessageLog.logMessage('Processssing results....',
+            MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             if self.concept!=None and "item" not in result and not "?item " in self.query:
                 result["item"]={}
@@ -202,10 +204,10 @@ class QueryLayerTask(QgsTask):
                     self.triplestoreconf),features,nongeofeatures,crsset)
             elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
                 self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
-        if relval and not geooptional and "lat" not in result and "lon" not in result:
-            self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
-                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-                { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+            if relval and not geooptional and "lat" not in result and "lon" not in result:
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                    { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
         #if relval and geooptional:
         #    #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
         #    #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)

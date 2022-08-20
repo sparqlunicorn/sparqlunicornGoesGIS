@@ -95,7 +95,12 @@ class LayerUtils:
 
     @staticmethod
     def processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " --- " + str(literaltype))
+        QgsMessageLog.logMessage("Process literal: " + str(literal) + " --- " + str(literaltype),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("FIELDNAMES: " + str(literaltype),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("FIELDNAMES: " + str(literal),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
@@ -126,7 +131,11 @@ class LayerUtils:
                 srspart = literal[literal.find("srsName="):literal.find(">")]
                 curcrs=srspart.replace("srsName=\"EPSG:","")
                 curcrs=curcrs.replace("\"", "")
+                QgsMessageLog.logMessage("FIELDNAMES: " + str(curcrs),
+                                         MESSAGE_CATEGORY, Qgis.Info)
             geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
+            QgsMessageLog.logMessage("FIELDNAMES: " + str(geom),
+                                     MESSAGE_CATEGORY, Qgis.Info)
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():
