@@ -785,7 +785,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <span class="keywordflow">if</span> self.testURL <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.testConfiguration:</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                self.message = <span class="stringliteral">&quot;URL depicts a valid SPARQL Endpoint!&quot;</span></div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;ASK&quot;</span> <span class="keywordflow">in</span> query:</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span>+str(results[<span class="stringliteral">&quot;boolean&quot;</span>]), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot;+str(results[&quot;boolean&quot;]), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                <span class="keywordflow">return</span> results[<span class="stringliteral">&quot;boolean&quot;</span>]</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            self.feasibleConfiguration = <span class="keyword">True</span></div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>

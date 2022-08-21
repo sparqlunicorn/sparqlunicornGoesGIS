@@ -702,8 +702,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;                        self.queryTemplates.itemData(self.queryTemplates.currentIndex())<span class="comment">#.replace(&quot;wd:Q%%concept%% .&quot;, &quot;wd:&quot; + concept + &quot; .&quot;)</span></div>
 <div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex())<span class="comment">#.replace(&quot;%%concept%%&quot;, concept)</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &quot;{}&quot;&#39;</span>.format(<span class="stringliteral">&quot;Concept: &quot;</span> + str(concept)), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                                     Qgis.Info)</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Concept: &quot; + str(concept)), MESSAGE_CATEGORY,</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;            <span class="comment">#                         Qgis.Info)</span></div>
 <div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;            querytext=SPARQLUtils.queryPreProcessing(querytext,self.triplestoreconf[endpointIndex],concept)</div>
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;            self.inp_sparql2.setPlainText(querytext)</div>
 <div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;            self.inp_sparql2.columnvars = {}</div>
