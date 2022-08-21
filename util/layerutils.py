@@ -94,13 +94,7 @@ class LayerUtils:
         return LayerUtils.detectColumnType(columnmap)
 
     @staticmethod
-    def processLiteral(literal, literaltype, reproject,currentlayergeojson=None,triplestoreconf=None):
-        QgsMessageLog.logMessage("Process literal: " + str(literal) + " --- " + str(literaltype),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("FIELDNAMES: " + str(literaltype),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("FIELDNAMES: " + str(literal),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+    def processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False):
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
@@ -117,12 +111,14 @@ class LayerUtils:
             if literal.startswith("<http"):
                 index = literal.index(">") + 1
                 slashindex = literal.rfind("/") + 1
-                reproject = literal[slashindex:(index - 1)]
+                if reprojecttask:
+                    reproject = literal[slashindex:(index - 1)]
                 geom = QgsGeometry.fromWkt(literal[index:])
                 curcrs=literal[slashindex:(index - 1)]
             else:
                 geom = QgsGeometry.fromWkt(literal)
         elif "gml" in literaltype.lower():
+            curcrs=None
             if "EPSG" in literal and "http" in literal:
                 srspart=literal[literal.find("srsName="):literal.find(">")]
                 curcrs=srspart.replace("srsName=\"http://www.opengis.net/def/crs/EPSG/0/","")
@@ -131,16 +127,16 @@ class LayerUtils:
                 srspart = literal[literal.find("srsName="):literal.find(">")]
                 curcrs=srspart.replace("srsName=\"EPSG:","")
                 curcrs=curcrs.replace("\"", "")
-                QgsMessageLog.logMessage("FIELDNAMES: " + str(curcrs),
-                                         MESSAGE_CATEGORY, Qgis.Info)
+            if reprojecttask and curcrs!=None:
+                reproject = str(curcrs)
             geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
-            QgsMessageLog.logMessage("FIELDNAMES: " + str(geom),
-                                     MESSAGE_CATEGORY, Qgis.Info)
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():
             geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom != None and reproject != "":
+            if str(reproject).isnumeric():
+                reproject="EPSG:"+str(reproject)
             sourceCrs = QgsCoordinateReferenceSystem(reproject)
             destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326")
             tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())

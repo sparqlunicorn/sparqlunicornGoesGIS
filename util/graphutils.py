@@ -220,7 +220,7 @@ class GraphUtils:
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
             if "ASK" in query:
-                QgsMessageLog.logMessage("Result: "+str(results["boolean"]), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: "+str(results["boolean"]), MESSAGE_CATEGORY, Qgis.Info)
                 return results["boolean"]
             self.feasibleConfiguration = True
             return True

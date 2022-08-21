@@ -1453,7 +1453,7 @@ class OntDocGeneration:
                     elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(svglit).upper()):
                         image3dannos.add(str(svglit))
             if geoprop and str(tup[0]) in SPARQLUtils.geoproperties and isinstance(tup[1], Literal):
-                geojsonrep = SPARQLUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
+                geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "",None,None,True)
             if incollection and "<svg" in str(tup[1]):
                  foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
@@ -1502,7 +1502,7 @@ class OntDocGeneration:
                 if ttlf!=None:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
                     object.datatype) + "> .\n")
-                objstring=str(object)
+                objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
                 if res != None:
@@ -1516,7 +1516,7 @@ class OntDocGeneration:
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 if str(pred) in SPARQLUtils.geoproperties and isinstance(object,Literal):
-                    geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "")
+                    geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "",None,None,True)
             else:
                 if ttlf != None:
                     ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
@@ -1524,15 +1524,13 @@ class OntDocGeneration:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
                                                                                  "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(
-                        object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
-                                                                                                                "'") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(
+                        object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(
                         object.language) + "</a>)</small></span>"
                 else:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
                                                                                  "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
-                                                                                 "'") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+                        object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos}
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
@@ -1827,13 +1825,13 @@ class OntDocGeneration:
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
                         if str(geoinstance[0]) in SPARQLUtils.geoproperties and isinstance(geoinstance[1],Literal):
-                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "")
+                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "",None,None,True)
                             uritotreeitem[str(subject)]["type"] = "geocollection"
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                             uritotreeitem[str(subject)]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
                                 if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
-                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "")
+                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "",None,None,True)
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))

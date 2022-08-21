@@ -36,7 +36,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def extractNamespaces(self,filename):
         try:
-            QgsMessageLog.logMessage("Parsing file for namespace", "OntdocDialog", Qgis.Info)
+            #QgsMessageLog.logMessage("Parsing file for namespace", "OntdocDialog", Qgis.Info)
             g = Graph()
             g.parse(filename,format="ttl")
             namespaces=set()

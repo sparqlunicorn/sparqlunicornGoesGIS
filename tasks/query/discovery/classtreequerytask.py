@@ -193,12 +193,12 @@ class ClassTreeQueryTask(QgsTask):
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
             self.classtreemap["root"]=self.rootNode
             self.buildTree("root",self.classtreemap,self.subclassmap,[])
-            QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
-                         "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
+            #             "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
             f = open(os.path.join(__location__,"../../../tmp/classtree/"+str(str(self.triplestoreconf["resource"]["url"]).replace("/","_").replace("['","").replace("']","").replace("\\","_").replace(":","_"))+".json"), "w")
             res={"text": "root"}
             UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-            QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
             f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
             f.close()
         self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
