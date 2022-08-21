@@ -27,7 +27,7 @@ class InstanceQueryTask(QgsTask):
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val .  }"
+        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
         if "geotriplepattern" in self.triplestoreconf:
             thequery = "SELECT ?rel ?val "
             if "mandatoryvariables" in self.triplestoreconf and len(self.triplestoreconf["mandatoryvariables"])>0:
@@ -38,8 +38,7 @@ class InstanceQueryTask(QgsTask):
                 for geopat in self.triplestoreconf["geotriplepattern"]:
                     thequery += "OPTIONAL { " + str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ") + " } "
             thequery+="}"
-        QgsMessageLog.logMessage("Query results: " + str(thequery), MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery.replace("?item",""),self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
         if results!=False:
             #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             for result in results["results"]["bindings"]:

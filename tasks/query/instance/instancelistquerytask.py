@@ -32,7 +32,7 @@ class InstanceListQueryTask(QgsTask):
         if "geotriplepattern" in self.triplestoreconf:
             geotriplepattern=""
             for geopat in self.triplestoreconf["geotriplepattern"]:
-                geotriplepattern+="OPTIONAL { "+geopat.replace("?geo","?hasgeo").replace("?item","?con")+" }\n"
+                geotriplepattern+="OPTIONAL { "+geopat.replace("?geo","?hasgeo").replace("?item","?con").replace("?lat","?hasgeo")+" }\n"
         geometryproperty=None
         if "geometryproperty" in self.triplestoreconf:
             if type(self.triplestoreconf["geometryproperty"]) is list:
