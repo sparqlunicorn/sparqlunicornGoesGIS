@@ -10,5 +10,6 @@ var a00097 =
     [ "layerToGraphML", "a00097.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
     [ "layerToTTLString", "a00097.html#ae39fdf5bb286c926d659bcbf9fe38bc8", null ],
     [ "loadLayerList", "a00097.html#a22c87d0316ac2af5a80b0e7609496924", null ],
-    [ "processLiteral", "a00097.html#a40028de6fa936f8dd159da67ea1734be", null ]
+    [ "processLiteral", "a00097.html#a40028de6fa936f8dd159da67ea1734be", null ],
+    [ "reprojectGeometry", "a00097.html#ab0b775b208048ccbfc14034c52dac205", null ]
 ];
