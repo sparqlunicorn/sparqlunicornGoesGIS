@@ -38,7 +38,7 @@ var geoproperties={
                    "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
 }
-
+var baseurl="{{baseurl}}"
   $( function() {
     var availableTags = Object.keys(search)
     $( "#search" ).autocomplete({
@@ -282,24 +282,33 @@ function download(){
 }
 
 function rewriteLink(thelink){
-    console.log(thelink)
     if(thelink==null){
         rest=search[document.getElementById('search').value].replace(baseurl,"")
     }else{
+        curlocpath=window.location.href.replace(baseurl,"")
         rest=thelink.replace(baseurl,"")
     }
-    console.log(rest)
+    if(!(rest.endsWith("/"))){
+        rest+="/"
+    }
     count=0
     if(!indexpage){
-        count=rest.split("/").length
+        count=rest.split("/").length-1
     }
     console.log(count)
     counter=0
-    while(counter<count){
-        rest="../"+rest
-        counter+=1
+    if (typeof relativedepth !== 'undefined'){
+        while(counter<relativedepth){
+            rest="../"+rest
+            counter+=1
+        }
+    }else{
+        while(counter<count){
+            rest="../"+rest
+            counter+=1
+        }   
     }
-    rest+="/index.html"
+    rest+="index.html"
     console.log(rest)
     return rest
 }
@@ -579,7 +588,7 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
         }
     }
     dialogcontent+="</tbody></table>"
-    dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"classrelationdialog\\").close()'>Close</button>"
+    dialogcontent+="<button style=\\"float:right\\" id=\\"closebutton\\" onclick='document.getElementById(\\"classrelationdialog\\").close()'>Close</button>"
     return dialogcontent
 }
 
@@ -618,14 +627,14 @@ function formatHTMLTableForResult(result,nodeicon){
             }
             dialogcontent+="</ul></td>"
         }else if((result[res][0]+"").startsWith("http")){
-            dialogcontent+="<td><a href=\\""+rewriteLink(result[res]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res]+"")+"</a></td>"
+            dialogcontent+="<td><a href=\\""+rewriteLink(result[res][0]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res][0]+"")+"</a></td>"
         }else{
             dialogcontent+="<td>"+result[res][0]+"</td>"
         }
         dialogcontent+="</tr>"
     }
     dialogcontent+="</tbody></table>"
-    dialogcontent+="<button id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
+    dialogcontent+="<button style=\\"float:right\\" id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
     return dialogcontent
 }
 
@@ -688,7 +697,12 @@ function setupJSTree(){
         }
     }
     tree["contextmenu"]["items"]=function (node) {
-        return {
+        nodetype=node.type
+        thelinkpart="class"
+        if(nodetype=="instance" || nodetype=="geoinstance"){
+            thelinkpart="instance"
+        }    
+        contextmenu={
             "lookupdefinition": {
                 "separator_before": false,
                 "separator_after": false,
@@ -699,12 +713,12 @@ function setupJSTree(){
                     var win = window.open(newlink, '_blank');
                     win.focus();
                 }
-            }, 
+            },
             "copyuriclipboard":{
                 "separator_before": false,
                 "separator_after": false,
                 "label": "Copy URI to clipboard",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/"+thelinkpart+"link.png",
                 "action":function(obj){
                     copyText=node.id
                     navigator.clipboard.writeText(copyText);
@@ -713,8 +727,8 @@ function setupJSTree(){
             "discoverrelations":{
                 "separator_before": false,
                 "separator_after": false,
-                "label": "Discover class relations",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/classlink.png",
+                "label": "Discover "+node.type+" relations",
+                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/"+thelinkpart+"link.png",
                 "action":function(obj){
                     console.log("class relations")
                     if(node.type=="class" || node.type=="geoclass" || node.type=="collectionclass"){
@@ -725,8 +739,8 @@ function setupJSTree(){
             "loaddataschema": {
                 "separator_before": false,
                 "separator_after": false,
-                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/classschema.png",
-                "label": "Load dataschema for class",
+                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/"+node.type+"schema.png",
+                "label": "Load dataschema for "+node.type,
                 "action": function (obj) {
                     console.log(node)
                     console.log(node.id)
@@ -737,8 +751,9 @@ function setupJSTree(){
                         getDataSchemaDialog(node) 
                     }                                         
                 }
-            }
-        };
+            }                
+        }
+        return contextmenu
     }
     $('#jstree').jstree(tree);
     $('#jstree').bind("dblclick.jstree", function (event) {
@@ -894,8 +909,8 @@ htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
   GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
   Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
 </div><script>var indexpage={{indexpage}}
-var baseurl="{{baseurl}}"</script>
-<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurlhtml}}">{{baseurlhtml}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
+var relativedepth={{relativedepth}}</script>
+<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
 </div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -915,12 +930,12 @@ imagecarouselfooter="""</div> <a class="carousel-control-prev" href="#carouselEx
   </a></div>"""
 
 imagestemplate="""<div class="{{carousel}}">
-<img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" />
+<a href="{{image}}" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
 </div>
 """
 
 imageswithannotemplate="""<div class="{{carousel}}">
-<img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" />
+<a href=\"{{image}}\" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
 {{svganno}}
 </div>
 """
@@ -1226,7 +1241,7 @@ class OntDocGeneration:
             f.write(stylesheet)
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
-            f.write(startscripts)
+            f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
             f.close()
         pathmap = {}
         paths = {}
@@ -1241,7 +1256,7 @@ class OntDocGeneration:
                     self.graph.parse(outpath + path+"/index.ttl")
                 except Exception as e:
                     print(e)
-            self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
+            postprocessing=self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
                        self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
             subtorencounter += 1
             if subtorencounter%500==0:
@@ -1434,7 +1449,7 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,image3dannos,label):
+    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,image3dannos,label,unitlabel):
         geoprop=False
         incollection=False
         if pred in SPARQLUtils.geopointerproperties:
@@ -1452,7 +1467,7 @@ class OntDocGeneration:
                         imageannos.add(str(svglit))
                     elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(svglit).upper()):
                         image3dannos.add(str(svglit))
-            if geoprop and str(tup[0]) in SPARQLUtils.geoproperties and isinstance(tup[1], Literal):
+            if isinstance(tup[1], Literal) and (str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
                 geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "",None,None,True)
             if incollection and "<svg" in str(tup[1]):
                  foundmedia["image"].add(str(tup[1]))
@@ -1465,38 +1480,48 @@ class OntDocGeneration:
             if str(tup[0]) in SPARQLUtils.unitproperties and isinstance(tup[1],URIRef):
                 foundunit=str(tup[1])
         if foundunit!=None and foundval!=None and label!=None:
-            label+=" "+str(foundval)+" ["+str(self.shortenURI(foundunit))+"]"
-        return {"geojsonrep":geojsonrep,"label":label,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos}
+            res=self.replaceNameSpacesInLabel(str(foundunit))
+            if res!=None:
+                unitlabel=str(foundval)+" <a href=\""+str(foundunit)+"\" target=\"_blank\">"+res["uri"]+"</a>"
+            else:
+                unitlabel=str(foundval)+" <a href=\""+str(foundunit)+"\" target=\"_blank\">"+str(self.shortenURI(foundunit))+"</a>"
+        return {"geojsonrep":geojsonrep,"label":label,"unitlabel":unitlabel,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos}
 
 
-
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,tablecontents,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,image3dannos):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,image3dannos):
+        tablecontents=""
+        label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
             label = str(self.shortenURI(str(object)))
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,image3dannos,label)
+            unitlabel=""
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,image3dannos,label,unitlabel)
             label=mydata["label"]
             geojsonrep=mydata["geojsonrep"]
             foundmedia=mydata["foundmedia"]
             imageannos=mydata["imageannos"]
             image3dannos=mydata["image3dannos"]
+            unitlabel=mydata["unitlabel"]
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
-                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">" \
-                    + label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a></span>"
+                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
                     tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
                         object) + "\" target=\"_blank\" href=\"" + str(
                         object) + "\">" + label + " <span style=\"color: #666;\">(" + res[
-                                         "uri"] + ")</span></a></span>"
+                                         "uri"] + ")</span></a>"
                 else:
                     tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
                         object) + "\" target=\"_blank\" href=\"" + str(
-                        object) + "\">" + label + "</a></span>"
+                        object) + "\">" + label + "</a>"
+            if unitlabel!="":
+                tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
+            tablecontents+="</span>"
         else:
+            label=str(object)
             if isinstance(object, Literal) and object.datatype != None:
                 res = self.replaceNameSpacesInLabel(str(object.datatype))
                 if ttlf!=None:
@@ -1515,23 +1540,21 @@ class OntDocGeneration:
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
-                if str(pred) in SPARQLUtils.geoproperties and isinstance(object,Literal):
+                if isinstance(object, Literal) and (str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
                     geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "",None,None,True)
             else:
-                if ttlf != None:
-                    ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
                 if object.language != None:
+                    if ttlf!=None:
+                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"@"+str(object.language)+" .\n")
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
-                                                                                 "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(
-                        object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(
-                        object.language) + "</a>)</small></span>"
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
+                    if ttlf!=None:
+                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"",
-                                                                                 "'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos}
+                        object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object).replace("<","&lt").replace(">","&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos,"label":label}
+
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         label = self.shortenURI(str(tup))
@@ -1586,12 +1609,11 @@ class OntDocGeneration:
         isgeocollection=False
         comment=None
         parentclass=None
+        inverse=False
         if str(subject) in uritotreeitem and uritotreeitem[str(subject)]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)]["parent"])
             if parentclass not in uritotreeitem:
-                uritotreeitem[parentclass]={"id": parentclass, "parent": "#",
-                                   "type": "class",
-                                   "text": self.shortenURI(str(parentclass)),"data":{}}
+                uritotreeitem[parentclass]={"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}
             uritotreeitem[parentclass]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         if parentclass!=None:
@@ -1624,7 +1646,7 @@ class OntDocGeneration:
             elif str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
-            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,False)
+            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
                 foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
@@ -1632,38 +1654,51 @@ class OntDocGeneration:
             if len(predobjmap[tup]) > 0:
                 if len(predobjmap[tup])>1:
                     tablecontents+="<td class=\"wrapword\"><ul>"
+                    labelmap={}
                     for item in predobjmap[tup]:
-                        if "<svg" in str(item):
+                        if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]:
+                            image3dannos.add(str(item))
+                        elif "<svg" in str(item):
                             foundmedia["image"].add(str(item))
-                        elif isinstance(item,URIRef):
-                            ext="."+''.join(filter(str.isalpha,str(item).split(".")[-1]))
+                        elif "http" in str(item):
+                            if isinstance(item,Literal):
+                                ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
+                            else:
+                                ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
                             if ext in SPARQLUtils.fileextensionmap:
                                 foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
-                        tablecontents+="<li>"
-                        res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, tablecontents, graph,
+                        res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
                                               baseurl, checkdepth,geojsonrep,foundmedia,imageannos,image3dannos)
-                        tablecontents = res["html"]
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
-                        image3dannos = res["image3dannos"]
-                        tablecontents += "</li>"
+                        image3dannos=res["image3dannos"]
+                        if res["label"] not in labelmap:
+                            labelmap[res["label"]]=""
+                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    for lab in sorted(labelmap):
+                        tablecontents+=str(labelmap[lab])
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
-                    if "<svg" in str(predobjmap[tup]):
+                    if ("POINT" in str(predobjmap[tup]).upper() or "POLYGON" in str(predobjmap[tup]).upper() or "LINESTRING" in str(predobjmap[tup]).upper()) and tup in SPARQLUtils.valueproperties and "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]:
+                        image3dannos.add(str(predobjmap[tup][0]))
+                    elif "<svg" in str(predobjmap[tup]):
                         foundmedia["image"].add(str(predobjmap[tup][0]))
-                    elif isinstance(predobjmap[tup], URIRef):
-                        ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup]).split(".")[-1]))
+                    elif "http" in str(predobjmap[tup]):
+                        if isinstance(predobjmap[tup],Literal):
+                            ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup][0].value).split(".")[-1]))
+                        else:
+                            ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup][0]).split(".")[-1]))
                         if ext in SPARQLUtils.fileextensionmap:
                             foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(predobjmap[tup][0]))
-                    res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, tablecontents, graph,
+                    res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, graph,
                                               baseurl, checkdepth,geojsonrep,foundmedia,imageannos,image3dannos)
-                    tablecontents=res["html"]
+                    tablecontents+=res["html"]
                     geojsonrep=res["geojson"]
-                    foundmedia=res["foundmedia"]
-                    imageannos = res["imageannos"]
-                    image3dannos = res["image3dannos"]
+                    foundmedia = res["foundmedia"]
+                    imageannos=res["imageannos"]
+                    image3dannos=res["image3dannos"]
                     tablecontents+="</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
@@ -1692,32 +1727,33 @@ class OntDocGeneration:
             if len(subpredsmap[tup]) > 0:
                 if len(subpredsmap[tup]) > 1:
                     tablecontents += "<td class=\"wrapword\"><ul>"
+                    labelmap={}
                     for item in subpredsmap[tup]:
-                        tablecontents += "<li>"
                         if item not in subjectstorender and baseurl in str(item):
-                            QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject), "OntdocGeneration", Qgis.Info)
+                            print("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
-                        res = self.createHTMLTableValueEntry(subject, tup, item, None, tablecontents, graph,
+                        res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,image3dannos)
-                        tablecontents = res["html"]
                         foundmedia = res["foundmedia"]
-                        imageannos = res["imageannos"]
-                        image3dannos = res["image3dannos"]
-                        tablecontents += "</li>"
+                        imageannos=res["imageannos"]
+                        image3dannos=res["image3dannos"]
+                        if res["label"] not in labelmap:
+                            labelmap[res["label"]]=""
+                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    for lab in sorted(labelmap):
+                        tablecontents+=str(labelmap[lab])
                     tablecontents += "</ul></td>"
                 else:
                     tablecontents += "<td class=\"wrapword\">"
                     if subpredsmap[tup][0] not in subjectstorender and baseurl in str(subpredsmap[tup][0]):
-                        QgsMessageLog.logMessage(
-                            "Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject),
-                            "OntdocGeneration", Qgis.Info)
+                        print("Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject))
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
-                    res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, tablecontents, graph,
+                    res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, graph,
                                                          baseurl, checkdepth, geojsonrep,foundmedia,imageannos,image3dannos)
-                    tablecontents = res["html"]
+                    tablecontents += res["html"]
                     foundmedia = res["foundmedia"]
-                    imageannos = res["imageannos"]
-                    image3dannos = res["image3dannos"]
+                    imageannos=res["imageannos"]
+                    image3dannos=res["image3dannos"]
                     tablecontents += "</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
@@ -1739,7 +1775,7 @@ class OntDocGeneration:
             else:
                 myexports=nongeoexports
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{baseurlhtml}}",baseurl).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
@@ -1748,67 +1784,55 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{baseurlhtml}}",baseurl).replace("{{baseurl}}",baseurl).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             if comment!=None:
                 f.write(htmlcommenttemplate.replace("{{comment}}",comment))
-            if len(foundmedia["mesh"]) > 0 and len(image3dannos) > 0:
+            if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
-                        f.write(threejstemplate.replace("{{wktstring}}", anno).replace("{{meshurls}}",
-                                                                                       str(list(foundmedia["mesh"]))))
-            elif len(foundmedia["mesh"]) > 0 and len(image3dannos) == 0:
-                print("Found 3D Model: " + str(foundmedia["mesh"]))
+                        f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
+            elif len(foundmedia["mesh"])>0 and len(image3dannos)==0:
+                print("Found 3D Model: "+str(foundmedia["mesh"]))
                 for curitem in foundmedia["mesh"]:
-                    format = "ply"
+                    format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
-                        format = "nexus"
-                    f.write(image3dtemplate.replace("{{meshurl}}", curitem).replace("{{meshformat}}", format))
+                        format="nexus"
+                    f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
                     break
-            elif len(foundmedia["mesh"]) == 0 and len(image3dannos) > 0:
+            elif len(foundmedia["mesh"])==0 and len(image3dannos)>0:
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
-                        f.write(threejstemplate.replace("{{wktstring}}", anno).replace("{{meshurls}}", "[]"))
-            carousel = "image"
-            if len(foundmedia["image"]) > 3:
-                carousel = "carousel-item active"
+                        f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}","[]"))
+            carousel="image"
+            if len(foundmedia["image"])>3:
+                carousel="carousel-item active"
                 f.write(imagecarouselheader)
-            if len(imageannos) > 0 and len(foundmedia["image"]) > 0:
+            if len(imageannos)>0 and len(foundmedia["image"])>0:
                 for image in foundmedia["image"]:
-                    annostring = ""
+                    annostring=""
                     for anno in imageannos:
-                        annostring += anno.replace("<svg>",
-                                                   "<svg style=\"position: absolute;top: 0;left: 0;\" class=\"svgview svgoverlay\" fill=\"#044B94\" fill-opacity=\"0.4\">")
-                    f.write(imageswithannotemplate.replace("{{carousel}}",
-                                                           carousel + "\" style=\"position: relative;display: inline-block;").replace(
-                        "{{image}}", str(image)).replace("{{svganno}}", annostring).replace("{{imagetitle}}",
-                                                                                            str(image)[
-                                                                                            0:str(image).rfind('.')]))
-                    if len(foundmedia["image"]) > 3:
-                        carousel = "carousel-item"
+                        annostring+=anno.replace("<svg>","<svg style=\"position: absolute;top: 0;left: 0;\" class=\"svgview svgoverlay\" fill=\"#044B94\" fill-opacity=\"0.4\">")
+                    f.write(imageswithannotemplate.replace("{{carousel}}",carousel+"\" style=\"position: relative;display: inline-block;").replace("{{image}}",str(image)).replace("{{svganno}}",annostring).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                    if len(foundmedia["image"])>3:
+                        carousel="carousel-item"
             else:
                 for image in foundmedia["image"]:
+                    if image=="<svg width=":
+                        continue
                     if "<svg" in image:
                         if "<svg>" in image:
-                            f.write(imagestemplatesvg.replace("{{carousel}}", carousel).replace("{{image}}",
-                                                                                                str(image.replace(
-                                                                                                    "<svg>",
-                                                                                                    "<svg class=\"svgview\">"))).replace(
-                                "{{imagetitle}}", str(image)[0:str(image).rfind('.')]))
+                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
                         else:
-                            f.write(imagestemplatesvg.replace("{{carousel}}", carousel).replace("{{image}}",
-                                                                                                str(image)).replace(
-                                "{{imagetitle}}", str(image)[0:str(image).rfind('.')]))
+                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}",str(image)))
                     else:
-                        f.write(
-                            imagestemplate.replace("{{carousel}}", carousel).replace("{{image}}", str(image)).replace(
-                                "{{imagetitle}}", str(image)[0:str(image).rfind('.')]))
-                    if len(foundmedia["image"]) > 3:
-                        carousel = "carousel-item"
-            if len(foundmedia["image"]) > 3:
+                        f.write(imagestemplate.replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                    if len(foundmedia["image"])>3:
+                        carousel="carousel-item"
+            if len(foundmedia["image"])>3:
                 f.write(imagecarouselfooter)
             for audio in foundmedia["audio"]:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
@@ -1824,20 +1848,18 @@ class OntDocGeneration:
                 for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
-                        if str(geoinstance[0]) in SPARQLUtils.geoproperties and isinstance(geoinstance[1],Literal):
+                        if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
                             geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "",None,None,True)
                             uritotreeitem[str(subject)]["type"] = "geocollection"
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                             uritotreeitem[str(subject)]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
-                                if str(geotup[0]) in SPARQLUtils.geoproperties and isinstance(geotup[1],Literal):
+                                if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "",None,None,True)
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
-            else:
-                f.write(nonmaptemplate.replace("{{myfeature}}",json.dumps({"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": None})))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
-
+        return postprocessing

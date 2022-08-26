@@ -54,8 +54,9 @@ class SPARQLUtils:
         "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty"
     }
 
-    unitproperties={
-        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit":"ObjectProperty"
+    unitproperties = {
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit": "ObjectProperty",
+        "https://www.w3.org/ns/activitystreams#units": "DatatypeProperty"
     }
 
     commentproperties={
@@ -145,6 +146,12 @@ class SPARQLUtils:
         "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
         "http://rdfs.co/juso/geometry": "ObjectProperty"
     }
+
+    geoliteraltypes = ["http://www.opengis.net/ont/geosparql#wktLiteral",
+                       "http://www.opengis.net/ont/geosparql#gmlLiteral",
+                       "http://www.opengis.net/ont/geosparql#kmlLiteral",
+                       "http://www.opengis.net/ont/geosparql#geoJSONLiteral",
+                       "http://www.opengis.net/ont/geosparql#dggsLiteral"]
 
     geoproperties={
                    "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
@@ -344,7 +351,7 @@ class SPARQLUtils:
                 if len(query)>2000:
                     raise Exception
                 results = sparql.queryAndConvert()
-                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if "status_code" in results:
                     #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     raise Exception
@@ -370,7 +377,7 @@ class SPARQLUtils:
                     sparql.setMethod(POST)
                     sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
-                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if "status_code" in results:
                         raise Exception
                 except:

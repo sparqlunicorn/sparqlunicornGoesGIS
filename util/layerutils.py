@@ -94,6 +94,18 @@ class LayerUtils:
         return LayerUtils.detectColumnType(columnmap)
 
     @staticmethod
+    def reprojectGeometry(geom,fromcrs,tocrs="EPSG:4326"):
+        sourceCrs = QgsCoordinateReferenceSystem(fromcrs)
+        destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)
+        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+        QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        res=geom.transform(tr)
+        QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        return geom
+
+    @staticmethod
     def processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False):
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
@@ -130,17 +142,13 @@ class LayerUtils:
             if reprojecttask and curcrs!=None:
                 reproject = str(curcrs)
             geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
+            geom=QgsGeometry(geom)
         elif "geojson" in literaltype.lower():
             return literal
         elif "wkb" in literaltype.lower():
             geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
         if geom != None and reproject != "":
-            if str(reproject).isnumeric():
-                reproject="EPSG:"+str(reproject)
-            sourceCrs = QgsCoordinateReferenceSystem(reproject)
-            destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs("EPSG:4326")
-            tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-            geom.transform(tr)
+            geom=LayerUtils.reprojectGeometry(geom,reproject)
         if geom != None:
             res=json.loads(geom.asJson())
             if currentlayergeojson!=None:
