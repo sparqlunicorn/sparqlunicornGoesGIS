@@ -1449,43 +1449,63 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,image3dannos,label,unitlabel):
-        geoprop=False
-        incollection=False
+    def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
+                                                image3dannos, label, unitlabel):
+        geoprop = False
+        incollection = False
         if pred in SPARQLUtils.geopointerproperties:
-            geoprop=True
+            geoprop = True
         if pred in SPARQLUtils.collectionrelationproperties:
-            incollection=True
-        foundval=None
-        foundunit=None
+            incollection = True
+        foundval = None
+        foundunit = None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
-                label=str(tup[1])
-            if pred=="http://www.w3.org/ns/oa#hasSelector" and tup[0]==URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and (tup[1]==URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1]==URIRef("http://www.w3.org/ns/oa#WKTSelector")):
-                for svglit in graph.objects(object,URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value")):
+                label = str(tup[1])
+            if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
+                    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and (
+                    tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
+                    "http://www.w3.org/ns/oa#WKTSelector")):
+                for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value")):
                     if "<svg" in str(svglit):
                         imageannos.add(str(svglit))
-                    elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(svglit).upper()):
+                    elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(
+                            svglit).upper()):
                         image3dannos.add(str(svglit))
-            if isinstance(tup[1], Literal) and (str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
+            if isinstance(tup[1], Literal) and (
+                    str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
                 geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "",None,None,True)
             if incollection and "<svg" in str(tup[1]):
-                 foundmedia["image"].add(str(tup[1]))
+                foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
-                ext="."+''.join(filter(str.isalpha,str(tup[1]).split(".")[-1]))
+                ext = "." + ''.join(filter(str.isalpha, str(tup[1]).split(".")[-1]))
                 if ext in SPARQLUtils.fileextensionmap:
                     foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(tup[1]))
-            if str(tup[0]) in SPARQLUtils.valueproperties and isinstance(tup[1],Literal):
-                foundval=tup[1]
-            if str(tup[0]) in SPARQLUtils.unitproperties and isinstance(tup[1],URIRef):
-                foundunit=str(tup[1])
-        if foundunit!=None and foundval!=None and label!=None:
-            res=self.replaceNameSpacesInLabel(str(foundunit))
-            if res!=None:
-                unitlabel=str(foundval)+" <a href=\""+str(foundunit)+"\" target=\"_blank\">"+res["uri"]+"</a>"
+            if str(tup[0]) in SPARQLUtils.valueproperties:
+                if SPARQLUtils.valueproperties[str(tup[0])] == "DatatypeProperty" and isinstance(tup[1], Literal):
+                    foundval = str(tup[1])
+                else:
+                    for valtup in graph.predicate_objects(tup[1]):
+                        if str(valtup[0]) in SPARQLUtils.unitproperties:
+                            foundunit = str(valtup[1])
+                        if str(valtup[0]) in SPARQLUtils.valueproperties and isinstance(valtup[1], Literal):
+                            foundval = str(valtup[1])
+            if str(tup[0]) in SPARQLUtils.unitproperties:
+                foundunit = tup[1]
+        if foundunit != None and foundval != None:
+            res = None
+            if "http" in foundunit:
+                res = self.replaceNameSpacesInLabel(str(foundunit))
+                if res != None:
+                    unitlabel = str(foundval) + " <a href=\"" + str(foundunit) + "\" target=\"_blank\">" + str(
+                        res["uri"]) + "</a>"
+                else:
+                    unitlabel = str(foundval) + " <a href=\"" + str(foundunit) + "\" target=\"_blank\">" + str(
+                        self.shortenURI(foundunit)) + "</a>"
             else:
-                unitlabel=str(foundval)+" <a href=\""+str(foundunit)+"\" target=\"_blank\">"+str(self.shortenURI(foundunit))+"</a>"
-        return {"geojsonrep":geojsonrep,"label":label,"unitlabel":unitlabel,"foundmedia":foundmedia,"imageannos":imageannos,"image3dannos":image3dannos}
+                unitlabel = str(foundval) + " " + str(foundunit)
+        return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
+                "imageannos": imageannos, "image3dannos": image3dannos}
 
 
     def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,image3dannos):

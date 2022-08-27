@@ -51,6 +51,8 @@ class SPARQLUtils:
 
     valueproperties={
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue": "ObjectProperty",
+        "http://www.opengis.net/ont/crs/usesValue": "ObjectProperty",
         "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty"
     }
 
