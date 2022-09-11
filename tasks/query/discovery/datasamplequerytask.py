@@ -73,16 +73,6 @@ class DataSampleQueryTask(QgsTask):
     def finished(self,result):
         resstring=""
         counter=1
-        #for res in self.queryresult:
-        #    if "http" in res:
-        #        resstring+="<a href=\""+str(res)+"\"><b>"+str(self.queryresult[res]["label"])+" ["+str(self.queryresult[res]["amount"])+"]</b></a> "
-        #    elif "datatype" in self.queryresult[res]:
-        #        resstring+="<a href=\""+str(self.queryresult[res]["datatype"])+"\"><b>"+str(self.queryresult[res]["label"])+" ["+str(self.queryresult[res]["amount"])+"]</b></a> "
-        #    else:
-        #        resstring+="<b>"+str(self.queryresult[res]["label"])+" ["+str(self.queryresult[res]["amount"])+"]</b> "
-        #    if counter%5==0:
-        #        resstring+="<br/>"
-        #    counter+=1
         if "geometryproperty" in self.triplestoreconf and self.mymap!=None and self.relation in self.triplestoreconf["geometryproperty"]:
             counter=1
             geocollection = {'type': 'FeatureCollection', 'features': []}
@@ -146,3 +136,4 @@ class DataSampleQueryTask(QgsTask):
         item.setText(resstring)
         self.tableWidget.takeItem(self.row,self.column)
         self.tableWidget.setItem(self.row,self.column,item)
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

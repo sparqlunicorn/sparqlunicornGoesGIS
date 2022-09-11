@@ -2,6 +2,7 @@ from ...util.ui.uiutils import UIUtils
 from ...util.sparqlutils import SPARQLUtils
 from qgis.core import QgsProject,QgsTask, QgsMessageLog
 
+MESSAGE_CATEGORY="FindFeatureInAreaTask"
 class FindFeaturesInAreaTask(QgsTask):
 
     def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,nodetype):
@@ -22,6 +23,7 @@ class FindFeaturesInAreaTask(QgsTask):
             self.amount = results["results"]["bindings"][0]["amount"]["value"]
         else:
             self.amount=0
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)
         return True
 
     def finished(self, result):

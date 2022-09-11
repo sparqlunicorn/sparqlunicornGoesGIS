@@ -4,11 +4,11 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.PyQt import uic
-from qgis.core import Qgis
 from qgis.core import QgsApplication, QgsMessageLog
 import os
 
 from ...dialogs.dataview.dataschemadialog import DataSchemaDialog
+from ...dialogs.dataview.propertyschemadialog import PropertySchemaDialog
 from ...util.sparqlutils import SPARQLUtils
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.discovery.findrelatedconceptquerytask import FindRelatedConceptQueryTask
@@ -90,28 +90,49 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
                                self.triplestoreconf,self.tableView)
         QgsApplication.taskManager().addTask(self.qtask)
 
+    def startSchemaDialog(self):
+        if self.currentItem.data(UIUtils.dataslot_nodetype)==SPARQLUtils.datatypepropertynode or \
+            self.currentItem.data(UIUtils.dataslot_nodetype)==SPARQLUtils.geodatatypepropertynode or \
+            self.currentItem.data(UIUtils.dataslot_nodetype) == SPARQLUtils.geoobjectpropertynode or \
+            self.currentItem.data(UIUtils.dataslot_nodetype) == SPARQLUtils.objectpropertynode:
+            PropertySchemaDialog(
+                self.currentItem.data(UIUtils.dataslot_conceptURI),
+                self.currentItem.data(UIUtils.dataslot_nodetype),
+                self.currentItem.data(0),
+                self.triplestoreconf["resource"],
+                self.triplestoreconf, self.triplestoreconf["prefixes"],
+                "Property Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
+                    UIUtils.dataslot_conceptURI)),
+                    self.triplestoreconf["prefixesrev"] if "prefixesrev" in self.triplestoreconf else {}))
+        else:
+            DataSchemaDialog(
+                self.currentItem.data(UIUtils.dataslot_conceptURI),
+                self.currentItem.data(UIUtils.dataslot_nodetype),
+                self.currentItem.data(0),
+                self.triplestoreconf["resource"],
+                self.triplestoreconf, self.triplestoreconf["prefixes"],
+                "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
+                    UIUtils.dataslot_conceptURI)),
+                    self.triplestoreconf["prefixesrev"] if "prefixesrev" in self.triplestoreconf else {}))
+
+
     def onContext(self, position):
         self.currentItem = self.tableView.indexAt(position)
         menu = QMenu("Menu", self)
         actionclip = QAction("Copy IRI to clipboard")
+        actionclip.setIcon(UIUtils.classlinkicon)
         menu.addAction(actionclip)
         #actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))
         action = QAction("Open in Webbrowser")
+        action.setIcon(UIUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: UIUtils.openListURL(self.currentItem))
         actiondataschema = QAction("Query data schema")
+        actiondataschema.setIcon(UIUtils.classschemaicon)
         menu.addAction(actiondataschema)
-        actiondataschema.triggered.connect(lambda: DataSchemaDialog(
-            self.currentItem.data(UIUtils.dataslot_conceptURI),
-            self.currentItem.data(UIUtils.dataslot_nodetype),
-            self.currentItem.data(0),
-            self.triplestoreconf["resource"],
-            self.triplestoreconf, self.triplestoreconf["prefixes"],
-            "Data Schema View for " + SPARQLUtils.labelFromURI(str(self.currentItem.data(
-                UIUtils.dataslot_conceptURI)),
-                self.triplestoreconf["prefixesrev"] if "prefixesrev" in self.triplestoreconf else {})
-        ))
+        actiondataschema.triggered.connect(self.startSchemaDialog)
         actionshowrelated = QAction("Show related concepts")
+        actionshowrelated.setIcon(UIUtils.countinstancesicon)
         menu.addAction(actionshowrelated)
         actionshowrelated.triggered.connect(self.showRelated)
         menu.exec(self.tableView.viewport().mapToGlobal(position))

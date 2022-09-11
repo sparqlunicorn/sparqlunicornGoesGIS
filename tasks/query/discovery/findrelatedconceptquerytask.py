@@ -21,6 +21,8 @@ class FindRelatedConceptQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.label=label
+        self.queryresult={}
+        self.queryresult2 = {}
         while self.searchResultModel.rowCount()>0:
             self.searchResultModel.removeRow(0)
         self.searchResultModel.insertRow(0)
@@ -30,14 +32,13 @@ class FindRelatedConceptQueryTask(QgsTask):
 
     def findConnectedConceptsFromProperty(self):
         leftsidequery="SELECT DISTINCT ?val ?label WHERE { ?sub <"+str(self.concept)+"> ?obj .\n"\
-               +" OPTIONAL { ?sub <"+str(self.triplestoreconf["typeproperty"])+"> ?val .\n"\
-               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.dlg.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\""+str(self.preferredlang)+"\")}\n" \
-               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.dlg.triplestoreconf,None,None)+" }\n }"
+               +" OPTIONAL { ?sub <"+str(self.triplestoreconf["typeproperty"])+"> ?val . \n"\
+               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\""+str(self.preferredlang)+"\")}\n" \
+               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+" }\n } }"
         rightsidequery="SELECT DISTINCT ?val ?label WHERE { ?sub <"+str(self.concept)+"> ?obj .\n"\
                + " OPTIONAL { ?obj <" + str(self.triplestoreconf["typeproperty"]) + "> ?val .\n" \
-               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.dlg.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\"" + str(self.preferredlang) + "\")}\n" \
-               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.dlg.triplestoreconf,None,None)+" }\n }" \
-               " }"
+               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\"" + str(self.preferredlang) + "\")}\n" \
+               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+" }\n } }"
         results = SPARQLUtils.executeQuery(self.triplestoreurl, leftsidequery, self.triplestoreconf)
         results2 = SPARQLUtils.executeQuery(self.triplestoreurl, rightsidequery, self.triplestoreconf)
         self.queryresult={}
@@ -252,4 +253,4 @@ class FindRelatedConceptQueryTask(QgsTask):
             self.processClassResult()
         else:
             self.processPropertyResult()
-
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

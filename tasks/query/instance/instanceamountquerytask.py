@@ -33,8 +33,4 @@ class InstanceAmountQueryTask(QgsTask):
         if self.amount!=-1:
             self.treeNode.setText(self.treeNode.text()+" ["+str(self.amount)+"]")
             self.treeNode.setData(str(self.amount),UIUtils.dataslot_instanceamount)
-        if SPARQLUtils.exception!=None:
-            msgBox = QMessageBox()
-            msgBox.setWindowTitle("An error occurred!")
-            msgBox.setText(SPARQLUtils.exception)
-            msgBox.exec_()
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

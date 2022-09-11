@@ -183,8 +183,7 @@ class ClassTreeQueryTask(QgsTask):
         path=os.path.join(__location__,
                              "../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
         if SPARQLUtils.exception!=None:
-            msgBox = ErrorMessageBox(str(self.description)+": An error occurred!",SPARQLUtils.exception)
-            msgBox.exec_()
+            SPARQLUtils.handleException(MESSAGE_CATEGORY, str(self.description)+": An error occurred!")
         elif self.classtreemap==None and self.subclassmap==None and exists(path):
             elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")

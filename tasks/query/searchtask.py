@@ -88,10 +88,7 @@ class SearchTask(QgsTask):
                 msgBox.exec()
                 return
             if len(self.results["results"]) == 0 or len(self.results["results"]["bindings"]) == 0:
-                msgBox = QMessageBox()
-                msgBox.setWindowTitle("Empty search result")
-                msgBox.setText("The search yielded no results")
-                msgBox.exec()
+                SPARQLUtils.handleException(MESSAGE_CATEGORY,"Empty search result","The search yielded no results")
                 return
             for res in self.results["results"]["bindings"]:
                 item = QListWidgetItem()
@@ -120,3 +117,4 @@ class SearchTask(QgsTask):
                 self.searchResult.addItem(item)
                 i += 1
         iface.messageBar().pushMessage("Searched for concepts in", "OK", level=Qgis.Success)
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

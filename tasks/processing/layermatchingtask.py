@@ -89,3 +89,4 @@ class LayerMatchingTask(QgsTask):
             self.dlg.enrichmentSearchResultLabel.setText(
                 "<html><b>The matching task found "+str(len(self.resmap))+" results for your selection. That is "+str(round(((len(self.resmap)/len(self.columnvallist))*100),2))+"% ("+str(len(self.resmap))+"/"+str(len(self.columnvallist))+") of all instances in the original layer</html>")
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

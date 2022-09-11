@@ -61,3 +61,4 @@ class SubClassQueryTask(QgsTask):
                 self.treeNode.appendRow(item)
         if self.amountoflabels != -1:
             self.layercount.setText("[" + str(self.amountoflabels) + "]")
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

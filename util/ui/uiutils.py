@@ -173,13 +173,13 @@ class UIUtils:
             if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
                 itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
                 itemchecked.setToolTip("Geo Datatype Property")
-                itemchecked.setData(SPARQLUtils.datatypepropertynode,UIUtils.dataslot_nodetype)
+                itemchecked.setData(SPARQLUtils.geodatatypepropertynode,UIUtils.dataslot_nodetype)
                 itemchecked.setText("GeoDP")
                 if dlg != None:
                     dlg.setWindowIcon(UIUtils.geoclassicon)
             elif SPARQLUtils.geoproperties[curconcept] == "ObjectProperty":
                 itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
-                itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
+                itemchecked.setData(SPARQLUtils.geoobjectpropertynode,UIUtils.dataslot_nodetype)
                 itemchecked.setToolTip("Geo Object Property")
                 itemchecked.setText("GeoOP")
                 if dlg!=None:

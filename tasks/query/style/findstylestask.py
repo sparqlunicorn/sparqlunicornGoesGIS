@@ -54,3 +54,4 @@ class FindStyleQueryTask(QgsTask):
         item.setText(resstring)
         self.dlg.dataSchemaTableView.takeItem(self.row, self.column)
         self.dlg.dataSchemaTableView.setCellWidget(self.row, self.column, item)
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

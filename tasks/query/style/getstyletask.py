@@ -55,4 +55,4 @@ class GetStyleQueryTask(QgsTask):
             self.treeNode.text()+" ["+str(self.resultstyles)+"]"), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.treeNode.text()+" ["+str(self.resultstyles[0].toSLD(""))+"]"), MESSAGE_CATEGORY, Qgis.Info)
-
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

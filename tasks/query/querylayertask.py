@@ -43,6 +43,7 @@ class QueryLayerTask(QgsTask):
         #    MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
+            SPARQLUtils.handleException(MESSAGE_CATEGORY)
             return False
         QgsMessageLog.logMessage('Started task "{}"'.format(
             results),

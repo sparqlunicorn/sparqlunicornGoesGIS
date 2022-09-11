@@ -177,3 +177,4 @@ class InstanceQueryTask(QgsTask):
         self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Value")
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

@@ -133,3 +133,4 @@ class InstanceListQueryTask(QgsTask):
                 item.setIcon(UIUtils.instanceicon)
                 item.setToolTip("Instance " + str(item.text()) + ": <br>" + SPARQLUtils.treeNodeToolTip)
             self.treeNode.appendRow(item)
+        SPARQLUtils.handleException(MESSAGE_CATEGORY)

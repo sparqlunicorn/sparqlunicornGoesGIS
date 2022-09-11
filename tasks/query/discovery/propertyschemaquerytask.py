@@ -1,15 +1,17 @@
 from collections.abc import Iterable
 
 from ....dialogs.info.errormessagebox import ErrorMessageBox
+from qgis.core import QgsApplication, QgsMessageLog
 from ....util.ui.uiutils import UIUtils
 from ....util.sparqlutils import SPARQLUtils
+from qgis.core import Qgis
 from qgis.core import QgsTask
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QStandardItem
 
 MESSAGE_CATEGORY = 'DataSchemaQueryTask'
 
-class DataSchemaQueryTask(QgsTask):
+class PropertySchemaQueryTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
     def __init__(self, description, triplestoreurl, query, searchTerm,prefixes, searchResultModel,triplestoreconf, progress,dlg,styleprop=None,conceptstoenrich=None):
@@ -37,23 +39,20 @@ class DataSchemaQueryTask(QgsTask):
         self.results = None
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
-        whattoenrichquery="""SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype
+        whattoenrichquery="""SELECT (COUNT(distinct ?val) AS ?countval) (COUNT(?rel) AS ?countrel) ?reltype ?valtype
             WHERE { 
-            ?con %%typeproperty%% %%concept%% .
-            ?con ?rel ?val .
-            BIND( datatype(?val) AS ?valtype ) }
-            GROUP BY ?rel ?valtype
+            ?rel %%concept%% ?val .
+            OPTIONAL {?rel %%typeproperty%% ?reltype . }
+            OPTIONAL {?val %%typeproperty%% ?valtype . }
+            OPTIONAL {BIND( datatype(?val) AS ?valtype ) } }
+            GROUP BY ?reltype ?valtype
             ORDER BY DESC(?countrel)"""
-        if self.conceptstoenrich!=None:
-            cons="VALUES ?con {"
-            for con in self.conceptstoenrich:
-                cons+="<"+str(con)+"> "
-            cons+="}\n"
-            self.query=whattoenrichquery.replace("?con %%typeproperty%% %%concept%% .",cons)
+        if self.query==None:
+            self.query=whattoenrichquery
         if isinstance(self.prefixes, Iterable):
             results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
         else:
@@ -66,18 +65,18 @@ class DataSchemaQueryTask(QgsTask):
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         maxcons = -1
-        if "countcon" in results["results"]["bindings"][0]:
-            maxcons=int(results["results"]["bindings"][0]["countcon"]["value"])
+        if "countrel" in results["results"]["bindings"][0]:
+            maxcons=int(results["results"]["bindings"][0]["countrel"]["value"])
         self.sortedatt = {}
         for result in results["results"]["bindings"]:
             if maxcons!=0 and str(maxcons)!="0":
                 if "countrel" in result:
-                    self.sortedatt[result["rel"]["value"]] = {"amount": round(
-                        (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["rel"]["value"]}
+                    self.sortedatt[result["reltype"]["value"]] = {"amount": round(
+                        (int(result["countrel"]["value"]) / maxcons) * 100, 2), "concept":result["reltype"]["value"]}
                 else:
-                    self.sortedatt[result["rel"]["value"]] = {"concept": result["rel"]["value"]}
+                    self.sortedatt[result["reltype"]["value"]] = {"concept": result["reltype"]["value"]}
                 if "valtype" in result and result["valtype"]["value"]!="":
-                    self.sortedatt[result["rel"]["value"]]["valtype"]=result["valtype"]["value"]
+                    self.sortedatt[result["reltype"]["value"]]["valtype"]=result["valtype"]["value"]
         if "propertylabelquery" in self.triplestoreconf:
             self.sortedatt=SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
                                         self.triplestoreurl)

@@ -85,12 +85,15 @@ class SearchDialog(QDialog, FORM_CLASS):
         self.currentItem = self.searchResult.itemAt(position)
         menu = QMenu("Menu", self)
         actionclip = QAction("Copy IRI to clipboard")
+        actionclip.setIcon(UIUtils.classlinkicon)
         menu.addAction(actionclip)
         actionclip.triggered.connect(lambda: ConceptContextMenu.copyClipBoard(self.currentItem))
         action = QAction("Open in Webbrowser")
+        action.setIcon(UIUtils.geoclassicon)
         menu.addAction(action)
         action.triggered.connect(lambda: UIUtils.openListURL(self.currentItem))
         actiondataschema = QAction("Query data schema")
+        actiondataschema.setIcon(UIUtils.classschemaicon)
         menu.addAction(actiondataschema)
         actiondataschema.triggered.connect(lambda: DataSchemaDialog(
             self.currentItem.data(UIUtils.dataslot_conceptURI),

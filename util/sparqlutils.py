@@ -3,10 +3,11 @@ import urllib
 import requests
 from urllib.request import urlopen
 import json
+from ..dialogs.info.errormessagebox import ErrorMessageBox
 from osgeo import ogr
-from qgis.core import Qgis, QgsGeometry,QgsVectorLayer
-from qgis.core import QgsMessageLog
+from qgis.core import Qgis, QgsGeometry,QgsVectorLayer, QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtWidgets import QMessageBox
 from rdflib import Graph
 
 MESSAGE_CATEGORY = "SPARQLUtils"
@@ -242,6 +243,8 @@ class SPARQLUtils:
     linkedgeoinstancenode="LinkedGeoInstance"
     instancenode="Instance"
     objectpropertynode="ObjectProperty"
+    geoobjectpropertynode="GeoObjectProperty"
+    geodatatypepropertynode="GeoDatatypeProperty"
     datatypepropertynode="DatatypeProperty"
     annotationpropertynode="AnnotationProperty"
     geoinstancenode="GeoInstance"
@@ -381,6 +384,7 @@ class SPARQLUtils:
                     results = sparql.queryAndConvert()
                     #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if "status_code" in results:
+                        SPARQLUtils.exception = str(results)
                         raise Exception
                 except:
                     QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
@@ -402,6 +406,16 @@ class SPARQLUtils:
         #QgsMessageLog.logMessage("Invert Prefixes: " + str(prefixes), MESSAGE_CATEGORY, Qgis.Info)
         inv_map = {v: k for k, v in prefixes.items()}
         return inv_map
+
+    @staticmethod
+    def handleException(callingtask="",title=None,text=None):
+        if SPARQLUtils.exception!=None:
+            ErrorMessageBox(callingtask+" An error occurred!",SPARQLUtils.exception).exec_()
+            return True
+        if title!=None and text!=None:
+            ErrorMessageBox(callingtask+" "+title,text).exec_()
+            return True
+        return False
 
     @staticmethod
     def labelFromURI(uri,prefixlist=None):

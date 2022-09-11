@@ -160,7 +160,10 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 self.prefixList.addItem(item)
             self.prefixList.sortItems()
             if "labelproperty" in curstore:
-                self.labelPropertyEdit.setText(curstore["labelproperty"])
+                if isinstance(curstore["labelproperty"], list):
+                    self.labelPropertyEdit.setText(curstore["labelproperty"][0])
+                else:
+                    self.labelPropertyEdit.setText(curstore["labelproperty"])
             else:
                 self.labelPropertyEdit.setText("http://www.w3.org/2000/01/rdf-schema#label")
             if "typeproperty" in curstore:
