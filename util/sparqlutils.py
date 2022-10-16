@@ -316,6 +316,16 @@ class SPARQLUtils:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
                 return filterstatement
+        else:
+            geosparqltemplate="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
+            filterstatement=geosparqltemplate.replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",
+                                                                               str(bboxpoints[2].asPoint().x())).replace(
+                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",
+                                                              str(bboxpoints[2].asPoint().y())) + "}\n"
+            if curquery!=None:
+                return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
+            else:
+                return filterstatement
 
     @staticmethod
     ## Executes a SPARQL query using RDFlib, with or without credentials and tries GET and POST query methods and uses proxy settings
@@ -410,10 +420,10 @@ class SPARQLUtils:
     @staticmethod
     def handleException(callingtask="",title=None,text=None):
         if SPARQLUtils.exception!=None:
-            ErrorMessageBox(callingtask+" An error occurred!",SPARQLUtils.exception).exec_()
+            ErrorMessageBox(callingtask+" An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec_()
             return True
         if title!=None and text!=None:
-            ErrorMessageBox(callingtask+" "+title,text).exec_()
+            ErrorMessageBox(callingtask+" "+title,"<html>"+text.replace("\n","<br/>")+"</html>").exec_()
             return True
         return False
 

@@ -6,6 +6,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QUrl
 
 from ..dataview.clusterviewdialog import ClusterViewDialog
+from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.querylayertask import QueryLayerTask
 from ..dataview.instancedatadialog import InstanceDataDialog
@@ -124,6 +125,11 @@ class ConceptContextMenu(QMenu):
                 actionaddInstanceAsLayer.setIcon(UIUtils.addinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
+        if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode or item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.geoclassnode:
+            actionquerybbox=QAction("Query layer in bbox")
+            actionquerybbox.setIcon(UIUtils.bboxicon)
+            actionquerybbox.triggered.connect(self.getBBOX)
+            menu.addAction(actionquerybbox)
         if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode:
             actionquerylinkedgeoconcept = QAction("Query joined layer with linked geoconcept")
             actionquerylinkedgeoconcept.setIcon(UIUtils.linkedgeoclassicon)
@@ -150,6 +156,12 @@ class ConceptContextMenu(QMenu):
         menu.addAction(action)
         action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(item.data(UIUtils.dataslot_conceptURI))))
         return menu
+
+    def getBBOX(self):
+        bboxdia=BBOXDialog(None,self.triplestoreconf)
+        if bboxdia.exec():
+            bboxcon=bboxdia.curquery
+            self.dlg.dataAllInstancesAsLayer(bboxcon)
 
     def appStyles(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())

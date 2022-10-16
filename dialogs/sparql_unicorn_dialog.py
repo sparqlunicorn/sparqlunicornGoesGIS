@@ -691,9 +691,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
         if nodetype==SPARQLUtils.geoinstancenode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
-                thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"][1:])+" ?rel ?val\n WHERE\n {\n <" + str(concept) + "> ?rel ?val . \n"
+                thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"][1:])+" ?rel ?val\n WHERE {\n <" + str(concept) + "> ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
-                    thequery+="OPTIONAL { "+geopat.replace("?item","<" + str(concept) + ">")+" } \n"
+                    thequery+=" OPTIONAL { "+geopat.replace("?item","<" + str(concept) + ">")+" } \n"
                 thequery+=" }"
                 self.qlayerinstance = QueryLayerTask(
                     "Instance to Layer: " + str(concept),
@@ -730,7 +730,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
-    def dataAllInstancesAsLayer(self):
+    def dataAllInstancesAsLayer(self,geoconstraint=None):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
@@ -743,7 +743,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
                     thequery+="OPTIONAL { "+geopat+" }\n"
-                thequery+=" } ORDER BY ?item"
+                if geoconstraint!=None:
+                    thequery+=geoconstraint
+                thequery+="\n }\n ORDER BY ?item"
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                     concept,
@@ -762,7 +764,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 thequery ="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
                     thequery+="OPTIONAL { "+geopat+" }\n"
-                thequery+=" } ORDER BY ?item"
+                if geoconstraint!=None:
+                    thequery+=geoconstraint
+                thequery+="\n }\n ORDER BY ?item"
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                     concept,

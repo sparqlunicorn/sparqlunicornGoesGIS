@@ -282,7 +282,8 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.curbbox.append(pointt3)
             self.curbbox.append(pointt4)
             self.close()
-            curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf[self.endpointIndex],self.curbbox,widthm,curquery)
+            self.curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf,self.curbbox,widthm,curquery)
+            QgsMessageLog.logMessage(curquery, MESSAGE_CATEGORY, Qgis.Info)
             """
             if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
                     self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
@@ -309,12 +310,12 @@ class BBOXDialog(QDialog, FORM_CLASS):
             """
         elif polygon:
             widthm = 100
-            if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
-                curquery = curquery[0:curquery.rfind(
+            if "bboxquery" in self.triplestoreconf and \
+                    self.triplestoreconf["bboxquery"]["type"] == "geosparql":
+                self.curquery = curquery[0:curquery.rfind(
                     '}')] + "FILTER(geof:sfIntersects(?geo,\"" + polygon.asWkt() + "\"^^geo:wktLiteral))"
             else:
-                curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf[self.endpointIndex], polygon.boundingBox(),
+                self.curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf, polygon.boundingBox(),
                                                              widthm, curquery)
             """
             elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
