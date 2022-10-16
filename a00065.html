@@ -153,8 +153,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a25d382b76908e64bcc990dfec4349e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a93a0d29ab198c21181f42157af3d53"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">subclassQuerySelectAction</a> (self)</td></tr>
 <tr class="separator:a9a93a0d29ab198c21181f42157af3d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfc0cb58bfe41e5710a6b9083cac16ec"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">dataAllInstancesAsLayer</a> (self)</td></tr>
-<tr class="separator:abfc0cb58bfe41e5710a6b9083cac16ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbbe2c1f63d9f637f3eec571b4acf4fa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">dataAllInstancesAsLayer</a> (self, geoconstraint=None)</td></tr>
+<tr class="separator:adbbe2c1f63d9f637f3eec571b4acf4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -819,7 +819,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;            self.dataAllInstancesAsLayer()</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#aeb5943f9d3c42728964010234e5d0e8f">SPARQLunicornDialog.currentContextModel</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, and <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>.</p>
+<p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#aeb5943f9d3c42728964010234e5d0e8f">SPARQLunicornDialog.currentContextModel</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, and <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>.</p>
 
 </div>
 </div>
@@ -861,8 +861,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abfc0cb58bfe41e5710a6b9083cac16ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfc0cb58bfe41e5710a6b9083cac16ec">&#9670;&nbsp;</a></span>dataAllInstancesAsLayer()</h2>
+<a id="adbbe2c1f63d9f637f3eec571b4acf4fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbbe2c1f63d9f637f3eec571b4acf4fa">&#9670;&nbsp;</a></span>dataAllInstancesAsLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -871,12 +871,22 @@ Static Public Attributes</h2></td></tr>
           <td class="memname">def dataAllInstancesAsLayer </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geoconstraint</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    <span class="keyword">def </span>dataAllInstancesAsLayer(self):</div>
+<div class="fragment"><div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    <span class="keyword">def </span>dataAllInstancesAsLayer(self,geoconstraint=None):</div>
 <div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
 <div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)</div>
 <div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)</div>
@@ -889,47 +899,51 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val . \n&quot;</span></div>
 <div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
 <div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; }\n&quot;</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                thequery+=<span class="stringliteral">&quot; } ORDER BY ?item&quot;</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;                    concept,</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;                thequery,</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                    concept,</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keywordflow">elif</span> nodetype == SPARQLUtils.collectionclassnode:</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                thequery =<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item . ?item ?rel ?val . \n&quot;</span></div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; }\n&quot;</span></div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;                thequery+=<span class="stringliteral">&quot; } ORDER BY ?item&quot;</span></div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                    concept,</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;                 thequery,</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;                    concept,</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;            self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                concept,</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        QgsApplication.taskManager().addTask(self.qlayerinstance)</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;                    thequery+=geoconstraint</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;                    concept,</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                thequery,</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                    concept,</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keywordflow">elif</span> nodetype == SPARQLUtils.collectionclassnode:</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;                thequery =<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item . ?item ?rel ?val . \n&quot;</span></div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; }\n&quot;</span></div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;                <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                    thequery+=geoconstraint</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;                    concept,</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                 thequery,</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                    concept,</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;                concept,</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;        QgsApplication.taskManager().addTask(self.qlayerinstance)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#aeb5943f9d3c42728964010234e5d0e8f">SPARQLunicornDialog.currentContextModel</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#a372686b3ca59f062b995140d963fadd6">SPARQLunicornDialog.qlayerinstance</a>, <a class="el" href="a00061.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00065.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>.</p>
 
@@ -958,9 +972,9 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)</div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoinstancenode:</div>
 <div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>][1:])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n &lt;&quot;</span> + str(concept) + <span class="stringliteral">&quot;&gt; ?rel ?val . \n&quot;</span></div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>][1:])+<span class="stringliteral">&quot; ?rel ?val\n WHERE {\n &lt;&quot;</span> + str(concept) + <span class="stringliteral">&quot;&gt; ?rel ?val . \n&quot;</span></div>
 <div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat.replace(<span class="stringliteral">&quot;?item&quot;</span>,<span class="stringliteral">&quot;&lt;&quot;</span> + str(concept) + <span class="stringliteral">&quot;&gt;&quot;</span>)+<span class="stringliteral">&quot; } \n&quot;</span></div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;                    thequery+=<span class="stringliteral">&quot; OPTIONAL { &quot;</span>+geopat.replace(<span class="stringliteral">&quot;?item&quot;</span>,<span class="stringliteral">&quot;&lt;&quot;</span> + str(concept) + <span class="stringliteral">&quot;&gt;&quot;</span>)+<span class="stringliteral">&quot; } \n&quot;</span></div>
 <div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;                thequery+=<span class="stringliteral">&quot; }&quot;</span></div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
 <div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;                    <span class="stringliteral">&quot;Instance to Layer: &quot;</span> + str(concept),</div>
@@ -1944,7 +1958,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
 
 </div>
 </div>
@@ -1960,7 +1974,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
 
 </div>
 </div>
@@ -1998,7 +2012,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#af0f6ffe9e1e9affaaf0bc56ef3259c14">SPARQLunicornDialog.createLayerFromTreeEntry()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a99fa7fe54d832e9ede705c31718b8cb0">SPARQLunicornDialog.onContext()</a>, <a class="el" href="a00065.html#a9a481f8516c9692f708e8a366e296c22">SPARQLunicornDialog.onContext2()</a>, <a class="el" href="a00065.html#ac958114a86aae2f5f3276d997f16519c">SPARQLunicornDialog.onContext3()</a>, <a class="el" href="a00065.html#a2c60d1c19e3d79fb0869f0b88f7ee541">SPARQLunicornDialog.onContext4()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#afc200e4ad40491d6f9f166b39eb473cd">SPARQLunicornDialog.tabchanged()</a>.</p>
 
 </div>
 </div>
@@ -2338,7 +2352,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>.</p>
 
 </div>
 </div>
@@ -2466,7 +2480,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>The triple store configuration file. </p>
 
-<p class="reference">Referenced by <a class="el" href="a00065.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#afb699b236ce4e28e8d4fabc71b0a63e1">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#abfc0cb58bfe41e5710a6b9083cac16ec">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a08f51981194b429b151dd50b4192c9da">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a00065.html#a8259565de1b431150cbd7ffb026a8556">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a00065.html#afdcc77b707ff20ed027197bc41ece770">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a00065.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00065.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#adf24f3a5813ea11f947d3c63e502893e">SPARQLunicornDialog.tripleStoreInfoDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a00065.html#a1659d7c9973dfca0d962d86f4195098b">SPARQLunicornDialog.buildValueMappingDialog()</a>, <a class="el" href="a00065.html#a114e731483efe9ffd8abb769ce2ebaee">SPARQLunicornDialog.conceptSelectAction()</a>, <a class="el" href="a00065.html#afb699b236ce4e28e8d4fabc71b0a63e1">SPARQLunicornDialog.create_unicorn_layer()</a>, <a class="el" href="a00065.html#a446f1a8825012b76e3f33e3c1171a81d">SPARQLunicornDialog.createMenu()</a>, <a class="el" href="a00065.html#adbbe2c1f63d9f637f3eec571b4acf4fa">SPARQLunicornDialog.dataAllInstancesAsLayer()</a>, <a class="el" href="a00065.html#a25d382b76908e64bcc990dfec4349e35">SPARQLunicornDialog.dataInstanceAsLayer()</a>, <a class="el" href="a00065.html#a08f51981194b429b151dd50b4192c9da">SPARQLunicornDialog.endpointselectaction()</a>, <a class="el" href="a00065.html#a8259565de1b431150cbd7ffb026a8556">SPARQLunicornDialog.getClassTree()</a>, <a class="el" href="a00065.html#afdcc77b707ff20ed027197bc41ece770">SPARQLunicornDialog.getGeoConcepts()</a>, <a class="el" href="a00065.html#abf67995ebda89c18c51a7c24b6a9a19c">SPARQLunicornDialog.loadQueryFunc()</a>, <a class="el" href="a00065.html#a682224b1afdaba0ffd2c28095c6c25ce">SPARQLunicornDialog.saveQueryFunc()</a>, <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>, and <a class="el" href="a00065.html#adf24f3a5813ea11f947d3c63e502893e">SPARQLunicornDialog.tripleStoreInfoDialog()</a>.</p>
 
 </div>
 </div>
