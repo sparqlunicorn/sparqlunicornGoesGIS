@@ -289,10 +289,8 @@ class SPARQLUtils:
         if "bboxquery" in triplestoreconf and \
                 triplestoreconf["bboxquery"]["type"] == "geosparql":
             filterstatement=triplestoreconf["bboxquery"][
-                "query"].replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",
-                                                                               str(bboxpoints[2].asPoint().x())).replace(
-                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",
-                                                              str(bboxpoints[2].asPoint().y())) + "}\n"
+                "query"].replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",str(bboxpoints[2].asPoint().x())).replace(
+                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%", str(bboxpoints[2].asPoint().y())) + "\n"
             if curquery!=None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
@@ -309,9 +307,7 @@ class SPARQLUtils:
         elif "bboxquery" in triplestoreconf and \
                 triplestoreconf["bboxquery"]["type"] == "pointdistance":
             filterstatement=triplestoreconf["bboxquery"][
-                "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).\
-                replace("%%lon%%",str(bboxpoints[0].asPoint().x()))\
-                .replace("%%distance%%", str(widthm / 1000))
+                "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).replace("%%lon%%",str(bboxpoints[0].asPoint().x())).replace("%%distance%%", str(widthm / 1000))
             if curquery!=None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
@@ -320,8 +316,7 @@ class SPARQLUtils:
             geosparqltemplate="FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
             filterstatement=geosparqltemplate.replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",
                                                                                str(bboxpoints[2].asPoint().x())).replace(
-                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",
-                                                              str(bboxpoints[2].asPoint().y())) + "}\n"
+                "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",str(bboxpoints[2].asPoint().y())) + "\n"
             if curquery!=None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:

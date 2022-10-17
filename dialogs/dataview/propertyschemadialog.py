@@ -9,6 +9,7 @@ from qgis.PyQt.QtCore import QSortFilterProxyModel
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSystem, \
     QgsApplication
 
+from ...tasks.query.discovery.instancesamplequerytask import InstanceSampleQueryTask
 from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.discovery.propertyschemaquerytask import PropertySchemaQueryTask
@@ -91,8 +92,8 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         header =self.dataSchemaTableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         self.tablemodel=QStandardItemModel()
-        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.tablemodel.setHeaderData(0, Qt.Horizontal, "Type")
+        self.tablemodel.setHeaderData(1, Qt.Horizontal, "Class")
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.tablemodel.insertRow(0)
         self.filter_proxy_model = QSortFilterProxyModel()
@@ -106,7 +107,7 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
         self.dataSchemaTableView.entered.connect(lambda modelindex: UIUtils.showTableURI(modelindex, self.dataSchemaTableView, self.statusBarLabel))
         self.dataSchemaTableView.doubleClicked.connect(lambda modelindex: UIUtils.openTableURL(modelindex, self.dataSchemaTableView))
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
-        #self.dataSchemaTableView.clicked.connect(self.loadSamples)
+        self.dataSchemaTableView.clicked.connect(self.loadSamples)
         #self.geospatialConstraintButton.clicked.connect(self.loadBBOXDialog)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
         self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
@@ -148,3 +149,18 @@ class PropertySchemaDialog(QWidget, FORM_CLASS):
                                None,
                                self.tablemodel,self.triplestoreconf, progress,self,self.styleprop)
         QgsApplication.taskManager().addTask(self.qtask)
+
+    def loadSamples(self,modelindex):
+        row=modelindex.row()
+        column=modelindex.column()
+        if column==2 and row not in self.alreadyloadedSample:
+            relation = str(self.dataSchemaTableView.model().index(row, column-1).data(UIUtils.dataslot_conceptURI))
+            self.qtask2 = InstanceSampleQueryTask("Querying dataset schema.... (" + str(self.label)+ ")",
+                                             self.triplestoreurl,
+                                             self,
+                                             self.concept,
+                                             relation,
+                                             column,row,self.triplestoreconf,self.tablemodel,
+                                            self.map_canvas,self.concepttype)
+            QgsApplication.taskManager().addTask(self.qtask2)
+            self.alreadyloadedSample.append(row)

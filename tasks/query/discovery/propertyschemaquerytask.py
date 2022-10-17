@@ -1,6 +1,5 @@
 from collections.abc import Iterable
 
-from ....dialogs.info.errormessagebox import ErrorMessageBox
 from qgis.core import QgsApplication, QgsMessageLog
 from ....util.ui.uiutils import UIUtils
 from ....util.sparqlutils import SPARQLUtils
@@ -78,13 +77,9 @@ class PropertySchemaQueryTask(QgsTask):
                 if "valtype" in result and result["valtype"]["value"]!="":
                     self.sortedatt[result["reltype"]["value"]]["valtype"]=result["valtype"]["value"]
         if "propertylabelquery" in self.triplestoreconf:
-            self.sortedatt=SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
-                                        self.triplestoreurl)
+            self.sortedatt=SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"], self.triplestoreconf,self.triplestoreurl)
         else:
-            self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt,
-                                                          None,
-                                                          self.triplestoreconf,
-                                                          self.triplestoreurl)
+            self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt,None,self.triplestoreconf,self.triplestoreurl)
         return True
 
     def finished(self, result):
@@ -97,12 +92,11 @@ class PropertySchemaQueryTask(QgsTask):
                 item.setText("No results found")
                 self.searchResultModel.setItem(0,0,item)
             else:
-                UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,
-                                           SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried")
+                UIUtils.fillAttributeTable(self.sortedatt, self.invprefixes, self.dlg, self.searchResultModel,SPARQLUtils.classnode,self.triplestoreconf,"Check this item if you want it to be queried",Qt.Checked,True)
         else:
             SPARQLUtils.handleException(MESSAGE_CATEGORY,"Dataschema search query not successful","The dataschema search query did not yield any results!")
-        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Selection")
-        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
+        self.searchResultModel.setHeaderData(0, Qt.Horizontal, "Type")
+        self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Class")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.progress.close()
         if self.conceptstoenrich!=None:

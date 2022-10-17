@@ -240,7 +240,7 @@ class UIUtils:
         return itemchecked
 
     @staticmethod
-    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Checked):
+    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Checked,isclasstable=False):
         counter = 0
         for att in queryresult:
             curconcept = queryresult[att]["concept"]
@@ -250,7 +250,13 @@ class UIUtils:
                                  Qt.ItemIsEnabled)
             itemchecked.setCheckState(checkstate)
             itemchecked.setToolTip(checkboxtooltip)
-            itemchecked=UIUtils.detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult,att,dlg)
+            if isclasstable:
+                itemchecked.setIcon(UIUtils.classicon)
+                itemchecked.setData(SPARQLUtils.classnode, UIUtils.dataslot_nodetype)
+                itemchecked.setToolTip("Class")
+                #itemchecked.setText("Class")
+            else:
+                itemchecked=UIUtils.detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult,att,dlg)
             searchResultModel.setItem(counter, 0, itemchecked)
             item = QStandardItem()
             if "label" in queryresult[att] and queryresult[att]["label"]!="":

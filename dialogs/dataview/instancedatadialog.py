@@ -96,8 +96,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         self.queryInstanceLayerButton.clicked.connect(self.queryInstance)
         self.toggleSelectionButton.clicked.connect(self.toggleSelect)
-        self.filterTableComboBox.currentIndexChanged.connect(
-            lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
+        self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.getAttributes(self.concept,triplestoreurl)
         self.show()
 
@@ -125,8 +124,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
         if len(checkeditems)==0:
             relstatement=""
         if int(querydepth)>1:
-            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf[
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
+            query=SPARQLUtils.expandRelValToAmount("SELECT ?" + " ?".join(self.triplestoreconf["mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n" +
             self.triplestoreconf["geotriplepattern"][0] + "\n "+str(relstatement)+" }",querydepth)
             self.qlayerinstance = QueryLayerTask(
@@ -140,8 +138,7 @@ class InstanceDataDialog(QWidget, FORM_CLASS):
             "Instance to Layer: " + str(self.concept),
             self.concept,
             self.triplestoreconf["resource"],
-            "SELECT ?" + " ?".join(self.triplestoreconf[
-                                       "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
+            "SELECT ?" + " ?".join(self.triplestoreconf["mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n BIND( <" + str(
                 self.concept) + "> AS ?item)\n "+str(relstatement)+" " +
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),

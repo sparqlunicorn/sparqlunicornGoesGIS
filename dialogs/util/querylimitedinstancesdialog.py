@@ -61,4 +61,4 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 thequery,
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
-        self.close()
+        self.accept()

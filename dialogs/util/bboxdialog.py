@@ -284,30 +284,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.close()
             self.curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf,self.curbbox,widthm,curquery)
             QgsMessageLog.logMessage(curquery, MESSAGE_CATEGORY, Qgis.Info)
-            """
-            if "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "geosparql":
-                curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%x1%%", str(pointt1.asPoint().x())).replace("%%x2%%",
-                                                                                   str(pointt3.asPoint().x())).replace(
-                    "%%y1%%", str(pointt1.asPoint().y())).replace("%%y2%%",
-                                                                  str(pointt3.asPoint().y())) + "}\n" + curquery[
-                                                                                                        curquery.rfind(
-                                                                                                            '}') + 1:]
-            elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
-                curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%minPoint%%", pointt2.asWkt()).replace("%%maxPoint%%",
-                                                                              pointt4.asWkt()) + curquery[
-                                                                                                 curquery.rfind(
-                                                                                                     '}') + 1:]
-            elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "pointdistance":
-                curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%lat%%", str(center.asPoint().y())).replace("%%lon%%",
-                                                                                   str(center.asPoint().x())).replace(
-                    "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
-            """
         elif polygon:
             widthm = 100
             if "bboxquery" in self.triplestoreconf and \
@@ -317,22 +293,6 @@ class BBOXDialog(QDialog, FORM_CLASS):
             else:
                 self.curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf, polygon.boundingBox(),
                                                              widthm, curquery)
-            """
-            elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "minmax":
-                curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%minPoint%%", "POINT(" + str(polygon.boundingBox().yMinimum()) + " " + str(
-                    polygon.boundingBox().xMinimum()) + ")").replace("%%maxPoint%%", "POINT(" + str(
-                    polygon.boundingBox().yMaximum()) + " " + str(polygon.boundingBox().xMaximum()) + ")") + curquery[
-                                                                                                             curquery.rfind(
-                                                                                                                 '}') + 1:]
-            elif "bboxquery" in self.triplestoreconf[self.endpointIndex] and \
-                    self.triplestoreconf[self.endpointIndex]["bboxquery"]["type"] == "pointdistance":
-                curquery = curquery[0:curquery.rfind('}')] + self.triplestoreconf[self.endpointIndex]["bboxquery"][
-                    "query"].replace("%%lat%%", str(polygon.boundingBox().center().asPoint().y())).replace("%%lon%%",
-                                                                                                           str(polygon.boundingBox().center().asPoint().x())).replace(
-                    "%%distance%%", str(widthm / 1000)) + curquery[curquery.rfind('}') + 1:]
-            """
         if self.inp_sparql is not None:
             self.inp_sparql.setPlainText(curquery)
         self.accept()

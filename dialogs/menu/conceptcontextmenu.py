@@ -74,8 +74,7 @@ class ConceptContextMenu(QMenu):
                 triplestoreconf["resource"],
                 triplestoreconf, self.prefixes,
                 "Data Schema View for " + SPARQLUtils.labelFromURI(str(item.data(UIUtils.dataslot_conceptURI)),
-                                                                   triplestoreconf[
-                                                                       "prefixesrev"])
+                                                                   triplestoreconf["prefixesrev"])
             ))
             actionrelgeo = QAction("Check related concepts")
             actionrelgeo.setIcon(UIUtils.countinstancesicon)

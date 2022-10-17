@@ -742,9 +742,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
-                    thequery+="OPTIONAL { "+geopat+" }\n"
-                if geoconstraint!=None:
-                    thequery+=geoconstraint
+                    thequery+="OPTIONAL { "+geopat+" "
+                    if geoconstraint!=None:
+                        thequery+=geoconstraint
+                    thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
@@ -763,9 +764,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 thequery ="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
-                    thequery+="OPTIONAL { "+geopat+" }\n"
-                if geoconstraint!=None:
-                    thequery+=geoconstraint
+                    thequery+="OPTIONAL { "+geopat+" "
+                    if geoconstraint!=None:
+                        thequery+=geoconstraint
+                    thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"
                 self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
