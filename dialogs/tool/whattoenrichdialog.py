@@ -264,5 +264,6 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                 itemm = QTableWidgetItem(self.conceptSearchEdit.text())
                 self.enrichtable.setItem(row, 7, itemm)
                 itemm = QTableWidgetItem(self.languageComboBox.currentText())
+                itemm.setData(UIUtils.dataslot_language,self.languageComboBox.currentData(UIUtils.dataslot_language))
                 self.enrichtable.setItem(row, 8, itemm)
         self.close()

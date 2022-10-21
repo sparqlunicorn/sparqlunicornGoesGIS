@@ -240,7 +240,7 @@ class EnrichmentTab:
                 progress.setCancelButton(None)
                 self.qtask = EnrichmentQueryTask("Enriching column: " + self.dlg.enrichTable.item(row, 0).text(),
                                                  triplestoreurl, self.enrichLayer, strategy,
-                                                 self.dlg.enrichTable.item(row, 8).text(), row,
+                                                 self.dlg.enrichTable.item(row, 8).data(UIUtils.dataslot_language), row,
                                                  len(self.enrichLayer.fields()),
                                                  self.dlg.enrichTable.item(row, 0).text(), self.dlg.enrichTable,
                                                  self.dlg.enrichTableResult, idfield, idprop,
