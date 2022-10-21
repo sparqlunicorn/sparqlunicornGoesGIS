@@ -559,7 +559,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                progress.setCancelButton(<span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                self.qtask = EnrichmentQueryTask(<span class="stringliteral">&quot;Enriching column: &quot;</span> + self.dlg.enrichTable.item(row, 0).text(),</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                                                 triplestoreurl, self.enrichLayer, strategy,</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                                                 self.dlg.enrichTable.item(row, 8).text(), row,</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                                                 self.dlg.enrichTable.item(row, 8).data(UIUtils.dataslot_language), row,</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                                                 len(self.enrichLayer.fields()),</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                                                 self.dlg.enrichTable.item(row, 0).text(), self.dlg.enrichTable,</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                                                 self.dlg.enrichTableResult, idfield, idprop,</div>
