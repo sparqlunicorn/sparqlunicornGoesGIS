@@ -137,7 +137,7 @@ class EnrichmentDialog(QDialog, FORM_CLASS):
                                           self.idCBox.currentIndex(),
                                           self.matchCBox.currentText(),
                                           self, self.triplestoreconf[self.tripleStoreEdit.currentIndex()],
-                                          self.conceptSearchEdit.text(),self.tablemodel2,self.languageComboBox.currentText())
+                                          self.conceptSearchEdit.text(),self.tablemodel2,self.languageComboBox.currentData(UIUtils.dataslot_language))
         QgsApplication.taskManager().addTask(self.qtask3)
 
     #  @brief Creates a search dialog to search for a concept.
