@@ -66,14 +66,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="titleLabel">
      <property name="text">
-      <string>Neighbourhood View</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QLabel" name="statusBarLabel">
-     <property name="text">
-      <string/>
+      <string>Relationview</string>
      </property>
     </widget>
    </item>
@@ -143,6 +136,13 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QLabel" name="statusBarLabel">
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </item>
   </layout>

@@ -92,15 +92,11 @@ class ConceptContextMenu(QMenu):
             actionquerysomeinstances = QAction("Add some instances as new layer")
             actionquerysomeinstances.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionquerysomeinstances)
-            actionquerysomeinstances.triggered.connect(lambda: QueryLimitedInstancesDialog(
-                triplestoreconf,
-                item.data(UIUtils.dataslot_conceptURI),
-                item.data(UIUtils.dataslot_nodetype)
-            ).exec_())
+            actionquerysomeinstances.triggered.connect(self.queryLimitedInstances)
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
             actionaddallInstancesAsLayer.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionaddallInstancesAsLayer)
-            actionaddallInstancesAsLayer.triggered.connect(self.dlg.dataAllInstancesAsLayer)
+            actionaddallInstancesAsLayer.triggered.connect(lambda: self.dlg.dataAllInstancesAsLayer(None))
         else:
             actiondataschemainstance = QAction("Query data")
             if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.instancenode:
@@ -157,6 +153,21 @@ class ConceptContextMenu(QMenu):
         if bboxdia.exec():
             bboxcon=bboxdia.curquery
             self.dlg.dataAllInstancesAsLayer(bboxcon)
+
+    def queryLimitedInstances(self):
+        concept = self.item.data(UIUtils.dataslot_conceptURI)
+        nodetype = self.item.data(UIUtils.dataslot_nodetype)
+        dia= QueryLimitedInstancesDialog(self.triplestoreconf,concept,nodetype)
+        if dia.exec_():
+            if dia.thequery!=None:
+                self.qlayerinstance = QueryLayerTask(
+                    "All Instances to Layer: " + str(concept),
+                    concept,
+                    self.triplestoreconf["resource"],
+                    dia.thequery,
+                    self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None)
+                QgsApplication.taskManager().addTask(self.qlayerinstance)
+
 
     def appStyles(self):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())

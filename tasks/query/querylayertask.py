@@ -34,6 +34,8 @@ class QueryLayerTask(QgsTask):
         self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
         self.filename = filename
+        if self.filename==None or self.filename=="":
+            self.filename="mylayer"
         self.geojson = None
         self.nongeojson = None
 
@@ -62,13 +64,13 @@ class QueryLayerTask(QgsTask):
         if self.nongeojson!=None:
             self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         if self.geojson!=None:
-            #QgsMessageLog.logMessage('Started task "{}"'.format(
-            #    self.geojson),
-            #    MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                self.geojson),
+                MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-            #QgsMessageLog.logMessage('Started task "{}"'.format(
-            #    res),
-            #    MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(
+                len(self.vlayer)),
+                MESSAGE_CATEGORY, Qgis.Info)
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
@@ -242,6 +244,8 @@ class QueryLayerTask(QgsTask):
         return [geojson,geojsonnongeo,None]
 
     def finished(self, result):
+        QgsMessageLog.logMessage('Finishing up..... ',
+                                 MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
@@ -267,8 +271,7 @@ class QueryLayerTask(QgsTask):
         if self.progress!=None:
             self.progress.close()
         if self.vlayer!=None:
-            QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
-                                     MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),MESSAGE_CATEGORY, Qgis.Info)
             QgsProject.instance().addMapLayer(self.vlayer)
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())
