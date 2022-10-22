@@ -29,6 +29,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 ### Change Log
 
+-   0.15: HTML documentation generation, BBOX Dialog and Enrichment Dialog improved, usage of more QGIS UI elements, related concept view, query layer data in bbox, improvements to triple store detection
 -   0.14.1: Improved Compatibility for SPARQL 1.0 Endpoints, Automated Configuration Updates, Fixes for GeoShapes
 -   0.14: New icon set, UI design using layouts, improved item views, reworked triple store configuration, support for wgs84:geometry, graph validation with pyshacl, convert layer to neogeo RDF, began multilanguage literal support, mark linked geo concepts
 -   0.13.1: fixed icons and RDF export
