@@ -88,12 +88,12 @@ class GraphUtils:
                                           credentialUserName, credentialPassword, authmethod):
             configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#hasGeometry"]
             geomobjprop = "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom . "
-            configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
+            #configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
         elif self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasWgs84Geometry"],
                                             credentialUserName, credentialPassword, authmethod):
             configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#geometry"]
             geomobjprop="?item <http://www.w3.org/2003/01/geo/wgs84_pos#geometry> ?item_geom . "
-            configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
+            #configuration["geotriplepattern"].append(str(geomobjprop) + " ?item_geom ?georel ?geo . ")
         if self.testTripleStoreConnection(configuration["resource"],self.testQueries["hasWKT"],credentialUserName,credentialPassword,authmethod):
             capabilitylist.append("WKT Literals")
             configuration["mandatoryvariables"] = ["item", "geo"]

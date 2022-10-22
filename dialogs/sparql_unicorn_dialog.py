@@ -691,10 +691,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
         if nodetype==SPARQLUtils.geoinstancenode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
-                thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"][1:])+" ?rel ?val\n WHERE {\n <" + str(concept) + "> ?rel ?val . \n"
+                thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"][1:])+" ?rel ?val\n WHERE {\n  ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
-                    thequery+=" OPTIONAL { "+geopat.replace("?item","<" + str(concept) + ">")+" } \n"
-                thequery+=" }"
+                    thequery+=" OPTIONAL { "+geopat+" } \n"
+                thequery+=" FILTER(?item=<"+str(concept)+">) }"
                 self.qlayerinstance = QueryLayerTask(
                     "Instance to Layer: " + str(concept),
                     concept,

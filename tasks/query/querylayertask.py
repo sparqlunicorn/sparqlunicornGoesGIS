@@ -38,9 +38,9 @@ class QueryLayerTask(QgsTask):
         self.nongeojson = None
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(
-        #    self.description()),
-        #    MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.query.replace("<","_").replace(">","_")),
+            MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
@@ -133,7 +133,7 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Processssing results....',
             MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
-            if self.concept!=None and "item" not in result and not "?item " in self.query:
+            if self.concept!=None and "item" not in result:
                 result["item"]={}
                 result["item"]["value"]=self.concept
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
