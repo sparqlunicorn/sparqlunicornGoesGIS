@@ -98,11 +98,11 @@ class LayerUtils:
         sourceCrs = QgsCoordinateReferenceSystem(fromcrs)
         destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-        QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         res=geom.transform(tr)
-        QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         return geom
 
     @staticmethod
@@ -264,10 +264,10 @@ class LayerUtils:
     def layerToTTLString(layer, prefixes,vocab="GeoSPARQL",literaltype=["WKT"], urilist=None, classurilist=None, includelist=None, proptypelist=None,
                          valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):
         fieldnames = [field.name() for field in layer.fields()]
-        QgsMessageLog.logMessage("FIELDNAMES: "+str(fieldnames),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("FIELDNAMES: "+str(vocab),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("FIELDNAMES: "+str(fieldnames),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("FIELDNAMES: "+str(vocab),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         ttlstring=set()
         first = 0
         if exportNameSpace == None or exportNameSpace == "":

@@ -24,6 +24,9 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="toolTip">
+        <string>Choose an RDF resource to validate</string>
+       </property>
        <property name="text">
         <string>Choose data file:</string>
        </property>
@@ -87,6 +90,9 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="toolTip">
+        <string>Choose the RDF resource type</string>
+       </property>
        <property name="text">
         <string>Data File Location:</string>
        </property>
@@ -99,6 +105,9 @@
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>Choose a validation rule set to verify with</string>
        </property>
        <property name="text">
         <string>Chosen Validation Rule Set:</string>

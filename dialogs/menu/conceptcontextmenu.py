@@ -85,10 +85,10 @@ class ConceptContextMenu(QMenu):
                 action2.setIcon(UIUtils.subclassicon)
                 menu.addAction(action2)
                 action2.triggered.connect(self.loadSubClasses)
-            actionsubclassquery = QAction("Create subclass query")
-            actionsubclassquery.setIcon(UIUtils.subclassicon)
-            menu.addAction(actionsubclassquery)
-            actionsubclassquery.triggered.connect(self.dlg.subclassQuerySelectAction)
+            #actionsubclassquery = QAction("Create subclass query")
+            #actionsubclassquery.setIcon(UIUtils.subclassicon)
+            #menu.addAction(actionsubclassquery)
+            #actionsubclassquery.triggered.connect(self.dlg.subclassQuerySelectAction)
             actionquerysomeinstances = QAction("Add some instances as new layer")
             actionquerysomeinstances.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionquerysomeinstances)
@@ -252,7 +252,7 @@ class ConceptContextMenu(QMenu):
             prefixestoadd=""
             for endpoint in self.triplestoreconf["prefixes"]:
                     prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf["prefixes"][endpoint] + "> \n"
-            self.qtasksub = SubClassQueryTask("Querying subclasses of " + self.triplestoreconf["resource"],
+            self.qtasksub = SubClassQueryTask("Querying subclasses of " + str(concept),
                                     self.triplestoreconf["resource"],
                                     prefixestoadd + query,None,self,
                                     self.item,concept,self.triplestoreconf)

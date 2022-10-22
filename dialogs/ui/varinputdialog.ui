@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
     <widget class="QLabel" name="fieldLabel">
+     <property name="toolTip">
+      <string>Choose the column to be represented as a query variable</string>
+     </property>
      <property name="text">
       <string>Choose Field:</string>
      </property>
@@ -23,6 +26,9 @@
    </item>
    <item row="1" column="2">
     <widget class="QCheckBox" name="isLabelLabel">
+     <property name="toolTip">
+      <string>Check here if the column represents a text String in a particular language</string>
+     </property>
      <property name="text">
       <string>Is Label</string>
      </property>
@@ -37,6 +43,9 @@
    </item>
    <item row="0" column="0">
     <widget class="QLabel" name="layerLabel">
+     <property name="toolTip">
+      <string>Choose layer for the column to represent</string>
+     </property>
      <property name="text">
       <string>Choose Layer:</string>
      </property>
@@ -971,6 +980,9 @@
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="varNameLabel">
+     <property name="toolTip">
+      <string>Enter the variable name to be used in the SPARQL query</string>
+     </property>
      <property name="text">
       <string>Variable Name:</string>
      </property>
@@ -981,6 +993,9 @@
    </item>
    <item row="2" column="2">
     <widget class="QLabel" name="varTypeLabel">
+     <property name="toolTip">
+      <string>Enter the variable type or let it autodetect</string>
+     </property>
      <property name="text">
       <string>Variable Type:</string>
      </property>

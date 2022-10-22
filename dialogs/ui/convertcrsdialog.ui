@@ -14,7 +14,7 @@
    <string>Convert CRS Dialog</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/rdffile.png</normaloff>:/icons/resources/icons/rdffile.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -47,6 +47,9 @@
          <weight>75</weight>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>Choose an RDF file for conversion</string>
        </property>
        <property name="text">
         <string>Choose a file</string>
@@ -298,8 +301,7 @@
    <header>qgsprojectionselectionwidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>cancelButton</sender>

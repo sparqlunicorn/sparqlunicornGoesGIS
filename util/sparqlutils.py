@@ -361,7 +361,7 @@ class SPARQLUtils:
                 if len(query)>2000:
                     raise Exception
                 results = sparql.queryAndConvert()
-                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if "status_code" in results:
                     #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     raise Exception
@@ -387,7 +387,7 @@ class SPARQLUtils:
                     sparql.setMethod(POST)
                     sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
-                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if "status_code" in results:
                         SPARQLUtils.exception = str(results)
                         raise Exception
@@ -402,13 +402,9 @@ class SPARQLUtils:
             QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:
-                try:
-                    jsonres=graph.query(query)
-                    QgsMessageLog.logMessage("JSONRES "+str(jsonres), MESSAGE_CATEGORY, Qgis.Info)
-                    results=json.loads(jsonres)
-                except:
-                    QgsMessageLog.logMessage("Exception in label query", MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                results=json.loads(graph.query(query).serialize(format="json"))
+                QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
@@ -630,7 +626,7 @@ class SPARQLUtils:
                 vals += "<"+qid + "> \n"
             vals += "}\n"
             query = query.replace("%%concepts%%", vals)
-            QgsMessageLog.logMessage("Label Query "+str(query), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Querying for "+str(len(vals))+" concepts", MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(triplestoreurl, query)
             if results == False:
                 return result

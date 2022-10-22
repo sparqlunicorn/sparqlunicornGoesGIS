@@ -240,7 +240,7 @@ class UIUtils:
         return itemchecked
 
     @staticmethod
-    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Checked,isclasstable=False):
+    def fillAttributeTable(queryresult,invprefixes,dlg,searchResultModel,nodetype,triplestoreconf,checkboxtooltip="",checkstate=Qt.Unchecked,isclasstable=False):
         counter = 0
         for att in queryresult:
             curconcept = queryresult[att]["concept"]

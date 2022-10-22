@@ -51,7 +51,7 @@ class SubClassQueryTask(QgsTask):
                 item = QStandardItem()
                 item.setData(concept, UIUtils.dataslot_conceptURI)
                 if "label" in self.resultlist[concept]:
-                    item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept])+")")
+                    item.setText(self.resultlist[concept]["label"]+" ("+SPARQLUtils.labelFromURI(self.resultlist[concept]["concept"])+")")
                 else:
                     item.setText(SPARQLUtils.labelFromURI(self.resultlist[concept]))
                 item.setForeground(QColor(0,0,0))

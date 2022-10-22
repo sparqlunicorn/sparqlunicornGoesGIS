@@ -38,9 +38,9 @@ class QueryLayerTask(QgsTask):
         self.nongeojson = None
 
     def run(self):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(
-        #    self.description()),
-        #    MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.query.replace("<","_").replace(">","_")),
+            MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
@@ -54,21 +54,21 @@ class QueryLayerTask(QgsTask):
         res = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
-        QgsMessageLog.logMessage('Query result'.format(
-            res),
-            MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Query result'.format(
+        #    res),
+        #    MESSAGE_CATEGORY, Qgis.Info)
         self.geojson=res[0]
         self.nongeojson=res[1]
         if self.nongeojson!=None:
             self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         if self.geojson!=None:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                self.geojson),
-                MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    self.geojson),
+            #    MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                res),
-                MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    res),
+            #    MESSAGE_CATEGORY, Qgis.Info)
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
@@ -133,7 +133,7 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Processssing results....',
             MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
-            if self.concept!=None and "item" not in result and not "?item " in self.query:
+            if self.concept!=None and "item" not in result:
                 result["item"]={}
                 result["item"]["value"]=self.concept
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (

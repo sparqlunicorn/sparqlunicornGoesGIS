@@ -76,10 +76,10 @@ class FindRelatedConceptQueryTask(QgsTask):
             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val", self.triplestoreconf,"OPTIONAL", "") + "\n " + \
             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf,"OPTIONAL", "FILTER(LANG(?rellabel) = \"" + str(self.preferredlang) + "\")",True) + "\n " + \
             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf,"OPTIONAL", "",True) + "\n }"
-        QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,leftsidequery,self.triplestoreconf)
         results2 = SPARQLUtils.executeQuery(self.triplestoreurl, rightsidequery, self.triplestoreconf)
-        QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.queryresult={}
         self.queryresult2 = {}
         for result in results["results"]["bindings"]:
@@ -112,8 +112,8 @@ class FindRelatedConceptQueryTask(QgsTask):
                     self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["label"] = ""
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.nodetype), MESSAGE_CATEGORY, Qgis.Info)
         if self.nodetype==SPARQLUtils.classnode or self.nodetype==SPARQLUtils.geoclassnode:
             self.findConnectedConceptsFromClass()
         else:
@@ -245,8 +245,8 @@ class FindRelatedConceptQueryTask(QgsTask):
         header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            str(self.concept)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(
+        #    str(self.concept)), MESSAGE_CATEGORY, Qgis.Info)
         while self.searchResultModel.rowCount()>0:
             self.searchResultModel.removeRow(0)
         if self.nodetype==SPARQLUtils.classnode or self.nodetype==SPARQLUtils.geoclassnode:

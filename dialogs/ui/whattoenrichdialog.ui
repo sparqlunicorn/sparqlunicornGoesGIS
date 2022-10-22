@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/resources/icons/addfeaturecollection.png</normaloff>:/icons/resources/icons/addfeaturecollection.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="3" column="0" colspan="2">
     <widget class="QGroupBox" name="matchingGroupBox">
@@ -22,6 +26,9 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="2">
        <widget class="QLabel" name="label">
+        <property name="toolTip">
+         <string>Language used in your identifier column</string>
+        </property>
         <property name="text">
          <string>Language:</string>
         </property>
@@ -53,6 +60,9 @@
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="idLabel">
+        <property name="toolTip">
+         <string>The column in your QGIS layer which identifies the dataset in the triple store</string>
+        </property>
         <property name="text">
          <string>Identifier:</string>
         </property>
@@ -980,6 +990,9 @@
       </item>
       <item row="3" column="0" colspan="2">
        <widget class="QPushButton" name="matchConceptsButton">
+        <property name="toolTip">
+         <string>Matches corresponding instances in the triple store</string>
+        </property>
         <property name="text">
          <string>Match Concepts for Identifier Attribute</string>
         </property>
@@ -994,6 +1007,9 @@
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="tripleStoreLabel">
+        <property name="toolTip">
+         <string>Triple Store for Enrichment</string>
+        </property>
         <property name="text">
          <string>Triple Store:</string>
         </property>
@@ -1001,6 +1017,9 @@
       </item>
       <item row="2" column="2">
        <widget class="QLabel" name="matchLabel">
+        <property name="toolTip">
+         <string>Matching strategy for instances in the triple store</string>
+        </property>
         <property name="text">
          <string>Identifier Matching Strategy:</string>
         </property>
@@ -1234,6 +1253,7 @@
    <header>qgsfieldcombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+ </resources>
  <connections/>
 </ui>

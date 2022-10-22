@@ -32,7 +32,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.circle = False
         self.polygon = True
         self.templayer=templayer
-        QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
         self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
@@ -112,7 +112,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
             self.vl_layerextent.deleteFeatures(listOfIds)
             feat = QgsFeature()
-            QgsMessageLog.logMessage("Geocoding: " + str(QgsGeometry.fromRect(geom).asWkt()), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Geocoding: " + str(QgsGeometry.fromRect(geom).asWkt()), MESSAGE_CATEGORY, Qgis.Info)
             feat.setGeometry(QgsGeometry.fromRect(geom))
             self.vl_layerextent.addFeature(feat)
             self.vl_layerextent.commitChanges()
@@ -283,7 +283,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.curbbox.append(pointt4)
             self.close()
             self.curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf,self.curbbox,widthm,self.curquery)
-            QgsMessageLog.logMessage(curquery, MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage(curquery, MESSAGE_CATEGORY, Qgis.Info)
         elif polygon:
             widthm = 100
             if "bboxquery" in self.triplestoreconf and \

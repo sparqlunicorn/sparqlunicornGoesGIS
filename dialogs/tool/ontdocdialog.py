@@ -4,6 +4,8 @@ from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageB
 from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
+
+from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.ontdoctask import OntDocTask
 
 from rdflib import Graph
@@ -33,20 +35,12 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
         self.groupBox.hide()
+        self.tsk=None
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
     def extractNamespaces(self,filename):
-        try:
-            #QgsMessageLog.logMessage("Parsing file for namespace", "OntdocDialog", Qgis.Info)
-            g = Graph()
-            g.parse(filename,format="ttl")
-            namespaces=set()
-            for sub in g.subjects():
-                namespaces.add(str(sub)[0:str(sub).rfind("/")+1])
-            self.namespaceCBox.clear()
-            self.namespaceCBox.addItems(sorted(namespaces))
-        except Exception as e:
-            QgsMessageLog.logMessage("Exception occurred: "+str(e), "OntdocDialog", Qgis.Info)
+        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,None)
+        QgsApplication.taskManager().addTask(self.tsk)
 
     def createDocumentation(self):
         progress = QProgressDialog("Creating ontology documentation... ", "Abort",

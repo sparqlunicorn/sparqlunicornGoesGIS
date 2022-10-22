@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/featurecollectionToRDF.png</normaloff>:/icons/resources/icons/featurecollectionToRDF.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -75,6 +75,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Select the target conversion vocabulary</string>
+     </property>
      <property name="text">
       <string>Vocabulary:</string>
      </property>
@@ -88,6 +91,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Choose the layer to convert</string>
+     </property>
      <property name="text">
       <string>Choose Layer:</string>
      </property>
@@ -100,6 +106,9 @@
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="toolTip">
+      <string>Select the literal types to generate</string>
      </property>
      <property name="text">
       <string>Literal Types:</string>
@@ -179,9 +188,7 @@
    <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>cancelButton</sender>
