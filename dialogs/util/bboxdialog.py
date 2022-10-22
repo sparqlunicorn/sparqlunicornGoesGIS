@@ -271,7 +271,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         # distance.setSourceCrs(destCrs)
         # distance.setEllipsoidalMode(True)
         # distance.setEllipsoid('WGS84')
-        curquery=""
+        self.curquery=""
         if self.inp_sparql!=None:
             self.curquery = self.inp_sparql.toPlainText()
         if self.rectangle or self.circle:
