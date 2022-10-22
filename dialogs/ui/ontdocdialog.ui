@@ -134,6 +134,9 @@
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_3">
+     <property name="toolTip">
+      <string>Choose a folder to export the HTML documentation to</string>
+     </property>
      <property name="text">
       <string>Export Path:</string>
      </property>
@@ -141,6 +144,12 @@
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label">
+     <property name="toolTip">
+      <string>Choose an RDF file to analyze</string>
+     </property>
+     <property name="whatsThis">
+      <string/>
+     </property>
      <property name="text">
       <string>RDF File:</string>
      </property>
@@ -148,6 +157,9 @@
    </item>
    <item row="4" column="1">
     <widget class="QComboBox" name="preferredLabelLangCBox">
+     <property name="toolTip">
+      <string>Choose the preferred label language to highlight in the HTML export</string>
+     </property>
      <property name="editable">
       <bool>true</bool>
      </property>
@@ -170,6 +182,9 @@
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="label_10">
+     <property name="toolTip">
+      <string>Choose a data license statement for your data</string>
+     </property>
      <property name="text">
       <string>Data License:</string>
      </property>
@@ -201,6 +216,9 @@
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
+     <property name="toolTip">
+      <string>Choose the data namespace to export to HTML</string>
+     </property>
      <property name="text">
       <string>Namespace:</string>
      </property>
