@@ -1020,11 +1020,11 @@
      </item>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QgsMapLayerComboBox" name="chooseLayer"/>
-   </item>
    <item row="1" column="1">
     <widget class="QgsFieldComboBox" name="chooseField"/>
+   </item>
+   <item row="0" column="1" colspan="4">
+    <widget class="QgsMapLayerComboBox" name="chooseLayer"/>
    </item>
   </layout>
  </widget>
