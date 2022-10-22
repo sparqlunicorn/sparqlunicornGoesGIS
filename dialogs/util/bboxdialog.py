@@ -33,7 +33,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.polygon = True
         self.templayer=templayer
         QgsMessageLog.logMessage("Templayer: " + str(templayer), MESSAGE_CATEGORY, Qgis.Info)
-        #self.tabWidget.removeTab(3)
+        self.tabWidget.removeTab(3)
         self.sparqlcompleter=SPARQLCompleter([])
         self.triplestoreconf = triplestoreconf
         self.vl = QgsVectorLayer("Point", "temporary_points", "memory")
@@ -273,7 +273,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         # distance.setEllipsoid('WGS84')
         curquery=""
         if self.inp_sparql!=None:
-            curquery = self.inp_sparql.toPlainText()
+            self.curquery = self.inp_sparql.toPlainText()
         if self.rectangle or self.circle:
             widthm = 100  # distance.measureLine(pointt1, pointt2)
             self.curbbox = []
@@ -282,7 +282,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             self.curbbox.append(pointt3)
             self.curbbox.append(pointt4)
             self.close()
-            self.curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf,self.curbbox,widthm,curquery)
+            self.curquery=SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf,self.curbbox,widthm,self.curquery)
             QgsMessageLog.logMessage(curquery, MESSAGE_CATEGORY, Qgis.Info)
         elif polygon:
             widthm = 100
@@ -292,7 +292,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     '}')] + "FILTER(geof:sfIntersects(?geo,\"" + polygon.asWkt() + "\"^^geo:wktLiteral))"
             else:
                 self.curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf, polygon.boundingBox(),
-                                                             widthm, curquery)
+                                                             widthm, self.curquery)
         if self.inp_sparql is not None:
-            self.inp_sparql.setPlainText(curquery)
+            self.inp_sparql.setPlainText(self.curquery)
         self.accept()

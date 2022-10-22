@@ -32,6 +32,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.prefixes=prefixes
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
+        self.groupBox.hide()
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
     def extractNamespaces(self,filename):
