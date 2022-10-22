@@ -444,7 +444,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                <span class="keywordflow">if</span> len(query)&gt;2000:</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                    <span class="keywordflow">raise</span> Exception</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                results = sparql.queryAndConvert()</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(results), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;status_code&quot;</span> <span class="keywordflow">in</span> results:</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                    <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                    <span class="keywordflow">raise</span> Exception</div>

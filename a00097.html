@@ -846,10 +846,10 @@ Static Public Member Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keyword">def </span>layerToTTLString(layer, prefixes,vocab=&quot;GeoSPARQL&quot;,literaltype=[&quot;WKT&quot;], urilist=None, classurilist=None, includelist=None, proptypelist=None,</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                         valuemappings=None, valuequeries=None,exportNameSpace=None,exportIdCol=None,exportSetClass=None):</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        fieldnames = [field.name() <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields()]</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;FIELDNAMES: &quot;</span>+str(fieldnames),</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;FIELDNAMES: &quot;</span>+str(vocab),</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot;+str(fieldnames),</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot;+str(vocab),</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        ttlstring=set()</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        first = 0</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">if</span> exportNameSpace == <span class="keywordtype">None</span> <span class="keywordflow">or</span> exportNameSpace == <span class="stringliteral">&quot;&quot;</span>:</div>
@@ -1190,11 +1190,11 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="stringliteral">        sourceCrs = QgsCoordinateReferenceSystem(fromcrs)</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="stringliteral">        destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="stringliteral">        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="stringliteral">        QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot;</span> + str(geom.asJson()),</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="stringliteral">        </span><span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot; + str(geom.asJson()),</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        res=geom.transform(tr)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;FIELDNAMES: &quot;</span> + str(geom.asJson()),</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot; + str(geom.asJson()),</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> geom</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
 </div><!-- fragment -->

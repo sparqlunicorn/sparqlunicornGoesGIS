@@ -886,66 +886,66 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    <span class="keyword">def </span>dataAllInstancesAsLayer(self,geoconstraint=None):</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        progress = QProgressDialog(</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;            <span class="stringliteral">&quot;Querying all instances for &quot;</span> + concept,<span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Query all instances&quot;</span>)</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.halfgeoclassnode:</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val . \n&quot;</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                    <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;                        thequery+=geoconstraint</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                    thequery+=<span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                    concept,</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                thequery,</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                    concept,</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;        <span class="keywordflow">elif</span> nodetype == SPARQLUtils.collectionclassnode:</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;                thequery =<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item . ?item ?rel ?val . \n&quot;</span></div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                    <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;                        thequery+=geoconstraint</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;                    thequery+=<span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                    concept,</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                 thequery,</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;                    concept,</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;            self.qlayerinstance = QueryLayerTask(</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                concept,</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;        QgsApplication.taskManager().addTask(self.qlayerinstance)</div>
+<div class="fragment"><div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;    <span class="keyword">def </span>dataAllInstancesAsLayer(self,geoconstraint=None):</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        progress = QProgressDialog(</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            <span class="stringliteral">&quot;Querying all instances for &quot;</span> + concept,<span class="stringliteral">&quot;Abort&quot;</span>, 0, 0, self)</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        progress.setWindowTitle(<span class="stringliteral">&quot;Query all instances&quot;</span>)</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        progress.setWindowModality(Qt.WindowModal)</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        <span class="keywordflow">if</span> nodetype==SPARQLUtils.geoclassnode <span class="keywordflow">or</span> nodetype==SPARQLUtils.halfgeoclassnode:</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;                thequery=<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val . \n&quot;</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;                    <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;                        thequery+=geoconstraint</div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;                    thequery+=<span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;                    concept,</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;                thequery,</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                    concept,</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keywordflow">elif</span> nodetype == SPARQLUtils.collectionclassnode:</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotriplepattern&quot;</span> <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()]:</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                thequery =<span class="stringliteral">&quot;SELECT ?&quot;</span>+<span class="stringliteral">&quot; ?&quot;</span>.join(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;mandatoryvariables&quot;</span>])+<span class="stringliteral">&quot; ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item . ?item ?rel ?val . \n&quot;</span></div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;                <span class="keywordflow">for</span> geopat <span class="keywordflow">in</span> self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;geotriplepattern&quot;</span>]:</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;                    thequery+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+geopat+<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;                    <span class="keywordflow">if</span> geoconstraint!=<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;                        thequery+=geoconstraint</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;                    thequery+=<span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                thequery+=<span class="stringliteral">&quot;\n }\n ORDER BY ?item&quot;</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;                    concept,</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;                 thequery,</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;                    concept,</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                    self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#member&gt; ?item .\n ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;            self.qlayerinstance = QueryLayerTask(</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;                <span class="stringliteral">&quot;All Instances to Layer: &quot;</span> + str(concept),</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;                concept,</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;resource&quot;</span>],</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                <span class="stringliteral">&quot;SELECT ?item ?rel ?val\n WHERE\n {\n ?item &lt;&quot;</span>+str(self.triplestoreconf[self.comboBox.currentIndex()][<span class="stringliteral">&quot;typeproperty&quot;</span>])+<span class="stringliteral">&quot;&gt; &lt;&quot;</span>+str(concept)+<span class="stringliteral">&quot;&gt; . ?item ?rel ?val .\n } ORDER BY ?item&quot;</span>,</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                self.triplestoreconf[self.comboBox.currentIndex()],<span class="keyword">True</span>, SPARQLUtils.labelFromURI(concept),progress)</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        QgsApplication.taskManager().addTask(self.qlayerinstance)</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#aeb5943f9d3c42728964010234e5d0e8f">SPARQLunicornDialog.currentContextModel</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#a372686b3ca59f062b995140d963fadd6">SPARQLunicornDialog.qlayerinstance</a>, <a class="el" href="a00061.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00065.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>.</p>
 
@@ -1616,19 +1616,16 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;    <span class="keyword">def </span>subclassQuerySelectAction(self):</div>
 <div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        endpointIndex = self.comboBox.currentIndex()</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        <span class="keywordflow">if</span> endpointIndex == 0:</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;            self.justloadingfromfile = <span class="keyword">False</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;        <span class="keywordflow">if</span> self.currentContext.selectionModel().currentIndex() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.item <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;            concept = self.item.data(UIUtils.dataslot_conceptURI)</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;            querytext = self.triplestoreconf[<span class="stringliteral">&quot;querytemplate&quot;</span>][self.queryTemplates.currentIndex()][</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;?item a &lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;?item a ?con . ?con rdfs:subClassOf* &lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;            self.inp_sparql2.setPlainText(querytext)</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            self.inp_sparql2.columnvars = {}</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160; </div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;        <span class="keywordflow">if</span> self.currentContext.selectionModel().currentIndex() <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.item <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;            concept = self.item.data(UIUtils.dataslot_conceptURI)</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;            querytext = self.triplestoreconf[<span class="stringliteral">&quot;querytemplate&quot;</span>][self.queryTemplates.currentIndex()][</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;            <span class="stringliteral">&quot;query&quot;</span>].replace(<span class="stringliteral">&quot;?item a &lt;%%concept%%&gt;&quot;</span>, <span class="stringliteral">&quot;?item a ?con . ?con rdfs:subClassOf* &lt;&quot;</span>+concept+<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;            self.inp_sparql2.setPlainText(querytext)</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;            self.inp_sparql2.columnvars = {}</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160; </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#a0ab9869ce99f2eee80ea8d82f315e99a">SPARQLunicornDialog.inp_sparql2</a>, <a class="el" href="a00065.html#a66e60c99e2cb67bdae8d0e12cba73350">SPARQLunicornDialog.justloadingfromfile</a>, <a class="el" href="a00061.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00065.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>.</p>
+<p class="reference">References <a class="el" href="a00065.html#a2997d356b6bf19ef2e27f3fbb0f14213">SPARQLunicornDialog.currentContext</a>, <a class="el" href="a00065.html#a7864cdf71b93aaacca16fe278860d6ca">SPARQLunicornDialog.currentProxyModel</a>, <a class="el" href="a00065.html#a0ab9869ce99f2eee80ea8d82f315e99a">SPARQLunicornDialog.inp_sparql2</a>, <a class="el" href="a00061.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicorn.triplestoreconf</a>, and <a class="el" href="a00065.html#a330d24be0afd5a96238ca9e128328a2d">SPARQLunicornDialog.triplestoreconf</a>.</p>
 
 </div>
 </div>
@@ -2231,8 +2228,6 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="a00065.html#a9a93a0d29ab198c21181f42157af3d53">SPARQLunicornDialog.subclassQuerySelectAction()</a>.</p>
 
 </div>
 </div>
