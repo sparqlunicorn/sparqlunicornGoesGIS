@@ -318,7 +318,7 @@ _triplestoreconf_personal.json_: This configuration file is created the first ti
       "item",
       "geo"
     ],
-    "classfromlabelquery": "SELECT DISTINCT ?class { ?class rdf:type owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+    "classfromlabelquery": "SELECT DISTINCT ?discovery { ?discovery rdf:type owl:Class . ?discovery rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
     "geoconceptquery": "",
     "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
     "geoconceptlimit": 500,
