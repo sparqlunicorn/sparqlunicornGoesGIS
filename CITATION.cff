@@ -6,17 +6,20 @@ authors:
   - family-names: Homburg
     given-names: Timo
     orcid: https://orcid.org/0000-0002-9499-5840
-  - name: "The SPARQL Unicorn by the Research Squirrel Engineers Network"
+  - name: "SPARQLing Unicorn QGIS Plugin by the Research Squirrel Engineers Network"
 title: "SPARQLing Unicorn QGIS Plugin"
-abstract: This plugin adds a GeoJSON layer from SPARQL enpoint queries.
-version: 0.14.x
+abstract: This plugin adds a GeoJSON layer from SPARQL endpoint queries.
+version: 0.15
 type: software
 doi: 10.5281/zenodo.3786814
-date-released: 2022-02-10
+date-released: 2022-11-08
 identifiers:
-  - description: This is the collection of archived snapshots of all versions of CeraTyOnt
+  - description: This is the collection of archived snapshots of all versions
     type: doi
     value: "10.5281/zenodo.3786814"
+  - description: This is the archived snapshot of version 0.15
+    type: doi
+    value: "10.5281/zenodo.xyz"
   - description: This is the archived snapshot of version 0.14.1
     type: doi
     value: "10.5281/zenodo.6039443"
