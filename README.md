@@ -68,6 +68,8 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 This short documentation should help users and developers to get a better understanding about the internals of the `SPARQLing Unicorn QGIS Plugin`.
 
+Please also consult the [Wiki](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki) of this project for further information. 
+
 ## Querying geospatial data
 
 The  `SPARQLing Unicorn QGIS Plugin` returns QGIS layers from specifically formatted SPARQL queries. In this section the kinds of queries which are supported are presented.
