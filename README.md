@@ -219,51 +219,9 @@ If a triple store does not support e.g. a GeoSPARQL query then the SPARQL Unicor
 
 ## Dataset conversion to RDF
 
-To convert a QGIS layer to RDF, each feature of the QGIS layer is converted to an instance of type owl:Indiviual.
-Titles of columns become relations in the RDF graph, values of columns become either literals or URIs in the RDF representation.
+The plugin is able to convert datasets to RDF, using a generic conversion process or with a defined interlink mapping.
 
-### Generic conversion process
-
-The generic conversion process does not need any further information to convert a QGIS vector layer to RDF. Geometries of the layer are converted to WKTLiterals in the graph and represented using the GeoSPARQL vocabulary.
-The feature ID is used as the name of the instance using a customized namespace defined by the QGIS plugin.
-Further information appended to features of the vector data layer is converted to relations associated with the instance defined by its feature id.
-Literal types of XSD literals are determined automatically for the types of xsd:string, xsd:double, xsd:integer.
-
-### Defining Interlinks
-
-A better representation of the RDF graph is gained by defining the relations used in the RDF graph beforehand, e.g. by using relations of the Wikidata graph. This mapping from a column name to a relation URI can be given in the Interlinking dialog.
-
-### Mapping Schema format
-
-A mapping schema is defined in XML and saves mappings from QGIS vector layer columns to relation URIs in the to-be-build RDF graph and makes them reusable.
-
-Consider the following example:
-
-Example:
-
-```xml
-<?xml version="1.0"?>
-<data>
-    <file class="http://onto.squirrel.link/ontology#RomanRoad" indid="groupID" indidprefix="line_"
-    namespace="http://lod.squirrel.link/data/intinerarium-antonini/"
-    attnamespace="http://lod.squirrel.link/data/intinerarium-antonini/" epsg="4326" nometadata="true" attachepsg="true">
-
-    <column name="groupID" prop="data" propiri="http://onto.squirrel.link/ontology#groupID" range="http://www.w3.org/2001/XMLSchema#string"/>
-
-    <addcolumn prop="annotation" propiri="http://www.w3.org/2000/01/rdf-schema#label" value="Intinerarium Antonini Line"/>
-
-    </file>
-</data>
-```
-
-This mapping schema defines a mapping for a RomanRoad dataset, a dataset of annotated LineStrings. The mapping schema defines a target namespace (namespace) for the instance, an attributenamespace (attnamespace) for relations and coordinate reference system (epsg) and possibly a column which may be used as the individual id (indid).
-
-Then, each column is assigned a configuration with the following attributes:
-
--   _name_: the name of the column in the QGIS vector layer
--   _prop_: The property type to convert into (DataProperty (data), ObjectProperty (obj), AnnotationProperty (anno), SubClass (subclass))
--   _propiri_: The IRI used in the graph to represent the respective column
--   _range_: The range of the property
+More information can be found on the page [Vector layer to RDF Conversion](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki/Vector-Layer-to-RDF)
 
 ## Data Enrichment
 
