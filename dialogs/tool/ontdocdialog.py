@@ -39,7 +39,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
     def extractNamespaces(self,filename):
-        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,None)
+        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
 
     def createDocumentation(self):
