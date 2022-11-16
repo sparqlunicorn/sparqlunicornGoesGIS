@@ -1,7 +1,11 @@
 from qgis.core import QgsTask
 from rdflib import Graph
+from qgis.PyQt.QtWidgets import QMessageBox
 
-MESSAGE_CATEGORY = 'LoadGraphTask'
+from ...dialogs.info.errormessagebox import ErrorMessageBox
+from ...util.sparqlutils import SPARQLUtils
+
+MESSAGE_CATEGORY = 'ExtractNamespaceTask'
 
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class ExtractNamespaceTask(QgsTask):
@@ -19,13 +23,19 @@ class ExtractNamespaceTask(QgsTask):
             g = Graph()
             g.parse(self.graphname, format="ttl")
             for sub in g.subjects():
-                self.namespaces.add(str(sub)[0:str(sub).rfind("/") + 1])
+                ns=str(sub)[0:str(sub).rfind("/") + 1]
+                self.namespaces.add(ns)
             return True
-        except:
+        except Exception as e:
+            self.exception=e
             return False
 
     def finished(self, result):
-        self.resultcbox.clear()
-        self.resultcbox.addItems(sorted(self.namespaces))
-        if self.progress!=None:
-            self.progress.close()
+        if result!=False:
+            self.resultcbox.clear()
+            self.resultcbox.addItems(sorted(self.namespaces))
+            if self.progress!=None:
+                self.progress.close()
+        else:
+            msgBox = ErrorMessageBox("Exception in ExtractNamespaceTask",str(self.exception))
+            msgBox.exec()
