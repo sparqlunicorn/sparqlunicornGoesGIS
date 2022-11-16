@@ -1,6 +1,10 @@
 from qgis.core import QgsTask
 from rdflib import Graph
+from qgis.PyQt.QtGui import QIcon, QStandardItem
+from qgis.PyQt.QtGui import QStandardItemModel
 
+from ...util.sparqlutils import SPARQLUtils
+from ...util.ui.uiutils import UIUtils
 from ...dialogs.info.errormessagebox import ErrorMessageBox
 
 MESSAGE_CATEGORY = 'ExtractNamespaceTask'
@@ -23,9 +27,9 @@ class ExtractNamespaceTask(QgsTask):
             g = Graph()
             g.parse(self.graphname, format="ttl")
             for sub in g.subjects():
-                ns=str(sub)[0:str(sub).rfind("/") + 1]
+                ns=SPARQLUtils.instanceToNS(sub)
                 if self.prefixes!=None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
-                    self.recns.add(ns)
+                    self.recognizedns.add(ns)
                 else:
                     self.namespaces.add(ns)
             return True
@@ -36,8 +40,22 @@ class ExtractNamespaceTask(QgsTask):
     def finished(self, result):
         if result!=False:
             self.resultcbox.clear()
-            self.resultcbox.addItems(sorted(self.namespaces))
-            self.resultcbox.addItems(sorted(self.recognizedns))
+            model=QStandardItemModel()
+            self.resultcbox.setModel(model)
+            for ns in sorted(self.namespaces):
+                if len(ns.strip())>0 and "http" in ns:
+                    item = QStandardItem()
+                    item.setData(ns, UIUtils.dataslot_conceptURI)
+                    item.setText(ns)
+                    item.setIcon(UIUtils.featurecollectionicon)
+                    model.appendRow(item)
+            for ns in sorted(self.recognizedns):
+                if len(ns.strip())>0 and "http" in ns:
+                    item = QStandardItem()
+                    item.setData(ns, UIUtils.dataslot_conceptURI)
+                    item.setText(ns)
+                    item.setIcon(UIUtils.linkeddataicon)
+                    model.appendRow(item)
             if self.progress!=None:
                 self.progress.close()
         else:
