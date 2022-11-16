@@ -9,6 +9,7 @@ var a00109 =
     [ "handleException", "a00109.html#a054bc27d05d7b3e0006d03cbaad33354", null ],
     [ "handleGeoJSONFile", "a00109.html#ac923bb335a710856f41206d01b556a73", null ],
     [ "handleURILiteral", "a00109.html#a4779e31875fe90885b788bf945897c94", null ],
+    [ "instanceToNS", "a00109.html#aaa81ff768d0809e01f476638fb27365c", null ],
     [ "invertPrefixes", "a00109.html#af07a1ff1a6064d31434cde2dfe8be93b", null ],
     [ "labelFromURI", "a00109.html#a8d66b18f94f098b37701c05f1a838047", null ],
     [ "loadAdditionalGraphResources", "a00109.html#a26da799374792519f34753f24ebf64a0", null ],
