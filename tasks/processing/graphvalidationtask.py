@@ -46,7 +46,6 @@ class GraphValidationTask(QgsTask):
         QgsMessageLog.logMessage("Ruleset: "+self.ruleset, MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage("Rulesetgraph: "+str(self.rulesetgraph), MESSAGE_CATEGORY, Qgis.Info)
         if self.graph != None:
-            print("WE HAVE A GRAPH")
             for s, p, o in self.graph:
                 #QgsMessageLog.logMessage('BEFORE "{}"'.format(o), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(o, Literal):

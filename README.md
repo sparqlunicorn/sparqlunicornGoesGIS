@@ -68,6 +68,8 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 This short documentation should help users and developers to get a better understanding about the internals of the `SPARQLing Unicorn QGIS Plugin`.
 
+Please also consult the [Wiki](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki) of this project for further information. 
+
 ## Querying geospatial data
 
 The  `SPARQLing Unicorn QGIS Plugin` returns QGIS layers from specifically formatted SPARQL queries. In this section the kinds of queries which are supported are presented.
@@ -217,51 +219,9 @@ If a triple store does not support e.g. a GeoSPARQL query then the SPARQL Unicor
 
 ## Dataset conversion to RDF
 
-To convert a QGIS layer to RDF, each feature of the QGIS layer is converted to an instance of type owl:Indiviual.
-Titles of columns become relations in the RDF graph, values of columns become either literals or URIs in the RDF representation.
+The plugin is able to convert datasets to RDF, using a generic conversion process or with a defined interlink mapping.
 
-### Generic conversion process
-
-The generic conversion process does not need any further information to convert a QGIS vector layer to RDF. Geometries of the layer are converted to WKTLiterals in the graph and represented using the GeoSPARQL vocabulary.
-The feature ID is used as the name of the instance using a customized namespace defined by the QGIS plugin.
-Further information appended to features of the vector data layer is converted to relations associated with the instance defined by its feature id.
-Literal types of XSD literals are determined automatically for the types of xsd:string, xsd:double, xsd:integer.
-
-### Defining Interlinks
-
-A better representation of the RDF graph is gained by defining the relations used in the RDF graph beforehand, e.g. by using relations of the Wikidata graph. This mapping from a column name to a relation URI can be given in the Interlinking dialog.
-
-### Mapping Schema format
-
-A mapping schema is defined in XML and saves mappings from QGIS vector layer columns to relation URIs in the to-be-build RDF graph and makes them reusable.
-
-Consider the following example:
-
-Example:
-
-```xml
-<?xml version="1.0"?>
-<data>
-    <file class="http://onto.squirrel.link/ontology#RomanRoad" indid="groupID" indidprefix="line_"
-    namespace="http://lod.squirrel.link/data/intinerarium-antonini/"
-    attnamespace="http://lod.squirrel.link/data/intinerarium-antonini/" epsg="4326" nometadata="true" attachepsg="true">
-
-    <column name="groupID" prop="data" propiri="http://onto.squirrel.link/ontology#groupID" range="http://www.w3.org/2001/XMLSchema#string"/>
-
-    <addcolumn prop="annotation" propiri="http://www.w3.org/2000/01/rdf-schema#label" value="Intinerarium Antonini Line"/>
-
-    </file>
-</data>
-```
-
-This mapping schema defines a mapping for a RomanRoad dataset, a dataset of annotated LineStrings. The mapping schema defines a target namespace (namespace) for the instance, an attributenamespace (attnamespace) for relations and coordinate reference system (epsg) and possibly a column which may be used as the individual id (indid).
-
-Then, each column is assigned a configuration with the following attributes:
-
--   _name_: the name of the column in the QGIS vector layer
--   _prop_: The property type to convert into (DataProperty (data), ObjectProperty (obj), AnnotationProperty (anno), SubClass (subclass))
--   _propiri_: The IRI used in the graph to represent the respective column
--   _range_: The range of the property
+More information can be found on the page [Vector layer to RDF Conversion](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/wiki/Vector-Layer-to-RDF)
 
 ## Data Enrichment
 
@@ -295,82 +255,4 @@ The result is interpreted by the  `SPARQLing Unicorn QGIS Plugin` as a list in w
 To enrich data from a triple store to a QGIS Vector layer, each feature included in the vector layer needs to be at best uniquely identified in the respective triple store.
 This has to be done by a matching relation e.g. the name of a university which is also present in Wikidata or by a URI which is already included in the QGIS vector layer.
 
-## Adding new triple stores using configuration files
 
-Apart from the graphical user interface new triple stores may be added to the plugin by modifying the JSON configuration files as follows:
-
-_triplestoreconf.json_: This configuration file is delivered on installation of the SPARQL Unicorn QGIS plugin. It is not modified and serves as a backup for a possible reset option.
-
-_triplestoreconf_personal.json_: This configuration file is created the first time the SPARQL Unicorn QGIS plugin is started. All added triple stores will be stored within there in the following format:
-
-```json
-{
-    "name": "Research Squirrel Engineers Triplestore",
-    "prefixes": {
-      "geosparql": "http://www.opengis.net/ont/geosparql#",
-      "owl": "http://www.w3.org/2002/07/owl#",
-      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "spatial": "http://geovocab.org/spatial#",
-      "hw": "http://hadrianswall.squirrel.link/ontology#"
-    },
-    "endpoint": "http://sandbox.mainzed.org/squirrels/sparql",
-    "mandatoryvariables": [
-      "item",
-      "geo"
-    ],
-    "classfromlabelquery": "SELECT DISTINCT ?discovery { ?discovery rdf:type owl:Class . ?discovery rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
-    "geoconceptquery": "",
-    "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel WHERE { ?con rdf:type %%concept%% . ?con geosparql:hasGeometry ?coord . ?con ?rel ?val . }  GROUP BY ?rel ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
-    "querytemplate": [
-      {
-        "label": "10 Random Geometries",
-        "query": "SELECT ?item ?geo WHERE {\n ?item a <%%concept%%>.\n ?item geosparql:hasGeometry ?geom_obj .\n ?geom_obj geosparql:asWKT ?geo .\n } LIMIT 10"
-      },
-      {
-        "label": "Hadrian's Wall Forts",
-        "query": "SELECT ?a ?wkt_geom WHERE {\n ?item rdf:type hw:Fort .\n ?item geosparql:hasGeometry ?item_geom . ?item_geom geosparql:asWKT ?wkt_geom .\n }"
-      }
-    ],
-    "crs": 4326,
-    "staticconcepts": [
-      "http://onto.squirrel.link/ontology#Watchtower",
-      "http://hadrianswall.squirrel.link/ontology#Milefortlet",
-    ],
-    "active": true
-}
-```
-
-The following configuration options exist:
-
--   _active_: Indicates that the triple store is visible in the GUI
--   _classlabelquery_: A SPARQL query OR a URL which returns a set of labels for a given list of class URIs
--   _classfromlabelquery_: A query which retrieves a set of classes from a given label (useful for class searches)
--   _propertylabelquery_:  A SPARQL query OR a URL which returns labels for a given list of properties
--   _propertyfromlabelquery_:  A SPARQL query OR a URL which returns properties for a given list of labels
--   _crs_: The EPSG code of the CRS which should be used by QGIS to interpret the data received from the triple store
--   _endpoint_: The address of the SPARQL endpoint of the triple store
--   _geoconceptlimit_: A reasonable limit to query considering the performance of the triple store and the data included
--   _geoconceptquery_: A query to retrieve concepts associated to geometrical representations inside the triple store. The results of this query or the content of staticconcepts constitutes the list of concepts which is selectable in the graphical user interface
--   _name_: The name of the triple store which is display in the user interface
--   _mandatoryvariables_: A list of SPARQL query variables which have to be present in the SELECT statement (usually ?item for the URI and ?geo for the geometry but sometimes also ?lat ?lon instead of ?geo)
--   _querytemplate_: A list of JSON objects representing labeled queries which may be selectable in the user interface
--   _staticconcepts_: A list of concepts which are loaded to the dropdown menu of available concepts
--   _prefixes_: A list of prefixes which is used by the triple store. Each prefix in this list is recognized in the query interface automatically.
--   _whattoenrichquery_: A query which is sent to the triple store returning attributes and their occurance frequency for the whattoenrich dialog
-
-The configuration file allows the definition of placeholder variables (currently only %%concept%%) in template queries.
-These variables are prefixed and suffixed with %% statements.
-Example:
-
-```sparql
-SELECT ?item ?label ?geo WHERE {
-    ?place a <%%concept%%>.
-    ?place pleiades:hasLocation ?item .
-    ?item geosparql:asWKT ?geo .
-    ?item dcterms:title ?label .
-} LIMIT 100
-```
-
-This query defines the placeholder variable %%concept%% which is replaced by the currently selected concept from the dropdown menu in the user interface when a concept is selected.

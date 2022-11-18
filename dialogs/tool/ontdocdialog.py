@@ -4,7 +4,7 @@ from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageB
 from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
-
+from qgis.PyQt.QtGui import QStandardItemModel
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.ontdoctask import OntDocTask
 
@@ -35,11 +35,12 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
         self.groupBox.hide()
+        self.namespaceCBox.setModel(QStandardItemModel())
         self.tsk=None
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
     def extractNamespaces(self,filename):
-        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,None)
+        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
 
     def createDocumentation(self):

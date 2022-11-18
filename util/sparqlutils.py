@@ -424,6 +424,16 @@ class SPARQLUtils:
         return False
 
     @staticmethod
+    def instanceToNS(uri):
+        if not uri.startswith("http"):
+            return uri
+        if "#" in uri:
+            return uri[:uri.rfind("#") + 1]
+        if "/" in uri:
+            return uri[:uri.rfind("/") + 1]
+        return uri
+
+    @staticmethod
     def labelFromURI(uri,prefixlist=None):
         if not uri.startswith("http"):
             return uri
