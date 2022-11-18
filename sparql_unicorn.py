@@ -25,6 +25,7 @@
 
 from qgis.utils import iface
 from qgis.core import Qgis
+from qgis.core import QgsMessageLog, Qgis,QgsApplication
 
 from qgis.PyQt.QtCore import QSettings, QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon
@@ -99,14 +100,16 @@ class SPARQLunicorn:
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(locale)), "SPARQL Unicorn", Qgis.Info)
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'SPAQLunicorn_{}.qm'.format(locale))
-
+            'unicorn_{}.qm'.format(locale))
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(locale_path)), "SPARQL Unicorn", Qgis.Info)
         if os.path.exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.translator)), "SPARQL Unicorn", Qgis.Info)
             QCoreApplication.installTranslator(self.translator)
 
         # Declare instance attributes
@@ -130,7 +133,7 @@ class SPARQLunicorn:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('SPAQLunicorn', message)
+        return QCoreApplication.translate('unicorn', message)
 
     def add_action(
             self,

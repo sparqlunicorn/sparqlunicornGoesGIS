@@ -6,12 +6,12 @@
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="14"/>
         <source>About...</source>
-        <translation type="unfinished"></translation>
+        <translation>Über...</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="29"/>
         <source>SPARQL Unicorn QGIS Plugin</source>
-        <translation type="unfinished">SPARQLing Unicorn QGIS Plugin</translation>
+        <translation>SPARQLing Unicorn QGIS Plugin</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="46"/>
@@ -31,22 +31,22 @@
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="95"/>
         <source>Research Squirrel Engineers</source>
-        <translation type="unfinished">Research Squirrel Engineers</translation>
+        <translation>Research Squirrel Engineers</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="110"/>
         <source>Timo Homburg, Florian Thiery</source>
-        <translation type="unfinished">Timo Homburg Florian Thiery</translation>
+        <translation>Timo Homburg Florian Thiery</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="125"/>
         <source>Licensed under: GPL 2.0</source>
-        <translation type="unfinished">Lizenz: GPL 2.0</translation>
+        <translation>Lizenz: GPL 2.0</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/aboutdialog.ui" line="137"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -54,22 +54,22 @@
     <message>
         <location filename="../dialogs/ui/examplequerydialog.ui" line="14"/>
         <source>Add Example Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Beispielquery hinzufügen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/examplequerydialog.ui" line="20"/>
         <source>Query Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Query Name:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/examplequerydialog.ui" line="30"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/examplequerydialog.ui" line="37"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -107,7 +107,7 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="64"/>
         <source>Select BBOX</source>
-        <translation type="unfinished">BBOX auswählen</translation>
+        <translation>BBOX auswählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="71"/>
@@ -127,17 +127,17 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="92"/>
         <source>Select Polygon</source>
-        <translation type="unfinished">Polygon auswählen</translation>
+        <translation>Polygon auswählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="103"/>
         <source>BBOX by Geocoding</source>
-        <translation type="unfinished">BBOX aus Geocoding´</translation>
+        <translation>BBOX aus Geocoding´</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="115"/>
         <source>Search</source>
-        <translation type="unfinished">Suchen</translation>
+        <translation>Suchen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="122"/>
