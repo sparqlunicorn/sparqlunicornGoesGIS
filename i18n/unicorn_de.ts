@@ -82,12 +82,12 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="24"/>
         <source>Apply Constraint</source>
-        <translation type="unfinished"></translation>
+        <translation>Constraint anwenden</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="33"/>
         <source>BBOX CRS:</source>
-        <translation type="unfinished"></translation>
+        <translation>BBOX CRS:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="40"/>
@@ -97,12 +97,12 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="51"/>
         <source>BBOX By Map Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>BBOX über ein Map Tool</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="57"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="64"/>
@@ -112,12 +112,12 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="71"/>
         <source>Select Circle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreis auswählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="78"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="85"/>
@@ -132,7 +132,7 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="103"/>
         <source>BBOX by Geocoding</source>
-        <translation>BBOX aus Geocoding´</translation>
+        <translation>BBOX aus Geocoding</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="115"/>
@@ -142,17 +142,17 @@
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="122"/>
         <source>Search Place:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ort suchen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="130"/>
         <source>Nominatim</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominatim</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="139"/>
         <source>BBOX By Layer Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>BBOX aus Layer</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/bboxdialog.ui" line="148"/>
@@ -200,32 +200,32 @@
         <location filename="../dialogs/ui/dataschemadialog.ui" line="61"/>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="57"/>
         <source>Filter Table:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabelle filtern:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="39"/>
         <source>Incoming Concept</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingehendes Konzept</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="44"/>
         <source>Incoming Relation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingehende Beziehung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="49"/>
         <source>Concept</source>
-        <translation type="unfinished"></translation>
+        <translation>Konzept</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="54"/>
         <source>Outgoing Relation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgehende Beziehung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="59"/>
         <source>Outgoing Concept</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgehendes Konzept</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="69"/>
@@ -235,27 +235,27 @@
     <message>
         <location filename="../dialogs/ui/clusterviewdialog.ui" line="76"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="14"/>
         <source>Convert CRS Dialog</source>
-        <translation type="unfinished">CRS Konvertierungsdialog</translation>
+        <translation>CRS Konvertierungsdialog</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="37"/>
         <source>Convert Geomeries in TTL to other SRS</source>
-        <translation type="unfinished">Konvertierung von Geometrien in TTL in andere CRS</translation>
+        <translation>Konvertierung von Geometrien in TTL in andere CRS</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="52"/>
         <source>Choose an RDF file for conversion</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Datei für die Konvertierung wählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="55"/>
         <source>Choose a file</source>
-        <translation type="unfinished">Datei auswählen</translation>
+        <translation>Datei auswählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="62"/>
@@ -271,88 +271,88 @@
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="86"/>
         <source>WKT Literals</source>
-        <translation type="unfinished">WKT Literale</translation>
+        <translation>WKT Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="96"/>
         <source>WKB Literals</source>
-        <translation type="unfinished">WKB Literale</translation>
+        <translation>WKB Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="106"/>
         <source>GeoJSON Literals</source>
-        <translation type="unfinished">GeoJSON Literale</translation>
+        <translation>GeoJSON Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="127"/>
         <source>GML Literals</source>
-        <translation type="unfinished">GML Literale</translation>
+        <translation>GML Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="137"/>
         <source>KML Literals</source>
-        <translation type="unfinished">KML Literale</translation>
+        <translation>KML Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="147"/>
         <source>DGGS Literals</source>
-        <translation type="unfinished">DGGS Literale</translation>
+        <translation>DGGS Literale</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="178"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="228"/>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="157"/>
         <source>WKT Literal</source>
-        <translation type="unfinished">WKT Literal</translation>
+        <translation>WKT Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="183"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="233"/>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="162"/>
         <source>WKB Literal</source>
-        <translation type="unfinished">WKB Literal</translation>
+        <translation>WKB Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="188"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="238"/>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="152"/>
         <source>KML Literal</source>
-        <translation type="unfinished">KML Literal</translation>
+        <translation>KML Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="193"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="243"/>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="147"/>
         <source>GML Literal</source>
-        <translation type="unfinished">GML Literal</translation>
+        <translation>GML Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="198"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="248"/>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="142"/>
         <source>GeoJSON Literal</source>
-        <translation type="unfinished">GeoJSON Literal</translation>
+        <translation>GeoJSON Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="203"/>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="253"/>
         <source>DGGS Literal</source>
-        <translation type="unfinished">DGGS Literal</translation>
+        <translation>DGGS Literal</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="217"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="269"/>
         <source>To Target Projection</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielprojektion</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="279"/>
         <source>Start Conversion</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvertierung starten</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertcrsdialog.ui" line="286"/>
@@ -362,42 +362,42 @@
         <location filename="../dialogs/ui/prefixdialog.ui" line="20"/>
         <location filename="../dialogs/ui/querylimitedinstancesdialog.ui" line="75"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="30"/>
         <source>Convert Layer to RDF</source>
-        <translation type="unfinished">Layer nach RDF konvertieren</translation>
+        <translation>Layer nach RDF konvertieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="37"/>
         <source>Convert to RDF</source>
-        <translation type="unfinished">Nach RDF konvertieren</translation>
+        <translation>Nach RDF konvertieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="45"/>
         <source>GeoSPARQL Ontology</source>
-        <translation type="unfinished">GeoSPARQL Vokabular</translation>
+        <translation>GeoSPARQL Vokabular</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="50"/>
         <source>W3C Geo Vocabulary</source>
-        <translation type="unfinished">W3C Geo Vokabular</translation>
+        <translation>W3C Geo Vokabular</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="55"/>
         <source>Schema.org Vocabulary</source>
-        <translation type="unfinished">Schema.org Vokabular</translation>
+        <translation>Schema.org Vokabular</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="60"/>
         <source>NeoGeo Vocabulary</source>
-        <translation type="unfinished">NeoGeo Vokabular</translation>
+        <translation>NeoGeo Vokabular</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="65"/>
         <source>OSMRDF Vocabulary</source>
-        <translation type="unfinished">OSMRDF Vokabular</translation>
+        <translation>OSMRDF Vokabular</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="79"/>
@@ -407,17 +407,17 @@
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="82"/>
         <source>Vocabulary:</source>
-        <translation type="unfinished">Vokabular:</translation>
+        <translation>Vokabular:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="95"/>
         <source>Choose the layer to convert</source>
-        <translation type="unfinished">Layer zum Konvertieren auswählen</translation>
+        <translation>Layer zum Konvertieren auswählen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="98"/>
         <source>Choose Layer:</source>
-        <translation type="unfinished">Layer auswählen:</translation>
+        <translation>Layer auswählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="111"/>
@@ -427,29 +427,29 @@
     <message>
         <location filename="../dialogs/ui/convertlayerdialog.ui" line="114"/>
         <source>Literal Types:</source>
-        <translation type="unfinished"></translation>
+        <translation>Literaltypen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="33"/>
         <source>Data Schema View for</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenschema für</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="75"/>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="71"/>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="80"/>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="76"/>
         <source>Attribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribut</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="85"/>
         <source>Sample Instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Beispielinstanz</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="93"/>
@@ -473,7 +473,7 @@
         <location filename="../dialogs/ui/dataschemadialog.ui" line="163"/>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="162"/>
         <source>Shorten URIs</source>
-        <translation type="unfinished"></translation>
+        <translation>URIs kürzen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/dataschemadialog.ui" line="183"/>
@@ -490,7 +490,7 @@
         <location filename="../dialogs/ui/errormessageboxdialog.ui" line="52"/>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="192"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="28"/>
@@ -500,17 +500,17 @@
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="31"/>
         <source>Choose data file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenfile wählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="39"/>
         <source>Local RDF File(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lokale RDF Dateien</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="44"/>
         <source>RDF Resource from URI</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RDF Resource als URI</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="52"/>
@@ -525,12 +525,12 @@
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="65"/>
         <source>GeoSPARQL 1.0 Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>GeoSPARQL 1.0 Validierung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="70"/>
         <source>GeoSPARQL 1.1 Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>GeoSPARQL 1.1 Validierung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="75"/>
@@ -540,7 +540,7 @@
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="80"/>
         <source>TTL Validator</source>
-        <translation type="unfinished"></translation>
+        <translation>TTL Validator</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/graphvalidationdialog.ui" line="94"/>
@@ -570,7 +570,7 @@
     <message>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="81"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/instancedatadialog.ui" line="172"/>
@@ -580,36 +580,36 @@
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="26"/>
         <source>Login with OAuth</source>
-        <translation type="unfinished"></translation>
+        <translation>Über OAuth anmelden</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="33"/>
         <source>Provider:</source>
-        <translation type="unfinished"></translation>
+        <translation>Provider:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="41"/>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="85"/>
         <source>ORCID</source>
-        <translation type="unfinished"></translation>
+        <translation>ORCID</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="46"/>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="71"/>
         <source>Github</source>
-        <translation type="unfinished"></translation>
+        <translation>Github</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="51"/>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="78"/>
         <source>Gitlab.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Gitlab.com</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="56"/>
         <location filename="../dialogs/ui/oauthlogindialog.ui" line="64"/>
         <source>Google</source>
-        <translation type="unfinished"></translation>
+        <translation>Google</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="20"/>
@@ -1534,42 +1534,42 @@
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="955"/>
         <source>Preferred Longitude Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugte Longitude Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="962"/>
         <source>Preferred Geometry Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugte Geometrie Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="969"/>
         <source>Preferred Label Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugte Label Sprache:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="976"/>
         <source>lon</source>
-        <translation type="unfinished"></translation>
+        <translation>lon</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="983"/>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="990"/>
         <source>Preferred Latitude Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugte Latitude Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="997"/>
         <source>Preferred Feature ID Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bevorzugte Feature ID Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="1004"/>
         <source>item</source>
-        <translation type="unfinished"></translation>
+        <translation>item</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/preferencesdialog.ui" line="1011"/>
@@ -1594,27 +1594,27 @@
     <message>
         <location filename="../dialogs/ui/prefixdialog.ui" line="14"/>
         <source>Prefix Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefixkonfiguration</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/prefixdialog.ui" line="27"/>
         <source>Add or change prefix and URI</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefix und URI hinzufügen/ändern</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/prefixdialog.ui" line="34"/>
         <source>URI:</source>
-        <translation type="unfinished"></translation>
+        <translation>URI:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/prefixdialog.ui" line="41"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/prefixdialog.ui" line="48"/>
         <source>Prefix:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefix:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/querylimitedinstancesdialog.ui" line="20"/>
@@ -1624,7 +1624,7 @@
     <message>
         <location filename="../dialogs/ui/querylimitedinstancesdialog.ui" line="27"/>
         <source>Amount of instances:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Instanzen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/querylimitedinstancesdialog.ui" line="44"/>
@@ -1662,27 +1662,27 @@
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="33"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="41"/>
         <source>Exact Matching</source>
-        <translation type="unfinished"></translation>
+        <translation>1:1 Matching</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="46"/>
         <source>Regular Expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Regulärer Ausdruck</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="51"/>
         <source>Levenshtein Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Levenshtein Distanz</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="56"/>
         <source>Hamming Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamming Distanz</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="64"/>
@@ -1692,7 +1692,7 @@
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="67"/>
         <source>Identifier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifier:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="81"/>
@@ -2657,7 +2657,7 @@
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1014"/>
         <source>Triple Store:</source>
-        <translation type="unfinished"></translation>
+        <translation>Triple Store:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1096"/>
@@ -2668,13 +2668,13 @@
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1135"/>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1175"/>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1140"/>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1180"/>
         <source>Attribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribut</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1145"/>
@@ -2686,7 +2686,7 @@
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1153"/>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1196"/>
         <source>Filter Table:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabelle filtern:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1160"/>
@@ -2696,12 +2696,12 @@
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1076"/>
         <source>Search Concept</source>
-        <translation type="unfinished"></translation>
+        <translation>Konzept suchen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/whattoenrichdialog.ui" line="1037"/>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
 </context>
 <context>
@@ -2766,22 +2766,22 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="833"/>
         <source>Constraint By BBOX</source>
-        <translation type="unfinished"></translation>
+        <translation>Bounding Box Constraint</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="222"/>
         <source>Query Templates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Queryvorlagen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="45"/>
         <source>Item+Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Item+Label</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="50"/>
         <source>All Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Attribute</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="631"/>
@@ -2796,7 +2796,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="75"/>
         <source>layer name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Layer Name:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="84"/>
@@ -2811,12 +2811,12 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="129"/>
         <source>FeatureCollections</source>
-        <translation type="unfinished"></translation>
+        <translation>Feature Collections</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="155"/>
         <source>GeometryCollections</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometry Collections</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="181"/>
@@ -2926,22 +2926,22 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="409"/>
         <source>Saved Queries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gespeicherte Queries:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="419"/>
         <source>Load Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Query laden</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="426"/>
         <source>Query Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Queryname:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="436"/>
         <source>Save Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Query speichern</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="445"/>
@@ -3006,37 +3006,37 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="770"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="776"/>
         <source>Query Helpers</source>
-        <translation type="unfinished"></translation>
+        <translation>Queryhelfer</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="784"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="800"/>
         <source>Convert RDF Data</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Daten konvertieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="809"/>
         <source>Validate RDF Data</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Daten validieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="814"/>
         <source>Configure Triple Stores</source>
-        <translation type="unfinished"></translation>
+        <translation>Triple Stores konfigurieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="819"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="824"/>
@@ -3056,7 +3056,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="860"/>
         <source>Convert QGIS Layer to RDF</source>
-        <translation type="unfinished"></translation>
+        <translation>QGIS Layer nach RDF konvertieren</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="869"/>
@@ -3066,7 +3066,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="874"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="883"/>
@@ -3091,7 +3091,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="490"/>
         <source>OWL Class:</source>
-        <translation type="unfinished">OWL Klasse</translation>
+        <translation>OWL Klasse:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="617"/>
@@ -3101,12 +3101,12 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="504"/>
         <source>Target Namespace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielnamespace:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="511"/>
         <source>http://www.github.com/sparqlunicorn#</source>
-        <translation type="unfinished"></translation>
+        <translation>http://www.github.com/sparqlunicorn#</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="476"/>
@@ -3126,22 +3126,22 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="648"/>
         <source>Interlink Layer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Layer interlinken:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="656"/>
         <source>Enrich (Experimental)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anreicherung (Experimentell)</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="664"/>
         <source>Choose a layer to enrich:</source>
-        <translation type="unfinished"></translation>
+        <translation>Layer zum Anreichern auswählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="714"/>
         <source>Start Enrichment</source>
-        <translation type="unfinished"></translation>
+        <translation>Anreicherung starten</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="700"/>
@@ -3156,7 +3156,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/sparql_unicorn_dialog_base.ui" line="707"/>
         <source>What to enrich?</source>
-        <translation type="unfinished">Anreicherungssuche</translation>
+        <translation>Anreicherungssuche</translation>
     </message>
     <message>
         <source>?</source>
@@ -4163,7 +4163,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="416"/>
         <source>Geometry Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometrie Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="371"/>
@@ -4178,12 +4178,12 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="32"/>
         <source>New Triple Store</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Triple Store</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="39"/>
         <source>Delete Triple Store</source>
-        <translation type="unfinished"></translation>
+        <translation>Triple Store entfernen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="48"/>
@@ -4193,17 +4193,17 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="55"/>
         <source>Detect Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Konfiguration</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="76"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="87"/>
         <source>Prefix Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefixkonfiguration</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="114"/>
@@ -4213,7 +4213,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="122"/>
         <source>Example Queries</source>
-        <translation type="unfinished">Beispielqueries´</translation>
+        <translation>Beispielqueries</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="128"/>
@@ -4223,72 +4223,72 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="137"/>
         <source>Example Queries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beispielqueries:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="147"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="156"/>
         <source>Save Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Query speichern</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="163"/>
         <source>Remove Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Query entfernen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="170"/>
         <source>Add Query</source>
-        <translation type="unfinished"></translation>
+        <translation>Query hinzufügen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="180"/>
         <source>Edit Query Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Query Name ändern</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="188"/>
         <source>Property Mappings</source>
-        <translation type="unfinished"></translation>
+        <translation>Property Mappings</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="200"/>
         <source>Geometry Property 1 (Lon):</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometry Property 1 (Lon):</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="210"/>
         <source>If properties in the given knowledge graph deviate from default settings, please configure them here:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sollten die Properties im gegebenen Knowledge Graph von den Standardeinstellungen abweichen, können sie hier konfiguriert werden:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="220"/>
         <source>Type Property:</source>
-        <translation type="unfinished"></translation>
+        <translation>Type Property:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="227"/>
         <source>Subclass Property:</source>
-        <translation type="unfinished"></translation>
+        <translation>Subclass Property:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="237"/>
         <source>Label Property:</source>
-        <translation type="unfinished"></translation>
+        <translation>Label Property:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="257"/>
         <source>Geometry Property 2 (Lat):</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometry Property 2 (Lat):</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="264"/>
         <source>Collection Member Property:</source>
-        <translation type="unfinished"></translation>
+        <translation>Collection Member Property:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="275"/>
@@ -4298,22 +4298,22 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="290"/>
         <source>Feature Collection:</source>
-        <translation type="unfinished"></translation>
+        <translation>Feature Collection:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="297"/>
         <source>Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Klasse:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="320"/>
         <source>Geometry Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometrie Klasse:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="336"/>
         <source>Geometry Collection:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometry Collection:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="343"/>
@@ -4323,12 +4323,12 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="352"/>
         <source>Query Variables</source>
-        <translation type="unfinished"></translation>
+        <translation>Query Variablen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="358"/>
         <source>The SPARQL query variable which identifies the feature id of the resulting QGIS layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Die SPARQL Query Variable welche die Feature ID im resultierenden QGIS layer abbildet</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="361"/>
@@ -4343,7 +4343,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="384"/>
         <source>Lat/Lon Variables</source>
-        <translation type="unfinished"></translation>
+        <translation>Lat/Lon Variablen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="392"/>
@@ -4353,7 +4353,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="399"/>
         <source>Single Variable (Lon):</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzelvariable (Lon):</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="409"/>
@@ -4363,100 +4363,100 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="447"/>
         <source>Test Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung testen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="454"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="112"/>
         <source>RDF Resource Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resourcen Name:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="464"/>
         <source>The username for the chosen authentification method</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Beuntzername für die gewählte Authentifizierungsart</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="474"/>
         <source>Choose RDF Resource:</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resource auswählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="481"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="136"/>
         <source>RDF Resource URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resourcen URL:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="506"/>
         <source>The password for the chosen authentification method</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Passwort für die gewählte Authentifizierungsart</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="517"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="123"/>
         <source>HTTP BASIC</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP BASIC</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="522"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="128"/>
         <source>HTTP DIGEST</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP DIGEST</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="530"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="537"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="143"/>
         <source>Use Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Authentifizierung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="544"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="150"/>
         <source>RDF Resource Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ der RDF Resource:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="552"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="158"/>
         <source>SPARQL Endpoint</source>
-        <translation type="unfinished"></translation>
+        <translation>SPARQL Endpoint</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="557"/>
         <source>RDF Resource from URI</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resource als URI</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="562"/>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="168"/>
         <source>Local RDF File(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokale RDF Dateien</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="423"/>
         <source>Item Variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Item Variable:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="364"/>
         <source>item</source>
-        <translation type="unfinished"></translation>
+        <translation>item</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="100"/>
         <source>Add Prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefix hinzufügen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="93"/>
         <source>Remove Selected Prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Prefix entfernen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestoredialog.ui" line="490"/>
@@ -4472,37 +4472,37 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="22"/>
         <source>Enter a name and a RDF resource URL here to try autoconfiguration</source>
-        <translation type="unfinished"></translation>
+        <translation>Namen und RDF Resourcen URL eingeben um eine automatische Konfiguration durchzuführen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="31"/>
         <source>Quick Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="49"/>
         <source>Add RDF resource permanently</source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resource permanent hinzufügen</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="56"/>
         <source>Detect namespaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Namespaceerkennung</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="68"/>
         <source>https://digits.mainzed.org/pleiades/sparql</source>
-        <translation type="unfinished"></translation>
+        <translation>https://digits.mainzed.org/pleiades/sparql</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="92"/>
         <source>Password (Optional):</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort (Optional):</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="163"/>
         <source>RDF Resource from URI </source>
-        <translation type="unfinished"></translation>
+        <translation>RDF Resource als URI</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="179"/>
@@ -4512,7 +4512,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/triplestorequickadddialog.ui" line="192"/>
         <source>Username (Optional):</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername (Optional):</translation>
     </message>
 </context>
 <context>
@@ -4535,12 +4535,12 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/uploadrdfdialog.ui" line="62"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/uploadrdfdialog.ui" line="55"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/uploadrdfdialog.ui" line="75"/>
@@ -4573,7 +4573,7 @@ SELECT ?label ?geo ?item WHERE {
     <message>
         <location filename="../dialogs/ui/valuemappingdialog.ui" line="58"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zu</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/valuemappingdialog.ui" line="72"/>
@@ -4614,7 +4614,7 @@ Column names may be used as variables in %%</source>
     <message>
         <location filename="../dialogs/ui/valuemappingdialog.ui" line="196"/>
         <source>Triple Store:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Triple Store:</translation>
     </message>
 </context>
 <context>
@@ -4622,82 +4622,82 @@ Column names may be used as variables in %%</source>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Variablendefinition</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="23"/>
         <source>Choose Field:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalte auswählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="50"/>
         <source>Choose Layer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Layer wählen:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="977"/>
         <source>Label Lang:</source>
-        <translation type="unfinished"></translation>
+        <translation>Label Sprache:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="984"/>
         <source>Enter the variable name to be used in the SPARQL query</source>
-        <translation type="unfinished"></translation>
+        <translation>Angabe des Variablennamens welcher im SPARQL query verwendet werden soll</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="987"/>
         <source>Variable Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Variablenname:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="997"/>
         <source>Enter the variable type or let it autodetect</source>
-        <translation type="unfinished"></translation>
+        <translation>Variablentyp falls bekannt, oder automatische Detektion</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1000"/>
         <source>Variable Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Variablentyp:</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1008"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1013"/>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>String</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1018"/>
         <source>URI</source>
-        <translation type="unfinished"></translation>
+        <translation>URI</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1023"/>
         <source>Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Double</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1028"/>
         <source>Integer</source>
-        <translation type="unfinished"></translation>
+        <translation>Integer</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="1033"/>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="33"/>
         <source>Is Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Label?</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="20"/>
         <source>Choose the column to be represented as a query variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl der Spalte des gewählten Layers als Queryvariable</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="30"/>
@@ -4707,7 +4707,7 @@ Column names may be used as variables in %%</source>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="40"/>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <location filename="../dialogs/ui/varinputdialog.ui" line="47"/>
