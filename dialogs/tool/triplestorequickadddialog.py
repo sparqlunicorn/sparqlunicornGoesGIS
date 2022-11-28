@@ -38,7 +38,13 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
-        self.rdfResourceComboBox.currentIndexChanged.connect(lambda: self.stackedWidget.setCurrentIndex(self.rdfResourceComboBox.currentIndex()-1))
+        self.rdfResourceComboBox.currentIndexChanged.connect(self.switchStackedWidget)
+
+    def switchStackedWidget(self):
+        curindex=self.rdfResourceComboBox.currentIndex()-1
+        if curindex==-1:
+            curindex=0
+        self.stackedWidget.setCurrentIndex(curindex)
 
     def enableAuthentication(self):
         if self.useAuthenticationCheckBox.checkState():
