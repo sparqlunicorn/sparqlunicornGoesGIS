@@ -1,10 +1,10 @@
 import json
 import os
 
-from ...dialogs.info.errormessagebox import ErrorMessageBox
-from ...util.sparqlutils import SPARQLUtils
-from ...util.ui.uiutils import UIUtils
-from ...util.graphutils import GraphUtils
+from ....dialogs.info.errormessagebox import ErrorMessageBox
+from ....util.sparqlutils import SPARQLUtils
+from ....util.ui.uiutils import UIUtils
+from ....util.graphutils import GraphUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask
 from qgis.PyQt.QtWidgets import QMessageBox

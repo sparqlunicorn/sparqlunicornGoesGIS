@@ -29,14 +29,14 @@
      <item>
       <widget class="QToolButton" name="newTripleStore">
        <property name="text">
-        <string>New Triple Store</string>
+        <string>New Resource</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QToolButton" name="deleteTripleStore">
        <property name="text">
-        <string>Delete Triple Store</string>
+        <string>Delete Resource</string>
        </property>
       </widget>
      </item>
@@ -64,7 +64,7 @@
     </widget>
    </item>
    <item row="7" column="0" colspan="3">
-    <widget class="Line" name="line">
+    <widget class="Line" name="separatorLine">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -222,7 +222,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="subclassPropertyLabel">
          <property name="text">
           <string>Subclass Property:</string>
          </property>
@@ -232,7 +232,7 @@
         <widget class="QLineEdit" name="labelPropertyEdit"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="labelPropertyLabel">
          <property name="text">
           <string>Label Property:</string>
          </property>
@@ -539,7 +539,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QLabel" name="label_10">
+    <widget class="QLabel" name="rdfResourceTypeLabel">
      <property name="text">
       <string>RDF Resource Type:</string>
      </property>
@@ -562,6 +562,13 @@
        <string>Local RDF File(s)</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="configurationAsJSONButton">
+     <property name="text">
+      <string>Save Configuration as JSON</string>
+     </property>
     </widget>
    </item>
   </layout>

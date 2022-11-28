@@ -68,15 +68,18 @@ function parseWKTStringToJSON(wktstring){
     resjson=[]	
     for(coordset of wktstring.split(",")){	
         curobject={}	
-        coords=coordset.split(" ")	
+        coords=coordset.trim().split(" ")	
+        console.log(coordset)	
+        console.log(coords)	
         if(coords.length==3){	
-            resjson.append({"x":coords[0],"y":coords[1],"z":coords[2]})	
+            resjson.push({"x":parseFloat(coords[0]),"y":parseFloat(coords[1]),"z":parseFloat(coords[2])})	
         }else{	
-            resjson.append({"x":coords[0],"y":coords[1]})	
+            resjson.push({"x":parseFloat(coords[0]),"y":parseFloat(coords[1])})	
         }	
     }	
+    console.log(resjson)	
     return resjson	
-}
+}	
 
 function exportCSV(){	
     rescsv=""	
@@ -171,50 +174,55 @@ function exportCSV(){
     }	
 }
 
-function setSVGDimensions(){ 
-    $('.svgview').each(function(i, obj) {
-        console.log(obj)
-        console.log($(obj).children().first()[0])
-        maxx=Number.MIN_VALUE
-        maxy=Number.MIN_VALUE
-        minx=Number.MAX_VALUE
-        miny=Number.MAX_VALUE
-        $(obj).children().each(function(i){
-            svgbbox=$(this)[0].getBBox()
-            console.log(svgbbox)
-            if(svgbbox.x+svgbbox.width>maxx){
-                maxx=svgbbox.x+svgbbox.width
-            }
-            if(svgbbox.y+svgbbox.height>maxy){
-                maxy=svgbbox.y+svgbbox.height
-            }
-            if(svgbbox.y<miny){
-                miny=svgbbox.y
-            }
-            if(svgbbox.x<minx){
-                minx=svgbbox.x
-            }
-        });
-        console.log(""+(minx)+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25))
-        newviewport=""+((minx))+" "+(miny)+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)
-        $(obj).attr("viewBox",newviewport)
-        $(obj).attr("width",((maxx-minx))+10)
-        $(obj).attr("height",((maxy-miny)+10))
-        console.log($(obj).hasClass("svgoverlay"))
-        if($(obj).hasClass("svgoverlay")){
-            naturalWidth=$(obj).prev().first()[0].naturalWidth
-            naturalHeight=$(obj).prev().first()[0].naturalHeight
-            currentWidth=$(obj).prev().first()[0].width
-            currentHeight=$(obj).prev().first()[0].height
-            overlayposX = (currentWidth/naturalWidth) * minx;
-            overlayposY = (currentHeight/naturalHeight) * miny;
-            overlayposWidth = ((currentWidth/naturalWidth) * maxx)-overlayposX;
-            overlayposHeight = ((currentHeight/naturalHeight) * maxy)-overlayposY;
-            $(obj).css({top: overlayposY+"px", left:overlayposX+"px", position:"absolute"})
-            $(obj).attr("height",overlayposHeight)
-            $(obj).attr("width",overlayposWidth)
-        }
-    });
+function setSVGDimensions(){ 	
+    $('svg').each(function(i, obj) {	
+        console.log(obj)	
+        console.log($(obj).children().first()[0])	
+        if($(obj).attr("viewBox") || $(obj).attr("width") || $(obj).attr("height")){	
+            return	
+        }	
+        maxx=Number.MIN_VALUE	
+        maxy=Number.MIN_VALUE	
+        minx=Number.MAX_VALUE	
+        miny=Number.MAX_VALUE	
+        $(obj).children().each(function(i){	
+            svgbbox=$(this)[0].getBBox()	
+            console.log(svgbbox)	
+            if(svgbbox.x+svgbbox.width>maxx){	
+                maxx=svgbbox.x+svgbbox.width	
+            }	
+            if(svgbbox.y+svgbbox.height>maxy){	
+                maxy=svgbbox.y+svgbbox.height	
+            }	
+            if(svgbbox.y<miny){	
+                miny=svgbbox.y	
+            }	
+            if(svgbbox.x<minx){	
+                minx=svgbbox.x	
+            }	
+        });	
+        console.log(""+(minx)+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25))	
+        newviewport=""+((minx))+" "+(miny)+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)	
+        $(obj).attr("viewBox",newviewport)	
+        $(obj).attr("width",((maxx-minx))+10)	
+        $(obj).attr("height",((maxy-miny)+10))	
+        console.log($(obj).hasClass("svgoverlay"))	
+        if($(obj).hasClass("svgoverlay")){	
+            naturalWidth=$(obj).prev().children('img')[0].naturalWidth	
+            naturalHeight=$(obj).prev().children('img')[0].naturalHeight	
+            currentWidth=$(obj).prev().children('img')[0].width	
+            currentHeight=$(obj).prev().children('img')[0].height	
+            console.log(naturalWidth+" - "+naturalHeight+" - "+currentWidth+" - "+currentHeight)	
+            overlayposX = (currentWidth/naturalWidth) * minx;	
+            overlayposY = (currentHeight/naturalHeight) * miny;	
+            overlayposWidth = ((currentWidth/naturalWidth) * maxx)-overlayposX;	
+            overlayposHeight = ((currentHeight/naturalHeight) * maxy)-overlayposY;	
+            console.log(overlayposX+" - "+overlayposY+" - "+overlayposHeight+" - "+overlayposWidth)	
+            $(obj).css({top: overlayposY+"px", left:overlayposX+"px", position:"absolute"})	
+            $(obj).attr("height",overlayposHeight)	
+            $(obj).attr("width",overlayposWidth)	
+        }	
+    });	
 }
 
 
@@ -808,6 +816,7 @@ body { font-family: sans-serif; font-size: 80%; margin: 0; padding: 1.2em 2em; }
 #rdficon { float: right; position: relative; top: -28px; }
 #header { border-bottom: 2px solid #696; margin: 0 0 1.2em; padding: 0 0 0.3em; }
 #footer { border-top: 2px solid #696; margin: 1.2em 0 0; padding: 0.3em 0 0; }
+.carousel-center {margin:auto;}
 #homelink { display: inline; }
 #homelink, #homelink a { color: #666; }
 #homelink a { font-weight: bold; text-decoration: none; }
@@ -1173,6 +1182,7 @@ class OntDocGeneration:
         self.license=license
         self.licenseuri=None
         self.labellang=labellang
+        self.createIndexPages=True
         self.graph=graph
         self.preparedclassquery=prepareQuery(classtreequery)
         if prefixnamespace==None or prefixnsshort==None or prefixnamespace=="" or prefixnsshort=="":
@@ -1236,7 +1246,7 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         subjectstorender = set()
         for sub in self.graph.subjects():
-            if prefixnamespace in sub or isinstance(sub,BNode):
+            if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
                 for tup in self.graph.predicate_objects(sub):
                     if str(tup[0]) in SPARQLUtils.labelproperties:
@@ -1456,6 +1466,8 @@ class OntDocGeneration:
             else:
                 classlist[item]["item"]["type"] = "class"
     def shortenURI(self,uri):
+        if uri.endswith("/"):
+            uri = uri[0:-1]
         if uri!=None and "#" in uri:
             return uri[uri.rfind('#')+1:]
         if uri!=None and "/" in uri:
@@ -1479,7 +1491,7 @@ class OntDocGeneration:
         return rellink
 
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
-                                                textannos, image3dannos, label, unitlabel):
+                                                    textannos, image3dannos, label, unitlabel):
         geoprop = False
         annosource = None
         incollection = False
