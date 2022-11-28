@@ -98,7 +98,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
     def saveConfigurationAsJSON(self):
         conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+".json")
         file=open(conffilename[0],"w")
-        file.write(json.dumps(self.triplestoreconf[self.comboBox.currentIndex()]))
+        file.write(json.dumps(self.triplestoreconf[self.comboBox.currentIndex()],indent=2))
         file.close()
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
