@@ -40,7 +40,7 @@ class ClassTreeQueryTask(QgsTask):
             geotriplepattern=""
             for geopat in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"]:
                 geotriplepattern+="OPTIONAL { "+geopat.replace("?geo","?hasgeo").replace("?item","?individual")+" }\n"
-        self.optionalpart=geotriplepattern
+            self.optionalpart=geotriplepattern
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
             self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } \n"
         elif self.optionalpart=="" and "geometryproperty" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] \
@@ -180,8 +180,7 @@ class ClassTreeQueryTask(QgsTask):
         #    "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
-        path=os.path.join(__location__,
-                             "../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
+        path=os.path.join(__location__, "../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
         if SPARQLUtils.exception!=None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY, str(self.description)+": An error occurred!")
         elif self.classtreemap==None and self.subclassmap==None and exists(path):

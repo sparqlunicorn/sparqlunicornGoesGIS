@@ -6,7 +6,7 @@ from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QRegExpValidator
 
 from ...util.ui.uiutils import UIUtils
-from ...tasks.query.detecttriplestoretask import DetectTripleStoreTask
+from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 from ...tasks.processing.loadgraphtask import LoadGraphTask
 import os.path
 
@@ -29,7 +29,6 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.recursiveResolvingCBox.hide()
         self.chooseFileWidget=QgsFileWidget()
         self.setWindowIcon(UIUtils.linkeddataicon)
-        self.gridLayout.addWidget(self.chooseFileWidget,4,1)
         self.chooseFileWidget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.chooseFileWidget.setStorageMode(QgsFileWidget.GetMultipleFiles)
         self.chooseFileWidget.hide()
@@ -39,15 +38,13 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.tripleStoreEdit.textChanged.emit(self.tripleStoreEdit.text())
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
-        self.rdfResourceComboBox.currentIndexChanged.connect(self.resboxChangedEvent)
+        self.rdfResourceComboBox.currentIndexChanged.connect(self.switchStackedWidget)
 
-    def resboxChangedEvent(self):
-        if "File" in self.rdfResourceComboBox.currentText():
-            self.chooseFileWidget.show()
-            self.tripleStoreEdit.hide()
-        else:
-            self.chooseFileWidget.hide()
-            self.tripleStoreEdit.show()
+    def switchStackedWidget(self):
+        curindex=self.rdfResourceComboBox.currentIndex()-1
+        if curindex==-1:
+            curindex=0
+        self.stackedWidget.setCurrentIndex(curindex)
 
     def enableAuthentication(self):
         if self.useAuthenticationCheckBox.checkState():
@@ -92,7 +89,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 progress.setWindowModality(Qt.WindowModal)
                 progress.setWindowIcon(UIUtils.sparqlunicornicon)
                 progress.setCancelButton(None)
-                self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.tripleStoreNameEdit.text(), fileNames, self,
+                self.qtask = LoadGraphTask("Loading Graph: " + fileNames[0], self.rdfResourceNameEdit.text(), fileNames, self,
                                            self.dlg, self.maindlg,
                                            self.triplestoreconf[0]["geoconceptquery"], self.triplestoreconf, progress,
                                            True)

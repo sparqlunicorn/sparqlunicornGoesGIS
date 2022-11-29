@@ -3,14 +3,14 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt import uic
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QMessageBox, QStyle
+from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QFileDialog
 from qgis.PyQt.QtGui import QRegExpValidator
 
 from ...dialogs.util.prefixdialog import PrefixDialog
 from ...dialogs.util.examplequerydialog import ExampleQueryDialog
 from ...util.ui.uiutils import UIUtils
 from ...util.ui.sparqlhighlighter import SPARQLHighlighter
-from ...tasks.query.detecttriplestoretask import DetectTripleStoreTask
+from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 import os.path
 import json
 
@@ -83,6 +83,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.editQueryNameButton.clicked.connect(lambda: ExampleQueryDialog(self.exampleQueryComboBox,self.exampleQueryComboBox.currentText()).exec())
         self.saveExampleQueryButton.clicked.connect(lambda: self.exampleQueryComboBox.setItemData(self.exampleQueryComboBox.currentIndex(),self.exampleQuery.toPlainText()))
         self.removeExampleQueryButton.clicked.connect(lambda: self.exampleQueryComboBox.removeItem(self.exampleQueryComboBox.currentIndex()))
+        self.configurationAsJSONButton.clicked.connect(self.saveConfigurationAsJSON)
         self.sparqlhighlighter = SPARQLHighlighter(self.exampleQuery)
         self.tripleStoreApplyButton.clicked.connect(self.applyCustomSPARQLEndPoint)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
@@ -93,6 +94,16 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.varInfoButton.setIcon(
             QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.loadTripleStoreConfig()
+
+    def saveConfigurationAsJSON(self):
+        conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+".json")
+        file=open(conffilename[0],"w")
+        file.write(json.dumps(self.triplestoreconf[self.comboBox.currentIndex()],indent=2))
+        file.close()
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Configuration File for "+str(self.comboBox.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
+        msg.exec()
 
     def createVarInfoDialog(self):
         msgBox = QMessageBox()

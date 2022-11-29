@@ -5,7 +5,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QRegExpValidator
 
 from ...util.ui.uiutils import UIUtils
-from ...tasks.query.detecttriplestoretask import DetectTripleStoreTask
+from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 from SPARQLWrapper import SPARQLWrapper, BASIC
 import os.path
 
