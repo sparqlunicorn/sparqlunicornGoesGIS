@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>What To Enrich?</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../resources.qrc">
@@ -1253,7 +1253,5 @@
    <header>qgsfieldcombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
- </resources>
  <connections/>
 </ui>

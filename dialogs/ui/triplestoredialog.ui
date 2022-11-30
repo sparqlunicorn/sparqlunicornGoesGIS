@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>846</width>
-    <height>467</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>RDF Resource Configuration</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/resources/icons/linkeddata.png</normaloff>:/icons/resources/icons/linkeddata.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
    <item row="2" column="1">
@@ -573,7 +577,6 @@
    </item>
   </layout>
  </widget>
- <resources/>
  <connections>
   <connection>
    <sender>tripleStoreCloseButton</sender>

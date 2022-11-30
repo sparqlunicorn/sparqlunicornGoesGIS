@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Data Schema View</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/resources/icons/classschema.png</normaloff>:/icons/resources/icons/classschema.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -245,7 +249,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
  <connections>
   <connection>
    <sender>okButton</sender>

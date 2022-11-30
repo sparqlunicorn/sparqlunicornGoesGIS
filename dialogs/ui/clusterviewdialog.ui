@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Data Relation View</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../resources.qrc">
+    <normaloff>:/icons/resources/icons/instancelink.png</normaloff>:/icons/resources/icons/instancelink.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0" colspan="2">
@@ -147,7 +151,6 @@
    </item>
   </layout>
  </widget>
- <resources/>
  <connections>
   <connection>
    <sender>closeButton</sender>
