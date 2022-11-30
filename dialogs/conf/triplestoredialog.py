@@ -21,10 +21,9 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 	
     triplestoreconf=""
 	
-    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox,title="Configure Own RDF Resource"):
+    def __init__(self,triplestoreconf,prefixes,prefixstore,comboBox):
         super(QDialog, self).__init__()
         self.setupUi(self)
-        self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.linkeddataicon)
         self.triplestoreconf=triplestoreconf 
         self.prefixstore=prefixstore

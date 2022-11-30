@@ -5,6 +5,7 @@ from qgis._gui import QgsFileWidget
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QRegExpValidator
 
+from ...tasks.query.util.triplestorerepotask import TripleStoreRepositoryTask
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 from ...tasks.processing.loadgraphtask import LoadGraphTask
@@ -39,12 +40,18 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.useAuthenticationCheckBox.stateChanged.connect(self.enableAuthentication)
         self.rdfResourceComboBox.currentIndexChanged.connect(self.switchStackedWidget)
+        self.loadFromRepository()
 
     def switchStackedWidget(self):
         curindex=self.rdfResourceComboBox.currentIndex()-1
         if curindex==-1:
             curindex=0
         self.stackedWidget.setCurrentIndex(curindex)
+
+    def loadFromRepository(self):
+        self.qtask = TripleStoreRepositoryTask("Loading Repository contents: " + self.tripleStoreEdit.text(),self.resourceSelectorCBox)
+        QgsApplication.taskManager().addTask(self.qtask)
+
 
     def enableAuthentication(self):
         if self.useAuthenticationCheckBox.checkState():
