@@ -8,7 +8,6 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.ontdoctask import OntDocTask
 
-from rdflib import Graph
 from ...util.ui.uiutils import UIUtils
 import os.path
 

@@ -1,6 +1,5 @@
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
-from qgis.core import QgsApplication
 import os
 
 from ...util.ui.uiutils import UIUtils
