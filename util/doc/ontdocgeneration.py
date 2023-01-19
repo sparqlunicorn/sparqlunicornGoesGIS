@@ -845,9 +845,9 @@ table.description a small, .metadata-table a small  { font-size: 100%; color: #5
 table.description small, .metadata-table a small  { font-size: 100%; color: #666; }
 table.description .property { white-space: nowrap; padding-right: 1.5em; }
 h1, h2 { color: #810; }
-body { background: #cec; }
+body { background: %%maincolorcode%%; }
 table.description .container > td { background: #c0e2c0; padding: 0.2em 0.8em; }
-table.description .even td { background: #d4f6d4; }
+table.description .even td { background: %%tablecolorcode%%; }
 table.description .odd td { background: #f0fcf0; }
 .image { background: white; float: left; margin: 0 1.5em 1.5em 0; padding: 2px; }
 a.expander { text-decoration: none; }
@@ -1172,12 +1172,18 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,progress):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.maincolorcode="#c0e2c0"
+        self.tablecolorcode="#810"
+        if maincolor!=None:
+            self.maincolorcode=maincolor
+        if tablecolor!=None:
+            self.tablecolorcode=tablecolor
         self.license=license
         self.licenseuri=None
         self.labellang=labellang
@@ -1276,7 +1282,7 @@ class OntDocGeneration:
             if tr["id"] not in classidset:
                 tree["core"]["data"].append(tr)
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
-            f.write(stylesheet)
+            f.write(stylesheet.replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
             f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
