@@ -3,6 +3,7 @@ from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
 import os
+import shutil
 import json
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 
@@ -175,6 +176,7 @@ class OntDocGeneration:
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.templatename=templatename
         resolveTemplate(templatename)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
@@ -267,6 +269,9 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
+        if os.path.exists(outpath+"icons/"):
+            shutil.rmtree(outpath+"icons/")
+        shutil.copytree(templatepath+"/"+self.templatename+"/icons/", outpath+"icons/")
         prevtree=[]
         if os.path.exists(outpath + corpusid + '_classtree.js'):
             try:
@@ -379,14 +384,14 @@ class OntDocGeneration:
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
-            "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
-            "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
-            "halfgeoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/halfgeoclass.png"},
-            "collectionclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/collectionclass.png"},
-            "geocollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geometrycollection.png"},
-            "featurecollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/featurecollection.png"},
-            "instance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png"},
-            "geoinstance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoinstance.png"}
+            "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
+            "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png"},
+            "halfgeoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
+            "collectionclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png"},
+            "geocollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png"},
+            "featurecollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/featurecollection.png"},
+            "instance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
+            "geoinstance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
         },
         "core": {"check_callback": True, "data": []}}
         result = []
