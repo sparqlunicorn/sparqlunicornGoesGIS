@@ -557,6 +557,32 @@ function labelFromURI(uri,label){
         return uri
 }
 
+function formatHTMLTableForPropertyRelations(propuri,result,propicon){
+    dialogcontent="<h3><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+propuri.replace('/index.json','/index.html')+"\" target=\"_blank\"> "+shortenURI(propuri)+"</a></h3><table border=1 id=classrelationstable><thead><tr><th>Incoming Concept</th><th>Relation</th><th>Outgoing Concept</th></tr></thead><tbody>"
+    console.log(result)
+    for(instance in result["from"]){
+//
+            if(result["from"][instance]=="instancecount"){
+                continue;
+            }
+            dialogcontent+="<tr><td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+result["from"][instance]+"\" target=\"_blank\">"+shortenURI(result["from"][instance])+"</a></td>"
+            dialogcontent+="<td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td><td></td></tr>"
+       // }
+    }
+    for(instance in result["to"]){
+        //for(instance in result["to"][res]){
+            if(result["to"][instance]=="instancecount"){
+                continue;
+            }
+            dialogcontent+="<tr><td></td><td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td>"
+            dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+result["to"][instance]+"\" target=\"_blank\">"+shortenURI(result["to"][instance])+"</a></td></tr>"
+       // }
+    }
+    dialogcontent+="</tbody></table>"
+    dialogcontent+="<button style=\"float:right\" id=\"closebutton\" onclick='document.getElementById(\"classrelationdialog\").close()'>Close</button>"
+    return dialogcontent
+}
+
 function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
     dialogcontent=""
     if(nodelabel.includes("[")){
@@ -622,27 +648,34 @@ function formatHTMLTableForResult(result,nodeicon){
         console.log(result[res])
         console.log(result[res].size)
         dialogcontent+="<tr>"
+        detpropicon=""
         if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
             dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Object Property\"/>Geo Object Property</td>"
+            detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png"
         }else if((result[res][0]+"").startsWith("http")){
             dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png\" height=\"25\" width=\"25\" alt=\"Object Property\"/>Object Property</td>"
+            detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png"
         }else{
             finished=false
             for(ns in annotationnamespaces){
                 if(res.includes(annotationnamespaces[ns])){
                     dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>Annotation Property</td>"
+                    detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png"
                     finished=true
                 }
             }
             if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
                 dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Geo Datatype Property</td>"
+                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png"
             }else if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
                 dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Geo Datatype Property</td>"
+                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png"
             }else if(!finished){
                 dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/datatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Datatype Property</td>"
+                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/datatypeproperty.png"
             }
         }
-        dialogcontent+="<td><a href=\""+res+"\" target=\"_blank\">"+shortenURI(res)+"</a></td>"
+        dialogcontent+="<td><a href=\""+res+"\" target=\"_blank\">"+shortenURI(res)+"</a> <a href=\"#\" onclick=\"getPropRelationDialog('"+res+"','"+detpropicon+"')\">[x]</a></td>"
         if(Object.keys(result[res]).length>1){
             dialogcontent+="<td><ul>"
             for(resitem in result[res]){
@@ -684,6 +717,14 @@ function getClassRelationDialog(node){
         $('#classrelationstable').DataTable();
         document.getElementById("classrelationdialog").showModal();
      }
+}
+
+function getPropRelationDialog(propuri,propicon){
+     dialogcontent=formatHTMLTableForPropertyRelations(propuri,proprelations[propuri],propicon)
+     console.log(dialogcontent)
+     document.getElementById("classrelationdialog").innerHTML=dialogcontent
+     $('#classrelationstable').DataTable();
+     document.getElementById("classrelationdialog").showModal();
 }
 
 function getDataSchemaDialog(node){

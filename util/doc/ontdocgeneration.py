@@ -250,6 +250,7 @@ class OntDocGeneration:
         uritotreeitem={}
         curlicense=self.processLicense()
         subjectstorender = set()
+        self.getPropertyRelations(self.graph, outpath)
         for sub in self.graph.subjects():
             if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
@@ -381,6 +382,21 @@ class OntDocGeneration:
                 f.close()
 
 
+    def getPropertyRelations(self,graph,outpath):
+        predicates= {}
+        for pred in graph.predicates():
+            predicates[pred]={"from":set(),"to":set()}
+            for tup in graph.subject_objects(pred):
+                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                    predicates[pred]["from"].add(item)
+                for item in graph.objects(tup[1], URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                    predicates[pred]["to"].add(item)
+            predicates[pred]["from"]=list(predicates[pred]["from"])
+            predicates[pred]["to"] = list(predicates[pred]["to"])
+        with open(outpath+"/proprelations.js", 'w', encoding='utf-8') as f:
+            f.write("var proprelations="+json.dumps(predicates))
+            f.close()
+
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
@@ -488,6 +504,8 @@ class OntDocGeneration:
                 return {"uri": str(self.prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
                         "ns": self.prefixes["reversed"][ns]}
         return None
+
+
 
     def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
         rellink = str(item).replace(baseurl, "")
@@ -887,13 +905,14 @@ class OntDocGeneration:
             rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
             rellink3 =self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
             rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
+            rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
             if geojsonrep != None:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                    "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
                                                                                                     foundlabel) + "</a>").replace(
@@ -902,7 +921,7 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
                 f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                    "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
