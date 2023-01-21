@@ -52,6 +52,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         maincolor=self.mainColorSelector.color().name()
         titlecolor=self.titleColorSelector.color().name()
         graphname=self.inputRDFFileWidget.filePath()
+        logoname=self.logoFileWidget.filePath()
         QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
         if graphname==None or graphname=="":
                 graphname="test"
@@ -61,5 +62,5 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(), maincolor ,titlecolor,progress)
+                                        self.outFolderWidget.filePath(), maincolor ,titlecolor,progress,logoname)
         QgsApplication.taskManager().addTask(self.qtask)

@@ -170,12 +170,13 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress,templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.logoname=logoname
         self.templatename=templatename
         resolveTemplate(templatename)
         self.maincolorcode="#c0e2c0"
@@ -251,6 +252,11 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
+        if self.logoname!=None and self.logoname!="":
+            if not os.path.isdir(outpath+"/logo/"):
+                os.mkdir(outpath+"/logo/")
+            shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
+            self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
         for sub in self.graph.subjects():
             if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
@@ -393,7 +399,7 @@ class OntDocGeneration:
                     predicates[pred]["to"].add(item)
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
-        with open(outpath+"/proprelations.js", 'w', encoding='utf-8') as f:
+        with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
 
@@ -730,6 +736,9 @@ class OntDocGeneration:
         savepath = savepath.replace("\\", "/")
         checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
+        logo=""
+        if self.logoname!=None and self.logoname!="":
+            logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"35\" height=\"35\"/>&nbsp;&nbsp;"
         textannos = []
         foundvals=set()
         imageannos=set()
@@ -911,7 +920,7 @@ class OntDocGeneration:
             else:
                 myexports=nongeoexports
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
@@ -920,7 +929,7 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
