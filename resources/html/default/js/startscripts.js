@@ -608,6 +608,37 @@ function formatHTMLTableForPropertyRelations(propuri,result,propicon){
     return dialogcontent
 }
 
+function determineTableCellLogo(uri){
+    result="<td><a href=\""+uri+"\" target=\"_blank\">"
+    logourl=""
+    if(uri in labelproperties){
+        result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/labelproperty.png\" height=\"25\" width=\"25\" alt=\"Label Property\"/>"
+        logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/labelproperty.png"
+        finished=true
+    }
+    if(!finished){
+        for(ns in annotationnamespaces){
+            if(uri.includes(annotationnamespaces[ns])){
+                result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>"
+                logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png"
+                finished=true
+            }
+        }
+    }
+    if(!finished && uri in geoproperties && geoproperties[uri]=="ObjectProperty"){
+        result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Object Property\"/>"
+        logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png"
+    }else if(!finished && uri in geoproperties && geoproperties[uri]=="DatatypeProperty"){
+        result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Datatype Property\"/>"
+        logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png"
+    }else if(!finished){
+        result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png\" height=\"25\" width=\"25\" alt=\"Object Property\"/>"
+        logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png"
+    }
+    result+=shortenURI(uri)+"</a></td>"
+    return [result,logourl]
+}
+
 function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
     dialogcontent=""
     if(nodelabel.includes("[")){
@@ -620,20 +651,7 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                 continue;
             }
             dialogcontent+="<tr><td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td>"
-            dialogcontent+="<td><a href=\""+res+"\" target=\"_blank\">"
-            finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
-                dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>"
-            }else if(!finished){
-                dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>"
-            }
-            dialogcontent+=shortenURI(res)+"</a></td>"
+            dialogcontent+=determineTableCellLogo(res)[0]
             dialogcontent+="<td><img src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td><td></td><td></td></tr>"
         }
     }
@@ -643,20 +661,7 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
                 continue;
             }
             dialogcontent+="<tr><td></td><td></td><td><img src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td>"
-            dialogcontent+="<td><a href=\""+res+"\" target=\"_blank\">"
-            finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
-                dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>"
-            }else if(!finished){
-                dialogcontent+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>"
-            }
-            dialogcontent+=shortenURI(res)+"</a></td>"
+            dialogcontent+=determineTableCellLogo(res)[0]
             dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td></tr>"
         }
     }
@@ -682,23 +687,9 @@ function formatHTMLTableForResult(result,nodeicon){
             detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/objectproperty.png"
         }else{
             finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>Annotation Property</td>"
-                    detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/annotationproperty.png"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
-                dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Geo Datatype Property</td>"
-                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geodatatypeproperty.png"
-            }else if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
-                dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Geo Datatype Property</td>"
-                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoobjectproperty.png"
-            }else if(!finished){
-                dialogcontent+="<td><img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/datatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Datatype Property\"/>Datatype Property</td>"
-                detpropicon="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/datatypeproperty.png"
-            }
+            ress=determineTableCellLogo(res)
+            dialogcontent+=ress[0]
+            detpropicon=ress[1]
         }
         dialogcontent+="<td><a href=\""+res+"\" target=\"_blank\">"+shortenURI(res)+"</a> <a href=\"#\" onclick=\"getPropRelationDialog('"+res+"','"+detpropicon+"')\">[x]</a></td>"
         if(Object.keys(result[res]).length>1){

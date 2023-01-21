@@ -738,7 +738,7 @@ class OntDocGeneration:
         foundlabel = ""
         logo=""
         if self.logoname!=None and self.logoname!="":
-            logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"35\" height=\"35\"/>&nbsp;&nbsp;"
+            logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
         textannos = []
         foundvals=set()
         imageannos=set()
@@ -787,7 +787,7 @@ class OntDocGeneration:
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
                 for lab in predobjmap[tup]:
-                    if lab["lang"]==self.labellang:
+                    if lab==self.labellang:
                         foundlabel=lab
                 if foundlabel=="":
                     foundlabel = str(predobjmap[tup][0])
