@@ -786,7 +786,11 @@ class OntDocGeneration:
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
-                foundlabel = str(predobjmap[tup][0])
+                for lab in predobjmap[tup]:
+                    if lab["lang"]==self.labellang:
+                        foundlabel=lab
+                if foundlabel=="":
+                    foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
                 comment[str(tup)]=str(predobjmap[tup][0])
             if len(predobjmap[tup]) > 0:
