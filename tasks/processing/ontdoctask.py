@@ -9,13 +9,16 @@ MESSAGE_CATEGORY = 'OntDocTask'
 
 class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath, progress):
+    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,maincolor,titlecolor, progress,logopath=""):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.prefixes=prefixes
         self.license=license
         self.labellang=labellang
+        self.maincolor=maincolor
+        self.logopath=logopath
+        self.titlecolor=titlecolor
         self.graphname=graphname
         self.namespace=namespace
         self.outpath=outpath
@@ -36,7 +39,7 @@ class OntDocTask(QgsTask):
             nsshort=self.namespace[self.namespace[0:-1].rfind('/') + 1:]
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.progress)
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.maincolor,self.titlecolor,self.progress,self.logopath)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         return True
 

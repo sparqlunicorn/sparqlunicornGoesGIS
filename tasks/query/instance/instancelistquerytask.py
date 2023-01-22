@@ -88,12 +88,6 @@ class InstanceListQueryTask(QgsTask):
                     self.queryresult[result["con"]["value"]]["label"] = result["label"]["value"]+" ("+SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])+")"
                 else:
                     self.queryresult[result["con"]["value"]]["label"]=SPARQLUtils.labelFromURI(result["con"]["value"],self.triplestoreconf["prefixesrev"])
-        #QgsMessageLog.logMessage("Process literal: " + str(self.queryresult),
-        #                         MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage("Process literal: " + str(self.hasgeocount),
-        #                         MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage("Process literal: " + str(self.treeNode.data(UIUtils.dataslot_nodetype)),
-        #                         MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):

@@ -1,8 +1,6 @@
-from ....util.graphutils import GraphUtils
 from ....util.ui.uiutils import UIUtils
 from ....util.conf.configutils import ConfigUtils
 from ....util.ui.qstandardclasstreeitem import QStandardClassTreeItem
-from ....dialogs.info.errormessagebox import ErrorMessageBox
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt

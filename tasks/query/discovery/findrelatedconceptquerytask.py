@@ -1,4 +1,3 @@
-from ....util.graphutils import GraphUtils
 from ....util.ui.uiutils import UIUtils
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog

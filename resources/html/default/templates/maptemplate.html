@@ -1,0 +1,79 @@
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+<script>
+/*** Leaflet.geojsonCSS
+ * @author Alexander Burtsev, http://burtsev.me, 2014
+ * @license MIT*/
+!function(a){a.L&&L.GeoJSON&&(L.GeoJSON.CSS=L.GeoJSON.extend({initialize:function(a,b){var c=L.extend({},b,{onEachFeature:function(a,c){b&&b.onEachFeature&&b.onEachFeature(a,c);var d=a.style,e=a.popupTemplate;d&&(c instanceof L.Marker?d.icon&&c.setIcon(L.icon(d.icon)):c.setStyle(d)),e&&a.properties&&c.bindPopup(L.Util.template(e,a.properties))}});L.setOptions(this,c),this._layers={},a&&this.addData(a)}}),L.geoJson.css=function(a,b){return new L.GeoJSON.CSS(a,b)})}(window,document);
+</script>
+<div id="map" style="height:500px;z-index: 0;"></div>
+<script>
+var overlayMaps={}
+var map = L.map('map',{fullscreenControl: true,fullscreenControlOptions: {position: 'topleft'}}).setView([51.505, -0.09], 13);
+	var layer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	});
+	var baseMaps = {
+        "OSM": layer
+	};
+baseMaps["OSM"].addTo(map);
+	L.control.scale({
+	position: 'bottomright',
+	imperial: false
+	}).addTo(map);
+	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
+	var bounds = L.latLngBounds([]);
+	props={}
+	var feature = {{myfeature}}
+	layerr=L.geoJSON.css(feature,{
+	pointToLayer: function(feature, latlng){
+                  var greenIcon = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+                return L.marker(latlng, {icon: greenIcon});
+    },onEachFeature: function (feature, layer) {
+    var popup="<b>"
+    if("label" in feature && feature.label!=""){
+        popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
+    }else{
+        popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+    }
+    for(prop in feature.properties){
+        popup+="<li>"
+        if(prop.startsWith("http")){
+            popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=prop
+        }
+        popup+=" : "
+        if(feature.properties[prop].length>1){
+            popup+="<ul>"
+            for(item of feature.properties[prop]){
+                popup+="<li>"
+                if((item+"").startsWith("http")){
+                    popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
+                }else{
+                    popup+=item
+                }
+                popup+="</li>"
+            }
+            popup+="</ul>"
+        }else if((feature.properties[prop][0]+"").startsWith("http")){
+            popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=feature.properties[prop]
+        }
+        popup+="</li>"
+    }
+    popup+="</ul>"
+    layer.bindPopup(popup)}})
+	layerr.addTo(map)
+    var layerBounds = layerr.getBounds();
+    bounds.extend(layerBounds);
+    map.fitBounds(bounds);
+</script>

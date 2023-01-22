@@ -14,10 +14,37 @@
    <string>Ontology Documentation Generation</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/ontdoc.png</normaloff>:/icons/resources/icons/ontdoc.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="1">
+    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
+   </item>
+   <item row="10" column="1">
+    <widget class="QPushButton" name="createDocumentationButton">
+     <property name="text">
+      <string>Create Documentation</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="toolTip">
+      <string>Choose a folder to export the HTML documentation to</string>
+     </property>
+     <property name="text">
+      <string>Export Path:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>Style Main Color:</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="1">
     <widget class="QComboBox" name="preferredLabelLangCBox">
      <property name="toolTip">
@@ -36,20 +63,16 @@
      </item>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QgsFileWidget" name="outFolderWidget">
-     <property name="storageMode">
-      <enum>QgsFileWidget::GetDirectory</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_3">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
      <property name="toolTip">
-      <string>Choose a folder to export the HTML documentation to</string>
+      <string>Choose an RDF file to analyze</string>
+     </property>
+     <property name="whatsThis">
+      <string/>
      </property>
      <property name="text">
-      <string>Export Path:</string>
+      <string>RDF File:</string>
      </property>
     </widget>
    </item>
@@ -102,33 +125,10 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="toolTip">
-      <string>Choose an RDF file to analyze</string>
-     </property>
-     <property name="whatsThis">
-      <string/>
-     </property>
-     <property name="text">
-      <string>RDF File:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QPushButton" name="createDocumentationButton">
-     <property name="text">
-      <string>Create Documentation</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_10">
-     <property name="toolTip">
-      <string>Choose a data license statement for your data</string>
-     </property>
-     <property name="text">
-      <string>Data License:</string>
+   <item row="3" column="1">
+    <widget class="QgsFileWidget" name="outFolderWidget">
+     <property name="storageMode">
+      <enum>QgsFileWidget::GetDirectory</enum>
      </property>
     </widget>
    </item>
@@ -142,10 +142,44 @@
      </property>
     </widget>
    </item>
+   <item row="8" column="1">
+    <widget class="QgsColorButton" name="titleColorSelector">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="color">
+      <color>
+       <red>192</red>
+       <green>226</green>
+       <blue>192</blue>
+      </color>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>Preferred Label Language:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QgsColorButton" name="mainColorSelector">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="color">
+      <color>
+       <red>192</red>
+       <green>226</green>
+       <blue>192</blue>
+      </color>
      </property>
     </widget>
    </item>
@@ -156,20 +190,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QComboBox" name="namespaceCBox">
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-     <property name="insertPolicy">
-      <enum>QComboBox::NoInsert</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" rowspan="7">
+   <item row="0" column="2" rowspan="11">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Optional Metadata</string>
@@ -228,9 +249,51 @@
      </layout>
     </widget>
    </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="toolTip">
+      <string>Choose a data license statement for your data</string>
+     </property>
+     <property name="text">
+      <string>Data License:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="namespaceCBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::NoInsert</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_12">
+     <property name="text">
+      <string>Table Style Color:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QgsFileWidget" name="logoFileWidget"/>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="label_13">
+     <property name="text">
+      <string>Page Logo:</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QgsColorButton</class>
+   <extends>QToolButton</extends>
+   <header>qgscolorbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>QgsDateTimeEdit</class>
    <extends>QDateTimeEdit</extends>
@@ -242,7 +305,6 @@
    <header>qgsfilewidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
- </resources>
+ <resources/>
  <connections/>
 </ui>

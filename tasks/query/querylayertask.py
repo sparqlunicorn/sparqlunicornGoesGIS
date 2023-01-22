@@ -56,9 +56,6 @@ class QueryLayerTask(QgsTask):
         res = self.processResults(results,
                                            (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
-        #QgsMessageLog.logMessage('Query result'.format(
-        #    res),
-        #    MESSAGE_CATEGORY, Qgis.Info)
         self.geojson=res[0]
         self.nongeojson=res[1]
         if self.nongeojson!=None:

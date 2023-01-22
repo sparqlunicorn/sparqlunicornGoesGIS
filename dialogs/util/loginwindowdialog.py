@@ -1,6 +1,4 @@
-import sys
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
 import os

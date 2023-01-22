@@ -3,955 +3,23 @@ from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
 import os
+import shutil
 import json
 from qgis.core import Qgis,QgsTask, QgsMessageLog
-import sys
 
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 
-startscripts = """var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
-var annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
-var indexpage=false
-var geoproperties={
-                   "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
-                   "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
-                   "http://www.georss.org/georss/point": "DatatypeProperty",
-                   "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
-                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude": "DatatypeProperty",
-                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
-                   "http://schema.org/geo": "ObjectProperty",
-                   "http://schema.org/polygon": "DatatypeProperty",
-                   "https://schema.org/geo": "ObjectProperty",
-                   "https://schema.org/polygon": "DatatypeProperty",
-                   "http://geovocab.org/geometry#geometry": "ObjectProperty",
-                   "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
-                   "http://rdfs.co/juso/geometry": "ObjectProperty",
-                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
-                   "https://database.factgrid.de/prop/direct/P48": "DatatypeProperty",
-                   "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
-                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
-}
-var baseurl="{{baseurl}}"
-  $( function() {
-    var availableTags = Object.keys(search)
-    $( "#search" ).autocomplete({
-      source: availableTags
-    });
-    console.log(availableTags)
-    setupJSTree()
-  } );
+templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
-function openNav() {
-  document.getElementById("mySidenav").style.width = "400px";
-}
+global startscripts
+startscripts = ""
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
+global stylesheet
+stylesheet = ""
 
-function exportGeoJSON(){
-    if(typeof(feature) !== "undefined"){
-        saveTextAsFile(JSON.stringify(feature),"geojson")
-    }
-}
-
-function parseWKTStringToJSON(wktstring){	
-    wktstring=wktstring.substring(wktstring.lastIndexOf('(')+1,wktstring.lastIndexOf(')')-1)	
-    resjson=[]	
-    for(coordset of wktstring.split(",")){	
-        curobject={}	
-        coords=coordset.trim().split(" ")	
-        console.log(coordset)	
-        console.log(coords)	
-        if(coords.length==3){	
-            resjson.push({"x":parseFloat(coords[0]),"y":parseFloat(coords[1]),"z":parseFloat(coords[2])})	
-        }else{	
-            resjson.push({"x":parseFloat(coords[0]),"y":parseFloat(coords[1])})	
-        }	
-    }	
-    console.log(resjson)	
-    return resjson	
-}	
-
-function exportCSV(){	
-    rescsv=""	
-    if(typeof(feature)!=="undefined"){	
-        if("features" in feature){	
-           for(feat of feature["features"]){	
-                rescsv+="\\""+feat["geometry"]["type"].toUpperCase()+"("	
-                feat["geometry"].coordinates.forEach(function(p,i){	
-                //	console.log(p)	
-                    if(i<feat["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';	
-                    else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';	
-                })	
-                rescsv+=")\\","	
-                if("properties" in feat){	
-                    if(gottitle==false){	
-                       rescsvtitle="\\"the_geom\\","	
-                       for(prop in feat["properties"]){	
-                          rescsvtitle+="\\""+prop+"\\","	
-                       }	
-                       rescsvtitle+="\\n"	
-                       rescsv=rescsvtitle+rescsv	
-                       gottitle=true	
-                    }	
-                    for(prop in feat["properties"]){	
-                        rescsv+="\\""+feat["properties"][prop]+"\\","	
-                    }	
-                }	
-                rescsv+="\\n"	
-           }	
-        }else{	
-            gottitle=false	
-            rescsv+="\\""+feature["geometry"]["type"].toUpperCase()+"("	
-            feature["geometry"].coordinates.forEach(function(p,i){	
-            //	console.log(p)	
-                if(i<feature["geometry"].coordinates.length-1)rescsv =  rescsv + p[0] + ' ' + p[1] + ', ';	
-                else rescsv =  rescsv + p[0] + ' ' + p[1] + ')';	
-            })	
-            rescsv+=")\\","	
-            if("properties" in feature){	
-                if(gottitle==false){	
-                   rescsvtitle=""	
-                   for(prop in feature["properties"]){	
-                      rescsvtitle+="\\""+prop+"\\","	
-                   }	
-                   rescsvtitle+="\\n"	
-                   rescsv=rescsvtitle+rescsv	
-                   gottitle=true	
-                }	
-                for(prop in feature["properties"]){	
-                    rescsv+="\\""+feature["properties"][prop]+"\\","	
-                }	
-            }	
-        }	
-        saveTextAsFile(rescsv,".csv")	
-    }else if(typeof(nongeofeature)!=="undefined"){	
-        if("features" in nongeofeature){	
-           for(feat of nongeofeature["features"]){	
-                if("properties" in feat){	
-                    if(gottitle==false){	
-                       rescsvtitle="\\"the_geom\\","	
-                       for(prop in feat["properties"]){	
-                          rescsvtitle+="\\""+prop+"\\","	
-                       }	
-                       rescsvtitle+="\\n"	
-                       rescsv=rescsvtitle+rescsv	
-                       gottitle=true	
-                    }	
-                    for(prop in feat["properties"]){	
-                        rescsv+="\\""+feat["properties"][prop]+"\\","	
-                    }	
-                }	
-                rescsv+="\\n"	
-           }	
-        }else{	
-            gottitle=false	
-            if("properties" in nongeofeature){	
-                if(gottitle==false){	
-                   rescsvtitle=""	
-                   for(prop in nongeofeature["properties"]){	
-                      rescsvtitle+="\\""+prop+"\\","	
-                   }	
-                   rescsvtitle+="\\n"	
-                   rescsv=rescsvtitle+rescsv	
-                   gottitle=true	
-                }	
-                for(prop in nongeofeature["properties"]){	
-                    rescsv+="\\""+nongeofeature["properties"][prop]+"\\","	
-                }	
-            }	
-        }	
-        saveTextAsFile(rescsv,".csv")	
-    }	
-}
-
-function setSVGDimensions(){ 	
-    $('svg').each(function(i, obj) {	
-        console.log(obj)	
-        console.log($(obj).children().first()[0])	
-        if($(obj).attr("viewBox") || $(obj).attr("width") || $(obj).attr("height")){	
-            return	
-        }	
-        maxx=Number.MIN_VALUE	
-        maxy=Number.MIN_VALUE	
-        minx=Number.MAX_VALUE	
-        miny=Number.MAX_VALUE	
-        $(obj).children().each(function(i){	
-            svgbbox=$(this)[0].getBBox()	
-            console.log(svgbbox)	
-            if(svgbbox.x+svgbbox.width>maxx){	
-                maxx=svgbbox.x+svgbbox.width	
-            }	
-            if(svgbbox.y+svgbbox.height>maxy){	
-                maxy=svgbbox.y+svgbbox.height	
-            }	
-            if(svgbbox.y<miny){	
-                miny=svgbbox.y	
-            }	
-            if(svgbbox.x<minx){	
-                minx=svgbbox.x	
-            }	
-        });	
-        console.log(""+(minx)+" "+(miny-(maxy-miny))+" "+((maxx-minx)+25)+" "+((maxy-miny)+25))	
-        newviewport=""+((minx))+" "+(miny)+" "+((maxx-minx)+25)+" "+((maxy-miny)+25)	
-        $(obj).attr("viewBox",newviewport)	
-        $(obj).attr("width",((maxx-minx))+10)	
-        $(obj).attr("height",((maxy-miny)+10))	
-        console.log($(obj).hasClass("svgoverlay"))	
-        if($(obj).hasClass("svgoverlay")){	
-            naturalWidth=$(obj).prev().children('img')[0].naturalWidth	
-            naturalHeight=$(obj).prev().children('img')[0].naturalHeight	
-            currentWidth=$(obj).prev().children('img')[0].width	
-            currentHeight=$(obj).prev().children('img')[0].height	
-            console.log(naturalWidth+" - "+naturalHeight+" - "+currentWidth+" - "+currentHeight)	
-            overlayposX = (currentWidth/naturalWidth) * minx;	
-            overlayposY = (currentHeight/naturalHeight) * miny;	
-            overlayposWidth = ((currentWidth/naturalWidth) * maxx)-overlayposX;	
-            overlayposHeight = ((currentHeight/naturalHeight) * maxy)-overlayposY;	
-            console.log(overlayposX+" - "+overlayposY+" - "+overlayposHeight+" - "+overlayposWidth)	
-            $(obj).css({top: overlayposY+"px", left:overlayposX+"px", position:"absolute"})	
-            $(obj).attr("height",overlayposHeight)	
-            $(obj).attr("width",overlayposWidth)	
-        }	
-    });	
-}
-
-
-
-function exportWKT(){	
-    if(typeof(feature)!=="undefined"){	
-        reswkt=""	
-        if("features" in feature){	
-            for(feat of feature["features"]){	
-                reswkt+=feat["geometry"]["type"].toUpperCase()+"("	
-                feat["geometry"].coordinates.forEach(function(p,i){	
-                //	console.log(p)	
-                    if(i<feat["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';	
-                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';	
-                })	
-                reswkt+=")\\n"	
-            }	
-        }else{	
-                reswkt+=feature["geometry"]["type"].toUpperCase()+"("	
-                feature["geometry"].coordinates.forEach(function(p,i){	
-                    if(i<feature["geometry"].coordinates.length-1)reswkt =  reswkt + p[0] + ' ' + p[1] + ', ';	
-                    else reswkt =  reswkt + p[0] + ' ' + p[1] + ')';	
-                })	
-                reswkt+=")\\n"	
-        }	
-        saveTextAsFile(reswkt,".wkt")	
-    }	
-}
-
-function downloadFile(filePath){
-    var link=document.createElement('a');
-    link.href = filePath;
-    link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
-    link.click();
-}
-
-function saveTextAsFile(tosave,fileext){
-    var a = document.createElement('a');
-    a.style = "display: none";  
-    var blob= new Blob([tosave], {type:'text/plain'});
-    var url = window.URL.createObjectURL(blob);
-    var filename = "res."+fileext;
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function(){
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);  
-    }, 1000);
-}
-
-function download(){
-    format=$('#format').val()
-    if(format=="geojson"){
-        exportGeoJSON()
-    }else if(format=="ttl"){
-        downloadFile("index.ttl")
-    }else if(format=="json"){
-        downloadFile("index.json")
-    }else if(format=="wkt"){	
-        exportWKT()	
-    }else if(format=="csv"){
-        exportCSV()
-    }
-}
-
-function rewriteLink(thelink){
-    if(thelink==null){
-        rest=search[document.getElementById('search').value].replace(baseurl,"")
-    }else{
-        curlocpath=window.location.href.replace(baseurl,"")
-        rest=thelink.replace(baseurl,"")
-    }
-    if(!(rest.endsWith("/"))){
-        rest+="/"
-    }
-    count=0
-    if(!indexpage){
-        count=rest.split("/").length-1
-    }
-    console.log(count)
-    counter=0
-    if (typeof relativedepth !== 'undefined'){
-        while(counter<relativedepth){
-            rest="../"+rest
-            counter+=1
-        }
-    }else{
-        while(counter<count){
-            rest="../"+rest
-            counter+=1
-        }   
-    }
-    rest+="index.html"
-    console.log(rest)
-    return rest
-}
-
-function followLink(thelink=null){
-    rest=rewriteLink(thelink)
-    location.href=rest
-}
-
-function changeDefLink(){
-	$('#formatlink').attr('href',definitionlinks[$('#format').val()]);
-}
-
-function changeDefLink2(){
-	$('#formatlink2').attr('href',definitionlinks[$('#format2').val()]);
-}
-
-var definitionlinks={
-"covjson":"https://covjson.org",
-"csv":"https://tools.ietf.org/html/rfc4180",
-"cipher":"https://neo4j.com/docs/cypher-manual/current/",
-"esrijson":"https://doc.arcgis.com/de/iot/ingest/esrijson.htm",
-"geohash":"http://geohash.org",
-"json":"https://geojson.org",
-"gdf":"https://www.cs.nmsu.edu/~joemsong/software/ChiNet/GDF.pdf",
-"geojsonld":"http://geojson.org/geojson-ld/",
-"geojsonseq":"https://tools.ietf.org/html/rfc8142",
-"geouri":"https://tools.ietf.org/html/rfc5870",
-"gexf":"https://gephi.org/gexf/format/",
-"gml":"https://www.ogc.org/standards/gml",
-"gml2":"https://gephi.org/users/supported-graph-formats/gml-format/",
-"gpx":"https://www.topografix.com/gpx.asp",
-"graphml":"http://graphml.graphdrawing.org",
-"gxl":"http://www.gupro.de/GXL/Introduction/intro.html",
-"hdt":"https://www.w3.org/Submission/2011/03/",
-"hextuples":"https://github.com/ontola/hextuples",
-"html":"https://html.spec.whatwg.org",
-"jsonld":"https://json-ld.org",
-"jsonn":"",
-"jsonp":"http://jsonp.eu",
-"jsonseq":"https://tools.ietf.org/html/rfc7464",
-"kml":"https://www.ogc.org/standards/kml",
-"latlon":"",
-"mapml":"https://maps4html.org/MapML/spec/",
-"mvt":"https://docs.mapbox.com/vector-tiles/reference/",
-"n3":"https://www.w3.org/TeamSubmission/n3/",
-"nq":"https://www.w3.org/TR/n-quads/",
-"nt":"https://www.w3.org/TR/n-triples/",
-"olc":"https://github.com/google/open-location-code/blob/master/docs/specification.md",
-"osm":"https://wiki.openstreetmap.org/wiki/OSM_XML",
-"osmlink":"",
-"rdfxml":"https://www.w3.org/TR/rdf-syntax-grammar/",
-"rdfjson":"https://www.w3.org/TR/rdf-json/",
-"rt":"https://afs.github.io/rdf-thrift/rdf-binary-thrift.html",
-"svg":"https://www.w3.org/TR/SVG11/",
-"tgf":"https://docs.yworks.com/yfiles/doc/developers-guide/tgf.html",
-"tlp":"https://tulip.labri.fr/TulipDrupal/?q=tlp-file-format",
-"trig":"https://www.w3.org/TR/trig/",
-"trix":"https://www.hpl.hp.com/techreports/2004/HPL-2004-56.html",
-"ttl":"https://www.w3.org/TR/turtle/",
-"wkb":"https://www.iso.org/standard/40114.html",
-"wkt":"https://www.iso.org/standard/40114.html",
-"xls":"http://www.openoffice.org/sc/excelfileformat.pdf",
-"xlsx":"http://www.openoffice.org/sc/excelfileformat.pdf",
-"xyz":"https://gdal.org/drivers/raster/xyz.html",
-"yaml":"https://yaml.org"
-}
-
-function shortenURI(uri){
-	prefix=""
-	if(typeof(uri)!="undefined"){
-		for(namespace in namespaces){
-			if(uri.includes(namespaces[namespace])){
-				prefix=namespace+":"
-				break
-			}
-		}
-	}
-	if(typeof(uri)!= "undefined" && uri.includes("#")){
-		return prefix+uri.substring(uri.lastIndexOf('#')+1)
-	}
-	if(typeof(uri)!= "undefined" && uri.includes("/")){
-		return prefix+uri.substring(uri.lastIndexOf("/")+1)
-	}
-	return uri
-}
-
-var presenter = null;
-function setup3dhop(meshurl,meshformat) { 
-  presenter = new Presenter("draw-canvas");  
-  presenter.setScene({
-    meshes: {
-			"mesh_1" : { url: meshurl}
-		},
-		modelInstances : {
-			"model_1" : { 
-				mesh  : "mesh_1",
-				color : [0.8, 0.7, 0.75]
-			}
-		}
-  });
-}
-
-function start3dhop(meshurl,meshformat){
-    init3dhop();
-	setup3dhop(meshurl,meshformat);
-	resizeCanvas(640,480);
-  	moveToolbar(20,20);  
-}
-
-
-let camera, scene, renderer,controls;
-
-function viewGeometry(geometry) {
-  const material = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    flatShading: true,
-    vertexColors: THREE.VertexColors,
-    wireframe: false
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-}
-
-function initThreeJS(domelement,verts,meshurls) {
-    scene = new THREE.Scene();
-    minz=Number.MAX_VALUE
-    maxz=Number.MIN_VALUE
-    miny=Number.MAX_VALUE
-    maxy=Number.MIN_VALUE
-    minx=Number.MAX_VALUE
-    maxx=Number.MIN_VALUE
-	vertarray=[]
-    console.log(verts)
-    var svgShape = new THREE.Shape();
-    first=true
-    for(vert of verts){
-        if(first){
-            svgShape.moveTo(vert["x"], vert["y"]);
-           first=false
-        }else{
-            svgShape.lineTo(vert["x"], vert["y"]);
-        }
-        vertarray.push(vert["x"])
-        vertarray.push(vert["y"])
-        vertarray.push(vert["z"])
-        if(vert["z"]>maxz){
-            maxz=vert["z"]
-        }
-        if(vert["z"]<minz){
-            minz=vert["z"]
-        }
-        if(vert["y"]>maxy){
-            maxy=vert["y"]
-        }
-        if(vert["y"]<miny){
-            miny=vert["y"]
-        }
-        if(vert["x"]>maxx){
-            maxy=vert["x"]
-        }
-        if(vert["x"]<minx){
-            miny=vert["x"]
-        }
-    }
-    if(meshurls.length>0){
-        var loader = new THREE.PLYLoader();
-        loader.load(meshurls[0], viewGeometry);
-    }
-    camera = new THREE.PerspectiveCamera(90,window.innerWidth / window.innerHeight, 0.1, 150 );
-    scene.add(new THREE.AmbientLight(0x222222));
-    var light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(20, 20, 0);
-    scene.add(light);
-    var axesHelper = new THREE.AxesHelper( Math.max(maxx, maxy, maxz)*4 );
-    scene.add( axesHelper );
-    console.log("Depth: "+(maxz-minz))
-    var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: maxz-minz, bevelEnabled: false});
-    extrudedGeometry.computeBoundingBox()
-    centervec=new THREE.Vector3()
-    extrudedGeometry.boundingBox.getCenter(centervec)
-    console.log(centervec)
-    const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
-    const mesh = new THREE.Mesh( extrudedGeometry, material );
-    scene.add( mesh );
-    renderer = new THREE.WebGLRenderer( { antialias: false } );
-	renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( 480, 500 );
-    document.getElementById(domelement).appendChild( renderer.domElement );
-	controls = new THREE.OrbitControls( camera, renderer.domElement );
-    controls.target.set( centervec.x,centervec.y,centervec.z );
-    camera.position.x= centervec.x
-    camera.position.y= centervec.y
-    camera.position.z = centervec.z+10;
-    controls.maxDistance= Math.max(maxx, maxy, maxz)*5
-    controls.update();
-    animate()
-}
-
-function animate() {
-    requestAnimationFrame( animate );
-    controls.update();
-    renderer.render( scene, camera );
-}
-
-function getTextAnnoContext(){	
-$('span.textanno').each(function(i, obj) {	
-    startindex=$(obj).attr("start").val()	
-    endindex=$(obj).attr("end").val()	
-    exact=$(obj).attr("exact").val()	
-    if($(obj).attr("src")){	
-        source=$(obj).attr("src").val()	
-        $.get( source, function( data ) {	
-            markarea=data.substring(start,end)	
-            counter=0	
-            startindex=0	
-            endindex=data.indexOf("\\n",end)	
-            for(line in data.split("\\n")){	
-                counter+=line.length	
-                if(counter>start){	
-                    startindex=counter-line.length	
-                    break	
-                }	
-            }	
-            $(obj).html(data.substring(startindex,endindex)+"</span>".replace(markarea,"<mark>"+markarea+"</mark>"))    	
-        });	
-    }	
-  });	
-}
-
-function labelFromURI(uri,label){
-        if(uri.includes("#")){
-        	prefix=uri.substring(0,uri.lastIndexOf('#')-1)
-        	if(label!=null){
-        		return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
-        	
-        	}else{
-				return uri.substring(uri.lastIndexOf('#')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"        	
-        	}
-       	}
-        if(uri.includes("/")){
-            prefix=uri.substring(0,uri.lastIndexOf('/')-1)
-            if(label!=null){
-            	return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")" 
-            }else{
-        		return uri.substring(uri.lastIndexOf('/')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
-            }
-       	}
-        return uri
-}
-
-function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
-    dialogcontent=""
-    if(nodelabel.includes("[")){
-        nodelabel=nodelabel.substring(0,nodelabel.lastIndexOf("[")-1)
-    }
-    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=classrelationstable><thead><tr><th>Incoming Concept</th><th>Incoming Relation</th><th>Concept</th><th>Outgoing Relation</th><th>Outgoing Concept</th></tr></thead><tbody>"
-    for(res in result["from"]){
-        for(instance in result["from"][res]){
-            if(instance=="instancecount"){
-                continue;
-            }
-            dialogcontent+="<tr><td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\" target=\\"_blank\\">"+shortenURI(instance)+"</a></td>"
-            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"
-            finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
-            }else if(!finished){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
-            }
-            dialogcontent+=shortenURI(res)+"</a></td>"
-            dialogcontent+="<td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\" target=\\"_blank\\">"+nodelabel+"</a></td><td></td><td></td></tr>"
-        }
-    }
-    for(res in result["to"]){
-        for(instance in result["to"][res]){
-            if(instance=="instancecount"){
-                continue;
-            }
-            dialogcontent+="<tr><td></td><td></td><td><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid+"\\" target=\\"_blank\\">"+nodelabel+"</a></td>"
-            dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"
-            finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="ObjectProperty"){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
-            }else if(!finished){
-                dialogcontent+="<img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>"
-            }
-            dialogcontent+=shortenURI(res)+"</a></td>"
-            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Class\\"/><a href=\\""+instance+"\\" target=\\"_blank\\">"+shortenURI(instance)+"</a></td></tr>"
-        }
-    }
-    dialogcontent+="</tbody></table>"
-    dialogcontent+="<button style=\\"float:right\\" id=\\"closebutton\\" onclick='document.getElementById(\\"classrelationdialog\\").close()'>Close</button>"
-    return dialogcontent
-}
-
-function formatHTMLTableForResult(result,nodeicon){
-    dialogcontent=""
-    dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=dataschematable><thead><tr><th>Type</th><th>Relation</th><th>Value</th></tr></thead><tbody>"
-    for(res in result){
-        dialogcontent+="<tr>"
-        if(res in geoproperties && geoproperties[res]=="ObjectProperty"){
-            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoobjectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Geo Object Property\\"/>Geo Object Property</td>"
-        }else if((result[res][0]+"").startsWith("http")){
-            dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/objectproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Object Property\\"/>Object Property</td>"
-        }else{
-            finished=false
-            for(ns in annotationnamespaces){
-                if(res.includes(annotationnamespaces[ns])){
-                    dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/annotationproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Annotation Property\\"/>Annotation Property</td>"
-                    finished=true
-                }
-            }
-            if(!finished && res in geoproperties && geoproperties[res]=="DatatypeProperty"){
-                dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geodatatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Geo Datatype Property</td>"
-            }else if(!finished){
-                dialogcontent+="<td><img src=\\"https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/datatypeproperty.png\\" height=\\"25\\" width=\\"25\\" alt=\\"Datatype Property\\"/>Datatype Property</td>"
-            }
-        }    
-        dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a></td>"
-        if(Array.isArray(result[res]) && result[res].length>1){
-            dialogcontent+="<td><ul>"
-            for(resitem of result[res]){
-                if((resitem+"").startsWith("http")){
-                    dialogcontent+="<li><a href=\\""+rewriteLink(resitem)+"\\" target=\\"_blank\\">"+shortenURI(resitem)+"</a></li>"
-                }else{
-                    dialogcontent+="<li>"+resitem+"</li>"
-                }
-            }
-            dialogcontent+="</ul></td>"
-        }else if((result[res][0]+"").startsWith("http")){
-            dialogcontent+="<td><a href=\\""+rewriteLink(result[res][0]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res][0]+"")+"</a></td>"
-        }else{
-            dialogcontent+="<td>"+result[res][0]+"</td>"
-        }
-        dialogcontent+="</tr>"
-    }
-    dialogcontent+="</tbody></table>"
-    dialogcontent+="<button style=\\"float:right\\" id=\\"closebutton\\" onclick='document.getElementById(\\"dataschemadialog\\").close()'>Close</button>"
-    return dialogcontent
-}
-
-function getClassRelationDialog(node){
-     nodeid=rewriteLink(node.id).replace(".html",".json")
-     nodelabel=node.text
-     nodetype=node.type
-     nodeicon=node.icon
-     props={}
-     if("data" in node){
-        props=node.data
-     }
-     console.log(nodetype)
-     if(nodetype=="class" || nodetype=="geoclass" || node.type=="collectionclass"){
-        console.log(props)
-        dialogcontent=formatHTMLTableForClassRelations(props,nodeicon,nodelabel,nodeid)
-        document.getElementById("classrelationdialog").innerHTML=dialogcontent
-        $('#classrelationstable').DataTable();
-        document.getElementById("classrelationdialog").showModal();
-     }
-}
-
-function getDataSchemaDialog(node){
-     nodeid=rewriteLink(node.id).replace(".html",".json")
-     nodelabel=node.text
-     nodetype=node.type
-     nodeicon=node.icon
-     props={}
-     if("data" in node){
-        props=node.data
-     }
-     console.log(nodetype)
-     if(nodetype=="class" || nodetype=="geoclass" || node.type=="collectionclass"){
-        console.log(props)
-        dialogcontent=formatHTMLTableForResult(props["to"],nodeicon)
-        document.getElementById("dataschemadialog").innerHTML=dialogcontent
-        $('#dataschematable').DataTable();
-        document.getElementById("dataschemadialog").showModal();
-     }else{
-         $.getJSON(nodeid, function(result){
-            dialogcontent=formatHTMLTableForResult(result,nodeicon)
-            document.getElementById("dataschemadialog").innerHTML=dialogcontent
-            $('#dataschematable').DataTable();
-            document.getElementById("dataschemadialog").showModal();
-          });
-    }
-}
-
-function setupJSTree(){
-    console.log("setupJSTree")
-    tree["contextmenu"]={}
-    tree["core"]["check_callback"]=true
-    tree["sort"]=function(a, b) {
-        a1 = this.get_node(a);
-        b1 = this.get_node(b);
-        if (a1.icon == b1.icon){
-            return (a1.text > b1.text) ? 1 : -1;
-        } else {
-            return (a1.icon > b1.icon) ? 1 : -1;
-        }
-    }
-    tree["contextmenu"]["items"]=function (node) {
-        nodetype=node.type
-        thelinkpart="class"
-        if(nodetype=="instance" || nodetype=="geoinstance"){
-            thelinkpart="instance"
-        }    
-        contextmenu={
-            "lookupdefinition": {
-                "separator_before": false,
-                "separator_after": false,
-                "label": "Lookup definition",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/searchclass.png",
-                "action": function (obj) {
-                    newlink=rewriteLink(node.id)
-                    var win = window.open(newlink, '_blank');
-                    win.focus();
-                }
-            },
-            "copyuriclipboard":{
-                "separator_before": false,
-                "separator_after": false,
-                "label": "Copy URI to clipboard",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/"+thelinkpart+"link.png",
-                "action":function(obj){
-                    copyText=node.id
-                    navigator.clipboard.writeText(copyText);
-                }    
-            },
-            "discoverrelations":{
-                "separator_before": false,
-                "separator_after": false,
-                "label": "Discover "+node.type+" relations",
-                "icon": "https://github.com/i3mainz/geopubby/raw/master/public/icons/"+thelinkpart+"link.png",
-                "action":function(obj){
-                    console.log("class relations")
-                    if(node.type=="class" || node.type=="geoclass" || node.type=="collectionclass"){
-                        getClassRelationDialog(node)
-                    }
-                }    
-            },
-            "loaddataschema": {
-                "separator_before": false,
-                "separator_after": false,
-                "icon":"https://github.com/i3mainz/geopubby/raw/master/public/icons/"+node.type+"schema.png",
-                "label": "Load dataschema for "+node.type,
-                "action": function (obj) {
-                    console.log(node)
-                    console.log(node.id)
-                    console.log(baseurl)
-                    if(node.id.includes(baseurl)){
-                        getDataSchemaDialog(node) 
-                    }else if(node.type=="class" || node.type=="geoclass" || node.type=="collectionclass"){
-                        getDataSchemaDialog(node) 
-                    }                                         
-                }
-            }                
-        }
-        return contextmenu
-    }
-    $('#jstree').jstree(tree);
-    $('#jstree').bind("dblclick.jstree", function (event) {
-        var node = $(event.target).closest("li");
-        var data = node[0].id
-        if(data.includes(baseurl)){
-            followLink(data)
-        }else{
-            window.open(data, '_blank');
-        }
-    });
-    var to = false;
-	$('#classsearch').keyup(function () {
-        if(to) { clearTimeout(to); }
-        to = setTimeout(function () {
-            var v = $('#classsearch').val();
-            $('#jstree').jstree(true).search(v,false,true);
-        });
-    });
-}
-"""
-
-stylesheet = """
-html { margin: 0; padding: 0; }
-body { font-family: sans-serif; font-size: 80%; margin: 0; padding: 1.2em 2em; }
-#rdficon { float: right; position: relative; top: -28px; }
-#header { border-bottom: 2px solid #696; margin: 0 0 1.2em; padding: 0 0 0.3em; }
-#footer { border-top: 2px solid #696; margin: 1.2em 0 0; padding: 0.3em 0 0; }
-.carousel-center {margin:auto;}
-#homelink { display: inline; }
-#homelink, #homelink a { color: #666; }
-#homelink a { font-weight: bold; text-decoration: none; }
-#homelink a:hover { color: red; text-decoration: underline; }
-h1 { display: inline; font-weight: normal; font-size: 200%; margin: 0; text-align: left; }
-h2 { font-weight: normal; font-size: 124%; margin: 1.2em 0 0.2em; }
-.page-resource-uri { font-size: 116%; margin: 0.2em 0; }
-.page-resource-uri a { color: #666; text-decoration: none; }
-.page-resource-uri a:hover { color: red; text-decoration: underline; }
-img { border: none; }
-table.description { border-collapse: collapse; clear: left; font-size: 100%; margin: 0 0 1em; width: 100%; }
-table.description th { background: white; text-align: left; }
-table.description td, table.description th { line-height: 1.2em; padding: 0.3em 0.5em; vertical-align: top; }
-table.description ul { margin: 0; padding-left: 1.4em; }
-table.description li { list-style-position: outside; list-style-type: square; margin-left: 0; padding-left: 0; }
-table.description .property-column { width: 13em; }
-.ui-autocomplete {
-    max-height: 100px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-  }
-.uri { white-space: nowrap; }
-.uri a, a.uri { text-decoration: none; }
-.unbound { color: #888; }
-table.description a small, .metadata-table a small  { font-size: 100%; color: #55a; }
-table.description small, .metadata-table a small  { font-size: 100%; color: #666; }
-table.description .property { white-space: nowrap; padding-right: 1.5em; }
-h1, h2 { color: #810; }
-body { background: #cec; }
-table.description .container > td { background: #c0e2c0; padding: 0.2em 0.8em; }
-table.description .even td { background: #d4f6d4; }
-table.description .odd td { background: #f0fcf0; }
-.image { background: white; float: left; margin: 0 1.5em 1.5em 0; padding: 2px; }
-a.expander { text-decoration: none; }
-
-.metadata-label {
-	font-size: 100%;
-	background: #f0fcf0;
-	padding: 3px;
-}
-
-.metadata-table {
-	font-size: 100%;
-	border-left: 3px solid #f0fcf0;
-	border-bottom: 3px solid #f0fcf0;
-	border-right: 3px solid #f0fcf0;
-	background: #d4f6d4;
-	border-top: 0px solid none;
-	margin: 0px;
-}
-
-.metadata-table td {
-	padding: 3px;
-}
-body {
-  font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  background-color: #FFF;
-  overflow-x: hidden;
-  transition: 0.5s;
-}
-
-.sidenav a {
-  text-decoration: none;
-  font-size: 12px;
-  color: #818181;
-  transition: 0.3s;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-#jstree {
-	font-size: 12px;
-	background-color:white;
-	z-index: 2;
-}
-
-.jstree-contextmenu {
-z-index: 10;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}"""
-
-htmltemplate = """<html about=\"{{subject}}\"><head><title>{{toptitle}}</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.1.1/themes/default/style.min.css" />
-<link rel="stylesheet" type="text/css" href="{{stylepath}}"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three/build/three.min.js"></script>	
-<script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/TrackballControls.js"></script>	
-<script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/OrbitControls.js"></script>	
-<script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/PLYLoader.js"></script>
-<script src="{{scriptfolderpath}}"></script><script src="{{classtreefolderpath}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.19/dist/rdflib.min.js"></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<script src="{{startscriptpath}}"></script></head>
-<div id="mySidenav" class="sidenav" style="overflow:auto;">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  GeoClasses: <input type="checkbox" id="geoclasses"/><br/>
-  Search:<input type="text" id="classsearch"><br/><div id="jstree"></div>
-</div><script>var indexpage={{indexpage}}
-var relativedepth={{relativedepth}}</script>
-<body><div id="header"><h1 id="title">{{title}}</h1></div><div class="page-resource-uri"><a href="{{baseurl}}">{{baseurl}}</a> <b>powered by Static GeoPubby</b> generated using the <a style="color:blue;font-weight:bold" target="_blank" href="https://github.com/sparqlunicorn/sparqlunicornGoesGIS">SPARQLing Unicorn QGIS Plugin</a></div>
-</div><div id="rdficon"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div> <div class="search"><div class="ui-widget">Search: <input id="search" size="50"><button id="gotosearch" onclick="followLink()">Go</button><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
-{{exports}}
-</select><a id="formatlink" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button><br/></div></div><dialog id="classrelationdialog" width="500" height="500" modal="true"></dialog><dialog id="dataschemadialog" width="500" height="500" modal="true"></dialog>
-<div class="container-fluid"><div class="row-fluid" id="main-wrapper">
-"""
+global htmltemplate
+htmltemplate = ""
 
 imagecarouselheader="""<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner" style="text-align:center">"""
 
@@ -966,35 +34,21 @@ imagecarouselfooter="""</div> <a class="carousel-control-prev" href="#imagecarou
 
 imagestemplate="""<div class="{{carousel}}">
 <a href="{{image}}" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
-</div>
-"""
+</div>"""
 
 imageswithannotemplate="""<div class="{{carousel}}">
 <a href=\"{{image}}\" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
 {{svganno}}
-</div>
-"""
+</div>"""
 
 textwithannotemplate="""<div class="textanno">	
 </div>"""
 
-videotemplate="""
-<div class="video">
-<video width="320" height="240" controls>
-  <source src="{{video}}">
-Your browser does not support the video tag.
-</video>
-</div>
-"""
+global videotemplate
+videotemplate=""
 
-audiotemplate="""
-<div class="audio">
-<audio controls>
-  <source src="{{audio}}">
-Your browser does not support the audio element.
-</audio>
-</div>
-"""
+global audiotemplate
+audiotemplate=""
 
 imagestemplatesvg="""<div class="{{carousel}}" style="max-width:485px;max-height:500px">
 {{image}}
@@ -1007,28 +61,8 @@ threejstemplate="""
 <script>$(document).ready(function(){initThreeJS('threejs',parseWKTStringToJSON("{{wktstring}}"),{{meshurls}})})</script>	
 """
 
-image3dtemplate="""<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/stylesheet/3dhop.css"/>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/spidergl.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/corto.em.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/corto.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/presenter.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/nexus.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/ply.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_sphere.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_turntable.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_turntable_pan.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/trackball_pantilt.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/js/init.js"></script>
-<div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()"><div id="tdhlg"></div>
-<div id="toolbar"><img id="home"     title="Home"                  src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/home.png"            /><br/>
-<img id="zoomin"   title="Zoom In"               src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/zoomin.png"          /><br/>
-<img id="zoomout"  title="Zoom Out"              src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/zoomout.png"         /><br/>
-<img id="light_on" title="Disable Light Control" src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/lightcontrol_on.png" style="position:absolute; visibility:hidden;"/>
-<img id="light"    title="Enable Light Control"  src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/lightcontrol.png"    /><br/>
-<img id="full_on"  title="Exit Full Screen"      src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full_on.png"         style="position:absolute; visibility:hidden;"/>
-<img id="full"     title="Full Screen"           src="https://cdn.jsdelivr.net/gh/cnr-isti-vclab/3DHOP@4.3/minimal/skins/dark/full.png"            />
-</div><canvas id="draw-canvas" style="background-color:white"></canvas></div><script>$(document).ready(function(){	
-start3dhop("{{meshurl}}","{{meshformat}}")});</script>"""
+global image3dtemplate
+image3dtemplate=""
 
 nongeoexports="""
 <option value="csv">Comma Separated Values (CSV)</option>
@@ -1051,86 +85,8 @@ geoexports="""
 <option value="wkt">Well-Known-Text (WKT)</option>
 """
 
-maptemplate="""<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
-<script>
-/*** Leaflet.geojsonCSS
- * @author Alexander Burtsev, http://burtsev.me, 2014
- * @license MIT*/
-!function(a){a.L&&L.GeoJSON&&(L.GeoJSON.CSS=L.GeoJSON.extend({initialize:function(a,b){var c=L.extend({},b,{onEachFeature:function(a,c){b&&b.onEachFeature&&b.onEachFeature(a,c);var d=a.style,e=a.popupTemplate;d&&(c instanceof L.Marker?d.icon&&c.setIcon(L.icon(d.icon)):c.setStyle(d)),e&&a.properties&&c.bindPopup(L.Util.template(e,a.properties))}});L.setOptions(this,c),this._layers={},a&&this.addData(a)}}),L.geoJson.css=function(a,b){return new L.GeoJSON.CSS(a,b)})}(window,document);
-</script>
-<div id="map" style="height:500px;z-index: 0;"></div>
-<script>
-var overlayMaps={}
-var map = L.map('map',{fullscreenControl: true,fullscreenControlOptions: {position: 'topleft'}}).setView([51.505, -0.09], 13);
-	var layer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	});
-	var baseMaps = {
-        "OSM": layer
-	};
-baseMaps["OSM"].addTo(map);
-	L.control.scale({
-	position: 'bottomright',
-	imperial: false
-	}).addTo(map);
-	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
-	var bounds = L.latLngBounds([]);
-	props={}
-	var feature = {{myfeature}}
-	layerr=L.geoJSON.css(feature,{
-	pointToLayer: function(feature, latlng){
-                  var greenIcon = new L.Icon({
-                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
-                return L.marker(latlng, {icon: greenIcon});
-    },onEachFeature: function (feature, layer) {
-    var popup="<b>"
-    if("label" in feature && feature.label!=""){
-        popup+="<a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.label+"</a></b><br/><ul>"
-    }else{
-        popup+="<a href=\\""+feature.id+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
-    }
-    for(prop in feature.properties){
-        popup+="<li>"
-        if(prop.startsWith("http")){
-            popup+="<a href=\\""+prop+"\\" target=\\"_blank\\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
-        }else{
-            popup+=prop
-        }
-        popup+=" : "
-        if(feature.properties[prop].length>1){
-            popup+="<ul>"
-            for(item of feature.properties[prop]){
-                popup+="<li>"
-                if((item+"").startsWith("http")){
-                    popup+="<a href=\\""+item+"\\" target=\\"_blank\\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
-                }else{
-                    popup+=item
-                }
-                popup+="</li>"           
-            }
-            popup+="</ul>"
-        }else if((feature.properties[prop][0]+"").startsWith("http")){
-            popup+="<a href=\\""+rewriteLink(feature.properties[prop][0])+"\\" target=\\"_blank\\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
-        }else{
-            popup+=feature.properties[prop]
-        }
-        popup+="</li>"
-    }
-    popup+="</ul>"
-    layer.bindPopup(popup)}})
-	layerr.addTo(map)
-    var layerBounds = layerr.getBounds();
-    bounds.extend(layerBounds);
-    map.fitBounds(bounds);
-</script>
-"""
+global maptemplate
+maptemplate=""
 
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 
@@ -1139,6 +95,7 @@ htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 htmltabletemplate="""
 <table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table>"""
 
+global htmlfooter
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
@@ -1171,14 +128,63 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                 ?subject != owl:Ontology) )\n
         }"""
 
+def resolveTemplate(templatename):
+    QgsMessageLog.logMessage("Templatename " + str(templatename), "OntdocGeneration", Qgis.Info)
+    QgsMessageLog.logMessage("Templatename " + str(templatepath+"/"+templatename)+" - "+str(os.path.exists(templatepath+"/"+templatename)), "OntdocGeneration", Qgis.Info)
+    if os.path.exists(templatepath+"\\"+templatename):
+        QgsMessageLog.logMessage("Postprocessingggg " + str("""subdir"""), "OntdocGeneration", Qgis.Info)
+        if os.path.exists(templatepath+"/"+templatename+"/css/style.css"):
+            with open(templatepath+"/"+templatename+"/css/style.css", 'r') as file:
+                global stylesheet
+                stylesheet=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/js/startscripts.js"):
+            with open(templatepath+"/"+templatename+"/js/startscripts.js", 'r') as file:
+                global startscripts
+                startscripts=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/header.html"):
+            with open(templatepath+"/"+templatename+"/templates/header.html", 'r') as file:
+                global htmltemplate
+                htmltemplate=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/footer.html"):
+            with open(templatepath+"/"+templatename+"/templates/footer.html", 'r') as file:
+                global htmlfooter
+                htmlfooter=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/3dtemplate.html"):
+            with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
+                global image3dtemplate
+                image3dtemplate=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/audiotemplate.html"):
+            with open(templatepath+"/"+templatename+"/templates/audiotemplate.html", 'r') as file:
+                global audiotemplate
+                audiotemplate=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/videotemplate.html"):
+            with open(templatepath+"/"+templatename+"/templates/videotemplate.html", 'r') as file:
+                global videotemplate
+                videotemplate=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/maptemplate.html"):
+            with open(templatepath+"/"+templatename+"/templates/maptemplate.html", 'r') as file:
+                global maptemplate
+                maptemplate=file.read()
+        return True
+    return False
+
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,progress):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.logoname=logoname
+        self.templatename=templatename
+        resolveTemplate(templatename)
+        self.maincolorcode="#c0e2c0"
+        self.tablecolorcode="#810"
+        if maincolor!=None:
+            self.maincolorcode=maincolor
+        if tablecolor!=None:
+            self.tablecolorcode=tablecolor
         self.license=license
         self.licenseuri=None
         self.labellang=labellang
@@ -1245,6 +251,12 @@ class OntDocGeneration:
         uritotreeitem={}
         curlicense=self.processLicense()
         subjectstorender = set()
+        self.getPropertyRelations(self.graph, outpath)
+        if self.logoname!=None and self.logoname!="":
+            if not os.path.isdir(outpath+"/logo/"):
+                os.mkdir(outpath+"/logo/")
+            shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
+            self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
         for sub in self.graph.subjects():
             if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
@@ -1264,6 +276,9 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
+        if os.path.exists(outpath+"icons/"):
+            shutil.rmtree(outpath+"icons/")
+        shutil.copytree(templatepath+"/"+self.templatename+"/icons/", outpath+"icons/")
         prevtree=[]
         if os.path.exists(outpath + corpusid + '_classtree.js'):
             try:
@@ -1277,7 +292,7 @@ class OntDocGeneration:
             if tr["id"] not in classidset:
                 tree["core"]["data"].append(tr)
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
-            f.write(stylesheet)
+            f.write(stylesheet.replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
             f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
@@ -1373,17 +388,32 @@ class OntDocGeneration:
                 f.close()
 
 
+    def getPropertyRelations(self,graph,outpath):
+        predicates= {}
+        for pred in graph.predicates():
+            predicates[pred]={"from":set(),"to":set()}
+            for tup in graph.subject_objects(pred):
+                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                    predicates[pred]["from"].add(item)
+                for item in graph.objects(tup[1], URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                    predicates[pred]["to"].add(item)
+            predicates[pred]["from"]=list(predicates[pred]["from"])
+            predicates[pred]["to"] = list(predicates[pred]["to"])
+        with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
+            f.write("var proprelations="+json.dumps(predicates))
+            f.close()
+
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
-            "class": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/class.png"},
-            "geoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoclass.png"},
-            "halfgeoclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/halfgeoclass.png"},
-            "collectionclass": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/collectionclass.png"},
-            "geocollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geometrycollection.png"},
-            "featurecollection": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/featurecollection.png"},
-            "instance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/instance.png"},
-            "geoinstance": {"icon": "https://raw.githubusercontent.com/i3mainz/geopubby/master/public/icons/geoinstance.png"}
+            "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
+            "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png"},
+            "halfgeoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
+            "collectionclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png"},
+            "geocollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png"},
+            "featurecollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/featurecollection.png"},
+            "instance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
+            "geoinstance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
         },
         "core": {"check_callback": True, "data": []}}
         result = []
@@ -1480,6 +510,8 @@ class OntDocGeneration:
                 return {"uri": str(self.prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
                         "ns": self.prefixes["reversed"][ns]}
         return None
+
+
 
     def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
         rellink = str(item).replace(baseurl, "")
@@ -1704,6 +736,9 @@ class OntDocGeneration:
         savepath = savepath.replace("\\", "/")
         checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
+        logo=""
+        if self.logoname!=None and self.logoname!="":
+            logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
         textannos = []
         foundvals=set()
         imageannos=set()
@@ -1751,7 +786,11 @@ class OntDocGeneration:
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
-                foundlabel = str(predobjmap[tup][0])
+                for lab in predobjmap[tup]:
+                    if lab==self.labellang:
+                        foundlabel=lab
+                if foundlabel=="":
+                    foundlabel = str(predobjmap[tup][0])
             if str(tup) in SPARQLUtils.commentproperties:
                 comment[str(tup)]=str(predobjmap[tup][0])
             if len(predobjmap[tup]) > 0:
@@ -1879,13 +918,14 @@ class OntDocGeneration:
             rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
             rellink3 =self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
             rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
+            rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
             if geojsonrep != None:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                    "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
                                                                                                     foundlabel) + "</a>").replace(
@@ -1893,8 +933,8 @@ class OntDocGeneration:
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
-                    "{{startscriptpath}}", rellink4).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                    "{{startscriptpath}}", rellink4).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}",
                                                                                                "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))

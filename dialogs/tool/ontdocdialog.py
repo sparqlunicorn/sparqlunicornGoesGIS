@@ -8,7 +8,6 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.ontdoctask import OntDocTask
 
-from rdflib import Graph
 from ...util.ui.uiutils import UIUtils
 import os.path
 
@@ -50,7 +49,10 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         progress.setWindowModality(Qt.WindowModal)
         progress.setWindowIcon(UIUtils.sparqlunicornicon)
         progress.setCancelButton(None)
+        maincolor=self.mainColorSelector.color().name()
+        titlecolor=self.titleColorSelector.color().name()
         graphname=self.inputRDFFileWidget.filePath()
+        logoname=self.logoFileWidget.filePath()
         QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
         if graphname==None or graphname=="":
                 graphname="test"
@@ -60,5 +62,5 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(), progress)
+                                        self.outFolderWidget.filePath(), maincolor ,titlecolor,progress,logoname)
         QgsApplication.taskManager().addTask(self.qtask)

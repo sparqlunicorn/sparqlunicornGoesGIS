@@ -1,6 +1,5 @@
 from collections.abc import Iterable
 
-from ....dialogs.info.errormessagebox import ErrorMessageBox
 from ....util.ui.uiutils import UIUtils
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import QgsTask
