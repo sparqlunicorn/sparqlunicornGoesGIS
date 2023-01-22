@@ -390,8 +390,11 @@ class OntDocGeneration:
 
     def getPropertyRelations(self,graph,outpath):
         predicates= {}
-        for pred in graph.predicates():
+        predicatecounter=0
+        for pred in graph.predicates(True):
             predicates[pred]={"from":set(),"to":set()}
+            QgsMessageLog.logMessage("Predicate: " + str(predicatecounter), "OntdocGeneration",
+                                     Qgis.Info)
             for tup in graph.subject_objects(pred):
                 for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
                     predicates[pred]["from"].add(item)
@@ -399,6 +402,7 @@ class OntDocGeneration:
                     predicates[pred]["to"].add(item)
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
+            predicatecounter+=1
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
