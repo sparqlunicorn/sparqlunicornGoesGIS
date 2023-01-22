@@ -26,7 +26,7 @@ class ExtractNamespaceTask(QgsTask):
         try:
             g = Graph()
             g.parse(self.graphname, format="ttl")
-            for sub in g.subjects(True):
+            for sub in g.subjects(None,None,True):
                 ns=SPARQLUtils.instanceToNS(sub)
                 if self.prefixes!=None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
                     self.recognizedns.add(ns)

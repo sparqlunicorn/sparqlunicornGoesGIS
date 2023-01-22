@@ -131,7 +131,7 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
 def resolveTemplate(templatename):
     QgsMessageLog.logMessage("Templatename " + str(templatename), "OntdocGeneration", Qgis.Info)
     QgsMessageLog.logMessage("Templatename " + str(templatepath+"/"+templatename)+" - "+str(os.path.exists(templatepath+"/"+templatename)), "OntdocGeneration", Qgis.Info)
-    if os.path.exists(templatepath+"\\"+templatename):
+    if os.path.exists(templatepath+"/"+templatename):
         QgsMessageLog.logMessage("Postprocessingggg " + str("""subdir"""), "OntdocGeneration", Qgis.Info)
         if os.path.exists(templatepath+"/"+templatename+"/css/style.css"):
             with open(templatepath+"/"+templatename+"/css/style.css", 'r') as file:
@@ -257,7 +257,7 @@ class OntDocGeneration:
                 os.mkdir(outpath+"/logo/")
             shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
             self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
-        for sub in self.graph.subjects():
+        for sub in self.graph.subjects(None,None,True):
             if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
                 for tup in self.graph.predicate_objects(sub):
@@ -313,7 +313,7 @@ class OntDocGeneration:
             postprocessing=self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
                        self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
             subtorencounter += 1
-            if subtorencounter%500==0:
+            if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
@@ -321,7 +321,7 @@ class OntDocGeneration:
             #    print(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
-        for subj in postprocessing.subjects():
+        for subj in postprocessing.subjects(None,None,True):
             path = str(subj).replace(prefixnamespace, "")
             paths=self.processSubjectPath(outpath,paths,path)
             if os.path.exists(outpath + path+"/index.ttl"):
@@ -349,7 +349,7 @@ class OntDocGeneration:
             stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
             scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
             nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
-            for sub in self.graph.subjects():
+            for sub in self.graph.subjects(None,None,True):
                 if nslink in sub:
                     for tup in self.graph.predicate_objects(sub):
                         if isinstance(tup[1],Literal):
@@ -391,10 +391,8 @@ class OntDocGeneration:
     def getPropertyRelations(self,graph,outpath):
         predicates= {}
         predicatecounter=0
-        for pred in graph.predicates(True):
+        for pred in graph.predicates(None,None,True):
             predicates[pred]={"from":set(),"to":set()}
-            QgsMessageLog.logMessage("Predicate: " + str(predicatecounter), "OntdocGeneration",
-                                     Qgis.Info)
             for tup in graph.subject_objects(pred):
                 for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
                     predicates[pred]["from"].add(item)
@@ -428,7 +426,7 @@ class OntDocGeneration:
                 ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
         print(ress)
         for cls in ress:
-            for obj in graph.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(cls)):
+            for obj in graph.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(cls),True):
                 res = self.replaceNameSpacesInLabel(str(obj))
                 if str(obj) in uritolabel:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
@@ -538,14 +536,14 @@ class OntDocGeneration:
         foundval = None
         foundunit = None
         tempvalprop = None
-        for tup in graph.predicate_objects(object):
+        for tup in graph.predicate_objects(object,True):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 label = str(tup[1])
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
                     "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and (
                     tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#WKTSelector")):
-                for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value")):
+                for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value"),True):
                     if "<svg" in str(svglit):
                         imageannos.add(str(svglit))
                     elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(
