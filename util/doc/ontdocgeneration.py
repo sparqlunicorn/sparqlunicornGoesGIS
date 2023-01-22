@@ -320,7 +320,7 @@ class OntDocGeneration:
             #except Exception as e:
             #    print(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
-        QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
         for subj in postprocessing.subjects(None,None,True):
             path = str(subj).replace(prefixnamespace, "")
             paths=self.processSubjectPath(outpath,paths,path)
@@ -349,7 +349,7 @@ class OntDocGeneration:
             stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
             scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
             nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
-            for sub in self.graph.subjects(None,None,True):
+            for sub in subjectstorender:
                 if nslink in sub:
                     for tup in self.graph.predicate_objects(sub):
                         if isinstance(tup[1],Literal):
@@ -394,9 +394,9 @@ class OntDocGeneration:
         for pred in graph.predicates(None,None,True):
             predicates[pred]={"from":set(),"to":set()}
             for tup in graph.subject_objects(pred):
-                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),True):
                     predicates[pred]["from"].add(item)
-                for item in graph.objects(tup[1], URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                for item in graph.objects(tup[1], URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),True):
                     predicates[pred]["to"].add(item)
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
@@ -536,7 +536,7 @@ class OntDocGeneration:
         foundval = None
         foundunit = None
         tempvalprop = None
-        for tup in graph.predicate_objects(object,True):
+        for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 label = str(tup[1])
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
