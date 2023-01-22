@@ -1,11 +1,8 @@
 import json
 import requests
 
-from ...dialogs.info.errormessagebox import ErrorMessageBox
-from ...util.ui.uiutils import UIUtils
-from qgis.utils import iface
+from ....dialogs.info.errormessagebox import ErrorMessageBox
 from qgis.core import Qgis,QgsTask, QgsMessageLog
-from qgis.PyQt.QtWidgets import QListWidgetItem, QMessageBox
 
 MESSAGE_CATEGORY = 'Search Class/Property Task'
 
