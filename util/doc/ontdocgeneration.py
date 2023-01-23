@@ -168,6 +168,7 @@ def resolveTemplate(templatename):
         return True
     return False
 
+
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress,logoname="",templatename="default"):

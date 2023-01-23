@@ -611,6 +611,7 @@ function formatHTMLTableForPropertyRelations(propuri,result,propicon){
 function determineTableCellLogo(uri){
     result="<td><a href=\""+uri+"\" target=\"_blank\">"
     logourl=""
+    finished=false
     if(uri in labelproperties){
         result+="<img src=\"https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/labelproperty.png\" height=\"25\" width=\"25\" alt=\"Label Property\"/>"
         logourl="https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/labelproperty.png"
