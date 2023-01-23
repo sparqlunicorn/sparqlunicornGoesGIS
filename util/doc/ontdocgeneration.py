@@ -841,7 +841,7 @@ class OntDocGeneration:
                         if ext in SPARQLUtils.fileextensionmap:
                             foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(predobjmap[tup][0]))
                     elif tup in SPARQLUtils.valueproperties:
-                        foundvals.add(str(item))
+                        foundvals.add(str(tup))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, graph,
                                               baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
                     tablecontents+=res["html"]
