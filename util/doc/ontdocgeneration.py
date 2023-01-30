@@ -21,6 +21,8 @@ stylesheet = ""
 global htmltemplate
 htmltemplate = ""
 
+jsonindent=None
+
 imagecarouselheader="""<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner" style="text-align:center">"""
 
 imagecarouselfooter="""</div> <a class="carousel-control-prev" href="#imagecarousel" role="button" data-slide="prev">
@@ -171,7 +173,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,maincolor,tablecolor,progress,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,maincolor,tablecolor,progress,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -182,6 +184,7 @@ class OntDocGeneration:
         resolveTemplate(templatename)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
+        self.createColl=createcollections
         if maincolor!=None:
             self.maincolorcode=maincolor
         if tablecolor!=None:
@@ -254,6 +257,8 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
+        if self.createColl:
+            self.createCollections(self.graph,prefixnamespace)
         if self.logoname!=None and self.logoname!="":
             if not os.path.isdir(outpath+"/logo/"):
                 os.mkdir(outpath+"/logo/")
@@ -276,7 +281,7 @@ class OntDocGeneration:
             except Exception as e:
                 QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
-            f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
+            f.write("var search=" + json.dumps(labeltouri, indent=jsonindent, sort_keys=True))
             f.close()
         if os.path.exists(outpath+"icons/"):
             shutil.rmtree(outpath+"icons/")
@@ -340,7 +345,7 @@ class OntDocGeneration:
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.assignGeoClassesToTree(tree)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            f.write("var tree=" + json.dumps(tree, indent=2))
+            f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
         for path in paths:
             ttlf = open(path + "index.ttl", "w", encoding="utf-8")
@@ -409,15 +414,18 @@ class OntDocGeneration:
 
     def createCollections(self,graph,namespace):
         classToInstances={}
-        for tup in graph.subjects_objects(URIRef(self.typeproperty), True):
-            if tup[1] not in classToInstances:
-                classToInstances[str(tup[1])]=set()
-            classToInstances[str(tup[1])].add(tup[0])
+        for tup in graph.subject_objects(URIRef(self.typeproperty)):
+            if namespace in str(tup[0]):
+                if str(tup[1]) not in classToInstances:
+                    classToInstances[str(tup[1])]=set()
+                classToInstances[str(tup[1])].add(str(tup[0]))
         for cls in classToInstances:
             colluri=namespace+self.shortenURI(cls)+"_collection"
             graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(self.shortenURI(cls))+" Instances Collection")))
             for instance in classToInstances[cls]:
-                graph.add((URIRef(instance), URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(colluri)))
+                graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(instance)))
+
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
@@ -431,7 +439,7 @@ class OntDocGeneration:
             "instance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
             "geoinstance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
         },
-        "core": {"check_callback": True, "data": []}}
+        "core": {"themes":{"responsive":True},"check_callback": True, "data": []}}
         result = []
         ress = {}
         for res in results:
