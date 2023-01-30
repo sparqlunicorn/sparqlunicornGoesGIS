@@ -189,6 +189,7 @@ class OntDocGeneration:
         self.license=license
         self.licenseuri=None
         self.labellang=labellang
+        self.typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.createIndexPages=True
         self.graph=graph
         self.preparedclassquery=prepareQuery(classtreequery)
@@ -362,7 +363,7 @@ class OntDocGeneration:
                             ttlf.write("<"+str(sub)+"> <"+str(tup[0])+"> <"+str(tup[1])+"> .\n")
             ttlf.close()
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-            indexhtml = htmltemplate.replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink)\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink)\
                 .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
             if nslink==prefixnamespace:
                 indexhtml=indexhtml.replace("{{indexpage}}","true")
@@ -395,9 +396,9 @@ class OntDocGeneration:
         for pred in graph.predicates(None,None,True):
             predicates[pred]={"from":set(),"to":set()}
             for tup in graph.subject_objects(pred):
-                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),True):
+                for item in graph.objects(tup[0],URIRef(self.typeproperty),True):
                     predicates[pred]["from"].add(item)
-                for item in graph.objects(tup[1], URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),True):
+                for item in graph.objects(tup[1], URIRef(self.typeproperty),True):
                     predicates[pred]["to"].add(item)
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
@@ -405,6 +406,18 @@ class OntDocGeneration:
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
+
+    def createCollections(self,graph,namespace):
+        classToInstances={}
+        for tup in graph.subjects_objects(URIRef(self.typeproperty), True):
+            if tup[1] not in classToInstances:
+                classToInstances[str(tup[1])]=set()
+            classToInstances[str(tup[1])].add(tup[0])
+        for cls in classToInstances:
+            colluri=namespace+self.shortenURI(cls)+"_collection"
+            graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+            for instance in classToInstances[cls]:
+                graph.add((URIRef(instance), URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(colluri)))
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
@@ -427,7 +440,7 @@ class OntDocGeneration:
                 ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
         print(ress)
         for cls in ress:
-            for obj in graph.subjects(URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(cls),True):
+            for obj in graph.subjects(URIRef(self.typeproperty), URIRef(cls),True):
                 res = self.replaceNameSpacesInLabel(str(obj))
                 if str(obj) in uritolabel:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
@@ -541,7 +554,7 @@ class OntDocGeneration:
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 label = str(tup[1])
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
-                    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and (
+                    self.typeproperty) and (
                     tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#WKTSelector")):
                 for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value"),True):
@@ -551,7 +564,7 @@ class OntDocGeneration:
                             svglit).upper()):
                         image3dannos.add(str(svglit))
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
-                    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") and tup[1] == URIRef(
+                    self.typeproperty) and tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#TextPositionSelector"):
                 curanno = {}
                 for txtlit in graph.predicate_objects(object):
@@ -771,7 +784,7 @@ class OntDocGeneration:
                 uritotreeitem[parentclass]["data"]["to"][str(tup[0])]["instancecount"]+=1
                 uritotreeitem[parentclass]["instancecount"]+=1
             if isinstance(tup[1],URIRef):
-                for item in graph.objects(tup[1],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                for item in graph.objects(tup[1],URIRef(self.typeproperty)):
                     if parentclass!=None:
                         if item not in uritotreeitem[parentclass]["data"]["to"][str(tup[0])]:
                             uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item] = 0
@@ -781,10 +794,10 @@ class OntDocGeneration:
                 tablecontents += "<tr class=\"odd\">"
             else:
                 tablecontents += "<tr class=\"even\">"
-            if str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
+            if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"]["instancecount"] += 1
-            elif str(tup)=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
+            elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
@@ -801,7 +814,7 @@ class OntDocGeneration:
                     tablecontents+="<td class=\"wrapword\"><ul>"
                     labelmap={}
                     for item in predobjmap[tup]:
-                        if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]:
+                        if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
                             image3dannos.add(str(item))
                         elif "<svg" in str(item):
                             foundmedia["image"].add(str(item))
@@ -829,7 +842,7 @@ class OntDocGeneration:
                     tablecontents+="</ul></td>"
                 else:
                     tablecontents+="<td class=\"wrapword\">"
-                    if ("POINT" in str(predobjmap[tup]).upper() or "POLYGON" in str(predobjmap[tup]).upper() or "LINESTRING" in str(predobjmap[tup]).upper()) and tup in SPARQLUtils.valueproperties and "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]:
+                    if ("POINT" in str(predobjmap[tup]).upper() or "POLYGON" in str(predobjmap[tup]).upper() or "LINESTRING" in str(predobjmap[tup]).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
                         image3dannos.add(str(predobjmap[tup][0]))
                     elif "<svg" in str(predobjmap[tup]):
                         foundmedia["image"].add(str(predobjmap[tup][0]))
@@ -864,7 +877,7 @@ class OntDocGeneration:
                 uritotreeitem[parentclass]["data"]["from"][str(tup[1])]={}
                 uritotreeitem[parentclass]["data"]["from"][str(tup[1])]["instancecount"] = 0
             if isinstance(tup[0],URIRef):
-                for item in graph.objects(tup[0],URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")):
+                for item in graph.objects(tup[0],URIRef(self.typeproperty)):
                     if parentclass!=None:
                         if item not in uritotreeitem[parentclass]["data"]["from"][str(tup[1])]:
                             uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item] = 0
