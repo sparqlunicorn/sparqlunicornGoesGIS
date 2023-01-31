@@ -18,6 +18,8 @@ startscripts = ""
 global stylesheet
 stylesheet = ""
 
+jsonindent=1
+
 global htmltemplate
 htmltemplate = ""
 
@@ -254,6 +256,7 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
+        self.graph=self.createCollections(self.graph, prefixnamespace)
         if self.logoname!=None and self.logoname!="":
             if not os.path.isdir(outpath+"/logo/"):
                 os.mkdir(outpath+"/logo/")
@@ -276,7 +279,7 @@ class OntDocGeneration:
             except Exception as e:
                 QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
-            f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
+            f.write("var search=" + json.dumps(labeltouri, indent=jsonindent, sort_keys=True))
             f.close()
         if os.path.exists(outpath+"icons/"):
             shutil.rmtree(outpath+"icons/")
@@ -340,7 +343,7 @@ class OntDocGeneration:
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.assignGeoClassesToTree(tree)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            f.write("var tree=" + json.dumps(tree, indent=2))
+            f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
         for path in paths:
             ttlf = open(path + "index.ttl", "w", encoding="utf-8")
@@ -418,6 +421,7 @@ class OntDocGeneration:
             graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
             for instance in classToInstances[cls]:
                 graph.add((URIRef(instance), URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(colluri)))
+        return graph
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
