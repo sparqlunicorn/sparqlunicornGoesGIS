@@ -25,6 +25,10 @@ baseMaps["OSM"].addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
 	var feature = {{myfeature}}
+    var epsg="{{epsg}}"
+    if(epsg!="" && epsg!="EPSG:4326" && epsg in epsgdefs){
+        feature=convertGeoJSON(feature,epsgdefs[epsg],null)
+    }
 	layerr=L.geoJSON.css(feature,{
 	pointToLayer: function(feature, latlng){
                   var greenIcon = new L.Icon({

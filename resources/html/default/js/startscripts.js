@@ -2,30 +2,30 @@ var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http:
 var annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 var indexpage=false
 var geoproperties={
-                   "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
-                   "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
-                   "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
-                   "http://www.georss.org/georss/point": "DatatypeProperty",
-                   "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
-                   "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
-                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude": "DatatypeProperty",
-                   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
-                   "http://schema.org/geo": "ObjectProperty",
-                   "http://schema.org/polygon": "DatatypeProperty",
-                   "https://schema.org/geo": "ObjectProperty",
-                   "https://schema.org/polygon": "DatatypeProperty",
-                   "http://geovocab.org/geometry#geometry": "ObjectProperty",
-                   "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
-                   "http://rdfs.co/juso/geometry": "ObjectProperty",
-                   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
-                   "https://database.factgrid.de/prop/direct/P48": "DatatypeProperty",
-                   "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
-                   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
+   "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
+   "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
+   "http://www.opengis.net/ont/geosparql#asKML": "DatatypeProperty",
+   "http://www.opengis.net/ont/geosparql#asGeoJSON": "DatatypeProperty",
+   "http://www.opengis.net/ont/geosparql#hasGeometry": "ObjectProperty",
+   "http://www.opengis.net/ont/geosparql#hasDefaultGeometry": "ObjectProperty",
+   "http://www.w3.org/2003/01/geo/wgs84_pos#geometry": "ObjectProperty",
+   "http://www.georss.org/georss/point": "DatatypeProperty",
+   "http://www.w3.org/2006/vcard/ns#hasGeo": "ObjectProperty",
+   "http://www.w3.org/2003/01/geo/wgs84_pos#lat":"DatatypeProperty",
+   "http://www.w3.org/2003/01/geo/wgs84_pos#long": "DatatypeProperty",
+   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLatitude": "DatatypeProperty",
+   "http://www.semanticweb.org/ontologies/2015/1/EPNet-ONTOP_Ontology#hasLongitude": "DatatypeProperty",
+   "http://schema.org/geo": "ObjectProperty",
+   "http://schema.org/polygon": "DatatypeProperty",
+   "https://schema.org/geo": "ObjectProperty",
+   "https://schema.org/polygon": "DatatypeProperty",
+   "http://geovocab.org/geometry#geometry": "ObjectProperty",
+   "http://www.w3.org/ns/locn#geometry": "ObjectProperty",
+   "http://rdfs.co/juso/geometry": "ObjectProperty",
+   "http://www.wikidata.org/prop/direct/P625":"DatatypeProperty",
+   "https://database.factgrid.de/prop/direct/P48": "DatatypeProperty",
+   "http://database.factgrid.de/prop/direct/P48":"DatatypeProperty",
+   "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
 }
 
 commentproperties={
@@ -349,55 +349,55 @@ function changeDefLink2(){
 }
 
 var definitionlinks={
-"covjson":"https://covjson.org",
-"csv":"https://tools.ietf.org/html/rfc4180",
-"cipher":"https://neo4j.com/docs/cypher-manual/current/",
-"esrijson":"https://doc.arcgis.com/de/iot/ingest/esrijson.htm",
-"geohash":"http://geohash.org",
-"json":"https://geojson.org",
-"gdf":"https://www.cs.nmsu.edu/~joemsong/software/ChiNet/GDF.pdf",
-"geojsonld":"http://geojson.org/geojson-ld/",
-"geojsonseq":"https://tools.ietf.org/html/rfc8142",
-"geouri":"https://tools.ietf.org/html/rfc5870",
-"gexf":"https://gephi.org/gexf/format/",
-"gml":"https://www.ogc.org/standards/gml",
-"gml2":"https://gephi.org/users/supported-graph-formats/gml-format/",
-"gpx":"https://www.topografix.com/gpx.asp",
-"graphml":"http://graphml.graphdrawing.org",
-"gxl":"http://www.gupro.de/GXL/Introduction/intro.html",
-"hdt":"https://www.w3.org/Submission/2011/03/",
-"hextuples":"https://github.com/ontola/hextuples",
-"html":"https://html.spec.whatwg.org",
-"jsonld":"https://json-ld.org",
-"jsonn":"",
-"jsonp":"http://jsonp.eu",
-"jsonseq":"https://tools.ietf.org/html/rfc7464",
-"kml":"https://www.ogc.org/standards/kml",
-"latlon":"",
-"mapml":"https://maps4html.org/MapML/spec/",
-"mvt":"https://docs.mapbox.com/vector-tiles/reference/",
-"n3":"https://www.w3.org/TeamSubmission/n3/",
-"nq":"https://www.w3.org/TR/n-quads/",
-"nt":"https://www.w3.org/TR/n-triples/",
-"olc":"https://github.com/google/open-location-code/blob/master/docs/specification.md",
-"osm":"https://wiki.openstreetmap.org/wiki/OSM_XML",
-"osmlink":"",
-"rdfxml":"https://www.w3.org/TR/rdf-syntax-grammar/",
-"rdfjson":"https://www.w3.org/TR/rdf-json/",
-"rt":"https://afs.github.io/rdf-thrift/rdf-binary-thrift.html",
-"svg":"https://www.w3.org/TR/SVG11/",
-"tgf":"https://docs.yworks.com/yfiles/doc/developers-guide/tgf.html",
-"tlp":"https://tulip.labri.fr/TulipDrupal/?q=tlp-file-format",
-"trig":"https://www.w3.org/TR/trig/",
-"trix":"https://www.hpl.hp.com/techreports/2004/HPL-2004-56.html",
-"ttl":"https://www.w3.org/TR/turtle/",
-"wkb":"https://www.iso.org/standard/40114.html",
-"wkt":"https://www.iso.org/standard/40114.html",
-"xls":"http://www.openoffice.org/sc/excelfileformat.pdf",
-"xlsx":"http://www.openoffice.org/sc/excelfileformat.pdf",
-"xyz":"https://gdal.org/drivers/raster/xyz.html",
-"yaml":"https://yaml.org"
-}
+    "covjson":"https://covjson.org",
+    "csv":"https://tools.ietf.org/html/rfc4180",
+    "cipher":"https://neo4j.com/docs/cypher-manual/current/",
+    "esrijson":"https://doc.arcgis.com/de/iot/ingest/esrijson.htm",
+    "geohash":"http://geohash.org",
+    "json":"https://geojson.org",
+    "gdf":"https://www.cs.nmsu.edu/~joemsong/software/ChiNet/GDF.pdf",
+    "geojsonld":"http://geojson.org/geojson-ld/",
+    "geojsonseq":"https://tools.ietf.org/html/rfc8142",
+    "geouri":"https://tools.ietf.org/html/rfc5870",
+    "gexf":"https://gephi.org/gexf/format/",
+    "gml":"https://www.ogc.org/standards/gml",
+    "gml2":"https://gephi.org/users/supported-graph-formats/gml-format/",
+    "gpx":"https://www.topografix.com/gpx.asp",
+    "graphml":"http://graphml.graphdrawing.org",
+    "gxl":"http://www.gupro.de/GXL/Introduction/intro.html",
+    "hdt":"https://www.w3.org/Submission/2011/03/",
+    "hextuples":"https://github.com/ontola/hextuples",
+    "html":"https://html.spec.whatwg.org",
+    "jsonld":"https://json-ld.org",
+    "jsonn":"",
+    "jsonp":"http://jsonp.eu",
+    "jsonseq":"https://tools.ietf.org/html/rfc7464",
+    "kml":"https://www.ogc.org/standards/kml",
+    "latlon":"",
+    "mapml":"https://maps4html.org/MapML/spec/",
+    "mvt":"https://docs.mapbox.com/vector-tiles/reference/",
+    "n3":"https://www.w3.org/TeamSubmission/n3/",
+    "nq":"https://www.w3.org/TR/n-quads/",
+    "nt":"https://www.w3.org/TR/n-triples/",
+    "olc":"https://github.com/google/open-location-code/blob/master/docs/specification.md",
+    "osm":"https://wiki.openstreetmap.org/wiki/OSM_XML",
+    "osmlink":"",
+    "rdfxml":"https://www.w3.org/TR/rdf-syntax-grammar/",
+    "rdfjson":"https://www.w3.org/TR/rdf-json/",
+    "rt":"https://afs.github.io/rdf-thrift/rdf-binary-thrift.html",
+    "svg":"https://www.w3.org/TR/SVG11/",
+    "tgf":"https://docs.yworks.com/yfiles/doc/developers-guide/tgf.html",
+    "tlp":"https://tulip.labri.fr/TulipDrupal/?q=tlp-file-format",
+    "trig":"https://www.w3.org/TR/trig/",
+    "trix":"https://www.hpl.hp.com/techreports/2004/HPL-2004-56.html",
+    "ttl":"https://www.w3.org/TR/turtle/",
+    "wkb":"https://www.iso.org/standard/40114.html",
+    "wkt":"https://www.iso.org/standard/40114.html",
+    "xls":"http://www.openoffice.org/sc/excelfileformat.pdf",
+    "xlsx":"http://www.openoffice.org/sc/excelfileformat.pdf",
+    "xyz":"https://gdal.org/drivers/raster/xyz.html",
+    "yaml":"https://yaml.org"
+    }
 
 function shortenURI(uri){
 	prefix=""
@@ -562,24 +562,24 @@ $('span.textanno').each(function(i, obj) {
 }
 
 function labelFromURI(uri,label){
-        if(uri.includes("#")){
-        	prefix=uri.substring(0,uri.lastIndexOf('#')-1)
-        	if(label!=null){
-        		return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
+    if(uri.includes("#")){
+        prefix=uri.substring(0,uri.lastIndexOf('#')-1)
+        if(label!=null){
+            return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
 
-        	}else{
-				return uri.substring(uri.lastIndexOf('#')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
-        	}
-       	}
-        if(uri.includes("/")){
-            prefix=uri.substring(0,uri.lastIndexOf('/')-1)
-            if(label!=null){
-            	return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
-            }else{
-        		return uri.substring(uri.lastIndexOf('/')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
-            }
-       	}
-        return uri
+        }else{
+            return uri.substring(uri.lastIndexOf('#')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('#')+1)+")"
+        }
+    }
+    if(uri.includes("/")){
+        prefix=uri.substring(0,uri.lastIndexOf('/')-1)
+        if(label!=null){
+            return label+" ("+prefix.substring(prefix.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
+        }else{
+            return uri.substring(uri.lastIndexOf('/')+1)+" ("+prefix.substring(uri.lastIndexOf("/")+1)+":"+uri.substring(uri.lastIndexOf('/')+1)+")"
+        }
+    }
+    return uri
 }
 
 function formatHTMLTableForPropertyRelations(propuri,result,propicon){
