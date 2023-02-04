@@ -394,7 +394,7 @@ class OntDocGeneration:
                     for item2 in tree["core"]["data"]:
                         if item2["parent"]==item["id"] and (item2["type"]=="instance" or item2["type"]=="geoinstance") and nslink in item2["id"]:
                             checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
-                            exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(item2["id"]),True)+"\">"+str(item2["text"])+"</a></td>"
+                            exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
                             break
                     if exitem!=None:
                         indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
@@ -539,11 +539,14 @@ class OntDocGeneration:
 
     def checkGeoInstanceAssignment(self,uritotreeitem):
         for uri in uritotreeitem:
-            if len(uritotreeitem[uri])>0:
+            if len(uritotreeitem[uri])>1:
                 thetype="instance"
+                counter=0
                 for item in uritotreeitem[uri]:
                     if item["type"]!="instance" or item["type"]!="class":
                         thetype=item["type"]
+                    item["id"]=item["id"]+"_suniv"+str(counter)+"_"
+                    counter+=1
                 if thetype!="instance" or thetype!="class":
                     for item in uritotreeitem[uri]:
                         item["type"]=thetype
