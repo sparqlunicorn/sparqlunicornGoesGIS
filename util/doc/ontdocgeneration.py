@@ -355,6 +355,7 @@ class OntDocGeneration:
                 self.updateProgressBar(subtorencounter,subtorenderlen)
             print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.assignGeoClassesToTree(tree)
+        self.checkGeoInstanceAssignment(uritotreeitem)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
@@ -443,7 +444,7 @@ class OntDocGeneration:
         tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
             "default": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
             "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
-            "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png"},
+            "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png","valid_children":["class","halfgeoclass","geoclass","geoinstance"]},
             "halfgeoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
             "collectionclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png"},
             "geocollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png"},
@@ -476,7 +477,9 @@ class OntDocGeneration:
                     result.append({"id": str(obj), "parent": cls,
                                    "type": "instance",
                                    "text": restext,"data":{}})
-                uritotreeitem[str(obj)] = result[-1]
+                if str(obj) not in uritotreeitem:
+                    uritotreeitem[str(obj)]=[]
+                uritotreeitem[str(obj)].append(result[-1])
                 classidset.add(str(obj))
             res = self.replaceNameSpacesInLabel(str(cls))
             if ress[cls]["super"] == None:
@@ -501,7 +504,9 @@ class OntDocGeneration:
                     result.append({"id": cls, "parent": ress[cls]["super"],
                                    "type": "class",
                                    "text": restext,"data":{}})
-                uritotreeitem[str(cls)] = result[-1]
+                if str(cls) not in uritotreeitem:
+                    uritotreeitem[str(cls)]=[]
+                uritotreeitem[str(cls)].append(result[-1])
             classidset.add(str(cls))
         tree["core"]["data"] = result
         return tree
@@ -531,6 +536,18 @@ class OntDocGeneration:
                 classlist[item]["item"]["type"]="halfgeoclass"
             else:
                 classlist[item]["item"]["type"] = "class"
+
+    def checkGeoInstanceAssignment(self,uritotreeitem):
+        for uri in uritotreeitem:
+            if len(uritotreeitem[uri])>0:
+                thetype="instance"
+                for item in uritotreeitem[uri]:
+                    if item["type"]!="instance" or item["type"]!="class":
+                        thetype=item["type"]
+                if thetype!="instance" or thetype!="class":
+                    for item in uritotreeitem[uri]:
+                        item["type"]=thetype
+
     def shortenURI(self,uri):
         if uri.endswith("/"):
             uri = uri[0:-1]
@@ -796,31 +813,31 @@ class OntDocGeneration:
         comment={}
         parentclass=None
         inverse=False
-        if str(subject) in uritotreeitem and uritotreeitem[str(subject)]["parent"].startswith("http"):
-            parentclass=str(uritotreeitem[str(subject)]["parent"])
+        if str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
+            parentclass=str(uritotreeitem[str(subject)][-1]["parent"])
             if parentclass not in uritotreeitem:
-                uritotreeitem[parentclass]={"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}
-            uritotreeitem[parentclass]["instancecount"]=0
+                uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}]
+            uritotreeitem[parentclass][-1]["instancecount"]=0
         ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         if parentclass!=None:
-            uritotreeitem[parentclass]["data"]["to"]={}
-            uritotreeitem[parentclass]["data"]["from"]={}
+            uritotreeitem[parentclass][-1]["data"]["to"]={}
+            uritotreeitem[parentclass][-1]["data"]["from"]={}
         for tup in sorted(predobjs,key=lambda tup: tup[0]):
             if str(tup[0]) not in predobjmap:
                 predobjmap[str(tup[0])]=[]
             predobjmap[str(tup[0])].append(tup[1])
-            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass]["data"]["to"]:
-                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]={}
-                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]["instancecount"] = 0
+            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass][-1]["data"]["to"]:
+                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]={}
+                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"] = 0
             if parentclass!=None:
-                uritotreeitem[parentclass]["data"]["to"][str(tup[0])]["instancecount"]+=1
-                uritotreeitem[parentclass]["instancecount"]+=1
+                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"]+=1
+                uritotreeitem[parentclass][-1]["instancecount"]+=1
             if isinstance(tup[1],URIRef):
                 for item in graph.objects(tup[1],URIRef(self.typeproperty)):
                     if parentclass!=None:
-                        if item not in uritotreeitem[parentclass]["data"]["to"][str(tup[0])]:
-                            uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item] = 0
-                        uritotreeitem[parentclass]["data"]["to"][str(tup[0])][item]+=1
+                        if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
+                            uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
+                        uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
         for tup in sorted(predobjmap):
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
@@ -828,10 +845,10 @@ class OntDocGeneration:
                 tablecontents += "<tr class=\"even\">"
             if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
                 isgeocollection=True
-                uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"]["instancecount"] += 1
+                uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
             elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                 isgeocollection=True
-                uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"]["instancecount"] += 1
+                uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
                 for lab in predobjmap[tup]:
@@ -905,15 +922,15 @@ class OntDocGeneration:
             if str(tup[1]) not in subpredsmap:
                 subpredsmap[str(tup[1])]=[]
             subpredsmap[str(tup[1])].append(tup[0])
-            if parentclass!=None and str(tup[1]) not in uritotreeitem[parentclass]["data"]["from"]:
-                uritotreeitem[parentclass]["data"]["from"][str(tup[1])]={}
-                uritotreeitem[parentclass]["data"]["from"][str(tup[1])]["instancecount"] = 0
+            if parentclass!=None and str(tup[1]) not in uritotreeitem[parentclass][-1]["data"]["from"]:
+                uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]={}
+                uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]["instancecount"] = 0
             if isinstance(tup[0],URIRef):
                 for item in graph.objects(tup[0],URIRef(self.typeproperty)):
                     if parentclass!=None:
-                        if item not in uritotreeitem[parentclass]["data"]["from"][str(tup[1])]:
-                            uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item] = 0
-                        uritotreeitem[parentclass]["data"]["from"][str(tup[1])][item]+=1
+                        if item not in uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]:
+                            uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item] = 0
+                        uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item]+=1
         for tup in subpredsmap:
             if isodd:
                 tablecontents += "<tr class=\"odd\">"
@@ -1052,7 +1069,7 @@ class OntDocGeneration:
                 f.write(videotemplate.replace("{{video}}",str(video)))
             if geojsonrep!=None and not isgeocollection:
                 if str(subject) in uritotreeitem:
-                    uritotreeitem[str(subject)]["type"]="geoinstance"
+                    uritotreeitem[str(subject)][-1]["type"]="geoinstance"
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
@@ -1064,9 +1081,9 @@ class OntDocGeneration:
                         geojsonrep=None
                         if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
                             geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "",None,None,True)
-                            uritotreeitem[str(subject)]["type"] = "geocollection"
+                            uritotreeitem[str(subject)][-1]["type"] = "geocollection"
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                            uritotreeitem[str(subject)]["type"] = "featurecollection"
+                            uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
                                 if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "",None,None,True)
