@@ -200,6 +200,9 @@ class OntDocGeneration:
         self.typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.createIndexPages=True
         self.graph=graph
+        for nstup in self.graph.namespaces():
+            if str(nstup[1]) not in prefixes["reversed"]:
+                prefixes["reversed"][str(nstup[1])]=str(nstup[0])
         self.preparedclassquery=prepareQuery(classtreequery)
         if prefixnamespace==None or prefixnsshort==None or prefixnamespace=="" or prefixnsshort=="":
             self.namespaceshort = "suni"
@@ -719,7 +722,7 @@ class OntDocGeneration:
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label}
 
     def detectStringLiteralContent(self,pred,object):
-        if object.startswith("http://"):
+        if object.startswith("http://") or object.startswith("https://"):
             return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"" + str(
                         object)+ "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object)+ "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
         if object.startswith("www."):
