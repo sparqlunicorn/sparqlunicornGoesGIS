@@ -3,6 +3,7 @@ from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
 import os
+import re
 import shutil
 import json
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -436,7 +437,8 @@ class OntDocGeneration:
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
-        tree = {"plugins": ["search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
+        tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
+            "default": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
             "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
             "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png"},
             "halfgeoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
@@ -552,7 +554,7 @@ class OntDocGeneration:
         return rellink
 
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
-                                                    textannos, image3dannos, label, unitlabel,epsgcode):
+                                                    textannos, image3dannos, label, unitlabel):
         geoprop = False
         annosource = None
         incollection = False
@@ -593,8 +595,6 @@ class OntDocGeneration:
             if isinstance(tup[1], Literal) and (
                     str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
                 geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
-                if geojsonrep != None and "crs" in geojsonrep:
-                    epsgcode=geojsonrep["crs"]
             if incollection and "<svg" in str(tup[1]):
                 foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
@@ -649,9 +649,9 @@ class OntDocGeneration:
             for textanno in textannos:
                 textanno["src"] = annosource
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
-                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos,"epsgcode":epsgcode}
+                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,epsgcode):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos):
         tablecontents=""
         label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
@@ -659,7 +659,7 @@ class OntDocGeneration:
                 ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
             label = str(self.shortenURI(str(object)))
             unitlabel=""
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel,epsgcode)
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel)
             label=mydata["label"]
             geojsonrep=mydata["geojsonrep"]
             foundmedia=mydata["foundmedia"]
@@ -667,7 +667,6 @@ class OntDocGeneration:
             textannos=mydata["textannos"]
             image3dannos=mydata["image3dannos"]
             unitlabel=mydata["unitlabel"]
-            epsgcode=mydata["epsgcode"]
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
                 tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
@@ -716,9 +715,22 @@ class OntDocGeneration:
                 else:
                     if ttlf!=None:
                         ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
-                    tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                        object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object).replace("<","&lt").replace(">","&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"epsgcode":epsgcode}
+                    tablecontents += self.detectStringLiteralContent(pred,object)
+        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label}
+
+    def detectStringLiteralContent(self,pred,object):
+        if object.startswith("http://"):
+            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"" + str(
+                        object)+ "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object)+ "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        if object.startswith("www."):
+            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"http://" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">http://" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        if re.search(r'[\w.]+\@[\w.]+', object):
+            return "<span><a property=\"" + str(pred) + "\" href=\"mailto:" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">mailto:" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        return "<span property=\"" + str(pred) + "\" content=\"" + str(object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object).replace("<","&lt").replace(">","&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
 
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
@@ -845,8 +857,7 @@ class OntDocGeneration:
                         elif tup in SPARQLUtils.valueproperties:
                             foundvals.add(str(item))
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,epsgcode)
-                        epsgcode=res["epsgcode"]
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
@@ -874,8 +885,7 @@ class OntDocGeneration:
                     elif tup in SPARQLUtils.valueproperties:
                         foundvals.add(str(tup))
                     res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,epsgcode)
-                    epsgcode = res["epsgcode"]
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
                     tablecontents+=res["html"]
                     geojsonrep=res["geojson"]
                     foundmedia = res["foundmedia"]
@@ -916,8 +926,7 @@ class OntDocGeneration:
                             print("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,epsgcode)
-                        epsgcode = res["epsgcode"]
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
@@ -933,8 +942,7 @@ class OntDocGeneration:
                         print("Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject))
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, graph,
-                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,epsgcode)
-                    epsgcode = res["epsgcode"]
+                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
                     tablecontents += res["html"]
                     foundmedia = res["foundmedia"]
                     imageannos=res["imageannos"]
@@ -1043,6 +1051,8 @@ class OntDocGeneration:
                 if str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)]["type"]="geoinstance"
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
+                if epsgcode=="" and "crs" in geojsonrep:
+                    epsgcode="EPSG:"+geojsonrep["crs"]
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)).replace("{{epsg}}",epsgcode))
             elif isgeocollection:
                 featcoll={"type":"FeatureCollection", "id":subject, "features":[]}

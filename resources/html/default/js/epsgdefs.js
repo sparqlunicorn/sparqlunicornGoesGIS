@@ -4860,7 +4860,7 @@ function convertit(coordinates,source,dest,switchlatlong){
 	splitted=coordinates.toString().split(",")
 	while(i<splitted.length){
 		//console.log(splitted[i]+" - "+splitted[i+1]+" - "+parseFloat(splitted[i])+" - "+parseFloat(splitted[i+1]))
-		var p=new proj4.Point(splitted[i],splitted[i+1])
+		var p=new proj4.Point(parseFloat(splitted[i]),parseFloat(splitted[i+1]))
 		//console.log("Point: "+p.x+" - "+p.y)
 		//console.log(source)
 		//console.log(dest)
