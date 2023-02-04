@@ -266,7 +266,7 @@ class OntDocGeneration:
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
         if self.createColl:
-            self.createCollections(self.graph,prefixnamespace)
+            self.graph=self.createCollections(self.graph,prefixnamespace)
         if self.logoname!=None and self.logoname!="":
             if not os.path.isdir(outpath+"/logo/"):
                 os.mkdir(outpath+"/logo/")
