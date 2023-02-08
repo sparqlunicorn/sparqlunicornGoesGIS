@@ -1,6 +1,6 @@
 var namespaces_dup =
 [
-    [ "enrichmenttab", "a00048.html", "a00048" ],
-    [ "interlinkingtab", "a00049.html", "a00049" ],
-    [ "sparqlunicornGoesGIS", "a00041.html", "a00041" ]
+    [ "enrichmenttab", "a00051.html", "a00051" ],
+    [ "interlinkingtab", "a00052.html", "a00052" ],
+    [ "sparqlunicornGoesGIS", "a00044.html", "a00044" ]
 ];

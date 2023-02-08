@@ -1,4 +1,4 @@
 var a00048 =
 [
-    [ "EnrichmentTab", "a00069.html", "a00069" ]
+    [ "sparql_unicorn_dialog", "a00049.html", "a00049" ]
 ];
