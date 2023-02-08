@@ -24,6 +24,8 @@ stylesheet = ""
 global htmltemplate
 htmltemplate = ""
 
+vowltemplate= ""
+
 jsonindent=None
 
 imagecarouselheader="""<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner" style="text-align:center">"""
@@ -162,6 +164,10 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
                 global image3dtemplate
                 image3dtemplate=file.read()
+        if os.path.exists(templatepath+"/"+templatename+"/templates/3dtemplate.html"):
+            with open(templatepath+"/"+templatename+"/templates/vowlwrapper.html", 'r') as file:
+                global vowltemplate
+                vowltemplate=file.read()
         if os.path.exists(templatepath+"/"+templatename+"/templates/audiotemplate.html"):
             with open(templatepath+"/"+templatename+"/templates/audiotemplate.html", 'r') as file:
                 global audiotemplate
@@ -371,6 +377,8 @@ class OntDocGeneration:
             classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
             stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
             scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
+            epsgdefslink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "epsgdefs.js", False)
+            vowllink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "vowl_result.js", False)
             nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
             for sub in subjectstorender:
                 if nslink in sub:
@@ -384,13 +392,13 @@ class OntDocGeneration:
                             ttlf.write("<"+str(sub)+"> <"+str(tup[0])+"> <"+str(tup[1])+"> .\n")
             ttlf.close()
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink)\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink).replace("{{vowlpath}}", vowllink)\
                 .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
             if nslink==prefixnamespace:
                 indexhtml=indexhtml.replace("{{indexpage}}","true")
             else:
                 indexhtml = indexhtml.replace("{{indexpage}}", "false")
-            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"
+            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate
             indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
@@ -992,6 +1000,7 @@ class OntDocGeneration:
             rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
             rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
             rellink6 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
+            rellink7 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "vowl_result.js", False)
             if geojsonrep != None:
                 myexports=geoexports
             else:
@@ -999,7 +1008,7 @@ class OntDocGeneration:
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                    "{{epsgdefspath}}", rellink6).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(
                                                                                                     subject) + "\">" + str(
                                                                                                     foundlabel) + "</a>").replace(
@@ -1008,7 +1017,7 @@ class OntDocGeneration:
             else:
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", rellink6).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             for comm in comment:
