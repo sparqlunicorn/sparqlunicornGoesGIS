@@ -2,14 +2,16 @@
 from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
+from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
 import re
 import shutil
 import json
-from qgis.core import Qgis,QgsTask, QgsMessageLog
+
 
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
+from ..pyowl2vowl import OWL2VOWL
 
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
@@ -262,6 +264,8 @@ class OntDocGeneration:
         labeltouri = {}
         uritolabel = {}
         uritotreeitem={}
+        vowlinstance=OWL2VOWL()
+        vowlinstance.convertOWL2VOWL(self.graph,outpath)
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
