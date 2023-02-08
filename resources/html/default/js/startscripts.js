@@ -330,6 +330,8 @@ function rewriteLink(thelink){
             counter+=1
         }
     }
+    //console.log(rest)
+    //console.log(rest.endsWith("index.html"))
     rest+="index.html"
     console.log(rest)
     return rest
@@ -718,7 +720,7 @@ function formatHTMLTableForResult(result,nodeicon){
 }
 
 function getClassRelationDialog(node){
-     nodeid=rewriteLink(node.id).replace(".html",".json")
+     nodeid=rewriteLink(normalizeNodeId(node)).replace(".html",".json")
      nodelabel=node.text
      nodetype=node.type
      nodeicon=node.icon
@@ -744,8 +746,15 @@ function getPropRelationDialog(propuri,propicon){
      document.getElementById("classrelationdialog").showModal();
 }
 
+function normalizeNodeId(node){
+    if(node.id.includes("_suniv")){
+        return node.id.replace(/_suniv[0-9]+_/, "")
+    }
+    return node.id
+}
+
 function getDataSchemaDialog(node){
-     nodeid=rewriteLink(node.id).replace(".html",".json")
+     nodeid=rewriteLink(normalizeNodeId(node)).replace(".html",".json")
      nodelabel=node.text
      nodetype=node.type
      nodeicon=node.icon
@@ -803,7 +812,7 @@ function setupJSTree(){
                 "label": "Lookup definition",
                 "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/searchclass.png",
                 "action": function (obj) {
-                    newlink=rewriteLink(node.id)
+                    newlink=normalizeNodeId(node)
                     var win = window.open(newlink, '_blank');
                     win.focus();
                 }
@@ -814,8 +823,7 @@ function setupJSTree(){
                 "label": "Copy URI to clipboard",
                 "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/"+thelinkpart+"link.png",
                 "action":function(obj){
-                    console.log(node)
-                    copyText=node.id
+                    copyText=normalizeNodeId(node)
                     navigator.clipboard.writeText(copyText);
                 }
             },
@@ -826,7 +834,7 @@ function setupJSTree(){
                 "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/"+thelinkpart+"link.png",
                 "action":function(obj){
                     console.log("class relations")
-                    if(node.type=="class" || node.type=="geoclass" || node.type=="collectionclass"){
+                    if(node.type=="class" || node.type=="halfgeoclass" || node.type=="geoclass" || node.type=="collectionclass"){
                         getClassRelationDialog(node)
                     }
                 }
@@ -842,7 +850,7 @@ function setupJSTree(){
                     console.log(baseurl)
                     if(node.id.includes(baseurl)){
                         getDataSchemaDialog(node)
-                    }else if(node.type=="class" || node.type=="geoclass" || node.type=="collectionclass"){
+                    }else if(node.type=="class" || node.type=="halfgeoclass" || node.type=="geoclass" || node.type=="collectionclass"){
                         getDataSchemaDialog(node)
                     }
                 }
@@ -855,7 +863,9 @@ function setupJSTree(){
         var node = $(event.target).closest("li");
         var data = node[0].id
         if(data.includes(baseurl)){
-            followLink(data)
+            console.log(node[0].id)
+            console.log(normalizeNodeId(node[0]))
+            followLink(normalizeNodeId(node[0]))
         }else{
             window.open(data, '_blank');
         }
