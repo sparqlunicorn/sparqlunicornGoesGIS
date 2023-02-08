@@ -814,6 +814,7 @@ function setupJSTree(){
                 "label": "Copy URI to clipboard",
                 "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/"+thelinkpart+"link.png",
                 "action":function(obj){
+                    console.log(node)
                     copyText=node.id
                     navigator.clipboard.writeText(copyText);
                 }
