@@ -75,14 +75,14 @@ class ExtractNamespaceTask(QgsTask):
             self.resultcbox.setModel(model)
             for ns in sorted(self.namespaces):
                 if len(ns.strip())>0 and "http" in ns:
-                    item = QStandardItem()
-                    item.setData(ns, UIUtils.dataslot_conceptURI)
-                    item.setText(ns)
-                    if ns in self.nstodataclass and self.nstodataclass[ns]>0:
+                    if ns in self.nstodataclass and self.nstodataclass[ns] > 0:
+                        item = QStandardItem()
+                        item.setData(ns, UIUtils.dataslot_conceptURI)
                         item.setIcon(UIUtils.featurecollectionicon)
+                        item.setText(ns)
+                        model.appendRow(item)
                     else:
-                        item.setIcon(UIUtils.linkeddataicon)
-                    model.appendRow(item)
+                        self.recognizedns.add(ns)
             for ns in sorted(self.recognizedns):
                 if len(ns.strip())>0 and "http" in ns:
                     item = QStandardItem()
