@@ -27,28 +27,6 @@ The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugin
 
 Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/blob/master/CITATION.cff).
 
-### Change Log
-
--   0.15: HTML documentation generation, BBOX Dialog and Enrichment Dialog improved, usage of more QGIS UI elements, related concept view, query layer data in bbox, improvements to triple store detection
--   0.14.1: Improved Compatibility for SPARQL 1.0 Endpoints, Automated Configuration Updates, Fixes for GeoShapes
--   0.14: New icon set, UI design using layouts, improved item views, reworked triple store configuration, support for wgs84:geometry, graph validation with pyshacl, convert layer to neogeo RDF, began multilanguage literal support, mark linked geo concepts
--   0.13.1: fixed icons and RDF export
--   0.13: Added classtree for navigation, support for SPARQL endpoints with HTTP Auth, support for GeoSPARQL 1.1 FeatureCollections, Added context menu for classtree, Added support for schema.org encoded geometries, smaller bugfixes
--   0.12.2: Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
--   0.12.1: Fix for lat/lon based triple stores, polygon BBOX
--   0.12: Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
--   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
--   0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries
--   0.9: Add triplestore functionallity, add more endpoints
--   0.8: Syntax Highlighting and query validation, support for bbox queries, import and export of rdf files, Preloading of geoconcepts from triple stores
--   0.7: add support for DBpedia and GeoNames
--   0.6: add support for linkedgeodata.org
--   0.5: add support for kerameikos.org
--   0.4: add support for nomisma.org
--   0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint
--   0.2: bugfixes and more user comfort
--   0.1: initial commit
-
 ### Talks and Publications
 
 -   Timo Homburg, & Florian Thiery. (2020, October). Little Minions and SPARQL Unicorns as tools for archaeology. Presented at the ARCHEO.FOSS XIV | 2020 Open software, hardware, processes, data and formats in archaeological research (ARCHEO.FOSS XIV | 2020), virtual: Zenodo. <http://doi.org/10.5281/zenodo.4091734>
