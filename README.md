@@ -62,7 +62,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 - Schmidt, S. C., Thiery, F., & Trognitz, M. (2022). Practices of linked open data in archaeology and their realisation in Wikidata. Digital, 2(3), 333-364. <https://doi.org/10.3390/digital2030019>
 
-- Páez, O., & Vilches-Blázquez, L. M. (2022). Bringing Federated Semantic Queries to the GIS-Based Scenario. ISPRS International Journal of Geo-Information, 11(2), 86. <https://doi.org/10.3390/ijgi11020086>
+- Páez, O., & Vilches-Blázquez, L. M. (2022). Bringing Federated Semantic Queries to the GIS-Based Scenario. ISPRS International Journal of Geo-Information, 11(2), 86. <https://doi.org/10.3390/ijgi11020086> (Tutorial: <https://github.com/Osw1997/Guide-connection-for-Apache-marmotta-and-QGIS>)
 
 - Danthine, B., Hiebel, G., Posch, C., & Stadler, H. (2021). The Integration of Semantic Networks in Virtual Exhibitions. The International Archives of Photogrammetry, Remote Sensing and Spatial Information Sciences, 46, 165-172. <https://doi.org/10.5194/isprs-archives-XLVI-M-1-2021-165-2021>
 
