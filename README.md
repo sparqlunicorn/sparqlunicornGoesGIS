@@ -56,6 +56,24 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 -   Florian Thiery, & Timo Homburg. (2020, March). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. Presented at the Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (FOSSGIS) (FOSSGIS2020), University of Freiburg, Germany: Zenodo. <http://doi.org/10.5281/zenodo.3706962>
 -   Florian Thiery, & Timo Homburg. (2020). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. In FOSSGIS 2020: Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (pp. 68–72). University of Freiburg, Germany: FOSSGIS e.V. <http://doi.org/10.5281/zenodo.3719128>
 
+### Publications using the SPARQLing Unicorn QGIS Plugin
+
+Ángel Obregón-Sierra, Javier López-Otero, Antonio Gavira-Narváez, Rafael F. Vega-Pozuelo (Feb 2023). Methodology for the incorporation of geographic information in Wikidata (REVISTA DE ESTUDIOS ANDALUCES (REA)) <https://doi.org/10.12795/rea>
+
+Schmidt, S. C., Thiery, F., & Trognitz, M. (2022). Practices of linked open data in archaeology and their realisation in Wikidata. Digital, 2(3), 333-364. <https://doi.org/10.3390/digital2030019>
+
+Páez, O., & Vilches-Blázquez, L. M. (2022). Bringing Federated Semantic Queries to the GIS-Based Scenario. ISPRS International Journal of Geo-Information, 11(2), 86. <https://doi.org/10.3390/ijgi11020086>
+
+Danthine, B., Hiebel, G., Posch, C., & Stadler, H. (2021). The Integration of Semantic Networks in Virtual Exhibitions. The International Archives of Photogrammetry, Remote Sensing and Spatial Information Sciences, 46, 165-172. <https://doi.org/10.5194/isprs-archives-XLVI-M-1-2021-165-2021>
+
+Schmidt, S. C., Thiery, F. (2020). SPARQLing Ogham Stones: New Options for Analyzing Analog Editions by Digitization in Wikidata <https://ceur-ws.org/Vol-3110/paper11.pdf>
+
+### Blog posts using the SPARQLing Unicorn QGIS Plugin
+
+Viva El Software Libre: MOSTRAR DATOS DE WIKIDATA EN QGIS CON EL PLUGIN SPARQL UNICORN https://vivaelsoftwarelibre.com/mostrar-datos-de-wikidata-en-qgis-con-el-plugin-sparql-unicorn/
+
+Albin Larsson: Blog (2020): Using SPARQL in QGIS <https://byabbe.se/2020/11/17/using-sparql-in-qgis>
+
 ## Credits
 
 -   developers
