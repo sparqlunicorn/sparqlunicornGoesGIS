@@ -68,6 +68,8 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 - Schmidt, S. C., Thiery, F. (2020). SPARQLing Ogham Stones: New Options for Analyzing Analog Editions by Digitization in Wikidata <https://ceur-ws.org/Vol-3110/paper11.pdf>
 
+- Thiery, F. (2020): Linked COVID-19 Data – Semantische Modellierung von Linked Geodata <https://doi.org/10.12902/zfv-0312-2020>
+
 ### Blog posts using the SPARQLing Unicorn QGIS Plugin
 
 - Viva El Software Libre: MOSTRAR DATOS DE WIKIDATA EN QGIS CON EL PLUGIN SPARQL UNICORN https://vivaelsoftwarelibre.com/mostrar-datos-de-wikidata-en-qgis-con-el-plugin-sparql-unicorn/
