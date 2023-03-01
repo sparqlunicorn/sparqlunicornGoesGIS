@@ -152,8 +152,16 @@ class GraphUtils:
             configuration["geotriplepattern"].append(" ?item_geom <https://schema.org/polygon> ?geo . ")
             gottype = True
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
-        for pat in configuration["geotriplepattern"]:
-            geoconceptquery+="OPTIONAL { ?item %%typeproperty%% ?class . "+str(pat)+" }\n"
+        if len(configuration["geotriplepattern"])==1:
+            geoconceptquery+="?item %%typeproperty%% ?class . "+str(configuration["geotriplepattern"][0])
+        else:
+            index=0
+            for pat in configuration["geotriplepattern"]:
+                if index==0:
+                    geoconceptquery += "{ ?item %%typeproperty%% ?class . " + str(pat)+"} "
+                else:
+                    geoconceptquery += " UNION { ?item %%typeproperty%% ?class . " + str(pat) + "} "
+                index+=1
         geoconceptquery+="} ORDER BY ?class"
         configuration["geoconceptquery"] = geoconceptquery
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
