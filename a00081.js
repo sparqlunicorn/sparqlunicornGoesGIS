@@ -1,9 +1,11 @@
 var a00081 =
 [
-    [ "__init__", "a00081.html#ae64f0875afe3067b97ba370b354b9213", null ],
-    [ "convertCRSFromEPSG", "a00081.html#aeadf0eb248b756948230566b1d91f1c4", null ],
-    [ "convertCRSFromWKTString", "a00081.html#abea877407dfc1a942f94c1039ff863cb", null ],
-    [ "convertCRSFromWKTStringSet", "a00081.html#a39c7098f8401caf0100203e286491bc1", null ],
-    [ "crsToTTL", "a00081.html#a849242decae7230d1029251178b41783", null ],
-    [ "ttlhead", "a00081.html#ad382225511cbcbdfadae28d3f3641911", null ]
+    [ "__init__", "a00081.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
+    [ "getSelected", "a00081.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
+    [ "setHighlighted", "a00081.html#a47706ce8363cc5ef40a774d742500b7f", null ],
+    [ "setModel", "a00081.html#ae1e36c2d842bf4fe8788f931d3d80e8a", null ],
+    [ "updateModel", "a00081.html#a90269ea4c6aa5645909d0d10f35e98e9", null ],
+    [ "insertText", "a00081.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
+    [ "lastSelected", "a00081.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ],
+    [ "source_model", "a00081.html#a82531dcb37eb09983a78b6a8d1db559f", null ]
 ];
