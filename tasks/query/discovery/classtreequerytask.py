@@ -13,7 +13,17 @@ MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
+notforclasstree = ["http://www.w3.org/2002/07/owl#Class", "http://www.w3.org/1999/02/22-rdf-syntax-ns#List",
+                   "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+                   "http://www.w3.org/2000/01/rdf-schema#Class", "http://www.w3.org/2000/01/rdf-schema#Datatype",
+                   "http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty","http://www.w3.org/2000/01/rdf-schema#Resource",
+                   "http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#AnnotationProperty",
+                   "http://www.w3.org/2002/07/owl#Restriction", "http://www.w3.org/2002/07/owl#ObjectProperty",
+                   "http://www.w3.org/2002/07/owl#NamedIndividual", "http://www.w3.org/2002/07/owl#Ontology"]
+
+
 class ClassTreeQueryTask(QgsTask):
+
 
     def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
@@ -82,20 +92,6 @@ class ClassTreeQueryTask(QgsTask):
         self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . " + str(self.optionalpart) + "} UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  } \n"
         self.query+="""OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"])+"""> ?supertype . }\n
                        """+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL","FILTER(LANG(?label) = \""+str(self.preferredlang)+"\") ")+" "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL","")+""" 
-                        FILTER (\n
-                            (\n
-                            ?subject != owl:Class &&\n
-                            ?subject != rdf:List &&\n
-                            ?subject != rdf:Property &&\n
-                            ?subject != rdfs:Class &&\n
-                            ?subject != rdfs:Datatype &&\n
-                            ?subject != rdfs:ContainerMembershipProperty &&\n
-                            ?subject != owl:DatatypeProperty &&\n
-                            ?subject != owl:AnnotationProperty &&\n
-                            ?subject != owl:Restriction &&\n
-                            ?subject != owl:ObjectProperty &&\n
-                            ?subject != owl:NamedIndividual &&\n
-                            ?subject != owl:Ontology) )\n
                     }"""
 
     def run(self):
@@ -113,10 +109,10 @@ class ClassTreeQueryTask(QgsTask):
                 SPARQLUtils.exception="No results"
                 return False
             hasparent={}
-            #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
             for result in results["results"]["bindings"]:
                 subval=result["subject"]["value"]
-                if subval is None or subval=="":
+                if subval is None or subval=="" or subval in notforclasstree:
                     continue
                 if subval not in self.classtreemap:
                     self.classtreemap[subval]=QStandardClassTreeItem()
@@ -158,7 +154,7 @@ class ClassTreeQueryTask(QgsTask):
                 if cls not in hasparent and cls!="root":
                     self.subclassmap["root"].add(cls)
         #QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
@@ -198,7 +194,7 @@ class ClassTreeQueryTask(QgsTask):
             f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
             f.close()
         self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dlg.classTreeView.header().setStretchLastSection(False)
+        self.dlg.classTreeView.header().setStretchLastSection(True)
         self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         self.dlg.classTreeView.setSortingEnabled(True)
         self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
