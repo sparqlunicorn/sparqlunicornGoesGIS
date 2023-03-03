@@ -31,7 +31,7 @@ class OWL2VOWL():
     #        subjclasses=set()
     #        for tuppred in g.objects(subj,URIRef(typeproperty)):
     #            subjclasses.add(tuppred)
-            
+
     def convertOWL2VOWL(self,g,outpath,typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
         vowlresult = {"_comment": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin",
                       "header": {"prefixList": {}, "baseIris": [], "languages": []}, "namespace": [], "class": [],
