@@ -118,8 +118,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a832f9162e42cca69709651dfb4d3fc64"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00109.html#a832f9162e42cca69709651dfb4d3fc64">getLabelsForClasses</a> (classes, query, triplestoreconf, triplestoreurl, preferredlang=&quot;en&quot;, typeindicator=&quot;class&quot;)</td></tr>
 <tr class="memdesc:a832f9162e42cca69709651dfb4d3fc64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a SPARQL endpoint specific query to find labels for given classes.  <a href="a00109.html#a832f9162e42cca69709651dfb4d3fc64">More...</a><br /></td></tr>
 <tr class="separator:a832f9162e42cca69709651dfb4d3fc64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa275115bbaba2e60c5af46fa498092ba"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00109.html#aa275115bbaba2e60c5af46fa498092ba">resolvePropertyToTriplePattern</a> (propertyid, propvar, itemvar, triplestoreconf, patterntype, filterstatement, proplabel=False)</td></tr>
-<tr class="separator:aa275115bbaba2e60c5af46fa498092ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c67a8da20bf45a3ac96d4776a3f8bb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00109.html#a74c67a8da20bf45a3ac96d4776a3f8bb">patternsToUnion</a> (patternarray, propvar, itemvar)</td></tr>
+<tr class="separator:a74c67a8da20bf45a3ac96d4776a3f8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373ca9b0d52c6772a439622a2f068fa0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00109.html#a373ca9b0d52c6772a439622a2f068fa0">propertyVarPatternToUnion</a> (propertyid, triplestoreconf, propvar, itemvar)</td></tr>
+<tr class="separator:a373ca9b0d52c6772a439622a2f068fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6510ed4f71963b30bd21498a0a8c9928"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00109.html#a6510ed4f71963b30bd21498a0a8c9928">resolvePropertyToTriplePattern</a> (propertyid, propvar, itemvar, triplestoreconf, patterntype, filterstatement, proplabel=False, asUnion=True)</td></tr>
+<tr class="separator:a6510ed4f71963b30bd21498a0a8c9928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -1180,6 +1184,117 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a74c67a8da20bf45a3ac96d4776a3f8bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74c67a8da20bf45a3ac96d4776a3f8bb">&#9670;&nbsp;</a></span>patternsToUnion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def patternsToUnion </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>patternarray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>propvar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>itemvar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    <span class="keyword">def </span>patternsToUnion(patternarray,propvar,itemvar):</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        res=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        <span class="keywordflow">if</span> len(patternarray)==1:</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;            <span class="keywordflow">return</span> patternarray[0]</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="keywordflow">if</span> patternarray&gt;1:</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            first=<span class="keyword">True</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            <span class="keywordflow">for</span> pat <span class="keywordflow">in</span> patternarray:</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;                <span class="keywordflow">if</span> first:</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                    first=<span class="keyword">False</span></div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                    res+=<span class="stringliteral">&quot;{ &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                    res+=<span class="stringliteral">&quot;UNION { &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;            <span class="keywordflow">return</span> res</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        <span class="keywordflow">return</span> res</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a373ca9b0d52c6772a439622a2f068fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a373ca9b0d52c6772a439622a2f068fa0">&#9670;&nbsp;</a></span>propertyVarPatternToUnion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def propertyVarPatternToUnion </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>propertyid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>triplestoreconf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>propvar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>itemvar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;    <span class="keyword">def </span>propertyVarPatternToUnion(propertyid,triplestoreconf,propvar,itemvar):</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        propidcleaned = propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            <span class="keywordflow">return</span> SPARQLUtils.patternsToUnion(triplestoreconf[propidcleaned],propvar,itemvar)</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a4490b9c0a0abb70b2867d7b1bb783a0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4490b9c0a0abb70b2867d7b1bb783a0b">&#9670;&nbsp;</a></span>queryPreProcessing()</h2>
 
@@ -1258,8 +1373,8 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="aa275115bbaba2e60c5af46fa498092ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa275115bbaba2e60c5af46fa498092ba">&#9670;&nbsp;</a></span>resolvePropertyToTriplePattern()</h2>
+<a id="a6510ed4f71963b30bd21498a0a8c9928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6510ed4f71963b30bd21498a0a8c9928">&#9670;&nbsp;</a></span>resolvePropertyToTriplePattern()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1307,7 +1422,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>proplabel</em> = <code>False</code>&#160;</td>
+          <td class="paramname"><em>proplabel</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>asUnion</em> = <code>True</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1321,28 +1442,39 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    <span class="keyword">def </span>resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False):</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        <span class="keywordflow">if</span> filterstatement==<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            filterstatement=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        propidcleaned=propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;            res=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            <span class="keywordflow">for</span> propid <span class="keywordflow">in</span> triplestoreconf[propidcleaned]:</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;                thepattern=str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n &quot;</span>+filterstatement</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;                <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;                        <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                    <span class="stringliteral">&quot;url&quot;</span>]):</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                    thepattern=<span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span>+filterstatement</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                <span class="keywordflow">if</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;                    res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+thepattern+<span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;                    res+=thepattern</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            <span class="keywordflow">return</span> res</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]):</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;            <span class="keywordflow">return</span> str(itemvar)+<span class="stringliteral">&quot; &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;    <span class="keyword">def </span>resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False,asUnion=True):</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        <span class="keywordflow">if</span> filterstatement==<span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;            filterstatement=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        propidcleaned=propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;            res=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;            first=<span class="keyword">True</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;                res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;            <span class="keywordflow">for</span> propid <span class="keywordflow">in</span> triplestoreconf[propidcleaned]:</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;                thepattern=str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n &quot;</span>+filterstatement</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;                <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;                        <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;                    <span class="stringliteral">&quot;url&quot;</span>]):</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;                    thepattern=<span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span>+filterstatement</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                <span class="keywordflow">if</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> asUnion:</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;                    res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+thepattern+<span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;                <span class="keywordflow">elif</span> patterntype == <span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span>  asUnion:</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;                    <span class="keywordflow">if</span> first:</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                        first=<span class="keyword">False</span></div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;                        res+=<span class="stringliteral">&quot; { &quot;</span>+thepattern+<span class="stringliteral">&quot; } &quot;</span></div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;                        res += <span class="stringliteral">&quot; UNION { &quot;</span> + thepattern + <span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;                    res+=thepattern</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;                res+=<span class="stringliteral">&quot;} &quot;</span></div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;            <span class="keywordflow">return</span> res</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;        <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;                <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]):</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;            <span class="keywordflow">return</span> str(itemvar)+<span class="stringliteral">&quot; &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>
