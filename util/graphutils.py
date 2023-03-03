@@ -269,7 +269,19 @@ class GraphUtils:
                 "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"]) > 0:
-                results=SPARQLUtils.executeQuery(self.configuration["resource"],"SELECT DISTINCT ?acon ?rel WHERE { ?a <"+str(self.configuration["typeproperty"])+"> ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }")
+                thequery = "SELECT DISTINCT ?acon ?rel WHERE { ?a <" + str(self.configuration["typeproperty"]) + "> ?acon . ?a ?rel ?item. "
+                if len(self.configuration["geotriplepattern"])>0:
+                    thequery+=str(self.configuration["geotriplepattern"][0])+" }"
+                else:
+                    first=True
+                    for pat in self.configuration["geotriplepattern"]:
+                        if first:
+                            first=False
+                            thequery += "{ "+pat+" }"
+                        else:
+                            thequery += " UNION { "+pat+" }"
+                    thequery+="}}"
+                results=SPARQLUtils.executeQuery(self.configuration["resource"],thequery)
                 if results!=False:
                     self.configuration["geoobjproperty"] = set()
                     self.configuration["geoclasses"] = {}

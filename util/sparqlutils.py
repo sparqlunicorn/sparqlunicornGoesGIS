@@ -712,22 +712,56 @@ class SPARQLUtils:
         return result
 
     @staticmethod
-    def resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False):
+    def patternsToUnion(patternarray,propvar,itemvar):
+        res=""
+        if len(patternarray)==1:
+            return patternarray[0]
+        if patternarray>1:
+            first=True
+            for pat in patternarray:
+                if first:
+                    first=False
+                    res+="{ "+str(itemvar)+" <"+str(pat)+"> "+str(propvar)+" . } "
+                else:
+                    res+="UNION { "+str(itemvar)+" <"+str(pat)+"> "+str(propvar)+" . } "
+            return res
+        return res
+
+    @staticmethod
+    def propertyVarPatternToUnion(propertyid,triplestoreconf,propvar,itemvar):
+        propidcleaned = propertyid.replace("%", "")
+        if propidcleaned in triplestoreconf:
+            return SPARQLUtils.patternsToUnion(triplestoreconf[propidcleaned],propvar,itemvar)
+        return ""
+
+    @staticmethod
+    def resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False,asUnion=True):
         if filterstatement==None:
             filterstatement=""
         propidcleaned=propertyid.replace("%","")
         if propidcleaned in triplestoreconf:
             res=""
+            first=True
+            if asUnion and patterntype=="OPTIONAL":
+                res+="OPTIONAL { "
             for propid in triplestoreconf[propidcleaned]:
                 thepattern=str(itemvar)+" <"+str(propid)+"> "+str(propvar)+" .\n "+filterstatement
                 if proplabel and "url" in triplestoreconf["resource"] and (
                         "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"][
                     "url"]):
                     thepattern="?prop <http://wikiba.se/ontology#directClaim> "+str(itemvar)+" . ?prop <"+str(propid)+"> "+str(propvar)+" .\n"+filterstatement
-                if patterntype=="OPTIONAL":
+                if patterntype=="OPTIONAL" and not asUnion:
                     res+="OPTIONAL { "+thepattern+"}\n"
+                elif patterntype == "OPTIONAL" and  asUnion:
+                    if first:
+                        first=False
+                        res+=" { "+thepattern+" } "
+                    else:
+                        res += " UNION { " + thepattern + "}\n"
                 else:
                     res+=thepattern
+            if asUnion and patterntype=="OPTIONAL":
+                res+="} "
             return res
         if proplabel and "url" in triplestoreconf["resource"] and (
                 "wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]):

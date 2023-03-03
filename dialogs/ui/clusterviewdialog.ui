@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
+    <width>1023</width>
     <height>444</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <string>Data Relation View</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/instancelink.png</normaloff>:/icons/resources/icons/instancelink.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -151,6 +151,7 @@
    </item>
   </layout>
  </widget>
+ <resources/>
  <connections>
   <connection>
    <sender>closeButton</sender>
