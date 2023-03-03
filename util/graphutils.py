@@ -9,7 +9,7 @@ class GraphUtils:
 
     testQueries = {
         "geosparql": "PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}",
-        "sparql11": "SELECT ?a ?b ?c WHERE { ?a ?b ?c . BIND( <http://www.opengis.net/ont/geosparql#> AS ?b) } LIMIT 1",
+        "sparql11": "SELECT ?a ?b ?c WHERE { BIND( <http://www.opengis.net/ont/geosparql#test> AS ?b)  ?a ?b ?c . } LIMIT 1",
         "available": "SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",
         "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
@@ -152,8 +152,16 @@ class GraphUtils:
             configuration["geotriplepattern"].append(" ?item_geom <https://schema.org/polygon> ?geo . ")
             gottype = True
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
-        for pat in configuration["geotriplepattern"]:
-            geoconceptquery+="OPTIONAL { ?item %%typeproperty%% ?class . "+str(pat)+" }\n"
+        if len(configuration["geotriplepattern"])==1:
+            geoconceptquery+="?item %%typeproperty%% ?class . "+str(configuration["geotriplepattern"][0])
+        else:
+            index=0
+            for pat in configuration["geotriplepattern"]:
+                if index==0:
+                    geoconceptquery += "{ ?item %%typeproperty%% ?class . " + str(pat)+"} "
+                else:
+                    geoconceptquery += " UNION { ?item %%typeproperty%% ?class . " + str(pat) + "} "
+                index+=1
         geoconceptquery+="} ORDER BY ?class"
         configuration["geoconceptquery"] = geoconceptquery
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
@@ -278,7 +286,7 @@ class GraphUtils:
                                 self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
                     for cls in self.configuration["geoclasses"]:
                         self.configuration["geoclasses"][cls]=list(self.configuration["geoclasses"][cls])
-                    #QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"]))
+                    #QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"])
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False

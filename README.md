@@ -27,34 +27,32 @@ The `SPARQLing Unicorn QGIS Plugin` is listed under the experimental QGIS plugin
 
 Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/blob/master/CITATION.cff).
 
-### Change Log
-
--   0.15: HTML documentation generation, BBOX Dialog and Enrichment Dialog improved, usage of more QGIS UI elements, related concept view, query layer data in bbox, improvements to triple store detection
--   0.14.1: Improved Compatibility for SPARQL 1.0 Endpoints, Automated Configuration Updates, Fixes for GeoShapes
--   0.14: New icon set, UI design using layouts, improved item views, reworked triple store configuration, support for wgs84:geometry, graph validation with pyshacl, convert layer to neogeo RDF, began multilanguage literal support, mark linked geo concepts
--   0.13.1: fixed icons and RDF export
--   0.13: Added classtree for navigation, support for SPARQL endpoints with HTTP Auth, support for GeoSPARQL 1.1 FeatureCollections, Added context menu for classtree, Added support for schema.org encoded geometries, smaller bugfixes
--   0.12.2: Support for Wikidata Geoshapes, fallback for non-standard conform literal definitions
--   0.12.1: Fix for lat/lon based triple stores, polygon BBOX
--   0.12: Plugin is now based on QgisTasks, BBOX dialog improved, quick add new triple stores, SPARQL interface improvements, improved list view of geo-classes, ability to add converted RDF sets to triple stores
--   0.11: Added interlinking and enrichment dialog (experimental), use dataset columns as query vars, search for concepts to include in your SPARQL query
--   0.10: Bundled dependent libraries, added new triple stores, added support for non-geo queries
--   0.9: Add triplestore functionallity, add more endpoints
--   0.8: Syntax Highlighting and query validation, support for bbox queries, import and export of rdf files, Preloading of geoconcepts from triple stores
--   0.7: add support for DBpedia and GeoNames
--   0.6: add support for linkedgeodata.org
--   0.5: add support for kerameikos.org
--   0.4: add support for nomisma.org
--   0.3: add support for more multiple vars and add Ordnance Survey UK SPARQL endpoint
--   0.2: bugfixes and more user comfort
--   0.1: initial commit
-
 ### Talks and Publications
 
 -   Timo Homburg, & Florian Thiery. (2020, October). Little Minions and SPARQL Unicorns as tools for archaeology. Presented at the ARCHEO.FOSS XIV | 2020 Open software, hardware, processes, data and formats in archaeological research (ARCHEO.FOSS XIV | 2020), virtual: Zenodo. <http://doi.org/10.5281/zenodo.4091734>
 -   Timo Homburg, & Florian Thiery. (2020, July). Linked Open Geodata in GIS? Ein Überblick über Linked Geodata Open Source Software. Presented at the AGIT 2020 connecting spatially – virtually (AGIT), Zenodo. <http://doi.org/10.5281/zenodo.3931262>
 -   Florian Thiery, & Timo Homburg. (2020, March). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. Presented at the Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (FOSSGIS) (FOSSGIS2020), University of Freiburg, Germany: Zenodo. <http://doi.org/10.5281/zenodo.3706962>
 -   Florian Thiery, & Timo Homburg. (2020). QGIS - A SPARQLing Unicorn? Eine Einführung in Linked Open Geodata zur Integration von RDF in QGIS Plugins. In FOSSGIS 2020: Anwenderkonferenz für Freie und Open Source Software für Geoinformationssysteme (pp. 68–72). University of Freiburg, Germany: FOSSGIS e.V. <http://doi.org/10.5281/zenodo.3719128>
+
+### Publications using the SPARQLing Unicorn QGIS Plugin
+
+- Ángel Obregón-Sierra, Javier López-Otero, Antonio Gavira-Narváez, Rafael F. Vega-Pozuelo (Feb 2023). Methodology for the incorporation of geographic information in Wikidata (REVISTA DE ESTUDIOS ANDALUCES (REA)) <https://doi.org/10.12795/rea>
+
+- Schmidt, S. C., Thiery, F., & Trognitz, M. (2022). Practices of linked open data in archaeology and their realisation in Wikidata. Digital, 2(3), 333-364. <https://doi.org/10.3390/digital2030019>
+
+- Páez, O., & Vilches-Blázquez, L. M. (2022). Bringing Federated Semantic Queries to the GIS-Based Scenario. ISPRS International Journal of Geo-Information, 11(2), 86. <https://doi.org/10.3390/ijgi11020086> (Tutorial: <https://github.com/Osw1997/Guide-connection-for-Apache-marmotta-and-QGIS>)
+
+- Danthine, B., Hiebel, G., Posch, C., & Stadler, H. (2021). The Integration of Semantic Networks in Virtual Exhibitions. The International Archives of Photogrammetry, Remote Sensing and Spatial Information Sciences, 46, 165-172. <https://doi.org/10.5194/isprs-archives-XLVI-M-1-2021-165-2021>
+
+- Schmidt, S. C., Thiery, F. (2020). SPARQLing Ogham Stones: New Options for Analyzing Analog Editions by Digitization in Wikidata <https://ceur-ws.org/Vol-3110/paper11.pdf>
+
+- Thiery, F. (2020): Linked COVID-19 Data – Semantische Modellierung von Linked Geodata <https://doi.org/10.12902/zfv-0312-2020>
+
+### Blog posts using the SPARQLing Unicorn QGIS Plugin
+
+- Viva El Software Libre: MOSTRAR DATOS DE WIKIDATA EN QGIS CON EL PLUGIN SPARQL UNICORN https://vivaelsoftwarelibre.com/mostrar-datos-de-wikidata-en-qgis-con-el-plugin-sparql-unicorn/
+
+- Albin Larsson: Blog (2020): Using SPARQL in QGIS <https://byabbe.se/2020/11/17/using-sparql-in-qgis>
 
 ## Credits
 

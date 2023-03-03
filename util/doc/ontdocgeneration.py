@@ -2,7 +2,7 @@
 from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
-from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.core import Qgis, QgsMessageLog
 import os
 import re
 import shutil
@@ -11,7 +11,7 @@ import json
 
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
-from ..pyowl2vowl import OWL2VOWL
+from .pyowl2vowl import OWL2VOWL
 
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 

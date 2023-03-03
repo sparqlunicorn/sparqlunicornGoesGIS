@@ -59,7 +59,7 @@ class GeoCollectionsQueryTask(QgsTask):
     def finished(self, result):
         self.geoClassList.clear()
         self.geoClassListGui.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.geoClassListGui.header().setStretchLastSection(False)
+        self.geoClassListGui.header().setStretchLastSection(True)
         self.geoClassListGui.header().setMinimumSectionSize(self.dlg.classTreeView.width())
         if len(self.resultlist) > 0:
             first = True
