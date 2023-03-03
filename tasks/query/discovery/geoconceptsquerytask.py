@@ -46,7 +46,8 @@ class GeoConceptsQueryTask(QgsTask):
             if results==False:
                 return False
             for result in results["results"]["bindings"]:
-                self.resultlist[str(result[self.queryvar]["value"])]={"concept":str(result[self.queryvar]["value"])}
+                if self.queryvar in result:
+                    self.resultlist[str(result[self.queryvar]["value"])]={"concept":str(result[self.queryvar]["value"])}
             if self.getlabels and "labelproperty" in self.triplestoreconf and self.triplestoreconf[
                 "labelproperty"] != "":
                 if "classlabelquery" in self.triplestoreconf:

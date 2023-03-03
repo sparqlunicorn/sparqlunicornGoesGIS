@@ -14,7 +14,7 @@ MESSAGE_CATEGORY = 'ClassTreeQueryTask'
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 notforclasstree = ["http://www.w3.org/2002/07/owl#Class", "http://www.w3.org/1999/02/22-rdf-syntax-ns#List",
-                   "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+                   "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property","http://www.w3.org/2000/01/rdf-schema#Property",
                    "http://www.w3.org/2000/01/rdf-schema#Class", "http://www.w3.org/2000/01/rdf-schema#Datatype",
                    "http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty","http://www.w3.org/2000/01/rdf-schema#Resource",
                    "http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#AnnotationProperty",
@@ -40,14 +40,23 @@ class ClassTreeQueryTask(QgsTask):
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
-                    SELECT DISTINCT ?subject ?label ?supertype ?hasgeo\n
+                    SELECT DISTINCT ?subject ?label ?supertype (Bound(?hasgeo) AS ?hgeo)\n
                     WHERE {\n"""
         self.optionalpart=""
-        geotriplepattern=None
         if "geotriplepattern" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]:
             geotriplepattern=""
-            for geopat in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"]:
-                geotriplepattern+="OPTIONAL { "+geopat.replace("?geo","?hasgeo").replace("?item","?individual")+" }\n"
+            if len(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"])>1:
+                geotriplepattern+="OPTIONAL {"
+                first=True
+                for geopat in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"]:
+                    if first:
+                        first=False
+                    else:
+                        geotriplepattern+=" UNION "
+                    geotriplepattern += " { " + geopat.replace("?geo", "?hasgeo").replace("?lat", "?hasgeo").replace("?item","?individual") + " }\n"
+                geotriplepattern+="}\n"
+            elif len(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"])>0:
+                geotriplepattern += "OPTIONAL { " + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["geotriplepattern"][0].replace("?geo", "?hasgeo").replace("?item","?individual")+" }\n"
             self.optionalpart=geotriplepattern
         if "highload" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()] and self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["highload"]:
             self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . } UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } \n"
@@ -88,11 +97,9 @@ class ClassTreeQueryTask(QgsTask):
             #self.query+="{ ?individual <"+self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]+"> ?subject . "+str(self.optionalpart)+"} UNION { ?subject <"+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"])+"> owl:Class .  } \n"
         elif self.optionalpart=="":
             #self.query += "{ ?individual <" + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"] + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  }  .\n"
-            self.query=self.query.replace("?hasgeo","")
-        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . " + str(self.optionalpart) + "} UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  } \n"
-        self.query+="""OPTIONAL { ?subject <"""+str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"])+"""> ?supertype . }\n
-                       """+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL","FILTER(LANG(?label) = \""+str(self.preferredlang)+"\") ")+" "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL","")+""" 
-                    }"""
+            self.query=self.query.replace("(Bound(?hasgeo) AS ?hgeo)","").replace("?hasgeo","")
+        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . " + str(self.optionalpart) + " } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . "+" } \n"
+        self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "FILTER(LANG(?label) = \"" + str(self.preferredlang) + "\") ") + " " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "") + """ }"""
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
@@ -104,9 +111,10 @@ class ClassTreeQueryTask(QgsTask):
             self.subclassmap={"root":set()}
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
             if results=="Exists error":
-                results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo",""), self.triplestoreconf)
+                results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo","").replace("(Bound(?hasgeo) AS ?hgeo)",""), self.triplestoreconf)
             if results==False:
-                SPARQLUtils.exception="No results"
+                if SPARQLUtils.exception==None:
+                    SPARQLUtils.exception="No results"
                 return False
             hasparent={}
             QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
@@ -124,7 +132,9 @@ class ClassTreeQueryTask(QgsTask):
                     else:
                         self.classtreemap[subval].setText(
                             SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
-                    if "hasgeo" in result:
+                    if "hgeo" in result and (result["hgeo"]["value"]=="true" or result["hgeo"]["value"]==True or result["hgeo"]["value"]==1):
+                        QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),
+                                                 MESSAGE_CATEGORY, Qgis.Info)
                         self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
                         self.classtreemap[subval].setToolTip(
