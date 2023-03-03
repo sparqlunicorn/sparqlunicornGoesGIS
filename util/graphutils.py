@@ -149,7 +149,7 @@ class GraphUtils:
             capabilitylist.append("Schema.org Geo Polygon")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geometryproperty"] = ["https://schema.org/geo"]
-            configuration["geotriplepattern"].append(" ?item_geom <https://schema.org/polygon> ?geo . ")
+            configuration["geotriplepattern"].append(" ?item <https://schema.org/polygon> ?geo . ")
             gottype = True
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
         if len(configuration["geotriplepattern"])==1:
