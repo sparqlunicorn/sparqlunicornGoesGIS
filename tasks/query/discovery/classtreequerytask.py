@@ -98,7 +98,8 @@ class ClassTreeQueryTask(QgsTask):
         elif self.optionalpart=="":
             #self.query += "{ ?individual <" + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"] + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  }  .\n"
             self.query=self.query.replace("(Bound(?hasgeo) AS ?hgeo)","").replace("?hasgeo","")
-        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . " + str(self.optionalpart) + " } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . "+" } \n"
+        #
+        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . "+str(self.optionalpart) +" } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> rdfs:Class . } \n"
         self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "FILTER(LANG(?label) = \"" + str(self.preferredlang) + "\") ") + " " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "") + """ }"""
 
     def run(self):
@@ -110,7 +111,7 @@ class ClassTreeQueryTask(QgsTask):
             self.classtreemap={"root":self.treeNode}
             self.subclassmap={"root":set()}
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-            if results=="Exists error":
+            if results=="Exists error" or results==False and SPARQLUtils.exception!=None:
                 results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo","").replace("(Bound(?hasgeo) AS ?hgeo)",""), self.triplestoreconf)
             if results==False:
                 if SPARQLUtils.exception==None:
