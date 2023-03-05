@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>133</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Alter BaseLayer</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="okButton">
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="baseLayerNameEdit"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="baseLayerNameLabel">
+     <property name="text">
+      <string>BaseLayer ID:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="baseLayerURLEdit"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="baseLayerURLLabel">
+     <property name="text">
+      <string>BaseLayer URL:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="layerTypeCBox">
+     <item>
+      <property name="text">
+       <string>XYZ</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>WMS Layer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Vector Tiles Layer</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="layerTypeLabel">
+     <property name="text">
+      <string>Layer Type:</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>66</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

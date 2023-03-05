@@ -4,7 +4,9 @@ from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageB
 from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
+
+from ..util.baselayerdialog import BaseLayerDialog
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
 from ...tasks.processing.ontdoctask import OntDocTask
 
@@ -14,6 +16,15 @@ import os.path
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), '../ui/ontdocdialog.ui'))
+
+baselayers={
+    "OpenStreetMap (OSM)":{"url":"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png","default":True,"type":"tile"},
+    "AWMC Maptiles":{"url":"https://cawm.lib.uiowa.edu/tiles/{z}/{x}/{y}.png","default":False,"type":"tile"},
+    "BaseMap DE":{"url":"https://sgx.geodatenzentrum.de/wms_topplus_web_open","default":False,"type":"wms","layername":"web"},
+    "Stamen Toner":{"url":"https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png","default":False,"type":"tile"},
+    "Stamen Terrain":{"url":"https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png","default":False,"type":"tile"},
+    "Stamen Watercolor":{"url":"https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png","default":False,"type":"tile"}
+}
 
 ##
 #  Class representing the graph validation dialog.
@@ -33,8 +44,22 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.prefixes=prefixes
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
-        self.groupBox.hide()
         self.namespaceCBox.setModel(QStandardItemModel())
+        self.tabWidget.setTabVisible(1,False)
+        model = QStandardItemModel()
+        self.baseLayerListView.setModel(model)
+        self.addbaseLayerButton.clicked.connect(lambda: BaseLayerDialog(self.baseLayerListView,baselayers).exec())
+        self.baseLayerListView.doubleClicked.connect(lambda item: BaseLayerDialog(self.baseLayerListView,baselayers,item,item.data(266),item.data(265)).exec())
+        for lay in baselayers:
+            item = QStandardItem(str(lay)+" <"+str(baselayers[lay]["url"])+">")
+            item.setCheckable(True)
+            if baselayers[lay]["default"]:
+                item.setCheckState(Qt.Checked)
+            else:
+                item.setCheckState(Qt.Unchecked)
+            item.setData(baselayers[lay]["url"],265)
+            item.setData(lay,266)
+            model.appendRow(item)
         self.tsk=None
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
 
@@ -58,8 +83,14 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         namespace=self.namespaceCBox.currentText()
         if namespace==None or namespace=="":
                 namespace="http://lod.squirrel.link/data/"
+        baselayerss={}
+        model=self.baseLayerListView.model()
+        for index in range(model.rowCount()):
+            item = model.item(index)
+            if item.isCheckable() and item.checkState() == Qt.Checked:
+                baselayerss[item.data(266)]=baselayers[item.data(266)]
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(), maincolor, titlecolor,progress,logoname)
+                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss, maincolor, titlecolor,progress,logoname)
         QgsApplication.taskManager().addTask(self.qtask)
