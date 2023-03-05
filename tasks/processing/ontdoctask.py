@@ -25,14 +25,14 @@ class OntDocTask(QgsTask):
         self.outpath=outpath
 
     def run(self):
-        QgsMessageLog.logMessage("Graph "+str(self.graphname), "Ontdoctask", Qgis.Info)
+        QgsMessageLog.logMessage("Graph "+str(self.graphname), MESSAGE_CATEGORY, Qgis.Info)
         if isinstance(self.graphname,str):
             self.graph=SPARQLUtils.loadGraph(self.graphname)
         else:
             self.graph=Graph()
             for file in self.graphname:
                 SPARQLUtils.loadGraph(file,self.graph)
-        QgsMessageLog.logMessage("Graph "+str(self.graph), "Ontdoctask", Qgis.Info)
+        QgsMessageLog.logMessage("Graph "+str(self.graph), MESSAGE_CATEGORY, Qgis.Info)
         nsshort=""
         if self.namespace in self.prefixes["reversed"]:
             nsshort=self.prefixes["reversed"][self.namespace]
@@ -40,8 +40,12 @@ class OntDocTask(QgsTask):
             nsshort=self.namespace[self.namespace[0:-1].rfind('/') + 1:]
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.maincolor,self.titlecolor,self.progress,self.logopath)
-        ontdoc.generateOntDocForNameSpace(self.namespace)
+        try:
+            ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.maincolor,self.titlecolor,self.progress,self.logopath)
+            ontdoc.generateOntDocForNameSpace(self.namespace)
+        except Exception as e:
+            self.exception=e
+            return False
         return True
 
     def finished(self, result):
@@ -52,5 +56,8 @@ class OntDocTask(QgsTask):
             msgBox.exec()
         else:
             msgBox = QMessageBox()
-            msgBox.setText("Ontology documentation failed!")
+            if self.exception!=None:
+                msgBox.setText("Ontology documentation failed!\n"+str(self.exception))
+            else:
+                msgBox.setText("Ontology documentation failed!")
             msgBox.exec()

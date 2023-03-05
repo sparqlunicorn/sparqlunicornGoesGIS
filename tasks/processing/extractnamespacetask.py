@@ -61,7 +61,7 @@ class ExtractNamespaceTask(QgsTask):
                         nondataclasses+=1
                     else:
                         dataclasses+=1
-                        QgsMessageLog.logMessage(str(nssub)+" "+str(tup), MESSAGE_CATEGORY, Qgis.Info)
+                        #QgsMessageLog.logMessage(str(nssub)+" "+str(tup), MESSAGE_CATEGORY, Qgis.Info)
                 #QgsMessageLog.logMessage(str(ns)+" "+str(dataclasses), MESSAGE_CATEGORY, Qgis.Info)
                 nstodataclass[ns]+=dataclasses
         QgsMessageLog.logMessage(str(nstodataclass), MESSAGE_CATEGORY, Qgis.Info)

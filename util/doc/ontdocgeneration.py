@@ -259,7 +259,7 @@ class OntDocGeneration:
             try:
                 self.graph.parse(outpath + path + "/index.ttl")
             except Exception as e:
-                print(e)
+                QgsMessageLog.logMessage(e)
         return paths
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
@@ -283,7 +283,8 @@ class OntDocGeneration:
             shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
             self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
         for sub in self.graph.subjects(None,None,True):
-            if prefixnamespace in sub and isinstance(sub,URIRef) or isinstance(sub,BNode):
+            QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
+            if prefixnamespace in str(sub) and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
                 for tup in self.graph.predicate_objects(sub):
                     if str(tup[0]) in SPARQLUtils.labelproperties:
@@ -337,16 +338,16 @@ class OntDocGeneration:
                 try:
                     self.graph.parse(outpath + path+"/index.ttl")
                 except Exception as e:
-                    print(e)
+                    QgsMessageLog.logMessage(e)
             postprocessing=self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
                        self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
             subtorencounter += 1
             if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
-            print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
+            QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
             #except Exception as e:
-            #    print(e)
+            #    QgsMessageLog.logMessage(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
         #QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
         for subj in postprocessing.subjects(None,None,True):
@@ -356,14 +357,14 @@ class OntDocGeneration:
                 try:
                     self.graph.parse(outpath + path+"/index.ttl")
                 except Exception as e:
-                    print(e)
+                    QgsMessageLog.logMessage(e)
             self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
                        self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
             subtorencounter += 1
             if subtorencounter%500==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
-            print(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
+            QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.assignGeoClassesToTree(tree)
         self.checkGeoInstanceAssignment(uritotreeitem)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
@@ -413,7 +414,7 @@ class OntDocGeneration:
                         indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
-            print(path)
+            QgsMessageLog.logMessage(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
@@ -468,10 +469,10 @@ class OntDocGeneration:
         result = []
         ress = {}
         for res in results:
-            print(res)
+            QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
             if "_:" not in str(res["subject"]) and str(res["subject"]).startswith("http"):
                 ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
-        print(ress)
+        #QgsMessageLog.logMessage(ress)
         for cls in ress:
             for obj in graph.subjects(URIRef(self.typeproperty), URIRef(cls),True):
                 res = self.replaceNameSpacesInLabel(str(obj))
@@ -629,7 +630,7 @@ class OntDocGeneration:
                 annosource = str(tup[1])
             if isinstance(tup[1], Literal) and (
                     str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                geojsonrep = LayerUtils.processLiteral(str(tup[1]), tup[1].datatype, "")
+                geojsonrep = LayerUtils.processLiteral(str(tup[1]), str(tup[1].datatype), "")
             if incollection and "<svg" in str(tup[1]):
                 foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
@@ -740,7 +741,7 @@ class OntDocGeneration:
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 if isinstance(object, Literal) and (str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
-                    geojsonrep = LayerUtils.processLiteral(str(object), object.datatype, "",None,None,True)
+                    geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
             else:
                 if object.language != None:
                     if ttlf!=None:
@@ -800,7 +801,7 @@ class OntDocGeneration:
             checkdepth = subject.replace(baseurl, "").count("/")
         #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
         checkdepth+=1
-        print("Checkdepth: " + str(checkdepth))
+        QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
         return checkdepth
 
     def getAccessFromBaseURL(self,baseurl,savepath):
@@ -958,7 +959,7 @@ class OntDocGeneration:
                     labelmap={}
                     for item in subpredsmap[tup]:
                         if item not in subjectstorender and baseurl in str(item):
-                            print("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
+                            QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
@@ -974,7 +975,7 @@ class OntDocGeneration:
                 else:
                     tablecontents += "<td class=\"wrapword\">"
                     if subpredsmap[tup][0] not in subjectstorender and baseurl in str(subpredsmap[tup][0]):
-                        print("Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject))
+                        QgsMessageLog.logMessage("Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject))
                         postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
                     res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, graph,
                                                          baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
@@ -1029,7 +1030,7 @@ class OntDocGeneration:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
                         f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
             elif len(foundmedia["mesh"])>0 and len(image3dannos)==0:
-                print("Found 3D Model: "+str(foundmedia["mesh"]))
+                QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
                 for curitem in foundmedia["mesh"]:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
@@ -1096,13 +1097,13 @@ class OntDocGeneration:
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
                         if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
-                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), geoinstance[1].datatype, "",None,None,True)
+                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",None,None,True)
                             uritotreeitem[str(subject)][-1]["type"] = "geocollection"
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                             uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
                                 if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), geotup[1].datatype, "",None,None,True)
+                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
