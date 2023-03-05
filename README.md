@@ -36,7 +36,7 @@ Please cite the `SPARQLing Unicorn QGIS Plugin` software as shown in [CITATION.c
 
 ### Publications using the SPARQLing Unicorn QGIS Plugin
 
-- Ángel Obregón-Sierra, Javier López-Otero, Antonio Gavira-Narváez, Rafael F. Vega-Pozuelo (Feb 2023). Methodology for the incorporation of geographic information in Wikidata (REVISTA DE ESTUDIOS ANDALUCES (REA)) <https://doi.org/10.12795/rea>
+- Ángel Obregón-Sierra, Javier López-Otero, Antonio Gavira-Narváez, Rafael F. Vega-Pozuelo (Feb 2023). Methodology for the incorporation of geographic information in Wikidata (REVISTA DE ESTUDIOS ANDALUCES (REA)) <https://doi.org/10.12795/rea.2023.i45.11>
 
 - Schmidt, S. C., Thiery, F., & Trognitz, M. (2022). Practices of linked open data in archaeology and their realisation in Wikidata. Digital, 2(3), 333-364. <https://doi.org/10.3390/digital2030019>
 
