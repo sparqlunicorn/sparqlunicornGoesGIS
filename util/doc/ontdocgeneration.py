@@ -186,7 +186,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,maincolor,tablecolor,progress,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,maincolor,tablecolor,progress,createIndexPages=True,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -194,6 +194,7 @@ class OntDocGeneration:
         self.progress=progress
         self.baselayers=baselayers
         self.logoname=logoname
+        self.geocollectionspaths=[]
         self.templatename=templatename
         resolveTemplate(templatename)
         self.maincolorcode="#c0e2c0"
@@ -207,7 +208,7 @@ class OntDocGeneration:
         self.licenseuri=None
         self.labellang=labellang
         self.typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        self.createIndexPages=True
+        self.createIndexPages=createIndexPages
         self.graph=graph
         for nstup in self.graph.namespaces():
             if str(nstup[1]) not in prefixes["reversed"]:
@@ -1091,7 +1092,7 @@ class OntDocGeneration:
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
-                f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)).replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
+                f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection:
                 featcoll={"type":"FeatureCollection", "id":subject, "features":[]}
                 for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
@@ -1107,7 +1108,10 @@ class OntDocGeneration:
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
-                f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)).replace("{{baselayers}}",json.dumps(self.baselayers)))
+                f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
+                with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
+                    fgeo.write(json.dumps(featcoll))
+                    fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
