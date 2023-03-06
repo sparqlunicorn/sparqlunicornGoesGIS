@@ -64,6 +64,7 @@ class UIUtils:
     ccbyncicon=QIcon(":/icons/resources/icons/ccbync.png")
     ccbyncsaicon=QIcon(":/icons/resources/icons/ccbyncsa.png")
     ccbyncndicon=QIcon(":/icons/resources/icons/ccbyncnd.png")
+    nolicenseicon=QIcon(":/icons/resources/icons/nolicense.png")
     cczeroicon=QIcon(":/icons/resources/icons/zero.png")
     countinstancesicon=QIcon(":/icons/resources/icons/countinstances.png")
     geoclassicon=QIcon(":/icons/resources/icons/geoclass.png")
