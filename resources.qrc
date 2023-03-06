@@ -13,6 +13,14 @@
     <file>resources/icons/featurecollectionlink.png</file>
     <file>resources/icons/featurecollectionToRDF.png</file>
     <file>resources/icons/countinstances.png</file>
+    <file>resources/icons/zero.png</file>
+    <file>resources/icons/ccby.png</file>
+    <file>resources/icons/ccbync.png</file>
+    <file>resources/icons/ccbyncnd.png</file>
+    <file>resources/icons/ccbyncsa.png</file>
+    <file>resources/icons/ccbynd.png</file>
+    <file>resources/icons/ccbysa.png</file>
+    <file>resources/icons/allrightsreserved.png</file>
     <file>resources/icons/linkeddata.png</file>
     <file>resources/icons/linkedgeoclass.png</file>
     <file>resources/icons/linkedgeoclassschema.png</file>

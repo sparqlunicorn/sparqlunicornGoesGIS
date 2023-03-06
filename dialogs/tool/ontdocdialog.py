@@ -3,7 +3,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QLineEdit,QMessageBox
 from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
 
 from ..util.baselayerdialog import BaseLayerDialog
@@ -25,6 +25,7 @@ baselayers={
     "Stamen Terrain":{"url":"https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png","default":False,"type":"tile"},
     "Stamen Watercolor":{"url":"https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png","default":False,"type":"tile"}
 }
+
 
 ##
 #  Class representing the graph validation dialog.
@@ -48,6 +49,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.tabWidget.setTabVisible(1,False)
         model = QStandardItemModel()
         self.baseLayerListView.setModel(model)
+        self.createCCLicenseCBOX()
         self.addbaseLayerButton.clicked.connect(lambda: BaseLayerDialog(self.baseLayerListView,baselayers).exec())
         self.baseLayerListView.doubleClicked.connect(lambda item: BaseLayerDialog(self.baseLayerListView,baselayers,item,item.data(266),item.data(265)).exec())
         for lay in baselayers:
@@ -62,6 +64,19 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             model.appendRow(item)
         self.tsk=None
         UIUtils.createLanguageSelectionCBox(self.preferredLabelLangCBox,languagemap)
+
+    def createCCLicenseCBOX(self):
+        self.licenseCBox.setIconSize(QSize(55, 50))
+        self.licenseCBox.addItem("No License Statement")
+        self.licenseCBox.addItem(UIUtils.allrightsreservedicon,"All rights reserved")
+        self.licenseCBox.addItem(UIUtils.ccbyicon,"CC-BY 4.0")
+        self.licenseCBox.addItem(UIUtils.ccbysaicon,"CC-BY-SA 4.0")
+        self.licenseCBox.addItem(UIUtils.ccbyncicon,"CC-BY-NC 4.0")
+        self.licenseCBox.addItem(UIUtils.ccbyncsaicon,"CC-BY-NC-SA 4.0")
+        self.licenseCBox.addItem(UIUtils.ccbyndicon,"CC-BY-ND 4.0")
+        self.licenseCBox.addItem(UIUtils.ccbyncndicon,"CC-BY-NC-ND 4.0")
+        self.licenseCBox.addItem(UIUtils.cczeroicon,"CC0")
+
 
     def extractNamespaces(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.prefixes,None)
