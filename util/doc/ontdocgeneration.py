@@ -264,7 +264,7 @@ class OntDocGeneration:
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
-        corpusid=self.namespaceshort
+        corpusid=self.namespaceshort.replace("#","")
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
         labeltouri = {}
