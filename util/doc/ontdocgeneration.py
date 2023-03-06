@@ -186,12 +186,13 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,maincolor,tablecolor,progress,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,maincolor,tablecolor,progress,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.baselayers=baselayers
         self.logoname=logoname
         self.templatename=templatename
         resolveTemplate(templatename)
@@ -1090,7 +1091,7 @@ class OntDocGeneration:
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
-                f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)).replace("{{epsg}}",epsgcode))
+                f.write(maptemplate.replace("{{myfeature}}",json.dumps(jsonfeat)).replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection:
                 featcoll={"type":"FeatureCollection", "id":subject, "features":[]}
                 for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
@@ -1106,7 +1107,7 @@ class OntDocGeneration:
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
                         if geojsonrep!=None:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
-                f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)))
+                f.write(maptemplate.replace("{{myfeature}}",json.dumps(featcoll)).replace("{{baselayers}}",json.dumps(self.baselayers)))
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()

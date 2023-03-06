@@ -17,6 +17,8 @@ class UIUtils:
 
     urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
 
+    baselayerurlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\)\{\},]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+
     prefixregex = QRegExp("[a-z]+")
 
     nominatimurl='https://nominatim.openstreetmap.org/search?format=json&q={address}'

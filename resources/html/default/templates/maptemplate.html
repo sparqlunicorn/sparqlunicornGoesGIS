@@ -8,20 +8,107 @@
 </script>
 <div id="map" style="height:500px;z-index: 0;"></div>
 <script>
+var rangesByAttribute={}
+function restyleLayer(propertyName,geojsonLayer) {
+    geojsonLayer.eachLayer(function(featureInstanceLayer) {
+        propertyValue = featureInstanceLayer.feature.properties[propertyName];
+
+        // Your function that determines a fill color for a particular
+        // property name and value.
+        var myFillColor = getColor(propertyName, propertyValue);
+
+        featureInstanceLayer.setStyle({
+            fillColor: myFillColor,
+            fillOpacity: 0.8,
+            weight: 0.5
+        });
+    });
+}
+
+function createColorRangeByAttribute(propertyName,geojsonlayer){
+    var valueset={}
+    var minamount=999999,maxamount=-999999
+    var amountofrelevantitems=0
+    var stringitems=0
+    var numberitems=0
+    var amountofitems=geojsonlayer.size()
+    var maxColors=8
+    for(feat of geojsonlayer){
+        if(propertyName in feat["properties"]){
+            if(!(feat["properties"][propertyName] in valueset)){
+                valueset[feat["properties"][propertyName]]=0
+            }
+            valueset[feat["properties"][propertyName]]+=1
+            if(isNaN(feat["properties"][propertyName])){
+                stringitems+=1
+            }else{
+                numberitems+=1
+                numb=Number(feat["properties"][propertyName])
+                if(numb<minamount){
+                    minamount=numb
+                }
+                if(numb>maxamount){
+                    maxamount=numb
+                }
+            }
+            amountofrelevantitems+=1
+        }else{
+            if(!("undefined" in valueset)){
+                valueset["undefined"]=0
+            }
+            valueset["undefined"]+=1
+        }
+    }
+    if(numberitems===amountofrelevantitems){
+        myrange=maxamount-minamount
+        myrangesteps=myrange/maxColors
+        curstep=minamount
+        while(curstep<maxamount){
+            curstepstr=(curstep+"")
+            rangesByAttribute[propertyName]={cursteps:{"min":curstep,"max":curstep+myrangesteps,"label":"["+curstep+"-"+curstep+myrangesteps+"]"}}
+            curstep+=myrangesteps
+        }
+    }else if(stringitems<amountofrelevantitems){
+
+    }else if(stringitems===amountofrelevantitems){
+
+    }
+}
+
+function getGenericColor(propertyName,propertyValue){
+
+}
+
 var overlayMaps={}
+var baselayers={{baselayers}}
 var map = L.map('map',{fullscreenControl: true,fullscreenControlOptions: {position: 'topleft'}}).setView([51.505, -0.09], 13);
-	var layer=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	});
-	var baseMaps = {
-        "OSM": layer
-	};
-baseMaps["OSM"].addTo(map);
+var baseMaps = {};
+if(typeof (baselayers) === 'undefined' || baselayers===[]){
+    basemaps["OSM"]=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+    baseMaps["OSM"].addTo(map);
+}else{
+    first=true
+    for(bl in baselayers){
+        if("type" in baselayers[bl] && baselayers[bl]["type"]==="wms") {
+            if("layername" in baselayers[bl]){
+                baseMaps[bl] = L.tileLayer.wms(baselayers[bl]["url"],{"layers":baselayers[bl]["layername"]})
+            }else{
+                baseMaps[bl] = L.tileLayer.wms(baselayers[bl]["url"])
+            }
+
+        }else if(!("type" in baselayers[bl]) || baselayers[bl]["type"]==="tile"){
+            baseMaps[bl]=L.tileLayer(baselayers[bl]["url"])
+        }
+        if(first) {
+            baseMaps[bl].addTo(map);
+            first = false
+        }
+    }
+}
 	L.control.scale({
 	position: 'bottomright',
 	imperial: false
 	}).addTo(map);
-	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
 	var feature = {{myfeature}}
@@ -77,6 +164,8 @@ baseMaps["OSM"].addTo(map);
     popup+="</ul>"
     layer.bindPopup(popup)}})
 	layerr.addTo(map)
+    overlayMaps["Content"]=layerr
+	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
     var layerBounds = layerr.getBounds();
     bounds.extend(layerBounds);
     map.fitBounds(bounds);
