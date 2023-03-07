@@ -67,7 +67,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def createCCLicenseCBOX(self):
         self.licenseCBox.setIconSize(QSize(55, 50))
-        self.licenseCBox.addItem("No License Statement")
+        self.licenseCBox.addItem(UIUtils.nolicenseicon,"No License Statement")
         self.licenseCBox.addItem(UIUtils.allrightsreservedicon,"All rights reserved")
         self.licenseCBox.addItem(UIUtils.ccbyicon,"CC-BY 4.0")
         self.licenseCBox.addItem(UIUtils.ccbysaicon,"CC-BY-SA 4.0")
