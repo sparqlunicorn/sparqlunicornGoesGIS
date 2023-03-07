@@ -130,9 +130,9 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
         },onEachFeature: function (feature, layer) {
         var popup="<b>"
         if("label" in feature && feature.label!=""){
-            popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
+            popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
         }else{
-            popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+            popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
         }
         for(prop in feature.properties){
             popup+="<li>"
@@ -163,13 +163,17 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
         }
         popup+="</ul>"
         layer.bindPopup(popup)}})
-        overlayMaps["Content "+counter]=layerr
+        layername="Content "+counter
+        if("name" in feature) {
+            layername = feature["name"]
+        }else {
+            counter += 1
+        }
+        overlayMaps[layername]=layerr
         if(first) {
-            overlayMaps["Content "+counter].addTo(map);
+            overlayMaps[layername].addTo(map);
             first = false
         }
-        layerr.addTo(map)
-
     }
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
     var layerBounds = layerr.getBounds();

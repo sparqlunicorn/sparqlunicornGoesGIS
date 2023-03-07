@@ -95,7 +95,7 @@ geoexports="""
 global maptemplate
 maptemplate=""
 
-featurecollectionspaths=[]
+featurecollectionspaths=set()
 
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 
@@ -424,12 +424,12 @@ class OntDocGeneration:
                 f.write(indexhtml)
                 f.close()
         if len(featurecollectionspaths)>0:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","1").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
-            indexhtml+="<script src=\""+outpath+"features.js\"></script>"
+            indexhtml+="<script src=\"features.js\"></script>"
             indexhtml+=maptemplate.replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers))
             indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
@@ -1122,7 +1122,7 @@ class OntDocGeneration:
                     epsgcode="EPSG:"+geojsonrep["crs"]
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection:
-                featcoll={"type":"FeatureCollection", "id":subject, "features":[]}
+                featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
                 for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
@@ -1138,7 +1138,7 @@ class OntDocGeneration:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
-                    featurecollectionspaths.append(savepath + "/index.geojson")
+                    featurecollectionspaths.add(savepath + "/index.geojson")
                     fgeo.write(json.dumps(featcoll))
                     fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
