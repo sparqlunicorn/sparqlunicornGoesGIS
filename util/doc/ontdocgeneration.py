@@ -423,17 +423,18 @@ class OntDocGeneration:
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
-        indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","1").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
-                .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
-        indexhtml = indexhtml.replace("{{indexpage}}", "true")
-        self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
-        indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
-        indexhtml+="<script src=\""+outpath+"features.js\"></script>"
-        indexhtml+=maptemplate.replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers))
-        indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
-        with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
-            f.write(indexhtml)
-            f.close()
+        if len(featurecollectionspaths)>0:
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","1").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+                    .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
+            indexhtml = indexhtml.replace("{{indexpage}}", "true")
+            self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
+            indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
+            indexhtml+="<script src=\""+outpath+"features.js\"></script>"
+            indexhtml+=maptemplate.replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers))
+            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
+                f.write(indexhtml)
+                f.close()
 
     def merge_JsonFiles(self,files,outpath):
         result = list()
@@ -625,9 +626,12 @@ class OntDocGeneration:
         foundval = None
         foundunit = None
         tempvalprop = None
+        onelabel=None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
-                label = str(tup[1])
+                if tup[1].language==self.labellang:
+                    label=str(tup[1])
+                onelabel=str(tup[1])
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
                     self.typeproperty) and (
                     tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
@@ -708,6 +712,8 @@ class OntDocGeneration:
         if annosource != None:
             for textanno in textannos:
                 textanno["src"] = annosource
+        if label=="" and onelabel!=None:
+            label=onelabel
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
                 "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
 
@@ -892,7 +898,7 @@ class OntDocGeneration:
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
                 for lab in predobjmap[tup]:
-                    if lab==self.labellang:
+                    if lab.language==self.labellang:
                         foundlabel=lab
                 if foundlabel=="":
                     foundlabel = str(predobjmap[tup][0])
