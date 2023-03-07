@@ -111,60 +111,66 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
 	}).addTo(map);
 	var bounds = L.latLngBounds([]);
 	props={}
-	var feature = {{myfeature}}
+	var featurecolls = {{myfeature}}
     var epsg="{{epsg}}"
-    if(epsg!="" && epsg!="EPSG:4326" && epsg in epsgdefs){
-        feature=convertGeoJSON(feature,epsgdefs[epsg],null)
-    }
-	layerr=L.geoJSON.css(feature,{
-	pointToLayer: function(feature, latlng){
-                  var greenIcon = new L.Icon({
-                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
-                return L.marker(latlng, {icon: greenIcon});
-    },onEachFeature: function (feature, layer) {
-    var popup="<b>"
-    if("label" in feature && feature.label!=""){
-        popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
-    }else{
-        popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
-    }
-    for(prop in feature.properties){
-        popup+="<li>"
-        if(prop.startsWith("http")){
-            popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
-        }else{
-            popup+=prop
+    first=true
+    counter=1
+    for(feature of featurecolls){
+        if(epsg!="" && epsg!="EPSG:4326" && epsg in epsgdefs){
+            feature=convertGeoJSON(feature,epsgdefs[epsg],null)
         }
-        popup+=" : "
-        if(feature.properties[prop].length>1){
-            popup+="<ul>"
-            for(item of feature.properties[prop]){
-                popup+="<li>"
-                if((item+"").startsWith("http")){
-                    popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
-                }else{
-                    popup+=item
-                }
-                popup+="</li>"
+        layerr=L.geoJSON.css(feature,{
+        pointToLayer: function(feature, latlng){
+                      var greenIcon = new L.Icon({
+                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],iconAnchor: [12, 41], popupAnchor: [1, -34],shadowSize: [41, 41]
+                    });
+                    return L.marker(latlng, {icon: greenIcon});
+        },onEachFeature: function (feature, layer) {
+        var popup="<b>"
+        if("label" in feature && feature.label!=""){
+            popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
+        }else{
+            popup+="<a href=\""+feature.id+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+        }
+        for(prop in feature.properties){
+            popup+="<li>"
+            if(prop.startsWith("http")){
+                popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+            }else{
+                popup+=prop
             }
-            popup+="</ul>"
-        }else if((feature.properties[prop][0]+"").startsWith("http")){
-            popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
-        }else{
-            popup+=feature.properties[prop]
+            popup+=" : "
+            if(feature.properties[prop].length>1){
+                popup+="<ul>"
+                for(item of feature.properties[prop]){
+                    popup+="<li>"
+                    if((item+"").startsWith("http")){
+                        popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
+                    }else{
+                        popup+=item
+                    }
+                    popup+="</li>"
+                }
+                popup+="</ul>"
+            }else if((feature.properties[prop][0]+"").startsWith("http")){
+                popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
+            }else{
+                popup+=feature.properties[prop]
+            }
+            popup+="</li>"
         }
-        popup+="</li>"
+        popup+="</ul>"
+        layer.bindPopup(popup)}})
+        overlayMaps["Content"]=layerr
+        if(first) {
+            overlayMaps[bl].addTo(map);
+            first = false
+        }
+        layerr.addTo(map)
+
     }
-    popup+="</ul>"
-    layer.bindPopup(popup)}})
-	layerr.addTo(map)
-    overlayMaps["Content"]=layerr
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
     var layerBounds = layerr.getBounds();
     bounds.extend(layerBounds);
