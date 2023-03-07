@@ -95,6 +95,8 @@ geoexports="""
 global maptemplate
 maptemplate=""
 
+featurecollectionspaths=[]
+
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 
 htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
@@ -226,6 +228,7 @@ class OntDocGeneration:
         #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
     def processLicense(self):
+        QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
         if self.license==None or self.license=="" or self.license=="No License Statement":
             return ""
         if self.license.startswith("CC"):
@@ -420,7 +423,26 @@ class OntDocGeneration:
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
+        indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","1").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+                .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
+        indexhtml = indexhtml.replace("{{indexpage}}", "true")
+        self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
+        indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
+        indexhtml+="<script src=\""+outpath+"features.js\"></script>"
+        indexhtml+=maptemplate.replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers))
+        indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+        with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
+            f.write(indexhtml)
+            f.close()
 
+    def merge_JsonFiles(self,files,outpath):
+        result = list()
+        for f1 in files:
+            with open(f1, 'r',encoding="utf-8") as infile:
+                result.append(json.load(infile))
+
+        with open(outpath, 'w',encoding="utf-8") as output_file:
+            output_file.write("var featurecolls="+json.dumps(result))
 
     def getPropertyRelations(self,graph,outpath):
         predicates= {}
@@ -1110,6 +1132,7 @@ class OntDocGeneration:
                             featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
+                    featurecollectionspaths.append(savepath + "/index.geojson")
                     fgeo.write(json.dumps(featcoll))
                     fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))

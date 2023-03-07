@@ -163,9 +163,9 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
         }
         popup+="</ul>"
         layer.bindPopup(popup)}})
-        overlayMaps["Content"]=layerr
+        overlayMaps["Content "+counter]=layerr
         if(first) {
-            overlayMaps[bl].addTo(map);
+            overlayMaps["Content "+counter].addTo(map);
             first = false
         }
         layerr.addTo(map)

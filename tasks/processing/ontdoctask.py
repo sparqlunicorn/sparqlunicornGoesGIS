@@ -42,12 +42,12 @@ class OntDocTask(QgsTask):
             nsshort=self.namespace[self.namespace[0:-1].rfind('/') + 1:]
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
-        try:
-            ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.logopath)
-            ontdoc.generateOntDocForNameSpace(self.namespace)
-        except Exception as e:
-            self.exception=e
-            return False
+        #try:
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.logopath)
+        ontdoc.generateOntDocForNameSpace(self.namespace)
+        #except Exception as e:
+        #    self.exception=e
+        #    return False
         return True
 
     def finished(self, result):
