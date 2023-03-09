@@ -288,7 +288,7 @@ class OntDocGeneration:
             shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
             self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
         for sub in self.graph.subjects(None,None,True):
-            QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
+            #QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
             if prefixnamespace in str(sub) and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
                 for tup in self.graph.predicate_objects(sub):
@@ -589,12 +589,16 @@ class OntDocGeneration:
                     for item in uritotreeitem[uri]:
                         item["type"]=thetype
 
-    def shortenURI(self,uri):
+    def shortenURI(self,uri,ns=False):
+        if uri!=None and "#" in uri and ns:
+            return uri[0:uri.rfind('#')+1]
+        if uri!=None and "/" in uri and ns:
+            return uri[0:uri.rfind('/')+1]
         if uri.endswith("/"):
             uri = uri[0:-1]
-        if uri!=None and "#" in uri:
+        if uri!=None and "#" in uri and not ns:
             return uri[uri.rfind('#')+1:]
-        if uri!=None and "/" in uri:
+        if uri!=None and "/" in uri and not ns:
             return uri[uri.rfind('/')+1:]
         return uri
 
@@ -847,6 +851,7 @@ class OntDocGeneration:
 
     def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
         tablecontents = ""
+        metadatatablecontents=""
         isodd = False
         geojsonrep=None
         epsgcode=""
@@ -891,18 +896,31 @@ class OntDocGeneration:
                         if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                         uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
-        for tup in sorted(predobjmap):
-            if isodd:
-                tablecontents += "<tr class=\"odd\">"
+        tablecontentcounter=-1
+        metadatatablecontentcounter=-1
+        for tup in predobjmap:
+            QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
+            if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
+                thetable=metadatatablecontents
+                metadatatablecontentcounter+=1
+                if metadatatablecontentcounter%2==0:
+                    thetable += "<tr class=\"odd\">"
+                else:
+                    thetable += "<tr class=\"even\">"
             else:
-                tablecontents += "<tr class=\"even\">"
+                thetable=tablecontents
+                tablecontentcounter+=1
+                if tablecontentcounter%2==0:
+                    thetable += "<tr class=\"odd\">"
+                else:
+                    thetable += "<tr class=\"even\">"
             if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
             elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                 isgeocollection=True
                 uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
-            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,inverse)
+            thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
             if str(tup) in SPARQLUtils.labelproperties:
                 for lab in predobjmap[tup]:
                     if lab.language==self.labellang:
@@ -912,66 +930,45 @@ class OntDocGeneration:
             if str(tup) in SPARQLUtils.commentproperties:
                 comment[str(tup)]=str(predobjmap[tup][0])
             if len(predobjmap[tup]) > 0:
-                if len(predobjmap[tup])>1:
-                    tablecontents+="<td class=\"wrapword\"><ul>"
-                    labelmap={}
-                    for item in predobjmap[tup]:
-                        if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
-                            image3dannos.add(str(item))
-                        elif "<svg" in str(item):
-                            foundmedia["image"].add(str(item))
-                        elif "http" in str(item):
-                            if isinstance(item,Literal):
-                                ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
-                            else:
-                                ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
-                            if ext in SPARQLUtils.fileextensionmap:
-                                foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
-                        elif tup in SPARQLUtils.valueproperties:
-                            foundvals.add(str(item))
-                        res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                        geojsonrep = res["geojson"]
-                        foundmedia = res["foundmedia"]
-                        imageannos=res["imageannos"]
-                        textannos=res["textannos"]
-                        image3dannos=res["image3dannos"]
-                        if res["label"] not in labelmap:
-                            labelmap[res["label"]]=""
-                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
-                    for lab in sorted(labelmap):
-                        tablecontents+=str(labelmap[lab])
-                    tablecontents+="</ul></td>"
-                else:
-                    tablecontents+="<td class=\"wrapword\">"
-                    if ("POINT" in str(predobjmap[tup]).upper() or "POLYGON" in str(predobjmap[tup]).upper() or "LINESTRING" in str(predobjmap[tup]).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
-                        image3dannos.add(str(predobjmap[tup][0]))
-                    elif "<svg" in str(predobjmap[tup]):
-                        foundmedia["image"].add(str(predobjmap[tup][0]))
-                    elif "http" in str(predobjmap[tup]):
-                        if isinstance(predobjmap[tup],Literal):
-                            ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup][0].value).split(".")[-1]))
+                thetable+="<td class=\"wrapword\"><ul>"
+                labelmap={}
+                for item in predobjmap[tup]:
+                    if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
+                        image3dannos.add(str(item))
+                    elif "<svg" in str(item):
+                        foundmedia["image"].add(str(item))
+                    elif "http" in str(item):
+                        if isinstance(item,Literal):
+                            ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
                         else:
-                            ext = "." + ''.join(filter(str.isalpha, str(predobjmap[tup][0]).split(".")[-1]))
+                            ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
                         if ext in SPARQLUtils.fileextensionmap:
-                            foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(predobjmap[tup][0]))
+                            foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
                     elif tup in SPARQLUtils.valueproperties:
-                        foundvals.add(str(tup))
-                    res=self.createHTMLTableValueEntry(subject, tup, predobjmap[tup][0], ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                    tablecontents+=res["html"]
-                    geojsonrep=res["geojson"]
+                        foundvals.add(str(item))
+                    res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
+                                          baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
+                    geojsonrep = res["geojson"]
                     foundmedia = res["foundmedia"]
                     imageannos=res["imageannos"]
                     textannos=res["textannos"]
                     image3dannos=res["image3dannos"]
-                    tablecontents+="</td>"
+                    if res["label"] not in labelmap:
+                        labelmap[res["label"]]=""
+                    labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                for lab in sorted(labelmap):
+                    thetable+=str(labelmap[lab])
+                thetable+="</ul></td>"
             else:
-                tablecontents += "<td class=\"wrapword\"></td>"
-            tablecontents += "</tr>"
+                thetable += "<td class=\"wrapword\"></td>"
+            thetable += "</tr>"
+            if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
+                metadatatablecontents=thetable
+            else:
+                tablecontents=thetable
             isodd = not isodd
         subpredsmap={}
-        for tup in sorted(subpreds,key=lambda tup: tup[0]):
+        for tup in sorted(subpreds,key=lambda tup: tup[1]):
             if str(tup[1]) not in subpredsmap:
                 subpredsmap[str(tup[1])]=[]
             subpredsmap[str(tup[1])].append(tup[0])
@@ -991,36 +988,23 @@ class OntDocGeneration:
                 tablecontents += "<tr class=\"even\">"
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
             if len(subpredsmap[tup]) > 0:
-                if len(subpredsmap[tup]) > 1:
-                    tablecontents += "<td class=\"wrapword\"><ul>"
-                    labelmap={}
-                    for item in subpredsmap[tup]:
-                        if item not in subjectstorender and baseurl in str(item):
-                            QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
-                            postprocessing.add((item,URIRef(tup),subject))
-                        res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                        foundmedia = res["foundmedia"]
-                        imageannos=res["imageannos"]
-                        image3dannos=res["image3dannos"]
-                        if res["label"] not in labelmap:
-                            labelmap[res["label"]]=""
-                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
-                    for lab in sorted(labelmap):
-                        tablecontents+=str(labelmap[lab])
-                    tablecontents += "</ul></td>"
-                else:
-                    tablecontents += "<td class=\"wrapword\">"
-                    if subpredsmap[tup][0] not in subjectstorender and baseurl in str(subpredsmap[tup][0]):
-                        QgsMessageLog.logMessage("Postprocessing: " + str(subpredsmap[tup][0]) + " - " + str(tup) + " - " + str(subject))
-                        postprocessing.add((subpredsmap[tup][0], URIRef(tup), subject))
-                    res = self.createHTMLTableValueEntry(subject, tup, subpredsmap[tup][0], None, graph,
+                tablecontents += "<td class=\"wrapword\"><ul>"
+                labelmap={}
+                for item in subpredsmap[tup]:
+                    if item not in subjectstorender and baseurl in str(item):
+                        QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
+                        postprocessing.add((item,URIRef(tup),subject))
+                    res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                          baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                    tablecontents += res["html"]
                     foundmedia = res["foundmedia"]
                     imageannos=res["imageannos"]
                     image3dannos=res["image3dannos"]
-                    tablecontents += "</td>"
+                    if res["label"] not in labelmap:
+                        labelmap[res["label"]]=""
+                    labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                for lab in sorted(labelmap):
+                    tablecontents+=str(labelmap[lab])
+                tablecontents += "</ul></td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
@@ -1149,6 +1133,9 @@ class OntDocGeneration:
                     fgeo.write(json.dumps(featcoll))
                     fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
+            if metadatatablecontentcounter>=0:
+                f.write("<h5>Metadata</h5>")
+                f.write(htmltabletemplate.replace("{{tablecontent}}", metadatatablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
         return postprocessing
