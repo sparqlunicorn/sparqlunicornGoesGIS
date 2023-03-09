@@ -370,8 +370,8 @@ class OntDocGeneration:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
             QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
-        self.assignGeoClassesToTree(tree)
         self.checkGeoInstanceAssignment(uritotreeitem)
+        self.assignGeoClassesToTree(tree)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
@@ -464,14 +464,25 @@ class OntDocGeneration:
 
     def createCollections(self,graph,namespace):
         classToInstances={}
+        classToGeo = {}
         for tup in graph.subject_objects(URIRef(self.typeproperty)):
             if namespace in str(tup[0]):
                 if str(tup[1]) not in classToInstances:
                     classToInstances[str(tup[1])]=set()
+                    classToGeo[str(tup[1])]=0
                 classToInstances[str(tup[1])].add(str(tup[0]))
+                isgeo=False
+                for geotup in graph.predicate_objects(tup[0]):
+                    if str(geotup[0]) in SPARQLUtils.geopointerproperties:
+                        isgeo=True
+                if isgeo:
+                    classToGeo[str(tup[1])]+=1
         for cls in classToInstances:
             colluri=namespace+self.shortenURI(cls)+"_collection"
-            graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+            if classToGeo[cls]==len(classToInstances[cls]):
+                graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection")))
+            else:
+                graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
             graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(self.shortenURI(cls))+" Instances Collection")))
             for instance in classToInstances[cls]:
                 graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(instance)))
@@ -930,7 +941,9 @@ class OntDocGeneration:
             if str(tup) in SPARQLUtils.commentproperties:
                 comment[str(tup)]=str(predobjmap[tup][0])
             if len(predobjmap[tup]) > 0:
-                thetable+="<td class=\"wrapword\"><ul>"
+                thetable+="<td class=\"wrapword\">"
+                if len(predobjmap[tup])>1:
+                    thetable+="<ul>"
                 labelmap={}
                 for item in predobjmap[tup]:
                     if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
@@ -955,10 +968,15 @@ class OntDocGeneration:
                     image3dannos=res["image3dannos"]
                     if res["label"] not in labelmap:
                         labelmap[res["label"]]=""
-                    labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    if len(predobjmap[tup]) > 1:
+                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    else:
+                        labelmap[res["label"]] += str(res["html"])
                 for lab in sorted(labelmap):
                     thetable+=str(labelmap[lab])
-                thetable+="</ul></td>"
+                if len(predobjmap[tup])>1:
+                    thetable+="</ul>"
+                thetable+="</td>"
             else:
                 thetable += "<td class=\"wrapword\"></td>"
             thetable += "</tr>"
