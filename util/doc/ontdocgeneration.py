@@ -464,23 +464,36 @@ class OntDocGeneration:
 
     def createCollections(self,graph,namespace):
         classToInstances={}
-        classToGeo = {}
+        classToGeoColl = {}
+        classToFColl = {}
         for tup in graph.subject_objects(URIRef(self.typeproperty)):
             if namespace in str(tup[0]):
                 if str(tup[1]) not in classToInstances:
                     classToInstances[str(tup[1])]=set()
-                    classToGeo[str(tup[1])]=0
+                    classToFColl[str(tup[1])]=0
+                    classToGeoColl[str(tup[1])] = 0
                 classToInstances[str(tup[1])].add(str(tup[0]))
                 isgeo=False
+                isfeature = False
                 for geotup in graph.predicate_objects(tup[0]):
                     if str(geotup[0]) in SPARQLUtils.geopointerproperties:
+                        isfeature=True
+                    elif str(geotup[0]) in SPARQLUtils.geoproperties:
                         isgeo=True
                 if isgeo:
-                    classToGeo[str(tup[1])]+=1
+                    classToGeoColl[str(tup[1])]+=1
+                if isfeature:
+                    classToFColl[str(tup[1])]+=1
         for cls in classToInstances:
             colluri=namespace+self.shortenURI(cls)+"_collection"
-            if classToGeo[cls]==len(classToInstances[cls]):
+            if classToFColl[cls]==len(classToInstances[cls]):
+                graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+                graph.add((URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
                 graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection")))
+            elif classToGeoColl[cls]==len(classToInstances[cls]):
+                graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+                graph.add((URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
+                graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection")))
             else:
                 graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
             graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(self.shortenURI(cls))+" Instances Collection")))
