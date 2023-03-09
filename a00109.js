@@ -51,6 +51,7 @@ var a00109 =
     [ "linkedgeoclassnode", "a00109.html#a82fc4d6bb1f6404ed5fee6a57cd5ac87", null ],
     [ "linkedgeoinstancenode", "a00109.html#adcd00b5daa1460bfbeaf4081eddcce0b", null ],
     [ "meshextensions", "a00109.html#a1d94525f80bb457ee03f3e25a3253c7f", null ],
+    [ "metadatanamespaces", "a00109.html#af83c7a9d18ed85f1d08c2d8e566c13da", null ],
     [ "namespaces", "a00109.html#a1ad29ca58a86f0b5d40404abec85d2c2", null ],
     [ "objectpropertynode", "a00109.html#a08e26c0223b3748f7da63b146d2ac21a", null ],
     [ "relationproperties", "a00109.html#ab2c8eb4954e2f8428c109bba1d5a9ab0", null ],
