@@ -48,7 +48,7 @@ class OWL2VOWL():
         idcounter=0
         for nstup in g.namespaces():
             vowlresult["header"]["prefixList"][str(nstup[0])]=str(nstup[1])
-            vowlresult["header"]["baseIris"].append(str(nstup[1])[0:-1])
+            vowlresult["header"]["baseIris"].append(str(nstup[1]))
         for pred in g.subject_objects(URIRef(typeproperty)):
             #print(pred)
             iriToProdId[str(pred[0])]=idcounter

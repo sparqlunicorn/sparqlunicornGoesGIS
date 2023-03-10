@@ -529,47 +529,47 @@ class OntDocGeneration:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
-                    result.append({"id": str(obj), "parent": cls,
-                                   "type": "instance",
-                                   "text": restext, "data":{}})
+                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
                 else:
                     restext= self.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
-                    result.append({"id": str(obj), "parent": cls,
-                                   "type": "instance",
-                                   "text": restext,"data":{}})
+                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext,"data":{}})
                 if str(obj) not in uritotreeitem:
                     uritotreeitem[str(obj)]=[]
                 uritotreeitem[str(obj)].append(result[-1])
-                classidset.add(str(obj))
+                #classidset.add(str(obj))
             res = self.replaceNameSpacesInLabel(str(cls))
             if ress[cls]["super"] == None:
                 restext = self.shortenURI(str(cls))
                 if res != None:
                     restext += " (" + res["uri"] + ")"
-                result.append({"id": cls, "parent": "#",
-                               "type": "class",
-                               "text": restext,"data":{}})
+                if cls not in uritotreeitem:
+                    result.append({"id": cls, "parent": "#","type": "class","text": restext,"data":{}})
+                    uritotreeitem[str(cls)] = []
+                    uritotreeitem[str(cls)].append(result[-1])
             else:
                 if "label" in cls and cls["label"] != None:
                     restext = ress[cls]["label"] + " (" + self.shortenURI(str(cls)) + ")"
                     if res != None:
                         restext = ress[cls]["label"] + " (" + res["uri"] + ")"
-                    result.append({"id": cls, "parent": ress[cls]["super"],
-                                   "type": "class",
-                                   "text": restext + ")","data":{}})
                 else:
                     restext = self.shortenURI(str(cls))
                     if res != None:
                         restext += " (" + res["uri"] + ")"
-                    result.append({"id": cls, "parent": ress[cls]["super"],
-                                   "type": "class",
-                                   "text": restext,"data":{}})
-                if str(cls) not in uritotreeitem:
-                    uritotreeitem[str(cls)]=[]
-                uritotreeitem[str(cls)].append(result[-1])
+                if cls not in uritotreeitem:
+                    result.append({"id": cls, "parent": ress[cls]["super"],"type": "class","text": restext + ")","data":{}})
+                    if str(cls) not in uritotreeitem:
+                        uritotreeitem[str(cls)] = []
+                    uritotreeitem[str(cls)].append(result[-1])
+                else:
+                    uritotreeitem[cls][-1]["parent"]=ress[cls]["super"]
+                if str(ress[cls]["super"]) not in uritotreeitem:
+                    uritotreeitem[ress[cls]["super"]]=[]
+                uritotreeitem[ress[cls]["super"]].append(result.append({"id": cls, "parent": "#","type": "class","text": restext,"data":{}}))
+                classidset.add(str(ress[cls]["super"]))
             classidset.add(str(cls))
+
         tree["core"]["data"] = result
         return tree
 
@@ -1062,9 +1062,7 @@ class OntDocGeneration:
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", rellink6).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
-                                                                                                "<a href=\"" + str(
-                                                                                                    subject) + "\">" + str(
-                                                                                                    foundlabel) + "</a>").replace(
+                                                                                                "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
