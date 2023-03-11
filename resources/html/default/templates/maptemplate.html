@@ -1,5 +1,9 @@
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster-src.js"></script>
+<script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 <script>
 /*** Leaflet.geojsonCSS
  * @author Alexander Burtsev, http://burtsev.me, 2014
@@ -109,7 +113,17 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
 	position: 'bottomright',
 	imperial: false
 	}).addTo(map);
+    L.Polygon.addInitHook(function () {
+        this._latlng = this._bounds.getCenter();
+    });
+    L.Polygon.include({
+        getLatLng: function () {
+            return this._latlng;
+        },
+        setLatLng: function () {} // Dummy method.
+    });
 	var bounds = L.latLngBounds([]);
+    var markercluster = L.markerClusterGroup().addTo(map);
 	props={}
 	var featurecolls = {{myfeature}}
     var epsg="{{epsg}}"
@@ -169,13 +183,14 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
         }else {
             counter += 1
         }
-        overlayMaps[layername]=layerr
+        overlayMaps[layername]=L.featureGroup.subGroup(markercluster,[layerr])
         if(first) {
             overlayMaps[layername].addTo(map);
             first = false
         }
     }
-	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map);
+	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map)
+    markercluster.addTo(map)
     var layerBounds = layerr.getBounds();
     bounds.extend(layerBounds);
     map.fitBounds(bounds);
