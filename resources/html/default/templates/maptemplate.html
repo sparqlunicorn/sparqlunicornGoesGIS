@@ -186,12 +186,12 @@ if(typeof (baselayers) === 'undefined' || baselayers===[]){
         overlayMaps[layername]=L.featureGroup.subGroup(markercluster,[layerr])
         if(first) {
             overlayMaps[layername].addTo(map);
+            var layerBounds = layerr.getBounds();
+            bounds.extend(layerBounds);
+            map.fitBounds(bounds);
             first = false
         }
     }
 	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map)
     markercluster.addTo(map)
-    var layerBounds = layerr.getBounds();
-    bounds.extend(layerBounds);
-    map.fitBounds(bounds);
 </script>

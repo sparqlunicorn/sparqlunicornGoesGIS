@@ -529,12 +529,18 @@ class OntDocGeneration:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
-                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
+                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
+                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
+                    else:
+                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 else:
                     restext= self.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
-                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext,"data":{}})
+                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
+                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
+                    else:
+                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 if str(obj) not in uritotreeitem:
                     uritotreeitem[str(obj)]=[]
                 uritotreeitem[str(obj)].append(result[-1])
@@ -558,18 +564,24 @@ class OntDocGeneration:
                     if res != None:
                         restext += " (" + res["uri"] + ")"
                 if cls not in uritotreeitem:
-                    result.append({"id": cls, "parent": ress[cls]["super"],"type": "class","text": restext + ")","data":{}})
+                    result.append({"id": cls, "parent": ress[cls]["super"],"type": "class","text": restext,"data":{}})
                     if str(cls) not in uritotreeitem:
                         uritotreeitem[str(cls)] = []
-                    uritotreeitem[str(cls)].append(result[-1])
+                        uritotreeitem[str(cls)].append(result[-1])
                 else:
                     uritotreeitem[cls][-1]["parent"]=ress[cls]["super"]
                 if str(ress[cls]["super"]) not in uritotreeitem:
-                    uritotreeitem[ress[cls]["super"]]=[]
-                uritotreeitem[ress[cls]["super"]].append(result.append({"id": cls, "parent": "#","type": "class","text": restext,"data":{}}))
+                    uritotreeitem[str(ress[cls]["super"])]=[]
+                    clsres = self.replaceNameSpacesInLabel(str(ress[cls]["super"]))
+                    if clsres!=None:
+                        theitem = {"id": str(ress[cls]["super"]), "parent": "#", "type": "class",
+                                   "text": self.shortenURI(str(ress[cls]["super"]))+" (" + clsres["uri"] + ")", "data": {}}
+                    else:
+                        theitem={"id": str(ress[cls]["super"]), "parent": "#","type": "class","text": self.shortenURI(str(ress[cls]["super"])),"data":{}}
+                    uritotreeitem[str(ress[cls]["super"])].append(theitem)
+                    result.append(theitem)
                 classidset.add(str(ress[cls]["super"]))
             classidset.add(str(cls))
-
         tree["core"]["data"] = result
         return tree
 
@@ -604,14 +616,16 @@ class OntDocGeneration:
             if len(uritotreeitem[uri])>1:
                 thetype="instance"
                 counter=0
-                for item in uritotreeitem[uri]:
-                    if item["type"]!="instance" or item["type"]!="class":
-                        thetype=item["type"]
-                    item["id"]=item["id"]+"_suniv"+str(counter)+"_"
-                    counter+=1
-                if thetype!="instance" or thetype!="class":
+                if uritotreeitem[uri]!=None:
                     for item in uritotreeitem[uri]:
-                        item["type"]=thetype
+                        if item["type"]!="instance" or item["type"]!="class":
+                            thetype=item["type"]
+                        if item["type"]!="class":
+                            item["id"]=item["id"]+"_suniv"+str(counter)+"_"
+                        counter+=1
+                    if thetype!="instance" or thetype!="class":
+                        for item in uritotreeitem[uri]:
+                            item["type"]=thetype
 
     def shortenURI(self,uri,ns=False):
         if uri!=None and "#" in uri and ns:
