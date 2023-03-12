@@ -24,8 +24,10 @@ class GraphUtils:
         "hasGeoJSON": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asGeoJSON ?c .}",
         "hasWgs84LatLon": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:lat ?c . ?a geo:long ?d . }",
         "hasWgs84Geometry": "PREFIX geo:<http://www.w3.org/2003/01/geo/wgs84_pos#> ASK { ?a geo:geometry ?c . }",
-        "hasSchemaOrgGeoLatLon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c schema:longitude ?e . }",
-        "hasSchemaOrgGeoPolygon": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c .  ?c schema:polygon ?d . }",
+        "hasSchemaOrgGeoLatLonHTTPS": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c schema:longitude ?e . }",
+        "hasSchemaOrgGeoLatLonHTTP": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c . ?c schema:latitude ?d . ?c schema:longitude ?e . }",
+        "hasSchemaOrgGeoPolygonHTTP": "PREFIX schema:<http://schema.org/> ASK { ?a schema:geo ?c .  ?c schema:polygon ?d . }",
+        "hasSchemaOrgGeoPolygonHTTPS": "PREFIX schema:<https://schema.org/> ASK { ?a schema:geo ?c .  ?c schema:polygon ?d . }",
         "namespaceQuery": "select distinct ?ns where {  ?s ?p ?o . bind( replace( str(?s), \"(#|/)[^#/]*$\", \"$1\" ) as ?ns )} limit 10"
     }
 
@@ -138,19 +140,33 @@ class GraphUtils:
             configuration["mandatoryvariables"] = ["item", "lat","lon"]
             configuration["geotriplepattern"].append(" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ")
             gottype = True
-        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLon"],
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTPS"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["https://schema.org/geo"]
-            configuration["geotriplepattern"].append(" ?item <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat . ?item <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon . ")
+            configuration["geotriplepattern"].append(" ?item <https://schema.org/latitude> ?lat . ?item <https://schema.org/longitude> ?lon . ")
             gottype = True
-        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoPolygon"],
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTP"],
+                                       credentialUserName, credentialPassword, authmethod):
+            capabilitylist.append("Schema.org Lat/Lon")
+            configuration["mandatoryvariables"] = ["item", "lat", "lon"]
+            configuration["geometryproperty"] = ["http://schema.org/geo"]
+            configuration["geotriplepattern"].append(" ?item <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon . ")
+            gottype = True
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoPolygonHTTPS"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Geo Polygon")
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geometryproperty"] = ["https://schema.org/polygon"]
             configuration["geotriplepattern"].append(" ?item <https://schema.org/polygon> ?geo . ")
+            gottype = True
+        if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoPolygonHTTP"],
+                                       credentialUserName, credentialPassword, authmethod):
+            capabilitylist.append("Schema.org Geo Polygon")
+            configuration["mandatoryvariables"] = ["item", "geo"]
+            configuration["geometryproperty"] = ["http://schema.org/polygon"]
+            configuration["geotriplepattern"].append(" ?item <http://schema.org/polygon> ?geo . ")
             gottype = True
         #self.detectGeometryLiteralRelations(configuration, credentialUserName, credentialPassword, authmethod) #Does not terminate on most triple stores
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
@@ -198,7 +214,7 @@ class GraphUtils:
                 reslist.append(nss["ns"]["value"])
         return reslist
 
-    def detectEquivalentProperties(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,equivalentPropProperty="http://www.w3.org/2002/07/owl#equivalentProperty",query="SELECT DISTINCT ?prop ?equivprop ?label WHERE { ?prop %%equivprop%% ?equivprop . OPTIONAL { ?equivprop %%labelproperty%% ?label .} }"):
+    def detectEquivalentProperties(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentPropProperty="http://www.w3.org/2002/07/owl#equivalentProperty",query="SELECT DISTINCT ?prop ?equivprop ?label WHERE { ?prop %%equivprop%% ?equivprop . OPTIONAL { ?equivprop %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         query=query.replace("%%equivprop%%","<"+equivalentPropProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
@@ -209,12 +225,13 @@ class GraphUtils:
                 if str(restup["prop"]) not in res:
                     res[str(restup["prop"])]=[]
                 res[str(restup["prop"])].append({"uri":restup["equivprop"]})
-            return res
+        if configuration != None:
+            configuration["equivalentClasses"] = res
         return res
 
-    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
+    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
-        query=query.replace("%%equivcls%%","<"+equivalentClassProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
+        query=query.replace("%%equivprop%%","<"+equivalentClassProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
         #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         res={}
@@ -223,7 +240,8 @@ class GraphUtils:
                 if str(restup["cls"]) not in res:
                     res[str(restup["cls"])]=[]
                 res[str(restup["cls"])].append({"uri":restup["equivcls"]})
-            return res
+        if configuration!=None:
+            configuration["equivalentClasses"]=res
         return res
 
     def detectGeometryLiteralRelations(self,configuration,credentialUserName,credentialPassword, authmethod):
