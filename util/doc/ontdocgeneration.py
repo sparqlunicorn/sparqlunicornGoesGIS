@@ -1169,7 +1169,10 @@ class OntDocGeneration:
                                 if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
                         if geojsonrep!=None:
-                            featcoll["features"].append({"type": "Feature", 'id':str(memberid), 'properties': {}, "geometry": geojsonrep})
+                            if str(memberid) in uritotreeitem:
+                                featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
+                            else:
+                                featcoll["features"].append({"type": "Feature", 'id':str(memberid),'label':str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
                     featurecollectionspaths.add(savepath + "/index.geojson")
