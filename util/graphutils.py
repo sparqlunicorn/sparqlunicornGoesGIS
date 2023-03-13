@@ -120,7 +120,7 @@ class GraphUtils:
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asKML> ?geo . ")
             configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asKML> ?geo . ")
-            if "geometryproperty" not  in configuration:
+            if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asKML"]
             gottype = True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasGeoJSON"],
@@ -129,7 +129,7 @@ class GraphUtils:
             configuration["mandatoryvariables"] = ["item", "geo"]
             configuration["geotriplepattern"].append(str(geomobjprop)+" ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ")
             configuration["geotriplepattern"].append(" ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ")
-            if "geometryproperty" not  in configuration:
+            if "geometryproperty" not in configuration:
                 configuration["geometryproperty"] = ["http://www.opengis.net/ont/geosparql#asGeoJSON"]
             gottype = True
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasWgs84LatLon"],

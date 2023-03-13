@@ -188,13 +188,14 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,maincolor,tablecolor,progress,createIndexPages=True,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
         self.baselayers=baselayers
+        self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
         self.geocollectionspaths=[]
         self.templatename=templatename
@@ -240,6 +241,19 @@ class OntDocGeneration:
         else:
             return """All rights reserved."""
 
+    def addAdditionalTriplesForInd(self,graph,ind,tobeaddedPerInd):
+        for prop in tobeaddedPerInd:
+            if "value" in tobeaddedPerInd[prop] and not tobeaddedPerInd[prop]["value"].startswith("http"):
+                if "type" in tobeaddedPerInd[prop]:
+                    graph.add((ind,URIRef(prop),Literal(tobeaddedPerInd[prop]["value"],datatype=tobeaddedPerInd[prop]["type"])))
+                elif "value" in tobeaddedPerInd[prop]:
+                    graph.add((ind, URIRef(prop), Literal(tobeaddedPerInd[prop]["value"])))
+            elif "value" in tobeaddedPerInd[prop] and not "uri" in tobeaddedPerInd[prop]:
+                graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
+            elif "value" in tobeaddedPerInd[prop] and "uri" in tobeaddedPerInd[prop]:
+                graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
+                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"])), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(str(tobeaddedPerInd[prop]["uri"]))))
+                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"]).replace(" ","_")),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),URIRef(str(tobeaddedPerInd[prop]["value"]))))
     def updateProgressBar(self,currentsubject,allsubjects):
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
         self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" URIs... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
@@ -291,6 +305,7 @@ class OntDocGeneration:
             #QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
             if prefixnamespace in str(sub) and isinstance(sub,URIRef) or isinstance(sub,BNode):
                 subjectstorender.add(sub)
+                self.addAdditionalTriplesForInd(self.graph,sub,self.tobeaddedPerInd)
                 for tup in self.graph.predicate_objects(sub):
                     if str(tup[0]) in SPARQLUtils.labelproperties:
                         labeltouri[str(tup[1])] = str(sub)
@@ -1063,7 +1078,7 @@ class OntDocGeneration:
         with open(savepath + "/index.html", 'w', encoding='utf-8') as f:
             rellink=self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,searchfilename,False)
             rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
-            rellink3 =self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
+            rellink3 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
             rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
             rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
             rellink6 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
@@ -1172,7 +1187,7 @@ class OntDocGeneration:
                             if str(memberid) in uritotreeitem:
                                 featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
                             else:
-                                featcoll["features"].append({"type": "Feature", 'id':str(memberid),'label':str(memberid), 'properties': {}, "geometry": geojsonrep})
+                                featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
                     featurecollectionspaths.add(savepath + "/index.geojson")
