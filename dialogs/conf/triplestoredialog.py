@@ -224,7 +224,8 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
                 self.exampleQueryComboBox.clear()
                 for template in curstore["querytemplate"]:
                     self.exampleQueryComboBox.addItem(template["label"],template["query"])
-            self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
+            if "querytemplate" in curstore and curstore["querytemplate"]!=None and len(curstore["querytemplate"])>0:
+                self.exampleQuery.setPlainText(curstore["querytemplate"][0]["query"])
 
     def testTripleStoreConnection(self,calledfromotherfunction=False,showMessageBox=True,query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1"):
         progress = QProgressDialog("Checking connection to triple store "+self.tripleStoreEdit.text()+"...", "Abort", 0, 0, self)

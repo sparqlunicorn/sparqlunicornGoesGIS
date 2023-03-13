@@ -221,12 +221,12 @@ class GraphUtils:
         #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         res={}
         if results!=False:
-            for restup in results:
-                if str(restup["prop"]) not in res:
+            for restup in results["results"]["bindings"]:
+                if "prop" in restup and str(restup["prop"]) not in res:
                     res[str(restup["prop"])]=[]
                 res[str(restup["prop"])].append({"uri":restup["equivprop"]})
         if configuration != None:
-            configuration["equivalentClasses"] = res
+            configuration["equivalentProperties"] = res
         return res
 
     def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
@@ -236,7 +236,7 @@ class GraphUtils:
         #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         res={}
         if results!=False:
-            for restup in results:
+            for restup in results["results"]["bindings"]:
                 if str(restup["cls"]) not in res:
                     res[str(restup["cls"])]=[]
                 res[str(restup["cls"])].append({"uri":restup["equivcls"]})
@@ -335,6 +335,8 @@ class GraphUtils:
         if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["available"],credentialUserName,credentialPassword,authmethod):
             capabilitylist=self.detectTripleStoreType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
             gottype=self.detectLiteralType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
+            equivprops=self.detectEquivalentProperties( self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
+            equivcls=self.detectEquivalentClasses( self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
             if not gottype:
                 self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
             self.feasibleConfiguration = True

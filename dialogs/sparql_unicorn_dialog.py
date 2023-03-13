@@ -212,6 +212,24 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             thetext += "<tr><td>Detected Geometry Classes</td><td><a href=\"" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()) + "\">" + str(
                 self.triplestoreconf[self.comboBox.currentIndex()]["geoclasses"].keys()).replace("dict_keys(","").replace(" ","<br/>").replace("'","").replace("[","").replace("]","")[0:-1] + "</a></td></tr>"
+        if "equivalentClasses" in self.triplestoreconf and self.triplestoreconf["equivalentClasses"]!={}:
+            eqvcls="<tr><td>Eqv Classes</td><td><ul>"
+            for item in self.triplestoreconf["equivalentClasses"]:
+                eqvcls+="<li>"+str(item)+"<ul>"
+                for cls in self.triplestoreconf["equivalentClasses"][item]:
+                    eqvcls+="<li>"+str(cls)+"</li>"
+                eqvcls+="</ul></li>"
+            eqvcls+="</ul></td></tr>"
+            thetext += eqvcls
+        if "equivalentProperties" in self.triplestoreconf and self.triplestoreconf["equivalentProperties"]!={}:
+            eqvcls="<tr><td>Eqv Properties</td><td><ul>"
+            for item in self.triplestoreconf["equivalentProperties"]:
+                eqvcls+="<li>"+str(item)+"<ul>"
+                for cls in self.triplestoreconf["equivalentProperties"][item]:
+                    eqvcls+="<li>"+str(cls)+"</li>"
+                eqvcls+="</ul></li>"
+            eqvcls+="</ul></td></tr>"
+            thetext+=eqvcls
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()
