@@ -529,18 +529,14 @@ class OntDocGeneration:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
-                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
-                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
-                    else:
-                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 else:
                     restext= self.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
-                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
-                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
-                    else:
-                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
+                if str(obj) not in SPARQLUtils.collectionclasses:
+                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
+                else:
+                    result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 if str(obj) not in uritotreeitem:
                     uritotreeitem[str(obj)]=[]
                 uritotreeitem[str(obj)].append(result[-1])
@@ -1033,7 +1029,9 @@ class OntDocGeneration:
                 tablecontents += "<tr class=\"even\">"
             tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
             if len(subpredsmap[tup]) > 0:
-                tablecontents += "<td class=\"wrapword\"><ul>"
+                tablecontents += "<td class=\"wrapword\">"
+                if len(subpredsmap[tup]) > 1:
+                    tablecontents += "<ul>"
                 labelmap={}
                 for item in subpredsmap[tup]:
                     if item not in subjectstorender and baseurl in str(item):
@@ -1046,10 +1044,15 @@ class OntDocGeneration:
                     image3dannos=res["image3dannos"]
                     if res["label"] not in labelmap:
                         labelmap[res["label"]]=""
-                    labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    if len(subpredsmap[tup]) > 1:
+                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                    else:
+                        labelmap[res["label"]] += str(res["html"])
                 for lab in sorted(labelmap):
                     tablecontents+=str(labelmap[lab])
-                tablecontents += "</ul></td>"
+                if len(subpredsmap[tup])>1:
+                    tablecontents+="</ul>"
+                tablecontents += "</td>"
             else:
                 tablecontents += "<td class=\"wrapword\"></td>"
             tablecontents += "</tr>"
