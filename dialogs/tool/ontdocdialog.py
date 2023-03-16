@@ -46,7 +46,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.createDocumentationButton.clicked.connect(self.createDocumentation)
         self.inputRDFFileWidget.fileChanged.connect(self.extractNamespaces)
         self.namespaceCBox.setModel(QStandardItemModel())
-        self.tabWidget.setTabVisible(1,False)
+        #self.tabWidget.setTabVisible(1,False)
         model = QStandardItemModel()
         self.baseLayerListView.setModel(model)
         self.createCCLicenseCBOX()
@@ -104,8 +104,15 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             item = model.item(index)
             if item.isCheckable() and item.checkState() == Qt.Checked:
                 baselayerss[item.data(266)]=baselayers[item.data(266)]
+        tobeaddedperInd={}
+        if self.metadataCheckBox.checkState()==Qt.Checked:
+            tobeaddedperInd["http://purl.org/dc/terms/creator"]={"value":self.creatorLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
+            tobeaddedperInd["http://purl.org/dc/terms/date"] = {"value":self.creationTimeEdit.dateTime().toString(Qt.ISODate),"type":"http://www.w3.org/2001/XMLSchema#dateTime"}
+            tobeaddedperInd["http://purl.org/dc/terms/rightsHolder"] = {"value":self.rightsHolderEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
+            tobeaddedperInd["http://purl.org/dc/terms/publisher"] = {"value":self.publisherLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
+            tobeaddedperInd["http://purl.org/dc/terms/contributor"] = {"value":self.contributorEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss, maincolor, titlecolor,progress,self.createIndexPages.checkState(),logoname)
+                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,progress,self.createIndexPages.checkState(),logoname)
         QgsApplication.taskManager().addTask(self.qtask)

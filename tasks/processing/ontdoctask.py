@@ -9,11 +9,12 @@ MESSAGE_CATEGORY = 'OntDocTask'
 
 class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,maincolor,titlecolor, progress,createIndexPages,logopath=""):
+    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,logopath=""):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.prefixes=prefixes
+        self.tobeaddedperInd=tobeaddedperInd
         self.baselayers=baselayers
         self.license=license
         self.labellang=labellang
@@ -43,7 +44,7 @@ class OntDocTask(QgsTask):
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
         #try:
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.logopath)
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.logopath)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         #except Exception as e:
         #    self.exception=e
