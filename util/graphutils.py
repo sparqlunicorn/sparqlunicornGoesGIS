@@ -341,18 +341,26 @@ class GraphUtils:
                 self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
             self.feasibleConfiguration = True
             res = set()
-            if detectnamespaces:
+            if "instance" in triplestoreurl:
+                i=0
+                for nstup in triplestoreurl["instance"].namespaces():
+                    if str(nstup[1]) in prefixstore["reversed"]:
+                        self.configuration["prefixes"][prefixstore["reversed"][str(nstup[1])]] = str(nstup[0])
+                    else:
+                        self.configuration["prefixes"]["ns" + str(i)] = nstup[1]
+                        i=i+1
+            elif detectnamespaces:
                 newtext = "\n".join(progress.labelText().split("\n")[0:-1])
                 progress.setLabelText(newtext + "\nCurrent Task: Namespace detection (1/3)")
                 res = set(self.detectNamespaces(-1,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(0,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod) + self.detectNamespaces(1,progress,self.configuration["resource"],credentialUserName,credentialPassword,authmethod))
-            i = 0
-            for ns in res:
-                if ns != "http://" and ns.startswith("http://"):
-                    if ns in prefixstore["reversed"]:
-                        self.configuration["prefixes"][prefixstore["reversed"][ns]] = ns
-                    else:
-                        self.configuration["prefixes"]["ns" + str(i)] = ns
-                        i = i + 1
+                i = 0
+                for ns in res:
+                    if ns != "http://" and ns.startswith("http://"):
+                        if ns in prefixstore["reversed"]:
+                            self.configuration["prefixes"][prefixstore["reversed"][ns]] = ns
+                        else:
+                            self.configuration["prefixes"]["ns" + str(i)] = ns
+                            i = i + 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasDCTermsTitleLabel"]):
