@@ -1,4 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
+from rdflib import Graph
 
 from qgis.core import Qgis
 from qgis.core import QgsMessageLog
@@ -341,13 +342,13 @@ class GraphUtils:
                 self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
             self.feasibleConfiguration = True
             res = set()
-            if "instance" in triplestoreurl:
+            if isinstance(triplestoreurl,Graph):
                 i=0
-                for nstup in triplestoreurl["instance"].namespaces():
+                for nstup in triplestoreurl.namespaces():
                     if str(nstup[1]) in prefixstore["reversed"]:
                         self.configuration["prefixes"][prefixstore["reversed"][str(nstup[1])]] = str(nstup[0])
                     else:
-                        self.configuration["prefixes"]["ns" + str(i)] = nstup[1]
+                        self.configuration["prefixes"][nstup[0]] = nstup[1]
                         i=i+1
             elif detectnamespaces:
                 newtext = "\n".join(progress.labelText().split("\n")[0:-1])
