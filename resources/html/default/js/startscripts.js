@@ -879,3 +879,179 @@ function setupJSTree(){
         });
     });
 }
+
+function restyleLayer(propertyName,geojsonLayer) {
+    geojsonLayer.eachLayer(function(featureInstanceLayer) {
+        propertyValue = featureInstanceLayer.feature.properties[propertyName];
+
+        // Your function that determines a fill color for a particular
+        // property name and value.
+        var myFillColor = getColor(propertyName, propertyValue);
+
+        featureInstanceLayer.setStyle({
+            fillColor: myFillColor,
+            fillOpacity: 0.8,
+            weight: 0.5
+        });
+    });
+}
+
+function createColorRangeByAttribute(propertyName,geojsonlayer){
+    var valueset={}
+    var minamount=999999,maxamount=-999999
+    var amountofrelevantitems=0
+    var stringitems=0
+    var numberitems=0
+    var amountofitems=geojsonlayer.size()
+    var maxColors=8
+    for(feat of geojsonlayer){
+        if(propertyName in feat["properties"]){
+            if(!(feat["properties"][propertyName] in valueset)){
+                valueset[feat["properties"][propertyName]]=0
+            }
+            valueset[feat["properties"][propertyName]]+=1
+            if(isNaN(feat["properties"][propertyName])){
+                stringitems+=1
+            }else{
+                numberitems+=1
+                numb=Number(feat["properties"][propertyName])
+                if(numb<minamount){
+                    minamount=numb
+                }
+                if(numb>maxamount){
+                    maxamount=numb
+                }
+            }
+            amountofrelevantitems+=1
+        }else{
+            if(!("undefined" in valueset)){
+                valueset["undefined"]=0
+            }
+            valueset["undefined"]+=1
+        }
+    }
+    if(numberitems===amountofrelevantitems){
+        myrange=maxamount-minamount
+        myrangesteps=myrange/maxColors
+        curstep=minamount
+        while(curstep<maxamount){
+            curstepstr=(curstep+"")
+            rangesByAttribute[propertyName]={cursteps:{"min":curstep,"max":curstep+myrangesteps,"label":"["+curstep+"-"+curstep+myrangesteps+"]"}}
+            curstep+=myrangesteps
+        }
+    }else if(stringitems<amountofrelevantitems){
+
+    }else if(stringitems===amountofrelevantitems){
+
+    }
+}
+
+function generateLeafletPopup(feature, layer){
+    var popup="<b>"
+    if("label" in feature && feature.label!=""){
+        popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.label+"</a></b><br/><ul>"
+    }else{
+        popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+    }
+    for(prop in feature.properties){
+        popup+="<li>"
+        if(prop.startsWith("http")){
+            popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=prop
+        }
+        popup+=" : "
+        if(feature.properties[prop].length>1){
+            popup+="<ul>"
+            for(item of feature.properties[prop]){
+                popup+="<li>"
+                if((item+"").startsWith("http")){
+                    popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
+                }else{
+                    popup+=item
+                }
+                popup+="</li>"
+            }
+            popup+="</ul>"
+        }else if((feature.properties[prop][0]+"").startsWith("http")){
+            popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=feature.properties[prop]
+        }
+        popup+="</li>"
+    }
+    popup+="</ul>"
+    return popup
+}
+
+function setupLeaflet(baselayers,epsg,baseMaps,overlayMaps,map){
+    if(typeof (baselayers) === 'undefined' || baselayers===[]){
+        basemaps["OSM"]=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+        baseMaps["OSM"].addTo(map);
+    }else{
+        first=true
+        for(bl in baselayers){
+            if("type" in baselayers[bl] && baselayers[bl]["type"]==="wms") {
+                if("layername" in baselayers[bl]){
+                    baseMaps[bl] = L.tileLayer.wms(baselayers[bl]["url"],{"layers":baselayers[bl]["layername"]})
+                }else{
+                    baseMaps[bl] = L.tileLayer.wms(baselayers[bl]["url"])
+                }
+
+            }else if(!("type" in baselayers[bl]) || baselayers[bl]["type"]==="tile"){
+                baseMaps[bl]=L.tileLayer(baselayers[bl]["url"])
+            }
+            if(first) {
+                baseMaps[bl].addTo(map);
+                first = false
+            }
+        }
+    }
+	L.control.scale({
+	position: 'bottomright',
+	imperial: false
+	}).addTo(map);
+    L.Polygon.addInitHook(function () {
+        this._latlng = this._bounds.getCenter();
+    });
+    L.Polygon.include({
+        getLatLng: function () {
+            return this._latlng;
+        },
+        setLatLng: function () {} // Dummy method.
+    });
+	var bounds = L.latLngBounds([]);
+    var markercluster = L.markerClusterGroup().addTo(map);
+    first=true
+    counter=1
+    for(feature of featurecolls){
+        if(epsg!="" && epsg!="EPSG:4326" && epsg in epsgdefs){
+            feature=convertGeoJSON(feature,epsgdefs[epsg],null)
+        }
+        layerr=L.geoJSON.css(feature,{
+        pointToLayer: function(feature, latlng){
+                      var greenIcon = new L.Icon({
+                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],iconAnchor: [12, 41], popupAnchor: [1, -34],shadowSize: [41, 41]
+                    });
+                    return L.marker(latlng, {icon: greenIcon});
+        },onEachFeature: function (feature, layer) {layer.bindPopup(generateLeafletPopup(feature, layer))}})
+        layername="Content "+counter
+        if("name" in feature) {
+            layername = feature["name"]
+        }else {
+            counter += 1
+        }
+        overlayMaps[layername]=L.featureGroup.subGroup(markercluster,[layerr])
+        if(first) {
+            overlayMaps[layername].addTo(map);
+            var layerBounds = layerr.getBounds();
+            bounds.extend(layerBounds);
+            map.fitBounds(bounds);
+            first = false
+        }
+    }
+	layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map)
+    markercluster.addTo(map)
+}

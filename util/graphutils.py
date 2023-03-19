@@ -342,8 +342,7 @@ class GraphUtils:
                 self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
             self.feasibleConfiguration = True
             res = set()
-            if isinstance(triplestoreurl, Graph):
-                i=0
+            if isinstance(triplestoreurl,Graph):
                 for nstup in triplestoreurl.namespaces():
                     if str(nstup[1]) in prefixstore["reversed"]:
                         self.configuration["prefixes"][prefixstore["reversed"][str(nstup[1])]] = str(nstup[0])

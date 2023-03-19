@@ -71,26 +71,9 @@ threejstemplate="""
 global image3dtemplate
 image3dtemplate=""
 
-nongeoexports="""
-<option value="csv">Comma Separated Values (CSV)</option>
-<option value="geojson">(Geo)JSON</option>
-<option value="json">JSON-LD</option>
-<option value="ttl" selected>Turtle (TTL)</option>
-"""
+nongeoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="json">JSON-LD</option><option value="ttl" selected>Turtle (TTL)</option>"""
 
-geoexports="""
-<option value="csv">Comma Separated Values (CSV)</option>
-<option value="geojson">(Geo)JSON</option>
-<!--<option value="geojsonld">GeoJSON-LD</option>
-<option value="geouri">GeoURI</option> 
-<option value="json">JSON-LD</option>
-<option value="kml">Keyhole Markup Language (KML)</option>
-<option value="latlontext">LatLonText</option>
-<option value="mapml">Map Markup Language (MapML)</option>
-<option value="osmlink">OSM Link</option>-->
-<option value="ttl" selected>Turtle (TTL)</option>
-<option value="wkt">Well-Known-Text (WKT)</option>
-"""
+geoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="ttl" selected>Turtle (TTL)</option><option value="wkt">Well-Known-Text (WKT)</option>"""
 
 global maptemplate
 maptemplate=""
@@ -391,7 +374,7 @@ class OntDocGeneration:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
         for path in paths:
-            ttlf = open(path + "index.ttl", "w", encoding="utf-8")
+            subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
             checkdepth = self.checkDepthFromPath(path, outpath, path)-1
             sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
@@ -404,14 +387,8 @@ class OntDocGeneration:
             for sub in subjectstorender:
                 if nslink in sub:
                     for tup in self.graph.predicate_objects(sub):
-                        if isinstance(tup[1],Literal):
-                            if tup[1].datatype!=None:
-                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
-                            else:
-                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\" .\n")
-                        elif isinstance(tup[1],URIRef):
-                            ttlf.write("<"+str(sub)+"> <"+str(tup[0])+"> <"+str(tup[1])+"> .\n")
-            ttlf.close()
+                        subgraph.add((sub, tup[0], tup[1]))
+            subgraph.serialize(path + "index.ttl",encoding="utf-8")
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
             indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink).replace("{{vowlpath}}", vowllink)\
                 .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
@@ -456,7 +433,6 @@ class OntDocGeneration:
         for f1 in files:
             with open(f1, 'r',encoding="utf-8") as infile:
                 result.append(json.load(infile))
-
         with open(outpath, 'w',encoding="utf-8") as output_file:
             output_file.write("var featurecolls="+json.dumps(result))
 
@@ -775,7 +751,7 @@ class OntDocGeneration:
         label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
-                ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
+                ttlf.add((subject,URIRef(pred),object))
             label = ""
             unitlabel=""
             mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel)
@@ -807,11 +783,10 @@ class OntDocGeneration:
             tablecontents+="</span>"
         else:
             label=str(object)
+            if ttlf != None:
+                ttlf.add((subject, URIRef(pred), object))
             if isinstance(object, Literal) and object.datatype != None:
                 res = self.replaceNameSpacesInLabel(str(object.datatype))
-                if ttlf!=None:
-                    ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
-                    object.datatype) + "> .\n")
                 objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
@@ -829,13 +804,9 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
             else:
                 if object.language != None:
-                    if ttlf!=None:
-                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"@"+str(object.language)+" .\n")
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
-                    if ttlf!=None:
-                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
                     tablecontents += self.detectStringLiteralContent(pred,object)
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label}
 
@@ -857,7 +828,7 @@ class OntDocGeneration:
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         onelabel=self.shortenURI(str(tup))
         label=None
-        for obj in graph.predicate_objects(object):
+        for obj in graph.predicate_objects(tup):
             if str(obj[0]) in SPARQLUtils.labelproperties:
                 if obj[1].language==self.labellang:
                     label = str(obj[1])
@@ -925,7 +896,8 @@ class OntDocGeneration:
             if parentclass not in uritotreeitem:
                 uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}]
             uritotreeitem[parentclass][-1]["instancecount"]=0
-        ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
+        ttlf = Graph(bind_namespaces="rdflib")
+        #ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         if parentclass!=None:
             uritotreeitem[parentclass][-1]["data"]["to"]={}
             uritotreeitem[parentclass][-1]["data"]["from"]={}
@@ -1073,8 +1045,8 @@ class OntDocGeneration:
             tablecontents += "</tr>"
             isodd = not isodd
         if self.licenseuri!=None:
-            ttlf.write("<"+str(subject)+"> <http://purl.org/dc/elements/1.1/license> <"+self.licenseuri+"> .\n")
-        ttlf.close()
+            ttlf.add((subject, URIRef("http://purl.org/dc/elements/1.1/license"), URIRef(self.licenseuri)))
+        ttlf.serialize(savepath + "/index.ttl", encoding="utf-8")
         with open(savepath + "/index.json", 'w', encoding='utf-8') as f:
             f.write(json.dumps(predobjmap))
             f.close()
