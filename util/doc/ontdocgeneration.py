@@ -828,7 +828,7 @@ class OntDocGeneration:
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         onelabel=self.shortenURI(str(tup))
         label=None
-        for obj in graph.predicate_objects(object):
+        for obj in graph.predicate_objects(tup):
             if str(obj[0]) in SPARQLUtils.labelproperties:
                 if obj[1].language==self.labellang:
                     label = str(obj[1])
