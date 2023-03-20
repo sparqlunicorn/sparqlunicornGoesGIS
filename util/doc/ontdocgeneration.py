@@ -348,7 +348,7 @@ class OntDocGeneration:
             if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
-            QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
+            #QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path),"OntdocGeneration",Qgis.Info)
             #except Exception as e:
             #    QgsMessageLog.logMessage(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
@@ -373,6 +373,7 @@ class OntDocGeneration:
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
+        self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license)
         for path in paths:
             subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
@@ -411,7 +412,7 @@ class OntDocGeneration:
                         indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
-            QgsMessageLog.logMessage(path)
+            #QgsMessageLog.logMessage(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
@@ -509,7 +510,7 @@ class OntDocGeneration:
         result = []
         ress = {}
         for res in results:
-            QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
+            #QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
             if "_:" not in str(res["subject"]) and str(res["subject"]).startswith("http"):
                 ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
         #QgsMessageLog.logMessage(ress)
@@ -855,6 +856,49 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
+    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense):
+        uristorender={}
+        for sub in subjectstorender:
+            onelabel=""
+            added=[]
+            for tup in graph.predicate_objects(sub):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    onelabel=str(tup[1])
+                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
+                    if str(tup[0]) not in uristorender:
+                        uristorender[str(tup[0])]={}
+                    if str(tup[1]) not in uristorender[str(tup[0])]:
+                        uristorender[str(tup[0])][str(tup[1])]=[]
+                    toadd={"sub":sub,"label":onelabel}
+                    added.append(toadd)
+                    uristorender[str(tup[0])][str(tup[1])].append(toadd)
+            for item in added:
+                item["label"]=onelabel
+        for uri in uristorender:
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+                    .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
+            indexhtml = indexhtml.replace("{{indexpage}}", "true")
+            indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
+            counter=0
+            for entry in uristorender[uri]:
+                if counter%2==0:
+                    indexhtml += "<tr class=\"odd\">"
+                else:
+                    indexhtml += "<tr class=\"even\">"
+                indexhtml+="<td><a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a></td><td><ul>"
+                for sub in uristorender[uri][entry]:
+                    if sub["label"]!="":
+                        indexhtml += "<li><a href=\"" + str(sub["sub"]) + "\">" + str(sub["label"]) + "</a></li>"
+                    else:
+                        indexhtml+="<li><a href=\""+str(sub["sub"])+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                indexhtml+="</ul></td></tr>"
+                counter+=1
+            indexhtml+="</table>"
+            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
+                f.write(indexhtml)
+                f.close()
+
     def checkDepthFromPath(self,savepath,baseurl,subject):
         if savepath.endswith("/"):
             checkdepth = subject.replace(baseurl, "").count("/")
@@ -862,11 +906,11 @@ class OntDocGeneration:
             checkdepth = subject.replace(baseurl, "").count("/")
         #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
         checkdepth+=1
-        QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
+        #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
         return checkdepth
 
     def getAccessFromBaseURL(self,baseurl,savepath):
-        QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
         return savepath.replace(baseurl, "")
 
     def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
@@ -920,7 +964,7 @@ class OntDocGeneration:
         tablecontentcounter=-1
         metadatatablecontentcounter=-1
         for tup in predobjmap:
-            QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
+            #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
             if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
                 thetable=metadatatablecontents
                 metadatatablecontentcounter+=1
@@ -1022,7 +1066,7 @@ class OntDocGeneration:
                 labelmap={}
                 for item in subpredsmap[tup]:
                     if item not in subjectstorender and baseurl in str(item):
-                        QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
+                        #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                         postprocessing.add((item,URIRef(tup),subject))
                     res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                          baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
