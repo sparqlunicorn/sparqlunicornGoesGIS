@@ -747,7 +747,7 @@ class OntDocGeneration:
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
                 "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse):
         tablecontents=""
         label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
@@ -765,20 +765,22 @@ class OntDocGeneration:
             textannos=mydata["textannos"]
             image3dannos=mydata["image3dannos"]
             unitlabel=mydata["unitlabel"]
+            if inverse:
+                rdfares = " about=\"" + str(object) + "\" resource=\"" + str(subject) + "\""
+            else:
+                rdfares = "resource=\"" + str(object) + "\""
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
-                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
+                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
-                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
-                        object) + "\" target=\"_blank\" href=\"" + str(
+                    tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
                         object) + "\">" + label + " <span style=\"color: #666;\">(" + res[
                                          "uri"] + ")</span></a>"
                 else:
-                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
-                        object) + "\" target=\"_blank\" href=\"" + str(
-                        object) + "\">" + label + "</a>"
+                    tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
+                    object) + "\">" + label + "</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
             tablecontents+="</span>"
@@ -941,7 +943,6 @@ class OntDocGeneration:
                 uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}]
             uritotreeitem[parentclass][-1]["instancecount"]=0
         ttlf = Graph(bind_namespaces="rdflib")
-        #ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
         if parentclass!=None:
             uritotreeitem[parentclass][-1]["data"]["to"]={}
             uritotreeitem[parentclass][-1]["data"]["from"]={}
@@ -1014,7 +1015,7 @@ class OntDocGeneration:
                     elif tup in SPARQLUtils.valueproperties:
                         foundvals.add(str(item))
                     res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                          baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
+                                          baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse)
                     geojsonrep = res["geojson"]
                     foundmedia = res["foundmedia"]
                     imageannos=res["imageannos"]
@@ -1069,7 +1070,7 @@ class OntDocGeneration:
                         #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                         postprocessing.add((item,URIRef(tup),subject))
                     res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
+                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True)
                     foundmedia = res["foundmedia"]
                     imageannos=res["imageannos"]
                     image3dannos=res["image3dannos"]
