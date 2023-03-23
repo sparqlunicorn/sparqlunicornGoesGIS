@@ -180,6 +180,7 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
+        self.metadatatable=True
         self.geocollectionspaths=[]
         self.templatename=templatename
         resolveTemplate(templatename)
@@ -373,7 +374,8 @@ class OntDocGeneration:
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
-        self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license)
+        self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,self.labellang)
+        self.getSubjectPagesForNonGraphURIs(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,self.labellang)
         for path in paths:
             subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
@@ -858,26 +860,34 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
-    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense):
+
+    def getSubjectPagesForNonGraphURIs(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,preferredlang):
         uristorender={}
         for sub in subjectstorender:
             onelabel=""
+            label=None
             added=[]
             for tup in graph.predicate_objects(sub):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
-                    onelabel=str(tup[1])
+                    if tup[1].language == self.labellang:
+                        label = str(tup[1])
+                        break
+                    onelabel = str(tup[1])
                 if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
-                    if str(tup[0]) not in uristorender:
-                        uristorender[str(tup[0])]={}
-                    if str(tup[1]) not in uristorender[str(tup[0])]:
-                        uristorender[str(tup[0])][str(tup[1])]=[]
+                    if str(tup[1]) not in uristorender:
+                        uristorender[str(tup[1])]={}
+                    if str(tup[0]) not in uristorender[str(tup[1])]:
+                        uristorender[str(tup[1])][str(tup[0])]=[]
                     toadd={"sub":sub,"label":onelabel}
                     added.append(toadd)
-                    uristorender[str(tup[0])][str(tup[1])].append(toadd)
+                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
             for item in added:
-                item["label"]=onelabel
+                if label!=None:
+                    item["label"]=label
+                else:
+                    item["label"]=onelabel
         for uri in uristorender:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}",self.shortenURI(uri)).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
@@ -887,7 +897,57 @@ class OntDocGeneration:
                     indexhtml += "<tr class=\"odd\">"
                 else:
                     indexhtml += "<tr class=\"even\">"
-                indexhtml+="<td><a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a></td><td><ul>"
+                indexhtml+="<td>Is <a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a> of</td><td><ul>"
+                for sub in uristorender[uri][entry]:
+                    if sub["label"]!="":
+                        indexhtml += "<li><a href=\"" + str(sub["sub"]) + "\">" + str(sub["label"]) + "</a></li>"
+                    else:
+                        indexhtml+="<li><a href=\""+str(sub["sub"])+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                indexhtml+="</ul></td></tr>"
+                counter+=1
+            indexhtml+="</table>"
+            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
+                f.write(indexhtml)
+                f.close()
+
+    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,preferredlang):
+        uristorender={}
+        for sub in subjectstorender:
+            onelabel=""
+            label=None
+            added=[]
+            for tup in graph.predicate_objects(sub):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    if tup[1].language == self.labellang:
+                        label = str(tup[1])
+                        break
+                    onelabel = str(tup[1])
+                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
+                    if str(tup[1]) not in uristorender:
+                        uristorender[str(tup[1])]={}
+                    if str(tup[0]) not in uristorender[str(tup[1])]:
+                        uristorender[str(tup[1])][str(tup[0])]=[]
+                    toadd={"sub":sub,"label":onelabel}
+                    added.append(toadd)
+                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
+            for item in added:
+                if label!=None:
+                    item["label"]=label
+                else:
+                    item["label"]=onelabel
+        for uri in uristorender:
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}",self.shortenURI(str(uri))).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+                    .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
+            indexhtml = indexhtml.replace("{{indexpage}}", "true")
+            indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
+            counter=0
+            for entry in uristorender[uri]:
+                if counter%2==0:
+                    indexhtml += "<tr class=\"odd\">"
+                else:
+                    indexhtml += "<tr class=\"even\">"
+                indexhtml+="<td>Is <a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a> of</td><td><ul>"
                 for sub in uristorender[uri][entry]:
                     if sub["label"]!="":
                         indexhtml += "<li><a href=\"" + str(sub["sub"]) + "\">" + str(sub["label"]) + "</a></li>"
@@ -966,7 +1026,7 @@ class OntDocGeneration:
         metadatatablecontentcounter=-1
         for tup in predobjmap:
             #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
-            if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
+            if self.metadatatable and tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
                 thetable=metadatatablecontents
                 metadatatablecontentcounter+=1
                 if metadatatablecontentcounter%2==0:
