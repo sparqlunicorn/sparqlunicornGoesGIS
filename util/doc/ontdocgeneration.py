@@ -177,6 +177,7 @@ class OntDocGeneration:
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
+        self.generatePagesForNonNS=True
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
@@ -374,8 +375,9 @@ class OntDocGeneration:
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
-        self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,self.labellang)
-        self.getSubjectPagesForNonGraphURIs(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,self.labellang)
+        if self.generatePagesForNonNS:
+            self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
+            self.getSubjectPagesForNonGraphURIs(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
         for path in paths:
             subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
@@ -777,12 +779,18 @@ class OntDocGeneration:
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
-                    tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
+                    tablecontents += "<span><a property=\"" + str(
+                        pred) + "\" " + rdfares + " target=\"_blank\" href=\"" + str(
                         object) + "\">" + label + " <span style=\"color: #666;\">(" + res[
                                          "uri"] + ")</span></a>"
                 else:
                     tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
                     object) + "\">" + label + "</a>"
+                if self.generatePagesForNonNS:
+                    rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
+                                                                      str(baseurl) + "_" + self.shortenURI(
+                                                                          str(object)), False)
+                    tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
             tablecontents+="</span>"
@@ -861,8 +869,9 @@ class OntDocGeneration:
         return tablecontents
 
 
-    def getSubjectPagesForNonGraphURIs(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,preferredlang):
+    def getSubjectPagesForNonGraphURIs(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
+        uritolabel={}
         for sub in subjectstorender:
             onelabel=""
             label=None
@@ -878,6 +887,9 @@ class OntDocGeneration:
                         uristorender[str(tup[1])]={}
                     if str(tup[0]) not in uristorender[str(tup[1])]:
                         uristorender[str(tup[1])][str(tup[0])]=[]
+                    for objtup in graph.predicate_objects(tup[1]):
+                        if str(objtup[0]) in SPARQLUtils.labelproperties:
+                            uritolabel[str(tup[1])]=str(objtup[1])
                     toadd={"sub":sub,"label":onelabel}
                     added.append(toadd)
                     uristorender[str(tup[1])][str(tup[0])].append(toadd)
@@ -887,7 +899,12 @@ class OntDocGeneration:
                 else:
                     item["label"]=onelabel
         for uri in uristorender:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}",self.shortenURI(uri)).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+            subjlabelonly=self.shortenURI(str(uri))
+            subjlabel="<a href=\""+str(uri)+"\">"+self.shortenURI(str(uri))+"</a>"
+            if uri in uritolabel:
+                subjlabel="<a href=\""+str(uri)+"\">"+uritolabel[uri]+"</a>"
+                subjlabelonly=uritolabel[uri]
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
@@ -899,20 +916,25 @@ class OntDocGeneration:
                     indexhtml += "<tr class=\"even\">"
                 indexhtml+="<td>Is <a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a> of</td><td><ul>"
                 for sub in uristorender[uri][entry]:
-                    if sub["label"]!="":
-                        indexhtml += "<li><a href=\"" + str(sub["sub"]) + "\">" + str(sub["label"]) + "</a></li>"
+                    if baseurl in sub["sub"]:
+                        rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), 0, str(sub["sub"]), True)
                     else:
-                        indexhtml+="<li><a href=\""+str(sub["sub"])+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                        rellink=str(sub["sub"])
+                    if sub["label"]!="":
+                        indexhtml += "<li><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
+                    else:
+                        indexhtml+="<li><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
                 indexhtml+="</ul></td></tr>"
                 counter+=1
             indexhtml+="</table>"
-            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            indexhtml += htmlfooter.replace("{{license}}", self.processLicense()).replace("{{exports}}", nongeoexports)
             with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
 
-    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,preferredlang):
+    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
+        uritolabel={}
         for sub in subjectstorender:
             onelabel=""
             label=None
@@ -928,6 +950,9 @@ class OntDocGeneration:
                         uristorender[str(tup[1])]={}
                     if str(tup[0]) not in uristorender[str(tup[1])]:
                         uristorender[str(tup[1])][str(tup[0])]=[]
+                    for objtup in graph.predicate_objects(tup[1]):
+                        if str(objtup[0]) in SPARQLUtils.labelproperties:
+                            uritolabel[str(tup[1])] = str(objtup[1])
                     toadd={"sub":sub,"label":onelabel}
                     added.append(toadd)
                     uristorender[str(tup[1])][str(tup[0])].append(toadd)
@@ -937,7 +962,12 @@ class OntDocGeneration:
                 else:
                     item["label"]=onelabel
         for uri in uristorender:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",self.shortenURI(uri)).replace("{{title}}",self.shortenURI(str(uri))).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+            subjlabelonly=self.shortenURI(str(uri))
+            subjlabel="<a href=\""+str(uri)+"\">"+self.shortenURI(str(uri))+"</a>"
+            if uri in uritolabel:
+                subjlabel="<a href=\""+str(uri)+"\">"+uritolabel[uri]+"</a>"
+                subjlabelonly=uritolabel[uri]
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
@@ -949,14 +979,18 @@ class OntDocGeneration:
                     indexhtml += "<tr class=\"even\">"
                 indexhtml+="<td>Is <a href=\""+str(entry)+"\">"+self.shortenURI(entry)+"</a> of</td><td><ul>"
                 for sub in uristorender[uri][entry]:
-                    if sub["label"]!="":
-                        indexhtml += "<li><a href=\"" + str(sub["sub"]) + "\">" + str(sub["label"]) + "</a></li>"
+                    if baseurl in sub["sub"]:
+                        rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), 0, str(sub["sub"]), True)
                     else:
-                        indexhtml+="<li><a href=\""+str(sub["sub"])+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                        rellink=str(sub["sub"])
+                    if sub["label"]!="":
+                        indexhtml += "<li><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
+                    else:
+                        indexhtml+="<li><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
                 indexhtml+="</ul></td></tr>"
                 counter+=1
             indexhtml+="</table>"
-            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            indexhtml += htmlfooter.replace("{{license}}", self.processLicense()).replace("{{exports}}", nongeoexports)
             with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
