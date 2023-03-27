@@ -327,6 +327,24 @@
      </item>
     </layout>
    </item>
+   <item row="8" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="createMetadataTableCBox">
+       <property name="text">
+        <string>Create Metadata Table</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="nonNSPagesCBox">
+       <property name="text">
+        <string>Create Pages for Non-Namespace URIs</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <customwidgets>

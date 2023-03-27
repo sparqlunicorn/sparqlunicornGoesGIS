@@ -30,6 +30,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
         self.prefixes = prefixes
         self.recursiveResolvingCBox.hide()
         self.setWindowIcon(UIUtils.linkeddataicon)
+        self.rdfResourceComboBox.removeItem(3)
         self.tripleStoreEdit.show()
         self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.tripleStoreEdit.textChanged.connect(lambda: UIUtils.check_state(self.tripleStoreEdit))

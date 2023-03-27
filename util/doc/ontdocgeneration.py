@@ -171,17 +171,17 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
         self.progress=progress
-        self.generatePagesForNonNS=True
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
-        self.metadatatable=True
+        self.metadatatable=createMetadataTable
+        self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
         resolveTemplate(templatename)
