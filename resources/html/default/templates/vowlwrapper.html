@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/situx/mini-vowl@master/docs/css/vowl.css"/>
+<script src="{{vowlpath}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/situx/mini-vowl@master/docs/js/webVOWLGraphProd.js"></script>
 <div id="wrapper">
   <section id="vowl">
     <div id="graph">
@@ -5,6 +9,7 @@
       <div id="sliderOption"></div>
     </div>
   </section>
+  <a href="vowl_result.js" target="_blank">Download VOWL File</a> <a href="minivowl_result.js" target="_blank">Download Mini VOWL File</a>
     <script>var graphTag = document.getElementById('graph')
     , linkDistanceClassSlider
     , linkDistanceClassLabel
@@ -43,7 +48,7 @@
         .on("input", changeDistance);
     linkDistanceLiteralSlider = linkDistanceClassSlider;
 };
-    json=vowlresult
+    json=minivowlresult
     drawGraph(graphTag, width, height);
 </script>
 </div>
