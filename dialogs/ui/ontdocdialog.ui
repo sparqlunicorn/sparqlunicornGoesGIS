@@ -120,18 +120,23 @@
        <string>Styling</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="2" column="0">
-        <widget class="QLabel" name="tableStyleColorLabel">
+       <item row="3" column="1">
+        <widget class="QgsFileWidget" name="logoFileWidget"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="pageLogoLabel">
          <property name="text">
-          <string>Table Style Color:</string>
+          <string>Page Logo:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="styleMainColorLabel">
-         <property name="text">
-          <string>Style Main Color:</string>
-         </property>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="styleTemplateCBox">
+         <item>
+          <property name="text">
+           <string>Default</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="1" column="1">
@@ -151,10 +156,17 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="pageLogoLabel">
+       <item row="0" column="0">
+        <widget class="QLabel" name="styleTemplateLabel">
          <property name="text">
-          <string>Page Logo:</string>
+          <string>Style Template:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="styleMainColorLabel">
+         <property name="text">
+          <string>Style Main Color:</string>
          </property>
         </widget>
        </item>
@@ -175,23 +187,25 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QgsFileWidget" name="logoFileWidget"/>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="styleTemplateLabel">
+       <item row="2" column="0">
+        <widget class="QLabel" name="tableStyleColorLabel">
          <property name="text">
-          <string>Style Template:</string>
+          <string>Table Style Color:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="styleTemplateCBox">
-         <item>
-          <property name="text">
-           <string>Default</string>
-          </property>
-         </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="createVOWLCBox">
+         <property name="text">
+          <string>Create Visual OWL (VOWL) View on index pages</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Graph Display:</string>
+         </property>
         </widget>
        </item>
       </layout>
