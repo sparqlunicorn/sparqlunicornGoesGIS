@@ -790,7 +790,7 @@ class OntDocGeneration:
                     object) + "\">" + label + "</a>"
                 if self.generatePagesForNonNS:
                     rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
-                                                                      str(baseurl) + "_" + self.shortenURI(
+                                                                      str(baseurl) + "nonns_" + self.shortenURI(
                                                                           str(object)), False)
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
@@ -930,7 +930,7 @@ class OntDocGeneration:
                 counter+=1
             indexhtml+="</table>"
             indexhtml += htmlfooter.replace("{{license}}", self.processLicense()).replace("{{exports}}", nongeoexports)
-            with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
+            with open(outpath + "nonns_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
 
@@ -993,7 +993,7 @@ class OntDocGeneration:
                 counter+=1
             indexhtml+="</table>"
             indexhtml += htmlfooter.replace("{{license}}", self.processLicense()).replace("{{exports}}", nongeoexports)
-            with open(outpath + "_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
+            with open(outpath + "nonns_"+self.shortenURI(uri)+".html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
 
