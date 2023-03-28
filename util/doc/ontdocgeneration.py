@@ -906,7 +906,7 @@ class OntDocGeneration:
             if uri in uritolabel:
                 subjlabel="<a href=\""+str(uri)+"\">"+uritolabel[uri]+"</a>"
                 subjlabelonly=uritolabel[uri]
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
+            indexhtml = htmltemplate.replace("{{subject}}",uri).replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
@@ -923,9 +923,9 @@ class OntDocGeneration:
                     else:
                         rellink=str(sub["sub"])
                     if sub["label"]!="":
-                        indexhtml += "<li><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
+                        indexhtml += "<li property=\""+entry+"\" about=\""+sub["sub"]+"\" resource=\""+uri+"\"><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
                     else:
-                        indexhtml+="<li><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                        indexhtml+="<li property=\""+entry+"\" about=\""+sub["sub"]+"\" resource=\""+uri+"\"><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
                 indexhtml+="</ul></td></tr>"
                 counter+=1
             indexhtml+="</table>"
@@ -969,7 +969,7 @@ class OntDocGeneration:
             if uri in uritolabel:
                 subjlabel="<a href=\""+str(uri)+"\">"+uritolabel[uri]+"</a>"
                 subjlabelonly=uritolabel[uri]
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
+            indexhtml = htmltemplate.replace("{{subject}}",uri).replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}",subjlabelonly).replace("{{title}}",subjlabel).replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             indexhtml+="<table border=\"1\" width=\"100%\" class=\"description\"><tr><th>Property</th><th>Value</th></tr>"
@@ -986,9 +986,9 @@ class OntDocGeneration:
                     else:
                         rellink=str(sub["sub"])
                     if sub["label"]!="":
-                        indexhtml += "<li><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
+                        indexhtml += "<li property=\""+entry+"\" about=\""+sub["sub"]+"\" resource=\""+uri+"\"><a href=\"" + rellink + "\">" + str(sub["label"]) + "</a></li>"
                     else:
-                        indexhtml+="<li><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
+                        indexhtml+="<li property=\""+entry+"\" about=\""+sub["sub"]+"\" resource=\""+uri+"\"><a href=\""+rellink+"\">"+self.shortenURI(str(sub["sub"]))+"</a></li>"
                 indexhtml+="</ul></td></tr>"
                 counter+=1
             indexhtml+="</table>"
