@@ -171,7 +171,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -180,6 +180,7 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
+        self.createVOWL=createVOWL
         self.metadatatable=createMetadataTable
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
@@ -274,8 +275,9 @@ class OntDocGeneration:
         labeltouri = {}
         uritolabel = {}
         uritotreeitem={}
-        vowlinstance=OWL2VOWL()
-        vowlinstance.convertOWL2VOWL(self.graph,outpath)
+        if self.createVOWL:
+            vowlinstance=OWL2VOWL()
+            vowlinstance.convertOWL2VOWL(self.graph,outpath)
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
@@ -454,8 +456,9 @@ class OntDocGeneration:
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
             predicatecounter+=1
-        vowlinstance=OWL2VOWL()
-        vowlinstance.convertOWL2MiniVOWL(self.graph,outpath,[])
+        if self.createVOWL:
+            vowlinstance=OWL2VOWL()
+            vowlinstance.convertOWL2MiniVOWL(self.graph,outpath,[])
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
