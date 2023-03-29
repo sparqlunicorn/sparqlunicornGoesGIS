@@ -34,8 +34,6 @@ class OWL2VOWL():
 
     def convertOWL2MiniVOWL(self,g,outpath,predicates=[],typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
         minivowlresult={"info": [{
-            "title": "Friend of a Friend (FOAF) vocabulary","url": "http://xmlns.com/foaf/0.1/",
-            "version": "0.99 (Jan 2014)","authors": "Dan Brickley, Libby Miller",
             "description": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin"}],
             "nodes": [],"links": []}
         nodes=[]
