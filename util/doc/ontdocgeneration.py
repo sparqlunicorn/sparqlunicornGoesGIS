@@ -243,17 +243,21 @@ class OntDocGeneration:
 
     def addAdditionalTriplesForInd(self,graph,ind,tobeaddedPerInd):
         for prop in tobeaddedPerInd:
-            if "value" in tobeaddedPerInd[prop] and not tobeaddedPerInd[prop]["value"].startswith("http"):
+            if "value" in tobeaddedPerInd[prop] and "uri" in tobeaddedPerInd[prop]:
+                graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
+                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"])),
+                           URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                           URIRef(str(tobeaddedPerInd[prop]["uri"]))))
+                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"]).replace(" ", "_")),
+                           URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                           URIRef(str(tobeaddedPerInd[prop]["value"]))))
+            elif "value" in tobeaddedPerInd[prop] and not tobeaddedPerInd[prop]["value"].startswith("http"):
                 if "type" in tobeaddedPerInd[prop]:
                     graph.add((ind,URIRef(prop),Literal(tobeaddedPerInd[prop]["value"],datatype=tobeaddedPerInd[prop]["type"])))
                 elif "value" in tobeaddedPerInd[prop]:
                     graph.add((ind, URIRef(prop), Literal(tobeaddedPerInd[prop]["value"])))
             elif "value" in tobeaddedPerInd[prop] and not "uri" in tobeaddedPerInd[prop]:
                 graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
-            elif "value" in tobeaddedPerInd[prop] and "uri" in tobeaddedPerInd[prop]:
-                graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
-                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"])), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef(str(tobeaddedPerInd[prop]["uri"]))))
-                graph.add((URIRef(str(tobeaddedPerInd[prop]["value"]).replace(" ","_")),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),URIRef(str(tobeaddedPerInd[prop]["value"]))))
     def updateProgressBar(self,currentsubject,allsubjects):
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
         self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" URIs... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
