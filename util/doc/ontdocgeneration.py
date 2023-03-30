@@ -71,26 +71,9 @@ threejstemplate="""
 global image3dtemplate
 image3dtemplate=""
 
-nongeoexports="""
-<option value="csv">Comma Separated Values (CSV)</option>
-<option value="geojson">(Geo)JSON</option>
-<option value="json">JSON-LD</option>
-<option value="ttl" selected>Turtle (TTL)</option>
-"""
+nongeoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="json">JSON-LD</option><option value="ttl" selected>Turtle (TTL)</option>"""
 
-geoexports="""
-<option value="csv">Comma Separated Values (CSV)</option>
-<option value="geojson">(Geo)JSON</option>
-<!--<option value="geojsonld">GeoJSON-LD</option>
-<option value="geouri">GeoURI</option> 
-<option value="json">JSON-LD</option>
-<option value="kml">Keyhole Markup Language (KML)</option>
-<option value="latlontext">LatLonText</option>
-<option value="mapml">Map Markup Language (MapML)</option>
-<option value="osmlink">OSM Link</option>-->
-<option value="ttl" selected>Turtle (TTL)</option>
-<option value="wkt">Well-Known-Text (WKT)</option>
-"""
+geoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="ttl" selected>Turtle (TTL)</option><option value="wkt">Well-Known-Text (WKT)</option>"""
 
 global maptemplate
 maptemplate=""
@@ -117,7 +100,7 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
         SELECT DISTINCT ?subject ?label ?supertype\n
         WHERE {\n
-           { ?individual rdf:type ?subject . } UNION { ?subject rdf:type owl:Class . } .\n
+           { ?individual rdf:type ?subject . } UNION { ?subject rdf:type owl:Class . } UNION { ?subject rdf:type rdfs:Class . }.\n
            OPTIONAL { ?subject rdfs:subClassOf ?supertype } .\n
            OPTIONAL { ?subject rdfs:label ?label. filter(langMatches(lang(?label),\"en\")) }
            OPTIONAL { ?subject rdfs:label ?label }.\n
@@ -166,7 +149,7 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
                 global image3dtemplate
                 image3dtemplate=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/3dtemplate.html"):
+        if os.path.exists(templatepath+"/"+templatename+"/templates/vowlwrapper.html"):
             with open(templatepath+"/"+templatename+"/templates/vowlwrapper.html", 'r') as file:
                 global vowltemplate
                 vowltemplate=file.read()
@@ -188,7 +171,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -197,6 +180,9 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
+        self.createVOWL=createVOWL
+        self.metadatatable=createMetadataTable
+        self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
         resolveTemplate(templatename)
@@ -293,8 +279,9 @@ class OntDocGeneration:
         labeltouri = {}
         uritolabel = {}
         uritotreeitem={}
-        vowlinstance=OWL2VOWL()
-        vowlinstance.convertOWL2VOWL(self.graph,outpath)
+        if self.createVOWL:
+            vowlinstance=OWL2VOWL()
+            vowlinstance.convertOWL2VOWL(self.graph,outpath)
         curlicense=self.processLicense()
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
@@ -369,7 +356,7 @@ class OntDocGeneration:
             if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
-            QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
+            #QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path),"OntdocGeneration",Qgis.Info)
             #except Exception as e:
             #    QgsMessageLog.logMessage(e)
             #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
@@ -394,8 +381,11 @@ class OntDocGeneration:
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
+        if self.generatePagesForNonNS:
+            #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
+            self.getSubjectPagesForNonGraphURIs(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
         for path in paths:
-            ttlf = open(path + "index.ttl", "w", encoding="utf-8")
+            subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
             checkdepth = self.checkDepthFromPath(path, outpath, path)-1
             sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
@@ -408,22 +398,16 @@ class OntDocGeneration:
             for sub in subjectstorender:
                 if nslink in sub:
                     for tup in self.graph.predicate_objects(sub):
-                        if isinstance(tup[1],Literal):
-                            if tup[1].datatype!=None:
-                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\"^^<"+str(tup[1].datatype)+"> .\n")
-                            else:
-                                ttlf.write("<" + str(sub) + "> <" + str(tup[0]) + "> \"" + str(tup[1]) + "\" .\n")
-                        elif isinstance(tup[1],URIRef):
-                            ttlf.write("<"+str(sub)+"> <"+str(tup[0])+"> <"+str(tup[1])+"> .\n")
-            ttlf.close()
+                        subgraph.add((sub, tup[0], tup[1]))
+            subgraph.serialize(path + "index.ttl",encoding="utf-8")
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink).replace("{{vowlpath}}", vowllink)\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
                 .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
             if nslink==prefixnamespace:
                 indexhtml=indexhtml.replace("{{indexpage}}","true")
             else:
                 indexhtml = indexhtml.replace("{{indexpage}}", "false")
-            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate
+            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate.replace("{{vowlpath}}", "minivowl_result.js")
             indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
@@ -438,12 +422,12 @@ class OntDocGeneration:
                         indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
             indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
-            QgsMessageLog.logMessage(path)
+            #QgsMessageLog.logMessage(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
         if len(featurecollectionspaths)>0:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{vowlpath}}", "vowl_result.js")\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
@@ -460,7 +444,6 @@ class OntDocGeneration:
         for f1 in files:
             with open(f1, 'r',encoding="utf-8") as infile:
                 result.append(json.load(infile))
-
         with open(outpath, 'w',encoding="utf-8") as output_file:
             output_file.write("var featurecolls="+json.dumps(result))
 
@@ -477,6 +460,9 @@ class OntDocGeneration:
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
             predicatecounter+=1
+        if self.createVOWL:
+            vowlinstance=OWL2VOWL()
+            vowlinstance.convertOWL2MiniVOWL(self.graph,outpath,[])
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
@@ -537,7 +523,7 @@ class OntDocGeneration:
         result = []
         ress = {}
         for res in results:
-            QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
+            #QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
             if "_:" not in str(res["subject"]) and str(res["subject"]).startswith("http"):
                 ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
         #QgsMessageLog.logMessage(ress)
@@ -548,18 +534,14 @@ class OntDocGeneration:
                     restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
-                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
-                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
-                    else:
-                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 else:
                     restext= self.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
-                    if str(obj) not in SPARQLUtils.collectionclasses and str(obj) not in SPARQLUtils.collectionclasses:
-                        result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
-                    else:
-                        result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
+                if str(obj) not in SPARQLUtils.collectionclasses:
+                    result.append({"id": str(obj), "parent": cls,"type": "instance","text": restext, "data":{}})
+                else:
+                    result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
                 if str(obj) not in uritotreeitem:
                     uritotreeitem[str(obj)]=[]
                 uritotreeitem[str(obj)].append(result[-1])
@@ -778,12 +760,12 @@ class OntDocGeneration:
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
                 "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse):
         tablecontents=""
         label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
-                ttlf.write("<" + str(subject) + "> <" + str(pred) + "> <" + str(object) + "> .\n")
+                ttlf.add((subject,URIRef(pred),object))
             label = ""
             unitlabel=""
             mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel)
@@ -796,30 +778,37 @@ class OntDocGeneration:
             textannos=mydata["textannos"]
             image3dannos=mydata["image3dannos"]
             unitlabel=mydata["unitlabel"]
+            if inverse:
+                rdfares = " about=\"" + str(object) + "\" resource=\"" + str(subject) + "\""
+            else:
+                rdfares = "resource=\"" + str(object) + "\""
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
-                tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(object) + "\" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
+                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
-                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
-                        object) + "\" target=\"_blank\" href=\"" + str(
+                    tablecontents += "<span><a property=\"" + str(
+                        pred) + "\" " + rdfares + " target=\"_blank\" href=\"" + str(
                         object) + "\">" + label + " <span style=\"color: #666;\">(" + res[
                                          "uri"] + ")</span></a>"
                 else:
-                    tablecontents += "<span><a property=\"" + str(pred) + "\" resource=\"" + str(
-                        object) + "\" target=\"_blank\" href=\"" + str(
-                        object) + "\">" + label + "</a>"
+                    tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
+                    object) + "\">" + label + "</a>"
+                if self.generatePagesForNonNS:
+                    rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
+                                                                      str(baseurl) + "nonns_" + self.shortenURI(
+                                                                          str(object)), False)
+                    tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
             tablecontents+="</span>"
         else:
             label=str(object)
+            if ttlf != None:
+                ttlf.add((subject, URIRef(pred), object))
             if isinstance(object, Literal) and object.datatype != None:
                 res = self.replaceNameSpacesInLabel(str(object.datatype))
-                if ttlf!=None:
-                    ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"^^<" + str(
-                    object.datatype) + "> .\n")
                 objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
@@ -837,13 +826,9 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
             else:
                 if object.language != None:
-                    if ttlf!=None:
-                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\"@"+str(object.language)+" .\n")
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
-                    if ttlf!=None:
-                        ttlf.write("<" + str(subject) + "> <" + str(pred) + "> \"" + str(object) + "\" .\n")
                     tablecontents += self.detectStringLiteralContent(pred,object)
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label}
 
@@ -865,7 +850,7 @@ class OntDocGeneration:
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
         onelabel=self.shortenURI(str(tup))
         label=None
-        for obj in graph.predicate_objects(object):
+        for obj in graph.predicate_objects(URIRef(tup)):
             if str(obj[0]) in SPARQLUtils.labelproperties:
                 if obj[1].language==self.labellang:
                     label = str(obj[1])
@@ -892,6 +877,71 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
+
+    def getSubjectPagesForNonGraphURIs(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
+        uristorender={}
+        uritolabel={}
+        for sub in subjectstorender:
+            onelabel=""
+            label=None
+            added=[]
+            for tup in sorted(graph.predicate_objects(sub),key=lambda tup: tup[0]):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    if tup[1].language == self.labellang:
+                        label = str(tup[1])
+                        break
+                    onelabel = str(tup[1])
+                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
+                    if str(tup[1]) not in uristorender:
+                        uristorender[str(tup[1])]={}
+                    if str(tup[0]) not in uristorender[str(tup[1])]:
+                        uristorender[str(tup[1])][str(tup[0])]=[]
+                    for objtup in graph.predicate_objects(tup[1]):
+                        if str(objtup[0]) in SPARQLUtils.labelproperties:
+                            uritolabel[str(tup[1])]=str(objtup[1])
+                    toadd={"sub":sub,"label":onelabel}
+                    added.append(toadd)
+                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
+            for item in added:
+                if label!=None:
+                    item["label"]=label
+                else:
+                    item["label"]=onelabel
+        for uri in uristorender:
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True)
+
+    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
+        uristorender={}
+        uritolabel={}
+        for sub in subjectstorender:
+            onelabel=""
+            label=None
+            added=[]
+            for tup in sorted(graph.predicate_objects(sub), key=lambda tup: tup[0]):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    if tup[1].language == self.labellang:
+                        label = str(tup[1])
+                        break
+                    onelabel = str(tup[1])
+                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
+                    if str(tup[1]) not in uristorender:
+                        uristorender[str(tup[1])]={}
+                    if str(tup[0]) not in uristorender[str(tup[1])]:
+                        uristorender[str(tup[1])][str(tup[0])]=[]
+                    for objtup in graph.predicate_objects(tup[1]):
+                        if str(objtup[0]) in SPARQLUtils.labelproperties:
+                            uritolabel[str(tup[1])] = str(objtup[1])
+                    toadd={"sub":sub,"label":onelabel}
+                    added.append(toadd)
+                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
+            for item in added:
+                if label!=None:
+                    item["label"]=label
+                else:
+                    item["label"]=onelabel
+        for uri in uristorender:
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True)
+
     def checkDepthFromPath(self,savepath,baseurl,subject):
         if savepath.endswith("/"):
             checkdepth = subject.replace(baseurl, "").count("/")
@@ -899,14 +949,14 @@ class OntDocGeneration:
             checkdepth = subject.replace(baseurl, "").count("/")
         #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
         checkdepth+=1
-        QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
+        #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
         return checkdepth
 
     def getAccessFromBaseURL(self,baseurl,savepath):
-        QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
         return savepath.replace(baseurl, "")
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing,nonns=False):
         tablecontents = ""
         metadatatablecontents=""
         isodd = False
@@ -914,7 +964,9 @@ class OntDocGeneration:
         epsgcode=""
         foundmedia={"audio":set(),"video":set(),"image":set(),"mesh":set()}
         savepath = savepath.replace("\\", "/")
-        checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
+        checkdepth=0
+        if not nonns:
+            checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
         foundlabel = ""
         logo=""
         if self.logoname!=None and self.logoname!="":
@@ -928,158 +980,172 @@ class OntDocGeneration:
         comment={}
         parentclass=None
         inverse=False
-        if str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
+        if uritotreeitem!=None and str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)][-1]["parent"])
             if parentclass not in uritotreeitem:
                 uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}]
             uritotreeitem[parentclass][-1]["instancecount"]=0
-        ttlf = open(savepath + "/index.ttl", "w", encoding="utf-8")
+        ttlf = Graph(bind_namespaces="rdflib")
         if parentclass!=None:
             uritotreeitem[parentclass][-1]["data"]["to"]={}
             uritotreeitem[parentclass][-1]["data"]["from"]={}
-        for tup in sorted(predobjs,key=lambda tup: tup[0]):
-            if str(tup[0]) not in predobjmap:
-                predobjmap[str(tup[0])]=[]
-            predobjmap[str(tup[0])].append(tup[1])
-            if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass][-1]["data"]["to"]:
-                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]={}
-                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"] = 0
-            if parentclass!=None:
-                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"]+=1
-                uritotreeitem[parentclass][-1]["instancecount"]+=1
-            if isinstance(tup[1],URIRef):
-                for item in graph.objects(tup[1],URIRef(self.typeproperty)):
-                    if parentclass!=None:
-                        if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
-                            uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
-                        uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
         tablecontentcounter=-1
         metadatatablecontentcounter=-1
-        for tup in predobjmap:
-            QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
-            if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
-                thetable=metadatatablecontents
-                metadatatablecontentcounter+=1
-                if metadatatablecontentcounter%2==0:
-                    thetable += "<tr class=\"odd\">"
-                else:
-                    thetable += "<tr class=\"even\">"
-            else:
-                thetable=tablecontents
-                tablecontentcounter+=1
-                if tablecontentcounter%2==0:
-                    thetable += "<tr class=\"odd\">"
-                else:
-                    thetable += "<tr class=\"even\">"
-            if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
-                isgeocollection=True
-                uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
-            elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
-                isgeocollection=True
-                uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
-            thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
-            if str(tup) in SPARQLUtils.labelproperties:
-                for lab in predobjmap[tup]:
-                    if lab.language==self.labellang:
-                        foundlabel=lab
-                if foundlabel=="":
-                    foundlabel = str(predobjmap[tup][0])
-            if str(tup) in SPARQLUtils.commentproperties:
-                comment[str(tup)]=str(predobjmap[tup][0])
-            if len(predobjmap[tup]) > 0:
-                thetable+="<td class=\"wrapword\">"
-                if len(predobjmap[tup])>1:
-                    thetable+="<ul>"
-                labelmap={}
-                for item in predobjmap[tup]:
-                    if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
-                        image3dannos.add(str(item))
-                    elif "<svg" in str(item):
-                        foundmedia["image"].add(str(item))
-                    elif "http" in str(item):
-                        if isinstance(item,Literal):
-                            ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
-                        else:
-                            ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
-                        if ext in SPARQLUtils.fileextensionmap:
-                            foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
-                    elif tup in SPARQLUtils.valueproperties:
-                        foundvals.add(str(item))
-                    res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                          baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                    geojsonrep = res["geojson"]
-                    foundmedia = res["foundmedia"]
-                    imageannos=res["imageannos"]
-                    textannos=res["textannos"]
-                    image3dannos=res["image3dannos"]
-                    if res["label"] not in labelmap:
-                        labelmap[res["label"]]=""
-                    if len(predobjmap[tup]) > 1:
-                        labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+        if predobjs!=None:
+            for tup in sorted(predobjs,key=lambda tup: tup[0]):
+                if str(tup[0]) not in predobjmap:
+                    predobjmap[str(tup[0])]=[]
+                predobjmap[str(tup[0])].append(tup[1])
+                if parentclass!=None and str(tup[0]) not in uritotreeitem[parentclass][-1]["data"]["to"]:
+                    uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]={}
+                    uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"] = 0
+                if parentclass!=None:
+                    uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"]+=1
+                    uritotreeitem[parentclass][-1]["instancecount"]+=1
+                if isinstance(tup[1],URIRef):
+                    for item in graph.objects(tup[1],URIRef(self.typeproperty)):
+                        if parentclass!=None:
+                            if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
+                                uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
+                            uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
+            for tup in predobjmap:
+                #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
+                if self.metadatatable and tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
+                    thetable=metadatatablecontents
+                    metadatatablecontentcounter+=1
+                    if metadatatablecontentcounter%2==0:
+                        thetable += "<tr class=\"odd\">"
                     else:
-                        labelmap[res["label"]] += str(res["html"])
-                for lab in sorted(labelmap):
-                    thetable+=str(labelmap[lab])
-                if len(predobjmap[tup])>1:
-                    thetable+="</ul>"
-                thetable+="</td>"
-            else:
-                thetable += "<td class=\"wrapword\"></td>"
-            thetable += "</tr>"
-            if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
-                metadatatablecontents=thetable
-            else:
-                tablecontents=thetable
-            isodd = not isodd
+                        thetable += "<tr class=\"even\">"
+                else:
+                    thetable=tablecontents
+                    tablecontentcounter+=1
+                    if tablecontentcounter%2==0:
+                        thetable += "<tr class=\"odd\">"
+                    else:
+                        thetable += "<tr class=\"even\">"
+                if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
+                    isgeocollection=True
+                    uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
+                elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
+                    isgeocollection=True
+                    uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
+                thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
+                if str(tup) in SPARQLUtils.labelproperties:
+                    for lab in predobjmap[tup]:
+                        if lab.language==self.labellang:
+                            foundlabel=lab
+                    if foundlabel=="":
+                        foundlabel = str(predobjmap[tup][0])
+                if str(tup) in SPARQLUtils.commentproperties:
+                    comment[str(tup)]=str(predobjmap[tup][0])
+                if len(predobjmap[tup]) > 0:
+                    thetable+="<td class=\"wrapword\">"
+                    if len(predobjmap[tup])>1:
+                        thetable+="<ul>"
+                    labelmap={}
+                    for item in predobjmap[tup]:
+                        if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
+                            image3dannos.add(str(item))
+                        elif "<svg" in str(item):
+                            foundmedia["image"].add(str(item))
+                        elif "http" in str(item):
+                            if isinstance(item,Literal):
+                                ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
+                            else:
+                                ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
+                            if ext in SPARQLUtils.fileextensionmap:
+                                foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
+                        elif tup in SPARQLUtils.valueproperties:
+                            foundvals.add(str(item))
+                        res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse)
+                        geojsonrep = res["geojson"]
+                        foundmedia = res["foundmedia"]
+                        imageannos=res["imageannos"]
+                        textannos=res["textannos"]
+                        image3dannos=res["image3dannos"]
+                        if res["label"] not in labelmap:
+                            labelmap[res["label"]]=""
+                        if len(predobjmap[tup]) > 1:
+                            labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                        else:
+                            labelmap[res["label"]] += str(res["html"])
+                    for lab in sorted(labelmap):
+                        thetable+=str(labelmap[lab])
+                    if len(predobjmap[tup])>1:
+                        thetable+="</ul>"
+                    thetable+="</td>"
+                else:
+                    thetable += "<td class=\"wrapword\"></td>"
+                thetable += "</tr>"
+                if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
+                    metadatatablecontents=thetable
+                else:
+                    tablecontents=thetable
+                isodd = not isodd
         subpredsmap={}
-        for tup in sorted(subpreds,key=lambda tup: tup[1]):
-            if str(tup[1]) not in subpredsmap:
-                subpredsmap[str(tup[1])]=[]
-            subpredsmap[str(tup[1])].append(tup[0])
-            if parentclass!=None and str(tup[1]) not in uritotreeitem[parentclass][-1]["data"]["from"]:
-                uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]={}
-                uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]["instancecount"] = 0
-            if isinstance(tup[0],URIRef):
-                for item in graph.objects(tup[0],URIRef(self.typeproperty)):
-                    if parentclass!=None:
-                        if item not in uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]:
-                            uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item] = 0
-                        uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item]+=1
-        for tup in subpredsmap:
-            if isodd:
-                tablecontents += "<tr class=\"odd\">"
-            else:
-                tablecontents += "<tr class=\"even\">"
-            tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
-            if len(subpredsmap[tup]) > 0:
-                tablecontents += "<td class=\"wrapword\"><ul>"
-                labelmap={}
-                for item in subpredsmap[tup]:
-                    if item not in subjectstorender and baseurl in str(item):
-                        QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
-                        postprocessing.add((item,URIRef(tup),subject))
-                    res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                         baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos)
-                    foundmedia = res["foundmedia"]
-                    imageannos=res["imageannos"]
-                    image3dannos=res["image3dannos"]
-                    if res["label"] not in labelmap:
-                        labelmap[res["label"]]=""
-                    labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
-                for lab in sorted(labelmap):
-                    tablecontents+=str(labelmap[lab])
-                tablecontents += "</ul></td>"
-            else:
-                tablecontents += "<td class=\"wrapword\"></td>"
-            tablecontents += "</tr>"
-            isodd = not isodd
+        if subpreds!=None:
+            for tup in sorted(subpreds,key=lambda tup: tup[1]):
+                if str(tup[1]) not in subpredsmap:
+                    subpredsmap[str(tup[1])]=[]
+                subpredsmap[str(tup[1])].append(tup[0])
+                if parentclass!=None and str(tup[1]) not in uritotreeitem[parentclass][-1]["data"]["from"]:
+                    uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]={}
+                    uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]["instancecount"] = 0
+                if isinstance(tup[0],URIRef):
+                    for item in graph.objects(tup[0],URIRef(self.typeproperty)):
+                        if parentclass!=None:
+                            if item not in uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])]:
+                                uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item] = 0
+                            uritotreeitem[parentclass][-1]["data"]["from"][str(tup[1])][item]+=1
+            for tup in subpredsmap:
+                if isodd:
+                    tablecontents += "<tr class=\"odd\">"
+                else:
+                    tablecontents += "<tr class=\"even\">"
+                tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
+                if len(subpredsmap[tup]) > 0:
+                    tablecontents += "<td class=\"wrapword\">"
+                    if len(subpredsmap[tup]) > 1:
+                        tablecontents += "<ul>"
+                    labelmap={}
+                    for item in subpredsmap[tup]:
+                        if item not in subjectstorender and baseurl in str(item):
+                            #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
+                            postprocessing.add((item,URIRef(tup),subject))
+                        res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True)
+                        foundmedia = res["foundmedia"]
+                        imageannos=res["imageannos"]
+                        image3dannos=res["image3dannos"]
+                        if res["label"] not in labelmap:
+                            labelmap[res["label"]]=""
+                        if len(subpredsmap[tup]) > 1:
+                            labelmap[res["label"]]+="<li>"+str(res["html"])+"</li>"
+                        else:
+                            labelmap[res["label"]] += str(res["html"])
+                    for lab in sorted(labelmap):
+                        tablecontents+=str(labelmap[lab])
+                    if len(subpredsmap[tup])>1:
+                        tablecontents+="</ul>"
+                    tablecontents += "</td>"
+                else:
+                    tablecontents += "<td class=\"wrapword\"></td>"
+                tablecontents += "</tr>"
+                isodd = not isodd
         if self.licenseuri!=None:
-            ttlf.write("<"+str(subject)+"> <http://purl.org/dc/elements/1.1/license> <"+self.licenseuri+"> .\n")
-        ttlf.close()
-        with open(savepath + "/index.json", 'w', encoding='utf-8') as f:
-            f.write(json.dumps(predobjmap))
-            f.close()
-        with open(savepath + "/index.html", 'w', encoding='utf-8') as f:
+            ttlf.add((subject, URIRef("http://purl.org/dc/elements/1.1/license"), URIRef(self.licenseuri)))
+        if nonns:
+            completesavepath = savepath
+        else:
+            completesavepath=savepath + "/index.html"
+        if not nonns:
+            ttlf.serialize(savepath + "/index.ttl", encoding="utf-8")
+            with open(savepath + "/index.json", 'w', encoding='utf-8') as f:
+                f.write(json.dumps(predobjmap))
+                f.close()
+        with open(completesavepath, 'w', encoding='utf-8') as f:
             rellink=self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,searchfilename,False)
             rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
             rellink3 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
@@ -1193,8 +1259,8 @@ class OntDocGeneration:
                             else:
                                 featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
-                with open(savepath + "/index.geojson", 'w', encoding='utf-8') as fgeo:
-                    featurecollectionspaths.add(savepath + "/index.geojson")
+                with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
+                    featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
                     fgeo.write(json.dumps(featcoll))
                     fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))

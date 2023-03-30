@@ -32,6 +32,44 @@ class OWL2VOWL():
     #        for tuppred in g.objects(subj,URIRef(typeproperty)):
     #            subjclasses.add(tuppred)
 
+    def convertOWL2MiniVOWL(self,g,outpath,predicates=[],typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
+        minivowlresult={"info": [{
+            "description": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin"}],
+            "nodes": [],"links": []}
+        nodes=[]
+        nodeuriToId={}
+        links=[]
+        nodecounter=0
+        for pred in g.subject_objects(URIRef(typeproperty)):
+            if str(pred[1]) not in nodeuriToId:
+                nodeuriToId[str(pred[1])]=nodecounter
+                nodecounter+=1
+                if str(pred[1])=="http://www.w3.org/2002/07/owl#Class" or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Class" or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Datatype":
+                    nodes.append({"name":self.getIRILabel(str(pred[1])),"type":"class","uri":str(pred[1])})
+                else:
+                    nodes.append({"name": self.getIRILabel(str(pred[1])), "type": "class", "uri": str(pred[1])})
+        if predicates!=[]:
+            for pred in predicates:
+                if "from" in predicates[pred] and "to" in predicates[pred]:
+                    for fromsub in predicates[pred]["from"]:
+                        if fromsub in nodeuriToId:
+                            if predicates[pred]["to"]!=[]:
+                                links.append({"source": nodeuriToId[str(fromsub)],
+                                              "target": nodeuriToId[str(predicates[pred]["to"])],
+                                              "valueTo": self.getIRILabel(str(pred)),
+                                              "propertyTo": "class",
+                                              "uriTo": str(pred)})
+        else:
+            for node in nodeuriToId:
+                for predobj in g.predicate_objects(URIRef(node)):
+                    if node in nodeuriToId and str(predobj[1]) in nodeuriToId and str(predobj[0])!=typeproperty:
+                        links.append({"source":nodeuriToId[node],"target":nodeuriToId[str(predobj[1])],"valueTo": self.getIRILabel(str(predobj[0])),"propertyTo":("class" if isinstance(predobj[1],URIRef) else "datatype"), "uriTo":(str(predobj[1]) if isinstance(predobj[1],URIRef) else predobj[1].datatype)})
+        minivowlresult["nodes"]=nodes
+        minivowlresult["links"] = links
+        f = open(outpath + "/minivowl_result.js", "w")
+        f.write("var minivowlresult=" + json.dumps(minivowlresult, indent=1))
+        f.close()
+
     def convertOWL2VOWL(self,g,outpath,typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
         vowlresult = {"_comment": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin",
                       "header": {"prefixList": {}, "baseIris": [], "languages": []}, "namespace": [], "class": [],

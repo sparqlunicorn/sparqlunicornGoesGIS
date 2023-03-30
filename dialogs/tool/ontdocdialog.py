@@ -114,5 +114,5 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,progress,self.createIndexPages.checkState(),logoname)
+                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,progress,self.createIndexPages.checkState(),self.nonNSPagesCBox.checkState(),self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),logoname)
         QgsApplication.taskManager().addTask(self.qtask)

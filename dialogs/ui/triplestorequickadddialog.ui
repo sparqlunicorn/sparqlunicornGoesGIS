@@ -260,7 +260,14 @@
         <widget class="QLineEdit" name="rdfResourceNameEdit"/>
        </item>
        <item row="1" column="1">
-        <widget class="QgsFileWidget" name="chooseFileWidget"/>
+        <widget class="QgsFileWidget" name="chooseFileWidget">
+         <property name="fullUrl">
+          <bool>false</bool>
+         </property>
+         <property name="storageMode">
+          <enum>QgsFileWidget::GetMultipleFiles</enum>
+         </property>
+        </widget>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="rdfFileLabel">
