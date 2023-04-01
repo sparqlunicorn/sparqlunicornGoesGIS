@@ -1,4 +1,5 @@
 from rdflib import Graph, URIRef
+from qgis.core import Qgis, QgsMessageLog
 import json
 
 class OWL2VOWL():
@@ -50,8 +51,12 @@ class OWL2VOWL():
                     nodes.append({"name": self.getIRILabel(str(pred[1])), "type": "class", "uri": str(pred[1])})
         if predicates!=[]:
             for pred in predicates:
+                QgsMessageLog.logMessage(str(pred), "VOWL2OWL", Qgis.Info)
                 if "from" in predicates[pred] and "to" in predicates[pred]:
+                    QgsMessageLog.logMessage(str(predicates[pred]["from"]), "VOWL2OWL", Qgis.Info)
                     for fromsub in predicates[pred]["from"]:
+                        QgsMessageLog.logMessage(str(fromsub), "VOWL2OWL", Qgis.Info)
+                        QgsMessageLog.logMessage(str(nodeuriToId), "VOWL2OWL", Qgis.Info)
                         if fromsub in nodeuriToId:
                             if predicates[pred]["to"]!=[]:
                                 links.append({"source": nodeuriToId[str(fromsub)],
