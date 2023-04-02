@@ -158,6 +158,12 @@ class SPARQLUtils:
                        "http://www.opengis.net/ont/geosparql#geoJSONLiteral",
                        "http://www.opengis.net/ont/geosparql#dggsLiteral"]
 
+    geopropertypairs = ["http://www.opengis.net/ont/geosparql#wktLiteral",
+                       "http://www.opengis.net/ont/geosparql#gmlLiteral",
+                       "http://www.opengis.net/ont/geosparql#kmlLiteral",
+                       "http://www.opengis.net/ont/geosparql#geoJSONLiteral",
+                       "http://www.opengis.net/ont/geosparql#dggsLiteral"]
+
     geoproperties={
                    "http://www.opengis.net/ont/geosparql#asWKT":"DatatypeProperty",
                    "http://www.opengis.net/ont/geosparql#asGML": "DatatypeProperty",
