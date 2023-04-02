@@ -38,6 +38,7 @@ var a00109 =
     [ "geoinstancenode", "a00109.html#aecf1a33e8d4dc9134317cdcc36c7eb03", null ],
     [ "geoliteraltypes", "a00109.html#a21eb3ca7f7b109f80e9549abd833218f", null ],
     [ "geoobjectpropertynode", "a00109.html#afa7d7294d23ae54e4a7ccb613c76180e", null ],
+    [ "geopairproperties", "a00109.html#a4785256fb6043d0bc39e22cb20c37164", null ],
     [ "geopointerproperties", "a00109.html#acaa3fbe31c81ff2f677aa266ed2c24bc", null ],
     [ "geoproperties", "a00109.html#aba7485239040e54e5eecbbf267d889e5", null ],
     [ "georelationproperties", "a00109.html#a6060a0aca4fd3add3a87094afddd15ce", null ],
