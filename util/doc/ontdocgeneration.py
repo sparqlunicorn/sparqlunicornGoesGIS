@@ -337,6 +337,9 @@ class OntDocGeneration:
         with open(outpath + "epsgdefs.js", 'w', encoding='utf-8') as f:
             f.write(epsgdefs)
             f.close()
+        with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
+            f.write("var tree=" + json.dumps(tree, indent=jsonindent))
+            f.close()
         pathmap = {}
         paths = {}
         postprocessing=Graph()
@@ -462,7 +465,7 @@ class OntDocGeneration:
             predicatecounter+=1
         if self.createVOWL:
             vowlinstance=OWL2VOWL()
-            vowlinstance.convertOWL2MiniVOWL(self.graph,outpath,[])
+            vowlinstance.convertOWL2MiniVOWL(self.graph,outpath,predicates)
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
@@ -657,8 +660,30 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
+    def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None):
+        if subject!=None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
+            pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
+            latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
+            othervalue = ""
+            for obj in graph.objects(subject, URIRef(pairprop)):
+                othervalue = str(obj)
+            if latorlong:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(othervalue)), float(str(object))]}
+            else:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(object)), float(str(othervalue))]}
+        elif isinstance(object, Literal) and (
+                str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
+            geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
+        elif isinstance(object, URIRef) and nonns:
+            for pobj in graph.predicate_objects(object):
+                if isinstance(pobj[1], Literal) and (
+                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
+                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
+                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
+        return geojsonrep
+
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
-                                                    textannos, image3dannos, label, unitlabel):
+                                                    textannos, image3dannos, label, unitlabel,nonns):
         geoprop = False
         annosource = None
         incollection = False
@@ -699,9 +724,7 @@ class OntDocGeneration:
                 textannos.append(curanno)
             if pred == "http://www.w3.org/ns/oa#hasSource":
                 annosource = str(tup[1])
-            if isinstance(tup[1], Literal) and (
-                    str(tup[0]) in SPARQLUtils.geoproperties or str(tup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                geojsonrep = LayerUtils.processLiteral(str(tup[1]), str(tup[1].datatype), "")
+            geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
             if incollection and "<svg" in str(tup[1]):
                 foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
@@ -760,7 +783,7 @@ class OntDocGeneration:
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
                 "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse,nonns):
         tablecontents=""
         label=""
         if isinstance(object,URIRef) or isinstance(object,BNode):
@@ -768,7 +791,7 @@ class OntDocGeneration:
                 ttlf.add((subject,URIRef(pred),object))
             label = ""
             unitlabel=""
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel)
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel,nonns)
             label=mydata["label"]
             if label=="":
                 label=str(self.shortenURI(str(object)))
@@ -822,8 +845,19 @@ class OntDocGeneration:
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
-                if isinstance(object, Literal) and (str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
-                    geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
+                geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
+                #if isinstance(object,Literal) and (str(pred) in SPARQLUtils.geopairproperties):
+                #    pairprop=SPARQLUtils.geopairproperties[str(pred)]["pair"]
+                #    latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
+                #    othervalue=""
+                #    for obj in graph.objects(subject,URIRef(pairprop)):
+                #        othervalue=str(obj)
+                #    if latorlong:
+                #       geojsonrep = {"type": "Point", "coordinates": [float(str(othervalue)), float(str(object))]}
+                #    else:
+                #        geojsonrep= { "type":"Point", "coordinates":[float(str(object)),float(str(othervalue))]}
+                #elif isinstance(object, Literal) and (str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
+                #    geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
             else:
                 if object.language != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
@@ -885,7 +919,7 @@ class OntDocGeneration:
             onelabel=""
             label=None
             added=[]
-            for tup in sorted(graph.predicate_objects(sub),key=lambda tup: tup[0]):
+            for tup in graph.predicate_objects(sub):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     if tup[1].language == self.labellang:
                         label = str(tup[1])
@@ -917,7 +951,7 @@ class OntDocGeneration:
             onelabel=""
             label=None
             added=[]
-            for tup in sorted(graph.predicate_objects(sub), key=lambda tup: tup[0]):
+            for tup in graph.predicate_objects(sub):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     if tup[1].language == self.labellang:
                         label = str(tup[1])
@@ -1059,7 +1093,7 @@ class OntDocGeneration:
                         elif tup in SPARQLUtils.valueproperties:
                             foundvals.add(str(item))
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse)
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse,nonns)
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
@@ -1115,10 +1149,12 @@ class OntDocGeneration:
                             #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True)
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
+                        if nonns:
+                            geojsonrep=res["geojson"]
                         if res["label"] not in labelmap:
                             labelmap[res["label"]]=""
                         if len(subpredsmap[tup]) > 1:
@@ -1233,8 +1269,8 @@ class OntDocGeneration:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
             for video in foundmedia["video"]:
                 f.write(videotemplate.replace("{{video}}",str(video)))
-            if geojsonrep!=None and not isgeocollection:
-                if str(subject) in uritotreeitem:
+            if geojsonrep!=None and not isgeocollection and subject!=None:
+                if uritotreeitem!=None and str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)][-1]["type"]="geoinstance"
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:

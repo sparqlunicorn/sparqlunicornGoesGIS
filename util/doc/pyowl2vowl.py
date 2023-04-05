@@ -1,5 +1,7 @@
 from rdflib import Graph, URIRef
+from qgis.core import Qgis, QgsMessageLog
 import json
+from qgis.core import Qgis, QgsMessageLog
 
 class OWL2VOWL():
 
@@ -50,15 +52,19 @@ class OWL2VOWL():
                     nodes.append({"name": self.getIRILabel(str(pred[1])), "type": "class", "uri": str(pred[1])})
         if predicates!=[]:
             for pred in predicates:
+                QgsMessageLog.logMessage(str(pred), "VOWL2OWL", Qgis.Info)
                 if "from" in predicates[pred] and "to" in predicates[pred]:
+                    QgsMessageLog.logMessage(str(predicates[pred]["from"]), "VOWL2OWL", Qgis.Info)
                     for fromsub in predicates[pred]["from"]:
-                        if fromsub in nodeuriToId:
+                        if str(fromsub) in nodeuriToId:
                             if predicates[pred]["to"]!=[]:
-                                links.append({"source": nodeuriToId[str(fromsub)],
-                                              "target": nodeuriToId[str(predicates[pred]["to"])],
-                                              "valueTo": self.getIRILabel(str(pred)),
-                                              "propertyTo": "class",
-                                              "uriTo": str(pred)})
+                                for topred in predicates[pred]["to"]:
+                                    if "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(topred) and "http://www.w3.org/2002/07/owl#" not in str(topred):
+                                        links.append({"source": nodeuriToId[str(fromsub)],
+                                                      "target": nodeuriToId[str(topred)],
+                                                      "valueTo": self.getIRILabel(str(pred)),
+                                                      "propertyTo": "class",
+                                                      "uriTo": str(pred)})
         else:
             for node in nodeuriToId:
                 for predobj in g.predicate_objects(URIRef(node)):
