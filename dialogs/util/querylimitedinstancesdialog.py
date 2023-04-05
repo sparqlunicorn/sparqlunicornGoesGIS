@@ -2,6 +2,8 @@ from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt import uic
 import os
 
+from qgis.core import QgsApplication
+
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.querylayertask import QueryLayerTask
 from ...util.sparqlutils import SPARQLUtils
@@ -61,4 +63,5 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 self.triplestoreconf["resource"],
                 self.thequery,
                 self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
         self.accept()
