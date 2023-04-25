@@ -656,7 +656,7 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None):
+    def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
         if subject!=None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
             pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
             latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
@@ -671,6 +671,31 @@ class OntDocGeneration:
                 str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
             geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
         elif isinstance(object, URIRef) and nonns:
+            featcoll = {"type": "FeatureCollection", "id": subject, "name": self.shortenURI(subject), "features": []}
+            for memberid in graph.objects(subject, pred):
+                for geoinstance in graph.predicate_objects(memberid):
+                    geojsonrep = None
+                    if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(
+                            geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
+                        geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",
+                                                               None, None, True)
+                        treeitem["type"] = "geocollection"
+                    elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
+                        treeitem["type"] = "featurecollection"
+                        for geotup in graph.predicate_objects(geoinstance[1]):
+                            if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(
+                                    geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
+                                geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",
+                                                                       None, None, True)
+                    if geojsonrep != None:
+                        if uritotreeitem!=None and str(memberid) in uritotreeitem:
+                            featcoll["features"].append({"type": "Feature", 'id': str(memberid),
+                                                         'label': uritotreeitem[str(memberid)][-1]["text"],
+                                                         'properties': {}, "geometry": geojsonrep})
+                        else:
+                            featcoll["features"].append(
+                                {"type": "Feature", 'id': str(memberid), 'label': str(memberid), 'properties': {},
+                                 "geometry": geojsonrep})
             for pobj in graph.predicate_objects(object):
                 if isinstance(pobj[1], Literal) and (
                         str(pobj[0]) in SPARQLUtils.geoproperties or str(
