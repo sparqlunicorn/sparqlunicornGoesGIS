@@ -846,18 +846,6 @@ class OntDocGeneration:
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
-                #if isinstance(object,Literal) and (str(pred) in SPARQLUtils.geopairproperties):
-                #    pairprop=SPARQLUtils.geopairproperties[str(pred)]["pair"]
-                #    latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
-                #    othervalue=""
-                #    for obj in graph.objects(subject,URIRef(pairprop)):
-                #        othervalue=str(obj)
-                #    if latorlong:
-                #       geojsonrep = {"type": "Point", "coordinates": [float(str(othervalue)), float(str(object))]}
-                #    else:
-                #        geojsonrep= { "type":"Point", "coordinates":[float(str(object)),float(str(othervalue))]}
-                #elif isinstance(object, Literal) and (str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
-                #    geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "",None,None,True)
             else:
                 if object.language != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
@@ -1119,6 +1107,7 @@ class OntDocGeneration:
                     tablecontents=thetable
                 isodd = not isodd
         subpredsmap={}
+        mainpred=""
         if subpreds!=None:
             for tup in sorted(subpreds,key=lambda tup: tup[1]):
                 if str(tup[1]) not in subpredsmap:
@@ -1148,6 +1137,7 @@ class OntDocGeneration:
                         if item not in subjectstorender and baseurl in str(item):
                             #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
+                        mainpred=item
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
                         foundmedia = res["foundmedia"]
@@ -1269,16 +1259,23 @@ class OntDocGeneration:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
             for video in foundmedia["video"]:
                 f.write(videotemplate.replace("{{video}}",str(video)))
-            if geojsonrep!=None and not isgeocollection and subject!=None:
+            if geojsonrep!=None and not isgeocollection and not nonns and subject!=None:
                 if uritotreeitem!=None and str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)][-1]["type"]="geoinstance"
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
-            elif isgeocollection:
+            elif isgeocollection or (nonns and mainpred!=None):
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
-                for memberid in graph.objects(subject,URIRef("http://www.w3.org/2000/01/rdf-schema#member")):
+                memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
+                if not isgeocollection:
+                    memberpred=URIRef(mainpred)
+                if nonns:
+                    thecoll=graph.subjects(memberpred,subject)
+                else:
+                    thecoll=graph.objects(subject,memberpred)
+                for memberid in thecoll:
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
                         if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
