@@ -41,6 +41,7 @@ var a00109 =
     [ "geopairproperties", "a00109.html#a4785256fb6043d0bc39e22cb20c37164", null ],
     [ "geopointerproperties", "a00109.html#acaa3fbe31c81ff2f677aa266ed2c24bc", null ],
     [ "geoproperties", "a00109.html#aba7485239040e54e5eecbbf267d889e5", null ],
+    [ "geopropertypairs", "a00109.html#a867f1eb8ee90a2549890214976b96e22", null ],
     [ "georelationproperties", "a00109.html#a6060a0aca4fd3add3a87094afddd15ce", null ],
     [ "graphResource", "a00109.html#a574fc90f73d8e3838b39ea769b869bfb", null ],
     [ "halfgeoclassnode", "a00109.html#ab6b6b4c1c9f5cf1ca7899924d33fca8c", null ],
