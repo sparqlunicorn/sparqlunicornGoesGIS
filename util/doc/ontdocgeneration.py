@@ -586,6 +586,11 @@ class OntDocGeneration:
                     result.append(theitem)
                 classidset.add(str(ress[cls]["super"]))
             classidset.add(str(cls))
+        if len(result)==0:
+            classidset.add("http://www.w3.org/2002/07/owl#Thing")
+            result.append({"id": "http://www.w3.org/2002/07/owl#Thing", "parent": "#", "type": "class", "text": "Thing (owl:Thing)", "data": {}})
+            for obj in graph.subjects(True):
+                result.append({"id":str(obj) , "parent": "http://www.w3.org/2002/07/owl#Thing", "type": "instance", "text": self.shortenURI(str(obj)),"data": {}})
         tree["core"]["data"] = result
         return tree
 
@@ -636,7 +641,7 @@ class OntDocGeneration:
             return uri[0:uri.rfind('#')+1]
         if uri!=None and "/" in uri and ns:
             return uri[0:uri.rfind('/')+1]
-        if uri.endswith("/"):
+        if uri!=None and uri.endswith("/"):
             uri = uri[0:-1]
         if uri!=None and "#" in uri and not ns:
             return uri[uri.rfind('#')+1:]
@@ -683,9 +688,11 @@ class OntDocGeneration:
                             geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
                         geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",
                                                                None, None, True)
-                        treeitem["type"] = "geocollection"
+                        if treeitem!=None:
+                            treeitem["type"] = "geocollection"
                     elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                        treeitem["type"] = "featurecollection"
+                        if treeitem != None:
+                            treeitem["type"] = "featurecollection"
                         for geotup in graph.predicate_objects(geoinstance[1]):
                             if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(
                                     geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
@@ -955,7 +962,10 @@ class OntDocGeneration:
                 else:
                     item["label"]=onelabel
         for uri in uristorender:
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True)
+            thelabel=""
+            if uri in uritolabel:
+                thelabel=uritolabel[uri]
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True,thelabel)
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
@@ -987,7 +997,10 @@ class OntDocGeneration:
                 else:
                     item["label"]=onelabel
         for uri in uristorender:
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True)
+            thelabel=""
+            if uri in uritolabel:
+                thelabel=uritolabel[uri]
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True,thelabel)
 
     def checkDepthFromPath(self,savepath,baseurl,subject):
         if savepath.endswith("/"):
@@ -1003,7 +1016,7 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
         return savepath.replace(baseurl, "")
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing,nonns=False):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing,nonns=False,foundlabel=""):
         tablecontents = ""
         metadatatablecontents=""
         isodd = False
@@ -1014,7 +1027,6 @@ class OntDocGeneration:
         checkdepth=0
         if not nonns:
             checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
-        foundlabel = ""
         logo=""
         if self.logoname!=None and self.logoname!="":
             logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
@@ -1038,6 +1050,7 @@ class OntDocGeneration:
             uritotreeitem[parentclass][-1]["data"]["from"]={}
         tablecontentcounter=-1
         metadatatablecontentcounter=-1
+        foundtype=False
         if predobjs!=None:
             for tup in sorted(predobjs,key=lambda tup: tup[0]):
                 if str(tup[0]) not in predobjmap:
@@ -1050,11 +1063,14 @@ class OntDocGeneration:
                     uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]["instancecount"]+=1
                     uritotreeitem[parentclass][-1]["instancecount"]+=1
                 if isinstance(tup[1],URIRef):
+                    foundtype=True
                     for item in graph.objects(tup[1],URIRef(self.typeproperty)):
                         if parentclass!=None:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
+            if not foundtype:
+                print("no type")
             for tup in predobjmap:
                 #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
                 if self.metadatatable and tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
