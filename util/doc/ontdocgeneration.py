@@ -244,9 +244,9 @@ class OntDocGeneration:
                     graph.add((ind, URIRef(prop), Literal(tobeaddedPerInd[prop]["value"])))
             elif "value" in tobeaddedPerInd[prop] and not "uri" in tobeaddedPerInd[prop]:
                 graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
-    def updateProgressBar(self,currentsubject,allsubjects):
+    def updateProgressBar(self,currentsubject,allsubjects,processsubject="URIs"):
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
-        self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" URIs... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
+        self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" "+str(processsubject)+"... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
 
     def processSubjectPath(self,outpath,paths,path):
         if "/" in path:
@@ -936,12 +936,17 @@ class OntDocGeneration:
 
 
     def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
+        nonnsuris=len(uristorender)
+        counter=0
         for uri in uristorender:
             label=""
             for tup in graph.predicate_objects(uri):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
+            if counter%10==0:
+                self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
             self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),None,True,label)
+            counter+=1
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
@@ -1299,7 +1304,7 @@ class OntDocGeneration:
                 QgsMessageLog.logMessage("TheColl: ", "OntdocGeneration", Qgis.Info)
                 for memberid in thecoll:
                     if not isgeocollection:
-                        QgsMessageLog.logMessage("Memberid " + str(memberid), "OntdocGeneration", Qgis.Info)
+                        QgsMessageLog.logMessage("Memberid " +str(subject)+" "+str(memberid), "OntdocGeneration", Qgis.Info)
                     for geoinstance in graph.predicate_objects(memberid,True):
                         geojsonrep=None
                         #if not isgeocollection:
