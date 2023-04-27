@@ -1296,7 +1296,7 @@ class OntDocGeneration:
                     thecoll=graph.subjects(memberpred,subject,True)
                 else:
                     thecoll=graph.objects(subject,memberpred,True)
-                QgsMessageLog.logMessage("TheColl: "+ str(len(thecoll)), "OntdocGeneration", Qgis.Info)
+                QgsMessageLog.logMessage("TheColl: ", "OntdocGeneration", Qgis.Info)
                 for memberid in thecoll:
                     if not isgeocollection:
                         QgsMessageLog.logMessage("Memberid " + str(memberid), "OntdocGeneration", Qgis.Info)
