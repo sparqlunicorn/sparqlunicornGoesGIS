@@ -342,6 +342,7 @@ class OntDocGeneration:
             f.close()
         pathmap = {}
         paths = {}
+        nonnsmap=set()
         postprocessing=Graph()
         subtorenderlen = len(subjectstorender)
         subtorencounter = 0
@@ -353,8 +354,10 @@ class OntDocGeneration:
                     self.graph.parse(outpath + path+"/index.ttl")
                 except Exception as e:
                     QgsMessageLog.logMessage(e)
-            postprocessing=self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
-                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing)
+            res=self.createHTML(outpath + path, self.graph.predicate_objects(subj), subj, prefixnamespace, self.graph.subject_predicates(subj),
+                       self.graph,str(corpusid) + "_search.js", str(corpusid) + "_classtree.js",uritotreeitem,curlicense,subjectstorender,postprocessing,nonnsmap)
+            postprocessing=res[0]
+            nonnsmap=res[1]
             subtorencounter += 1
             if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
@@ -386,7 +389,7 @@ class OntDocGeneration:
             f.close()
         if self.generatePagesForNonNS:
             #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
-            self.getSubjectPagesForNonGraphURIs(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
+            self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
         for path in paths:
             subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
@@ -932,40 +935,13 @@ class OntDocGeneration:
         return tablecontents
 
 
-    def getSubjectPagesForNonGraphURIs(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
-        uristorender={}
-        uritolabel={}
-        for sub in subjectstorender:
-            onelabel=""
-            label=None
-            added=[]
-            for tup in graph.predicate_objects(sub):
-                if str(tup[0]) in SPARQLUtils.labelproperties:
-                    if tup[1].language == self.labellang:
-                        label = str(tup[1])
-                        break
-                    onelabel = str(tup[1])
-                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
-                    if str(tup[1]) not in uristorender:
-                        uristorender[str(tup[1])]={}
-                    if str(tup[0]) not in uristorender[str(tup[1])]:
-                        uristorender[str(tup[1])][str(tup[0])]=[]
-                    for objtup in graph.predicate_objects(tup[1]):
-                        if str(objtup[0]) in SPARQLUtils.labelproperties:
-                            uritolabel[str(tup[1])]=str(objtup[1])
-                    toadd={"sub":sub,"label":onelabel}
-                    added.append(toadd)
-                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
-            for item in added:
-                if label!=None:
-                    item["label"]=label
-                else:
-                    item["label"]=onelabel
+    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         for uri in uristorender:
-            thelabel=""
-            if uri in uritolabel:
-                thelabel=uritolabel[uri]
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True,thelabel)
+            label=""
+            for tup in graph.predicate_objects(uri):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    label = str(tup[1])
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),None,True,label)
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
@@ -1000,7 +976,7 @@ class OntDocGeneration:
             thelabel=""
             if uri in uritolabel:
                 thelabel=uritolabel[uri]
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True,thelabel)
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
 
     def checkDepthFromPath(self,savepath,baseurl,subject):
         if savepath.endswith("/"):
@@ -1016,7 +992,7 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
         return savepath.replace(baseurl, "")
 
-    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing,nonns=False,foundlabel=""):
+    def createHTML(self,savepath, predobjs, subject, baseurl, subpreds, graph, searchfilename, classtreename,uritotreeitem,curlicense,subjectstorender,postprocessing,nonnsmap=None,nonns=False,foundlabel=""):
         tablecontents = ""
         metadatatablecontents=""
         isodd = False
@@ -1069,6 +1045,8 @@ class OntDocGeneration:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
+                    if baseurl not in str(tup[1]):
+                        nonnsmap.add(tup[1])
             if not foundtype:
                 print("no type")
             for tup in predobjmap:
@@ -1175,10 +1153,10 @@ class OntDocGeneration:
                         tablecontents += "<ul>"
                     labelmap={}
                     for item in subpredsmap[tup]:
-                        if item not in subjectstorender and baseurl in str(item):
+                        if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
                             #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
-                        mainpred=item
+                        mainpred=tup
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
                         foundmedia = res["foundmedia"]
@@ -1308,27 +1286,38 @@ class OntDocGeneration:
                     epsgcode="EPSG:"+geojsonrep["crs"]
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection or (nonns and mainpred!=None):
+                QgsMessageLog.logMessage("Mainpred " + str(mainpred), "OntdocGeneration", Qgis.Info)
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
                 memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
                 if not isgeocollection:
                     memberpred=URIRef(mainpred)
+                    QgsMessageLog.logMessage("Memberpred " + str(memberpred), "OntdocGeneration", Qgis.Info)
                 if nonns:
-                    thecoll=graph.subjects(memberpred,subject)
+                    thecoll=graph.subjects(memberpred,subject,True)
                 else:
-                    thecoll=graph.objects(subject,memberpred)
+                    thecoll=graph.objects(subject,memberpred,True)
+                QgsMessageLog.logMessage("TheColl: "+ str(len(thecoll)), "OntdocGeneration", Qgis.Info)
                 for memberid in thecoll:
-                    for geoinstance in graph.predicate_objects(memberid):
+                    if not isgeocollection:
+                        QgsMessageLog.logMessage("Memberid " + str(memberid), "OntdocGeneration", Qgis.Info)
+                    for geoinstance in graph.predicate_objects(memberid,True):
                         geojsonrep=None
-                        if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
+                        #if not isgeocollection:
+                        #    QgsMessageLog.logMessage("Geoinstance " + str(geoinstance[0]), "OntdocGeneration", Qgis.Info)
+                        if geoinstance!=None and isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
                             geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",None,None,True)
-                            uritotreeitem[str(subject)][-1]["type"] = "geocollection"
-                        elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                            uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
-                            for geotup in graph.predicate_objects(geoinstance[1]):
+                            if uritotreeitem!=None:
+                                uritotreeitem[str(subject)][-1]["type"] = "geocollection"
+                        elif geoinstance!=None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
+                            if uritotreeitem != None:
+                                uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
+                            for geotup in graph.predicate_objects(geoinstance[1],True):
                                 if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
                                     geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
+                        #if not isgeocollection:
+                        #    QgsMessageLog.logMessage("Geojsonrep " + str(geojsonrep), "OntdocGeneration", Qgis.Info)
                         if geojsonrep!=None:
-                            if str(memberid) in uritotreeitem:
+                            if uritotreeitem !=None and str(memberid) in uritotreeitem:
                                 featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
                             else:
                                 featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
@@ -1343,4 +1332,4 @@ class OntDocGeneration:
                 f.write(htmltabletemplate.replace("{{tablecontent}}", metadatatablecontents))
             f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
             f.close()
-        return postprocessing
+        return [postprocessing,nonnsmap]
