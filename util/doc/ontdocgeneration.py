@@ -666,6 +666,7 @@ class OntDocGeneration:
         return rellink
 
     def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
+        #QgsMessageLog.logMessage("RESOLVE " + str(object), "OntdocGeneration", Qgis.Info)
         if subject!=None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
             pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
             latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
@@ -707,11 +708,7 @@ class OntDocGeneration:
                             featcoll["features"].append(
                                 {"type": "Feature", 'id': str(memberid), 'label': str(memberid), 'properties': {},
                                  "geometry": geojsonrep})
-            for pobj in graph.predicate_objects(object):
-                if isinstance(pobj[1], Literal) and (
-                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
-                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
-                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
+            geojsonrep=featcoll
         return geojsonrep
 
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
@@ -771,7 +768,7 @@ class OntDocGeneration:
                     str(tup[0])] == "DatatypeProperty" and (isinstance(tup[1], Literal) or isinstance(tup[1], URIRef)):
                     tempvalprop = str(tup[0])
                     foundval = str(tup[1])
-                elif str(tup[0]) != "http://www.w3.org/ns/oa#hasTarget":
+                elif str(tup[0]) == "http://www.w3.org/ns/oa#hasTarget":
                     tempvalprop = "http://www.w3.org/ns/oa#hasTarget"
                     for inttup in graph.predicate_objects(tup[1]):
                         if str(inttup[0]) == "http://www.w3.org/ns/oa#hasSelector":
@@ -939,6 +936,7 @@ class OntDocGeneration:
             onelabel=""
             label=None
             added=[]
+            QgsMessageLog.logMessage(str(sub), "OntdocGeneration", Qgis.Info)
             for tup in graph.predicate_objects(sub):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     if tup[1].language == self.labellang:
@@ -965,6 +963,7 @@ class OntDocGeneration:
             thelabel=""
             if uri in uritolabel:
                 thelabel=uritolabel[uri]
+            QgsMessageLog.logMessage(outpath+"nonns_"+self.shortenURI(uri)+".html", "OntdocGeneration", Qgis.Info)
             self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri)), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),True,thelabel)
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
@@ -1313,10 +1312,12 @@ class OntDocGeneration:
                 if not isgeocollection:
                     memberpred=URIRef(mainpred)
                 if nonns:
-                    thecoll=graph.subjects(memberpred,subject)
+                    thecoll=graph.subjects(memberpred,subject,True)
                 else:
-                    thecoll=graph.objects(subject,memberpred)
+                    thecoll=graph.objects(subject,memberpred,True)
+                QgsMessageLog.logMessage("Memberpred " + str(memberpred), "OntdocGeneration", Qgis.Info)
                 for memberid in thecoll:
+                    QgsMessageLog.logMessage("Memberid " + str(memberid), "OntdocGeneration", Qgis.Info)
                     for geoinstance in graph.predicate_objects(memberid):
                         geojsonrep=None
                         if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
