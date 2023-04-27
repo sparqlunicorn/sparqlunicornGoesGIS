@@ -1325,8 +1325,7 @@ class OntDocGeneration:
                         elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                             uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
                             for geotup in graph.predicate_objects(geoinstance[1]):
-                                if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
+                                self.resolveGeoLiterals(geotup[0], geotup[1], graph, geojsonrep, nonns)
                         if geojsonrep!=None:
                             if str(memberid) in uritotreeitem:
                                 featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
