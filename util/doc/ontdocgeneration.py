@@ -342,7 +342,7 @@ class OntDocGeneration:
             f.close()
         pathmap = {}
         paths = {}
-        nonnsmap=set()
+        nonnsmap={}
         postprocessing=Graph()
         subtorenderlen = len(subjectstorender)
         subtorencounter = 0
@@ -935,7 +935,7 @@ class OntDocGeneration:
         return tablecontents
 
 
-    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
+    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl):
         nonnsuris=len(uristorender)
         counter=0
         for uri in uristorender:
@@ -945,7 +945,7 @@ class OntDocGeneration:
                     label = str(tup[1])
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),None,True,label)
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
@@ -1051,7 +1051,11 @@ class OntDocGeneration:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
                     if baseurl not in str(tup[1]):
-                        nonnsmap.add(tup[1])
+                        if tup[1] not in nonnsmap:
+                            nonnsmap[tup[1]]={}
+                        if tup[0] not in nonnsmap[tup[1]]:
+                            nonnsmap[tup[1]][tup[0]]=set()
+                        nonnsmap[tup[1]][tup[0]].add(subject)
             if not foundtype:
                 print("no type")
             for tup in predobjmap:
@@ -1298,13 +1302,17 @@ class OntDocGeneration:
                     memberpred=URIRef(mainpred)
                     QgsMessageLog.logMessage("Memberpred " + str(memberpred), "OntdocGeneration", Qgis.Info)
                 if nonns:
-                    thecoll=graph.subjects(memberpred,subject,True)
+                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap), "OntdocGeneration", Qgis.Info)
+                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[subject]), "OntdocGeneration", Qgis.Info)
+                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[subject][memberpred]), "OntdocGeneration", Qgis.Info)
+                    thecoll=nonnsmap[subject][memberpred]
+                    #thecoll=graph.subjects(memberpred,subject,True)
+                    QgsMessageLog.logMessage("TheColl: "+str(thecoll), "OntdocGeneration", Qgis.Info)
                 else:
                     thecoll=graph.objects(subject,memberpred,True)
-                QgsMessageLog.logMessage("TheColl: ", "OntdocGeneration", Qgis.Info)
                 for memberid in thecoll:
                     if not isgeocollection:
-                        QgsMessageLog.logMessage("Memberid " +str(subject)+" "+str(memberid), "OntdocGeneration", Qgis.Info)
+                        QgsMessageLog.logMessage("Memberid " +str(subject)+" "+str(memberpred)+" "+str(memberid), "OntdocGeneration", Qgis.Info)
                     for geoinstance in graph.predicate_objects(memberid,True):
                         geojsonrep=None
                         #if not isgeocollection:
