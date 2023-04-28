@@ -181,6 +181,7 @@ class OntDocGeneration:
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
         self.createVOWL=createVOWL
+        self.geocache={}
         self.metadatatable=createMetadataTable
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
@@ -1057,6 +1058,7 @@ class OntDocGeneration:
                         hasnonns.add(str(tup[1]))
                         if tup[1] not in nonnsmap:
                             nonnsmap[str(tup[1])]=set()
+                        nonnsmap[str(tup[1])].add(subject)
             if not foundtype:
                 print("no type")
             for tup in predobjmap:
@@ -1136,9 +1138,9 @@ class OntDocGeneration:
                     tablecontents=thetable
                 isodd = not isodd
         subpredsmap={}
-        if nonns:
-            QgsMessageLog.logMessage("At subpreds",
-                                 "OntdocGeneration", Qgis.Info)
+        #if nonns:
+        #    QgsMessageLog.logMessage("At subpreds",
+        #                         "OntdocGeneration", Qgis.Info)
         if subpreds!=None:
             for tup in sorted(subpreds,key=lambda tup: tup[1]):
                 if str(tup[1]) not in subpredsmap:
@@ -1173,9 +1175,9 @@ class OntDocGeneration:
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
-                        if nonns:
-                            QgsMessageLog.logMessage(
-                            "Postprocessing: " + str(item) + " - " + str(tup) + " - " + str(subject))
+                        #if nonns:
+                        #    QgsMessageLog.logMessage(
+                        #    "Postprocessing: " + str(item) + " - " + str(tup) + " - " + str(subject))
                         if nonns and str(tup) != self.typeproperty:
                             hasnonns.add(str(item))
                         if nonns:
@@ -1278,6 +1280,9 @@ class OntDocGeneration:
                         carousel="carousel-item"
             if len(foundmedia["image"])>3:
                 f.write(imagecarouselfooter)
+            #if nonns:
+            #    QgsMessageLog.logMessage(
+            #        "GeoCache: " + str(self.geocache))
             if len(textannos) > 0:
                 for textanno in textannos:
                     if isinstance(textanno, dict):
@@ -1301,12 +1306,14 @@ class OntDocGeneration:
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
                 if len(hasnonns)>0:
-                    for item in hasnonns:
-                        nonnsmap[item].add(jsonfeat)
+                    self.geocache[str(subject)]=jsonfeat
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection or nonns:
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
-                QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns) + " - "+str(subject)+" - "+str(nonnsmap))
+                #QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns))
+                #if str(subject) in self.geocache:
+                #    QgsMessageLog.logMessage(
+                #        "Geocache II: " + str(hasnonns) + " - " + str(subject) + " - " + str(self.geocache[str(subject)]))
                 if isgeocollection and not nonns:
                     memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
                     for memberid in graph.objects(subject,memberpred,True):
@@ -1326,13 +1333,13 @@ class OntDocGeneration:
                                 else:
                                     featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
                     if len(hasnonns)>0:
-                        for item in hasnonns:
-                            nonnsmap[item].add(featcoll)
+                        self.geocache[str(subject)]=featcoll
                 elif nonns:
                     for item in hasnonns:
-                        if item in nonnsmap:
-                            QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns) + " - " + str(nonnsmap[item]))
-                            featcoll["features"].append({"type": "Feature", 'id': str(item), 'label': str(item), 'properties': {},"geometry": nonnsmap[item]})
+                        #QgsMessageLog.logMessage("NonNSItem: " + str(item)+ " in geocahche: "+str(item in self.geocache))
+                        if item in self.geocache:
+                            #QgsMessageLog.logMessage("NonNSGeoCache: " + str(hasnonns) + " - " + str(self.geocache[item]))
+                            featcoll["features"].append(self.geocache[item])
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
                     featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
