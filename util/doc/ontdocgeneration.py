@@ -945,6 +945,7 @@ class OntDocGeneration:
                     label = str(tup[1])
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
+            QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
             self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),None,True,label)
             counter+=1
 
