@@ -342,7 +342,7 @@ class OntDocGeneration:
             f.close()
         pathmap = {}
         paths = {}
-        nonnsmap=set()
+        nonnsmap={}
         postprocessing=Graph()
         subtorenderlen = len(subjectstorender)
         subtorencounter = 0
@@ -759,7 +759,8 @@ class OntDocGeneration:
                 textannos.append(curanno)
             if pred == "http://www.w3.org/ns/oa#hasSource":
                 annosource = str(tup[1])
-            geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
+            if not nonns:
+                geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
             if incollection and "<svg" in str(tup[1]):
                 foundmedia["image"].add(str(tup[1]))
             elif incollection and "http" in str(tup[1]):
@@ -935,7 +936,7 @@ class OntDocGeneration:
         return tablecontents
 
 
-    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
+    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl):
         nonnsuris=len(uristorender)
         counter=0
         for uri in uristorender:
@@ -946,7 +947,7 @@ class OntDocGeneration:
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
             QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),None,True,label)
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
@@ -1033,6 +1034,7 @@ class OntDocGeneration:
         tablecontentcounter=-1
         metadatatablecontentcounter=-1
         foundtype=False
+        hasnonns=set()
         if predobjs!=None:
             for tup in sorted(predobjs,key=lambda tup: tup[0]):
                 if str(tup[0]) not in predobjmap:
@@ -1051,8 +1053,10 @@ class OntDocGeneration:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
-                    if baseurl not in str(tup[1]):
-                        nonnsmap.add(tup[1])
+                    if baseurl not in str(tup[1]) and str(tup[0])!=self.typeproperty:
+                        hasnonns.add(str(tup[1]))
+                        if tup[1] not in nonnsmap:
+                            nonnsmap[str(tup[1])]=set()
             if not foundtype:
                 print("no type")
             for tup in predobjmap:
@@ -1132,7 +1136,9 @@ class OntDocGeneration:
                     tablecontents=thetable
                 isodd = not isodd
         subpredsmap={}
-        mainpred=""
+        if nonns:
+            QgsMessageLog.logMessage("At subpreds",
+                                 "OntdocGeneration", Qgis.Info)
         if subpreds!=None:
             for tup in sorted(subpreds,key=lambda tup: tup[1]):
                 if str(tup[1]) not in subpredsmap:
@@ -1162,12 +1168,16 @@ class OntDocGeneration:
                         if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
                             #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
-                        mainpred=tup
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
+                        if nonns:
+                            QgsMessageLog.logMessage(
+                            "Postprocessing: " + str(item) + " - " + str(tup) + " - " + str(subject))
+                        if nonns and str(tup) != self.typeproperty:
+                            hasnonns.add(str(item))
                         if nonns:
                             geojsonrep=res["geojson"]
                         if res["label"] not in labelmap:
@@ -1290,43 +1300,39 @@ class OntDocGeneration:
                 jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
+                if len(hasnonns)>0:
+                    for item in hasnonns:
+                        nonnsmap[item].add(jsonfeat)
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
-            elif isgeocollection or (nonns and mainpred!=None):
-                QgsMessageLog.logMessage("Mainpred " + str(mainpred), "OntdocGeneration", Qgis.Info)
+            elif isgeocollection or nonns:
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
-                memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
-                if not isgeocollection:
-                    memberpred=URIRef(mainpred)
-                    QgsMessageLog.logMessage("Memberpred " + str(memberpred), "OntdocGeneration", Qgis.Info)
-                if nonns:
-                    thecoll=graph.subjects(memberpred,subject,True)
-                else:
-                    thecoll=graph.objects(subject,memberpred,True)
-                QgsMessageLog.logMessage("TheColl: ", "OntdocGeneration", Qgis.Info)
-                for memberid in thecoll:
-                    if not isgeocollection:
-                        QgsMessageLog.logMessage("Memberid " +str(subject)+" "+str(memberid), "OntdocGeneration", Qgis.Info)
-                    for geoinstance in graph.predicate_objects(memberid,True):
-                        geojsonrep=None
-                        #if not isgeocollection:
-                        #    QgsMessageLog.logMessage("Geoinstance " + str(geoinstance[0]), "OntdocGeneration", Qgis.Info)
-                        if geoinstance!=None and isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
-                            geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",None,None,True)
-                            if uritotreeitem!=None:
+                QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns) + " - "+str(subject)+" - "+str(nonnsmap))
+                if isgeocollection and not nonns:
+                    memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
+                    for memberid in graph.objects(subject,memberpred,True):
+                        for geoinstance in graph.predicate_objects(memberid,True):
+                            geojsonrep=None
+                            if geoinstance!=None and isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
+                                geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",None,None,True)
                                 uritotreeitem[str(subject)][-1]["type"] = "geocollection"
-                        elif geoinstance!=None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                            if uritotreeitem != None:
+                            elif geoinstance!=None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                                 uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
-                            for geotup in graph.predicate_objects(geoinstance[1],True):
-                                if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                    geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
-                        #if not isgeocollection:
-                        #    QgsMessageLog.logMessage("Geojsonrep " + str(geojsonrep), "OntdocGeneration", Qgis.Info)
-                        if geojsonrep!=None:
-                            if uritotreeitem !=None and str(memberid) in uritotreeitem:
-                                featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
-                            else:
-                                featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
+                                for geotup in graph.predicate_objects(geoinstance[1],True):
+                                    if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
+                                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
+                            if geojsonrep!=None:
+                                if uritotreeitem !=None and str(memberid) in uritotreeitem:
+                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
+                                else:
+                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
+                    if len(hasnonns)>0:
+                        for item in hasnonns:
+                            nonnsmap[item].add(featcoll)
+                elif nonns:
+                    for item in hasnonns:
+                        if item in nonnsmap:
+                            QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns) + " - " + str(nonnsmap[item]))
+                            featcoll["features"].append({"type": "Feature", 'id': str(item), 'label': str(item), 'properties': {},"geometry": nonnsmap[item]})
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
                 with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
                     featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
