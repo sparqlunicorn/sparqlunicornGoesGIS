@@ -85,7 +85,7 @@ nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 
 htmltabletemplate="""
-<table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table>"""
+<div style="overflow-x:auto;"><table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table></div>"""
 
 global htmlfooter
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
@@ -932,15 +932,17 @@ class OntDocGeneration:
         return tablecontents
 
     def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl):
+        QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
         nonnsuris=len(uristorender)
         counter=0
         for uri in uristorender:
             label=""
-            for tup in graph.predicate_objects(uri):
+            for tup in graph.predicate_objects(URIRef(uri)):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
+            QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
             self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
 
@@ -1046,12 +1048,12 @@ class OntDocGeneration:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
                             uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item]+=1
-                    if baseurl not in str(tup[1]):
-                        if tup[1] not in nonnsmap:
-                            nonnsmap[tup[1]]={}
-                        if tup[0] not in nonnsmap[tup[1]]:
-                            nonnsmap[tup[1]][tup[0]]=set()
-                        nonnsmap[tup[1]][tup[0]].add(subject)
+                    if baseurl not in str(tup[1]) and str(tup[0])!=self.typeproperty:
+                        if str(tup[1]) not in nonnsmap:
+                            nonnsmap[str(tup[1])]={}
+                        if str(tup[0]) not in nonnsmap[str(tup[1])]:
+                            nonnsmap[str(tup[1])][str(tup[0])]=set()
+                        nonnsmap[str(tup[1])][str(tup[0])].add(subject)
             if not foundtype:
                 print("no type")
             for tup in predobjmap:
@@ -1290,7 +1292,7 @@ class OntDocGeneration:
                 if epsgcode=="" and "crs" in geojsonrep:
                     epsgcode="EPSG:"+geojsonrep["crs"]
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
-            elif isgeocollection or (nonns and mainpred!=None):
+            elif isgeocollection or (nonns and mainpred!=None and str(subject) in nonnsmap and str(mainpred) in nonnsmap[str(subject)]):
                 QgsMessageLog.logMessage("Mainpred " + str(mainpred), "OntdocGeneration", Qgis.Info)
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
                 memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
@@ -1298,10 +1300,10 @@ class OntDocGeneration:
                     memberpred=URIRef(mainpred)
                     QgsMessageLog.logMessage("Memberpred " + str(memberpred), "OntdocGeneration", Qgis.Info)
                 if nonns:
-                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap), "OntdocGeneration", Qgis.Info)
-                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[subject]), "OntdocGeneration", Qgis.Info)
-                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[subject][memberpred]), "OntdocGeneration", Qgis.Info)
-                    thecoll=nonnsmap[subject][memberpred]
+                    #QgsMessageLog.logMessage("Memberpred " + str(nonnsmap), "OntdocGeneration", Qgis.Info)
+                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[str(subject)]), "OntdocGeneration", Qgis.Info)
+                    QgsMessageLog.logMessage("Memberpred " + str(nonnsmap[str(subject)][str(memberpred)]), "OntdocGeneration", Qgis.Info)
+                    thecoll=nonnsmap[str(subject)][str(memberpred)]
                     #thecoll=graph.subjects(memberpred,subject,True)
                     QgsMessageLog.logMessage("TheColl: "+str(thecoll), "OntdocGeneration", Qgis.Info)
                 else:
