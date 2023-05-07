@@ -85,7 +85,7 @@ nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
 
 htmltabletemplate="""
-<table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table>"""
+<div style="overflow-x:auto;"><table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table></div>"""
 
 global htmlfooter
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
@@ -727,6 +727,7 @@ class OntDocGeneration:
 
 
     def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
+        #QgsMessageLog.logMessage("RESOLVE " + str(object), "OntdocGeneration", Qgis.Info)
         if subject!=None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
             pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
             latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
@@ -768,11 +769,7 @@ class OntDocGeneration:
                             featcoll["features"].append(
                                 {"type": "Feature", 'id': str(memberid), 'label': str(memberid), 'properties': {},
                                  "geometry": geojsonrep})
-            for pobj in graph.predicate_objects(object):
-                if isinstance(pobj[1], Literal) and (
-                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
-                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
-                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
+            geojsonrep=featcoll
         return geojsonrep
 
     def getLabelForObject(self,object,graph,labellang=None):
@@ -852,7 +849,7 @@ class OntDocGeneration:
                     str(tup[0])] == "DatatypeProperty" and (isinstance(tup[1], Literal) or isinstance(tup[1], URIRef)):
                     tempvalprop = str(tup[0])
                     foundval = str(tup[1])
-                elif str(tup[0]) != "http://www.w3.org/ns/oa#hasTarget":
+                elif str(tup[0]) == "http://www.w3.org/ns/oa#hasTarget":
                     tempvalprop = "http://www.w3.org/ns/oa#hasTarget"
                     for inttup in graph.predicate_objects(tup[1]):
                         if str(inttup[0]) == "http://www.w3.org/ns/oa#hasSelector":
@@ -1009,13 +1006,13 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
-
     def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl):
+        QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
         nonnsuris=len(uristorender)
         counter=0
         for uri in uristorender:
             label=""
-            for tup in graph.predicate_objects(uri):
+            for tup in graph.predicate_objects(URIRef(uri)):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
             if counter%10==0:
