@@ -15,6 +15,12 @@ from .pyowl2vowl import OWL2VOWL
 
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
+version="SPARQLing Unicorn QGIS Plugin 0.15"
+
+versionurl="https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
+
+bibtextypemappings={"http://purl.org/ontology/bibo/Document":"@misc","http://purl.org/ontology/bibo/Article":"@article","http://purl.org/ontology/bibo/Thesis":"@phdthesis","http://purl.org/ontology/bibo/BookSection":"@inbook","http://purl.org/ontology/bibo/Book":"@book","http://purl.org/ontology/bibo/Proceedings":"@inproceedings"}
+
 global startscripts
 startscripts = ""
 
@@ -91,7 +97,7 @@ global htmlfooter
 htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
 {{exports}}
 </select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button>{{license}}</div></div><script>$(document).ready(function(){setSVGDimensions()})</script></body></html>"""
+<button id="downloadButton" onclick="download()">Download</button>{{bibtex}}{{license}}</div></div><script>$(document).ready(function(){setSVGDimensions()})</script></body></html>"""
 
 licensetemplate=""""""
 
@@ -404,7 +410,7 @@ class OntDocGeneration:
             subgraph.serialize(path + "index.ttl",encoding="utf-8")
             QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
             indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
-                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports)
+                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
             if nslink==prefixnamespace:
                 indexhtml=indexhtml.replace("{{indexpage}}","true")
             else:
@@ -423,7 +429,7 @@ class OntDocGeneration:
                         indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
                         indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
             indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
-            indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports)
+            indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","")
             #QgsMessageLog.logMessage(path)
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -664,65 +670,60 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def resolveBibtexReference(self, predobjs, item, graph):
-        bibtexmappings = {"http://purl.org/dc/elements/1.1/title": "title",
-                          "http://purl.org/dc/elements/1.1/created": "year",
-                          "http://purl.org/ontology/bibo/number": "number",
-                          "http://purl.org/ontology/bibo/publisher": "publisher",
-                          "http://purl.org/ontology/bibo/issuer": "journal",
-                          "http://purl.org/ontology/bibo/volume": "volume",
-                          "http://purl.org/ontology/bibo/doi": "doi",
-                          "http://purl.org/ontology/bibo/eissn": "eissn",
-                          "http://purl.org/ontology/bibo/eprint": "eprint",
-                          "http://purl.org/ontology/bibo/url": "url",
-                          "http://purl.org/ontology/bibo/issn": "issn",
-                          "http://purl.org/ontology/bibo/isbn": "isbn",
-                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "type"
-                          }
-        bibtextypemappings = {"http://purl.org/ontology/bibo/Document": "@misc",
-                              "http://purl.org/ontology/bibo/Article": "@article",
-                              "http://purl.org/ontology/bibo/Thesis": "@phdthesis",
-                              "http://purl.org/ontology/bibo/BookSection": "@inbook",
-                              "http://purl.org/ontology/bibo/Book": "@book",
-                              "http://purl.org/ontology/bibo/Proceedings": "@inproceedings"}
-        bibtexitem = {"type": "@misc"}
+    def resolveBibtexReference(self,predobjs,item,graph):
+        bibtexmappings={"http://purl.org/dc/elements/1.1/title":"title",
+                      "http://purl.org/dc/elements/1.1/created":"year",
+                      "http://purl.org/ontology/bibo/number":"number",
+                      "http://purl.org/ontology/bibo/publisher":"publisher",
+                      "http://purl.org/ontology/bibo/issuer": "journal",
+                      "http://purl.org/ontology/bibo/volume":"volume",
+                      "http://purl.org/ontology/bibo/doi": "doi",
+                      "http://purl.org/ontology/bibo/eissn": "eissn",
+                      "http://purl.org/ontology/bibo/eprint": "eprint",
+                      "http://purl.org/ontology/bibo/url": "url",
+                      "http://purl.org/ontology/bibo/issn": "issn",
+                      "http://purl.org/ontology/bibo/isbn": "isbn",
+                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
+                      }
+        bibtexitem={"type":"@misc"}
         for tup in predobjs:
-            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator":
+            if str(tup[0])=="http://purl.org/dc/elements/1.1/creator":
                 if "author" not in bibtexitem:
-                    bibtexitem["author"] = []
-                if isinstance(tup[1], URIRef):
-                    bibtexitem["author"].append(self.getLabelForObject(tup[1], graph))
+                    bibtexitem["author"]=[]
+                if isinstance(tup[1],URIRef):
+                    bibtexitem["author"].append(self.getLabelForObject(tup[1],graph))
                 else:
                     bibtexitem["author"].append(str(tup[1]))
             elif str(tup[0]) == "http://purl.org/dc/elements/1.1/startPage":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"] = {}
-                bibtexitem["pages"]["start"] = str(tup[1])
+                    bibtexitem["pages"]={}
+                bibtexitem["pages"]["start"]=str(tup[1])
             elif str(tup[0]) == "http://purl.org/dc/elements/1.1/endPage":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"] = {}
-                bibtexitem["pages"]["end"] = str(tup[1])
+                    bibtexitem["pages"]={}
+                bibtexitem["pages"]["end"]=str(tup[1])
             elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in bibtextypemappings:
-                bibtexitem["type"] = bibtextypemappings[str(tup[1])]
+                bibtexitem["type"]=bibtextypemappings[str(tup[1])]
             elif str(tup[0]) in bibtexmappings:
                 bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        if
-            res = bibtexitem["type"] + "{" + self.shortenURI(item) + ",\n"
+        res=bibtexitem["type"]+"{"+self.shortenURI(item)+",\n"
         for bibpart in bibtexitem:
-            if bibpart == "author":
+            if bibpart=="type":
+                continue
+            if bibpart=="author":
                 res += bibpart + "\t=\t{"
-                first = True
+                first=True
                 for author in bibtexitem["author"]:
                     if first:
-                        res += author + " "
-                        first = False
+                        res+=author+" "
+                        first=False
                     else:
-                        res += "and " + author + " "
-                res += "},\n"
-            elif bibpart == "pages":
-                res += bibpart + "\t=\t{" + bibtexitem[bibpart]["start"] + "--" + bibtexitem[bibpart]["end"] + "},\n"
+                        res+="and "+author+" "
+                res+="},\n"
+            elif bibpart=="pages":
+                res+=bibpart+ "\t=\t{"+bibtexitem[bibpart]["start"]+"--"+bibtexitem[bibpart]["end"]+"},\n"
             else:
-                res += bibpart + "\t=\t{" + str(bibtexitem[bibpart]) + "},\n"
+                res+=bibpart+"\t=\t{"+str(bibtexitem[bibpart])+"},\n"
         return res
 
 
@@ -1153,6 +1154,8 @@ class OntDocGeneration:
                 elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                     isgeocollection=True
                     uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
+                elif str(tup)==self.typeproperty and str(predobjmap[tup]) in bibtextypemappings:
+                    itembibtex=self.resolveBibtexReference(graph.predicate_objects(tup[0]),tup[0])
                 thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
                 if str(tup) in SPARQLUtils.labelproperties:
                     for lab in predobjmap[tup]:
@@ -1286,14 +1289,14 @@ class OntDocGeneration:
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                    "{{epsgdefspath}}", rellink6).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             else:
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", rellink6).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
             for comm in comment:
@@ -1404,6 +1407,6 @@ class OntDocGeneration:
             if metadatatablecontentcounter>=0:
                 f.write("<h5>Metadata</h5>")
                 f.write(htmltabletemplate.replace("{{tablecontent}}", metadatatablecontents))
-            f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense))
+            f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense).replace("{{bibtex}}",itembibtex))
             f.close()
         return [postprocessing,nonnsmap]
