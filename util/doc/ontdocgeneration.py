@@ -363,11 +363,6 @@ class OntDocGeneration:
             if subtorencounter%250==0:
                 subtorenderlen=len(subjectstorender)+len(postprocessing)
                 self.updateProgressBar(subtorencounter,subtorenderlen)
-            #QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path),"OntdocGeneration",Qgis.Info)
-            #except Exception as e:
-            #    QgsMessageLog.logMessage(e)
-            #    QgsMessageLog.logMessage("Exception occured " + str(e), "OntdocGeneration", Qgis.Info)
-        #QgsMessageLog.logMessage("Postprocessing " + str(postprocessing.subjects()), "OntdocGeneration", Qgis.Info)
         for subj in postprocessing.subjects(None,None,True):
             path = str(subj).replace(prefixnamespace, "")
             paths=self.processSubjectPath(outpath,paths,path)
@@ -669,6 +664,63 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
+    def resolveBibtexReference(self,predobjs,item,graph):
+        bibtexmappings={"http://purl.org/dc/elements/1.1/title":"title",
+                      "http://purl.org/dc/elements/1.1/created":"year",
+                      "http://purl.org/ontology/bibo/number":"number",
+                      "http://purl.org/ontology/bibo/publisher":"publisher",
+                      "http://purl.org/ontology/bibo/issuer": "journal",
+                      "http://purl.org/ontology/bibo/volume":"volume",
+                      "http://purl.org/ontology/bibo/doi": "doi",
+                      "http://purl.org/ontology/bibo/eissn": "eissn",
+                      "http://purl.org/ontology/bibo/eprint": "eprint",
+                      "http://purl.org/ontology/bibo/url": "url",
+                      "http://purl.org/ontology/bibo/issn": "issn",
+                      "http://purl.org/ontology/bibo/isbn": "isbn",
+                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
+                      }
+        bibtextypemappings={"http://purl.org/ontology/bibo/Book":"@book","http://purl.org/ontology/bibo/Proceedings":"@inproceedings"}
+        bibtexitem={}
+        for tup in predobjs:
+            if str(tup[0])=="http://purl.org/dc/elements/1.1/creator":
+                if "author" not in bibtexitem:
+                    bibtexitem["author"]=[]
+                if isinstance(tup[1],URIRef):
+                    bibtexitem["author"].append(self.getLabelForObject(tup[1],graph))
+                else:
+                    bibtexitem["author"].append(str(tup[1]))
+            elif str(tup[0]) == "http://purl.org/dc/elements/1.1/startPage":
+                if "pages" not in bibtexitem:
+                    bibtexitem["pages"]={}
+                bibtexitem["pages"]["start"]=str(tup[1])
+            elif str(tup[0]) == "http://purl.org/dc/elements/1.1/endPage":
+                if "pages" not in bibtexitem:
+                    bibtexitem["pages"]={}
+                bibtexitem["pages"]["end"]=str(tup[1])
+            elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in bibtextypemappings:
+                bibtexitem["key"]=bibtextypemappings[str(tup[1])]
+            elif str(tup[0]) in bibtexmappings:
+                    bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
+        res=bibtexitem["type"]+"{"+self.shortenURI(item)+",\n"
+        for bibpart in bibtexitem:
+            if bibpart=="author":
+                res += bibpart + "\t=\t{"
+                first=True
+                for author in bibtexitem["author"]:
+                    if first:
+                        res+=author+" "
+                        first=False
+                    else:
+                        res+="and "+author+" "
+                res+="},\n"
+            elif bibpart=="pages":
+                res+=bibpart+ "\t=\t{"+bibtexitem[bibpart]["start"]+"--"+bibtexitem[bibpart]["end"]+"},\n"
+            else:
+                res+=bibpart+"\t=\t{"+str(bibtexitem[bibpart])+"},\n"
+        return bibtexitem
+
+
+
     def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
         if subject!=None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
             pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
@@ -718,6 +770,19 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
+    def getLabelForObject(self,object,graph,labellang=None):
+        label=""
+        onelabel=None
+        for tup in graph.predicate_objects(object):
+            if str(tup[0]) in SPARQLUtils.labelproperties:
+                # Check for label property
+                if tup[1].language==labellang or labellang==None:
+                    label=str(tup[1])
+                onelabel=str(tup[1])
+        if label=="" and onelabel!=None:
+            label=onelabel
+        return label
+
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
                                                     textannos, image3dannos, label, unitlabel,nonns):
         geoprop = False
@@ -731,8 +796,10 @@ class OntDocGeneration:
         foundunit = None
         tempvalprop = None
         onelabel=None
+        bibtex=None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
+                # Check for label property
                 if tup[1].language==self.labellang:
                     label=str(tup[1])
                 onelabel=str(tup[1])
@@ -740,6 +807,7 @@ class OntDocGeneration:
                     self.typeproperty) and (
                     tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#WKTSelector")):
+                #Check for SVG or WKT annotations (2D or 3D annotations)
                 for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value"),True):
                     if "<svg" in str(svglit):
                         imageannos.add(str(svglit))
@@ -749,6 +817,7 @@ class OntDocGeneration:
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
                     self.typeproperty) and tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#TextPositionSelector"):
+                # Check for text annotations
                 curanno = {}
                 for txtlit in graph.predicate_objects(object):
                     if str(txtlit[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":
@@ -760,6 +829,8 @@ class OntDocGeneration:
                 textannos.append(curanno)
             if pred == "http://www.w3.org/ns/oa#hasSource":
                 annosource = str(tup[1])
+            if pred == "http://purl.org/dc/terms/isReferencedBy" and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
+                bibtex=self.resolveBibtexReference(graph.predicate_objects(object),object,graph)
             if not nonns:
                 geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
             if incollection and "<svg" in str(tup[1]):
@@ -818,11 +889,12 @@ class OntDocGeneration:
         if label=="" and onelabel!=None:
             label=onelabel
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
-                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos}
+                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos,"bibtex":bibtex}
 
     def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse,nonns):
         tablecontents=""
         label=""
+        bibtex = None
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.add((subject,URIRef(pred),object))
@@ -838,6 +910,7 @@ class OntDocGeneration:
             textannos=mydata["textannos"]
             image3dannos=mydata["image3dannos"]
             unitlabel=mydata["unitlabel"]
+            bibtex=mydata["bibtex"]
             if inverse:
                 rdfares = " about=\"" + str(object) + "\" resource=\"" + str(subject) + "\""
             else:
@@ -845,6 +918,8 @@ class OntDocGeneration:
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
                 tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
+                if bibtex != None:
+                    tablecontents += "<details><summary>[BIBTEX]</summary><pre>" + str(bibtex) + "</pre></details>"
             else:
                 res = self.replaceNameSpacesInLabel(str(object))
                 if res != None:
@@ -855,6 +930,8 @@ class OntDocGeneration:
                 else:
                     tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" target=\"_blank\" href=\"" + str(
                     object) + "\">" + label + "</a>"
+                if bibtex!=None:
+                    tablecontents+="<details><summary>[BIBTEX]</summary><pre>"+str(bibtex)+"</pre></details>"
                 if self.generatePagesForNonNS:
                     rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
                                                                       str(baseurl) + "nonns_" + self.shortenURI(
@@ -907,16 +984,7 @@ class OntDocGeneration:
 
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
-        onelabel=self.shortenURI(str(tup))
-        label=None
-        for obj in graph.predicate_objects(URIRef(tup)):
-            if str(obj[0]) in SPARQLUtils.labelproperties:
-                if obj[1].language==self.labellang:
-                    label = str(obj[1])
-                    break
-                onelabel=str(obj[1])
-        if label==None:
-            label=onelabel
+        label=self.getLabelForObject(URIRef(tup[1]), graph,self.labellang)
         tablecontents += "<td class=\"property\">"
         if reverse:
             tablecontents+="Is "
@@ -1138,9 +1206,6 @@ class OntDocGeneration:
                     tablecontents=thetable
                 isodd = not isodd
         subpredsmap={}
-        #if nonns:
-        #    QgsMessageLog.logMessage("At subpreds",
-        #                         "OntdocGeneration", Qgis.Info)
         if subpreds!=None:
             for tup in sorted(subpreds,key=lambda tup: tup[1]):
                 if str(tup[1]) not in subpredsmap:
@@ -1168,16 +1233,12 @@ class OntDocGeneration:
                     labelmap={}
                     for item in subpredsmap[tup]:
                         if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
-                            #QgsMessageLog.logMessage("Postprocessing: " + str(item)+" - "+str(tup)+" - "+str(subject))
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
                                                              baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
-                        #if nonns:
-                        #    QgsMessageLog.logMessage(
-                        #    "Postprocessing: " + str(item) + " - " + str(tup) + " - " + str(subject))
                         if nonns and str(tup) != self.typeproperty:
                             hasnonns.add(str(item))
                         if nonns:
@@ -1280,9 +1341,6 @@ class OntDocGeneration:
                         carousel="carousel-item"
             if len(foundmedia["image"])>3:
                 f.write(imagecarouselfooter)
-            #if nonns:
-            #    QgsMessageLog.logMessage(
-            #        "GeoCache: " + str(self.geocache))
             if len(textannos) > 0:
                 for textanno in textannos:
                     if isinstance(textanno, dict):
@@ -1310,10 +1368,6 @@ class OntDocGeneration:
                 f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
             elif isgeocollection or nonns:
                 featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
-                #QgsMessageLog.logMessage("Postprocessing: " + str(hasnonns))
-                #if str(subject) in self.geocache:
-                #    QgsMessageLog.logMessage(
-                #        "Geocache II: " + str(hasnonns) + " - " + str(subject) + " - " + str(self.geocache[str(subject)]))
                 if isgeocollection and not nonns:
                     memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
                     for memberid in graph.objects(subject,memberpred,True):
@@ -1336,15 +1390,14 @@ class OntDocGeneration:
                         self.geocache[str(subject)]=featcoll
                 elif nonns:
                     for item in hasnonns:
-                        #QgsMessageLog.logMessage("NonNSItem: " + str(item)+ " in geocahche: "+str(item in self.geocache))
                         if item in self.geocache:
-                            #QgsMessageLog.logMessage("NonNSGeoCache: " + str(hasnonns) + " - " + str(self.geocache[item]))
                             featcoll["features"].append(self.geocache[item])
-                f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
-                with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
-                    featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
-                    fgeo.write(json.dumps(featcoll))
-                    fgeo.close()
+                if len(featcoll["features"])>0:
+                    f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
+                    with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
+                        featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
+                        fgeo.write(json.dumps(featcoll))
+                        fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
             if metadatatablecontentcounter>=0:
                 f.write("<h5>Metadata</h5>")
