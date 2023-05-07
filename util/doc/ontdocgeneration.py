@@ -664,61 +664,66 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def resolveBibtexReference(self,predobjs,item,graph):
-        bibtexmappings={"http://purl.org/dc/elements/1.1/title":"title",
-                      "http://purl.org/dc/elements/1.1/created":"year",
-                      "http://purl.org/ontology/bibo/number":"number",
-                      "http://purl.org/ontology/bibo/publisher":"publisher",
-                      "http://purl.org/ontology/bibo/issuer": "journal",
-                      "http://purl.org/ontology/bibo/volume":"volume",
-                      "http://purl.org/ontology/bibo/doi": "doi",
-                      "http://purl.org/ontology/bibo/eissn": "eissn",
-                      "http://purl.org/ontology/bibo/eprint": "eprint",
-                      "http://purl.org/ontology/bibo/url": "url",
-                      "http://purl.org/ontology/bibo/issn": "issn",
-                      "http://purl.org/ontology/bibo/isbn": "isbn",
-                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
-                      }
-        bibtextypemappings={"http://purl.org/ontology/bibo/Book":"@book","http://purl.org/ontology/bibo/Proceedings":"@inproceedings"}
-        bibtexitem={}
+    def resolveBibtexReference(self, predobjs, item, graph):
+        bibtexmappings = {"http://purl.org/dc/elements/1.1/title": "title",
+                          "http://purl.org/dc/elements/1.1/created": "year",
+                          "http://purl.org/ontology/bibo/number": "number",
+                          "http://purl.org/ontology/bibo/publisher": "publisher",
+                          "http://purl.org/ontology/bibo/issuer": "journal",
+                          "http://purl.org/ontology/bibo/volume": "volume",
+                          "http://purl.org/ontology/bibo/doi": "doi",
+                          "http://purl.org/ontology/bibo/eissn": "eissn",
+                          "http://purl.org/ontology/bibo/eprint": "eprint",
+                          "http://purl.org/ontology/bibo/url": "url",
+                          "http://purl.org/ontology/bibo/issn": "issn",
+                          "http://purl.org/ontology/bibo/isbn": "isbn",
+                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "type"
+                          }
+        bibtextypemappings = {"http://purl.org/ontology/bibo/Document": "@misc",
+                              "http://purl.org/ontology/bibo/Article": "@article",
+                              "http://purl.org/ontology/bibo/Thesis": "@phdthesis",
+                              "http://purl.org/ontology/bibo/BookSection": "@inbook",
+                              "http://purl.org/ontology/bibo/Book": "@book",
+                              "http://purl.org/ontology/bibo/Proceedings": "@inproceedings"}
+        bibtexitem = {"type": "@misc"}
         for tup in predobjs:
-            if str(tup[0])=="http://purl.org/dc/elements/1.1/creator":
+            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator":
                 if "author" not in bibtexitem:
-                    bibtexitem["author"]=[]
-                if isinstance(tup[1],URIRef):
-                    bibtexitem["author"].append(self.getLabelForObject(tup[1],graph))
+                    bibtexitem["author"] = []
+                if isinstance(tup[1], URIRef):
+                    bibtexitem["author"].append(self.getLabelForObject(tup[1], graph))
                 else:
                     bibtexitem["author"].append(str(tup[1]))
             elif str(tup[0]) == "http://purl.org/dc/elements/1.1/startPage":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"]={}
-                bibtexitem["pages"]["start"]=str(tup[1])
+                    bibtexitem["pages"] = {}
+                bibtexitem["pages"]["start"] = str(tup[1])
             elif str(tup[0]) == "http://purl.org/dc/elements/1.1/endPage":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"]={}
-                bibtexitem["pages"]["end"]=str(tup[1])
+                    bibtexitem["pages"] = {}
+                bibtexitem["pages"]["end"] = str(tup[1])
             elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in bibtextypemappings:
-                bibtexitem["key"]=bibtextypemappings[str(tup[1])]
+                bibtexitem["type"] = bibtextypemappings[str(tup[1])]
             elif str(tup[0]) in bibtexmappings:
-                    bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        res=bibtexitem["type"]+"{"+self.shortenURI(item)+",\n"
+                bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
+        if
+            res = bibtexitem["type"] + "{" + self.shortenURI(item) + ",\n"
         for bibpart in bibtexitem:
-            if bibpart=="author":
+            if bibpart == "author":
                 res += bibpart + "\t=\t{"
-                first=True
+                first = True
                 for author in bibtexitem["author"]:
                     if first:
-                        res+=author+" "
-                        first=False
+                        res += author + " "
+                        first = False
                     else:
-                        res+="and "+author+" "
-                res+="},\n"
-            elif bibpart=="pages":
-                res+=bibpart+ "\t=\t{"+bibtexitem[bibpart]["start"]+"--"+bibtexitem[bibpart]["end"]+"},\n"
+                        res += "and " + author + " "
+                res += "},\n"
+            elif bibpart == "pages":
+                res += bibpart + "\t=\t{" + bibtexitem[bibpart]["start"] + "--" + bibtexitem[bibpart]["end"] + "},\n"
             else:
-                res+=bibpart+"\t=\t{"+str(bibtexitem[bibpart])+"},\n"
-        return bibtexitem
-
+                res += bibpart + "\t=\t{" + str(bibtexitem[bibpart]) + "},\n"
+        return res
 
 
     def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
