@@ -399,12 +399,15 @@ class OntDocGeneration:
             QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.checkGeoInstanceAssignment(uritotreeitem)
         self.assignGeoClassesToTree(tree)
-        with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
-            f.write("var tree=" + json.dumps(tree, indent=jsonindent))
-            f.close()
         if self.generatePagesForNonNS:
             #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
             self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
+        with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
+            f.write("var tree=" + json.dumps(tree, indent=jsonindent))
+            f.close()
+        with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
+            f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
+            f.close()
         for path in paths:
             subgraph=Graph(bind_namespaces="rdflib")
             QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
