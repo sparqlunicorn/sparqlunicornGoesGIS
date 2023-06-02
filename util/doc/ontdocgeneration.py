@@ -193,13 +193,14 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
-        self.startconcept=startconcept
+        self.startconcept = None
+        if startconcept!="No Start Concept":
+            self.startconcept=startconcept
         self.deploypath=deployurl
         self.ogcapifeatures=ogcapifeatures
         self.iiif=iiif
         self.createVOWL=createVOWL
-        self.localOptimized=False
-        self.deploypath=""
+        self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
         self.generatePagesForNonNS=nonNSPagesCBox
@@ -837,13 +838,13 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
-    def getLabelForObject(self,object,graph,labellang=None):
+    def getLabelForObject(self,obj,graph,labellang=None):
         label=""
-        onelabel=None
-        for tup in graph.predicate_objects(object):
+        onelabel=self.shortenURI(str(obj))
+        for tup in graph.predicate_objects(obj):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 # Check for label property
-                if tup[1].language==labellang or labellang==None:
+                if tup[1].language==labellang:
                     label=str(tup[1])
                 onelabel=str(tup[1])
         if label=="" and onelabel!=None:
