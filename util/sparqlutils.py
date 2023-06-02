@@ -26,7 +26,9 @@ class SPARQLUtils:
 
     annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 
-    metadatanamespaces=["http://purl.org/dc/terms/","http://www.w3.org/ns/prov#","https://creativecommons.org/ns#","http://www.w3.org/ns/dcat#","http://purl.org/cerif/frapo/","http://www.lido-schema.org/"]
+    metadatanamespaces = ["http://purl.org/dc/terms/", "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
+                          "http://www.w3.org/ns/prov-o/", "http://creativecommons.org/ns#",
+                          "http://www.w3.org/ns/dcat#", "http://purl.org/cerif/frapo/", "http://www.lido-schema.org/"]
 
     addressproperties={
         "https://schema.org/address": "ObjectProperty"

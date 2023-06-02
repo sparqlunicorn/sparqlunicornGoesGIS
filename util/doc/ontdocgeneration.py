@@ -233,7 +233,11 @@ class OntDocGeneration:
             self.outpath = self.outpath.replace("\\", "/")
             if not outpath.endswith("/"):
                 self.outpath += "/"
-        #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
+        prefixes["reversed"]["http://purl.org/cuneiform/"] = "cunei"
+        prefixes["reversed"]["http://purl.org/graphemon/"] = "graphemon"
+        prefixes["reversed"]["http://www.opengis.net/ont/crs/"] = "geocrs"
+        prefixes["reversed"]["http://www.ontology-of-units-of-measure.org/resource/om-2/"] = "om"
+        prefixes["reversed"]["http://purl.org/meshsparql/"] = "msp"
 
     def processLicense(self):
         QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
@@ -402,7 +406,7 @@ class OntDocGeneration:
         self.assignGeoClassesToTree(tree)
         if self.generatePagesForNonNS:
             #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
-            self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
+            self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace,uritotreeitem,labeltouri)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
             f.close()
@@ -938,9 +942,8 @@ class OntDocGeneration:
             if str(tup[0]) in SPARQLUtils.unitproperties:
                 foundunit = tup[1]
         if foundunit != None and foundval != None:
-            res = None
             if "http" in foundunit:
-                str(foundval) + " " + self.createURILink(str(foundunit))
+                unitlabel= str(foundval) + " " + self.createURILink(str(foundunit))
             else:
                 unitlabel = str(foundval) + " " + str(foundunit)
         if foundunit == None and foundval != None:
@@ -1595,7 +1598,7 @@ class OntDocGeneration:
         tablecontents += "</td>"
         return tablecontents
 
-    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl):
+    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl,uritotreeitem,labeltouri):
         QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
         nonnsuris=len(uristorender)
         counter=0
@@ -1604,6 +1607,17 @@ class OntDocGeneration:
             for tup in graph.predicate_objects(URIRef(uri)):
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
+            if uri in uritotreeitem:
+                res = self.replaceNameSpacesInLabel(str(uri))
+                label = self.getLabelForObject(URIRef(str(uri)), graph, self.labellang)
+                if res != None and label != "":
+                    uritotreeitem[uri][-1]["text"] = label + " (" + res["uri"] + ")"
+                elif label != "":
+                    uritotreeitem[uri][-1]["text"] = label + " (" + self.shortenURI(uri) + ")"
+                else:
+                    uritotreeitem[uri][-1]["text"] = self.shortenURI(uri)
+                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
+                labeltouri[label] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
             QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
