@@ -7,6 +7,7 @@ import os
 import re
 import shutil
 import json
+from pathlib import Path
 
 
 from ..layerutils import LayerUtils
@@ -84,7 +85,9 @@ geoexports="""<option value="csv">Comma Separated Values (CSV)</option><option v
 global maptemplate
 maptemplate=""
 
-featurecollectionspaths=set()
+featurecollectionspaths={}
+
+iiifmanifestpaths={"default":[]}
 
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 
@@ -155,6 +158,10 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
                 global image3dtemplate
                 image3dtemplate=file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/threejstemplate.html"):
+            with open(templatepath + "/" + templatename + "/templates/threejstemplate.html", 'r') as file:
+                global threejstemplate
+                threejstemplate = file.read()
         if os.path.exists(templatepath+"/"+templatename+"/templates/vowlwrapper.html"):
             with open(templatepath+"/"+templatename+"/templates/vowlwrapper.html", 'r') as file:
                 global vowltemplate
@@ -177,7 +184,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,startconcept="",deployurl="",logoname="",templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -186,7 +193,13 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
+        self.startconcept=startconcept
+        self.deploypath=deployurl
+        self.ogcapifeatures=ogcapifeatures
+        self.iiif=iiif
         self.createVOWL=createVOWL
+        self.localOptimized=False
+        self.deploypath=""
         self.geocache={}
         self.metadatatable=createMetadataTable
         self.generatePagesForNonNS=nonNSPagesCBox
@@ -416,6 +429,21 @@ class OntDocGeneration:
             else:
                 indexhtml = indexhtml.replace("{{indexpage}}", "false")
             indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate.replace("{{vowlpath}}", "minivowl_result.js")
+            if self.startconcept != None and path == outpath and self.startconcept in uritotreeitem:
+                if self.createColl:
+                    indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
+                                 tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
+                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
+                                     "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
+                        prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                        self.startconcept) + "</a></p>"
+                else:
+                    indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
+                                 tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
+                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
+                                     "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
+                        prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                        self.startconcept) + "</a></p>"
             indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
@@ -434,26 +462,21 @@ class OntDocGeneration:
             with open(path + "index.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
+        if len(iiifmanifestpaths["default"]) > 0:
+            self.generateIIIFCollections(self.outpath, iiifmanifestpaths["default"], prefixnamespace)
         if len(featurecollectionspaths)>0:
             indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
-            self.merge_JsonFiles(featurecollectionspaths,str(outpath)+"features.js")
+            self.generateOGCAPIFeaturesPages(outpath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
+                                             True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
-            indexhtml+=maptemplate.replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers))
-            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports)
+            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
+            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
-
-    def merge_JsonFiles(self,files,outpath):
-        result = list()
-        for f1 in files:
-            with open(f1, 'r',encoding="utf-8") as infile:
-                result.append(json.load(infile))
-        with open(outpath, 'w',encoding="utf-8") as output_file:
-            output_file.write("var featurecolls="+json.dumps(result))
 
     def getPropertyRelations(self,graph,outpath):
         predicates= {}
@@ -670,62 +693,123 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
-    def resolveBibtexReference(self,predobjs,item,graph):
-        bibtexmappings={"http://purl.org/dc/elements/1.1/title":"title",
-                      "http://purl.org/dc/elements/1.1/created":"year",
-                      "http://purl.org/ontology/bibo/number":"number",
-                      "http://purl.org/ontology/bibo/publisher":"publisher",
-                      "http://purl.org/ontology/bibo/issuer": "journal",
-                      "http://purl.org/ontology/bibo/volume":"volume",
-                      "http://purl.org/ontology/bibo/doi": "doi",
-                      "http://purl.org/ontology/bibo/eissn": "eissn",
-                      "http://purl.org/ontology/bibo/eprint": "eprint",
-                      "http://purl.org/ontology/bibo/url": "url",
-                      "http://purl.org/ontology/bibo/issn": "issn",
-                      "http://purl.org/ontology/bibo/isbn": "isbn",
-                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
-                      }
-        bibtexitem={"type":"@misc"}
+    def resolveBibtexReference(self, predobjs, item, graph):
+        bibtexmappings = {"http://purl.org/dc/elements/1.1/title": "title",
+                          "http://purl.org/dc/elements/1.1/created": "year",
+                          "http://purl.org/ontology/bibo/number": "number",
+                          "http://purl.org/ontology/bibo/publisher": "publisher",
+                          "http://purl.org/ontology/bibo/issuer": "journal",
+                          "http://purl.org/ontology/bibo/volume": "volume",
+                          "http://purl.org/ontology/bibo/doi": "doi",
+                          "http://purl.org/ontology/bibo/eissn": "eissn",
+                          "http://purl.org/ontology/bibo/eprint": "eprint",
+                          "http://purl.org/ontology/bibo/url": "url",
+                          "http://purl.org/ontology/bibo/issn": "issn",
+                          "http://purl.org/ontology/bibo/isbn": "isbn",
+                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "type"
+                          }
+        bibtexitem = {"type": "@misc"}
         for tup in predobjs:
-            if str(tup[0])=="http://purl.org/dc/elements/1.1/creator":
+            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator":
                 if "author" not in bibtexitem:
-                    bibtexitem["author"]=[]
-                if isinstance(tup[1],URIRef):
-                    bibtexitem["author"].append(self.getLabelForObject(tup[1],graph))
+                    bibtexitem["author"] = []
+                if isinstance(tup[1], URIRef):
+                    bibtexitem["author"].append(self.getLabelForObject(tup[1], graph))
                 else:
                     bibtexitem["author"].append(str(tup[1]))
-            elif str(tup[0]) == "http://purl.org/dc/elements/1.1/startPage":
+            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageStart":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"]={}
-                bibtexitem["pages"]["start"]=str(tup[1])
-            elif str(tup[0]) == "http://purl.org/dc/elements/1.1/endPage":
+                    bibtexitem["pages"] = {}
+                bibtexitem["pages"]["start"] = str(tup[1])
+            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageEnd":
                 if "pages" not in bibtexitem:
-                    bibtexitem["pages"]={}
-                bibtexitem["pages"]["end"]=str(tup[1])
+                    bibtexitem["pages"] = {}
+                bibtexitem["pages"]["end"] = str(tup[1])
             elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in bibtextypemappings:
-                bibtexitem["type"]=bibtextypemappings[str(tup[1])]
+                bibtexitem["type"] = bibtextypemappings[str(tup[1])]
             elif str(tup[0]) in bibtexmappings:
-                bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        res=bibtexitem["type"]+"{"+self.shortenURI(item)+",\n"
-        for bibpart in bibtexitem:
-            if bibpart=="type":
+                if isinstance(tup[1], URIRef):
+                    bibtexitem[bibtexmappings[str(tup[0])]] = self.getLabelForObject(tup[1], graph)
+                else:
+                    bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
+        res = bibtexitem["type"] + "{" + self.shortenURI(item) + ",\n"
+        for bibpart in sorted(bibtexitem):
+            if bibpart == "type":
                 continue
-            if bibpart=="author":
-                res += bibpart + "\t=\t{"
-                first=True
+            res += bibpart + "={"
+            if bibpart == "author":
+                first = True
                 for author in bibtexitem["author"]:
                     if first:
-                        res+=author+" "
-                        first=False
+                        res += author + " "
+                        first = False
                     else:
-                        res+="and "+author+" "
-                res+="},\n"
-            elif bibpart=="pages":
-                res+=bibpart+ "\t=\t{"+bibtexitem[bibpart]["start"]+"--"+bibtexitem[bibpart]["end"]+"},\n"
+                        res += "and " + author + " "
+                res = res[0:-1]
+                res += "},\n"
+            elif bibpart == "pages":
+                res += bibtexitem[bibpart]["start"] + "--" + bibtexitem[bibpart]["end"] + "},\n"
             else:
-                res+=bibpart+"\t=\t{"+str(bibtexitem[bibpart])+"},\n"
+                res += str(bibtexitem[bibpart]) + "},\n"
+        res = res[0:-2]
+        res += "\n}"
         return res
 
+    def resolveTimeObject(self, pred, obj, graph, timeobj):
+        if str(pred) == "http://www.w3.org/2006/time#hasBeginning":
+            for tobj2 in graph.predicate_objects(obj):
+                if str(tobj2[0]) in SPARQLUtils.timeproperties:
+                    timeobj["begin"] = tobj2[1]
+        elif str(pred) == "http://www.w3.org/2006/time#hasEnd":
+            for tobj2 in graph.predicate_objects(obj):
+                if str(tobj2[0]) in SPARQLUtils.timeproperties:
+                    timeobj["end"] = tobj2[1]
+        elif str(pred) == "http://www.w3.org/2006/time#hasTime":
+            for tobj2 in graph.predicate_objects(obj):
+                if str(tobj2[0]) in SPARQLUtils.timeproperties:
+                    timeobj["timepoint"] = tobj2[1]
+        return timeobj
+
+    def createURILink(self, uri):
+        res = self.replaceNameSpacesInLabel(uri)
+        if res != None:
+            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + str(res["uri"]) + "</a>"
+        else:
+            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + self.shortenURI(uri) + "</a>"
+
+    def timeObjectToHTML(self, timeobj):
+        timeres = None
+        if "begin" in timeobj and "end" in timeobj:
+            timeres = str(timeobj["begin"]) + " "
+            if str(timeobj["begin"].datatype) in SPARQLUtils.timeliteraltypes:
+                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
+            timeres += " - " + str(timeobj["end"])
+            if str(timeobj["end"].datatype) in SPARQLUtils.timeliteraltypes:
+                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
+        elif "begin" in timeobj and not "end" in timeobj:
+            timeres = str(timeobj["begin"])
+            if str(timeobj["begin"].datatype) in SPARQLUtils.timeliteraltypes:
+                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
+        elif "begin" not in timeobj and "end" in timeobj:
+            timeres = str(timeobj["end"])
+            if str(timeobj["end"].datatype) in SPARQLUtils.timeliteraltypes:
+                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
+        elif "timepoint" in timeobj:
+            timeres = timeobj["timepoint"]
+            if str(timeobj["timepoint"].datatype) in SPARQLUtils.timeliteraltypes:
+                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["timepoint"].datatype)])
+        return timeres
+
+    def resolveTimeLiterals(self, pred, obj, graph):
+        timeobj = {}
+        if isinstance(obj, URIRef) and str(pred) == "http://www.w3.org/2006/time#hasTime":
+            for tobj in graph.predicate_objects(obj):
+                timeobj = self.resolveTimeObject(tobj[0], tobj[1], graph, timeobj)
+        elif isinstance(obj, URIRef) and str(pred) in SPARQLUtils.timepointerproperties:
+            timeobj = self.resolveTimeObject(pred, obj, graph, timeobj)
+        elif isinstance(obj, Literal):
+            timeobj = self.resolveTimeObject(pred, obj, graph, timeobj)
+        return timeobj
 
     def resolveGeoLiterals(self,pred,object,graph,geojsonrep,nonns,subject=None,treeitem=None,uritotreeitem=None):
         #QgsMessageLog.logMessage("RESOLVE " + str(object), "OntdocGeneration", Qgis.Info)
@@ -743,34 +827,11 @@ class OntDocGeneration:
                 str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
             geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
         elif isinstance(object, URIRef) and nonns:
-            featcoll = {"type": "FeatureCollection", "id": subject, "name": self.shortenURI(subject), "features": []}
-            for memberid in graph.objects(subject, pred):
-                for geoinstance in graph.predicate_objects(memberid):
-                    geojsonrep = None
-                    if isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(
-                            geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
-                        geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",
-                                                               None, None, True)
-                        if treeitem!=None:
-                            treeitem["type"] = "geocollection"
-                    elif str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                        if treeitem != None:
-                            treeitem["type"] = "featurecollection"
-                        for geotup in graph.predicate_objects(geoinstance[1]):
-                            if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(
-                                    geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",
-                                                                       None, None, True)
-                    if geojsonrep != None:
-                        if uritotreeitem!=None and str(memberid) in uritotreeitem:
-                            featcoll["features"].append({"type": "Feature", 'id': str(memberid),
-                                                         'label': uritotreeitem[str(memberid)][-1]["text"],
-                                                         'properties': {}, "geometry": geojsonrep})
-                        else:
-                            featcoll["features"].append(
-                                {"type": "Feature", 'id': str(memberid), 'label': str(memberid), 'properties': {},
-                                 "geometry": geojsonrep})
-            geojsonrep=featcoll
+            for pobj in graph.predicate_objects(object):
+                if isinstance(pobj[1], Literal) and (
+                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
+                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
+                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
     def getLabelForObject(self,object,graph,labellang=None):
@@ -800,6 +861,7 @@ class OntDocGeneration:
         tempvalprop = None
         onelabel=None
         bibtex=None
+        timeobj=None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 # Check for label property
@@ -834,6 +896,8 @@ class OntDocGeneration:
                 annosource = str(tup[1])
             if pred == "http://purl.org/dc/terms/isReferencedBy" and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
                 bibtex=self.resolveBibtexReference(graph.predicate_objects(object),object,graph)
+            if pred in SPARQLUtils.timepointerproperties:
+                timeobj = self.resolveTimeLiterals(pred, object, graph)
             if not nonns:
                 geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
             if incollection and "<svg" in str(tup[1]):
@@ -872,13 +936,7 @@ class OntDocGeneration:
         if foundunit != None and foundval != None:
             res = None
             if "http" in foundunit:
-                res = self.replaceNameSpacesInLabel(str(foundunit))
-                if res != None:
-                    unitlabel = str(foundval) + " <a href=\"" + str(foundunit) + "\" target=\"_blank\">" + str(
-                        res["uri"]) + "</a>"
-                else:
-                    unitlabel = str(foundval) + " <a href=\"" + str(foundunit) + "\" target=\"_blank\">" + str(
-                        self.shortenURI(foundunit)) + "</a>"
+                str(foundval) + " " + self.createURILink(str(foundunit))
             else:
                 unitlabel = str(foundval) + " " + str(foundunit)
         if foundunit == None and foundval != None:
@@ -892,12 +950,13 @@ class OntDocGeneration:
         if label=="" and onelabel!=None:
             label=onelabel
         return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
-                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos,"bibtex":bibtex}
+                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos,"bibtex":bibtex,"timeobj":timeobj}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse,nonns):
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,inverse,nonns):
         tablecontents=""
         label=""
         bibtex = None
+        timeobj=None
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.add((subject,URIRef(pred),object))
@@ -914,6 +973,7 @@ class OntDocGeneration:
             image3dannos=mydata["image3dannos"]
             unitlabel=mydata["unitlabel"]
             bibtex=mydata["bibtex"]
+            timeobj=mydata["timeobj"]
             if inverse:
                 rdfares = " about=\"" + str(object) + "\" resource=\"" + str(subject) + "\""
             else:
@@ -942,6 +1002,9 @@ class OntDocGeneration:
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
+            if timeobj!=None:
+                tablecontents+=" <span style=\"font-weight:bold\">["+str(self.timeObjectToHTML(timeobj))+"]</span>"
+                dateprops=timeobj
             tablecontents+="</span>"
         else:
             label=str(object)
@@ -952,6 +1015,8 @@ class OntDocGeneration:
                 objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
+                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops!=None and self.shortenURI(str(pred),True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
+                    dateprops.append(str(pred))
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
@@ -969,17 +1034,481 @@ class OntDocGeneration:
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
                     tablecontents += self.detectStringLiteralContent(pred,object)
-        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label}
+        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"timeobj":dateprops}
+
+    def generateRelativeSymlink(self, linkpath, targetpath, outpath, items=False):
+        if "nonns" in targetpath and not items:
+            checkdepthtarget = 3
+        elif "nonns" in targetpath and items:
+            checkdepthtarget = 4
+        else:
+            checkdepthtarget = targetpath.count("/") - 1
+        print("Checkdepthtarget: " + str(checkdepthtarget))
+        targetrellink = self.generateRelativeLinkFromGivenDepth(targetpath, checkdepthtarget, linkpath, False)
+        print("Target Rellink: " + str(targetrellink))
+        print("Linkpath: " + str(linkpath))
+        targetrellink = targetrellink.replace(outpath, "")
+        return targetrellink.replace("//", "/")
+
+    def generateIIIFManifest(self, outpath, imgpaths, annos, curind, prefixnamespace, label="", summary="",
+                             thetypes=None, predobjmap=None, maintype="Image"):
+        print("GENERATE IIIF Manifest for " + str(self.outpath) + " " + str(curind) + " " + str(label) + " " + str(
+            summary) + " " + str(predobjmap))
+        if not os.path.exists(self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json"):
+            if not os.path.exists(self.outpath + "/iiif/mf/"):
+                os.makedirs(self.outpath + "/iiif/mf/")
+            if not os.path.exists(self.outpath + "/iiif/images/"):
+                os.makedirs(self.outpath + "/iiif/images/")
+            print(label)
+            if label != "":
+                curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
+                                   "id": self.deploypath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json",
+                                   "type": "Manifest",
+                                   "label": {"en": [str(label) + " (" + self.shortenURI(curind) + ")"]}, "homepage": [
+                        {"id": str(curind).replace(prefixnamespace, self.deploypath + "/"), "type": "Text",
+                         "label": {"en": [str(curind).replace(prefixnamespace, self.deploypath + "/")]},
+                         "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
+            else:
+                curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
+                                   "id": self.deploypath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json",
+                                   "type": "Manifest", "label": {"en": [self.shortenURI(curind)]}, "homepage": [
+                        {"id": str(curind).replace(prefixnamespace, self.deploypath + "/"), "type": "Text",
+                         "label": {"en": [str(curind).replace(prefixnamespace, self.deploypath + "/")]},
+                         "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
+            pagecounter = 0
+            for imgpath in imgpaths:
+                curitem = {"id": imgpath + "/canvas/p" + str(pagecounter), "type": "Canvas",
+                           "label": {"en": [str(label) + " " + str(maintype) + " " + str(pagecounter + 1)]},
+                           "height": 100, "width": 100, "items": [
+                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/1", "type": "AnnotationPage", "items": [
+                            {"id": imgpath + "/annotation/p" + str(pagecounter) + "/1", "type": "Annotation",
+                             "motivation": "painting",
+                             "body": {"id": imgpath, "type": str(maintype), "format": "image/png"},
+                             "target": imgpath + "/canvas/p" + str(pagecounter)}]}], "annotations": [
+                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/annopage-2", "type": "AnnotationPage",
+                         "items": [{"id": imgpath + "/canvas/p" + str(pagecounter) + "/anno-1", "type": "Annotation",
+                                    "motivation": "commenting",
+                                    "body": {"type": "TextualBody", "language": "en", "format": "text/html",
+                                             "value": "<a href=\"" + str(curind) + "\">" + str(
+                                                 self.shortenURI(curind)) + "</a>"},
+                                    "target": imgpath + "/canvas/p" + str(pagecounter)}]}]}
+                if annos != None:
+                    annocounter = 3
+                    for anno in annos:
+                        curitem["annotations"].append(
+                            {"id": imgpath + "/canvas/p" + str(pagecounter) + "/annopage-" + str(annocounter),
+                             "type": "AnnotationPage", "items": [
+                                {"id": imgpath + "/canvas/p" + str(pagecounter) + "/anno-1", "type": "Annotation",
+                                 "motivation": "commenting",
+                                 "body": {"type": "TextualBody", "language": "en", "format": "text/html",
+                                          "value": "<a href=\"" + str(curind) + "\">" + str(
+                                              self.shortenURI(curind)) + "</a>"},
+                                 "target": {"source": imgpath + "/canvas/p" + str(pagecounter)},
+                                 "type": "SpecificResource", "selector": {"type": "SvgSelector", "value": anno}}]})
+                        annocounter += 1
+                curiiifmanifest["items"].append(curitem)
+                pagecounter += 1
+            for pred in predobjmap:
+                # print(str(pred)+" "+str(predobjmap[pred]))
+                for objs in predobjmap[pred]:
+                    # print(str(pred)+" "+str(objs))
+                    # print(curiiifmanifest["metadata"])
+                    if isinstance(objs, URIRef):
+                        curiiifmanifest["metadata"].append({"label": {"en": [self.shortenURI(str(pred))]}, "value": {
+                            "en": ["<a href=\"" + str(objs) + "\">" + str(objs) + "</a>"]}})
+                    else:
+                        curiiifmanifest["metadata"].append(
+                            {"label": {"en": [self.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
+            print(curiiifmanifest["metadata"])
+            if summary != None and summary != "" and summary != {}:
+                curiiifmanifest["summary"] = {"en": [str(summary)]}
+            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/")
+            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/")
+            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/0/")
+            os.makedirs(self.outpath + "/iiif/mf/" + self.shortenURI(curind))
+            f = open(self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "w", encoding="utf-8")
+            f.write(json.dumps(curiiifmanifest))
+            f.close()
+        if thetypes != None and len(thetypes) > 0:
+            return {"url": self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "label": str(label),
+                    "class": next(iter(thetypes))}
+        return {"url": self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "label": str(label),
+                "class": ""}
+
+    def generateIIIFCollections(self, outpath, imagespaths, prefixnamespace):
+        if not os.path.exists(outpath + "/iiif/collection/"):
+            os.makedirs(outpath + "/iiif/collection/")
+        if os.path.exists(outpath + "/iiif/collection/iiifcoll.json"):
+            f = open(outpath + "/iiif/collection/iiifcoll.json", "r", encoding="utf-8")
+            collections = json.loads(f.read())
+            f.close()
+        else:
+            collections = {"main": {"@context": "http://iiif.io/api/presentation/3/context.json",
+                                    "id": outpath + "/iiif/collection/iiifcoll.json", "type": "Collection",
+                                    "label": {"en": ["Collection: " + self.shortenURI(str(prefixnamespace))]},
+                                    "items": []}}
+        seenurls = set()
+        for imgpath in sorted(imagespaths, key=lambda k: k['label'], reverse=False):
+            curclass = "main"
+            if "class" in imgpath and imgpath["class"] != "":
+                curclass = imgpath["class"]
+                if curclass not in collections:
+                    collections[curclass] = {"@context": "http://iiif.io/api/presentation/3/context.json",
+                                             "id": outpath + "/iiif/collection/" + curclass + ".json",
+                                             "type": "Collection", "label": {"en": ["Collection: " + str(curclass)]},
+                                             "items": []}
+            if imgpath["url"] not in seenurls:
+                if imgpath["label"] != "":
+                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + self.shortenURI(
+                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
+                                                           "id": imgpath["url"].replace(self.outpath, self.deploypath),
+                                                           "type": "Manifest", "label": {"en": [
+                            imgpath["label"] + " (" + self.shortenURI(imgpath["url"].replace("/manifest.json", "")[
+                                                                      0:imgpath["url"].replace("/manifest.json",
+                                                                                               "").rfind(
+                                                                          ".")]) + ")"]}})
+                else:
+                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + self.shortenURI(
+                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
+                                                           "id": imgpath["url"].replace(self.outpath, self.deploypath),
+                                                           "type": "Manifest", "label": {
+                            "en": [self.shortenURI(imgpath["url"].replace("/manifest.json", ""))]}})
+            seenurls = imgpath["url"]
+        for coll in collections:
+            if coll != "main":
+                collections["main"]["items"].append(collections[coll])
+        f = open(outpath + "/iiif/collection/iiifcoll.json", "w", encoding="utf-8")
+        f.write(json.dumps(collections["main"]))
+        f.close()
+        iiifindex = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"><div id="my-mirador"/><script type="text/javascript">var mirador = Mirador.viewer({"id": "my-mirador","manifests": {"collection/iiifcoll.json": {"provider": "Harvard University"}},"windows": [{"loadedManifest": "collection/iiifcoll.json","canvasIndex": 2,"thumbnailNavigationPosition": 'far-bottom'}]});</script></body></html>"""
+        f = open(outpath + "/iiif/index.html", "w", encoding="utf-8")
+        f.write(iiifindex)
+        f.close()
+
+    def generateOGCAPIFeaturesPages(self, outpath, featurecollectionspaths, prefixnamespace, ogcapi, mergeJSON):
+        if ogcapi:
+            apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(
+                self.deploypath) + "/api/index.json\"; const apiUrl = \"" + str(
+                self.deploypath) + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
+            apijson = {"openapi": "3.0.1", "info": {"title": str(self.deploypath) + " Feature Collections",
+                                                    "description": "Feature Collections of " + str(self.deploypath)},
+                       "servers": [{"url": str(self.deploypath)}], "paths": {}}
+            apijson["paths"]["/api"] = {
+                "get": {"tags": ["Capabilities"], "summary": "api documentation", "description": "api documentation",
+                        "operationId": "openApi", "parameters": [], "responses": {
+                        "default": {"description": "default response",
+                                    "content": {"application/vnd.oai.openapi+json;version=3.0": {},
+                                                "application/json": {}, "text/html": {"schema": {}}}}}}}
+            apijson["paths"]["/license/dataset"] = {}
+            apijson["components"] = {"schemas": {"Conformance": {"type": "object", "properties": {
+                "conformsTo": {"type": "array", "items": {"type": "string"}}}, "xml": {"name": "ConformsTo",
+                                                                                       "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "Collection": {"type": "object", "properties": {
+                                                     "id": {"type": "string", "xml": {"name": "Id",
+                                                                                      "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                     "title": {"type": "string", "xml": {"name": "Title",
+                                                                                         "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                     "description": {"type": "string", "xml": {"name": "Description",
+                                                                                               "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                     "links": {"type": "array", "xml": {"name": "link",
+                                                                                        "namespace": "http://www.w3.org/2005/Atom"},
+                                                               "items": {"$ref": "#/components/schemas/Link"}},
+                                                     "extent": {"$ref": "#/components/schemas/Extent"},
+                                                     "itemType": {"type": "string"},
+                                                     "crs": {"type": "array", "items": {"type": "string"}},
+                                                     "storageCrs": {"type": "string"}}, "xml": {"name": "Collection",
+                                                                                                "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "Collections": {"type": "object", "properties": {
+                                                     "links": {"type": "array", "xml": {"name": "link",
+                                                                                        "namespace": "http://www.w3.org/2005/Atom"},
+                                                               "items": {"$ref": "#/components/schemas/Link"}},
+                                                     "collections": {"type": "array", "xml": {"name": "Collection",
+                                                                                              "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"},
+                                                                     "items": {
+                                                                         "$ref": "#/components/schemas/Collection"}}},
+                                                                 "xml": {"name": "Collections",
+                                                                         "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "Extent": {"type": "object", "properties": {
+                                                     "spatial": {"$ref": "#/components/schemas/Spatial"},
+                                                     "temporal": {"$ref": "#/components/schemas/Temporal"}},
+                                                            "xml": {"name": "Extent",
+                                                                    "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "Link": {"type": "object", "properties": {
+                                                     "href": {"type": "string", "xml": {"attribute": True}},
+                                                     "rel": {"type": "string", "xml": {"attribute": True}},
+                                                     "type": {"type": "string", "xml": {"attribute": True}},
+                                                     "title": {"type": "string", "xml": {"attribute": True}}},
+                                                          "xml": {"name": "link",
+                                                                  "namespace": "http://www.w3.org/2005/Atom"}},
+                                                 "Spatial": {"type": "object", "properties": {"bbox": {"type": "array",
+                                                                                                       "items": {
+                                                                                                           "type": "array",
+                                                                                                           "items": {
+                                                                                                               "type": "number",
+                                                                                                               "format": "double"}}},
+                                                                                              "crs": {"type": "string",
+                                                                                                      "xml": {
+                                                                                                          "attribute": True}}},
+                                                             "xml": {"name": "SpatialExtent",
+                                                                     "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "Temporal": {"type": "object", "properties": {
+                                                     "interval": {"type": "array",
+                                                                  "items": {"type": "string", "format": "date-time"}},
+                                                     "trs": {"type": "string", "xml": {"attribute": True}}},
+                                                              "xml": {"name": "TemporalExtent",
+                                                                      "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
+                                                 "LandingPage": {"type": "object"}}}
+            landingpagejson = {"title": "Landing Page", "description": "Landing Page", "links": [{
+                "href": str(self.deploypath) + "/index.json",
+                "rel": "self",
+                "type": "application/json",
+                "title": "this document as JSON"
+            }, {
+                "href": str(self.deploypath) + "/index.html",
+                "rel": "alternate",
+                "type": "text/html",
+                "title": "this document as HTML"
+            }, {
+                "href": str(self.deploypath) + "/collections/",
+                "rel": "data",
+                "type": "application/json",
+                "title": "Supported Feature Collections as JSON"
+            }, {
+                "href": str(self.deploypath) + "/collections/indexc.html",
+                "rel": "data",
+                "type": "text/html",
+                "title": "Supported Feature Collections as HTML"
+            }, {"href": str(self.deploypath) + "/api/index.json", "rel": "service-desc",
+                "type": "application/vnd.oai.openapi+json;version=3.0", "title": "API definition"},
+                {"href": str(self.deploypath) + "/api", "rel": "service-desc", "type": "text/html",
+                 "title": "API definition as HTML"},
+                {"href": str(self.deploypath) + "/conformance", "rel": "conformance", "type": "application/json",
+                 "title": "OGC API conformance classes as Json"},
+                {"href": str(self.deploypath) + "/conformance", "rel": "conformance", "type": "text/html",
+                 "title": "OGC API conformance classes as HTML"}]}
+            conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
+                                              "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
+                                              "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"]}
+            apijson["paths"]["/"] = {"get": {"tags": ["Capabilities"], "summary": "landing page",
+                                             "description": "Landing page of this dataset",
+                                             "operationId": "landingPage", "parameters": [], "responses": {
+                    "default": {"description": "default response", "content": {
+                        "application/json": {"schema": {"$ref": "#/components/schemas/LandingPage"}},
+                        "text/html": {"schema": {}}}}}}}
+            apijson["paths"]["/conformance"] = {
+                "get": {"tags": ["Capabilities"], "summary": "supported conformance classes",
+                        "description": "Retrieves the supported conformance classes", "operationId": "conformance",
+                        "parameters": [], "responses": {"default": {"description": "default response", "content": {
+                        "application/json": {"schema": {"$ref": "#/components/schemas/Conformance"}},
+                        "text/ttl": {"schema": {}}, "text/html": {"schema": {}}}}}}}
+            collectionsjson = {"collections": [], "links": [
+                {"href": outpath + "collections/index.json", "rel": "self", "type": "application/json",
+                 "title": "this document as JSON"},
+                {"href": outpath + "collections/index.html", "rel": "self", "type": "text/html",
+                 "title": "this document as HTML"}]}
+            collectionshtml = "<html><head></head><body><header><h1>Collections of " + str(
+                self.deploypath) + "</h1></head>{{collectiontable}}<footer><a href=\"index.json\">This page as JSON</a></footer></body></html>"
+            collectiontable = "<table><thead><th>Collection</th><th>Links</th></thead><tbody>"
+            apijson["paths"]["/collections"] = {"get": {"tags": ["Collections"], "summary": "describes collections",
+                                                        "description": "Describes all collections provided by this service",
+                                                        "operationId": "collections", "parameters": [], "responses": {
+                    "default": {"description": "default response", "content": {
+                        "application/json": {"schema": {"$ref": "#/components/schemas/Collections"}},
+                        "text/ttl": {"schema": {}}, "text/html": {"schema": {}}}}}}}
+            if outpath.endswith("/"):
+                outpath = outpath[0:-1]
+            if not os.path.exists(outpath + "/api/"):
+                os.makedirs(outpath + "/api/")
+            if not os.path.exists(outpath + "/license/"):
+                os.makedirs(outpath + "/license/")
+            if not os.path.exists(outpath + "/collections/"):
+                os.makedirs(outpath + "/collections/")
+            if not os.path.exists(outpath + "/conformance/"):
+                os.makedirs(outpath + "/conformance/")
+        result = list()
+        for coll in featurecollectionspaths:
+            curcoll = None
+            if os.path.exists(coll):
+                with open(coll, 'r', encoding="utf-8") as infile:
+                    curcoll = json.load(infile)
+            if ogcapi:
+                op = outpath + "/collections/" + coll.replace(outpath, "").replace("index.geojson", "") + "/"
+                op = op.replace(".geojson", "")
+                op = op.replace("//", "/")
+                if not os.path.exists(op):
+                    os.makedirs(op)
+                if not os.path.exists(op + "/items/"):
+                    os.makedirs(op + "/items/")
+                opweb = op.replace(outpath, self.deploypath)
+                opwebcoll = opweb
+                if opwebcoll.endswith("/"):
+                    opwebcoll = opwebcoll[0:-1]
+                opwebcoll = opwebcoll.replace("//", "/")
+                collectionsjson["collections"].append(
+                    {"id": coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:],
+                     "title": featurecollectionspaths[coll]["name"], "links": [
+                        {"href": str(opweb.replace(".geojson", "") + "/index.json").replace("//", "/"),
+                         "rel": "collection", "type": "application/json", "title": "Collection as JSON"},
+                        {"href": str(opweb.replace(".geojson", "") + "/").replace("//", "/"), "rel": "collection",
+                         "type": "text/html", "title": "Collection as HTML"},
+                        {"href": str(opweb.replace(".geojson", "") + "/index.ttl").replace("//", "/"),
+                         "rel": "collection", "type": "text/ttl", "title": "Collection as TTL"}]})
+                currentcollection = {"title": featurecollectionspaths[coll]["name"],
+                                     "id": coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson",
+                                                                                                          "")[1:],
+                                     "links": [], "itemType": "feature"}
+                currentcollection["links"] = [
+                    {"href": opwebcoll + "/items/index.json", "rel": "items", "type": "application/json",
+                     "title": "Collection as JSON"},
+                    {"href": opwebcoll + "/items/indexc.html", "rel": "items", "type": "text/html",
+                     "title": "Collection as HTML"},
+                    {"href": opwebcoll + "/items/index.ttl", "rel": "collection", "type": "text/ttl",
+                     "title": "Collection as TTL"}]
+                if "bbox" in curcoll:
+                    currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                    collectionsjson["collections"][-1]["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
+                if "crs" in curcoll:
+                    currentcollection["crs"] = curcoll["crs"]
+                    collectionsjson["collections"][-1]["crs"] = curcoll["crs"]
+                    if "extent" in currentcollection:
+                        currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
+                        collectionsjson["collections"][-1]["extent"]["spatial"]["crs"] = curcoll["crs"]
+                apijson["paths"]["/collections/" + str(
+                    coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]).rstrip("/")] = {
+                    "get": {"tags": ["Collections"], "summary": "describes collection " + str(
+                        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
+                        "/"), "description": "Describes the collection with the id " + str(
+                        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
+                        "/"), "operationId": "collection-" + str(
+                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
+                            "parameters": [], "responses": {"default": {"description": "default response", "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},
+                                                 "example": None}}}}}}
+                curcollrow = "<tr><td><a href=\"" + opweb.replace(".geojson", "") + "/items/indexc.html\">" + str(
+                    featurecollectionspaths[coll]["name"]) + "</a></td><td><a href=\"" + opweb.replace(".geojson",
+                                                                                                       "") + "/items/indexc.html\">[Collection as HTML]</a>&nbsp;<a href=\"" + opweb.replace(
+                    ".geojson", "") + "/items/\">[Collection as JSON]</a>&nbsp;<a href=\"" + opweb.replace(".geojson",
+                                                                                                           "") + "/items/index.ttl\">[Collection as TTL]</a></td></tr>"
+                f = open(op + "index.json", "w", encoding="utf-8")
+                f.write(json.dumps(currentcollection))
+                f.close()
+                f = open(op + "indexc.html", "w", encoding="utf-8")
+                f.write("<html><head></head><body><h1>" + featurecollectionspaths[coll][
+                    "name"] + "</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>" + str(
+                    curcollrow) + "</tbody></table></html>")
+                f.close()
+                collectiontable += curcollrow
+                if os.path.exists(coll):
+                    try:
+                        if os.path.exists(coll.replace("//", "/")):
+                            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"),
+                                                                      str(op + "/items/index.json").replace("//", "/"),
+                                                                      outpath)
+                            p = Path(str(op + "/items/index.json").replace("//", "/"))
+                            p.symlink_to(targetpath)
+                        if os.path.exists(coll.replace("//", "/").replace("index.geojson", "index.ttl").replace(
+                                "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
+                                "nonns_" + featurecollectionspaths[coll]["id"] + ".ttl")):
+                            targetpath = self.generateRelativeSymlink(
+                                coll.replace("//", "/").replace("index.geojson", "index.ttl").replace(
+                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
+                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".ttl"),
+                                str(op + "/items/index.ttl").replace("//", "/"), outpath)
+                            p = Path(str(op + "/items/index.ttl").replace("//", "/"))
+                            p.symlink_to(targetpath)
+                        if os.path.exists(coll.replace("//", "/").replace("index.geojson", "index.html").replace(
+                                "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
+                                "nonns_" + featurecollectionspaths[coll]["id"] + ".html")):
+                            targetpath = self.generateRelativeSymlink(
+                                coll.replace("//", "/").replace("index.geojson", "index.html").replace(
+                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
+                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".html"),
+                                str(op + "/items/indexc.html").replace("//", "/"), outpath)
+                            f = open(str(op + "/items/indexc.html"), "w")
+                            f.write(
+                                "<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + targetpath + "\" /></head></html>")
+                            f.close()
+                        print("symlinks created")
+                    except Exception as e:
+                        print("symlink creation error")
+                        print(e)
+                    apijson["paths"][str("/collections/" + str(
+                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[
+                        1:]) + "/items/index.json").replace("//", "/")] = {"get": {"tags": ["Data"],
+                                                                                   "summary": "retrieves features of collection " + str(
+                                                                                       coll.replace(outpath,
+                                                                                                    "").replace(
+                                                                                           "index.geojson", "").replace(
+                                                                                           ".geojson", "")[1:]).rstrip(
+                                                                                       "/"),
+                                                                                   "description": "Retrieves features of collection  " + str(
+                                                                                       coll.replace(outpath,
+                                                                                                    "").replace(
+                                                                                           "index.geojson", "").replace(
+                                                                                           ".geojson", "")[1:]),
+                                                                                   "operationId": "features-" + str(
+                                                                                       coll.replace(outpath,
+                                                                                                    "").replace(
+                                                                                           "index.geojson", "").replace(
+                                                                                           ".geojson", "")[1:]),
+                                                                                   "parameters": [], "responses": {
+                            "default": {"description": "default response",
+                                        "content": {"application/geo+json": {"example": None}},
+                                        "text/ttl": {"schema": {"example": None}, "example": None},
+                                        "text/html": {"schema": {"example": None}, "example": None}}}}}
+                    apijson["paths"][str("/collections/" + str(
+                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[
+                        1:]) + "/items/{featureId}/index.json").replace("//", "/")] = {"get": {"tags": ["Data"],
+                                                                                               "summary": "retrieves feature of collection " + str(
+                                                                                                   coll.replace(outpath,
+                                                                                                                "").replace(
+                                                                                                       "index.geojson",
+                                                                                                       "").replace(
+                                                                                                       ".geojson", "")[
+                                                                                                   1:]).rstrip("/"),
+                                                                                               "description": "Retrieves one single feature of the collection with the id " + str(
+                                                                                                   coll.replace(outpath,
+                                                                                                                "").replace(
+                                                                                                       "index.geojson",
+                                                                                                       "").replace(
+                                                                                                       ".geojson", "")[
+                                                                                                   1:]),
+                                                                                               "operationId": "feature-" + str(
+                                                                                                   coll.replace(outpath,
+                                                                                                                "").replace(
+                                                                                                       "index.geojson",
+                                                                                                       "").replace(
+                                                                                                       ".geojson", "")[
+                                                                                                   1:]), "parameters": [
+                            {"name": "featureId", "in": "path", "required": True, "schema": {"type": "string"}}],
+                                                                                               "responses": {
+                                                                                                   "default": {
+                                                                                                       "description": "default response",
+                                                                                                       "content": {
+                                                                                                           "application/geo+json": {
+                                                                                                               "example": None}},
+                                                                                                       "text/ttl": {
+                                                                                                           "schema": {
+                                                                                                               "example": None},
+                                                                                                           "example": None},
+                                                                                                       "text/html": {
+                                                                                                           "schema": {
+                                                                                                               "example": None},
+                                                                                                           "example": None}}}}}
 
     def detectStringLiteralContent(self,pred,object):
         if object.startswith("http://") or object.startswith("https://"):
             return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"" + str(
                         object)+ "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object)+ "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        if object.startswith("www."):
+        elif object.startswith("www."):
             return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"http://" + str(
                 object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">http://" + str(
                 object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        if re.search(r'[\w.]+\@[\w.]+', object):
+        elif re.search(r'(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)', str(object)):
+            return "<span><a property=\"" + str(pred) + "\" href=\"https://www.doi.org/" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#anyURI\">" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#anyURI\">xsd:anyURI</a>)</small></span>"
+        elif re.search(r'[\w.]+\@[\w.]+', object):
             return "<span><a property=\"" + str(pred) + "\" href=\"mailto:" + str(
                 object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">mailto:" + str(
                 object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
@@ -987,7 +1516,7 @@ class OntDocGeneration:
 
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
-        label=self.getLabelForObject(URIRef(tup[1]), graph,self.labellang)
+        label=self.getLabelForObject(URIRef(tup), graph,self.labellang)
         tablecontents += "<td class=\"property\">"
         if reverse:
             tablecontents+="Is "
@@ -1021,6 +1550,8 @@ class OntDocGeneration:
             QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
             self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
+
+
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
@@ -1094,6 +1625,8 @@ class OntDocGeneration:
         comment={}
         parentclass=None
         inverse=False
+        dateprops = []
+        timeobj=None
         if uritotreeitem!=None and str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)][-1]["parent"])
             if parentclass not in uritotreeitem:
@@ -1107,6 +1640,8 @@ class OntDocGeneration:
         metadatatablecontentcounter=-1
         foundtype=False
         hasnonns=set()
+        thetypes = set()
+        itembibtex = ""
         if predobjs!=None:
             for tup in sorted(predobjs,key=lambda tup: tup[0]):
                 if str(tup[0]) not in predobjmap:
@@ -1121,6 +1656,7 @@ class OntDocGeneration:
                 if isinstance(tup[1],URIRef):
                     foundtype=True
                     for item in graph.objects(tup[1],URIRef(self.typeproperty)):
+                        thetypes.add(str(item))
                         if parentclass!=None:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
@@ -1154,8 +1690,11 @@ class OntDocGeneration:
                 elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                     isgeocollection=True
                     uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
-                elif str(tup)==self.typeproperty and str(predobjmap[tup]) in bibtextypemappings:
-                    itembibtex=self.resolveBibtexReference(graph.predicate_objects(tup[0]),tup[0])
+                elif str(tup)==self.typeproperty:
+                    for tp in predobjmap[tup]:
+                        if str(tp) in bibtextypemappings:
+                            itembibtex="<details><summary>[BIBTEX]</summary><pre>"+str(self.resolveBibtexReference(graph.predicate_objects(subject),subject,graph))+"</pre></details>"
+                            break
                 thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
                 if str(tup) in SPARQLUtils.labelproperties:
                     for lab in predobjmap[tup]:
@@ -1185,7 +1724,7 @@ class OntDocGeneration:
                         elif tup in SPARQLUtils.valueproperties:
                             foundvals.add(str(item))
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,inverse,nonns)
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,inverse,nonns)
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
@@ -1240,7 +1779,7 @@ class OntDocGeneration:
                         if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,True,nonns)
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,True,nonns)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
@@ -1265,8 +1804,13 @@ class OntDocGeneration:
                 isodd = not isodd
         if self.licenseuri!=None:
             ttlf.add((subject, URIRef("http://purl.org/dc/elements/1.1/license"), URIRef(self.licenseuri)))
+        nonnslink=""
         if nonns:
             completesavepath = savepath
+            nonnslink = "<div>This page describes linked instances to the concept  <a target=\"_blank\" href=\"" + str(
+                subject) + "\">" + str(foundlabel) + " (" + str(self.shortenURI(
+                subject)) + ") </a> in this knowledge graph. It is defined <a target=\"_blank\" href=\"" + str(
+                subject) + "\">here</a></div>"
         else:
             completesavepath=savepath + "/index.html"
         if not nonns:
@@ -1280,7 +1824,7 @@ class OntDocGeneration:
             rellink3 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
             rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
             rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
-            rellink6 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
+            epsgdefslink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
             rellink7 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "vowl_result.js", False)
             if geojsonrep != None:
                 myexports=geoexports
@@ -1289,26 +1833,36 @@ class OntDocGeneration:
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             else:
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", rellink6).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{subject}}",str(subject)))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             for comm in comment:
                 f.write(htmlcommenttemplate.replace("{{comment}}", self.shortenURI(comm) + ":" + comment[comm]))
             for fval in foundvals:
                 f.write(htmlcommenttemplate.replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
+                if self.iiif:
+                    iiifmanifestpaths["default"].append(
+                        self.generateIIIFManifest(self.outpath, foundmedia["mesh"], image3dannos, str(subject),
+                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
+                                                  "Model"))
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
                         f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
             elif len(foundmedia["mesh"])>0 and len(image3dannos)==0:
                 QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
+                if self.iiif:
+                    iiifmanifestpaths["default"].append(
+                        self.generateIIIFManifest(self.outpath, foundmedia["mesh"], image3dannos, str(subject),
+                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
+                                                  "Model"))
                 for curitem in foundmedia["mesh"]:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
@@ -1324,6 +1878,11 @@ class OntDocGeneration:
                 carousel="carousel-item active"
                 f.write(imagecarouselheader)
             if len(imageannos)>0 and len(foundmedia["image"])>0:
+                if self.iiif:
+                    iiifmanifestpaths["default"].append(
+                        self.generateIIIFManifest(self.outpath, foundmedia["image"], imageannos, str(subject),
+                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
+                                                  "Image"))
                 for image in foundmedia["image"]:
                     annostring=""
                     for anno in imageannos:
@@ -1331,7 +1890,12 @@ class OntDocGeneration:
                     f.write(imageswithannotemplate.replace("{{carousel}}",carousel+"\" style=\"position: relative;display: inline-block;").replace("{{image}}",str(image)).replace("{{svganno}}",annostring).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
                     if len(foundmedia["image"])>3:
                         carousel="carousel-item"
-            else:
+            elif len(foundmedia["image"])>0:
+                if self.iiif:
+                    iiifmanifestpaths["default"].append(
+                        self.generateIIIFManifest(self.outpath, foundmedia["image"], imageannos, str(subject),
+                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
+                                                  "Image"))
                 for image in foundmedia["image"]:
                     if image=="<svg width=":
                         continue
@@ -1358,49 +1922,112 @@ class OntDocGeneration:
                             f.write("<span style=\"font-weight:bold\" class=\"textanno\" start=\"" + str(
                                 textanno["start"]) + "\" end=\"" + str(textanno["end"]) + "\" exact=\"" + str(
                                 textanno["exact"]) + "\"><mark>" + str(textanno["exact"]) + "</mark></span>")
+            if len(foundmedia["audio"]) > 0 and self.iiif:
+                iiifmanifestpaths["default"].append(
+                    self.generateIIIFManifest(self.outpath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
+                                              foundlabel, comment, thetypes, predobjmap, "Audio"))
             for audio in foundmedia["audio"]:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
+            if len(foundmedia["video"]) > 0 and self.iiif:
+                iiifmanifestpaths["default"].append(
+                    self.generateIIIFManifest(self.outpath, foundmedia["video"], None, str(subject), self.prefixnamespace,
+                                              foundlabel, comment, thetypes, predobjmap, "Video"))
             for video in foundmedia["video"]:
                 f.write(videotemplate.replace("{{video}}",str(video)))
-            if geojsonrep!=None and not isgeocollection and not nonns and subject!=None:
-                if uritotreeitem!=None and str(subject) in uritotreeitem:
-                    uritotreeitem[str(subject)][-1]["type"]="geoinstance"
-                jsonfeat={"type": "Feature", 'id':str(subject),'label':foundlabel, 'properties': predobjmap, "geometry": geojsonrep}
-                if epsgcode=="" and "crs" in geojsonrep:
-                    epsgcode="EPSG:"+geojsonrep["crs"]
-                if len(hasnonns)>0:
-                    self.geocache[str(subject)]=jsonfeat
-                f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(jsonfeat)+"]").replace("{{epsg}}",epsgcode).replace("{{baselayers}}",json.dumps(self.baselayers)))
+            if geojsonrep != None and not isgeocollection:
+                if uritotreeitem != None and str(subject) in uritotreeitem:
+                    uritotreeitem[str(subject)][-1]["type"] = "geoinstance"
+                props = predobjmap
+                if timeobj != None:
+                    for item in timeobj:
+                        dateprops.append(item)
+                        props[item] = str(timeobj[item])
+                jsonfeat = {"type": "Feature", 'id': str(subject), 'name': foundlabel, 'dateprops': dateprops,
+                            'properties': props, "geometry": geojsonrep}
+                if epsgcode == "" and "crs" in geojsonrep:
+                    epsgcode = "EPSG:" + geojsonrep["crs"]
+                if len(hasnonns) > 0:
+                    self.geocache[str(subject)] = jsonfeat
+                f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
+                                                                                       "[" + json.dumps(
+                                                                                           jsonfeat) + "]").replace(
+                    "{{epsg}}", epsgcode).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
+                                                                                                    epsgdefslink).replace(
+                    "{{dateatt}}", ""))
             elif isgeocollection or nonns:
-                featcoll={"type":"FeatureCollection", "id":subject,"name":self.shortenURI(subject), "features":[]}
+                if foundlabel != None and foundlabel != "":
+                    featcoll = {"type": "FeatureCollection", "id": subject, "name": str(foundlabel), "features": []}
+                else:
+                    featcoll = {"type": "FeatureCollection", "id": subject, "name": self.shortenURI(subject),
+                                "features": []}
+                thecrs = set()
+                dateatt = ""
                 if isgeocollection and not nonns:
-                    memberpred=URIRef("http://www.w3.org/2000/01/rdf-schema#member")
-                    for memberid in graph.objects(subject,memberpred,True):
-                        for geoinstance in graph.predicate_objects(memberid,True):
-                            geojsonrep=None
-                            if geoinstance!=None and isinstance(geoinstance[1], Literal) and (str(geoinstance[0]) in SPARQLUtils.geoproperties or str(geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "",None,None,True)
+                    memberpred = URIRef("http://www.w3.org/2000/01/rdf-schema#member")
+                    for memberid in graph.objects(subject, memberpred, True):
+                        for geoinstance in graph.predicate_objects(memberid, True):
+                            geojsonrep = None
+                            if geoinstance != None and isinstance(geoinstance[1], Literal) and (
+                                    str(geoinstance[0]) in SPARQLUtils.geoproperties or str(
+                                    geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
+                                geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "")
                                 uritotreeitem[str(subject)][-1]["type"] = "geocollection"
-                            elif geoinstance!=None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
+                            elif geoinstance != None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
                                 uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
-                                for geotup in graph.predicate_objects(geoinstance[1],True):
-                                    if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "",None,None,True)
-                            if geojsonrep!=None:
-                                if uritotreeitem !=None and str(memberid) in uritotreeitem:
-                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid), 'label': uritotreeitem[str(memberid)][-1]["text"], 'properties': {},"geometry": geojsonrep})
+                                for geotup in graph.predicate_objects(geoinstance[1], True):
+                                    if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(
+                                            geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
+                                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "")
+                            if geojsonrep != None:
+                                if uritotreeitem != None and str(memberid) in uritotreeitem:
+                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid),
+                                                                 'name': uritotreeitem[str(memberid)][-1]["text"],
+                                                                 'dateprops': dateprops, 'properties': {},
+                                                                 "geometry": geojsonrep})
                                 else:
-                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid),'label': str(memberid), 'properties': {}, "geometry": geojsonrep})
-                    if len(hasnonns)>0:
-                        self.geocache[str(subject)]=featcoll
+                                    featcoll["features"].append(
+                                        {"type": "Feature", 'id': str(memberid), 'name': str(memberid),
+                                         'dateprops': dateprops, 'properties': {}, "geometry": geojsonrep})
+                                if len(featcoll["features"][-1]["dateprops"]) > 0:
+                                    dateatt = featcoll["features"][-1]["dateprops"][0]
+                    if len(hasnonns) > 0:
+                        self.geocache[str(subject)] = featcoll
                 elif nonns:
                     for item in hasnonns:
                         if item in self.geocache:
                             featcoll["features"].append(self.geocache[item])
-                if len(featcoll["features"])>0:
-                    f.write(maptemplate.replace("{{myfeature}}","["+json.dumps(featcoll)+"]").replace("{{baselayers}}",json.dumps(self.baselayers)))
-                    with open(completesavepath.replace(".html",".geojson"), 'w', encoding='utf-8') as fgeo:
-                        featurecollectionspaths.add(completesavepath.replace(".html",".geojson"))
+                            if len(self.geocache[item]["dateprops"]) > 0:
+                                dateatt = self.geocache[item]["dateprops"][0]
+                            if "crs" in self.geocache[item]:
+                                thecrs.add(self.geocache[item]["crs"])
+                if len(featcoll["features"]) > 0:
+                    featcoll["numberMatched"] = len(featcoll["features"])
+                    featcoll["numberReturned"] = len(featcoll["features"])
+                    #featcoll["bbox"] = shapely.geometry.GeometryCollection(
+                    #    [shapely.geometry.shape(feature["geometry"]) for feature in featcoll["features"]]).bounds
+                    if len(thecrs) > 0:
+                        featcoll["crs"] = "http://www.opengis.net/def/crs/EPSG/0/" + str(next(iter(thecrs)))
+                    else:
+                        featcoll["crs"] = "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+                    if dateatt != "":
+                        for feat in featcoll["features"]:
+                            if dateatt not in feat["properties"]:
+                                feat["properties"][dateatt] = ""
+                    if self.localOptimized:
+                        f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
+                                                                                               "[" + json.dumps(
+                                                                                                   featcoll) + "]").replace(
+                            "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
+                            "{{dateatt}}", dateatt))
+                    else:
+                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + self.shortenURI(
+                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{baselayers}}",
+                                                                                                 json.dumps(
+                                                                                                     self.baselayers)).replace(
+                            "{{epsgdefspath}}", epsgdefslink).replace("{{dateatt}}", dateatt))
+                    with open(completesavepath.replace(".html", ".geojson"), 'w', encoding='utf-8') as fgeo:
+                        featurecollectionspaths[completesavepath.replace(".html", ".geojson")] = {
+                            "name": featcoll["name"], "id": featcoll["id"]}
                         fgeo.write(json.dumps(featcoll))
                         fgeo.close()
             f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
