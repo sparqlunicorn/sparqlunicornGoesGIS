@@ -1186,13 +1186,16 @@ class OntDocGeneration:
         f.close()
 
     def generateOGCAPIFeaturesPages(self, outpath, featurecollectionspaths, prefixnamespace, ogcapi, mergeJSON):
+        apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(
+            self.deploypath) + "/api/index.json\"; const apiUrl = \"" + str(
+            self.deploypath) + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
+        apijson = {"openapi": "3.0.1", "info": {"title": str(self.deploypath) + " Feature Collections",
+                                                "description": "Feature Collections of " + str(self.deploypath)},
+                   "servers": [{"url": str(self.deploypath)}], "paths": {}}
+        conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
+                                          "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
+                                          "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"]}
         if ogcapi:
-            apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(
-                self.deploypath) + "/api/index.json\"; const apiUrl = \"" + str(
-                self.deploypath) + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
-            apijson = {"openapi": "3.0.1", "info": {"title": str(self.deploypath) + " Feature Collections",
-                                                    "description": "Feature Collections of " + str(self.deploypath)},
-                       "servers": [{"url": str(self.deploypath)}], "paths": {}}
             apijson["paths"]["/api"] = {
                 "get": {"tags": ["Capabilities"], "summary": "api documentation", "description": "api documentation",
                         "operationId": "openApi", "parameters": [], "responses": {
@@ -1286,9 +1289,7 @@ class OntDocGeneration:
                  "title": "OGC API conformance classes as Json"},
                 {"href": str(self.deploypath) + "/conformance", "rel": "conformance", "type": "text/html",
                  "title": "OGC API conformance classes as HTML"}]}
-            conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
-                                              "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
-                                              "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"]}
+
             apijson["paths"]["/"] = {"get": {"tags": ["Capabilities"], "summary": "landing page",
                                              "description": "Landing page of this dataset",
                                              "operationId": "landingPage", "parameters": [], "responses": {
@@ -1495,6 +1496,60 @@ class OntDocGeneration:
                                                                                                            "schema": {
                                                                                                                "example": None},
                                                                                                            "example": None}}}}}
+
+                    for feat in curcoll["features"]:
+                        featpath = feat["id"].replace(prefixnamespace, "").replace("//", "/")
+                        try:
+                            os.makedirs(str(op + "/items/" + str(self.shortenURI(feat["id"]))))
+                            print("CHECKPATH: " + str(
+                                str(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json").replace("//", "/")))
+                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json"):
+                                targetpath = self.generateRelativeSymlink(featpath + "/index.json", str(op + "/items/" + str(
+                                    self.shortenURI(feat["id"])) + "/index.json").replace("//", "/"), outpath, True)
+                                p = Path(str(op + "/items/" + str(self.shortenURI(feat["id"])) + "/index.json").replace("//", "/"))
+                                p.symlink_to(targetpath)
+                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.ttl"):
+                                targetpath = self.generateRelativeSymlink(featpath + "/index.ttl", str(op + "/items/" + str(
+                                    self.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"), outpath, True)
+                                p = Path(str(op + "/items/" + str(self.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"))
+                                p.symlink_to(targetpath)
+                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.html"):
+                                targetpath = self.generateRelativeSymlink(featpath + "/index.html", str(op + "/items/" + str(
+                                    self.shortenURI(feat["id"])) + "/index.html").replace("//", "/"), outpath, True)
+                                f = open(str(op + "/items/" + str(self.shortenURI(feat["id"]))) + "/index.html", "w")
+                                f.write(
+                                    "<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + targetpath + "\" /></head></html>")
+                                f.close()
+                            print("symlinks created")
+                        except Exception as e:
+                            print("symlink creation error")
+                            print(e)
+                    if mergeJSON:
+                        result.append(curcoll)
+        collectiontable += "</tbody></table>"
+        if mergeJSON:
+            with open(outpath + "/features.js", 'w', encoding="utf-8") as output_file:
+                output_file.write("var featurecolls=" + json.dumps(result))
+                # shutil.move(coll, op+"/items/index.json")
+        if ogcapi:
+            f = open(outpath + "/index.json", "w", encoding="utf-8")
+            f.write(json.dumps(landingpagejson))
+            f.close()
+            f = open(outpath + "/api/index.json", "w", encoding="utf-8")
+            f.write(json.dumps(apijson))
+            f.close()
+            f = open(outpath + "/api/api.html", "w", encoding="utf-8")
+            f.write(apihtml)
+            f.close()
+            f = open(outpath + "/collections/indexc.html", "w", encoding="utf-8")
+            f.write(collectionshtml.replace("{{collectiontable}}", collectiontable))
+            f.close()
+            f = open(outpath + "/collections/index.json", "w", encoding="utf-8")
+            f.write(json.dumps(collectionsjson))
+            f.close()
+            f = open(outpath + "/conformance/index.json", "w", encoding="utf-8")
+            f.write(json.dumps(conformancejson))
+            f.close()
 
     def detectStringLiteralContent(self,pred,object):
         if object.startswith("http://") or object.startswith("https://"):
