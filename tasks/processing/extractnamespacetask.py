@@ -14,14 +14,16 @@ MESSAGE_CATEGORY = 'ExtractNamespaceTask'
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class ExtractNamespaceTask(QgsTask):
 
-    def __init__(self, description, graphname,resultcbox,prefixes=None, progress=None):
+    def __init__(self, description, graphname,resultcbox,startConceptCBox,prefixes=None, progress=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.prefixes=prefixes
         self.progress = progress
         self.graphname=graphname
         self.resultcbox=resultcbox
+        self.startConceptCBox=startConceptCBox
         self.namespaces=set()
+        self.classset=None
         self.nstodataclass={}
         self.recognizedns=set()
 
@@ -39,7 +41,9 @@ class ExtractNamespaceTask(QgsTask):
                 if ns not in namespacetosub:
                     namespacetosub[ns]=set()
                 namespacetosub[ns].add(sub)
-            self.nstodataclass= self.identifyDataClasses(g, namespacetosub)
+            res= self.identifyDataClasses(g, namespacetosub)
+            self.nstodataclass=res["nsd"]
+            self.classset=res["clsset"]
             return True
         except Exception as e:
             self.exception=e
@@ -47,6 +51,7 @@ class ExtractNamespaceTask(QgsTask):
 
     def identifyDataClasses(self,graph,namespacetosub):
         nstodataclass={}
+        classset=set()
         #QgsMessageLog.logMessage(str(namespacetosub), MESSAGE_CATEGORY, Qgis.Info)
         for ns in namespacetosub:
             nstodataclass[ns] = 0
@@ -61,11 +66,13 @@ class ExtractNamespaceTask(QgsTask):
                         nondataclasses+=1
                     else:
                         dataclasses+=1
+                    if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                        classset.add(str(tup[1]))
                         #QgsMessageLog.logMessage(str(nssub)+" "+str(tup), MESSAGE_CATEGORY, Qgis.Info)
                 #QgsMessageLog.logMessage(str(ns)+" "+str(dataclasses), MESSAGE_CATEGORY, Qgis.Info)
                 nstodataclass[ns]+=dataclasses
         QgsMessageLog.logMessage(str(nstodataclass), MESSAGE_CATEGORY, Qgis.Info)
-        return nstodataclass
+        return {"nsd":nstodataclass,"clsset":classset}
 
 
     def finished(self, result):
@@ -73,6 +80,20 @@ class ExtractNamespaceTask(QgsTask):
             self.resultcbox.clear()
             model=QStandardItemModel()
             self.resultcbox.setModel(model)
+            prefclassmodel = QStandardItemModel()
+            self.startConceptCBox.setModel(prefclassmodel)
+            item = QStandardItem()
+            item.setData(None, UIUtils.dataslot_conceptURI)
+            item.setIcon(UIUtils.removeicon)
+            item.setText("No Start Concept")
+            prefclassmodel.appendRow(item)
+            for cls in sorted(self.classset):
+                if "http" in str(cls):
+                    item = QStandardItem()
+                    item.setData(cls, UIUtils.dataslot_conceptURI)
+                    item.setIcon(UIUtils.classicon)
+                    item.setText(SPARQLUtils.labelFromURI(cls,self.prefixes))
+                    prefclassmodel.appendRow(item)
             for ns in sorted(self.namespaces):
                 if len(ns.strip())>0 and "http" in ns:
                     if ns in self.nstodataclass and self.nstodataclass[ns] > 0:

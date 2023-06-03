@@ -26,6 +26,12 @@ img { border: none; }
     margin: 20px;
     text-align: center;
 }
+details > pre {
+  background-color: #f5f5f5;
+  padding: 4px;
+  margin: 0;
+  box-shadow: 1px 1px 2px #bbbbbb;
+}
 #reset {
     float: right;
     position: absolute;
@@ -61,7 +67,7 @@ body { background: %%maincolorcode%%; }
 table.description .container > td { background: #c0e2c0; padding: 0.2em 0.8em; }
 table.description .even td { background: %%tablecolorcode%%; }
 table.description .odd td { background: #f0fcf0; }
-.image { background: white; float: left; margin: 0 1.5em 1.5em 0; padding: 2px; }
+.image { background: white; text-align:center; width:100% margin: 0 1.5em 1.5em 0; padding: 2px; }
 a.expander { text-decoration: none; }
 
 .metadata-label {
