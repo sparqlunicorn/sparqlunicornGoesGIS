@@ -1286,6 +1286,7 @@ class OntDocGeneration:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
+            itembibtex=""
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
