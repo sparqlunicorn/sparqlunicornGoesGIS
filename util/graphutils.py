@@ -273,7 +273,7 @@ class GraphUtils:
                 thequery += "}}"
             results = SPARQLUtils.executeQuery(self.configuration["resource"], thequery)
             if results != False:
-                self.configuration["geoobjproperty"] = set()
+                self.configuration["geoobjproperty"] = []
                 self.configuration["geoclasses"] = {}
                 for result in results["results"]["bindings"]:
                     if "rel" in result \
@@ -281,11 +281,13 @@ class GraphUtils:
                             and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
-                        self.configuration["geoobjproperty"].add(result["rel"]["value"])
+                        if not result["rel"]["value"] in self.configuration["geoobjproperty"]:
+                            self.configuration["geoobjproperty"].append(result["rel"]["value"])
                         if "acon" in result:
                             if result["acon"]["value"] not in self.configuration["geoclasses"]:
-                                self.configuration["geoclasses"][result["acon"]["value"]] = set()
-                            self.configuration["geoclasses"][result["acon"]["value"]].add(result["rel"]["value"])
+                                self.configuration["geoclasses"][result["acon"]["value"]] = []
+                            if not result["rel"]["value"] in self.configuration["geoclasses"][result["acon"]["value"]]:
+                                self.configuration["geoclasses"][result["acon"]["value"]].append(result["rel"]["value"])
                 for cls in self.configuration["geoclasses"]:
                     self.configuration["geoclasses"][cls] = list(self.configuration["geoclasses"][cls])
                 # QgsMessageLog.logMessage(str(self.configuration["geoobjproperty"])
