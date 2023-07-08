@@ -215,6 +215,11 @@ class OntDocGeneration:
                 self.outpath += "/"
         #prefixes["reversed"]["http://purl.org/suni/"] = "suni"
 
+    def createOfflineCompatibleVersion(self):
+        print("")
+        #For every script tag in the HTML templates, download the JS lib in a local js folder and replace the src with the local reference
+
+
     def processLicense(self):
         QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
         if self.license==None or self.license=="" or self.license=="No License Statement":
