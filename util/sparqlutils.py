@@ -26,11 +26,30 @@ class SPARQLUtils:
 
     annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 
-    metadatanamespaces=["http://purl.org/dc/terms/","http://www.w3.org/ns/prov#","https://creativecommons.org/ns#","http://www.w3.org/ns/dcat#","http://purl.org/cerif/frapo/","http://www.lido-schema.org/"]
+    metadatanamespaces = ["http://purl.org/dc/terms/", "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
+                          "http://www.w3.org/ns/prov-o/", "http://creativecommons.org/ns#",
+                          "http://www.w3.org/ns/dcat#", "http://purl.org/cerif/frapo/", "http://www.lido-schema.org/"]
 
     addressproperties={
         "https://schema.org/address": "ObjectProperty"
     }
+
+    timeproperties = ["http://www.w3.org/2006/time#inXSDDateTime", "http://www.w3.org/2006/time#inXSDDate",
+                      "http://www.w3.org/2006/time#inXSDDateTimeStamp", "http://www.w3.org/2006/time#inXSDgYear",
+                      "http://www.w3.org/2006/time#inXSDgYearMonth"]
+
+
+    timepointerproperties = ["http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration",
+                             "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd"]
+
+    timeliteraltypes = {
+        "http://www.w3.org/2001/XMLSchema#gYear": "http://www.ontology-of-units-of-measure.org/resource/om-2/year",
+        "http://www.w3.org/2006/time#generalYear": "http://www.w3.org/2006/time#unitYear",
+        "http://www.w3.org/2001/XMLSchema#gMonth": "http://www.ontology-of-units-of-measure.org/resource/om-2/month",
+        "http://www.w3.org/TR/owl-time#generalMonth": "http://www.w3.org/2006/time#unitMonth",
+        "http://www.w3.org/2001/XMLSchema#gDay": "http://www.ontology-of-units-of-measure.org/resource/om-2/day",
+        "http://www.w3.org/TR/owl-time#generalDay": "http://www.w3.org/2006/time#unitDay",
+        "http://www.w3.org/2001/XMLSchema#date": "", "http://www.w3.org/2001/XMLSchema#dateTime": ""}
 
     collectionclasses=["http://www.opengis.net/ont/geosparql#FeatureCollection","http://www.opengis.net/ont/geosparql#GeometryCollection","http://www.opengis.net/ont/geosparql#SpatialObjectCollection","http://www.w3.org/2004/02/skos/core#Collection","http://www.w3.org/2004/02/skos/core#OrderedCollection","https://www.w3.org/ns/activitystreams#Collection","https://www.w3.org/ns/activitystreams#OrderedCollection"]
 
@@ -456,11 +475,15 @@ class SPARQLUtils:
     def labelFromURI(uri,prefixlist=None):
         if not uri.startswith("http"):
             return uri
+        if uri.endswith("#"):
+            uri=uri[0:-1]
         if "#" in uri:
             prefix=uri[:uri.rfind("#")+1]
             if prefixlist!=None and prefix in prefixlist:
                 return str(prefixlist[prefix])+":"+str(uri[uri.rfind("#") + 1:])
             return uri[uri.rfind("#") + 1:]
+        if uri.endswith("/"):
+            uri=uri[0:-1]
         if "/" in uri:
             prefix=uri[:uri.rfind("/")+1]
             if prefixlist!=None and prefix in prefixlist:

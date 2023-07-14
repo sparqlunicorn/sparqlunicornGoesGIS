@@ -1,4 +1,4 @@
-from rdflib import *
+from rdflib import Graph, Literal
 
 from ...util.layerutils import LayerUtils
 from ...util.sparqlutils import SPARQLUtils
@@ -47,8 +47,7 @@ class ConvertCRSTask(QgsTask):
         self.progress.close()
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "",
-                                                  "All Files (*);;Text Files (*.ttl)", options=options)
+        fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "", "All Files (*);;Text Files (*.ttl)", options=options)
         if fileName and self.graph!=None:
             fo = open(fileName, "w")
             fo.write(ConvertCRS().ttlhead)

@@ -71,7 +71,6 @@ class QueryLayerTask(QgsTask):
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
-
                 if crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:

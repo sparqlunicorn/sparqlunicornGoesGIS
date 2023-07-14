@@ -80,7 +80,6 @@ class ClassTreeQueryTask(QgsTask):
                 self.optionalpart = "OPTIONAL {BIND(EXISTS {?individual <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
                         "geometryproperty"]) + "> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}"
-
             else:
                 self.optionalpart = "OPTIONAL {?individual <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
@@ -128,14 +127,12 @@ class ClassTreeQueryTask(QgsTask):
                     self.classtreemap[subval].setData(subval,UIUtils.dataslot_conceptURI)
                     if "label" in result:
                         self.classtreemap[subval].setText(
-                            result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf[
-                                "prefixesrev"]) + ")")
+                            result["label"]["value"] + " (" + SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]) + ")")
                     else:
                         self.classtreemap[subval].setText(
                             SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
                     if "hgeo" in result and (result["hgeo"]["value"]=="true" or result["hgeo"]["value"]==True or result["hgeo"]["value"]==1):
-                        QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),
-                                                 MESSAGE_CATEGORY, Qgis.Info)
+                        QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),MESSAGE_CATEGORY, Qgis.Info)
                         self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
                         self.classtreemap[subval].setToolTip(

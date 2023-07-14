@@ -291,6 +291,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 self.curquery = self.curquery[0:self.curquery.rfind(
                     '}')] + "FILTER(geof:sfIntersects(?geo,\"" + polygon.asWkt() + "\"^^geo:wktLiteral))"
             else:
+                QgsMessageLog.logMessage(polygon,MESSAGE_CATEGORY,Qgis.Info)
                 self.curquery = SPARQLUtils.constructBBOXQuerySegment(self.triplestoreconf, polygon.boundingBox(),
                                                              widthm, self.curquery)
         if self.inp_sparql is not None:

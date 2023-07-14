@@ -5,6 +5,7 @@ from qgis.core import QgsApplication
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
+from qgis.PyQt.QtGui import QRegExpValidator
 
 from ..util.baselayerdialog import BaseLayerDialog
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
@@ -50,6 +51,9 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         model = QStandardItemModel()
         self.baseLayerListView.setModel(model)
         self.createCCLicenseCBOX()
+        self.deploymentURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
+        self.deploymentURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.deploymentURLEdit))
+        self.deploymentURLEdit.textChanged.emit(self.deploymentURLEdit.text())
         self.addbaseLayerButton.clicked.connect(lambda: BaseLayerDialog(self.baseLayerListView,baselayers).exec())
         self.baseLayerListView.doubleClicked.connect(lambda item: BaseLayerDialog(self.baseLayerListView,baselayers,item,item.data(266),item.data(265)).exec())
         for lay in baselayers:
@@ -79,7 +83,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
 
 
     def extractNamespaces(self,filename):
-        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.prefixes,None)
+        self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.startConceptCBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
 
     def createDocumentation(self):
@@ -111,8 +115,15 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             tobeaddedperInd["http://purl.org/dc/terms/rightsHolder"] = {"value":self.rightsHolderEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/publisher"] = {"value":self.publisherLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/contributor"] = {"value":self.contributorEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
+        exports=["ttl","json"]
+        if self.tgfExportCBox.checkState():
+            exports.append("tgf")
+        if self.graphmlExportCBox.checkState():
+            exports.append("graphml")
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
-                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,progress,self.createIndexPages.checkState(),self.nonNSPagesCBox.checkState(),self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),logoname)
+                                        self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,
+                                progress,self.createIndexPages.checkState(),self.nonNSPagesCBox.checkState(),
+                                self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.deploymentURLEdit.text(),self.startConceptCBox.currentText(),logoname,self.offlinecompatCBox.checkState(),exports)
         QgsApplication.taskManager().addTask(self.qtask)

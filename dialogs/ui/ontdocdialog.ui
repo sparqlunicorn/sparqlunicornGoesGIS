@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>985</width>
-    <height>251</height>
+    <height>266</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,18 +18,11 @@
     <normaloff>:/icons/resources/icons/ontdoc.png</normaloff>:/icons/resources/icons/ontdoc.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="1">
-    <widget class="QComboBox" name="namespaceCBox">
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-     <property name="insertPolicy">
-      <enum>QComboBox::NoInsert</enum>
-     </property>
-    </widget>
+   <item row="7" column="1">
+    <widget class="QComboBox" name="licenseCBox"/>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="rdfFileLabel">
      <property name="toolTip">
       <string>Choose an RDF file to analyze</string>
      </property>
@@ -38,6 +31,16 @@
      </property>
      <property name="text">
       <string>RDF File:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="namespaceCBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="insertPolicy">
+      <enum>QComboBox::NoInsert</enum>
      </property>
     </widget>
    </item>
@@ -60,17 +63,14 @@
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="ontdocTitleLabel">
      <property name="text">
       <string>Create ontology documentation for data instances in this dialog</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QComboBox" name="licenseCBox"/>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_10">
+   <item row="7" column="0">
+    <widget class="QLabel" name="dataLicenseLabel">
      <property name="toolTip">
       <string>Choose a data license statement for your data</string>
      </property>
@@ -80,7 +80,7 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="namespaceLabel">
      <property name="toolTip">
       <string>Choose the data namespace to export to HTML</string>
      </property>
@@ -96,6 +96,13 @@
      </property>
     </widget>
    </item>
+   <item row="11" column="1">
+    <widget class="QPushButton" name="createDocumentationButton">
+     <property name="text">
+      <string>Create Documentation</string>
+     </property>
+    </widget>
+   </item>
    <item row="5" column="0">
     <widget class="QLabel" name="preferredLabelLangLabel">
      <property name="text">
@@ -103,17 +110,52 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="1">
-    <widget class="QPushButton" name="createDocumentationButton">
-     <property name="text">
-      <string>Create Documentation</string>
-     </property>
-    </widget>
+   <item row="9" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="createMetadataTableCBox">
+       <property name="text">
+        <string>Create Metadata Table</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="nonNSPagesCBox">
+       <property name="text">
+        <string>Create Pages for Non-Namespace URIs</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="1" column="2" rowspan="10">
+   <item row="8" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="additionalCollections">
+       <property name="text">
+        <string>Create Additional Collections</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="createIndexPages">
+       <property name="text">
+        <string>Create Index Pages</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
+   </item>
+   <item row="1" column="2" rowspan="11">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="stylingTab">
       <attribute name="title">
@@ -305,39 +347,12 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="dataExportTab">
+     <widget class="QWidget" name="apitab">
       <attribute name="title">
-       <string>Data Exports</string>
+       <string>Static APIs</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="1">
-        <widget class="QLabel" name="dataexportLabel">
-         <property name="text">
-          <string>Configure data exports which are generated per instance</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QCheckBox" name="jsonldExport">
-         <property name="text">
-          <string>JSON-LD Export</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="ttlExport">
-         <property name="text">
-          <string>TTL Export</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
+       <item row="6" column="1" colspan="2">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -350,12 +365,120 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="0" colspan="3">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mimic data provision APIs by generating additional JSON documents.&lt;/p&gt;&lt;p&gt;A valid deployment URL for the HTML documentation is needed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="deploymentURLEdit"/>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QCheckBox" name="iiifCBox">
+         <property name="text">
+          <string>IIIF Manifests (Images, Audio, Video, 3D Models)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="2">
+        <widget class="QCheckBox" name="ogcapifeaturesCBox">
+         <property name="text">
+          <string>OGC API Features (FeatureCollections)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="deploymentURLLabel">
+         <property name="text">
+          <string>Deployment URL:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="dataExports">
+      <attribute name="title">
+       <string>Data Exports</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="ttlExportCBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>TTL Export</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="graphmlExportCBox">
+         <property name="text">
+          <string>GraphML Export</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Select data exports to be generated per instance</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="jsonldExportCBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>JSON-LD Export</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="tgfExportCBox">
+         <property name="text">
+          <string>TGF Export</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="exportPathLabel">
      <property name="toolTip">
       <string>Choose a folder to export the HTML documentation to</string>
      </property>
@@ -364,47 +487,22 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QgsFileWidget" name="inputRDFFileWidget"/>
+   <item row="6" column="1">
+    <widget class="QComboBox" name="startConceptCBox"/>
    </item>
-   <item row="7" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QCheckBox" name="additionalCollections">
-       <property name="text">
-        <string>Create Additional Collections</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="createIndexPages">
-       <property name="text">
-        <string>Create Index Pages</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="6" column="0">
+    <widget class="QLabel" name="startConceptLabel">
+     <property name="text">
+      <string>Start Concept:</string>
+     </property>
+    </widget>
    </item>
-   <item row="8" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="createMetadataTableCBox">
-       <property name="text">
-        <string>Create Metadata Table</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="nonNSPagesCBox">
-       <property name="text">
-        <string>Create Pages for Non-Namespace URIs</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="10" column="1">
+    <widget class="QCheckBox" name="offlinecompatCBox">
+     <property name="text">
+      <string>Portable Version</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
