@@ -514,7 +514,7 @@ class OntDocGeneration:
                             res = self.exportToFunction[ex](subgraph,f, subjectstorender)
                             f.close()
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-                indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
+                indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(prefixnamespace,checkdepth)).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
                     .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
                 if nslink==prefixnamespace:
                     indexhtml=indexhtml.replace("{{indexpage}}","true")
@@ -557,14 +557,14 @@ class OntDocGeneration:
         if len(iiifmanifestpaths["default"]) > 0:
             self.generateIIIFCollections(self.outpath, iiifmanifestpaths["default"], prefixnamespace)
         if len(featurecollectionspaths)>0:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
+            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(prefixnamespace,0)).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             self.generateOGCAPIFeaturesPages(outpath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
                                              True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
-            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
+            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(prefixnamespace,0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
             indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -832,6 +832,12 @@ class OntDocGeneration:
                 return {"uri": str(self.prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
                         "ns": self.prefixes["reversed"][ns]}
         return None
+
+    def generateRelativePathFromGivenDepth(self,baseurl,checkdepth):
+        rellink = ""
+        for i in range(0, checkdepth):
+            rellink = "../" + rellink
+        return rellink
 
     def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
         rellink = str(item).replace(baseurl, "")
@@ -2046,14 +2052,14 @@ class OntDocGeneration:
                 myexports=nongeoexports
             itembibtex=""
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
@@ -2166,7 +2172,7 @@ class OntDocGeneration:
                 f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                        "[" + json.dumps(
                                                                                            jsonfeat) + "]").replace(
-                    "{{epsg}}", epsgcode).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
+                    "{{epsg}}", epsgcode).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
                                                                                                     epsgdefslink).replace(
                     "{{dateatt}}", ""))
             elif isgeocollection or nonns:
@@ -2231,12 +2237,12 @@ class OntDocGeneration:
                     if self.localOptimized:
                         f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                                "[" + json.dumps(
-                                                                                                   featcoll) + "]").replace(
+                                                                                                   featcoll) + "]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace(
                             "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
                             "{{dateatt}}", dateatt))
                     else:
                         f.write(maptemplate.replace("{{myfeature}}", "[\"" + self.shortenURI(
-                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{baselayers}}",
+                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}",
                                                                                                  json.dumps(
                                                                                                      self.baselayers)).replace(
                             "{{epsgdefspath}}", epsgdefslink).replace("{{dateatt}}", dateatt))
