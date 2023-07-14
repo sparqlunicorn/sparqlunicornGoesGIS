@@ -510,9 +510,8 @@ class OntDocGeneration:
                     subgraph.serialize(path + "index.ttl", encoding="utf-8")
                 for ex in self.exports:
                     if ex in self.exportToFunction:
-                        res = self.exportToFunction[ex](subgraph, subjectstorender)
                         with open(path + "index." + str(ex), 'w', encoding='utf-8') as f:
-                            f.write(res)
+                            res = self.exportToFunction[ex](subgraph,f, subjectstorender)
                             f.close()
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
@@ -591,61 +590,62 @@ class OntDocGeneration:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
 
-    def convertTTLToGraphML(self, g, subjectstorender=None):
+    def convertTTLToGraphML(self, g, file, subjectstorender=None):
         literalcounter = 0
         edgecounter = 0
-        graphmlres = """<?xml version="1.0" encoding="UTF-8"?>
+        file.write("""<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
-<key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">"""
+<key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
         if subjectstorender == None:
             subjectstorender = g.subjects()
         addednodes = set()
         for sub in subjectstorender:
-            graphmlres += "<node id=\"" + str(sub) + "\" uri=\"" + str(
+            file.write("<node id=\"" + str(sub) + "\" uri=\"" + str(
                 sub) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                self.shortenURI(sub)) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
+                self.shortenURI(sub)) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
             for tup in g.predicate_objects(sub):
                 if isinstance(tup[1], Literal):
-                    graphmlres += "<node id=\"literal" + str(literalcounter) + "\" uri=\"literal" + str(
+                    file.write("<node id=\"literal" + str(literalcounter) + "\" uri=\"literal" + str(
                         literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\"><![CDATA[" + str(
-                        tup[1]) + "]]></y:NodeLabel></y:ShapeNode></data></node>\n"
-                    graphmlres += "<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(
-                        tup[0]) + "\" source=\"" + str(sub) + "\" target=\"literal" + str(
+                        tup[1]) + "]]></y:NodeLabel></y:ShapeNode></data></node>\n")
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"literal" + str(
                         literalcounter) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                        self.shortenURI(str(tup[0]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n"
+                        self.shortenURI(str(tup[0]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
                     literalcounter += 1
                 else:
                     if tup[1] not in subjectstorender and str(tup[1]) not in addednodes:
-                        graphmlres += "<node id=\"" + str(tup[1]) + "\" uri=\"" + str(tup[
-                                                                                          1]) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                            self.shortenURI(str(tup[1]))) + "</y:NodeLabel></y:ShapeNode></data></node>\n"
+                        file.write("<node id=\"" + str(tup[1]) + "\" uri=\"" + str(tup[
+                                                                                       1]) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                            self.shortenURI(str(tup[1]))) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
                         addednodes.add(str(tup[1]))
-                    graphmlres += "<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(
-                        tup[0]) + "\" source=\"" + str(sub) + "\" target=\"" + str(tup[
-                                                                                       1]) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                        self.shortenURI(str(tup[1]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n"
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"" + str(tup[
+                                                        1]) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                        self.shortenURI(str(tup[1]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
                 edgecounter += 1
-        graphmlres += "</graph></graphml>"
-        return graphmlres
+        file.write("</graph></graphml>")
+        return None
 
-    def convertTTLToTGF(self,g,subjectstorender=None):
+    def convertTTLToTGF(self,g,file,subjectstorender=None):
         uriToNodeId={}
         nodecounter=0
-        tgfresnodes=""
         tgfresedges=""
         if subjectstorender==None:
             subjectstorender=g.subjects()
         for sub in subjectstorender:
             uriToNodeId[str(sub)]=nodecounter
-            tgfresnodes+=str(nodecounter)+" "+str(sub)+"\n"
+            file.write(str(nodecounter)+" "+str(sub)+"\n")
             nodecounter+=1
             for tup in g.predicate_objects(sub):
                 if str(tup[1]) not in uriToNodeId:
-                    tgfresnodes+=str(nodecounter)+" "+str(tup[1])+"\n"
+                    file.write(str(nodecounter)+" "+str(tup[1])+"\n")
                     uriToNodeId[str(tup[1])]=nodecounter
                     nodecounter+=1
-                tgfresedges+=uriToNodeId[str(sub)]+" "+str(uriToNodeId[str(tup[1])])+" "+str(self.shortenURI(tup[0]))+"\n"
-        return tgfresnodes+"#\n"+tgfresedges
+                tgfresedges+=str(uriToNodeId[str(sub)])+" "+str(uriToNodeId[str(tup[1])])+" "+str(self.shortenURI(tup[0]))+"\n"
+        file.write("#\n")
+        file.write(tgfresedges)
+        return None
 
     def createCollections(self,graph,namespace):
         classToInstances={}
