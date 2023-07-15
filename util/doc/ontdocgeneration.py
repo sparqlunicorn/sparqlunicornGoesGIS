@@ -156,10 +156,18 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/footer.html", 'r') as file:
                 global htmlfooter
                 htmlfooter=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/3dtemplate.html"):
-            with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
+        if os.path.exists(templatepath + "/" + templatename + "/templates/geoexports.html"):
+            with open(templatepath + "/" + templatename + "/templates/geoexports.html", 'r') as file:
+                global geoexports
+                geoexports = file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/nongeoexports.html"):
+            with open(templatepath + "/" + templatename + "/templates/nongeoexports.html", 'r') as file:
+                global nongeoexports
+                nongeoexports = file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/3dtemplate.html"):
+            with open(templatepath + "/" + templatename + "/templates/3dtemplate.html", 'r') as file:
                 global image3dtemplate
-                image3dtemplate=file.read()
+                image3dtemplate = file.read()
         if os.path.exists(templatepath + "/" + templatename + "/templates/threejstemplate.html"):
             with open(templatepath + "/" + templatename + "/templates/threejstemplate.html", 'r') as file:
                 global threejstemplate
