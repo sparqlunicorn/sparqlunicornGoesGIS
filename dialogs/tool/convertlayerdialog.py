@@ -48,7 +48,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
     def startConversion(self):
         layer = self.loadedLayers.currentLayer()
         filename, _filter = QFileDialog.getSaveFileName(
-            self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+            self, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
         if filename == "":
             return
         if filename.endswith("graphml"):

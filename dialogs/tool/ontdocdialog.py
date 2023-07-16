@@ -38,6 +38,8 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
+    exportData=256
+
     def __init__(self, languagemap,triplestoreconf={}, prefixes=None, parent=None,title="Ontology Documentation"):
         """Constructor."""
         super(OntDocDialog, self).__init__()
@@ -51,6 +53,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         model = QStandardItemModel()
         self.baseLayerListView.setModel(model)
         self.createCCLicenseCBOX()
+        #self.createExportCBox()
         self.deploymentURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.deploymentURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.deploymentURLEdit))
         self.deploymentURLEdit.textChanged.emit(self.deploymentURLEdit.text())
@@ -81,6 +84,31 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.licenseCBox.addItem(UIUtils.ccbyncndicon,"CC BY-NC-ND 4.0")
         self.licenseCBox.addItem(UIUtils.cczeroicon,"CC0")
 
+    def createExportCBox(self):
+        item=QStandardItem("GraphML Export")
+        item.setData("graphml",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("N3 Export")
+        item.setData("n3",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("NQuads Export")
+        item.setData("nq",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("NTriples Export")
+        item.setData("nt",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("TGF Export")
+        item.setData("tgf",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("Trig Export")
+        item.setData("trig",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("Trix Export")
+        item.setData("trix",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("TTL Export")
+        item.setData("ttl",self.exportData)
+        self.exportsCBox.addItem(item)
 
     def extractNamespaces(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.startConceptCBox,self.prefixes,None)
