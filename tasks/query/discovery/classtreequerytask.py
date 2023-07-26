@@ -24,7 +24,6 @@ notforclasstree = ["http://www.w3.org/2002/07/owl#Class", "http://www.w3.org/199
 
 class ClassTreeQueryTask(QgsTask):
 
-
     def __init__(self, description, triplestoreurl,dlg,treeNode,triplestoreconf,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
@@ -40,8 +39,17 @@ class ClassTreeQueryTask(QgsTask):
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
-                    SELECT DISTINCT ?subject ?label ?supertype (Bound(?hasgeo) AS ?hgeo)\n
+                    SELECT DISTINCT ?subject ?label ?supertype \n
                     WHERE {\n"""
+        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> rdfs:Class . } \n"
+        self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "")+ """ }"""
+        """
+        self.geoquery=PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
+                    SELECT DISTINCT ?subject ?label ?supertype (Bound(?hasgeo) AS ?hgeo)\n
+                    
+
         self.optionalpart=""
         if "geotriplepattern" in self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]:
             geotriplepattern=""
@@ -80,7 +88,6 @@ class ClassTreeQueryTask(QgsTask):
                 self.optionalpart = "OPTIONAL {BIND(EXISTS {?individual <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
                         "geometryproperty"]) + "> ?lit . ?lit ?a ?wkt } AS ?hasgeo)}"
-
             else:
                 self.optionalpart = "OPTIONAL {?individual <" + str(
                     self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()][
@@ -98,9 +105,8 @@ class ClassTreeQueryTask(QgsTask):
         elif self.optionalpart=="":
             #self.query += "{ ?individual <" + self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"] + "> ?subject . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class .  }  .\n"
             self.query=self.query.replace("(Bound(?hasgeo) AS ?hgeo)","").replace("?hasgeo","")
-        #
-        self.query += "{ ?individual <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> ?subject . "+str(self.optionalpart) +" } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> owl:Class . } UNION { ?subject <" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["typeproperty"]) + "> rdfs:Class . } \n"
-        self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "FILTER(LANG(?label) = \"" + str(self.preferredlang) + "\") ") + " " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "") + """ }"""
+        """
+
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)

@@ -71,7 +71,6 @@ class QueryLayerTask(QgsTask):
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
-
                 if crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:
@@ -87,7 +86,9 @@ class QueryLayerTask(QgsTask):
                 errormsg=""
                 self.vlayer.readSld(myStyleDoc,errormsg)
                 QgsMessageLog.logMessage( "Querying style definition III " + str(errormsg), MESSAGE_CATEGORY,Qgis.Info)
+            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.name()), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.isValid()), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Layer valid: " + str(self.vlayer.featureCount()), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def dropUnwantedKeys(self,properties):
@@ -263,8 +264,8 @@ class QueryLayerTask(QgsTask):
         #        self.geojson) + " non-geometry query results. You can retrieve them by allowing non-geometry queries!")
         #    msgBox.exec()
         #    return
-        QgsMessageLog.logMessage('Adding vlayer ' + str(self.geojson),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Adding vlayer ' + str(self.geojson),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         if self.progress!=None:
             self.progress.close()
         if self.vlayer!=None:
