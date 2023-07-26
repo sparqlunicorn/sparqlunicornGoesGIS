@@ -217,10 +217,10 @@ class OntDocGeneration:
         self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
-        self.exportToFunction = {"graphml": self.convertTTLToGraphML, "tgf": self.convertTTLToTGF,
-                                 "ttl": self.serializeRDF, "trig": self.serializeRDF, "xml": self.serializeRDF,
-                                 "trix": self.serializeRDF, "nt": self.serializeRDF, "n3": self.serializeRDF,
-                                 "nquads": self.serializeRDF}
+        self.exportToFunction = {"GRAPHML": self.convertTTLToGraphML, "TGF": self.convertTTLToTGF,
+                                 "TTL": self.serializeRDF, "TRIG": self.serializeRDF, "xml": self.serializeRDF,
+                                 "TRIX": self.serializeRDF, "NT": self.serializeRDF, "N3": self.serializeRDF,
+                                 "NQ": self.serializeRDF}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename

@@ -105,6 +105,9 @@
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="preferredLabelLangLabel">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The preferred language to be used in the HTML rendering (if available)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>Preferred Language:</string>
      </property>
@@ -155,7 +158,7 @@
    <item row="1" column="2" rowspan="11">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="stylingTab">
       <attribute name="title">
@@ -167,6 +170,9 @@
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="pageLogoLabel">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A logo which is shown on every page of the HTML template&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Page Logo:</string>
          </property>
@@ -207,6 +213,9 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="styleMainColorLabel">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The background color of the HTML template&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Style Main Color:</string>
          </property>
@@ -231,6 +240,9 @@
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="tableStyleColorLabel">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The table style color of the HTML template&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Table Style Color:</string>
          </property>
@@ -410,44 +422,31 @@
        <string>Data Exports</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Graph Exports:</string>
+       <item row="4" column="1">
+        <widget class="QgsCheckableComboBox" name="miscExportCBox">
+         <property name="enabled">
+          <bool>false</bool>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="cypherCBox">
-         <property name="text">
-          <string>Cypher Export</string>
-         </property>
+         <item>
+          <property name="text">
+           <string>CSV</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TSV</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="rdfExportsLabel">
          <property name="text">
           <string>RDF Exports:</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="ttlExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>TTL Export</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" colspan="2">
+       <item row="6" column="0" colspan="2">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -460,66 +459,17 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label">
+       <item row="4" column="0">
+        <widget class="QLabel" name="miscExportLabel">
          <property name="text">
-          <string>Select data exports to be generated per instance</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0" colspan="2">
-        <widget class="QCheckBox" name="jsonldExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>JSON-LD Export</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0" colspan="2">
-        <widget class="QCheckBox" name="tgfExportCBox">
-         <property name="text">
-          <string>TGF Export</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QgsCheckableComboBox" name="graphExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <item>
-          <property name="text">
-           <string>Cypher</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>GraphML</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>TGF</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="QCheckBox" name="graphmlExportCBox">
-         <property name="text">
-          <string>GraphML Export</string>
+          <string>Miscellaneous Exports:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QgsCheckableComboBox" name="rdfExportsCBox">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <item>
           <property name="text">
@@ -558,15 +508,8 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Geo Exports:</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="1">
-        <widget class="QgsCheckableComboBox" name="mComboBox">
+        <widget class="QgsCheckableComboBox" name="geoExportsCBox">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -577,9 +520,62 @@
          </item>
          <item>
           <property name="text">
+           <string>GeoJSON</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GeoURI</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>GML</string>
           </property>
          </item>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="graphExportsLabel">
+         <property name="text">
+          <string>Graph Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QgsCheckableComboBox" name="graphExportCBox">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Cypher</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GraphML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TGF</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="geoExportsLabel">
+         <property name="text">
+          <string>Geo Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="exportsLabel">
+         <property name="text">
+          <string>Select data exports to be generated per instance</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -601,6 +597,9 @@
    </item>
    <item row="6" column="0">
     <widget class="QLabel" name="startConceptLabel">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A concept which is shown on the start page of the HTML documentation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>Start Concept:</string>
      </property>
