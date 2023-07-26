@@ -155,7 +155,7 @@
    <item row="1" column="2" rowspan="11">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="stylingTab">
       <attribute name="title">
@@ -410,36 +410,24 @@
        <string>Data Exports</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="6" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Select data exports to be generated per instance</string>
+          <string>Graph Exports:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="jsonldExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="cypherCBox">
          <property name="text">
-          <string>JSON-LD Export</string>
+          <string>Cypher Export</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>RDF Exports:</string>
          </property>
         </widget>
        </item>
@@ -459,22 +447,140 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="graphmlExportCBox">
+       <item row="10" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>GraphML Export</string>
+          <string>Select data exports to be generated per instance</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="7" column="0" colspan="2">
+        <widget class="QCheckBox" name="jsonldExportCBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>JSON-LD Export</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="2">
         <widget class="QCheckBox" name="tgfExportCBox">
          <property name="text">
           <string>TGF Export</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QgsCheckableComboBox" name="exportsCBox"/>
+       <item row="2" column="1">
+        <widget class="QgsCheckableComboBox" name="graphExportCBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Cypher</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GraphML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TGF</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="QCheckBox" name="graphmlExportCBox">
+         <property name="text">
+          <string>GraphML Export</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QgsCheckableComboBox" name="rdfExportsCBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>JSON-LD</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>NT</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>N3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RDF/XML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TRIX</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TRIG</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TTL</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Geo Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QgsCheckableComboBox" name="mComboBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>KML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GML</string>
+          </property>
+         </item>
+        </widget>
        </item>
       </layout>
      </widget>
