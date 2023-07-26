@@ -1,4 +1,4 @@
-from rdflib import *
+from rdflib import Graph, Literal
 import os
 from pyshacl import validate
 from ...util.sparqlutils import SPARQLUtils

@@ -2,9 +2,11 @@
 from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
-from qgis.core import Qgis, QgsMessageLog
+from qgis.core import Qgis, QgsMessageLog, QgsFileDownloader
+from qgis.PyQt.QtCore import QUrl
 import os
 import re
+import urllib
 import shutil
 import json
 from pathlib import Path
@@ -87,6 +89,8 @@ maptemplate=""
 
 featurecollectionspaths={}
 
+rdfformats=["ttl","trix","trig","n3","nquads","nt","xml"]
+
 iiifmanifestpaths={"default":[]}
 
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
@@ -154,10 +158,18 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/footer.html", 'r') as file:
                 global htmlfooter
                 htmlfooter=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/3dtemplate.html"):
-            with open(templatepath+"/"+templatename+"/templates/3dtemplate.html", 'r') as file:
+        if os.path.exists(templatepath + "/" + templatename + "/templates/geoexports.html"):
+            with open(templatepath + "/" + templatename + "/templates/geoexports.html", 'r') as file:
+                global geoexports
+                geoexports = file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/nongeoexports.html"):
+            with open(templatepath + "/" + templatename + "/templates/nongeoexports.html", 'r') as file:
+                global nongeoexports
+                nongeoexports = file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/3dtemplate.html"):
+            with open(templatepath + "/" + templatename + "/templates/3dtemplate.html", 'r') as file:
                 global image3dtemplate
-                image3dtemplate=file.read()
+                image3dtemplate = file.read()
         if os.path.exists(templatepath + "/" + templatename + "/templates/threejstemplate.html"):
             with open(templatepath + "/" + templatename + "/templates/threejstemplate.html", 'r') as file:
                 global threejstemplate
@@ -184,7 +196,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,startconcept="",deployurl="",logoname="",templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -193,6 +205,8 @@ class OntDocGeneration:
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
         self.logoname=logoname
+        self.offlinecompat=offlinecompat
+        self.exports=exports
         self.startconcept = None
         if startconcept!="No Start Concept":
             self.startconcept=startconcept
@@ -203,10 +217,19 @@ class OntDocGeneration:
         self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
+        self.exportToFunction = {"graphml": self.convertTTLToGraphML, "tgf": self.convertTTLToTGF,
+                                 "ttl": self.serializeRDF, "trig": self.serializeRDF, "xml": self.serializeRDF,
+                                 "trix": self.serializeRDF, "nt": self.serializeRDF, "n3": self.serializeRDF,
+                                 "nquads": self.serializeRDF}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
         resolveTemplate(templatename)
+        if offlinecompat:
+            global htmltemplate
+            htmltemplate = self.createOfflineCompatibleVersion(outpath, htmltemplate)
+            global maptemplate
+            maptemplate = self.createOfflineCompatibleVersion(outpath, maptemplate)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
         self.createColl=createcollections
@@ -238,6 +261,73 @@ class OntDocGeneration:
         prefixes["reversed"]["http://www.opengis.net/ont/crs/"] = "geocrs"
         prefixes["reversed"]["http://www.ontology-of-units-of-measure.org/resource/om-2/"] = "om"
         prefixes["reversed"]["http://purl.org/meshsparql/"] = "msp"
+
+    def downloadFailed(self, error):
+        QgsMessageLog.logMessage("Downloader Error: " + str(error), "OntdocGeneration", Qgis.Info)
+
+
+    def createOfflineCompatibleVersion(self,outpath,myhtmltemplate):
+        QgsMessageLog.logMessage("OUTPATH: "+str(outpath), "OntdocGeneration", Qgis.Info)
+        if not os.path.isdir(outpath):
+            os.mkdir(outpath)
+        if not os.path.isdir(outpath+"/js"):
+            os.mkdir(outpath+"/js")
+        if not os.path.isdir(outpath+"/css"):
+            os.mkdir(outpath+"/css")
+        matched=re.findall(r'src="(http.*)"',myhtmltemplate)
+        for match in matched:
+            #download the library
+            if "</script>" in match:
+                for m in match.split("></script><script src="):
+                    m=m.replace("\"","")
+                    QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
+                    try:
+                        g = urllib.request.urlopen(m.replace("\"", ""))
+                        with open(outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], 'b+w') as f:
+                            f.write(g.read())
+                    except Exception as e:
+                        QgsMessageLog.logMessage(
+                            "Downloader: " + str(e),
+                            "OntdocGeneration", Qgis.Info)
+                    #dl = QgsFileDownloader(QUrl(m.replace("\"", "")), outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:])
+                    #dl.downloadError.connect(self.downloadFailed)
+                    #QgsMessageLog.logMessage("Downloader: "+m.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
+                    myhtmltemplate=myhtmltemplate.replace(m,"{{relativepath}}js/"+m[m.rfind("/")+1:])
+            else:
+                match=match.replace("\"","")
+                QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath) + str(os.sep)+"js"+str(os.sep)+ match[match.rfind("/") + 1:],
+                                         "OntdocGeneration", Qgis.Info)
+                try:
+                    g = urllib.request.urlopen(match.replace("\"", ""))
+                    with open(outpath + str(os.sep)+"js"+str(os.sep) + match[match.rfind("/") + 1:], 'b+w') as f:
+                        f.write(g.read())
+                except Exception as e:
+                    QgsMessageLog.logMessage(
+                    "Downloader: " + str(e),
+                    "OntdocGeneration", Qgis.Info)
+                #dl = QgsFileDownloader(QUrl(match.replace("\"","")), outpath + str(os.sep)+"js"+str(os.sep) + match[match.rfind("/") + 1:])
+                #dl.downloadError.connect(self.downloadFailed)
+                #QgsMessageLog.logMessage("Downloader: " +match.replace("\"","")+" - "+ str(dl), "OntdocGeneration", Qgis.Info)
+                myhtmltemplate=myhtmltemplate.replace(match,"{{relativepath}}js/"+match[match.rfind("/")+1:])
+        matched=re.findall(r'href="(http.*.css)"',myhtmltemplate)
+        for match in matched:
+            print(match.replace("\"",""))
+            match=match.replace("\"","")
+            QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+ str(outpath) +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:],
+                                     "OntdocGeneration", Qgis.Info)
+            try:
+                g = urllib.request.urlopen(match.replace("\"", ""))
+                with open(outpath +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:], 'b+w') as f:
+                    f.write(g.read())
+            except Exception as e:
+                QgsMessageLog.logMessage(
+                    "Downloader: " + str(e),
+                    "OntdocGeneration", Qgis.Info)
+            #dl = QgsFileDownloader(QUrl(match.replace("\"", "")), outpath +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:])
+            #dl.downloadError.connect(self.downloadFailed)
+            #QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
+            myhtmltemplate=myhtmltemplate.replace(match,"{{relativepath}}css/"+match[match.rfind("/")+1:])
+        return myhtmltemplate
 
     def processLicense(self):
         QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
@@ -338,9 +428,10 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=jsonindent, sort_keys=True))
             f.close()
-        if os.path.exists(outpath+"icons/"):
-            shutil.rmtree(outpath+"icons/")
-        shutil.copytree(templatepath+"/"+self.templatename+"/icons/", outpath+"icons/")
+        if self.offlinecompat:
+            if os.path.exists(outpath+"icons/"):
+                shutil.rmtree(outpath+"icons/")
+            shutil.copytree(templatepath+"/"+self.templatename+"/icons/", outpath+"icons/")
         prevtree=[]
         if os.path.exists(outpath + corpusid + '_classtree.js'):
             try:
@@ -413,74 +504,84 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
-        for path in paths:
-            subgraph=Graph(bind_namespaces="rdflib")
-            QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
-            checkdepth = self.checkDepthFromPath(path, outpath, path)-1
-            sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
-            classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
-            stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
-            scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
-            epsgdefslink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "epsgdefs.js", False)
-            vowllink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "vowl_result.js", False)
-            nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
-            for sub in subjectstorender:
-                if nslink in sub:
-                    for tup in self.graph.predicate_objects(sub):
-                        subgraph.add((sub, tup[0], tup[1]))
-            subgraph.serialize(path + "index.ttl",encoding="utf-8")
-            QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
-                .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
-            if nslink==prefixnamespace:
-                indexhtml=indexhtml.replace("{{indexpage}}","true")
-            else:
-                indexhtml = indexhtml.replace("{{indexpage}}", "false")
-            indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate.replace("{{vowlpath}}", "minivowl_result.js")
-            if self.startconcept != None and path == outpath and self.startconcept in uritotreeitem:
-                if self.createColl:
-                    indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
-                                 tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
-                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
-                                     "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
-                        prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
-                        self.startconcept) + "</a></p>"
+        if self.createIndexPages:
+            for path in paths:
+                subgraph=Graph(bind_namespaces="rdflib")
+                QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
+                checkdepth = self.checkDepthFromPath(path, outpath, path)-1
+                sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
+                classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
+                stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
+                scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
+                epsgdefslink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "epsgdefs.js", False)
+                vowllink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "vowl_result.js", False)
+                nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
+                for sub in subjectstorender:
+                    if nslink in sub:
+                        for tup in self.graph.predicate_objects(sub):
+                            subgraph.add((sub, tup[0], tup[1]))
+                for ex in self.exports:
+                    if ex in self.exportToFunction:
+                        if ex not in rdfformats:
+                            with open(path + "index."+str(ex), 'w', encoding='utf-8') as f:
+                                res=self.exportToFunction[ex](subgraph,f,subjectstorender,ex)
+                                f.close()
+                        else:
+                            self.exportToFunction[ex](subgraph,path + "index."+str(ex),subjectstorender,ex)
+                QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
+                relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,checkdepth)
+                indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
+                    .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
+                if nslink==prefixnamespace:
+                    indexhtml=indexhtml.replace("{{indexpage}}","true")
                 else:
-                    indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
-                                 tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
-                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
-                                     "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
-                        prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
-                        self.startconcept) + "</a></p>"
-            indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
-            for item in tree["core"]["data"]:
-                if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
-                    exitem=None
-                    for item2 in tree["core"]["data"]:
-                        if item2["parent"]==item["id"] and (item2["type"]=="instance" or item2["type"]=="geoinstance") and nslink in item2["id"]:
-                            checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
-                            exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
-                            break
-                    if exitem!=None:
-                        indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
-                        indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
-            indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
-            indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","")
-            #QgsMessageLog.logMessage(path)
-            with open(path + "index.html", 'w', encoding='utf-8') as f:
-                f.write(indexhtml)
-                f.close()
+                    indexhtml = indexhtml.replace("{{indexpage}}", "false")
+                indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate.replace("{{vowlpath}}", "minivowl_result.js")
+                if self.startconcept != None and path == outpath and self.startconcept in uritotreeitem:
+                    if self.createColl:
+                        indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
+                                     tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
+                                         "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
+                                         "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                            self.startconcept) + "</a></p>"
+                    else:
+                        indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
+                                     tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
+                                         "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
+                                         "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                            self.startconcept) + "</a></p>"
+                indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
+                for item in tree["core"]["data"]:
+                    if (item["type"]=="geoclass" or item["type"]=="class" or item["type"]=="featurecollection" or item["type"]=="geocollection") and "instancecount" in item and item["instancecount"]>0:
+                        exitem=None
+                        for item2 in tree["core"]["data"]:
+                            if item2["parent"]==item["id"] and (item2["type"]=="instance" or item2["type"]=="geoinstance") and nslink in item2["id"]:
+                                checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
+                                exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
+                                break
+                        if exitem!=None:
+                            indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
+                            indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
+                indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
+                indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","")
+                #QgsMessageLog.logMessage(path)
+                with open(path + "index.html", 'w', encoding='utf-8') as f:
+                    f.write(indexhtml)
+                    f.close()
         if len(iiifmanifestpaths["default"]) > 0:
             self.generateIIIFCollections(self.outpath, iiifmanifestpaths["default"], prefixnamespace)
         if len(featurecollectionspaths)>0:
-            indexhtml = htmltemplate.replace("{{logo}}",self.logoname).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
+            relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,0)
+            indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             self.generateOGCAPIFeaturesPages(outpath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
                                              True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
-            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
+            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(prefixnamespace,0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
             indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -505,6 +606,66 @@ class OntDocGeneration:
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
+
+    def serializeRDF(self,g,file,subjectstorender,formatt):
+        g.serialize(file,encoding="utf-8",format=formatt)
+
+    def convertTTLToGraphML(self, g, file, subjectstorender=None,formatt="graphml"):
+        literalcounter = 0
+        edgecounter = 0
+        file.write("""<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
+        if subjectstorender == None:
+            subjectstorender = g.subjects()
+        addednodes = set()
+        for sub in subjectstorender:
+            file.write("<node id=\"" + str(sub) + "\" uri=\"" + str(
+                sub) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                self.shortenURI(sub)) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
+            for tup in g.predicate_objects(sub):
+                if isinstance(tup[1], Literal):
+                    file.write("<node id=\"literal" + str(literalcounter) + "\" uri=\"literal" + str(
+                        literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\"><![CDATA[" + str(
+                        tup[1]) + "]]></y:NodeLabel></y:ShapeNode></data></node>\n")
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"literal" + str(
+                        literalcounter) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                        self.shortenURI(str(tup[0]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
+                    literalcounter += 1
+                else:
+                    if tup[1] not in subjectstorender and str(tup[1]) not in addednodes:
+                        file.write("<node id=\"" + str(tup[1]) + "\" uri=\"" + str(tup[
+                                                                                       1]) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                            self.shortenURI(str(tup[1]))) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
+                        addednodes.add(str(tup[1]))
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"" + str(tup[
+                                                        1]) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                        self.shortenURI(str(tup[1]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
+                edgecounter += 1
+        file.write("</graph></graphml>")
+        return None
+
+    def convertTTLToTGF(self,g,file,subjectstorender=None,formatt="tgf"):
+        uriToNodeId={}
+        nodecounter=0
+        tgfresedges=""
+        if subjectstorender==None:
+            subjectstorender=g.subjects()
+        for sub in subjectstorender:
+            uriToNodeId[str(sub)]=nodecounter
+            file.write(str(nodecounter)+" "+str(sub)+"\n")
+            nodecounter+=1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write(str(nodecounter)+" "+str(tup[1])+"\n")
+                    uriToNodeId[str(tup[1])]=nodecounter
+                    nodecounter+=1
+                tgfresedges+=str(uriToNodeId[str(sub)])+" "+str(uriToNodeId[str(tup[1])])+" "+str(self.shortenURI(tup[0]))+"\n"
+        file.write("#\n")
+        file.write(tgfresedges)
+        return None
 
     def createCollections(self,graph,namespace):
         classToInstances={}
@@ -547,16 +708,23 @@ class OntDocGeneration:
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
-        tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True}, "types": {
-            "default": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
+        tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True},
+        "types": {
             "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
-            "geoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png","valid_children":["class","halfgeoclass","geoclass","geoinstance"]},
-            "halfgeoclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
-            "collectionclass": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png"},
-            "geocollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png"},
-            "featurecollection": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/featurecollection.png"},
-            "instance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
-            "geoinstance": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
+            "geoclass": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoclass.png"},
+            "halfgeoclass": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/halfgeoclass.png"},
+            "collectionclass": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/collectionclass.png"},
+            "geocollection": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geometrycollection.png"},
+            "featurecollection": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/featurecollection.png"},
+            "instance": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/instance.png"},
+            "geoinstance": {
+                "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
         },
         "core": {"themes":{"responsive":True},"check_callback": True, "data": []}}
         result = []
@@ -691,6 +859,12 @@ class OntDocGeneration:
                 return {"uri": str(self.prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
                         "ns": self.prefixes["reversed"][ns]}
         return None
+
+    def generateRelativePathFromGivenDepth(self,baseurl,checkdepth):
+        rellink = ""
+        for i in range(0, checkdepth):
+            rellink = "../" + rellink
+        return rellink
 
     def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
         rellink = str(item).replace(baseurl, "")
@@ -1533,7 +1707,7 @@ class OntDocGeneration:
                             print(e)
                     if mergeJSON:
                         result.append(curcoll)
-        collectiontable += "</tbody></table>"
+                collectiontable += "</tbody></table>"
         if mergeJSON:
             with open(outpath + "/features.js", 'w', encoding="utf-8") as output_file:
                 output_file.write("var featurecolls=" + json.dumps(result))
@@ -1903,15 +2077,17 @@ class OntDocGeneration:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
+            itembibtex=""
+            relpath=self.generateRelativePathFromGivenDepth(baseurl,checkdepth)
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{logo}}",logo).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
@@ -2024,7 +2200,7 @@ class OntDocGeneration:
                 f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                        "[" + json.dumps(
                                                                                            jsonfeat) + "]").replace(
-                    "{{epsg}}", epsgcode).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
+                    "{{epsg}}", epsgcode).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
                                                                                                     epsgdefslink).replace(
                     "{{dateatt}}", ""))
             elif isgeocollection or nonns:
@@ -2089,12 +2265,12 @@ class OntDocGeneration:
                     if self.localOptimized:
                         f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                                "[" + json.dumps(
-                                                                                                   featcoll) + "]").replace(
+                                                                                                   featcoll) + "]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace(
                             "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
                             "{{dateatt}}", dateatt))
                     else:
                         f.write(maptemplate.replace("{{myfeature}}", "[\"" + self.shortenURI(
-                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{baselayers}}",
+                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}",
                                                                                                  json.dumps(
                                                                                                      self.baselayers)).replace(
                             "{{epsgdefspath}}", epsgdefslink).replace("{{dateatt}}", dateatt))

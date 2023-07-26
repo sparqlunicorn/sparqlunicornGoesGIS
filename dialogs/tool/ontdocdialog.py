@@ -38,6 +38,8 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
+    exportData=256
+
     def __init__(self, languagemap,triplestoreconf={}, prefixes=None, parent=None,title="Ontology Documentation"):
         """Constructor."""
         super(OntDocDialog, self).__init__()
@@ -51,6 +53,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         model = QStandardItemModel()
         self.baseLayerListView.setModel(model)
         self.createCCLicenseCBOX()
+        #self.createExportCBox()
         self.deploymentURLEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.deploymentURLEdit.textChanged.connect(lambda: UIUtils.check_state(self.deploymentURLEdit))
         self.deploymentURLEdit.textChanged.emit(self.deploymentURLEdit.text())
@@ -81,6 +84,31 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.licenseCBox.addItem(UIUtils.ccbyncndicon,"CC BY-NC-ND 4.0")
         self.licenseCBox.addItem(UIUtils.cczeroicon,"CC0")
 
+    def createExportCBox(self):
+        item=QStandardItem("GraphML Export")
+        item.setData("graphml",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("N3 Export")
+        item.setData("n3",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("NQuads Export")
+        item.setData("nq",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("NTriples Export")
+        item.setData("nt",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("TGF Export")
+        item.setData("tgf",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("Trig Export")
+        item.setData("trig",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("Trix Export")
+        item.setData("trix",self.exportData)
+        self.exportsCBox.addItem(item)
+        item=QStandardItem("TTL Export")
+        item.setData("ttl",self.exportData)
+        self.exportsCBox.addItem(item)
 
     def extractNamespaces(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.startConceptCBox,self.prefixes,None)
@@ -115,10 +143,15 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             tobeaddedperInd["http://purl.org/dc/terms/rightsHolder"] = {"value":self.rightsHolderEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/publisher"] = {"value":self.publisherLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/contributor"] = {"value":self.contributorEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
+        exports=["ttl","json"]
+        if self.tgfExportCBox.checkState():
+            exports.append("tgf")
+        if self.graphmlExportCBox.checkState():
+            exports.append("graphml")
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
                                         self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,
                                 progress,self.createIndexPages.checkState(),self.nonNSPagesCBox.checkState(),
-                                self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.startConceptCBox.currentText(),self.deploymentURLEdit.text(),logoname)
+                                self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.deploymentURLEdit.text(),self.startConceptCBox.currentText(),logoname,self.offlinecompatCBox.checkState(),exports)
         QgsApplication.taskManager().addTask(self.qtask)
