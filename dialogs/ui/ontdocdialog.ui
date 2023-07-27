@@ -410,44 +410,7 @@
        <string>Data Exports</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Graph Exports:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="cypherCBox">
-         <property name="text">
-          <string>Cypher Export</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>RDF Exports:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="ttlExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>TTL Export</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -460,60 +423,31 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Select data exports to be generated per instance</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0" colspan="2">
-        <widget class="QCheckBox" name="jsonldExportCBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>JSON-LD Export</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0" colspan="2">
-        <widget class="QCheckBox" name="tgfExportCBox">
-         <property name="text">
-          <string>TGF Export</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QgsCheckableComboBox" name="graphExportCBox">
+       <item row="3" column="1">
+        <widget class="QgsCheckableComboBox" name="geoExportCBox">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
           <property name="text">
-           <string>Cypher</string>
+           <string>KML</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>GraphML</string>
+           <string>GeoJSON</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>TGF</string>
+           <string>GeoURI</string>
           </property>
          </item>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="QCheckBox" name="graphmlExportCBox">
-         <property name="text">
-          <string>GraphML Export</string>
-         </property>
+         <item>
+          <property name="text">
+           <string>GML</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="1" column="1">
@@ -558,26 +492,78 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
+       <item row="2" column="0">
+        <widget class="QLabel" name="graphExportsLabel">
          <property name="text">
-          <string>Geo Exports:</string>
+          <string>Graph Exports:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QgsCheckableComboBox" name="mComboBox">
+       <item row="2" column="1">
+        <widget class="QgsCheckableComboBox" name="graphExportCBox">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <item>
           <property name="text">
-           <string>KML</string>
+           <string>Cypher</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>GML</string>
+           <string>GraphML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TGF</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="rdfExportsLabel">
+         <property name="text">
+          <string>RDF Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="dataExportIntroLabel">
+         <property name="text">
+          <string>Select data exports to be generated per instance</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="geoExportsLabel">
+         <property name="text">
+          <string>Geo Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Miscellaneous Exports:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QgsCheckableComboBox" name="miscExportCBox">
+         <item>
+          <property name="text">
+           <string>CSV</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SQL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TSV</string>
           </property>
          </item>
         </widget>
