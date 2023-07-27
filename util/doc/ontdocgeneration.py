@@ -89,9 +89,11 @@ maptemplate=""
 
 featurecollectionspaths={}
 
-rdfformats=["ttl","trix","trig","n3","nquads","nt","xml"]
+rdfformats=["TTL","TRIX","TRIG","N3","NQ","NT","XML","JSON-LD"]
 
 iiifmanifestpaths={"default":[]}
+
+imagetoURI={}
 
 nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
 
@@ -154,6 +156,10 @@ def resolveTemplate(templatename):
             with open(templatepath+"/"+templatename+"/templates/header.html", 'r') as file:
                 global htmltemplate
                 htmltemplate=file.read()
+        if os.path.exists(templatepath + "/" + templatename + "/templates/sparql.html"):
+            with open(templatepath + "/" + templatename + "/templates/sparql.html", 'r') as file:
+                global sparqltemplate
+                sparqltemplate = file.read()
         if os.path.exists(templatepath+"/"+templatename+"/templates/footer.html"):
             with open(templatepath+"/"+templatename+"/templates/footer.html", 'r') as file:
                 global htmlfooter
@@ -217,10 +223,10 @@ class OntDocGeneration:
         self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
-        self.exportToFunction = {"graphml": self.convertTTLToGraphML, "tgf": self.convertTTLToTGF,
-                                 "ttl": self.serializeRDF, "trig": self.serializeRDF, "xml": self.serializeRDF,
-                                 "trix": self.serializeRDF, "nt": self.serializeRDF, "n3": self.serializeRDF,
-                                 "nquads": self.serializeRDF}
+        self.exportToFunction = {"CYPHER":self.convertTTLToCypher,"GRAPHML": self.convertTTLToGraphML, "TGF": self.convertTTLToTGF,
+                                 "TTL": self.serializeRDF, "TRIG": self.serializeRDF, "xml": self.serializeRDF,
+                                 "TRIX": self.serializeRDF, "NT": self.serializeRDF, "N3": self.serializeRDF,
+                                 "NQ": self.serializeRDF}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
@@ -230,6 +236,8 @@ class OntDocGeneration:
             htmltemplate = self.createOfflineCompatibleVersion(outpath, htmltemplate)
             global maptemplate
             maptemplate = self.createOfflineCompatibleVersion(outpath, maptemplate)
+            global sparqltemplate
+            sparqltemplate=self.createOfflineCompatibleVersion(outpath,sparqltemplate)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
         self.createColl=createcollections
@@ -239,6 +247,7 @@ class OntDocGeneration:
             self.tablecolorcode=tablecolor
         self.license=license
         self.licenseuri=None
+        self.datasettitle=""
         self.labellang=labellang
         self.typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.createIndexPages=createIndexPages
@@ -329,6 +338,92 @@ class OntDocGeneration:
             myhtmltemplate=myhtmltemplate.replace(match,"{{relativepath}}css/"+match[match.rfind("/")+1:])
         return myhtmltemplate
 
+    def serializeRDF(self, g, file, subjectstorender, formatt):
+        g.serialize(file, encoding="utf-8", format=formatt.lower())
+
+    def convertTTLToCypher(self, g, file, subjectstorender=None, formatt="cypher"):
+        uriToNodeId = {}
+        nodecounter = 0
+        tgfresedges = ""
+        if subjectstorender == None:
+            subjectstorender = g.subjects()
+        for sub in subjectstorender:
+            uriToNodeId[str(sub)] = nodecounter
+            file.write("CREATE ( " + str(self.shortenURI(str(sub))) + "{ _id:'" + str(
+                self.shortenURI(str(sub))) + "', _uri:'" + str(sub) + "', rdfs_label:'" + str(
+                self.shortenURI(str(sub))) + "' })\n")
+            nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write("CREATE ( " + str(self.shortenURI(str(tup[1]))) + "{ _id:'" + str(
+                        self.shortenURI(str(tup[1]))) + "', _uri:'" + str(tup[1]) + "', rdfs_label:'" + str(
+                        self.shortenURI(str(tup[1]))) + "' })\n")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += "(" + str(uriToNodeId[str(sub)]) + ")-[:" + str(
+                    self.shortenURI(str(tup[1]))) + "]->(" + str(self.shortenURI(tup[0])) + "),\n"
+        file.write("\n\nCREATE ")
+        file.write(tgfresedges[0:-2] + "\n")
+        return None
+
+    def convertTTLToGraphML(self, g, file, subjectstorender=None, formatt="graphml"):
+        literalcounter = 0
+        edgecounter = 0
+        file.write("""<?xml version="1.0" encoding="UTF-8"?>
+    <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+    <key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
+        if subjectstorender == None:
+            subjectstorender = g.subjects()
+        addednodes = set()
+        for sub in subjectstorender:
+            file.write("<node id=\"" + str(sub) + "\" uri=\"" + str(
+                sub) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                self.shortenURI(sub)) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
+            for tup in g.predicate_objects(sub):
+                if isinstance(tup[1], Literal):
+                    file.write("<node id=\"literal" + str(literalcounter) + "\" uri=\"literal" + str(
+                        literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\"><![CDATA[" + str(
+                        tup[1]) + "]]></y:NodeLabel></y:ShapeNode></data></node>\n")
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"literal" + str(
+                        literalcounter) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                        self.shortenURI(str(tup[0]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
+                    literalcounter += 1
+                else:
+                    if tup[1] not in subjectstorender and str(tup[1]) not in addednodes:
+                        file.write("<node id=\"" + str(tup[1]) + "\" uri=\"" + str(tup[
+                                                                                       1]) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                            self.shortenURI(str(tup[1]))) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
+                        addednodes.add(str(tup[1]))
+                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
+                        sub) + "\" target=\"" + str(tup[
+                                                        1]) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
+                        self.shortenURI(str(tup[1]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
+                edgecounter += 1
+        file.write("</graph></graphml>")
+        return None
+
+    def convertTTLToTGF(self, g, file, subjectstorender=None, formatt="tgf"):
+        uriToNodeId = {}
+        nodecounter = 0
+        tgfresedges = ""
+        if subjectstorender == None:
+            subjectstorender = g.subjects()
+        for sub in subjectstorender:
+            uriToNodeId[str(sub)] = nodecounter
+            file.write(str(nodecounter) + " " + str(sub) + "\n")
+            nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write(str(nodecounter) + " " + str(tup[1]) + "\n")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += str(uriToNodeId[str(sub)]) + " " + str(uriToNodeId[str(tup[1])]) + " " + str(
+                    self.shortenURI(tup[0])) + "\n"
+        file.write("#\n")
+        file.write(tgfresedges)
+        return None
+
     def processLicense(self):
         QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
         if self.license==None or self.license=="" or self.license=="No License Statement":
@@ -398,6 +493,7 @@ class OntDocGeneration:
             vowlinstance=OWL2VOWL()
             vowlinstance.convertOWL2VOWL(self.graph,outpath)
         curlicense=self.processLicense()
+        self.licensehtml=curlicense
         subjectstorender = set()
         self.getPropertyRelations(self.graph, outpath)
         if self.createColl:
@@ -504,10 +600,11 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
+        self.generateIIIFAnnotations(outpath)
         if self.createIndexPages:
             for path in paths:
                 subgraph=Graph(bind_namespaces="rdflib")
-                QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
+                #QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
                 checkdepth = self.checkDepthFromPath(path, outpath, path)-1
                 sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
                 classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
@@ -524,7 +621,7 @@ class OntDocGeneration:
                     if ex in self.exportToFunction:
                         if ex not in rdfformats:
                             with open(path + "index."+str(ex), 'w', encoding='utf-8') as f:
-                                res=self.exportToFunction[ex](subgraph,f,subjectstorender,ex)
+                                self.exportToFunction[ex](subgraph,f,subjectstorender,ex)
                                 f.close()
                         else:
                             self.exportToFunction[ex](subgraph,path + "index."+str(ex),subjectstorender,ex)
@@ -562,18 +659,48 @@ class OntDocGeneration:
                                 exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
                                 break
                         if exitem!=None:
-                            indexhtml+="<tr><td><img src=\""+tree["types"][item["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item["type"]+"\"/><a href=\""+str(item["id"])+"\" target=\"_blank\">"+str(item["text"])+"</a></td>"
-                            indexhtml+="<td>"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
+                            if self.createColl:
+                                indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
+                                    "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
+                                                 "type"] + "\"/><a href=\"" + self.shortenURI(
+                                    str(item["id"])) + "_collection/index.html\" target=\"_blank\">" + str(
+                                    item["text"]) + "</a></td>"
+                            else:
+                                indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
+                                    "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
+                                                 "type"] + "\"/><a href=\"" + str(
+                                    item["id"]) + "\" target=\"_blank\">" + str(item["text"]) + "</a></td>"
+                            indexhtml += "<td>" + str(item["instancecount"]) + "</td>" + exitem + "</tr>"
                 indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
                 indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","")
                 #QgsMessageLog.logMessage(path)
                 with open(path + "index.html", 'w', encoding='utf-8') as f:
                     f.write(indexhtml)
                     f.close()
+            sparqlhtml = htmltemplate.replace("{{indexpage}}", "false").replace("{{iconprefixx}}", (
+                relpath + "icons/" if self.offlinecompat else "")).replace("{{deploypath}}", self.deploypath).replace(
+                "{{datasettitle}}", self.datasettitle).replace("{{logo}}", "").replace("{{baseurl}}",
+                                                                                       prefixnamespace).replace(
+                "{{relativedepth}}", "0").replace("{{relativepath}}", ".").replace("{{toptitle}}",
+                                                                                   "SPARQL Query Editor").replace(
+                "{{title}}", "SPARQL Query Editor").replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}",
+                                                                                                       stylelink).replace(
+                "{{vowlpath}}", vowllink) \
+                .replace("{{classtreefolderpath}}", classtreelink).replace("{{baseurlhtml}}", "").replace("{{subject}}",
+                                                                                                          "").replace(
+                "{{nonnslink}}", "").replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",
+                                                                                        nongeoexports).replace(
+                "{{versionurl}}", versionurl).replace("{{version}}", version).replace("{{bibtex}}", "")
+            sparqlhtml += sparqltemplate
+            sparqlhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace(
+                "{{bibtex}}", "")
+            with open(outpath + "sparql.html", 'w', encoding='utf-8') as f:
+                f.write(sparqlhtml)
+                f.close()
         if len(iiifmanifestpaths["default"]) > 0:
             self.generateIIIFCollections(self.outpath, iiifmanifestpaths["default"], prefixnamespace)
         if len(featurecollectionspaths)>0:
-            relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,0)
+            relpath=self.generateRelativePathFromGivenDepth("",0)
             indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
@@ -607,65 +734,7 @@ class OntDocGeneration:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
 
-    def serializeRDF(self,g,file,subjectstorender,formatt):
-        g.serialize(file,encoding="utf-8",format=formatt)
 
-    def convertTTLToGraphML(self, g, file, subjectstorender=None,formatt="graphml"):
-        literalcounter = 0
-        edgecounter = 0
-        file.write("""<?xml version="1.0" encoding="UTF-8"?>
-<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
-<key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
-        if subjectstorender == None:
-            subjectstorender = g.subjects()
-        addednodes = set()
-        for sub in subjectstorender:
-            file.write("<node id=\"" + str(sub) + "\" uri=\"" + str(
-                sub) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                self.shortenURI(sub)) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
-            for tup in g.predicate_objects(sub):
-                if isinstance(tup[1], Literal):
-                    file.write("<node id=\"literal" + str(literalcounter) + "\" uri=\"literal" + str(
-                        literalcounter) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#008000\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\"><![CDATA[" + str(
-                        tup[1]) + "]]></y:NodeLabel></y:ShapeNode></data></node>\n")
-                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
-                        sub) + "\" target=\"literal" + str(
-                        literalcounter) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                        self.shortenURI(str(tup[0]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
-                    literalcounter += 1
-                else:
-                    if tup[1] not in subjectstorender and str(tup[1]) not in addednodes:
-                        file.write("<node id=\"" + str(tup[1]) + "\" uri=\"" + str(tup[
-                                                                                       1]) + "\"><data key=\"nodekey\"><y:ShapeNode><y:Shape shape=\"ellipse\"></y:Shape><y:Fill color=\"#800080\" transparent=\"false\"></y:Fill><y:NodeLabel alignment=\"center\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                            self.shortenURI(str(tup[1]))) + "</y:NodeLabel></y:ShapeNode></data></node>\n")
-                        addednodes.add(str(tup[1]))
-                    file.write("<edge id=\"e" + str(edgecounter) + "\" uri=\"" + str(tup[0]) + "\" source=\"" + str(
-                        sub) + "\" target=\"" + str(tup[
-                                                        1]) + "\"><data key=\"edgekey\"><y:PolyLineEdge><y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hasText=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                        self.shortenURI(str(tup[1]))) + "</y:EdgeLabel></y:PolyLineEdge></data></edge>\n")
-                edgecounter += 1
-        file.write("</graph></graphml>")
-        return None
-
-    def convertTTLToTGF(self,g,file,subjectstorender=None,formatt="tgf"):
-        uriToNodeId={}
-        nodecounter=0
-        tgfresedges=""
-        if subjectstorender==None:
-            subjectstorender=g.subjects()
-        for sub in subjectstorender:
-            uriToNodeId[str(sub)]=nodecounter
-            file.write(str(nodecounter)+" "+str(sub)+"\n")
-            nodecounter+=1
-            for tup in g.predicate_objects(sub):
-                if str(tup[1]) not in uriToNodeId:
-                    file.write(str(nodecounter)+" "+str(tup[1])+"\n")
-                    uriToNodeId[str(tup[1])]=nodecounter
-                    nodecounter+=1
-                tgfresedges+=str(uriToNodeId[str(sub)])+" "+str(uriToNodeId[str(tup[1])])+" "+str(self.shortenURI(tup[0]))+"\n"
-        file.write("#\n")
-        file.write(tgfresedges)
-        return None
 
     def createCollections(self,graph,namespace):
         classToInstances={}
@@ -1057,10 +1126,10 @@ class OntDocGeneration:
                 #Check for SVG or WKT annotations (2D or 3D annotations)
                 for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value"),True):
                     if "<svg" in str(svglit):
-                        imageannos.add(str(svglit))
+                        imageannos.append(str(svglit))
                     elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(
                             svglit).upper()):
-                        image3dannos.add(str(svglit))
+                        image3dannos.append(str(svglit))
             if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
                     self.typeproperty) and tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#TextPositionSelector"):
@@ -1217,6 +1286,72 @@ class OntDocGeneration:
                     tablecontents += self.detectStringLiteralContent(pred,object)
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"timeobj":dateprops}
 
+    def detectStringLiteralContent(self,pred,object):
+        if object.startswith("http://") or object.startswith("https://"):
+            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"" + str(
+                        object)+ "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object)+ "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        elif object.startswith("www."):
+            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"http://" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">http://" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        elif re.search(r'(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)', str(object)):
+            return "<span><a property=\"" + str(pred) + "\" href=\"https://www.doi.org/" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#anyURI\">" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#anyURI\">xsd:anyURI</a>)</small></span>"
+        elif re.search(r'[\w.]+\@[\w.]+', object):
+            return "<span><a property=\"" + str(pred) + "\" href=\"mailto:" + str(
+                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">mailto:" + str(
+                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+        return "<span property=\"" + str(pred) + "\" content=\"" + str(object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object).replace("<","&lt").replace(">","&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
+
+
+    def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
+        label=self.getLabelForObject(URIRef(tup), graph,self.labellang)
+        tablecontents += "<td class=\"property\">"
+        if reverse:
+            tablecontents+="Is "
+        if baseurl in str(tup):
+            rellink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth,str(tup),True)
+            tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span>"
+        else:
+            res = self.replaceNameSpacesInLabel(tup)
+            if res != None:
+                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
+                    tup) + "\">" + label + " <span style=\"color: #666;\">(" + res["uri"] + ")</span></a></span>"
+            else:
+                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
+                    tup) + "\">" + label + "</a></span>"
+        if reverse:
+            tablecontents+=" of"
+        tablecontents += "</td>"
+        return tablecontents
+
+    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl,uritotreeitem,labeltouri):
+        QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
+        nonnsuris=len(uristorender)
+        counter=0
+        for uri in uristorender:
+            label=""
+            for tup in graph.predicate_objects(URIRef(uri)):
+                if str(tup[0]) in SPARQLUtils.labelproperties:
+                    label = str(tup[1])
+            if uri in uritotreeitem:
+                res = self.replaceNameSpacesInLabel(str(uri))
+                label = self.getLabelForObject(URIRef(str(uri)), graph, self.labellang)
+                if res != None and label != "":
+                    uritotreeitem[uri][-1]["text"] = label + " (" + res["uri"] + ")"
+                elif label != "":
+                    uritotreeitem[uri][-1]["text"] = label + " (" + self.shortenURI(uri) + ")"
+                else:
+                    uritotreeitem[uri][-1]["text"] = self.shortenURI(uri)
+                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
+                labeltouri[label] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
+            if counter%10==0:
+                self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
+            #QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
+            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
+            counter+=1
+
     def generateRelativeSymlink(self, linkpath, targetpath, outpath, items=False):
         if "nonns" in targetpath and not items:
             checkdepthtarget = 3
@@ -1230,6 +1365,36 @@ class OntDocGeneration:
         print("Linkpath: " + str(linkpath))
         targetrellink = targetrellink.replace(outpath, "")
         return targetrellink.replace("//", "/")
+
+    def generateIIIFAnnotations(self, outpath):
+        for imgpath in imagetoURI:
+            print("Generate IIIF Annotations for " + str(imgpath) + " with " + str(imagetoURI[imgpath]))
+            if "uri" in imagetoURI[imgpath]:
+                for ur in imagetoURI[imgpath]["uri"]:
+                    # print(ur)
+                    sur = self.shortenURI(ur)
+                    # print("Getting "+outpath+"/iiif/mf/"+sur+"/manifest.json")
+                    if os.path.exists(outpath + "/iiif/mf/" + sur + "/manifest.json") and "anno" in imagetoURI[imgpath]:
+                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'r', encoding="utf-8")
+                        curmanifest = json.loads(f.read())
+                        f.close()
+                        annocounter = 2
+                        for anno in imagetoURI[imgpath]["anno"]:
+                            anno["id"] = imgpath + "/canvas/p2/anno-" + str(annocounter)
+                            anno["target"]["source"] = imgpath + "/canvas/p1"
+                            if "bodies" in imagetoURI[imgpath]["uri"]:
+                                anno["body"] = [anno["body"]]
+                                anno["body"] += imagetoURI[imgpath]["uri"]["bodies"]
+                            curmanifest["items"][0]["annotations"][0]["items"].append(anno)
+                            annocounter += 1
+                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'w', encoding="utf-8")
+                        f.write(json.dumps(curmanifest))
+                        f.close()
+
+    def polygonToPath(self, svg):
+        svg = svg.replace("<polygon", "<path").replace("points=\"", "d=\"M").replace("\"></polygon>", " Z\"></polygon>")
+        return svg.replace("<svg>",
+                           "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">")
 
     def generateIIIFManifest(self, outpath, imgpaths, annos, curind, prefixnamespace, label="", summary="",
                              thetypes=None, predobjmap=None, maintype="Image"):
@@ -1732,71 +1897,7 @@ class OntDocGeneration:
             f.write(json.dumps(conformancejson))
             f.close()
 
-    def detectStringLiteralContent(self,pred,object):
-        if object.startswith("http://") or object.startswith("https://"):
-            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"" + str(
-                        object)+ "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object)+ "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        elif object.startswith("www."):
-            return "<span><a property=\"" + str(pred) + "\" target=\"_blank\" href=\"http://" + str(
-                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">http://" + str(
-                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        elif re.search(r'(10[.][0-9]{2,}(?:[.][0-9]+)*/(?:(?![%"#? ])\\S)+)', str(object)):
-            return "<span><a property=\"" + str(pred) + "\" href=\"https://www.doi.org/" + str(
-                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#anyURI\">" + str(
-                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#anyURI\">xsd:anyURI</a>)</small></span>"
-        elif re.search(r'[\w.]+\@[\w.]+', object):
-            return "<span><a property=\"" + str(pred) + "\" href=\"mailto:" + str(
-                object) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">mailto:" + str(
-                object) + "</a> <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
-        return "<span property=\"" + str(pred) + "\" content=\"" + str(object).replace("<","&lt").replace(">","&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/2001/XMLSchema#string\">" + str(object).replace("<","&lt").replace(">","&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/2001/XMLSchema#string\">xsd:string</a>)</small></span>"
 
-
-    def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
-        label=self.getLabelForObject(URIRef(tup), graph,self.labellang)
-        tablecontents += "<td class=\"property\">"
-        if reverse:
-            tablecontents+="Is "
-        if baseurl in str(tup):
-            rellink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth,str(tup),True)
-            tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span>"
-        else:
-            res = self.replaceNameSpacesInLabel(tup)
-            if res != None:
-                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                    tup) + "\">" + label + " <span style=\"color: #666;\">(" + res["uri"] + ")</span></a></span>"
-            else:
-                tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
-                    tup) + "\">" + label + "</a></span>"
-        if reverse:
-            tablecontents+=" of"
-        tablecontents += "</td>"
-        return tablecontents
-
-    def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl,uritotreeitem,labeltouri):
-        QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
-        nonnsuris=len(uristorender)
-        counter=0
-        for uri in uristorender:
-            label=""
-            for tup in graph.predicate_objects(URIRef(uri)):
-                if str(tup[0]) in SPARQLUtils.labelproperties:
-                    label = str(tup[1])
-            if uri in uritotreeitem:
-                res = self.replaceNameSpacesInLabel(str(uri))
-                label = self.getLabelForObject(URIRef(str(uri)), graph, self.labellang)
-                if res != None and label != "":
-                    uritotreeitem[uri][-1]["text"] = label + " (" + res["uri"] + ")"
-                elif label != "":
-                    uritotreeitem[uri][-1]["text"] = label + " (" + self.shortenURI(uri) + ")"
-                else:
-                    uritotreeitem[uri][-1]["text"] = self.shortenURI(uri)
-                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
-                labeltouri[label] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
-            if counter%10==0:
-                self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
-            QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
-            counter+=1
 
 
 
@@ -1865,8 +1966,8 @@ class OntDocGeneration:
             logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
         textannos = []
         foundvals=set()
-        imageannos=set()
-        image3dannos=set()
+        imageannos=[]
+        image3dannos=[]
         predobjmap={}
         isgeocollection=False
         comment={}
@@ -1958,7 +2059,7 @@ class OntDocGeneration:
                     labelmap={}
                     for item in predobjmap[tup]:
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
-                            image3dannos.add(str(item))
+                            image3dannos.append(str(item))
                         elif "<svg" in str(item):
                             foundmedia["image"].add(str(item))
                         elif "http" in str(item):
@@ -2106,7 +2207,7 @@ class OntDocGeneration:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
                         f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
             elif len(foundmedia["mesh"])>0 and len(image3dannos)==0:
-                QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
+                #QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
                         self.generateIIIFManifest(self.outpath, foundmedia["mesh"], image3dannos, str(subject),

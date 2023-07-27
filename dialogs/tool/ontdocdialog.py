@@ -84,32 +84,6 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         self.licenseCBox.addItem(UIUtils.ccbyncndicon,"CC BY-NC-ND 4.0")
         self.licenseCBox.addItem(UIUtils.cczeroicon,"CC0")
 
-    def createExportCBox(self):
-        item=QStandardItem("GraphML Export")
-        item.setData("graphml",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("N3 Export")
-        item.setData("n3",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("NQuads Export")
-        item.setData("nq",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("NTriples Export")
-        item.setData("nt",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("TGF Export")
-        item.setData("tgf",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("Trig Export")
-        item.setData("trig",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("Trix Export")
-        item.setData("trix",self.exportData)
-        self.exportsCBox.addItem(item)
-        item=QStandardItem("TTL Export")
-        item.setData("ttl",self.exportData)
-        self.exportsCBox.addItem(item)
-
     def extractNamespaces(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,self.namespaceCBox,self.startConceptCBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
@@ -143,11 +117,8 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
             tobeaddedperInd["http://purl.org/dc/terms/rightsHolder"] = {"value":self.rightsHolderEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/publisher"] = {"value":self.publisherLineEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
             tobeaddedperInd["http://purl.org/dc/terms/contributor"] = {"value":self.contributorEdit.text(),"uri":"http://xmlns.com/foaf/0.1/Person"}
-        exports=["ttl","json"]
-        if self.tgfExportCBox.checkState():
-            exports.append("tgf")
-        if self.graphmlExportCBox.checkState():
-            exports.append("graphml")
+        exports=["TTL","JSON"]
+        exports+=self.geoExportsCBox.checkedItems()+self.rdfExportsCBox.checkedItems()+self.graphExportsCBox.checkedItems()+self.miscExportsCBox.checkedItems()
         self.qtask = OntDocTask("Creating ontology documentation... ",
                                          graphname, namespace,self.prefixes,self.licenseCBox.currentText(),
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
