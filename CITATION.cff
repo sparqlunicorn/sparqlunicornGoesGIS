@@ -17,6 +17,9 @@ identifiers:
   - description: This is the collection of archived snapshots of all versions
     type: doi
     value: "10.5281/zenodo.3786814"
+  - description: This is the archived snapshot of version 0.16
+    type: doi
+    value: "10.5281/zenodo.8192848"
   - description: This is the archived snapshot of version 0.15
     type: doi
     value: "10.5281/zenodo.7304482"
