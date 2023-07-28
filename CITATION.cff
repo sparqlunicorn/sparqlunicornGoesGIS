@@ -9,10 +9,10 @@ authors:
   - name: "SPARQLing Unicorn QGIS Plugin by the Research Squirrel Engineers Network"
 title: "SPARQLing Unicorn QGIS Plugin"
 abstract: This plugin adds a GeoJSON layer from SPARQL endpoint queries.
-version: 0.15
+version: 0.16
 type: software
 doi: 10.5281/zenodo.3786814
-date-released: 2022-11-08
+date-released: 2023-07-28
 identifiers:
   - description: This is the collection of archived snapshots of all versions
     type: doi
@@ -65,4 +65,4 @@ preferred-citation:
       given-names: Timo
   title: "SPARQLing Unicorn QGIS Plugin"
   type: software
-  year: 2022
+  year: 2023
