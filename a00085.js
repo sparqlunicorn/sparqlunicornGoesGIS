@@ -1,7 +1,20 @@
 var a00085 =
 [
-    [ "__init__", "a00085.html#ac4d1b605d712900b0d04ce6788f32abe", null ],
-    [ "flags", "a00085.html#af775bd05363da54958bd28e5dbe4a2a9", null ],
-    [ "geocodeFeature", "a00085.html#a0a6b28ee63be5a1625de5b256fa3a06a", null ],
-    [ "endpointReverse", "a00085.html#a84a45817ab421efc1e1ac39ccfcff2f7", null ]
+    [ "__init__", "a00085.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
+    [ "addDefaultConfigurationParameters", "a00085.html#a82771cd4f04e72965618ce340ea9ecb0", null ],
+    [ "createCapabilityMessage", "a00085.html#ac2d9d02c106d1b6a3cf912e3efa1edf0", null ],
+    [ "detectEquivalentClasses", "a00085.html#a4c3813d297c22a10eeeca9f8129c0958", null ],
+    [ "detectEquivalentProperties", "a00085.html#aa74795873f7d527a2c0a8148687873fc", null ],
+    [ "detectGeometryLiteralRelations", "a00085.html#a91016df63ca738ab0444ed301bbf418c", null ],
+    [ "detectGeometryObjectRelations", "a00085.html#a775388a7d026d00670925645614fae01", null ],
+    [ "detectLiteralType", "a00085.html#a10dfb51d3a68c3a8042e0c95935dd094", null ],
+    [ "detectNamespaces", "a00085.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
+    [ "detectTripleStoreConfiguration", "a00085.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
+    [ "detectTripleStoreType", "a00085.html#aca8d177d3f7ceabe0c0ef700254a19a3", null ],
+    [ "testTripleStoreConnection", "a00085.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
+    [ "configuration", "a00085.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a00085.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "message", "a00085.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "testQueries", "a00085.html#ab8d466aab9fc4839ea58f2f2f717154c", null ],
+    [ "testURL", "a00085.html#aacac69f65111f90a0c0d4749ff99a530", null ]
 ];

@@ -1,11 +1,11 @@
 var a00081 =
 [
-    [ "__init__", "a00081.html#ae8ab5ffa5495e7eacbe9a86ab9b63ea8", null ],
-    [ "getSelected", "a00081.html#a6c7ac3af9d822a1125ccc14e7005b9a5", null ],
-    [ "setHighlighted", "a00081.html#a47706ce8363cc5ef40a774d742500b7f", null ],
-    [ "setModel", "a00081.html#ae1e36c2d842bf4fe8788f931d3d80e8a", null ],
-    [ "updateModel", "a00081.html#a90269ea4c6aa5645909d0d10f35e98e9", null ],
-    [ "insertText", "a00081.html#ad7e9e4dbb45732be7200fef92bc674a8", null ],
-    [ "lastSelected", "a00081.html#a8f1e195246a1ed7645f58bc8f7cc56a6", null ],
-    [ "source_model", "a00081.html#a82531dcb37eb09983a78b6a8d1db559f", null ]
+    [ "batchGeocoding", "a00081.html#a1e1db673cb3f81404bbc49da28391da2", null ],
+    [ "geocode", "a00081.html#a35b30e8af140cb5cb2ea47fb7d2f4064", null ],
+    [ "geocodeWithAPI", "a00081.html#a0641b54d090726c43f2e38b4d729ce93", null ],
+    [ "handleResponse", "a00081.html#af5af50facce4d4c1e55416043b1f6dd2", null ],
+    [ "networkrequest", "a00081.html#a846ec42f7586b3ddea32e1eacad2f411", null ],
+    [ "reversegeocodeWithAPI", "a00081.html#a3ce916d93f3c257588cb07ec090a6800", null ],
+    [ "manager", "a00081.html#a23416379944e641a8ad6bdbc95ef1859", null ],
+    [ "nominatimmap", "a00081.html#a87030b4985e39b57aeea787ef0af34b9", null ]
 ];
