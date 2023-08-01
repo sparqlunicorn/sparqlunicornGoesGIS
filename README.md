@@ -1,6 +1,6 @@
 # SPARQLing Unicorn QGIS Plugin
 
-[![CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml/badge.svg)](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3786814.svg)](https://doi.org/10.5281/zenodo.3786814)[![CITATION.cff](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml/badge.svg)](https://github.com/sparqlunicorn/sparqlunicornGoesGIS/actions/workflows/cffvalidator.yml)
 [![Join the chat at https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin](https://badges.gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin.svg)](https://gitter.im/Research-Squirrel-Engineers/sparqlunicornQGISPlugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This plugin adds a GeoJSON layer from SPARQL enpoint queries. The necessary python libs are bundled with the plugin.
