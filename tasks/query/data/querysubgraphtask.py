@@ -1,3 +1,4 @@
+from rdflib import Graph
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -29,6 +30,10 @@ class QuerySubGraphTask(QgsTask):
         if self.results==False:
             self.exception=SPARQLUtils.exception
             return False
+        else:
+            g = Graph()
+            g.parse(data=self.results, format="ttl")
+            self.results=g
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.results),
             MESSAGE_CATEGORY, Qgis.Info)
@@ -40,15 +45,18 @@ class QuerySubGraphTask(QgsTask):
     def finished(self, result):
         QgsMessageLog.logMessage('Finishing up..... ',
                                  MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(self.results),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         if self.progress!=None:
             self.progress.close()
         if self.exception!=None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
             return
-        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl","*.ttl")
+        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl","Linked Data (*.n3 *.nt *.trig *.ttl *.xml)")
         QgsMessageLog.logMessage(str(self.results),
                                  MESSAGE_CATEGORY, Qgis.Info)
         if filename:
-            f=open(str(filename[0]),"wb")
-            f.write(self.results)
+            fileextension=filename[0][filename[0].rfind('.')+1:]
+            f=open(str(filename[0]),"w",encoding="utf-8")
+            f.write(self.results.serialize(format=fileextension))
             f.close()
