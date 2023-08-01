@@ -19,6 +19,7 @@ var a00109 =
     [ "propertyVarPatternToUnion", "a00109.html#a373ca9b0d52c6772a439622a2f068fa0", null ],
     [ "queryPreProcessing", "a00109.html#a4490b9c0a0abb70b2867d7b1bb783a0b", null ],
     [ "resolvePropertyToTriplePattern", "a00109.html#a6510ed4f71963b30bd21498a0a8c9928", null ],
+    [ "selectQueryToConstructQuery", "a00109.html#aa8baaf20faf6ba2f1050882dc989e967", null ],
     [ "shortenLiteral", "a00109.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
     [ "addressproperties", "a00109.html#aff22325bb2af79521134cbb4ba9e3564", null ],
     [ "annotationnamespaces", "a00109.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
