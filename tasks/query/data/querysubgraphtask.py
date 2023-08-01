@@ -1,4 +1,5 @@
 from rdflib import Graph
+from ....util.export.graphexporter import GraphExporter
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -15,6 +16,10 @@ class QuerySubGraphTask(QgsTask):
         self.concept=concept
         self.querydepth=querydepth
         self.exception=None
+        self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GRAPHML": GraphExporter.convertTTLToGraphML, "TGF": GraphExporter.convertTTLToTGF,
+                                 "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
+                                 "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
+                                 "NQ": GraphExporter.serializeRDF}
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         if self.progress!=None:
@@ -52,11 +57,17 @@ class QuerySubGraphTask(QgsTask):
         if self.exception!=None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
             return
-        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl","Linked Data (*.n3 *.nt *.trig *.ttl *.xml)")
+        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl","Linked Data (*.n3 *.nt *.trig *.ttl *.xml) Graph Data (*.graphml *.tgf)")
         QgsMessageLog.logMessage(str(self.results),
                                  MESSAGE_CATEGORY, Qgis.Info)
         if filename:
-            fileextension=filename[0][filename[0].rfind('.')+1:]
-            f=open(str(filename[0]),"w",encoding="utf-8")
-            f.write(self.results.serialize(format=fileextension))
-            f.close()
+            ex=filename[0][filename[0].rfind('.')+1:].upper()
+            if ex in self.exportToFunction:
+                if ex in self.exportToFunction:
+                    if ex not in GraphExporter.rdfformats:
+                        with open(filename[0], 'w', encoding='utf-8') as f:
+                            self.exportToFunction[ex](self.results, f, None, ex)
+                            f.close()
+                    else:
+                        self.exportToFunction[ex](self.results, filename[0], None, ex)
+
