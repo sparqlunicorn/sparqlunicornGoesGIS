@@ -27,7 +27,7 @@ import re
 import json
 
 from qgis.PyQt import uic, QtWidgets
-from qgis.core import QgsMessageLog, Qgis,QgsApplication
+from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtCore import QItemSelectionModel
 from qgis.PyQt.QtGui import QIcon, QStandardItem
@@ -43,7 +43,8 @@ from .conf.preferencesdialog import PreferencesDialog
 from ..tasks.query.discovery.classtreequerytask import ClassTreeQueryTask
 from ..tasks.query.discovery.geocollectionsquerytask import GeoCollectionsQueryTask
 from ..tasks.query.discovery.geoconceptsquerytask import GeoConceptsQueryTask
-from ..tasks.query.querylayertask import QueryLayerTask
+from ..tasks.query.data.querysubgraphtask import QuerySubGraphTask
+from ..tasks.query.data.querylayertask import QueryLayerTask
 from .menu.conceptcontextmenu import ConceptContextMenu
 from .menu.tabcontextmenu import TabContextMenu
 from .tool.convertcrsdialog import ConvertCRSDialog
@@ -745,7 +746,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
 
-    def dataAllInstancesAsLayer(self,geoconstraint=None):
+
+    def dataAllInstancesAsLayer(self,construct=False,geoconstraint=None):
         curindex = self.currentProxyModel.mapToSource(self.currentContext.selectionModel().currentIndex())
         concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
         nodetype = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_nodetype)
@@ -753,28 +755,18 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "Querying all instances for " + concept,"Abort", 0, 0, self)
         progress.setWindowTitle("Query all instances")
         progress.setWindowModality(Qt.WindowModal)
+        thequery=""
         if nodetype==SPARQLUtils.geoclassnode or nodetype==SPARQLUtils.halfgeoclassnode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
-                thequery="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . \n"
+                thequery+="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
                     thequery+="OPTIONAL { "+geopat+" "
                     if geoconstraint!=None:
                         thequery+=geoconstraint
                     thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"
-                self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                    concept,
-                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                thequery,
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
             else:
-                self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                    concept,
-                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n } ORDER BY ?item",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+                thequery="SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> .\n ?item ?rel ?val .\n } ORDER BY ?item",
         elif nodetype == SPARQLUtils.collectionclassnode:
             if "geotriplepattern" in self.triplestoreconf[self.comboBox.currentIndex()]:
                 thequery ="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item . ?item ?rel ?val . \n"
@@ -784,24 +776,22 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                         thequery+=geoconstraint
                     thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"
-                self.qlayerinstance = QueryLayerTask(
-                "All Instances to Layer: " + str(concept),
-                    concept,
-                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                 thequery,
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
             else:
-                self.qlayerinstance = QueryLayerTask(
+                thequery="SELECT ?item ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item .\n ?item ?rel ?val .\n } ORDER BY ?item",
+        else:
+            thequery="SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n } ORDER BY ?item"
+        if construct:
+            self.qlayerinstance = QuerySubGraphTask(
                 "All Instances to Layer: " + str(concept),
-                    concept,
-                    self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item .\n ?item ?rel ?val .\n } ORDER BY ?item",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+                concept,
+                self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
+                thequery,
+                self.triplestoreconf[self.comboBox.currentIndex()],progress)
         else:
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(concept),
                 concept,
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
-                "SELECT ?item ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val .\n } ORDER BY ?item",
-                self.triplestoreconf[self.comboBox.currentIndex()],True, SPARQLUtils.labelFromURI(concept),progress)
+                thequery,
+                self.triplestoreconf[self.comboBox.currentIndex()], True, SPARQLUtils.labelFromURI(concept), progress)
         QgsApplication.taskManager().addTask(self.qlayerinstance)

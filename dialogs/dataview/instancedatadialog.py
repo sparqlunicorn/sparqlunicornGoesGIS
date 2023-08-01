@@ -10,7 +10,7 @@ from qgis.PyQt.QtGui import QStandardItemModel
 
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.instance.instancequerytask import InstanceQueryTask
-from ...tasks.query.querylayertask import QueryLayerTask
+from ...tasks.query.data.querylayertask import QueryLayerTask
 from ...util.sparqlutils import SPARQLUtils
 import os.path
 

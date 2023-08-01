@@ -10,11 +10,8 @@ from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsCoordinateReferenceSyst
     QgsApplication
 
 from ...tasks.query.discovery.instancesamplequerytask import InstanceSampleQueryTask
-from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.discovery.propertyschemaquerytask import PropertySchemaQueryTask
-from ...tasks.query.discovery.datasamplequerytask import DataSampleQueryTask
-from ...tasks.query.querylayertask import QueryLayerTask
 from ...util.sparqlutils import SPARQLUtils
 import os.path
 

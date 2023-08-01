@@ -1,8 +1,8 @@
 import json
 
-from ...util.style.styleutils import StyleUtils
-from ...util.layerutils import LayerUtils
-from ...util.sparqlutils import SPARQLUtils
+from ....util.style.styleutils import StyleUtils
+from ....util.layerutils import LayerUtils
+from ....util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
@@ -45,7 +45,7 @@ class QueryLayerTask(QgsTask):
             MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
-            SPARQLUtils.handleException(MESSAGE_CATEGORY)
+            self.exception=SPARQLUtils.exception
             return False
         QgsMessageLog.logMessage('Started task "{}"'.format(
             results),
@@ -252,11 +252,15 @@ class QueryLayerTask(QgsTask):
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
+            if self.progress != None:
+                self.progress.close()
             return
         if self.geojson == None and self.nongeojson==None:
             msgBox = QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
+            if self.progress != None:
+                self.progress.close()
             return
         #if self.geojson != None and isinstance(self.geojson, int) and not self.allownongeo:
         #    msgBox = QMessageBox()

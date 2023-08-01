@@ -8,7 +8,7 @@ from qgis.PyQt.QtCore import QUrl
 from ..dataview.clusterviewdialog import ClusterViewDialog
 from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
-from ...tasks.query.querylayertask import QueryLayerTask
+from ...tasks.query.data.querylayertask import QueryLayerTask
 from ..dataview.instancedatadialog import InstanceDataDialog
 from ...tasks.query.discovery.subclassquerytask import SubClassQueryTask
 from ...tasks.query.instance.instanceamountquerytask import InstanceAmountQueryTask
@@ -96,7 +96,11 @@ class ConceptContextMenu(QMenu):
             actionaddallInstancesAsLayer = QAction("Add all instances as new layer")
             actionaddallInstancesAsLayer.setIcon(UIUtils.addfeaturecollectionicon)
             menu.addAction(actionaddallInstancesAsLayer)
-            actionaddallInstancesAsLayer.triggered.connect(lambda: self.dlg.dataAllInstancesAsLayer(None))
+            actionaddallInstancesAsLayer.triggered.connect(lambda: self.dlg.dataAllInstancesAsLayer(False,None))
+            actionallInstancesAsRDF = QAction("Instances as RDF")
+            actionallInstancesAsRDF.setIcon(UIUtils.addfeaturecollectionicon)
+            menu.addAction(actionallInstancesAsRDF)
+            actionallInstancesAsRDF.triggered.connect(lambda: self.dlg.dataAllInstancesAsLayer(True,None))
         else:
             actiondataschemainstance = QAction("Query data")
             if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.instancenode:
@@ -152,7 +156,7 @@ class ConceptContextMenu(QMenu):
         bboxdia=BBOXDialog(None,self.triplestoreconf)
         if bboxdia.exec():
             bboxcon=bboxdia.curquery
-            self.dlg.dataAllInstancesAsLayer(bboxcon)
+            self.dlg.dataAllInstancesAsLayer(False,bboxcon)
 
     def queryLimitedInstances(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)

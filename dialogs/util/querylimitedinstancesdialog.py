@@ -5,7 +5,7 @@ import os
 from qgis.core import QgsApplication
 
 from ...util.ui.uiutils import UIUtils
-from ...tasks.query.querylayertask import QueryLayerTask
+from ...tasks.query.data.querylayertask import QueryLayerTask
 from ...util.sparqlutils import SPARQLUtils
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(

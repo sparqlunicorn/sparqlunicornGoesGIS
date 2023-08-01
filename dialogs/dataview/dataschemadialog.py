@@ -13,7 +13,7 @@ from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.discovery.dataschemaquerytask import DataSchemaQueryTask
 from ...tasks.query.discovery.datasamplequerytask import DataSampleQueryTask
-from ...tasks.query.querylayertask import QueryLayerTask
+from ...tasks.query.data.querylayertask import QueryLayerTask
 from ...util.sparqlutils import SPARQLUtils
 import os.path
 

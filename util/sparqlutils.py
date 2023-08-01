@@ -399,14 +399,14 @@ class SPARQLUtils:
                 if len(query)>2000:
                     raise Exception
                 results = sparql.queryAndConvert()
+                QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
                 #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-                if "status_code" in results:
+                if isinstance(results,dict) and "status_code" in results:
                     #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     raise Exception
             except Exception as e:
                 try:
-                    sparql = SPARQLWrapper(triplestoreurl["url"],
-                                           agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+                    sparql = SPARQLWrapper(triplestoreurl["url"],agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                     sparql.setQuery(query)
                     if triplestoreconf != None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                             and triplestoreconf["auth"]["userCredential"] != "" \
@@ -425,8 +425,9 @@ class SPARQLUtils:
                     sparql.setMethod(POST)
                     sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
+                    QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
                     #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-                    if "status_code" in results:
+                    if isinstance(results,dict) and "status_code" in results:
                         SPARQLUtils.exception = str(results)
                         raise Exception
                 except:
@@ -441,8 +442,8 @@ class SPARQLUtils:
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:
                 results=json.loads(graph.query(query).serialize(format="json"))
-                QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
@@ -775,6 +776,22 @@ class SPARQLUtils:
         if propidcleaned in triplestoreconf:
             return SPARQLUtils.patternsToUnion(triplestoreconf[propidcleaned],propvar,itemvar)
         return ""
+
+    @staticmethod
+    def selectQueryToConstructQuery(query):
+        mquery=query[query.find("WHERE"):query.rfind("}")+1]
+        query=query[query.find("WHERE"):]
+        constructpart=""
+        for line in mquery.split("\n"):
+            if "BIND" in line or "FILTER" in line or "EXISTS" in line:
+                continue
+            elif "OPTIONAL" in line:
+                constructpart += line[0:line.rfind("}")].replace("OPTIONAL {","") + "\n"
+            else:
+                constructpart+=line+"\n"
+        result="CONSTRUCT \n"+constructpart.replace("WHERE","")+"\n"+query
+        QgsMessageLog.logMessage('SELECT TO CONSTRUCT '+str(result), MESSAGE_CATEGORY,Qgis.Info)
+        return result
 
     @staticmethod
     def resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False,asUnion=True):
