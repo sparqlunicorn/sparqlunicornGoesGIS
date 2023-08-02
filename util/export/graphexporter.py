@@ -88,20 +88,27 @@ class GraphExporter:
         uriToNodeId = {}
         nodecounter = 0
         tgfresedges = ""
+        sepchar=" "
         if subjectstorender == None:
             subjectstorender = g.subjects()
+        if formatt=="gdf":
+            sepchar=","
+            file.write("nodedef>name VARCHAR,label VARCHAR")
         for sub in subjectstorender:
             uriToNodeId[str(sub)] = nodecounter
-            file.write(str(nodecounter) + " " + str(sub) + "\n")
+            file.write(str(nodecounter) + sepchar + str(sub) + "\n")
             nodecounter += 1
             for tup in g.predicate_objects(sub):
                 if str(tup[1]) not in uriToNodeId:
-                    file.write(str(nodecounter) + " " + str(tup[1]) + "\n")
+                    file.write(str(nodecounter) + sepchar + str(tup[1]) + "\n")
                     uriToNodeId[str(tup[1])] = nodecounter
                     nodecounter += 1
-                tgfresedges += str(uriToNodeId[str(sub)]) + " " + str(uriToNodeId[str(tup[1])]) + " " + str(
+                tgfresedges += str(uriToNodeId[str(sub)]) + sepchar + str(uriToNodeId[str(tup[1])]) + sepchar + str(
                     GraphExporter.shortenURI(tup[0])) + "\n"
-        file.write("#\n")
+        if formatt=="gdf":
+            file.write("edgedef>node1 VARCHAR,node2 VARCHAR,label VARCHAR\n")
+        else:
+            file.write("#\n")
         file.write(tgfresedges)
         return None
 
