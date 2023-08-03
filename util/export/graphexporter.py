@@ -137,6 +137,32 @@ class GraphExporter:
         return None
 
     @staticmethod
+    def convertTTLToTLP(g, file, subjectstorender=None, formatt="tgf"):
+        uriToNodeId = {}
+        nodecounter = 0
+        edgecounter=0
+        tgfresedges = ""
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        file.write("(tlp \"2.0\"\nnodes(")
+        for sub in subjectstorender:
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write(str(nodecounter)+" ")
+                nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write(str(nodecounter)+" ")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += "(edge "+str(edgecounter)+" "+str(uriToNodeId[str(sub)]) + " " + str(uriToNodeId[str(tup[1])])+")\n"
+                edgecounter+=1
+        file.write(")\n")
+        file.write(tgfresedges)
+        file.write("\n)\n")
+        return None
+
+    @staticmethod
     def convertTTLToGEXF(g,file,subjectstorender,formatt):
         uriToNodeId = {}
         nodecounter = 0
