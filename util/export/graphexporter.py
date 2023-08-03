@@ -113,5 +113,31 @@ class GraphExporter:
         return None
 
     @staticmethod
+    def convertTTLToGEXF(g,file,subjectstorender,formatt):
+        uriToNodeId = {}
+        nodecounter = 0
+        edges = "<edges>"
+        edgecounter=0
+        file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gexf xmlns=\"http://gexf.net/1.2\" version=\"1.2\">\n<graph mode=\"static\" defaultedgetype=\"directed\">\n<nodes>\n")
+        if subjectstorender == None:
+            subjectstorender = g.subjects()
+        for sub in subjectstorender:
+            uriToNodeId[str(sub)] = nodecounter
+            file.write("<node id=\""+str(nodecounter)+"\" uri=\""+str(sub)+"\" label=\""+str(GraphExporter.shortenURI(sub))+"\"/>\n")
+            nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write("<node id=\"" + str(nodecounter) + "\" uri=\""+str(tup[1])+"\" label=\"" + str(GraphExporter.shortenURI(tup[1]) + "\"/>\n"))
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                edges += "<edge uri=\"\" id=\""+str(edgecounter)+"\" source=\""+str(uriToNodeId[sub])+"\" target=\""+str(uriToNodeId[tup[1]])+"\" label=\""+str(GraphExporter.shortenURI(tup[0])) + "\"/>\n"
+                edgecounter+=1
+        file.write("#\n")
+        file.write(edges)
+        file.write("</edges>\n</graph>\n</gexf>")
+        return None
+
+
+    @staticmethod
     def serializeRDF(g, file, subjectstorender, formatt):
         g.serialize(file, encoding="utf-8", format=formatt.lower())
