@@ -85,6 +85,28 @@ class GraphExporter:
         return None
 
     @staticmethod
+    def convertTTLToGML(g, file, subjectstorender=None, formatt="graphml"):
+        literalcounter = 0
+        file.write("""graph\n[\n""")
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        addednodes = set()
+        for sub in subjectstorender:
+            file.write("node\n[\nid "+str(sub)+"\nlabel \""+GraphExporter.shortenURI(str(sub))+"\"\n]\n")
+            for tup in g.predicate_objects(sub):
+                if isinstance(tup[1], Literal):
+                    file.write("node\n[\nid literal"+str(literalcounter)+"\nlabel \""+GraphExporter.shortenURI(str(tup[1]))+"\"\n]\n")
+                    file.write("edge\n[\nsource " + str(sub) + "\n target literal" + str(literalcounter) + "\nlabel \""+GraphExporter.shortenURI(str(tup[0]))+"\"\n]\n")
+                    literalcounter += 1
+                else:
+                    if tup[1] not in subjectstorender and str(tup[1]) not in addednodes:
+                        file.write("node\n[\nid " + str(tup[1]) + "\nlabel \"" + GraphExporter.shortenURI(str(tup[1])) + "\"\n]\n")
+                        addednodes.add(str(tup[1]))
+                    file.write("edge \n[\n source " + str(sub) + "\n target " + str(tup[1]) + "\n label \""+GraphExporter.shortenURI(str(tup[0]))+"\"")
+        file.write("\n]\n")
+        return None
+
+    @staticmethod
     def convertTTLToTGF(g, file, subjectstorender=None, formatt="tgf"):
         uriToNodeId = {}
         nodecounter = 0
@@ -92,7 +114,7 @@ class GraphExporter:
         sepchar=" "
         if subjectstorender == None:
             subjectstorender = g.subjects(None,None,True)
-        if formatt=="gdf":
+        if formatt=="GDF":
             sepchar=","
             file.write("nodedef>name VARCHAR,label VARCHAR")
         for sub in subjectstorender:
