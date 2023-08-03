@@ -63,11 +63,10 @@ class QuerySubGraphTask(QgsTask):
         if filename:
             ex=filename[0][filename[0].rfind('.')+1:].upper()
             if ex in self.exportToFunction:
-                if ex in self.exportToFunction:
-                    if ex not in GraphExporter.rdfformats:
-                        with open(filename[0], 'w', encoding='utf-8') as f:
-                            self.exportToFunction[ex](self.results, f, None, ex)
-                            f.close()
-                    else:
-                        self.exportToFunction[ex](self.results, filename[0], None, ex)
+                if ex not in GraphExporter.rdfformats:
+                    with open(filename[0], 'w', encoding='utf-8') as f:
+                        self.exportToFunction[ex](self.results, f, None, ex)
+                        f.close()
+                else:
+                    self.exportToFunction[ex](self.results, filename[0], None, ex)
 
