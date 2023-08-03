@@ -1,0 +1,151 @@
+<link href="https://unpkg.com/@triply/yasgui/build/yasgui.min.css" rel="stylesheet" type="text/css"/>
+<script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
+<script src="https://rdf.js.org/comunica-browser/versions/v2/engines/query-sparql/comunica-browser.js"></script>
+<div id="yasgui">
+    <button id="query" onClick="queryFile()" className="yasqe_queryButton query_valid">
+        <div className="svgImg queryIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="81.9" width="72.9" version="1.1" y="0px" x="0px" viewBox="0 0 72.900002 81.900002" aria-hidden="true"><path id="queryIcon" d="m69.6 35.2-60.3-34.3c-2.2-1.2-4.4-1.2-6.4 0s-2.9 3.4-2.9 5.6v68.8c0 2.2 1.2 4.4 2.9 5.6 1 0.5 2.2 1 3.4 1s2.2-0.5 2.9-1l60.3-34.3c2.2-1.2 3.4-3.4 3.4-5.6s-1.1-4.3-3.3-5.8z"></path><path
+                    id="loadingIcon"
+                    d="m61.184 36.167-48.73-27.719c-1.7779-0.96976-3.5558-0.96976-5.172 0-1.6163 0.96976-2.3436 2.7476-2.3436 4.5255v55.599c0 1.7779 0.96976 3.5558 2.3436 4.5255 0.80813 0.40407 1.7779 0.80813 2.7476 0.80813 0.96975 0 1.7779-0.40406 2.3436-0.80813l48.73-27.719c1.7779-0.96976 2.7476-2.7476 2.7476-4.5255s-0.88894-3.475-2.6668-4.6872z"
+                    fill="none"></path></svg>
+        </div>
+    </button>
+</div>
+<script language="JavaScript">
+    class Geo {
+        // A priority value. If multiple plugin support rendering of a result, this value is used
+        // to select the correct plugin
+        priority = 10;
+
+        // Whether to show a select-button for this plugin
+        hideFromSelection = false;
+
+        constructor(yasr) {
+            this.yasr = yasr;
+        }
+
+        // Draw the resultset.
+        draw() {
+            const el = document.createElement("div");
+            el.setAttribute("id", "map");
+            el.setAttribute("class", "leaflet leaflet-container leaflet-touch leaflet-fade-anim leaflet-touch-zoom");
+            this.yasr.resultsEl.appendChild(el);
+            var wkt = new Wkt.Wkt();
+            for (var key in this.yasr.results.json.results.bindings) {
+                wkt.read(this.yasr.results.json.results.bindings[key].wkt.value);
+                var feature = {
+                    "type": "Feature",
+                    'properties': {"name": this.yasr.results.json.results.bindings[key].wktTooltip.value},
+                    "geometry": wkt.toJson()
+                };
+                L.geoJson(feature, {
+                    style: function (feature) {
+                        return {
+                            color: "#a50026",
+                            radius: 6,
+                            weight: 0,
+                            opacity: 0.6,
+                            fillOpacity: 0.6,
+                        };
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        return new L.CircleMarker(latlng, {
+                            radius: 10,
+                            fillOpacity: 0.85
+                        });
+                    }
+                }).bindTooltip(function (layer) {
+                        return layer.feature.properties.name;
+                    }
+                ).addTo(map);
+            }
+        }
+
+        canHandleResults() {
+            const vars = this.yasr.results.getVariables();
+            return !!this.yasr.results && vars.includes("geo");
+        }
+
+        // A required function, used to identify the plugin, works best with an svg
+        getIcon() {
+            const textIcon = document.createElement("div");
+            textIcon.classList.add("svgImg");
+            const svg = document.createElement("svg");
+            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            svg.setAttribute("viewBox", "0 0 510 512");
+            svg.setAttribute("aria-hidden", "true");
+            const path = document.createElement("path");
+            path.setAttribute("fill", "currentColor");
+            path.setAttribute("d", "M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm160 215.5v6.93c0 5.87-3.32 11.24-8.57 13.86l-15.39 7.7a15.485 15.485 0 0 1-15.53-.97l-18.21-12.14a15.52 15.52 0 0 0-13.5-1.81l-2.65.88c-9.7 3.23-13.66 14.79-7.99 23.3l13.24 19.86c2.87 4.31 7.71 6.9 12.89 6.9h8.21c8.56 0 15.5 6.94 15.5 15.5v11.34c0 3.35-1.09 6.62-3.1 9.3l-18.74 24.98c-1.42 1.9-2.39 4.1-2.83 6.43l-4.3 22.83c-.62 3.29-2.29 6.29-4.76 8.56a159.608 159.608 0 0 0-25 29.16l-13.03 19.55a27.756 27.756 0 0 1-23.09 12.36c-10.51 0-20.12-5.94-24.82-15.34a78.902 78.902 0 0 1-8.33-35.29V367.5c0-8.56-6.94-15.5-15.5-15.5h-25.88c-14.49 0-28.38-5.76-38.63-16a54.659 54.659 0 0 1-16-38.63v-14.06c0-17.19 8.1-33.38 21.85-43.7l27.58-20.69a54.663 54.663 0 0 1 32.78-10.93h.89c8.48 0 16.85 1.97 24.43 5.77l14.72 7.36c3.68 1.84 7.93 2.14 11.83.84l47.31-15.77c6.33-2.11 10.6-8.03 10.6-14.7 0-8.56-6.94-15.5-15.5-15.5h-10.09c-4.11 0-8.05-1.63-10.96-4.54l-6.92-6.92a15.493 15.493 0 0 0-10.96-4.54H199.5c-8.56 0-15.5-6.94-15.5-15.5v-4.4c0-7.11 4.84-13.31 11.74-15.04l14.45-3.61c3.74-.94 7-3.23 9.14-6.44l8.08-12.11c2.87-4.31 7.71-6.9 12.89-6.9h24.21c8.56 0 15.5-6.94 15.5-15.5v-21.7C359.23 71.63 422.86 131.02 441.93 208H423.5c-8.56 0-15.5 6.94-15.5 15.5z");
+            svg.appendChild(path);
+            textIcon.appendChild(svg);
+            return textIcon;
+        }
+
+    }
+
+    Yasr.registerPlugin("Geo", Geo);
+</script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const endpoint = urlParams.get('endpoint');
+    const thequery = urlParams.get('query');
+    const yasgui = new Yasgui(document.getElementById("yasgui"), {
+        "pluginOrder": ["response", "table"],
+        "yasqe": {"showQueryButton": false},
+        "requestConfig": {"endpoint": endpoint},
+        "copyEndpointOnNewTab": false
+    });
+    if (typeof (thequery) !== 'undefined' && thequery != null) {
+        yasgui.getTab().yasqe.setValue(thequery)
+    }
+    yasgui.getTab().yasr.on("drawn", function (event) {
+        $('.iri').each(function (i, obj) {
+            console.log(obj)
+            if ($(this).attr("href").includes(baseurl)) {
+                $(this).attr("href", $(this).attr("href").replace(baseurl, ""))
+            }
+        })
+    })
+    const myEngine = new Comunica.QueryEngine()
+    document.getElementsByClassName('yasqe_buttons')[0].appendChild(document.getElementById('query'));
+
+    //yasgui.getTab().yasqe.on("query", function(event){ console.log(event); event.preventDefault(); queryFile()});
+
+    async function queryFile() {
+        yasres = {"head": {"vars": []}, "results": {"bindings": []}}
+        config = {"sources": [endpoint]}
+        const result = await myEngine.queryBindings(yasgui.getTab().yasqe.getValue(), config)
+        const data = await result.toArray()
+        vararray = []
+        ttypemap = {"NamedNode": "uri", "Literal": "literal"}
+        for (bind of data) {
+            curbindings = {}
+            for (entry of bind["entries"]["_root"]["entries"]) {
+                if (!(vararray.includes(entry[0]))) {
+                    vararray.push(entry[0])
+                }
+                curbindings[entry[0]] = {"type": ttypemap[entry[1]["termType"]], "value": entry[1]["value"]}
+                if ("datatype" in entry[1]) {
+                    curbindings[entry[0]]["datatype"] = entry[1]["datatype"]["value"]
+                }
+                if ("language" in entry[1] && entry[1]["language"] != "") {
+                    curbindings[entry[0]]["language"] = entry[1]["language"]
+                }
+
+            }
+            yasres["results"]["bindings"].push(curbindings)
+        }
+        yasres["head"]["vars"] = vararray
+        yasgui.getTab().yasr.setResponse({
+            data: yasres,
+            contentType: "application/sparql-results+json",
+            status: 200,
+            executionTime: 1000 // ms
+            // error to show
+        })
+
+// Draw results with current plugin
+        //yasgui.getTab().yasr.draw()
+    }
+</script>

@@ -25,13 +25,14 @@ class GraphExporter:
         nodecounter = 0
         tgfresedges = ""
         if subjectstorender == None:
-            subjectstorender = g.subjects()
+            subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
-            uriToNodeId[str(sub)] = nodecounter
-            file.write("CREATE ( " + str(GraphExporter.shortenURI(str(sub))) + "{ _id:'" + str(
-                GraphExporter.shortenURI(str(sub))) + "', _uri:'" + str(sub) + "', rdfs_label:'" + str(
-                GraphExporter.shortenURI(str(sub))) + "' })\n")
-            nodecounter += 1
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write("CREATE ( " + str(GraphExporter.shortenURI(str(sub))) + "{ _id:'" + str(
+                    GraphExporter.shortenURI(str(sub))) + "', _uri:'" + str(sub) + "', rdfs_label:'" + str(
+                    GraphExporter.shortenURI(str(sub))) + "' })\n")
+                nodecounter += 1
             for tup in g.predicate_objects(sub):
                 if str(tup[1]) not in uriToNodeId:
                     file.write("CREATE ( " + str(GraphExporter.shortenURI(str(tup[1]))) + "{ _id:'" + str(
@@ -53,7 +54,7 @@ class GraphExporter:
     <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
     <key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
         if subjectstorender == None:
-            subjectstorender = g.subjects()
+            subjectstorender = g.subjects(None,None,True)
         addednodes = set()
         for sub in subjectstorender:
             file.write("<node id=\"" + str(sub) + "\" uri=\"" + str(
@@ -90,14 +91,15 @@ class GraphExporter:
         tgfresedges = ""
         sepchar=" "
         if subjectstorender == None:
-            subjectstorender = g.subjects()
+            subjectstorender = g.subjects(None,None,True)
         if formatt=="gdf":
             sepchar=","
             file.write("nodedef>name VARCHAR,label VARCHAR")
         for sub in subjectstorender:
-            uriToNodeId[str(sub)] = nodecounter
-            file.write(str(nodecounter) + sepchar + str(sub) + "\n")
-            nodecounter += 1
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write(str(nodecounter) + sepchar + str(sub) + "\n")
+                nodecounter += 1
             for tup in g.predicate_objects(sub):
                 if str(tup[1]) not in uriToNodeId:
                     file.write(str(nodecounter) + sepchar + str(tup[1]) + "\n")
@@ -118,21 +120,39 @@ class GraphExporter:
         nodecounter = 0
         edges = "<edges>"
         edgecounter=0
-        file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gexf xmlns=\"http://gexf.net/1.2\" version=\"1.2\">\n<graph mode=\"static\" defaultedgetype=\"directed\">\n<nodes>\n")
+        file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gexf xmlns=\"http://gexf.net/1.3\" xmlns:viz=\"http://gexf.net/1.3/viz\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd\" version=\"1.3\">\n<graph mode=\"static\" defaultedgetype=\"directed\">\n<nodes>\n")
         if subjectstorender == None:
-            subjectstorender = g.subjects()
+            subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
-            uriToNodeId[str(sub)] = nodecounter
-            file.write("<node id=\""+str(nodecounter)+"\" uri=\""+str(sub)+"\" label=\""+str(GraphExporter.shortenURI(sub))+"\"/>\n")
-            nodecounter += 1
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write("<node id=\""+str(nodecounter)+"\" value=\""+str(sub)+"\" label=\""+str(GraphExporter.shortenURI(str(sub)))+"\"><viz:color r=\"128\" g=\"0\" b=\"128\"/></node>\n")
+                nodecounter += 1
             for tup in g.predicate_objects(sub):
-                if str(tup[1]) not in uriToNodeId:
-                    file.write("<node id=\"" + str(nodecounter) + "\" uri=\""+str(tup[1])+"\" label=\"" + str(GraphExporter.shortenURI(tup[1]) + "\"/>\n"))
-                    uriToNodeId[str(tup[1])] = nodecounter
-                    nodecounter += 1
-                edges += "<edge uri=\"\" id=\""+str(edgecounter)+"\" source=\""+str(uriToNodeId[sub])+"\" target=\""+str(uriToNodeId[tup[1]])+"\" label=\""+str(GraphExporter.shortenURI(tup[0])) + "\"/>\n"
+                if isinstance(tup[1],Literal):
+                    if str(tup[1]) not in uriToNodeId:
+                        file.write("<node id=\"" + str(nodecounter) + "\" value=\""+str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;"))+"\" label=\"" + str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;")) + "\">\n")
+                        if str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                            file.write("<viz:color r=\"255\" g=\"165\" b=\"0\"/>\n")
+                        else:
+                            file.write("<viz:color r=\"0\" g=\"128\" b=\"0\"/>\n")
+                        file.write("</node>")
+                        uriToNodeId[str(tup[1])] = nodecounter
+                        nodecounter += 1
+                    edges += "<edge value=\""+str(tup[0])+"\" id=\""+str(edgecounter)+"\" source=\""+str(uriToNodeId[str(sub)])+"\" target=\""+str(uriToNodeId[str(tup[1])])+"\" label=\""+str(GraphExporter.shortenURI(str(tup[0]))) + "\"/>\n"
+                else:
+                    if str(tup[1]) not in uriToNodeId:
+                        file.write("<node id=\"" + str(nodecounter) + "\" value=\""+str(tup[1])+"\" label=\"" + str(GraphExporter.shortenURI(str(tup[1])) + "\">\n"))
+                        if str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                            file.write("<viz:color r=\"255\" g=\"165\" b=\"0\"/>\n")
+                        else:
+                            file.write("<viz:color r=\"128\" g=\"0\" b=\"128\"/>\n")
+                        file.write("</node>")
+                        uriToNodeId[str(tup[1])] = nodecounter
+                        nodecounter += 1
+                    edges += "<edge value=\""+str(tup[0])+"\" id=\""+str(edgecounter)+"\" source=\""+str(uriToNodeId[str(sub)])+"\" target=\""+str(uriToNodeId[str(tup[1])])+"\" label=\""+str(GraphExporter.shortenURI(str(tup[0]))) + "\"/>\n"
                 edgecounter+=1
-        file.write("#\n")
+        file.write("</nodes>\n")
         file.write(edges)
         file.write("</edges>\n</graph>\n</gexf>")
         return None

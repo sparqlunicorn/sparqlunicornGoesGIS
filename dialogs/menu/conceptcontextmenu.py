@@ -120,6 +120,10 @@ class ConceptContextMenu(QMenu):
                 actionaddInstanceAsLayer.setIcon(UIUtils.addinstanceicon)
             menu.addAction(actionaddInstanceAsLayer)
             actionaddInstanceAsLayer.triggered.connect(self.dlg.dataInstanceAsLayer)
+            actionallInstanceAsRDF = QAction("Instance as RDF")
+            actionallInstanceAsRDF.setIcon(UIUtils.addfeaturecollectionicon)
+            menu.addAction(actionallInstanceAsRDF)
+            actionallInstanceAsRDF.triggered.connect(lambda: self.dlg.dataAllInstancesAsLayer(True,None))
         if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.linkedgeoclassnode or item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.geoclassnode:
             actionquerybbox=QAction("Query layer in bbox")
             actionquerybbox.setIcon(UIUtils.bboxicon)
