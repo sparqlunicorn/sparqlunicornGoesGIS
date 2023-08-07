@@ -554,12 +554,37 @@
          </item>
          <item>
           <property name="text">
+           <string>GEXF</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GDF</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GML</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>GraphML</string>
           </property>
          </item>
          <item>
           <property name="text">
+           <string>NET</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>TGF</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>TLP</string>
           </property>
          </item>
         </widget>
