@@ -137,6 +137,30 @@ class GraphExporter:
         return None
 
     @staticmethod
+    def convertTTLToNET(g, file, subjectstorender=None, formatt="net"):
+        uriToNodeId = {}
+        nodecounter = 0
+        tgfresedges = ""
+        sepchar=" "
+        if subjectstorender == None:
+            subjectstorender = list(g.subjects(None,None,True))
+        file.write("vertices "+str(len(subjectstorender))+"\n")
+        for sub in subjectstorender:
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write(str(nodecounter) + sepchar +"\""+ GraphExporter.shortenURI(str(sub)) + "\"\n")
+                nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write(str(nodecounter) + sepchar +"\""+ GraphExporter.shortenURI(str(tup[1])) + "\"\n")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += str(sub) + sepchar + str(tup[1])+ "\n"
+        file.write("\n*arcs\n")
+        file.write(tgfresedges)
+        return None
+
+    @staticmethod
     def convertTTLToTLP(g, file, subjectstorender=None, formatt="tgf"):
         uriToNodeId = {}
         nodecounter = 0
