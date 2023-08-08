@@ -187,6 +187,56 @@ class GraphExporter:
         return None
 
     @staticmethod
+    def convertTTLToJGF(g, file, subjectstorender=None, formatt="jgf"):
+        uriToNodeId = {}
+        nodecounter = 0
+        edgecounter=0
+        tgfresedges = ""
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        file.write("{\n\"graph\":{\n\"nodes\":{\n")
+        for sub in subjectstorender:
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write("\""+str(sub)+"\":{\"label\":\""+str(GraphExporter.shortenURI(str(sub)))+"\"},\n")
+                nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write("\"" + str(tup[1]) + "\":{\"label\":\"" + str(GraphExporter.shortenURI(str(tup[1]))) + "\"},\n")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += "{\"source\":\""+str(uriToNodeId[str(sub)]) + "\", \"target\":\""+ str(uriToNodeId[str(tup[1])])+"\"},\n"
+                edgecounter+=1
+        file.write("},\"edges\":[\n")
+        file.write(tgfresedges[0:-2])
+        file.write("]\n}\n")
+        return None
+
+    @staticmethod
+    def convertTTLToDOT(g, file, subjectstorender=None, formatt="dot"):
+        uriToNodeId = {}
+        nodecounter = 0
+        edgecounter=0
+        tgfresedges = ""
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        file.write("digraph mygraph {")
+        for sub in subjectstorender:
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                file.write(str(sub)+" [label=\""+str(GraphExporter.shortenURI(str(sub)))+"\"]\n")
+                nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    file.write(str(tup[1])+" [label="+str(GraphExporter.shortenURI(str(tup[1])))+"]\n")
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                tgfresedges += str(uriToNodeId[str(sub)]) + " " + str(uriToNodeId[str(tup[1])])+"[ label=\""+str(GraphExporter.shortenURI(str(tup[0])))+"\" ]\n"
+                edgecounter+=1
+        file.write("\n}\n")
+        return None
+
+    @staticmethod
     def convertTTLToGEXF(g,file,subjectstorender,formatt):
         uriToNodeId = {}
         nodecounter = 0
