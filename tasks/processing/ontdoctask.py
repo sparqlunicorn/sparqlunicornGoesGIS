@@ -9,7 +9,7 @@ MESSAGE_CATEGORY = 'OntDocTask'
 
 class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,startconcept,deploymenturl,logopath="",offlinecompat=False,exports=["ttl","json"]):
+    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,ckan,startconcept,deploymenturl,logopath="",offlinecompat=False,exports=["ttl","json"]):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
@@ -23,6 +23,7 @@ class OntDocTask(QgsTask):
         self.exports=exports
         self.ogcapifeatures=ogcapifeatures
         self.iiif=iiif
+        self.ckan=ckan
         self.createVOWL=createVOWL
         self.createMetadataTable=createMetadataTable
         self.nonNSPagesCBox=nonNSPagesCBox
@@ -53,7 +54,7 @@ class OntDocTask(QgsTask):
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
         #try:
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.ogcapifeatures,self.iiif,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.ogcapifeatures,self.iiif,self.ckan,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         #except Exception as e:
         #    self.exception=e

@@ -1,0 +1,69 @@
+from rdflib import Graph, Literal
+import json
+
+
+class MiscExporter:
+
+    rdfformats = ["TTL", "TRIX", "TRIG", "N3", "NQ", "NT", "XML", "JSON-LD"]
+
+    @staticmethod
+    def shortenURI(uri, ns=False):
+        if uri != None and "#" in uri and ns:
+            return uri[0:uri.rfind('#') + 1]
+        if uri != None and "/" in uri and ns:
+            return uri[0:uri.rfind('/') + 1]
+        if uri != None and uri.endswith("/"):
+            uri = uri[0:-1]
+        if uri != None and "#" in uri and not ns:
+            return uri[uri.rfind('#') + 1:]
+        if uri != None and "/" in uri and not ns:
+            return uri[uri.rfind('/') + 1:]
+        return uri
+
+    @staticmethod
+    def detectSubjectType(g,subjectstorender):
+        subjectsToType={}
+        typeToFields={}
+        for sub in subjectstorender:
+            typeToFields[str(sub)]=set()
+            for tup in g.predicate_objects(sub):
+                if str(tup[0])=="rdf:type":
+                    subjectsToType[str(sub)]=str(tup[1])
+                typeToFields[str(sub)].add(str(tup[0]))
+            if str(sub) in subjectsToType:
+                if subjectsToType[str(sub)] not in typeToFields:
+                    typeToFields[subjectsToType[str(sub)]]=set()
+                typeToFields[subjectsToType[str(sub)]]+=typeToFields[str(sub)]
+                del typeToFields[str(sub)]
+        return [subjectsToType,typeToFields]
+
+    @staticmethod
+    def convertTTLToCSV(g, file, subjectstorender=None, formatt="csv"):
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        res=MiscExporter.detectSubjectType(g,subjectstorender)
+        subjectsToType=res[0]
+        typeToFields=res[1]
+        typeToRes={}
+        for type in typeToFields:
+            typeToRes[type]=[]
+        for sub in subjectstorender:
+            if str(sub) not in subjectsToType:
+                continue
+            res={}
+            for tup in g.predicate_objects(sub):
+                res[str(tup[0])]=str(tup[1])
+            typeToRes[subjectsToType[str(sub)]].append(res)
+        for type in typeToFields:
+            f=open("filepath_"+MiscExporter.shortenURI(type))
+            for col in typeToFields[type]:
+                f.write(col+",")
+            f.write("\n")
+            for res in typeToRes[type]:
+                for col in typeToFields[type]:
+                    if col in res:
+                        f.write(res[col])
+                    f.write(",")
+                f.write("\n")
+            f.close()
+        return None

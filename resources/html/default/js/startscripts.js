@@ -56,7 +56,7 @@ labelproperties={
     "http://www.w3.org/2000/01/rdf-schema#label": "DatatypeProperty"
 }
 
-var baseurl="http://data.archaeology.link/data/spphaefen/"
+var baseurl=""
   $( function() {
     var availableTags = Object.keys(search)
     $( "#search" ).autocomplete({

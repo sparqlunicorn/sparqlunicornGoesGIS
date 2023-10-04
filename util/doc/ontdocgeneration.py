@@ -201,7 +201,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,ckan=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -218,6 +218,7 @@ class OntDocGeneration:
         self.deploypath=deployurl
         self.ogcapifeatures=ogcapifeatures
         self.iiif=iiif
+        self.ckan=ckan
         self.createVOWL=createVOWL
         self.localOptimized=True
         self.geocache={}
@@ -610,8 +611,10 @@ class OntDocGeneration:
             with open(outpath + "sparql.html", 'w', encoding='utf-8') as f:
                 f.write(sparqlhtml)
                 f.close()
-        if len(iiifmanifestpaths["default"]) > 0:
-            self.generateIIIFCollections(self.outpath, iiifmanifestpaths["default"], prefixnamespace)
+        if len(iiifmanifestpaths["default"])>0:
+            self.generateIIIFCollections(self.outpath,iiifmanifestpaths["default"],prefixnamespace)
+        if len(featurecollectionspaths)>0 and self.ckan:
+            self.generateCKANCollection(outpath,featurecollectionspaths)
         if len(featurecollectionspaths)>0:
             relpath=self.generateRelativePathFromGivenDepth("",0)
             indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
@@ -858,23 +861,27 @@ class OntDocGeneration:
         return rellink
 
     def resolveBibtexReference(self, predobjs, item, graph):
-        bibtexmappings = {"http://purl.org/dc/elements/1.1/title": "title",
-                          "http://purl.org/dc/elements/1.1/created": "year",
-                          "http://purl.org/ontology/bibo/number": "number",
-                          "http://purl.org/ontology/bibo/publisher": "publisher",
-                          "http://purl.org/ontology/bibo/issuer": "journal",
-                          "http://purl.org/ontology/bibo/volume": "volume",
-                          "http://purl.org/ontology/bibo/doi": "doi",
-                          "http://purl.org/ontology/bibo/eissn": "eissn",
-                          "http://purl.org/ontology/bibo/eprint": "eprint",
-                          "http://purl.org/ontology/bibo/url": "url",
-                          "http://purl.org/ontology/bibo/issn": "issn",
-                          "http://purl.org/ontology/bibo/isbn": "isbn",
-                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "type"
+        bibtexmappings = {"http://purl.org/dc/elements/1.1/title":"title",
+                      "http://purl.org/dc/terms/title":"title",
+                      "http://purl.org/dc/terms/created":"year",
+                      "http://purl.org/dc/terms/issued":"year",
+                      "http://purl.org/ontology/bibo/number":"number",
+                      "http://purl.org/ontology/bibo/publisher":"publisher",
+                      "http://purl.org/dc/terms/publisher":"publishter",
+                      "http://purl.org/dc/terms/language":"language",
+                      "http://purl.org/ontology/bibo/issuer": "journal",
+                      "http://purl.org/ontology/bibo/volume":"volume",
+                      "http://purl.org/ontology/bibo/doi": "doi",
+                      "http://purl.org/ontology/bibo/eissn": "eissn",
+                      "http://purl.org/ontology/bibo/eprint": "eprint",
+                      "http://purl.org/ontology/bibo/url": "url",
+                      "http://purl.org/ontology/bibo/issn": "issn",
+                      "http://purl.org/ontology/bibo/isbn": "isbn",
+                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
                           }
         bibtexitem = {"type": "@misc"}
         for tup in predobjs:
-            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator":
+            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator" or str(tup[0])=="http://purl.org/dc/terms/creator":
                 if "author" not in bibtexitem:
                     bibtexitem["author"] = []
                 if isinstance(tup[1], URIRef):
@@ -1058,7 +1065,7 @@ class OntDocGeneration:
                 textannos.append(curanno)
             if pred == "http://www.w3.org/ns/oa#hasSource":
                 annosource = str(tup[1])
-            if pred == "http://purl.org/dc/terms/isReferencedBy" and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
+            if (pred == "http://purl.org/dc/terms/isReferencedBy" or pred=="http://purl.org/spar/cito/hasCitingEntity") and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
                 bibtex=self.resolveBibtexReference(graph.predicate_objects(object),object,graph)
             if pred in SPARQLUtils.timepointerproperties:
                 timeobj = self.resolveTimeLiterals(pred, object, graph)
@@ -1442,6 +1449,52 @@ class OntDocGeneration:
         iiifindex = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"><div id="my-mirador"/><script type="text/javascript">var mirador = Mirador.viewer({"id": "my-mirador","manifests": {"collection/iiifcoll.json": {"provider": "Harvard University"}},"windows": [{"loadedManifest": "collection/iiifcoll.json","canvasIndex": 2,"thumbnailNavigationPosition": 'far-bottom'}]});</script></body></html>"""
         f = open(outpath + "/iiif/index.html", "w", encoding="utf-8")
         f.write(iiifindex)
+        f.close()
+
+    def generateCKANCollection(self, outpath, featurecollectionspaths):
+        if not os.path.exists(outpath + "/dataset/"):
+            os.makedirs(outpath + "/dataset/")
+        if not os.path.exists(outpath + "/api/"):
+            os.makedirs(outpath + "/api/")
+        if not os.path.exists(outpath + "/api/action/"):
+            os.makedirs(outpath + "/api/action/")
+        if not os.path.exists(outpath + "/api/action/group_list/"):
+            os.makedirs(outpath + "/api/action/group_list/")
+        if not os.path.exists(outpath + "/api/action/action_list/"):
+            os.makedirs(outpath + "/api/action/action_list/")
+        if not os.path.exists(outpath + "/api/action/tag_list/"):
+            os.makedirs(outpath + "/api/action/tag_list/")
+        f = open(outpath + "/api/action/group_list/index.json", "w")
+        f.write(json.dumps({"success": True, "result": []}))
+        f.close()
+        f = open(outpath + "/api/action/tag_list/index.json", "w")
+        f.write(json.dumps({"success": True, "result": ["ttl", "json", "geojson", "html"]}))
+        f.close()
+        colls = []
+        for coll in featurecollectionspaths:
+            curcoll = None
+            op = outpath + "/dataset/" + coll.replace(outpath, "").replace("index.geojson", "")
+            op = op.replace(".geojson", "")
+            op = op.replace("//", "/")
+            if op.endswith("/"):
+                op = op[0:-1]
+            if not os.path.exists(op):
+                os.makedirs(op)
+            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".json").replace("//", "/"),
+                                                      outpath)
+            p = Path(str(op + ".json").replace("//", "/"))
+            p.symlink_to(targetpath)
+            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".ttl").replace("//", "/"),
+                                                      outpath)
+            p = Path(str(op + ".ttl").replace("//", "/"))
+            p.symlink_to(targetpath)
+            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".html").replace("//", "/"),
+                                                      outpath)
+            p = Path(str(op + ".html").replace("//", "/"))
+            p.symlink_to(targetpath)
+            colls.append(op[op.rfind('/') + 1:])
+        f = open(outpath + "/api/action/action_list/index.json", "w")
+        f.write(json.dumps({"success": True, "result": colls}))
         f.close()
 
     def generateOGCAPIFeaturesPages(self, outpath, featurecollectionspaths, prefixnamespace, ogcapi, mergeJSON):

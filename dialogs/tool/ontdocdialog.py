@@ -124,5 +124,8 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
                                         self.preferredLabelLangCBox.currentData(UIUtils.dataslot_language),
                                         self.outFolderWidget.filePath(),self.additionalCollections.checkState(),baselayerss,tobeaddedperInd, maincolor, titlecolor,
                                 progress,self.createIndexPages.checkState(),self.nonNSPagesCBox.checkState(),
-                                self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.deploymentURLEdit.text(),self.startConceptCBox.currentText(),logoname,self.offlinecompatCBox.checkState(),exports)
+                                self.createMetadataTableCBox.checkState(),self.createVOWLCBox.checkState(),
+                                self.ogcapifeaturesCBox.checkState(),self.iiifCBox.checkState(),self.ckanCBox.checkState(),
+                                self.deploymentURLEdit.text(),self.startConceptCBox.currentText(),
+                                logoname,self.offlinecompatCBox.checkState(),exports)
         QgsApplication.taskManager().addTask(self.qtask)
