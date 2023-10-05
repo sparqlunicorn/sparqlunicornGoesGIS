@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 
 from ..export.graphexporter import GraphExporter
+from ..export.miscexporter import MiscExporter
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from .pyowl2vowl import OWL2VOWL
@@ -212,6 +213,7 @@ class OntDocGeneration:
         self.logoname=logoname
         self.offlinecompat=offlinecompat
         self.exports=exports
+        QgsMessageLog.logMessage("Exports: " + str(exports), "OntdocGeneration", Qgis.Info)
         self.startconcept = None
         if startconcept!="No Start Concept":
             self.startconcept=startconcept
@@ -226,7 +228,7 @@ class OntDocGeneration:
         self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GRAPHML": GraphExporter.convertTTLToGraphML, "TGF": GraphExporter.convertTTLToTGF,
                                  "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
                                  "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
-                                 "NQ": GraphExporter.serializeRDF}
+                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
@@ -534,11 +536,11 @@ class OntDocGeneration:
                 for ex in self.exports:
                     if ex in self.exportToFunction:
                         if ex not in GraphExporter.rdfformats:
-                            with open(path + "index."+str(ex), 'w', encoding='utf-8') as f:
-                                self.exportToFunction[ex](subgraph,f,subjectstorender,ex)
+                            with open(path + "index."+str(ex).lower(), 'w', encoding='utf-8') as f:
+                                self.exportToFunction[ex](subgraph,f,subjectstorender,ex.lower())
                                 f.close()
                         else:
-                            self.exportToFunction[ex](subgraph,path + "index."+str(ex),subjectstorender,ex)
+                            self.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,ex.lower())
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,checkdepth)
                 indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\

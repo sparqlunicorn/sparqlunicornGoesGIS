@@ -1,5 +1,6 @@
 from rdflib import Graph, Literal
 import json
+import os
 
 
 class MiscExporter:
@@ -27,13 +28,13 @@ class MiscExporter:
         for sub in subjectstorender:
             typeToFields[str(sub)]=set()
             for tup in g.predicate_objects(sub):
-                if str(tup[0])=="rdf:type":
+                if str(tup[0])=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     subjectsToType[str(sub)]=str(tup[1])
                 typeToFields[str(sub)].add(str(tup[0]))
             if str(sub) in subjectsToType:
                 if subjectsToType[str(sub)] not in typeToFields:
                     typeToFields[subjectsToType[str(sub)]]=set()
-                typeToFields[subjectsToType[str(sub)]]+=typeToFields[str(sub)]
+                typeToFields[subjectsToType[str(sub)]]=typeToFields[subjectsToType[str(sub)]].union(typeToFields[str(sub)])
                 del typeToFields[str(sub)]
         return [subjectsToType,typeToFields]
 
@@ -55,7 +56,7 @@ class MiscExporter:
                 res[str(tup[0])]=str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f=open("filepath_"+MiscExporter.shortenURI(type))
+            f=open(os.path.realpath(file.name).replace("."+formatt,"")+"_"+MiscExporter.shortenURI(type)+"."+formatt,"w")
             for col in typeToFields[type]:
                 f.write(col+",")
             f.write("\n")
