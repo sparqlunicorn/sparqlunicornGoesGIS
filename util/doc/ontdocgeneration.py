@@ -228,7 +228,7 @@ class OntDocGeneration:
         self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GRAPHML": GraphExporter.convertTTLToGraphML, "TGF": GraphExporter.convertTTLToTGF,
                                  "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
                                  "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
-                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV}
+                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV,"TSV": MiscExporter.convertTTLToCSV}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
