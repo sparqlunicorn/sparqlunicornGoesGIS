@@ -506,7 +506,7 @@ class OntDocGeneration:
                 self.updateProgressBar(subtorencounter,subtorenderlen)
             QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.checkGeoInstanceAssignment(uritotreeitem)
-        self.assignGeoClassesToTree(tree)
+        classlist=self.assignGeoClassesToTree(tree)
         if self.generatePagesForNonNS:
             #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
             self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace,uritotreeitem,labeltouri)
@@ -537,10 +537,10 @@ class OntDocGeneration:
                     if ex in self.exportToFunction:
                         if ex not in GraphExporter.rdfformats:
                             with open(path + "index."+str(ex).lower(), 'w', encoding='utf-8') as f:
-                                self.exportToFunction[ex](subgraph,f,subjectstorender,ex.lower())
+                                self.exportToFunction[ex](subgraph,f,subjectstorender,classlist,ex.lower())
                                 f.close()
                         else:
-                            self.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,ex.lower())
+                            self.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,checkdepth)
                 indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
@@ -810,6 +810,7 @@ class OntDocGeneration:
                 classlist[item]["item"]["type"]="halfgeoclass"
             else:
                 classlist[item]["item"]["type"] = "class"
+        return classlist
 
     def checkGeoInstanceAssignment(self,uritotreeitem):
         for uri in uritotreeitem:
