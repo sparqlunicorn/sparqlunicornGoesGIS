@@ -39,6 +39,9 @@ class MiscExporter:
 
     @staticmethod
     def convertTTLToCSV(g, file, subjectstorender=None,classlist=None, formatt="csv"):
+        sepchar=","
+        if formatt=="tsv":
+            sepchar="\t"
         if subjectstorender == None:
             subjectstorender = g.subjects(None,None,True)
         res=MiscExporter.detectSubjectType(g,subjectstorender)
@@ -56,14 +59,20 @@ class MiscExporter:
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
             f=open(os.path.realpath(file.name).replace("."+formatt,"")+"_"+MiscExporter.shortenURI(type)+"."+formatt,"w")
-            for col in typeToFields[type]:
-                f.write(col+",")
+            tlist=list(typeToFields[type])
+            tlistlen=len(tlist)
+            for i in range(0,tlistlen):
+                f.write("\""+tlist[i]+"\"")
+                if i<len(tlist)-1:
+                    f.write(sepchar)
             f.write("\n")
             for res in typeToRes[type]:
-                for col in typeToFields[type]:
+                for i in range(0,tlistlen):
+                    col=tlist[i]
                     if col in res:
-                        f.write(res[col])
-                    f.write(",")
+                        f.write("\""+res[col]+"\"")
+                    if i<len(tlist)-1:
+                        f.write(sepchar)
                 f.write("\n")
             f.close()
         return None

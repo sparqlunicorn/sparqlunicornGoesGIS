@@ -225,10 +225,12 @@ class OntDocGeneration:
         self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
-        self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GRAPHML": GraphExporter.convertTTLToGraphML, "TGF": GraphExporter.convertTTLToTGF,
+        self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GML": GraphExporter.convertTTLToGML,"GEXF": GraphExporter.convertTTLToGEXF,
+                                 "GDF": GraphExporter.convertTTLToTGF,"DOT": GraphExporter.convertTTLToDOT,"NET": GraphExporter.convertTTLToNET, "GRAPHML": GraphExporter.convertTTLToGraphML,
+                                  "JGF": GraphExporter.convertTTLToJGF,"TGF": GraphExporter.convertTTLToTGF,"TLP": GraphExporter.convertTTLToTLP,
                                  "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
                                  "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
-                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV}
+                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV,"TSV": MiscExporter.convertTTLToCSV}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename

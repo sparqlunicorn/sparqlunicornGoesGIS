@@ -500,11 +500,6 @@
          </item>
          <item>
           <property name="text">
-           <string>TRIX</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string>TRIG</string>
           </property>
          </item>
