@@ -162,7 +162,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToTLP(g, file, subjectstorender=None,classlist=None, formatt="tgf"):
+    def convertTTLToTLP(g, file, subjectstorender=None,classlist=None, formatt="tlp"):
         uriToNodeId = {}
         nodecounter = 0
         edgecounter=0
