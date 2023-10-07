@@ -21,7 +21,7 @@ class GraphExporter:
         return uri
 
     @staticmethod
-    def convertTTLToCypher(g, file, subjectstorender=None, formatt="cypher"):
+    def convertTTLToCypher(g, file, subjectstorender=None,classlist=None, formatt="cypher"):
         uriToNodeId = {}
         nodecounter = 0
         tgfresedges = ""
@@ -48,7 +48,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToGraphML(g, file, subjectstorender=None, formatt="graphml"):
+    def convertTTLToGraphML(g, file, subjectstorender=None,classlist=None, formatt="graphml"):
         literalcounter = 0
         edgecounter = 0
         file.write("""<?xml version="1.0" encoding="UTF-8"?>
@@ -86,7 +86,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToGML(g, file, subjectstorender=None, formatt="graphml"):
+    def convertTTLToGML(g, file, subjectstorender=None,classlist=None, formatt="graphml"):
         literalcounter = 0
         file.write("""graph\n[\n""")
         if subjectstorender == None:
@@ -108,7 +108,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToTGF(g, file, subjectstorender=None, formatt="tgf"):
+    def convertTTLToTGF(g, file, subjectstorender=None,classlist=None, formatt="tgf"):
         uriToNodeId = {}
         nodecounter = 0
         tgfresedges = ""
@@ -138,7 +138,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToNET(g, file, subjectstorender=None, formatt="net"):
+    def convertTTLToNET(g, file, subjectstorender=None,classlist=None, formatt="net"):
         uriToNodeId = {}
         nodecounter = 0
         tgfresedges = ""
@@ -162,7 +162,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToTLP(g, file, subjectstorender=None, formatt="tgf"):
+    def convertTTLToTLP(g, file, subjectstorender=None,classlist=None, formatt="tgf"):
         uriToNodeId = {}
         nodecounter = 0
         edgecounter=0
@@ -188,7 +188,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToJGF(g, file, subjectstorender=None, formatt="jgf"):
+    def convertTTLToJGF(g, file, subjectstorender=None,classlist=None, formatt="jgf"):
         uriToNodeId = {}
         nodecounter = 0
         edgecounter=0
@@ -211,7 +211,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToDOT(g, file, subjectstorender=None, formatt="dot"):
+    def convertTTLToDOT(g, file, subjectstorender=None,classlist=None, formatt="dot"):
         uriToNodeId = {}
         nodecounter = 0
         edgecounter=0
@@ -234,7 +234,7 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def convertTTLToGEXF(g,file,subjectstorender,formatt="gexf"):
+    def convertTTLToGEXF(g,file,subjectstorender,classlist=None,formatt="gexf"):
         uriToNodeId = {}
         nodecounter = 0
         edges = "<edges>"
@@ -277,5 +277,5 @@ class GraphExporter:
         return None
 
     @staticmethod
-    def serializeRDF(g, file, subjectstorender, formatt):
+    def serializeRDF(g, file, subjectstorender,classlist, formatt):
         g.serialize(file, encoding="utf-8", format=formatt.lower())

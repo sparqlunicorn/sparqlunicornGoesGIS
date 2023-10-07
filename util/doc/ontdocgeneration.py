@@ -3,7 +3,6 @@ from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
 from qgis.core import Qgis, QgsMessageLog, QgsFileDownloader
-from qgis.PyQt.QtCore import QUrl
 import os
 import re
 import urllib
@@ -13,6 +12,7 @@ from pathlib import Path
 
 from ..export.graphexporter import GraphExporter
 from ..export.miscexporter import MiscExporter
+from ..export.geoexporter import GeoExporter
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from .pyowl2vowl import OWL2VOWL
@@ -227,6 +227,7 @@ class OntDocGeneration:
         self.metadatatable=createMetadataTable
         self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GML": GraphExporter.convertTTLToGML,"GEXF": GraphExporter.convertTTLToGEXF,
                                  "GDF": GraphExporter.convertTTLToTGF,"DOT": GraphExporter.convertTTLToDOT,"NET": GraphExporter.convertTTLToNET, "GRAPHML": GraphExporter.convertTTLToGraphML,
+                                 "GeoJSON": GeoExporter.convertTTLToGeoJSON,
                                   "JGF": GraphExporter.convertTTLToJGF,"TGF": GraphExporter.convertTTLToTGF,"TLP": GraphExporter.convertTTLToTLP,
                                  "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
                                  "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
