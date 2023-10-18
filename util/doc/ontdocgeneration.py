@@ -226,8 +226,8 @@ class OntDocGeneration:
         self.geocache={}
         self.metadatatable=createMetadataTable
         self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GML": GraphExporter.convertTTLToGML,"GEXF": GraphExporter.convertTTLToGEXF,
-                                 "GDF": GraphExporter.convertTTLToTGF,"DOT": GraphExporter.convertTTLToDOT,"NET": GraphExporter.convertTTLToNET, "GRAPHML": GraphExporter.convertTTLToGraphML,
-                                 "GeoJSON": GeoExporter.convertTTLToGeoJSON,
+                                 "GDF": GraphExporter.convertTTLToTGF,"DOT": GraphExporter.convertTTLToDOT,"NET": GraphExporter.convertTTLToNET,
+                                 "GRAPHML": GraphExporter.convertTTLToGraphML,"GeoJSON": GeoExporter.convertTTLToGeoJSON,
                                   "JGF": GraphExporter.convertTTLToJGF,"TGF": GraphExporter.convertTTLToTGF,"TLP": GraphExporter.convertTTLToTLP,
                                  "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
                                  "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
@@ -1006,8 +1006,7 @@ class OntDocGeneration:
         elif isinstance(object, URIRef) and nonns:
             for pobj in graph.predicate_objects(object):
                 if isinstance(pobj[1], Literal) and (
-                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
-                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
+                        str(pobj[0]) in SPARQLUtils.geoproperties or str(pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
