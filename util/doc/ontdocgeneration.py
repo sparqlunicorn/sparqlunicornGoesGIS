@@ -8,11 +8,14 @@ import re
 import urllib
 import shutil
 import json
-from pathlib import Path
 
-from ..export.graphexporter import GraphExporter
-from ..export.miscexporter import MiscExporter
-from ..export.geoexporter import GeoExporter
+from .docutils import DocUtils
+from ..export.api.ckanexporter import CKANExporter
+from ..export.api.iiifexporter import IIIFAPIExporter
+from ..export.api.ogcapifeaturesexporter import OGCAPIFeaturesExporter
+from ..export.data.graphexporter import GraphExporter
+from ..export.data.miscexporter import MiscExporter
+from ..export.data.geoexporter import GeoExporter
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from .pyowl2vowl import OWL2VOWL
@@ -519,18 +522,18 @@ class OntDocGeneration:
         with open(outpath + corpusid + '_search.js', 'w', encoding='utf-8') as f:
             f.write("var search=" + json.dumps(labeltouri, indent=2, sort_keys=True))
             f.close()
-        self.generateIIIFAnnotations(outpath)
+        IIIFAPIExporter.generateIIIFAnnotations(outpath,imagetoURI)
         if self.createIndexPages:
             for path in paths:
                 subgraph=Graph(bind_namespaces="rdflib")
                 #QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
-                checkdepth = self.checkDepthFromPath(path, outpath, path)-1
-                sfilelink=self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
-                classtreelink = self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
-                stylelink =self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
-                scriptlink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
-                epsgdefslink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "epsgdefs.js", False)
-                vowllink = self.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "vowl_result.js", False)
+                checkdepth = DocUtils.checkDepthFromPath(path, outpath, path)-1
+                sfilelink=DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + '_search.js',False)
+                classtreelink = DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,corpusid + "_classtree.js",False)
+                stylelink =DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,"style.css",False)
+                scriptlink = DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "startscripts.js", False)
+                epsgdefslink = DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "epsgdefs.js", False)
+                vowllink = DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace, checkdepth, "vowl_result.js", False)
                 nslink=prefixnamespace+str(self.getAccessFromBaseURL(str(outpath),str(path)))
                 for sub in subjectstorender:
                     if nslink in sub:
@@ -545,7 +548,7 @@ class OntDocGeneration:
                         else:
                             self.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
-                relpath=self.generateRelativePathFromGivenDepth(prefixnamespace,checkdepth)
+                relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
                 indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
                     .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
                 if nslink==prefixnamespace:
@@ -558,15 +561,15 @@ class OntDocGeneration:
                         indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
                                      tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
                                          "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
-                                         "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
-                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                                         "type"] + "\"/><a href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + SPARQLUtils.shortenURI(
                             self.startconcept) + "</a></p>"
                     else:
                         indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
                                      tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
                                          "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
-                                         "type"] + "\"/><a href=\"" + self.generateRelativeLinkFromGivenDepth(
-                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + self.shortenURI(
+                                         "type"] + "\"/><a href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + SPARQLUtils.shortenURI(
                             self.startconcept) + "</a></p>"
                 indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
                 for item in tree["core"]["data"]:
@@ -574,14 +577,14 @@ class OntDocGeneration:
                         exitem=None
                         for item2 in tree["core"]["data"]:
                             if item2["parent"]==item["id"] and (item2["type"]=="instance" or item2["type"]=="geoinstance") and nslink in item2["id"]:
-                                checkdepth = self.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
-                                exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+self.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
+                                checkdepth = DocUtils.checkDepthFromPath(path, prefixnamespace, item2["id"])-1
+                                exitem="<td><img src=\""+tree["types"][item2["type"]]["icon"]+"\" height=\"25\" width=\"25\" alt=\""+item2["type"]+"\"/><a href=\""+DocUtils.generateRelativeLinkFromGivenDepth(prefixnamespace,checkdepth,str(re.sub("_suniv[0-9]+_","",item2["id"])),True)+"\">"+str(item2["text"])+"</a></td>"
                                 break
                         if exitem!=None:
                             if self.createColl:
                                 indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
-                                                 "type"] + "\"/><a href=\"" + self.shortenURI(
+                                                 "type"] + "\"/><a href=\"" + SPARQLUtils.shortenURI(
                                     str(item["id"])) + "_collection/index.html\" target=\"_blank\">" + str(
                                     item["text"]) + "</a></td>"
                             else:
@@ -617,19 +620,19 @@ class OntDocGeneration:
                 f.write(sparqlhtml)
                 f.close()
         if len(iiifmanifestpaths["default"])>0:
-            self.generateIIIFCollections(self.outpath,iiifmanifestpaths["default"],prefixnamespace)
+            IIIFAPIExporter.generateIIIFCollections(self.outpath,self.deploypath,iiifmanifestpaths["default"],prefixnamespace)
         if len(featurecollectionspaths)>0 and self.ckan:
-            self.generateCKANCollection(outpath,featurecollectionspaths)
+            CKANExporter.generateCKANCollection(outpath,featurecollectionspaths)
         if len(featurecollectionspaths)>0:
-            relpath=self.generateRelativePathFromGivenDepth("",0)
+            relpath=DocUtils.generateRelativePathFromGivenDepth(0)
             indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
                     .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
-            self.generateOGCAPIFeaturesPages(outpath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
+            OGCAPIFeaturesExporter.generateOGCAPIFeaturesPages(outpath,self.deploypath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
                                              True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
-            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(prefixnamespace,0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
+            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
             indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -680,7 +683,7 @@ class OntDocGeneration:
                 if isfeature:
                     classToFColl[str(tup[1])]+=1
         for cls in classToInstances:
-            colluri=namespace+self.shortenURI(cls)+"_collection"
+            colluri=namespace+SPARQLUtils.shortenURI(cls)+"_collection"
             if classToFColl[cls]==len(classToInstances[cls]):
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
@@ -691,7 +694,7 @@ class OntDocGeneration:
                 graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection")))
             else:
                 graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
-            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(self.shortenURI(cls))+" Instances Collection")))
+            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(SPARQLUtils.shortenURI(cls))+" Instances Collection")))
             for instance in classToInstances[cls]:
                 graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(instance)))
         return graph
@@ -726,13 +729,13 @@ class OntDocGeneration:
         #QgsMessageLog.logMessage(ress)
         for cls in ress:
             for obj in graph.subjects(URIRef(self.typeproperty), URIRef(cls),True):
-                res = self.replaceNameSpacesInLabel(str(obj))
+                res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(obj))
                 if str(obj) in uritolabel:
-                    restext= uritolabel[str(obj)]["label"] + " (" + self.shortenURI(str(obj)) + ")"
+                    restext= uritolabel[str(obj)]["label"] + " (" + SPARQLUtils.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
                 else:
-                    restext= self.shortenURI(str(obj))
+                    restext= SPARQLUtils.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
                 if str(obj) not in SPARQLUtils.collectionclasses:
@@ -743,9 +746,9 @@ class OntDocGeneration:
                     uritotreeitem[str(obj)]=[]
                 uritotreeitem[str(obj)].append(result[-1])
                 #classidset.add(str(obj))
-            res = self.replaceNameSpacesInLabel(str(cls))
+            res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(cls))
             if ress[cls]["super"] == None:
-                restext = self.shortenURI(str(cls))
+                restext = SPARQLUtils.shortenURI(str(cls))
                 if res != None:
                     restext += " (" + res["uri"] + ")"
                 if cls not in uritotreeitem:
@@ -754,11 +757,11 @@ class OntDocGeneration:
                     uritotreeitem[str(cls)].append(result[-1])
             else:
                 if "label" in cls and cls["label"] != None:
-                    restext = ress[cls]["label"] + " (" + self.shortenURI(str(cls)) + ")"
+                    restext = ress[cls]["label"] + " (" + SPARQLUtils.shortenURI(str(cls)) + ")"
                     if res != None:
                         restext = ress[cls]["label"] + " (" + res["uri"] + ")"
                 else:
-                    restext = self.shortenURI(str(cls))
+                    restext = SPARQLUtils.shortenURI(str(cls))
                     if res != None:
                         restext += " (" + res["uri"] + ")"
                 if cls not in uritotreeitem:
@@ -770,12 +773,12 @@ class OntDocGeneration:
                     uritotreeitem[cls][-1]["parent"]=ress[cls]["super"]
                 if str(ress[cls]["super"]) not in uritotreeitem:
                     uritotreeitem[str(ress[cls]["super"])]=[]
-                    clsres = self.replaceNameSpacesInLabel(str(ress[cls]["super"]))
+                    clsres = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(ress[cls]["super"]))
                     if clsres!=None:
                         theitem = {"id": str(ress[cls]["super"]), "parent": "#", "type": "class",
-                                   "text": self.shortenURI(str(ress[cls]["super"]))+" (" + clsres["uri"] + ")", "data": {}}
+                                   "text": SPARQLUtils.shortenURI(str(ress[cls]["super"]))+" (" + clsres["uri"] + ")", "data": {}}
                     else:
-                        theitem={"id": str(ress[cls]["super"]), "parent": "#","type": "class","text": self.shortenURI(str(ress[cls]["super"])),"data":{}}
+                        theitem={"id": str(ress[cls]["super"]), "parent": "#","type": "class","text": SPARQLUtils.shortenURI(str(ress[cls]["super"])),"data":{}}
                     uritotreeitem[str(ress[cls]["super"])].append(theitem)
                     result.append(theitem)
                 classidset.add(str(ress[cls]["super"]))
@@ -784,7 +787,7 @@ class OntDocGeneration:
             classidset.add("http://www.w3.org/2002/07/owl#Thing")
             result.append({"id": "http://www.w3.org/2002/07/owl#Thing", "parent": "#", "type": "class", "text": "Thing (owl:Thing)", "data": {}})
             for obj in graph.subjects(True):
-                result.append({"id":str(obj) , "parent": "http://www.w3.org/2002/07/owl#Thing", "type": "instance", "text": self.shortenURI(str(obj)),"data": {}})
+                result.append({"id":str(obj) , "parent": "http://www.w3.org/2002/07/owl#Thing", "type": "instance", "text": SPARQLUtils.shortenURI(str(obj)),"data": {}})
         tree["core"]["data"] = result
         return tree
 
@@ -831,40 +834,7 @@ class OntDocGeneration:
                         for item in uritotreeitem[uri]:
                             item["type"]=thetype
 
-    def shortenURI(self,uri,ns=False):
-        if uri!=None and "#" in uri and ns:
-            return uri[0:uri.rfind('#')+1]
-        if uri!=None and "/" in uri and ns:
-            return uri[0:uri.rfind('/')+1]
-        if uri!=None and uri.endswith("/"):
-            uri = uri[0:-1]
-        if uri!=None and "#" in uri and not ns:
-            return uri[uri.rfind('#')+1:]
-        if uri!=None and "/" in uri and not ns:
-            return uri[uri.rfind('/')+1:]
-        return uri
 
-    def replaceNameSpacesInLabel(self,uri):
-        for ns in self.prefixes["reversed"]:
-            if ns in uri:
-                return {"uri": str(self.prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
-                        "ns": self.prefixes["reversed"][ns]}
-        return None
-
-    def generateRelativePathFromGivenDepth(self,baseurl,checkdepth):
-        rellink = ""
-        for i in range(0, checkdepth):
-            rellink = "../" + rellink
-        return rellink
-
-    def generateRelativeLinkFromGivenDepth(self,baseurl,checkdepth,item,withindex):
-        rellink = str(item).replace(baseurl, "")
-        for i in range(0, checkdepth):
-            rellink = "../" + rellink
-        if withindex:
-            rellink += "/index.html"
-        #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
-        return rellink
 
     def resolveBibtexReference(self, predobjs, item, graph):
         bibtexmappings = {"http://purl.org/dc/elements/1.1/title":"title",
@@ -891,7 +861,7 @@ class OntDocGeneration:
                 if "author" not in bibtexitem:
                     bibtexitem["author"] = []
                 if isinstance(tup[1], URIRef):
-                    bibtexitem["author"].append(self.getLabelForObject(tup[1], graph))
+                    bibtexitem["author"].append(DocUtils.getLabelForObject(tup[1], graph))
                 else:
                     bibtexitem["author"].append(str(tup[1]))
             elif str(tup[0]) == "http://purl.org/ontology/bibo/pageStart":
@@ -906,10 +876,10 @@ class OntDocGeneration:
                 bibtexitem["type"] = bibtextypemappings[str(tup[1])]
             elif str(tup[0]) in bibtexmappings:
                 if isinstance(tup[1], URIRef):
-                    bibtexitem[bibtexmappings[str(tup[0])]] = self.getLabelForObject(tup[1], graph)
+                    bibtexitem[bibtexmappings[str(tup[0])]] = DocUtils.getLabelForObject(tup[1], graph)
                 else:
                     bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        res = bibtexitem["type"] + "{" + self.shortenURI(item) + ",\n"
+        res = bibtexitem["type"] + "{" + SPARQLUtils.shortenURI(item) + ",\n"
         for bibpart in sorted(bibtexitem):
             if bibpart == "type":
                 continue
@@ -947,34 +917,29 @@ class OntDocGeneration:
                     timeobj["timepoint"] = tobj2[1]
         return timeobj
 
-    def createURILink(self, uri):
-        res = self.replaceNameSpacesInLabel(uri)
-        if res != None:
-            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + str(res["uri"]) + "</a>"
-        else:
-            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + self.shortenURI(uri) + "</a>"
+
 
     def timeObjectToHTML(self, timeobj):
         timeres = None
         if "begin" in timeobj and "end" in timeobj:
             timeres = str(timeobj["begin"]) + " "
             if str(timeobj["begin"].datatype) in SPARQLUtils.timeliteraltypes:
-                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
+                timeres += DocUtils.createURILink(self.prefixes,SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
             timeres += " - " + str(timeobj["end"])
             if str(timeobj["end"].datatype) in SPARQLUtils.timeliteraltypes:
-                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
+                timeres += DocUtils.createURILink(self.prefixes,SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
         elif "begin" in timeobj and not "end" in timeobj:
             timeres = str(timeobj["begin"])
             if str(timeobj["begin"].datatype) in SPARQLUtils.timeliteraltypes:
-                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
+                timeres += DocUtils.createURILink(self.prefixes,SPARQLUtils.timeliteraltypes[str(timeobj["begin"].datatype)])
         elif "begin" not in timeobj and "end" in timeobj:
             timeres = str(timeobj["end"])
             if str(timeobj["end"].datatype) in SPARQLUtils.timeliteraltypes:
-                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
+                timeres += DocUtils.createURILink(self.prefixes,SPARQLUtils.timeliteraltypes[str(timeobj["end"].datatype)])
         elif "timepoint" in timeobj:
             timeres = timeobj["timepoint"]
             if str(timeobj["timepoint"].datatype) in SPARQLUtils.timeliteraltypes:
-                timeres += self.createURILink(SPARQLUtils.timeliteraltypes[str(timeobj["timepoint"].datatype)])
+                timeres += DocUtils.createURILink(self.prefixes,SPARQLUtils.timeliteraltypes[str(timeobj["timepoint"].datatype)])
         return timeres
 
     def resolveTimeLiterals(self, pred, obj, graph):
@@ -1009,19 +974,6 @@ class OntDocGeneration:
                         str(pobj[0]) in SPARQLUtils.geoproperties or str(pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
-
-    def getLabelForObject(self,obj,graph,labellang=None):
-        label=""
-        onelabel=self.shortenURI(str(obj))
-        for tup in graph.predicate_objects(obj):
-            if str(tup[0]) in SPARQLUtils.labelproperties:
-                # Check for label property
-                if tup[1].language==labellang:
-                    label=str(tup[1])
-                onelabel=str(tup[1])
-        if label=="" and onelabel!=None:
-            label=onelabel
-        return label
 
     def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
                                                     textannos, image3dannos, label, unitlabel,nonns):
@@ -1111,12 +1063,12 @@ class OntDocGeneration:
                 foundunit = tup[1]
         if foundunit != None and foundval != None:
             if "http" in foundunit:
-                unitlabel= str(foundval) + " " + self.createURILink(str(foundunit))
+                unitlabel= str(foundval) + " " + DocUtils.createURILink(self.prefixes,str(foundunit))
             else:
                 unitlabel = str(foundval) + " " + str(foundunit)
         if foundunit == None and foundval != None:
             if "http" in foundval:
-                unitlabel = "<a href=\"" + str(foundval) + "\">" + str(self.shortenURI(foundval)) + "</a>"
+                unitlabel = "<a href=\"" + str(foundval) + "\">" + str(SPARQLUtils.shortenURI(foundval)) + "</a>"
             else:
                 unitlabel = str(foundval)
         if annosource != None:
@@ -1140,7 +1092,7 @@ class OntDocGeneration:
             mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel,nonns)
             label=mydata["label"]
             if label=="":
-                label=str(self.shortenURI(str(object)))
+                label=str(SPARQLUtils.shortenURI(str(object)))
             geojsonrep=mydata["geojsonrep"]
             foundmedia=mydata["foundmedia"]
             imageannos=mydata["imageannos"]
@@ -1154,12 +1106,12 @@ class OntDocGeneration:
             else:
                 rdfares = "resource=\"" + str(object) + "\""
             if baseurl in str(object) or isinstance(object,BNode):
-                rellink = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
-                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(self.shortenURI(str(object))) + ")</span></a>"
+                rellink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
+                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(SPARQLUtils.shortenURI(str(object))) + ")</span></a>"
                 if bibtex != None:
                     tablecontents += "<details><summary>[BIBTEX]</summary><pre>" + str(bibtex) + "</pre></details>"
             else:
-                res = self.replaceNameSpacesInLabel(str(object))
+                res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(object))
                 if res != None:
                     tablecontents += "<span><a property=\"" + str(
                         pred) + "\" " + rdfares + " target=\"_blank\" href=\"" + str(
@@ -1171,8 +1123,8 @@ class OntDocGeneration:
                 if bibtex!=None:
                     tablecontents+="<details><summary>[BIBTEX]</summary><pre>"+str(bibtex)+"</pre></details>"
                 if self.generatePagesForNonNS:
-                    rellink = self.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
-                                                                      str(baseurl) + "nonns_" + self.shortenURI(
+                    rellink = DocUtils.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
+                                                                      str(baseurl) + "nonns_" + SPARQLUtils.shortenURI(
                                                                           str(object)), False)
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
@@ -1186,11 +1138,11 @@ class OntDocGeneration:
             if ttlf != None:
                 ttlf.add((subject, URIRef(pred), object))
             if isinstance(object, Literal) and object.datatype != None:
-                res = self.replaceNameSpacesInLabel(str(object.datatype))
+                res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(object.datatype))
                 objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
-                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops!=None and self.shortenURI(str(pred),True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
+                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops!=None and SPARQLUtils.shortenURI(str(pred),True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
                     dateprops.append(str(pred))
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
@@ -1201,7 +1153,7 @@ class OntDocGeneration:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
-                        object.datatype) + "\">" + self.shortenURI(str(object.datatype)) + "</a>)</small></span>"
+                        object.datatype) + "\">" + SPARQLUtils.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
             else:
                 if object.language != None:
@@ -1231,15 +1183,15 @@ class OntDocGeneration:
 
 
     def formatPredicate(self,tup,baseurl,checkdepth,tablecontents,graph,reverse):
-        label=self.getLabelForObject(URIRef(tup), graph,self.labellang)
+        label=DocUtils.getLabelForObject(URIRef(tup), graph,self.labellang)
         tablecontents += "<td class=\"property\">"
         if reverse:
             tablecontents+="Is "
         if baseurl in str(tup):
-            rellink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth,str(tup),True)
+            rellink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth,str(tup),True)
             tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + rellink + "\">" + label + "</a></span>"
         else:
-            res = self.replaceNameSpacesInLabel(tup)
+            res = DocUtils.replaceNameSpacesInLabel(self.prefixes,tup)
             if res != None:
                 tablecontents += "<span class=\"property-name\"><a class=\"uri\" target=\"_blank\" href=\"" + str(
                     tup) + "\">" + label + " <span style=\"color: #666;\">(" + res["uri"] + ")</span></a></span>"
@@ -1261,616 +1213,26 @@ class OntDocGeneration:
                 if str(tup[0]) in SPARQLUtils.labelproperties:
                     label = str(tup[1])
             if uri in uritotreeitem:
-                res = self.replaceNameSpacesInLabel(str(uri))
-                label = self.getLabelForObject(URIRef(str(uri)), graph, self.labellang)
+                res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(uri))
+                label = DocUtils.getLabelForObject(URIRef(str(uri)), graph, self.labellang)
                 if res != None and label != "":
                     uritotreeitem[uri][-1]["text"] = label + " (" + res["uri"] + ")"
                 elif label != "":
-                    uritotreeitem[uri][-1]["text"] = label + " (" + self.shortenURI(uri) + ")"
+                    uritotreeitem[uri][-1]["text"] = label + " (" + SPARQLUtils.shortenURI(uri) + ")"
                 else:
-                    uritotreeitem[uri][-1]["text"] = self.shortenURI(uri)
-                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
-                labeltouri[label] = prefixnamespace + "nonns_" + self.shortenURI(uri) + ".html"
+                    uritotreeitem[uri][-1]["text"] = SPARQLUtils.shortenURI(uri)
+                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + SPARQLUtils.shortenURI(uri) + ".html"
+                labeltouri[label] = prefixnamespace + "nonns_" + SPARQLUtils.shortenURI(uri) + ".html"
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
             #QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
+            self.createHTML(outpath+"nonns_"+SPARQLUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
-
-    def generateRelativeSymlink(self, linkpath, targetpath, outpath, items=False):
-        if "nonns" in targetpath and not items:
-            checkdepthtarget = 3
-        elif "nonns" in targetpath and items:
-            checkdepthtarget = 4
-        else:
-            checkdepthtarget = targetpath.count("/") - 1
-        print("Checkdepthtarget: " + str(checkdepthtarget))
-        targetrellink = self.generateRelativeLinkFromGivenDepth(targetpath, checkdepthtarget, linkpath, False)
-        print("Target Rellink: " + str(targetrellink))
-        print("Linkpath: " + str(linkpath))
-        targetrellink = targetrellink.replace(outpath, "")
-        return targetrellink.replace("//", "/")
-
-    def generateIIIFAnnotations(self, outpath):
-        for imgpath in imagetoURI:
-            print("Generate IIIF Annotations for " + str(imgpath) + " with " + str(imagetoURI[imgpath]))
-            if "uri" in imagetoURI[imgpath]:
-                for ur in imagetoURI[imgpath]["uri"]:
-                    # print(ur)
-                    sur = self.shortenURI(ur)
-                    # print("Getting "+outpath+"/iiif/mf/"+sur+"/manifest.json")
-                    if os.path.exists(outpath + "/iiif/mf/" + sur + "/manifest.json") and "anno" in imagetoURI[imgpath]:
-                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'r', encoding="utf-8")
-                        curmanifest = json.loads(f.read())
-                        f.close()
-                        annocounter = 2
-                        for anno in imagetoURI[imgpath]["anno"]:
-                            anno["id"] = imgpath + "/canvas/p2/anno-" + str(annocounter)
-                            anno["target"]["source"] = imgpath + "/canvas/p1"
-                            if "bodies" in imagetoURI[imgpath]["uri"]:
-                                anno["body"] = [anno["body"]]
-                                anno["body"] += imagetoURI[imgpath]["uri"]["bodies"]
-                            curmanifest["items"][0]["annotations"][0]["items"].append(anno)
-                            annocounter += 1
-                        f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'w', encoding="utf-8")
-                        f.write(json.dumps(curmanifest))
-                        f.close()
 
     def polygonToPath(self, svg):
         svg = svg.replace("<polygon", "<path").replace("points=\"", "d=\"M").replace("\"></polygon>", " Z\"></polygon>")
         return svg.replace("<svg>",
                            "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">")
-
-    def generateIIIFManifest(self, outpath, imgpaths, annos, curind, prefixnamespace, label="", summary="",
-                             thetypes=None, predobjmap=None, maintype="Image"):
-        print("GENERATE IIIF Manifest for " + str(self.outpath) + " " + str(curind) + " " + str(label) + " " + str(
-            summary) + " " + str(predobjmap))
-        if not os.path.exists(self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json"):
-            if not os.path.exists(self.outpath + "/iiif/mf/"):
-                os.makedirs(self.outpath + "/iiif/mf/")
-            if not os.path.exists(self.outpath + "/iiif/images/"):
-                os.makedirs(self.outpath + "/iiif/images/")
-            print(label)
-            if label != "":
-                curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": self.deploypath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json",
-                                   "type": "Manifest",
-                                   "label": {"en": [str(label) + " (" + self.shortenURI(curind) + ")"]}, "homepage": [
-                        {"id": str(curind).replace(prefixnamespace, self.deploypath + "/"), "type": "Text",
-                         "label": {"en": [str(curind).replace(prefixnamespace, self.deploypath + "/")]},
-                         "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
-            else:
-                curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": self.deploypath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json",
-                                   "type": "Manifest", "label": {"en": [self.shortenURI(curind)]}, "homepage": [
-                        {"id": str(curind).replace(prefixnamespace, self.deploypath + "/"), "type": "Text",
-                         "label": {"en": [str(curind).replace(prefixnamespace, self.deploypath + "/")]},
-                         "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
-            pagecounter = 0
-            for imgpath in imgpaths:
-                curitem = {"id": imgpath + "/canvas/p" + str(pagecounter), "type": "Canvas",
-                           "label": {"en": [str(label) + " " + str(maintype) + " " + str(pagecounter + 1)]},
-                           "height": 100, "width": 100, "items": [
-                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/1", "type": "AnnotationPage", "items": [
-                            {"id": imgpath + "/annotation/p" + str(pagecounter) + "/1", "type": "Annotation",
-                             "motivation": "painting",
-                             "body": {"id": imgpath, "type": str(maintype), "format": "image/png"},
-                             "target": imgpath + "/canvas/p" + str(pagecounter)}]}], "annotations": [
-                        {"id": imgpath + "/canvas/p" + str(pagecounter) + "/annopage-2", "type": "AnnotationPage",
-                         "items": [{"id": imgpath + "/canvas/p" + str(pagecounter) + "/anno-1", "type": "Annotation",
-                                    "motivation": "commenting",
-                                    "body": {"type": "TextualBody", "language": "en", "format": "text/html",
-                                             "value": "<a href=\"" + str(curind) + "\">" + str(
-                                                 self.shortenURI(curind)) + "</a>"},
-                                    "target": imgpath + "/canvas/p" + str(pagecounter)}]}]}
-                if annos != None:
-                    annocounter = 3
-                    for anno in annos:
-                        curitem["annotations"].append(
-                            {"id": imgpath + "/canvas/p" + str(pagecounter) + "/annopage-" + str(annocounter),
-                             "type": "AnnotationPage", "items": [
-                                {"id": imgpath + "/canvas/p" + str(pagecounter) + "/anno-1", "type": "Annotation",
-                                 "motivation": "commenting",
-                                 "body": {"type": "TextualBody", "language": "en", "format": "text/html",
-                                          "value": "<a href=\"" + str(curind) + "\">" + str(
-                                              self.shortenURI(curind)) + "</a>"},
-                                 "target": {"source": imgpath + "/canvas/p" + str(pagecounter)},
-                                 "type": "SpecificResource", "selector": {"type": "SvgSelector", "value": anno}}]})
-                        annocounter += 1
-                curiiifmanifest["items"].append(curitem)
-                pagecounter += 1
-            for pred in predobjmap:
-                # print(str(pred)+" "+str(predobjmap[pred]))
-                for objs in predobjmap[pred]:
-                    # print(str(pred)+" "+str(objs))
-                    # print(curiiifmanifest["metadata"])
-                    if isinstance(objs, URIRef):
-                        curiiifmanifest["metadata"].append({"label": {"en": [self.shortenURI(str(pred))]}, "value": {
-                            "en": ["<a href=\"" + str(objs) + "\">" + str(objs) + "</a>"]}})
-                    else:
-                        curiiifmanifest["metadata"].append(
-                            {"label": {"en": [self.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
-            print(curiiifmanifest["metadata"])
-            if summary != None and summary != "" and summary != {}:
-                curiiifmanifest["summary"] = {"en": [str(summary)]}
-            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/")
-            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/")
-            # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/0/")
-            os.makedirs(self.outpath + "/iiif/mf/" + self.shortenURI(curind))
-            f = open(self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "w", encoding="utf-8")
-            f.write(json.dumps(curiiifmanifest))
-            f.close()
-        if thetypes != None and len(thetypes) > 0:
-            return {"url": self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "label": str(label),
-                    "class": next(iter(thetypes))}
-        return {"url": self.outpath + "/iiif/mf/" + self.shortenURI(curind) + "/manifest.json", "label": str(label),
-                "class": ""}
-
-    def generateIIIFCollections(self, outpath, imagespaths, prefixnamespace):
-        if not os.path.exists(outpath + "/iiif/collection/"):
-            os.makedirs(outpath + "/iiif/collection/")
-        if os.path.exists(outpath + "/iiif/collection/iiifcoll.json"):
-            f = open(outpath + "/iiif/collection/iiifcoll.json", "r", encoding="utf-8")
-            collections = json.loads(f.read())
-            f.close()
-        else:
-            collections = {"main": {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                    "id": outpath + "/iiif/collection/iiifcoll.json", "type": "Collection",
-                                    "label": {"en": ["Collection: " + self.shortenURI(str(prefixnamespace))]},
-                                    "items": []}}
-        seenurls = set()
-        for imgpath in sorted(imagespaths, key=lambda k: k['label'], reverse=False):
-            curclass = "main"
-            if "class" in imgpath and imgpath["class"] != "":
-                curclass = imgpath["class"]
-                if curclass not in collections:
-                    collections[curclass] = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                             "id": outpath + "/iiif/collection/" + curclass + ".json",
-                                             "type": "Collection", "label": {"en": ["Collection: " + str(curclass)]},
-                                             "items": []}
-            if imgpath["url"] not in seenurls:
-                if imgpath["label"] != "":
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + self.shortenURI(
-                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
-                                                           "id": imgpath["url"].replace(self.outpath, self.deploypath),
-                                                           "type": "Manifest", "label": {"en": [
-                            imgpath["label"] + " (" + self.shortenURI(imgpath["url"].replace("/manifest.json", "")[
-                                                                      0:imgpath["url"].replace("/manifest.json",
-                                                                                               "").rfind(
-                                                                          ".")]) + ")"]}})
-                else:
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + self.shortenURI(
-                        imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
-                                                           "id": imgpath["url"].replace(self.outpath, self.deploypath),
-                                                           "type": "Manifest", "label": {
-                            "en": [self.shortenURI(imgpath["url"].replace("/manifest.json", ""))]}})
-            seenurls = imgpath["url"]
-        for coll in collections:
-            if coll != "main":
-                collections["main"]["items"].append(collections[coll])
-        f = open(outpath + "/iiif/collection/iiifcoll.json", "w", encoding="utf-8")
-        f.write(json.dumps(collections["main"]))
-        f.close()
-        iiifindex = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"><div id="my-mirador"/><script type="text/javascript">var mirador = Mirador.viewer({"id": "my-mirador","manifests": {"collection/iiifcoll.json": {"provider": "Harvard University"}},"windows": [{"loadedManifest": "collection/iiifcoll.json","canvasIndex": 2,"thumbnailNavigationPosition": 'far-bottom'}]});</script></body></html>"""
-        f = open(outpath + "/iiif/index.html", "w", encoding="utf-8")
-        f.write(iiifindex)
-        f.close()
-
-    def generateCKANCollection(self, outpath, featurecollectionspaths):
-        if not os.path.exists(outpath + "/dataset/"):
-            os.makedirs(outpath + "/dataset/")
-        if not os.path.exists(outpath + "/api/"):
-            os.makedirs(outpath + "/api/")
-        if not os.path.exists(outpath + "/api/action/"):
-            os.makedirs(outpath + "/api/action/")
-        if not os.path.exists(outpath + "/api/action/group_list/"):
-            os.makedirs(outpath + "/api/action/group_list/")
-        if not os.path.exists(outpath + "/api/action/action_list/"):
-            os.makedirs(outpath + "/api/action/action_list/")
-        if not os.path.exists(outpath + "/api/action/tag_list/"):
-            os.makedirs(outpath + "/api/action/tag_list/")
-        f = open(outpath + "/api/action/group_list/index.json", "w")
-        f.write(json.dumps({"success": True, "result": []}))
-        f.close()
-        f = open(outpath + "/api/action/tag_list/index.json", "w")
-        f.write(json.dumps({"success": True, "result": ["ttl", "json", "geojson", "html"]}))
-        f.close()
-        colls = []
-        for coll in featurecollectionspaths:
-            curcoll = None
-            op = outpath + "/dataset/" + coll.replace(outpath, "").replace("index.geojson", "")
-            op = op.replace(".geojson", "")
-            op = op.replace("//", "/")
-            if op.endswith("/"):
-                op = op[0:-1]
-            if not os.path.exists(op):
-                os.makedirs(op)
-            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".json").replace("//", "/"),
-                                                      outpath)
-            p = Path(str(op + ".json").replace("//", "/"))
-            p.symlink_to(targetpath)
-            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".ttl").replace("//", "/"),
-                                                      outpath)
-            p = Path(str(op + ".ttl").replace("//", "/"))
-            p.symlink_to(targetpath)
-            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"), str(op + ".html").replace("//", "/"),
-                                                      outpath)
-            p = Path(str(op + ".html").replace("//", "/"))
-            p.symlink_to(targetpath)
-            colls.append(op[op.rfind('/') + 1:])
-        f = open(outpath + "/api/action/action_list/index.json", "w")
-        f.write(json.dumps({"success": True, "result": colls}))
-        f.close()
-
-    def generateOGCAPIFeaturesPages(self, outpath, featurecollectionspaths, prefixnamespace, ogcapi, mergeJSON):
-        apihtml = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><metaname=\"description\" content=\"SwaggerUI\"/><title>SwaggerUI</title><link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css\" /></head><body><div id=\"swagger-ui\"></div><script src=\"https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js\" crossorigin></script><script>const swaggerUrl = \"" + str(
-            self.deploypath) + "/api/index.json\"; const apiUrl = \"" + str(
-            self.deploypath) + "/\";  window.onload = () => {let swaggerJson = fetch(swaggerUrl).then(r => r.json().then(j => {j.servers[0].url = apiUrl; window.ui = SwaggerUIBundle({spec: j,dom_id: '#swagger-ui'});}));};</script></body></html>"
-        apijson = {"openapi": "3.0.1", "info": {"title": str(self.deploypath) + " Feature Collections",
-                                                "description": "Feature Collections of " + str(self.deploypath)},
-                   "servers": [{"url": str(self.deploypath)}], "paths": {}}
-        conformancejson = {"conformsTo": ["http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core",
-                                          "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/html",
-                                          "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"]}
-        if ogcapi:
-            apijson["paths"]["/api"] = {
-                "get": {"tags": ["Capabilities"], "summary": "api documentation", "description": "api documentation",
-                        "operationId": "openApi", "parameters": [], "responses": {
-                        "default": {"description": "default response",
-                                    "content": {"application/vnd.oai.openapi+json;version=3.0": {},
-                                                "application/json": {}, "text/html": {"schema": {}}}}}}}
-            apijson["paths"]["/license/dataset"] = {}
-            apijson["components"] = {"schemas": {"Conformance": {"type": "object", "properties": {
-                "conformsTo": {"type": "array", "items": {"type": "string"}}}, "xml": {"name": "ConformsTo",
-                                                                                       "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "Collection": {"type": "object", "properties": {
-                                                     "id": {"type": "string", "xml": {"name": "Id",
-                                                                                      "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                     "title": {"type": "string", "xml": {"name": "Title",
-                                                                                         "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                     "description": {"type": "string", "xml": {"name": "Description",
-                                                                                               "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                     "links": {"type": "array", "xml": {"name": "link",
-                                                                                        "namespace": "http://www.w3.org/2005/Atom"},
-                                                               "items": {"$ref": "#/components/schemas/Link"}},
-                                                     "extent": {"$ref": "#/components/schemas/Extent"},
-                                                     "itemType": {"type": "string"},
-                                                     "crs": {"type": "array", "items": {"type": "string"}},
-                                                     "storageCrs": {"type": "string"}}, "xml": {"name": "Collection",
-                                                                                                "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "Collections": {"type": "object", "properties": {
-                                                     "links": {"type": "array", "xml": {"name": "link",
-                                                                                        "namespace": "http://www.w3.org/2005/Atom"},
-                                                               "items": {"$ref": "#/components/schemas/Link"}},
-                                                     "collections": {"type": "array", "xml": {"name": "Collection",
-                                                                                              "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"},
-                                                                     "items": {
-                                                                         "$ref": "#/components/schemas/Collection"}}},
-                                                                 "xml": {"name": "Collections",
-                                                                         "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "Extent": {"type": "object", "properties": {
-                                                     "spatial": {"$ref": "#/components/schemas/Spatial"},
-                                                     "temporal": {"$ref": "#/components/schemas/Temporal"}},
-                                                            "xml": {"name": "Extent",
-                                                                    "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "Link": {"type": "object", "properties": {
-                                                     "href": {"type": "string", "xml": {"attribute": True}},
-                                                     "rel": {"type": "string", "xml": {"attribute": True}},
-                                                     "type": {"type": "string", "xml": {"attribute": True}},
-                                                     "title": {"type": "string", "xml": {"attribute": True}}},
-                                                          "xml": {"name": "link",
-                                                                  "namespace": "http://www.w3.org/2005/Atom"}},
-                                                 "Spatial": {"type": "object", "properties": {"bbox": {"type": "array",
-                                                                                                       "items": {
-                                                                                                           "type": "array",
-                                                                                                           "items": {
-                                                                                                               "type": "number",
-                                                                                                               "format": "double"}}},
-                                                                                              "crs": {"type": "string",
-                                                                                                      "xml": {
-                                                                                                          "attribute": True}}},
-                                                             "xml": {"name": "SpatialExtent",
-                                                                     "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "Temporal": {"type": "object", "properties": {
-                                                     "interval": {"type": "array",
-                                                                  "items": {"type": "string", "format": "date-time"}},
-                                                     "trs": {"type": "string", "xml": {"attribute": True}}},
-                                                              "xml": {"name": "TemporalExtent",
-                                                                      "namespace": "http://www.opengis.net/ogcapi-features-1/1.0"}},
-                                                 "LandingPage": {"type": "object"}}}
-            landingpagejson = {"title": "Landing Page", "description": "Landing Page", "links": [{
-                "href": str(self.deploypath) + "/index.json",
-                "rel": "self",
-                "type": "application/json",
-                "title": "this document as JSON"
-            }, {
-                "href": str(self.deploypath) + "/index.html",
-                "rel": "alternate",
-                "type": "text/html",
-                "title": "this document as HTML"
-            }, {
-                "href": str(self.deploypath) + "/collections/",
-                "rel": "data",
-                "type": "application/json",
-                "title": "Supported Feature Collections as JSON"
-            }, {
-                "href": str(self.deploypath) + "/collections/indexc.html",
-                "rel": "data",
-                "type": "text/html",
-                "title": "Supported Feature Collections as HTML"
-            }, {"href": str(self.deploypath) + "/api/index.json", "rel": "service-desc",
-                "type": "application/vnd.oai.openapi+json;version=3.0", "title": "API definition"},
-                {"href": str(self.deploypath) + "/api", "rel": "service-desc", "type": "text/html",
-                 "title": "API definition as HTML"},
-                {"href": str(self.deploypath) + "/conformance", "rel": "conformance", "type": "application/json",
-                 "title": "OGC API conformance classes as Json"},
-                {"href": str(self.deploypath) + "/conformance", "rel": "conformance", "type": "text/html",
-                 "title": "OGC API conformance classes as HTML"}]}
-
-            apijson["paths"]["/"] = {"get": {"tags": ["Capabilities"], "summary": "landing page",
-                                             "description": "Landing page of this dataset",
-                                             "operationId": "landingPage", "parameters": [], "responses": {
-                    "default": {"description": "default response", "content": {
-                        "application/json": {"schema": {"$ref": "#/components/schemas/LandingPage"}},
-                        "text/html": {"schema": {}}}}}}}
-            apijson["paths"]["/conformance"] = {
-                "get": {"tags": ["Capabilities"], "summary": "supported conformance classes",
-                        "description": "Retrieves the supported conformance classes", "operationId": "conformance",
-                        "parameters": [], "responses": {"default": {"description": "default response", "content": {
-                        "application/json": {"schema": {"$ref": "#/components/schemas/Conformance"}},
-                        "text/ttl": {"schema": {}}, "text/html": {"schema": {}}}}}}}
-            collectionsjson = {"collections": [], "links": [
-                {"href": outpath + "collections/index.json", "rel": "self", "type": "application/json",
-                 "title": "this document as JSON"},
-                {"href": outpath + "collections/index.html", "rel": "self", "type": "text/html",
-                 "title": "this document as HTML"}]}
-            collectionshtml = "<html><head></head><body><header><h1>Collections of " + str(
-                self.deploypath) + "</h1></head>{{collectiontable}}<footer><a href=\"index.json\">This page as JSON</a></footer></body></html>"
-            collectiontable = "<table><thead><th>Collection</th><th>Links</th></thead><tbody>"
-            apijson["paths"]["/collections"] = {"get": {"tags": ["Collections"], "summary": "describes collections",
-                                                        "description": "Describes all collections provided by this service",
-                                                        "operationId": "collections", "parameters": [], "responses": {
-                    "default": {"description": "default response", "content": {
-                        "application/json": {"schema": {"$ref": "#/components/schemas/Collections"}},
-                        "text/ttl": {"schema": {}}, "text/html": {"schema": {}}}}}}}
-            if outpath.endswith("/"):
-                outpath = outpath[0:-1]
-            if not os.path.exists(outpath + "/api/"):
-                os.makedirs(outpath + "/api/")
-            if not os.path.exists(outpath + "/license/"):
-                os.makedirs(outpath + "/license/")
-            if not os.path.exists(outpath + "/collections/"):
-                os.makedirs(outpath + "/collections/")
-            if not os.path.exists(outpath + "/conformance/"):
-                os.makedirs(outpath + "/conformance/")
-        result = list()
-        for coll in featurecollectionspaths:
-            curcoll = None
-            if os.path.exists(coll):
-                with open(coll, 'r', encoding="utf-8") as infile:
-                    curcoll = json.load(infile)
-            if ogcapi:
-                op = outpath + "/collections/" + coll.replace(outpath, "").replace("index.geojson", "") + "/"
-                op = op.replace(".geojson", "")
-                op = op.replace("//", "/")
-                if not os.path.exists(op):
-                    os.makedirs(op)
-                if not os.path.exists(op + "/items/"):
-                    os.makedirs(op + "/items/")
-                opweb = op.replace(outpath, self.deploypath)
-                opwebcoll = opweb
-                if opwebcoll.endswith("/"):
-                    opwebcoll = opwebcoll[0:-1]
-                opwebcoll = opwebcoll.replace("//", "/")
-                collectionsjson["collections"].append(
-                    {"id": coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:],
-                     "title": featurecollectionspaths[coll]["name"], "links": [
-                        {"href": str(opweb.replace(".geojson", "") + "/index.json").replace("//", "/"),
-                         "rel": "collection", "type": "application/json", "title": "Collection as JSON"},
-                        {"href": str(opweb.replace(".geojson", "") + "/").replace("//", "/"), "rel": "collection",
-                         "type": "text/html", "title": "Collection as HTML"},
-                        {"href": str(opweb.replace(".geojson", "") + "/index.ttl").replace("//", "/"),
-                         "rel": "collection", "type": "text/ttl", "title": "Collection as TTL"}]})
-                currentcollection = {"title": featurecollectionspaths[coll]["name"],
-                                     "id": coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson",
-                                                                                                          "")[1:],
-                                     "links": [], "itemType": "feature"}
-                currentcollection["links"] = [
-                    {"href": opwebcoll + "/items/index.json", "rel": "items", "type": "application/json",
-                     "title": "Collection as JSON"},
-                    {"href": opwebcoll + "/items/indexc.html", "rel": "items", "type": "text/html",
-                     "title": "Collection as HTML"},
-                    {"href": opwebcoll + "/items/index.ttl", "rel": "collection", "type": "text/ttl",
-                     "title": "Collection as TTL"}]
-                if "bbox" in curcoll:
-                    currentcollection["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                    collectionsjson["collections"][-1]["extent"] = {"spatial": {"bbox": curcoll["bbox"]}}
-                if "crs" in curcoll:
-                    currentcollection["crs"] = curcoll["crs"]
-                    collectionsjson["collections"][-1]["crs"] = curcoll["crs"]
-                    if "extent" in currentcollection:
-                        currentcollection["extent"]["spatial"]["crs"] = curcoll["crs"]
-                        collectionsjson["collections"][-1]["extent"]["spatial"]["crs"] = curcoll["crs"]
-                apijson["paths"]["/collections/" + str(
-                    coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]).rstrip("/")] = {
-                    "get": {"tags": ["Collections"], "summary": "describes collection " + str(
-                        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
-                        "/"), "description": "Describes the collection with the id " + str(
-                        str(coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:])).rstrip(
-                        "/"), "operationId": "collection-" + str(
-                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[1:]),
-                            "parameters": [], "responses": {"default": {"description": "default response", "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/Collections"},
-                                                 "example": None}}}}}}
-                curcollrow = "<tr><td><a href=\"" + opweb.replace(".geojson", "") + "/items/indexc.html\">" + str(
-                    featurecollectionspaths[coll]["name"]) + "</a></td><td><a href=\"" + opweb.replace(".geojson",
-                                                                                                       "") + "/items/indexc.html\">[Collection as HTML]</a>&nbsp;<a href=\"" + opweb.replace(
-                    ".geojson", "") + "/items/\">[Collection as JSON]</a>&nbsp;<a href=\"" + opweb.replace(".geojson",
-                                                                                                           "") + "/items/index.ttl\">[Collection as TTL]</a></td></tr>"
-                f = open(op + "index.json", "w", encoding="utf-8")
-                f.write(json.dumps(currentcollection))
-                f.close()
-                f = open(op + "indexc.html", "w", encoding="utf-8")
-                f.write("<html><head></head><body><h1>" + featurecollectionspaths[coll][
-                    "name"] + "</h1><table><thead><tr><th>Collection</th><th>Links</th></tr></thead><tbody>" + str(
-                    curcollrow) + "</tbody></table></html>")
-                f.close()
-                collectiontable += curcollrow
-                if os.path.exists(coll):
-                    try:
-                        if os.path.exists(coll.replace("//", "/")):
-                            targetpath = self.generateRelativeSymlink(coll.replace("//", "/"),
-                                                                      str(op + "/items/index.json").replace("//", "/"),
-                                                                      outpath)
-                            p = Path(str(op + "/items/index.json").replace("//", "/"))
-                            p.symlink_to(targetpath)
-                        if os.path.exists(coll.replace("//", "/").replace("index.geojson", "index.ttl").replace(
-                                "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
-                                "nonns_" + featurecollectionspaths[coll]["id"] + ".ttl")):
-                            targetpath = self.generateRelativeSymlink(
-                                coll.replace("//", "/").replace("index.geojson", "index.ttl").replace(
-                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
-                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".ttl"),
-                                str(op + "/items/index.ttl").replace("//", "/"), outpath)
-                            p = Path(str(op + "/items/index.ttl").replace("//", "/"))
-                            p.symlink_to(targetpath)
-                        if os.path.exists(coll.replace("//", "/").replace("index.geojson", "index.html").replace(
-                                "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
-                                "nonns_" + featurecollectionspaths[coll]["id"] + ".html")):
-                            targetpath = self.generateRelativeSymlink(
-                                coll.replace("//", "/").replace("index.geojson", "index.html").replace(
-                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".geojson",
-                                    "nonns_" + featurecollectionspaths[coll]["id"] + ".html"),
-                                str(op + "/items/indexc.html").replace("//", "/"), outpath)
-                            f = open(str(op + "/items/indexc.html"), "w")
-                            f.write(
-                                "<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + targetpath + "\" /></head></html>")
-                            f.close()
-                        print("symlinks created")
-                    except Exception as e:
-                        print("symlink creation error")
-                        print(e)
-                    apijson["paths"][str("/collections/" + str(
-                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[
-                        1:]) + "/items/index.json").replace("//", "/")] = {"get": {"tags": ["Data"],
-                                                                                   "summary": "retrieves features of collection " + str(
-                                                                                       coll.replace(outpath,
-                                                                                                    "").replace(
-                                                                                           "index.geojson", "").replace(
-                                                                                           ".geojson", "")[1:]).rstrip(
-                                                                                       "/"),
-                                                                                   "description": "Retrieves features of collection  " + str(
-                                                                                       coll.replace(outpath,
-                                                                                                    "").replace(
-                                                                                           "index.geojson", "").replace(
-                                                                                           ".geojson", "")[1:]),
-                                                                                   "operationId": "features-" + str(
-                                                                                       coll.replace(outpath,
-                                                                                                    "").replace(
-                                                                                           "index.geojson", "").replace(
-                                                                                           ".geojson", "")[1:]),
-                                                                                   "parameters": [], "responses": {
-                            "default": {"description": "default response",
-                                        "content": {"application/geo+json": {"example": None}},
-                                        "text/ttl": {"schema": {"example": None}, "example": None},
-                                        "text/html": {"schema": {"example": None}, "example": None}}}}}
-                    apijson["paths"][str("/collections/" + str(
-                        coll.replace(outpath, "").replace("index.geojson", "").replace(".geojson", "")[
-                        1:]) + "/items/{featureId}/index.json").replace("//", "/")] = {"get": {"tags": ["Data"],
-                                                                                               "summary": "retrieves feature of collection " + str(
-                                                                                                   coll.replace(outpath,
-                                                                                                                "").replace(
-                                                                                                       "index.geojson",
-                                                                                                       "").replace(
-                                                                                                       ".geojson", "")[
-                                                                                                   1:]).rstrip("/"),
-                                                                                               "description": "Retrieves one single feature of the collection with the id " + str(
-                                                                                                   coll.replace(outpath,
-                                                                                                                "").replace(
-                                                                                                       "index.geojson",
-                                                                                                       "").replace(
-                                                                                                       ".geojson", "")[
-                                                                                                   1:]),
-                                                                                               "operationId": "feature-" + str(
-                                                                                                   coll.replace(outpath,
-                                                                                                                "").replace(
-                                                                                                       "index.geojson",
-                                                                                                       "").replace(
-                                                                                                       ".geojson", "")[
-                                                                                                   1:]), "parameters": [
-                            {"name": "featureId", "in": "path", "required": True, "schema": {"type": "string"}}],
-                                                                                               "responses": {
-                                                                                                   "default": {
-                                                                                                       "description": "default response",
-                                                                                                       "content": {
-                                                                                                           "application/geo+json": {
-                                                                                                               "example": None}},
-                                                                                                       "text/ttl": {
-                                                                                                           "schema": {
-                                                                                                               "example": None},
-                                                                                                           "example": None},
-                                                                                                       "text/html": {
-                                                                                                           "schema": {
-                                                                                                               "example": None},
-                                                                                                           "example": None}}}}}
-
-                    for feat in curcoll["features"]:
-                        featpath = feat["id"].replace(prefixnamespace, "").replace("//", "/")
-                        try:
-                            os.makedirs(str(op + "/items/" + str(self.shortenURI(feat["id"]))))
-                            print("CHECKPATH: " + str(
-                                str(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json").replace("//", "/")))
-                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json"):
-                                targetpath = self.generateRelativeSymlink(featpath + "/index.json", str(op + "/items/" + str(
-                                    self.shortenURI(feat["id"])) + "/index.json").replace("//", "/"), outpath, True)
-                                p = Path(str(op + "/items/" + str(self.shortenURI(feat["id"])) + "/index.json").replace("//", "/"))
-                                p.symlink_to(targetpath)
-                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.ttl"):
-                                targetpath = self.generateRelativeSymlink(featpath + "/index.ttl", str(op + "/items/" + str(
-                                    self.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"), outpath, True)
-                                p = Path(str(op + "/items/" + str(self.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"))
-                                p.symlink_to(targetpath)
-                            if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.html"):
-                                targetpath = self.generateRelativeSymlink(featpath + "/index.html", str(op + "/items/" + str(
-                                    self.shortenURI(feat["id"])) + "/index.html").replace("//", "/"), outpath, True)
-                                f = open(str(op + "/items/" + str(self.shortenURI(feat["id"]))) + "/index.html", "w")
-                                f.write(
-                                    "<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + targetpath + "\" /></head></html>")
-                                f.close()
-                            print("symlinks created")
-                        except Exception as e:
-                            print("symlink creation error")
-                            print(e)
-                    if mergeJSON:
-                        result.append(curcoll)
-                collectiontable += "</tbody></table>"
-        if mergeJSON:
-            with open(outpath + "/features.js", 'w', encoding="utf-8") as output_file:
-                output_file.write("var featurecolls=" + json.dumps(result))
-                # shutil.move(coll, op+"/items/index.json")
-        if ogcapi:
-            f = open(outpath + "/index.json", "w", encoding="utf-8")
-            f.write(json.dumps(landingpagejson))
-            f.close()
-            f = open(outpath + "/api/index.json", "w", encoding="utf-8")
-            f.write(json.dumps(apijson))
-            f.close()
-            f = open(outpath + "/api/api.html", "w", encoding="utf-8")
-            f.write(apihtml)
-            f.close()
-            f = open(outpath + "/collections/indexc.html", "w", encoding="utf-8")
-            f.write(collectionshtml.replace("{{collectiontable}}", collectiontable))
-            f.close()
-            f = open(outpath + "/collections/index.json", "w", encoding="utf-8")
-            f.write(json.dumps(collectionsjson))
-            f.close()
-            f = open(outpath + "/conformance/index.json", "w", encoding="utf-8")
-            f.write(json.dumps(conformancejson))
-            f.close()
-
-
-
-
 
     def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
         uristorender={}
@@ -1905,17 +1267,9 @@ class OntDocGeneration:
             thelabel=""
             if uri in uritolabel:
                 thelabel=uritolabel[uri]
-            self.createHTML(outpath+"nonns_"+self.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
+            self.createHTML(outpath+"nonns_"+SPARQLUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
 
-    def checkDepthFromPath(self,savepath,baseurl,subject):
-        if savepath.endswith("/"):
-            checkdepth = subject.replace(baseurl, "").count("/")
-        else:
-            checkdepth = subject.replace(baseurl, "").count("/")
-        #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth), "OntdocGeneration", Qgis.Info)
-        checkdepth+=1
-        #QgsMessageLog.logMessage("Checkdepth: " + str(checkdepth))
-        return checkdepth
+
 
     def getAccessFromBaseURL(self,baseurl,savepath):
         #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
@@ -1931,7 +1285,7 @@ class OntDocGeneration:
         savepath = savepath.replace("\\", "/")
         checkdepth=0
         if not nonns:
-            checkdepth=self.checkDepthFromPath(savepath, baseurl, subject)
+            checkdepth=DocUtils.checkDepthFromPath(savepath, baseurl, subject)
         logo=""
         if self.logoname!=None and self.logoname!="":
             logo="<img src=\""+self.logoname+"\" alt=\"logo\" width=\"25\" height=\"25\"/>&nbsp;&nbsp;"
@@ -1949,7 +1303,7 @@ class OntDocGeneration:
         if uritotreeitem!=None and str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)][-1]["parent"])
             if parentclass not in uritotreeitem:
-                uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": self.shortenURI(str(parentclass)),"data":{}}]
+                uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": SPARQLUtils.shortenURI(str(parentclass)),"data":{}}]
             uritotreeitem[parentclass][-1]["instancecount"]=0
         ttlf = Graph(bind_namespaces="rdflib")
         if parentclass!=None:
@@ -1989,7 +1343,7 @@ class OntDocGeneration:
                 print("no type")
             for tup in predobjmap:
                 #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
-                if self.metadatatable and tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
+                if self.metadatatable and tup not in SPARQLUtils.labelproperties and SPARQLUtils.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
                     thetable=metadatatablecontents
                     metadatatablecontentcounter+=1
                     if metadatatablecontentcounter%2==0:
@@ -2063,7 +1417,7 @@ class OntDocGeneration:
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
                 thetable += "</tr>"
-                if tup not in SPARQLUtils.labelproperties and self.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
+                if tup not in SPARQLUtils.labelproperties and SPARQLUtils.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
                     metadatatablecontents=thetable
                 else:
                     tablecontents=thetable
@@ -2127,7 +1481,7 @@ class OntDocGeneration:
         if nonns:
             completesavepath = savepath
             nonnslink = "<div>This page describes linked instances to the concept  <a target=\"_blank\" href=\"" + str(
-                subject) + "\">" + str(foundlabel) + " (" + str(self.shortenURI(
+                subject) + "\">" + str(foundlabel) + " (" + str(SPARQLUtils.shortenURI(
                 subject)) + ") </a> in this knowledge graph. It is defined <a target=\"_blank\" href=\"" + str(
                 subject) + "\">here</a></div>"
         else:
@@ -2138,19 +1492,19 @@ class OntDocGeneration:
                 f.write(json.dumps(predobjmap))
                 f.close()
         with open(completesavepath, 'w', encoding='utf-8') as f:
-            rellink=self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,searchfilename,False)
-            rellink2 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
-            rellink3 = self.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
-            rellink4 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
-            rellink5 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
-            epsgdefslink = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
-            rellink7 = self.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "vowl_result.js", False)
+            rellink=DocUtils.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,searchfilename,False)
+            rellink2 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,classtreename,False)
+            rellink3 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,"style.css",False)
+            rellink4 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "startscripts.js", False)
+            rellink5 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "proprelations.js", False)
+            epsgdefslink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
+            rellink7 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "vowl_result.js", False)
             if geojsonrep != None:
                 myexports=geoexports
             else:
                 myexports=nongeoexports
             itembibtex=""
-            relpath=self.generateRelativePathFromGivenDepth(baseurl,checkdepth)
+            relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             if foundlabel != "":
                 f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
@@ -2159,19 +1513,19 @@ class OntDocGeneration:
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", self.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", SPARQLUtils.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + self.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + SPARQLUtils.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             for comm in comment:
-                f.write(htmlcommenttemplate.replace("{{comment}}", self.shortenURI(comm) + ":" + comment[comm]))
+                f.write(htmlcommenttemplate.replace("{{comment}}", SPARQLUtils.shortenURI(comm) + ":" + comment[comm]))
             for fval in foundvals:
                 f.write(htmlcommenttemplate.replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        self.generateIIIFManifest(self.outpath, foundmedia["mesh"], image3dannos, str(subject),
+                        IIIFAPIExporter.generateIIIFManifest(self.outpath,self.deploypath, foundmedia["mesh"], image3dannos, str(subject),
                                                   self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
                                                   "Model"))
                 for anno in image3dannos:
@@ -2181,7 +1535,7 @@ class OntDocGeneration:
                 #QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        self.generateIIIFManifest(self.outpath, foundmedia["mesh"], image3dannos, str(subject),
+                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["mesh"], image3dannos, str(subject),
                                                   self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
                                                   "Model"))
                 for curitem in foundmedia["mesh"]:
@@ -2201,7 +1555,7 @@ class OntDocGeneration:
             if len(imageannos)>0 and len(foundmedia["image"])>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        self.generateIIIFManifest(self.outpath, foundmedia["image"], imageannos, str(subject),
+                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["image"], imageannos, str(subject),
                                                   self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
                                                   "Image"))
                 for image in foundmedia["image"]:
@@ -2214,7 +1568,7 @@ class OntDocGeneration:
             elif len(foundmedia["image"])>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        self.generateIIIFManifest(self.outpath, foundmedia["image"], imageannos, str(subject),
+                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["image"], imageannos, str(subject),
                                                   self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
                                                   "Image"))
                 for image in foundmedia["image"]:
@@ -2245,13 +1599,13 @@ class OntDocGeneration:
                                 textanno["exact"]) + "\"><mark>" + str(textanno["exact"]) + "</mark></span>")
             if len(foundmedia["audio"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
-                    self.generateIIIFManifest(self.outpath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
+                    IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
                                               foundlabel, comment, thetypes, predobjmap, "Audio"))
             for audio in foundmedia["audio"]:
                 f.write(audiotemplate.replace("{{audio}}",str(audio)))
             if len(foundmedia["video"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
-                    self.generateIIIFManifest(self.outpath, foundmedia["video"], None, str(subject), self.prefixnamespace,
+                    IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["video"], None, str(subject), self.prefixnamespace,
                                               foundlabel, comment, thetypes, predobjmap, "Video"))
             for video in foundmedia["video"]:
                 f.write(videotemplate.replace("{{video}}",str(video)))
@@ -2272,14 +1626,14 @@ class OntDocGeneration:
                 f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                        "[" + json.dumps(
                                                                                            jsonfeat) + "]").replace(
-                    "{{epsg}}", epsgcode).replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
+                    "{{epsg}}", epsgcode).replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
                                                                                                     epsgdefslink).replace(
                     "{{dateatt}}", ""))
             elif isgeocollection or nonns:
                 if foundlabel != None and foundlabel != "":
                     featcoll = {"type": "FeatureCollection", "id": subject, "name": str(foundlabel), "features": []}
                 else:
-                    featcoll = {"type": "FeatureCollection", "id": subject, "name": self.shortenURI(subject),
+                    featcoll = {"type": "FeatureCollection", "id": subject, "name": SPARQLUtils.shortenURI(subject),
                                 "features": []}
                 thecrs = set()
                 dateatt = ""
@@ -2337,12 +1691,12 @@ class OntDocGeneration:
                     if self.localOptimized:
                         f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
                                                                                                "[" + json.dumps(
-                                                                                                   featcoll) + "]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace(
+                                                                                                   featcoll) + "]").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace(
                             "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
                             "{{dateatt}}", dateatt))
                     else:
-                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + self.shortenURI(
-                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",self.generateRelativePathFromGivenDepth(baseurl,checkdepth)).replace("{{baselayers}}",
+                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + SPARQLUtils.shortenURI(
+                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace("{{baselayers}}",
                                                                                                  json.dumps(
                                                                                                      self.baselayers)).replace(
                             "{{epsgdefspath}}", epsgdefslink).replace("{{dateatt}}", dateatt))

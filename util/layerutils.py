@@ -8,8 +8,8 @@ import uuid
 import re
 import json
 import urllib.parse
-from ..util.export.crsexporttools import ConvertCRS
-from ..util.sparqlutils import SPARQLUtils
+from .export.srs.crsexporttools import ConvertCRS
+from .sparqlutils import SPARQLUtils
 #from rdflib.tools.rdf2dot import rdf2dot
 #from rdflib import Graph
 

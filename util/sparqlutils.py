@@ -497,6 +497,20 @@ class SPARQLUtils:
         return literal[numchars:]
 
     @staticmethod
+    def shortenURI(uri,ns=False):
+        if uri!=None and "#" in uri and ns:
+            return uri[0:uri.rfind('#')+1]
+        if uri!=None and "/" in uri and ns:
+            return uri[0:uri.rfind('/')+1]
+        if uri!=None and uri.endswith("/"):
+            uri = uri[0:-1]
+        if uri!=None and "#" in uri and not ns:
+            return uri[uri.rfind('#')+1:]
+        if uri!=None and "/" in uri and not ns:
+            return uri[uri.rfind('/')+1:]
+        return uri
+
+    @staticmethod
     def expandRelValToAmount(query,amount):
         QgsMessageLog.logMessage('ExpandQuery '+str(amount)+"_" + str(query), MESSAGE_CATEGORY, Qgis.Info)
         if "?rel" not in query and "?val" not in query:

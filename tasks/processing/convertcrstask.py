@@ -2,7 +2,7 @@ from rdflib import Literal
 
 from ...util.layerutils import LayerUtils
 from ...util.sparqlutils import SPARQLUtils
-from ...util.export.crsexporttools import ConvertCRS
+from ...util.export.srs.crsexporttools import ConvertCRS
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog
