@@ -21,6 +21,7 @@ var a00101 =
     [ "resolvePropertyToTriplePattern", "a00101.html#a6510ed4f71963b30bd21498a0a8c9928", null ],
     [ "selectQueryToConstructQuery", "a00101.html#aa8baaf20faf6ba2f1050882dc989e967", null ],
     [ "shortenLiteral", "a00101.html#a6a87e7a9a2e39deccadaeb01a20f4b43", null ],
+    [ "shortenURI", "a00101.html#a8560fbf9c9af1ed09e0c4c96db17eea4", null ],
     [ "addressproperties", "a00101.html#aff22325bb2af79521134cbb4ba9e3564", null ],
     [ "annotationnamespaces", "a00101.html#ae1736c72eab5a643d3946ff4e2baefa4", null ],
     [ "annotationpropertynode", "a00101.html#a8f74ccf3adbe6f344ad3c05d2b3d630e", null ],
