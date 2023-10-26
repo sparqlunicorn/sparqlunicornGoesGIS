@@ -1,4 +1,5 @@
 from ..sparqlutils import SPARQLUtils
+import os
 
 
 class DocUtils:
@@ -20,7 +21,7 @@ class DocUtils:
         if res != None:
             return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + str(res["uri"]) + "</a>"
         else:
-            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + SPARQLUtils.shortenURI(uri) + "</a>"
+            return " <a href=\"" + str(uri) + "\" target=\"_blank\">" + DocUtils.shortenURI(uri) + "</a>"
 
     @staticmethod
     def generateRelativeLinkFromGivenDepth(baseurl,checkdepth,item,withindex):
@@ -51,7 +52,7 @@ class DocUtils:
     @staticmethod
     def getLabelForObject(obj,graph,labellang=None):
         label=""
-        onelabel=SPARQLUtils.shortenURI(str(obj))
+        onelabel=DocUtils.shortenURI(str(obj))
         for tup in graph.predicate_objects(obj):
             if str(tup[0]) in SPARQLUtils.labelproperties:
                 # Check for label property

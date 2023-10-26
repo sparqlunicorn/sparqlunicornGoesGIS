@@ -241,11 +241,11 @@ class OntDocGeneration:
         resolveTemplate(templatename)
         if offlinecompat:
             global htmltemplate
-            htmltemplate = self.createOfflineCompatibleVersion(outpath, htmltemplate)
+            htmltemplate = self.createOfflineCompatibleVersion(outpath, htmltemplate,templatepath,templatename)
             global maptemplate
-            maptemplate = self.createOfflineCompatibleVersion(outpath, maptemplate)
+            maptemplate = self.createOfflineCompatibleVersion(outpath, maptemplate,templatepath,templatename)
             global sparqltemplate
-            sparqltemplate=self.createOfflineCompatibleVersion(outpath,sparqltemplate)
+            sparqltemplate=self.createOfflineCompatibleVersion(outpath,sparqltemplate,templatepath,templatename)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
         self.createColl=createcollections
@@ -283,7 +283,7 @@ class OntDocGeneration:
         QgsMessageLog.logMessage("Downloader Error: " + str(error), "OntdocGeneration", Qgis.Info)
 
 
-    def createOfflineCompatibleVersion(self,outpath,myhtmltemplate):
+    def createOfflineCompatibleVersion(self,outpath,myhtmltemplate,templatepath,templatename):
         QgsMessageLog.logMessage("OUTPATH: "+str(outpath), "OntdocGeneration", Qgis.Info)
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
@@ -296,8 +296,8 @@ class OntDocGeneration:
             #download the library
             if "</script>" in match:
                 for m in match.split("></script><script src="):
-                    m=m.replace("\"","")
-                    QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
+                    m=m.replace("\"","").replace(">","")
+                    QgsMessageLog.logMessage("Downloader: "+ m.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
                     try:
                         g = urllib.request.urlopen(m.replace("\"", ""))
                         with open(outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], 'b+w') as f:
@@ -306,8 +306,14 @@ class OntDocGeneration:
                         QgsMessageLog.logMessage(
                             "Downloader: " + str(e),
                             "OntdocGeneration", Qgis.Info)
-                    #dl = QgsFileDownloader(QUrl(m.replace("\"", "")), outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:])
-                    #dl.downloadError.connect(self.downloadFailed)
+                        QgsMessageLog.logMessage(
+                            "Checking for local version of JS file..... "+templatepath+"/"+templatename+"/js/lib/"+str(m[m.rfind("/")+1:])+": "+str(os.path.exists(templatepath+"/"+templatename+"/js/lib/"+str(m[m.rfind("/")+1:]))),
+                            "OntdocGeneration", Qgis.Info)
+                        if os.path.exists(templatepath+"/"+templatename+"/js/lib/"+str(m[m.rfind("/")+1:])):
+                            QgsMessageLog.logMessage(
+                                "Found local version of JS file and copying it to export..... ",
+                                "OntdocGeneration", Qgis.Info)
+                            shutil.copy(templatepath+"/"+templatename+"/js/lib/"+str(m[m.rfind("/")+1:]),outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:])
                     #QgsMessageLog.logMessage("Downloader: "+m.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
                     myhtmltemplate=myhtmltemplate.replace(m,"{{relativepath}}js/"+m[m.rfind("/")+1:])
             else:
@@ -322,6 +328,12 @@ class OntDocGeneration:
                     QgsMessageLog.logMessage(
                     "Downloader: " + str(e),
                     "OntdocGeneration", Qgis.Info)
+                    if os.path.exists(templatepath + "/" + templatename + "/js/lib/" + str(match[match.rfind("/") + 1:])):
+                        QgsMessageLog.logMessage(
+                            "Found local version of JS file and copying it to export..... ",
+                            "OntdocGeneration", Qgis.Info)
+                        shutil.copy(templatepath + "/" + templatename + "/js/lib/" + str(match[match.rfind("/") + 1:]),
+                                    outpath + str(os.sep) + "js" + str(os.sep) + match[match.rfind("/") + 1:])
                 #dl = QgsFileDownloader(QUrl(match.replace("\"","")), outpath + str(os.sep)+"js"+str(os.sep) + match[match.rfind("/") + 1:])
                 #dl.downloadError.connect(self.downloadFailed)
                 #QgsMessageLog.logMessage("Downloader: " +match.replace("\"","")+" - "+ str(dl), "OntdocGeneration", Qgis.Info)
@@ -340,6 +352,13 @@ class OntDocGeneration:
                 QgsMessageLog.logMessage(
                     "Downloader: " + str(e),
                     "OntdocGeneration", Qgis.Info)
+                if os.path.exists(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:])):
+                    QgsMessageLog.logMessage(
+                        "Found local version of JS file and copying it to export..... ",
+                        "OntdocGeneration", Qgis.Info)
+                    shutil.copy(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:]),
+                                outpath + str(os.sep) + "css" + str(os.sep) + match[match.rfind("/") + 1:])
+
             #dl = QgsFileDownloader(QUrl(match.replace("\"", "")), outpath +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:])
             #dl.downloadError.connect(self.downloadFailed)
             #QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
@@ -1484,18 +1503,18 @@ class OntDocGeneration:
             itembibtex=""
             relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             else:
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + DocUtils.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
-                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
+                    "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             for comm in comment:
                 f.write(htmlcommenttemplate.replace("{{comment}}", DocUtils.shortenURI(comm) + ":" + comment[comm]))
             for fval in foundvals:
