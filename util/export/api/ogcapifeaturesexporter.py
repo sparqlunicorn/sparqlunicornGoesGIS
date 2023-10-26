@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 
 from ...doc.docutils import DocUtils
-from ...sparqlutils import SPARQLUtils
 
 
 class OGCAPIFeaturesExporter:
@@ -325,23 +324,23 @@ class OGCAPIFeaturesExporter:
                     for feat in curcoll["features"]:
                         featpath = feat["id"].replace(prefixnamespace, "").replace("//", "/")
                         try:
-                            os.makedirs(str(op + "/items/" + str(SPARQLUtils.shortenURI(feat["id"]))))
+                            os.makedirs(str(op + "/items/" + str(DocUtils.shortenURI(feat["id"]))))
                             print("CHECKPATH: " + str(
                                 str(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json").replace("//", "/")))
                             if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.json"):
                                 targetpath = DocUtils.generateRelativeSymlink(featpath + "/index.json", str(op + "/items/" + str(
-                                    SPARQLUtils.shortenURI(feat["id"])) + "/index.json").replace("//", "/"), outpath, True)
-                                p = Path(str(op + "/items/" + str(SPARQLUtils.shortenURI(feat["id"])) + "/index.json").replace("//", "/"))
+                                    DocUtils.shortenURI(feat["id"])) + "/index.json").replace("//", "/"), outpath, True)
+                                p = Path(str(op + "/items/" + str(DocUtils.shortenURI(feat["id"])) + "/index.json").replace("//", "/"))
                                 p.symlink_to(targetpath)
                             if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.ttl"):
                                 targetpath = DocUtils.generateRelativeSymlink(featpath + "/index.ttl", str(op + "/items/" + str(
-                                    SPARQLUtils.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"), outpath, True)
-                                p = Path(str(op + "/items/" + str(SPARQLUtils.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"))
+                                    DocUtils.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"), outpath, True)
+                                p = Path(str(op + "/items/" + str(DocUtils.shortenURI(feat["id"])) + "/index.ttl").replace("//", "/"))
                                 p.symlink_to(targetpath)
                             if os.path.exists(feat["id"].replace(prefixnamespace, outpath + "/") + "/index.html"):
                                 targetpath = DocUtils.generateRelativeSymlink(featpath + "/index.html", str(op + "/items/" + str(
-                                    SPARQLUtils.shortenURI(feat["id"])) + "/index.html").replace("//", "/"), outpath, True)
-                                f = open(str(op + "/items/" + str(SPARQLUtils.shortenURI(feat["id"]))) + "/index.html", "w")
+                                    DocUtils.shortenURI(feat["id"])) + "/index.html").replace("//", "/"), outpath, True)
+                                f = open(str(op + "/items/" + str(DocUtils.shortenURI(feat["id"]))) + "/index.html", "w")
                                 f.write(
                                     "<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + targetpath + "\" /></head></html>")
                                 f.close()

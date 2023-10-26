@@ -63,12 +63,56 @@ class DocUtils:
         return label
 
     @staticmethod
+    def processSubjectPath(outpath,paths,path,graph):
+        if "/" in path:
+            addpath = ""
+            try:
+                for pathelem in path.split("/"):
+                    addpath += pathelem + "/"
+                    if not os.path.exists(outpath + addpath):
+                        os.mkdir(outpath + addpath)
+                if outpath + path[0:path.rfind('/')] + "/" not in paths:
+                    paths[outpath + path[0:path.rfind('/')] + "/"] = []
+                paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
+            except Exception as e:
+                print(e)
+        else:
+            try:
+                if not os.path.exists(outpath + path):
+                    os.mkdir(outpath + path)
+                if outpath not in paths:
+                    paths[outpath] = []
+                paths[outpath].append(path + "/index.html")
+            except Exception as e:
+                print(e)
+        if os.path.exists(outpath + path + "/index.ttl"):
+            try:
+                graph.parse(outpath + path + "/index.ttl")
+            except Exception as e:
+                print(e)
+        return paths
+
+    @staticmethod
     def replaceNameSpacesInLabel(prefixes,uri):
         for ns in prefixes["reversed"]:
             if ns in uri:
                 return {"uri": str(prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
                         "ns": prefixes["reversed"][ns]}
         return None
+
+    @staticmethod
+    def shortenURI(uri,ns=False):
+        if uri!=None and "#" in uri and ns:
+            return uri[0:uri.rfind('#')+1]
+        if uri!=None and "/" in uri and ns:
+            return uri[0:uri.rfind('/')+1]
+        if uri!=None and uri.endswith("/"):
+            uri = uri[0:-1]
+        if uri!=None and "#" in uri and not ns:
+            return uri[uri.rfind('#')+1:]
+        if uri!=None and "/" in uri and not ns:
+            return uri[uri.rfind('/')+1:]
+        return uri
 
     @staticmethod
     def generateRelativePathFromGivenDepth(checkdepth):

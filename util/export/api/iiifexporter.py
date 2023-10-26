@@ -2,7 +2,7 @@
 import os
 import json
 
-from ...sparqlutils import SPARQLUtils
+from ...doc.docutils import DocUtils
 from rdflib import URIRef
 
 
@@ -15,7 +15,7 @@ class IIIFAPIExporter:
             if "uri" in imagetoURI[imgpath]:
                 for ur in imagetoURI[imgpath]["uri"]:
                     # print(ur)
-                    sur = SPARQLUtils.shortenURI(ur)
+                    sur = DocUtils.shortenURI(ur)
                     # print("Getting "+outpath+"/iiif/mf/"+sur+"/manifest.json")
                     if os.path.exists(outpath + "/iiif/mf/" + sur + "/manifest.json") and "anno" in imagetoURI[imgpath]:
                         f = open(outpath + "/iiif/mf/" + sur + "/manifest.json", 'r', encoding="utf-8")
@@ -39,7 +39,7 @@ class IIIFAPIExporter:
                              thetypes=None, predobjmap=None, maintype="Image"):
         print("GENERATE IIIF Manifest for " + str(outpath) + " " + str(curind) + " " + str(label) + " " + str(
             summary) + " " + str(predobjmap))
-        if not os.path.exists(outpath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json"):
+        if not os.path.exists(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json"):
             if not os.path.exists(outpath + "/iiif/mf/"):
                 os.makedirs(outpath + "/iiif/mf/")
             if not os.path.exists(outpath + "/iiif/images/"):
@@ -47,16 +47,16 @@ class IIIFAPIExporter:
             print(label)
             if label != "":
                 curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": deploypath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json",
+                                   "id": deploypath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json",
                                    "type": "Manifest",
-                                   "label": {"en": [str(label) + " (" + SPARQLUtils.shortenURI(curind) + ")"]}, "homepage": [
+                                   "label": {"en": [str(label) + " (" + DocUtils.shortenURI(curind) + ")"]}, "homepage": [
                         {"id": str(curind).replace(prefixnamespace, deploypath + "/"), "type": "Text",
                          "label": {"en": [str(curind).replace(prefixnamespace, deploypath + "/")]},
                          "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
             else:
                 curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                   "id": deploypath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json",
-                                   "type": "Manifest", "label": {"en": [SPARQLUtils.shortenURI(curind)]}, "homepage": [
+                                   "id": deploypath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json",
+                                   "type": "Manifest", "label": {"en": [DocUtils.shortenURI(curind)]}, "homepage": [
                         {"id": str(curind).replace(prefixnamespace, deploypath + "/"), "type": "Text",
                          "label": {"en": [str(curind).replace(prefixnamespace, deploypath + "/")]},
                          "format": "text/html", "language": ["en"]}], "metadata": [], "items": []}
@@ -75,7 +75,7 @@ class IIIFAPIExporter:
                                     "motivation": "commenting",
                                     "body": {"type": "TextualBody", "language": "en", "format": "text/html",
                                              "value": "<a href=\"" + str(curind) + "\">" + str(
-                                                 SPARQLUtils.shortenURI(curind)) + "</a>"},
+                                                 DocUtils.shortenURI(curind)) + "</a>"},
                                     "target": imgpath + "/canvas/p" + str(pagecounter)}]}]}
                 if annos != None:
                     annocounter = 3
@@ -87,7 +87,7 @@ class IIIFAPIExporter:
                                  "motivation": "commenting",
                                  "body": {"type": "TextualBody", "language": "en", "format": "text/html",
                                           "value": "<a href=\"" + str(curind) + "\">" + str(
-                                              SPARQLUtils.shortenURI(curind)) + "</a>"},
+                                              DocUtils.shortenURI(curind)) + "</a>"},
                                  "target": {"source": imgpath + "/canvas/p" + str(pagecounter)},
                                  "type": "SpecificResource", "selector": {"type": "SvgSelector", "value": anno}}]})
                         annocounter += 1
@@ -99,25 +99,25 @@ class IIIFAPIExporter:
                     # print(str(pred)+" "+str(objs))
                     # print(curiiifmanifest["metadata"])
                     if isinstance(objs, URIRef):
-                        curiiifmanifest["metadata"].append({"label": {"en": [SPARQLUtils.shortenURI(str(pred))]}, "value": {
+                        curiiifmanifest["metadata"].append({"label": {"en": [DocUtils.shortenURI(str(pred))]}, "value": {
                             "en": ["<a href=\"" + str(objs) + "\">" + str(objs) + "</a>"]}})
                     else:
                         curiiifmanifest["metadata"].append(
-                            {"label": {"en": [SPARQLUtils.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
+                            {"label": {"en": [DocUtils.shortenURI(str(pred))]}, "value": {"en": [str(objs)]}})
             print(curiiifmanifest["metadata"])
             if summary != None and summary != "" and summary != {}:
                 curiiifmanifest["summary"] = {"en": [str(summary)]}
             # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/")
             # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/")
             # os.makedirs(self.outpath + "/iiif/images/"+self.shortenURI(imgpath)+"/full/full/0/")
-            os.makedirs(outpath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind))
-            f = open(outpath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json", "w", encoding="utf-8")
+            os.makedirs(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind))
+            f = open(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "w", encoding="utf-8")
             f.write(json.dumps(curiiifmanifest))
             f.close()
         if thetypes != None and len(thetypes) > 0:
-            return {"url": outpath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json", "label": str(label),
+            return {"url": outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "label": str(label),
                     "class": next(iter(thetypes))}
-        return {"url": outpath + "/iiif/mf/" + SPARQLUtils.shortenURI(curind) + "/manifest.json", "label": str(label),
+        return {"url": outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "label": str(label),
                 "class": ""}
 
     @staticmethod
@@ -130,8 +130,8 @@ class IIIFAPIExporter:
             f.close()
         else:
             collections = {"main": {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                    "id": outpath + "/iiif/collection/iiifcoll.json", "type": "Collection",
-                                    "label": {"en": ["Collection: " + SPARQLUtils.shortenURI(str(prefixnamespace))]},
+                                    "id": deploypath + "/iiif/collection/iiifcoll.json", "type": "Collection",
+                                    "label": {"en": ["Collection: " + DocUtils.shortenURI(str(prefixnamespace))]},
                                     "items": []}}
         seenurls = set()
         for imgpath in sorted(imagespaths, key=lambda k: k['label'], reverse=False):
@@ -140,29 +140,32 @@ class IIIFAPIExporter:
                 curclass = imgpath["class"]
                 if curclass not in collections:
                     collections[curclass] = {"@context": "http://iiif.io/api/presentation/3/context.json",
-                                             "id": outpath + "/iiif/collection/" + curclass + ".json",
+                                             "id": deploypath + "/iiif/collection/" +DocUtils.shortenURI(curclass) + ".json",
                                              "type": "Collection", "label": {"en": ["Collection: " + str(curclass)]},
                                              "items": []}
             if imgpath["url"] not in seenurls:
                 if imgpath["label"] != "":
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + SPARQLUtils.shortenURI(
+                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + DocUtils.shortenURI(
                         imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
                                                            "id": imgpath["url"].replace(outpath, deploypath),
                                                            "type": "Manifest", "label": {"en": [
-                            imgpath["label"] + " (" + SPARQLUtils.shortenURI(imgpath["url"].replace("/manifest.json", "")[
+                            imgpath["label"] + " (" + DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", "")[
                                                                       0:imgpath["url"].replace("/manifest.json",
                                                                                                "").rfind(
                                                                           ".")]) + ")"]}})
                 else:
-                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + SPARQLUtils.shortenURI(
+                    collections[curclass]["items"].append({"full": outpath + "/iiif/images/" + DocUtils.shortenURI(
                         imgpath["url"].replace("/manifest.json", "")) + "/full/full/0/default.jpg",
                                                            "id": imgpath["url"].replace(outpath, deploypath),
                                                            "type": "Manifest", "label": {
-                            "en": [SPARQLUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))]}})
+                            "en": [DocUtils.shortenURI(imgpath["url"].replace("/manifest.json", ""))]}})
             seenurls = imgpath["url"]
         for coll in collections:
-            if coll != "main":
+            if coll!="main":
                 collections["main"]["items"].append(collections[coll])
+                f=open(outpath+"/iiif/collection/"+str(coll)+".json","w",encoding="utf-8")
+                f.write(json.dumps(collections[coll]))
+                f.close()
         f = open(outpath + "/iiif/collection/iiifcoll.json", "w", encoding="utf-8")
         f.write(json.dumps(collections["main"]))
         f.close()

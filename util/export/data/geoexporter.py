@@ -1,7 +1,6 @@
 import json
 import os
 from .miscexporter import MiscExporter
-from qgis.core import Qgis, QgsMessageLog
 
 class GeoExporter:
 

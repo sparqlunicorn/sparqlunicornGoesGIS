@@ -380,28 +380,6 @@ class OntDocGeneration:
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
         self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" "+str(processsubject)+"... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
 
-    def processSubjectPath(self,outpath,paths,path):
-        if "/" in path:
-            addpath = ""
-            for pathelem in path.split("/"):
-                addpath += pathelem + "/"
-                if not os.path.isdir(outpath + addpath):
-                    os.mkdir(outpath + addpath)
-            if outpath + path[0:path.rfind('/')] + "/" not in paths:
-                paths[outpath + path[0:path.rfind('/')] + "/"] = []
-            paths[outpath + path[0:path.rfind('/')] + "/"].append(addpath[0:addpath.rfind('/')])
-        else:
-            if not os.path.isdir(outpath + path):
-                os.mkdir(outpath + path)
-            if outpath not in paths:
-                paths[outpath] = []
-            paths[outpath].append(path + "/index.html")
-        if os.path.exists(outpath + path + "/index.ttl"):
-            try:
-                self.graph.parse(outpath + path + "/index.ttl")
-            except Exception as e:
-                QgsMessageLog.logMessage(e)
-        return paths
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
@@ -482,7 +460,7 @@ class OntDocGeneration:
         subtorencounter = 0
         for subj in subjectstorender:
             path = subj.replace(prefixnamespace, "")
-            paths=self.processSubjectPath(outpath,paths,path)
+            paths=DocUtils.processSubjectPath(outpath,paths,path,self.graph)
             if os.path.exists(outpath + path+"/index.ttl"):
                 try:
                     self.graph.parse(outpath + path+"/index.ttl")
@@ -498,7 +476,7 @@ class OntDocGeneration:
                 self.updateProgressBar(subtorencounter,subtorenderlen)
         for subj in postprocessing.subjects(None,None,True):
             path = str(subj).replace(prefixnamespace, "")
-            paths=self.processSubjectPath(outpath,paths,path)
+            paths=DocUtils.processSubjectPath(outpath,paths,path,self.graph)
             if os.path.exists(outpath + path+"/index.ttl"):
                 try:
                     self.graph.parse(outpath + path+"/index.ttl")
@@ -562,14 +540,14 @@ class OntDocGeneration:
                                      tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
                                          "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
                                          "type"] + "\"/><a href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
-                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + SPARQLUtils.shortenURI(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + DocUtils.shortenURI(
                             self.startconcept) + "</a></p>"
                     else:
                         indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
                                      tree["types"][uritotreeitem[self.startconcept][-1]["type"]][
                                          "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + uritotreeitem[self.startconcept][-1][
                                          "type"] + "\"/><a href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
-                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + SPARQLUtils.shortenURI(
+                            prefixnamespace, 0, str(self.startconcept), True) + "\">" + DocUtils.shortenURI(
                             self.startconcept) + "</a></p>"
                 indexhtml+="<table class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
                 for item in tree["core"]["data"]:
@@ -584,7 +562,7 @@ class OntDocGeneration:
                             if self.createColl:
                                 indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
-                                                 "type"] + "\"/><a href=\"" + SPARQLUtils.shortenURI(
+                                                 "type"] + "\"/><a href=\"" + DocUtils.shortenURI(
                                     str(item["id"])) + "_collection/index.html\" target=\"_blank\">" + str(
                                     item["text"]) + "</a></td>"
                             else:
@@ -683,7 +661,7 @@ class OntDocGeneration:
                 if isfeature:
                     classToFColl[str(tup[1])]+=1
         for cls in classToInstances:
-            colluri=namespace+SPARQLUtils.shortenURI(cls)+"_collection"
+            colluri=namespace+DocUtils.shortenURI(cls)+"_collection"
             if classToFColl[cls]==len(classToInstances[cls]):
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
@@ -694,7 +672,7 @@ class OntDocGeneration:
                 graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection")))
             else:
                 graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
-            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(SPARQLUtils.shortenURI(cls))+" Instances Collection")))
+            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(DocUtils.shortenURI(cls))+" Instances Collection")))
             for instance in classToInstances[cls]:
                 graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(instance)))
         return graph
@@ -731,11 +709,11 @@ class OntDocGeneration:
             for obj in graph.subjects(URIRef(self.typeproperty), URIRef(cls),True):
                 res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(obj))
                 if str(obj) in uritolabel:
-                    restext= uritolabel[str(obj)]["label"] + " (" + SPARQLUtils.shortenURI(str(obj)) + ")"
+                    restext= uritolabel[str(obj)]["label"] + " (" + DocUtils.shortenURI(str(obj)) + ")"
                     if res!=None:
                         restext=uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
                 else:
-                    restext= SPARQLUtils.shortenURI(str(obj))
+                    restext= DocUtils.shortenURI(str(obj))
                     if res!=None:
                         restext+= " (" + res["uri"] + ")"
                 if str(obj) not in SPARQLUtils.collectionclasses:
@@ -748,7 +726,7 @@ class OntDocGeneration:
                 #classidset.add(str(obj))
             res = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(cls))
             if ress[cls]["super"] == None:
-                restext = SPARQLUtils.shortenURI(str(cls))
+                restext = DocUtils.shortenURI(str(cls))
                 if res != None:
                     restext += " (" + res["uri"] + ")"
                 if cls not in uritotreeitem:
@@ -757,11 +735,11 @@ class OntDocGeneration:
                     uritotreeitem[str(cls)].append(result[-1])
             else:
                 if "label" in cls and cls["label"] != None:
-                    restext = ress[cls]["label"] + " (" + SPARQLUtils.shortenURI(str(cls)) + ")"
+                    restext = ress[cls]["label"] + " (" + DocUtils.shortenURI(str(cls)) + ")"
                     if res != None:
                         restext = ress[cls]["label"] + " (" + res["uri"] + ")"
                 else:
-                    restext = SPARQLUtils.shortenURI(str(cls))
+                    restext = DocUtils.shortenURI(str(cls))
                     if res != None:
                         restext += " (" + res["uri"] + ")"
                 if cls not in uritotreeitem:
@@ -776,9 +754,9 @@ class OntDocGeneration:
                     clsres = DocUtils.replaceNameSpacesInLabel(self.prefixes,str(ress[cls]["super"]))
                     if clsres!=None:
                         theitem = {"id": str(ress[cls]["super"]), "parent": "#", "type": "class",
-                                   "text": SPARQLUtils.shortenURI(str(ress[cls]["super"]))+" (" + clsres["uri"] + ")", "data": {}}
+                                   "text": DocUtils.shortenURI(str(ress[cls]["super"]))+" (" + clsres["uri"] + ")", "data": {}}
                     else:
-                        theitem={"id": str(ress[cls]["super"]), "parent": "#","type": "class","text": SPARQLUtils.shortenURI(str(ress[cls]["super"])),"data":{}}
+                        theitem={"id": str(ress[cls]["super"]), "parent": "#","type": "class","text": DocUtils.shortenURI(str(ress[cls]["super"])),"data":{}}
                     uritotreeitem[str(ress[cls]["super"])].append(theitem)
                     result.append(theitem)
                 classidset.add(str(ress[cls]["super"]))
@@ -787,7 +765,7 @@ class OntDocGeneration:
             classidset.add("http://www.w3.org/2002/07/owl#Thing")
             result.append({"id": "http://www.w3.org/2002/07/owl#Thing", "parent": "#", "type": "class", "text": "Thing (owl:Thing)", "data": {}})
             for obj in graph.subjects(True):
-                result.append({"id":str(obj) , "parent": "http://www.w3.org/2002/07/owl#Thing", "type": "instance", "text": SPARQLUtils.shortenURI(str(obj)),"data": {}})
+                result.append({"id":str(obj) , "parent": "http://www.w3.org/2002/07/owl#Thing", "type": "instance", "text": DocUtils.shortenURI(str(obj)),"data": {}})
         tree["core"]["data"] = result
         return tree
 
@@ -879,7 +857,7 @@ class OntDocGeneration:
                     bibtexitem[bibtexmappings[str(tup[0])]] = DocUtils.getLabelForObject(tup[1], graph)
                 else:
                     bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        res = bibtexitem["type"] + "{" + SPARQLUtils.shortenURI(item) + ",\n"
+        res = bibtexitem["type"] + "{" + DocUtils.shortenURI(item) + ",\n"
         for bibpart in sorted(bibtexitem):
             if bibpart == "type":
                 continue
@@ -1068,7 +1046,7 @@ class OntDocGeneration:
                 unitlabel = str(foundval) + " " + str(foundunit)
         if foundunit == None and foundval != None:
             if "http" in foundval:
-                unitlabel = "<a href=\"" + str(foundval) + "\">" + str(SPARQLUtils.shortenURI(foundval)) + "</a>"
+                unitlabel = "<a href=\"" + str(foundval) + "\">" + str(DocUtils.shortenURI(foundval)) + "</a>"
             else:
                 unitlabel = str(foundval)
         if annosource != None:
@@ -1092,7 +1070,7 @@ class OntDocGeneration:
             mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel,nonns)
             label=mydata["label"]
             if label=="":
-                label=str(SPARQLUtils.shortenURI(str(object)))
+                label=str(DocUtils.shortenURI(str(object)))
             geojsonrep=mydata["geojsonrep"]
             foundmedia=mydata["foundmedia"]
             imageannos=mydata["imageannos"]
@@ -1107,7 +1085,7 @@ class OntDocGeneration:
                 rdfares = "resource=\"" + str(object) + "\""
             if baseurl in str(object) or isinstance(object,BNode):
                 rellink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl,checkdepth,str(object),True)
-                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(SPARQLUtils.shortenURI(str(object))) + ")</span></a>"
+                tablecontents += "<span><a property=\"" + str(pred) + "\" "+rdfares+" href=\"" + rellink + "\">"+ label + " <span style=\"color: #666;\">(" + self.namespaceshort + ":" + str(DocUtils.shortenURI(str(object))) + ")</span></a>"
                 if bibtex != None:
                     tablecontents += "<details><summary>[BIBTEX]</summary><pre>" + str(bibtex) + "</pre></details>"
             else:
@@ -1124,7 +1102,7 @@ class OntDocGeneration:
                     tablecontents+="<details><summary>[BIBTEX]</summary><pre>"+str(bibtex)+"</pre></details>"
                 if self.generatePagesForNonNS:
                     rellink = DocUtils.generateRelativeLinkFromGivenDepth(str(baseurl), checkdepth,
-                                                                      str(baseurl) + "nonns_" + SPARQLUtils.shortenURI(
+                                                                      str(baseurl) + "nonns_" + DocUtils.shortenURI(
                                                                           str(object)), False)
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
@@ -1142,7 +1120,7 @@ class OntDocGeneration:
                 objstring=str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype)=="http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring="<a href=\""+str(object)+"\">"+str(object)+"</a>"
-                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops!=None and SPARQLUtils.shortenURI(str(pred),True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
+                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops!=None and DocUtils.shortenURI(str(pred),True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
                     dateprops.append(str(pred))
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
@@ -1153,7 +1131,7 @@ class OntDocGeneration:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
                         object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
-                        object.datatype) + "\">" + SPARQLUtils.shortenURI(str(object.datatype)) + "</a>)</small></span>"
+                        object.datatype) + "\">" + DocUtils.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
             else:
                 if object.language != None:
@@ -1218,15 +1196,15 @@ class OntDocGeneration:
                 if res != None and label != "":
                     uritotreeitem[uri][-1]["text"] = label + " (" + res["uri"] + ")"
                 elif label != "":
-                    uritotreeitem[uri][-1]["text"] = label + " (" + SPARQLUtils.shortenURI(uri) + ")"
+                    uritotreeitem[uri][-1]["text"] = label + " (" + DocUtils.shortenURI(uri) + ")"
                 else:
-                    uritotreeitem[uri][-1]["text"] = SPARQLUtils.shortenURI(uri)
-                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + SPARQLUtils.shortenURI(uri) + ".html"
-                labeltouri[label] = prefixnamespace + "nonns_" + SPARQLUtils.shortenURI(uri) + ".html"
+                    uritotreeitem[uri][-1]["text"] = DocUtils.shortenURI(uri)
+                uritotreeitem[uri][-1]["id"] = prefixnamespace + "nonns_" + DocUtils.shortenURI(uri) + ".html"
+                labeltouri[label] = prefixnamespace + "nonns_" + DocUtils.shortenURI(uri) + ".html"
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
             #QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
-            self.createHTML(outpath+"nonns_"+SPARQLUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
+            self.createHTML(outpath+"nonns_"+DocUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, None, Graph(),uristorender,True,label)
             counter+=1
 
     def polygonToPath(self, svg):
@@ -1267,7 +1245,7 @@ class OntDocGeneration:
             thelabel=""
             if uri in uritolabel:
                 thelabel=uritolabel[uri]
-            self.createHTML(outpath+"nonns_"+SPARQLUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
+            self.createHTML(outpath+"nonns_"+DocUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
 
 
 
@@ -1303,7 +1281,7 @@ class OntDocGeneration:
         if uritotreeitem!=None and str(subject) in uritotreeitem and uritotreeitem[str(subject)][-1]["parent"].startswith("http"):
             parentclass=str(uritotreeitem[str(subject)][-1]["parent"])
             if parentclass not in uritotreeitem:
-                uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": SPARQLUtils.shortenURI(str(parentclass)),"data":{}}]
+                uritotreeitem[parentclass]=[{"id": parentclass, "parent": "#","type": "class","text": DocUtils.shortenURI(str(parentclass)),"data":{}}]
             uritotreeitem[parentclass][-1]["instancecount"]=0
         ttlf = Graph(bind_namespaces="rdflib")
         if parentclass!=None:
@@ -1343,7 +1321,7 @@ class OntDocGeneration:
                 print("no type")
             for tup in predobjmap:
                 #QgsMessageLog.logMessage(self.shortenURI(str(tup),True),"OntdocGeneration",Qgis.Info)
-                if self.metadatatable and tup not in SPARQLUtils.labelproperties and SPARQLUtils.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
+                if self.metadatatable and tup not in SPARQLUtils.labelproperties and DocUtils.shortenURI(str(tup),True) in SPARQLUtils.metadatanamespaces:
                     thetable=metadatatablecontents
                     metadatatablecontentcounter+=1
                     if metadatatablecontentcounter%2==0:
@@ -1417,7 +1395,7 @@ class OntDocGeneration:
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
                 thetable += "</tr>"
-                if tup not in SPARQLUtils.labelproperties and SPARQLUtils.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
+                if tup not in SPARQLUtils.labelproperties and DocUtils.shortenURI(str(tup), True) in SPARQLUtils.metadatanamespaces:
                     metadatatablecontents=thetable
                 else:
                     tablecontents=thetable
@@ -1481,7 +1459,7 @@ class OntDocGeneration:
         if nonns:
             completesavepath = savepath
             nonnslink = "<div>This page describes linked instances to the concept  <a target=\"_blank\" href=\"" + str(
-                subject) + "\">" + str(foundlabel) + " (" + str(SPARQLUtils.shortenURI(
+                subject) + "\">" + str(foundlabel) + " (" + str(DocUtils.shortenURI(
                 subject)) + ") </a> in this knowledge graph. It is defined <a target=\"_blank\" href=\"" + str(
                 subject) + "\">here</a></div>"
         else:
@@ -1513,13 +1491,13 @@ class OntDocGeneration:
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             else:
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", SPARQLUtils.shortenURI(str(subject))).replace(
+                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + SPARQLUtils.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + DocUtils.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)))
             for comm in comment:
-                f.write(htmlcommenttemplate.replace("{{comment}}", SPARQLUtils.shortenURI(comm) + ":" + comment[comm]))
+                f.write(htmlcommenttemplate.replace("{{comment}}", DocUtils.shortenURI(comm) + ":" + comment[comm]))
             for fval in foundvals:
                 f.write(htmlcommenttemplate.replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
@@ -1633,7 +1611,7 @@ class OntDocGeneration:
                 if foundlabel != None and foundlabel != "":
                     featcoll = {"type": "FeatureCollection", "id": subject, "name": str(foundlabel), "features": []}
                 else:
-                    featcoll = {"type": "FeatureCollection", "id": subject, "name": SPARQLUtils.shortenURI(subject),
+                    featcoll = {"type": "FeatureCollection", "id": subject, "name": DocUtils.shortenURI(subject),
                                 "features": []}
                 thecrs = set()
                 dateatt = ""
@@ -1695,7 +1673,7 @@ class OntDocGeneration:
                             "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
                             "{{dateatt}}", dateatt))
                     else:
-                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + SPARQLUtils.shortenURI(
+                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + DocUtils.shortenURI(
                             str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace("{{baselayers}}",
                                                                                                  json.dumps(
                                                                                                      self.baselayers)).replace(
