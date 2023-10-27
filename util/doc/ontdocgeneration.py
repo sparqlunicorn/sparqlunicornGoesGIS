@@ -296,7 +296,8 @@ class OntDocGeneration:
             #download the library
             if "</script>" in match:
                 for m in match.split("></script><script src="):
-                    m=m.replace("\"","").replace(">","")
+                    m=m.replace("\"","").replace("/>","")
+                    m=m.replace(">","")
                     QgsMessageLog.logMessage("Downloader: "+ m.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
                     try:
                         g = urllib.request.urlopen(m.replace("\"", ""))
@@ -317,7 +318,7 @@ class OntDocGeneration:
                     #QgsMessageLog.logMessage("Downloader: "+m.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
                     myhtmltemplate=myhtmltemplate.replace(m,"{{relativepath}}js/"+m[m.rfind("/")+1:])
             else:
-                match=match.replace("\"","")
+                match=match.replace("\"","").replace(">","")
                 QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath) + str(os.sep)+"js"+str(os.sep)+ match[match.rfind("/") + 1:],
                                          "OntdocGeneration", Qgis.Info)
                 try:
@@ -341,7 +342,8 @@ class OntDocGeneration:
         matched=re.findall(r'href="(http.*.css)"',myhtmltemplate)
         for match in matched:
             print(match.replace("\"",""))
-            match=match.replace("\"","")
+            match=match.replace("\"","").replace("/>","")
+            match=match.replace(">","")
             QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+ str(outpath) +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:],
                                      "OntdocGeneration", Qgis.Info)
             try:
@@ -354,7 +356,7 @@ class OntDocGeneration:
                     "OntdocGeneration", Qgis.Info)
                 if os.path.exists(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:])):
                     QgsMessageLog.logMessage(
-                        "Found local version of JS file and copying it to export..... ",
+                        "Found local version of CSS file and copying it to export..... ",
                         "OntdocGeneration", Qgis.Info)
                     shutil.copy(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:]),
                                 outpath + str(os.sep) + "css" + str(os.sep) + match[match.rfind("/") + 1:])
@@ -600,7 +602,7 @@ class OntDocGeneration:
                 relpath + "icons/" if self.offlinecompat else "")).replace("{{deploypath}}", self.deploypath).replace(
                 "{{datasettitle}}", self.datasettitle).replace("{{logo}}", "").replace("{{baseurl}}",
                                                                                        prefixnamespace).replace(
-                "{{relativedepth}}", "0").replace("{{relativepath}}", ".").replace("{{toptitle}}",
+                "{{relativedepth}}", "0").replace("{{proprelationpath}}", "proprelations.js").replace("{{relativepath}}", "").replace("{{toptitle}}",
                                                                                    "SPARQL Query Editor").replace(
                 "{{title}}", "SPARQL Query Editor").replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}",
                                                                                                        stylelink).replace(
@@ -610,7 +612,7 @@ class OntDocGeneration:
                 "{{nonnslink}}", "").replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",
                                                                                         nongeoexports).replace(
                 "{{versionurl}}", versionurl).replace("{{version}}", version).replace("{{bibtex}}", "")
-            sparqlhtml += sparqltemplate
+            sparqlhtml += sparqltemplate.replace("{{relativepath}}","")
             sparqlhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace(
                 "{{bibtex}}", "")
             with open(outpath + "sparql.html", 'w', encoding='utf-8') as f:
@@ -1668,7 +1670,7 @@ class OntDocGeneration:
                     for item in hasnonns:
                         if item in self.geocache:
                             featcoll["features"].append(self.geocache[item])
-                            if len(self.geocache[item]["dateprops"]) > 0:
+                            if "dateprops" in self.geocache[item] and len(self.geocache[item]["dateprops"]) > 0:
                                 dateatt = self.geocache[item]["dateprops"][0]
                             if "crs" in self.geocache[item]:
                                 thecrs.add(self.geocache[item]["crs"])

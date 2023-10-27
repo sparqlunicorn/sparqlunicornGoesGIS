@@ -19,7 +19,11 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="7" column="1">
-    <widget class="QComboBox" name="licenseCBox"/>
+    <widget class="QComboBox" name="licenseCBox">
+     <property name="toolTip">
+      <string>Choose a license for the linked open data you are publishing</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="rdfFileLabel">
@@ -117,6 +121,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="createMetadataTableCBox">
+       <property name="toolTip">
+        <string>Creates a separate metadata table on the HTML page</string>
+       </property>
        <property name="text">
         <string>Create Metadata Table</string>
        </property>
@@ -124,6 +131,9 @@
      </item>
      <item>
       <widget class="QCheckBox" name="nonNSPagesCBox">
+       <property name="toolTip">
+        <string>Creates pages for instances which are linked from instances in the chosen export namespace</string>
+       </property>
        <property name="text">
         <string>Create Pages for Non-Namespace URIs</string>
        </property>
@@ -135,6 +145,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QCheckBox" name="additionalCollections">
+       <property name="toolTip">
+        <string>Generates additional collections in RDF which contain all instances of a respective class</string>
+       </property>
        <property name="text">
         <string>Create Additional Collections</string>
        </property>
@@ -166,7 +179,11 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="3" column="1">
-        <widget class="QgsFileWidget" name="logoFileWidget"/>
+        <widget class="QgsFileWidget" name="logoFileWidget">
+         <property name="toolTip">
+          <string>Defines a logo which can be shown in the HTML template</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="pageLogoLabel">
@@ -389,6 +406,9 @@
        </item>
        <item row="4" column="1" colspan="2">
         <widget class="QCheckBox" name="iiifCBox">
+         <property name="toolTip">
+          <string>Generates static API content for media data using the IIIF presentation API</string>
+         </property>
          <property name="text">
           <string>IIIF Manifests (Images, Audio, Video, 3D Models)</string>
          </property>
@@ -396,6 +416,9 @@
        </item>
        <item row="3" column="1" colspan="2">
         <widget class="QCheckBox" name="ogcapifeaturesCBox">
+         <property name="toolTip">
+          <string>Generates static API content for geodata representing OGC API Features API</string>
+         </property>
          <property name="text">
           <string>OGC API Features (FeatureCollections)</string>
          </property>
@@ -417,6 +440,9 @@
        </item>
        <item row="5" column="1" colspan="2">
         <widget class="QCheckBox" name="ckanCBox">
+         <property name="toolTip">
+          <string>Detects data collections in the knowledge graph and exposes them using a CKAN static API</string>
+         </property>
          <property name="text">
           <string>CKAN API (FeatureCollections and DCAT assigned elements)</string>
          </property>
@@ -478,6 +504,9 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="toolTip">
+          <string>Choose RDF exports which will be generated next to the HTML rendering</string>
+         </property>
          <item>
           <property name="text">
            <string>JSON-LD</string>
@@ -500,6 +529,11 @@
          </item>
          <item>
           <property name="text">
+           <string>TRIX</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>TRIG</string>
           </property>
          </item>
@@ -514,6 +548,9 @@
         <widget class="QgsCheckableComboBox" name="geoExportsCBox">
          <property name="enabled">
           <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>Choose geodata formats to be generated next to geo linked open data instances</string>
          </property>
          <item>
           <property name="text">
@@ -548,6 +585,9 @@
         <widget class="QgsCheckableComboBox" name="graphExportsCBox">
          <property name="enabled">
           <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>Choose exports in graph data formats which will be generated next to the HTML rendering</string>
          </property>
          <item>
           <property name="text">
@@ -630,7 +670,11 @@
     </widget>
    </item>
    <item row="6" column="1">
-    <widget class="QComboBox" name="startConceptCBox"/>
+    <widget class="QComboBox" name="startConceptCBox">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose a concept which will be highlighted on the homepage of the HTML rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
    </item>
    <item row="6" column="0">
     <widget class="QLabel" name="startConceptLabel">
@@ -644,6 +688,9 @@
    </item>
    <item row="10" column="1">
     <widget class="QCheckBox" name="offlinecompatCBox">
+     <property name="toolTip">
+      <string>Creates a portable, self-contained version of the HTML export</string>
+     </property>
      <property name="text">
       <string>Portable Version</string>
      </property>

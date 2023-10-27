@@ -9,7 +9,7 @@ MESSAGE_CATEGORY = 'OntDocTask'
 
 class OntDocTask(QgsTask):
 
-    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,ckan,startconcept,deploymenturl,logopath="",offlinecompat=False,exports=["ttl","json"]):
+    def __init__(self, description, graphname, namespace,prefixes,license,labellang,outpath,createcollections,baselayers,tobeaddedperInd,maincolor,titlecolor, progress,createIndexPages,nonNSPagesCBox,createMetadataTable,createVOWL,ogcapifeatures,iiif,ckan,deploymenturl,startconcept,logopath="",offlinecompat=False,exports=["ttl","json"]):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
