@@ -365,8 +365,7 @@ class SPARQLUtils:
     def executeQuery(triplestoreurl, query,triplestoreconf=None):
         results=False
         SPARQLUtils.exception = None
-        QgsMessageLog.logMessage(str(triplestoreurl), MESSAGE_CATEGORY,
-                                 Qgis.Info)
+        QgsMessageLog.logMessage(str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
         if triplestoreurl["type"]=="endpoint":
             s = QSettings()  # getting proxy from qgis options settings
             proxyEnabled = s.value("proxy/proxyEnabled")
@@ -441,8 +440,15 @@ class SPARQLUtils:
             QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph!=None:
-                results=json.loads(graph.query(query).serialize(format="json"))
-                #QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                if "CONSTRUCT" in str(query):
+                    results = graph.query(query)
+                    resg = Graph()
+                    for res in results:
+                        resg.add(res)
+                    results=resg
+                else:
+                    results=json.loads(graph.query(query).serialize(format="json"))
+                QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 

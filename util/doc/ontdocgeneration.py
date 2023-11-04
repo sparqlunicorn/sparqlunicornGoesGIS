@@ -2,7 +2,7 @@
 from rdflib import Graph
 from rdflib import URIRef, Literal, BNode
 from rdflib.plugins.sparql import prepareQuery
-from qgis.core import Qgis, QgsMessageLog, QgsFileDownloader
+from qgis.core import Qgis, QgsMessageLog
 import os
 import re
 import urllib
@@ -13,9 +13,7 @@ from .docutils import DocUtils
 from ..export.api.ckanexporter import CKANExporter
 from ..export.api.iiifexporter import IIIFAPIExporter
 from ..export.api.ogcapifeaturesexporter import OGCAPIFeaturesExporter
-from ..export.data.graphexporter import GraphExporter
-from ..export.data.miscexporter import MiscExporter
-from ..export.data.geoexporter import GeoExporter
+from ..export.data.exporter.exporterutils import ExporterUtils
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from .pyowl2vowl import OWL2VOWL
@@ -228,13 +226,6 @@ class OntDocGeneration:
         self.localOptimized=True
         self.geocache={}
         self.metadatatable=createMetadataTable
-        self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GML": GraphExporter.convertTTLToGML,"GEXF": GraphExporter.convertTTLToGEXF,
-                                 "GDF": GraphExporter.convertTTLToTGF,"DOT": GraphExporter.convertTTLToDOT,"NET": GraphExporter.convertTTLToNET,
-                                 "GRAPHML": GraphExporter.convertTTLToGraphML,"GeoJSON": GeoExporter.convertTTLToGeoJSON,
-                                  "JGF": GraphExporter.convertTTLToJGF,"TGF": GraphExporter.convertTTLToTGF,"TLP": GraphExporter.convertTTLToTLP,
-                                 "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
-                                 "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
-                                 "NQ": GraphExporter.serializeRDF, "CSV": MiscExporter.convertTTLToCSV,"TSV": MiscExporter.convertTTLToCSV}
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
@@ -539,13 +530,13 @@ class OntDocGeneration:
                         for tup in self.graph.predicate_objects(sub):
                             subgraph.add((sub, tup[0], tup[1]))
                 for ex in self.exports:
-                    if ex in self.exportToFunction:
-                        if ex not in GraphExporter.rdfformats:
+                    if ex in ExporterUtils.exportToFunction:
+                        if ex not in ExporterUtils.rdfformats:
                             with open(path + "index."+str(ex).lower(), 'w', encoding='utf-8') as f:
-                                self.exportToFunction[ex](subgraph,f,subjectstorender,classlist,ex.lower())
+                                ExporterUtils.exportToFunction[ex](subgraph,f,subjectstorender,classlist,ex.lower())
                                 f.close()
                         else:
-                            self.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
+                            ExporterUtils.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
                 QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
                 indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\

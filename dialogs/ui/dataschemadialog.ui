@@ -14,7 +14,7 @@
    <string>Data Schema View</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/classschema.png</normaloff>:/icons/resources/icons/classschema.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -151,7 +151,7 @@
          <item>
           <widget class="QSpinBox" name="graphQueryDepthBox">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="value">
             <number>1</number>
@@ -249,6 +249,7 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections>
   <connection>
    <sender>okButton</sender>

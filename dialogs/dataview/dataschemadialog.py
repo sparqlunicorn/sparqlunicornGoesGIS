@@ -157,6 +157,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                 self.concept) + "> .\n "+str(relstatement)+" "+
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
             self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
+
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
     def loadBBOXDialog(self):

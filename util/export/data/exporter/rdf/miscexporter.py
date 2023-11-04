@@ -1,24 +1,14 @@
 import json
 import os
 
+from .....doc.docutils import DocUtils
+
 
 class MiscExporter:
 
-    rdfformats = ["TTL", "TRIX", "TRIG", "N3", "NQ", "NT", "XML", "JSON-LD"]
-
     @staticmethod
-    def shortenURI(uri, ns=False):
-        if uri != None and "#" in uri and ns:
-            return uri[0:uri.rfind('#') + 1]
-        if uri != None and "/" in uri and ns:
-            return uri[0:uri.rfind('/') + 1]
-        if uri != None and uri.endswith("/"):
-            uri = uri[0:-1]
-        if uri != None and "#" in uri and not ns:
-            return uri[uri.rfind('#') + 1:]
-        if uri != None and "/" in uri and not ns:
-            return uri[uri.rfind('/') + 1:]
-        return uri
+    def getExporterString():
+        return "Misc Data (*.csv *.tsv *.json)"
 
     @staticmethod
     def detectSubjectType(g,subjectstorender):
@@ -58,7 +48,7 @@ class MiscExporter:
                 res[str(tup[0])]=str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f=open(os.path.realpath(file.name).replace("."+formatt,"")+"_"+MiscExporter.shortenURI(type)+"."+formatt,"w")
+            f=open(os.path.realpath(file.name).replace("."+formatt,"")+"_"+DocUtils.shortenURI(type)+"."+formatt,"w")
             tlist=list(typeToFields[type])
             tlistlen=len(tlist)
             for i in range(0,tlistlen):
@@ -95,7 +85,7 @@ class MiscExporter:
                 res[str(tup[0])] = str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f = open(os.path.realpath(file.name).replace("." + formatt, "") + "_" + MiscExporter.shortenURI(
+            f = open(os.path.realpath(file.name).replace("." + formatt, "") + "_" + DocUtils.shortenURI(
                 type) + "." + formatt, "w")
             f.write("\n")
             for res in typeToRes[type]:

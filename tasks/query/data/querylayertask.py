@@ -130,7 +130,7 @@ class QueryLayerTask(QgsTask):
         item = ""
         relval=False
         crsset=set()
-        QgsMessageLog.logMessage('Processssing results....',
+        QgsMessageLog.logMessage('Processing results....',
             MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             if self.concept!=None and "item" not in result:

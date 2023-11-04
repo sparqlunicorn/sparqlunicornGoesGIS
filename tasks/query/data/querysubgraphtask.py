@@ -1,5 +1,6 @@
 from rdflib import Graph
-from ....util.export.data.graphexporter import GraphExporter
+
+from ....util.export.data.exporter.exporterutils import ExporterUtils
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog
@@ -14,14 +15,9 @@ class QuerySubGraphTask(QgsTask):
         self.exception = None
         self.progress = progress
         self.concept=concept
+        self.results=None
         self.querydepth=querydepth
         self.exception=None
-        self.exportToFunction = {"CYPHER":GraphExporter.convertTTLToCypher,"GRAPHML": GraphExporter.convertTTLToGraphML,
-                                 "GML":GraphExporter.convertTTLToGML, "DOT": GraphExporter.convertTTLToDOT, "JGF": GraphExporter.convertTTLToJGF, "GDF": GraphExporter.convertTTLToTGF,
-                                 "GEXF": GraphExporter.convertTTLToGEXF, "NET": GraphExporter.convertTTLToNET, "TGF": GraphExporter.convertTTLToTGF,"TLP": GraphExporter.convertTTLToTLP,
-                                 "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF, "xml": GraphExporter.serializeRDF,
-                                 "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF, "N3": GraphExporter.serializeRDF,
-                                 "NQ": GraphExporter.serializeRDF}
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
         if self.progress!=None:
@@ -59,16 +55,16 @@ class QuerySubGraphTask(QgsTask):
         if self.exception!=None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
             return
-        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl","Linked Data (*.n3 *.nt *.trig *.ttl *.xml) Graph Data (*.cypher *.dot *.gdf *.gexf *.gml *.graphml *.jgf *.net *.tgf *.tlp)")
+        filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl",ExporterUtils.getExporterString())
         QgsMessageLog.logMessage(str(self.results),
                                  MESSAGE_CATEGORY, Qgis.Info)
         if filename:
             ex=filename[0][filename[0].rfind('.')+1:].upper()
-            if ex in self.exportToFunction:
-                if ex not in GraphExporter.rdfformats:
+            if ex in ExporterUtils.exportToFunction:
+                if ex not in ExporterUtils.rdfformats:
                     with open(filename[0], 'w', encoding='utf-8') as f:
-                        self.exportToFunction[ex](self.results, f, None, ex)
+                        ExporterUtils.exportToFunction[ex](self.results, f, None, ex)
                         f.close()
                 else:
-                    self.exportToFunction[ex](self.results, filename[0], None, ex)
+                    ExporterUtils.exportToFunction[ex](self.results, filename[0], None, ex)
 

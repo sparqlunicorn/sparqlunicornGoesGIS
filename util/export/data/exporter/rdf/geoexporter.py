@@ -1,8 +1,13 @@
 import json
 import os
-from .miscexporter import MiscExporter
+
+from .....doc.docutils import DocUtils
 
 class GeoExporter:
+
+    @staticmethod
+    def getExporterString():
+        return "GeoData (*.geojson)"
 
     @staticmethod
     def filterGeoClasses(classlist):
@@ -32,7 +37,6 @@ class GeoExporter:
 
     @staticmethod
     def convertTTLToGeoJSON(g, file, subjectstorender=None,classlist=None, formatt="json"):
-        QgsMessageLog.logMessage("Classlist " + str(classlist), "OntdocGeneration", Qgis.Info)
         if subjectstorender == None:
             subjectstorender = g.subjects(None, None, True)
         geoclasslist=GeoExporter.filterGeoClasses(classlist)
@@ -50,7 +54,7 @@ class GeoExporter:
                 res[str(tup[0])] = str(tup[1])
             typeToRes[subjectsToType[str(sub)]].append(res)
         for type in typeToFields:
-            f = open(os.path.realpath(file.name).replace("." + formatt, "") + "_" + MiscExporter.shortenURI(
+            f = open(os.path.realpath(file.name).replace("." + formatt, "") + "_" + DocUtils.shortenURI(
                 type) + "." + formatt, "w", encoding="utf-8")
             resjson={"type":"FeatureCollection","features":[]}
             for res in typeToRes[type]:
