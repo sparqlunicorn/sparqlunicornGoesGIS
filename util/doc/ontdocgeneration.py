@@ -20,6 +20,8 @@ from .pyowl2vowl import OWL2VOWL
 
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
+listthreshold=5
+
 version="SPARQLing Unicorn QGIS Plugin 0.15"
 
 versionurl="https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
@@ -1137,12 +1139,12 @@ class OntDocGeneration:
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + self.truncateValue(objstring) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + res["uri"]+ "</a>)</small></span>"
                 else:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + self.truncateValue(objstring) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + DocUtils.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
             else:
@@ -1152,6 +1154,11 @@ class OntDocGeneration:
                 else:
                     tablecontents += self.detectStringLiteralContent(pred,object)
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"timeobj":dateprops}
+
+    def truncateValue(self, value, limit=150):
+        if len(value) > limit:
+            return "<details><summary style=\"list-style-type: '(...)';\">" + value[0:limit] + "</summary>" + str(value[limit:]) + "</details>"
+        return value
 
     def detectStringLiteralContent(self,pred,object):
         if object.startswith("http://") or object.startswith("https://"):
@@ -1369,6 +1376,8 @@ class OntDocGeneration:
                     comment[str(tup)]=str(predobjmap[tup][0])
                 if len(predobjmap[tup]) > 0:
                     thetable+="<td class=\"wrapword\">"
+                    if len(predobjmap[tup]) > listthreshold:
+                        thetable+="<details><summary>"+str(len(predobjmap[tup]))+" values</summary>"
                     if len(predobjmap[tup])>1:
                         thetable+="<ul>"
                     labelmap={}
@@ -1403,6 +1412,8 @@ class OntDocGeneration:
                         thetable+=str(labelmap[lab])
                     if len(predobjmap[tup])>1:
                         thetable+="</ul>"
+                    if len(predobjmap[tup]) > listthreshold:
+                        thetable+="</details>"
                     thetable+="</td>"
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
@@ -1435,6 +1446,8 @@ class OntDocGeneration:
                 tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
                 if len(subpredsmap[tup]) > 0:
                     tablecontents += "<td class=\"wrapword\">"
+                    if len(subpredsmap[tup]) > listthreshold:
+                        tablecontents+="<details><summary>"+str(len(subpredsmap[tup]))+" values</summary>"
                     if len(subpredsmap[tup]) > 1:
                         tablecontents += "<ul>"
                     labelmap={}
@@ -1460,6 +1473,8 @@ class OntDocGeneration:
                         tablecontents+=str(labelmap[lab])
                     if len(subpredsmap[tup])>1:
                         tablecontents+="</ul>"
+                    if len(subpredsmap[tup]) > listthreshold:
+                        tablecontents+="</details>"
                     tablecontents += "</td>"
                 else:
                     tablecontents += "<td class=\"wrapword\"></td>"
