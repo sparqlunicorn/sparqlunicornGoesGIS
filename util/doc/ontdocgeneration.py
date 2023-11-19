@@ -18,6 +18,8 @@ from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
 from .pyowl2vowl import OWL2VOWL
 
+listthreshold=5
+
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
 version="SPARQLing Unicorn QGIS Plugin 0.15"
@@ -351,7 +353,6 @@ class OntDocGeneration:
                         "OntdocGeneration", Qgis.Info)
                     shutil.copy(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:]),
                                 outpath + str(os.sep) + "css" + str(os.sep) + match[match.rfind("/") + 1:])
-
             #dl = QgsFileDownloader(QUrl(match.replace("\"", "")), outpath +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:])
             #dl.downloadError.connect(self.downloadFailed)
             #QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+str(dl), "OntdocGeneration", Qgis.Info)
@@ -1137,21 +1138,26 @@ class OntDocGeneration:
                 if res != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + self.truncateValue(objstring) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + res["uri"]+ "</a>)</small></span>"
                 else:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"", "'") + "\" datatype=\"" + str(
-                        object.datatype) + "\">" + objstring + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
+                        object.datatype) + "\">" + self.truncateValue(objstring) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"" + str(
                         object.datatype) + "\">" + DocUtils.shortenURI(str(object.datatype)) + "</a>)</small></span>"
                 geojsonrep=self.resolveGeoLiterals(URIRef(pred), object, graph, geojsonrep,nonns,subject)
             else:
                 if object.language != None:
                     tablecontents += "<span property=\"" + str(pred) + "\" content=\"" + str(
-                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\" xml:lang=\"" + str(object.language) + "\">" + str(object).replace("<", "&lt").replace(">", "&gt;") + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
+                        object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\" xml:lang=\"" + str(object.language) + "\">" + self.truncateValue(str(object).replace("<", "&lt").replace(">", "&gt;")) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
                     tablecontents += self.detectStringLiteralContent(pred,object)
         return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"timeobj":dateprops}
+
+    def truncateValue(self,value,limit=150):
+        if len(value)>limit:
+            return "<details><summary>"+value[0:limit]+"</summary>"+str(value[limit:])+"</details>"
+        return value
 
     def detectStringLiteralContent(self,pred,object):
         if object.startswith("http://") or object.startswith("https://"):
@@ -1371,6 +1377,8 @@ class OntDocGeneration:
                     thetable+="<td class=\"wrapword\">"
                     if len(predobjmap[tup])>1:
                         thetable+="<ul>"
+                    if len(predobjmap[tup]) > listthreshold:
+                        thetable+="<details><summary>"+str(len(predobjmap[tup]))+" values</summary>"
                     labelmap={}
                     for item in predobjmap[tup]:
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
@@ -1403,6 +1411,8 @@ class OntDocGeneration:
                         thetable+=str(labelmap[lab])
                     if len(predobjmap[tup])>1:
                         thetable+="</ul>"
+                    if len(predobjmap[tup]) > listthreshold:
+                        thetable+="</details>"
                     thetable+="</td>"
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
@@ -1435,6 +1445,8 @@ class OntDocGeneration:
                 tablecontents=self.formatPredicate(tup, baseurl, checkdepth, tablecontents, graph,True)
                 if len(subpredsmap[tup]) > 0:
                     tablecontents += "<td class=\"wrapword\">"
+                    if len(subpredsmap[tup]) > listthreshold:
+                        tablecontents+="<details><summary>"+str(len(subpredsmap[tup]))+" values</summary>"
                     if len(subpredsmap[tup]) > 1:
                         tablecontents += "<ul>"
                     labelmap={}
@@ -1460,6 +1472,8 @@ class OntDocGeneration:
                         tablecontents+=str(labelmap[lab])
                     if len(subpredsmap[tup])>1:
                         tablecontents+="</ul>"
+                    if len(subpredsmap[tup]) > listthreshold:
+                        tablecontents+="</details>"
                     tablecontents += "</td>"
                 else:
                     tablecontents += "<td class=\"wrapword\"></td>"
