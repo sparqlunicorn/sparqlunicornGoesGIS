@@ -22,6 +22,8 @@ listthreshold=5
 
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
 
+listthreshold=5
+
 version="SPARQLing Unicorn QGIS Plugin 0.15"
 
 versionurl="https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
@@ -1375,6 +1377,8 @@ class OntDocGeneration:
                     comment[str(tup)]=str(predobjmap[tup][0])
                 if len(predobjmap[tup]) > 0:
                     thetable+="<td class=\"wrapword\">"
+                    if len(predobjmap[tup]) > listthreshold:
+                        thetable+="<details><summary>"+str(len(predobjmap[tup]))+" values</summary>"
                     if len(predobjmap[tup])>1:
                         thetable+="<ul>"
                     if len(predobjmap[tup]) > listthreshold:
