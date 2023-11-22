@@ -279,7 +279,7 @@ class OntDocGeneration:
 
 
     def createOfflineCompatibleVersion(self,outpath,myhtmltemplate,templatepath,templatename):
-        QgsMessageLog.logMessage("OUTPATH: "+str(outpath), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("OUTPATH: "+str(outpath), "OntdocGeneration", Qgis.Info)
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
         if not os.path.isdir(outpath+"/js"):
@@ -293,7 +293,7 @@ class OntDocGeneration:
                 for m in match.split("></script><script src="):
                     m=m.replace("\"","").replace("/>","")
                     m=m.replace(">","")
-                    QgsMessageLog.logMessage("Downloader: "+ m.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
+                    #QgsMessageLog.logMessage("Downloader: "+ m.replace("\"", "")+" - "+ str(outpath)+str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], "OntdocGeneration", Qgis.Info)
                     try:
                         g = urllib.request.urlopen(m.replace("\"", ""))
                         with open(outpath + str(os.sep)+"js"+str(os.sep) + m[m.rfind("/") + 1:], 'b+w') as f:
@@ -314,8 +314,8 @@ class OntDocGeneration:
                     myhtmltemplate=myhtmltemplate.replace(m,"{{relativepath}}js/"+m[m.rfind("/")+1:])
             else:
                 match=match.replace("\"","").replace(">","")
-                QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath) + str(os.sep)+"js"+str(os.sep)+ match[match.rfind("/") + 1:],
-                                         "OntdocGeneration", Qgis.Info)
+                #QgsMessageLog.logMessage("Downloader: "+ match.replace("\"", "")+" - "+ str(outpath) + str(os.sep)+"js"+str(os.sep)+ match[match.rfind("/") + 1:],
+                #                         "OntdocGeneration", Qgis.Info)
                 try:
                     g = urllib.request.urlopen(match.replace("\"", ""))
                     with open(outpath + str(os.sep)+"js"+str(os.sep) + match[match.rfind("/") + 1:], 'b+w') as f:
@@ -339,8 +339,8 @@ class OntDocGeneration:
             print(match.replace("\"",""))
             match=match.replace("\"","").replace("/>","")
             match=match.replace(">","")
-            QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+ str(outpath) +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:],
-                                     "OntdocGeneration", Qgis.Info)
+            #QgsMessageLog.logMessage("Downloader: " +match.replace("\"", "")+" - "+ str(outpath) +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:],
+            #                         "OntdocGeneration", Qgis.Info)
             try:
                 g = urllib.request.urlopen(match.replace("\"", ""))
                 with open(outpath +str(os.sep)+"css"+str(os.sep)+ match[match.rfind("/") + 1:], 'b+w') as f:
@@ -362,7 +362,7 @@ class OntDocGeneration:
         return myhtmltemplate
 
     def processLicense(self):
-        QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage(str(self.license), "OntdocGeneration", Qgis.Info)
         if self.license==None or self.license=="" or self.license=="No License Statement":
             return ""
         if self.license.startswith("CC"):
@@ -540,7 +540,7 @@ class OntDocGeneration:
                                 f.close()
                         else:
                             ExporterUtils.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
-                QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
+                #QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
                 indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
                     .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
@@ -968,42 +968,33 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
-    def searchObjectConnectionsForAggregateData(self, graph, object, pred, geojsonrep, foundmedia, imageannos,
-                                                    textannos, image3dannos, label, unitlabel,nonns):
-        geoprop = False
-        annosource = None
-        incollection = False
+    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns):
+        geoprop=False
+        annosource=None
+        incollection=False
         if pred in SPARQLUtils.geopointerproperties:
-            geoprop = True
+            geoprop=True
         if pred in SPARQLUtils.collectionrelationproperties:
-            incollection = True
-        foundval = None
-        foundunit = None
-        tempvalprop = None
+            incollection=True
+        foundval=None
+        foundunit=None
+        tempvalprop=None
         onelabel=None
         bibtex=None
-        timeobj=None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
-                # Check for label property
                 if tup[1].language==self.labellang:
                     label=str(tup[1])
                 onelabel=str(tup[1])
-            if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
-                    self.typeproperty) and (
-                    tup[1] == URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1] == URIRef(
-                    "http://www.w3.org/ns/oa#WKTSelector")):
-                #Check for SVG or WKT annotations (2D or 3D annotations)
-                for svglit in graph.objects(object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value"),True):
+            if pred=="http://www.w3.org/ns/oa#hasSelector" and tup[0]==URIRef(self.typeproperty) and (tup[1]==URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1]==URIRef("http://www.w3.org/ns/oa#WKTSelector")):
+                for svglit in graph.objects(object,URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#value")):
                     if "<svg" in str(svglit):
-                        imageannos.append(str(svglit))
-                    elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(
-                            svglit).upper()):
-                        image3dannos.append(str(svglit))
-            if pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
+                        imageannos.append({"value":str(svglit),"bodies":[]})
+                    elif ("POINT" in str(svglit).upper() or "POLYGON" in str(svglit).upper() or "LINESTRING" in str(svglit).upper()):
+                        image3dannos.append({"value":str(svglit),"bodies":[]})
+            elif pred == "http://www.w3.org/ns/oa#hasSelector" and tup[0] == URIRef(
                     self.typeproperty) and tup[1] == URIRef(
                     "http://www.w3.org/ns/oa#TextPositionSelector"):
-                # Check for text annotations
                 curanno = {}
                 for txtlit in graph.predicate_objects(object):
                     if str(txtlit[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":
@@ -1013,20 +1004,21 @@ class OntDocGeneration:
                     elif str(txtlit[0]) == "http://www.w3.org/ns/oa#end":
                         curanno["end"] = str(txtlit[1])
                 textannos.append(curanno)
-            if pred == "http://www.w3.org/ns/oa#hasSource":
+            if str(tup[0]) == "http://www.w3.org/ns/oa#hasSource":
                 annosource = str(tup[1])
+                print("Found annosource "+str(tup[1])+" from "+str(object)+" Imageannos: "+str(len(imageannos)))
             if (pred == "http://purl.org/dc/terms/isReferencedBy" or pred=="http://purl.org/spar/cito/hasCitingEntity") and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
                 bibtex=self.resolveBibtexReference(graph.predicate_objects(object),object,graph)
             if pred in SPARQLUtils.timepointerproperties:
-                timeobj = self.resolveTimeLiterals(pred, object, graph)
+                timeobj=self.resolveTimeLiterals(pred,object,graph)
             if not nonns:
                 geojsonrep=self.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep,nonns)
             if incollection and "<svg" in str(tup[1]):
-                foundmedia["image"].add(str(tup[1]))
+                foundmedia["image"][str(tup[1])]={}
             elif incollection and "http" in str(tup[1]):
-                ext = "." + ''.join(filter(str.isalpha, str(tup[1]).split(".")[-1]))
+                ext="."+''.join(filter(str.isalpha,str(tup[1]).split(".")[-1]))
                 if ext in SPARQLUtils.fileextensionmap:
-                    foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(tup[1]))
+                    foundmedia[SPARQLUtils.fileextensionmap[ext]][str(tup[1])]={}
             if str(tup[0]) in SPARQLUtils.valueproperties:
                 if tempvalprop == None and str(tup[0]) == "http://www.w3.org/ns/oa#hasSource":
                     tempvalprop = str(tup[0])
@@ -1048,41 +1040,51 @@ class OntDocGeneration:
                 else:
                     for valtup in graph.predicate_objects(tup[1]):
                         if str(valtup[0]) in SPARQLUtils.unitproperties:
-                            foundunit = str(valtup[1])
-                        if str(valtup[0]) in SPARQLUtils.valueproperties and (
-                                isinstance(valtup[1], Literal) or isinstance(valtup[1], URIRef)):
-                            foundval = str(valtup[1])
+                            foundunit=str(valtup[1])
+                        if str(valtup[0]) in SPARQLUtils.valueproperties and isinstance(valtup[1],Literal):
+                            foundval=str(valtup[1])
             if str(tup[0]) in SPARQLUtils.unitproperties:
-                foundunit = tup[1]
-        if foundunit != None and foundval != None:
+                foundunit=tup[1]
+        if foundunit!=None and foundval!=None:
             if "http" in foundunit:
-                unitlabel= str(foundval) + " " + DocUtils.createURILink(self.prefixes,str(foundunit))
+                unitlabel=str(foundval)+" "+DocUtils.createURILink(self.prefixes,str(foundunit))
             else:
-                unitlabel = str(foundval) + " " + str(foundunit)
+                unitlabel=str(foundval)+" "+str(foundunit)
+            if pred=="http://www.w3.org/ns/oa#hasBody":
+                #print("ADD ANNO BODY: "+str({"value":foundval,"unit":foundunit,"type":"TextualBody","format":"text/plain"}))
+                annobodies.append({"value":foundval,"unit":foundunit,"type":"TextualBody","format":"text/plain"})
         if foundunit == None and foundval != None:
             if "http" in foundval:
                 unitlabel = "<a href=\"" + str(foundval) + "\">" + str(DocUtils.shortenURI(foundval)) + "</a>"
             else:
                 unitlabel = str(foundval)
+            if pred=="http://www.w3.org/ns/oa#hasBody":
+                #print("ADD ANNO BODY: "+str({"value":foundval,"type":"TextualBody","format":"text/plain"}))
+                annobodies.append({"value":foundval,"type":"TextualBody","format":"text/plain"})
         if annosource != None:
             for textanno in textannos:
                 textanno["src"] = annosource
+            for imganno in imageannos:
+                imganno["src"] = annosource
+            for imganno in image3dannos:
+                imganno["src"] = annosource
         if label=="" and onelabel!=None:
             label=onelabel
-        return {"geojsonrep": geojsonrep, "label": label, "unitlabel": unitlabel, "foundmedia": foundmedia,
-                "imageannos": imageannos, "textannos": textannos, "image3dannos": image3dannos,"bibtex":bibtex,"timeobj":timeobj}
+        return {"geojsonrep":geojsonrep,"label":label,"unitlabel":unitlabel,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"annobodies":annobodies,"bibtex":bibtex,"timeobj":timeobj}
 
-    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,inverse,nonns):
+
+    def createHTMLTableValueEntry(self,subject,pred,object,ttlf,graph,baseurl,checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,dateprops,inverse,nonns):
         tablecontents=""
         label=""
         bibtex = None
         timeobj=None
+        #QgsMessageLog.logMessage("TIME OBJ CREATEHTMLTABLEVALENTRY: "+str(timeobj), "OntdocGeneration", Qgis.Info)
         if isinstance(object,URIRef) or isinstance(object,BNode):
             if ttlf != None:
                 ttlf.add((subject,URIRef(pred),object))
             label = ""
             unitlabel=""
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,label,unitlabel,nonns)
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns)
             label=mydata["label"]
             if label=="":
                 label=str(DocUtils.shortenURI(str(object)))
@@ -1094,6 +1096,8 @@ class OntDocGeneration:
             unitlabel=mydata["unitlabel"]
             bibtex=mydata["bibtex"]
             timeobj=mydata["timeobj"]
+            #QgsMessageLog.logMessage("TIME OBJ CREATEHTMLTABLEVALENTRY AFTER AGG: " + str(timeobj), "OntdocGeneration", Qgis.Info)
+            annobodies=mydata["annobodies"]
             if inverse:
                 rdfares = " about=\"" + str(object) + "\" resource=\"" + str(subject) + "\""
             else:
@@ -1122,9 +1126,13 @@ class OntDocGeneration:
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
+            QgsMessageLog.logMessage("TIME OBJ CREATEHTMLTABLEVALENTRY AFTER AGG BEFORE TOHTML: " + str(timeobj), "OntdocGeneration",
+                                     Qgis.Info)
             if timeobj!=None:
-                tablecontents+=" <span style=\"font-weight:bold\">["+str(self.timeObjectToHTML(timeobj))+"]</span>"
-                dateprops=timeobj
+                res=str(self.timeObjectToHTML(timeobj))
+                if res!="None":
+                    tablecontents+=" <span style=\"font-weight:bold\">["+str(res)+"]</span>"
+                    dateprops=timeobj
             tablecontents+="</span>"
         else:
             label=str(object)
@@ -1154,7 +1162,7 @@ class OntDocGeneration:
                         object).replace("<", "&lt").replace(">", "&gt;").replace("\"","'") + "\" datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\" xml:lang=\"" + str(object.language) + "\">" + self.truncateValue(str(object).replace("<", "&lt").replace(">", "&gt;")) + " <small>(<a style=\"color: #666;\" target=\"_blank\" href=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\">rdf:langString</a>) (<a href=\"http://www.lexvo.org/page/iso639-1/"+str(object.language)+"\" target=\"_blank\">iso6391:" + str(object.language) + "</a>)</small></span>"
                 else:
                     tablecontents += self.detectStringLiteralContent(pred,object)
-        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"label":label,"timeobj":dateprops}
+        return {"html":tablecontents,"geojson":geojsonrep,"foundmedia":foundmedia,"imageannos":imageannos,"textannos":textannos,"image3dannos":image3dannos,"annobodies":annobodies,"label":label,"timeobj":dateprops}
 
     def truncateValue(self,value,limit=150):
         if len(value)>limit:
@@ -1202,7 +1210,7 @@ class OntDocGeneration:
         return tablecontents
 
     def getSubjectPagesForNonGraphURIs(self,uristorender,graph,prefixnamespace,corpusid,outpath,nonnsmap,baseurl,uritotreeitem,labeltouri):
-        QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
+        #QgsMessageLog.logMessage("Subjectpages " + str(uristorender), "OntdocGeneration", Qgis.Info)
         nonnsuris=len(uristorender)
         counter=0
         for uri in uristorender:
@@ -1291,6 +1299,7 @@ class OntDocGeneration:
         foundvals=set()
         imageannos=[]
         image3dannos=[]
+        annobodies=[]
         predobjmap={}
         isgeocollection=False
         comment={}
@@ -1381,8 +1390,6 @@ class OntDocGeneration:
                         thetable+="<details><summary>"+str(len(predobjmap[tup]))+" values</summary>"
                     if len(predobjmap[tup])>1:
                         thetable+="<ul>"
-                    if len(predobjmap[tup]) > listthreshold:
-                        thetable+="<details><summary>"+str(len(predobjmap[tup]))+" values</summary>"
                     labelmap={}
                     for item in predobjmap[tup]:
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
@@ -1399,12 +1406,17 @@ class OntDocGeneration:
                         elif tup in SPARQLUtils.valueproperties:
                             foundvals.add(str(item))
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
-                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,inverse,nonns)
+                                              baseurl, checkdepth,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,dateprops,inverse,nonns)
                         geojsonrep = res["geojson"]
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         textannos=res["textannos"]
                         image3dannos=res["image3dannos"]
+                        annobodies = res["annobodies"]
+                        # print("GOT ANNO BODIES "+str(annobodies))
+                        if res["timeobj"] != None and res["timeobj"] != []:
+                            # print("RESTIMEOBJ: "+str(timeobj))
+                            timeobj = res["timeobj"]
                         if res["label"] not in labelmap:
                             labelmap[res["label"]]=""
                         if len(predobjmap[tup]) > 1:
@@ -1458,10 +1470,11 @@ class OntDocGeneration:
                         if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
-                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,dateprops,True,nonns)
+                                                             baseurl, checkdepth, geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,dateprops,True,nonns)
                         foundmedia = res["foundmedia"]
                         imageannos=res["imageannos"]
                         image3dannos=res["image3dannos"]
+                        annobodies=res["annobodies"]
                         if nonns and str(tup) != self.typeproperty:
                             hasnonns.add(str(item))
                         if nonns:

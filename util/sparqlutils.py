@@ -38,7 +38,6 @@ class SPARQLUtils:
                       "http://www.w3.org/2006/time#inXSDDateTimeStamp", "http://www.w3.org/2006/time#inXSDgYear",
                       "http://www.w3.org/2006/time#inXSDgYearMonth"]
 
-
     timepointerproperties = ["http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration",
                              "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd"]
 
