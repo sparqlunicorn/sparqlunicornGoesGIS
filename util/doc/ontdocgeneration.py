@@ -10,6 +10,8 @@ import shutil
 import json
 
 from .docutils import DocUtils
+from .docconfig import DocConfig
+from .docdefaults import DocDefaults
 from ..export.api.ckanexporter import CKANExporter
 from ..export.api.iiifexporter import IIIFAPIExporter
 from ..export.api.ogcapifeaturesexporter import OGCAPIFeaturesExporter
@@ -20,100 +22,9 @@ from .pyowl2vowl import OWL2VOWL
 
 listthreshold=5
 
+jsonindent=2
+
 templatepath=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../resources/html/"))
-
-listthreshold=5
-
-version="SPARQLing Unicorn QGIS Plugin 0.15"
-
-versionurl="https://github.com/sparqlunicorn/sparqlunicornGoesGIS"
-
-bibtextypemappings={"http://purl.org/ontology/bibo/Document":"@misc","http://purl.org/ontology/bibo/Article":"@article","http://purl.org/ontology/bibo/Thesis":"@phdthesis","http://purl.org/ontology/bibo/BookSection":"@inbook","http://purl.org/ontology/bibo/Book":"@book","http://purl.org/ontology/bibo/Proceedings":"@inproceedings"}
-
-global startscripts
-startscripts = ""
-
-global stylesheet
-stylesheet = ""
-
-global htmltemplate
-htmltemplate = ""
-
-vowltemplate= ""
-
-jsonindent=None
-
-imagecarouselheader="""<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner" style="text-align:center">"""
-
-imagecarouselfooter="""</div> <a class="carousel-control-prev" href="#imagecarousel" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#imagecarousel" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a></div>"""
-
-imagestemplate="""<div class="{{carousel}}">
-<a href="{{image}}" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
-</div>"""
-
-imageswithannotemplate="""<div class="{{carousel}}">
-<a href=\"{{image}}\" target=\"_blank\"><img src="{{image}}" style="max-width:485px;max-height:500px" alt="{{image}}" title="{{imagetitle}}" /></a>
-{{svganno}}
-</div>"""
-
-textwithannotemplate="""<div class="textanno">	
-</div>"""
-
-global videotemplate
-videotemplate=""
-
-global audiotemplate
-audiotemplate=""
-
-imagestemplatesvg="""<div class="{{carousel}}" style="max-width:485px;max-height:500px">
-{{image}}
-</div>
-"""
-
-threejstemplate="""	
-<div id="threejs" class="threejscontainer" style="max-width:485px;max-height:500px">	
-</div>	
-<script>$(document).ready(function(){initThreeJS('threejs',parseWKTStringToJSON("{{wktstring}}"),{{meshurls}})})</script>	
-"""
-
-global image3dtemplate
-image3dtemplate=""
-
-nongeoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="json">JSON-LD</option><option value="ttl" selected>Turtle (TTL)</option>"""
-
-geoexports="""<option value="csv">Comma Separated Values (CSV)</option><option value="geojson">(Geo)JSON</option><option value="ttl" selected>Turtle (TTL)</option><option value="wkt">Well-Known-Text (WKT)</option>"""
-
-global maptemplate
-maptemplate=""
-
-featurecollectionspaths={}
-
-
-iiifmanifestpaths={"default":[]}
-
-imagetoURI={}
-
-nonmaptemplate="""<script>var nongeofeature = {{myfeature}}</script>"""
-
-htmlcommenttemplate="""<p class="comment"><b>Description:</b> {{comment}}</p>"""
-
-htmltabletemplate="""
-<div style="overflow-x:auto;"><table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table></div>"""
-
-global htmlfooter
-htmlfooter="""<div id="footer"><div class="container-fluid"><b>Download Options:</b>&nbsp;Format:<select id="format" onchange="changeDefLink()">	
-{{exports}}
-</select><a id="formatlink2" href="#" target="_blank"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></a>&nbsp;
-<button id="downloadButton" onclick="download()">Download</button>{{bibtex}}{{license}}</div></div><script>$(document).ready(function(){setSVGDimensions()})</script></body></html>"""
-
-licensetemplate=""""""
 
 classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
@@ -140,69 +51,47 @@ classtreequery="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
                 ?subject != owl:Ontology) )\n
         }"""
 
+featurecollectionspaths={}
+iiifmanifestpaths={"default":[]}
+imagetoURI={}
+
+templates=DocDefaults.templates
+
 def resolveTemplate(templatename):
-    QgsMessageLog.logMessage("Templatename " + str(templatename), "OntdocGeneration", Qgis.Info)
-    QgsMessageLog.logMessage("Templatename " + str(templatepath+"/"+templatename)+" - "+str(os.path.exists(templatepath+"/"+templatename)), "OntdocGeneration", Qgis.Info)
-    if os.path.exists(templatepath+"/"+templatename):
-        QgsMessageLog.logMessage("Postprocessingggg " + str("""subdir"""), "OntdocGeneration", Qgis.Info)
-        if os.path.exists(templatepath+"/"+templatename+"/css/style.css"):
-            with open(templatepath+"/"+templatename+"/css/style.css", 'r') as file:
-                global stylesheet
-                stylesheet=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/js/startscripts.js"):
-            with open(templatepath+"/"+templatename+"/js/startscripts.js", 'r') as file:
-                global startscripts
-                startscripts=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/js/epsgdefs.js"):
-            with open(templatepath+"/"+templatename+"/js/epsgdefs.js", 'r') as file:
-                global epsgdefs
-                epsgdefs=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/header.html"):
-            with open(templatepath+"/"+templatename+"/templates/header.html", 'r') as file:
-                global htmltemplate
-                htmltemplate=file.read()
-        if os.path.exists(templatepath + "/" + templatename + "/templates/sparql.html"):
-            with open(templatepath + "/" + templatename + "/templates/sparql.html", 'r') as file:
-                global sparqltemplate
-                sparqltemplate = file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/footer.html"):
-            with open(templatepath+"/"+templatename+"/templates/footer.html", 'r') as file:
-                global htmlfooter
-                htmlfooter=file.read()
-        if os.path.exists(templatepath + "/" + templatename + "/templates/geoexports.html"):
-            with open(templatepath + "/" + templatename + "/templates/geoexports.html", 'r') as file:
-                global geoexports
-                geoexports = file.read()
-        if os.path.exists(templatepath + "/" + templatename + "/templates/nongeoexports.html"):
-            with open(templatepath + "/" + templatename + "/templates/nongeoexports.html", 'r') as file:
-                global nongeoexports
-                nongeoexports = file.read()
-        if os.path.exists(templatepath + "/" + templatename + "/templates/3dtemplate.html"):
-            with open(templatepath + "/" + templatename + "/templates/3dtemplate.html", 'r') as file:
-                global image3dtemplate
-                image3dtemplate = file.read()
-        if os.path.exists(templatepath + "/" + templatename + "/templates/threejstemplate.html"):
-            with open(templatepath + "/" + templatename + "/templates/threejstemplate.html", 'r') as file:
-                global threejstemplate
-                threejstemplate = file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/vowlwrapper.html"):
-            with open(templatepath+"/"+templatename+"/templates/vowlwrapper.html", 'r') as file:
-                global vowltemplate
-                vowltemplate=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/audiotemplate.html"):
-            with open(templatepath+"/"+templatename+"/templates/audiotemplate.html", 'r') as file:
-                global audiotemplate
-                audiotemplate=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/videotemplate.html"):
-            with open(templatepath+"/"+templatename+"/templates/videotemplate.html", 'r') as file:
-                global videotemplate
-                videotemplate=file.read()
-        if os.path.exists(templatepath+"/"+templatename+"/templates/maptemplate.html"):
-            with open(templatepath+"/"+templatename+"/templates/maptemplate.html", 'r') as file:
-                global maptemplate
-                maptemplate=file.read()
-        return True
-    return False
+    print(templatepath+"/"+templatename)
+    if os.path.exists(templatepath+"/"+templatename+"/templateconf.json"):
+        with open(templatepath+"/"+templatename+"/templateconf.json", 'r') as f:
+            templatefiles = json.load(f)
+            for file in templatefiles:
+                if os.path.exists(templatepath +"/"+templatename+"/"+ file):
+                    with open(templatepath +"/"+templatename+"/"+ file["path"], 'r') as f:
+                        if "name" in file:
+                            templates[file["name"]]= f.read()
+                        else:
+                            templates[file] = f.read()
+    elif os.path.exists(templatepath+"/"+templatename+"/templates/"):
+        if os.path.exists(templatepath+"/"+templatename+"/templates/layouts/") and os.path.exists(templatepath+"/"+templatename+"/templates/includes/"):
+            templates["includes"]={}
+            templates["layouts"] = {}
+            for filename in os.listdir(templatepath+"/"+templatename+"/templates/includes/"):
+                if filename.endswith(".html") or filename.endswith(".css"):
+                    with open(templatepath+"/"+templatename+"/templates/includes/"+filename, 'r') as f:
+                        content=f.read()
+                        templates["includes"][filename.replace(".html","")] = content
+                        templates[filename.replace(".html", "")] = content
+            for filename in os.listdir(templatepath + "/" + templatename + "/templates/layouts/"):
+                if filename.endswith(".html") or filename.endswith(".css"):
+                    with open(templatepath + "/" + templatename + "/templates/layouts/" + filename, 'r') as f:
+                        content=f.read()
+                        templates["layouts"][filename.replace(".html", "")] = content
+                        templates[filename.replace(".html", "")] = content
+        else:
+            for filename in os.listdir(templatepath+"/"+templatename+"/templates/"):
+                if filename.endswith(".html") or filename.endswith(".css"):
+                    with open(templatepath+"/"+templatename+"/templates/"+filename, 'r') as f:
+                        templates[filename.replace(".html","")] = f.read()
+        return False
+    return True
 
 
 class OntDocGeneration:
@@ -456,13 +345,13 @@ class OntDocGeneration:
             if tr["id"] not in classidset:
                 tree["core"]["data"].append(tr)
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
-            f.write(stylesheet.replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
+            f.write(templates["stylesheet"].replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()
         with open(outpath + "startscripts.js", 'w', encoding='utf-8') as f:
-            f.write(startscripts.replace("{{baseurl}}",prefixnamespace))
+            f.write(templates["startscripts"].replace("{{baseurl}}",prefixnamespace))
             f.close()
         with open(outpath + "epsgdefs.js", 'w', encoding='utf-8') as f:
-            f.write(epsgdefs)
+            f.write(templates["epsgdefs"])
             f.close()
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
@@ -517,7 +406,10 @@ class OntDocGeneration:
             f.close()
         IIIFAPIExporter.generateIIIFAnnotations(outpath,imagetoURI)
         if self.createIndexPages:
+            indpcounter=0
             for path in paths:
+                if indpcounter % 10 == 0:
+                    self.updateProgressBar(indpcounter, len(paths), "Creating Index Pages")
                 subgraph=Graph(bind_namespaces="rdflib")
                 #QgsMessageLog.logMessage("BaseURL " + str(outpath)+" "+str(path)+" "+outpath + corpusid + '_search.js', "OntdocGeneration", Qgis.Info)
                 checkdepth = DocUtils.checkDepthFromPath(path, outpath, path)-1
@@ -542,13 +434,13 @@ class OntDocGeneration:
                             ExporterUtils.exportToFunction[ex](subgraph,path + "index."+str(ex).lower(),subjectstorender,classlist,ex.lower())
                 #QgsMessageLog.logMessage("BaseURL " + nslink,"OntdocGeneration", Qgis.Info)
                 relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
-                indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
-                    .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","").replace("{{versionurl}}",versionurl).replace("{{version}}",version)
+                indexhtml = templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}", str(checkdepth)).replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Index page for " + nslink).replace("{{title}}","Index page for " + nslink).replace("{{startscriptpath}}", scriptlink).replace("{{stylepath}}", stylelink).replace("{{epsgdefspath}}", epsgdefslink)\
+                    .replace("{{classtreefolderpath}}",classtreelink).replace("{{baseurlhtml}}", nslink).replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",templates["nongeoexports"]).replace("{{bibtex}}","").replace("{{versionurl}}",DocConfig.versionurl).replace("{{version}}",DocConfig.version)
                 if nslink==prefixnamespace:
                     indexhtml=indexhtml.replace("{{indexpage}}","true")
                 else:
                     indexhtml = indexhtml.replace("{{indexpage}}", "false")
-                indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+vowltemplate.replace("{{vowlpath}}", "minivowl_result.js")
+                indexhtml+="<p>This page shows information about linked data resources in HTML. Choose the classtree navigation or search to browse the data</p>"+templates["vowltemplate"].replace("{{vowlpath}}", "minivowl_result.js")
                 if self.startconcept != None and path == outpath and self.startconcept in uritotreeitem:
                     if self.createColl:
                         indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
@@ -587,12 +479,13 @@ class OntDocGeneration:
                                     item["id"]) + "\" target=\"_blank\">" + str(item["text"]) + "</a></td>"
                             indexhtml += "<td>" + str(item["instancecount"]) + "</td>" + exitem + "</tr>"
                 indexhtml += "</tbody></table><script>$('#indextable').DataTable();</script>"
-                indexhtml+=htmlfooter.replace("{{license}}",curlicense).replace("{{exports}}",nongeoexports).replace("{{bibtex}}","")
+                indexhtml+=templates["footer"].replace("{{license}}",curlicense).replace("{{exports}}",templates["nongeoexports"]).replace("{{bibtex}}","")
                 #QgsMessageLog.logMessage(path)
+                indpcounter+=1
                 with open(path + "index.html", 'w', encoding='utf-8') as f:
                     f.write(indexhtml)
                     f.close()
-            sparqlhtml = htmltemplate.replace("{{indexpage}}", "false").replace("{{iconprefixx}}", (
+            sparqlhtml = templates["htmltemplate"].replace("{{indexpage}}", "false").replace("{{iconprefixx}}", (
                 relpath + "icons/" if self.offlinecompat else "")).replace("{{deploypath}}", self.deploypath).replace(
                 "{{datasettitle}}", self.datasettitle).replace("{{logo}}", "").replace("{{baseurl}}",
                                                                                        prefixnamespace).replace(
@@ -604,29 +497,30 @@ class OntDocGeneration:
                 .replace("{{classtreefolderpath}}", classtreelink).replace("{{baseurlhtml}}", "").replace("{{subject}}",
                                                                                                           "").replace(
                 "{{nonnslink}}", "").replace("{{scriptfolderpath}}", sfilelink).replace("{{exports}}",
-                                                                                        nongeoexports).replace(
-                "{{versionurl}}", versionurl).replace("{{version}}", version).replace("{{bibtex}}", "")
-            sparqlhtml += sparqltemplate.replace("{{relativepath}}","")
-            sparqlhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace(
+                                                                                        templates["nongeoexports"]).replace(
+                "{{versionurl}}", DocConfig.versionurl).replace("{{version}}", DocConfig.version).replace("{{bibtex}}", "")
+            sparqlhtml += templates["sparqltemplate"].replace("{{relativepath}}","")
+            sparqlhtml += templates["footer"].replace("{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace(
                 "{{bibtex}}", "")
             with open(outpath + "sparql.html", 'w', encoding='utf-8') as f:
                 f.write(sparqlhtml)
                 f.close()
         if len(iiifmanifestpaths["default"])>0:
             IIIFAPIExporter.generateIIIFCollections(self.outpath,self.deploypath,iiifmanifestpaths["default"],prefixnamespace)
+            IIIFAPIExporter.generateImageGrid(self.deploypath, iiifmanifestpaths["default"], templates["imagegrid"], outpath+"imagegrid.html")
         if len(featurecollectionspaths)>0 and self.ckan:
             CKANExporter.generateCKANCollection(outpath,featurecollectionspaths)
         if len(featurecollectionspaths)>0:
             relpath=DocUtils.generateRelativePathFromGivenDepth(0)
-            indexhtml = htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
-                    .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",nongeoexports)
+            indexhtml = templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{logo}}",self.logoname).replace("{{relativepath}}",relpath).replace("{{relativedepth}}","0").replace("{{baseurl}}", prefixnamespace).replace("{{toptitle}}","Feature Collection Overview").replace("{{title}}","Feature Collection Overview").replace("{{startscriptpath}}", "startscripts.js").replace("{{stylepath}}", "style.css").replace("{{epsgdefspath}}", "epsgdefs.js")\
+                    .replace("{{classtreefolderpath}}",corpusid + "_classtree.js").replace("{{baseurlhtml}}", "").replace("{{scriptfolderpath}}", corpusid + '_search.js').replace("{{exports}}",templates["nongeoexports"])
             indexhtml = indexhtml.replace("{{indexpage}}", "true")
             OGCAPIFeaturesExporter.generateOGCAPIFeaturesPages(outpath,self.deploypath, featurecollectionspaths, prefixnamespace, self.ogcapifeatures,
                                              True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
             indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
-            indexhtml += htmlfooter.replace("{{license}}", curlicense).replace("{{exports}}", nongeoexports).replace("{{bibtex}}","")
+            indexhtml += templates["footer"].replace("{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
                 f.close()
@@ -676,7 +570,7 @@ class OntDocGeneration:
                 if isfeature:
                     classToFColl[str(tup[1])]+=1
         for cls in classToInstances:
-            colluri=namespace+DocUtils.shortenURI(cls)+"_collection"
+            colluri=namespace+DocUtils.shortenURI(cls.replace(" ","_"))+"_collection"
             if classToFColl[cls]==len(classToInstances[cls]):
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
@@ -865,8 +759,8 @@ class OntDocGeneration:
                 if "pages" not in bibtexitem:
                     bibtexitem["pages"] = {}
                 bibtexitem["pages"]["end"] = str(tup[1])
-            elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in bibtextypemappings:
-                bibtexitem["type"] = bibtextypemappings[str(tup[1])]
+            elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in DocConfig.bibtextypemappings:
+                bibtexitem["type"] = DocConfig.bibtextypemappings[str(tup[1])]
             elif str(tup[0]) in bibtexmappings:
                 if isinstance(tup[1], URIRef):
                     bibtexitem[bibtexmappings[str(tup[0])]] = DocUtils.getLabelForObject(tup[1], graph)
@@ -896,6 +790,7 @@ class OntDocGeneration:
         return res
 
     def resolveTimeObject(self, pred, obj, graph, timeobj):
+        #QgsMessageLog.logMessage("RESOLVE TIME OBJECT: " +str(pred)+" " + str(obj), "OntdocGeneration", Qgis.Info)
         if str(pred) == "http://www.w3.org/2006/time#hasBeginning":
             for tobj2 in graph.predicate_objects(obj):
                 if str(tobj2[0]) in SPARQLUtils.timeproperties:
@@ -937,7 +832,8 @@ class OntDocGeneration:
 
     def resolveTimeLiterals(self, pred, obj, graph):
         timeobj = {}
-        if isinstance(obj, URIRef) and str(pred) == "http://www.w3.org/2006/time#hasTime":
+        #QgsMessageLog.logMessage("RESOLVE TIME LITERALS: "+ str(pred)+" " + str(obj), "OntdocGeneration", Qgis.Info)
+        if isinstance(obj, URIRef) and (str(pred) == "http://www.w3.org/2006/time#hasTime"):
             for tobj in graph.predicate_objects(obj):
                 timeobj = self.resolveTimeObject(tobj[0], tobj[1], graph, timeobj)
         elif isinstance(obj, URIRef) and str(pred) in SPARQLUtils.timepointerproperties:
@@ -968,7 +864,7 @@ class OntDocGeneration:
                     geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
         return geojsonrep
 
-    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns):
+    def searchObjectConnectionsForAggregateData(self,graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns,inverse):
         geoprop=False
         annosource=None
         incollection=False
@@ -983,7 +879,7 @@ class OntDocGeneration:
         bibtex=None
         for tup in graph.predicate_objects(object):
             if str(tup[0]) in SPARQLUtils.labelproperties:
-                if tup[1].language==self.labellang:
+                if isinstance(tup[1],Literal) and tup[1].language==self.labellang:
                     label=str(tup[1])
                 onelabel=str(tup[1])
             if pred=="http://www.w3.org/ns/oa#hasSelector" and tup[0]==URIRef(self.typeproperty) and (tup[1]==URIRef("http://www.w3.org/ns/oa#SvgSelector") or tup[1]==URIRef("http://www.w3.org/ns/oa#WKTSelector")):
@@ -1019,6 +915,12 @@ class OntDocGeneration:
                 ext="."+''.join(filter(str.isalpha,str(tup[1]).split(".")[-1]))
                 if ext in SPARQLUtils.fileextensionmap:
                     foundmedia[SPARQLUtils.fileextensionmap[ext]][str(tup[1])]={}
+            if not inverse and str(tup[0])=="http://www.w3.org/2000/01/rdf-schema#member" and (object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),URIRef("http://www.w3.org/ns/sosa/ObservationCollection")) in graph:
+                for valtup in graph.predicate_objects(tup[1]):
+                    if str(valtup[0]) in SPARQLUtils.unitproperties:
+                        foundunit = str(valtup[1])
+                    if str(valtup[0]) in SPARQLUtils.valueproperties and isinstance(valtup[1], Literal):
+                        foundval = str(valtup[1])
             if str(tup[0]) in SPARQLUtils.valueproperties:
                 if tempvalprop == None and str(tup[0]) == "http://www.w3.org/ns/oa#hasSource":
                     tempvalprop = str(tup[0])
@@ -1084,7 +986,7 @@ class OntDocGeneration:
                 ttlf.add((subject,URIRef(pred),object))
             label = ""
             unitlabel=""
-            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns)
+            mydata=self.searchObjectConnectionsForAggregateData(graph,object,pred,geojsonrep,foundmedia,imageannos,textannos,image3dannos,annobodies,timeobj,label,unitlabel,nonns,inverse)
             label=mydata["label"]
             if label=="":
                 label=str(DocUtils.shortenURI(str(object)))
@@ -1126,8 +1028,8 @@ class OntDocGeneration:
                     tablecontents+=" <a href=\""+rellink+".html\">[x]</a>"
             if unitlabel!="":
                 tablecontents+=" <span style=\"font-weight:bold\">["+str(unitlabel)+"]</span>"
-            QgsMessageLog.logMessage("TIME OBJ CREATEHTMLTABLEVALENTRY AFTER AGG BEFORE TOHTML: " + str(timeobj), "OntdocGeneration",
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage("TIME OBJ CREATEHTMLTABLEVALENTRY AFTER AGG BEFORE TOHTML: " + str(timeobj), "OntdocGeneration",
+            #                         Qgis.Info)
             if timeobj!=None:
                 res=str(self.timeObjectToHTML(timeobj))
                 if res!="None":
@@ -1301,6 +1203,7 @@ class OntDocGeneration:
         annobodies=[]
         predobjmap={}
         isgeocollection=False
+        isobservationcollection=False
         comment={}
         parentclass=None
         inverse=False
@@ -1366,12 +1269,19 @@ class OntDocGeneration:
                 if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
                     isgeocollection=True
                     uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
+                    thetypes.add(str("http://www.opengis.net/ont/geosparql#FeatureCollection"))
                 elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
                     isgeocollection=True
                     uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
+                    thetypes.add(str("http://www.opengis.net/ont/geosparql#GeometryCollection"))
+                elif str(tup)==self.typeproperty and URIRef("http://www.w3.org/ns/sosa/ObservationCollection") in predobjmap[tup]:
+                    isobservationcollection=True
+                    uritotreeitem["http://www.w3.org/ns/sosa/ObservationCollection"][-1]["instancecount"] += 1
+                    thetypes.add(str("http://www.w3.org/ns/sosa/ObservationCollection"))
                 elif str(tup)==self.typeproperty:
                     for tp in predobjmap[tup]:
-                        if str(tp) in bibtextypemappings:
+                        thetypes.add(str(tp))
+                        if str(tp) in DocConfig.bibtextypemappings:
                             itembibtex="<details><summary>[BIBTEX]</summary><pre>"+str(self.resolveBibtexReference(graph.predicate_objects(subject),subject,graph))+"</pre></details>"
                             break
                 thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
@@ -1519,28 +1429,28 @@ class OntDocGeneration:
             epsgdefslink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "epsgdefs.js", False)
             rellink7 = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, "vowl_result.js", False)
             if geojsonrep != None:
-                myexports=geoexports
+                myexports=templates["geoexports"]
             else:
-                myexports=nongeoexports
+                myexports=templates["nongeoexports"]
             itembibtex=""
             relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             if foundlabel != "":
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
+                f.write(templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",DocConfig.versionurl).replace("{{version}}",DocConfig.version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             else:
-                f.write(htmltemplate.replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
+                f.write(templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
                     "{{startscriptpath}}", rellink4).replace(
-                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",versionurl).replace("{{version}}",version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + DocUtils.shortenURI(str(subject)) + "</a>").replace(
+                    "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",DocConfig.versionurl).replace("{{version}}",DocConfig.version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + DocUtils.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             for comm in comment:
-                f.write(htmlcommenttemplate.replace("{{comment}}", DocUtils.shortenURI(comm) + ":" + comment[comm]))
+                f.write(templates["htmlcommenttemplate"].replace("{{comment}}", DocUtils.shortenURI(comm) + ":" + comment[comm]))
             for fval in foundvals:
-                f.write(htmlcommenttemplate.replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
+                f.write(templates["htmlcommenttemplate"].replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
@@ -1549,7 +1459,7 @@ class OntDocGeneration:
                                                   "Model"))
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
-                        f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
+                        f.write(templates["threejstemplate"].replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
             elif len(foundmedia["mesh"])>0 and len(image3dannos)==0:
                 #QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
                 if self.iiif:
@@ -1561,16 +1471,16 @@ class OntDocGeneration:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
                         format="nexus"
-                    f.write(image3dtemplate.replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
+                    f.write(templates["3dtemplate"].replace("{{meshurl}}",curitem).replace("{{meshformat}}",format))
                     break
             elif len(foundmedia["mesh"])==0 and len(image3dannos)>0:
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
-                        f.write(threejstemplate.replace("{{wktstring}}",anno).replace("{{meshurls}}","[]"))
+                        f.write(templates["threejstemplate"].replace("{{wktstring}}",anno).replace("{{meshurls}}","[]"))
             carousel="image"
             if len(foundmedia["image"])>3:
                 carousel="carousel-item active"
-                f.write(imagecarouselheader)
+                f.write(templates["imagecarouselheader"])
             if len(imageannos)>0 and len(foundmedia["image"])>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
@@ -1581,7 +1491,7 @@ class OntDocGeneration:
                     annostring=""
                     for anno in imageannos:
                         annostring+=anno.replace("<svg>","<svg style=\"position: absolute;top: 0;left: 0;\" class=\"svgview svgoverlay\" fill=\"#044B94\" fill-opacity=\"0.4\">")
-                    f.write(imageswithannotemplate.replace("{{carousel}}",carousel+"\" style=\"position: relative;display: inline-block;").replace("{{image}}",str(image)).replace("{{svganno}}",annostring).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                    f.write(templates["imageswithannotemplate"].replace("{{carousel}}",carousel+"\" style=\"position: relative;display: inline-block;").replace("{{image}}",str(image)).replace("{{svganno}}",annostring).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
                     if len(foundmedia["image"])>3:
                         carousel="carousel-item"
             elif len(foundmedia["image"])>0:
@@ -1595,15 +1505,15 @@ class OntDocGeneration:
                         continue
                     if "<svg" in image:
                         if "<svg>" in image:
-                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
+                            f.write(templates["imagestemplatesvg"].replace("{{carousel}}",carousel).replace("{{image}}", str(image.replace("<svg>","<svg class=\"svgview\">"))))
                         else:
-                            f.write(imagestemplatesvg.replace("{{carousel}}",carousel).replace("{{image}}",str(image)))
+                            f.write(templates["imagestemplatesvg"].replace("{{carousel}}",carousel).replace("{{image}}",str(image)))
                     else:
-                        f.write(imagestemplate.replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
+                        f.write(templates["imagestemplate"].replace("{{carousel}}",carousel).replace("{{image}}",str(image)).replace("{{imagetitle}}",str(image)[0:str(image).rfind('.')]))
                     if len(foundmedia["image"])>3:
                         carousel="carousel-item"
             if len(foundmedia["image"])>3:
-                f.write(imagecarouselfooter)
+                f.write(templates["imagecarouselfooter"])
             if len(textannos) > 0:
                 for textanno in textannos:
                     if isinstance(textanno, dict):
@@ -1621,13 +1531,40 @@ class OntDocGeneration:
                     IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
                                               foundlabel, comment, thetypes, predobjmap, "Audio"))
             for audio in foundmedia["audio"]:
-                f.write(audiotemplate.replace("{{audio}}",str(audio)))
+                f.write(templates["audiotemplate"].replace("{{audio}}",str(audio)))
             if len(foundmedia["video"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
                     IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["video"], None, str(subject), self.prefixnamespace,
                                               foundlabel, comment, thetypes, predobjmap, "Video"))
             for video in foundmedia["video"]:
-                f.write(videotemplate.replace("{{video}}",str(video)))
+                f.write(templates["videotemplate"].replace("{{video}}",str(video)))
+            if isobservationcollection:
+                memberpred = URIRef("http://www.w3.org/2000/01/rdf-schema#member")
+                xValues = []
+                xLabel = "Value"
+                timeValues = []
+                yLabel = "Time"
+                for memberid in graph.objects(subject, memberpred, True):
+                    gottime = None
+                    gotvalue = None
+                    for observ in graph.predicate_objects(memberid, True):
+                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/hasSimpleResult"):
+                            xValues.append(str(observ[1]))
+                            gotvalue = str(observ[1])
+                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/phenomenonTime"):
+                            for val in graph.predicate_objects(observ[1]):
+                                if str(val[0]) in SPARQLUtils.timeproperties:
+                                    gottime=str(val[1])
+                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/hasResult"):
+                            for val in graph.predicate_objects(observ[1]):
+                                if str(val[0]) in SPARQLUtils.valueproperties and val[1] != None and str(val[1]) != "":
+                                    xValues.append(str(val[1]))
+                                if str(val[0]) in SPARQLUtils.unitproperties and val[1] != None and str(val[1]) != "":
+                                    xLabel = "Value (" + str(val[1]) + ")"
+                    if gottime != None and gotvalue != None:
+                        xValues.append(gotvalue)
+                        timeValues.append(gottime)
+                f.write(templates["chartviewtemplate"].replace("{{xValues}}", str(xValues)).replace("{{yValues}}",str(timeValues)).replace("{{xLabel}}", str(xLabel)).replace("{{yLabel}}", str(yLabel)))
             if geojsonrep != None and not isgeocollection:
                 if uritotreeitem != None and str(subject) in uritotreeitem:
                     uritotreeitem[str(subject)][-1]["type"] = "geoinstance"
@@ -1724,10 +1661,10 @@ class OntDocGeneration:
                             "name": featcoll["name"], "id": featcoll["id"]}
                         fgeo.write(json.dumps(featcoll))
                         fgeo.close()
-            f.write(htmltabletemplate.replace("{{tablecontent}}", tablecontents))
+            f.write(templates["htmltabletemplate"].replace("{{tablecontent}}", tablecontents))
             if metadatatablecontentcounter>=0:
                 f.write("<h5>Metadata</h5>")
-                f.write(htmltabletemplate.replace("{{tablecontent}}", metadatatablecontents))
-            f.write(htmlfooter.replace("{{exports}}",myexports).replace("{{license}}",curlicense).replace("{{bibtex}}",itembibtex))
+                f.write(templates["htmltabletemplate"].replace("{{tablecontent}}", metadatatablecontents))
+            f.write(templates["footer"].replace("{{exports}}",myexports).replace("{{license}}",curlicense).replace("{{bibtex}}",itembibtex))
             f.close()
         return [postprocessing,nonnsmap]

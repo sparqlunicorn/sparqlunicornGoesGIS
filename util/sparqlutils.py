@@ -39,7 +39,8 @@ class SPARQLUtils:
                       "http://www.w3.org/2006/time#inXSDgYearMonth"]
 
     timepointerproperties = ["http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration",
-                             "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd"]
+                             "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd",
+                             "http://www.w3.org/ns/sosa/phenomenonTime", "http://www.w3.org/ns/sosa/resultTime"]
 
     timeliteraltypes = {
         "http://www.w3.org/2001/XMLSchema#gYear": "http://www.ontology-of-units-of-measure.org/resource/om-2/year",
@@ -72,9 +73,11 @@ class SPARQLUtils:
 
     valueproperties={
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
-        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue": "ObjectProperty",
-        "http://www.opengis.net/ont/crs/usesValue": "ObjectProperty",
-        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty"
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue":"ObjectProperty",
+        "http://www.opengis.net/ont/crs/usesValue":"ObjectProperty",
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty",
+        "http://www.w3.org/ns/sosa/hasResult": "ObjectProperty",
+        "http://www.w3.org/ns/sosa/hasSimpleResult":"DatatypeProperty"
     }
 
     unitproperties = {
@@ -226,6 +229,14 @@ class SPARQLUtils:
                    "http://www.wikidata.org/prop/direct/P3896": "DatatypeProperty"
     }
 
+    imageextensions=[".apng",".bmp",".cur",".ico",".jpg",".jpeg",".png",".gif",".tif",".svg","<svg"]
+
+    meshextensions=[".gltf",".obj",".ply",".nxs",".nxz"]
+
+    videoextensions=[".avi",".mp4",".ogv"]
+
+    audioextensions=[".aac",".mp3",".mkv",".ogg",".opus",".wav"]
+
     fileextensionmap={
         ".apng":"image",
         ".bmp":"image",
@@ -241,6 +252,8 @@ class SPARQLUtils:
         ".ply":"mesh",
         ".nxs":"mesh",
         ".nxz":"mesh",
+        ".gltf":"mesh",
+        ".obj":"mesh",
         ".avi":"video",
         ".mp4":"video",
         ".ogv":"video",
@@ -251,14 +264,6 @@ class SPARQLUtils:
         ".opus":"audio",
         ".wav":"audio"
     }
-
-    imageextensions=[".apng",".bmp",".cur",".ico",".jpg",".jpeg",".png",".gif",".tif",".svg","<svg"]
-
-    meshextensions=[".ply",".nxs",".nxz"]
-
-    videoextensions = [".avi", ".mp4", ".ogv"]
-
-    audioextensions = [".aac", ".mp3", ".mkv", ".ogg", ".opus", ".wav"]
 
     styleproperties={
         "http://www.opengis.net/ont/geosparql#style"

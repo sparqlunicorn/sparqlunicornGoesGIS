@@ -1,0 +1,18 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+<script>
+var xValues={{xValues}};
+var yValues={{yValues}};
+const myChart = new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: yValues,
+    datasets: [{
+      label: '{{xLabel}} over time',
+      backgroundColor:"rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: xValues
+    }]},
+  options: {scales: {x:{title:"{{xLabel}}"},y:{title:"{{yLabel}}"}}}
+});
+</script>

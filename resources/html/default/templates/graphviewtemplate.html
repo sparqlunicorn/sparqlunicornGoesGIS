@@ -1,0 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/2.4.0/sigma.min.js"></script>
+<div id="sigma-container"></div>
+<script>
+var sigmajson={{sigmajson}}
+// Initialise sigma:
+var s = new sigma(
+  {
+    renderer: {
+      container: document.getElementById('sigma-container'),
+      type: 'canvas'
+    },
+    settings: {
+    	edgeLabelSize: 'proportional',
+      minArrowSize: 10
+    }
+  }
+);
+// load the graph
+s.graph.read(sigmajson);
+// draw the graph
+s.refresh();
+// launch force-atlas for 5sec
+s.startForceAtlas2();
+window.setTimeout(function() {s.killForceAtlas2()}, 10000)
+</script>
