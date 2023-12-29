@@ -41,12 +41,12 @@ class IIIFAPIExporter:
     @staticmethod
     def generateIIIFManifest(g, outpath, deploypath, imgpaths, annos, annobodies, curind, prefixnamespace, imagetoURI, imagemetadata,metadatanamespaces, label="",
                              summary="", thetypes=None, predobjmap=None, maintype="Image"):
-        print("GENERATE IIIF Manifest for " + str(outpath) + " " + str(curind) + " " + str(label) + " " + str(
-            summary) + " " + str(annobodies))
-        print(predobjmap)
-        print(outpath)
-        print(curind)
-        print(DocUtils.shortenURI(curind))
+        #print("GENERATE IIIF Manifest for " + str(outpath) + " " + str(curind) + " " + str(label) + " " + str(
+        #    summary) + " " + str(annobodies))
+        #print(predobjmap)
+        #print(outpath)
+        #print(curind)
+        #print(DocUtils.shortenURI(curind))
         if not os.path.exists(outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json"):
             if not os.path.exists(outpath + "/iiif/mf/"):
                 os.makedirs(outpath + "/iiif/mf/")
@@ -54,7 +54,7 @@ class IIIFAPIExporter:
                 os.makedirs(outpath + "/iiif/images/")
             if not os.path.exists(outpath + "/iiif/svg/"):
                 os.makedirs(outpath + "/iiif/svg/")
-            print(label)
+            #print(label)
             if label != "":
                 curiiifmanifest = {"@context": "http://iiif.io/api/presentation/3/context.json",
                                    "id": deploypath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json",
@@ -86,18 +86,18 @@ class IIIFAPIExporter:
                 if "width" not in imagetoURI[imgpath]:
                     res = DocUtils.checkImgMetadataRDF(g, imgpath)
                     if "width" in res:
-                        print("Found image width in KG: " + str(res["width"]))
+                        #print("Found image width in KG: " + str(res["width"]))
                         imagetoURI[imgpath]["width"] = res["width"]
                     if "height" in res:
                         imagetoURI[imgpath]["height"] = res["height"]
-                        print("Found image height in KG: " + str(res["width"]))
+                        #print("Found image height in KG: " + str(res["width"]))
                 if imgpath not in imagetoURI or "width" not in imagetoURI[imgpath]:
                     if imagemetadata:
                         try:
-                            print("Loading image for " + str(imgpath))
+                            #print("Loading image for " + str(imgpath))
                             response = requests.get(imgpath)
                             im = Image.open(BytesIO(response.content))
-                            print(im.size)
+                            #print(im.size)
                             # print(type(im.size))
                             w, h = im.size
                             width = w
@@ -148,7 +148,7 @@ class IIIFAPIExporter:
         if besttype == "" and len(thetypes) > 0:
             besttype = next(iter(thetypes))
         return {"url": outpath + "/iiif/mf/" + DocUtils.shortenURI(curind) + "/manifest.json", "label": str(label),
-                "class": besttype}
+                "class": besttype,"ind":curind}
 
     @staticmethod
     def generateImageGrid(deploypath,imagespaths,imagegridtemplate,targetfile=None):
@@ -158,7 +158,7 @@ class IIIFAPIExporter:
             categories.add(DocUtils.shortenURI(imgpath["class"]))
             imghtml+="<li data-groups='[\"all\",\"red\",\""+str(imgpath["class"])+"\"]' style=\"width:25%;background-color:white;border-radius:25px;\"><figure class=\"col-3@sm picture-item\"><div class=\"aspect aspect--16x9\"><div class=\"aspect__inner\">"
             imghtml+="<a href=\""+str(deploypath)+"\"><img src=\"{{site.baseurl}}/assets/images/placeholder.png\" loading=\"lazy\" class=\"imgborder\" onerror=\"this.onerror=null; this.src='{{site.baseurl_root}}/assets/images/placeholder.png'\" alt=\"{{textName}}\"/></a></div></div>"
-            imghtml+="<figcaption style=\"color:black\"><a href="+str(deploypath)+"/"+imgpath["url"]+"\" style=\"font-weight:bold;color:black\">"+str(imgpath["label"])+"</a></figcaption></figure></li>"
+            imghtml+="<figcaption style=\"color:black\"><a href="+str(deploypath)+"/"+imgpath["url"]+"\" style=\"font-weight:bold;color:black\" target=\"_blank\">"+str(imgpath["label"])+"</a></figcaption></figure></li>"
         if targetfile!=None:
             f = open(targetfile, "w")
             f.write(imagegridtemplate.replace("{{imagecontainers}}",imghtml).replace("{{categories}}",str(categories)))

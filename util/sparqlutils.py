@@ -34,13 +34,15 @@ class SPARQLUtils:
         "https://schema.org/address": "ObjectProperty"
     }
 
-    timeproperties = ["http://www.w3.org/2006/time#inXSDDateTime", "http://www.w3.org/2006/time#inXSDDate",
-                      "http://www.w3.org/2006/time#inXSDDateTimeStamp", "http://www.w3.org/2006/time#inXSDgYear",
-                      "http://www.w3.org/2006/time#inXSDgYearMonth"]
+    lexicontypes = {"http://www.w3.org/ns/lemon/lexicog#Entry": "","http://www.w3.org/ns/lemon/ontolex#Entry": "",
+                    "http://www.w3.org/ns/lemon/lexicog#LexicalEntry": "","http://www.w3.org/ns/lemon/ontolex#LexicalEntry": "",
+                    "http://www.w3.org/ns/lemon/ontolex#Word": "","http://www.w3.org/ns/lemon/lexicog#Word": ""}
+    #, "http://www.w3.org/ns/lemon/ontolex#Form": ""
 
-    timepointerproperties = ["http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration",
-                             "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd",
-                             "http://www.w3.org/ns/sosa/phenomenonTime", "http://www.w3.org/ns/sosa/resultTime"]
+    timeproperties=["http://www.cidoc-crm.org/cidoc-crm/P79_beginning_is_qualified_by","http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by","http://www.w3.org/2006/time#inXSDDateTime","http://www.w3.org/2006/time#inXSDDate","http://www.w3.org/2006/time#inXSDDateTimeStamp","http://www.w3.org/2006/time#inXSDgYear","http://www.w3.org/2006/time#inXSDgYearMonth"]
+
+    timepointerproperties=["http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span","http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration", "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd", "http://www.w3.org/ns/sosa/phenomenonTime", "http://www.w3.org/ns/sosa/resultTime"]
+
 
     timeliteraltypes = {
         "http://www.w3.org/2001/XMLSchema#gYear": "http://www.ontology-of-units-of-measure.org/resource/om-2/year",
@@ -51,7 +53,7 @@ class SPARQLUtils:
         "http://www.w3.org/TR/owl-time#generalDay": "http://www.w3.org/2006/time#unitDay",
         "http://www.w3.org/2001/XMLSchema#date": "", "http://www.w3.org/2001/XMLSchema#dateTime": ""}
 
-    collectionclasses=["http://www.opengis.net/ont/geosparql#FeatureCollection","http://www.opengis.net/ont/geosparql#GeometryCollection","http://www.opengis.net/ont/geosparql#SpatialObjectCollection","http://www.w3.org/2004/02/skos/core#Collection","http://www.w3.org/2004/02/skos/core#OrderedCollection","https://www.w3.org/ns/activitystreams#Collection","https://www.w3.org/ns/activitystreams#OrderedCollection"]
+    collectionclasses={"http://www.opengis.net/ont/geosparql#FeatureCollection":"geocollection","http://www.w3.org/ns/lemon/lime#Lexicon":"lexicon","http://www.w3.org/ns/sosa/ObservationCollection":"observationcollection","http://www.opengis.net/ont/geosparql#GeometryCollection":"geocollection","http://www.opengis.net/ont/geosparql#SpatialObjectCollection":"geocollection","http://www.w3.org/2004/02/skos/core#Collection":"collection","http://www.w3.org/2004/02/skos/core#OrderedCollection":"collection","https://www.w3.org/ns/activitystreams#Collection":"collection","https://www.w3.org/ns/activitystreams#OrderedCollection":"collection"}
 
     labelproperties={
         "http://www.w3.org/2004/02/skos/core#prefLabel":"DatatypeProperty",

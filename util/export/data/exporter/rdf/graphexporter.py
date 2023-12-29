@@ -1,5 +1,6 @@
 from rdflib import Graph, Literal
 import json
+import random
 
 from .....doc.docutils import DocUtils
 
@@ -196,6 +197,29 @@ class GraphExporter:
                     uriToNodeId[str(tup[1])] = nodecounter
                     nodecounter += 1
                 result["graph"]["edges"].append({"source":str(uriToNodeId[str(sub)]),"target":str(uriToNodeId[str(tup[1])])})
+                edgecounter+=1
+        file.write(json.dumps(result))
+        return None
+
+    @staticmethod
+    def convertTTLToSigmaJSON(g, file, subjectstorender=None,classlist=None, formatt="jgf"):
+        uriToNodeId = {}
+        nodecounter = 0
+        edgecounter=0
+        result={"graph":{"nodes":[],"edges":[]}}
+        if subjectstorender == None:
+            subjectstorender = g.subjects(None,None,True)
+        for sub in subjectstorender:
+            if str(sub) not in uriToNodeId:
+                uriToNodeId[str(sub)] = nodecounter
+                result["graph"]["nodes"].append({"id":str(sub),"label":str(DocUtils.shortenURI(str(sub))),"x":random.uniform(0, 1000),"y":random.uniform(0, 1000)})
+                nodecounter += 1
+            for tup in g.predicate_objects(sub):
+                if str(tup[1]) not in uriToNodeId:
+                    result["graph"]["nodes"].append({"id":str(tup[1]),"label": str(DocUtils.shortenURI(str(tup[1])))})
+                    uriToNodeId[str(tup[1])] = nodecounter
+                    nodecounter += 1
+                result["graph"]["edges"].append({"id":str(uriToNodeId[str(sub)])+"_"+str(uriToNodeId[str(tup[1])]),"label":str(DocUtils.shortenURI(str(tup[0]))),"source":str(uriToNodeId[str(sub)]),"target":str(uriToNodeId[str(tup[1])])})
                 edgecounter+=1
         file.write(json.dumps(result))
         return None

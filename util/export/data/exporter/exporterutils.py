@@ -17,7 +17,7 @@ class ExporterUtils:
                         "NET": GraphExporter.convertTTLToNET,
                         "GRAPHML": GraphExporter.convertTTLToGraphML, "GeoJSON": GeoExporter.convertTTLToGeoJSON,
                         "JGF": GraphExporter.convertTTLToJGF, "TGF": GraphExporter.convertTTLToTGF,
-                        "TLP": GraphExporter.convertTTLToTLP,
+                        "TLP": GraphExporter.convertTTLToTLP,"SIGMA": GraphExporter.convertTTLToSigmaJSON,
                         "TTL": GraphExporter.serializeRDF, "TRIG": GraphExporter.serializeRDF,
                         "xml": GraphExporter.serializeRDF,
                         "TRIX": GraphExporter.serializeRDF, "NT": GraphExporter.serializeRDF,

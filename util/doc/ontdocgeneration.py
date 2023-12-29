@@ -12,6 +12,10 @@ import json
 from .docutils import DocUtils
 from .docconfig import DocConfig
 from .docdefaults import DocDefaults
+from ..export.pages.observationpage import ObservationPage
+from ..export.pages.lexiconpage import LexiconPage
+from ..export.pages.textannopage import TextAnnoPage
+from ..export.pages.geometryviewpage import GeometryViewPage
 from ..export.api.ckanexporter import CKANExporter
 from ..export.api.iiifexporter import IIIFAPIExporter
 from ..export.api.ogcapifeaturesexporter import OGCAPIFeaturesExporter
@@ -125,11 +129,11 @@ class OntDocGeneration:
         resolveTemplate(templatename)
         if offlinecompat:
             global htmltemplate
-            htmltemplate = self.createOfflineCompatibleVersion(outpath, htmltemplate,templatepath,templatename)
+            htmltemplate = self.createOfflineCompatibleVersion(outpath, templates["htmltemplate"],templatepath,templatename)
             global maptemplate
-            maptemplate = self.createOfflineCompatibleVersion(outpath, maptemplate,templatepath,templatename)
+            maptemplate = self.createOfflineCompatibleVersion(outpath, templates["maptemplate"],templatepath,templatename)
             global sparqltemplate
-            sparqltemplate=self.createOfflineCompatibleVersion(outpath,sparqltemplate,templatepath,templatename)
+            sparqltemplate=self.createOfflineCompatibleVersion(outpath,templates["sparqltemplate"],templatepath,templatename)
         self.maincolorcode="#c0e2c0"
         self.tablecolorcode="#810"
         self.createColl=createcollections
@@ -280,9 +284,13 @@ class OntDocGeneration:
                     graph.add((ind, URIRef(prop), Literal(tobeaddedPerInd[prop]["value"])))
             elif "value" in tobeaddedPerInd[prop] and not "uri" in tobeaddedPerInd[prop]:
                 graph.add((ind, URIRef(prop), URIRef(str(tobeaddedPerInd[prop]["value"]))))
+
     def updateProgressBar(self,currentsubject,allsubjects,processsubject="URIs"):
         newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
-        self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" "+str(processsubject)+"... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
+        if currentsubject==None and allsubjects==None:
+            self.progress.setLabelText(newtext + processsubject)
+        else:
+            self.progress.setLabelText(newtext + "\n Processed: "+str(currentsubject)+" of "+str(allsubjects)+" "+str(processsubject)+"... ("+str(round(((currentsubject/allsubjects)*100),0))+"%)")
 
 
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
@@ -293,6 +301,7 @@ class OntDocGeneration:
         labeltouri = {}
         uritolabel = {}
         uritotreeitem={}
+        self.updateProgressBar(None, None, "Creating classtree and search index")
         if self.createVOWL:
             vowlinstance=OWL2VOWL()
             vowlinstance.convertOWL2VOWL(self.graph,outpath)
@@ -519,7 +528,7 @@ class OntDocGeneration:
                                              True)
             indexhtml += "<p>This page shows feature collections present in the linked open data export</p>"
             indexhtml+="<script src=\"features.js\"></script>"
-            indexhtml+=maptemplate.replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
+            indexhtml+=templates["maptemplate"].replace("var ajax=true","var ajax=false").replace("var featurecolls = {{myfeature}}","").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(0)).replace("{{baselayers}}",json.dumps(self.baselayers).replace("{{epsgdefspath}}", "epsgdefs.js").replace("{{dateatt}}", ""))
             indexhtml += templates["footer"].replace("{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace("{{bibtex}}","")
             with open(outpath + "featurecollections.html", 'w', encoding='utf-8') as f:
                 f.write(indexhtml)
@@ -1202,8 +1211,6 @@ class OntDocGeneration:
         image3dannos=[]
         annobodies=[]
         predobjmap={}
-        isgeocollection=False
-        isobservationcollection=False
         comment={}
         parentclass=None
         inverse=False
@@ -1224,6 +1231,7 @@ class OntDocGeneration:
         hasnonns=set()
         thetypes = set()
         itembibtex = ""
+        collections=set()
         if predobjs!=None:
             for tup in sorted(predobjs,key=lambda tup: tup[0]):
                 if str(tup[0]) not in predobjmap:
@@ -1266,24 +1274,14 @@ class OntDocGeneration:
                         thetable += "<tr class=\"odd\">"
                     else:
                         thetable += "<tr class=\"even\">"
-                if str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection") in predobjmap[tup]:
-                    isgeocollection=True
-                    uritotreeitem["http://www.opengis.net/ont/geosparql#FeatureCollection"][-1]["instancecount"] += 1
-                    thetypes.add(str("http://www.opengis.net/ont/geosparql#FeatureCollection"))
-                elif str(tup)==self.typeproperty and URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection") in predobjmap[tup]:
-                    isgeocollection=True
-                    uritotreeitem["http://www.opengis.net/ont/geosparql#GeometryCollection"][-1]["instancecount"] += 1
-                    thetypes.add(str("http://www.opengis.net/ont/geosparql#GeometryCollection"))
-                elif str(tup)==self.typeproperty and URIRef("http://www.w3.org/ns/sosa/ObservationCollection") in predobjmap[tup]:
-                    isobservationcollection=True
-                    uritotreeitem["http://www.w3.org/ns/sosa/ObservationCollection"][-1]["instancecount"] += 1
-                    thetypes.add(str("http://www.w3.org/ns/sosa/ObservationCollection"))
-                elif str(tup)==self.typeproperty:
+                if str(tup) == self.typeproperty:
                     for tp in predobjmap[tup]:
                         thetypes.add(str(tp))
+                        if str(tp) in SPARQLUtils.collectionclasses:
+                            uritotreeitem[str(tp)][-1]["instancecount"] += 1
+                            collections.add(SPARQLUtils.collectionclasses[str(tp)])
                         if str(tp) in DocConfig.bibtextypemappings:
                             itembibtex="<details><summary>[BIBTEX]</summary><pre>"+str(self.resolveBibtexReference(graph.predicate_objects(subject),subject,graph))+"</pre></details>"
-                            break
                 thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
                 if str(tup) in SPARQLUtils.labelproperties:
                     for lab in predobjmap[tup]:
@@ -1436,14 +1434,14 @@ class OntDocGeneration:
             relpath=DocUtils.generateRelativePathFromGivenDepth(checkdepth)
             if foundlabel != "":
                 f.write(templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{toptitle}}", foundlabel).replace(
-                    "{{startscriptpath}}", rellink4).replace(
+                    "{{startscriptpath}}", rellink4).replace("{{bibtex}}",itembibtex).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",DocConfig.versionurl).replace("{{version}}",DocConfig.version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{indexpage}}","false").replace("{{title}}",
                                                                                                 "<a href=\"" + str(subject) + "\">" + str(foundlabel) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{tablecontent}}", tablecontents).replace("{{description}}","").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             else:
                 f.write(templates["htmltemplate"].replace("{{iconprefixx}}",(relpath+"icons/" if self.offlinecompat else "")).replace("{{deploypath}}",self.deploypath).replace("{{logo}}",logo).replace("{{relativepath}}",relpath).replace("{{baseurl}}",baseurl).replace("{{relativedepth}}",str(checkdepth)).replace("{{prefixpath}}", self.prefixnamespace).replace("{{indexpage}}","false").replace("{{toptitle}}", DocUtils.shortenURI(str(subject))).replace(
-                    "{{startscriptpath}}", rellink4).replace(
+                    "{{startscriptpath}}", rellink4).replace("{{bibtex}}",itembibtex).replace(
                     "{{epsgdefspath}}", epsgdefslink).replace("{{versionurl}}",DocConfig.versionurl).replace("{{version}}",DocConfig.version).replace("{{bibtex}}",itembibtex).replace("{{vowlpath}}", rellink7).replace("{{proprelationpath}}", rellink5).replace("{{stylepath}}", rellink3).replace("{{title}}","<a href=\"" + str(subject) + "\">" + DocUtils.shortenURI(str(subject)) + "</a>").replace(
                     "{{baseurl}}", baseurl).replace("{{description}}", "").replace(
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
@@ -1515,6 +1513,8 @@ class OntDocGeneration:
             if len(foundmedia["image"])>3:
                 f.write(templates["imagecarouselfooter"])
             if len(textannos) > 0:
+                TextAnnoPage().generatePageWidget(textannos,f)
+                """
                 for textanno in textannos:
                     if isinstance(textanno, dict):
                         if "src" in textanno:
@@ -1526,6 +1526,7 @@ class OntDocGeneration:
                             f.write("<span style=\"font-weight:bold\" class=\"textanno\" start=\"" + str(
                                 textanno["start"]) + "\" end=\"" + str(textanno["end"]) + "\" exact=\"" + str(
                                 textanno["exact"]) + "\"><mark>" + str(textanno["exact"]) + "</mark></span>")
+                """
             if len(foundmedia["audio"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
                     IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
@@ -1538,129 +1539,24 @@ class OntDocGeneration:
                                               foundlabel, comment, thetypes, predobjmap, "Video"))
             for video in foundmedia["video"]:
                 f.write(templates["videotemplate"].replace("{{video}}",str(video)))
-            if isobservationcollection:
-                memberpred = URIRef("http://www.w3.org/2000/01/rdf-schema#member")
-                xValues = []
-                xLabel = "Value"
-                timeValues = []
-                yLabel = "Time"
-                for memberid in graph.objects(subject, memberpred, True):
-                    gottime = None
-                    gotvalue = None
-                    for observ in graph.predicate_objects(memberid, True):
-                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/hasSimpleResult"):
-                            xValues.append(str(observ[1]))
-                            gotvalue = str(observ[1])
-                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/phenomenonTime"):
-                            for val in graph.predicate_objects(observ[1]):
-                                if str(val[0]) in SPARQLUtils.timeproperties:
-                                    gottime=str(val[1])
-                        if observ[0] == URIRef("http://www.w3.org/ns/sosa/hasResult"):
-                            for val in graph.predicate_objects(observ[1]):
-                                if str(val[0]) in SPARQLUtils.valueproperties and val[1] != None and str(val[1]) != "":
-                                    xValues.append(str(val[1]))
-                                if str(val[0]) in SPARQLUtils.unitproperties and val[1] != None and str(val[1]) != "":
-                                    xLabel = "Value (" + str(val[1]) + ")"
-                    if gottime != None and gotvalue != None:
-                        xValues.append(gotvalue)
-                        timeValues.append(gottime)
-                f.write(templates["chartviewtemplate"].replace("{{xValues}}", str(xValues)).replace("{{yValues}}",str(timeValues)).replace("{{xLabel}}", str(xLabel)).replace("{{yLabel}}", str(yLabel)))
-            if geojsonrep != None and not isgeocollection:
-                if uritotreeitem != None and str(subject) in uritotreeitem:
-                    uritotreeitem[str(subject)][-1]["type"] = "geoinstance"
-                props = predobjmap
-                if timeobj != None:
-                    for item in timeobj:
-                        dateprops.append(item)
-                        props[item] = str(timeobj[item])
-                jsonfeat = {"type": "Feature", 'id': str(subject), 'name': foundlabel, 'dateprops': dateprops,
-                            'properties': props, "geometry": geojsonrep}
-                if epsgcode == "" and "crs" in geojsonrep:
-                    epsgcode = "EPSG:" + geojsonrep["crs"]
-                if len(hasnonns) > 0:
-                    self.geocache[str(subject)] = jsonfeat
-                f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
-                                                                                       "[" + json.dumps(
-                                                                                           jsonfeat) + "]").replace(
-                    "{{epsg}}", epsgcode).replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace("{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}",
-                                                                                                    epsgdefslink).replace(
-                    "{{dateatt}}", ""))
-            elif isgeocollection or nonns:
-                if foundlabel != None and foundlabel != "":
-                    featcoll = {"type": "FeatureCollection", "id": subject, "name": str(foundlabel), "features": []}
-                else:
-                    featcoll = {"type": "FeatureCollection", "id": subject, "name": DocUtils.shortenURI(subject),
-                                "features": []}
-                thecrs = set()
-                dateatt = ""
-                if isgeocollection and not nonns:
-                    memberpred = URIRef("http://www.w3.org/2000/01/rdf-schema#member")
-                    for memberid in graph.objects(subject, memberpred, True):
-                        for geoinstance in graph.predicate_objects(memberid, True):
-                            geojsonrep = None
-                            if geoinstance != None and isinstance(geoinstance[1], Literal) and (
-                                    str(geoinstance[0]) in SPARQLUtils.geoproperties or str(
-                                    geoinstance[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                geojsonrep = LayerUtils.processLiteral(str(geoinstance[1]), str(geoinstance[1].datatype), "")
-                                uritotreeitem[str(subject)][-1]["type"] = "geocollection"
-                            elif geoinstance != None and str(geoinstance[0]) in SPARQLUtils.geopointerproperties:
-                                uritotreeitem[str(subject)][-1]["type"] = "featurecollection"
-                                for geotup in graph.predicate_objects(geoinstance[1], True):
-                                    if isinstance(geotup[1], Literal) and (str(geotup[0]) in SPARQLUtils.geoproperties or str(
-                                            geotup[1].datatype) in SPARQLUtils.geoliteraltypes):
-                                        geojsonrep = LayerUtils.processLiteral(str(geotup[1]), str(geotup[1].datatype), "")
-                            if geojsonrep != None:
-                                if uritotreeitem != None and str(memberid) in uritotreeitem:
-                                    featcoll["features"].append({"type": "Feature", 'id': str(memberid),
-                                                                 'name': uritotreeitem[str(memberid)][-1]["text"],
-                                                                 'dateprops': dateprops, 'properties': {},
-                                                                 "geometry": geojsonrep})
-                                else:
-                                    featcoll["features"].append(
-                                        {"type": "Feature", 'id': str(memberid), 'name': str(memberid),
-                                         'dateprops': dateprops, 'properties': {}, "geometry": geojsonrep})
-                                if len(featcoll["features"][-1]["dateprops"]) > 0:
-                                    dateatt = featcoll["features"][-1]["dateprops"][0]
-                    if len(hasnonns) > 0:
-                        self.geocache[str(subject)] = featcoll
-                elif nonns:
-                    for item in hasnonns:
-                        if item in self.geocache:
-                            featcoll["features"].append(self.geocache[item])
-                            if "dateprops" in self.geocache[item] and len(self.geocache[item]["dateprops"]) > 0:
-                                dateatt = self.geocache[item]["dateprops"][0]
-                            if "crs" in self.geocache[item]:
-                                thecrs.add(self.geocache[item]["crs"])
-                if len(featcoll["features"]) > 0:
-                    featcoll["numberMatched"] = len(featcoll["features"])
-                    featcoll["numberReturned"] = len(featcoll["features"])
-                    #featcoll["bbox"] = shapely.geometry.GeometryCollection(
-                    #    [shapely.geometry.shape(feature["geometry"]) for feature in featcoll["features"]]).bounds
-                    if len(thecrs) > 0:
-                        featcoll["crs"] = "http://www.opengis.net/def/crs/EPSG/0/" + str(next(iter(thecrs)))
-                    else:
-                        featcoll["crs"] = "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
-                    if dateatt != "":
-                        for feat in featcoll["features"]:
-                            if dateatt not in feat["properties"]:
-                                feat["properties"][dateatt] = ""
-                    if self.localOptimized:
-                        f.write(maptemplate.replace("var ajax=true", "var ajax=false").replace("{{myfeature}}",
-                                                                                               "[" + json.dumps(
-                                                                                                   featcoll) + "]").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace(
-                            "{{baselayers}}", json.dumps(self.baselayers)).replace("{{epsgdefspath}}", epsgdefslink).replace(
-                            "{{dateatt}}", dateatt))
-                    else:
-                        f.write(maptemplate.replace("{{myfeature}}", "[\"" + DocUtils.shortenURI(
-                            str(completesavepath.replace(".html", ".geojson"))) + "\"]").replace("{{relativepath}}",DocUtils.generateRelativePathFromGivenDepth(checkdepth)).replace("{{baselayers}}",
-                                                                                                 json.dumps(
-                                                                                                     self.baselayers)).replace(
-                            "{{epsgdefspath}}", epsgdefslink).replace("{{dateatt}}", dateatt))
-                    with open(completesavepath.replace(".html", ".geojson"), 'w', encoding='utf-8') as fgeo:
-                        featurecollectionspaths[completesavepath.replace(".html", ".geojson")] = {
-                            "name": featcoll["name"], "id": featcoll["id"]}
-                        fgeo.write(json.dumps(featcoll))
-                        fgeo.close()
+            for type in thetypes:
+                if type in SPARQLUtils.lexicontypes:
+                    LexiconPage().generatePageWidget(graph,subject,f,{},False)
+            self.processCollectionPages(collections, graph, subject, f)
+            if geojsonrep != None and "geocollection" not in collections:
+                self.geocache=GeometryViewPage().generatePageWidget(graph, templates, subject, f, uritotreeitem, geojsonrep, predobjmap, self.geocache,
+                                   {"dateprops": dateprops, "timeobj": timeobj,
+                                                             "epsgcode": epsgcode, "epsgdefslink": epsgdefslink,
+                                                             "checkdepth": checkdepth, "hasnonnslen": len(hasnonns)})
+            elif "geocollection" in collections or nonns:
+                self.geocache=GeometryViewPage().generateCollectionWidget(graph, templates, subject, f, uritotreeitem,
+                                                            featurecollectionspaths,
+                                                            {"completesavepath":completesavepath,"nonns":nonns,"hasnonns":hasnonns,
+                                                             "foundlabel":foundlabel,"localOptimized": self.localOptimized,
+                                                             "dateprops": dateprops, "timeobj": timeobj,
+                                                             "geocache":self.geocache,
+                                                             "epsgcode": epsgcode, "epsgdefslink": epsgdefslink,
+                                                             "checkdepth": checkdepth, "hasnonnslen": len(hasnonns)})
             f.write(templates["htmltabletemplate"].replace("{{tablecontent}}", tablecontents))
             if metadatatablecontentcounter>=0:
                 f.write("<h5>Metadata</h5>")
@@ -1668,3 +1564,9 @@ class OntDocGeneration:
             f.write(templates["footer"].replace("{{exports}}",myexports).replace("{{license}}",curlicense).replace("{{bibtex}}",itembibtex))
             f.close()
         return [postprocessing,nonnsmap]
+
+    def processCollectionPages(self,pagesmap,graph,subject,f):
+        if "obvervationcollection" in pagesmap:
+            ObservationPage().generateCollectionWidget(graph, templates, subject, f,{})
+        if "lexicon" in pagesmap:
+            LexiconPage().generateCollectionWidget(graph,templates,subject,f,{})

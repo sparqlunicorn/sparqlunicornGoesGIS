@@ -144,6 +144,7 @@ class LayerUtils:
             geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
             geom=QgsGeometry(geom)
         elif "geojson" in literaltype.lower():
+
             return literal
         elif "wkb" in literaltype.lower():
             geom = QgsGeometry.fromWkb(bytes.fromhex(literal))

@@ -467,6 +467,11 @@
          </item>
          <item>
           <property name="text">
+           <string>JSON</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>TSV</string>
           </property>
          </item>
@@ -627,6 +632,11 @@
          <item>
           <property name="text">
            <string>NET</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SigmaJSON</string>
           </property>
          </item>
          <item>
