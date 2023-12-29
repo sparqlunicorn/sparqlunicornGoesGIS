@@ -1211,6 +1211,7 @@ class OntDocGeneration:
         image3dannos=[]
         annobodies=[]
         predobjmap={}
+        curtypes=set()
         comment={}
         parentclass=None
         inverse=False
@@ -1247,6 +1248,7 @@ class OntDocGeneration:
                     foundtype=True
                     for item in graph.objects(tup[1],URIRef(self.typeproperty)):
                         thetypes.add(str(item))
+                        curtypes.add(str(item))
                         if parentclass!=None:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
@@ -1277,6 +1279,7 @@ class OntDocGeneration:
                 if str(tup) == self.typeproperty:
                     for tp in predobjmap[tup]:
                         thetypes.add(str(tp))
+                        curtypes.add(str(tp))
                         if str(tp) in SPARQLUtils.collectionclasses:
                             uritotreeitem[str(tp)][-1]["instancecount"] += 1
                             collections.add(SPARQLUtils.collectionclasses[str(tp)])
@@ -1539,7 +1542,7 @@ class OntDocGeneration:
                                               foundlabel, comment, thetypes, predobjmap, "Video"))
             for video in foundmedia["video"]:
                 f.write(templates["videotemplate"].replace("{{video}}",str(video)))
-            for type in thetypes:
+            for type in curtypes:
                 if type in SPARQLUtils.lexicontypes:
                     LexiconPage().generatePageWidget(graph,subject,f,{},False)
             self.processCollectionPages(collections, graph, subject, f)
