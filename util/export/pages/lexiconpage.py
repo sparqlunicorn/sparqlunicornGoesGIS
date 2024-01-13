@@ -57,10 +57,21 @@ class LexiconPage:
 
     def generateCollectionWidget(self,graph,templates,subject,f,parameters={}):
         f.write("<table id=\"lexicon\">"+self.tableheader+"<tbody>")
-        for lexentry in graph.objects(subject, URIRef("http://www.w3.org/ns/lemon/lime#entry"), True):
+        for lexentry in graph.objects(subject, URIRef("http://www.w3.org/ns/lemon/lexicog#entry"), True):
             self.generatePageWidget(graph,lexentry,f,parameters,True)
         f.write("</tbody></table><script>$('#lexicon').DataTable();</script>")
 
     def generatePageView(self,headertemplate,footertemplate,g,f):
         f.write(str(headertemplate))
         print("PageView")
+
+
+    def pageWidgetConstraint(self):
+        return ["http://www.w3.org/ns/lemon/lexicog#Entry", "http://www.w3.org/ns/lemon/ontolex#Entry",
+     "http://www.w3.org/ns/lemon/lexicog#LexicalEntry", "http://www.w3.org/ns/lemon/ontolex#LexicalEntry",
+     "http://www.w3.org/ns/lemon/ontolex#Word","http://www.w3.org/ns/lemon/lexicog#Word"]
+
+    def collectionConstraint(self):
+        return ["http://www.w3.org/ns/lemon/lime#Lexicon"]
+
+

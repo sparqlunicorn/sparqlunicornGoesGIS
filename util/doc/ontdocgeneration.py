@@ -13,7 +13,9 @@ from .docutils import DocUtils
 from .docconfig import DocConfig
 from .docdefaults import DocDefaults
 from ..export.pages.observationpage import ObservationPage
+from ..export.pages.bibpage import BibPage
 from ..export.pages.lexiconpage import LexiconPage
+from ..export.pages.personpage import PersonPage
 from ..export.pages.textannopage import TextAnnoPage
 from ..export.pages.geometryviewpage import GeometryViewPage
 from ..export.api.ckanexporter import CKANExporter
@@ -22,7 +24,7 @@ from ..export.api.ogcapifeaturesexporter import OGCAPIFeaturesExporter
 from ..export.data.exporter.exporterutils import ExporterUtils
 from ..layerutils import LayerUtils
 from ..sparqlutils import SPARQLUtils
-from .pyowl2vowl import OWL2VOWL
+from ..export.data.exporter.rdf.vowlexporter import OWL2VOWL
 
 listthreshold=5
 
@@ -731,73 +733,6 @@ class OntDocGeneration:
                             item["type"]=thetype
 
 
-
-    def resolveBibtexReference(self, predobjs, item, graph):
-        bibtexmappings = {"http://purl.org/dc/elements/1.1/title":"title",
-                      "http://purl.org/dc/terms/title":"title",
-                      "http://purl.org/dc/terms/created":"year",
-                      "http://purl.org/dc/terms/issued":"year",
-                      "http://purl.org/ontology/bibo/number":"number",
-                      "http://purl.org/ontology/bibo/publisher":"publisher",
-                      "http://purl.org/dc/terms/publisher":"publishter",
-                      "http://purl.org/dc/terms/language":"language",
-                      "http://purl.org/ontology/bibo/issuer": "journal",
-                      "http://purl.org/ontology/bibo/volume":"volume",
-                      "http://purl.org/ontology/bibo/doi": "doi",
-                      "http://purl.org/ontology/bibo/eissn": "eissn",
-                      "http://purl.org/ontology/bibo/eprint": "eprint",
-                      "http://purl.org/ontology/bibo/url": "url",
-                      "http://purl.org/ontology/bibo/issn": "issn",
-                      "http://purl.org/ontology/bibo/isbn": "isbn",
-                      "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":"type"
-                          }
-        bibtexitem = {"type": "@misc"}
-        for tup in predobjs:
-            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator" or str(tup[0])=="http://purl.org/dc/terms/creator":
-                if "author" not in bibtexitem:
-                    bibtexitem["author"] = []
-                if isinstance(tup[1], URIRef):
-                    bibtexitem["author"].append(DocUtils.getLabelForObject(tup[1], graph))
-                else:
-                    bibtexitem["author"].append(str(tup[1]))
-            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageStart":
-                if "pages" not in bibtexitem:
-                    bibtexitem["pages"] = {}
-                bibtexitem["pages"]["start"] = str(tup[1])
-            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageEnd":
-                if "pages" not in bibtexitem:
-                    bibtexitem["pages"] = {}
-                bibtexitem["pages"]["end"] = str(tup[1])
-            elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(tup[1]) in DocConfig.bibtextypemappings:
-                bibtexitem["type"] = DocConfig.bibtextypemappings[str(tup[1])]
-            elif str(tup[0]) in bibtexmappings:
-                if isinstance(tup[1], URIRef):
-                    bibtexitem[bibtexmappings[str(tup[0])]] = DocUtils.getLabelForObject(tup[1], graph)
-                else:
-                    bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
-        res = bibtexitem["type"] + "{" + DocUtils.shortenURI(item) + ",\n"
-        for bibpart in sorted(bibtexitem):
-            if bibpart == "type":
-                continue
-            res += bibpart + "={"
-            if bibpart == "author":
-                first = True
-                for author in bibtexitem["author"]:
-                    if first:
-                        res += author + " "
-                        first = False
-                    else:
-                        res += "and " + author + " "
-                res = res[0:-1]
-                res += "},\n"
-            elif bibpart == "pages":
-                res += bibtexitem[bibpart]["start"] + "--" + bibtexitem[bibpart]["end"] + "},\n"
-            else:
-                res += str(bibtexitem[bibpart]) + "},\n"
-        res = res[0:-2]
-        res += "\n}"
-        return res
-
     def resolveTimeObject(self, pred, obj, graph, timeobj):
         #QgsMessageLog.logMessage("RESOLVE TIME OBJECT: " +str(pred)+" " + str(obj), "OntdocGeneration", Qgis.Info)
         if str(pred) == "http://www.w3.org/2006/time#hasBeginning":
@@ -813,7 +748,6 @@ class OntDocGeneration:
                 if str(tobj2[0]) in SPARQLUtils.timeproperties:
                     timeobj["timepoint"] = tobj2[1]
         return timeobj
-
 
 
     def timeObjectToHTML(self, timeobj):
@@ -913,7 +847,7 @@ class OntDocGeneration:
                 annosource = str(tup[1])
                 print("Found annosource "+str(tup[1])+" from "+str(object)+" Imageannos: "+str(len(imageannos)))
             if (pred == "http://purl.org/dc/terms/isReferencedBy" or pred=="http://purl.org/spar/cito/hasCitingEntity") and tup[0] == URIRef(self.typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
-                bibtex=self.resolveBibtexReference(graph.predicate_objects(object),object,graph)
+                bibtex=BibPage.resolveBibtexReference(graph.predicate_objects(object),object,graph)
             if pred in SPARQLUtils.timepointerproperties:
                 timeobj=self.resolveTimeLiterals(pred,object,graph)
             if not nonns:
@@ -1197,7 +1131,7 @@ class OntDocGeneration:
         metadatatablecontents=""
         geojsonrep=None
         epsgcode=""
-        foundmedia={"audio":set(),"video":set(),"image":set(),"mesh":set()}
+        foundmedia={"audio":{},"video":{},"image":{},"mesh":{}}
         savepath = savepath.replace("\\", "/")
         checkdepth=0
         if not nonns:
@@ -1248,7 +1182,6 @@ class OntDocGeneration:
                     foundtype=True
                     for item in graph.objects(tup[1],URIRef(self.typeproperty)):
                         thetypes.add(str(item))
-                        curtypes.add(str(item))
                         if parentclass!=None:
                             if item not in uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])]:
                                 uritotreeitem[parentclass][-1]["data"]["to"][str(tup[0])][item] = 0
@@ -1284,7 +1217,7 @@ class OntDocGeneration:
                             uritotreeitem[str(tp)][-1]["instancecount"] += 1
                             collections.add(SPARQLUtils.collectionclasses[str(tp)])
                         if str(tp) in DocConfig.bibtextypemappings:
-                            itembibtex="<details><summary>[BIBTEX]</summary><pre>"+str(self.resolveBibtexReference(graph.predicate_objects(subject),subject,graph))+"</pre></details>"
+                            itembibtex="<details><summary>[BIBTEX]</summary><pre>"+str(BibPage.resolveBibtexReference(graph.predicate_objects(subject),subject,graph))+"</pre></details>"
                 thetable=self.formatPredicate(tup, baseurl, checkdepth, thetable, graph,inverse)
                 if str(tup) in SPARQLUtils.labelproperties:
                     for lab in predobjmap[tup]:
@@ -1305,14 +1238,14 @@ class OntDocGeneration:
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
                             image3dannos.append(str(item))
                         elif "<svg" in str(item):
-                            foundmedia["image"].add(str(item))
+                            foundmedia["image"][str(item)]={}
                         elif "http" in str(item):
                             if isinstance(item,Literal):
                                 ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
                             else:
                                 ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
                             if ext in SPARQLUtils.fileextensionmap:
-                                foundmedia[SPARQLUtils.fileextensionmap[ext]].add(str(item))
+                                foundmedia[SPARQLUtils.fileextensionmap[ext]][str(item)]={}
                         elif tup in SPARQLUtils.valueproperties:
                             foundvals.add(str(item))
                         res=self.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
@@ -1517,19 +1450,6 @@ class OntDocGeneration:
                 f.write(templates["imagecarouselfooter"])
             if len(textannos) > 0:
                 TextAnnoPage().generatePageWidget(textannos,f)
-                """
-                for textanno in textannos:
-                    if isinstance(textanno, dict):
-                        if "src" in textanno:
-                            f.write("<span style=\"font-weight:bold\" class=\"textanno\" start=\"" + str(
-                                textanno["start"]) + "\" end=\"" + str(textanno["end"]) + "\" exact=\"" + str(
-                                textanno["exact"]) + "\" src=\"" + str(textanno["src"]) + "\"><mark>" + str(
-                                textanno["exact"]) + "</mark></span>")
-                        else:
-                            f.write("<span style=\"font-weight:bold\" class=\"textanno\" start=\"" + str(
-                                textanno["start"]) + "\" end=\"" + str(textanno["end"]) + "\" exact=\"" + str(
-                                textanno["exact"]) + "\"><mark>" + str(textanno["exact"]) + "</mark></span>")
-                """
             if len(foundmedia["audio"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
                     IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
@@ -1545,6 +1465,8 @@ class OntDocGeneration:
             for type in curtypes:
                 if type in SPARQLUtils.lexicontypes:
                     LexiconPage().generatePageWidget(graph,subject,f,{},False)
+                if type in PersonPage.pageWidgetConstraint():
+                    PersonPage().generatePageWidget(graph,subject,templates,f,True)
             self.processCollectionPages(collections, graph, subject, f)
             if geojsonrep != None and "geocollection" not in collections:
                 self.geocache=GeometryViewPage().generatePageWidget(graph, templates, subject, f, uritotreeitem, geojsonrep, predobjmap, self.geocache,
@@ -1569,7 +1491,7 @@ class OntDocGeneration:
         return [postprocessing,nonnsmap]
 
     def processCollectionPages(self,pagesmap,graph,subject,f):
-        if "obvervationcollection" in pagesmap:
+        if "observationcollection" in pagesmap:
             ObservationPage().generateCollectionWidget(graph, templates, subject, f,{})
         if "lexicon" in pagesmap:
             LexiconPage().generateCollectionWidget(graph,templates,subject,f,{})

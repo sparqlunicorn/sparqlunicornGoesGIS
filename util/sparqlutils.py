@@ -37,6 +37,7 @@ class SPARQLUtils:
     lexicontypes = {"http://www.w3.org/ns/lemon/lexicog#Entry": "","http://www.w3.org/ns/lemon/ontolex#Entry": "",
                     "http://www.w3.org/ns/lemon/lexicog#LexicalEntry": "","http://www.w3.org/ns/lemon/ontolex#LexicalEntry": "",
                     "http://www.w3.org/ns/lemon/ontolex#Word": "","http://www.w3.org/ns/lemon/lexicog#Word": ""}
+
     #, "http://www.w3.org/ns/lemon/ontolex#Form": ""
 
     timeproperties=["http://www.cidoc-crm.org/cidoc-crm/P79_beginning_is_qualified_by","http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by","http://www.w3.org/2006/time#inXSDDateTime","http://www.w3.org/2006/time#inXSDDate","http://www.w3.org/2006/time#inXSDDateTimeStamp","http://www.w3.org/2006/time#inXSDgYear","http://www.w3.org/2006/time#inXSDgYearMonth"]
@@ -53,7 +54,21 @@ class SPARQLUtils:
         "http://www.w3.org/TR/owl-time#generalDay": "http://www.w3.org/2006/time#unitDay",
         "http://www.w3.org/2001/XMLSchema#date": "", "http://www.w3.org/2001/XMLSchema#dateTime": ""}
 
-    collectionclasses={"http://www.opengis.net/ont/geosparql#FeatureCollection":"geocollection","http://www.w3.org/ns/lemon/lime#Lexicon":"lexicon","http://www.w3.org/ns/sosa/ObservationCollection":"observationcollection","http://www.opengis.net/ont/geosparql#GeometryCollection":"geocollection","http://www.opengis.net/ont/geosparql#SpatialObjectCollection":"geocollection","http://www.w3.org/2004/02/skos/core#Collection":"collection","http://www.w3.org/2004/02/skos/core#OrderedCollection":"collection","https://www.w3.org/ns/activitystreams#Collection":"collection","https://www.w3.org/ns/activitystreams#OrderedCollection":"collection"}
+    collectionclasses = {
+         "http://www.w3.org/2006/vcard/ns#Group":"personcollection",
+         "http://purl.org/ontology/bibo/Collection":"bibcollction",
+         "http://www.w3.org/ns/dcat#Catalog":"datasetcollection",
+         "http://www.opengis.net/ont/geosparql#FeatureCollection": "geocollection",
+         "http://www.w3.org/ns/lemon/lime#Lexicon": "lexicon",
+         "http://www.w3.org/ns/sosa/ObservationCollection": "observationcollection",
+         "http://www.opengis.net/ont/geosparql#GeometryCollection": "geocollection",
+         "http://www.opengis.net/ont/geosparql#SpatialObjectCollection": "geocollection",
+         "http://www.w3.org/2004/02/skos/core#Collection": "collection",
+         "http://www.w3.org/2004/02/skos/core#OrderedCollection": "collection",
+         "https://www.w3.org/ns/activitystreams#Collection": "collection",
+         "https://www.w3.org/ns/activitystreams#OrderedCollection": "collection"
+    }
+
 
     labelproperties={
         "http://www.w3.org/2004/02/skos/core#prefLabel":"DatatypeProperty",
@@ -69,8 +84,13 @@ class SPARQLUtils:
     }
 
     collectionrelationproperties={
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#member":"ObjectProperty",
-        "http://www.w3.org/2004/02/skos/core#member": "ObjectProperty",
+        "http://www.w3.org/2000/01/rdf-schema#member":"ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#member":"ObjectProperty",
+        "http://www.w3.org/ns/lemon/lexicog#entry": "ObjectProperty",
+        "http://www.w3.org/2006/vcard/ns#hasMember":"ObjectProperty",
+        "http://www.w3.org/ns/dcat#dataset":"ObjectProperty",
+        "http://www.w3.org/ns/dcat#resource":"ObjectProperty",
+        "http://www.w3.org/ns/dcat#service":"ObjectProperty"
     }
 
     valueproperties={

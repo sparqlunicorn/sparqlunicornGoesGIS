@@ -5,7 +5,15 @@ class DocConfig:
 
     versionurl="https://github.com/sparqlunicorn/sparqlunicornGoesGIS-ontdoc"
 
-    bibtextypemappings={"http://purl.org/ontology/bibo/Document":"@misc","http://purl.org/ontology/bibo/Article":"@article","http://purl.org/ontology/bibo/Thesis":"@phdthesis","http://purl.org/ontology/bibo/BookSection":"@inbook","http://purl.org/ontology/bibo/Book":"@book","http://purl.org/ontology/bibo/Proceedings":"@inproceedings"}
+    bibtextypemappings = {"http://purl.org/ontology/bibo/Document": "@misc",
+                          "http://purl.org/ontology/bibo/Article": "@article",
+                          "http://purl.org/ontology/bibo/AcademicArticle": "@article",
+                          "http://purl.org/ontology/bibo/Thesis": "@phdthesis",
+                          "http://purl.org/ontology/bibo/BookSection": "@inbook",
+                          "http://purl.org/ontology/bibo/EditedBook": "@book",
+                          "http://purl.org/ontology/bibo/Report": "@report",
+                          "http://purl.org/ontology/bibo/Book": "@book",
+                          "http://purl.org/ontology/bibo/Proceedings": "@inproceedings"}
 
     baselayers={
         "OpenStreetMap (OSM)":{"url":"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png","default":True,"type":"tile"}
