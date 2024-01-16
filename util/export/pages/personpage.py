@@ -146,7 +146,7 @@ class PersonPage:
                 thehcard[str(self.vcardTohCard[str(pprop[0])])]={"value":str(pprop[1]),"prop":str(pprop[0])}
             if str(pprop[0]) in self.vcardprops:
                 if self.vcardprops[str(pprop[0])] in thevcard:
-                    thevcard[self.vcardprops[str(pprop[0])]]["value"]+=" "+str(pprop[1])
+                    thevcard[self.vcardprops[str(pprop[0])]]["value"]+=";"+str(pprop[1])
                 else:
                     thevcard[self.vcardprops[str(pprop[0])]]={"value":str(pprop[1]),"prop":str(pprop[0])}
         return {"vcard":thevcard,"hcard":thehcard}
@@ -162,7 +162,7 @@ class PersonPage:
                     result += "<td class=\"" + str(self.vcardTohCard[hcard[prop]["prop"]]) + "\">" + str(hcard[prop]["value"]) + "</td></tr>"
                 else:
                     result += "<td class=\""+str(prop)+"\">" + str(hcard[prop]["value"]) + "</td></tr>"
-        result+="</tbody></table><script>$('#person').DataTable();</script><button id=\"vcard\" onclick=\"saveTextAsFile(JSON.stringify('"+str(PersonPage.vcardJSONToString(vcard))+"'),'vcard'')\">Download VCard</button>"
+        result+="</tbody></table><script>$('#person').DataTable();</script><button id=\"vcard\" onclick=\"saveTextAsFile(`"+str(PersonPage.vcardJSONToString(vcard))+"`,'vcard')\">Download VCard</button>"
         return result
 
     @staticmethod
@@ -170,7 +170,7 @@ class PersonPage:
         res="BEGIN:VCARD\nVERSION:4.0\n"
         res+="PROFILE:VCARD\n"
         for key in vcard:
-            res+=str(key).upper()+":"+str(vcard[key])+"\n"
+            res+=str(key).upper()+":"+str(vcard[key]["value"])+"\n"
         res+="END:VCARD\n"
         return res
 
