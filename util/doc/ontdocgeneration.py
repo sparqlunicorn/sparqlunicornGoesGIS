@@ -557,7 +557,6 @@ class OntDocGeneration:
             f.close()
 
 
-
     def createCollections(self,graph,namespace):
         classToInstances={}
         classToGeoColl = {}
@@ -581,7 +580,8 @@ class OntDocGeneration:
                 if isfeature:
                     classToFColl[str(tup[1])]+=1
         for cls in classToInstances:
-            colluri=namespace+DocUtils.shortenURI(cls.replace(" ","_"))+"_collection"
+            colluri=namespace+DocUtils.shortenURI(cls)+"_collection"
+            collrelprop="http://www.w3.org/2000/01/rdf-schema#member"
             if classToFColl[cls]==len(classToInstances[cls]):
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#FeatureCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
@@ -590,11 +590,17 @@ class OntDocGeneration:
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection"),URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
                 graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection")))
+            elif cls in DocConfig.classToCollectionClass:
+                graph.add((URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection"),
+                           URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
+                           URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
+                graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef(DocConfig.classToCollectionClass[cls]["class"])))
+                collrelprop=DocConfig.classToCollectionClass[cls]["prop"]
             else:
                 graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
-            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(DocUtils.shortenURI(cls))+" Instances Collection")))
+            graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(str(DocUtils.shortenURI(cls))+" Instances Collection",lang="en")))
             for instance in classToInstances[cls]:
-                graph.add((URIRef(colluri),URIRef("http://www.w3.org/2000/01/rdf-schema#member"),URIRef(instance)))
+                graph.add((URIRef(colluri),URIRef(collrelprop),URIRef(instance)))
         return graph
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):

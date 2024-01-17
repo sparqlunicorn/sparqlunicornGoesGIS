@@ -15,6 +15,26 @@ class DocConfig:
                           "http://purl.org/ontology/bibo/Book": "@book",
                           "http://purl.org/ontology/bibo/Proceedings": "@inproceedings"}
 
+    classToCollectionClass={
+        "http://www.opengis.net/ont/geosparql#SpatialObject": {"class": "http://www.opengis.net/ont/geosparql#SpatialObjectCollection","prop": "http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://www.opengis.net/ont/geosparql#Feature":{"class":"http://www.opengis.net/ont/geosparql#FeatureCollection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://www.opengis.net/ont/geosparql#Geometry": {"class":"http://www.opengis.net/ont/geosparql#GeometryCollection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://www.w3.org/2006/vcard/ns#Individual": {"class":"http://www.w3.org/2006/vcard/ns#Group","prop":"http://www.w3.org/2006/vcard/ns#hasMember"},
+        "http://xmlns.com/foaf/0.1/Person": {"class":"http://www.w3.org/2006/vcard/ns#Group","prop":"http://www.w3.org/2006/vcard/ns#hasMember"},
+        "http://www.w3.org/ns/lemon/ontolex#LexicalEntry": {"class":"http://www.w3.org/ns/lemon/lime#Lexicon","prop":"http://www.w3.org/ns/lemon/lexicog#entry"},
+        "http://www.w3.org/ns/dcat#Dataset": {"class":"http://www.w3.org/ns/lemon/lime#Catalog","prop":"http://www.w3.org/ns/dcat#dataset"},
+        "http://www.w3.org/ns/sosa/Observation":{"class":"http://www.w3.org/ns/sosa/ObservationCollection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Document": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Article": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/AcademicArticle": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Thesis": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/BookSection": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/EditedBook": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Report": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Book": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"},
+        "http://purl.org/ontology/bibo/Proceedings": {"class":"http://purl.org/ontology/bibo/Collection","prop":"http://www.w3.org/2000/01/rdf-schema#member"}
+    }
+
     baselayers={
         "OpenStreetMap (OSM)":{"url":"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png","default":True,"type":"tile"}
     }
