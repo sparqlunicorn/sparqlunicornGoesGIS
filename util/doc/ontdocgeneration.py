@@ -591,7 +591,7 @@ class OntDocGeneration:
                 graph.add((URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection"), URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),URIRef("http://www.opengis.net/ont/geosparql#SpatialObjectCollection")))
                 graph.add((URIRef(colluri), URIRef(self.typeproperty),URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection")))
             elif cls in DocConfig.classToCollectionClass:
-                graph.add((URIRef("http://www.opengis.net/ont/geosparql#GeometryCollection"),
+                graph.add((URIRef(DocConfig.classToCollectionClass[cls]["class"]),
                            URIRef("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
                            URIRef("http://www.w3.org/2004/02/skos/core#Collection")))
                 graph.add((URIRef(colluri),URIRef(self.typeproperty),URIRef(DocConfig.classToCollectionClass[cls]["class"])))
