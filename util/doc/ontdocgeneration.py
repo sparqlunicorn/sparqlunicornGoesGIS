@@ -107,6 +107,7 @@ class OntDocGeneration:
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
         self.outpath=outpath
+        self.modtime=None
         self.progress=progress
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
@@ -310,7 +311,9 @@ class OntDocGeneration:
         curlicense=self.processLicense()
         self.licensehtml=curlicense
         subjectstorender = set()
-        self.getPropertyRelations(self.graph, outpath)
+        res=self.getPropertyRelations(self.graph, outpath)
+        numprops=res["preds"]
+        numobjects=res["objs"]
         if self.createColl:
             self.graph=self.createCollections(self.graph,prefixnamespace)
         if self.logoname!=None and self.logoname!="":
@@ -318,16 +321,30 @@ class OntDocGeneration:
                 os.mkdir(outpath+"/logo/")
             shutil.copy(self.logoname,outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):])
             self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
+        subjectstorender = set()
+        numsubjects=0
         for sub in self.graph.subjects(None,None,True):
             #QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
-            if prefixnamespace in str(sub) and isinstance(sub,URIRef) or isinstance(sub,BNode):
+            if(prefixnamespace in sub and (isinstance(sub,URIRef)) or isinstance(sub,BNode)):
                 subjectstorender.add(sub)
+                label=DocUtils.shortenURI(str(sub))
+                restriction=False
+                ressubcls=""
                 self.addAdditionalTriplesForInd(self.graph,sub,self.tobeaddedPerInd)
                 for tup in self.graph.predicate_objects(sub):
                     if str(tup[0]) in SPARQLUtils.labelproperties:
                         labeltouri[str(tup[1])] = str(sub)
                         uritolabel[str(sub)] = {"label":str(tup[1])}
-                        break
+                        label=str(tup[1])
+                    elif str(tup[1]) == "http://www.w3.org/2002/07/owl#Restriction":
+                            restriction = True
+                    elif str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#subClassOf":
+                         ressubcls=str(tup[1])
+                if isinstance(sub,BNode) and restriction:
+                    self.graph.add((sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                                        Literal(label + " [Restriction]", lang="en")))
+            numsubjects += 1
+        numinds = len(subjectstorender)
         if os.path.exists(outpath + corpusid + '_search.js'):
             try:
                 with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
@@ -355,6 +372,7 @@ class OntDocGeneration:
         for tr in prevtree:
             if tr["id"] not in classidset:
                 tree["core"]["data"].append(tr)
+        numclasses = len(classidset)
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(templates["stylesheet"].replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()
@@ -406,6 +424,8 @@ class OntDocGeneration:
             QgsMessageLog.logMessage(str(subtorencounter) + "/" + str(subtorenderlen) + " " + str(outpath + path))
         self.checkGeoInstanceAssignment(uritotreeitem)
         classlist=self.assignGeoClassesToTree(tree)
+        voidgraph = self.createVoidDataset(self.datasettitle, len(self.graph), numclasses, numinds, numprops, numsubjects, numobjects, self.startconcept)
+        self.graph += voidgraph
         if self.generatePagesForNonNS:
             #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
             self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace,uritotreeitem,labeltouri)
@@ -539,6 +559,7 @@ class OntDocGeneration:
     def getPropertyRelations(self,graph,outpath):
         predicates= {}
         predicatecounter=0
+        objects=set()
         for pred in graph.predicates(None,None,True):
             predicates[pred]={"from":set(),"to":set()}
             for tup in graph.subject_objects(pred):
@@ -546,6 +567,7 @@ class OntDocGeneration:
                     predicates[pred]["from"].add(item)
                 for item in graph.objects(tup[1], URIRef(self.typeproperty),True):
                     predicates[pred]["to"].add(item)
+                objects.add(str(tup[1]))
             predicates[pred]["from"]=list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
             predicatecounter+=1
@@ -555,7 +577,7 @@ class OntDocGeneration:
         with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations="+json.dumps(predicates))
             f.close()
-
+        return {"preds":predicatecounter,"objs":len(objects)}
 
     def createCollections(self,graph,namespace):
         classToInstances={}
@@ -611,6 +633,61 @@ class OntDocGeneration:
                 graph.add((URIRef(colluri),URIRef(collrelprop),URIRef(instance)))
         return graph
 
+    def createVoidDataset(self,dsname,numtriples,numclasses,numinds,numpredicates,numsubjects,numobjects,startconcept=None):
+        g=Graph()
+        voidds=self.prefixnamespace+"theds"
+        g.add((URIRef(voidds),URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),URIRef("http://rdfs.org/ns/void#Dataset")))
+        g.add((URIRef(voidds), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+              Literal(dsname,lang="en")))
+        g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/title"),
+              Literal(dsname,lang="en")))
+        if self.modtime!=None:
+            g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/modified"),
+                  Literal(self.modtime,datatype="http://www.w3.org/2001/XMLSchema#dateTime")))
+        if self.licenseuri!=None:
+            g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/license"),
+                  URIRef(self.licenseuri)))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#dataDump"),
+              URIRef(self.deploypath+"/index.ttl")))
+        g.add((URIRef(voidds), URIRef("http://xmlns.com/foaf/0.1/homepage"),
+              URIRef(self.deploypath)))
+        g.add((URIRef(voidds), URIRef("http://xmlns.com/foaf/0.1/page"),
+              URIRef(self.deploypath+"/index.html")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#dataDump"),
+              URIRef(self.deploypath+"/index.ttl")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#feature"),
+              URIRef("http://www.w3.org/ns/formats/Turtle")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#feature"),
+              URIRef("http://www.w3.org/ns/formats/RDFa")))
+        if startconcept!=None:
+            g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#rootResource"),
+                  URIRef(startconcept)))
+            g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#exampleResource"),
+                  URIRef(startconcept)))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#classes"),
+              Literal(numclasses,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#entities"),
+              Literal(numinds,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#distinctObjects"),
+              Literal(numobjects,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#distinctSubjects"),
+              Literal(numsubjects,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#properties"),
+              Literal(numpredicates,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#triples"),
+              Literal(numtriples,datatype="http://www.w3.org/2001/XMLSchema#integer")))
+        g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#uriSpace"),
+              Literal(self.prefixnamespace,datatype="http://www.w3.org/2001/XMLSchema#string")))
+        for ns_prefix, namespace in g.namespaces():
+            g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#vocabulary"),
+                  URIRef(namespace)))
+            if str(namespace) in DocConfig.namespaceToTopic:
+                for entry in DocConfig.namespaceToTopic[str(namespace)]:
+                    g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/subject"),
+                           URIRef(entry)))
+        g.serialize(self.outpath+"/void.ttl", encoding="utf-8")
+        return g
+
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
         tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True},
@@ -637,7 +714,10 @@ class OntDocGeneration:
         for res in results:
             #QgsMessageLog.logMessage(str(res),"OntdocGeneration",Qgis.Info)
             if "_:" not in str(res["subject"]) and str(res["subject"]).startswith("http"):
-                ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
+                if "_:" not in str(res["supertype"]) and str(res["supertype"]).startswith("http"):
+                    ress[str(res["subject"])] = {"super": res["supertype"], "label": res["label"]}
+                else:
+                    ress[str(res["subject"])] = {"super": None, "label": res["label"]}
         #QgsMessageLog.logMessage(ress)
         for cls in ress:
             for obj in graph.subjects(URIRef(self.typeproperty), URIRef(cls),True):
