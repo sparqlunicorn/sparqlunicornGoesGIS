@@ -522,13 +522,13 @@ class OntDocGeneration:
                             if self.createColl:
                                 indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
-                                                 "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" href=\"" + DocUtils.shortenURI(
+                                                 "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" resource=\""+str(DocUtils.shortenURI(str(item["id"]))+"_collection/")+"\" href=\"" + DocUtils.shortenURI(
                                     str(item["id"])) + "_collection/index.html\" target=\"_blank\">" + str(
                                     item["text"]) + "</a></td>"
                             else:
                                 indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
-                                                 "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" href=\"" + str(
+                                                 "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" resource=\""+str(DocUtils.shortenURI(str(item["id"]))+"_collection/")+"\" href=\"" + str(
                                     item["id"]) + "\" target=\"_blank\">" + str(item["text"]) + "</a></td>"
                             indexhtml+="<td property=\"http://rdfs.org/ns/void#classPartition\" typeof=\"http://rdfs.org/ns/void#Dataset\" resource=\""+str(voidds)+"_"+str(DocUtils.shortenURI(item["id"]))+"\"><span about=\""+str(voidds)+"_"+str(DocUtils.shortenURI(item["id"]))+"\" property=\"http://rdfs.org/ns/void#class\" resource=\""+str(item["id"])+"\"></span><span about=\""+str(voidds)+"_"+str(DocUtils.shortenURI(item["id"]))+"\" property=\"http://rdfs.org/ns/void#entities\" content=\""+str(item["instancecount"])+"\" datatype=\"http://www.w3.org/2001/XMLSchema#integer\">"+str(item["instancecount"])+"</td>"+exitem+"</tr>"
                 indexhtml += "</tbody></table><script property=\"http://purl.org/dc/terms/modified\" content=\""+str(self.modtime)+"\" datatype=\"http://www.w3.org/2001/XMLSchema#dateTime\">$('#indextable').DataTable();</script>"
