@@ -39,7 +39,8 @@ class IIIFAPIExporter:
                         f.close()
 
     @staticmethod
-    def generateIIIFManifest(g, outpath, deploypath, imgpaths, annos, annobodies, curind, prefixnamespace, imagetoURI, imagemetadata,metadatanamespaces, label="",
+    def generateIIIFManifest(g, outpath, deploypath, imgpaths, annos, annobodies, curind, prefixnamespace, imagetoURI,
+                             imagemetadata, metadatanamespaces, label="",
                              summary="", thetypes=None, predobjmap=None, maintype="Image"):
         #print("GENERATE IIIF Manifest for " + str(outpath) + " " + str(curind) + " " + str(label) + " " + str(
         #    summary) + " " + str(annobodies))
@@ -171,8 +172,9 @@ class IIIFAPIExporter:
         if not os.path.exists(outpath + "/iiif/collection/"):
             os.makedirs(outpath + "/iiif/collection/")
         if os.path.exists(outpath + "/iiif/collection/iiifcoll.json"):
-            f = open(outpath + "/iiif/collection/iiifcoll.json", "r", encoding="utf-8")
-            collections = json.loads(f.read())
+            f=open(outpath+"/iiif/collection/iiifcoll.json","r",encoding="utf-8")
+            collections={}
+            collections["main"]=json.loads(f.read())
             f.close()
         else:
             collections = {"main": {"@context": "http://iiif.io/api/presentation/3/context.json",

@@ -103,7 +103,7 @@ def resolveTemplate(templatename):
 
 class OntDocGeneration:
 
-    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,ckan=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
+    def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,ckan=False,imagemetadata=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
         self.prefixes=prefixes
         self.prefixnamespace = prefixnamespace
         self.namespaceshort = prefixnsshort.replace("/","")
@@ -123,6 +123,7 @@ class OntDocGeneration:
         self.ogcapifeatures=ogcapifeatures
         self.iiif=iiif
         self.ckan=ckan
+        self.imagemetadata=imagemetadata
         self.createVOWL=createVOWL
         self.localOptimized=True
         self.geocache={}
@@ -320,7 +321,6 @@ class OntDocGeneration:
             vowlinstance.convertOWL2VOWL(self.graph,outpath)
         curlicense=self.processLicense()
         self.licensehtml=curlicense
-        subjectstorender = set()
         res=self.getPropertyRelations(self.graph, outpath)
         voidstats["http://rdfs.org/ns/void#properties"]=res["preds"]
         voidstats["http://rdfs.org/ns/void#distinctObjects"]=res["objs"]
@@ -338,6 +338,8 @@ class OntDocGeneration:
             self.logoname=outpath+"/logo/logo."+self.logoname[self.logoname.rfind("."):]
         subjectstorender = set()
         subjectstorender.add(URIRef(voidds))
+        nonnscount={}
+        instancecount={}
         for sub in self.graph.subjects(None,None,True):
             #QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
             if(prefixnamespace in sub and (isinstance(sub,URIRef)) or isinstance(sub,BNode)):
@@ -352,10 +354,21 @@ class OntDocGeneration:
                         labeltouri[str(tup[1])] = str(sub)
                         uritolabel[str(sub)] = {"label":str(tup[1])}
                         label=str(tup[1])
+                    elif str(tup[0])==self.typeproperty:
+                        if str(tup[1]) not in instancecount:
+                            instancecount[str(tup[1])]=0
+                        instancecount[str(tup[1])]+=1
                     elif str(tup[1]) == "http://www.w3.org/2002/07/owl#Restriction":
                             restriction = True
                     elif str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#subClassOf":
                          ressubcls=str(tup[1])
+                    if isinstance(tup[1], URIRef) and prefixnamespace not in str(tup[1]):
+                        ns = DocUtils.shortenURI(str(tup[1]), True)
+                        if str(tup[0]) not in nonnscount:
+                            nonnscount[str(tup[0])] = {}
+                        if ns not in nonnscount[str(tup[0])]:
+                            nonnscount[str(tup[0])][ns] = 0
+                        nonnscount[str(tup[0])][ns] += 1
                 if isinstance(sub,BNode) and restriction:
                     self.graph.add((sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
                                         Literal(label + " [Restriction]", lang="en")))
@@ -390,9 +403,12 @@ class OntDocGeneration:
                 tree["core"]["data"].append(tr)
         voidstats["http://rdfs.org/ns/void#classes"]=len(classidset)
         voidstats["http://rdfs.org/ns/void#triples"] = len(self.graph)
-        voidgraph=VoidExporter.createVoidDataset(self.datasettitle,prefixnamespace,self.deploypath,self.outpath,self.licenseuri,self.modtime,self.labellang,voidstats,tree,predmap,self.startconcept)
+        voidgraph = VoidExporter.createVoidDataset(self.datasettitle, prefixnamespace, self.deploypath, self.outpath,
+                                                   self.licenseuri, self.modtime, self.labellang, voidstats, tree,
+                                                   predmap, nonnscount, instancecount, self.startconcept)
         self.voidstatshtml=VoidExporter.toHTML(voidstats,self.deploypath)
-        self.graph+=voidgraph
+        self.graph+=voidgraph["graph"]
+        subjectstorender.update(voidgraph["subjects"])
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(templates["stylesheet"].replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()
@@ -1450,9 +1466,8 @@ class OntDocGeneration:
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        IIIFAPIExporter.generateIIIFManifest(self.outpath,self.deploypath, foundmedia["mesh"], image3dannos, str(subject),
-                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
-                                                  "Model"))
+                        IIIFAPIExporter.generateIIIFManifest(graph,self.outpath,self.deploypath, foundmedia["mesh"], image3dannos,annobodies, str(subject),
+                                                  self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Model"))
                 for anno in image3dannos:
                     if ("POINT" in anno.upper() or "POLYGON" in anno.upper() or "LINESTRING" in anno.upper()):
                         f.write(templates["threejstemplate"].replace("{{wktstring}}",anno).replace("{{meshurls}}",str(list(foundmedia["mesh"]))))
@@ -1460,9 +1475,7 @@ class OntDocGeneration:
                 #QgsMessageLog.logMessage("Found 3D Model: "+str(foundmedia["mesh"]))
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["mesh"], image3dannos, str(subject),
-                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
-                                                  "Model"))
+                        IIIFAPIExporter.generateIIIFManifest(graph,self.outpath, self.deploypath, foundmedia["mesh"], annobodies,  image3dannos, str(subject),self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Model"))
                 for curitem in foundmedia["mesh"]:
                     format="ply"
                     if ".nxs" in curitem or ".nxz" in curitem:
@@ -1480,9 +1493,7 @@ class OntDocGeneration:
             if len(imageannos)>0 and len(foundmedia["image"])>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["image"], imageannos, str(subject),
-                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
-                                                  "Image"))
+                        IIIFAPIExporter.generateIIIFManifest(graph,self.outpath,self.deploypath,foundmedia["image"],imageannos,annobodies,str(subject),self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Image"))
                 for image in foundmedia["image"]:
                     annostring=""
                     for anno in imageannos:
@@ -1493,9 +1504,7 @@ class OntDocGeneration:
             elif len(foundmedia["image"])>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(
-                        IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["image"], imageannos, str(subject),
-                                                  self.prefixnamespace, foundlabel, comment, thetypes, predobjmap,
-                                                  "Image"))
+                        IIIFAPIExporter.generateIIIFManifest(graph,self.outpath,self.deploypath,foundmedia["image"],imageannos,annobodies,str(subject),self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Image"))
                 for image in foundmedia["image"]:
                     if image=="<svg width=":
                         continue
@@ -1514,14 +1523,12 @@ class OntDocGeneration:
                 TextAnnoPage().generatePageWidget(textannos,f)
             if len(foundmedia["audio"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
-                    IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["audio"], None, str(subject), self.prefixnamespace,
-                                              foundlabel, comment, thetypes, predobjmap, "Audio"))
+                    IIIFAPIExporter.generateIIIFManifest(graph,self.outpath,self.deploypath,foundmedia["audio"],None,None,str(subject),self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Audio"))
             for audio in foundmedia["audio"]:
                 f.write(templates["audiotemplate"].replace("{{audio}}",str(audio)))
             if len(foundmedia["video"]) > 0 and self.iiif:
                 iiifmanifestpaths["default"].append(
-                    IIIFAPIExporter.generateIIIFManifest(self.outpath, self.deploypath, foundmedia["video"], None, str(subject), self.prefixnamespace,
-                                              foundlabel, comment, thetypes, predobjmap, "Video"))
+                    IIIFAPIExporter.generateIIIFManifest(graph,self.outpath,self.deploypath,foundmedia["video"],None,None,str(subject),self.prefixnamespace,imagetoURI, self.imagemetadata,SPARQLUtils.metadatanamespaces,foundlabel,comment,thetypes,predobjmap,"Video"))
             for video in foundmedia["video"]:
                 f.write(templates["videotemplate"].replace("{{video}}",str(video)))
             for type in curtypes:

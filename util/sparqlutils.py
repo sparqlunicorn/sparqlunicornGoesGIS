@@ -26,7 +26,7 @@ class SPARQLUtils:
 
     annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 
-    metadatanamespaces = ["http://purl.org/dc/terms/", "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
+    metadatanamespaces = ["http://rdfs.org/ns/void#", "http://purl.org/dc/terms/", "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
                           "http://www.w3.org/ns/prov-o/", "http://creativecommons.org/ns#",
                           "http://www.w3.org/ns/dcat#", "http://purl.org/cerif/frapo/", "http://www.lido-schema.org/"]
 
@@ -97,14 +97,21 @@ class SPARQLUtils:
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#value":"DatatypeProperty",
         "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue":"ObjectProperty",
         "http://www.opengis.net/ont/crs/usesValue":"ObjectProperty",
+        "http://rdfs.org/ns/void#triples": "DatatypeProperty",
+        "http://rdfs.org/ns/void#entities": "DatatypeProperty",
+        "http://rdfs.org/ns/void#propertyPartition": "ObjectProperty",
+        "http://rdfs.org/ns/void#classPartition": "ObjectProperty",
         "http://www.ontology-of-units-of-measure.org/resource/om-2/hasNumericalValue":"DatatypeProperty",
         "http://www.w3.org/ns/sosa/hasResult": "ObjectProperty",
         "http://www.w3.org/ns/sosa/hasSimpleResult":"DatatypeProperty"
     }
 
-    unitproperties = {
-        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit": "ObjectProperty",
-        "https://www.w3.org/ns/activitystreams#units": "DatatypeProperty"
+    unitproperties={
+        "http://www.ontology-of-units-of-measure.org/resource/om-2/hasUnit":"ObjectProperty",
+        "https://www.w3.org/ns/activitystreams#units":"DatatypeProperty",
+        "http://rdfs.org/ns/void#property": "DatatypeProperty",
+        "http://rdfs.org/ns/void#class": "DatatypeProperty",
+        "http://rdfs.org/ns/void#objectsTarget": "DatatypeProperty",
     }
 
     commentproperties={

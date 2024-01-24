@@ -1,5 +1,6 @@
 from ..sparqlutils import SPARQLUtils
 import os
+from rdflib import URIRef
 
 
 class DocUtils:
@@ -33,6 +34,14 @@ class DocUtils:
         #QgsMessageLog.logMessage("Relative Link from Given Depth: " + rellink,"OntdocGeneration", Qgis.Info)
         return rellink
 
+    @staticmethod
+    def checkImgMetadataRDF(g,uri):
+        res={}
+        for obj in g.objects(URIRef(uri),URIRef("http://www.w3.org/2003/12/exif/ns#width")):
+            res["width"]=str(obj)
+        for obj in g.objects(URIRef(uri),URIRef("http://www.w3.org/2003/12/exif/ns#height")):
+            res["height"]=str(obj)
+        return res
 
     @staticmethod
     def generateRelativeSymlink(linkpath, targetpath, outpath, items=False):

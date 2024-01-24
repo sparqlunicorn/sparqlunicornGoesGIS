@@ -5,6 +5,7 @@ from qgis.core import (
 from osgeo import ogr
 from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
 import uuid
+import traceback
 import re
 import json
 import urllib.parse
@@ -110,55 +111,60 @@ class LayerUtils:
         geom = None
         if triplestoreconf!=None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
-        if literal.startswith("http"):
-            res = SPARQLUtils.handleURILiteral(literal,currentlayergeojson)
-            if res == None:
-                return json.loads("{\"geometry\":{}}")
-            return res[0]
-        if literaltype == "":
-            literaltype = SPARQLUtils.detectGeoLiteralType(literal)
-        curcrs=None
-        if "wkt" in literaltype.lower() or literaltype=="http://www.openlinksw.com/schemas/virtrdf#Geometry":
-            literal = literal.strip()
-            if literal.startswith("<http"):
-                index = literal.index(">") + 1
-                slashindex = literal.rfind("/") + 1
-                if reprojecttask:
-                    reproject = literal[slashindex:(index - 1)]
-                geom = QgsGeometry.fromWkt(literal[index:])
-                curcrs=literal[slashindex:(index - 1)]
-            else:
-                geom = QgsGeometry.fromWkt(literal)
-        elif "gml" in literaltype.lower():
+        try:
+            if literal.startswith("http"):
+                res = SPARQLUtils.handleURILiteral(literal,currentlayergeojson)
+                if res == None:
+                    return json.loads("{\"geometry\":{}}")
+                return res[0]
+            if literaltype == "":
+                literaltype = SPARQLUtils.detectGeoLiteralType(literal)
             curcrs=None
-            if "EPSG" in literal and "http" in literal:
-                srspart=literal[literal.find("srsName="):literal.find(">")]
-                curcrs=srspart.replace("srsName=\"http://www.opengis.net/def/crs/EPSG/0/","")
-                curcrs=curcrs.replace("\"","")
-            elif "EPSG" in literal and "http" not in literal:
-                srspart = literal[literal.find("srsName="):literal.find(">")]
-                curcrs=srspart.replace("srsName=\"EPSG:","")
-                curcrs=curcrs.replace("\"", "")
-            if reprojecttask and curcrs!=None:
-                reproject = str(curcrs)
-            geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
-            geom=QgsGeometry(geom)
-        elif "geojson" in literaltype.lower():
-            return literal
-        elif "wkb" in literaltype.lower():
-            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
-        if geom != None and reproject != "":
-            geom=LayerUtils.reprojectGeometry(geom,reproject)
-        if geom != None:
-            res=json.loads(geom.asJson())
-            if currentlayergeojson!=None:
-                currentlayergeojson["geometry"]=res
-                if curcrs != None:
-                    currentlayergeojson["crs"]=curcrs
-                return currentlayergeojson
-            if curcrs!=None:
-                res["crs"]=curcrs
-            return res
+            if "wkt" in literaltype.lower() or literaltype=="http://www.openlinksw.com/schemas/virtrdf#Geometry":
+                literal = literal.strip()
+                if literal.startswith("<http"):
+                    index = literal.index(">") + 1
+                    slashindex = literal.rfind("/") + 1
+                    if reprojecttask:
+                        reproject = literal[slashindex:(index - 1)]
+                    geom = QgsGeometry.fromWkt(literal[index:])
+                    curcrs=literal[slashindex:(index - 1)]
+                else:
+                    geom = QgsGeometry.fromWkt(literal)
+            elif "gml" in literaltype.lower():
+                curcrs=None
+                if "EPSG" in literal and "http" in literal:
+                    srspart=literal[literal.find("srsName="):literal.find(">")]
+                    curcrs=srspart.replace("srsName=\"http://www.opengis.net/def/crs/EPSG/0/","")
+                    curcrs=curcrs.replace("\"","")
+                elif "EPSG" in literal and "http" not in literal:
+                    srspart = literal[literal.find("srsName="):literal.find(">")]
+                    curcrs=srspart.replace("srsName=\"EPSG:","")
+                    curcrs=curcrs.replace("\"", "")
+                if reprojecttask and curcrs!=None:
+                    reproject = str(curcrs)
+                geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
+                geom=QgsGeometry(geom)
+            elif "geojson" in literaltype.lower():
+                return literal
+            elif "wkb" in literaltype.lower():
+                geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
+            if geom != None and reproject != "":
+                geom=LayerUtils.reprojectGeometry(geom,reproject)
+            if geom != None:
+                res=json.loads(geom.asJson())
+                if currentlayergeojson!=None:
+                    currentlayergeojson["geometry"]=res
+                    if curcrs != None:
+                        currentlayergeojson["crs"]=curcrs
+                    return currentlayergeojson
+                if curcrs!=None:
+                    res["crs"]=curcrs
+                return res
+        except Exception as e:
+            print("Literal: " + str(literal) + " " + str(literaltype))
+            print(e)
+            print(traceback.format_exc())
         return None
 
 

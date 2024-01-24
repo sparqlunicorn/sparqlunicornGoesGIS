@@ -1,0 +1,124 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/6.1.0/shuffle.min.js"></script>
+<script>
+var genres=[{{categories}}]
+genress=Array.from(new Set(genres))
+console.log(genress)
+</script>
+
+<style>
+.flex {
+  display:flex;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+}
+
+.flex > DIV {
+  margin:2px;
+  padding:25px;
+  background:#ccc;
+  border:1px solid #bbb;
+  font-size:14pt;
+  color:#666;
+}
+ul {
+  margin:0;
+  text-align: center;
+}
+ul li {
+  list-style: none;
+}
+/*======================*/
+/* ul .shuffle-filter */
+.shuffle-filter {
+  margin: 0 auto;
+}
+.shuffle-filter li {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+.selected {
+  text-decoration: underline;
+}
+
+/*======================*/
+/* ul shuffle-container*/
+.shuffle-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  background: #ddd;
+}
+.shuffle-container li span {
+  padding: 30px;
+  margin: 20px;
+  background: #eee;
+  display: inline-block;
+}
+
+.aspect {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.aspect__inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ostyle{
+  background-color:orange;font-weight:bold;border: 1px solid black;border-radius: 25px;display: inline-block;line-height: 1em !important;padding:0
+}
+
+.goldstyle {background-color:gold;font-weight:bold;border: 2px solid black;border-radius: 25px;display: inline-block;line-height: 1em !important;padding:0}
+
+.silverstyle {background-color:silver;font-weight:bold;border: 2px solid black;border-radius: 25px;display: inline-block;line-height: 1em !important;padding:0}
+
+.bronzestyle {background-color:#FF5733;font-weight:bold;border: 2px solid black;border-radius: 25px;display: inline-block;line-height: 1em !important;padding:0}
+
+.greenstyle {background-color:green;font-weight:bold;border: 2px solid black;border-radius: 25px;display: inline-block;line-height: 1em !important;padding:0}
+
+.imgborder {width: 100%;height: 100%;border-radius: 25px;}
+
+/* Add more aspect ratios here */
+.aspect--16x9 {
+  padding-bottom: 56.25%;
+}
+</style>
+<ul class="shuffle-filter" id="shuffle-categories">
+<li class="selected" data-target="all">All</li>
+</ul>
+<ul class="shuffle-container">
+    {{imagecontainers}}
+</ul>
+<script>
+window.onload = function () {
+categories="<li class=\"selected\" data-target=\"all\">All</li>"
+console.log(genress)
+for(genre of genress){
+   categories+="<li data-target=\""+genre+"\">"+genre+"</li>"
+}
+console.log(categories)
+$('#shuffle-categories').html(categories)
+var Shuffle = window.Shuffle;
+var element = document.querySelector('.shuffle-container');
+
+var shuffleInstance = new Shuffle(element, {
+  itemSelector: 'li'
+  //sizer: 'li'
+});
+  $('.shuffle-filter li').on('click',function(e){
+    e.preventDefault();
+    $('.shuffle-filter li').removeClass('selected');
+    $(this).addClass('selected');
+    var keyword = $(this).attr('data-target');
+    shuffleInstance.filter(keyword);
+  });
+}
+</script>
