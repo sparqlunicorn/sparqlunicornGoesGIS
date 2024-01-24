@@ -1,7 +1,7 @@
 var hierarchy =
 [
     [ "EnrichmentTab", "a00065.html", null ],
-    [ "FORM_CLASS", "a00574.html", [
+    [ "FORM_CLASS", "a00578.html", [
       [ "SPARQLunicornDialog", "a00061.html", null ]
     ] ],
     [ "GeocodingUtils", "a00081.html", null ],
