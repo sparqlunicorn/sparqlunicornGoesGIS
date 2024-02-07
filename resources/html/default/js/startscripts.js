@@ -75,6 +75,10 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
 
+function exportChartJS(){
+    saveTextAsFile(JSON.stringify({"xValues":xValues,"yValues":yValues}),"json")
+}
+
 function exportGeoJSON(){
     if(typeof(feature) !== "undefined"){
         saveTextAsFile(JSON.stringify(feature),"geojson")
@@ -897,6 +901,62 @@ function setup3dhop(meshurl,meshformat) {
   });
 }
 
+function addRotationControls(box,geometryF){
+    geometryF.close();
+
+    const rotationFolder = geometryF.addFolder("Rotation");
+    rotationFolder.add(objects.rotation, 'x', 0, Math.PI).name("X").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.rotation.x = yourVar;
+            }});
+    });
+    rotationFolder.add(objects.rotation, 'y', 0, Math.PI).name("Y").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.rotation.y = yourVar;
+            }});
+    });
+    rotationFolder.add(objects.rotation, 'z', 0, Math.PI).name("Z").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.rotation.z = yourVar;
+            }});
+    });
+
+    const scaleFolder = geometryF.addFolder("Scale");
+    scaleFolder.add(objects.scale, 'x', 0, 2).name("X").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.scale.x = yourVar;
+            }});
+    });
+    scaleFolder.add(objects.scale, 'y', 0, 2).name("Y").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.scale.y = yourVar;
+            }});
+    });
+    scaleFolder.add(objects.scale, 'z', 0, 2).name("Z").onChange(
+    function(){
+        yourVar = this.getValue();
+        scene.traverse(function(obj){
+            if(obj.type === 'Mesh'){
+                obj.scale.z = yourVar;
+            }});
+    });
+}
+
 function start3dhop(meshurl,meshformat){
     init3dhop();
 	setup3dhop(meshurl,meshformat);
@@ -905,30 +965,8 @@ function start3dhop(meshurl,meshformat){
 }
 
 
-let camera, scene, renderer,controls;
-
-function viewGeometry(geometry) {
-  const material = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    flatShading: true,
-    vertexColors: THREE.VertexColors,
-    wireframe: false
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-}
-
-function initThreeJS(domelement,verts,meshurls) {
-    scene = new THREE.Scene();
-    minz=Number.MAX_VALUE
-    maxz=Number.MIN_VALUE
-    miny=Number.MAX_VALUE
-    maxy=Number.MIN_VALUE
-    minx=Number.MAX_VALUE
-    maxx=Number.MIN_VALUE
-	vertarray=[]
-    console.log(verts)
-    var svgShape = new THREE.Shape();
+function prepareAnnotationFromJSON(verts,annotations){
+	var svgShape = new THREE.Shape();
     first=true
     for(vert of verts){
         if(first){
@@ -959,38 +997,126 @@ function initThreeJS(domelement,verts,meshurls) {
             miny=vert["x"]
         }
     }
+	var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: maxz-minz, bevelEnabled: false});
+    extrudedGeometry.computeBoundingBox()
+    const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
+    const mesh = new THREE.Mesh( extrudedGeometry, material );
+	annotations.add(mesh)
+	return annotations
+}
+
+let camera, scene, renderer,controls,axesHelper;
+
+function initThreeJS(domelement,verts,meshurls) {
+    scene = new THREE.Scene();
+    minz=Number.MAX_VALUE
+    maxz=Number.MIN_VALUE
+    miny=Number.MAX_VALUE
+    maxy=Number.MIN_VALUE
+    minx=Number.MAX_VALUE
+    maxx=Number.MIN_VALUE
+	vertarray=[]
+    annotations=new THREE.Group();
+	const objects=new THREE.Group();
+    console.log(verts)
+    var svgShape = new THREE.Shape();
+    first=true
+    height=500
+    width=480
+    annotations=prepareAnnotationFromJSON(verts,annotations)
+    const gui = new dat.GUI({autoPlace: false})
+	gui.domElement.id="gui"
+    $("#threejsnav").append($(gui.domElement))
+	const geometryFolder = gui.addFolder("Mesh");
+	geometryFolder.open();
+	const lightingFolder = geometryFolder.addFolder("Lighting");
+	const geometryF = geometryFolder.addFolder("Geometry");
+	geometryF.open();
+    renderer = new THREE.WebGLRenderer( { antialias: false } );
+	renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( width, height);
+    document.getElementById(domelement).appendChild( renderer.domElement );
+    bbox=null
     if(meshurls.length>0){
-        var loader = new THREE.PLYLoader();
-        loader.load(meshurls[0], viewGeometry);
+        if(meshurls[0].includes(".ply")){
+            var loader = new THREE.PLYLoader();
+            loader.load(meshurls[0], function(object){
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0xffffff,
+                    flatShading: true,
+                    vertexColors: THREE.VertexColors,
+                    wireframe: false
+                });
+                const mesh = new THREE.Mesh(object, material);
+                objects.add(mesh);
+                scene.add(objects);
+                addRotationControls(object,geometryF,objects)
+            });
+        }else if(meshurls[0].includes(".obj")){
+            var loader= new THREE.OBJLoader();
+            loader.load(meshurls[0],function ( object ) {objects.add(object);scene.add(objects); addRotationControls(object,geometryF,objects)})
+        }else if(meshurls[0].includes(".nxs") || meshurls[0].includes(".nxz")){
+            var nexus_obj=new NexusObject(meshurls[0],function(){},renderNXS,renderer);
+            objects.add(nexus_obj)
+            scene.add(objects);
+            addRotationControls(nexus_obj,geometryF,objects)
+        }else if(meshurls[0].includes(".gltf")){
+            var loader = new THREE.GLTFLoader();
+            loader.load(meshurls[0], function ( gltf )
+            {
+                box = gltf.scene;
+                box.position.x = 0;
+                box.position.y = 0;
+                objects.add(box)
+                scene.add(objects);
+                addRotationControls(box,geometryF,objects)
+            });
+        }
     }
-    camera = new THREE.PerspectiveCamera(90,window.innerWidth / window.innerHeight, 0.1, 150 );
+    //camera = new THREE.PerspectiveCamera(90,window.innerWidth / window.innerHeight, 0.1, 150 );
+    camera = new THREE.PerspectiveCamera(90,width / height, 0.1, 2000 );
     scene.add(new THREE.AmbientLight(0x222222));
     var light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(20, 20, 0);
     scene.add(light);
-    var axesHelper = new THREE.AxesHelper( Math.max(maxx, maxy, maxz)*4 );
+    lightingFolder.add(light.position, "x").min(-5).max(5).step(0.01).name("X Position")
+	lightingFolder.add(light.position, "y").min(-5).max(5).step(0.01).name("Y Position")
+	lightingFolder.add(light.position, "z").min(-5).max(5).step(0.01).name("Z Position")
+    axesHelper = new THREE.AxesHelper( Math.max(1000, 1000, 1000) );
     scene.add( axesHelper );
     console.log("Depth: "+(maxz-minz))
-    var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: maxz-minz, bevelEnabled: false});
-    extrudedGeometry.computeBoundingBox()
-    centervec=new THREE.Vector3()
-    extrudedGeometry.boundingBox.getCenter(centervec)
-    console.log(centervec)
-    const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
-    const mesh = new THREE.Mesh( extrudedGeometry, material );
-    scene.add( mesh );
-    renderer = new THREE.WebGLRenderer( { antialias: false } );
-	renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( 480, 500 );
-    document.getElementById(domelement).appendChild( renderer.domElement );
-	controls = new THREE.OrbitControls( camera, renderer.domElement );
-    controls.target.set( centervec.x,centervec.y,centervec.z );
-    camera.position.x= centervec.x
-    camera.position.y= centervec.y
-    camera.position.z = centervec.z+10;
-    controls.maxDistance= Math.max(maxx, maxy, maxz)*5
+    scene.add( annotations );
+	centervec=new THREE.Vector3()
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    //controls.target.set( centervec.x,centervec.y,centervec.z );
+    controls.target.set( 0,0,0 );
+    camera.position.x= 0
+    camera.position.y= 0
+    camera.position.z = 150;
+    controls.maxDistance= Math.max(1000, 1000, 1000)
     controls.update();
+    const updateCamera = () => {
+		camera.updateProjectionMatrix();
+	}
+	const cameraFolder = geometryFolder.addFolder("Camera");
+	cameraFolder.add(camera, 'fov', 1, 180).name('Zoom').onChange(updateCamera);
+    cameraFolder.add(camera.position, 'x').min(-500).max(500).step(5).name("X Position").onChange(updateCamera);
+    cameraFolder.add(camera.position, 'y').min(-500).max(500).step(5).name("Y Position").onChange(updateCamera);
+    cameraFolder.add(camera.position, 'z').min(-500).max(500).step(5).name("Z Position").onChange(updateCamera);
+    gui.add(objects, 'visible').name('Meshes')
+    gui.add(annotations, 'visible').name('Annotations')
+    gui.add(axesHelper, 'visible').name('Axis Helper')
+    if(meshurls.length>0 && (meshurls[0].includes(".nxs") || meshurls[0].includes(".nxz"))){
+        renderNXS()
+    }
     animate()
+}
+
+function renderNXS(){
+    console.log(renderer)
+    Nexus.beginFrame(renderer.getContext());
+    renderer.render( scene, camera );
+    Nexus.endFrame(renderer.getContext());
 }
 
 function animate() {
@@ -1053,7 +1179,7 @@ function formatHTMLTableForPropertyRelations(propuri,result,propicon){
             if(result["from"][instance]=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td><img src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+result["from"][instance]+"\" target=\"_blank\">"+shortenURI(result["from"][instance])+"</a></td>"
+            dialogcontent+="<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+result["from"][instance]+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+result["from"][instance]+"\" target=\"_blank\">"+shortenURI(result["from"][instance])+"</a></td>"
             dialogcontent+="<td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td><td></td></tr>"
        // }
     }
@@ -1063,7 +1189,7 @@ function formatHTMLTableForPropertyRelations(propuri,result,propicon){
                 continue;
             }
             dialogcontent+="<tr><td></td><td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td>"
-            dialogcontent+="<td><img src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+result["to"][instance]+"\" target=\"_blank\">"+shortenURI(result["to"][instance])+"</a></td></tr>"
+            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+result["to"][instance]+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+result["to"][instance]+"\" target=\"_blank\">"+shortenURI(result["to"][instance])+"</a></td></tr>"
        // }
     }
     dialogcontent+="</tbody></table>"
@@ -1072,34 +1198,34 @@ function formatHTMLTableForPropertyRelations(propuri,result,propicon){
 }
 
 function determineTableCellLogo(uri){
-    result="<td><a href=\""+uri+"\" target=\"_blank\">"
+    result="<td>"
     logourl=""
     finished=false
     if(uri in labelproperties){
-        result+="<img src=\""+iconprefix+"labelproperty.png\" height=\"25\" width=\"25\" alt=\"Label Property\"/>"
+        result+="<img onclick=\"getPropRelationDialog('"+uri+"','"+iconprefix+"labelproperty.png')\"  src=\""+iconprefix+"labelproperty.png\" height=\"25\" width=\"25\" alt=\"Label Property\"/>"
         logourl=iconprefix+"labelproperty.png"
         finished=true
     }
     if(!finished){
         for(ns in annotationnamespaces){
             if(uri.includes(annotationnamespaces[ns])){
-                result+="<img src=\""+iconprefix+"annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>"
+                result+="<img onclick=\"getPropRelationDialog('"+uri+"','"+iconprefix+"annotationproperty.png')\" src=\""+iconprefix+"annotationproperty.png\" height=\"25\" width=\"25\" alt=\"Annotation Property\"/>"
                 logourl=iconprefix+"annotationproperty.png"
                 finished=true
             }
         }
     }
     if(!finished && uri in geoproperties && geoproperties[uri]=="ObjectProperty"){
-        result+="<img src=\""+iconprefix+"geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Object Property\"/>"
+        result+="<img onclick=\"getPropRelationDialog('"+uri+"','"+iconprefix+"geoobjectproperty.png')\" src=\""+iconprefix+"geoobjectproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Object Property\"/>"
         logourl=iconprefix+"geoobjectproperty.png"
     }else if(!finished && uri in geoproperties && geoproperties[uri]=="DatatypeProperty"){
-        result+="<img src=\""+iconprefix+"geodatatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Datatype Property\"/>"
+        result+="<img onclick=\"getPropRelationDialog('"+uri+"','"+iconprefix+"geodatatypeproperty.png')\" src=\""+iconprefix+"geodatatypeproperty.png\" height=\"25\" width=\"25\" alt=\"Geo Datatype Property\"/>"
         logourl=iconprefix+"geodatatypeproperty.png"
     }else if(!finished){
-        result+="<img src=\""+iconprefix+"objectproperty.png\" height=\"25\" width=\"25\" alt=\"Object Property\"/>"
+        result+="<img onclick=\"getPropRelationDialog('"+uri+"','"+iconprefix+"objectproperty.png')\" src=\""+iconprefix+"objectproperty.png\" height=\"25\" width=\"25\" alt=\"Object Property\"/>"
         logourl=iconprefix+"objectproperty.png"
     }
-    result+=shortenURI(uri)+"</a></td>"
+    result+="<a href=\""+uri+"\" target=\"_blank\">"+shortenURI(uri)+"</a></td>"
     return [result,logourl]
 }
 
@@ -1114,9 +1240,9 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td><img src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td>"
+            dialogcontent+="<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+instance+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td>"
             dialogcontent+=determineTableCellLogo(res)[0]
-            dialogcontent+="<td><img src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td><td></td><td></td></tr>"
+            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+nodeid+"'))\" src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td><td></td><td></td></tr>"
         }
     }
     for(res in result["to"]){
@@ -1124,9 +1250,9 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
             if(instance=="instancecount"){
                 continue;
             }
-            dialogcontent+="<tr><td></td><td></td><td><img src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td>"
+            dialogcontent+="<tr><td></td><td></td><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+nodeid+"'))\" src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td>"
             dialogcontent+=determineTableCellLogo(res)[0]
-            dialogcontent+="<td><img src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td></tr>"
+            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+instance+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td></tr>"
         }
     }
     dialogcontent+="</tbody></table>"
@@ -1162,7 +1288,7 @@ function formatHTMLTableForResult(result,nodeicon){
                 if((resitem+"").startsWith("http")){
                     dialogcontent+="<li><a href=\""+rewriteLink(resitem)+"\" target=\"_blank\">"+shortenURI(resitem)+"</a> ["+result[res][resitem]+"]</li>"
                 }else if(resitem!="instancecount"){
-                    dialogcontent+="<li>"+resitem+"</li>"
+                    dialogcontent+="<li>"+result[res][resitem]+"</li>"
                 }
             }
             dialogcontent+="</ul></td>"

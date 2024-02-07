@@ -28,6 +28,7 @@ from ..export.data.exporter.rdf.vowlexporter import OWL2VOWL
 from ..export.data.exporter.rdf.voidexporter import VoidExporter
 
 listthreshold=5
+maxlistthreshold=1500
 
 jsonindent=2
 
@@ -323,6 +324,8 @@ class OntDocGeneration:
         self.licensehtml=curlicense
         res=self.getPropertyRelations(self.graph, outpath)
         voidstats["http://rdfs.org/ns/void#properties"]=res["preds"]
+        voidstats["http://ldf.fi/void-ext#propertyClasses"] = res["predclasses"]
+        voidstats["http://ldf.fi/void-ext#averagePropertyIRILength"] = res["avgpredlen"]
         voidstats["http://rdfs.org/ns/void#distinctObjects"]=res["objs"]
         predmap=res["predmap"]
         dsname=self.datasettitle
@@ -340,28 +343,59 @@ class OntDocGeneration:
         subjectstorender.add(URIRef(voidds))
         nonnscount={}
         instancecount={}
+        literaltypes={}
+        blanknodes=set()
+        literallangs=set()
+        literals=set()
+        irirefs=0
+        literallength=0
+        literalcount=0
+        subjectlength=0
+        objectlength=0
+        subjectcounter=0
+        objectcounter=0
         for sub in self.graph.subjects(None,None,True):
             #QgsMessageLog.logMessage(str(prefixnamespace)+" "+str(sub), "OntdocGeneration", Qgis.Info)
-            if(prefixnamespace in sub and (isinstance(sub,URIRef)) or isinstance(sub,BNode)):
+            if (prefixnamespace in sub and (isinstance(sub, URIRef)) or isinstance(sub, BNode)):
                 subjectstorender.add(sub)
-                label=DocUtils.shortenURI(str(sub))
-                restriction=False
+                label = DocUtils.shortenURI(str(sub))
+                restriction = False
                 self.graph.add((sub, URIRef("http://rdfs.org/ns/void#inDataset"),
                                 URIRef(voidds)))
-                self.addAdditionalTriplesForInd(self.graph,sub,self.tobeaddedPerInd)
+                if isinstance(sub, BNode):
+                    blanknodes.add(str(sub))
+                irirefs += 1
+                subjectcounter += 1
+                subjectlength += len(str(sub))
                 for tup in self.graph.predicate_objects(sub):
+                    if isinstance(tup[1], Literal):
+                        if tup[1].datatype != None:
+                            if str(tup[1].datatype) not in literaltypes:
+                                literaltypes[str(tup[1].datatype)] = set()
+                            literaltypes[str(tup[1].datatype)].add(str(tup[0]))
+                        if tup[1].language != None:
+                            literallangs.add(str(tup[1].language))
+                        literallength += len(str(tup[1]))
+                        literals.add(str(tup[1]))
+                        literalcount += 1
+                    elif isinstance(tup[1], BNode):
+                        blanknodes.add(str(tup[1]))
+                    else:
+                        objectlength += len(str(tup[1]))
+                        objectcounter += 1
+                        irirefs += 1
                     if str(tup[0]) in SPARQLUtils.labelproperties:
                         labeltouri[str(tup[1])] = str(sub)
-                        uritolabel[str(sub)] = {"label":str(tup[1])}
-                        label=str(tup[1])
-                    elif str(tup[0])==self.typeproperty:
+                        uritolabel[str(sub)] = {"label": str(tup[1])}
+                        label = str(tup[1])
+                    elif str(tup[0]) == self.typeproperty:
                         if str(tup[1]) not in instancecount:
-                            instancecount[str(tup[1])]=0
-                        instancecount[str(tup[1])]+=1
+                            instancecount[str(tup[1])] = 0
+                        instancecount[str(tup[1])] += 1
                     elif str(tup[1]) == "http://www.w3.org/2002/07/owl#Restriction":
-                            restriction = True
+                        restriction = True
                     elif str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#subClassOf":
-                         ressubcls=str(tup[1])
+                        ressubcls = str(tup[1])
                     if isinstance(tup[1], URIRef) and prefixnamespace not in str(tup[1]):
                         ns = DocUtils.shortenURI(str(tup[1]), True)
                         if str(tup[0]) not in nonnscount:
@@ -369,11 +403,20 @@ class OntDocGeneration:
                         if ns not in nonnscount[str(tup[0])]:
                             nonnscount[str(tup[0])][ns] = 0
                         nonnscount[str(tup[0])][ns] += 1
-                if isinstance(sub,BNode) and restriction:
+                if isinstance(sub, BNode) and restriction:
                     self.graph.add((sub, URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
-                                        Literal(label + " [Restriction]", lang="en")))
+                                    Literal(label + " [Restriction]", lang="en")))
             voidstats["http://rdfs.org/ns/void#distinctSubjects"] += 1
         voidstats["http://rdfs.org/ns/void#entities"] = len(subjectstorender)
+        voidstats["http://ldf.fi/void-ext#languages"] = len(literallangs)
+        voidstats["http://ldf.fi/void-ext#distinctBlankNodes"] = len(blanknodes)
+        voidstats["http://ldf.fi/void-ext#datatypes"] = len(literaltypes.keys())
+        voidstats["http://ldf.fi/void-ext#distinctLiterals"] = len(literals)
+        voidstats["http://ldf.fi/void-ext#averageSubjectIRILength"] = int(subjectlength / subjectcounter)
+        voidstats["http://ldf.fi/void-ext#averageObjectIRILength"] = int(objectlength / objectcounter)
+        voidstats["http://ldf.fi/void-ext#averageLiteralLength"] = int(literallength / literalcount)
+        voidstats["http://ldf.fi/void-ext#distinctIRIReferences"] = voidstats["http://rdfs.org/ns/void#distinctSubjects"] + res["preds"] + res["objs"]
+        voidstats["http://ldf.fi/void-ext#distinctRDFNodes"] = len(blanknodes) + len(literals) + voidstats["http://ldf.fi/void-ext#distinctIRIReferences"]
         if os.path.exists(outpath + corpusid + '_search.js'):
             try:
                 with open(outpath + corpusid + '_search.js', 'r', encoding='utf-8') as f:
@@ -404,9 +447,10 @@ class OntDocGeneration:
         voidstats["http://rdfs.org/ns/void#classes"]=len(classidset)
         voidstats["http://rdfs.org/ns/void#triples"] = len(self.graph)
         voidgraph = VoidExporter.createVoidDataset(self.datasettitle, prefixnamespace, self.deploypath, self.outpath,
-                                                   self.licenseuri, self.modtime, self.labellang, voidstats, tree,
-                                                   predmap, nonnscount, instancecount, self.startconcept)
-        self.voidstatshtml=VoidExporter.toHTML(voidstats,self.deploypath)
+                                                   self.licenseuri, self.modtime, self.labellang, voidstats,
+                                                   subjectstorender, self.prefixes, tree, predmap, nonnscount,
+                                                   instancecount, self.startconcept)
+        self.voidstatshtml = VoidExporter.toHTML(voidstats, self.deploypath)
         self.graph+=voidgraph["graph"]
         subjectstorender.update(voidgraph["subjects"])
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
@@ -461,7 +505,6 @@ class OntDocGeneration:
         self.checkGeoInstanceAssignment(uritotreeitem)
         classlist=self.assignGeoClassesToTree(tree)
         if self.generatePagesForNonNS:
-            #self.detectURIsConnectedToSubjects(subjectstorender, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace)
             self.getSubjectPagesForNonGraphURIs(nonnsmap, self.graph, prefixnamespace, corpusid, outpath, self.license,prefixnamespace,uritotreeitem,labeltouri)
         with open(outpath + corpusid + "_classtree.js", 'w', encoding='utf-8') as f:
             f.write("var tree=" + json.dumps(tree, indent=jsonindent))
@@ -594,28 +637,34 @@ class OntDocGeneration:
                 f.write(indexhtml)
                 f.close()
 
-    def getPropertyRelations(self,graph,outpath):
-        predicates= {}
-        predicatecounter=0
-        objects=set()
-        for pred in graph.predicates(None,None,True):
-            predicates[pred]={"from":set(),"to":set(),"triples":0}
+    def getPropertyRelations(self, graph, outpath):
+        predicates = {}
+        predicatecounter = 0
+        predicatelength = 0
+        predicateClasses = 0
+        objects = set()
+        for pred in graph.predicates(None, None, True):
+            predicates[pred] = {"from": set(), "to": set(), "triples": 0}
             for tup in graph.subject_objects(pred):
-                for item in graph.objects(tup[0],URIRef(self.typeproperty),True):
+                if str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                    predicateClasses += 1
+                for item in graph.objects(tup[0], URIRef(self.typeproperty), True):
                     predicates[pred]["from"].add(item)
-                for item in graph.objects(tup[1], URIRef(self.typeproperty),True):
+                for item in graph.objects(tup[1], URIRef(self.typeproperty), True):
                     predicates[pred]["to"].add(item)
                 objects.add(str(tup[1]))
-                predicates[pred]["triples"]+=1
-            predicates[pred]["from"]=list(predicates[pred]["from"])
+                predicates[pred]["triples"] += 1
+            predicates[pred]["from"] = list(predicates[pred]["from"])
             predicates[pred]["to"] = list(predicates[pred]["to"])
-            predicatecounter+=1
+            predicatecounter += 1
+            predicatelength += len(str(pred))
         if self.createVOWL:
-            OWL2VOWL().convertOWL2MiniVOWL(graph,outpath,"minivowl_result.js",predicates)
-        with open(outpath+"proprelations.js", 'w', encoding='utf-8') as f:
-            f.write("var proprelations="+json.dumps(predicates))
+            OWL2VOWL().convertOWL2MiniVOWL(graph, outpath, "minivowl_result.js", predicates)
+        with open(outpath + "proprelations.js", 'w', encoding='utf-8') as f:
+            f.write("var proprelations=" + json.dumps(predicates))
             f.close()
-        return {"preds":predicatecounter,"objs":len(objects),"predmap":predicates}
+        return {"preds": predicatecounter, "avgpredlen": str(int(predicatelength / predicatecounter)),
+                "predclasses": predicateClasses, "objs": len(objects), "predmap": predicates}
 
     def createCollections(self,graph,namespace):
         classToInstances={}
@@ -1163,42 +1212,6 @@ class OntDocGeneration:
         return svg.replace("<svg>",
                            "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">")
 
-    def detectURIsConnectedToSubjects(self,subjectstorender,graph,prefixnamespace,corpusid,outpath,curlicense,baseurl):
-        uristorender={}
-        uritolabel={}
-        for sub in subjectstorender:
-            onelabel=""
-            label=None
-            added=[]
-            for tup in graph.predicate_objects(sub):
-                if str(tup[0]) in SPARQLUtils.labelproperties:
-                    if tup[1].language == self.labellang:
-                        label = str(tup[1])
-                        break
-                    onelabel = str(tup[1])
-                if isinstance(tup[1],URIRef) and prefixnamespace not in str(tup[1]) and "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(tup[1]):
-                    if str(tup[1]) not in uristorender:
-                        uristorender[str(tup[1])]={}
-                    if str(tup[0]) not in uristorender[str(tup[1])]:
-                        uristorender[str(tup[1])][str(tup[0])]=[]
-                    for objtup in graph.predicate_objects(tup[1]):
-                        if str(objtup[0]) in SPARQLUtils.labelproperties:
-                            uritolabel[str(tup[1])] = str(objtup[1])
-                    toadd={"sub":sub,"label":onelabel}
-                    added.append(toadd)
-                    uristorender[str(tup[1])][str(tup[0])].append(toadd)
-            for item in added:
-                if label!=None:
-                    item["label"]=label
-                else:
-                    item["label"]=onelabel
-        for uri in uristorender:
-            thelabel=""
-            if uri in uritolabel:
-                thelabel=uritolabel[uri]
-            self.createHTML(outpath+"nonns_"+DocUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.license, subjectstorender, Graph(),None,True,thelabel)
-
-
 
     def getAccessFromBaseURL(self,baseurl,savepath):
         #QgsMessageLog.logMessage("Checkdepth: " + baseurl+" "+savepath.replace(baseurl, ""), "OntdocGeneration", Qgis.Info)
@@ -1312,7 +1325,10 @@ class OntDocGeneration:
                     if len(predobjmap[tup])>1:
                         thetable+="<ul>"
                     labelmap={}
+                    itemcounter = 0
                     for item in predobjmap[tup]:
+                        if itemcounter >= maxlistthreshold:
+                            break
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef("http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
                             image3dannos.append(str(item))
                         elif "<svg" in str(item):
@@ -1346,6 +1362,8 @@ class OntDocGeneration:
                             labelmap[res["label"]] += str(res["html"])
                     for lab in sorted(labelmap):
                         thetable+=str(labelmap[lab])
+                    if len(predobjmap[tup]) >= maxlistthreshold:
+                        tablecontents += "<li>(...)</li>"
                     if len(predobjmap[tup])>1:
                         thetable+="</ul>"
                     if len(predobjmap[tup]) > listthreshold:
@@ -1387,7 +1405,10 @@ class OntDocGeneration:
                     if len(subpredsmap[tup]) > 1:
                         tablecontents += "<ul>"
                     labelmap={}
+                    itemcounter = 0
                     for item in subpredsmap[tup]:
+                        if itemcounter >= maxlistthreshold:
+                            break
                         if subjectstorender!=None and item not in subjectstorender and baseurl in str(item):
                             postprocessing.add((item,URIRef(tup),subject))
                         res = self.createHTMLTableValueEntry(subject, tup, item, None, graph,
@@ -1408,6 +1429,8 @@ class OntDocGeneration:
                             labelmap[res["label"]] += str(res["html"])
                     for lab in sorted(labelmap):
                         tablecontents+=str(labelmap[lab])
+                    if len(subpredsmap[tup]) >= maxlistthreshold:
+                        tablecontents+="<li>(...)</li>"
                     if len(subpredsmap[tup])>1:
                         tablecontents+="</ul>"
                     if len(subpredsmap[tup]) > listthreshold:
