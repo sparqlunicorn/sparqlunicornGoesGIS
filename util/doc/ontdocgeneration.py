@@ -404,11 +404,11 @@ class OntDocGeneration:
         voidstats["http://rdfs.org/ns/void#classes"]=len(classidset)
         voidstats["http://rdfs.org/ns/void#triples"] = len(self.graph)
         voidgraph = VoidExporter.createVoidDataset(self.datasettitle, prefixnamespace, self.deploypath, self.outpath,
-                                                   self.licenseuri, self.modtime, self.labellang, voidstats, tree,
+                                                   self.licenseuri, self.modtime, self.labellang, voidstats,subjectstorender, tree,
                                                    predmap, nonnscount, instancecount, self.startconcept)
         self.voidstatshtml=VoidExporter.toHTML(voidstats,self.deploypath)
         self.graph+=voidgraph["graph"]
-        subjectstorender.update(voidgraph["subjects"])
+        subjectstorender=voidgraph["subjects"]
         with open(outpath + "style.css", 'w', encoding='utf-8') as f:
             f.write(templates["stylesheet"].replace("%%maincolorcode%%",self.maincolorcode).replace("%%tablecolorcode%%",self.tablecolorcode))
             f.close()

@@ -7,9 +7,8 @@ from .....doc.docutils import DocUtils
 class VoidExporter:
 
     @staticmethod
-    def createVoidDataset(dsname,prefixnamespace,deploypath,outpath,licenseuri,modtime,language,stats,classtree=None,propstats=None,nonnscount=None,objectmap=None,startconcept=None):
+    def createVoidDataset(dsname,prefixnamespace,deploypath,outpath,licenseuri,modtime,language,stats,subjectstorender,classtree=None,propstats=None,nonnscount=None,objectmap=None,startconcept=None):
         g=Graph()
-        subjects = set()
         if dsname==None or dsname=="":
             dsname="dataset"
         voidds=prefixnamespace+dsname
@@ -57,7 +56,7 @@ class VoidExporter:
             g.add((URIRef(cururi), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal("Property Partition: " + str(DocUtils.shortenURI(pred)), lang="en")))
             g.add((URIRef(cururi),URIRef("http://rdfs.org/ns/void#property"),URIRef(pred)))
             g.add((URIRef(cururi),URIRef("http://rdfs.org/ns/void#triples"),Literal(str(propstats[pred]["triples"]),datatype="http://www.w3.org/2001/XMLSchema#integer")))
-            subjects.add(URIRef(cururi))
+            subjectstorender.add(URIRef(cururi))
         for item in classtree["core"]["data"]:
             if item["type"] == "class":
                 cururi = voidds + "_" + DocUtils.shortenURI(item["id"])
@@ -70,7 +69,7 @@ class VoidExporter:
                 if item["id"] in objectmap:
                     g.add((URIRef(cururi), URIRef("http://rdfs.org/ns/void#entities"),
                            Literal(str(objectmap[item["id"]]), datatype="http://www.w3.org/2001/XMLSchema#integer")))
-                subjects.add(URIRef(cururi))
+                #subjectstorender..add(URIRef(cururi))
         for prop in nonnscount:
             for ns in nonnscount[prop]:
                 cururi = voidds + "_" + DocUtils.shortenURI(ns)
@@ -83,9 +82,9 @@ class VoidExporter:
                 g.add((URIRef(cururi), URIRef("http://rdfs.org/ns/void#objectsTarget"), URIRef(ns)))
                 g.add((URIRef(cururi), URIRef("http://rdfs.org/ns/void#linkPredicate"), URIRef(prop)))
                 g.add((URIRef(cururi), URIRef("http://rdfs.org/ns/void#triples"),Literal(str(nonnscount[prop][ns]), datatype="http://www.w3.org/2001/XMLSchema#integer")))
-                subjects.add(URIRef(cururi))
+                subjectstorender.add(URIRef(cururi))
         g.serialize(outpath+"/void.ttl", encoding="utf-8")
-        return {"graph":g,"subjects":subjects}
+        return {"graph":g,"subjects":subjectstorender}
 
     @staticmethod
     def toHTML(stats,deploypath):
