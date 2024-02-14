@@ -46,7 +46,7 @@ class OntDocTask(QgsTask):
             self.graph=Graph()
             for file in self.graphname:
                 SPARQLUtils.loadGraph(file,self.graph)
-        QgsMessageLog.logMessage("Graph "+str(self.graph), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Graph "+str(self.graph), MESSAGE_CATEGORY, Qgis.Info)
         nsshort=""
         if self.namespace in self.prefixes["reversed"]:
             nsshort=self.prefixes["reversed"][self.namespace]

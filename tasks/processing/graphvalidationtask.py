@@ -44,7 +44,7 @@ class GraphValidationTask(QgsTask):
         self.processinglog["literals"]["geoliterals"] = {}
         self.processinglog["literals"]["geoliterals"]["amount"] = 0
         QgsMessageLog.logMessage("Ruleset: "+self.ruleset, MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("Rulesetgraph: "+str(self.rulesetgraph), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Rulesetgraph: "+str(self.rulesetgraph), MESSAGE_CATEGORY, Qgis.Info)
         if self.graph != None:
             for s, p, o in self.graph:
                 #QgsMessageLog.logMessage('BEFORE "{}"'.format(o), MESSAGE_CATEGORY, Qgis.Info)

@@ -42,11 +42,16 @@ A tiny example:
     True
 
 """
+import logging
+import sys
+from importlib import metadata
+
+_DISTRIBUTION_METADATA = metadata.metadata("rdflib")
+
 __docformat__ = "restructuredtext en"
 
-# The format of the __version__ line is matched by a regex in setup.py
-__version__ = "6.2.0"
-__date__ = "2022-12-20"
+__version__: str = _DISTRIBUTION_METADATA["Version"]
+__date__ = "2023-08-02"
 
 __all__ = [
     "URIRef",
@@ -82,14 +87,13 @@ __all__ = [
     "TIME",
     "VANN",
     "VOID",
+    "XMLNS",
     "XSD",
     "util",
     "plugin",
     "query",
+    "NORMALIZE_LITERALS",
 ]
-
-import logging
-import sys
 
 logger = logging.getLogger(__name__)
 

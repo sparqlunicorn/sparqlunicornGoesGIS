@@ -47,9 +47,9 @@ class QueryLayerTask(QgsTask):
         if results==False:
             self.exception=SPARQLUtils.exception
             return False
-        QgsMessageLog.logMessage('Started task "{}"'.format(
-            results),
-            MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(
+        #    results),
+        #    MESSAGE_CATEGORY, Qgis.Info)
         if self.progress!=None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
@@ -61,13 +61,13 @@ class QueryLayerTask(QgsTask):
         if self.nongeojson!=None:
             self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
         if self.geojson!=None:
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                self.geojson),
-                MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    self.geojson),
+            #    MESSAGE_CATEGORY, Qgis.Info)
             self.vlayer = QgsVectorLayer(json.dumps(self.geojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-            QgsMessageLog.logMessage('Started task "{}"'.format(
-                len(self.vlayer)),
-                MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(
+            #    len(self.vlayer)),
+            #    MESSAGE_CATEGORY, Qgis.Info)
             if len(res)>1 and res[2]!=None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
@@ -244,10 +244,10 @@ class QueryLayerTask(QgsTask):
     def finished(self, result):
         QgsMessageLog.logMessage('Finishing up..... ',
                                  MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         if self.geojson == None and self.exception != None:
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
