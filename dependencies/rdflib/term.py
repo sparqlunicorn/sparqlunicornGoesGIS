@@ -69,11 +69,21 @@ from isodate import (
 )
 
 import rdflib
+import rdflib.util
 from rdflib.compat import long_type
 
 if TYPE_CHECKING:
     from .namespace import NamespaceManager
     from .paths import AlternativePath, InvPath, NegatedPath, Path, SequencePath
+
+_HAS_HTML5LIB = False
+
+try:
+    import html5lib
+
+    _HAS_HTML5LIB = True
+except ImportError:
+    html5lib = None
 
 _SKOLEM_DEFAULT_AUTHORITY = "https://rdflib.github.io"
 
@@ -118,7 +128,7 @@ def _is_valid_unicode(value: Union[str, bytes]) -> bool:
     return True
 
 
-class Node(object):
+class Node:
     """
     A Node in the Graph.
     """
@@ -573,7 +583,7 @@ class Literal(Identifier):
     >>> lit2006 < Literal('2007-01-01',datatype=XSD.date)
     True
     >>> Literal(datetime.utcnow()).datatype
-    rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#dateTime')
+    rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#dateTime')
     >>> Literal(1) > Literal(2) # by value
     False
     >>> Literal(1) > Literal(2.0) # by value
@@ -598,7 +608,7 @@ class Literal(Identifier):
     _value: Any
     _language: Optional[str]
     # NOTE: _datatype should maybe be of type URIRef, and not optional.
-    _datatype: Optional[str]
+    _datatype: Optional[URIRef]
     _ill_typed: Optional[bool]
     __slots__ = ("_language", "_datatype", "_value", "_ill_typed")
 
@@ -609,7 +619,6 @@ class Literal(Identifier):
         datatype: Optional[str] = None,
         normalize: Optional[bool] = None,
     ) -> "Literal":
-
         if lang == "":
             lang = None  # no empty lang-tags in RDF
 
@@ -624,7 +633,7 @@ class Literal(Identifier):
         if lang is not None and not _is_valid_langtag(lang):
             raise ValueError(f"'{str(lang)}' is not a valid language tag!")
 
-        if datatype:
+        if datatype is not None:
             datatype = URIRef(datatype)
 
         value = None
@@ -633,7 +642,7 @@ class Literal(Identifier):
             # create from another Literal instance
 
             lang = lang or lexical_or_value.language
-            if datatype:
+            if datatype is not None:
                 # override datatype
                 value = _castLexicalToPython(lexical_or_value, datatype)
             else:
@@ -644,7 +653,7 @@ class Literal(Identifier):
             # passed a string
             # try parsing lexical form of datatyped literal
             value = _castLexicalToPython(lexical_or_value, datatype)
-            if datatype and datatype in _toPythonMapping:
+            if datatype is not None and datatype in _toPythonMapping:
                 # datatype is a recognized datatype IRI:
                 # https://www.w3.org/TR/rdf11-concepts/#dfn-recognized-datatype-iris
                 dt_uri: URIRef = URIRef(datatype)
@@ -661,10 +670,12 @@ class Literal(Identifier):
             value = lexical_or_value
             _value, _datatype = _castPythonToLiteral(lexical_or_value, datatype)
 
-            datatype = datatype or _datatype
+            _datatype = None if _datatype is None else URIRef(_datatype)
+
+            datatype = rdflib.util._coalesce(datatype, _datatype)
             if _value is not None:
                 lexical_or_value = _value
-            if datatype:
+            if datatype is not None:
                 lang = None
 
         if isinstance(lexical_or_value, bytes):
@@ -694,11 +705,11 @@ class Literal(Identifier):
         of this literal
         >>> from rdflib import XSD
         >>> Literal("01", datatype=XSD.integer, normalize=False).normalize()
-        rdflib.term.Literal(u'1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         Illegal lexical forms for the datatype given are simply passed on
         >>> Literal("a", datatype=XSD.integer, normalize=False)
-        rdflib.term.Literal(u'a', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('a', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         """
 
@@ -729,7 +740,7 @@ class Literal(Identifier):
         return self._language
 
     @property
-    def datatype(self) -> Optional[str]:
+    def datatype(self) -> Optional[URIRef]:
         return self._datatype
 
     def __reduce__(
@@ -743,7 +754,7 @@ class Literal(Identifier):
     def __getstate__(self) -> Tuple[None, Dict[str, Union[str, None]]]:
         return (None, dict(language=self.language, datatype=self.datatype))
 
-    def __setstate__(self, arg: Tuple[Any, Dict[str, str]]) -> None:
+    def __setstate__(self, arg: Tuple[Any, Dict[str, Any]]) -> None:
         _, d = arg
         self._language = d["language"]
         self._datatype = d["datatype"]
@@ -752,9 +763,9 @@ class Literal(Identifier):
         """
         >>> from rdflib.namespace import XSD
         >>> Literal(1) + 1
-        rdflib.term.Literal(u'2', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('2', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
         >>> Literal("1") + "1"
-        rdflib.term.Literal(u'11')
+        rdflib.term.Literal('11')
 
         # Handling dateTime/date/time based operations in Literals
         >>> a = Literal('2006-01-01T20:50:00', datatype=XSD.dateTime)
@@ -968,17 +979,17 @@ class Literal(Identifier):
     def __neg__(self) -> "Literal":
         """
         >>> (- Literal(1))
-        rdflib.term.Literal(u'-1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('-1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
         >>> (- Literal(10.5))
-        rdflib.term.Literal(u'-10.5', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#double'))
+        rdflib.term.Literal('-10.5', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#double'))
         >>> from rdflib.namespace import XSD
         >>> (- Literal("1", datatype=XSD.integer))
-        rdflib.term.Literal(u'-1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('-1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         >>> (- Literal("1"))
         Traceback (most recent call last):
           File "<stdin>", line 1, in <module>
-        TypeError: Not a number; rdflib.term.Literal(u'1')
+        TypeError: Not a number; rdflib.term.Literal('1')
         >>>
         """
 
@@ -990,17 +1001,17 @@ class Literal(Identifier):
     def __pos__(self) -> "Literal":
         """
         >>> (+ Literal(1))
-        rdflib.term.Literal(u'1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
         >>> (+ Literal(-1))
-        rdflib.term.Literal(u'-1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('-1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
         >>> from rdflib.namespace import XSD
         >>> (+ Literal("-1", datatype=XSD.integer))
-        rdflib.term.Literal(u'-1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('-1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         >>> (+ Literal("1"))
         Traceback (most recent call last):
           File "<stdin>", line 1, in <module>
-        TypeError: Not a number; rdflib.term.Literal(u'1')
+        TypeError: Not a number; rdflib.term.Literal('1')
         """
         if isinstance(self.value, (int, long_type, float)):
             return Literal(self.value.__pos__())
@@ -1010,16 +1021,16 @@ class Literal(Identifier):
     def __abs__(self) -> "Literal":
         """
         >>> abs(Literal(-1))
-        rdflib.term.Literal(u'1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         >>> from rdflib.namespace import XSD
         >>> abs( Literal("-1", datatype=XSD.integer))
-        rdflib.term.Literal(u'1', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('1', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         >>> abs(Literal("1"))
         Traceback (most recent call last):
           File "<stdin>", line 1, in <module>
-        TypeError: Not a number; rdflib.term.Literal(u'1')
+        TypeError: Not a number; rdflib.term.Literal('1')
         """
         if isinstance(self.value, (int, long_type, float)):
             return Literal(self.value.__abs__())
@@ -1029,18 +1040,18 @@ class Literal(Identifier):
     def __invert__(self) -> "Literal":
         """
         >>> ~(Literal(-1))
-        rdflib.term.Literal(u'0', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('0', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         >>> from rdflib.namespace import XSD
         >>> ~( Literal("-1", datatype=XSD.integer))
-        rdflib.term.Literal(u'0', datatype=rdflib.term.URIRef(u'http://www.w3.org/2001/XMLSchema#integer'))
+        rdflib.term.Literal('0', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#integer'))
 
         Not working:
 
         >>> ~(Literal("1"))
         Traceback (most recent call last):
           File "<stdin>", line 1, in <module>
-        TypeError: Not a number; rdflib.term.Literal(u'1')
+        TypeError: Not a number; rdflib.term.Literal('1')
         """
         if isinstance(self.value, (int, long_type, float)):
             # type error: Unsupported operand type for ~ ("float")
@@ -1087,7 +1098,6 @@ class Literal(Identifier):
         if other is None:
             return True  # Everything is greater than None
         if isinstance(other, Literal):
-
             if (
                 self.datatype in _NUMERIC_LITERAL_TYPES
                 and other.datatype in _NUMERIC_LITERAL_TYPES
@@ -1096,8 +1106,8 @@ class Literal(Identifier):
 
             # plain-literals and xsd:string literals
             # are "the same"
-            dtself = self.datatype or _XSD_STRING
-            dtother = other.datatype or _XSD_STRING
+            dtself = rdflib.util._coalesce(self.datatype, default=_XSD_STRING)
+            dtother = rdflib.util._coalesce(other.datatype, default=_XSD_STRING)
 
             if dtself != dtother:
                 if rdflib.DAWG_LITERAL_COLLATION:
@@ -1129,9 +1139,9 @@ class Literal(Identifier):
             # same language, same lexical form, check real dt
             # plain-literals come before xsd:string!
             if self.datatype != other.datatype:
-                if not self.datatype:
+                if self.datatype is None:
                     return False
-                elif not other.datatype:
+                elif other.datatype is None:
                     return True
                 else:
                     return self.datatype > other.datatype
@@ -1186,7 +1196,7 @@ class Literal(Identifier):
         rich-compare with this literal
         """
         if isinstance(other, Literal):
-            if self.datatype and other.datatype:
+            if self.datatype is not None and other.datatype is not None:
                 # two datatyped literals
                 if (
                     self.datatype not in XSDToPython
@@ -1247,7 +1257,7 @@ class Literal(Identifier):
         # Directly accessing the member is faster than the property.
         if self._language:
             res ^= hash(self._language.lower())
-        if self._datatype:
+        if self._datatype is not None:
             res ^= hash(self._datatype)
         return res
 
@@ -1325,7 +1335,6 @@ class Literal(Identifier):
 
         """
         if isinstance(other, Literal):
-
             if (
                 self.datatype in _NUMERIC_LITERAL_TYPES
                 and other.datatype in _NUMERIC_LITERAL_TYPES
@@ -1342,8 +1351,8 @@ class Literal(Identifier):
             if (self.language or "").lower() != (other.language or "").lower():
                 return False
 
-            dtself = self.datatype or _XSD_STRING
-            dtother = other.datatype or _XSD_STRING
+            dtself = rdflib.util._coalesce(self.datatype, default=_XSD_STRING)
+            dtother = rdflib.util._coalesce(other.datatype, default=_XSD_STRING)
 
             if dtself == _XSD_STRING and dtother == _XSD_STRING:
                 # string/plain literals, compare on lexical form
@@ -1363,13 +1372,11 @@ class Literal(Identifier):
             # maybe there are counter examples
 
             if self.value is not None and other.value is not None:
-
                 if self.datatype in (_RDF_XMLLITERAL, _RDF_HTMLLITERAL):
                     return _isEqualXMLNode(self.value, other.value)
 
                 return self.value == other.value
             else:
-
                 if str.__eq__(self, other):
                     return True
 
@@ -1425,51 +1432,51 @@ class Literal(Identifier):
         Examples::
 
             >>> Literal("foo").n3()
-            u'"foo"'
+            '"foo"'
 
         Strings with newlines or triple-quotes::
 
             >>> Literal("foo\nbar").n3()
-            u'"""foo\nbar"""'
+            '"""foo\nbar"""'
 
             >>> Literal("''\'").n3()
-            u'"\'\'\'"'
+            '"\'\'\'"'
 
             >>> Literal('"""').n3()
-            u'"\\"\\"\\""'
+            '"\\"\\"\\""'
 
         Language::
 
             >>> Literal("hello", lang="en").n3()
-            u'"hello"@en'
+            '"hello"@en'
 
         Datatypes::
 
             >>> Literal(1).n3()
-            u'"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
+            '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
             >>> Literal(1.0).n3()
-            u'"1.0"^^<http://www.w3.org/2001/XMLSchema#double>'
+            '"1.0"^^<http://www.w3.org/2001/XMLSchema#double>'
 
             >>> Literal(True).n3()
-            u'"true"^^<http://www.w3.org/2001/XMLSchema#boolean>'
+            '"true"^^<http://www.w3.org/2001/XMLSchema#boolean>'
 
         Datatype and language isn't allowed (datatype takes precedence)::
 
             >>> Literal(1, lang="en").n3()
-            u'"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
+            '"1"^^<http://www.w3.org/2001/XMLSchema#integer>'
 
         Custom datatype::
 
             >>> footype = URIRef("http://example.org/ns#foo")
             >>> Literal("1", datatype=footype).n3()
-            u'"1"^^<http://example.org/ns#foo>'
+            '"1"^^<http://example.org/ns#foo>'
 
         Passing a namespace-manager will use it to abbreviate datatype URIs:
 
             >>> from rdflib import Graph
             >>> Literal(1).n3(Graph().namespace_manager)
-            u'"1"^^xsd:integer'
+            '"1"^^xsd:integer'
         '''
         if namespace_manager:
             return self._literal_n3(qname_callback=namespace_manager.normalizeUri)
@@ -1486,43 +1493,43 @@ class Literal(Identifier):
             >>> from rdflib.namespace import XSD
 
             >>> Literal(1)._literal_n3(use_plain=True)
-            u'1'
+            '1'
 
             >>> Literal(1.0)._literal_n3(use_plain=True)
-            u'1e+00'
+            '1e+00'
 
             >>> Literal(1.0, datatype=XSD.decimal)._literal_n3(use_plain=True)
-            u'1.0'
+            '1.0'
 
             >>> Literal(1.0, datatype=XSD.float)._literal_n3(use_plain=True)
-            u'"1.0"^^<http://www.w3.org/2001/XMLSchema#float>'
+            '"1.0"^^<http://www.w3.org/2001/XMLSchema#float>'
 
             >>> Literal("foo", datatype=XSD.string)._literal_n3(
             ...         use_plain=True)
-            u'"foo"^^<http://www.w3.org/2001/XMLSchema#string>'
+            '"foo"^^<http://www.w3.org/2001/XMLSchema#string>'
 
             >>> Literal(True)._literal_n3(use_plain=True)
-            u'true'
+            'true'
 
             >>> Literal(False)._literal_n3(use_plain=True)
-            u'false'
+            'false'
 
             >>> Literal(1.91)._literal_n3(use_plain=True)
-            u'1.91e+00'
+            '1.91e+00'
 
             Only limited precision available for floats:
             >>> Literal(0.123456789)._literal_n3(use_plain=True)
-            u'1.234568e-01'
+            '1.234568e-01'
 
             >>> Literal('0.123456789',
             ...     datatype=XSD.decimal)._literal_n3(use_plain=True)
-            u'0.123456789'
+            '0.123456789'
 
         Using callback for datatype QNames::
 
             >>> Literal(1)._literal_n3(
             ...         qname_callback=lambda uri: "xsd:integer")
-            u'"1"^^xsd:integer'
+            '"1"^^xsd:integer'
 
         """
         if use_plain and self.datatype in _PLAIN_LITERAL_TYPES:
@@ -1556,7 +1563,7 @@ class Literal(Identifier):
 
         datatype = self.datatype
         quoted_dt = None
-        if datatype:
+        if datatype is not None:
             if qname_callback:
                 quoted_dt = qname_callback(datatype)
             if not quoted_dt:
@@ -1640,19 +1647,34 @@ def _parseXML(xmlstring: str) -> xml.dom.minidom.Document:  # noqa: N802
     return retval
 
 
-def _parseHTML(htmltext: str) -> xml.dom.minidom.DocumentFragment:  # noqa: N802
-    try:
-        import html5lib
+def _parse_html(lexical_form: str) -> xml.dom.minidom.DocumentFragment:
+    """
+    Parse the lexical form of an HTML literal into a document fragment
+    using the ``dom`` from html5lib tree builder.
 
-        parser = html5lib.HTMLParser(tree=html5lib.treebuilders.getTreeBuilder("dom"))
-        retval = parser.parseFragment(htmltext)
-        retval.normalize()
-        return retval
-    except ImportError:
-        raise ImportError(
-            "HTML5 parser not available. Try installing"
-            + " html5lib <http://code.google.com/p/html5lib>"
-        )
+    :param lexical_form: The lexical form of the HTML literal.
+    :return: A document fragment representing the HTML literal.
+    :raises: `html5lib.html5parser.ParseError` if the lexical form is
+        not valid HTML.
+    """
+    parser = html5lib.HTMLParser(
+        tree=html5lib.treebuilders.getTreeBuilder("dom"), strict=True
+    )
+    result: xml.dom.minidom.DocumentFragment = parser.parseFragment(lexical_form)
+    result.normalize()
+    return result
+
+
+def _write_html(value: xml.dom.minidom.DocumentFragment) -> bytes:
+    """
+    Serialize a document fragment representing an HTML literal into
+    its lexical form.
+
+    :param value: A document fragment representing an HTML literal.
+    :return: The lexical form of the HTML literal.
+    """
+    result = html5lib.serialize(value, tree="dom")
+    return result
 
 
 def _writeXML(  # noqa: N802
@@ -1906,16 +1928,18 @@ _STRING_LITERAL_TYPES: Tuple[URIRef, ...] = (
     URIRef(_XSD_PFX + "token"),
 )
 
+_StrT = TypeVar("_StrT", bound=str)
+
 
 def _py2literal(
     obj: Any,
     pType: Any,  # noqa: N803
     castFunc: Optional[Callable[[Any], Any]],
-    dType: Optional[str],
-) -> Tuple[Any, Optional[str]]:
-    if castFunc:
+    dType: Optional[_StrT],
+) -> Tuple[Any, Optional[_StrT]]:
+    if castFunc is not None:
         return castFunc(obj), dType
-    elif dType:
+    elif dType is not None:
         return obj, dType
     else:
         return obj, None
@@ -1966,13 +1990,20 @@ _GenericPythonToXSDRules: List[
     (Duration, (lambda i: duration_isoformat(i), _XSD_DURATION)),
     (timedelta, (lambda i: duration_isoformat(i), _XSD_DAYTIMEDURATION)),
     (xml.dom.minidom.Document, (_writeXML, _RDF_XMLLITERAL)),
-    # this is a bit dirty - by accident the html5lib parser produces
-    # DocumentFragments, and the xml parser Documents, letting this
-    # decide what datatype to use makes roundtripping easier, but it a
-    # bit random
-    (xml.dom.minidom.DocumentFragment, (_writeXML, _RDF_HTMLLITERAL)),
     (Fraction, (None, _OWL_RATIONAL)),
 ]
+
+if html5lib is not None:
+    # This is a bit dirty, by accident the html5lib parser produces
+    # DocumentFragments, and the xml parser Documents, letting this
+    # decide what datatype to use makes roundtripping easier, but it a
+    # bit random.
+    #
+    # This must happen before _GenericPythonToXSDRules is assigned to
+    # _OriginalGenericPythonToXSDRules.
+    _GenericPythonToXSDRules.append(
+        (xml.dom.minidom.DocumentFragment, (_write_html, _RDF_HTMLLITERAL))
+    )
 
 _OriginalGenericPythonToXSDRules = list(_GenericPythonToXSDRules)
 
@@ -2024,8 +2055,12 @@ XSDToPython: Dict[Optional[str], Optional[Callable[[str], Any]]] = {
     URIRef(_XSD_PFX + "base64Binary"): b64decode,
     URIRef(_XSD_PFX + "anyURI"): None,
     _RDF_XMLLITERAL: _parseXML,
-    _RDF_HTMLLITERAL: _parseHTML,
 }
+
+if html5lib is not None:
+    # It is probably best to keep this close to the definition of
+    # _GenericPythonToXSDRules so nobody misses it.
+    XSDToPython[_RDF_HTMLLITERAL] = _parse_html
 
 _check_well_formed_types: Dict[URIRef, Callable[[Union[str, bytes], Any], bool]] = {
     URIRef(_XSD_PFX + "boolean"): _well_formed_boolean,
@@ -2062,7 +2097,7 @@ def _reset_bindings() -> None:
 
 
 def _castLexicalToPython(  # noqa: N802
-    lexical: Union[str, bytes], datatype: Optional[str]
+    lexical: Union[str, bytes], datatype: Optional[URIRef]
 ) -> Any:
     """
     Map a lexical form to the value-space for the given datatype
@@ -2243,7 +2278,7 @@ def _isEqualXMLNode(  # noqa: N802
         # for the length becomes necessary...
         if len(node.childNodes) != len(other.childNodes):
             return False
-        for (nc, oc) in map(lambda x, y: (x, y), node.childNodes, other.childNodes):
+        for nc, oc in map(lambda x, y: (x, y), node.childNodes, other.childNodes):
             if not _isEqualXMLNode(nc, oc):
                 return False
         # if we got here then everything is fine:

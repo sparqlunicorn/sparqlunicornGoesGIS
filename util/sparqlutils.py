@@ -26,7 +26,8 @@ class SPARQLUtils:
 
     annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
 
-    metadatanamespaces = ["http://rdfs.org/ns/void#", "http://purl.org/dc/terms/", "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
+    metadatanamespaces = ["http://ldf.fi/void-ext#", "http://rdfs.org/ns/void#", "http://purl.org/dc/terms/",
+                          "http://purl.org/dc/elements/1.1/", "http://www.w3.org/ns/prov#",
                           "http://www.w3.org/ns/prov-o/", "http://creativecommons.org/ns#",
                           "http://www.w3.org/ns/dcat#", "http://purl.org/cerif/frapo/", "http://www.lido-schema.org/"]
 
@@ -98,6 +99,7 @@ class SPARQLUtils:
         "http://www.ontology-of-units-of-measure.org/resource/om-2/hasValue":"ObjectProperty",
         "http://www.opengis.net/ont/crs/usesValue":"ObjectProperty",
         "http://rdfs.org/ns/void#triples": "DatatypeProperty",
+        "http://purl.org/vocommons/voaf#occurrences":"DatatypeProperty",
         "http://rdfs.org/ns/void#entities": "DatatypeProperty",
         "http://rdfs.org/ns/void#propertyPartition": "ObjectProperty",
         "http://rdfs.org/ns/void#classPartition": "ObjectProperty",
@@ -481,7 +483,7 @@ class SPARQLUtils:
                     results=resg
                 else:
                     results=json.loads(graph.query(query).serialize(format="json"))
-                QgsMessageLog.logMessage("Result: " + str(results)+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
@@ -759,14 +761,14 @@ class SPARQLUtils:
                     #QgsMessageLog.logMessage("Entities: "+str(len(myResponse["entities"])), MESSAGE_CATEGORY, Qgis.Info)
                     if "entities" in myResponse:
                         for ent in myResponse["entities"]:
-                            QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
+                            #QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)
                             if ent.startswith("P"):
                                 wdprefix="http://www.wikidata.org/prop/direct/"
                             elif ent.startswith("Q"):
                                 wdprefix="http://www.wikidata.org/entity/"
                             else:
                                 wdprefix=""
-                            QgsMessageLog.logMessage(str(result), MESSAGE_CATEGORY, Qgis.Info)
+                            #QgsMessageLog.logMessage(str(result), MESSAGE_CATEGORY, Qgis.Info)
                             if preferredlang in myResponse["entities"][ent]["labels"]:
                                 result[wdprefix+ent]["label"] = myResponse["entities"][ent]["labels"][preferredlang]["value"]
                             elif "en" in myResponse["entities"][ent]["labels"]:

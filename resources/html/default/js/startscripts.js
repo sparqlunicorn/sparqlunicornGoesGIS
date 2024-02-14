@@ -1174,23 +1174,27 @@ function labelFromURI(uri,label){
 function formatHTMLTableForPropertyRelations(propuri,result,propicon){
     dialogcontent="<h3><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+propuri.replace('/index.json','/index.html')+"\" target=\"_blank\"> "+shortenURI(propuri)+"</a></h3><table border=1 id=classrelationstable><thead><tr><th>Incoming Concept</th><th>Relation</th><th>Outgoing Concept</th></tr></thead><tbody>"
     console.log(result)
-    for(instance in result["from"]){
+    if("from" in result) {
+        for (instance in result["from"]) {
 //
-            if(result["from"][instance]=="instancecount"){
+            if (result["from"][instance] == "instancecount") {
                 continue;
             }
-            dialogcontent+="<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+result["from"][instance]+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+result["from"][instance]+"\" target=\"_blank\">"+shortenURI(result["from"][instance])+"</a></td>"
-            dialogcontent+="<td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td><td></td></tr>"
-       // }
+            dialogcontent += "<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + result["from"][instance] + "'))\" src=\"" + iconprefix + "class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\"" + result["from"][instance] + "\" target=\"_blank\">" + shortenURI(result["from"][instance]) + "</a></td>"
+            dialogcontent += "<td><img src=\"" + propicon + "\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\"" + propuri + "\" target=\"_blank\">" + shortenURI(propuri) + "</a></td><td></td></tr>"
+            // }
+        }
     }
-    for(instance in result["to"]){
-        //for(instance in result["to"][res]){
-            if(result["to"][instance]=="instancecount"){
+    if("to" in result) {
+        for (instance in result["to"]) {
+            //for(instance in result["to"][res]){
+            if (result["to"][instance] == "instancecount") {
                 continue;
             }
-            dialogcontent+="<tr><td></td><td><img src=\""+propicon+"\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+propuri+"\" target=\"_blank\">"+shortenURI(propuri)+"</a></td>"
-            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+result["to"][instance]+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+result["to"][instance]+"\" target=\"_blank\">"+shortenURI(result["to"][instance])+"</a></td></tr>"
-       // }
+            dialogcontent += "<tr><td></td><td><img src=\"" + propicon + "\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\"" + propuri + "\" target=\"_blank\">" + shortenURI(propuri) + "</a></td>"
+            dialogcontent += "<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + result["to"][instance] + "'))\" src=\"" + iconprefix + "class.png\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\"" + result["to"][instance] + "\" target=\"_blank\">" + shortenURI(result["to"][instance]) + "</a></td></tr>"
+            // }
+        }
     }
     dialogcontent+="</tbody></table>"
     dialogcontent+="<button style=\"float:right\" id=\"closebutton\" onclick='document.getElementById(\"classrelationdialog\").close()'>Close</button>"
@@ -1235,24 +1239,28 @@ function formatHTMLTableForClassRelations(result,nodeicon,nodelabel,nodeid){
         nodelabel=nodelabel.substring(0,nodelabel.lastIndexOf("[")-1)
     }
     dialogcontent="<h3><img src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid.replace('/index.json','/index.html')+"\" target=\"_blank\"> "+nodelabel+"</a></h3><table border=1 id=classrelationstable><thead><tr><th>Incoming Concept</th><th>Incoming Relation</th><th>Concept</th><th>Outgoing Relation</th><th>Outgoing Concept</th></tr></thead><tbody>"
-    for(res in result["from"]){
-        for(instance in result["from"][res]){
-            if(instance=="instancecount"){
-                continue;
+    if("from" in result) {
+        for (res in result["from"]) {
+            for (instance in result["from"][res]) {
+                if (instance == "instancecount") {
+                    continue;
+                }
+                dialogcontent += "<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + instance + "'))\" src=\"" + iconprefix + "class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\"" + instance + "\" target=\"_blank\">" + shortenURI(instance) + "</a></td>"
+                dialogcontent += determineTableCellLogo(res)[0]
+                dialogcontent += "<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + nodeid + "'))\" src=\"" + nodeicon + "\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\"" + nodeid + "\" target=\"_blank\">" + nodelabel + "</a></td><td></td><td></td></tr>"
             }
-            dialogcontent+="<tr><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+instance+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td>"
-            dialogcontent+=determineTableCellLogo(res)[0]
-            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+nodeid+"'))\" src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td><td></td><td></td></tr>"
         }
     }
-    for(res in result["to"]){
-        for(instance in result["to"][res]){
-            if(instance=="instancecount"){
-                continue;
+    if("to" in result) {
+        for (res in result["to"]) {
+            for (instance in result["to"][res]) {
+                if (instance == "instancecount") {
+                    continue;
+                }
+                dialogcontent += "<tr><td></td><td></td><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + nodeid + "'))\" src=\"" + nodeicon + "\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\"" + nodeid + "\" target=\"_blank\">" + nodelabel + "</a></td>"
+                dialogcontent += determineTableCellLogo(res)[0]
+                dialogcontent += "<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('" + instance + "'))\" src=\"" + iconprefix + "class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\"" + instance + "\" target=\"_blank\">" + shortenURI(instance) + "</a></td></tr>"
             }
-            dialogcontent+="<tr><td></td><td></td><td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+nodeid+"'))\" src=\""+nodeicon+"\" height=\"25\" width=\"25\" alt=\"Instance\"/><a href=\""+nodeid+"\" target=\"_blank\">"+nodelabel+"</a></td>"
-            dialogcontent+=determineTableCellLogo(res)[0]
-            dialogcontent+="<td><img onclick=\"getClassRelationDialog($('#jstree').jstree(true).get_node('"+instance+"'))\" src=\""+iconprefix+"class.png\" height=\"25\" width=\"25\" alt=\"Class\"/><a href=\""+instance+"\" target=\"_blank\">"+shortenURI(instance)+"</a></td></tr>"
         }
     }
     dialogcontent+="</tbody></table>"

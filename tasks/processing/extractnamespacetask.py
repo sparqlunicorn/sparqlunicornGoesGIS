@@ -71,7 +71,7 @@ class ExtractNamespaceTask(QgsTask):
                         #QgsMessageLog.logMessage(str(nssub)+" "+str(tup), MESSAGE_CATEGORY, Qgis.Info)
                 #QgsMessageLog.logMessage(str(ns)+" "+str(dataclasses), MESSAGE_CATEGORY, Qgis.Info)
                 nstodataclass[ns]+=dataclasses
-        QgsMessageLog.logMessage(str(nstodataclass), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage(str(nstodataclass), MESSAGE_CATEGORY, Qgis.Info)
         return {"nsd":nstodataclass,"clsset":classset}
 
 

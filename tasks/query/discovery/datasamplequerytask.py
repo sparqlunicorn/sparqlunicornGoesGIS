@@ -51,7 +51,7 @@ class DataSampleQueryTask(QgsTask):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
         counter=0
         if results!=False:
-            QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
             for result in results["results"]["bindings"]:
                 if result!={}:
                     self.queryresult.append({})
@@ -67,7 +67,7 @@ class DataSampleQueryTask(QgsTask):
                     else:
                         self.encounteredtypes.add("http://www.w3.org/2001/XMLSchema#anyURI")
                     counter+=1
-            QgsMessageLog.logMessage('Started task "{}"'.format(self.queryresult), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(self.queryresult), MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self,result):
@@ -113,7 +113,7 @@ class DataSampleQueryTask(QgsTask):
             layerlist.insert(0,self.templayer)
             self.mymap.setLayers(layerlist)
             self.mymap.setCurrentLayer(self.templayer)
-            QgsMessageLog.logMessage(str(self.templayer), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage(str(self.templayer), MESSAGE_CATEGORY, Qgis.Info)
             self.templayer.selectAll()
             self.mymap.zoomToSelected(self.templayer)
             self.templayer.removeSelection()

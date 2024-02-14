@@ -12,6 +12,7 @@ import json
 from .docutils import DocUtils
 from .docconfig import DocConfig
 from .docdefaults import DocDefaults
+from .templateutils import TemplateUtils
 from ..export.pages.observationpage import ObservationPage
 from ..export.pages.bibpage import BibPage
 from ..export.pages.lexiconpage import LexiconPage
@@ -65,43 +66,6 @@ imagetoURI={}
 
 templates=DocDefaults.templates
 
-def resolveTemplate(templatename):
-    print(templatepath+"/"+templatename)
-    if os.path.exists(templatepath+"/"+templatename+"/templateconf.json"):
-        with open(templatepath+"/"+templatename+"/templateconf.json", 'r') as f:
-            templatefiles = json.load(f)
-            for file in templatefiles:
-                if os.path.exists(templatepath +"/"+templatename+"/"+ file):
-                    with open(templatepath +"/"+templatename+"/"+ file["path"], 'r') as f:
-                        if "name" in file:
-                            templates[file["name"]]= f.read()
-                        else:
-                            templates[file] = f.read()
-    elif os.path.exists(templatepath+"/"+templatename+"/templates/"):
-        if os.path.exists(templatepath+"/"+templatename+"/templates/layouts/") and os.path.exists(templatepath+"/"+templatename+"/templates/includes/"):
-            templates["includes"]={}
-            templates["layouts"] = {}
-            for filename in os.listdir(templatepath+"/"+templatename+"/templates/includes/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath+"/"+templatename+"/templates/includes/"+filename, 'r') as f:
-                        content=f.read()
-                        templates["includes"][filename.replace(".html","")] = content
-                        templates[filename.replace(".html", "")] = content
-            for filename in os.listdir(templatepath + "/" + templatename + "/templates/layouts/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath + "/" + templatename + "/templates/layouts/" + filename, 'r') as f:
-                        content=f.read()
-                        templates["layouts"][filename.replace(".html", "")] = content
-                        templates[filename.replace(".html", "")] = content
-        else:
-            for filename in os.listdir(templatepath+"/"+templatename+"/templates/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath+"/"+templatename+"/templates/"+filename, 'r') as f:
-                        templates[filename.replace(".html","")] = f.read()
-        return False
-    return True
-
-
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,ckan=False,imagemetadata=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
@@ -116,6 +80,7 @@ class OntDocGeneration:
         self.logoname=logoname
         self.offlinecompat=offlinecompat
         self.exports=exports
+        self.repository=None
         QgsMessageLog.logMessage("Exports: " + str(exports), "OntdocGeneration", Qgis.Info)
         self.startconcept = None
         if startconcept!="No Start Concept":
@@ -132,7 +97,7 @@ class OntDocGeneration:
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
-        resolveTemplate(templatename)
+        templates = TemplateUtils.resolveTemplate(templatename, templatepath)
         if offlinecompat:
             global htmltemplate
             htmltemplate = self.createOfflineCompatibleVersion(outpath, templates["htmltemplate"],templatepath,templatename)
@@ -308,6 +273,8 @@ class OntDocGeneration:
     def generateOntDocForNameSpace(self, prefixnamespace,dataformat="HTML"):
         outpath=self.outpath
         corpusid=self.namespaceshort.replace("#","")
+        if self.datasettitle==None or self.datasettitle=="":
+            self.datasettitle=corpusid+"_dataset"
         if not os.path.isdir(outpath):
             os.mkdir(outpath)
         labeltouri = {}
@@ -328,10 +295,7 @@ class OntDocGeneration:
         voidstats["http://ldf.fi/void-ext#averagePropertyIRILength"] = res["avgpredlen"]
         voidstats["http://rdfs.org/ns/void#distinctObjects"]=res["objs"]
         predmap=res["predmap"]
-        dsname=self.datasettitle
-        if dsname==None or dsname=="":
-            dsname="dataset"
-        voidds=prefixnamespace+dsname
+        voidds=prefixnamespace+self.datasettitle
         if self.createColl:
             self.graph=self.createCollections(self.graph,prefixnamespace)
         if self.logoname!=None and self.logoname!="":
@@ -342,6 +306,7 @@ class OntDocGeneration:
         subjectstorender = set()
         subjectstorender.add(URIRef(voidds))
         nonnscount={}
+        nscount = {}
         instancecount={}
         literaltypes={}
         blanknodes=set()
@@ -360,6 +325,10 @@ class OntDocGeneration:
                 subjectstorender.add(sub)
                 label = DocUtils.shortenURI(str(sub))
                 restriction = False
+                ns = DocUtils.shortenURI(str(sub), True)
+                if ns not in nscount:
+                    nscount[ns] = 0
+                nscount[ns] += 1
                 self.graph.add((sub, URIRef("http://rdfs.org/ns/void#inDataset"),
                                 URIRef(voidds)))
                 if isinstance(sub, BNode):
@@ -384,6 +353,10 @@ class OntDocGeneration:
                         objectlength += len(str(tup[1]))
                         objectcounter += 1
                         irirefs += 1
+                        ns = DocUtils.shortenURI(str(tup[1]), True)
+                        if ns not in nscount:
+                            nscount[ns] = 0
+                        nscount[ns] += 1
                     if str(tup[0]) in SPARQLUtils.labelproperties:
                         labeltouri[str(tup[1])] = str(sub)
                         uritolabel[str(sub)] = {"label": str(tup[1])}
@@ -398,6 +371,9 @@ class OntDocGeneration:
                         ressubcls = str(tup[1])
                     if isinstance(tup[1], URIRef) and prefixnamespace not in str(tup[1]):
                         ns = DocUtils.shortenURI(str(tup[1]), True)
+                        if ns not in nscount:
+                            nscount[ns]=0
+                        nscount[ns]+=1
                         if str(tup[0]) not in nonnscount:
                             nonnscount[str(tup[0])] = {}
                         if ns not in nonnscount[str(tup[0])]:
@@ -446,9 +422,9 @@ class OntDocGeneration:
                 tree["core"]["data"].append(tr)
         voidstats["http://rdfs.org/ns/void#classes"]=len(classidset)
         voidstats["http://rdfs.org/ns/void#triples"] = len(self.graph)
-        voidgraph = VoidExporter.createVoidDataset(self.datasettitle, prefixnamespace, self.deploypath, self.outpath,
+        voidgraph = VoidExporter.createVoidDataset(self.datasettitle, prefixnamespace,self.namespaceshort, self.repository, self.deploypath, self.outpath,
                                                    self.licenseuri, self.modtime, self.labellang, voidstats,
-                                                   subjectstorender, self.prefixes, tree, predmap, nonnscount,
+                                                   subjectstorender, self.prefixes, tree, predmap, nonnscount, nscount,
                                                    instancecount, self.startconcept)
         self.voidstatshtml = VoidExporter.toHTML(voidstats, self.deploypath)
         self.graph+=voidgraph["graph"]
@@ -659,7 +635,7 @@ class OntDocGeneration:
             predicatecounter += 1
             predicatelength += len(str(pred))
         if self.createVOWL:
-            OWL2VOWL().convertOWL2MiniVOWL(graph, outpath, "minivowl_result.js", predicates)
+            OWL2VOWL.convertOWL2MiniVOWL(graph, outpath, "minivowl_result.js", predicates)
         with open(outpath + "proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations=" + json.dumps(predicates))
             f.close()
@@ -723,6 +699,27 @@ class OntDocGeneration:
 
     def getClassTree(self,graph, uritolabel,classidset,uritotreeitem):
         results = graph.query(self.preparedclassquery)
+        ldcontext={"@context":{
+                "@version":1.1,
+                "foaf":"http://xmlns.com/foaf/0.1/",
+                "ct":"http://purl.org/vocab/classtree/",
+                "rdfs":"http://www.w3.org/2000/01/rdf-schema#",
+                "icon":"foaf:image",
+                "id":"@id",
+                "parent":"rdfs:subClassOf",
+                "halfgeoclass":"ct:HalfGeoClass",
+                "geoclass":{"@type":"ct:icontype","@id":"ct:GeoClass"},
+                "collectionclass":{"@type":"ct:icontype","@id":"ct:CollectionClass"},
+                "featurecollectionclass":{"@type":"ct:icontype","@id":"ct:FeatureCollectionClass"},
+                "class":"owl:Class",
+                "instance":"owl:NamedIndividual",
+                "geoinstance":	{"@type":"ct:Icontype","@id":"ct:GeoNamedIndividual"},
+                "text":"rdfs:label",
+                "type":"ct:icontype",
+                "types":"ct:icontypes",
+                "core": {"@type":"ct:TreeConfig","@id":"@nest"},
+                "data":{"@id":"ct:treeitem","@type":"ct:TreeItem"}
+        }}
         tree = {"plugins": ["defaults","search", "sort", "state", "types", "contextmenu"], "search": {"show_only_matches":True},
         "types": {
             "class": {"icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/class.png"},
@@ -742,6 +739,7 @@ class OntDocGeneration:
                 "icon": "https://cdn.jsdelivr.net/gh/i3mainz/geopubby@master/public/icons/geoinstance.png"}
         },
         "core": {"themes":{"responsive":True},"check_callback": True, "data": []}}
+        tree["@context"]=ldcontext["@context"]
         result = []
         ress = {}
         for res in results:
@@ -1484,8 +1482,8 @@ class OntDocGeneration:
                     "{{scriptfolderpath}}", rellink).replace("{{classtreefolderpath}}", rellink2).replace("{{exports}}",myexports).replace("{{nonnslink}}",str(nonnslink)).replace("{{subject}}",str(subject)).replace("{{subjectencoded}}",urllib.parse.quote(str(subject))))
             for comm in comment:
                 f.write(templates["htmlcommenttemplate"].replace("{{comment}}", DocUtils.shortenURI(comm) + ":" + comment[comm]))
-            for fval in foundvals:
-                f.write(templates["htmlcommenttemplate"].replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
+            #for fval in foundvals:
+            #    f.write(templates["htmlcommenttemplate"].replace("{{comment}}", "<b>Value:<mark>" + str(fval) + "</mark></b>"))
             if len(foundmedia["mesh"])>0 and len(image3dannos)>0:
                 if self.iiif:
                     iiifmanifestpaths["default"].append(

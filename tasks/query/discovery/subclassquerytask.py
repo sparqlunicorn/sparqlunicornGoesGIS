@@ -29,7 +29,7 @@ class SubClassQueryTask(QgsTask):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False
-        QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
             self.resultlist[str(result["subclass"]["value"])]={"concept":str(result["subclass"]["value"])}
         # self.layercount.setText("["+str(len(viewlist))+"]")

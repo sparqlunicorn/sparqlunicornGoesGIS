@@ -118,7 +118,7 @@ def _total_seconds(td):
     return result
 
 
-class _runtime(object):
+class _runtime:  # noqa: N801
     def __init__(self, label):
         self.label = label
 
@@ -137,7 +137,7 @@ class _runtime(object):
         return wrapped_f
 
 
-class _call_count(object):
+class _call_count:  # noqa: N801
     def __init__(self, label):
         self.label = label
 
@@ -284,7 +284,7 @@ class Color:
 _HashT = Callable[[], "HASH"]
 
 
-class _TripleCanonicalizer(object):
+class _TripleCanonicalizer:
     def __init__(self, graph: Graph, hashfunc: _HashT = sha256):
         self.graph = graph
 
@@ -619,7 +619,7 @@ def similar(g1: Graph, g2: Graph):
 
 
 def _squashed_graphs_triples(g1: Graph, g2: Graph):
-    for (t1, t2) in zip(sorted(_squash_graph(g1)), sorted(_squash_graph(g2))):
+    for t1, t2 in zip(sorted(_squash_graph(g1)), sorted(_squash_graph(g2))):
         yield t1, t2
 
 

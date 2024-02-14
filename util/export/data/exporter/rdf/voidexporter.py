@@ -7,12 +7,25 @@ from .....doc.docutils import DocUtils
 class VoidExporter:
 
     @staticmethod
-    def createVoidDataset(dsname,prefixnamespace,deploypath,outpath,licenseuri,modtime,language,stats,subjectstorender,prefixes,classtree=None,propstats=None,nonnscount=None,objectmap=None,startconcept=None):
+    def createVoidDataset(dsname,prefixnamespace,prefixshort,repository,deploypath,outpath,licenseuri,modtime,language,stats,subjectstorender,prefixes,classtree=None,propstats=None,nonnscount=None,nscount=None,objectmap=None,startconcept=None):
         g=Graph()
+        g.bind("voaf","http://purl.org/vocommons/voaf#")
+        g.bind("vext", "http://ldf.fi/void-ext#")
+        g.bind("vann", "http://purl.org/vocab/vann/")
         if dsname==None or dsname=="":
             dsname="dataset"
         voidds=prefixnamespace+dsname
+        if repository!=None and repository!="" and repository.startswith("http"):
+            g.add((URIRef(repository), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                   URIRef("http://www.w3.org/ns/adms#AssetRepository")))
+            g.add((URIRef(repository), URIRef("http://www.w3.org/ns/dcat#accessURL"),
+                   Literal(str(repository),datatype="http://www.w3.org/2001/XMLSchema#anyURI")))
+            g.add((URIRef(repository), URIRef("http://www.w3.org/ns/dcat#dataset"),
+                   URIRef(voidds)))
+            g.add((URIRef(repository), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                   Literal("Repository for "+str(dsname), lang="en")))
         g.add((URIRef(voidds),URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),URIRef("http://rdfs.org/ns/void#Dataset")))
+        g.add((URIRef(voidds), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://www.w3.org/ns/adms#Asset")))
         g.add((URIRef(voidds), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
               Literal(dsname,lang="en")))
         g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/title"),
@@ -33,6 +46,15 @@ class VoidExporter:
               URIRef(deploypath+"/index.html")))
         g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#dataDump"),
               URIRef(deploypath+"/index.ttl")))
+        g.add((URIRef(voidds), URIRef("http://www.w3.org/ns/dcat#distribution"),
+               URIRef(voidds+"_dist_ttl")))
+        g.add((URIRef(voidds + "_dist_ttl"), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://www.w3.org/ns/adms#AssetDistribution")))
+        g.add((URIRef(voidds+"_dist_ttl"), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+               Literal(dsname+" TTL Distribution",lang="en")))
+        g.add((URIRef(voidds+"_dist_ttl"), URIRef("http://www.w3.org/ns/dcat#downloadURL"),
+               Literal(deploypath+"/index.ttl",datatype="http://www.w3.org/2001/XMLSchema#anyURI")))
+        g.add((URIRef(voidds+"_dist_ttl"), URIRef("http://www.w3.org/ns/dcat#mediaType"),
+               URIRef("http://www.w3.org/ns/formats/Turtle")))
         g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#feature"),
               URIRef("http://www.w3.org/ns/formats/Turtle")))
         g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#feature"),
@@ -44,10 +66,36 @@ class VoidExporter:
             g.add((URIRef(voidds), URIRef(stat),Literal(stats[stat], datatype="http://www.w3.org/2001/XMLSchema#integer")))
         g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#uriSpace"),
               Literal(prefixnamespace,datatype="http://www.w3.org/2001/XMLSchema#string")))
+        g.add((URIRef(voidds), URIRef("http://purl.org/vocab/vann/preferredNamespaceUri"),
+               Literal(prefixnamespace, datatype="http://www.w3.org/2001/XMLSchema#anyURI")))
+        g.add((URIRef(voidds), URIRef("http://purl.org/vocab/vann/preferredNamespacePrefix"),
+               Literal(prefixshort, datatype="http://www.w3.org/2001/XMLSchema#string")))
         for ns_prefix, namespace in g.namespaces():
             g.add((URIRef(voidds), URIRef("http://rdfs.org/ns/void#vocabulary"),URIRef(namespace)))
+            g.add((URIRef(namespace), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), URIRef("http://purl.org/vocommons/voaf#Vocabulary")))
+            if "nstolabel" in prefixes and str(namespace) in prefixes["nstolabel"]:
+                g.add((URIRef(namespace), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                       Literal(prefixes["nstolabel"][str(namespace)],lang="en")))
+            else:
+                g.add((URIRef(namespace), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                       Literal(str(ns_prefix)+" Vocabulary",lang="en")))
+            g.add((URIRef(namespace), URIRef("http://purl.org/vocab/vann/preferredNamespaceUri"),
+                   Literal(namespace,datatype="http://www.w3.org/2001/XMLSchema#anyURI")))
+            g.add((URIRef(namespace), URIRef("http://purl.org/vocab/vann/preferredNamespacePrefix"),
+                   Literal(ns_prefix,datatype="http://www.w3.org/2001/XMLSchema#string")))
+            g.add((URIRef(namespace+"_"+str(dsname)+"_occ"), URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                   URIRef("http://purl.org/vocommons/voaf#DatasetOccurrence")))
+            g.add((URIRef(namespace+"_"+str(dsname)+"_occ"), URIRef("http://www.w3.org/2000/01/rdf-schema#label"),
+                   Literal("Occurrences of vocabulary "+str(namespace)+" in "+dsname)))
+            if nscount!=None and str(namespace) in nscount:
+                g.add((URIRef(prefixnamespace+str(ns_prefix)+"_"+str(dsname)+"_occ"), URIRef("http://purl.org/vocommons/voaf#occurrences"),
+                       Literal(str(nscount[str(namespace)]),datatype="http://www.w3.org/2001/XMLSchema#integer")))
+            g.add((URIRef(namespace), URIRef("http://purl.org/vocommons/voaf#usageInDataset"), URIRef(namespace+"_"+str(dsname)+"_occ")))
+            g.add((URIRef(namespace+"_"+str(dsname)+"_occ"), URIRef("http://purl.org/vocommons/voaf#inDataset"), URIRef(voidds)))
             if str(namespace) in DocConfig.namespaceToTopic:
                 for entry in DocConfig.namespaceToTopic[str(namespace)]:
+                    g.add((URIRef(voidds), URIRef("http://www.w3.org/ns/dcat#keyword"),
+                           Literal(DocUtils.shortenURI(entry["uri"]).replace("_", " "), lang="en")))
                     g.add((URIRef(voidds), URIRef("http://purl.org/dc/terms/subject"),URIRef(entry["uri"])))
                     g.add((URIRef(entry["uri"]),URIRef("http://www.w3.org/2000/01/rdf-schema#label"),Literal(entry["label"],lang="en")))
         for pred in propstats:
