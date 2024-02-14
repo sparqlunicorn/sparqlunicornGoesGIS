@@ -1996,7 +1996,60 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
     </script>
     """,
 
-        "vowltemplate": "",
+        "vowltemplate": """<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/situx/mini-vowl@master/docs/css/vowl.css"/>
+<script src="{{vowlpath}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/situx/mini-vowl@master/docs/js/webVOWLGraphProd.js"></script>
+<div id="wrapper">
+  <section id="vowl">
+    <div id="graph">
+      <div id="resetOption"></div>
+      <div id="sliderOption"></div>
+    </div>
+  </section>
+  <a href="vowl_result.js" target="_blank">Download VOWL File</a> <a href="minivowl_result.js" target="_blank">Download Mini VOWL File</a>
+    <script>var graphTag = document.getElementById('graph')
+    , linkDistanceClassSlider
+    , linkDistanceClassLabel
+    , linkDistanceLiteralLabel
+    , linkDistanceLiteralSlider
+    , onLoadCalled = false;
+        var   height = 600
+        , width = document.getElementById("vowl").offsetWidth;
+    var graphOptions = function graphOptionsFunct() {
+
+    var   resetOption = document.getElementById('resetOption')
+        , sliderOption = document.getElementById('sliderOption');
+
+    d3.select(resetOption)
+        .append("button")
+        .attr("id", "reset")
+        .property("type", "reset")
+        .text("Reset")
+        .on("click", resetGraph);
+
+    var slidDiv = d3.select(sliderOption)
+        .append("div")
+        .attr("id", "distanceSlider");
+
+    linkDistanceClassLabel = slidDiv.append("label")
+        .attr("for", "distanceSlider")
+        .text(DEFAULT_VISIBLE_LINKDISTANCE);
+    linkDistanceLiteralLabel = linkDistanceClassLabel;
+
+    linkDistanceClassSlider = slidDiv.append("input")
+        .attr("type", "range")
+        .attr("min", 10)
+        .attr("max", 600)
+        .attr("value", DEFAULT_VISIBLE_LINKDISTANCE)
+        .attr("step", 10)
+        .on("input", changeDistance);
+    linkDistanceLiteralSlider = linkDistanceClassSlider;
+};
+    json=minivowlresult
+    drawGraph(graphTag, width, height);
+</script>
+</div>""",
 
         "htmlcommenttemplate": """<p class="comment"><b>Description:</b> {{comment}}</p>""",
 

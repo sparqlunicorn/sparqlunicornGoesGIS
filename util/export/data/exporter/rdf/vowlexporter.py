@@ -8,24 +8,28 @@ class OWL2VOWL():
     def __init__(self):
         print("init")
 
-    def getTypeForProperty(self,prop,graph,typeproperty):
+    @staticmethod
+    def getTypeForProperty(prop,graph,typeproperty):
         for tup in graph.objects(URIRef(prop),URIRef(typeproperty)):
             #print(tup)
             if str(tup)!="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property":
-                return self.normalizeNS(str(tup))
+                return OWL2VOWL.normalizeNS(str(tup))
         return "rdf:Property"
 
-    def getBaseIRI(self,iri):
+    @staticmethod
+    def getBaseIRI(iri):
         if "#" in iri:
             return iri[0:iri.rfind("#")]
         return iri[0:iri.rfind("/")]
 
-    def getIRILabel(self,iri):
+    @staticmethod
+    def getIRILabel(iri):
         if "#" in iri:
             return iri[iri.rfind("#")+1:]
         return iri[iri.rfind("/")+1:]
 
-    def normalizeNS(self,prop):
+    @staticmethod
+    def normalizeNS(prop):
         return prop.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:").replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:").replace("http://www.w3.org/2002/07/owl#","owl:")
 
     #def inferDomainRanges(self,g,typeproperty):
@@ -34,7 +38,8 @@ class OWL2VOWL():
     #        for tuppred in g.objects(subj,URIRef(typeproperty)):
     #            subjclasses.add(tuppred)
 
-    def convertOWL2MiniVOWL(self,g,outpath,predicates=[],typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
+    @staticmethod
+    def convertOWL2MiniVOWL(g,outpath,outfile=None,predicates=[],typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
         minivowlresult={"info": [{
             "description": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin"}],
             "nodes": [],"links": []}
@@ -47,11 +52,12 @@ class OWL2VOWL():
                 nodeuriToId[str(pred[1])]=nodecounter
                 nodecounter+=1
                 if str(pred[1])=="http://www.w3.org/2002/07/owl#Class" or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Class" or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Datatype":
-                    nodes.append({"name":self.getIRILabel(str(pred[1])),"type":"class","uri":str(pred[1])})
+                    nodes.append({"name":OWL2VOWL.getIRILabel(str(pred[1])),"type":"class","uri":str(pred[1])})
                 else:
-                    nodes.append({"name": self.getIRILabel(str(pred[1])), "type": "class", "uri": str(pred[1])})
+                    nodes.append({"name": OWL2VOWL.getIRILabel(str(pred[1])), "type": "class", "uri": str(pred[1])})
         if predicates!=[]:
             for pred in predicates:
+
                 QgsMessageLog.logMessage(str(pred), "VOWL2OWL", Qgis.Info)
                 if "from" in predicates[pred] and "to" in predicates[pred]:
                     QgsMessageLog.logMessage(str(predicates[pred]["from"]), "VOWL2OWL", Qgis.Info)
@@ -62,7 +68,7 @@ class OWL2VOWL():
                                     if "http://www.w3.org/1999/02/22-rdf-syntax-ns#" not in str(topred) and "http://www.w3.org/2002/07/owl#" not in str(topred):
                                         links.append({"source": nodeuriToId[str(fromsub)],
                                                       "target": nodeuriToId[str(topred)],
-                                                      "valueTo": self.getIRILabel(str(pred)),
+                                                      "valueTo": OWL2VOWL.getIRILabel(str(pred)),
                                                       "propertyTo": "class",
                                                       "uriTo": str(pred)})
         else:
@@ -72,11 +78,12 @@ class OWL2VOWL():
                         links.append({"source":nodeuriToId[node],"target":nodeuriToId[str(predobj[1])],"valueTo": self.getIRILabel(str(predobj[0])),"propertyTo":("class" if isinstance(predobj[1],URIRef) else "datatype"), "uriTo":(str(predobj[1]) if isinstance(predobj[1],URIRef) else predobj[1].datatype)})
         minivowlresult["nodes"]=nodes
         minivowlresult["links"] = links
-        f = open(outpath + "/minivowl_result.js", "w")
+        f = open(outpath + "/"+str(outfile), "w")
         f.write("var minivowlresult=" + json.dumps(minivowlresult, indent=1))
         f.close()
 
-    def convertOWL2VOWL(self,g,outpath,typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
+    @staticmethod
+    def convertOWL2VOWL(g,outpath,typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
         vowlresult = {"_comment": "Created with pyowl2vowl (version 0.1) as part of the SPARQLing Unicorn QGIS Plugin",
                       "header": {"prefixList": {}, "baseIris": [], "languages": []}, "namespace": [], "class": [],
                       "classAttribute": [], "property": [], "propertyAttribute": []}
@@ -99,12 +106,12 @@ class OWL2VOWL():
             if str(pred[1])=="http://www.w3.org/2002/07/owl#Class" or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Class"  or str(pred[1])=="http://www.w3.org/2000/01/rdf-schema#Datatype":
                 classes.append({"id":idcounter,"type":str(pred[1])})
                 classiriToProdId[str(pred[0])]={"id":idcounter,"attid":len(classAttributes)-1}
-                classAttributes.append({"id":idcounter,"iri":str(pred[0]),"baseIRI":self.getBaseIRI(str(pred[0])),"instances":0,"label":{"IRI-based":self.getIRILabel(str(pred[0]))},"annotations":{},"subClasses":[],"superClasses":[]})
+                classAttributes.append({"id":idcounter,"iri":str(pred[0]),"baseIRI":OWL2VOWL.getBaseIRI(str(pred[0])),"instances":0,"label":{"IRI-based":OWL2VOWL.getIRILabel(str(pred[0]))},"annotations":{},"subClasses":[],"superClasses":[]})
                 idcounter+=1
             else:
-                props.append({"id":idcounter,"type":self.getTypeForProperty(str(pred[0]),g,typeproperty)})
+                props.append({"id":idcounter,"type":OWL2VOWL.getTypeForProperty(str(pred[0]),g,typeproperty)})
                 propiriToProdId[str(pred[0])]={"id":idcounter,"attid":len(propAttributes)-1}
-                propAttributes.append({"id":idcounter,"iri":str(pred[0]),"baseIRI":self.getBaseIRI(str(pred[0])),"instances":0,"label":{"IRI-based":self.getIRILabel(str(pred[0]))},"annotations":{},"range":[],"domain":[],"subProperties":[],"superProperties":[]})
+                propAttributes.append({"id":idcounter,"iri":str(pred[0]),"baseIRI":OWL2VOWL.getBaseIRI(str(pred[0])),"instances":0,"label":{"IRI-based":OWL2VOWL.getIRILabel(str(pred[0]))},"annotations":{},"range":[],"domain":[],"subProperties":[],"superProperties":[]})
                 idcounter+=1
 
         for pred in g.subject_objects(URIRef("http://www.w3.org/2000/01/rdf-schema#range")):
@@ -112,7 +119,7 @@ class OWL2VOWL():
             if str(pred[1]) not in classiriToProdId:
                 classes.append({"id":idcounter,"type":"http://www.w3.org/2000/01/rdf-schema#Datatype"})
                 classiriToProdId[str(pred[1])]={"id":idcounter,"attid":len(classAttributes)-1}
-                classAttributes.append({"id":idcounter,"iri":str(pred[1]),"baseIRI":self.getBaseIRI(str(pred)),"instances":0,"label":{"IRI-based":self.getIRILabel(str(pred[1]))},"annotations":{},"subClasses":[],"superClasses":[]})
+                classAttributes.append({"id":idcounter,"iri":str(pred[1]),"baseIRI":OWL2VOWL.getBaseIRI(str(pred)),"instances":0,"label":{"IRI-based":OWL2VOWL.getIRILabel(str(pred[1]))},"annotations":{},"subClasses":[],"superClasses":[]})
                 idcounter+=1
 
         for iri in classiriToProdId:
