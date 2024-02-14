@@ -145,7 +145,6 @@
     "classfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=item",
     "propertyfromlabelquery": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=%%label%%&format=json&language=%%language%%&languagefallback=true&uselang=%%language%%&type=property",
     "whattoenrichquery": "SELECT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con wdt:P31 %%concept%% . ?con wdt:P625 ?coord . ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype ) } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)",
-    "geoconceptlimit": 500,
     "staticconcepts": [],
     "active": true
   },
@@ -203,7 +202,7 @@
     "geometrycollectionclasses": [
       "http://www.opengis.net/ont/geosparql#GeometryCollection"
     ],
-    "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
+    "geocollectionquery": "SELECT DISTINCT ?colinstance ?label  WHERE { ?colinstance <https://database.factgrid.de/prop/direct/P2> %%concept%% . OPTIONAL { ?colinstance rdfs:label ?label . } }",
     "typeproperty": "https://database.factgrid.de/prop/direct/P2",
     "subclassproperty": "https://database.factgrid.de/prop/direct/P3",
     "geometryproperty": "https://database.factgrid.de/prop/direct/P48",
@@ -211,11 +210,11 @@
     "querytemplate": [
       {
         "label": "Item+Label",
-        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
+        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 %%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
       },
       {
         "label": "All Attributes",
-        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
+        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 %%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
       }
     ],
     "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <https://database.factgrid.de/prop/direct/P2> ?class .\n ?a <https://database.factgrid.de/prop/direct/P48> ?a_geom .\n} LIMIT 500",
@@ -1737,15 +1736,18 @@
       "item",
       "geo"
     ],
-    "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label"],
-    "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-    "geometryproperty": "https://www.openstreetmap.org/meta/loc",
+    "typeproperty": "http://wiki.openstreetmap.org/prop/statement/P2",
+    "labelproperty": ["http://www.w3.org/2000/01/rdf-schema#label","http://www.openstreetmap.org/meta/name"],
+    "subclassproperty": "http://wiki.openstreetmap.org/prop/statement/P3",
+    "geometryproperty": "http://www.openstreetmap.org/meta/loc",
     "featurecollectionclasses": [
       "http://www.opengis.net/ont/geosparql#FeatureCollection"
     ],
     "geometrycollectionclasses": [
       "http://www.opengis.net/ont/geosparql#GeometryCollection"
+    ],
+    "geotriplepattern": [
+      " ?item <https://www.openstreetmap.org/meta/loc> ?geo . "
     ],
     "geoconceptquery": "",
     "classfromlabelquery": "SELECT DISTINCT ?class { ?class <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class . ?class rdfs:label ?label . FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",

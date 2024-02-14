@@ -34,6 +34,8 @@ from qgis.PyQt.QtGui import QIcon, QStandardItem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QStyle, QProgressDialog, QSizePolicy
 from rdflib.plugins.sparql import prepareQuery
+from qgis.core import QgsMessageLog
+from qgis.core import Qgis
 
 from .info.errormessagebox import ErrorMessageBox
 from .tool.ontdocdialog import OntDocDialog
@@ -597,8 +599,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if self.currentContext.selectionModel().currentIndex() is not None and self.currentContextModel.itemFromIndex(
                 curindex) is not None and re.match(r'.*Q[0-9]+.*', self.currentContextModel.itemFromIndex(
             curindex).text()) and not self.currentContextModel.itemFromIndex(curindex).text().startswith("http"):
-            self.inp_label.setText(
-                self.currentContextModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
+            self.inp_label.setText(self.currentContextModel.itemFromIndex(curindex).text().split("(")[0].lower().replace(" ", "_"))
             concept = "Q" + self.currentContextModel.itemFromIndex(curindex).text().split("Q")[1].replace(")", "")
         elif self.currentContextModel.itemFromIndex(curindex) is not None:
             concept = self.currentContextModel.itemFromIndex(curindex).data(UIUtils.dataslot_conceptURI)
