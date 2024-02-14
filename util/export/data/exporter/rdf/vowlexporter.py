@@ -81,6 +81,7 @@ class OWL2VOWL():
         f = open(outpath + "/"+str(outfile), "w")
         f.write("var minivowlresult=" + json.dumps(minivowlresult, indent=1))
         f.close()
+        return minivowlresult
 
     @staticmethod
     def convertOWL2VOWL(g,outpath,typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type",labelproperty="http://www.w3.org/2000/01/rdf-schema#label"):
@@ -169,3 +170,4 @@ class OWL2VOWL():
         f=open(outpath+"/vowl_result.js","w")
         f.write("var vowlresult="+json.dumps(vowlresult,indent=1))
         f.close()
+        return vowlresult
