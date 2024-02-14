@@ -12,6 +12,7 @@ import json
 from .docutils import DocUtils
 from .docconfig import DocConfig
 from .docdefaults import DocDefaults
+from .templateutils import TemplateUtils
 from ..export.pages.observationpage import ObservationPage
 from ..export.pages.bibpage import BibPage
 from ..export.pages.lexiconpage import LexiconPage
@@ -65,43 +66,6 @@ imagetoURI={}
 
 templates=DocDefaults.templates
 
-def resolveTemplate(templatename):
-    print(templatepath+"/"+templatename)
-    if os.path.exists(templatepath+"/"+templatename+"/templateconf.json"):
-        with open(templatepath+"/"+templatename+"/templateconf.json", 'r') as f:
-            templatefiles = json.load(f)
-            for file in templatefiles:
-                if os.path.exists(templatepath +"/"+templatename+"/"+ file):
-                    with open(templatepath +"/"+templatename+"/"+ file["path"], 'r') as f:
-                        if "name" in file:
-                            templates[file["name"]]= f.read()
-                        else:
-                            templates[file] = f.read()
-    elif os.path.exists(templatepath+"/"+templatename+"/templates/"):
-        if os.path.exists(templatepath+"/"+templatename+"/templates/layouts/") and os.path.exists(templatepath+"/"+templatename+"/templates/includes/"):
-            templates["includes"]={}
-            templates["layouts"] = {}
-            for filename in os.listdir(templatepath+"/"+templatename+"/templates/includes/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath+"/"+templatename+"/templates/includes/"+filename, 'r') as f:
-                        content=f.read()
-                        templates["includes"][filename.replace(".html","")] = content
-                        templates[filename.replace(".html", "")] = content
-            for filename in os.listdir(templatepath + "/" + templatename + "/templates/layouts/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath + "/" + templatename + "/templates/layouts/" + filename, 'r') as f:
-                        content=f.read()
-                        templates["layouts"][filename.replace(".html", "")] = content
-                        templates[filename.replace(".html", "")] = content
-        else:
-            for filename in os.listdir(templatepath+"/"+templatename+"/templates/"):
-                if filename.endswith(".html") or filename.endswith(".css"):
-                    with open(templatepath+"/"+templatename+"/templates/"+filename, 'r') as f:
-                        templates[filename.replace(".html","")] = f.read()
-        return False
-    return True
-
-
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,nonNSPagesCBox=False,createMetadataTable=False,createVOWL=False,ogcapifeatures=False,iiif=False,ckan=False,imagemetadata=False,startconcept="",deployurl="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
@@ -133,7 +97,7 @@ class OntDocGeneration:
         self.generatePagesForNonNS=nonNSPagesCBox
         self.geocollectionspaths=[]
         self.templatename=templatename
-        resolveTemplate(templatename)
+        templates = TemplateUtils.resolveTemplate(templatename, templatepath)
         if offlinecompat:
             global htmltemplate
             htmltemplate = self.createOfflineCompatibleVersion(outpath, templates["htmltemplate"],templatepath,templatename)
