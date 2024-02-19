@@ -1,7 +1,7 @@
 var a00023 =
 [
-    [ "SPARQLCompleter", "a00073.html", "a00073" ],
-    [ "QgsNominatimRevGeocoder", "a00077.html", "a00077" ],
-    [ "GeocodingUtils", "a00081.html", "a00081" ],
+    [ "SPARQLCompleter", "a00077.html", "a00077" ],
+    [ "QgsNominatimRevGeocoder", "a00081.html", "a00081" ],
+    [ "GeocodingUtils", "a00085.html", "a00085" ],
     [ "MESSAGE_CATEGORY", "a00023.html#a964735b6bbac75792f1ff19bab17c5e3", null ]
 ];

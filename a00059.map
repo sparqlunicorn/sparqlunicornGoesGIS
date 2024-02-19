@@ -1,7 +1,7 @@
-<map id="SPARQLunicornDialog" name="SPARQLunicornDialog">
-<area shape="rect" id="node1" title="The main dialog window of the SPARQLUnicorn QGIS Plugin." alt="" coords="162,95,325,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,121,32"/>
-<area shape="rect" id="node3" href="$a00578.html" title=" " alt="" coords="145,5,256,32"/>
-<area shape="rect" id="node4" title=" " alt="" coords="281,5,331,32"/>
-<area shape="rect" id="node5" title=" " alt="" coords="375,5,461,32"/>
+<map id="SPARQLunicorn" name="SPARQLunicorn">
+<area shape="rect" id="node1" title="The main SPARQL unicorn dialog." alt="" coords="194,139,314,165"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,44,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="162,5,213,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="277,5,364,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="451,5,494,32"/>
 </map>

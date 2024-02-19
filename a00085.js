@@ -1,20 +1,11 @@
 var a00085 =
 [
-    [ "__init__", "a00085.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
-    [ "addDefaultConfigurationParameters", "a00085.html#a82771cd4f04e72965618ce340ea9ecb0", null ],
-    [ "createCapabilityMessage", "a00085.html#ac2d9d02c106d1b6a3cf912e3efa1edf0", null ],
-    [ "detectEquivalentClasses", "a00085.html#a4c3813d297c22a10eeeca9f8129c0958", null ],
-    [ "detectEquivalentProperties", "a00085.html#aa74795873f7d527a2c0a8148687873fc", null ],
-    [ "detectGeometryLiteralRelations", "a00085.html#a91016df63ca738ab0444ed301bbf418c", null ],
-    [ "detectGeometryObjectRelations", "a00085.html#a775388a7d026d00670925645614fae01", null ],
-    [ "detectLiteralType", "a00085.html#a10dfb51d3a68c3a8042e0c95935dd094", null ],
-    [ "detectNamespaces", "a00085.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
-    [ "detectTripleStoreConfiguration", "a00085.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
-    [ "detectTripleStoreType", "a00085.html#aca8d177d3f7ceabe0c0ef700254a19a3", null ],
-    [ "testTripleStoreConnection", "a00085.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
-    [ "configuration", "a00085.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
-    [ "feasibleConfiguration", "a00085.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
-    [ "message", "a00085.html#ab8140947611504abcb64a4c277effcf5", null ],
-    [ "testQueries", "a00085.html#ab8d466aab9fc4839ea58f2f2f717154c", null ],
-    [ "testURL", "a00085.html#aacac69f65111f90a0c0d4749ff99a530", null ]
+    [ "batchGeocoding", "a00085.html#a1e1db673cb3f81404bbc49da28391da2", null ],
+    [ "geocode", "a00085.html#a35b30e8af140cb5cb2ea47fb7d2f4064", null ],
+    [ "geocodeWithAPI", "a00085.html#a0641b54d090726c43f2e38b4d729ce93", null ],
+    [ "handleResponse", "a00085.html#af5af50facce4d4c1e55416043b1f6dd2", null ],
+    [ "networkrequest", "a00085.html#a846ec42f7586b3ddea32e1eacad2f411", null ],
+    [ "reversegeocodeWithAPI", "a00085.html#a3ce916d93f3c257588cb07ec090a6800", null ],
+    [ "manager", "a00085.html#a23416379944e641a8ad6bdbc95ef1859", null ],
+    [ "nominatimmap", "a00085.html#a87030b4985e39b57aeea787ef0af34b9", null ]
 ];

@@ -1,15 +1,20 @@
 var a00089 =
 [
-    [ "detectColumnType", "a00089.html#a3b3b26661848bacfec67cacda1d77cb6", null ],
-    [ "detectLayerColumnType", "a00089.html#a7719daa9b701fee94681d6d677675cef", null ],
-    [ "detectLayerColumnTypes", "a00089.html#af428e0da9890c28e8471632877684873", null ],
-    [ "exportGeometryType", "a00089.html#a6ab4400bb1d621394fec9af6ed12467b", null ],
-    [ "exportLayerAsGeoJSONLD", "a00089.html#a664f3dbc39717e5f4219fc829744d719", null ],
-    [ "getLayerColumnAsList", "a00089.html#aa1a88978ad30c85e5b095f9d079d1547", null ],
-    [ "layerToDot", "a00089.html#a5d95f97b11e92ed3d36c88331d1d55aa", null ],
-    [ "layerToGraphML", "a00089.html#a5c719cc88dc3ad74a769b29b0a37b4e1", null ],
-    [ "layerToTTLString", "a00089.html#ae39fdf5bb286c926d659bcbf9fe38bc8", null ],
-    [ "loadLayerList", "a00089.html#a22c87d0316ac2af5a80b0e7609496924", null ],
-    [ "processLiteral", "a00089.html#a40028de6fa936f8dd159da67ea1734be", null ],
-    [ "reprojectGeometry", "a00089.html#ab0b775b208048ccbfc14034c52dac205", null ]
+    [ "__init__", "a00089.html#afe97d29cbe1aef01a45a2ac42176e8a3", null ],
+    [ "addDefaultConfigurationParameters", "a00089.html#a82771cd4f04e72965618ce340ea9ecb0", null ],
+    [ "createCapabilityMessage", "a00089.html#ac2d9d02c106d1b6a3cf912e3efa1edf0", null ],
+    [ "detectEquivalentClasses", "a00089.html#a4c3813d297c22a10eeeca9f8129c0958", null ],
+    [ "detectEquivalentProperties", "a00089.html#aa74795873f7d527a2c0a8148687873fc", null ],
+    [ "detectGeometryLiteralRelations", "a00089.html#a91016df63ca738ab0444ed301bbf418c", null ],
+    [ "detectGeometryObjectRelations", "a00089.html#a775388a7d026d00670925645614fae01", null ],
+    [ "detectLiteralType", "a00089.html#a10dfb51d3a68c3a8042e0c95935dd094", null ],
+    [ "detectNamespaces", "a00089.html#a47f96800874cd6dd8f7ac2ae921260c1", null ],
+    [ "detectTripleStoreConfiguration", "a00089.html#aee6439c3e1b4677746fbeea5b2848d1d", null ],
+    [ "detectTripleStoreType", "a00089.html#aca8d177d3f7ceabe0c0ef700254a19a3", null ],
+    [ "testTripleStoreConnection", "a00089.html#a7b3140b0ee9f5c06eb66a002de8ccef0", null ],
+    [ "configuration", "a00089.html#a32c97d3f8cd6089ccf54e7c423020b7a", null ],
+    [ "feasibleConfiguration", "a00089.html#ab0144ff6d482c292e0fe86404f386f7b", null ],
+    [ "message", "a00089.html#ab8140947611504abcb64a4c277effcf5", null ],
+    [ "testQueries", "a00089.html#ab8d466aab9fc4839ea58f2f2f717154c", null ],
+    [ "testURL", "a00089.html#aacac69f65111f90a0c0d4749ff99a530", null ]
 ];
