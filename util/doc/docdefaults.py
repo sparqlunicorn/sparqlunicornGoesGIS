@@ -1282,6 +1282,8 @@ class DocDefaults:
         return dialogcontent
     }
 
+    listthreshold=5
+
     function formatHTMLTableForResult(result,nodeicon){
         dialogcontent=""
         dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=dataschematable><thead><tr><th>Type</th><th>Relation</th><th>Value</th></tr></thead><tbody>"
@@ -1306,12 +1308,18 @@ class DocDefaults:
             dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a> <a href=\\"#\\" onclick=\\"getPropRelationDialog('"+res+"','"+detpropicon+"')\\">[x]</a></td>"
             if(Object.keys(result[res]).length>1){
                 dialogcontent+="<td><ul>"
+                if(result[res].length>listthreshold){
+                    dialogcontent+="<details><summary>"+result[res].length+" values</summary>"
+                }
                 for(resitem in result[res]){
                     if((resitem+"").startsWith("http")){
                         dialogcontent+="<li><a href=\\""+rewriteLink(resitem)+"\\" target=\\"_blank\\">"+shortenURI(resitem)+"</a> ["+result[res][resitem]+"]</li>"
                     }else if(resitem!="instancecount"){
                         dialogcontent+="<li>"+result[res][resitem]+"</li>"
                     }
+                }
+                if(result[res].length>listthreshold){
+                    dialogcontent+="</details>"
                 }
                 dialogcontent+="</ul></td>"
             }else if((Object.keys(result[res])[0]+"").startsWith("http")){
