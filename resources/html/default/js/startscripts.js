@@ -1299,10 +1299,18 @@ function formatHTMLTableForResult(result,nodeicon){
             }
             dialogcontent+="<ul>"
             for(resitem in result[res]){
-                if((result[res][resitem]+"").startsWith("http")){
-                    dialogcontent+="<li><a href=\""+rewriteLink(result[res][resitem])+"\" target=\"_blank\">"+shortenURI(result[res][resitem])+"</a> ["+result[res][resitem]+"]</li>"
-                }else if(resitem!="instancecount"){
-                    dialogcontent+="<li>"+result[res][resitem]+"</li>"
+                if(!(nodetype.includes("class"))) {
+                    if ((result[res][resitem] + "").trim().startsWith("http")) {
+                        dialogcontent += "<li><a href=\"" + rewriteLink(result[res][resitem]) + "\" target=\"_blank\">" + shortenURI(result[res][resitem]) + "</a> [" + result[res][resitem] + "]</li>"
+                    } else if (resitem != "instancecount") {
+                        dialogcontent += "<li>" + result[res][resitem] + "</li>"
+                    }
+                }else{
+                    if ((resitem+ "").trim().startsWith("http")) {
+                        dialogcontent += "<li><a href=\"" + rewriteLink(resitem) + "\" target=\"_blank\">" + shortenURI(resitem) + "</a></li>"
+                    } else if (resitem != "instancecount") {
+                        dialogcontent += "<li>" + result[res][resitem] + "</li>"
+                    }
                 }
             }
             dialogcontent+="</ul>"
@@ -1310,10 +1318,18 @@ function formatHTMLTableForResult(result,nodeicon){
                 dialogcontent+="</details>"
             }
             dialogcontent+="</td>"
-        }else if((Object.keys(result[res])[0]+"").startsWith("http")){
-            dialogcontent+="<td><a href=\""+rewriteLink(Object.keys(result[res])[0]+"")+"\" target=\"_blank\">"+shortenURI(Object.keys(result[res])[0]+"")+"</a></td>"
+        }else if((Object.keys(result[res])[0]+"").startsWith("http") || (result[res][Object.keys(result[res])[0]]+"").startsWith("http")){
+            if(!(nodetype.includes("class"))) {
+                dialogcontent+="<td><a href=\""+rewriteLink(result[res][Object.keys(result[res])[0]]+"")+"\" target=\"_blank\">"+shortenURI(result[res][Object.keys(result[res])[0]]+"")+"</a></td>"
+            }else{
+                dialogcontent+="<td><a href=\""+rewriteLink(Object.keys(result[res])[0]+"")+"\" target=\"_blank\">"+shortenURI(Object.keys(result[res])[0]+"")+"</a></td>"
+            }
         }else if(Object.keys(result[res])[0]!="instancecount"){
-            dialogcontent+="<td>"+Object.keys(result[res])[0]+"</td>"
+            if(!(nodetype.includes("class"))) {
+                dialogcontent += "<td>" + result[res][Object.keys(result[res])[0]] + "</td>"
+            }else{
+                dialogcontent += "<td>" + Object.keys(result[res])[0] + "</td>"
+            }
         }else{
             dialogcontent+="<td></td>"
         }
