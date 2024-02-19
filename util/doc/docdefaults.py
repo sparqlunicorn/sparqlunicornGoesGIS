@@ -1307,21 +1307,23 @@ class DocDefaults:
             }
             dialogcontent+="<td><a href=\\""+res+"\\" target=\\"_blank\\">"+shortenURI(res)+"</a> <a href=\\"#\\" onclick=\\"getPropRelationDialog('"+res+"','"+detpropicon+"')\\">[x]</a></td>"
             if(Object.keys(result[res]).length>1){
-                dialogcontent+="<td><ul>"
+                dialogcontent+="<td>"
                 if(result[res].length>listthreshold){
                     dialogcontent+="<details><summary>"+result[res].length+" values</summary>"
                 }
+                dialogcontent+="<ul>"
                 for(resitem in result[res]){
-                    if((resitem+"").startsWith("http")){
+                    if((resitem+"").trim().startsWith("http")){
                         dialogcontent+="<li><a href=\\""+rewriteLink(resitem)+"\\" target=\\"_blank\\">"+shortenURI(resitem)+"</a> ["+result[res][resitem]+"]</li>"
                     }else if(resitem!="instancecount"){
                         dialogcontent+="<li>"+result[res][resitem]+"</li>"
                     }
                 }
+                dialogcontent+="</ul>"
                 if(result[res].length>listthreshold){
                     dialogcontent+="</details>"
                 }
-                dialogcontent+="</ul></td>"
+                dialogcontent+="</td>"
             }else if((Object.keys(result[res])[0]+"").startsWith("http")){
                 dialogcontent+="<td><a href=\\""+rewriteLink(Object.keys(result[res])[0]+"")+"\\" target=\\"_blank\\">"+shortenURI(Object.keys(result[res])[0]+"")+"</a></td>"
             }else if(Object.keys(result[res])[0]!="instancecount"){
