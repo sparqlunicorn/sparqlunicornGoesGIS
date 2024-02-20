@@ -1,13 +1,15 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QFileDialog
 from qgis.core import QgsProject,QgsMapLayerProxyModel, Qgis
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
+from qgis.core import QgsApplication
+from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.PyQt.QtCore import Qt
 
+from ...util.export.data.exporter.exporterutils import ExporterUtils
 from ...util.ui.uiutils import UIUtils
-from ...util.layerutils import LayerUtils
+from ...tasks.processing.convertlayertask import ConvertLayerTask
 import os.path
-from qgis.utils import iface
-from rdflib import Graph
 
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -47,26 +49,22 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def startConversion(self):
         layer = self.loadedLayers.currentLayer()
-        filename, _filter = QFileDialog.getSaveFileName(
-            self, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+        filename = QFileDialog.getSaveFileName(
+            self, "Select output file ", "", ExporterUtils.getExporterString())
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            filename),
+            "Convert Layer Dialog", Qgis.Info)
         if filename == "":
             return
-        if filename.endswith("graphml"):
-            ttlstring = LayerUtils.layerToGraphML(layer)
-        else:
-            ttlstring = LayerUtils.layerToTTLString(layer,
-                "".join(self.prefixes[self.loadedLayers.currentIndex()]),self.vocabularyCBox.currentText(),"WKT",
-                None,None,None,None,None,None)
-        with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-            iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-        if not filename.endswith("graphml"):
-            g = Graph()
-            g.parse(data=ttlstring, format="ttl")
-            splitted = filename.split(".")
-            exportNameSpace = ""
-            exportSetClass = ""
-            with open(filename, 'w') as output_file:
-                g.serialize(destination=filename,format=splitted[len(splitted) - 1])
-                iface.messageBar().pushMessage("export layer successfully!", "OK", level=Qgis.Success)
-        self.close()
+        progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowTitle("Converting layer")
+        progress.setCancelButton(None)
+        self.qtask = ConvertLayerTask("Converting Layer to graph: " + str(filename),
+                                      layer, filename, self.vocabularyCBox.currentText(),
+                                      "WKT",self.prefixes,
+                                      self,
+                                      progress)
+        QgsApplication.taskManager().addTask(self.qtask)
+
+
