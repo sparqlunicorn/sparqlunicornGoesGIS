@@ -54,7 +54,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             filename),
             "Convert Layer Dialog", Qgis.Info)
-        if filename == "":
+        if filename[0] == "":
             return
         progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self)
         progress.setWindowModality(Qt.WindowModal)
