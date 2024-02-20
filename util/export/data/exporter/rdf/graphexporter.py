@@ -264,7 +264,7 @@ class GraphExporter:
             for tup in g.predicate_objects(sub):
                 if isinstance(tup[1],Literal):
                     if str(tup[1]) not in uriToNodeId:
-                        file.write("<node id=\"" + str(nodecounter) + "\" value=\""+str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;"))+"\" label=\"" + str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;")) + "\">\n")
+                        file.write("<node id=\"" + str(nodecounter) + "\" value=\""+str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;").replace("\"","'"))+"\" label=\"" + str(str(tup[1]).replace("<","&lt;").replace(">","&gt;").replace("&","&amp;").replace("\"","'")) + "\">\n")
                         if str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                             file.write("<viz:color r=\"255\" g=\"165\" b=\"0\"/>\n")
                         else:
