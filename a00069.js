@@ -22,7 +22,6 @@ var a00069 =
     [ "enrichTable", "a00069.html#a41d2b998b0dd082c0d221c69bc8b4c8c", null ],
     [ "enrichTableResult", "a00069.html#adcd5126fc28b5d7bf7f5eae6c1e808f1", null ],
     [ "exportIdCol", "a00069.html#a28e8c8cab7654b472c43f25f3005b3ad", null ],
-    [ "exportInterlink", "a00069.html#a8e3642406134b64d85ce0a4dd71820a2", null ],
     [ "exportNameSpace", "a00069.html#a53c91b53a9e6f8aa2e992e979da8af83", null ],
     [ "exportSetClass", "a00069.html#a4bb9e994037d80a7ace5ae573c602d45", null ],
     [ "loadLayerEnrich", "a00069.html#a5076d9ce6960333ce03084aa5a0bc820", null ],

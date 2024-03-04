@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SPARQLing Unicorn QGIS Plugin: LayerUtils Class Reference</title>
+<title>SPARQLing Unicorn QGIS Plugin: InterlinkUtils Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,34 +61,66 @@ $(document).ready(function(){initNavTree('a00093.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00090.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">LayerUtils Class Reference</div>  </div>
+<div class="title">InterlinkUtils Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for InterlinkUtils:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00091.png" border="0" usemap="#aInterlinkUtils_coll__map" alt="Collaboration graph"/></div>
+<map name="aInterlinkUtils_coll__map" id="aInterlinkUtils_coll__map">
+<area shape="rect" title=" " alt="" coords="5,168,112,195"/>
+<area shape="rect" title=" " alt="" coords="37,5,80,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac4a3fd7f3ebf209b7296b1f1af525f2f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ac4a3fd7f3ebf209b7296b1f1af525f2f">suggestMostProbableID</a> (self, layer)</td></tr>
+<tr class="separator:ac4a3fd7f3ebf209b7296b1f1af525f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a63be619f27e74faae765db238c9aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a10a63be619f27e74faae765db238c9aa">suggestFieldNameMappings</a> (self, layer)</td></tr>
+<tr class="separator:a10a63be619f27e74faae765db238c9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b3b26661848bacfec67cacda1d77cb6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a3b3b26661848bacfec67cacda1d77cb6">detectColumnType</a> (resultmap)</td></tr>
-<tr class="memdesc:a3b3b26661848bacfec67cacda1d77cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects the type of a column which is to be entered into a QGIS vector layer.  <a href="a00093.html#a3b3b26661848bacfec67cacda1d77cb6">More...</a><br /></td></tr>
-<tr class="separator:a3b3b26661848bacfec67cacda1d77cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7719daa9b701fee94681d6d677675cef"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a7719daa9b701fee94681d6d677675cef">detectLayerColumnType</a> (layer, columnindex)</td></tr>
-<tr class="separator:a7719daa9b701fee94681d6d677675cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1a88978ad30c85e5b095f9d079d1547"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#aa1a88978ad30c85e5b095f9d079d1547">getLayerColumnAsList</a> (layer, columnindex)</td></tr>
-<tr class="separator:aa1a88978ad30c85e5b095f9d079d1547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af428e0da9890c28e8471632877684873"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#af428e0da9890c28e8471632877684873">detectLayerColumnTypes</a> (layer)</td></tr>
-<tr class="separator:af428e0da9890c28e8471632877684873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0b775b208048ccbfc14034c52dac205"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ab0b775b208048ccbfc14034c52dac205">reprojectGeometry</a> (geom, fromcrs, tocrs=&quot;EPSG:4326&quot;)</td></tr>
-<tr class="separator:ab0b775b208048ccbfc14034c52dac205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40028de6fa936f8dd159da67ea1734be"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a40028de6fa936f8dd159da67ea1734be">processLiteral</a> (literal, literaltype, reproject, currentlayergeojson=None, triplestoreconf=None, reprojecttask=False)</td></tr>
-<tr class="separator:a40028de6fa936f8dd159da67ea1734be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ab4400bb1d621394fec9af6ed12467b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a6ab4400bb1d621394fec9af6ed12467b">exportGeometryType</a> (curid, geom, vocab, literaltype, init, ttlstring)</td></tr>
-<tr class="separator:a6ab4400bb1d621394fec9af6ed12467b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ab04d11fc381d1e85623e843d29c7e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a40ab04d11fc381d1e85623e843d29c7e">readXMLMappingToDict</a> (filename)</td></tr>
+<tr class="separator:a40ab04d11fc381d1e85623e843d29c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f895e439ce615c1a81790624514744"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a16f895e439ce615c1a81790624514744">readJSONMappingToDict</a> (filename)</td></tr>
+<tr class="separator:a16f895e439ce615c1a81790624514744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8420d212acf58c7f5d6cf1e6253678"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#aad8420d212acf58c7f5d6cf1e6253678">suggestMappingSchema</a> (layer)</td></tr>
+<tr class="separator:aad8420d212acf58c7f5d6cf1e6253678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa70d444ede23752a5aff38d62fde3a80"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#aa70d444ede23752a5aff38d62fde3a80">checkTypeFromColumnName</a> (fieldname, columntype)</td></tr>
+<tr class="separator:aa70d444ede23752a5aff38d62fde3a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6107dbcf960f64ff1f36a0c8cc753e7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ae6107dbcf960f64ff1f36a0c8cc753e7">constructStrIfListElemsExist</a> (exists, map)</td></tr>
+<tr class="separator:ae6107dbcf960f64ff1f36a0c8cc753e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0e11fe36ffe4a9bfa536d00d9a7272"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a8f0e11fe36ffe4a9bfa536d00d9a7272">constructStrIfExists</a> (exists, map, prefixstr=&quot;&quot;, suffixstr=&quot;&quot;)</td></tr>
+<tr class="separator:a8f0e11fe36ffe4a9bfa536d00d9a7272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2f334d1f54ca5b853fbbe8ea1c86469"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#af2f334d1f54ca5b853fbbe8ea1c86469">exportMappingXML</a> (mappingdict)</td></tr>
+<tr class="separator:af2f334d1f54ca5b853fbbe8ea1c86469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ab072bfd2e91099550132f2d3194bd835"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ab072bfd2e91099550132f2d3194bd835">geoterms</a> = [&quot;POINT&quot;,&quot;POLYGON&quot;,&quot;LINESTRING&quot;,&quot;LINE&quot;,&quot;BBOX&quot;,&quot;GEOMETRY&quot;]</td></tr>
+<tr class="separator:ab072bfd2e91099550132f2d3194bd835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d555b8e3fef1c2cfbfce23621608477"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a8d555b8e3fef1c2cfbfce23621608477">geofieldnames</a> = [&quot;GEOMETRY&quot;,&quot;X&quot;,&quot;Y&quot;,&quot;Z&quot;,&quot;LAT&quot;,&quot;LATITUDE&quot;,&quot;LON&quot;,&quot;LONG&quot;,&quot;LONGITUDE&quot;]</td></tr>
+<tr class="separator:a8d555b8e3fef1c2cfbfce23621608477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851b1539bf1bfb7092a9d2919fd4b5a3"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a851b1539bf1bfb7092a9d2919fd4b5a3">idfieldnames</a> = [&quot;ID&quot;]</td></tr>
+<tr class="separator:a851b1539bf1bfb7092a9d2919fd4b5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf66c023bd02142f562ec5282a16e63e"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#adf66c023bd02142f562ec5282a16e63e">labelfieldnames</a> = [&quot;NAME&quot;,&quot;TITLE&quot;,&quot;LABEL&quot;]</td></tr>
+<tr class="separator:adf66c023bd02142f562ec5282a16e63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f3f1a966c80d33a14fd39a89f3392fd"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a3f3f1a966c80d33a14fd39a89f3392fd">descriptorfieldnames</a> = [&quot;DESCRIPTION&quot;, &quot;COMMENT&quot;, &quot;REMARK&quot;, &quot;DEFINITION&quot;, &quot;CONTENT&quot;,&quot;ABSTRACT&quot;]</td></tr>
+<tr class="separator:a3f3f1a966c80d33a14fd39a89f3392fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7990ff4251a768a3600a5002c09c981f"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a7990ff4251a768a3600a5002c09c981f">subclassterms</a> = [&quot;TYPE&quot;,&quot;SUB&quot;]</td></tr>
+<tr class="separator:a7990ff4251a768a3600a5002c09c981f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3b3b26661848bacfec67cacda1d77cb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b3b26661848bacfec67cacda1d77cb6">&#9670;&nbsp;</a></span>detectColumnType()</h2>
+<a id="aa70d444ede23752a5aff38d62fde3a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70d444ede23752a5aff38d62fde3a80">&#9670;&nbsp;</a></span>checkTypeFromColumnName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -97,90 +129,16 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def detectColumnType </td>
+          <td class="memname">def checkTypeFromColumnName </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>resultmap</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Detects the type of a column which is to be entered into a QGIS vector layer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
-    <tr><td class="paramname">table</td><td>the layer to analyze the column to consider </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">def </span>detectColumnType(resultmap):</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        intcount = 0</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        doublecount = 0</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        datecount=0</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        uricount=0</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        stringcount=0</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">for</span> res <span class="keywordflow">in</span> resultmap:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">if</span> resultmap[res] == <span class="keywordtype">None</span> <span class="keywordflow">or</span> resultmap[res] == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                intcount += 1</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                doublecount += 1</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">if</span> isinstance(resultmap[res],QDateTime):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                datecount+=1</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">if</span> resultmap[res].isdigit():</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                intcount += 1</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                float(resultmap[res])</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                doublecount += 1</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                print(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> resultmap[res].startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                uricount+=1</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            stringcount+=1</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        QgsMessageLog.logMessage(str(intcount) + <span class="stringliteral">&quot; - &quot;</span> + str(doublecount) + <span class="stringliteral">&quot; - &quot;</span> + str(len(resultmap)),</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                 MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> intcount == len(resultmap):</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span> QVariant.Int</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> doublecount == len(resultmap):</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">return</span> QVariant.Double</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> datecount == len(resultmap):</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;xsd:date&quot;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> uricount == len(resultmap):</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;xsd:anyURI&quot;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> QVariant.String</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a7719daa9b701fee94681d6d677675cef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7719daa9b701fee94681d6d677675cef">&#9670;&nbsp;</a></span>detectLayerColumnType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">def detectLayerColumnType </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>layer</em>, </td>
+          <td class="paramname"><em>fieldname</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>columnindex</em>&#160;</td>
+          <td class="paramname"><em>columntype</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -194,21 +152,34 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">def </span>detectLayerColumnType(layer,columnindex):</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        features = layer.getFeatures()</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        columnmap={}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        counter=0</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            attrs = feat.attributes()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            columnmap[counter]=attrs[columnindex]</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            counter+=1</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> LayerUtils.detectColumnType(columnmap)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">def </span>checkTypeFromColumnName(fieldname,columntype):</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:double&quot;</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.geoterms:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:string&quot;</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.subclassterms:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;owl:Class&quot;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.labelfieldnames:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:LabelProperty&quot;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.descriptorfieldnames:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:DescriptionProperty&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotype&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> columntype:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> columntype</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af428e0da9890c28e8471632877684873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af428e0da9890c28e8471632877684873">&#9670;&nbsp;</a></span>detectLayerColumnTypes()</h2>
+<a id="a8f0e11fe36ffe4a9bfa536d00d9a7272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0e11fe36ffe4a9bfa536d00d9a7272">&#9670;&nbsp;</a></span>constructStrIfExists()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +188,251 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def detectLayerColumnTypes </td>
+          <td class="memname">def constructStrIfExists </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exists</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefixstr</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>suffixstr</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">def </span>constructStrIfExists(exists,map,prefixstr=&quot;&quot;,suffixstr=&quot;&quot;):</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> exists <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">return</span> str(prefixstr)+str(exists)+str(suffixstr)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae6107dbcf960f64ff1f36a0c8cc753e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6107dbcf960f64ff1f36a0c8cc753e7">&#9670;&nbsp;</a></span>constructStrIfListElemsExist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def constructStrIfListElemsExist </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>exists</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">def </span>constructStrIfListElemsExist(exists,map):</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        result=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">for</span> obj <span class="keywordflow">in</span> exists:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> obj[<span class="stringliteral">&quot;key&quot;</span>] <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                result+=str(obj.get(<span class="stringliteral">&quot;prefix&quot;</span>))+str(obj[<span class="stringliteral">&quot;key&quot;</span>])+str(obj.get(<span class="stringliteral">&quot;suffix&quot;</span>))</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af2f334d1f54ca5b853fbbe8ea1c86469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2f334d1f54ca5b853fbbe8ea1c86469">&#9670;&nbsp;</a></span>exportMappingXML()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def exportMappingXML </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>mappingdict</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">def </span>exportMappingXML(mappingdict):</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        xmlmappingheader = <span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; ?&gt;\n&lt;data&gt;\n&lt;file &quot;</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        xmlmapping = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;class=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;class&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;namespace=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;namespace&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;indid=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;indid&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &gt;&quot;</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> mappingdict[<span class="stringliteral">&quot;column&quot;</span>]:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            item = row</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> item.checkState():</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;column &quot;</span>+InterlinkUtils.constructStrIfListElemsExist([{<span class="stringliteral">&quot;key&quot;</span>:<span class="stringliteral">&quot;name&quot;</span>,<span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;name=\&quot;&quot;</span>,<span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;propiri&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;propiri=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;concept&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;concept=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;query&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;query=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;triplestoreurl&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;triplestoreurl=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}],row)+<span class="stringliteral">&quot;&gt;&quot;</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;valuemapping&quot;</span> <span class="keywordflow">in</span> mappingdict:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="keywordflow">for</span> key <span class="keywordflow">in</span> mappingdict:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                        xmlmapping += <span class="stringliteral">&quot;&lt;valuemapping from=\&quot;&quot;</span> + key + <span class="stringliteral">&quot;\&quot; to=\&quot;&quot;</span> + mappingdict[<span class="stringliteral">&quot;valuemapping&quot;</span>][key] + <span class="stringliteral">&quot;\&quot;/&gt;\n&quot;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;/column&gt;\n&quot;</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        xmlmapping += <span class="stringliteral">&quot;&lt;/file&gt;\n&lt;/data&gt;&quot;</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> xmlmappingheader + <span class="stringliteral">&quot;&gt;\n&quot;</span> + xmlmapping</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a16f895e439ce615c1a81790624514744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16f895e439ce615c1a81790624514744">&#9670;&nbsp;</a></span>readJSONMappingToDict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def readJSONMappingToDict </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span>readJSONMappingToDict(filename):</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        result=json.loads(filename,encoding=<span class="stringliteral">&quot;utf-8&quot;</span>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a40ab04d11fc381d1e85623e843d29c7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ab04d11fc381d1e85623e843d29c7e">&#9670;&nbsp;</a></span>readXMLMappingToDict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def readXMLMappingToDict </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">def </span>readXMLMappingToDict(filename):</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        tree = ET.parse(filename)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        root = tree.getroot()</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        filedata = root.find(<span class="stringliteral">&#39;file&#39;</span>)[0]</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        result={<span class="stringliteral">&quot;namespace&quot;</span>:filedata.get(<span class="stringliteral">&quot;namespace&quot;</span>),<span class="stringliteral">&quot;class&quot;</span>:filedata.get(<span class="stringliteral">&quot;class&quot;</span>),<span class="stringliteral">&quot;column&quot;</span>:[]}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">for</span> neighbor <span class="keywordflow">in</span> root.iter(<span class="stringliteral">&#39;column&#39;</span>):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            col={<span class="stringliteral">&quot;valuemappings&quot;</span>:{},<span class="stringliteral">&quot;name&quot;</span>:neighbor.get(<span class="stringliteral">&quot;name&quot;</span>),<span class="stringliteral">&quot;proptype&quot;</span>:neighbor.get(<span class="stringliteral">&quot;prop&quot;</span>),<span class="stringliteral">&quot;propiri&quot;</span>:neighbor.get(<span class="stringliteral">&quot;propiri&quot;</span>),<span class="stringliteral">&quot;concept&quot;</span>:neighbor.get(<span class="stringliteral">&quot;concept&quot;</span>),<span class="stringliteral">&quot;query&quot;</span>:neighbor.get(<span class="stringliteral">&quot;query&quot;</span>),<span class="stringliteral">&quot;triplestoreurl&quot;</span>:neighbor.get(<span class="stringliteral">&quot;triplestoreurl&quot;</span>)}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">for</span> vmap <span class="keywordflow">in</span> neighbor.findall(<span class="stringliteral">&quot;valuemapping&quot;</span>):</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                col[<span class="stringliteral">&quot;valuemappings&quot;</span>][vmap.get(<span class="stringliteral">&quot;from&quot;</span>)] = vmap.get(<span class="stringliteral">&quot;to&quot;</span>)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a10a63be619f27e74faae765db238c9aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10a63be619f27e74faae765db238c9aa">&#9670;&nbsp;</a></span>suggestFieldNameMappings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def suggestFieldNameMappings </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">def </span>suggestFieldNameMappings(self, layer):</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        fieldmapping = {}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields().names():</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">if</span> field.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                fieldmapping[field] = field</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aad8420d212acf58c7f5d6cf1e6253678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8420d212acf58c7f5d6cf1e6253678">&#9670;&nbsp;</a></span>suggestMappingSchema()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def suggestMappingSchema </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>layer</em></td><td>)</td>
@@ -230,21 +445,62 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">def </span>detectLayerColumnTypes(layer):</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        features = layer.getFeatures()</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        columnmap={}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        feature = QgsFeature()</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        features.nextFeature(feature)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        attrs = feature.attributes()</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(0, len(attrs)):</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            columnmap[i]=LayerUtils.detectLayerColumnType(layer,i)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> LayerUtils.detectColumnType(columnmap)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">def </span>suggestMappingSchema(layer):</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        print(<span class="stringliteral">&quot;Suggest mapping schema based on data&quot;</span>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        columntypes=[]</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        counter=0</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        idcols=set()</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">for</span> column <span class="keywordflow">in</span> layer.fields().names():</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            thetype=LayerUtils.detectLayerColumnType(layer,counter)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> thetype[<span class="stringliteral">&quot;unique&quot;</span>]:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                idcols.add(layer.fields().names()[counter])</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                thetype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            columntypes.append(InterlinkUtils.checkTypeFromColumnName(layer.fields().names()[counter],thetype))</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            counter+=1</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;IDCols: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Columntypes: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> columntypes</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a6ab4400bb1d621394fec9af6ed12467b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ab4400bb1d621394fec9af6ed12467b">&#9670;&nbsp;</a></span>exportGeometryType()</h2>
+<a id="ac4a3fd7f3ebf209b7296b1f1af525f2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4a3fd7f3ebf209b7296b1f1af525f2f">&#9670;&nbsp;</a></span>suggestMostProbableID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def suggestMostProbableID </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">def </span>suggestMostProbableID(self, layer):</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        fieldmapping = {}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields().names():</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">if</span> field.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                fieldmapping[field] = field</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3f3f1a966c80d33a14fd39a89f3392fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f3f1a966c80d33a14fd39a89f3392fd">&#9670;&nbsp;</a></span>descriptorfieldnames</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,45 +509,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def exportGeometryType </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>curid</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>geom</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>vocab</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>literaltype</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>init</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>ttlstring</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">list descriptorfieldnames = [&quot;DESCRIPTION&quot;, &quot;COMMENT&quot;, &quot;REMARK&quot;, &quot;DEFINITION&quot;, &quot;CONTENT&quot;,&quot;ABSTRACT&quot;]</td>
         </tr>
       </table>
   </td>
@@ -300,102 +518,11 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">def </span>exportGeometryType(curid,geom,vocab,literaltype,init,ttlstring):</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;GeoSPARQL&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#Feature&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#SpatialObject&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#Geometry&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#hasGeometry&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#asWKT&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#Feature&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://www.opengis.net/ont/geosparql#SpatialObject&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#Geometry&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://www.opengis.net/ont/geosparql#SpatialObject&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;&gt; &lt;http://www.opengis.net/ont/geosparql#hasGeometry&gt; &lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.opengis.net/ont/geosparql#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;http://www.opengis.net/ont/geosparql#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://www.opengis.net/ont/geosparql#Geometry&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;WKT&quot;</span> <span class="keywordflow">in</span> literaltype:</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://www.opengis.net/ont/geosparql#asWKT&gt; \&quot;&quot;</span> + geom.asWkt() + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;GeoJSON&quot;</span>:</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://www.opengis.net/ont/geosparql#asGeoJSON&gt; \&quot;&quot;</span> + geom.asJson() + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.opengis.net/ont/geosparql#geoJSONLiteral&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;WKB&quot;</span>:</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://www.opengis.net/ont/geosparql#asWKB&gt; \&quot;&quot;</span> + geom.asWkb() + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wkbLiteral&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;W3C&quot;</span> <span class="keywordflow">in</span> vocab <span class="keywordflow">and</span> <span class="stringliteral">&quot;Geo&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                    <span class="stringliteral">&quot;&lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; \&quot;&quot;</span>+str(geom.centroid().vertexAt(0).x())+<span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; \&quot;&quot;</span>+str(geom.centroid().vertexAt(0).y())+<span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;Schema.org&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                    <span class="stringliteral">&quot;&lt;http://schema.org/geo&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                    <span class="stringliteral">&quot;&lt;http://schema.org/latitude&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                    <span class="stringliteral">&quot;&lt;http://schema.org/longitude&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                curid) + <span class="stringliteral">&quot;&gt; &lt;http://schema.org/geo&gt; &lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://schema.org/latitude&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                geom.centroid().vertexAt(0).x()) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://schema.org/longitude&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                geom.centroid().vertexAt(0).y()) + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;OSMRDF&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                    <span class="stringliteral">&quot;&lt;https://www.openstreetmap.org/meta/loc&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                curid) + <span class="stringliteral">&quot;&gt; &lt;https://www.openstreetmap.org/meta/loc&gt; \&quot;&quot;</span> + geom.asWkt() + <span class="stringliteral">&quot;\&quot; .\n&quot;</span>)</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;NeoGeo&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                    <span class="stringliteral">&quot;&lt;http://geovocab.org/spatial#Feature&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                    <span class="stringliteral">&quot;&lt;http://geovocab.org/geometry#Geometry&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    <span class="stringliteral">&quot;&lt;http://geovocab.org/geometry#geometry&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#ObjectProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                    <span class="stringliteral">&quot;&lt;http://geovocab.org/geometry#asWKT&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;&gt; &lt;http://geovocab.org/geometry#geometry&gt; &lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://geovocab.org/geometry#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;http://geovocab.org/geometry#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#Class&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;http://geovocab.org/geometry#&quot;</span> + QgsWkbTypes.displayString(</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                geom.wkbType()) + <span class="stringliteral">&quot;&gt; &lt;http://www.w3.org/2000/01/rdf-schema#subClassOf&gt; &lt;http://geovocab.org/geometry#Geometry&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(curid) + <span class="stringliteral">&quot;_geom&gt; &lt;http://geovocab.org/geometry#asWKT&gt; \&quot;&quot;</span> + geom.asWkt() + <span class="stringliteral">&quot;\&quot;^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;OrdnanceUK&quot;</span> <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            <span class="keywordflow">if</span> init:</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                    <span class="stringliteral">&quot;&lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                ttlstring.add(</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                    <span class="stringliteral">&quot;&lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.w3.org/2002/07/owl#DatatypeProperty&gt; .\n&quot;</span>)</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                curid) + <span class="stringliteral">&quot;&gt; &lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                geom.centroid().vertexAt(0).x()) + <span class="stringliteral">&quot;\&quot; .\n&quot;</span>)</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            ttlstring.add(<span class="stringliteral">&quot;&lt;&quot;</span> + str(</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                curid) + <span class="stringliteral">&quot;&gt; &lt;http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing&gt; \&quot;&quot;</span> + str(</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                geom.centroid().vertexAt(0).y()) + <span class="stringliteral">&quot;\&quot; .\n&quot;</span>)</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keywordflow">return</span> ttlstring</div>
-</div><!-- fragment -->
+
 </div>
 </div>
-<a id="aa1a88978ad30c85e5b095f9d079d1547"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1a88978ad30c85e5b095f9d079d1547">&#9670;&nbsp;</a></span>getLayerColumnAsList()</h2>
+<a id="a8d555b8e3fef1c2cfbfce23621608477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d555b8e3fef1c2cfbfce23621608477">&#9670;&nbsp;</a></span>geofieldnames</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -404,21 +531,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def getLayerColumnAsList </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>layer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>columnindex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">list geofieldnames = [&quot;GEOMETRY&quot;,&quot;X&quot;,&quot;Y&quot;,&quot;Z&quot;,&quot;LAT&quot;,&quot;LATITUDE&quot;,&quot;LON&quot;,&quot;LONG&quot;,&quot;LONGITUDE&quot;]</td>
         </tr>
       </table>
   </td>
@@ -427,20 +540,11 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">def </span>getLayerColumnAsList(layer,columnindex):</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        features = layer.getFeatures()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        result=[]</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        counter=0</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            attrs = feat.attributes()</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            result.append(attrs[columnindex])</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-</div><!-- fragment -->
+
 </div>
 </div>
-<a id="a40028de6fa936f8dd159da67ea1734be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40028de6fa936f8dd159da67ea1734be">&#9670;&nbsp;</a></span>processLiteral()</h2>
+<a id="ab072bfd2e91099550132f2d3194bd835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab072bfd2e91099550132f2d3194bd835">&#9670;&nbsp;</a></span>geoterms</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -449,45 +553,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def processLiteral </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>literal</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>literaltype</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reproject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>currentlayergeojson</em> = <code>None</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>triplestoreconf</em> = <code>None</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reprojecttask</em> = <code>False</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">list geoterms = [&quot;POINT&quot;,&quot;POLYGON&quot;,&quot;LINESTRING&quot;,&quot;LINE&quot;,&quot;BBOX&quot;,&quot;GEOMETRY&quot;]</td>
         </tr>
       </table>
   </td>
@@ -496,72 +562,11 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">def </span>processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False):</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        geom = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">if</span> triplestoreconf!=<span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;literaltype&quot;</span> <span class="keywordflow">in</span> triplestoreconf:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            literaltype = triplestoreconf[<span class="stringliteral">&quot;literaltype&quot;</span>]</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                res = SPARQLUtils.handleURILiteral(literal,currentlayergeojson)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordflow">if</span> res == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                    <span class="keywordflow">return</span> json.loads(<span class="stringliteral">&quot;{\&quot;geometry\&quot;:{}}&quot;</span>)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <span class="keywordflow">return</span> res[0]</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span> literaltype == <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                literaltype = SPARQLUtils.detectGeoLiteralType(literal)</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            curcrs=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> <span class="stringliteral">&quot;wkt&quot;</span> <span class="keywordflow">in</span> literaltype.lower() <span class="keywordflow">or</span> literaltype==<span class="stringliteral">&quot;http://www.openlinksw.com/schemas/virtrdf#Geometry&quot;</span>:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                literal = literal.strip()</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                <span class="keywordflow">if</span> literal.startswith(<span class="stringliteral">&quot;&lt;http&quot;</span>):</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    index = literal.index(<span class="stringliteral">&quot;&gt;&quot;</span>) + 1</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                    slashindex = literal.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                    <span class="keywordflow">if</span> reprojecttask:</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                        reproject = literal[slashindex:(index - 1)]</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                    geom = QgsGeometry.fromWkt(literal[index:])</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                    curcrs=literal[slashindex:(index - 1)]</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                    geom = QgsGeometry.fromWkt(literal)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;gml&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                curcrs=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;EPSG&quot;</span> <span class="keywordflow">in</span> literal <span class="keywordflow">and</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">in</span> literal:</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                    srspart=literal[literal.find(<span class="stringliteral">&quot;srsName=&quot;</span>):literal.find(<span class="stringliteral">&quot;&gt;&quot;</span>)]</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    curcrs=srspart.replace(<span class="stringliteral">&quot;srsName=\&quot;http://www.opengis.net/def/crs/EPSG/0/&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    curcrs=curcrs.replace(<span class="stringliteral">&quot;\&quot;&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;EPSG&quot;</span> <span class="keywordflow">in</span> literal <span class="keywordflow">and</span> <span class="stringliteral">&quot;http&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> literal:</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                    srspart = literal[literal.find(<span class="stringliteral">&quot;srsName=&quot;</span>):literal.find(<span class="stringliteral">&quot;&gt;&quot;</span>)]</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                    curcrs=srspart.replace(<span class="stringliteral">&quot;srsName=\&quot;EPSG:&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                    curcrs=curcrs.replace(<span class="stringliteral">&quot;\&quot;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <span class="keywordflow">if</span> reprojecttask <span class="keywordflow">and</span> curcrs!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    reproject = str(curcrs)</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                geom=QgsGeometry(geom)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;geojson&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                <span class="keywordflow">return</span> literal</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wkb&quot;</span> <span class="keywordflow">in</span> literaltype.lower():</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span> <span class="keywordflow">and</span> reproject != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                geom=LayerUtils.reprojectGeometry(geom,reproject)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordflow">if</span> geom != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                res=json.loads(geom.asJson())</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                <span class="keywordflow">if</span> currentlayergeojson!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                    currentlayergeojson[<span class="stringliteral">&quot;geometry&quot;</span>]=res</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                    <span class="keywordflow">if</span> curcrs != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        currentlayergeojson[<span class="stringliteral">&quot;crs&quot;</span>]=curcrs</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                    <span class="keywordflow">return</span> currentlayergeojson</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                <span class="keywordflow">if</span> curcrs!=<span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    res[<span class="stringliteral">&quot;crs&quot;</span>]=curcrs</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <span class="keywordflow">return</span> res</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            print(<span class="stringliteral">&quot;Literal: &quot;</span> + str(literal) + <span class="stringliteral">&quot; &quot;</span> + str(literaltype))</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            print(e)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            print(traceback.format_exc())</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-</div><!-- fragment -->
+
 </div>
 </div>
-<a id="ab0b775b208048ccbfc14034c52dac205"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0b775b208048ccbfc14034c52dac205">&#9670;&nbsp;</a></span>reprojectGeometry()</h2>
+<a id="a851b1539bf1bfb7092a9d2919fd4b5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a851b1539bf1bfb7092a9d2919fd4b5a3">&#9670;&nbsp;</a></span>idfieldnames</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,27 +575,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def reprojectGeometry </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>geom</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>fromcrs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tocrs</em> = <code>&quot;EPSG:4326&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">list idfieldnames = [&quot;ID&quot;]</td>
         </tr>
       </table>
   </td>
@@ -599,18 +584,51 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">def </span>reprojectGeometry(geom,fromcrs,tocrs=&quot;EPSG:4326<span class="stringliteral">&quot;):</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="stringliteral">        sourceCrs = QgsCoordinateReferenceSystem(fromcrs)</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="stringliteral">        destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="stringliteral">        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="stringliteral">        </span><span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot; + str(geom.asJson()),</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        res=geom.transform(tr)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;FIELDNAMES: &quot; + str(geom.asJson()),</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="comment">#                         MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">return</span> geom</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-</div><!-- fragment -->
+
+</div>
+</div>
+<a id="adf66c023bd02142f562ec5282a16e63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf66c023bd02142f562ec5282a16e63e">&#9670;&nbsp;</a></span>labelfieldnames</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list labelfieldnames = [&quot;NAME&quot;,&quot;TITLE&quot;,&quot;LABEL&quot;]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7990ff4251a768a3600a5002c09c981f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7990ff4251a768a3600a5002c09c981f">&#9670;&nbsp;</a></span>subclassterms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list subclassterms = [&quot;TYPE&quot;,&quot;SUB&quot;]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->
@@ -619,7 +637,7 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00041.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00050.html">util</a></li><li class="navelem"><a class="el" href="a00054.html">layerutils</a></li><li class="navelem"><a class="el" href="a00093.html">LayerUtils</a></li>
+    <li class="navelem"><a class="el" href="a00041.html">sparqlunicornGoesGIS</a></li><li class="navelem"><a class="el" href="a00050.html">util</a></li><li class="navelem"><a class="el" href="a00053.html">interlinkutils</a></li><li class="navelem"><a class="el" href="a00093.html">InterlinkUtils</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.1 </li>

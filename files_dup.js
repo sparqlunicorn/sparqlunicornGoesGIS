@@ -1,9 +1,9 @@
 var files_dup =
 [
     [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00571.html", null ],
-    [ "tasks/__init__.py", "a00574.html", null ],
-    [ "util/__init__.py", "a00577.html", null ],
+    [ "dialogs/__init__.py", "a00599.html", null ],
+    [ "tasks/__init__.py", "a00602.html", null ],
+    [ "util/__init__.py", "a00605.html", null ],
     [ "enrichmenttab.py", "a00017.html", [
       [ "EnrichmentTab", "a00069.html", "a00069" ]
     ] ],
@@ -12,11 +12,13 @@ var files_dup =
     [ "interlinkingtab.py", "a00020.html", [
       [ "InterlinkingTab", "a00073.html", "a00073" ]
     ] ],
-    [ "interlinkutils.py", "a00029.html", null ],
+    [ "interlinkutils.py", "a00029.html", [
+      [ "InterlinkUtils", "a00093.html", "a00093" ]
+    ] ],
     [ "layerutils.py", "a00032.html", "a00032" ],
     [ "matchingtools.py", "a00035.html", [
-      [ "StringMatching", "a00097.html", "a00097" ],
-      [ "MatchingTools", "a00101.html", "a00101" ]
+      [ "StringMatching", "a00101.html", "a00101" ],
+      [ "MatchingTools", "a00105.html", "a00105" ]
     ] ],
     [ "plugin_upload.py", "a00005.html", "a00005" ],
     [ "resources_rc.py", "a00008.html", "a00008" ],
