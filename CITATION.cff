@@ -19,7 +19,7 @@ identifiers:
     value: "10.5281/zenodo.3786814"
   - description: This is the archived snapshot of version 0.17
     type: doi
-    value: "10.5281/zenodo.TBD"
+    value: "10.5281/zenodo.10779466"
     date-released: "2024-03-04"
   - description: This is the archived snapshot of version 0.16
     type: doi
