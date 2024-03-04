@@ -151,9 +151,15 @@ class EnrichmentQueryTask(QgsTask):
         for f in self.layer.getFeatures():
             if rowww >= self.resulttable.rowCount():
                 self.resulttable.insertRow(rowww)
-            if f[self.idfield] in self.resultmap:
-                QgsMessageLog.logMessage(str(f[self.idfield]) + " - " + str(self.resultmap[f[self.idfield]]),
-                                         MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(self.resultmap), MESSAGE_CATEGORY,
+                                     Qgis.Info)
+            fields=f.fields().names()
+            counter=0
+            for current, attr in enumerate(f.fields()):
+                value=f.attribute(f.fieldNameIndex(attr.name()))
+                #if f[self.idfield] in self.resultmap:
+                #QgsMessageLog.logMessage(str(f[self.idfield]) + " - " + str(self.resultmap[f[self.idfield]]),
+                #                        MESSAGE_CATEGORY, Qgis.Info)
                 if self.strategy == "Merge":
                     newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))
                 elif self.strategy == "Keep Local":
@@ -169,10 +175,11 @@ class EnrichmentQueryTask(QgsTask):
                     else:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
                 else:
-                    newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
+                    newitem = QTableWidgetItem(str(value))
                 QgsMessageLog.logMessage(str(rowww) + " - " + str(self.row) + " - " + str(newitem), MESSAGE_CATEGORY,
                                          Qgis.Info)
-                self.resulttable.setItem(rowww, self.row, newitem)
+                self.resulttable.setItem(rowww, counter, newitem)
+                counter+=1
             rowww += 1
         self.layer.commitChanges()
         self.progress.close()

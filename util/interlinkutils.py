@@ -13,7 +13,7 @@ class InterlinkUtils:
     idfieldnames=["ID","IDENTIFIER"]
     labelfieldnames=["NAME","TITLE","LABEL"]
     descriptorfieldnames = ["DESCRIPTION", "COMMENT", "REMARK", "DEFINITION", "CONTENT","ABSTRACT"]
-    subclassterms=["TYP","TYPE","SUB"]
+    subclassterms=["TYP","TYPE","SUB","CATEGORY"]
 
     @staticmethod
     def readXMLMappingToDict(filename):
