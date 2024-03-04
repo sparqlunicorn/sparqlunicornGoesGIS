@@ -24,9 +24,11 @@ identifiers:
   - description: This is the archived snapshot of version 0.16
     type: doi
     value: "10.5281/zenodo.8192848"
+    date-released: "2023-07-28"
   - description: This is the archived snapshot of version 0.15
     type: doi
     value: "10.5281/zenodo.7304482"
+    date-released: "2022-11-08"
   - description: This is the archived snapshot of version 0.14.1
     type: doi
     value: "10.5281/zenodo.6039443"
