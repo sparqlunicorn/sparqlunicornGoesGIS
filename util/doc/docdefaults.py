@@ -1014,7 +1014,7 @@ class DocDefaults:
                 miny=vert["x"]
             }
         }
-        var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: maxz-minz, bevelEnabled: false});
+        var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: Math.abs(maxz-minz), bevelEnabled: false});
         extrudedGeometry.computeBoundingBox()
         const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
         const mesh = new THREE.Mesh( extrudedGeometry, material );
@@ -1315,13 +1315,13 @@ class DocDefaults:
                 for(resitem in result[res]){
                     if(!(nodetype.includes("class"))) {
                         if ((result[res][resitem] + "").trim().startsWith("http")) {
-                            dialogcontent += "<li><a href=\"" + rewriteLink(result[res][resitem]) + "\" target=\"_blank\">" + shortenURI(result[res][resitem]) + "</a> [" + result[res][resitem] + "]</li>"
+                            dialogcontent += "<li><a href=\\"" + rewriteLink(result[res][resitem]) + "\\" target=\\"_blank\\">" + shortenURI(result[res][resitem]) + "</a> [" + result[res][resitem] + "]</li>"
                         } else if (resitem != "instancecount") {
                             dialogcontent += "<li>" + result[res][resitem] + "</li>"
                         }
                     }else{
                         if ((resitem+ "").trim().startsWith("http")) {
-                            dialogcontent += "<li><a href=\"" + rewriteLink(resitem) + "\" target=\"_blank\">" + shortenURI(resitem) + "</a></li>"
+                            dialogcontent += "<li><a href=\\"" + rewriteLink(resitem) + "\\" target=\\"_blank\\">" + shortenURI(resitem) + "</a></li>"
                         } else if (resitem != "instancecount") {
                             dialogcontent += "<li>" + result[res][resitem] + "</li>"
                         }
@@ -1334,9 +1334,9 @@ class DocDefaults:
                 dialogcontent+="</td>"
             }else if((Object.keys(result[res])[0]+"").startsWith("http") || (result[res][Object.keys(result[res])[0]]+"").startsWith("http")){
                 if(!(nodetype.includes("class"))) {
-                    dialogcontent+="<td><a href=\""+rewriteLink(result[res][Object.keys(result[res])[0]]+"")+"\" target=\"_blank\">"+shortenURI(result[res][Object.keys(result[res])[0]]+"")+"</a></td>"
+                    dialogcontent+="<td><a href=\\""+rewriteLink(result[res][Object.keys(result[res])[0]]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res][Object.keys(result[res])[0]]+"")+"</a></td>"
                 }else{
-                    dialogcontent+="<td><a href=\""+rewriteLink(Object.keys(result[res])[0]+"")+"\" target=\"_blank\">"+shortenURI(Object.keys(result[res])[0]+"")+"</a></td>"
+                    dialogcontent+="<td><a href=\\""+rewriteLink(Object.keys(result[res])[0]+"")+"\\" target=\\"_blank\\">"+shortenURI(Object.keys(result[res])[0]+"")+"</a></td>"
                 }
             }else if(Object.keys(result[res])[0]!="instancecount"){
                 if(!(nodetype.includes("class"))) {

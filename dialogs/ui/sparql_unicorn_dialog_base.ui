@@ -791,7 +791,6 @@ SELECT ?label ?geo ?item WHERE {
     <addaction name="actionConstraint_By_BBOX"/>
     <addaction name="actionLayer_Column_as_Variable"/>
     <addaction name="actionSearch_Concept_for_Query"/>
-    <addaction name="actionLayer_Query"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">

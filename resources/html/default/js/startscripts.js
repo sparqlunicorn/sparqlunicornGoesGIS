@@ -997,7 +997,7 @@ function prepareAnnotationFromJSON(verts,annotations){
             miny=vert["x"]
         }
     }
-	var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: maxz-minz, bevelEnabled: false});
+	var extrudedGeometry = new THREE.ExtrudeGeometry(svgShape, {depth: Math.abs(maxz-minz), bevelEnabled: false});
     extrudedGeometry.computeBoundingBox()
     const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
     const mesh = new THREE.Mesh( extrudedGeometry, material );
