@@ -81,7 +81,7 @@ class InterlinkingTab:
         columntypes=InterlinkUtils.suggestMappingSchema(layer)
         counter=0
         for col in columntypes:
-            if col["id"] and not col["geotype"]:
+            if "id" in col and col["id"] and not col["geotype"]:
                 self.dlg.interlinkTable.item(counter,1).setCheckState(col["id"])
                 item = QTableWidgetItem("rdf:type")
                 item.setText("rdf:type")
@@ -123,6 +123,8 @@ class InterlinkingTab:
         if len(self.chooseLayerInterlink) == 0:
             return
         layer=self.chooseLayerInterlink.currentLayer()
+        if layer==None:
+            return
         self.interlinkNameSpace.setText("http://www.github.com/sparqlunicorn/data/"+str(layer.name()).lower().replace(" ","_")+"/")
         try:
             fieldnames = [field.name() for field in layer.fields()]
@@ -149,15 +151,15 @@ class InterlinkingTab:
                 self.interlinkTable.setItem(row, 1, item3)
                 self.interlinkTable.setItem(row, 2, item4)
                 cbox = QComboBox()
-                cbox.addItem("Automatic")
-                cbox.addItem("AnnotationProperty")
-                cbox.addItem("DataProperty")
-                cbox.addItem("ObjectProperty")
-                cbox.addItem("SubClass")
-                cbox.addItem("GeoProperty")
-                cbox.addItem("LabelProperty")
-                cbox.addItem("DescriptionProperty")
-                cbox.addItem("TypeProperty")
+                cbox.addItem(UIUtils.linkeddataicon,"Automatic")
+                cbox.addItem(UIUtils.annotationpropertyicon,"AnnotationProperty")
+                cbox.addItem(UIUtils.datatypepropertyicon,"DataProperty")
+                cbox.addItem(UIUtils.objectpropertyicon,"ObjectProperty")
+                cbox.addItem(UIUtils.subclassicon,"SubClass")
+                cbox.addItem(UIUtils.georelationpropertyicon,"GeoProperty")
+                cbox.addItem(UIUtils.labelannotationpropertyicon,"LabelProperty")
+                cbox.addItem(UIUtils.commentannotationpropertyicon,"DescriptionProperty")
+                cbox.addItem(UIUtils.classicon,"TypeProperty")
                 self.interlinkTable.setCellWidget(row, 5, cbox)
                 currentRowCount = self.interlinkTable.rowCount()
                 row += 1

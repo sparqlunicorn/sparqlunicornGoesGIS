@@ -9,11 +9,11 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 class InterlinkUtils:
 
     geoterms=["POINT","POLYGON","LINESTRING","LINE","BBOX","GEOMETRY"]
-    geofieldnames=["GEOMETRY","X","Y","Z","LAT","LATITUDE","LON","LONG","LONGITUDE"]
-    idfieldnames=["ID"]
+    geofieldnames=["GEOMETRY","X","Y","Z","THE_GEOM","GEO","LAT","LATITUDE","LON","LONG","LONGITUDE"]
+    idfieldnames=["ID","IDENTIFIER"]
     labelfieldnames=["NAME","TITLE","LABEL"]
     descriptorfieldnames = ["DESCRIPTION", "COMMENT", "REMARK", "DEFINITION", "CONTENT","ABSTRACT"]
-    subclassterms=["TYPE","SUB"]
+    subclassterms=["TYP","TYPE","SUB"]
 
     @staticmethod
     def readXMLMappingToDict(filename):
