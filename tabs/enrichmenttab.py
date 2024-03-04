@@ -7,6 +7,9 @@ from ..tasks.query.enrichment.enrichmentquerytask import EnrichmentQueryTask
 from qgis.PyQt.QtWidgets import QProgressDialog
 from qgis.PyQt.QtWidgets import QComboBox, QTableWidgetItem, QHBoxLayout, QPushButton, QWidget, \
      QMessageBox, QStyle
+from qgis.core import (
+    QgsTask, QgsMessageLog,
+)
 from qgis.PyQt.QtCore import Qt
 from ..dialogs.tool.whattoenrichdialog import EnrichmentDialog
 
@@ -35,8 +38,6 @@ class EnrichmentTab:
         self.addEnrichedLayerButton.clicked.connect(self.addEnrichedLayer)
         self.startEnrichment = dlg.startEnrichment
         self.startEnrichment.clicked.connect(self.enrichLayerProcess)
-        self.exportInterlink = dlg.exportInterlink
-        self.exportInterlink.clicked.connect(self.exportEnrichedLayer)
         self.loadLayerEnrich = dlg.loadLayerEnrich
         self.loadLayerEnrich.clicked.connect(self.loadLayerForEnrichment)
         self.addEnrichedLayerRowButton.hide()
@@ -193,9 +194,19 @@ class EnrichmentTab:
     ## Starts the process of layer enrichment according to the options selected in the enrichment dialog.
     #  @param self The object pointer.
     def enrichLayerProcess(self):
-        #layers = QgsProject.instance().layerTreeRoot().children()
-        #selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
-        self.enrichLayer = layer = self.chooseLayerEnrich.currentLayer().clone()
+        layers = QgsProject.instance().layerTreeRoot().children()
+        selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
+        self.enrichLayer = self.dlg.chooseLayerEnrich.currentLayer()
+
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.enrichLayer.name()),
+            "EnrichmentTab", Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.enrichLayer.fields()),
+            "EnrichmentTab", Qgis.Info)
+        fieldnames = [field.name() for field in self.enrichLayer.fields()]
+        QgsMessageLog.logMessage(str(fieldnames),
+                                 "TESTIIIT", Qgis.Info)
         attlist = {}
         itemlist = []
         propertylist = []
@@ -220,6 +231,12 @@ class EnrichmentTab:
                 return
             item = self.dlg.enrichTable.item(row, 0).text()
             propertyy = self.dlg.enrichTable.item(row, 1)
+            QgsMessageLog.logMessage('ITEM "{}"'.format(
+                item),
+                "EnrichmentTab", Qgis.Info)
+            QgsMessageLog.logMessage('PROPERTY "{}"'.format(
+                propertyy),
+                "EnrichmentTab", Qgis.Info)
             triplestoreurl = ""
             if self.dlg.enrichTable.item(row, 2) != None:
                 triplestoreurl = self.dlg.enrichTable.item(row, 2).text()
@@ -252,12 +269,12 @@ class EnrichmentTab:
                 for f in self.enrichLayer.getFeatures():
                     if rowww >= self.dlg.enrichTableResult.rowCount():
                         self.dlg.enrichTableResult.insertRow(rowww)
-                    # if item in f:
-                    newitem = QTableWidgetItem(str(f[item]))
-                    self.dlg.enrichTableResult.setItem(rowww, row, newitem)
-                    # if ";" in str(newitem):
-                    #    newitem.setBackground(QColor.red)
-                    print(str(newitem))
+                    if item in f:
+                        newitem = QTableWidgetItem(str(f[item]))
+                        self.dlg.enrichTableResult.setItem(rowww, row, newitem)
+                        #if ";" in str(newitem):
+                        #    newitem.setBackground(QColor.red)
+                        print(str(newitem))
                     rowww += 1
             self.enrichLayer.commitChanges()
             row += 1

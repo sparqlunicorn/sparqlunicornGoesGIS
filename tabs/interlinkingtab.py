@@ -4,8 +4,16 @@ from qgis.utils import iface
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtWidgets import QTableWidgetItem, QMessageBox, QFileDialog, QComboBox
 from qgis.PyQt.QtGui import QRegExpValidator
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
+from qgis.core import QgsApplication
+from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.PyQt.QtCore import Qt
+import json
 
+from ..util.interlinkutils import InterlinkUtils
 from ..util.ui.uiutils import UIUtils
+from ..util.export.data.exporter.exporterutils import ExporterUtils
+from ..tasks.processing.convertlayertask import ConvertLayerTask
 
 ## Provides implementations for functions accessible from the interlinking tab
 class InterlinkingTab:
@@ -26,11 +34,14 @@ class InterlinkingTab:
         self.interlinkNameSpace.setValidator(QRegExpValidator(UIUtils.urlregex, self.dlg))
         self.interlinkNameSpace.textChanged.connect(lambda: UIUtils.check_state(self.interlinkNameSpace))
         self.interlinkNameSpace.textChanged.emit(self.interlinkNameSpace.text())
+        self.exportInterlink = dlg.exportInterlink
+        self.exportInterlink.clicked.connect(self.exportInterlinkedLayer)
         self.loadLayerInterlink=dlg.loadLayerInterlink
         self.loadLayerInterlink.clicked.connect(self.loadLayerForInterlink)
         self.chooseLayerInterlink.setFilters(QgsMapLayerProxyModel.PointLayer|QgsMapLayerProxyModel.LineLayer|QgsMapLayerProxyModel.PolygonLayer|QgsMapLayerProxyModel.NoGeometry)
         self.dlg.exportMappingButton.clicked.connect(self.exportMapping)
         self.dlg.importMappingButton.clicked.connect(self.loadMapping)
+        self.dlg.suggestMapping.clicked.connect(self.suggestSchema)
 
     ## Loads an enrichment mapping from a previously defined mapping file.
     #  @param self The object pointer.
@@ -42,6 +53,68 @@ class InterlinkingTab:
             filepath = fileNames[0].split(".")
             self.readMapping(fileNames[0])
 
+    def exportInterlinkedLayer(self):
+        layer = self.chooseLayerInterlink.currentLayer()
+        columntypes=json.loads(self.exportMapping(True))
+        filename = QFileDialog.getSaveFileName(
+            self.dlg, "Select output file ", "", ExporterUtils.getExporterString())
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            filename),
+            "Convert Layer Dialog", Qgis.Info)
+        if filename[0] == "":
+            return
+        progress = QProgressDialog("Loading Layer and converting it to : " + str(filename), "Abort", 0, 0, self.dlg)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowTitle("Converting layer")
+        progress.setCancelButton(None)
+        self.qtask = ConvertLayerTask("Converting Layer to graph: " + str(filename),
+                                      layer, filename, "GeoSPARQL",
+                                      "WKT",self.dlg.prefixes,columntypes,
+                                      self.dlg,
+                                      progress)
+        QgsApplication.taskManager().addTask(self.qtask)
+
+    def suggestSchema(self):
+        if self.interlinkTable.rowCount() == 0:
+            self.loadLayerInterlink()
+        layer = self.chooseLayerInterlink.currentLayer()
+        columntypes=InterlinkUtils.suggestMappingSchema(layer)
+        counter=0
+        for col in columntypes:
+            if col["id"] and not col["geotype"]:
+                self.dlg.interlinkTable.item(counter,1).setCheckState(col["id"])
+                item = QTableWidgetItem("rdf:type")
+                item.setText("rdf:type")
+                item.setData(1, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+                self.dlg.interlinkTable.setItem(counter, 4,item)
+            if col["geotype"]:
+                self.dlg.interlinkTable.item(counter, 2).setCheckState(col["geotype"])
+                self.dlg.interlinkTable.cellWidget(counter, 5).setCurrentIndex(5)
+            self.dlg.interlinkTable.setItem(counter, 6,QTableWidgetItem(col["xsdtype"]))
+            if "xsd:" in col["xsdtype"]:
+                self.dlg.interlinkTable.cellWidget(counter,5).setCurrentIndex(2)
+            elif "owl:Class" in col["xsdtype"]:
+                self.dlg.interlinkTable.cellWidget(counter, 5).setCurrentIndex(4)
+                item = QTableWidgetItem("rdfs:subClassOf")
+                item.setText("rdfs:subClassOf")
+                item.setData(1, "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+                self.dlg.interlinkTable.setItem(counter, 4,item)
+            elif "ct:LabelProperty" in col["xsdtype"]:
+                self.dlg.interlinkTable.cellWidget(counter, 5).setCurrentIndex(6)
+                item = QTableWidgetItem("rdfs:label")
+                item.setText("rdfs:label")
+                item.setData(1, "http://www.w3.org/2000/01/rdf-schema#label")
+                self.dlg.interlinkTable.setItem(counter, 4, item)
+            elif "ct:CommentProperty" in col["xsdtype"]:
+                self.dlg.interlinkTable.cellWidget(counter, 5).setCurrentIndex(7)
+                item = QTableWidgetItem("rdfs:comment")
+                item.setText("rdfs:comment")
+                item.setData(1, "http://www.w3.org/2000/01/rdf-schema#comment")
+                self.dlg.interlinkTable.setItem(counter, 4, item)
+            counter+=1
+
+
+
     ##
     #  @brief Loads a QGIS layer for interlinking into the interlinking dialog.
     #
@@ -50,6 +123,7 @@ class InterlinkingTab:
         if len(self.chooseLayerInterlink) == 0:
             return
         layer=self.chooseLayerInterlink.currentLayer()
+        self.interlinkNameSpace.setText("http://www.github.com/sparqlunicorn/data/"+str(layer.name()).lower().replace(" ","_")+"/")
         try:
             fieldnames = [field.name() for field in layer.fields()]
             while self.interlinkTable.rowCount() > 0:
@@ -80,6 +154,10 @@ class InterlinkingTab:
                 cbox.addItem("DataProperty")
                 cbox.addItem("ObjectProperty")
                 cbox.addItem("SubClass")
+                cbox.addItem("GeoProperty")
+                cbox.addItem("LabelProperty")
+                cbox.addItem("DescriptionProperty")
+                cbox.addItem("TypeProperty")
                 self.interlinkTable.setCellWidget(row, 5, cbox)
                 currentRowCount = self.interlinkTable.rowCount()
                 row += 1
@@ -106,65 +184,143 @@ class InterlinkingTab:
     #  @param self The file path    
     def readMapping(self, filename):
         if self.dlg.interlinkTable.rowCount() != 0:
-            tree = ET.parse(filename)
-            root = tree.getroot()
-            filedata = root.find('file')[0]
-            self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
-            self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))
-            for neighbor in root.iter('column'):
-                name = neighbor.get("name")
-                proptype = neighbor.get("prop")
-                propiri = neighbor.get("propiri")
-                concept = neighbor.get("concept")
-                query = neighbor.get("query")
-                triplestoreurl = neighbor.get("triplestoreurl")
-                valuemappings = {}
-                for vmap in neighbor.findall("valuemapping"):
-                    valuemappings[vmap.get("from")] = vmap.get("to")
-                for row in range(self.dlg.interlinkTable.rowCount()):
-                    columnname = self.dlg.interlinkTable.item(row, 3).text()
-                    if columnname == name:
-                        if propiri != None:
-                            item = QTableWidgetItem(propiri)
-                            item.setText(propiri)
-                            item.setData(1, propiri)
-                            self.dlg.interlinkTable.setItem(row, 4, item)
-                        if proptype != None:
-                            comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
-                            if proptype == "annotation":
+            if "json" in filename:
+                f = open(filename)
+                filedata=json.load(f)
+                if "namespace" in filedata:
+                    self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
+                if "class" in filedata:
+                    self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))
+                if "columns" in filedata:
+                    for row in range(self.dlg.interlinkTable.rowCount()):
+                        columnname = self.dlg.interlinkTable.item(row, 3).text()
+                        if columnname not in filedata["columns"]:
+                            if "indid" in filedata and filedata["indid"]==columnname:
+                                self.dlg.interlinkTable.item(row, 1).setCheckState(True)
+                                item = QTableWidgetItem("rdf:type")
+                                item.setText("rdf:type")
+                                item.setData(1, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+                                self.dlg.interlinkTable.setItem(row, 4, item)
+                                comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
                                 comboboxx.setCurrentIndex(
-                                    comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype == "obj":
-                                comboboxx.setCurrentIndex(
-                                    comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype == "data":
-                                comboboxx.setCurrentIndex(
-                                    comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
-                            elif proptype == "subclass":
-                                comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
-                            else:
-                                comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
-                        if concept != None:
-                            item = QTableWidgetItem(concept)
-                            item.setText(concept)
-                            item.setData(1, concept)
-                            self.dlg.interlinkTable.setItem(row, 6, item)
-                        if valuemappings != {} and valuemappings != None:
-                            item = QTableWidgetItem("ValueMap{}")
-                            item.setText("ValueMap{}")
-                            item.setData(1, valuemappings)
-                            if query != None:
+                                    comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                item = QTableWidgetItem("owl:Class")
+                                item.setText("owl:Class")
+                                item.setData(1, "http://www.w3.org/2002/07/owl#Class")
+                                self.dlg.interlinkTable.setItem(row, 6, item)
+                            continue
+                        column=filedata["columns"][columnname]
+                        if "name" in column and column["name"] == columnname:
+                            if "propiri" in column:
+                                self.dlg.interlinkTable.setItem(row, 4, QTableWidgetItem(column["propiri"]))
+                            if "prop" in column and column["prop"]!=None:
+                                comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
+                                proptype=column["prop"]
+                                if proptype == "annotation":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "obj":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "data":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "label":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "geo":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "type":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "desc":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "subclass":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
+                                else:
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
+                            if "concept" in column and column["concept"] != None:
+                                item = QTableWidgetItem(column["concept"])
+                                item.setText(column["concept"])
+                                item.setData(1, column["concept"])
+                                self.dlg.interlinkTable.setItem(row, 6, item)
+                f.close()
+            elif "xml" in filename:
+                tree = ET.parse(filename)
+                root = tree.getroot()
+                filedata = root.find('file')[0]
+                self.dlg.interlinkNameSpace.setText(filedata.get("namespace"))
+                self.dlg.interlinkOwlClassInput.setText(filedata.get("class"))
+                for neighbor in root.iter('column'):
+                    name = neighbor.get("name")
+                    proptype = neighbor.get("prop")
+                    propiri = neighbor.get("propiri")
+                    concept = neighbor.get("concept")
+                    query = neighbor.get("query")
+                    triplestoreurl = neighbor.get("triplestoreurl")
+                    valuemappings = {}
+                    for vmap in neighbor.findall("valuemapping"):
+                        valuemappings[vmap.get("from")] = vmap.get("to")
+                    for row in range(self.dlg.interlinkTable.rowCount()):
+                        columnname = self.dlg.interlinkTable.item(row, 3).text()
+                        if columnname == name:
+                            if propiri != None:
+                                item = QTableWidgetItem(propiri)
+                                item.setText(propiri)
+                                item.setData(1, propiri)
+                                self.dlg.interlinkTable.setItem(row, 4, item)
+                            if proptype != None:
+                                comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
+                                if proptype == "annotation":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("AnnotationProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "obj":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("ObjectProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "data":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("DataProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "label":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("LabelProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "geo":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("GeoProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "type":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("TypeProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "desc":
+                                    comboboxx.setCurrentIndex(
+                                        comboboxx.findText("DescriptionProperty", QtCore.Qt.MatchFixedString))
+                                elif proptype == "subclass":
+                                    comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
+                                else:
+                                    comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
+                            if concept != None:
+                                item = QTableWidgetItem(concept)
+                                item.setText(concept)
+                                item.setData(1, concept)
+                                self.dlg.interlinkTable.setItem(row, 6, item)
+                            if valuemappings != {} and valuemappings != None:
+                                item = QTableWidgetItem("ValueMap{}")
+                                item.setText("ValueMap{}")
+                                item.setData(1, valuemappings)
+                                if query != None:
+                                    item.setData(2, query)
+                                    item.setData(3, triplestoreurl)
+                                self.dlg.interlinkTable.setItem(row, 7, item)
+                            elif query != None:
+                                item = QTableWidgetItem("ValueMap{}")
+                                item.setText("ValueMap{}")
                                 item.setData(2, query)
                                 item.setData(3, triplestoreurl)
-                            self.dlg.interlinkTable.setItem(row, 7, item)
-                        elif query != None:
-                            item = QTableWidgetItem("ValueMap{}")
-                            item.setText("ValueMap{}")
-                            item.setData(2, query)
-                            item.setData(3, triplestoreurl)
-                            if valuemappings != {} and valuemappings != None:
-                                item.setData(1, valuemappings)
-                            self.dlg.interlinkTable.setItem(row, 7, item)
+                                if valuemappings != {} and valuemappings != None:
+                                    item.setData(1, valuemappings)
+                                self.dlg.interlinkTable.setItem(row, 7, item)
         else:
             msgBox = QMessageBox()
             msgBox.setText("Please first load a dataset to enrich before loading a mapping file")
@@ -172,87 +328,68 @@ class InterlinkingTab:
 
     ## Shows the export concept mapping dialog.
     #  @param self The object pointer. 
-    def exportMapping(self):
-        filename, _filter = QFileDialog.getSaveFileName(
-            self.dlg, "Select   output file ", "", "XML (.xml)", )
-        if filename == "":
-            return
-        layers = QgsProject.instance().layerTreeRoot().children()
-        ttlstring = self.exportMappingProcess()
-        splitted = filename.split(".")
-        exportNameSpace = ""
-        exportSetClass = ""
-        with open(filename, 'w') as output_file:
-            output_file.write(ttlstring)
-            iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
+    def exportMapping(self,asString=False):
+        if not asString:
+            filename, _filter = QFileDialog.getSaveFileName(
+                self.dlg, "Select   output file ", "", "JSON (.json), XML (.xml)", )
+            if filename == "":
+                return
+            exportstring = self.exportMappingProcess("json" in filename)
+            with open(filename, 'w') as output_file:
+                output_file.write(exportstring)
+                iface.messageBar().pushMessage("export mapping successfully!", "OK", level=Qgis.Success)
+        else:
+            exportstring = self.exportMappingProcess(True)
+        return exportstring
 
     ## Converts a concept mapping to XML.
     #  @param self The object pointer. 
-    def exportMappingProcess(self):
-        xmlmappingheader = "<?xml version=\"1.0\" ?>\n<data>\n<file "
-        xmlmapping = ""
-        self.exportIdCol = ""
-        self.exportNameSpace = self.dlg.interlinkNameSpace.text()
-        self.exportSetClass = self.dlg.interlinkOwlClassInput.text()
-        xmlmappingheader += "class=\"" + self.dlg.interlinkOwlClassInput.text() + "\" "
-        xmlmappingheader += "namespace=\"" + self.dlg.interlinkNameSpace.text() + "\" "
-        propurilist = []
-        classurilist = []
-        includelist = []
+    def exportMappingProcess(self,jsonOrXML):
+        result={"namespace":self.dlg.interlinkNameSpace.text(),"class": self.dlg.interlinkOwlClassInput.text(),"columns":{}}
         for row in range(self.dlg.interlinkTable.rowCount()):
             item = self.dlg.interlinkTable.item(row, 0)
             if item.checkState():
-                includelist.append(True)
+                column = {}
                 if self.dlg.interlinkTable.item(row, 1).checkState():
-                    self.exportIdCol = self.dlg.interlinkTable.item(row, 3).text()
-                    xmlmappingheader += " indid=\"" + self.exportIdCol + "\" "
-                    propurilist.append("")
-                    classurilist.append("")
+                    result["indid"]=self.dlg.interlinkTable.item(row, 3).text()
                 else:
-                    xmlmapping += "<column name=\"" + self.dlg.interlinkTable.item(row, 3).text() + "\" "
-                    column = self.dlg.interlinkTable.item(row, 3).text()
-                    if self.dlg.interlinkTable.item(row, 4) != None:
-                        column = self.dlg.interlinkTable.item(row, 4).data(0)
-                        propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))
-                        xmlmapping += "propiri=\"" + self.dlg.interlinkTable.item(row, 4).data(1) + "\" "
-                    else:
-                        propurilist.append("")
+                    column={"name":self.dlg.interlinkTable.item(row, 3).text(),"order":row}
+                    if self.dlg.interlinkTable.item(row, 4)!=None and self.dlg.interlinkTable.item(row, 4).data(1)!=None:
+                        column["propiri"]=self.dlg.interlinkTable.item(row, 4).data(1)
                     if self.dlg.interlinkTable.cellWidget(row, 5) != None and self.dlg.interlinkTable.cellWidget(row,
                                                                                                                  5).currentText() != "Automatic":
                         if self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "AnnotationProperty":
-                            xmlmapping += "prop=\"annotation\" "
+                            column["prop"]="annotation"
                         elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DataProperty":
-                            xmlmapping += "prop=\"data\" "
+                            column["prop"]="data"
                         elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "ObjectProperty":
-                            xmlmapping += "prop=\"obj\" "
+                            column["prop"]="obj"
                         elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "SubClass":
-                            xmlmapping += "prop=\"subclass\" "
+                            column["prop"]="subclass"
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "GeoProperty":
+                            column["prop"]="geo"
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "LabelProperty":
+                            column["prop"] = "label"
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DescriptionProperty":
+                            column["prop"] = "desc"
+                        elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "TypeProperty":
+                            column["prop"] = "type"
                     if self.dlg.interlinkTable.item(row, 6) != None:
                         concept = self.dlg.interlinkTable.item(row, 6).data(0)
-                        self.exportColConfig[column] = concept
-                        classurilist.append(concept)
-                        xmlmapping += "concept=\"" + self.dlg.interlinkTable.item(row, 6).data(1) + "\" "
-                    else:
-                        classurilist.append("")
+                        #self.exportColConfig[column] = concept
+                        column["concept"]=concept
                     if self.dlg.interlinkTable.item(row, 7) != None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
                         if self.dlg.interlinkTable.item(row, 7).data(2) != None and self.dlg.interlinkTable.item(row,
                                                                                                                  7).data(
                                 3) != None:
-                            xmlmapping += "query=\"" + self.dlg.interlinkTable.item(row, 7).data(2).replace("\n",
-                                                                                                            " ") + "\" triplestoreurl=\"" + self.dlg.interlinkTable.item(
-                                row, 7).data(3) + "\" "
-                        xmlmapping += ">\n"
+                            column["query"]=self.dlg.interlinkTable.item(row, 7).data(2).replace("\n", " ")
+                            column["triplestoreurl"]=self.dlg.interlinkTable.item(row, 7).data(3)
                         if self.valueconcept != None:
+                            column["valuemapping"]={}
                             for key in self.valueconcept:
-                                xmlmapping += "<valuemapping from=\"" + key + "\" to=\"" + self.valueconcept[
-                                    key] + "\"/>\n"
-                    else:
-                        xmlmapping += ">\n"
-                    xmlmapping += "</column>\n"
-            else:
-                includelist.append(False)
-                propurilist.append("")
-                classurilist.append("")
-        xmlmapping += "</file>\n</data>"
-        return xmlmappingheader + ">\n" + xmlmapping
+                                column["valuemapping"][key]=self.valueconcept[key]
+                    result["columns"][column["name"]]=column
+        if jsonOrXML:
+            return json.dumps(result,indent=2)
+        return InterlinkUtils.exportMappingXML(result)

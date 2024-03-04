@@ -14,7 +14,7 @@
    <string>SPARQLing Unicorn QGIS Plugin</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources.qrc">
+   <iconset>
     <normaloff>:/icons/resources/icons/sparqlunicorn.png</normaloff>:/icons/resources/icons/sparqlunicorn.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -441,11 +441,14 @@ SELECT ?label ?geo ?item WHERE {
         </item>
         <item row="1" column="3">
          <widget class="QPushButton" name="quickAddTripleStore">
+          <property name="toolTip">
+           <string>Add a new RDF resource from a file or triple store</string>
+          </property>
           <property name="text">
            <string>Quick Add RDF Resource</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/resources/icons/linkeddata.png</normaloff>:/icons/resources/icons/linkeddata.png</iconset>
           </property>
          </widget>
@@ -476,7 +479,7 @@ SELECT ?label ?geo ?item WHERE {
            <string>Search Class</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/resources/icons/searchclass.png</normaloff>:/icons/resources/icons/searchclass.png</iconset>
           </property>
          </widget>
@@ -508,7 +511,7 @@ SELECT ?label ?geo ?item WHERE {
         <item row="3" column="1">
          <widget class="QLineEdit" name="interlinkNameSpace">
           <property name="text">
-           <string>http://www.github.com/sparqlunicorn#</string>
+           <string>http://www.github.com/sparqlunicorn/data/</string>
           </property>
          </widget>
         </item>
@@ -649,6 +652,16 @@ SELECT ?label ?geo ?item WHERE {
           </property>
          </widget>
         </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="suggestMapping">
+          <property name="toolTip">
+           <string>Once a layer is loaded, this function tries to conservatively determine a valid mapping which may be improved upon by the user</string>
+          </property>
+          <property name="text">
+           <string>Suggest Mapping</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
@@ -778,6 +791,7 @@ SELECT ?label ?geo ?item WHERE {
     <addaction name="actionConstraint_By_BBOX"/>
     <addaction name="actionLayer_Column_as_Variable"/>
     <addaction name="actionSearch_Concept_for_Query"/>
+    <addaction name="actionLayer_Query"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -793,7 +807,7 @@ SELECT ?label ?geo ?item WHERE {
   </widget>
   <action name="actionConvert_RDF_Data">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/rdffile.png</normaloff>:/icons/resources/icons/rdffile.png</iconset>
    </property>
    <property name="text">
@@ -802,7 +816,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionValidate_RDF_Data">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/validation2.png</normaloff>:/icons/resources/icons/validation2.png</iconset>
    </property>
    <property name="text">
@@ -826,7 +840,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionConstraint_By_BBOX">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/bboxicon.png</normaloff>:/icons/resources/icons/bboxicon.png</iconset>
    </property>
    <property name="text">
@@ -835,7 +849,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionLayer_Column_as_Variable">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/columnasvar.png</normaloff>:/icons/resources/icons/columnasvar.png</iconset>
    </property>
    <property name="text">
@@ -844,7 +858,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionSearch_Concept_for_Query">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/searchclass.png</normaloff>:/icons/resources/icons/searchclass.png</iconset>
    </property>
    <property name="text">
@@ -853,7 +867,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionConvert_QGIS_Layer_To_RDF">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/featurecollectionToRDF.png</normaloff>:/icons/resources/icons/featurecollectionToRDF.png</iconset>
    </property>
    <property name="text">
@@ -862,7 +876,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionRDF_Resource_Settings">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/linkeddata.png</normaloff>:/icons/resources/icons/linkeddata.png</iconset>
    </property>
    <property name="text">
@@ -876,11 +890,16 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionCreate_Ontology_Documentation">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
+    <iconset>
      <normaloff>:/icons/resources/icons/ontdoc.png</normaloff>:/icons/resources/icons/ontdoc.png</iconset>
    </property>
    <property name="text">
     <string>Create Ontology Documentation</string>
+   </property>
+  </action>
+  <action name="actionLayer_Query">
+   <property name="text">
+    <string>Layer Query</string>
    </property>
   </action>
  </widget>
@@ -891,7 +910,6 @@ SELECT ?label ?geo ?item WHERE {
    <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
- </resources>
+ <resources/>
  <connections/>
 </ui>

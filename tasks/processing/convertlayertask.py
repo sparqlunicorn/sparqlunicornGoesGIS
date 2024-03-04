@@ -8,7 +8,7 @@ MESSAGE_CATEGORY = 'ConvertLayerTask'
 
 class ConvertLayerTask(QgsTask):
 
-    def __init__(self, description, layer, filename, vocabulary, literaltype, prefixes, dialog, progress):
+    def __init__(self, description, layer, filename, vocabulary, literaltype, prefixes, columntypes=None,dialog=None, progress=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
@@ -16,16 +16,23 @@ class ConvertLayerTask(QgsTask):
         self.prefixes=prefixes
         self.vocabulary = vocabulary
         self.layer= layer
+        self.columntypes=columntypes
         self.literaltype = literaltype
         self.dialog = dialog
 
 
     def run(self):
         fileext=self.filename[0][self.filename[0].rfind('.')+1:].upper()
-        ttlstring = LayerExporter.layerToTTLString(self.layer,
-                                                   self.prefixes,
-                                                   self.vocabulary, self.literaltype,
-                                                   None, None, None, None, None, None)
+        if self.columntypes!=None:
+            ttlstring = LayerExporter.layerToTTLString(self.layer,
+                                                       self.prefixes,
+                                                       self.vocabulary, self.literaltype,
+                                                       self.columntypes)
+        else:
+            ttlstring = LayerExporter.layerToTTLString(self.layer,
+                                                       self.prefixes,
+                                                       self.vocabulary, self.literaltype,
+                                                       None, None, None, None, None, None)
         QgsMessageLog.logMessage('Started task "{}"'.format(
             fileext),
             "Convert Layer Dialog", Qgis.Info)

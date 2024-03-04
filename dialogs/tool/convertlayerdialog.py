@@ -62,7 +62,7 @@ class ConvertLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         progress.setCancelButton(None)
         self.qtask = ConvertLayerTask("Converting Layer to graph: " + str(filename),
                                       layer, filename, self.vocabularyCBox.currentText(),
-                                      "WKT",self.prefixes,
+                                      "WKT",self.prefixes,None,
                                       self,
                                       progress)
         QgsApplication.taskManager().addTask(self.qtask)

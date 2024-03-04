@@ -58,9 +58,9 @@ class OWL2VOWL():
         if predicates!=[]:
             for pred in predicates:
 
-                QgsMessageLog.logMessage(str(pred), "VOWL2OWL", Qgis.Info)
+                #QgsMessageLog.logMessage(str(pred), "VOWL2OWL", Qgis.Info)
                 if "from" in predicates[pred] and "to" in predicates[pred]:
-                    QgsMessageLog.logMessage(str(predicates[pred]["from"]), "VOWL2OWL", Qgis.Info)
+                    #QgsMessageLog.logMessage(str(predicates[pred]["from"]), "VOWL2OWL", Qgis.Info)
                     for fromsub in predicates[pred]["from"]:
                         if str(fromsub) in nodeuriToId:
                             if predicates[pred]["to"]!=[]:

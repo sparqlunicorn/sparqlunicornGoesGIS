@@ -54,6 +54,7 @@ from .conf.triplestoredialog import TripleStoreDialog
 from .tool.graphvalidationdialog import GraphValidationDialog
 from .tool.triplestorequickadddialog import TripleStoreQuickAddDialog
 from .util.searchdialog import SearchDialog
+from .util.layerquerydialog import LayerQueryDialog
 from .util.valuemappingdialog import ValueMappingDialog
 from .tool.convertlayerdialog import ConvertLayerDialog
 from .util.bboxdialog import BBOXDialog
@@ -162,6 +163,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
+        self.actionLayer_Query.triggered.connect(lambda: LayerQueryDialog().exec())
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())

@@ -20,10 +20,10 @@ class LayerExporter:
         if isinstance(layerOrTTLString, str):
             layerToTTL=layerOrTTLString
         else:
-            layerToTTL=LayerUtils.layerToTTLString(layerOrTTLString,prefixes)
-        QgsMessageLog.logMessage(str(layerToTTL),"LayerExporter", Qgis.Info)
-        QgsMessageLog.logMessage("Format: "+str(format), "LayerExporter", Qgis.Info)
-        QgsMessageLog.logMessage("File: " + str(file), "LayerExporter", Qgis.Info)
+            layerToTTL=LayerExporter.layerToTTLString(layerOrTTLString,prefixes)
+        #QgsMessageLog.logMessage(str(layerToTTL),"LayerExporter", Qgis.Info)
+        #QgsMessageLog.logMessage("Format: "+str(format), "LayerExporter", Qgis.Info)
+        #QgsMessageLog.logMessage("File: " + str(file), "LayerExporter", Qgis.Info)
         g=Graph()
         g.parse(data=layerToTTL)
         g.bind("suni","http://www.github.com/sparqlunicorn#")
@@ -33,6 +33,39 @@ class LayerExporter:
             else:
                 ExporterUtils.exportToFunction[format](g,filename,None,None,format.lower())
 
+    @staticmethod
+    def layerToTTLString(layer, prefixes, vocab="GeoSPARQL", literaltype=["WKT"],columntypes=None):
+        if columntypes==None:
+            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype)
+            return
+        if "namespace" not in columntypes or columntypes["namespace"]==None or columntypes["namespace"]=="":
+            namespace = "http://www.github.com/sparqlunicorn#"
+        else:
+            namespace = columntypes["namespace"]
+        if  "indid" not in columntypes or columntypes["indid"]==None or columntypes["indid"]=="":
+            idcol = "id"
+        else:
+            idcol = columntypes["indid"]
+        urilist=[]
+        classurilist=[]
+        proptypelist=[]
+        for col in columntypes:
+            if "propiri" in col:
+                urilist.append(col["propiri"])
+            else:
+                urilist.append(None)
+            if "concept" in col:
+                classurilist.append(col["concept"])
+            else:
+                classurilist.append(None)
+            if "prop" in col:
+                proptypelist.append(col["concept"])
+            else:
+                proptypelist.append(None)
+        LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype, urilist, classurilist,
+                     list(columntypes["columns"].keys()), proptypelist,
+                     None, None, namespace, idcol,
+                     None)
 
 
 
@@ -112,7 +145,7 @@ class LayerExporter:
                 print(str(urilist) + "\n")
                 print(str(classurilist) + "\n")
                 print(str(includelist) + "\n")
-                if urilist != None and urilist[fieldcounter] != "":
+                if urilist != None and fieldcounter in urilist and urilist[fieldcounter] != "":
                     print(urilist)
                     if not urilist[fieldcounter].startswith("http"):
                         print("Does not start with http")

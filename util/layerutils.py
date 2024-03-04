@@ -12,26 +12,36 @@ MESSAGE_CATEGORY = 'LayerUtils'
 
 class LayerUtils:
 
+    subclassThreshold=0.8
+
+    typekeywords=["typ","type"]
+
     ## Detects the type of a column which is to be entered into a QGIS vector layer.
     #  @param self The object pointer.
     #  @param table the layer to analyze
     # the column to consider
     @staticmethod
-    def detectColumnType(resultmap):
+    def detectColumnType(resultmap,columnname=""):
         intcount = 0
         doublecount = 0
         datecount=0
         uricount=0
         stringcount=0
+        tokencount=0
+        uniquestrings=set()
+        #QgsMessageLog.logMessage(str(resultmap), MESSAGE_CATEGORY, Qgis.Info)
         for res in resultmap:
+            #QgsMessageLog.logMessage(str(resultmap[res]), MESSAGE_CATEGORY, Qgis.Info)
             if resultmap[res] == None or resultmap[res] == "":
                 intcount += 1
                 doublecount += 1
                 continue
+            uniquestrings.add(str(resultmap[res]))
+            tokencount+=1
             if isinstance(resultmap[res],QDateTime):
                 datecount+=1
                 continue
-            if resultmap[res].isdigit():
+            if str(resultmap[res]).isdigit():
                 intcount += 1
                 continue
             try:
@@ -40,21 +50,21 @@ class LayerUtils:
                 continue
             except:
                 print("")
-            if resultmap[res].startswith("http"):
+            if str(resultmap[res]).startswith("http"):
                 uricount+=1
                 continue
             stringcount+=1
-        QgsMessageLog.logMessage(str(intcount) + " - " + str(doublecount) + " - " + str(len(resultmap)),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage(str(stringcount) + " - " + str(len(uniquestrings)) + " - " + str(len(resultmap)),MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage(str(intcount) + " - " + str(doublecount) + " - " + str(len(resultmap)),MESSAGE_CATEGORY, Qgis.Info)
         if intcount == len(resultmap):
-            return QVariant.Int
+            return {"type": QVariant.Int, "xsdtype": "xsd:integer", "unique": (tokencount == len(uniquestrings)),"category":False}
         if doublecount == len(resultmap):
-            return QVariant.Double
+            return {"type": QVariant.Double, "xsdtype": "xsd:double", "unique": (tokencount == len(uniquestrings)),"category":False}
         if datecount == len(resultmap):
-            return "xsd:date"
+            return {"type": "xsd:date", "xsdtype": "xsd:date", "unique": (tokencount == len(uniquestrings)),"category":False}
         if uricount == len(resultmap):
-            return "xsd:anyURI"
-        return QVariant.String
+           return {"type": "xsd:anyURI", "xsdtype": "xsd:anyURI", "unique": (tokencount == len(uniquestrings)),"category":False}
+        return {"type":QVariant.String,"xsdtype":"xsd:string","unique":(stringcount==len(uniquestrings)),"category":(stringcount <= len(uniquestrings))}
 
     @staticmethod
     def detectLayerColumnType(layer,columnindex):
@@ -63,9 +73,10 @@ class LayerUtils:
         counter=0
         for feat in features:
             attrs = feat.attributes()
+            #QgsMessageLog.logMessage(str(attrs[0]), MESSAGE_CATEGORY, Qgis.Info)
             columnmap[counter]=attrs[columnindex]
             counter+=1
-        return LayerUtils.detectColumnType(columnmap)
+        return LayerUtils.detectColumnType(columnmap,layer.fields().names()[columnindex])
 
     @staticmethod
     def getLayerColumnAsList(layer,columnindex):
@@ -76,6 +87,11 @@ class LayerUtils:
             attrs = feat.attributes()
             result.append(attrs[columnindex])
         return result
+
+    @staticmethod
+    def findColumnNameProperties(layer,triplestoreconf):
+        names=layer.fields().names()
+
 
     @staticmethod
     def detectLayerColumnTypes(layer):

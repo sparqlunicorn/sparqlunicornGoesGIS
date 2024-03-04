@@ -28,19 +28,11 @@ class ConvertCRSTask(QgsTask):
             MESSAGE_CATEGORY, Qgis.Info)
         self.graph=SPARQLUtils.loadGraph(self.filename)
         if self.graph != None:
-            print("WE HAVE A GRAPH")
             for s, p, o in self.graph:
-                QgsMessageLog.logMessage('BEFORE "{}"'.format(o), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(o, Literal):
-                    QgsMessageLog.logMessage('ISLITERAL "{}"'.format(o) + " - " + str(o.datatype), MESSAGE_CATEGORY,
-                                             Qgis.Info)
-                    QgsMessageLog.logMessage(str(o.datatype), MESSAGE_CATEGORY, Qgis.Info)
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
-                        QgsMessageLog.logMessage('ISGEOLITERAL "{}"'.format(self.graph), MESSAGE_CATEGORY, Qgis.Info)
                         newliteral = Literal(LayerUtils.processLiteral(o, o.datatype, "", self.crsdef), datatype=o.datatype)
                         self.graph.set((s, p, newliteral))
-                        QgsMessageLog.logMessage('AFTER "{}"'.format(newliteral) + " - " + str(newliteral.datatype),
-                                                 MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     def finished(self, result):

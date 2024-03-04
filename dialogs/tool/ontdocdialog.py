@@ -98,7 +98,7 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         titlecolor=self.titleColorSelector.color().name()
         graphname=self.inputRDFFileWidget.filePath()
         logoname=self.logoFileWidget.filePath()
-        QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
+        #QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
         if graphname==None or graphname=="":
                 graphname="test"
         namespace=self.namespaceCBox.currentText()

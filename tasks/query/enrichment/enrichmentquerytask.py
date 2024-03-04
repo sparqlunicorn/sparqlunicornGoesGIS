@@ -53,17 +53,41 @@ class EnrichmentQueryTask(QgsTask):
         attlist[self.item] = []
         attlist[self.idfield] = {}
         query = ""
-        for f in self.layer.getFeatures():
+        QgsMessageLog.logMessage('ITEM "{}"'.format(
+            self.item),
+            "EnrichmentTab", Qgis.Info)
+        QgsMessageLog.logMessage('IDFIELD "{}"'.format(
+            self.idfield),
+            "EnrichmentTab", Qgis.Info)
+        QgsMessageLog.logMessage("Layer: "+str(self.layer.name()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Layer: "+str(self.layer.getFeatures()),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(
+            self.layer.fields()),
+            "EnrichmentTab", Qgis.Info)
+        fieldnames = [field.name() for field in self.layer.fields()]
+        it=self.layer.getFeatures()
+        for f in it:
+            QgsMessageLog.logMessage(str(f.fieldNameIndex(self.idfield)),
+                MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(f.attributes()[f.fieldNameIndex(self.idfield)]),
+                MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(self.item),
+                MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(f[self.idfield]),
+                MESSAGE_CATEGORY, Qgis.Info)
             if self.item in f:
                 attlist[self.item].append(f[self.item])
             attlist[self.idfield][f[self.idfield]] = True
-            query = ""
-            if self.content == "Enrich URI":
-                query += "SELECT ?item WHERE {\n"
-            elif self.content == "Enrich Value" or self.strategy == "Enrich Both":
-                query += "SELECT ?item ?val ?valLabel ?vals WHERE {\n"
-            query += "VALUES ?vals { "
-            print(attlist)
+        query = ""
+        if self.content == "Enrich URI":
+            query += "SELECT ?item WHERE {\n"
+        elif self.content == "Enrich Value" or self.strategy == "Enrich Both":
+            query += "SELECT ?item ?val ?valLabel ?vals WHERE {\n"
+        query += "VALUES ?vals { "
+        QgsMessageLog.logMessage(str(attlist),
+            MESSAGE_CATEGORY, Qgis.Info)
         for it in attlist[self.idfield]:
             if str(it).startswith("http"):
                 query += "<" + str(it) + "> "
@@ -90,7 +114,7 @@ class EnrichmentQueryTask(QgsTask):
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage("idprop: " + self.idprop,
                                  MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage(query,
+        QgsMessageLog.logMessage(query.replace("<"," ").replace(">"," "),
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage(curtriplestoreconf["resource"]["url"],
                                  MESSAGE_CATEGORY, Qgis.Info)
@@ -106,11 +130,11 @@ class EnrichmentQueryTask(QgsTask):
             else:
                 self.resultmap[resultcounter["vals"]["value"]] = resultcounter["valLabel"]["value"] + ";" + \
                                                                  resultcounter["val"]["value"]
-        self.columntype = LayerUtils.detectColumnType(self.resultmap)
-        QgsMessageLog.logMessage(str(self.columntype),
-                                 MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage(str(self.resultmap),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        self.columntype = LayerUtils.detectColumnType(self.resultmap)["type"]
+        #QgsMessageLog.logMessage(str(self.columntype),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage(str(self.resultmap),
+        #                        MESSAGE_CATEGORY, Qgis.Info)
         return True
 
     ## Writes the result of the enrichment task to the result table in the main view.

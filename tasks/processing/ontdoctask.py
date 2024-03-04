@@ -39,7 +39,7 @@ class OntDocTask(QgsTask):
         self.outpath=outpath
 
     def run(self):
-        QgsMessageLog.logMessage("Graph "+str(self.graphname), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Graph "+str(self.graphname), MESSAGE_CATEGORY, Qgis.Info)
         if isinstance(self.graphname,str):
             self.graph=SPARQLUtils.loadGraph(self.graphname)
         else:

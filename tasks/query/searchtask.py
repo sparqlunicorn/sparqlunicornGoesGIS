@@ -30,7 +30,7 @@ class SearchTask(QgsTask):
         self.results = {}
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
         if "labelproperty" in self.triplestoreconf and self.triplestoreconf["labelproperty"]!=None:
             labelproperty=self.triplestoreconf["labelproperty"]
@@ -60,7 +60,7 @@ class SearchTask(QgsTask):
             QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
             myResponse = json.loads(requests.get(self.query).text)
             self.qids = []
-            QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}" Query:'.format(myResponse), MESSAGE_CATEGORY, Qgis.Info)
             for ent in myResponse["search"]:
                 qid = ent["concepturi"]
                 if "http://www.wikidata.org/entity/" in qid and self.findProperty.isChecked():

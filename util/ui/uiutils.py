@@ -379,7 +379,7 @@ class UIUtils:
         QgsMessageLog.logMessage("FILEPATH: " + str(filepath), MESSAGE_CATEGORY, Qgis.Info)
         with open(filepath, 'r') as f:
             jsontree = json.load(f)
-        QgsMessageLog.logMessage("JSONTREE: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("JSONTREE: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
         elemcount=0
         elemcount=UIUtils.iterateTree(rootNode,jsontree["children"],elemcount)
         return elemcount
@@ -392,7 +392,7 @@ class UIUtils:
     def iterateTree(curnode,jsontree,elemcount):
         #QgsMessageLog.logMessage("JSONTree: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
         for elem in jsontree:
-            QgsMessageLog.logMessage("Elem: " + str(elem), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Elem: " + str(elem), MESSAGE_CATEGORY, Qgis.Info)
             if elem=={}:
                 continue
             elemcount+=1
