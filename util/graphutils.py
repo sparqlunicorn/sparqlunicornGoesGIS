@@ -16,7 +16,9 @@ class GraphUtils:
         "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
-        "hasRDFType": "PREFIX rdf:<http:/www.w3.org/1999/02/22-rdf-syntax-ns#> ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
+        "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
+        "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
+        "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
         "hasGeometry": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:hasGeometry ?c .}",
         "hasJusoGeometry": "PREFIX juso:<http://rdfs.co/juso/> ASK { ?a juso:geometry ?c .}",
@@ -190,7 +192,7 @@ class GraphUtils:
             self.configuration[
                 "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . " + str(
                 configuration["geotriplepattern"][
-                    0]) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass rdfs:subClassOf %%concept%% . }"
+                    0]) + " ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt ."" OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }"
         self.configuration["geocollectionquery"] = "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }"
         return gottype
 
@@ -214,6 +216,37 @@ class GraphUtils:
             if "ns" in nss:
                 reslist.append(nss["ns"]["value"])
         return reslist
+
+    def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
+        QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
+        results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
+        if results!=False:
+            if configuration!=None:
+                configuration["typeProperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
+            return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        return ""
+
+    def detectSubClassOfProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
+        QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hassubClassOf"].replace("<"," ").replace(">"," ")), MESSAGE_CATEGORY, Qgis.Info)
+        results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hassubClassOf"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
+        QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        if "boolean" in results and results["boolean"]:
+            if configuration!=None:
+                configuration["subclassproperty"]="http://www.w3.org/2000/01/rdf-schema#subClassOf"
+            return "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        QgsMessageLog.logMessage(
+            "Execute query: " + str(self.testQueries["hasSKOSTopConcept"].replace("<", " ").replace(">", " ")),
+            MESSAGE_CATEGORY, Qgis.Info)
+        results = SPARQLUtils.executeQuery(triplestoreurl, self.testQueries["hasSKOSTopConcept"], {
+            "auth": {"method": authmethod, "userCredential": credentialUserName, "userPassword": credentialPassword}})
+        QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
+                                 Qgis.Info)
+        if "boolean" in results and results["boolean"]:
+            if configuration!=None:
+                configuration["subclassproperty"]="http://www.w3.org/2004/02/skos/core#hasTopConcept"
+            return "http://www.w3.org/2004/02/skos/core#hasTopConcept"
+        return ""
 
     def detectEquivalentProperties(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentPropProperty="http://www.w3.org/2002/07/owl#equivalentProperty",query="SELECT DISTINCT ?prop ?equivprop ?label WHERE { ?prop %%equivprop%% ?equivprop . OPTIONAL { ?equivprop %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
@@ -338,8 +371,9 @@ class GraphUtils:
         if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["available"],credentialUserName,credentialPassword,authmethod):
             capabilitylist=self.detectTripleStoreType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
             gottype=self.detectLiteralType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
-            equivprops=self.detectEquivalentProperties( self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
-            equivcls=self.detectEquivalentClasses( self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
+            subclassof=self.detectSubClassOfProperty(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
+            equivprops=self.detectEquivalentProperties(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
+            equivcls=self.detectEquivalentClasses(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
             if not gottype:
                 self.message = "SPARQL endpoint does not seem to include the following geometry relations:<ul><li>geo:asWKT</li><li>geo:asGeoJSON</li><li> geo:lat, geo:long</li></ul><br>A manual configuration is probably necessary to include this SPARQL endpoint if it contains geometries<br>Do you still want to add this SPARQL endpoint?"
             self.feasibleConfiguration = True
