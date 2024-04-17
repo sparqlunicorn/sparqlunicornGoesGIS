@@ -214,8 +214,8 @@ class DocConfig:
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
             SELECT DISTINCT ?subject ?label ?supertype\n
             WHERE {\n
-               { ?individual rdf:type ?subject . } UNION { ?subject rdf:type owl:Class . } UNION { ?subject rdf:type rdfs:Class . } .\n
-               OPTIONAL { ?subject rdfs:subClassOf ?supertype } .\n
+               { ?individual %%typeproperty%% ?subject . } UNION { ?subject %%typeproperty%% owl:Class . } UNION { ?subject %%typeproperty%% rdfs:Class . } .\n
+               OPTIONAL { ?subject %%subclassproperty%% ?supertype } .\n
                OPTIONAL { ?subject rdfs:label ?label. filter(langMatches(lang(?label),\"en\")) }
                OPTIONAL { ?subject rdfs:label ?label }.\n
                 FILTER (\n

@@ -4,11 +4,10 @@ import uuid
 import re
 
 import urllib.parse
-from ....srs.crsexporttools import ConvertCRS
+from ...export.srs.crsexporttools import ConvertCRS
 from ..exporterutils import ExporterUtils
-from .....layerutils import LayerUtils
-from .....sparqlutils import SPARQLUtils
-from qgis.core import Qgis,QgsTask, QgsMessageLog
+from ...layerutils import LayerUtils
+from ...sparqlutils import SPARQLUtils
 
 from rdflib import Graph
 
@@ -348,7 +347,7 @@ class LayerExporter:
                 "geom:asWkt") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
             edgeset.add("<edge id=\"e" + str(edgecounter) + "type\" source=\"fid_" + str(
                 fidcounter) + "_geom\" target=\"geo:Geometry\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdf:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+                "data:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
             edgeset.add("<edge id=\"e" + str(edgecounter) + "\" source=\"fid_" + str(
                 fidcounter) + "_geom\" target=\"literal" + str(
                 literalcounter) + "\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
@@ -356,7 +355,7 @@ class LayerExporter:
             edgecounter += 1
             edgeset.add("<edge id=\"e" + str(edgecounter) + "\" source=\"fid_" + str(
                 fidcounter) + "\" target=\"geo:Feature\">\n<data key=\"edgekey\">\n<y:PolyLineEdge>\n<y:EdgeLabel alignment=\"center\" configuration=\"AutoFlippingLabel\" fontSize=\"12\" fontStyle=\"plain\" hastext=\"true\" visible=\"true\" width=\"4.0\">" + str(
-                "rdf:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
+                "data:type") + "</y:EdgeLabel>\n</y:PolyLineEdge>\n</data>\n</edge>\n")
             literalcounter += 1
             edgecounter += 1
             fidcounter += 1

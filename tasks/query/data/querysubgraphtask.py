@@ -1,6 +1,6 @@
 from rdflib import Graph
 
-from ....util.export.data.exporter.exporterutils import ExporterUtils
+from ....util.export.exporterutils import ExporterUtils
 from ....util.sparqlutils import SPARQLUtils
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QFileDialog

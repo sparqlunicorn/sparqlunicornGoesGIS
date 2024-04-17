@@ -1,12 +1,12 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.core import QgsProject,QgsMapLayerProxyModel, Qgis
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
+from qgis.core import QgsMapLayerProxyModel
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog
 from qgis.core import QgsApplication
-from qgis.core import Qgis,QgsTask, QgsMessageLog
+from qgis.core import Qgis, QgsMessageLog
 from qgis.PyQt.QtCore import Qt
 
-from ...util.export.data.exporter.exporterutils import ExporterUtils
+from ...util.export.exporterutils import ExporterUtils
 from ...util.ui.uiutils import UIUtils
 from ...tasks.processing.convertlayertask import ConvertLayerTask
 import os.path

@@ -4,7 +4,7 @@ from rdflib import URIRef
 from rdflib import Literal
 from rdflib import Graph
 
-from doc.docutils import DocUtils
+from ...doc.docutils import DocUtils
 
 
 class SolidExporter:

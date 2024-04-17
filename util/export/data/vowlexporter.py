@@ -1,7 +1,6 @@
 from rdflib import Graph, URIRef
 from qgis.core import Qgis, QgsMessageLog
 import json
-from qgis.core import Qgis, QgsMessageLog
 
 class OWL2VOWL():
 
@@ -14,7 +13,7 @@ class OWL2VOWL():
             #print(tup)
             if str(tup)!="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property":
                 return OWL2VOWL.normalizeNS(str(tup))
-        return "rdf:Property"
+        return "data:Property"
 
     @staticmethod
     def getBaseIRI(iri):
@@ -30,7 +29,7 @@ class OWL2VOWL():
 
     @staticmethod
     def normalizeNS(prop):
-        return prop.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:").replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:").replace("http://www.w3.org/2002/07/owl#","owl:")
+        return prop.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","data:").replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:").replace("http://www.w3.org/2002/07/owl#","owl:")
 
     #def inferDomainRanges(self,g,typeproperty):
     #    for subj in g.subjects():

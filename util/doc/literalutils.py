@@ -1,0 +1,28 @@
+from ..layerutils import LayerUtils
+from ..sparqlutils import SPARQLUtils
+from rdflib import Graph, Literal, URIRef
+
+class LiteralUtils:
+
+    @staticmethod
+    def resolveGeoLiterals(pred, object, graph, geojsonrep, nonns, subject=None):
+        if subject != None and isinstance(object, Literal) and (str(pred) in SPARQLUtils.geopairproperties):
+            pairprop = SPARQLUtils.geopairproperties[str(pred)]["pair"]
+            latorlong = SPARQLUtils.geopairproperties[str(pred)]["islong"]
+            othervalue = ""
+            for obj in graph.objects(subject, URIRef(pairprop)):
+                othervalue = str(obj)
+            if latorlong:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(othervalue)), float(str(object))]}
+            else:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(object)), float(str(othervalue))]}
+        elif isinstance(object, Literal) and (
+                str(pred) in SPARQLUtils.geoproperties or str(object.datatype) in SPARQLUtils.geoliteraltypes):
+            geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
+        elif isinstance(object, URIRef) and nonns:
+            for pobj in graph.predicate_objects(object):
+                if isinstance(pobj[1], Literal) and (
+                        str(pobj[0]) in SPARQLUtils.geoproperties or str(
+                    pobj[1].datatype) in SPARQLUtils.geoliteraltypes):
+                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
+        return geojsonrep

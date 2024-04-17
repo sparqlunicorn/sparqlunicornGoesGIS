@@ -1,5 +1,5 @@
-from doc.docconfig import DocConfig
-from doc.docutils import DocUtils
+from ...doc.docconfig import DocConfig
+from ...doc.docutils import DocUtils
 from rdflib import URIRef, Literal
 
 class OWLTimePage:

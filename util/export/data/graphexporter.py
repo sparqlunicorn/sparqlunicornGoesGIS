@@ -2,7 +2,7 @@ from rdflib import Graph, Literal
 import json
 import random
 
-from .....doc.docutils import DocUtils
+from ...doc.docutils import DocUtils
 
 
 class GraphExporter:

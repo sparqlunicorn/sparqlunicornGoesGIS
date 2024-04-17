@@ -1,6 +1,6 @@
-from .rdf.geoexporter import GeoExporter
-from .rdf.graphexporter import GraphExporter
-from .rdf.miscexporter import MiscExporter
+from .data.geoexporter import GeoExporter
+from .data.graphexporter import GraphExporter
+from .data.miscexporter import MiscExporter
 
 
 class ExporterUtils:

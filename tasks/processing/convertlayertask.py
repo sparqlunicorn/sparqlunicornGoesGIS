@@ -1,5 +1,5 @@
 
-from ...util.export.data.exporter.layer.layerexporter import LayerExporter
+from ...util.export.layer.layerexporter import LayerExporter
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox

@@ -21,10 +21,8 @@ class OntDocTask(QgsTask):
         self.startconcept=startconcept
         self.offlinecompat=offlinecompat
         self.exports=exports
-        self.ogcapifeatures=ogcapifeatures
-        self.iiif=iiif
         self.imagemetadata=imagemetadata
-        self.ckan=ckan
+        self.apis={"ogcapifeatures":ogcapifeatures,"iiif":iiif,"ckan":ckan,"solidexport":False}
         self.createVOWL=createVOWL
         self.createMetadataTable=createMetadataTable
         self.nonNSPagesCBox=nonNSPagesCBox
@@ -55,7 +53,7 @@ class OntDocTask(QgsTask):
         else:
             nsshort=self.namespace[self.namespace.rfind('/') + 1:]
         #try:
-        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.ogcapifeatures,self.iiif,self.ckan,self.imagemetadata,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
+        ontdoc=OntDocGeneration(self.prefixes, self.namespace, nsshort,self.license,self.labellang, self.outpath, self.graph,self.createcollections,self.baselayers,self.tobeaddedperInd,self.maincolor,self.titlecolor,self.progress,self.createIndexPages,self.nonNSPagesCBox,self.createMetadataTable,self.createVOWL,self.apis,self.imagemetadata,self.startconcept,self.deploymenturl,self.logopath,self.offlinecompat,self.exports)
         ontdoc.generateOntDocForNameSpace(self.namespace)
         #except Exception as e:
         #    self.exception=e

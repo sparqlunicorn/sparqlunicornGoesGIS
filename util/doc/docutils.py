@@ -1,9 +1,32 @@
 from ..sparqlutils import SPARQLUtils
 import os
+import re
+import shutil
+import urllib.request
 from rdflib import URIRef
+from qgis.core import Qgis, QgsMessageLog
+
+from .docconfig import DocConfig
 
 
 class DocUtils:
+
+    @staticmethod
+    def zero_div(x,y):
+        return y and x/y or 0
+
+
+    @staticmethod
+    def replaceStandardVariables(template, subject, checkdepth, indexpage, pubconfig):
+        template = template.replace("{{indexpage}}", str(indexpage)).replace("{{subject}}", str(subject)).replace(
+            "{{relativedepth}}", str(checkdepth)) \
+            .replace("{{versionurl}}", DocConfig.versionurl).replace("{{version}}", DocConfig.version).replace(
+            "{{deploypath}}", pubconfig["deploypath"]) \
+            .replace("{{publishingorg}}", pubconfig["publishingorg"]).replace("{{publisher}}",
+                                                                              pubconfig["publisher"]).replace(
+            "{{datasettitle}}", pubconfig["datasettitle"]) \
+            .replace("{{logo}}", pubconfig["logoname"])
+        return template
 
     @staticmethod
     def checkDepthFromPath(savepath,baseurl,subject):
@@ -61,7 +84,7 @@ class DocUtils:
         return targetrellink.replace("//", "/")
 
     @staticmethod
-    def getLabelForObject(obj,graph,labellang=None):
+    def getLabelForObject(obj,graph,prefixes=None,labellang=None):
         label=""
         onelabel=DocUtils.shortenURI(str(obj))
         for tup in graph.predicate_objects(obj):
@@ -70,8 +93,16 @@ class DocUtils:
                 if tup[1].language==labellang:
                     label=str(tup[1])
                 onelabel=str(tup[1])
-        if label=="" and onelabel!=None:
-            label=onelabel
+        if label=="" and onelabel!=None and onelabel!="":
+            if prefixes!=None:
+                res = DocUtils.replaceNameSpacesInLabel(prefixes, str(obj))
+                label=res["uri"]
+            else:
+                label = onelabel
+        elif label=="" and (onelabel==None or onelabel=="") and prefixes!=None:
+            res = DocUtils.replaceNameSpacesInLabel(prefixes, str(obj))
+            if res!=None:
+                label=res["uri"]
         return label
 
     @staticmethod
@@ -106,11 +137,15 @@ class DocUtils:
 
     @staticmethod
     def replaceNameSpacesInLabel(prefixes,uri):
-        for ns in prefixes["reversed"]:
-            if ns in uri:
-                return {"uri": str(prefixes["reversed"][ns]) + ":" + str(uri.replace(ns, "")),
-                        "ns": prefixes["reversed"][ns]}
-        return None
+        nsuri=DocUtils.shortenURI(uri,True)
+        if prefixes!=None and nsuri in prefixes["reversed"]:
+            if nsuri==uri and nsuri in prefixes["nstolabel"]:
+                return {"uri": prefixes["nstolabel"][nsuri]+" ("+str(prefixes["reversed"][nsuri])+":)",
+                        "ns": prefixes["reversed"][nsuri]}
+            else:
+                return {"uri": str(prefixes["reversed"][nsuri]) + ":" + str(uri.replace(nsuri, "")),
+                    "ns": prefixes["reversed"][nsuri]}
+        return {"uri": DocUtils.shortenURI(uri),"ns": ""}
 
     @staticmethod
     def shortenURI(uri,ns=False):
@@ -132,3 +167,83 @@ class DocUtils:
         for i in range(0, checkdepth):
             rellink = "../" + rellink
         return rellink
+
+    @staticmethod
+    def createOfflineCompatibleVersion(outpath, myhtmltemplate, templatepath, templatename):
+        if not os.path.isdir(outpath):
+            os.mkdir(outpath)
+        if not os.path.isdir(outpath + "/js"):
+            os.mkdir(outpath + "/js")
+        if not os.path.isdir(outpath + "/css"):
+            os.mkdir(outpath + "/css")
+        matched = re.findall(r'src="(http.*)"', myhtmltemplate)
+        for match in matched:
+            # download the library
+            if "</script>" in match:
+                for m in match.split("></script><script src="):
+                    m = m.replace("\"", "").replace("/>", "")
+                    m = m.replace(">", "")
+                    try:
+                        g = urllib.request.urlopen(m.replace("\"", ""))
+                        with open(outpath + str(os.sep) + "js" + str(os.sep) + m[m.rfind("/") + 1:], 'b+w') as f:
+                            f.write(g.read())
+                    except Exception as e:
+                        print(e)
+                        if os.path.exists(templatepath + "/" + templatename + "/js/lib/" + str(m[m.rfind("/") + 1:])):
+                            shutil.copy(templatepath + "/" + templatename + "/js/lib/" + str(m[m.rfind("/") + 1:]),
+                                        outpath + str(os.sep) + "js" + str(os.sep) + m[m.rfind("/") + 1:])
+                    myhtmltemplate = myhtmltemplate.replace(m, "{{relativepath}}js/" + m[m.rfind("/") + 1:])
+            else:
+                match = match.replace("\"", "")
+                try:
+                    g = urllib.request.urlopen(match.replace("\"", ""))
+                    with open(outpath + str(os.sep) + "js" + str(os.sep) + match[match.rfind("/") + 1:], 'b+w') as f:
+                        f.write(g.read())
+                except Exception as e:
+                    print(e)
+                    if os.path.exists(
+                            templatepath + "/" + templatename + "/js/lib/" + str(match[match.rfind("/") + 1:])):
+                        shutil.copy(templatepath + "/" + templatename + "/js/lib/" + str(match[match.rfind("/") + 1:]),
+                                    outpath + str(os.sep) + "js" + str(os.sep) + match[match.rfind("/") + 1:])
+                myhtmltemplate = myhtmltemplate.replace(match, "{{relativepath}}js/" + match[match.rfind("/") + 1:])
+        matched = re.findall(r'href="(http.*.css)"', myhtmltemplate)
+        for match in matched:
+            print(match.replace("\"", ""))
+            match = match.replace("\"", "").replace("/>", "")
+            match = match.replace(">", "")
+            try:
+                g = urllib.request.urlopen(match.replace("\"", ""))
+                with open(outpath + str(os.sep) + "css" + str(os.sep) + match[match.rfind("/") + 1:], 'b+w') as f:
+                    f.write(g.read())
+            except Exception as e:
+                if os.path.exists(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:])):
+                    shutil.copy(templatepath + "/" + templatename + "/css/lib/" + str(match[match.rfind("/") + 1:]),
+                                outpath + str(os.sep) + "css" + str(os.sep) + match[match.rfind("/") + 1:])
+            myhtmltemplate = myhtmltemplate.replace(match, "{{relativepath}}css/" + match[match.rfind("/") + 1:])
+        return myhtmltemplate
+
+    @staticmethod
+    def conditionalArrayReplace(string,conds,replace,what):
+        counter=0
+        result=""
+        for cond in conds:
+            if cond:
+                result+=replace[counter]
+            counter+=1
+        return string.replace(what,result)
+
+    @staticmethod
+    def conditionalReplace(string,cond,what,replace):
+        if cond:
+            return string.replace(what,replace)
+        return string
+
+    @staticmethod
+    def resolveOWLImports(graph):
+        for obj in graph.objects(None,"http://www.w3.org/2002/07/owl#imports"):
+            QgsMessageLog.logMessage(str(obj), "OntdocGeneration", Qgis.Info)
+            try:
+                graph.parse(str(obj))
+            except Exception as e:
+                print(e)
+        return graph

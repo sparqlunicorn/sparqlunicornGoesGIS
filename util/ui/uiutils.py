@@ -289,7 +289,7 @@ class UIUtils:
                 if "valtype" in queryresult[att]:
                     itembutton.setText("Click to load samples... [" + str(queryresult[att]["valtype"]).replace(
                         "http://www.w3.org/2001/XMLSchema#", "xsd:").replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                                                                             "rdf:").replace(
+                                                                             "data:").replace(
                         "http://www.opengis.net/ont/geosparql#", "geo:") + "]")
                     itembutton.setData(str(queryresult[att]["valtype"]), UIUtils.dataslot_conceptURI)
                 else:

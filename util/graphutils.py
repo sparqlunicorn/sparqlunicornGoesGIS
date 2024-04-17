@@ -16,7 +16,7 @@ class GraphUtils:
         "hasRDFSLabel": "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> ASK { ?a rdfs:label ?c . }",
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
-        "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
+        "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-data-syntax-ns#type> ?c . }",
         "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
         "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
@@ -67,7 +67,7 @@ class GraphUtils:
         self.configuration["mandatoryvariables"] = []
         self.configuration["active"] = True
         self.configuration["prefixes"] = {"owl": "http://www.w3.org/2002/07/owl#",
-                                          "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                                          "data": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                           "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
                                           "geosparql": "http://www.opengis.net/ont/geosparql#",
                                           "geof": "http://www.opengis.net/def/function/geosparql/",
@@ -222,8 +222,8 @@ class GraphUtils:
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
         if results!=False:
             if configuration!=None:
-                configuration["typeProperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
-            return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                configuration["typeProperty"]="http:/www.w3.org/1999/02/22-data-syntax-ns#type"
+            return "http:/www.w3.org/1999/02/22-data-syntax-ns#type"
         return ""
 
     def detectSubClassOfProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
