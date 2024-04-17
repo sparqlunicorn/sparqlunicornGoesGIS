@@ -83,8 +83,8 @@ class InterlinkingTab:
         for col in columntypes:
             if "id" in col and col["id"] and not col["geotype"]:
                 self.dlg.interlinkTable.item(counter,1).setCheckState(col["id"])
-                item = QTableWidgetItem("data:type")
-                item.setText("data:type")
+                item = QTableWidgetItem("rdf:type")
+                item.setText("rdf:type")
                 item.setData(1, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
                 self.dlg.interlinkTable.setItem(counter, 4,item)
             if col["geotype"]:
@@ -199,8 +199,8 @@ class InterlinkingTab:
                         if columnname not in filedata["columns"]:
                             if "indid" in filedata and filedata["indid"]==columnname:
                                 self.dlg.interlinkTable.item(row, 1).setCheckState(True)
-                                item = QTableWidgetItem("data:type")
-                                item.setText("data:type")
+                                item = QTableWidgetItem("rdf:type")
+                                item.setText("rdf:type")
                                 item.setData(1, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
                                 self.dlg.interlinkTable.setItem(row, 4, item)
                                 comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)

@@ -1,7 +1,7 @@
 class DocDefaults:
     templates = {
         "epsgdefs": "var epsgdefs={}",
-        "startscripts": """var namespaces={"data":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
+        "startscripts": """var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
     var annotationnamespaces=["http://www.w3.org/2004/02/skos/core#","http://www.w3.org/2000/01/rdf-schema#","http://purl.org/dc/terms/"]
     var indexpage=false
     var rangesByAttribute={}
@@ -109,9 +109,9 @@ class DocDefaults:
     }
 
     function testRDFLibParsing(cururl){
-        var store = $data.graph()
+        var store = $rdf.graph()
         var timeout = 5000 // 5000 ms timeout
-        var fetcher = new $data.Fetcher(store, timeout)
+        var fetcher = new $rdf.Fetcher(store, timeout)
 
         fetcher.nowOrWhenFetched(cururl, function(ok, body, response) {
             if (!ok) {

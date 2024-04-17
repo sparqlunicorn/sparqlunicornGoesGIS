@@ -102,7 +102,7 @@ class EnrichmentQueryTask(QgsTask):
         if self.table.item(self.row, 7).text() != "" and "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "?item wdt:P31 <" + str(self.table.item(self.row, 7).text()) + "> .\n"
         else:
-            query += "?item data:type <" + str(self.table.item(self.row, 7).text()) + "> .\n"
+            query += "?item rdf:type <" + str(self.table.item(self.row, 7).text()) + "> .\n"
         query += "?item <" + str(self.idprop) + "> ?vals .\n"
         query += "?item <" + str(proppp) + "> ?val . \n"
         if (self.content == "Enrich Value" or self.content == "Enrich Both") and not "wikidata" in curtriplestoreconf["resource"]["url"]:
