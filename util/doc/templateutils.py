@@ -2,14 +2,17 @@ import json
 import os
 import re
 from .docdefaults import DocDefaults
+from qgis.core import Qgis, QgsMessageLog
 
-includepattern=r'{%\s*include\s*(.*)\s*%}'
+
 
 class TemplateUtils:
 
+    includepattern = r'{%\s*include\s*(.*)\s*%}'
+
     @staticmethod
     def resolveIncludes(template,templates):
-        matches=re.findall(includepattern,template)
+        matches=re.findall(TemplateUtils.includepattern,template)
         if len(matches)>0:
             for mat in matches:
                 if mat.replace(".html","") in templates:
@@ -19,6 +22,9 @@ class TemplateUtils:
     @staticmethod
     def resolveTemplate(templatename,templatepath):
         templates=DocDefaults.templates
+        templates["includes"] = {}
+        templates["js"] = {}
+        templates["layouts"] = {}
         print(templatepath+"/"+templatename+" "+str(os.path.exists(templatepath+"/"+templatename+"/templates/")))
         print(templatepath + "/" + templatename + " " + str(
             os.path.exists(templatepath + "/" + templatename)))
@@ -35,8 +41,6 @@ class TemplateUtils:
                                 templates[file] = f.read()
         elif os.path.exists(templatepath+"/"+templatename+"/templates/"):
             if os.path.exists(templatepath+"/"+templatename+"/templates/layouts/") and os.path.exists(templatepath+"/"+templatename+"/templates/includes/"):
-                templates["includes"]={}
-                templates["layouts"] = {}
                 for filename in os.listdir(templatepath+"/"+templatename+"/templates/includes/"):
                     print("FOUND INCLUDE: "+str(filename))
                     if filename.endswith(".html") or filename.endswith(".css"):
@@ -81,6 +85,6 @@ class TemplateUtils:
                                 templates[filename.replace(".css", "")] = content
         print("Found templates.... "+str(len(templates)))
         for temp in templates:
-            if temp!="includes" and temp!="layouts":
+            if temp!="includes" and temp!="layouts" and temp!="js" and templates[temp] is not None:
                 templates[temp]=TemplateUtils.resolveIncludes(templates[temp],templates)
         return templates
