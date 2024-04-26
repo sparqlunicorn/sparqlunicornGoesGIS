@@ -34,7 +34,7 @@ class ExtractNamespaceTask(QgsTask):
             namespacetosub={}
             for sub in g.subjects(None,None,True):
                 ns=SPARQLUtils.instanceToNS(sub)
-                if self.prefixes!=None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
+                if self.prefixes is not None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
                     self.recognizedns.add(ns)
                 else:
                     self.namespaces.add(ns)
@@ -111,7 +111,7 @@ class ExtractNamespaceTask(QgsTask):
                     item.setText(ns)
                     item.setIcon(UIUtils.linkeddataicon)
                     model.appendRow(item)
-            if self.progress!=None:
+            if self.progress is not None:
                 self.progress.close()
         else:
             msgBox = ErrorMessageBox("Exception in ExtractNamespaceTask",str(self.exception))

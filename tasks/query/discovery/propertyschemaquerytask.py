@@ -50,7 +50,7 @@ class PropertySchemaQueryTask(QgsTask):
             OPTIONAL {BIND( datatype(?val) AS ?valtype ) } }
             GROUP BY ?reltype ?valtype
             ORDER BY DESC(?countrel)"""
-        if self.query==None:
+        if self.query is None:
             self.query=whattoenrichquery
         if isinstance(self.prefixes, Iterable):
             results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
@@ -60,7 +60,7 @@ class PropertySchemaQueryTask(QgsTask):
         if results == False or len(results["results"]["bindings"]) == 0:
             return False
         #self.searchResult.model().clear()
-        if self.progress!=None:
+        if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         maxcons = -1
@@ -85,7 +85,7 @@ class PropertySchemaQueryTask(QgsTask):
     def finished(self, result):
         while self.searchResultModel.rowCount()>0:
             self.searchResultModel.removeRow(0)
-        if self.sortedatt != None:
+        if self.sortedatt is not None:
             if len(self.sortedatt)==0:
                 self.searchResultModel.insertRow(0)
                 item = QStandardItem()
@@ -99,5 +99,5 @@ class PropertySchemaQueryTask(QgsTask):
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Class")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.progress.close()
-        if self.conceptstoenrich!=None:
+        if self.conceptstoenrich is not None:
             self.dlg.propertyMatchingResultLabel.setText("<html><b>The following properties can be enriched for the "+str(len(self.conceptstoenrich))+" matched concepts</b></html>")

@@ -73,7 +73,7 @@ class GeoConceptsQueryTask(QgsTask):
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(elemcount) + ")")
         else:
             self.dlg.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(self.resultlist)) + ")")
-            if self.examplequery != None:
+            if self.examplequery is not None:
                 self.sparql.setPlainText(self.examplequery)
                 self.sparql.columnvars = {}
             for concept in self.resultlist:

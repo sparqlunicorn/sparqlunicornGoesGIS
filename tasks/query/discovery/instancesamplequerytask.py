@@ -78,7 +78,7 @@ class InstanceSampleQueryTask(QgsTask):
                     myGeometryInstanceJSON= LayerUtils.processLiteral(rel["value"],
                                                                        (rel["datatype"] if "datatype" in rel else ""),
                                                                        True,None, self.triplestoreconf)
-                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
+                    if myGeometryInstanceJSON is not None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"] is not None:
                         if myGeometryInstanceJSON["crs"]=="CRS84":
                             encounteredcrs.add("4326")
                         else:
@@ -87,7 +87,7 @@ class InstanceSampleQueryTask(QgsTask):
                 elif type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(rel["value"])) + " " + str(
                         float(rel["value2"])) + ")", "wkt", True,None, self.triplestoreconf)
-                if myGeometryInstanceJSON!=None:
+                if myGeometryInstanceJSON is not None:
                     geojson = {'id': str(self.concept)+"_"+str(counter), 'type': 'Feature', 'properties': {},
                         'geometry': myGeometryInstanceJSON}
                     geocollection["features"].append(geojson)

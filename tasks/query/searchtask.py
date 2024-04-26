@@ -32,7 +32,7 @@ class SearchTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)
         labelproperty="http://www.w3.org/2000/01/rdf-schema#label"
-        if "labelproperty" in self.triplestoreconf and self.triplestoreconf["labelproperty"]!=None:
+        if "labelproperty" in self.triplestoreconf and self.triplestoreconf["labelproperty"] is not None:
             labelproperty=self.triplestoreconf["labelproperty"]
         if self.findProperty.isChecked():
             if "propertyfromlabelquery" in self.triplestoreconf[self.tripleStoreEdit.currentIndex()]:
@@ -47,7 +47,7 @@ class SearchTask(QgsTask):
             else:
                 self.query="SELECT DISTINCT ?class ?label { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class . ?class <"+str(labelproperty)+"> ?label . FILTER (lang(?label) = '%%language%%') FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100".replace("%%label%%", self.label).replace("%%language%%", self.language)
         QgsMessageLog.logMessage('Started task "{}" Query:'.format(self.query), MESSAGE_CATEGORY, Qgis.Info)
-        if self.query == "" or self.query==None:
+        if self.query == "" or self.query is None:
             return
         if "SELECT" in self.query:
             self.query = self.query.replace("%%label%%", self.label).replace("%%language%%", self.language)

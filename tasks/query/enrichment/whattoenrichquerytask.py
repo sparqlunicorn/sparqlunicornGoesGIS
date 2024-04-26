@@ -74,7 +74,7 @@ class WhatToEnrichQueryTask(QgsTask):
             self.searchResult.removeRow(0)
         self.searchResult.setHorizontalHeaderLabels(["Selection","Attribute", "Sample Instances"])
         self.searchResult.setMouseTracking(True)
-        if self.sortedatt != None:
+        if self.sortedatt is not None:
             if len(self.sortedatt)==0:
                 self.searchResult.insertRow(0)
                 item = QTableWidgetItem()

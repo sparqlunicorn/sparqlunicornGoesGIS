@@ -14,7 +14,7 @@ class ExampleQueryDialog(QDialog, FORM_CLASS):
         self.setWindowTitle("Add Example Query")
         self.queryList=queryList
         self.addOrEdit=True
-        if queryName!=None:
+        if queryName is not None:
             self.addOrEdit=False
             self.setWindowTitle("Edit Example Query Title")
             self.queryNameEdit.setText(queryName)

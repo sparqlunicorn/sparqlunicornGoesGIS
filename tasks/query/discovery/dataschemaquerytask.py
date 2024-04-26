@@ -26,7 +26,7 @@ class DataSchemaQueryTask(QgsTask):
         self.labels = None
         self.searchResultModel=searchResultModel
         self.triplestoreconf=triplestoreconf
-        if self.progress!=None:
+        if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Executing query (1/2)")
         self.progress = progress
@@ -47,7 +47,7 @@ class DataSchemaQueryTask(QgsTask):
             BIND( datatype(?val) AS ?valtype ) }
             GROUP BY ?rel ?valtype
             ORDER BY DESC(?countrel)"""
-        if self.conceptstoenrich!=None:
+        if self.conceptstoenrich is not None:
             cons="VALUES ?con {"
             for con in self.conceptstoenrich:
                 cons+="<"+str(con)+"> "
@@ -61,7 +61,7 @@ class DataSchemaQueryTask(QgsTask):
         if results == False or len(results["results"]["bindings"]) == 0:
             return False
         #self.searchResult.model().clear()
-        if self.progress!=None:
+        if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         maxcons = -1
@@ -90,7 +90,7 @@ class DataSchemaQueryTask(QgsTask):
     def finished(self, result):
         while self.searchResultModel.rowCount()>0:
             self.searchResultModel.removeRow(0)
-        if self.sortedatt != None:
+        if self.sortedatt is not None:
             if len(self.sortedatt)==0:
                 self.searchResultModel.insertRow(0)
                 item = QStandardItem()
@@ -105,5 +105,5 @@ class DataSchemaQueryTask(QgsTask):
         self.searchResultModel.setHeaderData(1, Qt.Horizontal, "Attribute")
         self.searchResultModel.setHeaderData(2, Qt.Horizontal, "Sample Instances")
         self.progress.close()
-        if self.conceptstoenrich!=None:
+        if self.conceptstoenrich is not None:
             self.dlg.propertyMatchingResultLabel.setText("<html><b>The following properties can be enriched for the "+str(len(self.conceptstoenrich))+" matched concepts</b></html>")

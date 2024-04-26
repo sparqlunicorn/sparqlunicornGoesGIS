@@ -40,7 +40,7 @@ class QuerySubGraphTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(
             self.results),
             MESSAGE_CATEGORY, Qgis.Info)
-        if self.progress!=None and self.results!=False:
+        if self.progress is not None and self.results!=False:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         return True
@@ -50,9 +50,9 @@ class QuerySubGraphTask(QgsTask):
                                  MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage(str(self.results),
                                  MESSAGE_CATEGORY, Qgis.Info)
-        if self.progress!=None:
+        if self.progress is not None:
             self.progress.close()
-        if self.exception!=None:
+        if self.exception is not None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY)
             return
         filename = QFileDialog().getSaveFileName(None,"Save TTL result",self.concept+".ttl",ExporterUtils.getExporterString())

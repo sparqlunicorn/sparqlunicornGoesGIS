@@ -221,7 +221,7 @@ class GraphUtils:
         QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
         if results!=False:
-            if configuration!=None:
+            if configuration is not None:
                 configuration["typeProperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
             return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
         return ""
@@ -232,7 +232,7 @@ class GraphUtils:
         QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
                                  Qgis.Info)
         if "boolean" in results and results["boolean"]:
-            if configuration!=None:
+            if configuration is not None:
                 configuration["subclassproperty"]="http://www.w3.org/2000/01/rdf-schema#subClassOf"
             return "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         QgsMessageLog.logMessage(
@@ -243,7 +243,7 @@ class GraphUtils:
         QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
                                  Qgis.Info)
         if "boolean" in results and results["boolean"]:
-            if configuration!=None:
+            if configuration is not None:
                 configuration["subclassproperty"]="http://www.w3.org/2004/02/skos/core#hasTopConcept"
             return "http://www.w3.org/2004/02/skos/core#hasTopConcept"
         return ""

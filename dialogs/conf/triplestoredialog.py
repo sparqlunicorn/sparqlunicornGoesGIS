@@ -111,16 +111,16 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         thetext="<html><h3>Template Variables for the usage in example queries</h3><table border=1 cellspacing=0><tr><th>Variable</th><th>Value</th></tr>"
         thetext+="<tr><td>%%concept%%</td><td>The currently selected concept in the class tree</td></tr>"
         if "typeproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext+="<tr><td>%%typeproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</td></tr>"
+            thetext+=f"<tr><td>%%typeproperty%%</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]['typeproperty']}</td></tr>"
         if "subclassproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext+="<tr><td>%%subclassproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"])+"</td></tr>"
+            thetext+=f"<tr><td>%%subclassproperty%%</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]['subclassproperty']}</td></tr>"
         if "labelproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
-            thetext+="<tr><td>%%labelproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</td></tr>"
+            thetext+=f"<tr><td>%%labelproperty%%</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]['labelproperty']}</td></tr>"
         if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
             if isinstance(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"],str):
-                thetext+="<tr><td>%%geomproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"])+"</td></tr>"
+                thetext+=f"<tr><td>%%geomproperty%%</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]['geometryproperty']}</td></tr>"
             elif isinstance(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"],list):
-                thetext+="<tr><td>%%geomproperty%%</td><td>"+str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"][0])+"</td></tr>"
+                thetext+=f"<tr><td>%%geomproperty%%</td><td>{self.triplestoreconf[self.comboBox.currentIndex()]['geometryproperty'][0]}</td></tr>"
         thetext+="</html>"
         msgBox.setText(thetext)
         msgBox.exec()
@@ -348,9 +348,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             self.triplestoreconf[index]["auth"]["method"]=self.authenticationComboBox.currentText()
         else:
             self.triplestoreconf[index]["mandatoryvariables"]["auth"]={}
-        self.triplestoreconf[index]["mandatoryvariables"]=[]
-        self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarEdit.text())
-        self.triplestoreconf[index]["mandatoryvariables"].append(self.queryVarItemEdit.text())
+        self.triplestoreconf[index]["mandatoryvariables"]=[self.queryVarEdit.text(),self.queryVarItemEdit.text()]
         self.triplestoreconf[index]["labelproperty"]=self.labelPropertyEdit.text()
         self.triplestoreconf[index]["typeproperty"]=self.typePropertyEdit.text()
         self.triplestoreconf[index]["subclassproperty"]=self.subclassPropertyEdit.text()

@@ -19,23 +19,23 @@ class PrefixDialog(QDialog, FORM_CLASS):
         self.globalPrefixList=globalPrefixList
         self.prefixEdit.setValidator(QRegExpValidator(UIUtils.prefixregex, self))
         self.prefixEdit.textChanged.connect(lambda: self.checkSuggestion())
-        if globalPrefixList!=None and "normal" in globalPrefixList:
+        if globalPrefixList is not None and "normal" in globalPrefixList:
             self.prefixEdit.setCompleter(QCompleter(globalPrefixList["normal"].keys()))
         self.uriEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
         self.uriEdit.textChanged.connect(lambda: UIUtils.check_state(self.uriEdit))
-        if globalPrefixList!=None and "reversed" in globalPrefixList:
+        if globalPrefixList is not None and "reversed" in globalPrefixList:
             self.uriEdit.setCompleter(QCompleter(globalPrefixList["reversed"].keys()))
         self.addOrEdit=True
-        if prefix!=None:
+        if prefix is not None:
             self.addOrEdit=False
             self.prefixEdit.setText(prefix)
-        if uri!=None:
+        if uri is not None:
             self.addOrEdit=False
             self.uriEdit.setText(uri)
         self.saveButton.clicked.connect(self.savePrefix)
 
     def checkSuggestion(self):
-        if self.globalPrefixList!=None and self.prefixEdit.text()==self.prefixEdit.completer().currentCompletion() \
+        if self.globalPrefixList is not None and self.prefixEdit.text()==self.prefixEdit.completer().currentCompletion() \
                 and self.prefixEdit.text() in self.globalPrefixList["normal"]:
             self.uriEdit.setText(self.globalPrefixList["normal"][self.prefixEdit.text()])
         UIUtils.check_state(self.prefixEdit)

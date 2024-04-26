@@ -19,7 +19,7 @@ class GraphUtils:
         for pred in graph.predicates(None,None,True):
             if str(pred) in GraphUtils.subclassofproperties and str(pred) not in subclassofprops:
                 subclassofprops.append(str(pred))
-            if str(pred) in GraphUtils.typeproperties and str(pred) not in typeprops:
+            elif str(pred) in GraphUtils.typeproperties and str(pred) not in typeprops:
                 typeprops.append(str(pred))
         res["typeproperty"]=typeprops
         res["subclassproperty"]=subclassofprops
@@ -192,13 +192,13 @@ class GraphUtils:
                 subjectlength += len(str(sub))
                 for tup in graph.predicate_objects(sub):
                     if isinstance(tup[1], Literal):
-                        if tup[1].datatype != None:
+                        if tup[1].datatype is not None:
                             if str(tup[1].datatype) not in literaltypes:
                                 literaltypes[str(tup[1].datatype)] = set()
                             literaltypes[str(tup[1].datatype)].add(str(tup[0]))
                             if str(tup[1].datatype) in SPARQLUtils.geoliteraltypes or str(tup[0]) in SPARQLUtils.geoproperties:
                                 geocounter+=1
-                        if tup[1].language != None:
+                        if tup[1].language is not None:
                             literallangs.add(str(tup[1].language))
                         val=str(tup[1])
                         literallength += len(val)

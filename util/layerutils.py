@@ -32,7 +32,7 @@ class LayerUtils:
         #QgsMessageLog.logMessage(str(resultmap), MESSAGE_CATEGORY, Qgis.Info)
         for res in resultmap:
             #QgsMessageLog.logMessage(str(resultmap[res]), MESSAGE_CATEGORY, Qgis.Info)
-            if resultmap[res] == None or resultmap[res] == "":
+            if resultmap[res] is None or resultmap[res] == "":
                 intcount += 1
                 doublecount += 1
                 continue
@@ -119,12 +119,12 @@ class LayerUtils:
     @staticmethod
     def processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False):
         geom = None
-        if triplestoreconf!=None and "literaltype" in triplestoreconf:
+        if triplestoreconf is not None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
         try:
             if literal.startswith("http"):
                 res = SPARQLUtils.handleURILiteral(literal,currentlayergeojson)
-                if res == None:
+                if res is None:
                     return json.loads("{\"geometry\":{}}")
                 return res[0]
             if literaltype == "":
@@ -151,7 +151,7 @@ class LayerUtils:
                     srspart = literal[literal.find("srsName="):literal.find(">")]
                     curcrs=srspart.replace("srsName=\"EPSG:","")
                     curcrs=curcrs.replace("\"", "")
-                if reprojecttask and curcrs!=None:
+                if reprojecttask and curcrs is not None:
                     reproject = str(curcrs)
                 geom=QgsGeometry.fromWkt(ogr.CreateGeometryFromGML(literal).ExportToWkt())
                 geom=QgsGeometry(geom)
@@ -159,16 +159,16 @@ class LayerUtils:
                 return literal
             elif "wkb" in literaltype.lower():
                 geom = QgsGeometry.fromWkb(bytes.fromhex(literal))
-            if geom != None and reproject != "":
+            if geom is not None and reproject != "":
                 geom=LayerUtils.reprojectGeometry(geom,reproject)
-            if geom != None:
+            if geom is not None:
                 res=json.loads(geom.asJson())
-                if currentlayergeojson!=None:
+                if currentlayergeojson is not None:
                     currentlayergeojson["geometry"]=res
-                    if curcrs != None:
+                    if curcrs is not None:
                         currentlayergeojson["crs"]=curcrs
                     return currentlayergeojson
-                if curcrs!=None:
+                if curcrs is not None:
                     res["crs"]=curcrs
                 return res
         except Exception as e:

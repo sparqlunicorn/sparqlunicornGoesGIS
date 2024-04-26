@@ -111,7 +111,7 @@ class DocUtils:
             addpath = ""
             try:
                 for pathelem in path.split("/"):
-                    addpath += pathelem + "/"
+                    addpath += pathelem.replace(":","_") + "/"
                     if not os.path.exists(outpath + addpath):
                         os.mkdir(outpath + addpath)
                 if outpath + path[0:path.rfind('/')] + "/" not in paths:
@@ -122,10 +122,10 @@ class DocUtils:
         else:
             try:
                 if not os.path.exists(outpath + path):
-                    os.mkdir(outpath + path)
+                    os.mkdir(outpath + path.replace(":","_") )
                 if outpath not in paths:
                     paths[outpath] = []
-                paths[outpath].append(path + "/index.html")
+                paths[outpath].append(path.replace(":","_") + "/index.html")
             except Exception as e:
                 print(e)
         if os.path.exists(outpath + path + "/index.ttl"):
@@ -138,7 +138,7 @@ class DocUtils:
     @staticmethod
     def replaceNameSpacesInLabel(prefixes,uri):
         nsuri=DocUtils.shortenURI(uri,True)
-        if prefixes!=None and nsuri in prefixes["reversed"]:
+        if prefixes is not None and nsuri in prefixes["reversed"]:
             if nsuri==uri and nsuri in prefixes["nstolabel"]:
                 return {"uri": prefixes["nstolabel"][nsuri]+" ("+str(prefixes["reversed"][nsuri])+":)",
                         "ns": prefixes["reversed"][nsuri]}
@@ -149,15 +149,15 @@ class DocUtils:
 
     @staticmethod
     def shortenURI(uri,ns=False):
-        if uri!=None and "#" in uri and ns:
+        if uri is not None and "#" in uri and ns:
             return uri[0:uri.rfind('#')+1]
-        if uri!=None and "/" in uri and ns:
+        if uri is not None and "/" in uri and ns:
             return uri[0:uri.rfind('/')+1]
-        if uri!=None and uri.endswith("/"):
+        if uri is not None and uri.endswith("/"):
             uri = uri[0:-1]
-        if uri!=None and "#" in uri and not ns:
+        if uri is not None and "#" in uri and not ns:
             return uri[uri.rfind('#')+1:]
-        if uri!=None and "/" in uri and not ns:
+        if uri is not None and "/" in uri and not ns:
             return uri[uri.rfind('/')+1:]
         return uri
 

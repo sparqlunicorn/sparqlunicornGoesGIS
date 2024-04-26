@@ -96,8 +96,7 @@ class EnrichmentTab:
         cbox.addItem("Enrich Both")
         self.enrichTable.setCellWidget(row, 4, cbox)
         cbox = QComboBox()
-        for fieldd in fieldnames:
-            cbox.addItem(fieldd)
+        cbox.addItems(fieldnames)
         self.enrichTable.setCellWidget(row, 5, cbox)
         itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
         self.enrichTable.setItem(row, 6, itemm)
@@ -150,8 +149,7 @@ class EnrichmentTab:
                 cbox.addItem("Enrich Both")
                 self.enrichTable.setCellWidget(row, 4, cbox)
                 cbox = QComboBox()
-                for fieldd in fieldnames:
-                    cbox.addItem(fieldd)
+                cbox.addItems(fieldnames)
                 self.enrichTable.setCellWidget(row, 5, cbox)
                 itemm = QTableWidgetItem("http://www.w3.org/2000/01/rdf-schema#label")
                 self.enrichTable.setItem(row, 6, itemm)
@@ -223,7 +221,7 @@ class EnrichmentTab:
         for row in range(self.dlg.enrichTable.rowCount()):
             idfield = self.dlg.enrichTable.cellWidget(row, 5).currentText()
             idprop = self.dlg.enrichTable.item(row, 6).text()
-            if idprop == None or idprop == "":
+            if idprop is None or idprop == "":
                 msgBox = QMessageBox()
                 msgBox.setText(
                     "ID Property has not been specified for column " + str(self.dlg.enrichTable.item(row, 0).text()))
@@ -238,18 +236,18 @@ class EnrichmentTab:
                 propertyy),
                 "EnrichmentTab", Qgis.Info)
             triplestoreurl = ""
-            if self.dlg.enrichTable.item(row, 2) != None:
+            if self.dlg.enrichTable.item(row, 2) is not None:
                 triplestoreurl = self.dlg.enrichTable.item(row, 2).text()
                 print(self.dlg.enrichTable.item(row, 2).text())
             strategy = self.dlg.enrichTable.cellWidget(row, 3).currentText()
             content = ""
-            if self.dlg.enrichTable.cellWidget(row, 4) != None:
+            if self.dlg.enrichTable.cellWidget(row, 4) is not None:
                 content = self.dlg.enrichTable.cellWidget(row, 4).currentText()
             if item != idfield:
                 propertylist.append(self.dlg.enrichTable.item(row, 1))
             if strategy == "Exclude":
                 excludelist.append(row)
-            if strategy != "No Enrichment" and propertyy != None:
+            if strategy != "No Enrichment" and propertyy is not None:
                 progress = QProgressDialog("Enriching column " + self.dlg.enrichTable.item(row, 0).text(), "Abort", 0,
                                            0, self.dlg)
                 progress.setWindowModality(Qt.WindowModal)
@@ -293,7 +291,7 @@ class EnrichmentTab:
     ## Adds a QGIS layer which has been previously enriched to QGIS.
     #  @param self The object pointer.
     def addEnrichedLayer(self):
-        if self.enrichLayer == None:
+        if self.enrichLayer is None:
             #layers = QgsProject.instance().layerTreeRoot().children()
             #selectedLayerIndex = self.dlg.chooseLayerEnrich.currentIndex()
             self.enrichLayer = self.chooseLayerEnrich.currentLayer().clone()
@@ -305,7 +303,7 @@ class EnrichmentTab:
         for f in self.enrichLayer.getFeatures():
             fieldcounter = 0
             for field in fieldnames:
-                if self.dlg.enrichTableResult.item(row, fieldcounter) != None:
+                if self.dlg.enrichTableResult.item(row, fieldcounter) is not None:
                     f[field] = self.dlg.enrichTableResult.item(row, fieldcounter).text()
                 else:
                     f[field] = ""
@@ -354,22 +352,22 @@ class EnrichmentTab:
                     proptypelist.append("")
                 else:
                     column = self.dlg.interlinkTable.item(row, 3).text()
-                    if self.dlg.interlinkTable.item(row, 4) != None:
+                    if self.dlg.interlinkTable.item(row, 4) is not None:
                         column = self.dlg.interlinkTable.item(row, 3).data(0)
                         propurilist.append(self.dlg.interlinkTable.item(row, 4).data(1))
                     else:
                         propurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 5) != None:
+                    if self.dlg.interlinkTable.item(row, 5) is not None:
                         proptypelist.append(self.dlg.interlinkTable.item(row, 5).text())
                     else:
                         proptypelist.append("")
-                    if self.dlg.interlinkTable.item(row, 6) != None:
+                    if self.dlg.interlinkTable.item(row, 6) is not None:
                         concept = self.dlg.interlinkTable.item(row, 6).data(0)
                         self.dlg.exportColConfig[column] = concept
                         classurilist.append(concept)
                     else:
                         classurilist.append("")
-                    if self.dlg.interlinkTable.item(row, 7) != None:
+                    if self.dlg.interlinkTable.item(row, 7) is not None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(0)
                         valuemappings[item.text()] = self.dlg.interlinkTable.item(row, 7).data(1)
                         valuequeries.append({self.dlg.interlinkTable.item(row, 7).data(2),

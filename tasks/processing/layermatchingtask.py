@@ -31,14 +31,14 @@ class LayerMatchingTask(QgsTask):
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]
-        if self.matchproperty==None:
+        if self.matchproperty is None:
             self.matchproperty="http://www.w3.org/2000/01/rdf-schema#label"
         self.columnvallist = LayerUtils.getLayerColumnAsList(self.matchlayer, self.matchcolumn)
         if "Exact Matching" in self.matchingmethod or "1:1 Matching" in self.matchingmethod or "Regular Expression" in self.matchingmethod:
             thequery="SELECT ?con ?val WHERE { ?con <"+typeproperty+"> <" + str(self.matchingtype) + "> . ?con <"+self.matchproperty+"> ?val . "
             matchvalstatement="VALUES ?val { "
             for val in self.columnvallist:
-                if self.matchinglanguage!=None:
+                if self.matchinglanguage is not None:
                     matchvalstatement += "\"" + val + "\"@"+str(self.matchinglanguage)+" "
                 else:
                     matchvalstatement+="\""+val+"\" "
@@ -85,7 +85,7 @@ class LayerMatchingTask(QgsTask):
                 itemchecked.setIcon(UIUtils.datatypepropertyicon)
                 self.tablemodel.setItem(counter, 1, itemchecked)
                 counter+=1
-        if self.columnvallist!=None:
+        if self.columnvallist is not None:
             self.dlg.enrichmentSearchResultLabel.setText(
                 "<html><b>The matching task found "+str(len(self.resmap))+" results for your selection. That is "+str(round(((len(self.resmap)/len(self.columnvallist))*100),2))+"% ("+str(len(self.resmap))+"/"+str(len(self.columnvallist))+") of all instances in the original layer</html>")
         self.dlg.stackedWidget.setCurrentWidget(self.dlg.stackedWidget.widget(1))

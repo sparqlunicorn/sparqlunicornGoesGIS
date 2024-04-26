@@ -16,7 +16,7 @@ class VoidExporter:
         g.bind("adms", "http://www.w3.org/ns/adms#")
         g.bind("dcat", "http://www.w3.org/ns/dcat#")
         dsname = pubconfig["datasettitle"]
-        if pubconfig["datasettitle"] == None or pubconfig["datasettitle"] == "":
+        if pubconfig["datasettitle"] is None or pubconfig["datasettitle"] == "":
             dsname = "dataset"
         dsname = dsname.replace(" ", "_")
         voidds = pubconfig["prefixnamespace"] + dsname

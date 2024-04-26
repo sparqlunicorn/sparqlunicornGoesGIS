@@ -27,7 +27,7 @@ class ConvertCRSTask(QgsTask):
             self.description()),
             MESSAGE_CATEGORY, Qgis.Info)
         self.graph=SPARQLUtils.loadGraph(self.filename)
-        if self.graph != None:
+        if self.graph is not None:
             for s, p, o in self.graph:
                 if isinstance(o, Literal):
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
@@ -40,7 +40,7 @@ class ConvertCRSTask(QgsTask):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self.dialog, "QFileDialog.getSaveFileName()", "", "All Files (*);;Text Files (*.ttl)", options=options)
-        if fileName and self.graph!=None:
+        if fileName and self.graph is not None:
             fo = open(fileName, "w")
             fo.write(ConvertCRS().ttlhead)
             fo.write(self.graph.serialize(format="turtle").decode())

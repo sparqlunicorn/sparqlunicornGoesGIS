@@ -45,7 +45,7 @@ class GraphValidationTask(QgsTask):
         self.processinglog["literals"]["geoliterals"]["amount"] = 0
         QgsMessageLog.logMessage("Ruleset: "+self.ruleset, MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage("Rulesetgraph: "+str(self.rulesetgraph), MESSAGE_CATEGORY, Qgis.Info)
-        if self.graph != None:
+        if self.graph is not None:
             for s, p, o in self.graph:
                 #QgsMessageLog.logMessage('BEFORE "{}"'.format(o), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(o, Literal):
@@ -58,7 +58,7 @@ class GraphValidationTask(QgsTask):
                         if detected!=SPARQLUtils.supportedLiteralTypes[str(o.datatype)]:
                             #self.processinglog["literals"]["geoliterals"]["amount"] = self.processinglog["literals"]["geoliterals"]["amount"] + 1
                             self.errorlog.add("Error in triple: "+str(s)+" "+str(p)+" "+str(o)+":\n [ERR-LITTYPE]: Detected literal content "+str(detected)+" does not match claimed literal type "+str(o.datatype))
-            if self.rulesetgraph!=None:
+            if self.rulesetgraph is not None:
                 self.report=validate(self.graph,self.rulesetgraph,None,None)
                 QgsMessageLog.logMessage("Report: "+str(self.report), MESSAGE_CATEGORY, Qgis.Info)
         return True

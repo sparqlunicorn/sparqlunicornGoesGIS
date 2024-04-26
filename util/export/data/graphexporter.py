@@ -16,7 +16,7 @@ class GraphExporter:
         uriToNodeId = {}
         nodecounter = 0
         tgfresedges = ""
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
             if str(sub) not in uriToNodeId:
@@ -45,7 +45,7 @@ class GraphExporter:
         file.write("""<?xml version="1.0" encoding="UTF-8"?>
     <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
     <key for="node" id="nodekey" yfiles.type="nodegraphics"></key><key for="edge" id="edgekey" yfiles.type="edgegraphics"></key><graph id="G" edgedefault="directed">""")
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         addednodes = set()
         for sub in subjectstorender:
@@ -80,7 +80,7 @@ class GraphExporter:
     def convertTTLToGML(g, file, subjectstorender=None,classlist=None, formatt="graphml"):
         literalcounter = 0
         file.write("""graph\n[\n""")
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         addednodes = set()
         for sub in subjectstorender:
@@ -104,7 +104,7 @@ class GraphExporter:
         nodecounter = 0
         tgfresedges = ""
         sepchar=" "
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         if formatt=="GDF":
             sepchar=","
@@ -134,7 +134,7 @@ class GraphExporter:
         nodecounter = 0
         tgfresedges = ""
         sepchar=" "
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = list(g.subjects(None,None,True))
         file.write("vertices "+str(len(subjectstorender))+"\n")
         for sub in subjectstorender:
@@ -158,7 +158,7 @@ class GraphExporter:
         nodecounter = 0
         edgecounter=0
         tgfresedges = ""
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         file.write("(tlp \"2.0\"\nnodes(")
         for sub in subjectstorender:
@@ -184,7 +184,7 @@ class GraphExporter:
         nodecounter = 0
         edgecounter=0
         result={"graph":{"nodes":{},"edges":[]}}
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
             if str(sub) not in uriToNodeId:
@@ -207,7 +207,7 @@ class GraphExporter:
         nodecounter = 0
         edgecounter=0
         result={"graph":{"nodes":[],"edges":[]}}
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
             if str(sub) not in uriToNodeId:
@@ -229,7 +229,7 @@ class GraphExporter:
         uriToNodeId = {}
         nodecounter = 0
         edgecounter=0
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         file.write("digraph mygraph {")
         for sub in subjectstorender:
@@ -254,7 +254,7 @@ class GraphExporter:
         edges = "<edges>"
         edgecounter=0
         file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gexf xmlns=\"http://gexf.net/1.3\" xmlns:viz=\"http://gexf.net/1.3/viz\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://gexf.net/1.3 http://gexf.net/1.3/gexf.xsd\" version=\"1.3\">\n<graph mode=\"static\" defaultedgetype=\"directed\">\n<nodes>\n")
-        if subjectstorender == None:
+        if subjectstorender is None:
             subjectstorender = g.subjects(None,None,True)
         for sub in subjectstorender:
             if str(sub) not in uriToNodeId:

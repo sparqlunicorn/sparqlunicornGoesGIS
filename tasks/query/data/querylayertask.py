@@ -50,7 +50,7 @@ class QueryLayerTask(QgsTask):
         #QgsMessageLog.logMessage('Started task "{}"'.format(
         #    results),
         #    MESSAGE_CATEGORY, Qgis.Info)
-        if self.progress!=None:
+        if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
         res = self.processResults(results,
@@ -58,9 +58,9 @@ class QueryLayerTask(QgsTask):
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
         self.geojson=res[0]
         self.nongeojson=res[1]
-        if self.nongeojson!=None:
+        if self.nongeojson is not None:
             self.vlayernongeo = QgsVectorLayer(json.dumps(self.nongeojson, sort_keys=True), "unicorn_" + self.filename, "ogr")
-        if self.geojson!=None:
+        if self.geojson is not None:
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    self.geojson),
             #    MESSAGE_CATEGORY, Qgis.Info)
@@ -68,7 +68,7 @@ class QueryLayerTask(QgsTask):
             #QgsMessageLog.logMessage('Started task "{}"'.format(
             #    len(self.vlayer)),
             #    MESSAGE_CATEGORY, Qgis.Info)
-            if len(res)>1 and res[2]!=None:
+            if len(res)>1 and res[2] is not None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
                 if crsstring.isdigit():
@@ -77,7 +77,7 @@ class QueryLayerTask(QgsTask):
                     crs.createFromString(crsstring)
                 self.vlayer.setCrs(crs)
             QgsMessageLog.logMessage("Style URI Status: "+str(self.styleuri), MESSAGE_CATEGORY, Qgis.Info)
-            if self.styleuri!=None and self.styleuri!=[] and self.concept!=None:
+            if self.styleuri is not None and self.styleuri!=[] and self.concept is not None:
                 QgsMessageLog.logMessage("Querying style definition",MESSAGE_CATEGORY, Qgis.Info)
                 mystyle=StyleUtils.queryStyleByURI(self.concept,self.triplestoreurl,self.triplestoreconf,self.styleuri).toSLD("unicorn_" + self.filename)
                 QgsMessageLog.logMessage("Querying style definition II "+str(mystyle).replace("<","").replace(">",""),MESSAGE_CATEGORY, Qgis.Info)
@@ -133,7 +133,7 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Processing results....',
             MESSAGE_CATEGORY, Qgis.Info)
         for result in results["results"]["bindings"]:
-            if self.concept!=None and "item" not in result:
+            if self.concept is not None and "item" not in result:
                 result["item"]={}
                 result["item"]["value"]=self.concept
             if "item" in result and "rel" in result and "val" in result and "geo" in result and (
@@ -248,18 +248,18 @@ class QueryLayerTask(QgsTask):
         #                         MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
         #                         MESSAGE_CATEGORY, Qgis.Info)
-        if self.geojson == None and self.exception != None:
+        if self.geojson is None and self.exception is not None:
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
-            if self.progress != None:
+            if self.progress is not None:
                 self.progress.close()
             return
-        if self.geojson == None and self.nongeojson==None:
+        if self.geojson is None and self.nongeojson is None:
             msgBox = QMessageBox()
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
-            if self.progress != None:
+            if self.progress is not None:
                 self.progress.close()
             return
         #if self.geojson != None and isinstance(self.geojson, int) and not self.allownongeo:
@@ -270,13 +270,13 @@ class QueryLayerTask(QgsTask):
         #    return
         #QgsMessageLog.logMessage('Adding vlayer ' + str(self.geojson),
         #                         MESSAGE_CATEGORY, Qgis.Info)
-        if self.progress!=None:
+        if self.progress is not None:
             self.progress.close()
-        if self.vlayer!=None:
+        if self.vlayer is not None:
             QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),MESSAGE_CATEGORY, Qgis.Info)
             QgsProject.instance().addMapLayer(self.vlayer)
             canvas = iface.mapCanvas()
             canvas.setExtent(self.vlayer.extent())
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
-        if self.vlayernongeo!=None:
+        if self.vlayernongeo is not None:
             QgsProject.instance().addMapLayer(self.vlayernongeo)

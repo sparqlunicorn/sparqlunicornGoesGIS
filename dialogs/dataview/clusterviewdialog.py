@@ -24,7 +24,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         super(QWidget, self).__init__()
         self.setupUi(self)
         self.label=label
-        if self.label!=None and self.label!="":
+        if self.label is not None and self.label!= "":
             self.setWindowTitle("Related Concepts to " + str(label))
         else:
             self.setWindowTitle("Related Concepts to "+str(concept))
@@ -60,7 +60,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         for idx in self.tableView.selectionModel().selectedIndexes():
             row = idx.row()
             col = idx.column()
-        if row==None or col==None:
+        if row is None or col is None:
             return
         self.currentItem=self.tablemodel.item(row,col)
         if self.currentItem is not None:
@@ -72,7 +72,7 @@ class ClusterViewDialog(QWidget, FORM_CLASS):
         self.nodetype=self.currentItem.data(UIUtils.dataslot_nodetype)
         self.label=self.currentItem.data(0)
         self.tablemodel.clear()
-        if self.label!=None and self.label!="":
+        if self.label is not None and self.label!= "":
             self.setWindowTitle("Related concept to " + str(self.label))
         else:
             self.setWindowTitle("Related concept to "+str(self.concept))

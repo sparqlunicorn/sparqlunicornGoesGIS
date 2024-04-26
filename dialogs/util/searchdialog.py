@@ -69,7 +69,7 @@ class SearchDialog(QDialog, FORM_CLASS):
             self.findConcept.setEnabled(False)
         UIUtils.createTripleStoreCBox(self.tripleStoreEdit,self.triplestoreconf)
         UIUtils.createLanguageSelectionCBox(self.languageCBox,languagemap)
-        if addVocab != None:
+        if addVocab is not None:
             for cov in addVocab:
                 self.tripleStoreEdit.addItem(addVocab[cov]["label"])
         self.searchButton.clicked.connect(self.getClassesFromLabel)

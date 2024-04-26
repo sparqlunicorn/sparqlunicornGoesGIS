@@ -37,7 +37,7 @@ class LoadGraphTask(QgsTask):
             for file in self.filenames:
                 SPARQLUtils.loadGraph(file,self.graph)
         self.geoconcepts = []
-        if self.graph != None:
+        if self.graph is not None:
             self.gutils.detectTripleStoreConfiguration(self.graphname, self.graph, self.detectnamespaces,
                                                        {"normal": {}, "reversed": {}}, self.progress)
             results = self.graph.query(self.query)

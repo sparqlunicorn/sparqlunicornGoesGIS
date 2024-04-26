@@ -334,7 +334,7 @@ class SPARQLUtils:
                                  Qgis.Info)
         if convertToCollectionForm:
             query=query.replace("?con %%typeproperty%% %%concept%% .","%%concept%% %%collectionmemberproperty%% ?con .")
-        if concept!=None:
+        if concept is not None:
             if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and ("wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]) and concept[concept.find('(')+1:-1].startswith("Q"):
                 query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
             else:
@@ -366,7 +366,7 @@ class SPARQLUtils:
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",str(bboxpoints[2].asPoint().x())).replace(
                 "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%", str(bboxpoints[2].asPoint().y())) + "\n"
-            if curquery!=None:
+            if curquery is not None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
                 return filterstatement
@@ -374,7 +374,7 @@ class SPARQLUtils:
                 triplestoreconf["bboxquery"]["type"] == "minmax":
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%minPoint%%", bboxpoints[1].asWkt()).replace("%%maxPoint%%", bboxpoints[3].asWkt())
-            if curquery!=None:
+            if curquery is not None:
                 curquery = curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
                 return curquery
             else:
@@ -383,7 +383,7 @@ class SPARQLUtils:
                 triplestoreconf["bboxquery"]["type"] == "pointdistance":
             filterstatement=triplestoreconf["bboxquery"][
                 "query"].replace("%%lat%%", str(bboxpoints[0].asPoint().y())).replace("%%lon%%",str(bboxpoints[0].asPoint().x())).replace("%%distance%%", str(widthm / 1000))
-            if curquery!=None:
+            if curquery is not None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
                 return filterstatement
@@ -392,7 +392,7 @@ class SPARQLUtils:
             filterstatement=geosparqltemplate.replace("%%x1%%", str(bboxpoints[0].asPoint().x())).replace("%%x2%%",
                                                                                str(bboxpoints[2].asPoint().x())).replace(
                 "%%y1%%", str(bboxpoints[0].asPoint().y())).replace("%%y2%%",str(bboxpoints[2].asPoint().y())) + "\n"
-            if curquery!=None:
+            if curquery is not None:
                 return curquery[0:curquery.rfind('}')] + filterstatement + curquery[curquery.rfind('}') + 1:]
             else:
                 return filterstatement
@@ -411,17 +411,17 @@ class SPARQLUtils:
             proxyPort = s.value("proxy/proxyPort")
             proxyUser = s.value("proxy/proxyUser")
             proxyPassword = s.value("proxy/proxyPassword")
-            if proxyHost != None and proxyHost != "" and proxyPort != None and proxyPort != "":
+            if proxyHost is not None and proxyHost != "" and proxyPort is not None and proxyPort != "":
                 QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
                 proxy = urllib.request.ProxyHandler({'http': proxyHost})
                 opener = urllib.request.build_opener(proxy)
                 urllib.request.install_opener(opener)
             QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
             sparql = SPARQLWrapper(triplestoreurl["url"])
-            if triplestoreconf!=None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
+            if triplestoreconf is not None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                     and triplestoreconf["auth"]["userCredential"]!="" \
                     and "userPassword" in triplestoreconf["auth"] \
-                    and triplestoreconf["auth"]["userPassword"] != None:
+                    and triplestoreconf["auth"]["userPassword"] is not None:
                 #QgsMessageLog.logMessage('Credentials? ' + str(triplestoreconf["auth"]["userCredential"])+" "+str(triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
                 if "method" in triplestoreconf["auth"] and triplestoreconf["auth"]["method"] in SPARQLUtils.authmethods:
                     sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf["auth"]["method"]])
@@ -444,10 +444,10 @@ class SPARQLUtils:
                 try:
                     sparql = SPARQLWrapper(triplestoreurl["url"],agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                     sparql.setQuery(query)
-                    if triplestoreconf != None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
+                    if triplestoreconf is not None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                             and triplestoreconf["auth"]["userCredential"] != "" \
                             and "userPassword" in triplestoreconf["auth"] \
-                            and triplestoreconf["auth"]["userPassword"] != None:
+                            and triplestoreconf["auth"]["userPassword"] is not None:
                         #QgsMessageLog.logMessage(
                         #    'Credentials? ' + str(triplestoreconf["auth"]["userCredential"]) + " " + str(
                         #       triplestoreconf["auth"]["userPassword"]), MESSAGE_CATEGORY, Qgis.Info)
@@ -476,7 +476,7 @@ class SPARQLUtils:
             graph=triplestoreurl["instance"]
             QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
-            if graph!=None:
+            if graph is not None:
                 if "CONSTRUCT" in str(query):
                     results = graph.query(query)
                     resg = Graph()
@@ -497,10 +497,10 @@ class SPARQLUtils:
 
     @staticmethod
     def handleException(callingtask="",title=None,text=None):
-        if SPARQLUtils.exception!=None:
+        if SPARQLUtils.exception is not None:
             ErrorMessageBox(callingtask+" An error occurred!","<html>"+str(SPARQLUtils.exception).replace("\n","<br/>")+"</html>").exec_()
             return True
-        if title!=None and text!=None:
+        if title is not None and text is not None:
             ErrorMessageBox(callingtask+" "+title,"<html>"+text.replace("\n","<br/>")+"</html>").exec_()
             return True
         return False
@@ -523,14 +523,14 @@ class SPARQLUtils:
             uri=uri[0:-1]
         if "#" in uri:
             prefix=uri[:uri.rfind("#")+1]
-            if prefixlist!=None and prefix in prefixlist:
+            if prefixlist is not None and prefix in prefixlist:
                 return str(prefixlist[prefix])+":"+str(uri[uri.rfind("#") + 1:])
             return uri[uri.rfind("#") + 1:]
         if uri.endswith("/"):
             uri=uri[0:-1]
         if "/" in uri:
             prefix=uri[:uri.rfind("/")+1]
-            if prefixlist!=None and prefix in prefixlist:
+            if prefixlist is not None and prefix in prefixlist:
                 return str(prefixlist[prefix])+":"+str(uri[uri.rfind("/") + 1:])
             return uri[uri.rfind("/") + 1:]
         return uri
@@ -563,12 +563,12 @@ class SPARQLUtils:
 
     @staticmethod
     def loadAdditionalGraphResources(existinggraph,graphuri):
-        if graphuri==None or graphuri=="":
+        if graphuri is None or graphuri=="":
             return None
 
     @staticmethod
     def loadGraph(graphuri,graph=None):
-        if graphuri==None or graphuri=="":
+        if graphuri is None or graphuri=="":
             return None
         s = QSettings()  # getting proxy from qgis options settings
         proxyEnabled = s.value("proxy/proxyEnabled")
@@ -577,13 +577,13 @@ class SPARQLUtils:
         proxyPort = s.value("proxy/proxyPort")
         proxyUser = s.value("proxy/proxyUser")
         proxyPassword = s.value("proxy/proxyPassword")
-        if proxyHost != None and proxyHost != "" and proxyPort != None and proxyPort != "":
+        if proxyHost is not None and proxyHost != "" and proxyPort is not None and proxyPort != "":
             #QgsMessageLog.logMessage('Proxy? ' + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)
             proxy = urllib.request.ProxyHandler({'http': proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
         #QgsMessageLog.logMessage('Started task "{}"'.format("Load Graph"), MESSAGE_CATEGORY, Qgis.Info)
-        if graph==None:
+        if graph is None:
             graph = Graph()
         try:
             if graphuri.startswith("http"):
@@ -653,7 +653,7 @@ class SPARQLUtils:
             features = myjson["data"]["features"]
             curcounter = 0
             for feat in features:
-                if currentlayergeojson==None:
+                if currentlayergeojson is None:
                     result.append(feat["geometry"])
                 else:
                     if onlygeo and "properties" in feat:
@@ -710,7 +710,7 @@ class SPARQLUtils:
     def getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang="en",typeindicator="class"):
         # url="https://www.wikidata.org/w/api.php?action=wbgetentities&props=labels&ids="
         result = classes
-        if query==None:
+        if query is None:
             if typeindicator=="class":
                 query="SELECT ?class ?label\n WHERE { %%concepts%%  \n "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",triplestoreconf,"OPTIONAL","FILTER(LANG(?label) = \""+str(preferredlang)+"\") ")+" \n} "
         if "SELECT" in query and "resource" in triplestoreconf \
@@ -726,7 +726,7 @@ class SPARQLUtils:
             query = query.replace("%%concepts%%", vals)
             #QgsMessageLog.logMessage("Querying for "+str(len(vals))+" concepts", MESSAGE_CATEGORY, Qgis.Info)
             results = SPARQLUtils.executeQuery(triplestoreurl, query)
-            if results == False:
+            if not results:
                 return result
             #QgsMessageLog.logMessage("Got " + str(len(results)) + " labels", MESSAGE_CATEGORY, Qgis.Info)
             for res in results["results"]["bindings"]:

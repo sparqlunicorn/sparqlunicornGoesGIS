@@ -91,13 +91,13 @@ class EnrichmentQueryTask(QgsTask):
         for it in attlist[self.idfield]:
             if str(it).startswith("http"):
                 query += "<" + str(it) + "> "
-            elif self.idprop == "http://www.w3.org/2000/01/rdf-schema#label" and self.language != None and self.language != "":
+            elif self.idprop == "http://www.w3.org/2000/01/rdf-schema#label" and self.language is not None and self.language != "":
                 query += "\"" + str(it) + "\"@" + self.language + " "
             else:
                 query += "\"" + str(it) + "\" "
         query += " } . \n"
         proppp = self.propertyy.data(UIUtils.dataslot_conceptURI)
-        if proppp!=None and self.propertyy.data(UIUtils.dataslot_conceptURI).startswith("//"):
+        if proppp is not None and self.propertyy.data(UIUtils.dataslot_conceptURI).startswith("//"):
             proppp = "http:" + proppp
         if self.table.item(self.row, 7).text() != "" and "wikidata" in curtriplestoreconf["resource"]["url"]:
             query += "?item wdt:P31 <" + str(self.table.item(self.row, 7).text()) + "> .\n"
@@ -163,7 +163,7 @@ class EnrichmentQueryTask(QgsTask):
                 if self.strategy == "Merge":
                     newitem = QTableWidgetItem(str(f[self.item]) + str(self.resultmap[f[self.idfield]]))
                 elif self.strategy == "Keep Local":
-                    if f[self.item] == None:
+                    if f[self.item] is None:
                         newitem = QTableWidgetItem(str(self.resultmap[f[self.idfield]]))
                     else:
                         newitem = QTableWidgetItem(str(f[self.item]))

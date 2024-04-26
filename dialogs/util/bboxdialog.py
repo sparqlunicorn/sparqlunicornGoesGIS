@@ -66,7 +66,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
         self.map_canvas_layerextent.setMapTool(self.toolPan3)
         self.map_canvas_layerextent.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         self.map_canvas.setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-        if self.templayer!=None:
+        if self.templayer is not None:
             self.templayer.invertSelection()
             self.map_canvas.setLayers([self.vl, self.templayer, self.mts_layer])
             self.map_canvas.zoomToSelected(self.templayer)
@@ -107,7 +107,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
     def showExtent(self):
         geom=self.chooseBBOXLayer.currentLayer().extent()
         crs = self.chooseBBOXLayer.currentLayer().crs()
-        if geom!=None:
+        if geom is not None:
             self.vl_layerextent.startEditing()
             listOfIds = [feat.id() for feat in self.vl_layerextent.getFeatures()]
             self.vl_layerextent.deleteFeatures(listOfIds)
@@ -211,7 +211,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
             msgBox.exec()
 
     def setBBOXInQuery(self,bbox):
-        if self.ext_map_canvas!=None:
+        if self.ext_map_canvas is not None:
             layerlist = self.ext_map_canvas.layers()
             if self.tabWidget.currentIndex()==0:
                 layerlist.insert(1, QgsVectorLayer(self.vl.source(), self.vl.name(), self.vl.providerType()))
@@ -257,7 +257,7 @@ class BBOXDialog(QDialog, FORM_CLASS):
                 pointt2 = QgsGeometry.fromWkt(self.rect_tool.point2.asWkt())
                 pointt3 = QgsGeometry.fromWkt(self.rect_tool.point3.asWkt())
                 pointt4 = QgsGeometry.fromWkt(self.rect_tool.point4.asWkt())
-                if sourceCrs != None:
+                if sourceCrs is not None:
                     tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
                     pointt1.transform(tr)
                     pointt2.transform(tr)
@@ -265,14 +265,14 @@ class BBOXDialog(QDialog, FORM_CLASS):
                     pointt4.transform(tr)
                 polygon = QgsGeometry.fromPolylineXY(
                     [pointt1.asPoint(), pointt2.asPoint(), pointt3.asPoint(), pointt4.asPoint()])
-        if polygon!=None:
+        if polygon is not None:
             center = polygon.centroid()
         # distance = QgsDistanceArea()
         # distance.setSourceCrs(destCrs)
         # distance.setEllipsoidalMode(True)
         # distance.setEllipsoid('WGS84')
         self.curquery=""
-        if self.inp_sparql!=None:
+        if self.inp_sparql is not None:
             self.curquery = self.inp_sparql.toPlainText()
         if self.rectangle or self.circle:
             widthm = 100  # distance.measureLine(pointt1, pointt2)

@@ -54,10 +54,10 @@ class ClassTreeQueryTask(QgsTask):
             self.classtreemap={"root":self.treeNode}
             self.subclassmap={"root":set()}
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
-            if results=="Exists error" or results==False and SPARQLUtils.exception!=None:
+            if results=="Exists error" or results==False and SPARQLUtils.exception is not None:
                 results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo","").replace("(Bound(?hasgeo) AS ?hgeo)",""), self.triplestoreconf)
             if results==False:
-                if SPARQLUtils.exception==None:
+                if SPARQLUtils.exception is None:
                     SPARQLUtils.exception="No results"
                 return False
             hasparent={}
@@ -127,12 +127,12 @@ class ClassTreeQueryTask(QgsTask):
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         path=os.path.join(__location__, "../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
-        if SPARQLUtils.exception!=None:
+        if SPARQLUtils.exception is not None:
             SPARQLUtils.handleException(MESSAGE_CATEGORY, str(self.description)+": An error occurred!")
-        elif self.classtreemap==None and self.subclassmap==None and exists(path):
+        elif self.classtreemap is None and self.subclassmap is None and exists(path):
             elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
-        elif self.classtreemap!=None and self.subclassmap!=None:
+        elif self.classtreemap is not None and self.subclassmap is not None:
             self.alreadyprocessed=set()
             self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
             self.classtreemap["root"]=self.rootNode

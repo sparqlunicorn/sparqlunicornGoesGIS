@@ -99,10 +99,10 @@ class OntDocDialog(QtWidgets.QDialog, FORM_CLASS):
         graphname=self.inputRDFFileWidget.filePath()
         logoname=self.logoFileWidget.filePath()
         #QgsMessageLog.logMessage("Graph "+str(graphname), "Ontdocdialog", Qgis.Info)
-        if graphname==None or graphname=="":
+        if graphname is None or graphname== "":
                 graphname="test"
         namespace=self.namespaceCBox.currentText()
-        if namespace==None or namespace=="":
+        if namespace is None or namespace== "":
                 namespace="http://lod.squirrel.link/data/"
         baselayerss={}
         model=self.baseLayerListView.model()

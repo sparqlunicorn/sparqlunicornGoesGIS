@@ -54,7 +54,7 @@ class InstanceListQueryTask(QgsTask):
                 self.treeNode.data(UIUtils.dataslot_linkedconceptrel)) + "> ?linkedgeo . }\n }"
         else:
             if "geometryproperty" in self.triplestoreconf:
-                if geotriplepattern!=None:
+                if geotriplepattern is not None:
                     thequery = "SELECT ?con ?label ?hasgeo WHERE { ?con <" + typeproperty + "> <" + str(
                         self.treeNode.data(UIUtils.dataslot_conceptURI)) + "> . " + str(
                         labelpattern) + " "+str(geotriplepattern)+" }"

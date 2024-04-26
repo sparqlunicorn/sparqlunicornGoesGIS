@@ -63,11 +63,11 @@ class ClassTreeUtils:
                 res = DocUtils.replaceNameSpacesInLabel(prefixes, str(obj))
                 if str(obj) in uritolabel:
                     restext = uritolabel[str(obj)]["label"] + " (" + DocUtils.shortenURI(str(obj)) + ")"
-                    if res != None:
+                    if res is not None:
                         restext = uritolabel[str(obj)]["label"] + " (" + res["uri"] + ")"
                 else:
                     restext = DocUtils.shortenURI(str(obj))
-                    if res != None:
+                    if res is not None:
                         restext += " (" + res["uri"] + ")"
                 if str(obj) not in SPARQLUtils.collectionclasses:
                     result.append({"id": str(obj), "parent": cls, "type": "instance", "text": restext, "data": {}})

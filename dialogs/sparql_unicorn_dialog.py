@@ -334,7 +334,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def getGeoConcepts(self, triplestoreurl, query, queryvar, graph, getlabels, examplequery):
         viewlist = []
         resultlist = []
-        if graph != None:
+        if graph is not None:
             results = graph.query(query)
             self.autocomplete["completerClassList"] = {}
             for row in results:
@@ -378,7 +378,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def getGeoCollectionInstances(self, triplestoreurl, query, queryvar, graph, featureOrGeoCollection, examplequery):
         viewlist = []
         resultlist = []
-        if graph != None:
+        if graph is not None:
             results = graph.query(query)
             self.autocomplete["completerClassList"] = {}
             for row in results:
@@ -479,7 +479,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
             #QgsMessageLog.logMessage('Started task "{}"'.format(str(query)), "SPARQL Unicorn", Qgis.Info)
             if "featurecollectionclasses" in self.triplestoreconf[endpointIndex] and \
-                    self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != None and \
+                    self.triplestoreconf[endpointIndex]["featurecollectionclasses"] is not None and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != "" and \
                     self.triplestoreconf[endpointIndex]["featurecollectionclasses"] != []:
                 if len(self.triplestoreconf[endpointIndex]["geometrycollectionclasses"]) > 1:
@@ -500,7 +500,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                                            True, None)
             query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
             if "geometrycollectionclasses" in self.triplestoreconf[endpointIndex] and \
-                    self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != None and \
+                    self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] is not None and \
                     self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != "" and \
                     self.triplestoreconf[endpointIndex]["geometrycollectionclasses"] != []:
                 if len(self.triplestoreconf[endpointIndex]["geometrycollectionclasses"])>1:
@@ -553,7 +553,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     def tabchanged(self,index):
         #QgsMessageLog.logMessage('Started task "{}"'.format("Tab changed! "+str(index)), MESSAGE_CATEGORY, Qgis.Info)
-        if self.currentProxyModel!=None:
+        if self.currentProxyModel is not None:
             self.currentProxyModel.setFilterRegExp("")
         self.filterConcepts.setText("")
         if index==0:
@@ -608,10 +608,10 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         if self.queryTemplates.count()>0:
             if "wd:Q%%concept%% ." in self.queryTemplates.itemData(self.queryTemplates.currentIndex()):
                 querytext = ""
-                if concept != None and concept.startswith("http"):
+                if concept is not None and concept.startswith("http"):
                     querytext = \
                         self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
-                elif concept != None:
+                elif concept is not None:
                     querytext = \
                         self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
@@ -651,9 +651,9 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 match = re.search(r'line:([0-9]+),', str(e))
                 start=-1
                 if self.prefixes is not None and len(self.prefixes)>self.comboBox.currentIndex() and self.prefixes[
-                    self.comboBox.currentIndex()] != None and self.prefixes[self.comboBox.currentIndex()] != "" and match!=None:
+                    self.comboBox.currentIndex()] is not None and self.prefixes[self.comboBox.currentIndex()] != "" and match is not None:
                     start = int(match.group(1)) - len(self.triplestoreconf[self.comboBox.currentIndex()]["prefixes"]) - 1
-                elif match!=None:
+                elif match is not None:
                     start = int(match.group(1)) - 1
                 if "line" in str(e):
                     self.errorLabel.setText(re.sub("line:([0-9]+),", "line: " + str(start) + ",", str(e)))
@@ -699,7 +699,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.currentcol = column
         self.currentrow = row
         valuemap = None
-        if table.item(row, column) != None and table.item(row, column).text() != "":
+        if table.item(row, column) is not None and table.item(row, column).text() != "":
             valuemap = table.item(row, column).data(1)
         self.interlinkdialog = ValueMappingDialog(column, row, self.triplestoreconf, interlinkOrEnrich, table,
                                                   table.item(row, 3).text(), layer, valuemap)
@@ -764,7 +764,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 thequery+="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n ?item <"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"> <"+str(concept)+"> . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
                     thequery+="OPTIONAL { "+geopat+" "
-                    if geoconstraint!=None:
+                    if geoconstraint is not None:
                         thequery+=geoconstraint
                     thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"
@@ -775,7 +775,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 thequery ="SELECT ?"+" ?".join(self.triplestoreconf[self.comboBox.currentIndex()]["mandatoryvariables"])+" ?rel ?val\n WHERE\n {\n <"+str(concept)+"> <http://www.w3.org/2000/01/rdf-schema#member> ?item . ?item ?rel ?val . \n"
                 for geopat in self.triplestoreconf[self.comboBox.currentIndex()]["geotriplepattern"]:
                     thequery+="OPTIONAL { "+geopat+" "
-                    if geoconstraint!=None:
+                    if geoconstraint is not None:
                         thequery+=geoconstraint
                     thequery+="}\n"
                 thequery+="\n }\n ORDER BY ?item"

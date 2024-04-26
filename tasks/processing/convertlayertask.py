@@ -23,7 +23,7 @@ class ConvertLayerTask(QgsTask):
 
     def run(self):
         fileext=self.filename[0][self.filename[0].rfind('.')+1:].upper()
-        if self.columntypes!=None:
+        if self.columntypes is not None:
             ttlstring = LayerExporter.layerToTTLString(self.layer,
                                                        self.prefixes,
                                                        self.vocabulary, self.literaltype,
@@ -42,7 +42,7 @@ class ConvertLayerTask(QgsTask):
 
     def finished(self, result):
         self.progress.close()
-        if result == True:
+        if result:
             iface.messageBar().pushMessage("Exported layer successfully to " + str(self.filename[0]) + "!", "OK",
                                            level=Qgis.Success)
             msgBox = QMessageBox()

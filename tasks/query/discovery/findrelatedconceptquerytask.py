@@ -137,7 +137,7 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
-            if self.label != None and self.label != "":
+            if self.label is not None and self.label != "":
                 curitem.setText(self.label)
             self.searchResultModel.setItem(counter, 1, curitem)
             counter+=1
@@ -146,7 +146,7 @@ class FindRelatedConceptQueryTask(QgsTask):
             curitem = QStandardItem()
             UIUtils.detectItemNodeType(curitem, self.concept, self.triplestoreconf, None, None, None,
                                        SPARQLUtils.labelFromURI(self.concept) + "         ", self.concept)
-            if self.label != None and self.label != "":
+            if self.label is not None and self.label != "":
                 curitem.setText(self.label)
             self.searchResultModel.setItem(counter, 1, curitem)
             curitem = QStandardItem()
@@ -190,7 +190,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                     curitem.setText(str(self.queryresult[rel][val]["rellabel"])+" ("+SPARQLUtils.labelFromURI(rel)+")")
                 self.searchResultModel.setItem(counter, 1, curitem)
                 curitem=QStandardItem()
-                if self.label!=None and self.label!="":
+                if self.label is not None and self.label!= "":
                     curitem.setText(self.label)
                 else:
                     curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))
@@ -210,7 +210,7 @@ class FindRelatedConceptQueryTask(QgsTask):
                     curitem.setText(str(self.queryresult2[rel][val]["rellabel"])+" ("+SPARQLUtils.labelFromURI(rel)+")")
                 self.searchResultModel.setItem(counter, 3, curitem)
                 curitem=QStandardItem()
-                if self.label!=None and self.label!="":
+                if self.label is not None and self.label!= "":
                     curitem.setText(self.label)
                 else:
                     curitem.setText(SPARQLUtils.labelFromURI(str(self.concept)))

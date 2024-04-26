@@ -122,7 +122,7 @@ class InstanceQueryTask(QgsTask):
                         myGeometryInstanceJSON=LayerUtils.processLiteral(self.queryresult[rel]["val"],
                         (self.queryresult[rel]["valtype"] if "valtype" in self.queryresult[rel] else ""),
                         True,None,self.triplestoreconf)
-                    if myGeometryInstanceJSON!=None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"]!=None:
+                    if myGeometryInstanceJSON is not None and "crs" in myGeometryInstanceJSON and myGeometryInstanceJSON["crs"] is not None:
                         if myGeometryInstanceJSON["crs"]=="CRS84":
                             encounteredcrs="urn:ogc:def:crs:OGC:1.3:CRS84"
                         else:
@@ -131,7 +131,7 @@ class InstanceQueryTask(QgsTask):
                 elif len(self.triplestoreconf["geometryproperty"])==2 and self.triplestoreconf["geometryproperty"][0] in self.queryresult and self.triplestoreconf["geometryproperty"][1] in self.queryresult:
                     myGeometryInstanceJSON=LayerUtils.processLiteral("POINT(" + str(float(self.queryresult[self.triplestoreconf["geometryproperty"][0]]["val"])) + " " + str(
                         float(self.queryresult[self.triplestoreconf["geometryproperty"][1]]["val"])) + ")", "wkt", True,None, self.triplestoreconf)
-                if myGeometryInstanceJSON!=None:
+                if myGeometryInstanceJSON is not None:
                     geojson = {'type': 'FeatureCollection', 'features': [
                     {'id': str(self.searchTerm), 'type': 'Feature', 'properties': {},
                         'geometry': myGeometryInstanceJSON}
@@ -141,11 +141,11 @@ class InstanceQueryTask(QgsTask):
                     geomcentroidpoint=None
                     for feat in featuress:
                         try:
-                            if feat.geometry()!=None and feat.geometry().centroid()!=None:
+                            if feat.geometry() is not None and feat.geometry().centroid() is not None:
                                 geomcentroidpoint = feat.geometry().centroid().asPoint()
                         except:
                             print("error")
-                    if encounteredcrs!=None:
+                    if encounteredcrs is not None:
                         crs = self.features.crs()
                         crsstring = encounteredcrs
                         if crsstring.isdigit():

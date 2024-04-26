@@ -36,14 +36,14 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
         self.triplestoreconf = triplestoreconf
         self.interlinkOrEnrich = interlinkOrEnrich
         self.valuemap = None
-        if self.table.item(row, column) != None and self.table.item(row, column).data(1) != None:
+        if self.table.item(row, column) is not None and self.table.item(row, column).data(1) is not None:
             self.valuemap = json.loads(self.table.item(row, column).data(1))
             msgBox = QMessageBox()
             msgBox.setText(str(self.valuemap))
             msgBox.exec()
         self.queryedit.zoomIn(4)
         self.queryhighlight = SPARQLHighlighter(self.queryedit)
-        if self.table.item(row, column) != None and self.table.item(row, column).data(2) != None and self.table.item(
+        if self.table.item(row, column) is not None and self.table.item(row, column).data(2) is not None and self.table.item(
                 row, column).data(2) != "ValueMap{}":
             self.queryedit.setPlainText(self.table.item(row, column).data(2))
         else:
@@ -56,7 +56,7 @@ class ValueMappingDialog(QDialog, FORM_CLASS):
         row = 0
         self.valmaptable.setColumnCount(2)
         self.valmaptable.setHorizontalHeaderLabels(["From", "To"])
-        if self.valuemap != None:
+        if self.valuemap is not None:
             for key in self.valuemap:
                 row = self.valmaptable.rowCount()
                 self.valmaptable.insertRow(row)

@@ -123,7 +123,7 @@ class InterlinkingTab:
         if len(self.chooseLayerInterlink) == 0:
             return
         layer=self.chooseLayerInterlink.currentLayer()
-        if layer==None:
+        if layer is None:
             return
         self.interlinkNameSpace.setText("http://www.github.com/sparqlunicorn/data/"+str(layer.name()).lower().replace(" ","_")+"/")
         try:
@@ -215,7 +215,7 @@ class InterlinkingTab:
                         if "name" in column and column["name"] == columnname:
                             if "propiri" in column:
                                 self.dlg.interlinkTable.setItem(row, 4, QTableWidgetItem(column["propiri"]))
-                            if "prop" in column and column["prop"]!=None:
+                            if "prop" in column and column["prop"] is not None:
                                 comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
                                 proptype=column["prop"]
                                 if proptype == "annotation":
@@ -245,7 +245,7 @@ class InterlinkingTab:
                                 else:
                                     comboboxx.setCurrentIndex(
                                         comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
-                            if "concept" in column and column["concept"] != None:
+                            if "concept" in column and column["concept"] is not None:
                                 item = QTableWidgetItem(column["concept"])
                                 item.setText(column["concept"])
                                 item.setData(1, column["concept"])
@@ -270,12 +270,12 @@ class InterlinkingTab:
                     for row in range(self.dlg.interlinkTable.rowCount()):
                         columnname = self.dlg.interlinkTable.item(row, 3).text()
                         if columnname == name:
-                            if propiri != None:
+                            if propiri is not None:
                                 item = QTableWidgetItem(propiri)
                                 item.setText(propiri)
                                 item.setData(1, propiri)
                                 self.dlg.interlinkTable.setItem(row, 4, item)
-                            if proptype != None:
+                            if proptype is not None:
                                 comboboxx = self.dlg.interlinkTable.cellWidget(row, 5)
                                 if proptype == "annotation":
                                     comboboxx.setCurrentIndex(
@@ -302,25 +302,25 @@ class InterlinkingTab:
                                     comboboxx.setCurrentIndex(comboboxx.findText("SubClass", QtCore.Qt.MatchFixedString))
                                 else:
                                     comboboxx.setCurrentIndex(comboboxx.findText("Automatic", QtCore.Qt.MatchFixedString))
-                            if concept != None:
+                            if concept is not None:
                                 item = QTableWidgetItem(concept)
                                 item.setText(concept)
                                 item.setData(1, concept)
                                 self.dlg.interlinkTable.setItem(row, 6, item)
-                            if valuemappings != {} and valuemappings != None:
+                            if valuemappings != {} and valuemappings is not None:
                                 item = QTableWidgetItem("ValueMap{}")
                                 item.setText("ValueMap{}")
                                 item.setData(1, valuemappings)
-                                if query != None:
+                                if query is not None:
                                     item.setData(2, query)
                                     item.setData(3, triplestoreurl)
                                 self.dlg.interlinkTable.setItem(row, 7, item)
-                            elif query != None:
+                            elif query is not None:
                                 item = QTableWidgetItem("ValueMap{}")
                                 item.setText("ValueMap{}")
                                 item.setData(2, query)
                                 item.setData(3, triplestoreurl)
-                                if valuemappings != {} and valuemappings != None:
+                                if valuemappings != {} and valuemappings is not None:
                                     item.setData(1, valuemappings)
                                 self.dlg.interlinkTable.setItem(row, 7, item)
         else:
@@ -356,10 +356,10 @@ class InterlinkingTab:
                     result["indid"]=self.dlg.interlinkTable.item(row, 3).text()
                 else:
                     column={"name":self.dlg.interlinkTable.item(row, 3).text(),"order":row}
-                    if self.dlg.interlinkTable.item(row, 4)!=None and self.dlg.interlinkTable.item(row, 4).data(1)!=None:
+                    if self.dlg.interlinkTable.item(row, 4) is not None and self.dlg.interlinkTable.item(row, 4).data(1) is not None:
                         column["propiri"]=self.dlg.interlinkTable.item(row, 4).data(1)
-                    if self.dlg.interlinkTable.cellWidget(row, 5) != None and self.dlg.interlinkTable.cellWidget(row,
-                                                                                                                 5).currentText() != "Automatic":
+                    if self.dlg.interlinkTable.cellWidget(row, 5) is not None and self.dlg.interlinkTable.cellWidget(row,
+                                                                                                                     5).currentText() != "Automatic":
                         if self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "AnnotationProperty":
                             column["prop"]="annotation"
                         elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "DataProperty":
@@ -376,18 +376,18 @@ class InterlinkingTab:
                             column["prop"] = "desc"
                         elif self.dlg.interlinkTable.cellWidget(row, 5).currentText() == "TypeProperty":
                             column["prop"] = "type"
-                    if self.dlg.interlinkTable.item(row, 6) != None:
+                    if self.dlg.interlinkTable.item(row, 6) is not None:
                         concept = self.dlg.interlinkTable.item(row, 6).data(0)
                         #self.exportColConfig[column] = concept
                         column["concept"]=concept
-                    if self.dlg.interlinkTable.item(row, 7) != None:
+                    if self.dlg.interlinkTable.item(row, 7) is not None:
                         self.valueconcept = self.dlg.interlinkTable.item(row, 7).data(1)
-                        if self.dlg.interlinkTable.item(row, 7).data(2) != None and self.dlg.interlinkTable.item(row,
-                                                                                                                 7).data(
-                                3) != None:
+                        if self.dlg.interlinkTable.item(row, 7).data(2) is not None and self.dlg.interlinkTable.item(row,
+                                                                                                                     7).data(
+                                3) is not None:
                             column["query"]=self.dlg.interlinkTable.item(row, 7).data(2).replace("\n", " ")
                             column["triplestoreurl"]=self.dlg.interlinkTable.item(row, 7).data(3)
-                        if self.valueconcept != None:
+                        if self.valueconcept is not None:
                             column["valuemapping"]={}
                             for key in self.valueconcept:
                                 column["valuemapping"][key]=self.valueconcept[key]

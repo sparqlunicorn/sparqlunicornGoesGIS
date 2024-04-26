@@ -137,14 +137,14 @@ class LayerExporter:
                 fieldcounter += 1
                 # if fieldcounter>=len(fieldnames):
                 #    fieldcounter=0
-                if includelist != None and fieldcounter < len(includelist) and includelist[fieldcounter] == False:
+                if includelist is not None and fieldcounter < len(includelist) and includelist[fieldcounter] == False:
                     continue
                 prop = propp
                 print(str(fieldcounter))
                 print(str(urilist) + "\n")
                 print(str(classurilist) + "\n")
                 print(str(includelist) + "\n")
-                if urilist != None and fieldcounter in urilist and urilist[fieldcounter] != "":
+                if urilist is not None and fieldcounter in urilist and urilist[fieldcounter] != "":
                     print(urilist)
                     if not urilist[fieldcounter].startswith("http"):
                         print("Does not start with http")
@@ -171,7 +171,7 @@ class LayerExporter:
                 #      if classurilist[fieldcounter]!="":
                 #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif prop == "http://www.w3.org/2000/01/rdf-schema#label" or prop == "http://www.w3.org/2000/01/rdf-schema#comment" or (
-                        proptypelist != None and proptypelist[fieldcounter] == "AnnotationProperty"):
+                        proptypelist is not None and proptypelist[fieldcounter] == "AnnotationProperty"):
                     ttlstring.add("<" + curid + "> <" + prop + "> \"" + str(f[propp]).replace('"',
                                                                                               '\\"') + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n")
                     if first < 10:
@@ -179,9 +179,9 @@ class LayerExporter:
                             "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n")
                         ttlstring.add(
                             "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                elif not f[propp] or f[propp] == None or f[propp] == "":
+                elif not f[propp] or f[propp] is None or f[propp] == "":
                     continue
-                elif proptypelist != None and proptypelist[fieldcounter] == "SubClass":
+                elif proptypelist is not None and proptypelist[fieldcounter] == "SubClass":
                     ttlstring.add(
                         "<" + curid + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" + str(f[propp]) + "> .\n")
                     ttlstring.add(
@@ -189,7 +189,7 @@ class LayerExporter:
                     if first < 10:
                         ttlstring.add("<" + str(f[
                                                     propp]) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                elif valuequeries != None and propp in valuequeries:
+                elif valuequeries is not None and propp in valuequeries:
                     # ttlstring += ""
                     results = SPARQLUtils.executeQuery(valuequeries[propp][1], "".join(
                         prefixes + valuequeries[propp][0].replace("%%" + propp + "%%", "\"" + str(f[propp]) + "\"")))
@@ -204,7 +204,7 @@ class LayerExporter:
                             ttlstring.add(
                                 "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[
                                     fieldcounter] + "> .\n")
-                elif valuemappings != None and propp in valuemappings and f[propp] in valuemappings[propp]:
+                elif valuemappings is not None and propp in valuemappings and f[propp] in valuemappings[propp]:
                     ttlstring.add("<" + curid + "> <" + prop + "> <" + str(valuemappings[propp][f[propp]]) + "> .\n")
                     if first < 10:
                         ttlstring.add(
@@ -216,14 +216,14 @@ class LayerExporter:
                                 "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[
                                     fieldcounter] + "> .\n")
                 elif "http" in str(f[propp]) or (
-                        proptypelist != None and proptypelist[fieldcounter] == "ObjectProperty"):
+                        proptypelist is not None and proptypelist[fieldcounter] == "ObjectProperty"):
                     ttlstring.add("<" + curid + "> <" + prop + "> <" + str(f[propp]) + "> .\n")
                     if first < 10:
                         ttlstring.add(
                             "<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
                         ttlstring.add(
                             "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#domain> <" + curclassid + "> .\n")
-                        if classurilist != None and fieldcounter < len(classurilist) and classurilist[
+                        if classurilist is not None and fieldcounter < len(classurilist) and classurilist[
                             fieldcounter] != "":
                             ttlstring.add(
                                 "<" + prop + "> <http://www.w3.org/2000/01/rdf-schema#range> <" + classurilist[

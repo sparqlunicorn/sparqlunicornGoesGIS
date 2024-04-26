@@ -16,7 +16,7 @@ class TripleStoreRepositoryTask(QgsTask):
         self.exception = None
         self.triplestorerepourl = triplestorerepourl
         self.resComboBox=resCombobox
-        if triplestorerepourl==None:
+        if triplestorerepourl is None:
             self.triplestorerepourl="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/ldregistry/ldregistry.json"
         self.results = None
 
@@ -32,11 +32,11 @@ class TripleStoreRepositoryTask(QgsTask):
             return False
 
     def finished(self, result):
-        if self.exception!=None:
+        if self.exception is not None:
             msgBox = ErrorMessageBox("Error while accessing the triple store repository", "")
             msgBox.setText("An error occured while accessing the triple store repository:\n" + str(self.exception))
             msgBox.exec()
-        if self.results!=None:
+        if self.results is not None:
             model=QStandardItemModel()
             self.resComboBox.setModel(model)
             for item in self.results:

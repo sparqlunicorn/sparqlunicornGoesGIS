@@ -28,7 +28,7 @@ class ConceptContextMenu(QMenu):
         self.preferredlang=preferredlang
         self.item=item
         self.prefixes=prefixes
-        if menu==None:
+        if menu is None:
             menu = QMenu("Menu", context)
         actionclip = QAction("Copy IRI to clipboard")
         if item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.instancenode or item.data(UIUtils.dataslot_nodetype) == SPARQLUtils.geoinstancenode:
@@ -146,7 +146,7 @@ class ConceptContextMenu(QMenu):
 
     @staticmethod
     def createListContextMenu(item,menu=None):
-        if menu==None:
+        if menu is None:
             menu = QMenu("Menu")
         actionclip = QAction("Copy IRI to clipboard")
         menu.addAction(actionclip)
@@ -167,7 +167,7 @@ class ConceptContextMenu(QMenu):
         nodetype = self.item.data(UIUtils.dataslot_nodetype)
         dia= QueryLimitedInstancesDialog(self.triplestoreconf,concept,nodetype)
         if dia.exec_():
-            if dia.thequery!=None:
+            if dia.thequery is not None:
                 self.qlayerinstance = QueryLayerTask(
                     "All Instances to Layer: " + str(concept),
                     concept,
