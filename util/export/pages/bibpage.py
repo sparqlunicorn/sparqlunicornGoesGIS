@@ -1,13 +1,16 @@
 from ...doc.docconfig import DocConfig
 from ...doc.docutils import DocUtils
 from rdflib import URIRef
+from rdflib.namespace import RDFS
 
 class BibPage:
 
-    def pageWidgetConstraint(self):
+    @staticmethod
+    def pageWidgetConstraint():
         return DocConfig.bibtextypemappings
 
-    def collectionConstraint(self):
+    @staticmethod
+    def collectionConstraint():
         return ["http://purl.org/ontology/bibo/Collection"]
 
     @staticmethod
@@ -32,30 +35,30 @@ class BibPage:
                           }
         bibtexitem = {"type": "@misc"}
         for tup in predobjs:
-            if str(tup[0]) == "http://purl.org/dc/elements/1.1/creator" or str(
-                    tup[0]) == "http://purl.org/dc/terms/creator":
+            tupstr=str(tup[0])
+            tupstrobj=str(tup[1])
+            if tupstr == "http://purl.org/dc/elements/1.1/creator" or tupstr == "http://purl.org/dc/terms/creator":
                 if "author" not in bibtexitem:
                     bibtexitem["author"] = []
                 if isinstance(tup[1], URIRef):
                     bibtexitem["author"].append(DocUtils.getLabelForObject(tup[1], graph))
                 else:
-                    bibtexitem["author"].append(str(tup[1]))
-            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageStart":
+                    bibtexitem["author"].append(tupstrobj)
+            elif tupstr == "http://purl.org/ontology/bibo/pageStart":
                 if "pages" not in bibtexitem:
                     bibtexitem["pages"] = {}
-                bibtexitem["pages"]["start"] = str(tup[1])
-            elif str(tup[0]) == "http://purl.org/ontology/bibo/pageEnd":
+                bibtexitem["pages"]["start"] = tupstrobj
+            elif tupstr == "http://purl.org/ontology/bibo/pageEnd":
                 if "pages" not in bibtexitem:
                     bibtexitem["pages"] = {}
-                bibtexitem["pages"]["end"] = str(tup[1])
-            elif str(tup[0]) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and str(
-                    tup[1]) in DocConfig.bibtextypemappings:
-                bibtexitem["type"] = DocConfig.bibtextypemappings[str(tup[1])]
-            elif str(tup[0]) in bibtexmappings:
+                bibtexitem["pages"]["end"] = tupstrobj
+            elif tupstr == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and tupstrobj in DocConfig.bibtextypemappings:
+                bibtexitem["type"] = DocConfig.bibtextypemappings[tupstrobj]
+            elif tupstr in bibtexmappings:
                 if isinstance(tup[1], URIRef):
-                    bibtexitem[bibtexmappings[str(tup[0])]] = DocUtils.getLabelForObject(tup[1], graph)
+                    bibtexitem[bibtexmappings[tupstr]] = DocUtils.getLabelForObject(tup[1], graph)
                 else:
-                    bibtexitem[bibtexmappings[str(tup[0])]] = str(tup[1])
+                    bibtexitem[bibtexmappings[tupstr]] = tupstrobj
         res = bibtexitem["type"] + "{" + DocUtils.shortenURI(item) + ",\n"
         for bibpart in sorted(bibtexitem):
             if bibpart == "type":
@@ -79,13 +82,16 @@ class BibPage:
         res += "\n}"
         return res
 
-    def generatePageWidget(self,graph,memberid,templates,f,pageWidget=False):
-        print("PageWidget")
-        self.resolveBibtexReference(memberid,graph)
+    @staticmethod
+    def generatePageWidget(graph,memberid,templates,f,pageWidget=False):
+        return BibPage.resolveBibtexReference(graph.predicate_objects(memberid),memberid,graph)
 
-    def generateCollectionWidget(self, graph,templates, subject, f):
-        print("CollectionWidget")
-        for bibentry in graph.objects(subject, URIRef("http://www.w3.org/ns/lemon/lime#entry"), True):
-            self.generatePageWidget(graph,bibentry,f,True)
+    @staticmethod
+    def generateCollectionWidget(graph,subject,templates, f):
+        f.write("<details><summary>[BIBTEX]</summary><pre>")
+        for bibentry in graph.objects(subject, RDFS.member, True):
+            f.write(BibPage.generatePageWidget(graph,bibentry,templates,f,True))
+            f.write("\n")
+        f.write("</pre></details>")
 
 

@@ -7,7 +7,6 @@ from ..dialogs.info.errormessagebox import ErrorMessageBox
 from osgeo import ogr
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer, QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
-from qgis.PyQt.QtWidgets import QMessageBox
 from rdflib import Graph
 
 MESSAGE_CATEGORY = "SPARQLUtils"
@@ -41,19 +40,9 @@ class SPARQLUtils:
 
     #, "http://www.w3.org/ns/lemon/ontolex#Form": ""
 
-    timeproperties=["http://www.cidoc-crm.org/cidoc-crm/P79_beginning_is_qualified_by","http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by","http://www.w3.org/2006/time#inXSDDateTime","http://www.w3.org/2006/time#inXSDDate","http://www.w3.org/2006/time#inXSDDateTimeStamp","http://www.w3.org/2006/time#inXSDgYear","http://www.w3.org/2006/time#inXSDgYearMonth"]
-
-    timepointerproperties=["http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span","http://www.w3.org/2006/time#hasTime", "http://www.w3.org/2006/time#hasDuration", "http://www.w3.org/2006/time#hasBeginning", "http://www.w3.org/2006/time#hasEnd", "http://www.w3.org/ns/sosa/phenomenonTime", "http://www.w3.org/ns/sosa/resultTime"]
 
 
-    timeliteraltypes = {
-        "http://www.w3.org/2001/XMLSchema#gYear": "http://www.ontology-of-units-of-measure.org/resource/om-2/year",
-        "http://www.w3.org/2006/time#generalYear": "http://www.w3.org/2006/time#unitYear",
-        "http://www.w3.org/2001/XMLSchema#gMonth": "http://www.ontology-of-units-of-measure.org/resource/om-2/month",
-        "http://www.w3.org/TR/owl-time#generalMonth": "http://www.w3.org/2006/time#unitMonth",
-        "http://www.w3.org/2001/XMLSchema#gDay": "http://www.ontology-of-units-of-measure.org/resource/om-2/day",
-        "http://www.w3.org/TR/owl-time#generalDay": "http://www.w3.org/2006/time#unitDay",
-        "http://www.w3.org/2001/XMLSchema#date": "", "http://www.w3.org/2001/XMLSchema#dateTime": ""}
+
 
     collectionclasses = {
          "http://www.w3.org/2006/vcard/ns#Group":"personcollection",

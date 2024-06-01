@@ -15,7 +15,7 @@ class DetectTripleStoreTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
     def __init__(self, description, triplestoreconf, endpoint, triplestorename, credentialUserName, credentialPassword,authmethod, testURL, testConfiguration, prefixes,
-                 prefixstore, tripleStoreChooser, comboBox, permanentAdd,detectnamespaces, parentdialog, progress):
+                 prefixstore, tripleStoreChooser, permanentAdd,detectnamespaces, parentdialog,mainWin, progress):
         super().__init__(description, QgsTask.CanCancel)
         self.description = description
         self.exception = None
@@ -29,7 +29,7 @@ class DetectTripleStoreTask(QgsTask):
         self.authmethod=authmethod
         self.triplestorename = triplestorename
         self.tripleStoreChooser = tripleStoreChooser
-        self.comboBox = comboBox
+        self.mainWin=mainWin
         self.parentdialog = parentdialog
         self.triplestoreurl = endpoint
         self.triplestoreconf = triplestoreconf
@@ -62,11 +62,9 @@ class DetectTripleStoreTask(QgsTask):
                 return
             else:
                 if "type" in self.gutils.configuration and self.gutils.configuration["type"]=="geosparqlendpoint":
-                    self.comboBox.addItem(UIUtils.geoendpointicon, self.triplestorename + " [GeoSPARQL Endpoint]")
+                    self.tripleStoreChooser.addItem(UIUtils.geoendpointicon, self.triplestorename + " [GeoSPARQL Endpoint]")
                 else:
-                    self.comboBox.addItem(UIUtils.linkeddataicon,self.triplestorename+" [SPARQL Endpoint]")
-                if self.tripleStoreChooser is not None:
-                    self.tripleStoreChooser.addItem(self.triplestorename)
+                    self.tripleStoreChooser.addItem(UIUtils.linkeddataicon,self.triplestorename+" [SPARQL Endpoint]")
                 index = len(self.triplestoreconf)
                 self.triplestoreconf.append({})
                 self.triplestoreconf[index] = self.gutils.configuration
@@ -79,6 +77,9 @@ class DetectTripleStoreTask(QgsTask):
                     f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")
                     f.write(json.dumps(self.triplestoreconf, indent=2))
                     f.close()
+                if self.tripleStoreChooser is not None:
+                    #self.tripleStoreChooser.addItem(self.triplestorename)
+                    self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
                 if self.parentdialog is not None:
                     self.parentdialog.close()
         elif self.gutils.feasibleConfiguration:

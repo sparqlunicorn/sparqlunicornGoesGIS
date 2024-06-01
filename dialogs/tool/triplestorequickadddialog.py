@@ -72,7 +72,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 "Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...", self.triplestoreconf,
                 self.tripleStoreEdit.text(), self.tripleStoreNameEdit.text(), self.credentialUserName.text(),
                 self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
-                None, self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self, progress)
+                self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self,self.maindlg, progress)
             QgsApplication.taskManager().addTask(self.qtask)
         elif self.rdfResourceComboBox.currentIndex()==1:
             if self.tripleStoreEdit.text() != "":
