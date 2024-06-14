@@ -325,7 +325,7 @@ class SPARQLUtils:
             query=query.replace("?con %%typeproperty%% %%concept%% .","%%concept%% %%collectionmemberproperty%% ?con .")
         if concept is not None:
             if "resource" in triplestoreconf and "url" in triplestoreconf["resource"] and ("wikidata" in triplestoreconf["resource"]["url"] or "factgrid" in triplestoreconf["resource"]["url"]) and concept[concept.find('(')+1:-1].startswith("Q"):
-                query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:-1]))
+                query=query.replace("%%concept%%",str("wd:" + concept[concept.find('(')+1:]))
             else:
                 query = query.replace("%%concept%%", "<" + str(concept) + ">")
         typeproperty = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"

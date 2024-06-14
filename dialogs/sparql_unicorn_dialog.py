@@ -610,14 +610,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 querytext = ""
                 if concept is not None and concept.startswith("http"):
                     querytext = \
-                        self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept[concept.rfind('/') + 1:] + " .")
                 elif concept is not None:
                     querytext = \
-                        self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("wd:Q%%concept%% .", "wd:" + concept + " .")
+                        self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
                 querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("%%concept%%", concept)
-            #QgsMessageLog.logMessage('Started task "{}"'.format("Concept: " + str(concept)), MESSAGE_CATEGORY,
-            #                         Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format("Concept: " + str(concept)), MESSAGE_CATEGORY,
+                                     Qgis.Info)
             querytext=SPARQLUtils.queryPreProcessing(querytext,self.triplestoreconf[endpointIndex],concept)
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}

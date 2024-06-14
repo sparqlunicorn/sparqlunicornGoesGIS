@@ -5,7 +5,8 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QUrl
 
-from ..dataview.clusterviewdialog import ClusterViewDialog
+from ..dataview.graphrelationviewdialog import GraphRelationViewDialog
+from ..tool.advancedquerydialog import AdvancedQueryDialog
 from ...dialogs.util.bboxdialog import BBOXDialog
 from ...util.ui.uiutils import UIUtils
 from ...tasks.query.data.querylayertask import QueryLayerTask
@@ -75,6 +76,10 @@ class ConceptContextMenu(QMenu):
             actionrelgeo = QAction("Check related concepts")
             actionrelgeo.setIcon(UIUtils.countinstancesicon)
             menu.addAction(actionrelgeo)
+            actionAdvancedQuery = QAction("Advanced Query")
+            actionAdvancedQuery.setIcon(UIUtils.addfeaturecollectionicon)
+            actionAdvancedQuery.triggered.connect(self.advancedQueryDialog)
+            menu.addAction(actionAdvancedQuery)
             actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             actionqueryinstances = QAction("Query all instances")
             actionqueryinstances.setIcon(UIUtils.queryinstancesicon)
@@ -222,10 +227,15 @@ class ConceptContextMenu(QMenu):
             self.triplestoreconf, True, SPARQLUtils.labelFromURI(concept), None,0,True,None)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
+    def advancedQueryDialog(self):
+        concept = self.item.data(UIUtils.dataslot_conceptURI)
+        label = self.item.text()
+        AdvancedQueryDialog(self.triplestoreconf,concept,label)
+
     def relatedGeoConcepts(self):
         concept = self.item.data(UIUtils.dataslot_conceptURI)
         label = self.item.text()
-        ClusterViewDialog(self.triplestoreconf,concept,label)
+        GraphRelationViewDialog(self.triplestoreconf,concept,label)
         #if not label.endswith("]"):
         #    self.qtaskinstance = FindRelatedConceptQueryTask(
         #        "Getting related geo concepts for " + str(concept),

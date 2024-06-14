@@ -26,7 +26,7 @@ class TabContextMenu(QMenu):
 
     def saveClassesTreeToRDF(self, context):
         filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+                self, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
         if filename == "":
                 return
         result=set()
@@ -38,7 +38,7 @@ class TabContextMenu(QMenu):
 
     def saveVisibleTreeToRDF(self, context):
         filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+                self, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
         if filename == "":
                 return
         result=set()
@@ -50,7 +50,7 @@ class TabContextMenu(QMenu):
 
     def saveTreeToRDF(self, context):
         filename, _filter = QFileDialog.getSaveFileName(
-                self, "Select   output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
+                self, "Select output file ", "", "Linked Data (*.ttl *.n3 *.nt *.graphml)", )
         if filename == "":
                 return
         result=set()

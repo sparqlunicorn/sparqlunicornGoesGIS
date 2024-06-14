@@ -14,11 +14,11 @@ from ...util.ui.uiutils import UIUtils
 from ...tasks.query.discovery.findrelatedconceptquerytask import FindRelatedConceptQueryTask
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), '../ui/clusterviewdialog.ui'))
+    os.path.dirname(__file__), '../ui/graphrelationviewdialog.ui'))
 
 MESSAGE_CATEGORY = 'ClusterviewDialog'
 
-class ClusterViewDialog(QWidget, FORM_CLASS):
+class GraphRelationViewDialog(QWidget, FORM_CLASS):
 
     def __init__(self,triplestoreconf,concept,label=""):
         super(QWidget, self).__init__()
