@@ -1,10 +1,9 @@
-from ..sparqlutils import SPARQLUtils
 import os
 import re
 import shutil
+from datetime import date
 import urllib.request
 from rdflib import URIRef, Literal
-from qgis.core import Qgis, QgsMessageLog
 
 from .docconfig import DocConfig
 
@@ -12,20 +11,52 @@ from .docconfig import DocConfig
 class DocUtils:
 
     @staticmethod
+    def updateProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█',
+                          printEnd="\r"):
+        """
+        Call in a loop to create terminal progress bar
+        @params:
+            iteration   - Required  : current iteration (Int)
+            total       - Required  : total iterations (Int)
+            prefix      - Optional  : prefix string (Str)
+            suffix      - Optional  : suffix string (Str)
+            decimals    - Optional  : positive number of decimals in percent complete (Int)
+            length      - Optional  : character length of bar (Int)
+            fill        - Optional  : bar fill character (Str)
+            printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+        """
+        percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+        filledLength = int(length * iteration // total)
+        bar = fill * filledLength + '-' * (length - filledLength)
+        print(f'\r{prefix} |{bar}| {percent}% {suffix}', end=printEnd)
+        # Print New Line on Complete
+        if iteration == total:
+            print()
+
+    @staticmethod
     def zero_div(x,y):
         return y and x/y or 0
 
     @staticmethod
-    def replaceStandardVariables(template, subject, checkdepth, indexpage, pubconfig):
+    def replaceStandardVariables(template, subject, checkdepth, indexpage,pubconfig):
         template = template.replace("{{indexpage}}", str(indexpage)).replace("{{subject}}", str(subject)).replace(
             "{{relativedepth}}", str(checkdepth)) \
             .replace("{{versionurl}}", DocConfig.versionurl).replace("{{version}}", DocConfig.version).replace(
             "{{deploypath}}", pubconfig["deploypath"]) \
-            .replace("{{publishingorg}}", pubconfig["publishingorg"]).replace("{{publisher}}",
-                                                                              pubconfig["publisher"]).replace(
+            .replace("{{publishingorg}}", pubconfig["publishingorg"]).replace("{{publisher}}", pubconfig["publisher"]).replace(
             "{{datasettitle}}", pubconfig["datasettitle"]) \
             .replace("{{logo}}", pubconfig["logourl"])
         return template
+
+    @staticmethod
+    def replaceCitationLink(template, foundlabel, uri, pubconfig):
+        return template.replace("{{citationlink}}",
+                                "<details><summary>[CITE]</summary><pre>@misc{" + DocUtils.shortenURI(
+                                    uri) + "\nauthor=\"" + str(
+                                    pubconfig["datasettitle"]) + " Contributors\",\ntitle=\"" + str(
+                                    foundlabel) + "\",\n\"url=\"" + str(
+                                    uri) + "\",\nnote=\"[Online; documentation generated at " + str(
+                                    date.today()) + "]\"}</pre></details>")
 
     @staticmethod
     def getLDFilesFromFolder(folder):

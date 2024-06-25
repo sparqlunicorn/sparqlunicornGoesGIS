@@ -15,40 +15,43 @@ class IndexViewPage:
     @staticmethod
     def createIndexPages(pubconfig,templates,apis,paths,subjectstorender,uritotreeitem,voidds,tree,classlist,graph,voidstatshtml,curlicense):
         indpcounter = 0
-        print("PATHS: "+str(paths))
-        print(tree)
+        # print("PATHS: "+str(paths))
+        # print(tree)
         for path in paths:
-            #if indpcounter % 10 == 0:
-            #    DocUtils.updateProgressBar(indpcounter, len(paths), "Creating Index Pages")
+            if indpcounter % 10 == 0:
+                DocUtils.updateProgressBar(indpcounter, len(paths), "Creating Index Pages")
             subgraph = Graph(bind_namespaces="rdflib")
             checkdepth = DocUtils.checkDepthFromPath(path, pubconfig["outpath"], path) - 1
-            sfilelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth,
+            sfilelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth,
                                                                     pubconfig["corpusid"] + '_search.js', False)
-            classtreelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth,
+            classtreelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth,
                                                                         pubconfig["corpusid"] + "_classtree.js", False)
-            stylelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth, "style.css", False)
-            scriptlink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth, "startscripts.js",
+            stylelink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth, "style.css",
+                                                                    False)
+            scriptlink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth,
+                                                                     "startscripts.js",
                                                                      False)
-            proprelations = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth,
+            proprelations = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth,
                                                                         "proprelations.js", False)
-            epsgdefslink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth, "epsgdefs.js",
+            epsgdefslink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth, "epsgdefs.js",
                                                                        False)
-            vowllink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixnamespace"], checkdepth, "vowl_result.js",
+            vowllink = DocUtils.generateRelativeLinkFromGivenDepth(pubconfig["prefixns"], checkdepth, "vowl_result.js",
                                                                    False)
-            nslink = pubconfig["prefixnamespace"] + str(IndexViewPage.getAccessFromBaseURL(str(pubconfig["outpath"]), str(path)))
+            nslink = pubconfig["prefixns"] + str(
+                IndexViewPage.getAccessFromBaseURL(str(pubconfig["outpath"]), str(path)))
             for sub in subjectstorender:
                 if nslink in sub:
                     for tup in graph.predicate_objects(sub):
                         subgraph.add((sub, tup[0], tup[1]))
                         if apis["solidexport"]:
                             subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                                          RDF.type,
                                           URIRef("http://www.w3.org/ns/ldp#Container")))
                             subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                                          RDF.type,
                                           URIRef("http://www.w3.org/ns/ldp#BasicContainer")))
                             subgraph.add((URIRef(sub.replace("nslink", "")),
-                                          URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+                                          RDF.type,
                                           URIRef("http://www.w3.org/ns/ldp#Resource")))
             for ex in pubconfig["exports"]:
                 if ex in ExporterUtils.exportToFunction:
@@ -60,12 +63,13 @@ class IndexViewPage:
                         ExporterUtils.exportToFunction[ex](subgraph, path + "index." + str(ex), subjectstorender,
                                                            classlist, ex)
             relpath = DocUtils.generateRelativePathFromGivenDepth(checkdepth)
-            print("RELPATH: " + str(relpath))
+            # print("RELPATH: " + str(relpath))
             indexhtml = DocUtils.replaceStandardVariables(templates["htmltemplate"], voidds, checkdepth,
-                                                      str(nslink == pubconfig["prefixnamespace"]).lower(),pubconfig)
+                                                          str(nslink == pubconfig["prefixns"]).lower(), pubconfig)
             indexhtml = indexhtml.replace("{{iconprefixx}}",
-                                          (relpath + "icons/" if pubconfig["offlinecompat"] else "")).replace("{{baseurl}}",
-                                                                                                      pubconfig["prefixnamespace"]).replace(
+                                          (relpath + "icons/" if pubconfig["offlinecompat"] else "")).replace(
+                "{{baseurl}}",
+                pubconfig["prefixns"]).replace(
                 "{{relativedepth}}", str(checkdepth)).replace("{{relativepath}}", relpath).replace("{{toptitle}}",
                                                                                                    "Index page for " + nslink).replace(
                 "{{title}}", "Index page for <span property=\"http://rdfs.org/ns/void#uriSpace\" content=\"" + str(
@@ -79,16 +83,15 @@ class IndexViewPage:
                                                                                                  str(voidds)))
             indexhtml += "<p property=\"http://rdfs.org/ns/void#feature\" resource=\"http://www.w3.org/ns/formats/Turtle\">This page shows information about linked data resources in <span property=\"http://rdfs.org/ns/void#feature\" resource=\"http://www.w3.org/ns/formats/RDFa\">HTML</span>. Choose the classtree navigation or search to browse the data</p>" + \
                          templates["vowltemplate"].replace("{{vowlpath}}", "minivowl_result.js")
-            if pubconfig["startconcept"] is not None and path == pubconfig["outpath"] and pubconfig["startconcept"] in uritotreeitem:
-                startconcept=pubconfig["startconcept"]
-                if pubconfig["createColl"]:
-                    indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
-                                 tree["types"][uritotreeitem[startconcept][-1]["type"]][
-                                     "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + \
+            if pubconfig["startconcept"] is not None and path == pubconfig["outpath"] and pubconfig[
+                "startconcept"] in uritotreeitem:
+                startconcept = pubconfig["startconcept"]
+                if pubconfig["createCollections"]:
+                    indexhtml += f"<p>Start exploring the graph here: <img src=\"{tree['types'][uritotreeitem[startconcept][-1]['type']]['icon']}\" height=\"25\" width=\"25\" alt=\"" + \
                                  uritotreeitem[startconcept][-1][
                                      "type"] + "\"/><a property=\"http://rdfs.org/ns/void#rootResource\" resource=\"" + str(
                         startconcept) + "\" href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
-                        pubconfig["prefixnamespace"], 0, str(startconcept), True) + "\">" + DocUtils.shortenURI(
+                        pubconfig["prefixns"], 0, str(startconcept), True) + "\">" + DocUtils.shortenURI(
                         startconcept) + "</a></p>"
                 else:
                     indexhtml += "<p>Start exploring the graph here: <img src=\"" + \
@@ -97,11 +100,12 @@ class IndexViewPage:
                                  uritotreeitem[startconcept][-1][
                                      "type"] + "\"/><a property=\"http://rdfs.org/ns/void#rootResource\" resource=\"" + str(
                         startconcept) + "\" href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
-                        pubconfig["prefixnamespace"], 0, str(startconcept), True) + "\">" + DocUtils.shortenURI(
+                        pubconfig["prefixns"], 0, str(startconcept), True) + "\">" + DocUtils.shortenURI(
                         startconcept) + "</a></p>"
             indexhtml += "<table about=\"" + str(
                 voidds) + "\" typeof=\"http://rdfs.org/ns/void#Dataset\" property=\"http://rdfs.org/ns/void#dataDump\" resource=\"" + str(
-                pubconfig["deploypath"] + "/index.ttl") + "\" class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
+                pubconfig[
+                    "deploypath"] + "/index.ttl") + "\" class=\"description\" style =\"height: 100%; overflow: auto\" border=1 id=indextable><thead><tr><th>Class</th><th>Number of instances</th><th>Instance Example</th></tr></thead><tbody>"
             for item in tree["core"]["data"]:
                 if (item["type"] == "geoclass" or item["type"] == "class" or item["type"] == "featurecollection" or
                     item["type"] == "geocollection") and "instancecount" in item and item["instancecount"] > 0:
@@ -110,17 +114,14 @@ class IndexViewPage:
                         if item2["parent"] == item["id"] and (
                                 item2["type"] == "instance" or item2["type"] == "geoinstance") and nslink in item2[
                             "id"]:
-                            checkdepth = DocUtils.checkDepthFromPath(path, pubconfig["prefixnamespace"], item2["id"]) - 1
-                            exitem = "<td><img src=\"" + tree["types"][item2["type"]][
-                                "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item2[
-                                         "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" resource=\"" + str(
+                            exitem = f"<td><img src=\"{tree['types'][item2['type']]['icon']}\" height=\"25\" width=\"25\" alt=\"{item2['type']}\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" resource=\"" + str(
                                 DocUtils.shortenURI(
                                     str(item2["id"]))) + "\" href=\"" + DocUtils.generateRelativeLinkFromGivenDepth(
-                                pubconfig["prefixnamespace"], checkdepth, str(re.sub("_suniv[0-9]+_", "", item2["id"])),
+                                pubconfig["prefixns"], checkdepth, str(re.sub("_suniv[0-9]+_", "", item2["id"])),
                                 True) + "\">" + str(item2["text"]) + "</a></td>"
                             break
-                    if exitem != None:
-                        if pubconfig["createColl"]:
+                    if exitem is not None:
+                        if pubconfig["createCollections"]:
                             indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
                                 "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
                                              "type"] + "\"/><a property=\"http://rdfs.org/ns/void#exampleResource\" resource=\"" + str(
@@ -129,34 +130,29 @@ class IndexViewPage:
                                 str(item["id"])) + "_collection/index.html\" target=\"_blank\">" + str(
                                 item["text"]) + "</a></td>"
                         else:
-                            indexhtml += "<tr><td><img src=\"" + tree["types"][item["type"]][
-                                "icon"] + "\" height=\"25\" width=\"25\" alt=\"" + item[
-                                             "type"] + "\"/><a  href=\"" + str(
-                                item["id"]) + "\" target=\"_blank\">" + str(item["text"]) + "</a></td>"
-                        indexhtml += "<td property=\"http://rdfs.org/ns/void#classPartition\" typeof=\"http://rdfs.org/ns/void#Dataset\" resource=\"" + str(
-                            voidds) + "_" + str(DocUtils.shortenURI(item["id"])) + "\"><span about=\"" + str(
+                            indexhtml += f"<tr><td><img src=\"{tree['types'][item['type']]['icon']}\" height=\"25\" width=\"25\" alt=\"{item['type']}\"/><a  href=\"{item['id']}\" target=\"_blank\">{item['text']}</a></td>"
+                        indexhtml += f"<td property=\"http://rdfs.org/ns/void#classPartition\" typeof=\"http://rdfs.org/ns/void#Dataset\" resource=\"{voidds}_{DocUtils.shortenURI(item['id'])}\"><span about=\"" + str(
                             voidds) + "_" + str(DocUtils.shortenURI(
                             item["id"])) + "\" property=\"http://rdfs.org/ns/void#class\" resource=\"" + str(
                             item["id"]) + "\"></span><span about=\"" + str(voidds) + "_" + str(DocUtils.shortenURI(
                             item["id"])) + "\" property=\"http://rdfs.org/ns/void#entities\" content=\"" + str(item[
                                                                                                                    "instancecount"]) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#integer\">" + str(
                             item["instancecount"]) + "</td>" + exitem + "</tr>"
-            indexhtml += "</tbody></table><script property=\"http://purl.org/dc/terms/modified\" content=\"" + str(
-                pubconfig["modtime"]) + "\" datatype=\"http://www.w3.org/2001/XMLSchema#dateTime\">$('#indextable').DataTable();</script>"
+            indexhtml += f"</tbody></table><script property=\"http://purl.org/dc/terms/modified\" content=\"{pubconfig['modtime']}\" datatype=\"http://www.w3.org/2001/XMLSchema#dateTime\">$('#indextable').DataTable();</script>"
             tempfoot = DocUtils.replaceStandardVariables(templates["footer"], "", checkdepth,
-                                                     str(nslink == pubconfig["prefixnamespace"]).lower(),pubconfig).replace(
+                                                         str(nslink == pubconfig["prefixns"]).lower(),
+                                                         pubconfig).replace(
                 "{{license}}", curlicense).replace("{{exports}}", templates["nongeoexports"]).replace("{{bibtex}}",
                                                                                                       "").replace(
                 "{{stats}}", voidstatshtml)
-            tempfoot = DocUtils.conditionalArrayReplace(tempfoot, [True, apis["ogcapifeatures"], apis["iiif"],
-                                                                   apis["ckan"]],
+            tempfoot = DocUtils.replaceCitationLink(tempfoot, "Index page for " + nslink, "", pubconfig)
+            tempfoot = DocUtils.conditionalArrayReplace(tempfoot,
+                                                        [True, apis["ogcapifeatures"], apis["iiif"], apis["ckan"]],
                                                         [
-                                                            "<a href=\"" + DocUtils.generateRelativePathFromGivenDepth(
-                                                                checkdepth) + "/sparql.html?endpoint=" + str(
-                                                                pubconfig["deploypath"]) + "\">[SPARQL]</a>&nbsp;",
-                                                            "<a href=\"" + relpath + "/api/api.html\">[OGC API Features]</a>&nbsp;",
-                                                            "<a href=\"" +  relpath + "/iiif/\">[IIIF]</a>&nbsp;",
-                                                            "<a href=\"" +  relpath + "/api/3/\">[CKAN]</a>"
+                                                            f"<a href=\"{DocUtils.generateRelativePathFromGivenDepth(checkdepth)}sparql.html?endpoint={pubconfig['deploypath']}\">[SPARQL]</a>&nbsp;",
+                                                            f"<a href=\"{relpath}api/api.html\">[OGC API Features]</a>&nbsp;",
+                                                            f"<a href=\"{relpath}iiif/\">[IIIF]</a>&nbsp;",
+                                                            f"<a href=\"{relpath}api/3/\">[CKAN]</a>"
                                                         ], "{{apis}}")
             indexhtml += tempfoot
             # print(path)

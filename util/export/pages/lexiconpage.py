@@ -1,7 +1,7 @@
 from rdflib import URIRef, Literal
 
 from ...doc.docutils import DocUtils
-from ....util.sparqlutils import SPARQLUtils
+from ...doc.docconfig import DocConfig
 
 class LexiconPage:
 
@@ -18,7 +18,7 @@ class LexiconPage:
                 label=None
                 senseref=""
                 for senseprop in graph.predicate_objects(lexprop[1], True):
-                    if str(senseprop[0]) in SPARQLUtils.labelproperties and isinstance(senseprop[1],Literal):
+                    if str(senseprop[0]) in DocConfig.labelproperties and isinstance(senseprop[1],Literal):
                         label=senseprop[1]
                     if str(senseprop[0])=="http://www.w3.org/ns/lemon/ontolex#reference":
                         senseref=senseprop[1]
@@ -26,7 +26,7 @@ class LexiconPage:
             if lexprop[0] == URIRef("http://www.w3.org/ns/lemon/ontolex#lexicalForm") or lexprop[0] == URIRef("http://www.w3.org/ns/lemon/ontolex#form"):
                 label=None
                 for formprop in graph.predicate_objects(lexprop[1], True):
-                    if str(formprop[0]) in SPARQLUtils.labelproperties and isinstance(formprop[1], Literal):
+                    if str(formprop[0]) in DocConfig.labelproperties and isinstance(formprop[1], Literal):
                         label = formprop[1]
                 forms.append({"uri": str(lexprop[1]), "label": label})
             if lexprop[0] == URIRef("http://www.w3.org/ns/lemon/ontolex#lemma") or lexprop[0] == URIRef("http://www.w3.org/ns/lemon/ontolex#canonicalForm"):

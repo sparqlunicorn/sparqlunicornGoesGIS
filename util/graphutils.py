@@ -1,4 +1,5 @@
 from ..util.sparqlutils import SPARQLUtils
+from ..util.doc.docconfig import DocConfig
 from rdflib import Graph
 
 from qgis.core import Qgis
@@ -283,7 +284,7 @@ class GraphUtils:
         results=self.testTripleStoreConnection(configuration["resource"], self.testQueries["discoverLiteralRels"],
                                        credentialUserName, credentialPassword, authmethod)
         for result in results["results"]["bindings"]:
-            if "rel" in result and result["rel"]["value"] not in SPARQLUtils.geoproperties:
+            if "rel" in result and result["rel"]["value"] not in DocConfig.geoproperties:
                 configuration["geotriplepattern"].append(" ?item <"+result["rel"]["value"]+"> ?geo . ")
                 newrels.append(result["rel"]["value"])
         return newrels
@@ -310,7 +311,7 @@ class GraphUtils:
                 self.configuration["geoclasses"] = {}
                 for result in results["results"]["bindings"]:
                     if "rel" in result \
-                            and result["rel"]["value"] not in SPARQLUtils.georelationproperties \
+                            and result["rel"]["value"] not in DocConfig.georelationproperties \
                             and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:

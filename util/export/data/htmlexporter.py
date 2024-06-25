@@ -18,7 +18,7 @@ from ..pages.observationpage import ObservationPage
 from ..pages.personpage import PersonPage
 
 
-class HTMLExporter():
+class HTMLExporter:
     listthreshold = 5
     maxlistthreshold = 1500
 
@@ -136,8 +136,8 @@ class HTMLExporter():
                                 nonnsmap[str(tup[1])] = set()
                             nonnsmap[str(tup[1])].add(subject)
             for tup in sorted(predobjmap):
-                if self.metadatatable and tup not in SPARQLUtils.labelproperties and DocUtils.shortenURI(str(tup),
-                                                                                                       True) in SPARQLUtils.metadatanamespaces:
+                if self.metadatatable and tup not in DocConfig.labelproperties and DocUtils.shortenURI(str(tup),
+                                                                                                       True) in DocConfig.metadatanamespaces:
                     thetable = metadatatablecontents
                     metadatatablecontentcounter += 1
                     if metadatatablecontentcounter % 2 == 0:
@@ -155,22 +155,22 @@ class HTMLExporter():
                     for tp in predobjmap[tup]:
                         thetypes.add(str(tp))
                         curtypes.add(str(tp))
-                        if str(tp) in SPARQLUtils.collectionclasses:
+                        if str(tp) in DocConfig.collectionclasses:
                             uritotreeitem[str(tp)][-1]["instancecount"] += 1
-                            collections.add(SPARQLUtils.collectionclasses[str(tp)])
+                            collections.add(DocConfig.collectionclasses[str(tp)])
                         if str(tp) in DocConfig.bibtextypemappings:
                             itembibtex = "<details><summary>[BIBTEX]</summary><pre>" + str(
                                 BibPage.resolveBibtexReference(graph.predicate_objects(subject), subject,
                                                                graph)) + "</pre></details>"
                 thetable = HTMLExporter.formatPredicate(tup, baseurl, checkdepth, thetable, graph, inverse,
                                                         self.labellang, self.prefixes)
-                if str(tup) in SPARQLUtils.labelproperties:
+                if str(tup) in DocConfig.labelproperties:
                     for lab in predobjmap[tup]:
                         if lab.language == self.labellang:
                             foundlabel = lab
                     if foundlabel == "":
                         foundlabel = str(predobjmap[tup][0])
-                if str(tup) in SPARQLUtils.commentproperties:
+                if str(tup) in DocConfig.commentproperties:
                     comment[str(tup)] = str(predobjmap[tup][0])
                 if len(predobjmap[tup]) > 0:
                     thetable += "<td class=\"wrapword\">"
@@ -184,7 +184,7 @@ class HTMLExporter():
                         if itemcounter >= HTMLExporter.maxlistthreshold:
                             break
                         if ("POINT" in str(item).upper() or "POLYGON" in str(item).upper() or "LINESTRING" in str(
-                                item).upper()) and tup in SPARQLUtils.valueproperties and self.typeproperty in predobjmap and URIRef(
+                                item).upper()) and tup in DocConfig.valueproperties and self.typeproperty in predobjmap and URIRef(
                             "http://www.w3.org/ns/oa#WKTSelector") in predobjmap[self.typeproperty]:
                             image3dannos.append({"value": str(item)})
                         elif "<svg" in str(item):
@@ -194,9 +194,9 @@ class HTMLExporter():
                                 ext = "." + ''.join(filter(str.isalpha, str(item.value).split(".")[-1]))
                             else:
                                 ext = "." + ''.join(filter(str.isalpha, str(item).split(".")[-1]))
-                            if ext in SPARQLUtils.fileextensionmap:
-                                foundmedia[SPARQLUtils.fileextensionmap[ext]][str(item)] = {}
-                        elif tup in SPARQLUtils.valueproperties:
+                            if ext in DocConfig.fileextensionmap:
+                                foundmedia[DocConfig.fileextensionmap[ext]][str(item)] = {}
+                        elif tup in DocConfig.valueproperties:
                             foundvals.add((str(tup), str(item)))
                         res = HTMLExporter.createHTMLTableValueEntry(subject, tup, item, ttlf, graph,
                                                                      baseurl, checkdepth, geojsonrep, foundmedia,
@@ -235,8 +235,8 @@ class HTMLExporter():
                 else:
                     thetable += "<td class=\"wrapword\"></td>"
                 thetable += "</tr>"
-                if self.metadatatable and tup not in SPARQLUtils.labelproperties and DocUtils.shortenURI(str(tup),
-                                                                                                  True) in SPARQLUtils.metadatanamespaces:
+                if self.metadatatable and tup not in DocConfig.labelproperties and DocUtils.shortenURI(str(tup),
+                                                                                                  True) in DocConfig.metadatanamespaces:
                     metadatatablecontents = thetable
                 else:
                     tablecontents = thetable
@@ -527,7 +527,7 @@ class HTMLExporter():
                 self.imagetoURI[video] = {"uri": str(subject)}
                 f.write(self.templates["videotemplate"].replace("{{video}}", str(video)))
             for type in curtypes:
-                if type in SPARQLUtils.lexicontypes:
+                if type in DocConfig.lexicontypes:
                     LexiconPage().generatePageWidget(graph, subject, f, {}, False)
                 if type in PersonPage.pageWidgetConstraint():
                     PersonPage().generatePageWidget(graph, subject, self.templates, f, True)
@@ -594,9 +594,9 @@ class HTMLExporter():
         geoprop = False
         annosource = None
         incollection = False
-        if pred in SPARQLUtils.geopointerproperties:
+        if pred in DocConfig.geopointerproperties:
             geoprop = True
-        if pred in SPARQLUtils.collectionrelationproperties:
+        if pred in DocConfig.collectionrelationproperties:
             incollection = True
         foundval = None
         foundunit = None
@@ -605,7 +605,7 @@ class HTMLExporter():
         bibtex = None
         timeobj = None
         for tup in graph.predicate_objects(object):
-            if str(tup[0]) in SPARQLUtils.labelproperties:
+            if str(tup[0]) in DocConfig.labelproperties:
                 if tup[1].language == labellang:
                     label = str(tup[1])
                 onelabel = str(tup[1])
@@ -638,7 +638,7 @@ class HTMLExporter():
                     pred == "http://purl.org/dc/terms/isReferencedBy" or pred == "http://purl.org/spar/cito/hasCitingEntity") and \
                     tup[0] == URIRef(typeproperty) and ("http://purl.org/ontology/bibo/" in str(tup[1])):
                 bibtex = BibPage.resolveBibtexReference(graph.predicate_objects(object), object, graph)
-            if pred in SPARQLUtils.timepointerproperties:
+            if pred in DocConfig.timepointerproperties:
                 timeobj = OWLTimePage.resolveTimeLiterals(pred, object, graph)
             if not nonns:
                 geojsonrep = LiteralUtils.resolveGeoLiterals(tup[0], tup[1], graph, geojsonrep, nonns)
@@ -646,21 +646,21 @@ class HTMLExporter():
                 foundmedia["image"][str(tup[1])] = {}
             elif incollection and "http" in str(tup[1]):
                 ext = "." + ''.join(filter(str.isalpha, str(tup[1]).split(".")[-1]))
-                if ext in SPARQLUtils.fileextensionmap:
-                    foundmedia[SPARQLUtils.fileextensionmap[ext]][str(tup[1])] = {}
+                if ext in DocConfig.fileextensionmap:
+                    foundmedia[DocConfig.fileextensionmap[ext]][str(tup[1])] = {}
             if not inverse and str(tup[0]) == "http://www.w3.org/2000/01/rdf-schema#member" and (
                     object, URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
                     URIRef("http://www.w3.org/ns/sosa/ObservationCollection")) in graph:
                 for valtup in graph.predicate_objects(tup[1]):
-                    if str(valtup[0]) in SPARQLUtils.unitproperties:
+                    if str(valtup[0]) in DocConfig.unitproperties:
                         foundunit = str(valtup[1])
-                    if str(valtup[0]) in SPARQLUtils.valueproperties and isinstance(valtup[1], Literal):
+                    if str(valtup[0]) in DocConfig.valueproperties and isinstance(valtup[1], Literal):
                         foundval = str(valtup[1])
-            if str(tup[0]) in SPARQLUtils.valueproperties:
+            if str(tup[0]) in DocConfig.valueproperties:
                 if tempvalprop == None and str(tup[0]) == "http://www.w3.org/ns/oa#hasSource":
                     tempvalprop = str(tup[0])
                     foundval = str(tup[1])
-                if str(tup[0]) != "http://www.w3.org/ns/oa#hasSource" and SPARQLUtils.valueproperties[
+                if str(tup[0]) != "http://www.w3.org/ns/oa#hasSource" and DocConfig.valueproperties[
                     str(tup[0])] == "DatatypeProperty" and (isinstance(tup[1], Literal) or isinstance(tup[1], URIRef)):
                     tempvalprop = str(tup[0])
                     foundval = str(tup[1])
@@ -669,22 +669,22 @@ class HTMLExporter():
                     for inttup in graph.predicate_objects(tup[1]):
                         if str(inttup[0]) == "http://www.w3.org/ns/oa#hasSelector":
                             for valtup in graph.predicate_objects(inttup[1]):
-                                if str(valtup[0]) in SPARQLUtils.unitproperties:
+                                if str(valtup[0]) in DocConfig.unitproperties:
                                     foundunit = str(valtup[1])
-                                if str(valtup[0]) in SPARQLUtils.valueproperties and (
+                                if str(valtup[0]) in DocConfig.valueproperties and (
                                         isinstance(valtup[1], Literal) or isinstance(valtup[1], URIRef)):
                                     foundval = str(valtup[1])
-                elif SPARQLUtils.valueproperties[str(tup[0])] == "DatatypeProperty":
-                    if str(tup[0]) in SPARQLUtils.valueproperties and isinstance(tup[1], Literal):
+                elif DocConfig.valueproperties[str(tup[0])] == "DatatypeProperty":
+                    if str(tup[0]) in DocConfig.valueproperties and isinstance(tup[1], Literal):
                         tempvalprop = str(tup[0])
                         foundval = str(tup[1])
                 else:
                     for valtup in graph.predicate_objects(tup[1]):
-                        if str(valtup[0]) in SPARQLUtils.unitproperties:
+                        if str(valtup[0]) in DocConfig.unitproperties:
                             foundunit = str(valtup[1])
-                        if str(valtup[0]) in SPARQLUtils.valueproperties and isinstance(valtup[1], Literal):
+                        if str(valtup[0]) in DocConfig.valueproperties and isinstance(valtup[1], Literal):
                             foundval = str(valtup[1])
-            if str(tup[0]) in SPARQLUtils.unitproperties:
+            if str(tup[0]) in DocConfig.unitproperties:
                 foundunit = tup[1]
         if foundunit is not None and foundval != None:
             if "http" in foundunit:
@@ -793,8 +793,8 @@ class HTMLExporter():
                 objstring = str(object).replace("<", "&lt").replace(">", "&gt;")
                 if str(object.datatype) == "http://www.w3.org/2001/XMLSchema#anyURI":
                     objstring = "<a href=\"" + str(object) + "\">" + str(object) + "</a>"
-                if str(object.datatype) in SPARQLUtils.timeliteraltypes and dateprops != None and DocUtils.shortenURI(
-                        str(pred), True) not in SPARQLUtils.metadatanamespaces and str(pred) not in dateprops:
+                if str(object.datatype) in DocConfig.timeliteraltypes and dateprops != None and DocUtils.shortenURI(
+                        str(pred), True) not in DocConfig.metadatanamespaces and str(pred) not in dateprops:
                     dateprops.append(str(pred))
                 if res != None:
                     tablecontents += "<span itemprop=\"" + str(pred) + "\" property=\"" + str(

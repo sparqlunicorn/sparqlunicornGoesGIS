@@ -1,6 +1,6 @@
 from rdflib import URIRef
 
-from ....util.sparqlutils import SPARQLUtils
+from ....util.doc.docconfig import DocConfig
 
 
 class ObservationPage:
@@ -15,13 +15,13 @@ class ObservationPage:
                 gotvalue = str(observ[1])
             if observ[0] == URIRef("http://www.w3.org/ns/sosa/phenomenonTime"):
                 for val in graph.predicate_objects(observ[1]):
-                    if str(val[0]) in SPARQLUtils.timeproperties:
+                    if str(val[0]) in DocConfig.timeproperties:
                         gottime = str(val[1])
             if observ[0] == URIRef("http://www.w3.org/ns/sosa/hasResult"):
                 for val in graph.predicate_objects(observ[1]):
-                    if str(val[0]) in SPARQLUtils.valueproperties and val[1] != None and str(val[1]) != "":
+                    if str(val[0]) in DocConfig.valueproperties and val[1] != None and str(val[1]) != "":
                         gotvalue = str(val[1])
-                    if str(val[0]) in SPARQLUtils.unitproperties and val[1] != None and str(val[1]) != "":
+                    if str(val[0]) in DocConfig.unitproperties and val[1] != None and str(val[1]) != "":
                         xLabel = "Value (" + str(val[1]) + ")"
         if pageWidget:
             f.write(templates["chartviewtemplate"].replace("{{xValues}}", str([gotvalue]))

@@ -3,7 +3,7 @@ from .docutils import DocUtils
 from .docconfig import DocConfig
 from ..sparqlutils import SPARQLUtils
 import json
-from ..export.data.vowlexporter import OWL2VOWL
+from ..export.data.vowlexporter import VOWLExporter
 
 class GraphUtils:
 
@@ -41,9 +41,9 @@ class GraphUtils:
                 isgeo = False
                 isfeature = False
                 for geotup in graph.predicate_objects(tup[0]):
-                    if str(geotup[0]) in SPARQLUtils.geopointerproperties:
+                    if str(geotup[0]) in DocConfig.geopointerproperties:
                         isfeature = True
-                    elif str(geotup[0]) in SPARQLUtils.geoproperties:
+                    elif str(geotup[0]) in DocConfig.geoproperties:
                         isgeo = True
                 if isgeo:
                     classToGeoColl[str(tup[1])] += 1
@@ -137,7 +137,7 @@ class GraphUtils:
             predicatecounter += 1
             predicatelength += len(str(pred))
         if createVOWL:
-            OWL2VOWL.convertOWL2MiniVOWL(graph, outpath, "minivowl_result.js", predicates)
+            VOWLExporter.convertOWL2MiniVOWL(graph, outpath, "minivowl_result.js", predicates)
         with open(outpath + "proprelations.js", 'w', encoding='utf-8') as f:
             f.write("var proprelations=" + json.dumps(predicates))
             f.close()
@@ -196,14 +196,14 @@ class GraphUtils:
                             if str(tup[1].datatype) not in literaltypes:
                                 literaltypes[str(tup[1].datatype)] = set()
                             literaltypes[str(tup[1].datatype)].add(str(tup[0]))
-                            if str(tup[1].datatype) in SPARQLUtils.geoliteraltypes or str(tup[0]) in SPARQLUtils.geoproperties:
+                            if str(tup[1].datatype) in DocConfig.geoliteraltypes or str(tup[0]) in DocConfig.geoproperties:
                                 geocounter+=1
                         if tup[1].language is not None:
                             literallangs.add(str(tup[1].language))
                         val=str(tup[1])
                         literallength += len(val)
                         literals.add(val)
-                        if "." in val and val[val.rfind("."):] in SPARQLUtils.imageextensions:
+                        if "." in val and val[val.rfind("."):] in DocConfig.imageextensions:
                             imgcounter+=1
                         literalcount += 1
                     elif isinstance(tup[1], BNode):
@@ -216,7 +216,7 @@ class GraphUtils:
                         if ns not in nscount:
                             nscount[ns] = 0
                         nscount[ns] += 1
-                    if str(tup[0]) in SPARQLUtils.labelproperties:
+                    if str(tup[0]) in DocConfig.labelproperties:
                         labeltouri[str(tup[1])] = str(sub)
                         uritolabel[str(sub)] = {"label": str(tup[1])}
                         label = str(tup[1])

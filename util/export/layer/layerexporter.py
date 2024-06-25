@@ -41,7 +41,7 @@ class LayerExporter:
             namespace = "http://www.github.com/sparqlunicorn#"
         else:
             namespace = columntypes["namespace"]
-        if  "indid" not in columntypes or columntypes["indid"]==None or columntypes["indid"]=="":
+        if "indid" not in columntypes or columntypes["indid"]==None or columntypes["indid"]=="":
             idcol = "id"
         else:
             idcol = columntypes["indid"]

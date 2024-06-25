@@ -1,6 +1,5 @@
 from .docconfig import DocConfig
 from .docutils import DocUtils
-from ..sparqlutils import SPARQLUtils
 from rdflib import URIRef
 
 class ClassTreeUtils:
@@ -69,7 +68,7 @@ class ClassTreeUtils:
                     restext = DocUtils.shortenURI(str(obj))
                     if res is not None:
                         restext += " (" + res["uri"] + ")"
-                if str(obj) not in SPARQLUtils.collectionclasses:
+                if str(obj) not in DocConfig.collectionclasses:
                     result.append({"id": str(obj), "parent": cls, "type": "instance", "text": restext, "data": {}})
                 else:
                     result.append({"id": str(obj), "parent": cls, "type": "class", "text": restext, "data": {}})
@@ -140,7 +139,7 @@ class ClassTreeUtils:
                 else:
                     classlist[item]["item"]["text"] = classlist[item]["item"]["text"] + " [" + str(
                         classlist[item]["items"]) + "]"
-            if item in SPARQLUtils.collectionclasses:
+            if item in DocConfig.collectionclasses:
                 classlist[item]["item"]["type"] = "collectionclass"
             elif classlist[item]["items"] == classlist[item]["geoitems"] and classlist[item]["items"] > 0 and \
                     classlist[item]["geoitems"] > 0:

@@ -21,7 +21,7 @@ from .classtreeutils import ClassTreeUtils
 from .graphutils import GraphUtils
 from ..sparqlutils import SPARQLUtils
 from ..export.data.htmlexporter import HTMLExporter
-from ..export.data.vowlexporter import OWL2VOWL
+from ..export.data.vowlexporter import VOWLExporter
 from ..export.data.voidexporter import VoidExporter
 
 listthreshold=5
@@ -40,16 +40,16 @@ templates=DocDefaults.templates
 class OntDocGeneration:
 
     def __init__(self, prefixes,prefixnamespace,prefixnsshort,license,labellang,outpath,graph,createcollections,baselayers,tobeaddedPerInd,maincolor,tablecolor,progress,createIndexPages=True,generatePagesForNonNS=False,metadatatable=False,createVOWL=False,apis={},imagemetadata=False,startconcept="",deploypath="",logoname="",offlinecompat=False,exports=["ttl","json"],templatename="default"):
-        self.pubconfig = {"prefixes": prefixes, "prefixnamespace": prefixnamespace,
+        self.pubconfig = {"prefixes": prefixes, "prefixns": prefixnamespace,
                           "namespaceshort": prefixnsshort.replace("/", ""), "createIndexPages": createIndexPages,
                           "modtime": None, "outpath": outpath, "exports": exports, "apis": apis,
-                          "publisher": "", "publishingorg": "",
+                          "publisher": "", "publishingorg": "","logourl":logoname,
                           "startconcept": startconcept, "metadatatable": metadatatable, "createVOWL": createVOWL,
                           "templatename": templatename, "imagemetadata": imagemetadata,
                           "datasettitle": "", "logoname": logoname, "localOptimized": True,
                           "labellang": labellang, "license": license, "deploypath": deploypath,
                           "offlinecompat": offlinecompat, "generatePagesForNonNS": generatePagesForNonNS,
-                          "repository": None, "createColl": createcollections}
+                          "repository": None, "createCollections": createcollections}
         self.progress=progress
         self.baselayers=baselayers
         self.tobeaddedPerInd=tobeaddedPerInd
@@ -133,14 +133,14 @@ class OntDocGeneration:
         uritotreeitem={}
         self.updateProgressBar(None, None, "Creating classtree and search index")
         if self.pubconfig["createVOWL"]:
-            vowlinstance=OWL2VOWL()
+            vowlinstance=VOWLExporter()
             vowlinstance.convertOWL2VOWL(self.graph,outpath)
         tmp=HTMLExporter.processLicense(self.pubconfig["license"])
         curlicense=tmp[0]
         self.licensehtml = tmp[0]
         self.licenseuri=tmp[1]
         voidds=prefixnamespace+self.pubconfig["datasettitle"].replace(" ","_")
-        if self.pubconfig["createColl"]:
+        if self.pubconfig["createCollections"]:
             self.graph=GraphUtils.createCollections(self.graph,prefixnamespace,self.typeproperty)
         if self.pubconfig["logoname"] is not None and self.pubconfig["logoname"] != "" and not self.pubconfig["logoname"].startswith("http"):
             logoname=self.pubconfig["logoname"]
@@ -344,7 +344,7 @@ class OntDocGeneration:
         for uri in uristorender:
             label=""
             for tup in graph.predicate_objects(URIRef(uri)):
-                if str(tup[0]) in SPARQLUtils.labelproperties:
+                if str(tup[0]) in DocConfig.labelproperties:
                     label = str(tup[1])
             if uri in uritotreeitem:
                 res = DocUtils.replaceNameSpacesInLabel(self.pubconfig["prefixes"],str(uri))

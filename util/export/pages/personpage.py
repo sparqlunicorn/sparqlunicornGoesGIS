@@ -1,5 +1,5 @@
 from ...doc.docutils import DocUtils
-from ...sparqlutils import SPARQLUtils
+from ...doc.docconfig import DocConfig
 
 class PersonPage:
 
@@ -190,7 +190,7 @@ class PersonPage:
 
     @staticmethod
     def collectionConstraint():
-        return SPARQLUtils.collectionclasses
+        return DocConfig.collectionclasses
 
     @staticmethod
     def pageWidgetConstraint():
@@ -211,7 +211,7 @@ class PersonPage:
         counter=0
         f.write("<table id=\"person\" class=\"h-card\" border=\"1\"><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>")
         for person in graph.predicate_objects(subject):
-            if str(person[0]) in SPARQLUtils.collectionrelationproperties:
+            if str(person[0]) in  DocConfig.collectionrelationproperties:
                 vcards+=PersonPage.vcardJSONToString(PersonPage.generatePageWidget(graph,person[1],templates,f,False,counter))
                 counter+=1
         f.write("</tbody></table><script>$('#person').DataTable();</script><button id=\"vcard\" onclick=\"saveTextAsFile(`" + str(vcards) + "`,'vcard')\">Download VCards</button>")
