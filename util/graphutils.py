@@ -55,7 +55,7 @@ class GraphUtils:
             self.configuration["resource"]["instance"] = triplestoreurl
         self.configuration["geoconceptlimit"] = 500
         self.configuration["crs"] = 4326
-        if credentialUserName!=None and credentialUserName!="" and credentialPassword!=None and credentialPassword!=None:
+        if credentialUserName is not None and credentialUserName!="" and credentialPassword is not None and credentialPassword is not None:
             self.configuration["auth"]={}
             self.configuration["auth"]["userCredential"] = credentialUserName
             self.configuration["auth"]["userPassword"] = credentialPassword
@@ -311,7 +311,7 @@ class GraphUtils:
                 self.configuration["geoclasses"] = {}
                 for result in results["results"]["bindings"]:
                     if "rel" in result \
-                            and result["rel"]["value"] not in DocConfig.georelationproperties \
+                            and result["rel"]["value"] not in DocConfig.geoproperties \
                             and SPARQLUtils.namespaces["owl"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["rdfs"] not in result["rel"]["value"] \
                             and SPARQLUtils.namespaces["skos"] not in result["rel"]["value"]:
