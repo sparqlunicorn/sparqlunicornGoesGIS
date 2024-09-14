@@ -5,6 +5,7 @@ from ...sparqlutils import SPARQLUtils
 from ..pages.bibpage import BibPage
 from ..pages.owltimepage import OWLTimePage
 from rdflib import URIRef, Graph, BNode, Literal
+from qgis.core import Qgis, QgsMessageLog
 import re
 import os
 import json
@@ -320,7 +321,13 @@ class HTMLExporter:
                       URIRef("https://www.iana.org/assignments/media-types/text/turtle#Resource")))
         nonnslink = ""
         if nonns:
-            completesavepath=savepath[0:savepath.find("http:")-1]+savepath[savepath.find("http:"):0].replace(":","_").replace("/","_")
+            QgsMessageLog.logMessage("NonNS Savepath HTMLEx Prev " +savepath, "OntdocGeneration", Qgis.Info)
+            if "http:" in savepath:
+                completesavepath = savepath[0:savepath.find("http:") - 1] + savepath[savepath.find("http:"):0].replace(
+                    ":", "_").replace("/", "_")
+            else:
+                completesavepath = savepath[0:savepath.rfind("/")+1]+savepath[savepath.rfind("/")+1:].replace(":", "_").replace("/", "_")
+            QgsMessageLog.logMessage("NonNS Savepath HTMLEx Post " +completesavepath, "OntdocGeneration", Qgis.Info)
             nonnslink = "<div>This page describes linked instances to the concept  <a target=\"_blank\" href=\"" + str(
                 subject) + "\">" + str(foundlabel) + " (" + str(DocUtils.shortenURI(
                 subject)) + ") </a> in this knowledge graph. It is defined <a target=\"_blank\" href=\"" + str(
@@ -339,6 +346,9 @@ class HTMLExporter:
                 except Exception as e:
                     print(e)
                     print(traceback.format_exc())
+        else:
+            if os.path.exists(completesavepath):
+                return
         with open(completesavepath, 'w', encoding='utf-8') as f:
             searchfilelink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, searchfilename, False)
             classtreelink = DocUtils.generateRelativeLinkFromGivenDepth(baseurl, checkdepth, classtreename, False)
