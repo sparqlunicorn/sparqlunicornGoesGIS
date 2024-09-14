@@ -501,6 +501,7 @@ class DocConfig:
         ".wav": "audio"
     }
 
+
     classtreequery = """PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
@@ -525,3 +526,68 @@ class DocConfig:
                     ?subject != owl:NamedIndividual &&\n
                     ?subject != owl:Ontology) )\n
             }"""
+
+    georelationproperties={
+        "http://www.opengis.net/ont/geosparql#sfEquals": {"type": "ObjectProperty", "relation": "equals"},
+        "http://www.opengis.net/ont/geosparql#sfContains": {"type": "ObjectProperty", "relation": "contains"},
+        "http://www.opengis.net/ont/geosparql#sfCrosses": {"type": "ObjectProperty", "relation": "crosses"},
+        "http://www.opengis.net/ont/geosparql#sfDisjoint": {"type": "ObjectProperty", "relation": "disjoint"},
+        "http://www.opengis.net/ont/geosparql#sfOverlaps": {"type": "ObjectProperty", "relation": "overlaps"},
+        "http://www.opengis.net/ont/geosparql#sfIntersects": {"type": "ObjectProperty", "relation": "intersects"},
+        "http://www.opengis.net/ont/geosparql#sfWithin": {"type": "ObjectProperty", "relation": "within"},
+        "http://www.opengis.net/ont/geosparql#sfTouches": {"type": "ObjectProperty", "relation": "touches"},
+        "http://www.opengis.net/ont/geosparql#ehCovers": {"type": "ObjectProperty", "relation": "covers"},
+        "http://www.opengis.net/ont/geosparql#ehContains": {"type": "ObjectProperty", "relation": "contains"},
+        "http://www.opengis.net/ont/geosparql#ehCoveredBy": {"type": "ObjectProperty", "relation": "coveredby"},
+        "http://www.opengis.net/ont/geosparql#ehInside": {"type": "ObjectProperty", "relation": "inside"},
+        "http://www.opengis.net/ont/geosparql#ehMeet": {"type": "ObjectProperty", "relation": "touches"},
+        "http://www.opengis.net/ont/geosparql#ehOverlap": {"type": "ObjectProperty", "relation": "contains"},
+        "http://www.opengis.net/ont/geosparql#rcc8eq": {"type": "ObjectProperty", "relation": "equals"},
+        "http://www.opengis.net/ont/geosparql#rcc8dc": {"type": "ObjectProperty", "relation": "disjoint"},
+        "http://www.opengis.net/ont/geosparql#rcc8po": {"type": "ObjectProperty", "relation": "partially overlaps"},
+        "https://schema.org/containedIn": {"type": "ObjectProperty", "relation": "containedIn"},
+        "http://www.wikidata.org/prop/direct/P150": {"type": "ObjectProperty", "relation": "contains"},
+        "http://www.wikidata.org/prop/direct/P131": {"type": "ObjectProperty", "relation": "containedIn"},
+        "http://www.wikidata.org/prop/direct/P17": {"type": "ObjectProperty", "relation": "containedIn"},
+        "http://www.wikidata.org/prop/direct/P361": {"type": "ObjectProperty", "relation": "within"},
+        "http://www.wikidata.org/prop/direct/P706": {"type": "ObjectProperty", "relation": "within"},
+        "http://geovocab.org/EQ":{"type":"ObjectProperty","relation":"equals"},
+        "http://geovocab.org/DR": {"type": "ObjectProperty", "relation": "disjoint"},
+        "http://geovocab.org/O": {"type": "ObjectProperty", "relation": "overlaps"},
+        "http://geovocab.org/PO": {"type": "ObjectProperty", "relation": "partially overlaps"},
+        "http://geovocab.org/P": {"type": "ObjectProperty", "relation": "within"},
+        "http://www.cidoc-crm.org/cidoc-crm/P89_falls_within":{"type": "ObjectProperty", "relation": "contains"},
+        "http://www.cidoc-crm.org/cidoc-crm/P121_overlaps_with": {"type": "ObjectProperty", "relation": "overlaps"},
+        "http://www.cidoc-crm.org/cidoc-crm/P122_borders_with": {"type": "ObjectProperty", "relation": "touches"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/containedBy": {"type": "ObjectProperty",
+                                                                                "relation": "containedBy"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/contains": {"type":"ObjectProperty","relation":"contains"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/equals": {"type": "ObjectProperty",
+                                                                                "relation": "equals"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/disjoint": {"type": "ObjectProperty","relation": "disjoint"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/partiallyOverlaps": {"type": "ObjectProperty",
+                                                                               "relation": "partially overlaps"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/touches": {"type": "ObjectProperty","relation": "touches"},
+        "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within": {"type": "ObjectProperty",
+                                                                               "relation": "within"},
+        "https://schema.org/geoContains": {"type": "ObjectProperty", "relation": "contains"},
+        "https://schema.org/geoCoveredBy": {"type": "ObjectProperty", "relation": "coveredby"},
+        "https://schema.org/geoCovers": {"type": "ObjectProperty", "relation": "covers"},
+        "https://schema.org/geoDisjoint": {"type": "ObjectProperty", "relation": "disjoint"},
+        "https://schema.org/geoEquals": {"type": "ObjectProperty", "relation": "equals"},
+        "https://schema.org/geoIntersects": {"type": "ObjectProperty", "relation": "intersection"},
+        "https://schema.org/geoOverlaps": {"type": "ObjectProperty", "relation": "overlaps"},
+        "https://schema.org/geoTouches": {"type": "ObjectProperty", "relation": "touches"},
+        "https://schema.org/geoWithin": {"type": "ObjectProperty", "relation": "within"}
+    }
+
+    relationproperties={
+        "http://www.w3.org/2000/01/rdf-schema#seeAlso":"ObjectProperty",
+        "http://www.w3.org/2000/01/rdf-schema#subClassOf": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#related": "ObjectProperty",
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#exactMatch":"ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#closeMatch": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#broader": "ObjectProperty",
+        "http://www.w3.org/2004/02/skos/core#narrower": "ObjectProperty",
+    }

@@ -1,4 +1,5 @@
 from ....util.ui.uiutils import UIUtils
+from ....util.doc.docconfig import DocConfig
 from ....util.sparqlutils import SPARQLUtils
 from ....util.layerutils import LayerUtils
 from qgis.core import Qgis, QgsVectorLayer, QgsCoordinateReferenceSystem
@@ -65,28 +66,28 @@ class InstanceQueryTask(QgsTask):
             itemchecked = QStandardItem()
             itemchecked.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
             itemchecked.setCheckState(Qt.Checked)
-            if rel in SPARQLUtils.geoproperties:
-                if SPARQLUtils.geoproperties[rel] == "DatatypeProperty":
+            if rel in DocConfig.geoproperties:
+                if DocConfig.geoproperties[rel] == "DatatypeProperty":
                     itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
                     itemchecked.setToolTip("Geo Datatype Property")
                     itemchecked.setText("GeoDP")
-                elif SPARQLUtils.geoproperties[rel] == "ObjectProperty":
+                elif DocConfig.geoproperties[rel] == "ObjectProperty":
                     itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                     itemchecked.setToolTip("Geo Object Property")
                     itemchecked.setText("GeoOP")
-            elif rel in SPARQLUtils.georelationproperties:
+            elif rel in DocConfig.georelationproperties:
                 itemchecked.setIcon(UIUtils.georelationpropertyicon)
                 itemchecked.setToolTip("Geo Relation Property")
                 itemchecked.setText("GeoRelP")
-            elif rel in SPARQLUtils.commentproperties:
+            elif rel in DocConfig.commentproperties:
                 itemchecked.setIcon(UIUtils.commentannotationpropertyicon)
                 itemchecked.setToolTip("Description Property")
                 itemchecked.setText("Description Property")
-            elif rel in SPARQLUtils.labelproperties:
+            elif rel in DocConfig.labelproperties:
                 itemchecked.setIcon(UIUtils.labelannotationpropertyicon)
                 itemchecked.setToolTip("Label Property")
                 itemchecked.setText("Label Property")
-            elif rel in SPARQLUtils.relationproperties:
+            elif rel in DocConfig.relationproperties:
                 itemchecked.setIcon(UIUtils.relationobjectpropertyicon)
                 itemchecked.setToolTip("Relation Property")
                 itemchecked.setText("Relation Property")
