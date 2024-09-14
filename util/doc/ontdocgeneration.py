@@ -76,7 +76,7 @@ class OntDocGeneration:
             self.tablecolorcode=tablecolor
         self.licenseuri=None
         self.typeproperty = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-        self.subclassproperty = "http://www.w3.org/2000/01/rdf-schema#subClassO"
+        self.subclassproperty = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         keyprops=GraphUtils.determineKeyProperties(graph)
         if len(keyprops["typeproperty"])>0:
             self.typeproperty=keyprops["typeproperty"][0]
@@ -92,8 +92,7 @@ class OntDocGeneration:
             if str(nstup[1]) not in prefixes["reversed"]:
                 prefixes["reversed"][str(nstup[1])]=str(nstup[0])
         self.preparedclassquery = prepareQuery(
-            DocConfig.classtreequery.replace("%%typeproperty%%", "<" + self.typeproperty + ">").replace(
-                "%%subclassproperty%%", "<" + self.subclassproperty + ">"))
+            DocConfig.classtreequery.replace("%%typeproperty%%", "<" + self.typeproperty + ">").replace("%%subclassproperty%%", "<" + self.subclassproperty + ">"))
         if prefixnamespace is None or prefixnsshort is None or prefixnamespace== "" or prefixnsshort== "":
             self.namespaceshort = "suni"
             self.prefixnamespace = "http://purl.org/suni/"
