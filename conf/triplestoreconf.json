@@ -153,7 +153,7 @@
     "type": "sparqlendpoint",
     "prefixes": {
       "geo": "http://www.opengis.net/geosparql#",
-      "wd": "http://database.factgrid.de/entity/",
+      "wd": "https://database.factgrid.de/entity/",
       "wds": "http://www.wikidata.org/entity/statement/",
       "wdv": "http://www.wikidata.org/value/",
       "wdt": "https://database.factgrid.de/prop/direct/",
