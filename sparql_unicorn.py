@@ -39,6 +39,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 from .util.ui.uiutils import UIUtils
 from .util.layerutils import LayerUtils
+from .util.export.layer.layerexporter import LayerExporter
 from .util.conf.configutils import ConfigUtils
 
 import json
@@ -202,7 +203,7 @@ class SPARQLunicorn:
                     valuequeries=None, exportToTripleStore=False):
         layer = self.dlg.chooseLayerInterlink.currentLayer()
         if exportToTripleStore:
-            ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
+            ttlstring = LayerExporter.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
                                                     urilist, classurilist, includelist, proptypelist, valuemappings,
                                                     valuequeries)
             uploaddialog = UploadRDFDialog(ttlstring, self.triplestoreconf, self.dlg.comboBox.currentIndex())
@@ -215,9 +216,9 @@ class SPARQLunicorn:
             if filename == "":
                 return
             if filename.endswith("graphml"):
-                ttlstring = LayerUtils.layerToGraphML(layer)
+                ttlstring = LayerExporter.layerToGraphML(layer)
             else:
-                ttlstring = LayerUtils.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
+                ttlstring = LayerExporter.layerToTTLString(layer, "".join(self.prefixes[self.dlg.comboBox.currentIndex()]),
                                                         urilist, classurilist, includelist, proptypelist, valuemappings,
                                                         valuequeries)
             with open(filename, 'w') as output_file:
