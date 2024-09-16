@@ -358,7 +358,8 @@ class OntDocGeneration:
                 labeltouri[label] = prefixnamespace + "nonns_" + DocUtils.shortenURI(uri) + ".html"
             if counter%10==0:
                 self.updateProgressBar(counter,nonnsuris,"NonNS URIs")
-            #QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
+            QgsMessageLog.logMessage("NonNS Counter " +str(counter)+"/"+str(nonnsuris)+" "+ str(uri), "OntdocGeneration", Qgis.Info)
+            QgsMessageLog.logMessage("NonNS Outpath " +outpath+"nonns_"+DocUtils.shortenURI(uri)+".html", "OntdocGeneration", Qgis.Info)
             self.htmlexporter.createHTML(outpath+"nonns_"+DocUtils.shortenURI(uri)+".html", None, URIRef(uri), baseurl, graph.subject_predicates(URIRef(uri),True), graph, str(corpusid) + "_search.js", str(corpusid) + "_classtree.js", None, self.pubconfig["license"], None, Graph(),uristorender,True,label)
             counter+=1
 
