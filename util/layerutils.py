@@ -89,9 +89,19 @@ class LayerUtils:
         return result
 
     @staticmethod
-    def findColumnNameProperties(layer,triplestoreconf):
+    def findColumnNameProperties(layer,triplestoreconf,prefixes):
         names=layer.fields().names()
-
+        columnprops=[]
+        for name in names:
+            if name.startswith("http:"):
+                columnprops.append(name)
+            elif ":" in name:
+                splitted=name.split(":")
+                if splitted[0] in prefixes:
+                    columnprops.append(prefixes[splitted[0]]+splitted[1])
+            else:
+                columnprops.append("suni:"+name)
+        return columnprops
 
     @staticmethod
     def detectLayerColumnTypes(layer):
@@ -111,7 +121,7 @@ class LayerUtils:
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
         #QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
         #                         MESSAGE_CATEGORY, Qgis.Info)
-        res=geom.transform(tr)
+        geom.transform(tr)
         #QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
         #                         MESSAGE_CATEGORY, Qgis.Info)
         return geom
@@ -225,14 +235,9 @@ class LayerUtils:
                     "<http://schema.org/latitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
                 ttlstring.add(
                     "<http://schema.org/longitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(
-                curid) + "> <http://schema.org/geo> <" + str(curid) + "_geom> .\n")
-            ttlstring.add("<" + str(
-                curid) + "_geom> <http://schema.org/latitude> \"" + str(
-                geom.centroid().vertexAt(0).x()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
-            ttlstring.add("<" + str(
-                curid) + "_geom> <http://schema.org/longitude> \"" + str(
-                geom.centroid().vertexAt(0).y()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+            ttlstring.add("<" + str(curid) + "> <http://schema.org/geo> <" + str(curid) + "_geom> .\n")
+            ttlstring.add("<" + str(curid) + "_geom> <http://schema.org/latitude> \"" + str(geom.centroid().vertexAt(0).x()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+            ttlstring.add("<" + str(curid) + "_geom> <http://schema.org/longitude> \"" + str(geom.centroid().vertexAt(0).y()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
         elif "OSMRDF" in vocab:
             if init:
                 ttlstring.add(
@@ -252,10 +257,8 @@ class LayerUtils:
             ttlstring.add("<" + str(curid) + "> <http://geovocab.org/geometry#geometry> <" + str(curid) + "_geom> .\n")
             ttlstring.add("<" + str(curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://geovocab.org/geometry#" + QgsWkbTypes.displayString(
                 geom.wkbType()) + "> .\n")
-            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://geovocab.org/geometry#Geometry> .\n")
+            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
+            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://geovocab.org/geometry#Geometry> .\n")
             ttlstring.add("<" + str(curid) + "_geom> <http://geovocab.org/geometry#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
         elif "OrdnanceUK" in vocab:
             if init:
