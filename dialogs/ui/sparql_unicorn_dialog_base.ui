@@ -775,6 +775,7 @@ SELECT ?label ?geo ?item WHERE {
     </property>
     <addaction name="actionConvert_RDF_Data"/>
     <addaction name="actionValidate_RDF_Data"/>
+    <addaction name="actionImport_RDF_Layer"/>
     <addaction name="actionConvert_QGIS_Layer_To_RDF"/>
     <addaction name="actionCreate_Ontology_Documentation"/>
    </widget>
@@ -899,6 +900,11 @@ SELECT ?label ?geo ?item WHERE {
   <action name="actionLayer_Query">
    <property name="text">
     <string>Layer Query</string>
+   </property>
+  </action>
+  <action name="actionImport_RDF_Layer">
+   <property name="text">
+    <string>Import RDF Layer</string>
    </property>
   </action>
  </widget>

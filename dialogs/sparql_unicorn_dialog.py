@@ -57,6 +57,7 @@ from .util.searchdialog import SearchDialog
 from .util.layerquerydialog import LayerQueryDialog
 from .util.valuemappingdialog import ValueMappingDialog
 from .tool.convertlayerdialog import ConvertLayerDialog
+from .tool.importrdflayerdialog import ImportRDFLayerDialog
 from .util.bboxdialog import BBOXDialog
 from ..tabs.enrichmenttab import EnrichmentTab
 from ..tabs.interlinkingtab import InterlinkingTab
@@ -165,6 +166,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionLayer_Column_as_Variable.triggered.connect(self.inp_sparql2.createVarInputDialog)
         self.actionLayer_Query.triggered.connect(lambda: LayerQueryDialog().exec())
         self.actionConvert_QGIS_Layer_To_RDF.triggered.connect(lambda: ConvertLayerDialog(self.triplestoreconf, self.maindlg.prefixes, self.maindlg, self).exec())
+        self.actionImport_RDF_Layer.triggered.connect(lambda: ImportRDFLayerDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())
         self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))

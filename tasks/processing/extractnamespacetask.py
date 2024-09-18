@@ -75,11 +75,15 @@ class ExtractNamespaceTask(QgsTask):
         return {"nsd":nstodataclass,"clsset":classset}
 
 
+    def finishedCheckableComboBox(self):
+
+
     def finished(self, result):
         if result!=False:
-            self.resultcbox.clear()
             model=QStandardItemModel()
-            self.resultcbox.setModel(model)
+            if self.resultcbox is not None:
+                self.resultcbox.clear()
+                self.resultcbox.setModel(model)
             prefclassmodel = QStandardItemModel()
             self.startConceptCBox.setModel(prefclassmodel)
             item = QStandardItem()
@@ -94,23 +98,24 @@ class ExtractNamespaceTask(QgsTask):
                     item.setIcon(UIUtils.classicon)
                     item.setText(SPARQLUtils.labelFromURI(cls,self.prefixes))
                     prefclassmodel.appendRow(item)
-            for ns in sorted(self.namespaces):
-                if len(ns.strip())>0 and "http" in ns:
-                    if ns in self.nstodataclass and self.nstodataclass[ns] > 0:
+            if self.resultcbox is not None:
+                for ns in sorted(self.namespaces):
+                    if len(ns.strip())>0 and "http" in ns:
+                        if ns in self.nstodataclass and self.nstodataclass[ns] > 0:
+                            item = QStandardItem()
+                            item.setData(ns, UIUtils.dataslot_conceptURI)
+                            item.setIcon(UIUtils.featurecollectionicon)
+                            item.setText(ns)
+                            model.appendRow(item)
+                        else:
+                            self.recognizedns.add(ns)
+                for ns in sorted(self.recognizedns):
+                    if len(ns.strip())>0 and "http" in ns:
                         item = QStandardItem()
                         item.setData(ns, UIUtils.dataslot_conceptURI)
-                        item.setIcon(UIUtils.featurecollectionicon)
                         item.setText(ns)
+                        item.setIcon(UIUtils.linkeddataicon)
                         model.appendRow(item)
-                    else:
-                        self.recognizedns.add(ns)
-            for ns in sorted(self.recognizedns):
-                if len(ns.strip())>0 and "http" in ns:
-                    item = QStandardItem()
-                    item.setData(ns, UIUtils.dataslot_conceptURI)
-                    item.setText(ns)
-                    item.setIcon(UIUtils.linkeddataicon)
-                    model.appendRow(item)
             if self.progress is not None:
                 self.progress.close()
         else:

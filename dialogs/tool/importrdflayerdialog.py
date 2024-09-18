@@ -28,7 +28,7 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def __init__(self, triplestoreconf={}, maindlg=None, parent=None, title="Import RDF Layer"):
         """Constructor."""
-        super(ConvertCRSDialog, self).__init__(parent)
+        super(ImportRDFLayerDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.rdffileicon)
@@ -44,6 +44,6 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.loadFromURIButton.clicked.connect(self.loadURI)
 
 
-    def extractNamespaces(self,filename):
+    def extractClasses(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,None,self.layerSelectBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
