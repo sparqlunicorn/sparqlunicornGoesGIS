@@ -210,11 +210,11 @@
     "querytemplate": [
       {
         "label": "Item+Label",
-        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 %%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
+        "query": "SELECT ?item ?itemLabel ?geo WHERE {\n?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n }\n } LIMIT 10"
       },
       {
         "label": "All Attributes",
-        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 %%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
+        "query": "SELECT ?item ?itemLabel ?rel ?val ?geo WHERE {\n ?item wdt:P2 wd:Q%%concept%% .\n ?item wdt:P48 ?geo .\n ?item ?rel ?val .\n SERVICE wikibase:label {\n bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". \n}\n} LIMIT 100"
       }
     ],
     "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n ?a <https://database.factgrid.de/prop/direct/P2> ?class .\n ?a <https://database.factgrid.de/prop/direct/P48> ?a_geom .\n} LIMIT 500",

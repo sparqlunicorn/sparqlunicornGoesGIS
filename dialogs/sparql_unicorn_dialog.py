@@ -297,14 +297,16 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             msgBox.setText("The SPARQL query is missing the following mandatory variables: " + str(missingmandvars))
             msgBox.exec()
             return
-        progress = QProgressDialog(
-                "Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0,
-                self)
-        progress.setWindowTitle("Query layer")
-        progress.setWindowIcon(UIUtils.sparqlunicornicon)
-        progress.setWindowModality(Qt.WindowModal)
-        progress.setCancelButton(None)
-        progress.show()
+        progress=None
+        if "http" in self.triplestoreconf[endpointIndex]["resource"]:
+            progress = QProgressDialog(
+                    "Querying layer from " + str(self.triplestoreconf[endpointIndex]["name"]) + "...", "Abort", 0, 0,
+                    self)
+            progress.setWindowTitle("Query layer")
+            progress.setWindowIcon(UIUtils.sparqlunicornicon)
+            progress.setWindowModality(Qt.WindowModal)
+            progress.setCancelButton(None)
+            progress.show()
         queryprefixes = []
         prefixestoadd = ""
         for line in query.split("\n"):

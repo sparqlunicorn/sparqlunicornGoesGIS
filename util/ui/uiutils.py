@@ -1,4 +1,5 @@
 from ..sparqlutils import SPARQLUtils
+from ..doc import DocConfig
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
@@ -180,42 +181,42 @@ class UIUtils:
     @staticmethod
     def detectItemNodeType(itemchecked,curconcept,triplestoreconf,queryresult=None,att=None,dlg=None,text=None,tooltip=None):
         itemchecked.setData(curconcept, UIUtils.dataslot_conceptURI)
-        if curconcept in SPARQLUtils.geoproperties:
-            if SPARQLUtils.geoproperties[curconcept] == "DatatypeProperty":
+        if curconcept in DocConfig.geoproperties:
+            if DocConfig.geoproperties[curconcept] == "DatatypeProperty":
                 itemchecked.setIcon(UIUtils.geodatatypepropertyicon)
                 itemchecked.setToolTip("Geo Datatype Property")
                 itemchecked.setData(SPARQLUtils.geodatatypepropertynode,UIUtils.dataslot_nodetype)
                 itemchecked.setText("GeoDP")
-                if dlg != None:
+                if dlg is not None:
                     dlg.setWindowIcon(UIUtils.geoclassicon)
-            elif SPARQLUtils.geoproperties[curconcept] == "ObjectProperty":
+            elif DocConfig.geoproperties[curconcept] == "ObjectProperty":
                 itemchecked.setIcon(UIUtils.geoobjectpropertyicon)
                 itemchecked.setData(SPARQLUtils.geoobjectpropertynode,UIUtils.dataslot_nodetype)
                 itemchecked.setToolTip("Geo Object Property")
                 itemchecked.setText("GeoOP")
-                if dlg!=None:
+                if dlg is not None:
                     dlg.setWindowIcon(UIUtils.geoclassicon)
-        elif curconcept in SPARQLUtils.styleproperties:
+        elif curconcept in DocConfig.styleproperties:
             itemchecked.setIcon(UIUtils.objectpropertyicon)
-            itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
+            itemchecked.setData(DocConfig.objectpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Style Object Property")
             itemchecked.setText("Style OP")
-        elif curconcept in SPARQLUtils.georelationproperties:
+        elif curconcept in DocConfig.georelationproperties:
             itemchecked.setIcon(UIUtils.georelationpropertyicon)
-            itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
+            itemchecked.setData(DocConfig.objectpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Geo Relation Property")
             itemchecked.setText("GeoRelP")
-        elif curconcept in SPARQLUtils.commentproperties:
+        elif curconcept in DocConfig.commentproperties:
             itemchecked.setIcon(UIUtils.commentannotationpropertyicon)
             itemchecked.setData(SPARQLUtils.annotationpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Description Property")
             itemchecked.setText("Description Property")
-        elif curconcept in SPARQLUtils.labelproperties:
+        elif curconcept in DocConfig.labelproperties:
             itemchecked.setIcon(UIUtils.labelannotationpropertyicon)
             itemchecked.setData(SPARQLUtils.annotationpropertynode, UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Label Property")
             itemchecked.setText("Label Property")
-        elif curconcept in SPARQLUtils.relationproperties:
+        elif curconcept in DocConfig.relationproperties:
             itemchecked.setIcon(UIUtils.relationobjectpropertyicon)
             itemchecked.setData(SPARQLUtils.annotationpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Relation Property")
@@ -228,7 +229,7 @@ class UIUtils:
             itemchecked.setData(SPARQLUtils.annotationpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Annotation Property")
             itemchecked.setText("AP")
-        elif att!=None and queryresult is not None \
+        elif att is not None and queryresult is not None \
                 and "valtype" in queryresult[att]:
             itemchecked.setIcon(UIUtils.datatypepropertyicon)
             itemchecked.setData(SPARQLUtils.datatypepropertynode,UIUtils.dataslot_nodetype)
@@ -244,9 +245,9 @@ class UIUtils:
             itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Object Property")
             itemchecked.setText("OP")
-        if text!=None:
+        if text is not None:
             itemchecked.setText(text)
-        if tooltip!=None:
+        if tooltip is not None:
             itemchecked.setToolTip(tooltip)
         return itemchecked
 
