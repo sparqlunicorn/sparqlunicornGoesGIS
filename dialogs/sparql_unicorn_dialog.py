@@ -319,7 +319,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if not self.triplestoreconf[endpointIndex]["prefixes"][endpoint] in queryprefixes:
                 prefixestoadd += "PREFIX " + endpoint + ": <" + self.triplestoreconf[endpointIndex]["prefixes"][
                     endpoint] + "> \n"
-        self.qtask = QueryLayerTask("Querying QGIS Layer",
+        self.qtask = QueryLayerTask("Querying QGIS Layer from " + str(self.triplestoreconf[endpointIndex]["resource"]["url"]),
                                     None,
                                     self.triplestoreconf[endpointIndex]["resource"],
                                     prefixestoadd + query, self.triplestoreconf[endpointIndex],
