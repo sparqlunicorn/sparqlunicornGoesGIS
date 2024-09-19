@@ -15,6 +15,11 @@ from rdflib import Graph
 class LayerExporter:
 
     @staticmethod
+    def detectColumnURIs(columnnames):
+        print("")
+
+
+    @staticmethod
     def exportToFormat(layerOrTTLString,file,filename,format,prefixes):
         if isinstance(layerOrTTLString, str):
             layerToTTL=layerOrTTLString
@@ -34,14 +39,14 @@ class LayerExporter:
 
     @staticmethod
     def layerToTTLString(layer, prefixes, vocab="GeoSPARQL", literaltype=["WKT"],columntypes=None):
-        if columntypes==None:
+        if columntypes is None:
             LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype)
             return
-        if "namespace" not in columntypes or columntypes["namespace"]==None or columntypes["namespace"]=="":
+        if "namespace" not in columntypes or columntypes["namespace"] is None or columntypes["namespace"]=="":
             namespace = "http://www.github.com/sparqlunicorn#"
         else:
             namespace = columntypes["namespace"]
-        if "indid" not in columntypes or columntypes["indid"]==None or columntypes["indid"]=="":
+        if "indid" not in columntypes or columntypes["indid"] is None or columntypes["indid"]=="":
             idcol = "id"
         else:
             idcol = columntypes["indid"]
@@ -83,7 +88,7 @@ class LayerExporter:
         #                         MESSAGE_CATEGORY, Qgis.Info)
         ttlstring = set()
         first = 0
-        if exportNameSpace == None or exportNameSpace == "":
+        if exportNameSpace is None or exportNameSpace == "":
             namespace = "http://www.github.com/sparqlunicorn#"
         else:
             namespace = exportNameSpace
@@ -93,7 +98,7 @@ class LayerExporter:
             idcol = exportIdCol
         classcol = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         curid = ""
-        if exportSetClass == None or exportSetClass == "":
+        if exportSetClass is None or exportSetClass == "":
             curclassid = namespace + str(uuid.uuid4())
         elif exportSetClass.startswith("http"):
             curclassid = exportSetClass
