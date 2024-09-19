@@ -44,11 +44,30 @@ class InterlinkUtils:
             if thetype["unique"]:
                 idcols.add(layer.fields().names()[counter])
                 thetype["id"]=True
+                thetype["name"]=layer.fields().names()[counter]
             columntypes.append(InterlinkUtils.checkTypeFromColumnName(layer.fields().names()[counter],thetype))
             counter+=1
         #QgsMessageLog.logMessage("IDCols: "+str(columntypes),"InterlinkUtils", Qgis.Info)
         #QgsMessageLog.logMessage("Columntypes: "+str(columntypes),"InterlinkUtils", Qgis.Info)
         return columntypes
+
+
+    @staticmethod
+    def suggestColumnURIs(layer,prefixes):
+        columnprops=[]
+        for name in layer.fields().names():
+            if name=="id":
+                columnprops.append("rdf:type")
+            elif name.startswith("http:"):
+                columnprops.append(name)
+            elif ":" in name:
+                splitted=name.split(":")
+                if splitted[0] in prefixes:
+                    columnprops.append(prefixes[splitted[0]]+splitted[1])
+            else:
+                columnprops.append("suni:"+name)
+        return columnprops
+
 
     @staticmethod
     def checkTypeFromColumnName(fieldname,columntype):
@@ -73,18 +92,6 @@ class InterlinkUtils:
         if "geotype" not in columntype:
             columntype["geotype"]=False
         return columntype
-
-    def suggestMostProbableID(self, layer):
-        fieldmapping = {}
-        for field in layer.fields().names():
-            if field.startswith("http"):
-                fieldmapping[field] = field
-
-    def suggestFieldNameMappings(self, layer):
-        fieldmapping = {}
-        for field in layer.fields().names():
-            if field.startswith("http"):
-                fieldmapping[field] = field
 
 
     @staticmethod

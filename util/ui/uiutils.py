@@ -1,5 +1,5 @@
 from ..sparqlutils import SPARQLUtils
-from ..doc import DocConfig
+from ..doc.docconfig import DocConfig
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
@@ -198,12 +198,12 @@ class UIUtils:
                     dlg.setWindowIcon(UIUtils.geoclassicon)
         elif curconcept in DocConfig.styleproperties:
             itemchecked.setIcon(UIUtils.objectpropertyicon)
-            itemchecked.setData(DocConfig.objectpropertynode,UIUtils.dataslot_nodetype)
+            itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Style Object Property")
             itemchecked.setText("Style OP")
         elif curconcept in DocConfig.georelationproperties:
             itemchecked.setIcon(UIUtils.georelationpropertyicon)
-            itemchecked.setData(DocConfig.objectpropertynode,UIUtils.dataslot_nodetype)
+            itemchecked.setData(SPARQLUtils.objectpropertynode,UIUtils.dataslot_nodetype)
             itemchecked.setToolTip("Geo Relation Property")
             itemchecked.setText("GeoRelP")
         elif curconcept in DocConfig.commentproperties:

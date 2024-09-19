@@ -7,6 +7,7 @@ from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, Qg
 import traceback
 import json
 from .sparqlutils import SPARQLUtils
+from rdflib import Graph, OWL, GEO, RDF,RDFS, SDO,XSD, URIRef, Literal
 
 MESSAGE_CATEGORY = 'LayerUtils'
 
@@ -189,87 +190,103 @@ class LayerUtils:
 
 
     @staticmethod
-    def exportGeometryType(curid,geom,vocab,literaltype,init,ttlstring):
+    def exportGeometryType(curid,geom,vocab,literaltype,init,graph):
         if "GeoSPARQL" in vocab:
             if init:
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#SpatialObject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#hasGeometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
-                ttlstring.add(
-                    "<http://www.opengis.net/ont/geosparql#Geometry> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#SpatialObject> .\n")
-            ttlstring.add("<" + str(curid) + "> <http://www.opengis.net/ont/geosparql#hasGeometry> <" + str(curid) + "_geom> .\n")
-            ttlstring.add("<" + str(curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> .\n")
-            ttlstring.add("<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-            ttlstring.add("<http://www.opengis.net/ont/geosparql#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Geometry> .\n")
+                graph.add(GEO.Feature,RDF.type,OWL.Class)
+                graph.add(GEO.SpatialObject, RDF.type, OWL.Class)
+                graph.add(GEO.Geometry, RDF.type, OWL.Class)
+                graph.add(GEO.hasGeometry, RDF.type, OWL.ObjectProperty)
+                graph.add(GEO.asWKT, RDF.type, OWL.DatatypeProperty)
+                graph.add(GEO.Feature, RDFS.subClassOf, GEO.SpatialObject)
+                graph.add(GEO.Geometry, RDFS.subClassOf, GEO.SpatialObject)
+            graph.add(URIRef(str(curid)),GEO.hasGeometry,URIRef(str(curid) + "_geom"))
+            graph.add(URIRef(str(curid) + "_geom"),RDF.type,URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())))
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())),RDF.type,OWL.Class)
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())),RDF.subClassOf,GEO.Geometry)
             if "WKT" in literaltype:
-                ttlstring.add("<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
+                graph.add(URIRef(str(curid) + "_geom"),GEO.asWKT,Literal(geom.asWkt(),datatype=GEO.wktLiteral))
             if literaltype == "GeoJSON":
-                ttlstring.add("<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asGeoJSON> \"" + geom.asJson() + "\"^^<http://www.opengis.net/ont/geosparql#geoJSONLiteral> .\n")
+                graph.add(URIRef(str(curid) + "_geom"), URIRef("http://www.opengis.net/ont/geosparql#asGeoJSON"),
+                          Literal(geom.asJson(),datatype="http://www.opengis.net/ont/geosparql#geoJSONLiteral"))
             if literaltype == "WKB":
-                ttlstring.add("<" + str(curid) + "_geom> <http://www.opengis.net/ont/geosparql#asWKB> \"" + geom.asWkb() + "\"^^<http://www.opengis.net/ont/geosparql#wkbLiteral> .\n")
+                graph.add(URIRef(str(curid) + "_geom"), URIRef("http://www.opengis.net/ont/geosparql#asWKB"),
+                          Literal(geom.asWkb(),datatype="http://www.opengis.net/ont/geosparql#wkbLiteral"))
+        if "CIDOC" in vocab:
+            if init:
+                graph.add(GEO.Feature, RDF.type, OWL.Class)
+                graph.add(URIRef("http://www.cidoc-crm.org/cidoc-crm/SP2_Phenomenal_Place"),RDFS.subClassOf,GEO.Feature)
+                graph.add(GEO.SpatialObject, RDF.type, OWL.Class)
+                graph.add(GEO.Geometry, RDF.type, OWL.Class)
+                graph.add(URIRef("http://www.cidoc-crm.org/cidoc-crm/SP15_Geometry"),RDFS.subClassOf,GEO.Geometry)
+                graph.add(URIRef("http://www.cidoc-crm.org/cidoc-crm/approximates"), RDF.type, OWL.ObjectProperty)
+                graph.add(GEO.hasGeometry, RDF.type, OWL.ObjectProperty)
+                graph.add(GEO.asWKT, RDF.type, OWL.DatatypeProperty)
+                graph.add(GEO.Feature, RDFS.subClassOf, GEO.SpatialObject)
+                graph.add(GEO.Geometry, RDFS.subClassOf, GEO.SpatialObject)
+            graph.add(URIRef(str(curid)), GEO.hasGeometry, URIRef(str(curid) + "_geom"))
+            graph.add(URIRef(str(curid) + "_geom"), RDF.type,
+                      URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())))
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())), RDF.type,
+                      OWL.Class)
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())),
+                      RDF.subClassOf, GEO.Geometry)
+            if "WKT" in literaltype:
+                graph.add(URIRef(str(curid) + "_geom"), GEO.asWKT, Literal(geom.asWkt(), datatype=GEO.wktLiteral))
+            if literaltype == "GeoJSON":
+                graph.add(URIRef(str(curid) + "_geom"), URIRef("http://www.opengis.net/ont/geosparql#asGeoJSON"),
+                          Literal(geom.asJson(), datatype="http://www.opengis.net/ont/geosparql#geoJSONLiteral"))
+            if literaltype == "WKB":
+                graph.add(URIRef(str(curid) + "_geom"), URIRef("http://www.opengis.net/ont/geosparql#asWKB"),
+                          Literal(geom.asWkb(), datatype="http://www.opengis.net/ont/geosparql#wkbLiteral"))
+        elif "Juso" in vocab:
+            if init:
+                graph.add(URIRef("http://rdfs.co/juso/Feature"),RDF.type,OWL.Class)
+                graph.add(URIRef("http://rdfs.co/juso/SpatialThing"), RDF.type, OWL.Class)
+                graph.add(URIRef("http://rdfs.co/juso/Geometry"), RDF.type, OWL.Class)
+                graph.add(URIRef("http://rdfs.co/juso/geometry"), RDF.type, OWL.ObjectProperty)
+                graph.add(URIRef("http://rdfs.co/juso/wgs84_lat"), RDF.type, OWL.DatatypeProperty)
+                graph.add(URIRef("http://rdfs.co/juso/wgs84_long"), RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)),URIRef("http://rdfs.co/juso/geometry"),URIRef(str(curid) + "_geom"))
+            graph.add(URIRef(str(curid) + "_geom"),RDF.type,URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())))
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())),RDF.type,OWL.Class)
+            graph.add(URIRef("http://www.opengis.net/ont/sf#" + QgsWkbTypes.displayString(geom.wkbType())),RDF.subClassOf,GEO.Geometry)
+            graph.add(URIRef(str(curid)), URIRef("http://rdfs.co/juso/wgs84_lat"), Literal(str(geom.centroid().vertexAt(0).x()),datatype=XSD.double))
+            graph.add(URIRef(str(curid)), URIRef("http://rdfs.co/juso/wgs84_long"),Literal(str(geom.centroid().vertexAt(0).y()), datatype=XSD.double))
         elif "W3C" in vocab and "Geo" in vocab:
             if init:
-                ttlstring.add(
-                    "<http://www.w3.org/2003/01/geo/wgs84_pos#lat> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                ttlstring.add(
-                    "<http://www.w3.org/2003/01/geo/wgs84_pos#long> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#lat> \""+str(geom.centroid().vertexAt(0).x())+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
-            ttlstring.add("<" + str(curid) + "> <http://www.w3.org/2003/01/geo/wgs84_pos#long> \""+str(geom.centroid().vertexAt(0).y())+"\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+                graph.add(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat"), RDF.type, OWL.DatatypeProperty)
+                graph.add(URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long"), RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)), URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat"), Literal(str(geom.centroid().vertexAt(0).x()),datatype=XSD.double))
+            graph.add(URIRef(str(curid)), URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long"),Literal(str(geom.centroid().vertexAt(0).y()), datatype=XSD.double))
         elif "Schema.org" in vocab:
             if init:
-                ttlstring.add(
-                    "<http://schema.org/geo> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                ttlstring.add(
-                    "<http://schema.org/latitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                ttlstring.add(
-                    "<http://schema.org/longitude> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(curid) + "> <http://schema.org/geo> <" + str(curid) + "_geom> .\n")
-            ttlstring.add("<" + str(curid) + "_geom> <http://schema.org/latitude> \"" + str(geom.centroid().vertexAt(0).x()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
-            ttlstring.add("<" + str(curid) + "_geom> <http://schema.org/longitude> \"" + str(geom.centroid().vertexAt(0).y()) + "\"^^<http://www.w3.org/2001/XMLSchema#double> .\n")
+                graph.add(SDO.geo, RDF.type, OWL.ObjectProperty)
+                graph.add(SDO.latitude, RDF.type, OWL.DatatypeProperty)
+                graph.add(SDO.longitude, RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)), SDO.geo, URIRef(str(curid) + "_geom"))
+            graph.add(URIRef(str(curid) + "_geom"), SDO.latitude, Literal(str(geom.centroid().vertexAt(0).x()),datatype=XSD.double))
+            graph.add(URIRef(str(curid) + "_geom"), SDO.longitude, Literal(str(geom.centroid().vertexAt(0).y()), datatype=XSD.double))
         elif "OSMRDF" in vocab:
             if init:
-                ttlstring.add(
-                    "<https://www.openstreetmap.org/meta/loc> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(
-                curid) + "> <https://www.openstreetmap.org/meta/loc> \"" + geom.asWkt() + "\" .\n")
+                graph.add(URIRef("https://www.openstreetmap.org/meta/loc"), RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)),URIRef("https://www.openstreetmap.org/meta/loc"), Literal(geom.asWkt()))
         elif "NeoGeo" in vocab:
             if init:
-                ttlstring.add(
-                    "<http://geovocab.org/spatial#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                ttlstring.add(
-                    "<http://geovocab.org/geometry#Geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-                ttlstring.add(
-                    "<http://geovocab.org/geometry#geometry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .\n")
-                ttlstring.add(
-                    "<http://geovocab.org/geometry#asWKT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(curid) + "> <http://geovocab.org/geometry#geometry> <" + str(curid) + "_geom> .\n")
-            ttlstring.add("<" + str(curid) + "_geom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://geovocab.org/geometry#" + QgsWkbTypes.displayString(
-                geom.wkbType()) + "> .\n")
-            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType()) + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .\n")
-            ttlstring.add("<http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType()) + "> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://geovocab.org/geometry#Geometry> .\n")
-            ttlstring.add("<" + str(curid) + "_geom> <http://geovocab.org/geometry#asWKT> \"" + geom.asWkt() + "\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n")
+                graph.add(URIRef("http://geovocab.org/spatial#Feature"), RDF.type, OWL.Class)
+                graph.add(URIRef("http://geovocab.org/spatial#Geometry"), RDF.type, OWL.Class)
+                graph.add(URIRef("http://geovocab.org/spatial#geometry"), RDF.type, OWL.ObjectProperty)
+                graph.add(URIRef("http://geovocab.org/spatial#asWKT"), RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)), URIRef("http://geovocab.org/geometry#geometry"), URIRef(str(curid) + "_geom"))
+            graph.add(URIRef(str(curid)+"_geom"), RDF.type, URIRef("http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType())))
+            graph.add(URIRef("http://geovocab.org/geometry#" + QgsWkbTypes.displayString(geom.wkbType())), RDF.type,OWL.Class)
+            graph.add(URIRef(str(curid) + "_geom"), GEO.asWKT,Literal(geom.asWkt(),datatype=GEO.wktLiteral))
         elif "OrdnanceUK" in vocab:
             if init:
-                ttlstring.add(
-                    "<http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-                ttlstring.add(
-                    "<http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .\n")
-            ttlstring.add("<" + str(
-                curid) + "> <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting> \"" + str(
-                geom.centroid().vertexAt(0).x()) + "\" .\n")
-            ttlstring.add("<" + str(
-                curid) + "> <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing> \"" + str(
-                geom.centroid().vertexAt(0).y()) + "\" .\n")
-        return ttlstring
+                graph.add(URIRef("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting"), RDF.type, OWL.DatatypeProperty)
+                graph.add(URIRef("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing"), RDF.type, OWL.DatatypeProperty)
+            graph.add(URIRef(str(curid)),URIRef("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/easting"), Literal(str(
+                geom.centroid().vertexAt(0).x()),datatype=XSD.double))
+            graph.add(URIRef(str(curid)),URIRef("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/northing"), Literal(str(
+                geom.centroid().vertexAt(0).y()),datatype=XSD.double))
+        return graph

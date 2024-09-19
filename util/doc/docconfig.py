@@ -581,6 +581,10 @@ class DocConfig:
         "https://schema.org/geoWithin": {"type": "ObjectProperty", "relation": "within"}
     }
 
+    styleproperties={
+        "http://www.opengis.net/ont/geosparql#style"
+    }
+
     relationproperties={
         "http://www.w3.org/2000/01/rdf-schema#seeAlso":"ObjectProperty",
         "http://www.w3.org/2000/01/rdf-schema#subClassOf": "ObjectProperty",
