@@ -61,7 +61,6 @@ $(document).ready(function(){initNavTree('a00093.html',''); initResizable(); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00090.html">List of all members</a>  </div>
@@ -79,13 +78,6 @@ Collaboration diagram for InterlinkUtils:</div>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ac4a3fd7f3ebf209b7296b1f1af525f2f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ac4a3fd7f3ebf209b7296b1f1af525f2f">suggestMostProbableID</a> (self, layer)</td></tr>
-<tr class="separator:ac4a3fd7f3ebf209b7296b1f1af525f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10a63be619f27e74faae765db238c9aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a10a63be619f27e74faae765db238c9aa">suggestFieldNameMappings</a> (self, layer)</td></tr>
-<tr class="separator:a10a63be619f27e74faae765db238c9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a40ab04d11fc381d1e85623e843d29c7e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a40ab04d11fc381d1e85623e843d29c7e">readXMLMappingToDict</a> (filename)</td></tr>
@@ -94,6 +86,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a16f895e439ce615c1a81790624514744"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad8420d212acf58c7f5d6cf1e6253678"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#aad8420d212acf58c7f5d6cf1e6253678">suggestMappingSchema</a> (layer)</td></tr>
 <tr class="separator:aad8420d212acf58c7f5d6cf1e6253678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a762992a93e3380c610ce3560aebca61d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#a762992a93e3380c610ce3560aebca61d">suggestColumnURIs</a> (layer, prefixes)</td></tr>
+<tr class="separator:a762992a93e3380c610ce3560aebca61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa70d444ede23752a5aff38d62fde3a80"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#aa70d444ede23752a5aff38d62fde3a80">checkTypeFromColumnName</a> (fieldname, columntype)</td></tr>
 <tr class="separator:aa70d444ede23752a5aff38d62fde3a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6107dbcf960f64ff1f36a0c8cc753e7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00093.html#ae6107dbcf960f64ff1f36a0c8cc753e7">constructStrIfListElemsExist</a> (exists, map)</td></tr>
@@ -152,29 +146,30 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">def </span>checkTypeFromColumnName(fieldname,columntype):</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:double&quot;</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.geoterms:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:string&quot;</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.subclassterms:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;owl:Class&quot;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.labelfieldnames:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:LabelProperty&quot;</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.descriptorfieldnames:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:DescriptionProperty&quot;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotype&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> columntype:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> columntype</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">def </span>checkTypeFromColumnName(fieldname,columntype):</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:double&quot;</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.geoterms:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">if</span> columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]==<span class="stringliteral">&quot;xsd:string&quot;</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.subclassterms:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;owl:Class&quot;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.labelfieldnames:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:LabelProperty&quot;</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">for</span> term <span class="keywordflow">in</span> InterlinkUtils.descriptorfieldnames:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keywordflow">if</span> term <span class="keywordflow">in</span> str(fieldname).upper():</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    columntype[<span class="stringliteral">&quot;xsdtype&quot;</span>]=<span class="stringliteral">&quot;ct:DescriptionProperty&quot;</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    columntype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> <span class="stringliteral">&quot;geotype&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> columntype:</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            columntype[<span class="stringliteral">&quot;geotype&quot;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> columntype</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,11 +218,11 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">def </span>constructStrIfExists(exists,map,prefixstr=&quot;&quot;,suffixstr=&quot;&quot;):</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> exists <span class="keywordflow">in</span> map:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">return</span> str(prefixstr)+str(exists)+str(suffixstr)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">def </span>constructStrIfExists(exists,map,prefixstr=&quot;&quot;,suffixstr=&quot;&quot;):</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> exists <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">return</span> str(prefixstr)+str(exists)+str(suffixstr)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -264,13 +259,13 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">def </span>constructStrIfListElemsExist(exists,map):</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        result=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">for</span> obj <span class="keywordflow">in</span> exists:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> obj[<span class="stringliteral">&quot;key&quot;</span>] <span class="keywordflow">in</span> map:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                result+=str(obj.get(<span class="stringliteral">&quot;prefix&quot;</span>))+str(obj[<span class="stringliteral">&quot;key&quot;</span>])+str(obj.get(<span class="stringliteral">&quot;suffix&quot;</span>))</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> result</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">def </span>constructStrIfListElemsExist(exists,map):</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        result=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">for</span> obj <span class="keywordflow">in</span> exists:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span> obj[<span class="stringliteral">&quot;key&quot;</span>] <span class="keywordflow">in</span> map:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                result+=str(obj.get(<span class="stringliteral">&quot;prefix&quot;</span>))+str(obj[<span class="stringliteral">&quot;key&quot;</span>])+str(obj.get(<span class="stringliteral">&quot;suffix&quot;</span>))</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -297,25 +292,25 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">def </span>exportMappingXML(mappingdict):</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        xmlmappingheader = <span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; ?&gt;\n&lt;data&gt;\n&lt;file &quot;</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        xmlmapping = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;class=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;class&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;namespace=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;namespace&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;indid=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;indid&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &gt;&quot;</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> mappingdict[<span class="stringliteral">&quot;column&quot;</span>]:</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            item = row</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> item.checkState():</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;column &quot;</span>+InterlinkUtils.constructStrIfListElemsExist([{<span class="stringliteral">&quot;key&quot;</span>:<span class="stringliteral">&quot;name&quot;</span>,<span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;name=\&quot;&quot;</span>,<span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;propiri&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;propiri=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;concept&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;concept=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;query&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;query=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;triplestoreurl&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;triplestoreurl=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}],row)+<span class="stringliteral">&quot;&gt;&quot;</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;valuemapping&quot;</span> <span class="keywordflow">in</span> mappingdict:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="keywordflow">for</span> key <span class="keywordflow">in</span> mappingdict:</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                        xmlmapping += <span class="stringliteral">&quot;&lt;valuemapping from=\&quot;&quot;</span> + key + <span class="stringliteral">&quot;\&quot; to=\&quot;&quot;</span> + mappingdict[<span class="stringliteral">&quot;valuemapping&quot;</span>][key] + <span class="stringliteral">&quot;\&quot;/&gt;\n&quot;</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;/column&gt;\n&quot;</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        xmlmapping += <span class="stringliteral">&quot;&lt;/file&gt;\n&lt;/data&gt;&quot;</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> xmlmappingheader + <span class="stringliteral">&quot;&gt;\n&quot;</span> + xmlmapping</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">def </span>exportMappingXML(mappingdict):</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        xmlmappingheader = <span class="stringliteral">&quot;&lt;?xml version=\&quot;1.0\&quot; ?&gt;\n&lt;data&gt;\n&lt;file &quot;</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        xmlmapping = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;class=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;class&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;namespace=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;namespace&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &quot;</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        xmlmappingheader += <span class="stringliteral">&quot;indid=\&quot;&quot;</span> + str(mappingdict.get(<span class="stringliteral">&quot;indid&quot;</span>)) + <span class="stringliteral">&quot;\&quot; &gt;&quot;</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">for</span> row <span class="keywordflow">in</span> mappingdict[<span class="stringliteral">&quot;column&quot;</span>]:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            item = row</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">if</span> item.checkState():</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;column &quot;</span>+InterlinkUtils.constructStrIfListElemsExist([{<span class="stringliteral">&quot;key&quot;</span>:<span class="stringliteral">&quot;name&quot;</span>,<span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;name=\&quot;&quot;</span>,<span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;propiri&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;propiri=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;concept&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;concept=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>},</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;query&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;query=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}, {<span class="stringliteral">&quot;key&quot;</span>: <span class="stringliteral">&quot;triplestoreurl&quot;</span>, <span class="stringliteral">&quot;prefix&quot;</span>:<span class="stringliteral">&quot;triplestoreurl=\&quot;&quot;</span>, <span class="stringliteral">&quot;suffix&quot;</span>:<span class="stringliteral">&quot;\&quot; &quot;</span>}],row)+<span class="stringliteral">&quot;&gt;&quot;</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keywordflow">if</span> <span class="stringliteral">&quot;valuemapping&quot;</span> <span class="keywordflow">in</span> mappingdict:</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                    <span class="keywordflow">for</span> key <span class="keywordflow">in</span> mappingdict:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                        xmlmapping += <span class="stringliteral">&quot;&lt;valuemapping from=\&quot;&quot;</span> + key + <span class="stringliteral">&quot;\&quot; to=\&quot;&quot;</span> + mappingdict[<span class="stringliteral">&quot;valuemapping&quot;</span>][key] + <span class="stringliteral">&quot;\&quot;/&gt;\n&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                xmlmapping += <span class="stringliteral">&quot;&lt;/column&gt;\n&quot;</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        xmlmapping += <span class="stringliteral">&quot;&lt;/file&gt;\n&lt;/data&gt;&quot;</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> xmlmappingheader + <span class="stringliteral">&quot;&gt;\n&quot;</span> + xmlmapping</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -387,23 +382,26 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a10a63be619f27e74faae765db238c9aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10a63be619f27e74faae765db238c9aa">&#9670;&nbsp;</a></span>suggestFieldNameMappings()</h2>
+<a id="a762992a93e3380c610ce3560aebca61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a762992a93e3380c610ce3560aebca61d">&#9670;&nbsp;</a></span>suggestColumnURIs()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">def suggestFieldNameMappings </td>
+          <td class="memname">def suggestColumnURIs </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
+          <td class="paramname"><em>layer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>layer</em>&#160;</td>
+          <td class="paramname"><em>prefixes</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -411,14 +409,28 @@ Static Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">def </span>suggestFieldNameMappings(self, layer):</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        fieldmapping = {}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields().names():</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">if</span> field.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                fieldmapping[field] = field</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">def </span>suggestColumnURIs(layer,prefixes):</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        columnprops=[]</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">for</span> name <span class="keywordflow">in</span> layer.fields().names():</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">if</span> name==<span class="stringliteral">&quot;id&quot;</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                columnprops.append(<span class="stringliteral">&quot;rdf:type&quot;</span>)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">elif</span> name.startswith(<span class="stringliteral">&quot;http:&quot;</span>):</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                columnprops.append(name)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;:&quot;</span> <span class="keywordflow">in</span> name:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                splitted=name.split(<span class="stringliteral">&quot;:&quot;</span>)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <span class="keywordflow">if</span> splitted[0] <span class="keywordflow">in</span> prefixes:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    columnprops.append(prefixes[splitted[0]]+splitted[1])</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                columnprops.append(<span class="stringliteral">&quot;suni:&quot;</span>+name)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> columnprops</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -455,46 +467,14 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> thetype[<span class="stringliteral">&quot;unique&quot;</span>]:</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                idcols.add(layer.fields().names()[counter])</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                thetype[<span class="stringliteral">&quot;id&quot;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            columntypes.append(InterlinkUtils.checkTypeFromColumnName(layer.fields().names()[counter],thetype))</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            counter+=1</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;IDCols: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Columntypes: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> columntypes</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ac4a3fd7f3ebf209b7296b1f1af525f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4a3fd7f3ebf209b7296b1f1af525f2f">&#9670;&nbsp;</a></span>suggestMostProbableID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def suggestMostProbableID </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>layer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">def </span>suggestMostProbableID(self, layer):</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        fieldmapping = {}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">for</span> field <span class="keywordflow">in</span> layer.fields().names():</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">if</span> field.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                fieldmapping[field] = field</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                thetype[<span class="stringliteral">&quot;name&quot;</span>]=layer.fields().names()[counter]</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            columntypes.append(InterlinkUtils.checkTypeFromColumnName(layer.fields().names()[counter],thetype))</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            counter+=1</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;IDCols: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Columntypes: &quot;+str(columntypes),&quot;InterlinkUtils&quot;, Qgis.Info)</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> columntypes</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>

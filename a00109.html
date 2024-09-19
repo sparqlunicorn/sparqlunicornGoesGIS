@@ -469,8 +469,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                    results=resg</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                    results=json.loads(graph.query(query).serialize(format=<span class="stringliteral">&quot;json&quot;</span>))</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(len(results))+&quot; triples&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(len(results))+&quot; triples&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">return</span> results</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 </div><!-- fragment -->
@@ -1104,7 +1104,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                    graph.parse(data=readit,format=filepath[len(filepath) - 1])</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                result = graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            <span class="comment">#self.exception = str(e)</span></div>
