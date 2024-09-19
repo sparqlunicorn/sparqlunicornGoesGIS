@@ -79,14 +79,15 @@ class InterlinkingTab:
             self.loadLayerInterlink()
         layer = self.chooseLayerInterlink.currentLayer()
         columntypes=InterlinkUtils.suggestMappingSchema(layer)
+        columnuris=InterlinkUtils.suggestColumnURIs(layer,self.dlg.prefixes)
         counter=0
         for col in columntypes:
-            if "id" in col and col["id"] and not col["geotype"]:
+            if "id" in col and col["id"] and "id" in col["name"] and not col["geotype"]:
                 self.dlg.interlinkTable.item(counter,1).setCheckState(col["id"])
-                item = QTableWidgetItem("rdf:type")
-                item.setText("rdf:type")
-                item.setData(1, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-                self.dlg.interlinkTable.setItem(counter, 4,item)
+            item = QTableWidgetItem(columnuris[counter])
+            item.setText(columnuris[counter])
+            item.setData(1, columnuris[counter])
+            self.dlg.interlinkTable.setItem(counter, 4,item)
             if col["geotype"]:
                 self.dlg.interlinkTable.item(counter, 2).setCheckState(col["geotype"])
                 self.dlg.interlinkTable.cellWidget(counter, 5).setCurrentIndex(5)

@@ -36,14 +36,11 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlg = parent
         self.maindlg = maindlg
         self.inputRDFFileWidget.fileChanged.connect(self.extractClasses)
-        #self.projectionSelect.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
-        #urlregex = QRegExp("http[s]?://(?:[a-zA-Z#]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
-        #urlvalidator = QRegExpValidator(urlregex, self)
-        #self.startConversionButton.clicked.connect(self.startConversion)
-        #self.convertAllCheckBox.stateChanged.connect(self.toggleComboBoxes)
-        # self.loadFromURIButton.clicked.connect(self.loadURI)
 
 
     def extractClasses(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,None,self.layerSelectBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
+
+
+    def

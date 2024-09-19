@@ -220,8 +220,8 @@ class SPARQLUtils:
                     results=resg
                 else:
                     results=json.loads(graph.query(query).serialize(format="json"))
-                #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
@@ -330,7 +330,7 @@ class SPARQLUtils:
                     graph.parse(data=readit,format=filepath[len(filepath) - 1])
             else:
                 filepath = graphuri.split(".")
-                result = graph.parse(graphuri, format=filepath[len(filepath) - 1])
+                graph.parse(graphuri, format=filepath[len(filepath) - 1])
         except Exception as e:
             QgsMessageLog.logMessage('Failed "{}"'.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)
             #self.exception = str(e)

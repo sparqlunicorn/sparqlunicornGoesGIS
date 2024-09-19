@@ -1,7 +1,9 @@
 from qgis.core import QgsTask
 from rdflib import Graph
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon, QStandardItem
 from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.gui import QgsCheckableComboBox
 from qgis.core import QgsMessageLog
 from qgis.core import Qgis
 
@@ -76,46 +78,51 @@ class ExtractNamespaceTask(QgsTask):
 
 
     def finishedCheckableComboBox(self):
-
+        for cls in sorted(self.classset):
+            if "http" in str(cls):
+                self.startConceptCBox.addItemWithCheckState(SPARQLUtils.labelFromURI(cls, self.prefixes),Qt.CheckState.Checked,str(cls))
+    def finishedExtractNS(self):
+        self.resultcbox.clear()
+        model = QStandardItemModel()
+        self.resultcbox.setModel(model)
+        prefclassmodel = QStandardItemModel()
+        self.startConceptCBox.setModel(prefclassmodel)
+        item = QStandardItem()
+        item.setData(None, UIUtils.dataslot_conceptURI)
+        item.setIcon(UIUtils.removeicon)
+        item.setText("No Start Concept")
+        prefclassmodel.appendRow(item)
+        for cls in sorted(self.classset):
+            if "http" in str(cls):
+                item = QStandardItem()
+                item.setData(cls, UIUtils.dataslot_conceptURI)
+                item.setIcon(UIUtils.classicon)
+                item.setText(SPARQLUtils.labelFromURI(cls, self.prefixes))
+                prefclassmodel.appendRow(item)
+        for ns in sorted(self.namespaces):
+            if len(ns.strip()) > 0 and "http" in ns:
+                if ns in self.nstodataclass and self.nstodataclass[ns] > 0:
+                    item = QStandardItem()
+                    item.setData(ns, UIUtils.dataslot_conceptURI)
+                    item.setIcon(UIUtils.featurecollectionicon)
+                    item.setText(ns)
+                    model.appendRow(item)
+                else:
+                    self.recognizedns.add(ns)
+        for ns in sorted(self.recognizedns):
+            if len(ns.strip()) > 0 and "http" in ns:
+                item = QStandardItem()
+                item.setData(ns, UIUtils.dataslot_conceptURI)
+                item.setText(ns)
+                item.setIcon(UIUtils.linkeddataicon)
+                model.appendRow(item)
 
     def finished(self, result):
         if result!=False:
-            model=QStandardItemModel()
-            if self.resultcbox is not None:
-                self.resultcbox.clear()
-                self.resultcbox.setModel(model)
-            prefclassmodel = QStandardItemModel()
-            self.startConceptCBox.setModel(prefclassmodel)
-            item = QStandardItem()
-            item.setData(None, UIUtils.dataslot_conceptURI)
-            item.setIcon(UIUtils.removeicon)
-            item.setText("No Start Concept")
-            prefclassmodel.appendRow(item)
-            for cls in sorted(self.classset):
-                if "http" in str(cls):
-                    item = QStandardItem()
-                    item.setData(cls, UIUtils.dataslot_conceptURI)
-                    item.setIcon(UIUtils.classicon)
-                    item.setText(SPARQLUtils.labelFromURI(cls,self.prefixes))
-                    prefclassmodel.appendRow(item)
-            if self.resultcbox is not None:
-                for ns in sorted(self.namespaces):
-                    if len(ns.strip())>0 and "http" in ns:
-                        if ns in self.nstodataclass and self.nstodataclass[ns] > 0:
-                            item = QStandardItem()
-                            item.setData(ns, UIUtils.dataslot_conceptURI)
-                            item.setIcon(UIUtils.featurecollectionicon)
-                            item.setText(ns)
-                            model.appendRow(item)
-                        else:
-                            self.recognizedns.add(ns)
-                for ns in sorted(self.recognizedns):
-                    if len(ns.strip())>0 and "http" in ns:
-                        item = QStandardItem()
-                        item.setData(ns, UIUtils.dataslot_conceptURI)
-                        item.setText(ns)
-                        item.setIcon(UIUtils.linkeddataicon)
-                        model.appendRow(item)
+            if isinstance(self.startConceptCBox,QgsCheckableComboBox):
+                self.finishedCheckableComboBox()
+            else:
+                self.finishedExtractNS()
             if self.progress is not None:
                 self.progress.close()
         else:

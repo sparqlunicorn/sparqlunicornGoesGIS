@@ -27,14 +27,14 @@ class QueryLayerTask(QgsTask):
         self.styleuri=styleuri
         self.vlayer=None
         self.vlayernongeo=None
-        if self.progress!=None:
+        if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
         self.query = query
         self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
         self.filename = filename
-        if self.filename==None or self.filename=="":
+        if self.filename is not None or self.filename=="":
             self.filename="mylayer"
         self.geojson = None
         self.nongeojson = None
@@ -71,7 +71,7 @@ class QueryLayerTask(QgsTask):
             if len(res)>1 and res[2] is not None:
                 crs=self.vlayer.crs()
                 crsstring=res[2]
-                if crsstring.isdigit():
+                if crsstring is not None and crsstring.isdigit():
                     crs.createFromId(int(crsstring))
                 else:
                     crs.createFromString(crsstring)
@@ -105,11 +105,11 @@ class QueryLayerTask(QgsTask):
 
 
     def addFeatureToCorrectCollection(self,feature,features,nongeofeatures,crsset):
-        if feature["geometry"] == None:
+        if feature["geometry"] is None:
             nongeofeatures.append(feature)
         else:
             features.append(feature)
-        if feature != None and "crs" in feature:
+        if feature is not None and "crs" in feature:
             crsset.add(feature["crs"])
             del feature["crs"]
 

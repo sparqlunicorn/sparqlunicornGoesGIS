@@ -47,6 +47,16 @@
      </item>
      <item>
       <property name="text">
+       <string>Juso Vocabulary</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>CIDOC CRMgeo</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>W3C Geo Vocabulary</string>
       </property>
      </item>
