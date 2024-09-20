@@ -1,10 +1,23 @@
 from rdflib.namespace import DefinedNamespace, Namespace
 from rdflib.term import URIRef
 
-class GEOCRS(DefinedNamespace):
-
-    ProjectedCRS: URIRef
-    ProjectedCRS: URIRef
+class CT(DefinedNamespace):
 
 
-    _NS = Namespace("http://www.opengis.net/ont/crs/")
+    CollectionClass: URIRef
+    FeatureCollectionClass: URIRef
+    GeoClass: URIRef
+    GeoNamedIndividual: URIRef
+    HalfGeoClass: URIRef
+    Icontype: URIRef
+    TreeConfig: URIRef
+    TreeItem: URIRef
+
+    icontype: URIRef
+    icontypes: URIRef
+    treeitem: URIRef
+
+
+
+
+    _NS = Namespace("http://purl.org/vocab/classtree#")

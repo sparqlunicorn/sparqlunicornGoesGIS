@@ -15,6 +15,7 @@ GEOCRSGRID="http://www.opengis.net/ont/crs/grid/"
 GEOCRSAOU="http://www.opengis.net/ont/crs/areaofuse/"
 GEOCRSOPERATION="http://www.opengis.net/ont/crs/operation/"
 GEOCRSMERIDIAN="http://www.opengis.net/ont/crs/primeMeridian/"
+OM="http://www.ontology-of-units-of-measure.org/resource/om-2/"
 
 units = {}
 units["m"] = "om:meter"
@@ -24,122 +25,122 @@ units["degree"] = "om:degree"
 units["ft"] = "om:foot"
 units["us-ft"] = "om:usfoot"
 scope = {}
-scope["geodesy"] = "geocrs:Geodesy"
-scope["topographic mapping"] = "geocrs:TopographicMap"
-scope["spatial referencing"] = "geocrs:SpatialReferencing"
-scope["engineering survey"] = "geocrs:EngineeringSurvey"
-scope["satellite survey"] = "geocrs:SatelliteSurvey"
-scope["satellite navigation"] = "geocrs:SatelliteNvaigation"
-scope["coastal hydrography"] = "geocrs:CoastalHydrography"
-scope["offshore engineering"] = "geocrs:OffshoreEngineering"
-scope["hydrography"] = "geocrs:Hydrography"
-scope["drilling"] = "geocrs:Drilling"
-scope["nautical charting"] = "geocrs:NauticalChart"
-scope["oil and gas exploration"] = "geocrs:OilAndGasExploration"
-scope["cadastre"] = "geocrs:CadastreMap"
+scope["geodesy"] = GEOCRS.Geodesy
+scope["topographic mapping"] = GEOCRS.TopographicMap
+scope["spatial referencing"] = GEOCRS.SpatialReferencing
+scope["engineering survey"] = GEOCRS.EngineeringSurvey
+scope["satellite survey"] = GEOCRS.SatelliteSurvey
+scope["satellite navigation"] = GEOCRS.SatelliteNavigation
+scope["coastal hydrography"] = GEOCRS.CoastalHydrography
+scope["offshore engineering"] = GEOCRS.OffshoreEngineering
+scope["hydrography"] = GEOCRS.Hydrography
+scope["drilling"] = GEOCRS.Drilling
+scope["nautical charting"] = GEOCRS.NauticalChart
+scope["oil and gas exploration"] = GEOCRS.OilAndGasExploration
+scope["cadastre"] = GEOCRS.CadastreMap
 coordinatesystem = {}
-coordinatesystem["ellipsoidal"] = "geocrs:EllipsoidalCoordinateSystem"
-coordinatesystem["cartesian"] = "geocrs:CartesianCoordinateSystem"
-coordinatesystem["vertical"] = "geocrs:VerticalCoordinateSystem"
+coordinatesystem["ellipsoidal"] = GEOCRS.EllipsoidalCoordinateSystem
+coordinatesystem["cartesian"] = GEOCRS.CartesianCoordinateSystem
+coordinatesystem["vertical"] = GEOCRS.VerticalCoordinateSystem
 coordinatesystem["ft"] = "om:foot"
 coordinatesystem["us-ft"] = "om:usfoot"
 spheroids = {}
-spheroids["GRS80"] = "geocrsgeod:GRS1980"
-spheroids["GRS 80"] = "geocrsgeod:GRS1980"
-spheroids["GRS67"] = "geocrsgeod:GRS67"
-spheroids["GRS 1967"] = "geocrsgeod:GRS67"
-spheroids["GRS 1967 Modified"] = "geocrsgeod:GRS67Modified"
-spheroids["GRS 67"] = "geocrsgeod:GRS67"
-spheroids["GRS1980"] = "geocrsgeod:GRS1980"
-spheroids["GRS 1980"] = "geocrsgeod:GRS1980"
-spheroids["NWL 9D"] = "geocrsgeod:NWL9D"
-spheroids["PZ-90"] = "geocrsgeod:PZ90"
-spheroids["Airy 1830"] = "geocrsgeod:Airy1830"
-spheroids["Airy Modified 1849"] = "geocrsgeod:AiryModified1849"
-spheroids["intl"] = "geocrsgeod:International1924"
-spheroids["aust_SA"] = "geocrsgeod:AustralianNationalSpheroid"
-spheroids["Australian National Spheroid"] = "geocrsgeod:AustralianNationalSpheroid"
-spheroids["International 1924"] = "geocrsgeod:International1924"
-spheroids["clrk"] = "geocrsgeod:Clarke1866"
-spheroids["War Office"] = "geocrsgeod:WarOffice"
-spheroids["evrst30"] = "geocrsgeod:Everest1930"
-spheroids["clrk66"] = "geocrsgeod:Clarke1866"
-spheroids["Plessis 1817"] = "geocrsgeod:Plessis1817"
-spheroids["Danish 1876"] = "geocrsgeod:Danish1876"
-spheroids["Struve 1860"] = "geocrsgeod:Struve1860"
-spheroids["IAG 1975"] = "geocrsgeod:IAG1975"
-spheroids["Clarke 1866"] = "geocrsgeod:Clarke1866"
-spheroids["Clarke 1858"] = "geocrsgeod:Clarke1858"
-spheroids["Clarke 1880"] = "geocrsgeod:Clarke1880"
-spheroids["Helmert 1906"] = "geocrsgeod:Helmert1906"
-spheroids["Moon_2000_IAU_IAG"] = "geocrsgeod:Moon2000_IAU_IAG"
-spheroids["CGCS2000"] = "geocrsgeod:CGCS2000"
-spheroids["GSK-2011"] = "geocrsgeod:GSK2011"
-spheroids["Zach 1812"] = "geocrsgeod:Zach1812"
-spheroids["Hough 1960"] = "geocrsgeod:Hough1960"
-spheroids["Hughes 1980"] = "geocrsgeod:Hughes1980"
-spheroids["Indonesian National Spheroid"] = "geocrsgeod:IndonesianNationalSpheroid"
-spheroids["clrk80"] = "geocrsgeod:Clarke1880RGS"
-spheroids["Clarke 1880 (Arc)"] = "geocrsgeod:Clarke1880ARC"
-spheroids["Clarke 1880 (RGS)"] = "geocrsgeod:Clarke1880RGS"
-spheroids["Clarke 1880 (IGN)"] = "geocrsgeod:Clarke1880IGN"
-spheroids["clrk80ign"] = "geocrsgeod:Clarke1880IGN"
-spheroids["WGS66"] = "geocrsgeod:WGS66"
-spheroids["WGS 66"] = "geocrsgeod:WGS66"
-spheroids["WGS72"] = "geocrsgeod:WGS72"
-spheroids["WGS 72"] = "geocrsgeod:WGS72"
-spheroids["WGS84"] = "geocrsgeod:WGS84"
-spheroids["WGS 84"] = "geocrsgeod:WGS84"
-spheroids["Krassowsky 1940"] = "geocrsgeod:Krassowsky1940"
-spheroids["krass"] = "geocrsgeod:Krassowsky1940"
-spheroids["Bessel 1841"] = "geocrsgeod:Bessel1841"
-spheroids["bessel"] = "geocrsgeod:Bessel1841"
-spheroids["Bessel Modified"] = "geocrsgeod:BesselModified"
+spheroids["GRS80"] = GEOCRSGEOD+"GRS1980"
+spheroids["GRS 80"] = GEOCRSGEOD+"GRS1980"
+spheroids["GRS67"] = GEOCRSGEOD+"GRS67"
+spheroids["GRS 1967"] = GEOCRSGEOD+"GRS67"
+spheroids["GRS 1967 Modified"] = GEOCRSGEOD+"GRS67Modified"
+spheroids["GRS 67"] = GEOCRSGEOD+"GRS67"
+spheroids["GRS1980"] = GEOCRSGEOD+"GRS1980"
+spheroids["GRS 1980"] = GEOCRSGEOD+"GRS1980"
+spheroids["NWL 9D"] = GEOCRSGEOD+"NWL9D"
+spheroids["PZ-90"] = GEOCRSGEOD+"PZ90"
+spheroids["Airy 1830"] = GEOCRSGEOD+"Airy1830"
+spheroids["Airy Modified 1849"] = GEOCRSGEOD+"AiryModified1849"
+spheroids["intl"] = GEOCRSGEOD+"International1924"
+spheroids["aust_SA"] = GEOCRSGEOD+"AustralianNationalSpheroid"
+spheroids["Australian National Spheroid"] = GEOCRSGEOD+"AustralianNationalSpheroid"
+spheroids["International 1924"] = GEOCRSGEOD+"International1924"
+spheroids["clrk"] = GEOCRSGEOD+"Clarke1866"
+spheroids["War Office"] = GEOCRSGEOD+"WarOffice"
+spheroids["evrst30"] =  GEOCRSGEOD+"Everest1930"
+spheroids["clrk66"] =  GEOCRSGEOD+"Clarke1866"
+spheroids["Plessis 1817"] =  GEOCRSGEOD+"Plessis1817"
+spheroids["Danish 1876"] =  GEOCRSGEOD+"Danish1876"
+spheroids["Struve 1860"] =  GEOCRSGEOD+"Struve1860"
+spheroids["IAG 1975"] =  GEOCRSGEOD+"IAG1975"
+spheroids["Clarke 1866"] =  GEOCRSGEOD+"Clarke1866"
+spheroids["Clarke 1858"] =  GEOCRSGEOD+"Clarke1858"
+spheroids["Clarke 1880"] =  GEOCRSGEOD+"Clarke1880"
+spheroids["Helmert 1906"] =  GEOCRSGEOD+"Helmert1906"
+spheroids["Moon_2000_IAU_IAG"] =  GEOCRSGEOD+"Moon2000_IAU_IAG"
+spheroids["CGCS2000"] =  GEOCRSGEOD+"CGCS2000"
+spheroids["GSK-2011"] =  GEOCRSGEOD+"GSK2011"
+spheroids["Zach 1812"] =  GEOCRSGEOD+"Zach1812"
+spheroids["Hough 1960"] =  GEOCRSGEOD+"Hough1960"
+spheroids["Hughes 1980"] =  GEOCRSGEOD+"Hughes1980"
+spheroids["Indonesian National Spheroid"] =  GEOCRSGEOD+"IndonesianNationalSpheroid"
+spheroids["clrk80"] =  GEOCRSGEOD+"Clarke1880RGS"
+spheroids["Clarke 1880 (Arc)"] =  GEOCRSGEOD+"Clarke1880ARC"
+spheroids["Clarke 1880 (RGS)"] =  GEOCRSGEOD+"Clarke1880RGS"
+spheroids["Clarke 1880 (IGN)"] =  GEOCRSGEOD+"Clarke1880IGN"
+spheroids["clrk80ign"] =  GEOCRSGEOD+"Clarke1880IGN"
+spheroids["WGS66"] =  GEOCRSGEOD+"WGS66"
+spheroids["WGS 66"] =  GEOCRSGEOD+"WGS66"
+spheroids["WGS72"] =  GEOCRSGEOD+"WGS72"
+spheroids["WGS 72"] =  GEOCRSGEOD+"WGS72"
+spheroids["WGS84"] =  GEOCRSGEOD+"WGS84"
+spheroids["WGS 84"] =  GEOCRSGEOD+"WGS84"
+spheroids["Krassowsky 1940"] =  GEOCRSGEOD+"Krassowsky1940"
+spheroids["krass"] =  GEOCRSGEOD+"Krassowsky1940"
+spheroids["Bessel 1841"] =  GEOCRSGEOD+"Bessel1841"
+spheroids["bessel"] =  GEOCRSGEOD+"Bessel1841"
+spheroids["Bessel Modified"] =  GEOCRSGEOD+"BesselModified"
 projections = {}
-projections["tmerc"] = "geocrs:TransverseMercatorProjection"
-projections["omerc"] = "geocrs:ObliqueMercatorProjection"
-projections["merc"] = "geocrs:MercatorProjection"
-projections["sinu"] = "geocrs:SinusoidalProjection"
-projections["rpoly"] = "geocrs:RectangularPolyconicProjection"
-projections["poly"] = "geocrs:AmericanPolyconicProjection"
-projections["eqdc"] = "geocrs:EquidistantConicProjection"
-projections["sterea"] = "geocrs:ObliqueStereographicProjection"
-projections["cea"] = "geocrs:CylindricalEqualArea"
-projections["aea"] = "geocrs:AlbersEqualAreaProjection"
-projections["eqearth"] = "geocrs:EqualEarthProjection"
-projections["natearth"] = "geocrs:NaturalEarthProjection"
-projections["stere"] = "geocrs:StereographicProjection"
-projections["cass"] = "geocrs:CassiniProjection"
-projections["nell"] = "geocrs:PseudoCylindricalProjection"
-projections["eck1"] = "geocrs:PseudoCylindricalProjection"
-projections["eck2"] = "geocrs:PseudoCylindricalProjection"
-projections["eck3"] = "geocrs:PseudoCylindricalProjection"
-projections["eck4"] = "geocrs:PseudoCylindricalProjection"
-projections["eck5"] = "geocrs:PseudoCylindricalProjection"
-projections["eck6"] = "geocrs:PseudoCylindricalProjection"
-projections["eqc"] = "geocrs:EquidistantCylindricalProjection"
-projections["col_urban"] = "geocrs:ColombiaUrbanProjection"
-projections["laea"] = "geocrs:LambertAzimuthalEqualArea"
-projections["leac"] = "geocrs:LambertEqualAreaConic"
-projections["labrd"] = "geocrs:LabordeProjection"
-projections["lcc"] = "geocrs:LambertConformalConicProjection"
-projections["gnom"] = "geocrs:GnomonicProjection"
-projections["bonne"] = "geocrs:BonneProjection"
-projections["moll"] = "geocrs:MollweideProjection"
-projections["mill"] = "geocrs:MillerProjection"
-projections["nicol"] = "geocrs:NicolosiGlobularProjection"
-projections["collg"] = "geocrs:CollignonProjection"
-projections["robin"] = "geocrs:RobinsonProjection"
-projections["loxim"] = "geocrs:LoximuthalProjection"
-projections["aitoff"] = "geocrs:AitoffProjection"
-projections["ortho"] = "geocrs:OrthographicProjection"
-projections["kav5"] = "geocrs:PseudoCylindricalProjection"
-projections["tcea"] = "geocrs:CylindricalProjection"
-projections["utm"] = "geocrs:UniversalTransverseMercatorProjection"
-projections["krovak"] = "geocrs:Krovak"
-projections["geocent"] = "geocrs:Geocentric"
-projections["latlong"] = "geocrs:LatLonProjection"
-projections["longlat"] = "geocrs:LonLatProjection"
+projections["tmerc"] = GEOCRS.TransverseMercatorProjection
+projections["omerc"] = GEOCRS.ObliqueMercatorProjection
+projections["merc"] = GEOCRS.MercatorProjection
+projections["sinu"] = GEOCRS.SinusoidalProjection
+projections["rpoly"] = GEOCRS.RectangularPolyconicProjection
+projections["poly"] = GEOCRS.AmericanPolyconicProjection
+projections["eqdc"] = GEOCRS.EquidistantConicProjection
+projections["sterea"] = GEOCRS.ObliqueStereographicProjection
+projections["cea"] = GEOCRS.CylindricalEqualArea
+projections["aea"] = GEOCRS.AlbersEqualAreaProjection
+projections["eqearth"] = GEOCRS.EqualEarthProjection
+projections["natearth"] = GEOCRS.NaturalEarthProjection
+projections["stere"] = GEOCRS.StereographicProjection
+projections["cass"] = GEOCRS.CassiniProjection
+projections["nell"] = GEOCRS.PseudoCylindricalProjection
+projections["eck1"] = GEOCRS.PseudoCylindricalProjection
+projections["eck2"] = GEOCRS.PseudoCylindricalProjection
+projections["eck3"] = GEOCRS.PseudoCylindricalProjection
+projections["eck4"] = GEOCRS.PseudoCylindricalProjection
+projections["eck5"] = GEOCRS.PseudoCylindricalProjection
+projections["eck6"] = GEOCRS.PseudoCylindricalProjection
+projections["eqc"] = GEOCRS.EquidistantCylindricalProjection
+projections["col_urban"] = GEOCRS.ColombiaUrbanProjection
+projections["laea"] = GEOCRS.LambertAzimuthalEqualArea
+projections["leac"] = GEOCRS.LambertEqualAreaConic
+projections["labrd"] = GEOCRS.LabordeProjection
+projections["lcc"] = GEOCRS.LambertConformalConicProjection
+projections["gnom"] = GEOCRS.GnomonicProjection
+projections["bonne"] = GEOCRS.BonneProjection
+projections["moll"] = GEOCRS.MollweideProjection
+projections["mill"] = GEOCRS.MillerProjection
+projections["nicol"] = GEOCRS.NicolosiGlobularProjection
+projections["collg"] = GEOCRS.CollignonProjection
+projections["robin"] = GEOCRS.RobinsonProjection
+projections["loxim"] = GEOCRS.LoximuthalProjection
+projections["aitoff"] = GEOCRS.AitoffProjection
+projections["ortho"] = GEOCRS.OrthographicProjection
+projections["kav5"] = GEOCRS.PseudoCylindricalProjection
+projections["tcea"] = GEOCRS.CylindricalProjection
+projections["utm"] = GEOCRS.UniversalTransverseMercatorProjection
+projections["krovak"] = GEOCRS.Krovak
+projections["geocent"] = GEOCRS.Geocentric
+projections["latlong"] = GEOCRS.LatLonProjection
+projections["longlat"] = GEOCRS.LonLatProjection
 
 class ConvertCRS:
 
@@ -166,6 +167,39 @@ class ConvertCRS:
 		self.ttlhead += "@prefix dc: <http://purl.org/dc/elements/1.1/> .\n"
 		self.ttlhead += "@prefix wd: <http://www.wikidata.org/entity/> .\n"
 		self.ttlhead += "@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .\n"
+
+	@staticmethod
+	def addNamespaces(graph):
+		graph.bind("rdf",RDF)
+		graph.bind("rdfs",RDFS)
+		graph.bind("owl",OWL)
+		graph.bind("xsd",XSD)
+		graph.bind("skos",SKOS)
+		graph.bind("prov",PROV)
+		graph.bind("geo", "http://www.opengis.net/ont/geosparql#")
+		graph.bind("geocrs", "http://www.opengis.net/ont/crs/")
+		graph.bind("geocrsdatum", "http://www.opengis.net/ont/crs/datum/")
+		graph.bind("geocrsgrid", "http://www.opengis.net/ont/crs/grid/")
+		graph.bind("geocrsisbody", "http://www.opengis.net/ont/crs/isbody/")
+		graph.bind("geoepsg","http://www.opengis.net/def/crs/EPSG/0/")
+		graph.bind("geocrsgrid","http://www.opengis.net/ont/crs/grid/")
+		graph.bind("geocrsproj", "http://www.opengis.net/ont/crs/proj/")
+		graph.bind("geocrsaxis", "http://www.opengis.net/ont/crs/cs/axis/")
+		graph.bind("geocrsgeod", "http://www.opengis.net/ont/crs/geod/")
+		graph.bind("geocrsaou", "http://www.opengis.net/ont/crs/areaofuse/")
+		graph.bind("geocrsmeridian", "http://www.opengis.net/ont/crs/primeMeridian/")
+		graph.bind("geocrsoperation", "http://www.opengis.net/ont/crs/operation/")
+		graph.bind("geocs", "http://www.opengis.net/ont/crs/cs/")
+		graph.bind("dc", "http://purl.org/dc/elements/1.1/")
+		graph.bind("wd", "http://www.wikidata.org/entity/")
+		graph.bind("om", "http://www.ontology-of-units-of-measure.org/resource/om-2/")
+		return graph
+
+
+
+
+
+
 
 	@staticmethod
 	def convertCRSFromEPSG(epsgcode,ttl):
@@ -255,12 +289,12 @@ class ConvertCRS:
 				ttl.add((URIRef(GEOCRSAXIS+axis.direction), RDF.type, GEOCRS.AxisDirection))
 				if axis.unit_name in units:
 					ttl.add((URIRef(GEOCRSAXIS+axisid), GEOCRS.unit, URIRef(units[axis.unit_name])))
-					ttl.add((URIRef(GEOCRSAXIS+axisid), RDFS.label, Literal(axis.name+" ("+str(units[axis.unit_name]),lang="en")))
+					ttl.add((URIRef(GEOCRSAXIS+axisid), RDFS.label, Literal(axis.name+" ("+str(units[axis.unit_name])+")",lang="en")))
 				else:
 					ttl.add((URIRef(GEOCRSAXIS+axisid),GEOCRS.unit, Literal(str(axis.unit_name),datatype=XSD.string)))
 					ttl.add((URIRef(GEOCRSAXIS+axisid), RDFS.label, Literal(axis.name+" ("+str(axis.unit_name)+")",lang="en")))
 			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.asWKT, Literal(str(curcrs.coordinate_system.to_wkt()).replace("\"","'").replace("\n",""))))
-			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.asProjJSON,  Literal(str(curcrs.coordinate_system.to_json()).replace("\"","'").replace("\n",""))))
+			ttl.add((URIRef(GEOEPSG + epsgcode+"_cs"), GEOCRS.asProjJSON, Literal(str(curcrs.coordinate_system.to_json()).replace("\"","'").replace("\n",""))))
 			ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.coordinateSystem, URIRef(GEOEPSG+epsgcode+"_cs")))
 		elif curcrs.coordinate_system is not None:
 			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.coordinateSystem, Literal(str(curcrs.coordinate_system),datatype=XSD.string)))
@@ -274,7 +308,7 @@ class ConvertCRS:
 					#print("Scope: "+scp)
 					if scp.lower().strip().replace(".","") in scope:
 						ttl.add((URIRef(GEOEPSG + epsgcode),GEOCRS.usage, URIRef(scope[scp.lower().strip().replace(".","")])))
-						ttl.add(scope[scp.lower().strip().replace(".","")], RDFS.subClassOf, GEOCRS.SRSApplication)
+						ttl.add(URIRef(scope[scp.lower().strip().replace(".","")]), RDFS.subClassOf, GEOCRS.SRSApplication)
 					else:
 						ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.usage, Literal(str(curcrs.datum.scope),datatype=XSD.string)))
 			ttl.add((URIRef(GEOEPSG + epsgcode), GEOCRS.scope, Literal(str(curcrs.scope).replace("\"","'"),datatype=XSD.string)))
@@ -286,7 +320,7 @@ class ConvertCRS:
 			#ttl.add(URIRef(GEOEPSG + epsgcode)+"_area_of_use"+" geocrs:extent   \"<http://www.opengis.net/def/crs/OGC/1.3/CRS84> "+str(b.wkt)+"\"^^geo:wktLiteral . \n")
 			#\"ENVELOPE("+str(curcrs.area_of_use.west)+" "+str(curcrs.area_of_use.south)+","+str(curcrs.area_of_use.east)+" "+str(curcrs.area_of_use.north)+")\"^^geo:wktLiteral . \n")
 		if curcrs.get_geod() is not None:
-			geoid="geocrsgeod:"+str(geodcounter)
+			geoid= GEOCRSGEOD+""+str(geodcounter)
 			if curcrs.datum.ellipsoid is not None:
 				if curcrs.datum.ellipsoid.name in spheroids:
 					geoid=URIRef(spheroids[curcrs.datum.ellipsoid.name])
@@ -338,13 +372,13 @@ class ConvertCRS:
 			if curcrs.coordinate_operation.towgs84 is not None:
 				print(curcrs.coordinate_operation.towgs84)
 			for par in curcrs.coordinate_operation.params:
-				ttl.add(" geocrs:"+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:], RDF.type, OWL.DatatypeProperty)
-				ttl.add(" geocrs:"+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:], RDFS.range, XSD.double)
-				ttl.add(" geocrs:"+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:], RDFS.domain, GEOCRS.CoordinateOperation)
-				ttl.add(" geocrs:"+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:], RDFS.label, Literal(str(par.name),lang="en"))
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid))+" geocrs:"+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]+" \""+str(par.value)+"\"^^xsd:double . \n")
+				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDF.type, OWL.DatatypeProperty)
+				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.range, XSD.double)
+				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.domain, GEOCRS.CoordinateOperation)
+				ttl.add(URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]), RDFS.label, Literal(str(par.name),lang="en"))
+				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid)), URIRef(GEOCRS+str(par.name)[0].lower()+str(par.name).title().replace(" ","")[1:]),Literal(str(par.value),datatype=XSD.double))
 			for grid in curcrs.coordinate_operation.grids:
-				ttl.add(URIRef(GEOCRSOPERATION+str(coordoperationid))+" geocrs:grid geocrsgrid:"+str(grid.name).replace(" ","_")+" . \n")
+				ttl.add((URIRef(GEOCRSOPERATION+str(coordoperationid)), GEOCRS.grid, URIRef(GEOCRSGRID+str(grid.name).replace(" ","_"))))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDF.type, GEOCRS.Grid))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDFS.label, Literal(str(grid.full_name),lang="en")))
 				ttl.add((URIRef(GEOCRSGRID+str(grid.name).replace(" ","_")), RDFS.label, Literal(str(grid.short_name),lang="en")))
@@ -415,8 +449,8 @@ class ConvertCRS:
 				ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), RDFS.label, Literal(curcrs.prime_meridian.name,lang="en"))
 				ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.longitude, Literal(str(curcrs.prime_meridian.longitude),datatype=XSD.double))
 				if curcrs.prime_meridian.unit_name in units:
-					ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.unit, URIRef("om:"+units[curcrs.prime_meridian.unit_name]))
-					ttl.add(URIRef(units[curcrs.prime_meridian.unit_name]), RDF.type, URIRef("om:Unit"))
+					ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.unit, URIRef(OM+units[curcrs.prime_meridian.unit_name]))
+					ttl.add(URIRef(units[curcrs.prime_meridian.unit_name]), RDF.type, URIRef(OM+"Unit"))
 				else:
 					ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.unit, Literal(str(curcrs.prime_meridian.unit_name),datatype=XSD.string))
 				ttl.add(URIRef(GEOCRSMERIDIAN+curcrs.prime_meridian.name.replace(" ","")), GEOCRS.asWKT, Literal(str(curcrs.prime_meridian.to_wkt()).replace("\"","'").replace("\n",""),datatype=XSD.string))

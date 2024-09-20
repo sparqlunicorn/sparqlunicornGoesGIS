@@ -9,6 +9,9 @@ import json
 from .sparqlutils import SPARQLUtils
 from rdflib import Graph,URIRef, Literal
 from rdflib.namespace import OWL, GEO, RDF,RDFS, SDO,XSD
+from ..util.doc.docconfig import DocConfig
+
+
 
 MESSAGE_CATEGORY = 'LayerUtils'
 
@@ -17,6 +20,239 @@ class LayerUtils:
     subclassThreshold=0.8
 
     typekeywords=["typ","type"]
+
+
+    @staticmethod
+    def dropUnwantedKeys(properties):
+        properties.pop("item", None)
+        properties.pop("geo", None)
+        properties.pop("lat", None)
+        properties.pop("lon", None)
+        properties.pop("item2", None)
+        properties.pop("rel", None)
+        properties.pop("val", None)
+        properties.pop("rel2", None)
+        properties.pop("val2", None)
+        return properties
+
+    @staticmethod
+    def addFeatureToCorrectCollection(feature,features,nongeofeatures,crsset):
+        if feature["geometry"] is None:
+            nongeofeatures.append(feature)
+        else:
+            features.append(feature)
+        if feature is not None and "crs" in feature:
+            crsset.add(feature["crs"])
+            del feature["crs"]
+
+    @staticmethod
+    def queryResultToLayer(results, reproject, triplestoreconf, mandatoryvars, geooptional, shortenURIs):
+        latval = "lat"
+        lonval = "lon"
+        features = []
+        nongeofeatures = []
+        properties = {}
+        first = True
+        newobject = True
+        item = ""
+        relval = False
+        crsset = set()
+        QgsMessageLog.logMessage('Processing results....',MESSAGE_CATEGORY, Qgis.Info)
+        for result in results["results"]["bindings"]:
+            if self.concept is not None and "item" not in result:
+                result["item"] = {}
+                result["item"]["value"] = self.concept
+            if "item" in result and "rel" in result and "val" in result and "geo" in result and (
+                    item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
+                relval = True
+                if item != "":
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                                                                                 {'id': result["item"]["value"],
+                                                                                  'type': 'Feature',
+                                                                                  'properties': LayerUtils.dropUnwantedKeys(
+                                                                                      properties),
+                                                                                  'geometry': {}},
+                                                                                 triplestoreconf), features,
+                                                       nongeofeatures, crsset)
+                properties = {}
+                item = result["item"]["value"]
+            if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (
+                    item == "" or result["item"][
+                "value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                relval = True
+                if item != "":
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
+                        "POINT(" + str(float(result[lonval]["value"])) + " " + str(
+                            float(result[latval]["value"])) + ")", "wkt", reproject,
+                        {'id': result["item"]["value"], 'type': 'Feature',
+                         'properties': LayerUtils.dropUnwantedKeys(properties),
+                         'geometry': {}}, triplestoreconf), features, nongeofeatures, crsset)
+                properties = {}
+                item = result["item"]["value"]
+            if "item" in result and "rel" in result and "val" in result and geooptional and (
+                    item == "" or result["item"]["value"] != item):
+                relval = True
+                if item != "":
+                    self.addFeatureToCorrectCollection({'id': result["item"]["value"], 'type': 'Feature',
+                                                        'properties': LayerUtils.dropUnwantedKeys(properties),
+                                                        'geometry': {}}, features, nongeofeatures, crsset)
+                properties = {}
+                item = result["item"]["value"]
+            if "rel" not in result and "val" not in result:
+                properties = {}
+            for var in results["head"]["vars"]:
+                if var in result:
+                    if var == "rel" and "val" in result:
+                        if shortenURIs:
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val"]["value"]
+                        elif shortenURIs == 1:
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(
+                                result["val"]["value"])
+                        else:
+                            properties[result[var]["value"]] = result["val"]["value"]
+                    if var == "rel2" in result and "val2" != triplestoreconf[
+                        "typeproperty"] and "val2" in result:
+                        if shortenURIs:
+                            properties["_" + SPARQLUtils.labelFromURI(result["rel2"]["value"])] = result["val2"][
+                                "value"]
+                        elif shortenURIs == 1:
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(
+                                result["val"]["value"])
+                        else:
+                            properties["_" + result[var]["value"]] = result["val2"]["value"]
+                    elif var != "val" and var != "val2":
+                        if shortenURIs:
+                            properties[SPARQLUtils.labelFromURI(var)] = result[var]["value"]
+                        elif shortenURIs == 1:
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(
+                                result["val"]["value"])
+                        else:
+                            properties[var] = result[var]["value"]
+            if not "rel" in result and not "val" in result and "geo" in result:
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                                                                             {'id': result["item"]["value"],
+                                                                              'type': 'Feature',
+                                                                              'properties': LayerUtils.dropUnwantedKeys(
+                                                                                  properties), 'geometry': {}},
+                                                                             triplestoreconf), features,
+                                                   nongeofeatures, crsset)
+            elif not "rel" in result and not "val" in result and latval in result and lonval in result:
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
+                    "POINT(" + str(float(result[lonval]["value"])) + " " + str(
+                        float(result[latval]["value"])) + ")",
+                    "wkt", reproject,
+                    {'id': result["item"]["value"], 'type': 'Feature',
+                     'properties': LayerUtils.dropUnwantedKeys(properties),
+                     'geometry': {}},
+                    triplestoreconf), features, nongeofeatures, crsset)
+            elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
+                self.addFeatureToCorrectCollection({'id': result["item"]["value"], 'type': 'Feature',
+                                                    'properties': LayerUtils.dropUnwantedKeys(properties),
+                                                    'geometry': {}}, features, nongeofeatures, crsset)
+            # if relval and not geooptional and "lat" not in result and "lon" not in result:
+            #    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+            #        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+            #        { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+        # if relval and geooptional:
+        #    #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
+        #    #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
+        #    feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}#json.loads(myGeometryInstanceJSON)}
+        #    features.append(feature)
+        # if len(features)==0:
+        if "geo" in properties:
+            self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                                                                         {'id': result["item"]["value"],
+                                                                          'type': 'Feature',
+                                                                          'properties': LayerUtils.dropUnwantedKeys(
+                                                                              properties), 'geometry': {}},
+                                                                         triplestoreconf), features,
+                                               nongeofeatures, crsset)
+        elif "lat" in properties and "lon" in properties:
+            self.addFeatureToCorrectCollection(
+                LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+                                          + " " + str(float(result[latval]["value"])) + ")",
+                                          "wkt", reproject, {'id': result["item"]["value"], 'type': 'Feature',
+                                                             'properties': LayerUtils.dropUnwantedKeys(properties),
+                                                             'geometry': {}}, triplestoreconf), features,
+                nongeofeatures, crsset)
+        else:
+            self.addFeatureToCorrectCollection(
+                {'id': result["item"]["value"], 'type': 'Feature', 'properties': LayerUtils.dropUnwantedKeys(properties),
+                 'geometry': {}}, features, nongeofeatures, crsset)
+        QgsMessageLog.logMessage('Number of features ' + str(len(features)),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        if features == [] and len(results["results"]["bindings"]) == 0:
+            return [None, None, None]
+        # if features == [] and len(results["results"]["bindings"]) > 0:
+        #    return len(results["results"]["bindings"])
+        geojson = {'type': 'FeatureCollection', 'features': features}
+        if len(nongeofeatures) > 0:
+            geojsonnongeo = {'type': 'FeatureCollection', 'features': nongeofeatures}
+        else:
+            geojsonnongeo = None
+        if len(crsset) > 0:
+            return [geojson, geojsonnongeo, crsset.pop()]
+        return [geojson, geojsonnongeo, None]
+
+    @staticmethod
+    def resolveGeoLiterals(pred, object, graph, geojsonrep, nonns, subject=None):
+        if subject != None and isinstance(object, Literal) and (str(pred) in DocConfig.geopairproperties):
+            pairprop = DocConfig.geopairproperties[str(pred)]["pair"]
+            latorlong = DocConfig.geopairproperties[str(pred)]["islong"]
+            othervalue = ""
+            for obj in graph.objects(subject, URIRef(pairprop)):
+                othervalue = str(obj)
+            if latorlong:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(othervalue)), float(str(object))]}
+            else:
+                geojsonrep = {"type": "Point", "coordinates": [float(str(object)), float(str(othervalue))]}
+        elif isinstance(object, Literal) and (
+                str(pred) in DocConfig.geoproperties or str(object.datatype) in DocConfig.geoliteraltypes):
+            geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
+        elif isinstance(object, URIRef) and nonns:
+            for pobj in graph.predicate_objects(object):
+                if isinstance(pobj[1], Literal) and (
+                        str(pobj[0]) in DocConfig.geoproperties or str(
+                    pobj[1].datatype) in DocConfig.geoliteraltypes):
+                    geojsonrep = LayerUtils.processLiteral(str(pobj[1]), str(pobj[1].datatype), "")
+        return geojsonrep
+
+    @staticmethod
+    def subGraphToLayer(graph,reproject, triplestoreconf, geooptional, shortenURIs):
+        featcoll = {"type":"FeatureCollection","features":[]}
+        nongeofeatures = []
+        properties = {}
+        for sub in graph.subjects(None,None,True):
+            curfeat={"type":"Feature","properties":{},"geometry":{}}
+            hasgeo=False
+            for predobj in graph.predicate_objects(sub):
+                if isinstance(predobj[1],Literal) and str(predobj[0]) in DocConfig.geoproperties:
+                    curfeat["geometry"]=LayerUtils.resolveGeoLiterals(predobj[0],predobj[1],{},False,sub)
+                    #curfeat["geometry"]=LayerUtils.processLiteral(str(predobj[1]), (
+                    #    predobj[1]["datatype"] if "datatype" in predobj[1] else ""), reproject,
+                     #                                                            None,
+                     #                                                            triplestoreconf)
+                    print("geo")
+                    hasgeo=True
+                else:
+                    if shortenURIs:
+                        if isinstance(predobj[1],URIRef):
+                            curfeat["properties"][SPARQLUtils.labelFromURI(str(predobj[0]))] = SPARQLUtils.labelFromURI(str(predobj[1]))
+                        else:
+                            curfeat["properties"][SPARQLUtils.labelFromURI(str(predobj[0]))] = str(predobj[1])
+                    else:
+                        curfeat["properties"][str(predobj[0])] = str(predobj[1])
+            featcoll["features"].append(curfeat)
+        return [featcoll,nongeofeatures,None]
+
+
+
+
+
+
 
     ## Detects the type of a column which is to be entered into a QGIS vector layer.
     #  @param self The object pointer.

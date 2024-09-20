@@ -5,59 +5,68 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
 from rdflib import Graph, URIRef, RDF
 from ...util.sparqlutils import SPARQLUtils
+from ...util.layerutils import LayerUtils
+from qgis.core import QgsProject, QgsVectorLayer
+import json
 
 MESSAGE_CATEGORY = 'ExtractLayerTask'
 
 class ExtractLayerTask(QgsTask):
 
-    def __init__(self, description, graphname,toextract,triplestoreconf,resultfolder=".",prefixes=None, progress=None):
+    def __init__(self, description, graphname,toextract,triplestoreconf,prefixes=None, progress=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.graphname = graphname
-        self.prefixes=resultfolder
+        self.prefixes=prefixes
         self.triplestoreconf=triplestoreconf
         self.toextract=toextract
+        self.layers=[]
+        QgsMessageLog.logMessage(str(self.toextract),
+                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(self.graphname),
+                                 MESSAGE_CATEGORY, Qgis.Info)
 
 
     def run(self):
-        def run(self):
-            try:
-                g = Graph()
-                g.parse(self.graphname, format="ttl")
-                namespacetosub = {}
-                for toex in self.toextract:
-                    for sub in g.subjects(None, RDF.type, URIRef(toex)):
-                        for predobj in sub.predicate_objects():
-
-                        ns = SPARQLUtils.instanceToNS(sub)
-                        if self.prefixes is not None and "reversed" in self.prefixes and ns in self.prefixes["reversed"]:
-                            self.recognizedns.add(ns)
-                        else:
-                            self.namespaces.add(ns)
-                        if ns not in namespacetosub:
-                            namespacetosub[ns] = set()
-                        namespacetosub[ns].add(sub)
-                res = self.identifyDataClasses(g, namespacetosub)
-                self.nstodataclass = res["nsd"]
-                self.classset = res["clsset"]
-                return True
-            except Exception as e:
-                self.exception = e
-                return False
+        #try:
+        g = Graph()
+        g.parse(self.graphname, format="ttl")
+        for toex in self.toextract:
+            if "owl" not in str(toex) and "rdf" not in str(toex):
+                QgsMessageLog.logMessage(str(toex),
+                                         MESSAGE_CATEGORY, Qgis.Info)
+                layergraph = Graph()
+                for sub in g.subjects(RDF.type, URIRef(toex),True):
+                    QgsMessageLog.logMessage(str(sub),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    for trip in g.triples((sub,None,None)):
+                        layergraph.add(trip)
+                res=LayerUtils.subGraphToLayer(layergraph,False, self.triplestoreconf, True, False)
+                #QgsMessageLog.logMessage(str(res[0]), MESSAGE_CATEGORY, Qgis.Info)
+                self.layers.append(QgsVectorLayer(json.dumps(res[0], sort_keys=True), "unicorn_" + str(SPARQLUtils.labelFromURI(str(toex))), "ogr"))
+        return True
+        #except Exception as e:
+        #    self.exception = e
+        #    QgsMessageLog.logMessage(str(e),
+        #                             MESSAGE_CATEGORY, Qgis.Info)
+        #    return False
         return True
 
     def finished(self, result):
-        self.progress.close()
+        #self.progress.close()
         if result:
-            iface.messageBar().pushMessage("Exported layer successfully to " + str(self.filename[0]) + "!", "OK",
-                                           level=Qgis.Success)
+            QgsMessageLog.logMessage(str(len(self.layers)),
+                                     MESSAGE_CATEGORY, Qgis.Info)
+            for layer in self.layers:
+                QgsProject.instance().addMapLayer(layer)
+            iface.messageBar().pushMessage("Successfully extracted layers from "+str(self.graphname)+"!", "OK",level=Qgis.Success)
             msgBox = QMessageBox()
-            msgBox.setText("Layer converted to and saved as "+str(self.filename[0]))
+            msgBox.setText("Layer extracted from "+str(self.graphname))
             msgBox.exec()
         else:
             msgBox = QMessageBox()
-            msgBox.setText("An error occurred while converting the layer converted to "+str(self.filename[0]))
+            msgBox.setText("An error occurred while extracting layers from  "+str(self.graphname))
             msgBox.exec()
 
 

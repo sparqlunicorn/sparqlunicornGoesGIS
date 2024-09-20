@@ -6,6 +6,7 @@ from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator
 from ...tasks.processing.extractnamespacetask import ExtractNamespaceTask
+from ...tasks.processing.extractlayertask import ExtractLayerTask
 
 from ...util.ui.uiutils import UIUtils
 from ...tasks.processing.convertcrstask import ConvertCRSTask
@@ -36,9 +37,14 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlg = parent
         self.maindlg = maindlg
         self.inputRDFFileWidget.fileChanged.connect(self.extractClasses)
+        self.addSelectedLayersButton.clicked.connect(self.extractLayers)
 
 
     def extractClasses(self,filename):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,None,self.layerSelectBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
+
+    def extractLayers(self):
+        self.task=ExtractLayerTask("Extracting layers from "+str(self.inputRDFFileWidget.filePath()),self.inputRDFFileWidget.filePath(),self.layerSelectBox.checkedItemsData(),self.triplestoreconf,self.prefixes,None)
+        QgsApplication.taskManager().addTask(self.task)
 

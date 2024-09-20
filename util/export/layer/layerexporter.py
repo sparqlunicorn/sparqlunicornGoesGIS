@@ -87,7 +87,6 @@ class LayerExporter:
         #                         MESSAGE_CATEGORY, Qgis.Info)
         # QgsMessageLog.logMessage("FIELDNAMES: "+str(vocab),
         #                         MESSAGE_CATEGORY, Qgis.Info)
-        ttlstring = set()
         graph=Graph()
         first = 0
         if exportNameSpace is None or exportNameSpace == "":
@@ -116,7 +115,7 @@ class LayerExporter:
                                                                                           "_")),URIRef("http://www.opengis.net/ont/crs/asProj"),Literal(str(
             layercrs.toProj4()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/proj4Literal")))
         ccrs = ConvertCRS()
-        ttlstring = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), ttlstring)
+        graph = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), graph)
         init = True
         for f in layer.getFeatures():
             geom = f.geometry()
@@ -133,7 +132,7 @@ class LayerExporter:
                     graph.add((URIRef(str(curclassid)), RDFS.type, OWL.Class))
             else:
                 curclassid = f["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]
-            graph = LayerUtils.exportGeometryType(curid, geom, vocab, literaltype, init, ttlstring)
+            graph = LayerUtils.exportGeometryType(curid, geom, vocab, literaltype, init, graph)
             if init:
                 init = False
             fieldcounter = -1
@@ -229,7 +228,7 @@ class LayerExporter:
                         graph.add((URIRef(prop), RDFS.range, XSD.string))
             if first < 10:
                 first = first + 1
-        return ccrs.ttlhead + "".join(ttlstring)
+        return graph
 
 
     @staticmethod

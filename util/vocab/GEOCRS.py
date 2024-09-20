@@ -4,30 +4,83 @@ from rdflib.term import URIRef
 class GEOCRS(DefinedNamespace):
 
     #3DCoordinateSystem: URIRef
+    AitoffProjection: URIRef
+    AlbersEqualAreaProjection: URIRef
+    AmericanPolyconicProjection: URIRef
     AreaOfUse: URIRef
     AxisDirection: URIRef
     BoundCRS: URIRef
+    BonneProjection: URIRef
     CRS: URIRef
+    CadastreMap: URIRef
+    CartesianCoordinateSystem: URIRef
+    CassiniProjection: URIRef
+    CoastalHydrography: URIRef
+    CollignonProjection: URIRef
+    ColombiaUrbanProjection: URIRef
     CompoundCRS: URIRef
     CoordinateConcatenatedOperation: URIRef
     CoordinateConversionOperation: URIRef
     CoordinateOperation: URIRef
     CoordinateTransformationOperation: URIRef
     CoordinateSystemAxis: URIRef
+    CylindricalEqualArea: URIRef
+    CylindricalProjection: URIRef
     Datum: URIRef
+    Drilling: URIRef
     DynamicVerticalReferenceFrame: URIRef
+    EllipsoidalCoordinateSystem: URIRef
+    EngineeringSurvey: URIRef
+    EqualEarthProjection: URIRef
+    EquidistantConicProjection: URIRef
+    EquidistantCylindricalProjection: URIRef
     Ellipsoid: URIRef
     GeocentricCRS: URIRef
+    Geocentric: URIRef
     GeodeticReferenceFrame: URIRef
     GeographicCRS: URIRef
+    Geodesy: URIRef
     Geoid: URIRef
+    GnomonicProjection: URIRef
     Grid: URIRef
+    Hydrography: URIRef
+    Krovak: URIRef
+    LabordeProjection: URIRef
+    LambertAzimuthalEqualArea: URIRef
+    LambertConformalConicProjection: URIRef
+    LambertEqualAreaConic: URIRef
+    LatLonProjection: URIRef
+    LonLatProjection: URIRef
+    LoximuthalProjection: URIRef
+    MercatorProjection: URIRef
+    MillerProjection: URIRef
+    MollweideProjection: URIRef
+    NicolosiGlobularProjection: URIRef
+    ObliqueMercatorProjection: URIRef
+    ObliqueStereographicProjection: URIRef
+    OffshoreEngineering: URIRef
+    OilAndGasExploration: URIRef
+    OrthographicProjection: URIRef
     OtherCoordinateOperation: URIRef
+    NaturalEarthProjection: URIRef
+    NauticalChart: URIRef
     PrimeMeridian: URIRef
     ProjectedCRS: URIRef
+    PseudoCylindricalProjection: URIRef
     PlanarCoordinateSystem: URIRef
+    RectangularPolyconicProjection: URIRef
+    RobinsonProjection: URIRef
+    SatelliteNavigation: URIRef
+    SinusoidalProjection: URIRef
+    SpatialReferencing: URIRef
     Sphere: URIRef
+    SatelliteSurvey: URIRef
+    StereographicProjection: URIRef
     SRSApplication: URIRef
+    TransverseMercatorProjection: URIRef
+    TopographicMap: URIRef
+    UniversalTransverseMercatorProjection: URIRef
+    VerticalCoordinateSystem: URIRef
     VerticalCRS: URIRef
     VerticalReferenceFrame: URIRef
 
@@ -59,6 +112,7 @@ class GEOCRS(DefinedNamespace):
     isSphere: URIRef
     is_semi_minor_computed: URIRef
     isVertical: URIRef
+    grid: URIRef
     longitude: URIRef
     method_name: URIRef
     open_license: URIRef
