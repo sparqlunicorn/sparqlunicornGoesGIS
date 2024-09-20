@@ -9,7 +9,8 @@ from ..exporterutils import ExporterUtils
 from ...layerutils import LayerUtils
 from ...sparqlutils import SPARQLUtils
 
-from rdflib import Graph, URIRef, Literal, RDF, GEO, RDFS, OWL, XSD
+from rdflib import Graph, URIRef, Literal
+from rdflib.namespace import RDF, GEO, RDFS, OWL, XSD
 
 
 class LayerExporter:
@@ -106,14 +107,14 @@ class LayerExporter:
         else:
             curclassid = urllib.parse.quote(exportSetClass)
         layercrs = layer.crs()
-        graph.add(URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
-                                                                                          "_")),RDF.type,URIRef("http://www.opengis.net/ont/crs/SpatialReferenceSystem"))
-        graph.add(URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
+        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
+                                                                                          "_")),RDF.type,URIRef("http://www.opengis.net/ont/crs/SpatialReferenceSystem")))
+        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
                                                                                           "_")),URIRef("http://www.opengis.net/ont/crs/asWKT"),Literal(str(
-            layercrs.toWkt()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/wktLiteral"))
-        graph.add(URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
+            layercrs.toWkt()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/wktLiteral")))
+        graph.add((URIRef("http://www.opengis.net/ont/crs/" + str(layercrs.authid()).replace(" ",
                                                                                           "_")),URIRef("http://www.opengis.net/ont/crs/asProj"),Literal(str(
-            layercrs.toProj4()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/proj4Literal"))
+            layercrs.toProj4()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/proj4Literal")))
         ccrs = ConvertCRS()
         ttlstring = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), ttlstring)
         init = True
@@ -126,10 +127,10 @@ class LayerExporter:
             else:
                 curid = f[idcol]
             if classcol not in fieldnames:
-                graph.add(URIRef(str(curid)),RDF.type,URIRef(curclassid))
+                graph.add((URIRef(str(curid)),RDF.type,URIRef(curclassid)))
                 if first == 0:
-                    graph.add(URIRef(str(curclassid)), RDFS.subClassOf, GEO.Feature)
-                    graph.add(URIRef(str(curclassid)), RDFS.type, OWL.Class)
+                    graph.add((URIRef(str(curclassid)), RDFS.subClassOf, GEO.Feature))
+                    graph.add((URIRef(str(curclassid)), RDFS.type, OWL.Class))
             else:
                 curclassid = f["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]
             graph = LayerUtils.exportGeometryType(curid, geom, vocab, literaltype, init, ttlstring)
@@ -160,9 +161,9 @@ class LayerExporter:
                 if not prop.startswith("http"):
                     prop = namespace + prop
                 if prop == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" and "http" in str(f[propp]):
-                    graph.add(URIRef(str(f[propp])),URIRef(str(prop)),OWL.Class)
-                    graph.add(URIRef(str(f[propp])), RDFS.subClassOf, GEO.Feature)
-                    graph.add(URIRef(str(curid)), RDF.type, URIRef(str(f[propp])))
+                    graph.add((URIRef(str(f[propp])),URIRef(str(prop)),OWL.Class))
+                    graph.add((URIRef(str(f[propp])), RDFS.subClassOf, GEO.Feature))
+                    graph.add((URIRef(str(curid)), RDF.type, URIRef(str(f[propp]))))
                 # elif urilist!=None and fieldcounter<len(urilist) and urilist[fieldcounter]!="":
                 #   ttlstring+="<"+curid+"> <"+prop+"> <"+str(f[propp])+"> .\n"
                 #    if first<10:
@@ -172,60 +173,60 @@ class LayerExporter:
                 #           ttlstring+="<"+prop+"> <http://www.w3.org/2000/01/rdf-schema#range> <"+classurilist[fieldcounter]+"> .\n"
                 elif prop == "http://www.w3.org/2000/01/rdf-schema#label" or prop == "http://www.w3.org/2000/01/rdf-schema#comment" or (
                         proptypelist is not None and proptypelist[fieldcounter] == "AnnotationProperty"):
-                    graph.add(URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string))
+                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
                     if first < 10:
-                        graph.add(URIRef(prop),RDF.type,OWL.AnnotationProperty)
-                        graph.add(URIRef(prop), RDFS.domain, URIRef(curclassid))
+                        graph.add((URIRef(prop),RDF.type,OWL.AnnotationProperty))
+                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
                 elif not f[propp] or f[propp] is None or f[propp] == "":
                     continue
                 elif proptypelist is not None and proptypelist[fieldcounter] == "SubClass":
-                    graph.add(URIRef(curid),RDF.type,URIRef(str(f[propp])))
-                    graph.add(URIRef(curid),RDFS.subClassOf,URIRef(curclassid))
+                    graph.add((URIRef(curid),RDF.type,URIRef(str(f[propp]))))
+                    graph.add((URIRef(curid),RDFS.subClassOf,URIRef(curclassid)))
                     if first < 10:
-                        graph.add(URIRef(str(f[propp])),RDF.type,OWL.Class)
+                        graph.add((URIRef(str(f[propp])),RDF.type,OWL.Class))
                 elif valuequeries is not None and propp in valuequeries:
                     # ttlstring += ""
                     results = SPARQLUtils.executeQuery(valuequeries[propp][1], "".join(
                         prefixes + valuequeries[propp][0].replace("%%" + propp + "%%", "\"" + str(f[propp]) + "\"")))
-                    graph.add(URIRef(curid),URIRef(prop),URIRef(results["results"]["bindings"][0]["item"]["value"]))
+                    graph.add((URIRef(curid),URIRef(prop),URIRef(results["results"]["bindings"][0]["item"]["value"])))
                     if first < 10:
-                        graph.add(URIRef(prop),RDF.type, OWL.ObjectProperty)
-                        graph.add(URIRef(prop), RDFS.domain, URIRef(curclassid))
+                        graph.add((URIRef(prop),RDF.type, OWL.ObjectProperty))
+                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
                         if classurilist[fieldcounter] != "":
-                            graph.add(URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter]))
+                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif valuemappings is not None and propp in valuemappings and f[propp] in valuemappings[propp]:
-                    graph.add(URIRef(curid),URIRef(prop),URIRef(str(valuemappings[propp][f[propp]])))
+                    graph.add((URIRef(curid),URIRef(prop),URIRef(str(valuemappings[propp][f[propp]]))))
                     if first < 10:
-                        graph.add(URIRef(prop),RDF.type,OWL.ObjectProperty)
-                        graph.add(URIRef(prop), RDF.domain, URIRef(curclassid))
+                        graph.add((URIRef(prop),RDF.type,OWL.ObjectProperty))
+                        graph.add((URIRef(prop), RDF.domain, URIRef(curclassid)))
                         if classurilist[fieldcounter] != "":
-                            graph.add(URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter]))
+                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif "http" in str(f[propp]) or (
                         proptypelist is not None and proptypelist[fieldcounter] == "ObjectProperty"):
-                    graph.add(URIRef(curid),URIRef(prop),URIRef(str(f[propp])))
+                    graph.add((URIRef(curid),URIRef(prop),URIRef(str(f[propp]))))
                     if first < 10:
-                        graph.add(URIRef(prop),RDF.type,OWL.ObjectProperty)
-                        graph.add(URIRef(prop),RDFS.domain,URIRef(curclassid))
+                        graph.add((URIRef(prop),RDF.type,OWL.ObjectProperty))
+                        graph.add((URIRef(prop),RDFS.domain,URIRef(curclassid)))
                         if classurilist is not None and fieldcounter < len(classurilist) and classurilist[fieldcounter] != "":
-                            graph.add(URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter]))
+                            graph.add((URIRef(prop),RDFS.range,URIRef(classurilist[fieldcounter])))
                 elif re.match(r'^-?\d+$', str(f[propp])):
-                    graph.add(URIRef(curid),URIRef(prop),Literal(str(f[propp]),datatype=XSD.integer))
+                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]),datatype=XSD.integer)))
                     if first < 10:
-                        graph.add(URIRef(prop), RDF.type, OWL.DatatypeProperty)
-                        graph.add(URIRef(prop), RDFS.domain, URIRef(curclassid))
-                        graph.add(URIRef(prop), RDFS.range, XSD.integer)
+                        graph.add((URIRef(prop), RDF.type, OWL.DatatypeProperty))
+                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
+                        graph.add((URIRef(prop), RDFS.range, XSD.integer))
                 elif re.match(r'^-?\d+(?:\.\d+)?$', str(f[propp])):
-                    graph.add(URIRef(curid),URIRef(prop),Literal(str(f[propp]),XSD.double))
+                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]),datatype=XSD.double)))
                     if first:
-                        graph.add(URIRef(prop),RDF.type,OWL.DatatypeProperty)
-                        graph.add(URIRef(prop), RDFS.domain, URIRef(curclassid))
-                        graph.add(URIRef(prop), RDFS.range, XSD.double)
+                        graph.add((URIRef(prop),RDF.type,OWL.DatatypeProperty))
+                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
+                        graph.add((URIRef(prop), RDFS.range, XSD.double))
                 else:
-                    graph.add(URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),XSD.string))
+                    graph.add((URIRef(curid),URIRef(prop),Literal(str(f[propp]).replace('"','\\"'),datatype=XSD.string)))
                     if first < 10:
-                        graph.add(URIRef(prop),RDF.type,OWL.DatatypeProperty)
-                        graph.add(URIRef(prop), RDFS.domain, URIRef(curclassid))
-                        graph.add(URIRef(prop), RDFS.range, XSD.string)
+                        graph.add((URIRef(prop),RDF.type,OWL.DatatypeProperty))
+                        graph.add((URIRef(prop), RDFS.domain, URIRef(curclassid)))
+                        graph.add((URIRef(prop), RDFS.range, XSD.string))
             if first < 10:
                 first = first + 1
         return ccrs.ttlhead + "".join(ttlstring)

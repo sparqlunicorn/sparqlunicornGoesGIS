@@ -42,5 +42,3 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.tsk=ExtractNamespaceTask("Extracting namespaces from "+str(filename),filename,None,self.layerSelectBox,self.prefixes,None)
         QgsApplication.taskManager().addTask(self.tsk)
 
-
-    def
