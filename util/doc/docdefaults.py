@@ -1,4 +1,17 @@
+from ..export.pages.observationpage import ObservationPage
+from ..export.pages.bibpage import BibPage
+from ..export.pages.lexiconpage import LexiconPage
+from ..export.pages.personpage import PersonPage
+
+
 class DocDefaults:
+    collectionclassToFunction = {
+        "bibcollection": BibPage.generateCollectionWidget,
+        "lexicon": LexiconPage.generateCollectionWidget,
+        "observationcollection": ObservationPage.generateCollectionWidget,
+        "personcollection": PersonPage.generateCollectionWidget
+    }
+
     templates = {
         "epsgdefs": "var epsgdefs={}",
         "startscripts": """var namespaces={"rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xsd":"http://www.w3.org/2001/XMLSchema#","geo":"http://www.opengis.net/ont/geosparql#","rdfs":"http://www.w3.org/2000/01/rdf-schema#","owl":"http://www.w3.org/2002/07/owl#","dc":"http://purl.org/dc/terms/","skos":"http://www.w3.org/2004/02/skos/core#"}
@@ -1018,8 +1031,44 @@ class DocDefaults:
         extrudedGeometry.computeBoundingBox()
         const material = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe:true } );
         const mesh = new THREE.Mesh( extrudedGeometry, material );
+        if(minz<0){
+            mesh.position.z = minz;
+        }
         annotations.add(mesh)
         return annotations
+    }
+
+    function fitCameraToSelection(camera, controls, selection, fitOffset = 1.2) {
+      size = new THREE.Vector3();
+      center = new THREE.Vector3();
+      box = new THREE.Box3();
+      box.makeEmpty();
+      for(const object of selection) {
+        box.expandByObject(object);
+      }
+
+      box.getSize(size);
+      box.getCenter(center );
+
+      const maxSize = Math.max(size.x, size.y, size.z);
+      const fitHeightDistance = maxSize / (2 * Math.atan(Math.PI * camera.fov / 360));
+      const fitWidthDistance = fitHeightDistance / camera.aspect;
+      const distance = fitOffset * Math.max(fitHeightDistance, fitWidthDistance);
+
+      const direction = controls.target.clone()
+        .sub(camera.position)
+        .normalize()
+        .multiplyScalar(distance);
+
+      controls.maxDistance = distance * 10;
+      controls.target.copy(center);
+      if(typeof(camera)!="undefined" && camera!=null){
+          camera.near = distance / 100;
+          camera.far = distance * 100;
+          camera.updateProjectionMatrix();       
+          camera.position.copy(controls.target).sub(direction);
+      }
+      controls.update();
     }
 
     function initThreeJS(domelement,verts,meshurls) {
@@ -1065,16 +1114,24 @@ class DocDefaults:
                     objects.add(mesh);
                     scene.add(objects);
                     addRotationControls(object,geometryF,objects)
+                    if(objects.children.length>0 && typeof(camera)!=="undefined" && camera!=null){
+                        camera.lookAt( objects.children[0].position );
+                    }
+                    fitCameraToSelection(camera, controls, objects.children)
                 });
             }else if(meshurls[0].includes(".obj")){
                 var loader= new THREE.OBJLoader();
-                loader.load(meshurls[0],function ( object ) {objects.add(object);scene.add(objects);addRotationControls(object,geometryF,objects)})
+                loader.load(meshurls[0],function ( object ) {objects.add(object);scene.add(objects);addRotationControls(object,geometryF,objects);if(objects.children.length>0){camera.lookAt( objects.children[0].position );}fitCameraToSelection(camera, controls, objects.children)})
             }else if(meshurls[0].includes(".nxs") || meshurls[0].includes(".nxz")){
                 console.log(renderer)
                 var nexus_obj=new NexusObject(meshurls[0],function(){},renderNXS,renderer);
                 objects.add(nexus_obj)
                 scene.add(objects);
                 addRotationControls(nexus_obj,geometryF,objects)
+                /*if(objects.children.length>0){
+                        camera.lookAt( objects.children[0].position );
+                }
+                fitCameraToSelection(camera, controls, objects.children)*/
             }else if(meshurls[0].includes(".gltf")){
                 var loader = new THREE.GLTFLoader();
                 loader.load(meshurls[0], function ( gltf )
@@ -1085,6 +1142,10 @@ class DocDefaults:
                     objects.add(object)
                     scene.add(objects);
                     addRotationControls(object,geometryF,objects)
+                    if(objects.children.length>0){
+                        camera.lookAt( objects.children[0].position );
+                    }
+                    fitCameraToSelection(camera, controls, objects.children)
                 });
             }
         }
@@ -1120,6 +1181,18 @@ class DocDefaults:
         gui.add(objects, 'visible').name('Meshes')
         gui.add(annotations, 'visible').name('Annotations')
         gui.add(axesHelper, 'visible').name('Axis Helper')
+        gui.add({"FullScreen":toggleFullScreen2}, 'FullScreen')
+        document.addEventListener("fullscreenchange",function(){
+            if(document.fullscreenElement){
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize( width, height );
+            }
+        })
+        if(objects.children.length>0){
+            camera.lookAt( objects.children[0].position );
+        }
+        fitCameraToSelection(camera, controls, objects.children)
         if(meshurls.length>0 && (meshurls[0].includes(".nxs") || meshurls[0].includes(".nxz"))){
             renderNXS()
         }
@@ -1284,7 +1357,7 @@ class DocDefaults:
 
     listthreshold=5
 
-    function formatHTMLTableForResult(result,nodeicon){
+    function formatHTMLTableForResult(result,nodeicon,nodetype){
         dialogcontent=""
         dialogcontent="<h3><img src=\\""+nodeicon+"\\" height=\\"25\\" width=\\"25\\" alt=\\"Instance\\"/><a href=\\""+nodeid.replace('/index.json','/index.html')+"\\" target=\\"_blank\\"> "+nodelabel+"</a></h3><table border=1 id=dataschematable><thead><tr><th>Type</th><th>Relation</th><th>Value</th></tr></thead><tbody>"
         for(res in result){
@@ -1331,7 +1404,7 @@ class DocDefaults:
                 if(result[res].length>listthreshold){
                     dialogcontent+="</details>"
                 }
-                dialogcontent+="</td>"
+                dialogcontent+="</td>"        
             }else if((Object.keys(result[res])[0]+"").startsWith("http") || (result[res][Object.keys(result[res])[0]]+"").startsWith("http")){
                 if(!(nodetype.includes("class"))) {
                     dialogcontent+="<td><a href=\\""+rewriteLink(result[res][Object.keys(result[res])[0]]+"")+"\\" target=\\"_blank\\">"+shortenURI(result[res][Object.keys(result[res])[0]]+"")+"</a></td>"
@@ -1400,13 +1473,13 @@ class DocDefaults:
          console.log(nodetype)
          if(nodetype=="class" || nodetype=="halfgeoclass" || nodetype=="geoclass" || node.type=="collectionclass"){
             console.log(props)
-            dialogcontent=formatHTMLTableForResult(props["to"],nodeicon)
+            dialogcontent=formatHTMLTableForResult(props["to"],nodeicon,nodetype)
             document.getElementById("dataschemadialog").innerHTML=dialogcontent
             $('#dataschematable').DataTable();
             document.getElementById("dataschemadialog").showModal();
          }else{
              $.getJSON(nodeid, function(result){
-                dialogcontent=formatHTMLTableForResult(result,nodeicon)
+                dialogcontent=formatHTMLTableForResult(result,nodeicon,nodetype)
                 document.getElementById("dataschemadialog").innerHTML=dialogcontent
                 $('#dataschematable').DataTable();
                 document.getElementById("dataschemadialog").showModal();
@@ -1524,6 +1597,26 @@ class DocDefaults:
         });
     }
 
+    function toggleFullScreen2(){
+        toggleFullScreen("threejs",true)
+    }
+
+    function toggleFullScreen(elementid,threejs=false) {
+      if (!document.fullscreenElement) {
+        document.getElementById(elementid).requestFullscreen();
+        if(threejs){
+            var elem = document.getElementById(elementid);
+            var sceneWidth = window.innerWidth;
+            var sceneHeight = elem.offsetHeight;
+            camera.aspect = sceneWidth / sceneHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize( sceneWidth, sceneHeight );
+        }
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+
     function restyleLayer(propertyName,geojsonLayer) {
         geojsonLayer.eachLayer(function(featureInstanceLayer) {
             propertyValue = featureInstanceLayer.feature.properties[propertyName];
@@ -1590,43 +1683,63 @@ class DocDefaults:
         }
     }
 
-    function generateLeafletPopup(feature, layer){
-        var popup="<b>"
-        if("name" in feature && feature.name!=""){
-            popup+="<a href=\\""+rewriteLink(feature.id)+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.name+"</a></b><br/><ul>"
-        }else{
-            popup+="<a href=\\""+rewriteLink(feature.id)+"\\" class=\\"footeruri\\" target=\\"_blank\\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
-        }
-        for(prop in feature.properties){
-            popup+="<li>"
-            if(prop.startsWith("http")){
-                popup+="<a href=\\""+prop+"\\" target=\\"_blank\\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
+function generateLeafletPopup(feature, layer){
+    var popup="<b>"
+    if("name" in feature && feature.name!=""){
+        popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.name+"</a></b><br/><ul>"
+    }else{
+        popup+="<a href=\""+rewriteLink(feature.id)+"\" class=\"footeruri\" target=\"_blank\">"+feature.id.substring(feature.id.lastIndexOf('/')+1)+"</a></b><br/><ul>"
+    }
+    for(prop in feature.properties){
+        popup+="<li>"
+        if(prop.startsWith("http")){
+            if(prop.includes("#")){
+               popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('#')+1)+"</a>"
             }else{
-                popup+=prop
+               popup+="<a href=\""+prop+"\" target=\"_blank\">"+prop.substring(prop.lastIndexOf('/')+1)+"</a>"
             }
-            popup+=" : "
-            if(Array.isArray(feature.properties[prop]) && feature.properties[prop].length>1){
-                popup+="<ul>"
-                for(item of feature.properties[prop]){
-                    popup+="<li>"
-                    if((item+"").startsWith("http")){
-                        popup+="<a href=\\""+item+"\\" target=\\"_blank\\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
+        }else{
+            popup+=prop
+        }
+        popup+=" : "
+        if(Array.isArray(feature.properties[prop]) && feature.properties[prop].length>1){
+            popup+="<ul>"
+            for(item of feature.properties[prop]){
+                popup+="<li>"
+                if((item+"").startsWith("http")){
+                    if((item+"").includes("#")){
+                        popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('#')+1)+"</a>"
                     }else{
-                        popup+=item
+                        popup+="<a href=\""+item+"\" target=\"_blank\">"+item.substring(item.lastIndexOf('/')+1)+"</a>"
                     }
-                    popup+="</li>"
+                }else{
+                    popup+=item
                 }
-                popup+="</ul>"
-            }else if(Array.isArray(feature.properties[prop]) && (feature.properties[prop][0]+"").startsWith("http")){
-                popup+="<a href=\\""+rewriteLink(feature.properties[prop][0])+"\\" target=\\"_blank\\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
+                popup+="</li>"
+            }
+            popup+="</ul>"
+        }else if(Array.isArray(feature.properties[prop]) && (feature.properties[prop][0]+"").startsWith("http")){
+            if(feature.properties[prop][0].includes("#")){
+              popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('#')+1)+"</a>"
+            }else{
+              popup+="<a href=\""+rewriteLink(feature.properties[prop][0])+"\" target=\"_blank\">"+feature.properties[prop][0].substring(feature.properties[prop][0].lastIndexOf('/')+1)+"</a>"
+            }
+        }else{
+            if((feature.properties[prop]+"").startsWith("http")){
+                    if((feature.properties[prop]+"").includes("#")){
+                        popup+="<a href=\""+(feature.properties[prop]+"")+"\" target=\"_blank\">"+(feature.properties[prop]+"").substring((feature.properties[prop]+"").lastIndexOf('#')+1)+"</a>"
+                    }else{
+                        popup+="<a href=\""+(feature.properties[prop]+"")+"\" target=\"_blank\">"+(feature.properties[prop]+"").substring((feature.properties[prop]+"").lastIndexOf('/')+1)+"</a>"
+                    }
             }else{
                 popup+=feature.properties[prop]+""
             }
-            popup+="</li>"
         }
-        popup+="</ul>"
-        return popup
+        popup+="</li>"
     }
+    popup+="</ul>"
+    return popup
+}
 
     function fetchLayersFromList(thelist){
         fcolls=[]
@@ -1719,7 +1832,7 @@ class DocDefaults:
             centerpoints.push(layerr.getBounds().getCenter());
         }
         layercontrol=L.control.layers(baseMaps,overlayMaps).addTo(map)
-        if(dateatt!=null && dateatt!=""){
+        if(dateatt!=null && dateatt!="" && dateatt!="[]" && dateatt!=[]){
             var sliderControl = L.control.sliderControl({
                 position: "bottomleft",
                 layer: layerr,
@@ -1729,12 +1842,15 @@ class DocDefaults:
                 timeAttribute: dateatt
             });
             map.addControl(sliderControl);
+            sliderControl.options.markers.sort(function (a, b) {
+                return (a.properties[dateatt] > b.properties[dateatt]);
+            });
             sliderControl.startSlider();
         }
         markercluster.addTo(map)
     }
     """,
-        "stylesheet": """
+        "style": """
     html { margin: 0; padding: 0; }
     body { font-family: sans-serif; font-size: 80%; margin: 0; padding: 1.2em 2em; }
     #rdficon { float: right; position: relative; top: -28px; }
@@ -1894,7 +2010,7 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
 <div class="container-fluid"><div class="row-fluid" id="main-wrapper">
     """,
 
-        "imagecarouselheader": """<div id="imagecarousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner">""",
+        "imagecarouselheader": """<div id="imagecarousel" class="carousel slide lazy" data-ride="carousel"><div class="carousel-inner">""",
 
         "imagecarouselfooter": """</div> <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1993,7 +2109,137 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
     <option value="wkt">Well-Known-Text (WKT)</option>
     """,
 
-        "sparqltemplate": "",
+        "sparqltemplate": """<link rel="stylesheet" type="text/css" href="https://unpkg.com/@triply/yasgui/build/yasgui.min.css" />
+<script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
+<script src="https://rdf.js.org/comunica-browser/versions/v2/engines/query-sparql/comunica-browser.js"></script>
+<div id="yasgui"><button id="query" onclick="queryFile()" class="yasqe_queryButton query_valid"><div class="svgImg queryIcon"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="81.9" width="72.9" version="1.1" y="0px" x="0px" viewBox="0 0 72.900002 81.900002" aria-hidden="true"><path id="queryIcon" d="m69.6 35.2-60.3-34.3c-2.2-1.2-4.4-1.2-6.4 0s-2.9 3.4-2.9 5.6v68.8c0 2.2 1.2 4.4 2.9 5.6 1 0.5 2.2 1 3.4 1s2.2-0.5 2.9-1l60.3-34.3c2.2-1.2 3.4-3.4 3.4-5.6s-1.1-4.3-3.3-5.8z"></path><path id="loadingIcon" d="m61.184 36.167-48.73-27.719c-1.7779-0.96976-3.5558-0.96976-5.172 0-1.6163 0.96976-2.3436 2.7476-2.3436 4.5255v55.599c0 1.7779 0.96976 3.5558 2.3436 4.5255 0.80813 0.40407 1.7779 0.80813 2.7476 0.80813 0.96975 0 1.7779-0.40406 2.3436-0.80813l48.73-27.719c1.7779-0.96976 2.7476-2.7476 2.7476-4.5255s-0.88894-3.475-2.6668-4.6872z" fill="none"></path></svg></div></button>
+</div> 
+<script language="JavaScript">
+class Geo {
+    // A priority value. If multiple plugin support rendering of a result, this value is used
+    // to select the correct plugin
+    priority = 10;
+
+    // Whether to show a select-button for this plugin
+    hideFromSelection = false;
+
+    constructor(yasr) {
+        this.yasr = yasr;
+    }
+
+    // Draw the resultset.
+    draw() {
+        const el = document.createElement("div");
+        el.setAttribute("id", "map");
+        el.setAttribute("class", "leaflet leaflet-container leaflet-touch leaflet-fade-anim leaflet-touch-zoom");
+        this.yasr.resultsEl.appendChild(el);
+		var wkt = new Wkt.Wkt();
+        for (var key in this.yasr.results.json.results.bindings) {
+            wkt.read(this.yasr.results.json.results.bindings[key].wkt.value);
+            var feature = { "type": "Feature", 'properties': {"name": this.yasr.results.json.results.bindings[key].wktTooltip.value}, "geometry": wkt.toJson() };
+            L.geoJson(feature, {
+                style: function(feature) {
+                    return {
+                        color: "#a50026",
+                        radius:6,
+                        weight: 0,
+                        opacity: 0.6,
+                        fillOpacity: 0.6,
+                    };
+                },
+                pointToLayer: function(feature, latlng) {
+                    return new L.CircleMarker(latlng, {
+                        radius: 10,
+                        fillOpacity: 0.85
+                    });
+                }
+            }).bindTooltip(function (layer) {
+                return layer.feature.properties.name; }
+            ).addTo(map);
+        }
+	}
+
+	canHandleResults() {
+        const vars = this.yasr.results.getVariables();
+        return !!this.yasr.results && vars.includes("geo");
+    }
+    // A required function, used to identify the plugin, works best with an svg
+    getIcon() {
+        const textIcon = document.createElement("div");
+        textIcon.classList.add("svgImg");
+        const svg = document.createElement("svg");
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.setAttribute("viewBox", "0 0 510 512");
+        svg.setAttribute("aria-hidden", "true");
+        const path = document.createElement("path");
+        path.setAttribute("fill", "currentColor");
+        path.setAttribute("d", "M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm160 215.5v6.93c0 5.87-3.32 11.24-8.57 13.86l-15.39 7.7a15.485 15.485 0 0 1-15.53-.97l-18.21-12.14a15.52 15.52 0 0 0-13.5-1.81l-2.65.88c-9.7 3.23-13.66 14.79-7.99 23.3l13.24 19.86c2.87 4.31 7.71 6.9 12.89 6.9h8.21c8.56 0 15.5 6.94 15.5 15.5v11.34c0 3.35-1.09 6.62-3.1 9.3l-18.74 24.98c-1.42 1.9-2.39 4.1-2.83 6.43l-4.3 22.83c-.62 3.29-2.29 6.29-4.76 8.56a159.608 159.608 0 0 0-25 29.16l-13.03 19.55a27.756 27.756 0 0 1-23.09 12.36c-10.51 0-20.12-5.94-24.82-15.34a78.902 78.902 0 0 1-8.33-35.29V367.5c0-8.56-6.94-15.5-15.5-15.5h-25.88c-14.49 0-28.38-5.76-38.63-16a54.659 54.659 0 0 1-16-38.63v-14.06c0-17.19 8.1-33.38 21.85-43.7l27.58-20.69a54.663 54.663 0 0 1 32.78-10.93h.89c8.48 0 16.85 1.97 24.43 5.77l14.72 7.36c3.68 1.84 7.93 2.14 11.83.84l47.31-15.77c6.33-2.11 10.6-8.03 10.6-14.7 0-8.56-6.94-15.5-15.5-15.5h-10.09c-4.11 0-8.05-1.63-10.96-4.54l-6.92-6.92a15.493 15.493 0 0 0-10.96-4.54H199.5c-8.56 0-15.5-6.94-15.5-15.5v-4.4c0-7.11 4.84-13.31 11.74-15.04l14.45-3.61c3.74-.94 7-3.23 9.14-6.44l8.08-12.11c2.87-4.31 7.71-6.9 12.89-6.9h24.21c8.56 0 15.5-6.94 15.5-15.5v-21.7C359.23 71.63 422.86 131.02 441.93 208H423.5c-8.56 0-15.5 6.94-15.5 15.5z");
+        svg.appendChild(path);
+        textIcon.appendChild(svg);
+        return textIcon;
+    }
+
+}
+Yasr.registerPlugin("Geo", Geo);
+</script>
+  <script>
+ const urlParams = new URLSearchParams(window.location.search);
+ const endpoint = urlParams.get('endpoint');
+ const thequery = urlParams.get('query');
+ const yasgui = new Yasgui(document.getElementById("yasgui"),{"pluginOrder": ["response", "table"],"yasqe":{"showQueryButton": false},"requestConfig": { "endpoint": endpoint},  "copyEndpointOnNewTab": false});
+ if(typeof(thequery)!=='undefined' && thequery!=null){
+	yasgui.getTab().yasqe.setValue(thequery)
+ }
+ yasgui.getTab().yasr.on("drawn",function(event){
+	$('.iri').each(function(i,obj){
+	    console.log(obj)
+		if($(this).attr("href").includes(baseurl)){
+			$(this).attr("href",$(this).attr("href").replace(baseurl,""))
+		}
+	})
+ })
+ const myEngine=new Comunica.QueryEngine()
+ document.getElementsByClassName('yasqe_buttons')[0].appendChild(document.getElementById('query'));
+
+ //yasgui.getTab().yasqe.on("query", function(event){ console.log(event); event.preventDefault(); queryFile()});	
+
+async function queryFile(){
+  yasres={"head":{"vars":[]},"results":{"bindings":[]}}
+  config={"sources":[endpoint]}
+  const result=await myEngine.queryBindings(yasgui.getTab().yasqe.getValue(), config)
+  const data=await result.toArray()	
+  vararray=[]
+  ttypemap={"NamedNode":"uri","Literal":"literal"}
+  for(bind of data){
+	curbindings={}
+	for(entry of bind["entries"]["_root"]["entries"]){
+		if(!(vararray.includes(entry[0]))){
+			vararray.push(entry[0])
+		}
+		curbindings[entry[0]]={"type":ttypemap[entry[1]["termType"]],"value":entry[1]["value"]}	
+		if("datatype" in entry[1]){
+			curbindings[entry[0]]["datatype"]=entry[1]["datatype"]["value"]
+		}
+		if("language" in entry[1] && entry[1]["language"]!=""){
+			curbindings[entry[0]]["language"]=entry[1]["language"]
+		}
+
+	}
+	yasres["results"]["bindings"].push(curbindings)
+  }
+  yasres["head"]["vars"]=vararray
+	yasgui.getTab().yasr.setResponse({
+	  data: yasres,
+	  contentType: "application/sparql-results+json",
+	  status: 200,
+	  executionTime: 1000 // ms
+	  // error to show
+	})  		
+
+// Draw results with current plugin
+ //yasgui.getTab().yasr.draw()
+}
+  </script>""",
 
         "maptemplate": """
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster-src.js"></script>
@@ -2034,7 +2280,9 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
     </div>
   </section>
   <a href="vowl_result.js" target="_blank">Download VOWL File</a> <a href="minivowl_result.js" target="_blank">Download Mini VOWL File</a>
-    <script>var graphTag = document.getElementById('graph')
+    <script>
+
+    var graphTag = document.getElementById('graph')
     , linkDistanceClassSlider
     , linkDistanceClassLabel
     , linkDistanceLiteralLabel
@@ -2044,8 +2292,21 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
         , width = document.getElementById("vowl").offsetWidth;
     var graphOptions = function graphOptionsFunct() {
 
-    var   resetOption = document.getElementById('resetOption')
+    var   resetOption = document.getElementById('resetOption'),
+            fullscreenOption = document.getElementById('FullScreenOption')
         , sliderOption = document.getElementById('sliderOption');
+
+      function fullscreenGraph() {
+        if(!document.fullscreenElement) {
+          document.getElementById("vowl").requestFullscreen()
+          document.getElementById("svgGraph").width = "100%"
+          document.getElementById("svgGraph").height = "100%"
+        }else{
+          document.exitFullscreen()
+          document.getElementById("svgGraph").width = width
+          document.getElementById("svgGraph").height = height
+        }
+      }
 
     d3.select(resetOption)
         .append("button")
@@ -2053,6 +2314,13 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
         .property("type", "reset")
         .text("Reset")
         .on("click", resetGraph);
+
+    d3.select(fullscreenOption)
+        .append("button")
+        .attr("id", "fullscreen")
+        .property("type", "fullscreen")
+        .text("FullScreen")
+        .on("click", fullscreenGraph);
 
     var slidDiv = d3.select(sliderOption)
         .append("div")
@@ -2081,7 +2349,7 @@ var relativedepth={{relativedepth}}</script><body><div id="header">{{logo}}<h1 i
 
         "htmltabletemplate": """<div style="overflow-x:auto;"><table border=1 width=100% class=description><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody>{{tablecontent}}</tbody></table></div>""",
 
-        "footer": """<div id="footer"><div class="container-fluid">{{license}}{{bibtex}}{{stats}}</div></div></body><script>$(document).ready(function(){setSVGDimensions()})</script></html>""",
+        "footer": """<div id="footer"><div class="container-fluid">{{apis}}{{license}}{{bibtex}}{{stats}}</div></div></body><script>$(document).ready(function(){setSVGDimensions()})</script></html>""",
 
         "licensetemplate": """""",
         "chartviewtemplate": """<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
