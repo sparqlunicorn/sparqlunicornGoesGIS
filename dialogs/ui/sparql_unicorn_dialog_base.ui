@@ -835,7 +835,7 @@ SELECT ?label ?geo ?item WHERE {
   </action>
   <action name="actionAdd_BBOX">
    <property name="text">
-    <string>Constraint By BBOx</string>
+    <string>Constraint By BBOX</string>
    </property>
   </action>
   <action name="actionConstraint_By_BBOX">
@@ -903,6 +903,10 @@ SELECT ?label ?geo ?item WHERE {
    </property>
   </action>
   <action name="actionImport_RDF_Layer">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/icons/resources/icons/layerFromRDF.png</normaloff>:/icons/resources/icons/layerFromRDF.png</iconset>
+   </property>
    <property name="text">
     <string>Import RDF Layer</string>
    </property>

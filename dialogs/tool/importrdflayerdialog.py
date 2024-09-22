@@ -32,7 +32,7 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         super(ImportRDFLayerDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(title)
-        self.setWindowIcon(UIUtils.rdffileicon)
+        self.setWindowIcon(UIUtils.layerFromRDF)
         self.triplestoreconf = triplestoreconf
         self.dlg = parent
         self.maindlg = maindlg
