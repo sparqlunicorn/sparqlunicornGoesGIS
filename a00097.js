@@ -9,10 +9,10 @@ var a00097 =
     [ "findColumnNameProperties", "a00097.html#a181b3aec1c36ac8db153cd85b0050279", null ],
     [ "getLayerColumnAsList", "a00097.html#aa1a88978ad30c85e5b095f9d079d1547", null ],
     [ "processLiteral", "a00097.html#a40028de6fa936f8dd159da67ea1734be", null ],
-    [ "queryResultToLayer", "a00097.html#adbc881dcdaa01c4a38fc7174e9757621", null ],
+    [ "queryResultToLayer", "a00097.html#a03c64a1a5605bd65a8a94a95e2b3c052", null ],
     [ "reprojectGeometry", "a00097.html#ab0b775b208048ccbfc14034c52dac205", null ],
     [ "resolveGeoLiterals", "a00097.html#ac24ffc92f4000997cf131289a43e9d74", null ],
-    [ "subGraphToLayer", "a00097.html#a80dc0baf390d1fe7d014c450276cb84c", null ],
+    [ "subGraphToLayer", "a00097.html#ae4f8e03e199f2439c841db50383c7e3c", null ],
     [ "subclassThreshold", "a00097.html#a59af5001087ac88a4e7d636aab837bd3", null ],
     [ "typekeywords", "a00097.html#a9b01832216109ed3b03926c8397e7021", null ]
 ];
