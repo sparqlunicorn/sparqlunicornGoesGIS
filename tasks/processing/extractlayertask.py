@@ -54,7 +54,8 @@ class ExtractLayerTask(QgsTask):
         return True
 
     def finished(self, result):
-        #self.progress.close()
+        if self.progress!=None:
+            self.progress.close()
         if result:
             QgsMessageLog.logMessage(str(len(self.layers)),
                                      MESSAGE_CATEGORY, Qgis.Info)

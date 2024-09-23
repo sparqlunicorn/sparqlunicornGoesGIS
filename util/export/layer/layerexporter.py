@@ -6,6 +6,7 @@ import re
 import urllib.parse
 from ...export.srs.crsexporttools import ConvertCRS
 from ..exporterutils import ExporterUtils
+from ...interlinkutils import InterlinkUtils
 from ...layerutils import LayerUtils
 from ...sparqlutils import SPARQLUtils
 
@@ -41,7 +42,7 @@ class LayerExporter:
     @staticmethod
     def layerToTTLString(layer, prefixes, vocab="GeoSPARQL", literaltype=["WKT"],columntypes=None):
         if columntypes is None:
-            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype)
+            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype,InterlinkUtils.suggestColumnURIs(layer,prefixes))
             return
         if "namespace" not in columntypes or columntypes["namespace"] is None or columntypes["namespace"]=="":
             namespace = "http://www.github.com/sparqlunicorn#"

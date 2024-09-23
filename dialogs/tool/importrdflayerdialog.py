@@ -45,6 +45,10 @@ class ImportRDFLayerDialog(QtWidgets.QDialog, FORM_CLASS):
         QgsApplication.taskManager().addTask(self.tsk)
 
     def extractLayers(self):
-        self.task=ExtractLayerTask("Extracting layers from "+str(self.inputRDFFileWidget.filePath()),self.inputRDFFileWidget.filePath(),self.layerSelectBox.checkedItemsData(),self.triplestoreconf,self.prefixes,None)
+        progress = QProgressDialog("Extracting layers from  : " +str(self.inputRDFFileWidget.filePath()), "Abort", 0, 0, self)
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setWindowTitle("Extracting layers")
+        progress.setCancelButton(None)
+        self.task=ExtractLayerTask("Extracting layers from "+str(self.inputRDFFileWidget.filePath()),self.inputRDFFileWidget.filePath(),self.layerSelectBox.checkedItemsData(),self.triplestoreconf,self.prefixes,progress)
         QgsApplication.taskManager().addTask(self.task)
 
