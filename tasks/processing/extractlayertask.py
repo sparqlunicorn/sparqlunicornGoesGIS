@@ -42,7 +42,7 @@ class ExtractLayerTask(QgsTask):
                                              MESSAGE_CATEGORY, Qgis.Info)
                     for trip in g.triples((sub,None,None)):
                         layergraph.add(trip)
-                res=LayerUtils.subGraphToLayer(layergraph,False, self.triplestoreconf, True, False)
+                res=LayerUtils.subGraphToLayer(layergraph,g,False, self.triplestoreconf, True, False)
                 #QgsMessageLog.logMessage(str(res[0]), MESSAGE_CATEGORY, Qgis.Info)
                 self.layers.append(QgsVectorLayer(json.dumps(res[0], sort_keys=True), "unicorn_" + str(SPARQLUtils.labelFromURI(str(toex))), "ogr"))
         return True
@@ -54,7 +54,8 @@ class ExtractLayerTask(QgsTask):
         return True
 
     def finished(self, result):
-        #self.progress.close()
+        if self.progress!=None:
+            self.progress.close()
         if result:
             QgsMessageLog.logMessage(str(len(self.layers)),
                                      MESSAGE_CATEGORY, Qgis.Info)

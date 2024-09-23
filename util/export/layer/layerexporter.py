@@ -6,6 +6,7 @@ import re
 import urllib.parse
 from ...export.srs.crsexporttools import ConvertCRS
 from ..exporterutils import ExporterUtils
+from ...interlinkutils import InterlinkUtils
 from ...layerutils import LayerUtils
 from ...sparqlutils import SPARQLUtils
 
@@ -22,15 +23,15 @@ class LayerExporter:
 
     @staticmethod
     def exportToFormat(layerOrTTLString,file,filename,format,prefixes):
-        if isinstance(layerOrTTLString, str):
-            layerToTTL=layerOrTTLString
+        if isinstance(layerOrTTLString, Graph):
+            g=layerOrTTLString
         else:
-            layerToTTL=LayerExporter.layerToTTLString(layerOrTTLString,prefixes)
+            g=LayerExporter.layerToTTLString(layerOrTTLString,prefixes)
         #QgsMessageLog.logMessage(str(layerToTTL),"LayerExporter", Qgis.Info)
         #QgsMessageLog.logMessage("Format: "+str(format), "LayerExporter", Qgis.Info)
         #QgsMessageLog.logMessage("File: " + str(file), "LayerExporter", Qgis.Info)
-        g=Graph()
-        g.parse(data=layerToTTL)
+        #g=Graph()
+        #g.parse(data=layerToTTL)
         g.bind("suni","http://www.github.com/sparqlunicorn#")
         if format in ExporterUtils.exportToFunction:
             if format not in ExporterUtils.rdfformats:
@@ -41,7 +42,7 @@ class LayerExporter:
     @staticmethod
     def layerToTTLString(layer, prefixes, vocab="GeoSPARQL", literaltype=["WKT"],columntypes=None):
         if columntypes is None:
-            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype)
+            LayerExporter.layerToTTLString(layer, prefixes, vocab, literaltype,InterlinkUtils.suggestColumnURIs(layer,prefixes))
             return
         if "namespace" not in columntypes or columntypes["namespace"] is None or columntypes["namespace"]=="":
             namespace = "http://www.github.com/sparqlunicorn#"
@@ -115,7 +116,7 @@ class LayerExporter:
                                                                                           "_")),URIRef("http://www.opengis.net/ont/crs/asProj"),Literal(str(
             layercrs.toProj4()).replace("\"", "\\\""),datatype="http://www.opengis.net/ont/crs/proj4Literal")))
         ccrs = ConvertCRS()
-        graph = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), graph)
+        graph = ccrs.convertCRSFromWKTStringSet(layercrs.toWkt(), graph,layercrs.authid())
         init = True
         for f in layer.getFeatures():
             geom = f.geometry()

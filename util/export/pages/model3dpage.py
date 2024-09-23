@@ -1,6 +1,6 @@
-from doc.docconfig import DocConfig
+from ...doc.docconfig import DocConfig
 
-from export.api.iiifexporter import IIIFAPIExporter
+from ...export.api.iiifexporter import IIIFAPIExporter
 from rdflib import URIRef
 
 from ...doc.docutils import DocUtils
