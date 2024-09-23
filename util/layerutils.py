@@ -212,7 +212,7 @@ class LayerUtils:
         elif isinstance(object, Literal) and (
                 str(pred) in DocConfig.geoproperties or str(object.datatype) in DocConfig.geoliteraltypes):
             geojsonrep = LayerUtils.processLiteral(str(object), str(object.datatype), "")
-        elif isinstance(object, URIRef) and nonns:
+        elif isinstance(object, URIRef):
             for pobj in graph.predicate_objects(object):
                 if isinstance(pobj[1], Literal) and (
                         str(pobj[0]) in DocConfig.geoproperties or str(
@@ -229,8 +229,8 @@ class LayerUtils:
             curfeat={"type":"Feature","properties":{},"geometry":{}}
             hasgeo=False
             for predobj in graph.predicate_objects(sub):
-                if isinstance(predobj[1],Literal) and str(predobj[0]) in DocConfig.geoproperties:
-                    curfeat["geometry"]=LayerUtils.resolveGeoLiterals(predobj[0],predobj[1],{},False,sub)
+                if isinstance(predobj[1],Literal) or str(predobj[0]) in DocConfig.geoproperties:
+                    curfeat["geometry"]=LayerUtils.resolveGeoLiterals(predobj[0],predobj[1],graph,{},False,sub)
                     #curfeat["geometry"]=LayerUtils.processLiteral(str(predobj[1]), (
                     #    predobj[1]["datatype"] if "datatype" in predobj[1] else ""), reproject,
                      #                                                            None,
