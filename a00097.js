@@ -1,6 +1,7 @@
 var a00097 =
 [
     [ "addFeatureToCorrectCollection", "a00097.html#a5457ca5649ab74627aa13b454fc041d3", null ],
+    [ "convertGeometryToFormat", "a00097.html#acb501ae663591e3cddbb5cfff7fbbab3", null ],
     [ "detectColumnType", "a00097.html#a26eba71945cf6d6f0f3b8c0d185fbceb", null ],
     [ "detectLayerColumnType", "a00097.html#a7719daa9b701fee94681d6d677675cef", null ],
     [ "detectLayerColumnTypes", "a00097.html#af428e0da9890c28e8471632877684873", null ],
@@ -8,7 +9,7 @@ var a00097 =
     [ "exportGeometryType", "a00097.html#a3bd39a3a7138e682c03146643a7832d8", null ],
     [ "findColumnNameProperties", "a00097.html#a181b3aec1c36ac8db153cd85b0050279", null ],
     [ "getLayerColumnAsList", "a00097.html#aa1a88978ad30c85e5b095f9d079d1547", null ],
-    [ "processLiteral", "a00097.html#a40028de6fa936f8dd159da67ea1734be", null ],
+    [ "processLiteral", "a00097.html#ac93e66cab973e31d0bc1c2b7a106eccd", null ],
     [ "queryResultToLayer", "a00097.html#a03c64a1a5605bd65a8a94a95e2b3c052", null ],
     [ "reprojectGeometry", "a00097.html#ab0b775b208048ccbfc14034c52dac205", null ],
     [ "resolveGeoLiterals", "a00097.html#ac24ffc92f4000997cf131289a43e9d74", null ],
