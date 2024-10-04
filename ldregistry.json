@@ -1727,8 +1727,7 @@
   "staticconcepts": [],
   "mandatoryvariables": [
     "item",
-    "lat",
-    "lon"
+    "geo"
   ],
   "active": true,
   "prefixes": {
