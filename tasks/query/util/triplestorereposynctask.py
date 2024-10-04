@@ -2,20 +2,23 @@ import json
 import requests
 
 from ....util.ui.uiutils import UIUtils
+from ....util.conf.configutils import ConfigUtils
 from ....dialogs.info.errormessagebox import ErrorMessageBox
 from qgis.PyQt.QtGui import QIcon, QStandardItem, QStandardItemModel
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 
-MESSAGE_CATEGORY = 'TripleStoreRepositoryTask'
+MESSAGE_CATEGORY = 'TripleStoreRepositorySyncTask'
 
-class TripleStoreRepositoryTask(QgsTask):
+class TripleStoreRepositorySyncTask(QgsTask):
 
 
-    def __init__(self, description,resCombobox,triplestorerepourl=None):
+    def __init__(self, description,combobox,triplestoreconf,removeOldConfig=False,triplestorerepourl=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
+        self.triplestoreconf=triplestoreconf
+        self.combobox=combobox
         self.triplestorerepourl = triplestorerepourl
-        self.resComboBox=resCombobox
+        self.removeOldConfig=removeOldConfig
         if triplestorerepourl is None:
             self.triplestorerepourl="https://raw.githubusercontent.com/sparqlunicorn/sparqlunicornGoesGIS/ldregistry/ldregistry.json"
         self.results = None
@@ -24,8 +27,8 @@ class TripleStoreRepositoryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
         try:
             self.results = json.loads(requests.get(self.triplestorerepourl).text)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.results)), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.results)), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             return True
         except Exception as e:
             self.exception=e
@@ -33,15 +36,8 @@ class TripleStoreRepositoryTask(QgsTask):
 
     def finished(self, result):
         if self.exception is not None:
-            msgBox = ErrorMessageBox("Error while accessing the triple store repository", "")
-            msgBox.setText("An error occured while accessing the triple store repository:\n" + str(self.exception))
-            msgBox.exec()
+            QgsMessageLog.logMessage("An error occured while accessing the triple store repository:\n" + str(self.exception), MESSAGE_CATEGORY,Qgis.Info)
         if self.results is not None:
-            model=QStandardItemModel()
-            self.resComboBox.setModel(model)
-            for item in self.results:
-                citem=QStandardItem()
-                citem.setData(item["name"], UIUtils.dataslot_conceptURI)
-                citem.setText(item["name"])
-                citem.setIcon(UIUtils.linkeddataicon)
-                model.appendRow(citem)
+           triplestoreconf=ConfigUtils.updateTripleStoreConf(self.triplestoreconf,self.results,self.removeOldConfig)
+           self.combobox.clear()
+           UIUtils.createTripleStoreCBox(self.combobox, triplestoreconf)
