@@ -347,16 +347,16 @@ Static Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">def </span>detectDataType(result):</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        QgsMessageLog.logMessage(<span class="stringliteral">&#39;RESULT: &#39;</span> + str(result)+<span class="stringliteral">&quot; - &quot;</span>+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> isinstance(result, Literal):</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;RESULT DATATYPE WITH LITERAL: &#39;</span> + str(result), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                     Qgis.Info)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;RESULT DATATYPE WITH LITERAL: &#39; + str(result), MESSAGE_CATEGORY,</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="comment">#                         Qgis.Info)</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">if</span> str(result.datatype) <span class="keywordflow">in</span> DocConfig.integertypes:</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">return</span> int(str(result))</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">if</span> str(result.datatype) <span class="keywordflow">in</span> DocConfig.floattypes:</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> float(str(result))</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">return</span> str(result)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;datatype&quot;</span> <span class="keywordflow">in</span> result:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            QgsMessageLog.logMessage(<span class="stringliteral">&#39;RESULT DATATYPE WITHOUT LITERAL: &#39;</span> + str(result), MESSAGE_CATEGORY,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                     Qgis.Info)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="comment">#QgsMessageLog.logMessage(&#39;RESULT DATATYPE WITHOUT LITERAL: &#39; + str(result), MESSAGE_CATEGORY,</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="comment">#                         Qgis.Info)</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> result[<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">in</span> DocConfig.integertypes:</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">return</span> int(result[<span class="stringliteral">&quot;value&quot;</span>])</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">if</span> result[<span class="stringliteral">&quot;datatype&quot;</span>] <span class="keywordflow">in</span> DocConfig.floattypes:</div>
