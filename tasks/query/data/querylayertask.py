@@ -113,6 +113,7 @@ class QueryLayerTask(QgsTask):
             crsset.add(feature["crs"])
             del feature["crs"]
 
+
     ## Processes query results and reformats them to a QGIS layer.
     #  @param self The object pointer.
     #  @param results The query results
@@ -125,50 +126,51 @@ class QueryLayerTask(QgsTask):
         features = []
         nongeofeatures=[]
         properties={}
-        first = True
-        newobject = True
         item = ""
-        relval=False
         crsset=set()
-        QgsMessageLog.logMessage('Processing results....',
-            MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Processing results....',MESSAGE_CATEGORY, Qgis.Info)
+        lastaddeditem=""
         for result in results["results"]["bindings"]:
             if self.concept is not None and "item" not in result:
-                result["item"]={}
-                result["item"]["value"]=self.concept
-            if "item" in result and "rel" in result and "val" in result and "geo" in result and (
-                    item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
-                relval=True
-                if item != "":
-                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
-                        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-                        {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': {}},
-                        self.triplestoreconf),features,nongeofeatures,crsset)
-                properties = {}
-                item = result["item"]["value"]
-            if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (
+                result["item"]={"value":self.concept}
+            if "item" in result and "rel" in result and "val" in result:
+                QgsMessageLog.logMessage('rel val' + str(len(features)),
+                                         MESSAGE_CATEGORY, Qgis.Info)
+                if "geo" in result and (item == "" or result["item"]["value"] != item) and "geo" in mandatoryvars:
+                    QgsMessageLog.logMessage('rel val + geo' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    if item != "":
+                        self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                            result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                            {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                                   'geometry': {}},
+                            self.triplestoreconf),features,nongeofeatures,crsset)
+                        lastaddeditem=result["item"]["value"]
+                elif  "lat" in result and "lon" in result and (
                     item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
-                relval=True
-                if item != "":
-                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
-                        "POINT(" + str(float(result[lonval]["value"])) + " " + str(
-                            float(result[latval]["value"])) + ")", "wkt", reproject,{'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+                    QgsMessageLog.logMessage('rel val + lat lon' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    if item != "":
+                        self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
+                            "POINT(" + str(float(result[lonval]["value"])) + " " + str(
+                                float(result[latval]["value"])) + ")", "wkt", reproject,{'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                                   'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+                        lastaddeditem = result["item"]["value"]
+                elif geooptional and (item == "" or result["item"]["value"] != item):
+                    QgsMessageLog.logMessage('rel val + no geo' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    if item != "":
+                        self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                                   'geometry': {}},features,nongeofeatures,crsset)
+                        lastaddeditem = result["item"]["value"]
                 properties = {}
                 item = result["item"]["value"]
-            if "item" in result and "rel" in result and "val" in result and geooptional and (
-                    item == "" or result["item"]["value"] != item):
-                relval=True
-                if item != "":
-                    self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                               'geometry': {}},features,nongeofeatures,crsset)
-                properties = {}
-                item = result["item"]["value"]
-            if "rel" not in result and "val" not in result:
+            elif "rel" not in result and "val" not in result:
                 properties = {}
             for var in results["head"]["vars"]:
                 if var in result:
+                    if var=="item":
+                        item = result["item"]["value"]
                     if var == "rel" and "val" in result:
                         if self.shortenURIs:
                             properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val"]["value"]
@@ -190,43 +192,47 @@ class QueryLayerTask(QgsTask):
                             properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(result["val"]["value"])
                         else:
                             properties[var] = result[var]["value"]
-            if not "rel" in result and not "val" in result and "geo" in result:
+            if "rel" not in result and "val" not in result:
+                QgsMessageLog.logMessage('Not rel val ' + str(len(features)),
+                                         MESSAGE_CATEGORY, Qgis.Info)
+                if "geo" in result:
+                    QgsMessageLog.logMessage('Not rel val + geo' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
+                        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                        {'id': result["item"]["value"], 'type': 'Feature',
+                        'properties': self.dropUnwantedKeys(properties),'geometry': {}},
+                         self.triplestoreconf),features,nongeofeatures,crsset)
+                    lastaddeditem = result["item"]["value"]
+                elif latval in result and lonval in result:
+                    QgsMessageLog.logMessage('Not rel val + lat lon' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
+                        "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
+                        "wkt", reproject,
+                        {'id': result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
+                         'geometry': {}},
+                        self.triplestoreconf),features,nongeofeatures,crsset)
+                    lastaddeditem = result["item"]["value"]
+                elif "geo" not in result and geooptional:
+                    QgsMessageLog.logMessage('Not rel val + no geo' + str(len(features)),
+                                             MESSAGE_CATEGORY, Qgis.Info)
+                    self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
+                    lastaddeditem = result["item"]["value"]
+
+        if len(results)>0 and lastaddeditem!=item:
+            if "geo" in properties:
                 self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
-                    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-                    {'id': result["item"]["value"], 'type': 'Feature',
-                    'properties': self.dropUnwantedKeys(properties),'geometry': {}},
-                     self.triplestoreconf),features,nongeofeatures,crsset)
-            elif not "rel" in result and not "val" in result and latval in result and lonval in result:
-                self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
-                    "POINT(" + str(float(result[lonval]["value"])) + " " + str(float(result[latval]["value"])) + ")",
-                    "wkt", reproject,
-                    {'id': result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
-                     'geometry': {}},
-                    self.triplestoreconf),features,nongeofeatures,crsset)
-            elif not "rel" in result and not "val" in result and not "geo" in result and geooptional:
-                self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
-            #if relval and not geooptional and "lat" not in result and "lon" not in result:
-            #    self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
-            #        result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-            #        { 'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
-        #if relval and geooptional:
-        #    #myGeometryInstanceJSON = LayerUtils.processLiteral(result["geo"]["value"], (
-        #    #    result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,self.triplestoreconf)
-        #    feature = {'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}}#json.loads(myGeometryInstanceJSON)}
-        #    features.append(feature)
-        #if len(features)==0:
-        if "geo" in properties:
-            self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
-            result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
-            {'id':result["item"]["value"], 'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
-            self.triplestoreconf),features,nongeofeatures,crsset)
-        elif "lat" in properties and "lon" in properties:
-            self.addFeatureToCorrectCollection(LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
-                                                               + " " + str(float(result[latval]["value"])) + ")",
-            "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
-        else:
-            self.addFeatureToCorrectCollection({'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
-        QgsMessageLog.logMessage('Number of features '+str(len(features)),
+                result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
+                {'id':result["item"]["value"], 'type': 'Feature','properties': self.dropUnwantedKeys(properties),'geometry': {}},
+                self.triplestoreconf),features,nongeofeatures,crsset)
+            elif "lat" in properties and "lon" in properties:
+                self.addFeatureToCorrectCollection(LayerUtils.processLiteral("POINT(" + str(float(result[lonval]["value"]))
+                                                                   + " " + str(float(result[latval]["value"])) + ")",
+                "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
+            else:
+                self.addFeatureToCorrectCollection({'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
+            QgsMessageLog.logMessage('Number of features '+str(len(features)),
             MESSAGE_CATEGORY, Qgis.Info)
         if features == [] and len(results["results"]["bindings"]) == 0:
             return [None,None,None]

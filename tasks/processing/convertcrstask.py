@@ -31,7 +31,7 @@ class ConvertCRSTask(QgsTask):
             for s, p, o in self.graph:
                 if isinstance(o, Literal):
                     if str(o.datatype) in SPARQLUtils.supportedLiteralTypes:
-                        newliteral = Literal(LayerUtils.processLiteral(o, o.datatype, "", self.crsdef), datatype=o.datatype)
+                        newliteral = Literal(LayerUtils.processLiteral(o, o.datatype, self.crsdef,None,None,False,o.datatype), datatype=o.datatype)
                         self.graph.set((s, p, newliteral))
         return True
 
@@ -43,7 +43,7 @@ class ConvertCRSTask(QgsTask):
         if fileName and self.graph is not None:
             fo = open(fileName, "w")
             fo.write(ConvertCRS().ttlhead)
-            fo.write(self.graph.serialize(format="turtle").decode())
+            fo.write(self.graph.serialize(format="turtle"))
             for crs in self.crsdefs:
                 fo.write(self.crsdefs[crs])
             fo.close()

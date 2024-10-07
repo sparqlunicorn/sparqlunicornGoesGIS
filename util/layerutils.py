@@ -3,7 +3,7 @@ from qgis.core import (
     QgsMessageLog
 )
 from osgeo import ogr
-from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform
+from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsJsonExporter
 import traceback
 import json
 from .sparqlutils import SPARQLUtils
@@ -415,9 +415,27 @@ class LayerUtils:
         return LayerUtils.detectColumnType(columnmap)
 
     @staticmethod
+    def convertGeometryToFormat(geom,format,reproject=None):
+        if "geojson" in format.lower():
+            return geom.asJson()
+        if "wkt" in format.lower():
+            if reproject is not None:
+                return "<"+str(reproject.toOgcUri())+"> "+geom.asWkt()
+            return geom.asWkt()
+        if "wkb" in format.lower():
+            return geom.asWkb()
+        return None
+
+    @staticmethod
     def reprojectGeometry(geom,fromcrs,tocrs="EPSG:4326"):
-        sourceCrs = QgsCoordinateReferenceSystem(fromcrs)
-        destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)
+        if isinstance(fromcrs,QgsCoordinateReferenceSystem):
+            sourceCrs=fromcrs
+        else:
+            sourceCrs = QgsCoordinateReferenceSystem(fromcrs)
+        if isinstance(tocrs,QgsCoordinateReferenceSystem):
+            destCrs=tocrs
+        else:
+            destCrs = QgsCoordinateReferenceSystem.fromOgcWmsCrs(tocrs)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
         #QgsMessageLog.logMessage("FIELDNAMES: " + str(geom.asJson()),
         #                         MESSAGE_CATEGORY, Qgis.Info)
@@ -427,7 +445,7 @@ class LayerUtils:
         return geom
 
     @staticmethod
-    def processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False):
+    def processLiteral(literal, literaltype, reproject, currentlayergeojson=None,triplestoreconf=None, reprojecttask=False,formatt=None):
         geom = None
         if triplestoreconf is not None and "literaltype" in triplestoreconf:
             literaltype = triplestoreconf["literaltype"]
@@ -480,11 +498,13 @@ class LayerUtils:
                     return currentlayergeojson
                 if curcrs is not None:
                     res["crs"]=curcrs
+                if formatt is not None:
+                    return LayerUtils.convertGeometryToFormat(geom,formatt,reproject)
                 return res
         except Exception as e:
-            print("Literal: " + str(literal) + " " + str(literaltype))
-            print(e)
-            print(traceback.format_exc())
+            QgsMessageLog.logMessage("Literal: " + str(literal) + " " + str(literaltype), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(e) , MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage(str(traceback.format_exc()), MESSAGE_CATEGORY, Qgis.Info)
         return None
 
 

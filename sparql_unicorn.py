@@ -33,6 +33,7 @@ from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject
 
+
 from .resources_rc import *
 import os.path
 import sys
@@ -41,6 +42,7 @@ from .util.ui.uiutils import UIUtils
 from .util.layerutils import LayerUtils
 from .util.export.layer.layerexporter import LayerExporter
 from .util.conf.configutils import ConfigUtils
+from .tasks.query.util.triplestorereposynctask import TripleStoreRepositorySyncTask
 
 import json
 
@@ -241,6 +243,11 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
+    def syncTripleStoreConfig(self,combobox):
+        self.qlayerinstance = TripleStoreRepositorySyncTask(
+            "Syncing triplestore conf with repository",combobox, self.triplestoreconf)
+        QgsApplication.taskManager().addTask(self.qlayerinstance)
+
     ## Restores the triple store configuration file with the version delivered with the SPARQLUnicorn QGIS plugin.
     #  @param self The object pointer.
     def resetTripleStoreConfig(self):
@@ -251,68 +258,73 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
+    def manageTripleStoreConfFiles(self):
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        if not os.path.exists(os.path.join(__location__, "tmp")):
+            os.mkdir(os.path.join(__location__, "tmp"))
+        if not os.path.exists(os.path.join(__location__, "tmp/classtree")):
+            os.mkdir(os.path.join(__location__, "tmp/classtree"))
+        else:
+            dir = os.path.join(__location__, "tmp/classtree")
+            for f in os.listdir(dir):
+                os.remove(os.path.join(dir, f))
+        if not os.path.exists(os.path.join(__location__, "tmp/geoconcepts")):
+            os.mkdir(os.path.join(__location__, "tmp/geoconcepts"))
+        else:
+            dir = os.path.join(__location__, "tmp/geoconcepts")
+            for f in os.listdir(dir):
+                os.remove(os.path.join(dir, f))
+        if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
+            with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
+                data = myfile.read()
+                if ConfigUtils.isOldConfigurationFile(json.loads(data)):
+                    with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
+                        data = myfile.read()
+        else:
+            with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
+                data = myfile.read()
+        # parse file
+        with open(os.path.join(__location__, 'owl/addvocabconf.json'), 'r') as myfile:
+            data2 = myfile.read()
+        with open(os.path.join(__location__, 'owl/languages.json'), 'r') as myfile:
+            datalangs = myfile.read()
+        with open(os.path.join(__location__, 'owl/vocabs.json'), 'r') as myfile:
+            data3 = myfile.read()
+        with open(os.path.join(__location__, 'owl/prefixes.json'), 'r') as myfile:
+            data4 = myfile.read()
+        if os.path.isfile(os.path.join(__location__, 'conf/savedqueries.json')):
+            with open(os.path.join(__location__, 'conf/savedqueries.json'), 'r') as myfile:
+                data5 = myfile.read()
+            self.savedQueriesJSON = json.loads(data5)
+        self.triplestoreconf = json.loads(data)
+        self.addVocabConf = json.loads(data2)
+        self.languagemap = json.loads(datalangs)
+        self.autocomplete = json.loads(data3)
+        self.prefixstore = json.loads(data4)
+        counter = 0
+        for store in self.triplestoreconf:
+            self.prefixes.append("")
+            for prefix in store["prefixes"]:
+                self.prefixes[counter] += "PREFIX " + prefix + ":<" + store["prefixes"][prefix] + ">\n"
+            counter += 1
+        self.addVocabConf = json.loads(data2)
+        self.saveTripleStoreConfig()
+
+
     def run(self):
         """Run method that performs all the real work"""
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:
-            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            if not os.path.exists(os.path.join(__location__, "tmp")):
-                os.mkdir(os.path.join(__location__, "tmp"))
-            if not os.path.exists(os.path.join(__location__, "tmp/classtree")):
-                os.mkdir(os.path.join(__location__, "tmp/classtree"))
-            else:
-                dir=os.path.join(__location__, "tmp/classtree")
-                for f in os.listdir(dir):
-                    os.remove(os.path.join(dir, f))
-            if not os.path.exists(os.path.join(__location__, "tmp/geoconcepts")):
-                os.mkdir(os.path.join(__location__, "tmp/geoconcepts"))
-            else:
-                dir=os.path.join(__location__, "tmp/geoconcepts")
-                for f in os.listdir(dir):
-                    os.remove(os.path.join(dir, f))
-            if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
-                with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'r') as myfile:
-                    data = myfile.read()
-                    if ConfigUtils.isOldConfigurationFile(json.loads(data)):
-                        with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
-                            data = myfile.read()
-            else:
-                with open(os.path.join(__location__, 'conf/triplestoreconf.json'), 'r') as myfile:
-                    data = myfile.read()
-            # parse file
-            with open(os.path.join(__location__, 'owl/addvocabconf.json'), 'r') as myfile:
-                data2 = myfile.read()
-            with open(os.path.join(__location__, 'owl/languages.json'), 'r') as myfile:
-                datalangs = myfile.read()
-            with open(os.path.join(__location__, 'owl/vocabs.json'), 'r') as myfile:
-                data3 = myfile.read()
-            with open(os.path.join(__location__, 'owl/prefixes.json'), 'r') as myfile:
-                data4 = myfile.read()
-            if os.path.isfile(os.path.join(__location__, 'conf/savedqueries.json')):
-                with open(os.path.join(__location__, 'conf/savedqueries.json'), 'r') as myfile:
-                    data5 = myfile.read()
-                self.savedQueriesJSON = json.loads(data5)
-            self.triplestoreconf = json.loads(data)
-            self.addVocabConf = json.loads(data2)
-            self.languagemap=json.loads(datalangs)
-            self.autocomplete = json.loads(data3)
-            self.prefixstore = json.loads(data4)
-            counter = 0
-            for store in self.triplestoreconf:
-                self.prefixes.append("")
-                for prefix in store["prefixes"]:
-                    self.prefixes[counter] += "PREFIX " + prefix + ":<" + store["prefixes"][prefix] + ">\n"
-                counter += 1
-            self.addVocabConf = json.loads(data2)
-            self.saveTripleStoreConfig()
             self.first_start = False
+            self.manageTripleStoreConfFiles()
             self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
             self.dlg.comboBox.clear()
             UIUtils.createLanguageSelectionCBox(self.dlg.queryResultLanguageCBox,self.languagemap)
             UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)
             self.dlg.comboBox.setCurrentIndex(0)
+            self.syncTripleStoreConfig(self.dlg.comboBox)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
             self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())
