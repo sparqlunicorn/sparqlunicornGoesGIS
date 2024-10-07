@@ -1707,7 +1707,7 @@
     ],
     "active": true
   },{
-  "name": "NFDi4Objects Graph",
+  "name": "NFDI4Objects Knowledge Graph",
   "resource": {
     "type": "endpoint",
     "url": "https://graph.nfdi4objects.net/api/sparql",
