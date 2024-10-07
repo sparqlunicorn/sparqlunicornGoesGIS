@@ -3,6 +3,7 @@ var a00097 =
     [ "addFeatureToCorrectCollection", "a00097.html#a5457ca5649ab74627aa13b454fc041d3", null ],
     [ "convertGeometryToFormat", "a00097.html#acb501ae663591e3cddbb5cfff7fbbab3", null ],
     [ "detectColumnType", "a00097.html#a26eba71945cf6d6f0f3b8c0d185fbceb", null ],
+    [ "detectDataType", "a00097.html#ac9c4dac55c1199d4a0e277a202f1d31f", null ],
     [ "detectLayerColumnType", "a00097.html#a7719daa9b701fee94681d6d677675cef", null ],
     [ "detectLayerColumnTypes", "a00097.html#af428e0da9890c28e8471632877684873", null ],
     [ "dropUnwantedKeys", "a00097.html#aa048a91e0f7fc43b993aea3f72b7f8d2", null ],
