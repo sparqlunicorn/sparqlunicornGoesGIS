@@ -261,6 +261,14 @@ class DocConfig:
                                                       "prop": "http://www.w3.org/2000/01/rdf-schema#member"}
     }
 
+    integertypes=["http://www.w3.org/2001/XMLSchema#nonPositiveInteger","http://www.w3.org/2001/XMLSchema#negativeInteger",
+                  "http://www.w3.org/2001/XMLSchema#nonNegativeInteger","http://www.w3.org/2001/XMLSchema#positiveInteger",
+                  "http://www.w3.org/2001/XMLSchema#unsignedLong","http://www.w3.org/2001/XMLSchema#usignedInt",
+                  "http://www.w3.org/2001/XMLSchema#unsignedShort","http://www.w3.org/2001/XMLSchema#integer",
+                  "http://www.w3.org/2001/XMLSchema#int","http://www.w3.org/2001/XMLSchema#short"]
+
+    floattypes=["http://www.w3.org/2001/XMLSchema#float","http://www.w3.org/2001/XMLSchema#double","http://www.w3.org/2001/XMLSchema#decimal"]
+
     geoliteraltypes = ["http://www.opengis.net/ont/geosparql#wktLiteral",
                        "http://www.opengis.net/ont/geosparql#gmlLiteral",
                        "http://www.opengis.net/ont/geosparql#kmlLiteral",

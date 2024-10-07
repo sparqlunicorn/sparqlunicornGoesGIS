@@ -34,7 +34,7 @@ class ExtractLayerTask(QgsTask):
         g.parse(self.graphname, format="ttl")
         for toex in self.toextract:
             if "owl" not in str(toex) and "rdf" not in str(toex):
-                QgsMessageLog.logMessage(str(toex),MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage(str(toex),MESSAGE_CATEGORY, Qgis.Info)
                 layergraph = Graph()
                 for sub in g.subjects(RDF.type, URIRef(toex),True):
                     QgsMessageLog.logMessage(str(sub),MESSAGE_CATEGORY, Qgis.Info)

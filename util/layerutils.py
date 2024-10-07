@@ -6,6 +6,7 @@ from osgeo import ogr
 from qgis.core import QgsFeature, Qgis, QgsWkbTypes, QgsProject, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsJsonExporter
 import traceback
 import json
+
 from .sparqlutils import SPARQLUtils
 from rdflib import Graph,URIRef, Literal
 from rdflib.namespace import OWL, GEO, RDF,RDFS, SDO,XSD
@@ -46,6 +47,26 @@ class LayerUtils:
             del feature["crs"]
 
     @staticmethod
+    def detectDataType(result):
+        QgsMessageLog.logMessage('RESULT: ' + str(result)+" - "+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)
+        if isinstance(result, Literal):
+            QgsMessageLog.logMessage('RESULT DATATYPE WITH LITERAL: ' + str(result), MESSAGE_CATEGORY,
+                                     Qgis.Info)
+            if str(result.datatype) in DocConfig.integertypes:
+                return int(str(result))
+            if str(result.datatype) in DocConfig.floattypes:
+                return float(str(result))
+            return str(result)
+        elif "datatype" in result:
+            QgsMessageLog.logMessage('RESULT DATATYPE WITHOUT LITERAL: ' + str(result), MESSAGE_CATEGORY,
+                                     Qgis.Info)
+            if result["datatype"] in DocConfig.integertypes:
+                return int(result["value"])
+            if result["datatype"] in DocConfig.floattypes:
+                return float(result["value"])
+        return str(result["value"])
+
+    @staticmethod
     def queryResultToLayer(results, reproject, triplestoreconf, mandatoryvars, geooptional, shortenURIs,concept):
         latval = "lat"
         lonval = "lon"
@@ -69,17 +90,12 @@ class LayerUtils:
                     LayerUtils.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                         result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
                                                                                  {'id': result["item"]["value"],
-                                                                                  'type': 'Feature',
-                                                                                  'properties': LayerUtils.dropUnwantedKeys(
-                                                                                      properties),
-                                                                                  'geometry': {}},
-                                                                                 triplestoreconf), features,
-                                                       nongeofeatures, crsset)
+                                                                                  'type': 'Feature','properties': LayerUtils.dropUnwantedKeys(properties),
+                                                                                  'geometry': {}}, triplestoreconf), features,nongeofeatures, crsset)
                 properties = {}
                 item = result["item"]["value"]
             if "item" in result and "rel" in result and "val" in result and "lat" in result and "lon" in result and (
-                    item == "" or result["item"][
-                "value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
+                    item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
                 relval = True
                 if item != "":
                     LayerUtils.addFeatureToCorrectCollection(LayerUtils.processLiteral(
@@ -229,7 +245,6 @@ class LayerUtils:
             curfeat={"id":SPARQLUtils.labelFromURI(str(sub)),"type":"Feature","properties":{},"geometry":{}}
             hasgeo=False
             for predobj in graph.predicate_objects(sub):
-
                 #QgsMessageLog.logMessage(str(sub)+" "+str(predobj[0])+" "+str(predobj[1]), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(predobj[1],Literal) and str(predobj[0]) in DocConfig.geoproperties:
                     #curfeat["geometry"]=LayerUtils.resolveGeoLiterals(predobj[0],predobj[1],{},False,sub)
@@ -257,15 +272,15 @@ class LayerUtils:
                             hasgeo = True
                             break
                 elif isinstance(predobj[1],URIRef) and str(predobj[0]) in DocConfig.collectionrelationproperties:
-                    QgsMessageLog.logMessage("THIRD IF",
-                                             MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("THIRD IF",
+                    #                         MESSAGE_CATEGORY, Qgis.Info)
                     curfeat = {"id": SPARQLUtils.labelFromURI(str(sub)), "type": "Feature", "properties": {},
                                "geometry": {}}
                     #for obj in wholegraph.objects(sub,predobj[0]):
 
                     for geoinst in wholegraph.predicate_objects(predobj[1]):
-                        QgsMessageLog.logMessage(str(predobj[1]) + " " + str(geoinst[0]) + " " + str(geoinst[1]),
-                                                 MESSAGE_CATEGORY, Qgis.Info)
+                        #QgsMessageLog.logMessage(str(predobj[1]) + " " + str(geoinst[0]) + " " + str(geoinst[1]),
+                        #                         MESSAGE_CATEGORY, Qgis.Info)
                         if isinstance(geoinst[1], Literal) and str(geoinst[0]) in DocConfig.geoproperties:
                             #curfeat["geometry"] = LayerUtils.resolveGeoLiterals(predobj[0], predobj[1], {}, False, sub)
                             curfeat["geometry"] = LayerUtils.processLiteral(str(geoinst[1]), (
@@ -294,26 +309,28 @@ class LayerUtils:
                                         SPARQLUtils.labelFromURI(str(geoinst[0]))] = SPARQLUtils.labelFromURI(
                                         str(geoinst[1]))
                                 else:
-                                    curfeat["properties"][SPARQLUtils.labelFromURI(str(geoinst[0]))] = str(
-                                        geoinst[1])
+
+                                    curfeat["properties"][SPARQLUtils.labelFromURI(str(geoinst[0]))] = LayerUtils.detectDataType(geoinst[1])
                             else:
-                                curfeat["properties"][str(geoinst[0])] = str(geoinst[1])
+                                if isinstance(predobj[1], Literal):
+                                    curfeat["properties"][str(geoinst[0])] = LayerUtils.detectDataType(geoinst[1])
+                                else:
+                                    curfeat["properties"][str(geoinst[0])] = str(geoinst[1])
                     featcoll["features"].append(curfeat)
                 else:
                     if shortenURIs:
                         if isinstance(predobj[1],URIRef):
                             curfeat["properties"][SPARQLUtils.labelFromURI(str(predobj[0]))] = SPARQLUtils.labelFromURI(str(predobj[1]))
                         else:
-                            curfeat["properties"][SPARQLUtils.labelFromURI(str(predobj[0]))] = str(predobj[1])
+                            curfeat["properties"][SPARQLUtils.labelFromURI(str(predobj[0]))] = LayerUtils.detectDataType(predobj[1])
                     else:
-                        curfeat["properties"][str(predobj[0])] = str(predobj[1])
+                        if isinstance(predobj[1],Literal):
+                            curfeat["properties"][str(predobj[0])] = LayerUtils.detectDataType(predobj[1])
+                        else:
+                            curfeat["properties"][str(predobj[0])] = str(predobj[1])
+
             featcoll["features"].append(curfeat)
         return [featcoll,nongeofeatures,None]
-
-
-
-
-
 
 
     ## Detects the type of a column which is to be entered into a QGIS vector layer.

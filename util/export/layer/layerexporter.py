@@ -130,7 +130,7 @@ class LayerExporter:
                 graph.add((URIRef(str(curid)),RDF.type,URIRef(curclassid)))
                 if first == 0:
                     graph.add((URIRef(str(curclassid)), RDFS.subClassOf, GEO.Feature))
-                    graph.add((URIRef(str(curclassid)), RDFS.type, OWL.Class))
+                    graph.add((URIRef(str(curclassid)), RDF.type, OWL.Class))
             else:
                 curclassid = f["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]
             graph = LayerUtils.exportGeometryType(curid, geom, vocab, literaltype, init, graph)
