@@ -177,7 +177,7 @@ class QueryLayerTask(QgsTask):
                         item = result["item"]["value"]
                     if var == "rel" and "val" in result:
                         if "datatype" in result["val"]:
-                            properties[SPARQLUtils.labelFromURI(result["val"]["value"])]=LayerUtils.detectDataType(result["val"])
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])]=LayerUtils.detectDataType(result["val"])
                         elif self.shortenURIs:
                             properties[SPARQLUtils.labelFromURI(result[var]["value"])] = result["val"]["value"]
                         elif self.shortenURIs==1:
@@ -186,16 +186,16 @@ class QueryLayerTask(QgsTask):
                             properties[result[var]["value"]] = result["val"]["value"]
                     if var=="rel2" in result and "val2"!=self.triplestoreconf["typeproperty"] and "val2" in result:
                         if "datatype" in result["val2"]:
-                            properties[SPARQLUtils.labelFromURI(result["val2"]["value"])]=LayerUtils.detectDataType(result["val2"])
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])]=LayerUtils.detectDataType(result["val2"])
                         elif self.shortenURIs:
-                            properties["_"+SPARQLUtils.labelFromURI(result["rel2"]["value"])] = result["val2"]["value"]
+                            properties["_"+SPARQLUtils.labelFromURI(result[var]["value"])] = result["val2"]["value"]
                         elif self.shortenURIs==1:
-                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(result["val"]["value"])
+                            properties[SPARQLUtils.labelFromURI(result[var]["value"])] = SPARQLUtils.labelFromURI(result["val2"]["value"])
                         else:
                             properties["_"+result[var]["value"]] = result["val2"]["value"]
                     elif var != "val" and var!="val2":
                         if "datatype" in result[var]:
-                            properties[SPARQLUtils.labelFromURI(result[var]["value"])]=LayerUtils.detectDataType(result[var])
+                            properties[SPARQLUtils.labelFromURI(var)]=LayerUtils.detectDataType(result[var])
                         elif self.shortenURIs:
                             properties[SPARQLUtils.labelFromURI(var)] = result[var]["value"]
                         elif self.shortenURIs==1:

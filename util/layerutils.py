@@ -50,16 +50,16 @@ class LayerUtils:
     def detectDataType(result):
         QgsMessageLog.logMessage('RESULT: ' + str(result)+" - "+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)
         if isinstance(result, Literal):
-            QgsMessageLog.logMessage('RESULT DATATYPE WITH LITERAL: ' + str(result), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage('RESULT DATATYPE WITH LITERAL: ' + str(result), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             if str(result.datatype) in DocConfig.integertypes:
                 return int(str(result))
             if str(result.datatype) in DocConfig.floattypes:
                 return float(str(result))
             return str(result)
         elif "datatype" in result:
-            QgsMessageLog.logMessage('RESULT DATATYPE WITHOUT LITERAL: ' + str(result), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage('RESULT DATATYPE WITHOUT LITERAL: ' + str(result), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             if result["datatype"] in DocConfig.integertypes:
                 return int(result["value"])
             if result["datatype"] in DocConfig.floattypes:
