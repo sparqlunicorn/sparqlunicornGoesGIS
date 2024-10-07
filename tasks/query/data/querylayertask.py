@@ -113,6 +113,7 @@ class QueryLayerTask(QgsTask):
             crsset.add(feature["crs"])
             del feature["crs"]
 
+
     ## Processes query results and reformats them to a QGIS layer.
     #  @param self The object pointer.
     #  @param results The query results
@@ -127,8 +128,7 @@ class QueryLayerTask(QgsTask):
         properties={}
         item = ""
         crsset=set()
-        QgsMessageLog.logMessage('Processing results....',
-            MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Processing results....',MESSAGE_CATEGORY, Qgis.Info)
         lastaddeditem=""
         for result in results["results"]["bindings"]:
             if self.concept is not None and "item" not in result:
