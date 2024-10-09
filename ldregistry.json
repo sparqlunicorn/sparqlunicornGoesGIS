@@ -59,7 +59,7 @@
     "name": "Wikidata",
     "type": "sparqlendpoint",
     "prefixes": {
-      "geo": "http://www.opengis.net/geosparql#",
+      "geo": "http://www.opengis.net/ont/geosparql#",
       "wd": "http://www.wikidata.org/entity/",
       "wds": "http://www.wikidata.org/entity/statement/",
       "wdv": "http://www.wikidata.org/value/",
@@ -97,7 +97,7 @@
     },
     "bboxquery": {
       "type": "minmax",
-      "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"
+      "query": "SERVICE wikibase:box {\n ?item wdt:P625 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }"
     },
     "mandatoryvariables": [
       "item",
@@ -152,7 +152,7 @@
     "name": "Factgrid",
     "type": "sparqlendpoint",
     "prefixes": {
-      "geo": "http://www.opengis.net/geosparql#",
+      "geo": "http://www.opengis.net/ont/geosparql#",
       "wd": "https://database.factgrid.de/entity/",
       "wds": "http://www.wikidata.org/entity/statement/",
       "wdv": "http://www.wikidata.org/value/",
@@ -190,7 +190,7 @@
     },
     "bboxquery": {
       "type": "minmax",
-      "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/geosparql#wktLiteral> .\n}\n }"
+      "query": "SERVICE wikibase:box {\n ?item wdt:P48 ?geo .\n bd:serviceParam wikibase:cornerSouthWest \"%%minPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\nbd:serviceParam wikibase:cornerNorthEast \"%%maxPoint%%\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> .\n}\n }"
     },
     "mandatoryvariables": [
       "item",
