@@ -40,6 +40,7 @@ class GraphUtils:
         self.configuration={}
         self.testURL=testURL
         self.message=""
+        self.missingproperties=[]
 
     def addDefaultConfigurationParameters(self,triplestorename,triplestoreurl,credentialUserName=None,credentialPassword=None,authmethod=None):
         self.configuration = {}
@@ -80,10 +81,10 @@ class GraphUtils:
 
     ## Creates a String representation of the capabilities of the triple store
     def createCapabilityMessage(self,capabilitylist):
-        capabilitymessage="URL depicts a valid SPARQL Endpoint with the following capabilities: <ul>"
+        capabilitymessage="A valid SPARQL Endpoint with the following capabilities: <ul>"
         for cap in capabilitylist:
             capabilitymessage+="<li>"+cap+"</li>"
-        capabilitymessage+="</ul>Would you like to add this SPARQL endpoint?"
+        capabilitymessage+="</ul>"
         return capabilitymessage
 
     def detectLiteralType(self,configuration,credentialUserName,credentialPassword, authmethod,capabilitylist):
@@ -372,6 +373,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["available"],credentialUserName,credentialPassword,authmethod):
             capabilitylist=self.detectTripleStoreType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
             gottype=self.detectLiteralType(self.configuration,credentialUserName,credentialPassword,authmethod,capabilitylist)
+            rdftype = self.detectTypeProperty(self.configuration["resource"], credentialUserName,credentialPassword, authmethod, self.configuration)
             subclassof=self.detectSubClassOfProperty(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
             equivprops=self.detectEquivalentProperties(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
             equivcls=self.detectEquivalentClasses(self.configuration["resource"],credentialUserName, credentialPassword, authmethod,self.configuration)
@@ -399,6 +401,10 @@ class GraphUtils:
                             i = i + 1
             self.feasibleConfiguration = True
             QgsMessageLog.logMessage(str(self.configuration))
+            if rdftype=="":
+                self.missingproperties.append("typeproperty")
+            if subclassof=="":
+                self.missingproperties.append("subclassproperty")
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasDCTermsTitleLabel"]):
                 self.configuration["labelproperty"].append("http://purl.org/dc/terms/title")
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
