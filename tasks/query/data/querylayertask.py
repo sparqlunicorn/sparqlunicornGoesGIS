@@ -1,12 +1,11 @@
 import json
 
+from ....dialogs.info.errormessagebox import ErrorMessageBox
 from ....util.style.styleutils import StyleUtils
-from ....util.doc.docconfig import DocConfig
 from ....util.layerutils import LayerUtils
 from ....util.sparqlutils import SPARQLUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
-from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.PyQt.QtXml import QDomDocument
 from qgis.core import QgsProject, QgsVectorLayer
 
@@ -265,16 +264,14 @@ class QueryLayerTask(QgsTask):
         #QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
         #                         MESSAGE_CATEGORY, Qgis.Info)
         if self.geojson is None and self.exception is not None:
-            QgsMessageLog.logMessage('Exception ' + str(self.exception),
-                                     MESSAGE_CATEGORY, Qgis.Info)
-            msgBox = QMessageBox()
+            msgBox = ErrorMessageBox("Query Error","")
             msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
             if self.progress is not None:
                 self.progress.close()
             return
         if self.geojson is None and self.nongeojson is None:
-            msgBox = QMessageBox()
+            msgBox = ErrorMessageBox("Query Error","")
             msgBox.setText("The query yielded no results. Therefore no layer will be created!")
             msgBox.exec()
             if self.progress is not None:

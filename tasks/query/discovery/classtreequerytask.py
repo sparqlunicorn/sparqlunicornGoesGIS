@@ -62,6 +62,7 @@ class ClassTreeQueryTask(QgsTask):
                 return False
             hasparent={}
             #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
             for result in results["results"]["bindings"]:
                 subval=result["subject"]["value"]
                 if subval is None or subval=="" or subval in notforclasstree:

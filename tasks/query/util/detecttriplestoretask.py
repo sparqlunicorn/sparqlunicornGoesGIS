@@ -1,9 +1,9 @@
 import json
 import os
 
+from ....dialogs.info.detecttriplestoreresultdialog import DetectTripleStoreResultDialog
 from ....dialogs.info.errormessagebox import ErrorMessageBox
 from ....util.sparqlutils import SPARQLUtils
-from ....util.ui.uiutils import UIUtils
 from ....util.graphutils import GraphUtils
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask
@@ -53,6 +53,9 @@ class DetectTripleStoreTask(QgsTask):
     def finished(self, result):
         self.progress.close()
         if self.gutils.feasibleConfiguration and self.testConfiguration:
+            DetectTripleStoreResultDialog(self.parentdialog,self.triplestoreconf,self.triplestorename,self.tripleStoreChooser,self.prefixes,self.gutils.configuration,
+                                              self.permanentAdd,self.gutils.message,self.gutils.missingproperties).exec()
+            """
             msgBox = QMessageBox()
             msgBox.setStandardButtons(QMessageBox.Yes)
             msgBox.addButton(QMessageBox.No)
@@ -82,6 +85,7 @@ class DetectTripleStoreTask(QgsTask):
                     self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
                 if self.parentdialog is not None:
                     self.parentdialog.close()
+                """
         elif self.gutils.feasibleConfiguration:
             msgBox = QMessageBox()
             msgBox.setText("Automatic Detection Successful")
