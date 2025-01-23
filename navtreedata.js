@@ -26,8 +26,8 @@ var NAVTREE =
 [
   [ "SPARQLing Unicorn QGIS Plugin", "index.html", [
     [ "Packages", "namespaces.html", [
-      [ "Packages", "namespaces.html", "namespaces_dup" ],
-      [ "Package Functions", "namespacemembers.html", [
+      [ "Package List", "namespaces.html", "namespaces_dup" ],
+      [ "Package Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
@@ -52,7 +52,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "a00002.html",
-"a00073.html#a638fdb4b8bfe3c31a4131b8293c97063"
+"a00064.html#a4d9e45fd666bc36c0602e3a0c6244b3c",
+"a00076.html#a532c10cbe8bcdf279ed5fa6614a936d3",
+"a00108.html#af33215adfc4353749c5f8c6e50e88e6e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

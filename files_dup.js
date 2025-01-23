@@ -1,28 +1,11 @@
 var files_dup =
 [
-    [ "__init__.py", "a00002.html", "a00002" ],
-    [ "dialogs/__init__.py", "a00651.html", null ],
-    [ "tasks/__init__.py", "a00654.html", null ],
-    [ "util/__init__.py", "a00657.html", null ],
-    [ "enrichmenttab.py", "a00017.html", [
-      [ "EnrichmentTab", "a00069.html", "a00069" ]
-    ] ],
-    [ "geocodingutils.py", "a00023.html", "a00023" ],
-    [ "graphutils.py", "a00026.html", "a00026" ],
-    [ "interlinkingtab.py", "a00020.html", [
-      [ "InterlinkingTab", "a00073.html", "a00073" ]
-    ] ],
-    [ "interlinkutils.py", "a00029.html", [
-      [ "InterlinkUtils", "a00093.html", "a00093" ]
-    ] ],
-    [ "layerutils.py", "a00032.html", "a00032" ],
-    [ "matchingtools.py", "a00035.html", [
-      [ "StringMatching", "a00101.html", "a00101" ],
-      [ "MatchingTools", "a00105.html", "a00105" ]
-    ] ],
-    [ "plugin_upload.py", "a00005.html", "a00005" ],
-    [ "resources_rc.py", "a00008.html", "a00008" ],
-    [ "sparql_unicorn.py", "a00011.html", "a00011" ],
-    [ "sparql_unicorn_dialog.py", "a00014.html", "a00014" ],
-    [ "sparqlutils.py", "a00038.html", "a00038" ]
+    [ "dialogs", "dir_56b9387f66bbb1dccc82a920d3dbd989.html", "dir_56b9387f66bbb1dccc82a920d3dbd989" ],
+    [ "tabs", "dir_7b139896d59969c86153355f4ee1619a.html", "dir_7b139896d59969c86153355f4ee1619a" ],
+    [ "tasks", "dir_ff2f1db7d3fcf6d9810be7915ed78eb1.html", "dir_ff2f1db7d3fcf6d9810be7915ed78eb1" ],
+    [ "util", "dir_23ec12649285f9fabf3a6b7380226c28.html", "dir_23ec12649285f9fabf3a6b7380226c28" ],
+    [ "__init__.py", "a00008.html", "a00008" ],
+    [ "plugin_upload.py", "a00011.html", "a00011" ],
+    [ "resources_rc.py", "a00002.html", "a00002" ],
+    [ "sparql_unicorn.py", "a00005.html", "a00005" ]
 ];
