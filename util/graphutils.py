@@ -353,12 +353,12 @@ class GraphUtils:
     def testTripleStoreConnection(self, triplestoreurl, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",credentialUserName=None,credentialPassword=None,authmethod=None):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
-            if "ASK" in query:
-                #QgsMessageLog.logMessage("Result: "+str(results["boolean"]), MESSAGE_CATEGORY, Qgis.Info)
+            if "ASK" in query and "boolean" in results:
+                QgsMessageLog.logMessage("Result: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
                 return results["boolean"]
             self.feasibleConfiguration = True
             return True

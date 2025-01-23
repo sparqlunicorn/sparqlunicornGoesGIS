@@ -265,6 +265,8 @@ class QueryLayerTask(QgsTask):
         #QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
         #                         MESSAGE_CATEGORY, Qgis.Info)
         if self.geojson is None and self.exception is not None:
+            QgsMessageLog.logMessage('Exception ' + str(self.exception),
+                                     MESSAGE_CATEGORY, Qgis.Info)
             msgBox = QMessageBox()
             msgBox.setText("An error occurred while querying: " + str(self.exception))
             msgBox.exec()
