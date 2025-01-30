@@ -40,9 +40,9 @@ class LoadGraphTask(QgsTask):
         if self.graph is not None:
             self.gutils.detectTripleStoreConfiguration(self.graphname, self.graph, self.detectnamespaces,
                                                        {"normal": {}, "reversed": {}}, self.progress)
-            results = self.graph.query(self.query)
-            for row in results:
-                self.geoconcepts.append(str(row[0]))
+            #results = self.graph.query(self.query)
+            #for row in results:
+            #    self.geoconcepts.append(str(row[0]))
             return True
         return False
 

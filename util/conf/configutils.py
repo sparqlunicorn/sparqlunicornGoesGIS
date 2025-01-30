@@ -30,6 +30,18 @@ class ConfigUtils:
         return configjson
 
     @staticmethod
+    def removeInstanceKeys(triplestoreconf,key):
+        if isinstance(triplestoreconf, dict):
+            return {k: ConfigUtils.removeInstanceKeys(v, key) for k, v in triplestoreconf.items() if k != key}
+
+        elif isinstance(triplestoreconf, list):
+            return [ConfigUtils.removeInstanceKeys(element, key) for element in triplestoreconf]
+
+        else:
+            return triplestoreconf
+
+
+    @staticmethod
     def dumper(obj):
         try:
             return obj.toJSON()

@@ -130,6 +130,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.geoTreeViewModel.clear()
         self.addLayerButton.clicked.connect(self.create_unicorn_layer)
         self.comboBox.currentIndexChanged.connect(self.endpointselectaction)
+        self.comboBox.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.detectMapping.hide()
         self.rootNode = self.geoTreeViewModel.invisibleRootItem()
         self.featureCollectionClassList.setModel(self.featureCollectionProxyModel)

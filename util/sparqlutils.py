@@ -3,6 +3,7 @@ import urllib
 import requests
 from urllib.request import urlopen
 import json
+
 from ..dialogs.info.errormessagebox import ErrorMessageBox
 from osgeo import ogr
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer, QgsMessageLog
@@ -209,8 +210,12 @@ class SPARQLUtils:
                         return "Exists error"
                     return False
         else:
-            graph=triplestoreurl["instance"]
-            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
+            if "instance" in triplestoreurl:
+                graph=triplestoreurl["instance"]
+            else:
+                graph=SPARQLUtils.loadGraph(str(triplestoreurl["url"]))
+                triplestoreurl["instance"]=graph
+            #QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph is not None:
                 if "CONSTRUCT" in str(query):
@@ -326,7 +331,7 @@ class SPARQLUtils:
                 QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
                 with urllib.request.urlopen(graphuri) as data:
                     readit=data.read().decode()
-                    QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
                     filepath = graphuri.split(".")
                     graph.parse(data=readit,format=filepath[len(filepath) - 1])
             else:

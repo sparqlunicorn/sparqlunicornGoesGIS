@@ -9,6 +9,7 @@ from qgis.PyQt.QtGui import QRegExpValidator
 from ...dialogs.util.prefixdialog import PrefixDialog
 from ...dialogs.util.examplequerydialog import ExampleQueryDialog
 from ...util.ui.uiutils import UIUtils
+from ...util.conf.configutils import ConfigUtils
 from ...util.ui.sparqlhighlighter import SPARQLHighlighter
 from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 import os.path
@@ -30,17 +31,20 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.comboBox=comboBox
         self.prefixes=prefixes
         for item in triplestoreconf:
-            if "type" in item:
+            if "resource" in item and "type" in item["resource"] and item["resource"]["type"]=="file":
+                self.tripleStoreChooser.addItem(UIUtils.rdffileicon,
+                                                item["name"] + " [File]")
+            elif "type" in item:
                 if item["type"] == "geosparqlendpoint":
                     self.tripleStoreChooser.addItem(UIUtils.geoendpointicon, item["name"]+ " [GeoSPARQL Endpoint]")
                 elif item["type"]=="sparqlendpoint":
                     self.tripleStoreChooser.addItem(UIUtils.linkeddataicon,item["name"] + " [SPARQL Endpoint]")
                 elif item["type"]=="file":
-                    self.tripleStoreChooser.addItem(UIUtils.rdffileicon,
-                                                    item["name"] + " [File]")
+                    self.tripleStoreChooser.addItem(UIUtils.rdffileicon,item["name"] + " [File]")
                 else:
                     self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
+        self.tripleStoreChooser.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
         self.exampleQueryComboBox.currentIndexChanged.connect(lambda: self.exampleQuery.setPlainText(self.exampleQueryComboBox.itemData(self.exampleQueryComboBox.currentIndex())))
         self.tripleStoreEdit.setValidator(QRegExpValidator(UIUtils.urlregex, self))
@@ -95,14 +99,15 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.loadTripleStoreConfig()
 
     def saveConfigurationAsJSON(self):
-        conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+".json")
-        file=open(conffilename[0],"w")
-        file.write(json.dumps(self.triplestoreconf[self.comboBox.currentIndex()],indent=2))
-        file.close()
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("Configuration File for "+str(self.comboBox.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
-        msg.exec()
+        conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])+".json")
+        if conffilename!="" and conffilename[0]!="":
+            file=open(conffilename[0],"w")
+            file.write(json.dumps(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),indent=2))
+            file.close()
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Configuration File for "+str(self.tripleStoreChooser.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
+            msg.exec()
 
     def createVarInfoDialog(self):
         msgBox = QMessageBox()
@@ -153,15 +158,17 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             curstore=self.triplestoreconf[self.tripleStoreChooser.currentIndex()]
             if curstore["resource"]["type"]=="endpoint":
                 self.tripleStoreEdit.setText(curstore["resource"]["url"])
+            if curstore["resource"]["type"]=="file":
+                self.tripleStoreEdit.setText(curstore["resource"]["url"])
             self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
-            if "type" in curstore:
-                if "sparqlendpoint" in curstore["type"]:
+            if "resource" in curstore and "type" in curstore["resource"]:
+                if "sparqlendpoint" in curstore["resource"]["type"]:
                     self.rdfResourceComboBox.setCurrentIndex(0)
-                elif curstore["type"]=="file":
-                    self.rdfResourceComboBox.setCurrentIndex(2)
-                else:
+                elif curstore["resource"]["type"]=="file" and curstore["resource"]["url"].startswith("http"):
                     self.rdfResourceComboBox.setCurrentIndex(1)
+                else:
+                    self.rdfResourceComboBox.setCurrentIndex(2)
             for prefix in curstore["prefixes"]:
                 item=QListWidgetItem()
                 item.setText(str(prefix)+": <"+str(curstore["prefixes"][prefix])+">")
