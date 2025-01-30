@@ -34,7 +34,7 @@ class QueryLayerTask(QgsTask):
         self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
         self.filename = filename
-        if self.filename is not None or self.filename=="":
+        if self.filename is None or self.filename=="":
             self.filename="mylayer"
         self.geojson = None
         self.nongeojson = None
