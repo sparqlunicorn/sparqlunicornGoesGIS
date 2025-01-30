@@ -1,5 +1,3 @@
-import json
-import os
 
 from ....dialogs.info.detecttriplestoreresultdialog import DetectTripleStoreResultDialog
 from ....dialogs.info.errormessagebox import ErrorMessageBox

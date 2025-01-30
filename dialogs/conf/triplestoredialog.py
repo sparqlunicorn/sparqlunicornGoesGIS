@@ -9,6 +9,7 @@ from qgis.PyQt.QtGui import QRegExpValidator
 from ...dialogs.util.prefixdialog import PrefixDialog
 from ...dialogs.util.examplequerydialog import ExampleQueryDialog
 from ...util.ui.uiutils import UIUtils
+from ...util.conf.configutils import ConfigUtils
 from ...util.ui.sparqlhighlighter import SPARQLHighlighter
 from ...tasks.query.util.detecttriplestoretask import DetectTripleStoreTask
 import os.path
@@ -95,14 +96,15 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.loadTripleStoreConfig()
 
     def saveConfigurationAsJSON(self):
-        conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.comboBox.currentIndex()]["name"])+".json")
-        file=open(conffilename[0],"w")
-        file.write(json.dumps(self.triplestoreconf[self.comboBox.currentIndex()],indent=2))
-        file.close()
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("Configuration File for "+str(self.comboBox.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
-        msg.exec()
+        conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])+".json")
+        if conffilename!="":
+            file=open(conffilename[0],"w")
+            file.write(json.dumps(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),indent=2))
+            file.close()
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Configuration File for "+str(self.tripleStoreChooser.currentText())+"<br/>saved as<br/>"+str(conffilename[0]))
+            msg.exec()
 
     def createVarInfoDialog(self):
         msgBox = QMessageBox()
@@ -153,9 +155,11 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             curstore=self.triplestoreconf[self.tripleStoreChooser.currentIndex()]
             if curstore["resource"]["type"]=="endpoint":
                 self.tripleStoreEdit.setText(curstore["resource"]["url"])
+            if curstore["resource"]["type"]=="file":
+                self.tripleStoreEdit.setText(curstore["resource"]["url"])
             self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
-            if "type" in curstore:
+            if "resource" in curstore and "type" in curstore["resource"]:
                 if "sparqlendpoint" in curstore["type"]:
                     self.rdfResourceComboBox.setCurrentIndex(0)
                 elif curstore["type"]=="file":

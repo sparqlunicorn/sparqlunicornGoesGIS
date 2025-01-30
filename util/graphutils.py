@@ -360,6 +360,8 @@ class GraphUtils:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
             if "ASK" in query:
                 #QgsMessageLog.logMessage("Result: "+str(results["boolean"]), MESSAGE_CATEGORY, Qgis.Info)
+                if isinstance(results,bool):
+                    return results
                 return results["boolean"]
             self.feasibleConfiguration = True
             return True
@@ -413,7 +415,8 @@ class GraphUtils:
             self.configuration[
                 "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
-            self.detectGeometryObjectRelations()
+            if not isinstance(triplestoreurl,Graph):
+                self.detectGeometryObjectRelations()
         else:
             self.message = "URL does not depict a valid SPARQL Endpoint!"
             self.feasibleConfiguration = False

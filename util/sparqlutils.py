@@ -325,7 +325,7 @@ class SPARQLUtils:
                 QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
                 with urllib.request.urlopen(graphuri) as data:
                     readit=data.read().decode()
-                    QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
                     filepath = graphuri.split(".")
                     graph.parse(data=readit,format=filepath[len(filepath) - 1])
             else:
