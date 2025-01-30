@@ -1495,6 +1495,111 @@
     "active": true
   },
   {
+  "name": "Croton",
+  "resource": {
+    "type": "file",
+    "url": "https://research-squirrel-engineers.github.io/croton-geo/index.ttl"
+  },
+  "type": "geosparqlendpoint",
+  "geoconceptlimit": 500,
+  "crs": 4326,
+  "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+  "labelproperty": [
+    "http://www.w3.org/2000/01/rdf-schema#label",
+    "http://www.w3.org/2004/02/skos/core#prefLabel"
+  ],
+  "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+  "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)",
+  "staticconcepts": [],
+  "mandatoryvariables": [
+    "item",
+    "geo"
+  ],
+  "active": true,
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "geosparql": "http://www.opengis.net/ont/geosparql#",
+    "geof": "http://www.opengis.net/def/function/geosparql/",
+    "geor": "http://www.opengis.net/def/rule/geosparql/",
+    "sf": "http://www.opengis.net/ont/sf#",
+    "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "brick": "https://brickschema.org/schema/Brick#",
+    "csvw": "http://www.w3.org/ns/csvw#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcam": "http://purl.org/dc/dcam/",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "org": "http://www.w3.org/ns/org#",
+    "prof": "http://www.w3.org/ns/dx/prof/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qb": "http://purl.org/linked-data/cube#",
+    "schema": "https://schema.org/",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "time": "http://www.w3.org/2006/time#",
+    "vann": "http://purl.org/vocab/vann/",
+    "void": "http://rdfs.org/ns/void#",
+    "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "xml": "http://www.w3.org/XML/1998/namespace",
+    "ns1": "http://fuzzy-sl.squirrel.link/ontology/"
+  },
+  "featurecollectionclasses": [
+    "http://www.opengis.net/ont/geosparql#FeatureCollection"
+  ],
+  "geometrycollectionclasses": [
+    "http://www.opengis.net/ont/geosparql#GeometryCollection"
+  ],
+  "bboxquery": {
+    "type": "geosparql",
+    "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
+  },
+  "geotriplepattern": [
+    "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+    " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+  ],
+  "querytemplate": [
+    {
+      "label": "10 Random Geometries",
+      "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+    }
+  ],
+  "geometryproperty": [
+    "http://www.opengis.net/ont/geosparql#hasGeometry"
+  ],
+  "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+  "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+  "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+  "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+  "equivalentProperties": {},
+  "equivalentClasses": {},
+  "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+  "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://www.w3.org/2004/02/skos/core#prefLabel> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+  "geoobjproperty": [
+    "http://www.w3.org/ns/prov#used"
+  ],
+  "geoclasses": {
+    "http://www.w3.org/ns/prov#Activity": [
+      "http://www.w3.org/ns/prov#used"
+    ],
+    "http://fuzzy-sl.squirrel.link/ontology/ExternalRepository": [
+      "http://www.w3.org/ns/prov#used"
+    ],
+    "http://fuzzy-sl.squirrel.link/ontology/Georeferencing": [
+      "http://www.w3.org/ns/prov#used"
+    ]
+  }
+},
+  {
     "name": "COVID-19",
     "type": "geosparqlendpoint",
     "prefixes": {
