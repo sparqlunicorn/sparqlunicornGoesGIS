@@ -171,9 +171,10 @@ class SPARQLUtils:
                     raise Exception
                 results = sparql.queryAndConvert()
                 QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
-                #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(results,dict) and "status_code" in results:
-                    #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    SPARQLUtils.exception = str(results)
                     raise Exception
             except Exception as e:
                 try:
