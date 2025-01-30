@@ -1495,6 +1495,144 @@
     "active": true
   },
   {
+  "name": "SPP Harbours",
+  "resource": {
+    "type": "file",
+    "url": "https://archaeolink.github.io/SPP1630Harbours-RDF/index.ttl"
+  },
+  "type": "geosparqlendpoint",
+  "geoconceptlimit": 500,
+  "crs": 4326,
+  "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+  "labelproperty": [
+    "http://www.w3.org/2000/01/rdf-schema#label",
+    "http://purl.org/dc/terms/title"
+  ],
+  "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+  "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)",
+  "staticconcepts": [],
+  "mandatoryvariables": [
+    "item",
+    "geo"
+  ],
+  "active": true,
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "geosparql": "http://www.opengis.net/ont/geosparql#",
+    "geof": "http://www.opengis.net/def/function/geosparql/",
+    "geor": "http://www.opengis.net/def/rule/geosparql/",
+    "sf": "http://www.opengis.net/ont/sf#",
+    "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "brick": "https://brickschema.org/schema/Brick#",
+    "csvw": "http://www.w3.org/ns/csvw#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcam": "http://purl.org/dc/dcam/",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "org": "http://www.w3.org/ns/org#",
+    "prof": "http://www.w3.org/ns/dx/prof/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qb": "http://purl.org/linked-data/cube#",
+    "schema": "https://schema.org/",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "time": "http://www.w3.org/2006/time#",
+    "vann": "http://purl.org/vocab/vann/",
+    "void": "http://rdfs.org/ns/void#",
+    "wgs": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "xml": "http://www.w3.org/XML/1998/namespace",
+    "ns1": "http://www.spp-haefen.de/ont#",
+    "ns2": "http://www.wikidata.org/prop/direct/",
+    "ns3": "http://purl.org/cerif/frapo/",
+    "ns4": "http://purl.org/ontology/bibo/",
+    "ns5": "http://www.w3.org/2006/vcard/ns#",
+    "ns6": "http://ldf.fi/void-ext#"
+  },
+  "featurecollectionclasses": [
+    "http://www.opengis.net/ont/geosparql#FeatureCollection"
+  ],
+  "geometrycollectionclasses": [
+    "http://www.opengis.net/ont/geosparql#GeometryCollection"
+  ],
+  "bboxquery": {
+    "type": "geosparql",
+    "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))"
+  },
+  "geotriplepattern": [
+    "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+    " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . "
+  ],
+  "querytemplate": [
+    {
+      "label": "10 Random Geometries",
+      "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+    }
+  ],
+  "geometryproperty": [
+    "http://www.opengis.net/ont/geosparql#hasGeometry"
+  ],
+  "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . } } ORDER BY ?class",
+  "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+  "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+  "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+  "equivalentProperties": {},
+  "equivalentClasses": {},
+  "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+  "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  }  UNION { ?class <http://purl.org/dc/terms/title> ?label .\n }\n}  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+  "prefixesrev": {
+    "http://www.w3.org/2002/07/owl#": "owl",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+    "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+    "http://www.opengis.net/ont/geosparql#": "geosparql",
+    "http://www.opengis.net/def/function/geosparql/": "geof",
+    "http://www.opengis.net/def/rule/geosparql/": "geor",
+    "http://www.opengis.net/ont/sf#": "sf",
+    "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos",
+    "https://brickschema.org/schema/Brick#": "brick",
+    "http://www.w3.org/ns/csvw#": "csvw",
+    "http://purl.org/dc/elements/1.1/": "dc",
+    "http://www.w3.org/ns/dcat#": "dcat",
+    "http://purl.org/dc/dcmitype/": "dcmitype",
+    "http://purl.org/dc/terms/": "dcterms",
+    "http://purl.org/dc/dcam/": "dcam",
+    "http://usefulinc.com/ns/doap#": "doap",
+    "http://xmlns.com/foaf/0.1/": "foaf",
+    "http://www.opengis.net/ont/geosparql#": "geo",
+    "http://www.w3.org/ns/odrl/2/": "odrl",
+    "http://www.w3.org/ns/org#": "org",
+    "http://www.w3.org/ns/dx/prof/": "prof",
+    "http://www.w3.org/ns/prov#": "prov",
+    "http://purl.org/linked-data/cube#": "qb",
+    "https://schema.org/": "schema",
+    "http://www.w3.org/ns/shacl#": "sh",
+    "http://www.w3.org/2004/02/skos/core#": "skos",
+    "http://www.w3.org/ns/sosa/": "sosa",
+    "http://www.w3.org/ns/ssn/": "ssn",
+    "http://www.w3.org/2006/time#": "time",
+    "http://purl.org/vocab/vann/": "vann",
+    "http://rdfs.org/ns/void#": "void",
+    "https://www.w3.org/2003/01/geo/wgs84_pos#": "wgs",
+    "http://www.w3.org/2001/XMLSchema#": "xsd",
+    "http://www.w3.org/XML/1998/namespace": "xml",
+    "http://www.spp-haefen.de/ont#": "ns1",
+    "http://www.wikidata.org/prop/direct/": "ns2",
+    "http://purl.org/cerif/frapo/": "ns3",
+    "http://purl.org/ontology/bibo/": "ns4",
+    "http://www.w3.org/2006/vcard/ns#": "ns5",
+    "http://ldf.fi/void-ext#": "ns6"
+  }
+},
+  {
   "name": "Croton",
   "resource": {
     "type": "file",
