@@ -347,7 +347,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">   50</span>    <span class="keyword">def </span>detectDataType(result):</div>
-<div class="line"><span class="lineno">   51</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;RESULT: &#39;</span> + str(result)+<span class="stringliteral">&quot; - &quot;</span>+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">   51</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;RESULT: &#39; + str(result)+&quot; - &quot;+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> isinstance(result, Literal):</div>
 <div class="line"><span class="lineno">   53</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;RESULT DATATYPE WITH LITERAL: &#39; + str(result), MESSAGE_CATEGORY,</span></div>
 <div class="line"><span class="lineno">   54</span>            <span class="comment">#                         Qgis.Info)</span></div>
