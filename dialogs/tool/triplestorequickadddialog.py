@@ -62,7 +62,21 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
             self.credentialPassword.setEnabled(False)
 
     def detectTripleStoreConfiguration(self):
-        if self.rdfResourceComboBox.currentIndex()==0:
+        triplestore=True
+        uri=False
+        file=False
+        if self.rdfResourceComboBox.currentIndex() == 0 and (self.tripleStoreEdit.text().endswith(".ttl") or self.tripleStoreEdit.text().endswith(".owl")):
+            triplestore=False
+            uri=True
+            self.rdfResourceComboBox.setCurrentIndex(1)
+        elif self.rdfResourceComboBox.currentIndex()==1:
+            triplestore=False
+            uri=True
+        elif self.rdfResourceComboBox.currentIndex()==2:
+            triplestore = False
+            uri = False
+            file=True
+        if triplestore:
             progress = QProgressDialog("Detecting configuration for triple store " + self.tripleStoreEdit.text() + "...\nIf autodetection takes very long (>1 minute), try to disable namespace detection...\nCurrent Task: Initial Detection",
                                        "Abort", 0, 0, self)
             progress.setWindowTitle("Triple Store Autoconfiguration")
@@ -74,7 +88,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                 self.credentialPassword.text(),self.authenticationComboBox.currentText(), False, True, self.prefixes, self.prefixstore,
                 self.comboBox, self.permanentAddCBox.isChecked(),self.detectNamespacesCBox.isChecked(), self,self.maindlg, progress)
             QgsApplication.taskManager().addTask(self.qtask)
-        elif self.rdfResourceComboBox.currentIndex()==1:
+        elif uri:
             if self.tripleStoreEdit.text() != "":
                 progress = QProgressDialog("Loading Graph from " + self.tripleStoreEdit.text(), "Abort", 0, 0, self)
                 progress.setWindowTitle("Loading Graph")
@@ -85,7 +99,7 @@ class TripleStoreQuickAddDialog(QDialog, FORM_CLASS):
                                            self.dlg, self.maindlg, self.triplestoreconf[0]["geoconceptquery"],
                                            self.triplestoreconf, progress, True)
                 QgsApplication.taskManager().addTask(self.qtask)
-        elif self.rdfResourceComboBox.currentIndex()==2:
+        elif file:
             QgsMessageLog.logMessage("Add Graph File", "TripleStoreQuickAdd", Qgis.Info)
             QgsMessageLog.logMessage(str(self.chooseFileWidget.filePath()), "TripleStoreQuickAdd", Qgis.Info)
             fileNames=self.chooseFileWidget.splitFilePaths(self.chooseFileWidget.filePath())

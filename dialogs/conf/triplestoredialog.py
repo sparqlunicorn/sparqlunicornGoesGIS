@@ -97,7 +97,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
 
     def saveConfigurationAsJSON(self):
         conffilename=QFileDialog.getSaveFileName(self,"Save File",str(self.triplestoreconf[self.tripleStoreChooser.currentIndex()]["name"])+".json")
-        if conffilename!="":
+        if conffilename!="" and conffilename[0]!="":
             file=open(conffilename[0],"w")
             file.write(json.dumps(ConfigUtils.removeInstanceKeys(self.triplestoreconf[self.tripleStoreChooser.currentIndex()],"instance"),indent=2))
             file.close()
@@ -160,12 +160,12 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
             self.tripleStoreNameEdit.setText(curstore["name"])
             self.prefixList.clear()
             if "resource" in curstore and "type" in curstore["resource"]:
-                if "sparqlendpoint" in curstore["type"]:
+                if "sparqlendpoint" in curstore["resource"]["type"]:
                     self.rdfResourceComboBox.setCurrentIndex(0)
-                elif curstore["type"]=="file":
-                    self.rdfResourceComboBox.setCurrentIndex(2)
-                else:
+                elif curstore["resource"]["type"]=="file" and curstore["resource"]["url"].startswith("http"):
                     self.rdfResourceComboBox.setCurrentIndex(1)
+                else:
+                    self.rdfResourceComboBox.setCurrentIndex(2)
             for prefix in curstore["prefixes"]:
                 item=QListWidgetItem()
                 item.setText(str(prefix)+": <"+str(curstore["prefixes"][prefix])+">")

@@ -48,7 +48,7 @@ class LayerUtils:
 
     @staticmethod
     def detectDataType(result):
-        QgsMessageLog.logMessage('RESULT: ' + str(result)+" - "+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('RESULT: ' + str(result)+" - "+str(type(result)),MESSAGE_CATEGORY, Qgis.Info)
         if isinstance(result, Literal):
             #QgsMessageLog.logMessage('RESULT DATATYPE WITH LITERAL: ' + str(result), MESSAGE_CATEGORY,
             #                         Qgis.Info)

@@ -55,7 +55,7 @@ class ClassTreeQueryTask(QgsTask):
             self.subclassmap={"root":set()}
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
             if results=="Exists error" or results==False and SPARQLUtils.exception is not None:
-                results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace(self.optionalpart,"").replace("?hasgeo","").replace("(Bound(?hasgeo) AS ?hgeo)",""), self.triplestoreconf)
+                results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query.replace("?hasgeo","").replace("(Bound(?hasgeo) AS ?hgeo)",""), self.triplestoreconf)
             if results==False:
                 if SPARQLUtils.exception is None:
                     SPARQLUtils.exception="No results"
