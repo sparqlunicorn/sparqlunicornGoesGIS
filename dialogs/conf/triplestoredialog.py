@@ -30,19 +30,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.prefixstore=prefixstore
         self.comboBox=comboBox
         self.prefixes=prefixes
-        for item in triplestoreconf:
-            if "resource" in item and "type" in item["resource"] and item["resource"]["type"]=="file":
-                self.tripleStoreChooser.addItem(UIUtils.rdffileicon,
-                                                item["name"] + " [File]")
-            elif "type" in item:
-                if item["type"] == "geosparqlendpoint":
-                    self.tripleStoreChooser.addItem(UIUtils.geoendpointicon, item["name"]+ " [GeoSPARQL Endpoint]")
-                elif item["type"]=="sparqlendpoint":
-                    self.tripleStoreChooser.addItem(UIUtils.linkeddataicon,item["name"] + " [SPARQL Endpoint]")
-                elif item["type"]=="file":
-                    self.tripleStoreChooser.addItem(UIUtils.rdffileicon,item["name"] + " [File]")
-                else:
-                    self.tripleStoreChooser.addItem(item["name"]+" ["+str(item["type"])+"]")
+        UIUtils.createTripleStoreCBox(self.tripleStoreChooser,triplestoreconf)
         self.tripleStoreChooser.currentIndexChanged.connect(self.loadTripleStoreConfig)
         self.tripleStoreChooser.view().setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.geometryVariableComboBox.currentIndexChanged.connect(self.switchQueryVariableInput)
