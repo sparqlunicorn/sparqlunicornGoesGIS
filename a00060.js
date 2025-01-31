@@ -9,7 +9,7 @@ var a00060 =
     [ "resetTripleStoreConfig", "a00060.html#a8088d0909d308fa97732e9eadb9cde10", null ],
     [ "run", "a00060.html#a08060e0924949738f75a0cdd8b49cef4", null ],
     [ "saveTripleStoreConfig", "a00060.html#a7298f06e56968fbd9b0d9dceac26fb2d", null ],
-    [ "syncTripleStoreConfig", "a00060.html#aa65feb401f762e9f7116abfc6b0b2b1c", null ],
+    [ "syncTripleStoreConfig", "a00060.html#a95a01e7063204f3ffb6ae573e332465b", null ],
     [ "tr", "a00060.html#a2a56e1a685554339b0b8b09ae7f2ad32", null ],
     [ "unload", "a00060.html#ae7f4f6f88ce4a8d52066ca2ecc017ad0", null ],
     [ "actions", "a00060.html#af806efc6052edbc741683ec893bb2fe1", null ],
