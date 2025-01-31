@@ -37,6 +37,7 @@ class TripleStoreRepositorySyncTask(QgsTask):
     def finished(self, result):
         if self.exception is not None:
             QgsMessageLog.logMessage("An error occured while accessing the triple store repository:\n" + str(self.exception), MESSAGE_CATEGORY,Qgis.Info)
+            ErrorMessageBox("Error syncing triple stores","An error occured while accessing the triple store repository:\n" + str(self.exception)).exec()
         if self.results is not None:
            triplestoreconf=ConfigUtils.updateTripleStoreConf(self.triplestoreconf,self.results,self.removeOldConfig)
            self.combobox.clear()
