@@ -60,10 +60,23 @@ class ConfigUtils:
                 seentriplestores[conf["resource"]["url"]]=True
                 urltoindex[conf["resource"]["url"]]=str(counter)
                 counter+=1
+            elif "resource" in conf and conf["resource"]["type"]=="file" and conf["resource"]["url"].startswith("http"):
+                triplestoreconfindex[conf["resource"]["url"]]=conf
+                seentriplestores[conf["resource"]["url"]]=True
+                urltoindex[conf["resource"]["url"]]=str(counter)
+                counter+=1
         QgsMessageLog.logMessage('TripleStoreConfIndex' + str(triplestoreconfindex), MESSAGE_CATEGORY, Qgis.Info)
         for nconf in newtriplestoreconf:
             QgsMessageLog.logMessage('NCONF ' + str(nconf), MESSAGE_CATEGORY, Qgis.Info)
             if "resource" in nconf and nconf["resource"]["type"] == "endpoint":
+                if nconf["resource"]["url"] in triplestoreconfindex:
+                    QgsMessageLog.logMessage('Updating conf for ' + str(nconf["resource"]["url"]), MESSAGE_CATEGORY, Qgis.Info)
+                    triplestoreconfindex[nconf["resource"]["url"]]=nconf
+                    del seentriplestores[nconf["resource"]["url"]]
+                else:
+                    QgsMessageLog.logMessage('Found new conf for ' + str(nconf["resource"]["url"]), MESSAGE_CATEGORY,Qgis.Info)
+                    triplestoreconf.append(nconf)
+            if "resource" in nconf and nconf["resource"]["type"] == "file" and nconf["resource"]["url"].startswith("http"):
                 if nconf["resource"]["url"] in triplestoreconfindex:
                     QgsMessageLog.logMessage('Updating conf for ' + str(nconf["resource"]["url"]), MESSAGE_CATEGORY, Qgis.Info)
                     triplestoreconfindex[nconf["resource"]["url"]]=nconf

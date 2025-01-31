@@ -243,10 +243,11 @@ class SPARQLunicorn:
         with open(os.path.join(__location__, 'conf/triplestoreconf_personal.json'), 'w') as myfile:
             myfile.write(json.dumps(self.triplestoreconf, indent=2))
 
-    def syncTripleStoreConfig(self,combobox):
+    def syncTripleStoreConfig(self,combobox=None,dlg=None):
         self.qlayerinstance = TripleStoreRepositorySyncTask(
-            "Syncing triplestore conf with repository",combobox, self.triplestoreconf)
+            "Syncing triplestore conf with repository",self.dlg,combobox, self.triplestoreconf)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
+        self.triplestoreconf=self.qlayerinstance.triplestoreconf
 
     ## Restores the triple store configuration file with the version delivered with the SPARQLUnicorn QGIS plugin.
     #  @param self The object pointer.
@@ -315,16 +316,20 @@ class SPARQLunicorn:
         """Run method that performs all the real work"""
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start == True:
+        self.first_start=True
+        if self.first_start:
             self.first_start = False
             self.manageTripleStoreConfFiles()
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn",
+                                     Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn", Qgis.Info)
             self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
             self.dlg.comboBox.clear()
             UIUtils.createLanguageSelectionCBox(self.dlg.queryResultLanguageCBox,self.languagemap)
             UIUtils.createTripleStoreCBox(self.dlg.comboBox,self.triplestoreconf)
+            self.syncTripleStoreConfig(self.dlg.comboBox,self.dlg)
             self.dlg.comboBox.setCurrentIndex(0)
-            self.syncTripleStoreConfig(self.dlg.comboBox)
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
             self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())

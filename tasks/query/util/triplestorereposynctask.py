@@ -12,10 +12,11 @@ MESSAGE_CATEGORY = 'TripleStoreRepositorySyncTask'
 class TripleStoreRepositorySyncTask(QgsTask):
 
 
-    def __init__(self, description,combobox,triplestoreconf,removeOldConfig=False,triplestorerepourl=None):
+    def __init__(self, description,dlg,combobox,triplestoreconf,removeOldConfig=False,triplestorerepourl=None):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreconf=triplestoreconf
+        self.dlg=dlg
         self.combobox=combobox
         self.triplestorerepourl = triplestorerepourl
         self.removeOldConfig=removeOldConfig
@@ -27,8 +28,7 @@ class TripleStoreRepositorySyncTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
         try:
             self.results = json.loads(requests.get(self.triplestorerepourl).text)
-            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.results)), MESSAGE_CATEGORY,
-            #                         Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.results))), MESSAGE_CATEGORY,Qgis.Info)
             return True
         except Exception as e:
             self.exception=e
@@ -39,6 +39,8 @@ class TripleStoreRepositorySyncTask(QgsTask):
             QgsMessageLog.logMessage("An error occured while accessing the triple store repository:\n" + str(self.exception), MESSAGE_CATEGORY,Qgis.Info)
             ErrorMessageBox("Error syncing triple stores","An error occured while accessing the triple store repository:\n" + str(self.exception)).exec()
         if self.results is not None:
-           triplestoreconf=ConfigUtils.updateTripleStoreConf(self.triplestoreconf,self.results,self.removeOldConfig)
-           self.combobox.clear()
-           UIUtils.createTripleStoreCBox(self.combobox, triplestoreconf)
+           QgsMessageLog.logMessage("Updating triplestoreconf:",MESSAGE_CATEGORY, Qgis.Info)
+           self.dlg.triplestoreconf=ConfigUtils.updateTripleStoreConf(self.triplestoreconf,self.results,self.removeOldConfig)
+           if self.dlg.comboBox is not None:
+                self.dlg.comboBox.clear()
+                UIUtils.createTripleStoreCBox(self.dlg.comboBox, self.triplestoreconf)

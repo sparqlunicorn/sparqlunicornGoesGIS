@@ -116,7 +116,14 @@ class UIUtils:
                     item += " --> "
                     for mandvar in triplestore["mandatoryvariables"]:
                         item += "?" + mandvar + " "
-                if "type" in triplestore and triplestore["type"] == "geosparqlendpoint":
+                isfile=False
+                if "resource" in triplestore and "type" in triplestore["resource"] and triplestore["resource"]["type"]=="file":
+                    if triplestore["resource"]["url"].startswith("http"):
+                        item += " [URIResource]"
+                    else:
+                        item += " [File]"
+                    cbox.addItem(UIUtils.rdffileicon, item)
+                elif "type" in triplestore and triplestore["type"] == "geosparqlendpoint":
                     item += " [GeoSPARQL Endpoint]"
                     cbox.addItem(UIUtils.geoendpointicon, item)
                 elif "type" in triplestore and triplestore["type"] == "sparqlendpoint":
