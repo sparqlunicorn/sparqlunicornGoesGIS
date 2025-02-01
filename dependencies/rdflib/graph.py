@@ -1,126 +1,4 @@
-from __future__ import annotations
-
-import logging
-import pathlib
-import random
-from io import BytesIO
-from typing import (
-    IO,
-    TYPE_CHECKING,
-    Any,
-    BinaryIO,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    List,
-    Mapping,
-    NoReturn,
-    Optional,
-    Set,
-    TextIO,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    cast,
-    overload,
-)
-from urllib.parse import urlparse
-from urllib.request import url2pathname
-
-import rdflib.exceptions as exceptions
-import rdflib.namespace as namespace  # noqa: F401 # This is here because it is used in a docstring.
-import rdflib.plugin as plugin
-import rdflib.query as query
-import rdflib.util  # avoid circular dependency
-from rdflib.collection import Collection
-from rdflib.exceptions import ParserError
-from rdflib.namespace import RDF, Namespace, NamespaceManager
-from rdflib.parser import InputSource, Parser, create_input_source
-from rdflib.paths import Path
-from rdflib.resource import Resource
-from rdflib.serializer import Serializer
-from rdflib.store import Store
-from rdflib.term import (
-    BNode,
-    Genid,
-    IdentifiedNode,
-    Identifier,
-    Literal,
-    Node,
-    RDFLibGenid,
-    URIRef,
-)
-
-if TYPE_CHECKING:
-    import typing_extensions as te
-
-    import rdflib.query
-    from rdflib.plugins.sparql.sparql import Query, Update
-
-_SubjectType = Node
-_PredicateType = Node
-_ObjectType = Node
-_ContextIdentifierType = IdentifiedNode
-
-_TripleType = Tuple["_SubjectType", "_PredicateType", "_ObjectType"]
-_QuadType = Tuple["_SubjectType", "_PredicateType", "_ObjectType", "_ContextType"]
-_OptionalQuadType = Tuple[
-    "_SubjectType", "_PredicateType", "_ObjectType", Optional["_ContextType"]
-]
-_TripleOrOptionalQuadType = Union["_TripleType", "_OptionalQuadType"]
-_OptionalIdentifiedQuadType = Tuple[
-    "_SubjectType", "_PredicateType", "_ObjectType", Optional["_ContextIdentifierType"]
-]
-_TriplePatternType = Tuple[
-    Optional["_SubjectType"], Optional["_PredicateType"], Optional["_ObjectType"]
-]
-_TriplePathPatternType = Tuple[Optional["_SubjectType"], Path, Optional["_ObjectType"]]
-_QuadPatternType = Tuple[
-    Optional["_SubjectType"],
-    Optional["_PredicateType"],
-    Optional["_ObjectType"],
-    Optional["_ContextType"],
-]
-_QuadPathPatternType = Tuple[
-    Optional["_SubjectType"],
-    Path,
-    Optional["_ObjectType"],
-    Optional["_ContextType"],
-]
-_TripleOrQuadPatternType = Union["_TriplePatternType", "_QuadPatternType"]
-_TripleOrQuadPathPatternType = Union["_TriplePathPatternType", "_QuadPathPatternType"]
-_TripleSelectorType = Tuple[
-    Optional["_SubjectType"],
-    Optional[Union["Path", "_PredicateType"]],
-    Optional["_ObjectType"],
-]
-_QuadSelectorType = Tuple[
-    Optional["_SubjectType"],
-    Optional[Union["Path", "_PredicateType"]],
-    Optional["_ObjectType"],
-    Optional["_ContextType"],
-]
-_TripleOrQuadSelectorType = Union["_TripleSelectorType", "_QuadSelectorType"]
-_TriplePathType = Tuple["_SubjectType", Path, "_ObjectType"]
-_TripleOrTriplePathType = Union["_TripleType", "_TriplePathType"]
-
-_GraphT = TypeVar("_GraphT", bound="Graph")
-_ConjunctiveGraphT = TypeVar("_ConjunctiveGraphT", bound="ConjunctiveGraph")
-_DatasetT = TypeVar("_DatasetT", bound="Dataset")
-
-# type error: Function "Type[Literal]" could always be true in boolean contex
-assert Literal  # type: ignore[truthy-function] # avoid warning
-# type error: Function "Type[Namespace]" could always be true in boolean context
-assert Namespace  # type: ignore[truthy-function] # avoid warning
-
-if TYPE_CHECKING:
-    from rdflib._type_checking import _NamespaceSetString
-
-logger = logging.getLogger(__name__)
-
-__doc__ = """\
+"""\
 
 RDFLib defines the following kinds of Graphs:
 
@@ -140,6 +18,9 @@ see :class:`~rdflib.graph.Graph`
 
 Conjunctive Graph
 -----------------
+
+.. warning::
+    ConjunctiveGraph is deprecated, use :class:`~rdflib.graph.Dataset` instead.
 
 A Conjunctive Graph is the most relevant collection of graphs that are
 considered to be the boundary for closed world assumptions.  This
@@ -366,6 +247,129 @@ Using Namespace class:
 
 """
 
+from __future__ import annotations
+
+import logging
+import pathlib
+import random
+import warnings
+from io import BytesIO
+from typing import (
+    IO,
+    TYPE_CHECKING,
+    Any,
+    BinaryIO,
+    Callable,
+    Dict,
+    Generator,
+    Iterable,
+    List,
+    Mapping,
+    NoReturn,
+    Optional,
+    Set,
+    TextIO,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    cast,
+    overload,
+)
+from urllib.parse import urlparse
+from urllib.request import url2pathname
+
+import rdflib.exceptions as exceptions
+import rdflib.namespace as namespace  # noqa: F401 # This is here because it is used in a docstring.
+import rdflib.plugin as plugin
+import rdflib.query as query
+import rdflib.util  # avoid circular dependency
+from rdflib.collection import Collection
+from rdflib.exceptions import ParserError
+from rdflib.namespace import RDF, Namespace, NamespaceManager
+from rdflib.parser import InputSource, Parser, create_input_source
+from rdflib.paths import Path
+from rdflib.resource import Resource
+from rdflib.serializer import Serializer
+from rdflib.store import Store
+from rdflib.term import (
+    BNode,
+    Genid,
+    IdentifiedNode,
+    Identifier,
+    Literal,
+    Node,
+    RDFLibGenid,
+    URIRef,
+)
+
+if TYPE_CHECKING:
+    import typing_extensions as te
+
+    import rdflib.query
+    from rdflib.plugins.sparql.sparql import Query, Update
+
+_SubjectType = Node
+_PredicateType = Node
+_ObjectType = Node
+_ContextIdentifierType = IdentifiedNode
+
+_TripleType = Tuple["_SubjectType", "_PredicateType", "_ObjectType"]
+_QuadType = Tuple["_SubjectType", "_PredicateType", "_ObjectType", "_ContextType"]
+_OptionalQuadType = Tuple[
+    "_SubjectType", "_PredicateType", "_ObjectType", Optional["_ContextType"]
+]
+_TripleOrOptionalQuadType = Union["_TripleType", "_OptionalQuadType"]
+_OptionalIdentifiedQuadType = Tuple[
+    "_SubjectType", "_PredicateType", "_ObjectType", Optional["_ContextIdentifierType"]
+]
+_TriplePatternType = Tuple[
+    Optional["_SubjectType"], Optional["_PredicateType"], Optional["_ObjectType"]
+]
+_TriplePathPatternType = Tuple[Optional["_SubjectType"], Path, Optional["_ObjectType"]]
+_QuadPatternType = Tuple[
+    Optional["_SubjectType"],
+    Optional["_PredicateType"],
+    Optional["_ObjectType"],
+    Optional["_ContextType"],
+]
+_QuadPathPatternType = Tuple[
+    Optional["_SubjectType"],
+    Path,
+    Optional["_ObjectType"],
+    Optional["_ContextType"],
+]
+_TripleOrQuadPatternType = Union["_TriplePatternType", "_QuadPatternType"]
+_TripleOrQuadPathPatternType = Union["_TriplePathPatternType", "_QuadPathPatternType"]
+_TripleSelectorType = Tuple[
+    Optional["_SubjectType"],
+    Optional[Union["Path", "_PredicateType"]],
+    Optional["_ObjectType"],
+]
+_QuadSelectorType = Tuple[
+    Optional["_SubjectType"],
+    Optional[Union["Path", "_PredicateType"]],
+    Optional["_ObjectType"],
+    Optional["_ContextType"],
+]
+_TripleOrQuadSelectorType = Union["_TripleSelectorType", "_QuadSelectorType"]
+_TriplePathType = Tuple["_SubjectType", Path, "_ObjectType"]
+_TripleOrTriplePathType = Union["_TripleType", "_TriplePathType"]
+
+_GraphT = TypeVar("_GraphT", bound="Graph")
+_ConjunctiveGraphT = TypeVar("_ConjunctiveGraphT", bound="ConjunctiveGraph")
+_DatasetT = TypeVar("_DatasetT", bound="Dataset")
+
+# type error: Function "Type[Literal]" could always be true in boolean contex
+assert Literal  # type: ignore[truthy-function] # avoid warning
+# type error: Function "Type[Namespace]" could always be true in boolean context
+assert Namespace  # type: ignore[truthy-function] # avoid warning
+
+if TYPE_CHECKING:
+    from rdflib._type_checking import _NamespaceSetString
+
+logger = logging.getLogger(__name__)
+
 
 __all__ = [
     "Graph",
@@ -407,11 +411,50 @@ _TCArgT = TypeVar("_TCArgT")
 
 
 class Graph(Node):
-    """An RDF Graph
+    """An RDF Graph: a Python object containing nodes and relations between them as
+    RDF 'triples'.
 
-    The constructor accepts one argument, the "store"
-    that will be used to store the graph data (see the "store"
-    package for stores currently shipped with rdflib).
+    This is the central RDFLib object class and Graph objects are almost always present
+    it all uses of RDFLib.
+
+    The basic use is to create a Graph and iterate through or query its content, e.g.:
+
+    >>> from rdflib import Graph, URIRef
+    >>> g = Graph()
+
+    >>> g.add((
+    ...     URIRef("http://example.com/s1"),   # subject
+    ...     URIRef("http://example.com/p1"),   # predicate
+    ...     URIRef("http://example.com/o1"),   # object
+    ... )) # doctest: +ELLIPSIS
+    <Graph identifier=... (<class 'rdflib.graph.Graph'>)>
+
+    >>> g.add((
+    ...     URIRef("http://example.com/s2"),   # subject
+    ...     URIRef("http://example.com/p2"),   # predicate
+    ...     URIRef("http://example.com/o2"),   # object
+    ... )) # doctest: +ELLIPSIS
+    <Graph identifier=... (<class 'rdflib.graph.Graph'>)>
+
+    >>> for triple in sorted(g):  # simple looping
+    ...     print(triple)
+    (rdflib.term.URIRef('http://example.com/s1'), rdflib.term.URIRef('http://example.com/p1'), rdflib.term.URIRef('http://example.com/o1'))
+    (rdflib.term.URIRef('http://example.com/s2'), rdflib.term.URIRef('http://example.com/p2'), rdflib.term.URIRef('http://example.com/o2'))
+
+    >>> # get the object of the triple with subject s1 and predicate p1
+    >>> o = g.value(
+    ...     subject=URIRef("http://example.com/s1"),
+    ...     predicate=URIRef("http://example.com/p1")
+    ... )
+
+
+    The constructor accepts one argument, the "store" that will be used to store the
+    graph data with the default being the `Memory <rdflib.plugins.stores.memory.Memory>`
+    (in memory) Store. Other Stores that persist content to disk using various file
+    databases or Stores that use remote servers (SPARQL systems) are supported. See
+    the :doc:`rdflib.plugins.stores` package for Stores currently shipped with RDFLib.
+    Other Stores not shipped with RDFLib can be added, such as
+    `HDT <https://github.com/rdflib/rdflib-hdt/>`_.
 
     Stores can be context-aware or unaware.  Unaware stores take up
     (some) less space but cannot support features that require
@@ -419,15 +462,21 @@ class Graph(Node):
     provenance.
 
     Even if used with a context-aware store, Graph will only expose the quads which
-    belong to the default graph. To access the rest of the data, `ConjunctiveGraph` or
-    `Dataset` classes can be used instead.
+    belong to the default graph. To access the rest of the data the
+    `Dataset` class can be used instead.
 
     The Graph constructor can take an identifier which identifies the Graph
     by name.  If none is given, the graph is assigned a BNode for its
     identifier.
 
-    For more on named graphs, see: http://www.w3.org/2004/03/trix/
+    For more on Named Graphs, see the RDFLib `Dataset` class and the TriG Specification,
+    https://www.w3.org/TR/trig/.
     """
+
+    context_aware: bool
+    formula_aware: bool
+    default_union: bool
+    base: Optional[str]
 
     def __init__(
         self,
@@ -435,7 +484,7 @@ class Graph(Node):
         identifier: Optional[Union[_ContextIdentifierType, str]] = None,
         namespace_manager: Optional[NamespaceManager] = None,
         base: Optional[str] = None,
-        bind_namespaces: "_NamespaceSetString" = "rdflib",
+        bind_namespaces: _NamespaceSetString = "rdflib",
     ):
         super(Graph, self).__init__()
         self.base = base
@@ -460,7 +509,7 @@ class Graph(Node):
         return self.__store
 
     @property
-    def identifier(self) -> "_ContextIdentifierType":
+    def identifier(self) -> _ContextIdentifierType:
         return self.__identifier
 
     @property
@@ -524,7 +573,7 @@ class Graph(Node):
         """
         return self.__store.close(commit_pending_transaction=commit_pending_transaction)
 
-    def add(self: _GraphT, triple: "_TripleType") -> _GraphT:
+    def add(self: _GraphT, triple: _TripleType) -> _GraphT:
         """Add a triple with self as context"""
         s, p, o = triple
         assert isinstance(s, Node), "Subject %s must be an rdflib term" % (s,)
@@ -533,7 +582,7 @@ class Graph(Node):
         self.__store.add((s, p, o), self, quoted=False)
         return self
 
-    def addN(self: _GraphT, quads: Iterable["_QuadType"]) -> _GraphT:  # noqa: N802
+    def addN(self: _GraphT, quads: Iterable[_QuadType]) -> _GraphT:  # noqa: N802
         """Add a sequence of triple with context"""
 
         self.__store.addN(
@@ -545,7 +594,7 @@ class Graph(Node):
         )
         return self
 
-    def remove(self: _GraphT, triple: "_TriplePatternType") -> _GraphT:
+    def remove(self: _GraphT, triple: _TriplePatternType) -> _GraphT:
         """Remove a triple from the graph
 
         If the triple does not provide a context attribute, removes the triple
@@ -557,28 +606,25 @@ class Graph(Node):
     @overload
     def triples(
         self,
-        triple: "_TriplePatternType",
-    ) -> Generator["_TripleType", None, None]:
-        ...
+        triple: _TriplePatternType,
+    ) -> Generator[_TripleType, None, None]: ...
 
     @overload
     def triples(
         self,
-        triple: "_TriplePathPatternType",
-    ) -> Generator["_TriplePathType", None, None]:
-        ...
+        triple: _TriplePathPatternType,
+    ) -> Generator[_TriplePathType, None, None]: ...
 
     @overload
     def triples(
         self,
-        triple: "_TripleSelectorType",
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
-        ...
+        triple: _TripleSelectorType,
+    ) -> Generator[_TripleOrTriplePathType, None, None]: ...
 
     def triples(
         self,
-        triple: "_TripleSelectorType",
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
+        triple: _TripleSelectorType,
+    ) -> Generator[_TripleOrTriplePathType, None, None]:
         """Generator over the triple store
 
         Returns triples that match the given triple pattern. If triple pattern
@@ -655,7 +701,8 @@ class Graph(Node):
                 return (s, p, o) in self
 
         elif isinstance(item, (Path, Node)):
-            return self.predicate_objects(item)
+            # type error: Argument 1 to "predicate_objects" of "Graph" has incompatible type "Union[Path, Node]"; expected "Optional[Node]"
+            return self.predicate_objects(item)  # type: ignore[arg-type]
 
         else:
             raise TypeError(
@@ -671,7 +718,7 @@ class Graph(Node):
         # type error: Unexpected keyword argument "context" for "__len__" of "Store"
         return self.__store.__len__(context=self)  # type: ignore[call-arg]
 
-    def __iter__(self) -> Generator["_TripleType", None, None]:
+    def __iter__(self) -> Generator[_TripleType, None, None]:
         """Iterates over all triples in the store"""
         return self.triples((None, None, None))
 
@@ -716,20 +763,20 @@ class Graph(Node):
     def __ge__(self, other: Graph) -> bool:
         return self > other or self == other
 
-    def __iadd__(self: "_GraphT", other: Iterable["_TripleType"]) -> "_GraphT":
+    def __iadd__(self: _GraphT, other: Iterable[_TripleType]) -> _GraphT:
         """Add all triples in Graph other to Graph.
         BNode IDs are not changed."""
         self.addN((s, p, o, self) for s, p, o in other)
         return self
 
-    def __isub__(self: "_GraphT", other: Iterable["_TripleType"]) -> "_GraphT":
+    def __isub__(self: _GraphT, other: Iterable[_TripleType]) -> _GraphT:
         """Subtract all triples in Graph other from Graph.
         BNode IDs are not changed."""
         for triple in other:
             self.remove(triple)
         return self
 
-    def __add__(self, other: "Graph") -> "Graph":
+    def __add__(self, other: Graph) -> Graph:
         """Set-theoretic union
         BNode IDs are not changed."""
         try:
@@ -744,7 +791,7 @@ class Graph(Node):
             retval.add(y)
         return retval
 
-    def __mul__(self, other: "Graph") -> "Graph":
+    def __mul__(self, other: Graph) -> Graph:
         """Set-theoretic intersection.
         BNode IDs are not changed."""
         try:
@@ -756,7 +803,7 @@ class Graph(Node):
                 retval.add(x)
         return retval
 
-    def __sub__(self, other: "Graph") -> "Graph":
+    def __sub__(self, other: Graph) -> Graph:
         """Set-theoretic difference.
         BNode IDs are not changed."""
         try:
@@ -768,7 +815,7 @@ class Graph(Node):
                 retval.add(x)
         return retval
 
-    def __xor__(self, other: "Graph") -> "Graph":
+    def __xor__(self, other: Graph) -> Graph:
         """Set-theoretic XOR.
         BNode IDs are not changed."""
         return (self - other) + (other - self)
@@ -799,10 +846,10 @@ class Graph(Node):
 
     def subjects(
         self,
-        predicate: Union[None, Path, "_PredicateType"] = None,
-        object: Optional["_ObjectType"] = None,
+        predicate: Union[None, Path, _PredicateType] = None,
+        object: Optional[_ObjectType] = None,
         unique: bool = False,
-    ) -> Generator["_SubjectType", None, None]:
+    ) -> Generator[_SubjectType, None, None]:
         """A generator of (optionally unique) subjects with the given
         predicate and object"""
         if not unique:
@@ -823,10 +870,10 @@ class Graph(Node):
 
     def predicates(
         self,
-        subject: Optional["_SubjectType"] = None,
-        object: Optional["_ObjectType"] = None,
+        subject: Optional[_SubjectType] = None,
+        object: Optional[_ObjectType] = None,
         unique: bool = False,
-    ) -> Generator["_PredicateType", None, None]:
+    ) -> Generator[_PredicateType, None, None]:
         """A generator of (optionally unique) predicates with the given
         subject and object"""
         if not unique:
@@ -847,10 +894,10 @@ class Graph(Node):
 
     def objects(
         self,
-        subject: Optional["_SubjectType"] = None,
-        predicate: Union[None, Path, "_PredicateType"] = None,
+        subject: Optional[_SubjectType] = None,
+        predicate: Union[None, Path, _PredicateType] = None,
         unique: bool = False,
-    ) -> Generator["_ObjectType", None, None]:
+    ) -> Generator[_ObjectType, None, None]:
         """A generator of (optionally unique) objects with the given
         subject and predicate"""
         if not unique:
@@ -870,8 +917,8 @@ class Graph(Node):
                         raise
 
     def subject_predicates(
-        self, object: Optional["_ObjectType"] = None, unique: bool = False
-    ) -> Generator[Tuple["_SubjectType", "_PredicateType"], None, None]:
+        self, object: Optional[_ObjectType] = None, unique: bool = False
+    ) -> Generator[Tuple[_SubjectType, _PredicateType], None, None]:
         """A generator of (optionally unique) (subject, predicate) tuples
         for the given object"""
         if not unique:
@@ -892,9 +939,9 @@ class Graph(Node):
 
     def subject_objects(
         self,
-        predicate: Union[None, Path, "_PredicateType"] = None,
+        predicate: Union[None, Path, _PredicateType] = None,
         unique: bool = False,
-    ) -> Generator[Tuple["_SubjectType", "_ObjectType"], None, None]:
+    ) -> Generator[Tuple[_SubjectType, _ObjectType], None, None]:
         """A generator of (optionally unique) (subject, object) tuples
         for the given predicate"""
         if not unique:
@@ -914,8 +961,8 @@ class Graph(Node):
                         raise
 
     def predicate_objects(
-        self, subject: Optional["_SubjectType"] = None, unique: bool = False
-    ) -> Generator[Tuple["_PredicateType", "_ObjectType"], None, None]:
+        self, subject: Optional[_SubjectType] = None, unique: bool = False
+    ) -> Generator[Tuple[_PredicateType, _ObjectType], None, None]:
         """A generator of (optionally unique) (predicate, object) tuples
         for the given subject"""
         if not unique:
@@ -937,11 +984,11 @@ class Graph(Node):
     def triples_choices(
         self,
         triple: Union[
-            Tuple[List["_SubjectType"], "_PredicateType", "_ObjectType"],
-            Tuple["_SubjectType", List["_PredicateType"], "_ObjectType"],
-            Tuple["_SubjectType", "_PredicateType", List["_ObjectType"]],
+            Tuple[List[_SubjectType], _PredicateType, _ObjectType],
+            Tuple[_SubjectType, List[_PredicateType], _ObjectType],
+            Tuple[_SubjectType, _PredicateType, List[_ObjectType]],
         ],
-        context: Optional["_ContextType"] = None,
+        context: Optional[_ContextType] = None,
     ) -> Generator[_TripleType, None, None]:
         subject, predicate, object_ = triple
         # type error: Argument 1 to "triples_choices" of "Store" has incompatible type "Tuple[Union[List[Node], Node], Union[Node, List[Node]], Union[Node, List[Node]]]"; expected "Union[Tuple[List[Node], Node, Node], Tuple[Node, List[Node], Node], Tuple[Node, Node, List[Node]]]"
@@ -959,8 +1006,7 @@ class Graph(Node):
         object: Optional[_ObjectType] = ...,
         default: Optional[Node] = ...,
         any: bool = ...,
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @overload
     def value(
@@ -970,8 +1016,7 @@ class Graph(Node):
         object: None = ...,
         default: Optional[Node] = ...,
         any: bool = ...,
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @overload
     def value(
@@ -981,8 +1026,7 @@ class Graph(Node):
         object: None = ...,
         default: Optional[Node] = ...,
         any: bool = ...,
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @overload
     def value(
@@ -992,8 +1036,7 @@ class Graph(Node):
         object: Optional[_ObjectType] = ...,
         default: Optional[Node] = ...,
         any: bool = ...,
-    ) -> Optional[Node]:
-        ...
+    ) -> Optional[Node]: ...
 
     def value(
         self,
@@ -1012,10 +1055,11 @@ class Graph(Node):
         'macro' like utility
 
         Parameters:
-        subject, predicate, object  -- exactly one must be None
-        default -- value to be returned if no values found
-        any -- if True, return any value in the case there is more than one,
-        else, raise UniquenessError
+
+        - subject, predicate, object: exactly one must be None
+        - default: value to be returned if no values found
+        - any: if True, return any value in the case there is more than one,
+          else, raise UniquenessError
         """
         retval = default
 
@@ -1077,19 +1121,19 @@ class Graph(Node):
 
     def transitiveClosure(  # noqa: N802
         self,
-        func: Callable[[_TCArgT, "Graph"], Iterable[_TCArgT]],
+        func: Callable[[_TCArgT, Graph], Iterable[_TCArgT]],
         arg: _TCArgT,
         seen: Optional[Dict[_TCArgT, int]] = None,
-    ):  # noqa: N802
+    ):
         """
         Generates transitive closure of a user-defined
         function against the graph
 
         >>> from rdflib.collection import Collection
-        >>> g=Graph()
-        >>> a=BNode("foo")
-        >>> b=BNode("bar")
-        >>> c=BNode("baz")
+        >>> g = Graph()
+        >>> a = BNode("foo")
+        >>> b = BNode("bar")
+        >>> c = BNode("baz")
         >>> g.add((a,RDF.first,RDF.type)) # doctest: +ELLIPSIS
         <Graph identifier=... (<class 'rdflib.graph.Graph'>)>
         >>> g.add((a,RDF.rest,b)) # doctest: +ELLIPSIS
@@ -1231,8 +1275,7 @@ class Graph(Node):
         base: Optional[str],
         encoding: str,
         **args: Any,
-    ) -> bytes:
-        ...
+    ) -> bytes: ...
 
     # no destination and non-None keyword encoding
     @overload
@@ -1244,8 +1287,7 @@ class Graph(Node):
         *,
         encoding: str,
         **args: Any,
-    ) -> bytes:
-        ...
+    ) -> bytes: ...
 
     # no destination and None encoding
     @overload
@@ -1256,8 +1298,7 @@ class Graph(Node):
         base: Optional[str] = ...,
         encoding: None = ...,
         **args: Any,
-    ) -> str:
-        ...
+    ) -> str: ...
 
     # non-None destination
     @overload
@@ -1268,8 +1309,7 @@ class Graph(Node):
         base: Optional[str] = ...,
         encoding: Optional[str] = ...,
         **args: Any,
-    ) -> "Graph":
-        ...
+    ) -> Graph: ...
 
     # fallback
     @overload
@@ -1280,8 +1320,7 @@ class Graph(Node):
         base: Optional[str] = ...,
         encoding: Optional[str] = ...,
         **args: Any,
-    ) -> Union[bytes, str, "Graph"]:
-        ...
+    ) -> Union[bytes, str, Graph]: ...
 
     def serialize(
         self: _GraphT,
@@ -1297,7 +1336,7 @@ class Graph(Node):
         :param destination:
            The destination to serialize the graph to. This can be a path as a
            :class:`str` or :class:`~pathlib.PurePath` object, or it can be a
-           :class:`~typing.IO[bytes]` like object. If this parameter is not
+           :class:`~typing.IO` ``[bytes]`` like object. If this parameter is not
            supplied the serialized graph will be returned.
         :param format:
            The format that the output should be written in. This value
@@ -1355,7 +1394,7 @@ class Graph(Node):
                 else:
                     os_path = location
             with open(os_path, "wb") as stream:
-                serializer.serialize(stream, encoding=encoding, **args)
+                serializer.serialize(stream, base=base, encoding=encoding, **args)
         return self
 
     def print(
@@ -1381,7 +1420,7 @@ class Graph(Node):
         file: Optional[Union[BinaryIO, TextIO]] = None,
         data: Optional[Union[str, bytes]] = None,
         **args: Any,
-    ) -> "Graph":
+    ) -> Graph:
         """
         Parse an RDF source adding the resulting triples to the Graph.
 
@@ -1400,9 +1439,9 @@ class Graph(Node):
            :doc:`Security Considerations </security_considerations>`
            documentation.
 
-        :param source: An `InputSource`, file-like object, `Path` like object,
-            or string. In the case of a string the string is the location of the
-            source.
+        :param source: An `xml.sax.xmlreader.InputSource`, file-like object,
+            `pathlib.Path` like object, or string. In the case of a string the string
+            is the location of the source.
         :param location: A string indicating the relative or absolute URL of the
             source. `Graph`'s absolutize method is used if a relative location
             is specified.
@@ -1486,7 +1525,18 @@ class Graph(Node):
             if format is None:
                 format = "turtle"
                 could_not_guess_format = True
-        parser = plugin.get(format, Parser)()
+        try:
+            parser = plugin.get(format, Parser)()
+        except plugin.PluginException:
+            # Handle the case when a URLInputSource returns RDF but with the headers
+            # as a format that does not exist in the plugin system.
+            # Use guess_format to guess the format based on the input's file suffix.
+            format = rdflib.util.guess_format(
+                source if not isinstance(source, InputSource) else str(source)
+            )
+            if format is None:
+                raise
+            parser = plugin.get(format, Parser)()
         try:
             # TODO FIXME: Parser.parse should have **kwargs argument.
             parser.parse(source, self, **args)
@@ -1510,7 +1560,7 @@ class Graph(Node):
         processor: Union[str, query.Processor] = "sparql",
         result: Union[str, Type[query.Result]] = "sparql",
         initNs: Optional[Mapping[str, Any]] = None,  # noqa: N803
-        initBindings: Optional[Mapping[str, Identifier]] = None,
+        initBindings: Optional[Mapping[str, Identifier]] = None,  # noqa: N803
         use_store_provided: bool = True,
         **kwargs: Any,
     ) -> query.Result:
@@ -1544,13 +1594,19 @@ class Graph(Node):
         initBindings = initBindings or {}  # noqa: N806
         initNs = initNs or dict(self.namespaces())  # noqa: N806
 
+        if self.default_union:
+            query_graph = "__UNION__"
+        elif isinstance(self, ConjunctiveGraph):
+            query_graph = self.default_context.identifier
+        else:
+            query_graph = self.identifier
         if hasattr(self.store, "query") and use_store_provided:
             try:
                 return self.store.query(
                     query_object,
                     initNs,
                     initBindings,
-                    self.default_union and "__UNION__" or self.identifier,
+                    query_graph,
                     **kwargs,
                 )
             except NotImplementedError:
@@ -1569,7 +1625,7 @@ class Graph(Node):
         update_object: Union[Update, str],
         processor: Union[str, rdflib.query.UpdateProcessor] = "sparql",
         initNs: Optional[Mapping[str, Any]] = None,  # noqa: N803
-        initBindings: Optional[Mapping[str, Identifier]] = None,
+        initBindings: Optional[Mapping[str, Identifier]] = None,  # noqa: N803
         use_store_provided: bool = True,
         **kwargs: Any,
     ) -> None:
@@ -1592,13 +1648,20 @@ class Graph(Node):
         initBindings = initBindings or {}  # noqa: N806
         initNs = initNs or dict(self.namespaces())  # noqa: N806
 
+        if self.default_union:
+            query_graph = "__UNION__"
+        elif isinstance(self, ConjunctiveGraph):
+            query_graph = self.default_context.identifier
+        else:
+            query_graph = self.identifier
+
         if hasattr(self.store, "update") and use_store_provided:
             try:
                 return self.store.update(
                     update_object,
                     initNs,
                     initBindings,
-                    self.default_union and "__UNION__" or self.identifier,
+                    query_graph,
                     **kwargs,
                 )
             except NotImplementedError:
@@ -1609,10 +1672,9 @@ class Graph(Node):
 
         return processor.update(update_object, initBindings, initNs, **kwargs)
 
-    def n3(self) -> str:
+    def n3(self, namespace_manager: Optional[NamespaceManager] = None) -> str:
         """Return an n3 identifier for the Graph"""
-        # type error: "IdentifiedNode" has no attribute "n3"
-        return "[%s]" % self.identifier.n3()  # type: ignore[attr-defined]
+        return "[%s]" % self.identifier.n3(namespace_manager=namespace_manager)
 
     def __reduce__(self) -> Tuple[Type[Graph], Tuple[Store, _ContextIdentifierType]]:
         return (
@@ -1635,11 +1697,11 @@ class Graph(Node):
             return False
         for s, p, o in self:
             if not isinstance(s, BNode) and not isinstance(o, BNode):
-                if not (s, p, o) in other:
+                if not (s, p, o) in other:  # noqa: E713
                     return False
         for s, p, o in other:
             if not isinstance(s, BNode) and not isinstance(o, BNode):
-                if not (s, p, o) in self:
+                if not (s, p, o) in self:  # noqa: E713
                     return False
         # TODO: very well could be a false positive at this point yet.
         return True
@@ -1766,7 +1828,7 @@ class Graph(Node):
             self._process_skolem_tuples(retval, do_skolemize2)
         elif isinstance(bnode, BNode):
             # type error: Argument 1 to "do_skolemize" has incompatible type "Optional[BNode]"; expected "BNode"
-            self._process_skolem_tuples(retval, lambda t: do_skolemize(bnode, t))  # type: ignore[arg-type]
+            self._process_skolem_tuples(retval, lambda t: do_skolemize(bnode, t))  # type: ignore[arg-type, unused-ignore]
 
         return retval
 
@@ -1810,7 +1872,7 @@ class Graph(Node):
             self._process_skolem_tuples(retval, do_de_skolemize2)
         elif isinstance(uriref, Genid):
             # type error: Argument 1 to "do_de_skolemize" has incompatible type "Optional[URIRef]"; expected "URIRef"
-            self._process_skolem_tuples(retval, lambda t: do_de_skolemize(uriref, t))  # type: ignore[arg-type]
+            self._process_skolem_tuples(retval, lambda t: do_de_skolemize(uriref, t))  # type: ignore[arg-type, unused-ignore]
 
         return retval
 
@@ -1855,7 +1917,7 @@ class Graph(Node):
             for s, p, o in self.triples((uri, None, None)):
                 subgraph.add((s, p, o))
                 # recurse 'down' through ll Blank Nodes
-                if type(o) == BNode and not (o, None, None) in subgraph:
+                if type(o) is BNode and (o, None, None) not in subgraph:
                     add_to_cbd(o)
 
             # for Rule 3 (reification)
@@ -1881,6 +1943,9 @@ class ConjunctiveGraph(Graph):
     """A ConjunctiveGraph is an (unnamed) aggregation of all the named
     graphs in a store.
 
+    .. warning::
+        ConjunctiveGraph is deprecated, use :class:`~rdflib.graph.Dataset` instead.
+
     It has a ``default`` graph, whose name is associated with the
     graph throughout its life. :meth:`__init__` can take an identifier
     to use as the name of this default graph or it will assign a
@@ -1891,6 +1956,8 @@ class ConjunctiveGraph(Graph):
     All queries are carried out against the union of all graphs.
     """
 
+    default_context: _ContextType
+
     def __init__(
         self,
         store: Union[Store, str] = "default",
@@ -1898,6 +1965,14 @@ class ConjunctiveGraph(Graph):
         default_graph_base: Optional[str] = None,
     ):
         super(ConjunctiveGraph, self).__init__(store, identifier=identifier)
+
+        if type(self) is ConjunctiveGraph:
+            warnings.warn(
+                "ConjunctiveGraph is deprecated, use Dataset instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
         assert self.store.context_aware, (
             "ConjunctiveGraph must be backed by" " a context aware store."
         )
@@ -1917,50 +1992,44 @@ class ConjunctiveGraph(Graph):
     @overload
     def _spoc(
         self,
-        triple_or_quad: "_QuadType",
+        triple_or_quad: _QuadType,
         default: bool = False,
-    ) -> "_QuadType":
-        ...
+    ) -> _QuadType: ...
 
     @overload
     def _spoc(
         self,
-        triple_or_quad: Union["_TripleType", "_OptionalQuadType"],
+        triple_or_quad: Union[_TripleType, _OptionalQuadType],
         default: bool = False,
-    ) -> "_OptionalQuadType":
-        ...
+    ) -> _OptionalQuadType: ...
 
     @overload
     def _spoc(
         self,
         triple_or_quad: None,
         default: bool = False,
-    ) -> Tuple[None, None, None, Optional[Graph]]:
-        ...
+    ) -> Tuple[None, None, None, Optional[Graph]]: ...
 
     @overload
     def _spoc(
         self,
         triple_or_quad: Optional[_TripleOrQuadPatternType],
         default: bool = False,
-    ) -> "_QuadPatternType":
-        ...
+    ) -> _QuadPatternType: ...
 
     @overload
     def _spoc(
         self,
         triple_or_quad: _TripleOrQuadSelectorType,
         default: bool = False,
-    ) -> _QuadSelectorType:
-        ...
+    ) -> _QuadSelectorType: ...
 
     @overload
     def _spoc(
         self,
         triple_or_quad: Optional[_TripleOrQuadSelectorType],
         default: bool = False,
-    ) -> _QuadSelectorType:
-        ...
+    ) -> _QuadSelectorType: ...
 
     def _spoc(
         self,
@@ -1976,10 +2045,10 @@ class ConjunctiveGraph(Graph):
         if len(triple_or_quad) == 3:
             c = self.default_context if default else None
             # type error: Too many values to unpack (3 expected, 4 provided)
-            (s, p, o) = triple_or_quad  # type: ignore[misc]
+            (s, p, o) = triple_or_quad  # type: ignore[misc, unused-ignore]
         elif len(triple_or_quad) == 4:
             # type error: Need more than 3 values to unpack (4 expected)
-            (s, p, o, c) = triple_or_quad  # type: ignore[misc]
+            (s, p, o, c) = triple_or_quad  # type: ignore[misc, unused-ignore]
             c = self._graph(c)
         return s, p, o, c
 
@@ -2009,12 +2078,10 @@ class ConjunctiveGraph(Graph):
         return self
 
     @overload
-    def _graph(self, c: Union[Graph, _ContextIdentifierType, str]) -> Graph:
-        ...
+    def _graph(self, c: Union[Graph, _ContextIdentifierType, str]) -> Graph: ...
 
     @overload
-    def _graph(self, c: None) -> None:
-        ...
+    def _graph(self, c: None) -> None: ...
 
     def _graph(
         self, c: Optional[Union[Graph, _ContextIdentifierType, str]]
@@ -2027,7 +2094,7 @@ class ConjunctiveGraph(Graph):
             return c
 
     def addN(  # noqa: N802
-        self: _ConjunctiveGraphT, quads: Iterable["_QuadType"]
+        self: _ConjunctiveGraphT, quads: Iterable[_QuadType]
     ) -> _ConjunctiveGraphT:
         """Add a sequence of triples with context"""
 
@@ -2054,32 +2121,29 @@ class ConjunctiveGraph(Graph):
     @overload
     def triples(
         self,
-        triple_or_quad: "_TripleOrQuadPatternType",
+        triple_or_quad: _TripleOrQuadPatternType,
         context: Optional[_ContextType] = ...,
-    ) -> Generator["_TripleType", None, None]:
-        ...
+    ) -> Generator[_TripleType, None, None]: ...
 
     @overload
     def triples(
         self,
-        triple_or_quad: "_TripleOrQuadPathPatternType",
+        triple_or_quad: _TripleOrQuadPathPatternType,
         context: Optional[_ContextType] = ...,
-    ) -> Generator["_TriplePathType", None, None]:
-        ...
+    ) -> Generator[_TriplePathType, None, None]: ...
 
     @overload
     def triples(
         self,
         triple_or_quad: _TripleOrQuadSelectorType,
         context: Optional[_ContextType] = ...,
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
-        ...
+    ) -> Generator[_TripleOrTriplePathType, None, None]: ...
 
     def triples(
         self,
         triple_or_quad: _TripleOrQuadSelectorType,
         context: Optional[_ContextType] = None,
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
+    ) -> Generator[_TripleOrTriplePathType, None, None]:
         """
         Iterate over all the triples in the entire conjunctive graph
 
@@ -2122,11 +2186,11 @@ class ConjunctiveGraph(Graph):
     def triples_choices(
         self,
         triple: Union[
-            Tuple[List["_SubjectType"], "_PredicateType", "_ObjectType"],
-            Tuple["_SubjectType", List["_PredicateType"], "_ObjectType"],
-            Tuple["_SubjectType", "_PredicateType", List["_ObjectType"]],
+            Tuple[List[_SubjectType], _PredicateType, _ObjectType],
+            Tuple[_SubjectType, List[_PredicateType], _ObjectType],
+            Tuple[_SubjectType, _PredicateType, List[_ObjectType]],
         ],
-        context: Optional["_ContextType"] = None,
+        context: Optional[_ContextType] = None,
     ) -> Generator[_TripleType, None, None]:
         """Iterate over all the triples in the entire conjunctive graph"""
         s, p, o = triple
@@ -2145,8 +2209,8 @@ class ConjunctiveGraph(Graph):
         return self.store.__len__()
 
     def contexts(
-        self, triple: Optional["_TripleType"] = None
-    ) -> Generator["_ContextType", None, None]:
+        self, triple: Optional[_TripleType] = None
+    ) -> Generator[_ContextType, None, None]:
         """Iterate over all contexts in the graph
 
         If triple is specified, iterate over all contexts the triple is in.
@@ -2161,13 +2225,13 @@ class ConjunctiveGraph(Graph):
                 # type error: Statement is unreachable
                 yield self.get_context(context)  # type: ignore[unreachable]
 
-    def get_graph(self, identifier: "_ContextIdentifierType") -> Union[Graph, None]:
+    def get_graph(self, identifier: _ContextIdentifierType) -> Union[Graph, None]:
         """Returns the graph identified by given identifier"""
         return [x for x in self.contexts() if x.identifier == identifier][0]
 
     def get_context(
         self,
-        identifier: Optional[Union["_ContextIdentifierType", str]],
+        identifier: Optional[Union[_ContextIdentifierType, str]],
         quoted: bool = False,
         base: Optional[str] = None,
     ) -> Graph:
@@ -2182,7 +2246,7 @@ class ConjunctiveGraph(Graph):
             base=base,
         )
 
-    def remove_context(self, context: "_ContextType") -> None:
+    def remove_context(self, context: _ContextType) -> None:
         """Removes the given context from the graph"""
         self.store.remove((None, None, None), context)
 
@@ -2204,15 +2268,16 @@ class ConjunctiveGraph(Graph):
         file: Optional[Union[BinaryIO, TextIO]] = None,
         data: Optional[Union[str, bytes]] = None,
         **args: Any,
-    ) -> "Graph":
+    ) -> Graph:
         """
         Parse source adding the resulting triples to its own context (sub graph
         of this graph).
 
         See :meth:`rdflib.graph.Graph.parse` for documentation on arguments.
 
-        If the source is in a format that does not support named graphs it's triples
-        will be added to the default graph (i.e. `Dataset.default_context`).
+        If the source is in a format that does not support named graphs its triples
+        will be added to the default graph
+        (i.e. :attr:`ConjunctiveGraph.default_context`).
 
         :Returns:
 
@@ -2238,7 +2303,7 @@ class ConjunctiveGraph(Graph):
         the ``publicID`` parameter will also not be used as the name for the
         graph that the data is loaded into, and instead the triples from sources
         that do not support named graphs will be loaded into the default graph
-        (i.e. `ConjunctionGraph.default_context`).
+        (i.e. :attr:`ConjunctiveGraph.default_context`).
         """
 
         source = create_input_source(
@@ -2271,22 +2336,50 @@ DATASET_DEFAULT_GRAPH_ID = URIRef("urn:x-rdflib:default")
 
 
 class Dataset(ConjunctiveGraph):
-    __doc__ = """
-    RDF 1.1 Dataset. Small extension to the Conjunctive Graph:
-    - the primary term is graphs in the datasets and not contexts with quads,
-    so there is a separate method to set/retrieve a graph in a dataset and
-    operate with graphs
-    - graphs cannot be identified with blank nodes
-    - added a method to directly add a single quad
+    """
+    An RDFLib Dataset is an object that stores multiple Named Graphs - instances of
+    RDFLib Graph identified by IRI - within it and allows whole-of-dataset or single
+    Graph use.
 
-    Examples of usage:
+    RDFLib's Dataset class is based on the `RDF 1.2. 'Dataset' definition
+    <https://www.w3.org/TR/rdf12-datasets/>`_:
+
+    ..
+
+        An RDF dataset is a collection of RDF graphs, and comprises:
+
+        - Exactly one default graph, being an RDF graph. The default graph does not
+            have a name and MAY be empty.
+        - Zero or more named graphs. Each named graph is a pair consisting of an IRI or
+            a blank node (the graph name), and an RDF graph. Graph names are unique
+            within an RDF dataset.
+
+    Accordingly, a Dataset allows for `Graph` objects to be added to it with
+    :class:`rdflib.term.URIRef` or :class:`rdflib.term.BNode` identifiers and always
+    creats a default graph with the :class:`rdflib.term.URIRef` identifier
+    :code:`urn:x-rdflib:default`.
+
+    Dataset extends Graph's Subject, Predicate, Object (s, p, o) 'triple'
+    structure to include a graph identifier - archaically called Context - producing
+    'quads' of s, p, o, g.
+
+    Triples, or quads, can be added to a Dataset. Triples, or quads with the graph
+    identifer :code:`urn:x-rdflib:default` go into the default graph.
+
+    .. note:: Dataset builds on the `ConjunctiveGraph` class but that class's direct
+        use is now deprecated (since RDFLib 7.x) and it should not be used.
+        `ConjunctiveGraph` will be removed from future RDFLib versions.
+
+    Examples of usage and see also the examples/datast.py file:
 
     >>> # Create a new Dataset
     >>> ds = Dataset()
     >>> # simple triples goes to default graph
-    >>> ds.add((URIRef("http://example.org/a"),
-    ...    URIRef("http://www.example.org/b"),
-    ...    Literal("foo")))  # doctest: +ELLIPSIS
+    >>> ds.add((
+    ...     URIRef("http://example.org/a"),
+    ...     URIRef("http://www.example.org/b"),
+    ...     Literal("foo")
+    ... ))  # doctest: +ELLIPSIS
     <Graph identifier=... (<class 'rdflib.graph.Dataset'>)>
     >>>
     >>> # Create a graph in the dataset, if the graph name has already been
@@ -2295,16 +2388,19 @@ class Dataset(ConjunctiveGraph):
     >>> g = ds.graph(URIRef("http://www.example.com/gr"))
     >>>
     >>> # add triples to the new graph as usual
-    >>> g.add(
-    ...     (URIRef("http://example.org/x"),
+    >>> g.add((
+    ...     URIRef("http://example.org/x"),
     ...     URIRef("http://example.org/y"),
-    ...     Literal("bar")) ) # doctest: +ELLIPSIS
+    ...     Literal("bar")
+    ... )) # doctest: +ELLIPSIS
     <Graph identifier=... (<class 'rdflib.graph.Graph'>)>
     >>> # alternatively: add a quad to the dataset -> goes to the graph
-    >>> ds.add(
-    ...     (URIRef("http://example.org/x"),
+    >>> ds.add((
+    ...     URIRef("http://example.org/x"),
     ...     URIRef("http://example.org/z"),
-    ...     Literal("foo-bar"),g) ) # doctest: +ELLIPSIS
+    ...     Literal("foo-bar"),
+    ...     g
+    ... )) # doctest: +ELLIPSIS
     <Graph identifier=... (<class 'rdflib.graph.Dataset'>)>
     >>>
     >>> # querying triples return them all regardless of the graph
@@ -2370,8 +2466,8 @@ class Dataset(ConjunctiveGraph):
     >>>
     >>> # graph names in the dataset can be queried:
     >>> for c in ds.graphs():  # doctest: +SKIP
-    ...     print(c)  # doctest:
-    DEFAULT
+    ...     print(c.identifier)  # doctest:
+    urn:x-rdflib:default
     http://www.example.com/gr
     >>> # A graph can be created without specifying a name; a skolemized genid
     >>> # is created on the fly
@@ -2390,7 +2486,7 @@ class Dataset(ConjunctiveGraph):
     >>>
     >>> # a graph can also be removed from a dataset via ds.remove_graph(g)
 
-    .. versionadded:: 4.0
+    ... versionadded:: 4.0
     """
 
     def __init__(
@@ -2464,7 +2560,7 @@ class Dataset(ConjunctiveGraph):
         file: Optional[Union[BinaryIO, TextIO]] = None,
         data: Optional[Union[str, bytes]] = None,
         **args: Any,
-    ) -> "Graph":
+    ) -> Graph:
         """
         Parse an RDF source adding the resulting triples to the Graph.
 
@@ -2472,8 +2568,9 @@ class Dataset(ConjunctiveGraph):
 
         The source is specified using one of source, location, file or data.
 
-        If the source is in a format that does not support named graphs it's triples
-        will be added to the default graph (i.e. `Dataset.default_context`).
+        If the source is in a format that does not support named graphs its triples
+        will be added to the default graph
+        (i.e. :attr:`.Dataset.default_context`).
 
         .. caution::
 
@@ -2494,7 +2591,7 @@ class Dataset(ConjunctiveGraph):
         the ``publicID`` parameter will also not be used as the name for the
         graph that the data is loaded into, and instead the triples from sources
         that do not support named graphs will be loaded into the default graph
-        (i.e. `ConjunctionGraph.default_context`).
+        (i.e. :attr:`.Dataset.default_context`).
         """
 
         c = ConjunctiveGraph.parse(
@@ -2523,8 +2620,8 @@ class Dataset(ConjunctiveGraph):
         return self
 
     def contexts(
-        self, triple: Optional["_TripleType"] = None
-    ) -> Generator["_ContextType", None, None]:
+        self, triple: Optional[_TripleType] = None
+    ) -> Generator[_ContextType, None, None]:
         default = False
         for c in super(Dataset, self).contexts(triple):
             default |= c.identifier == DATASET_DEFAULT_GRAPH_ID
@@ -2536,7 +2633,7 @@ class Dataset(ConjunctiveGraph):
 
     # type error: Return type "Generator[Tuple[Node, Node, Node, Optional[Node]], None, None]" of "quads" incompatible with return type "Generator[Tuple[Node, Node, Node, Optional[Graph]], None, None]" in supertype "ConjunctiveGraph"
     def quads(  # type: ignore[override]
-        self, quad: Optional["_TripleOrQuadPatternType"] = None
+        self, quad: Optional[_TripleOrQuadPatternType] = None
     ) -> Generator[_OptionalIdentifiedQuadType, None, None]:
         for s, p, o, c in super(Dataset, self).quads(quad):
             # type error: Item "None" of "Optional[Graph]" has no attribute "identifier"
@@ -2569,7 +2666,7 @@ class QuotedGraph(Graph):
     ):
         super(QuotedGraph, self).__init__(store, identifier)
 
-    def add(self: _GraphT, triple: "_TripleType") -> _GraphT:
+    def add(self: _GraphT, triple: _TripleType) -> _GraphT:
         """Add a triple with self as context"""
         s, p, o = triple
         assert isinstance(s, Node), "Subject %s must be an rdflib term" % (s,)
@@ -2579,7 +2676,7 @@ class QuotedGraph(Graph):
         self.store.add((s, p, o), self, quoted=True)
         return self
 
-    def addN(self: _GraphT, quads: Iterable["_QuadType"]) -> _GraphT:  # noqa: N802
+    def addN(self: _GraphT, quads: Iterable[_QuadType]) -> _GraphT:  # noqa: N802
         """Add a sequence of triple with context"""
 
         self.store.addN(
@@ -2591,14 +2688,12 @@ class QuotedGraph(Graph):
         )
         return self
 
-    def n3(self) -> str:
+    def n3(self, namespace_manager: Optional[NamespaceManager] = None) -> str:
         """Return an n3 identifier for the Graph"""
-        # type error: "IdentifiedNode" has no attribute "n3"
-        return "{%s}" % self.identifier.n3()  # type: ignore[attr-defined]
+        return "{%s}" % self.identifier.n3(namespace_manager=namespace_manager)
 
     def __str__(self) -> str:
-        # type error: "IdentifiedNode" has no attribute "n3"
-        identifier = self.identifier.n3()  # type: ignore[attr-defined]
+        identifier = self.identifier.n3()
         label = self.store.__class__.__name__
         pattern = (
             "{this rdflib.identifier %s;rdflib:storage "
@@ -2652,7 +2747,7 @@ class Seq:
         # by sorting the keys (by integer) we have what we want!
         _list.sort()
 
-    def toPython(self) -> "Seq":  # noqa: N802
+    def toPython(self) -> Seq:  # noqa: N802
         return self
 
     def __iter__(self) -> Generator[_ObjectType, None, None]:
@@ -2670,7 +2765,7 @@ class Seq:
         return item
 
 
-class ModificationException(Exception):
+class ModificationException(Exception):  # noqa: N818
     def __init__(self) -> None:
         pass
 
@@ -2681,7 +2776,7 @@ class ModificationException(Exception):
         )
 
 
-class UnSupportedAggregateOperation(Exception):
+class UnSupportedAggregateOperation(Exception):  # noqa: N818
     def __init__(self) -> None:
         pass
 
@@ -2738,7 +2833,7 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
     def add(self, triple: _TripleOrOptionalQuadType) -> NoReturn:
         raise ModificationException()
 
-    def addN(self, quads: Iterable["_QuadType"]) -> NoReturn:  # noqa: N802
+    def addN(self, quads: Iterable[_QuadType]) -> NoReturn:  # noqa: N802
         raise ModificationException()
 
     # type error: Argument 1 of "remove" is incompatible with supertype "Graph"; supertype defines the argument type as "Tuple[Optional[Node], Optional[Node], Optional[Node]]"
@@ -2749,28 +2844,25 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
     @overload  # type: ignore[override]
     def triples(
         self,
-        triple: "_TriplePatternType",
-    ) -> Generator["_TripleType", None, None]:
-        ...
+        triple: _TriplePatternType,
+    ) -> Generator[_TripleType, None, None]: ...
 
     @overload
     def triples(
         self,
-        triple: "_TriplePathPatternType",
-    ) -> Generator["_TriplePathType", None, None]:
-        ...
+        triple: _TriplePathPatternType,
+    ) -> Generator[_TriplePathType, None, None]: ...
 
     @overload
     def triples(
         self,
-        triple: "_TripleSelectorType",
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
-        ...
+        triple: _TripleSelectorType,
+    ) -> Generator[_TripleOrTriplePathType, None, None]: ...
 
     def triples(
         self,
-        triple: "_TripleSelectorType",
-    ) -> Generator["_TripleOrTriplePathType", None, None]:
+        triple: _TripleSelectorType,
+    ) -> Generator[_TripleOrTriplePathType, None, None]:
         s, p, o = triple
         for graph in self.graphs:
             if isinstance(p, Path):
@@ -2784,7 +2876,7 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
         context = None
         if len(triple_or_quad) == 4:
             # type error: Tuple index out of range
-            context = triple_or_quad[3]  # type: ignore [misc]
+            context = triple_or_quad[3]  # type: ignore [misc, unused-ignore]
         for graph in self.graphs:
             if context is None or graph.identifier == context.identifier:
                 if triple_or_quad[:3] in graph:
@@ -2795,9 +2887,7 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
     def quads(  # type: ignore[override]
         self, triple_or_quad: _TripleOrQuadSelectorType
     ) -> Generator[
-        Tuple[
-            "_SubjectType", Union[Path, "_PredicateType"], "_ObjectType", "_ContextType"
-        ],
+        Tuple[_SubjectType, Union[Path, _PredicateType], _ObjectType, _ContextType],
         None,
         None,
     ]:
@@ -2805,10 +2895,10 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
         c = None
         if len(triple_or_quad) == 4:
             # type error: Need more than 3 values to unpack (4 expected)
-            s, p, o, c = triple_or_quad  # type: ignore[misc]
+            s, p, o, c = triple_or_quad  # type: ignore[misc, unused-ignore]
         else:
             # type error: Too many values to unpack (3 expected, 4 provided)
-            s, p, o = triple_or_quad  # type: ignore[misc]
+            s, p, o = triple_or_quad  # type: ignore[misc, unused-ignore]
 
         if c is not None:
             for graph in [g for g in self.graphs if g == c]:
@@ -2835,10 +2925,10 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
         else:
             return -1
 
-    def __iadd__(self: "_GraphT", other: Iterable["_TripleType"]) -> NoReturn:
+    def __iadd__(self: _GraphT, other: Iterable[_TripleType]) -> NoReturn:
         raise ModificationException()
 
-    def __isub__(self: "_GraphT", other: Iterable["_TripleType"]) -> NoReturn:
+    def __isub__(self: _GraphT, other: Iterable[_TripleType]) -> NoReturn:
         raise ModificationException()
 
     # Conv. methods
@@ -2846,11 +2936,11 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
     def triples_choices(
         self,
         triple: Union[
-            Tuple[List["_SubjectType"], "_PredicateType", "_ObjectType"],
-            Tuple["_SubjectType", List["_PredicateType"], "_ObjectType"],
-            Tuple["_SubjectType", "_PredicateType", List["_ObjectType"]],
+            Tuple[List[_SubjectType], _PredicateType, _ObjectType],
+            Tuple[_SubjectType, List[_PredicateType], _ObjectType],
+            Tuple[_SubjectType, _PredicateType, List[_ObjectType]],
         ],
-        context: Optional["_ContextType"] = None,
+        context: Optional[_ContextType] = None,
     ) -> Generator[_TripleType, None, None]:
         subject, predicate, object_ = triple
         for graph in self.graphs:
@@ -2878,7 +2968,7 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
 
     def namespaces(self) -> Generator[Tuple[str, URIRef], None, None]:
         if hasattr(self, "namespace_manager"):
-            for prefix, namespace in self.namespace_manager.namespaces():  # noqa: F402
+            for prefix, namespace in self.namespace_manager.namespaces():
                 yield prefix, namespace
         else:
             for graph in self.graphs:
@@ -2894,13 +2984,13 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
         source: Optional[
             Union[IO[bytes], TextIO, InputSource, str, bytes, pathlib.PurePath]
         ],
-        publicID: Optional[str] = None,
+        publicID: Optional[str] = None,  # noqa: N803
         format: Optional[str] = None,
         **args: Any,
-    ) -> NoReturn:  # noqa: N803
+    ) -> NoReturn:
         raise ModificationException()
 
-    def n3(self) -> NoReturn:
+    def n3(self, namespace_manager: Optional[NamespaceManager] = None) -> NoReturn:
         raise UnSupportedAggregateOperation()
 
     def __reduce__(self) -> NoReturn:
@@ -2908,13 +2998,11 @@ class ReadOnlyGraphAggregate(ConjunctiveGraph):
 
 
 @overload
-def _assertnode(*terms: Node) -> "te.Literal[True]":
-    ...
+def _assertnode(*terms: Node) -> te.Literal[True]: ...
 
 
 @overload
-def _assertnode(*terms: Any) -> bool:
-    ...
+def _assertnode(*terms: Any) -> bool: ...
 
 
 def _assertnode(*terms: Any) -> bool:
@@ -2962,10 +3050,10 @@ class BatchAddGraph:
     def add(
         self,
         triple_or_quad: Union[
-            "_TripleType",
-            "_QuadType",
+            _TripleType,
+            _QuadType,
         ],
-    ) -> "BatchAddGraph":
+    ) -> BatchAddGraph:
         """
         Add a triple to the buffer
 
@@ -2977,13 +3065,13 @@ class BatchAddGraph:
         self.count += 1
         if len(triple_or_quad) == 3:
             # type error: Argument 1 to "append" of "list" has incompatible type "Tuple[Node, ...]"; expected "Tuple[Node, Node, Node, Graph]"
-            self.batch.append(triple_or_quad + self.__graph_tuple)  # type: ignore[arg-type]
+            self.batch.append(triple_or_quad + self.__graph_tuple)  # type: ignore[arg-type, unused-ignore]
         else:
             # type error: Argument 1 to "append" of "list" has incompatible type "Union[Tuple[Node, Node, Node], Tuple[Node, Node, Node, Graph]]"; expected "Tuple[Node, Node, Node, Graph]"
-            self.batch.append(triple_or_quad)  # type: ignore[arg-type]
+            self.batch.append(triple_or_quad)  # type: ignore[arg-type, unused-ignore]
         return self
 
-    def addN(self, quads: Iterable["_QuadType"]) -> BatchAddGraph:  # noqa: N802
+    def addN(self, quads: Iterable[_QuadType]) -> BatchAddGraph:  # noqa: N802
         if self.__batch_addn:
             for q in quads:
                 self.add(q)

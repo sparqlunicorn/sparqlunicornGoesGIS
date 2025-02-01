@@ -42,6 +42,7 @@ A tiny example:
     True
 
 """
+
 import logging
 import sys
 from importlib import metadata
@@ -51,13 +52,14 @@ _DISTRIBUTION_METADATA = metadata.metadata("rdflib")
 __docformat__ = "restructuredtext en"
 
 __version__: str = _DISTRIBUTION_METADATA["Version"]
-__date__ = "2023-08-02"
+__date__ = "2025-01-18"
 
 __all__ = [
     "URIRef",
     "BNode",
     "IdentifiedNode",
     "Literal",
+    "Node",
     "Variable",
     "Namespace",
     "Dataset",
@@ -194,7 +196,7 @@ from rdflib.namespace import (
     XSD,
     Namespace,
 )
-from rdflib.term import BNode, IdentifiedNode, Literal, URIRef, Variable
+from rdflib.term import BNode, IdentifiedNode, Literal, Node, URIRef, Variable
 
 from rdflib import plugin, query, util  # isort:skip
-from rdflib.container import *  # isort:skip # noqa:F401,F403
+from rdflib.container import *  # isort:skip # noqa: F403

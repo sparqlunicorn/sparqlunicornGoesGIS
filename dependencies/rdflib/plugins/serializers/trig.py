@@ -3,7 +3,9 @@ Trig RDF graph serializer for RDFLib.
 See <http://www.w3.org/TR/trig/> for syntax specification.
 """
 
-from typing import IO, TYPE_CHECKING, Dict, List, Optional, Tuple, Union
+from __future__ import annotations
+
+from typing import IO, TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from rdflib.graph import ConjunctiveGraph, Graph
 from rdflib.plugins.serializers.turtle import TurtleSerializer
@@ -65,8 +67,8 @@ class TrigSerializer(TurtleSerializer):
         base: Optional[str] = None,
         encoding: Optional[str] = None,
         spacious: Optional[bool] = None,
-        **args,
-    ):
+        **kwargs: Any,
+    ) -> None:
         self.reset()
         self.stream = stream
         # if base is given here, use that, if not and a base is set for the graph use that
@@ -101,8 +103,7 @@ class TrigSerializer(TurtleSerializer):
                     # Show the full graph URI if a prefix for it doesn't already exist
                     iri = self.getQName(store.identifier, False)
                     if iri is None:
-                        # type error: "IdentifiedNode" has no attribute "n3"
-                        iri = store.identifier.n3()  # type: ignore[attr-defined]
+                        iri = store.identifier.n3()
                 self.write(self.indent() + "\n%s {" % iri)
 
             self.depth += 1
