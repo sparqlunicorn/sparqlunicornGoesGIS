@@ -10,10 +10,10 @@ import rdflib
 from pyshacl.constraints.constraint_component import ConstraintComponent
 from pyshacl.consts import SH
 from pyshacl.errors import ConstraintLoadError, ReportableRuntimeError
-from pyshacl.pytypes import GraphLike
+from pyshacl.pytypes import GraphLike, SHACLExecutor
 from pyshacl.rdfutil import stringify_node
 from pyshacl.rdfutil.compare import compare_literal
-
+from pyshacl.shape import Shape
 
 SH_MinExclusiveConstraintComponent = SH.MinExclusiveConstraintComponent
 SH_MinInclusiveConstraintComponent = SH.MinInclusiveConstraintComponent
@@ -35,7 +35,7 @@ class MinExclusiveConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MinExclusiveConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MinExclusiveConstraintComponent, self).__init__(shape)
         min_vals = list(self.shape.objects(SH_minExclusive))
         if len(min_vals) < 1:
@@ -46,11 +46,11 @@ class MinExclusiveConstraintComponent(ConstraintComponent):
         self.min_vals = min_vals
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_minExclusive]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MinExclusiveConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -61,8 +61,11 @@ class MinExclusiveConstraintComponent(ConstraintComponent):
             m = "Value is not > in ({})".format(rules)
         return [rdflib.Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -122,7 +125,7 @@ class MinInclusiveConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MinInclusiveConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MinInclusiveConstraintComponent, self).__init__(shape)
         min_vals = list(self.shape.objects(SH_minInclusive))
         if len(min_vals) < 1:
@@ -133,11 +136,11 @@ class MinInclusiveConstraintComponent(ConstraintComponent):
         self.min_vals = min_vals
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_minInclusive]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MinInclusiveConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -148,8 +151,11 @@ class MinInclusiveConstraintComponent(ConstraintComponent):
             m = "Value is not >= in ({})".format(rules)
         return [rdflib.Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -209,7 +215,7 @@ class MaxExclusiveConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MaxExclusiveConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MaxExclusiveConstraintComponent, self).__init__(shape)
         max_vals = list(self.shape.objects(SH_maxExclusive))
         if len(max_vals) < 1:
@@ -220,11 +226,11 @@ class MaxExclusiveConstraintComponent(ConstraintComponent):
         self.max_vals = max_vals
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_maxExclusive]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MaxExclusiveConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -235,8 +241,11 @@ class MaxExclusiveConstraintComponent(ConstraintComponent):
             m = "Value is not < in ({})".format(rules)
         return [rdflib.Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -296,7 +305,7 @@ class MaxInclusiveConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MaxInclusiveConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MaxInclusiveConstraintComponent, self).__init__(shape)
         max_vals = list(self.shape.objects(SH_maxInclusive))
         if len(max_vals) < 1:
@@ -307,11 +316,11 @@ class MaxInclusiveConstraintComponent(ConstraintComponent):
         self.max_vals = max_vals
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_maxInclusive]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MaxInclusiveConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -322,8 +331,11 @@ class MaxInclusiveConstraintComponent(ConstraintComponent):
             m = "Value is not <= in ({})".format(rules)
         return [rdflib.Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list

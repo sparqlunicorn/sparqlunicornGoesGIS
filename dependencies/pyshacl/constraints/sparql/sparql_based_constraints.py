@@ -2,16 +2,18 @@
 """
 https://www.w3.org/TR/shacl/#sparql-constraints
 """
+
 from typing import Dict, List
 
 import rdflib
+from rdflib import URIRef
 
 from pyshacl.constraints.constraint_component import ConstraintComponent
 from pyshacl.consts import SH, SH_deactivated, SH_message, SH_select
 from pyshacl.errors import ConstraintLoadError, ValidationFailure
 from pyshacl.helper import get_query_helper_cls
-from pyshacl.pytypes import GraphLike
-
+from pyshacl.pytypes import GraphLike, SHACLExecutor
+from pyshacl.shape import Shape
 
 SH_sparql = SH.sparql
 SH_SPARQLConstraintComponent = SH.SPARQLConstraintComponent
@@ -26,7 +28,7 @@ class SPARQLBasedConstraint(ConstraintComponent):
 
     shacl_constraint_component = SH_SPARQLConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(SPARQLBasedConstraint, self).__init__(shape)
         sg = self.shape.sg.graph
         sparql_node_list = set(self.shape.objects(SH_sparql))
@@ -70,8 +72,7 @@ class SPARQLBasedConstraint(ConstraintComponent):
                 deactivated = next(iter(deactivated_node_list))
                 if not (isinstance(deactivated, rdflib.Literal) and isinstance(deactivated.value, bool)):
                     raise ConstraintLoadError(
-                        "SPARQLConstraintComponent value for sh:deactivated must be "
-                        "a Literal with type xsd:boolean.",
+                        "SPARQLConstraintComponent value for sh:deactivated must be a Literal with type xsd:boolean.",
                         "https://www.w3.org/TR/shacl/#SPARQLConstraintComponent",
                     )
                 deact = bool(deactivated.value)
@@ -82,15 +83,18 @@ class SPARQLBasedConstraint(ConstraintComponent):
         self.sparql_constraints = sparql_constraints
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_sparql]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "SPARQLConstraintComponent"
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -131,12 +135,32 @@ class SPARQLBasedConstraint(ConstraintComponent):
                 if isinstance(v, bool) and v is True:
                     rept = self.make_v_result(target_graph, f, value_node=result_val, **rept_kwargs)
                 elif isinstance(v, tuple):
-                    t, p, v = v
-                    if v is None:
-                        v = result_val
-                    rept = self.make_v_result(
-                        target_graph, t or f, value_node=v, result_path=p, bound_vars=(t, p, v), **rept_kwargs
-                    )
+                    if len(v) == 2:
+                        (_, vars_dict) = v
+                        rept = self.make_v_result(
+                            target_graph, f, value_node=result_val, bound_vars=vars_dict, **rept_kwargs
+                        )
+                    elif len(v) == 4:
+                        (t, p, v, vars_dict) = v
+                        if v is None:
+                            v = result_val
+                        rept = self.make_v_result(
+                            target_graph,
+                            t or f,
+                            value_node=v,
+                            result_path=p,
+                            bound_vars=(t, p, v, vars_dict),
+                            **rept_kwargs,
+                        )
+                    else:
+                        # len must equal 3
+                        t, p, v = v
+                        if v is None:
+                            v = result_val
+                        rept = self.make_v_result(
+                            target_graph, t or f, value_node=v, result_path=p, bound_vars=(t, p, v), **rept_kwargs
+                        )
+
                 else:
                     rept = self.make_v_result(target_graph, f, value_node=v, **rept_kwargs)
                 reports.append(rept)
@@ -146,26 +170,24 @@ class SPARQLBasedConstraint(ConstraintComponent):
         results = target_graph.query(query, initBindings=init_binds)
         if not results or len(results.bindings) < 1:
             return []
-        violations = set()
+        violations = []
+        dedup_set = set()
         for r in results:
-            try:
-                p = r['path']
-            except KeyError:
-                p = None
-            try:
-                v = r['value']
-            except KeyError:
-                v = None
-            try:
-                t = r['this']
-            except KeyError:
-                t = None
-            if p or v or t:
-                violations.add((t, p, v))
+            var_dict: Dict = r.asdict()
+            f = var_dict.pop('failure', None)
+            if f is not None:
+                if True in dedup_set:
+                    continue
+                violations.append((True, var_dict))
+                dedup_set.add(True)
             else:
-                try:
-                    _ = r['failure']
-                    violations.add(True)
-                except KeyError:
-                    pass
+                p = var_dict.pop('path', None)
+                v = var_dict.pop('value', None)
+                t = var_dict.pop('this', None)
+                if (p is not None) or (v is not None) or (t is not None):
+                    # Guard against duplicate results
+                    if (t, p, v, var_dict) in violations:
+                        continue
+                    violations.append((t, p, v, var_dict))
+
         return violations

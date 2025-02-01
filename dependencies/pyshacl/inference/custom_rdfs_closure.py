@@ -1,8 +1,34 @@
 # -*- coding: utf-8 -*-
-from owlrl.OWL import DataRange, OWLClass, Thing, equivalentClass
+from typing import TYPE_CHECKING, Optional
+
+try:
+    from owlrl import OWL
+
+    if isinstance(OWL, str):
+        raise ImportError(OWL)
+except ImportError:
+    try:
+        from rdflib.namespace import OWL
+    except ImportError:
+        from pyshacl.consts import OWL
+
+
+try:
+    from owlrl import RDFS
+
+    if isinstance(RDFS, str):
+        raise ImportError(RDFS)
+except ImportError:
+    try:
+        from rdflib.namespace import RDFS
+    except ImportError:
+        from pyshacl.consts import RDFS
+
 from owlrl.OWLRL import OWLRL_Semantics
-from owlrl.RDFS import Class, Datatype, Resource
 from owlrl.RDFSClosure import RDFS_Semantics as OrigRDFSSemantics
+
+if TYPE_CHECKING:
+    from rdflib.graph import Graph
 
 
 class CustomRDFSSemantics(OrigRDFSSemantics):
@@ -23,14 +49,15 @@ class CustomRDFSOWLRLSemantics(CustomRDFSSemantics, OWLRL_Semantics):
     """
 
     full_binding_triples = [
-        (Thing, equivalentClass, Resource),
-        (Class, equivalentClass, OWLClass),
-        (DataRange, equivalentClass, Datatype),
+        (OWL.Thing, OWL.equivalentClass, RDFS.Resource),
+        (RDFS.Class, OWL.equivalentClass, OWL.Class),
+        (OWL.DataRange, OWL.equivalentClass, RDFS.Datatype),
     ]
 
-    def __init__(self, graph, axioms, daxioms, rdfs=True):
-        OWLRL_Semantics.__init__(self, graph, axioms, daxioms, rdfs)
-        CustomRDFSSemantics.__init__(self, graph, axioms, daxioms, rdfs)
+    def __init__(self, graph, axioms, daxioms, rdfs: bool = True, destination: Optional['Graph'] = None):
+        # MyPy thinks this is object.__init__ and says the kwargs are incorrect for __init__
+        OWLRL_Semantics.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)  # type: ignore[arg-type, call-arg]
+        CustomRDFSSemantics.__init__(self, graph, axioms, daxioms, rdfs=rdfs, destination=destination)  # type: ignore[arg-type, call-arg]
         self.rdfs = True
 
     # noinspection PyMethodMayBeStatic

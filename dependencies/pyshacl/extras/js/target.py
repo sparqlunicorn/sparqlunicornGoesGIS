@@ -1,7 +1,6 @@
 #
 #
 import typing
-
 from typing import Dict, List
 from warnings import warn
 
@@ -13,9 +12,8 @@ from pyshacl.target import BoundSHACLTargetType, SHACLTargetType
 
 from .js_executable import JSExecutable
 
-
 if typing.TYPE_CHECKING:
-    from pyshacl.pytypes import GraphLike
+    from pyshacl.pytypes import GraphLike, SHACLExecutor
     from pyshacl.shape import Shape
     from pyshacl.shapes_graph import ShapesGraph
 
@@ -37,18 +35,26 @@ class BoundJSTargetType(BoundSHACLTargetType):
         self.params_kv = params_kv  # type: dict
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return []
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "JSTargetType"
 
     @classmethod
     def shacl_constraint_class(cls):
         return SH_JSTargetType
 
-    def evaluate(self, target_graph: 'GraphLike', focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: 'SHACLExecutor', target_graph: 'GraphLike', focus_value_nodes: Dict, _evaluation_path: List
+    ):
+        """
+        :type executor: SHACLExecutor
+        :type target_graph: rdflib.Graph
+        :type focus_value_nodes: dict
+        :type _evaluation_path: list
+        """
         raise NotImplementedError()
 
     def find_targets(self, data_graph):

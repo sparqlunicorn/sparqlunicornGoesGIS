@@ -3,10 +3,10 @@
 """
 https://www.w3.org/TR/shacl/#core-components-value-type
 """
+
 import abc
 import re
 import typing
-
 from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from rdflib import BNode, Literal, URIRef
@@ -17,8 +17,10 @@ from pyshacl.consts import (
     SH_ask,
     SH_focusNode,
     SH_jsFunctionName,
+    SH_NodeConstraintComponent,
     SH_parameter,
     SH_path,
+    SH_PropertyConstraintComponent,
     SH_resultMessage,
     SH_resultPath,
     SH_resultSeverity,
@@ -32,13 +34,11 @@ from pyshacl.consts import (
 )
 from pyshacl.errors import ConstraintLoadError
 from pyshacl.parameter import SHACLParameter
-from pyshacl.pytypes import GraphLike
+from pyshacl.pytypes import GraphLike, SHACLExecutor
 from pyshacl.rdfutil import stringify_node
 
-
 if TYPE_CHECKING:
-    from rdflib.term import Identifier
-
+    from pyshacl.pytypes import RDFNode
     from pyshacl.shape import Shape
     from pyshacl.shapes_graph import ShapesGraph
 
@@ -52,14 +52,14 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
     """
 
     # True if constraint component is defined as "shape-expecting"
-    shape_expecting = False
+    shape_expecting: bool = False
 
     # True if constraint component is defined as "list-taking"
-    list_taking = False
+    list_taking: bool = False
 
-    shacl_constraint_component = NotImplemented
+    shacl_constraint_component: URIRef = URIRef("urn:notimplemented")
 
-    def __init__(self, shape: 'Shape'):
+    def __init__(self, shape: 'Shape') -> None:
         """
 
         :param shape:
@@ -69,53 +69,69 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
 
     @classmethod
     @abc.abstractmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         raise NotImplementedError()  # pragma: no cover
 
     @classmethod
     @abc.abstractmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         raise NotImplementedError()  # pragma: no cover
 
     @abc.abstractmethod
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         raise NotImplementedError()  # pragma: no cover
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
         return []
 
-    def __str__(self):
+    def __str__(self) -> str:
         c_name = str(self.__class__.__name__)
         shape_id = str(self.shape)
         return "<{} on {}>".format(c_name, shape_id)
 
-    def recursion_triggers(self, _evaluation_path):
+    def recursion_triggers(self, _evaluation_path, trigger_depth=3) -> Optional[List['RDFNode']]:
         shape = self.shape
         eval_length = len(_evaluation_path)
+        if eval_length < 4:
+            return None
         maybe_recursive = []
-        if eval_length >= 6:
-            _shape, _self = _evaluation_path[eval_length - 2 :]
-            if _shape is not shape or _self is not self:
-                raise RuntimeError("Bad evaluation path construction")
-            seen_before = [i for i, x in enumerate(_evaluation_path[: eval_length - 2]) if x is shape]
-            for s in seen_before:
-                for i, p in enumerate(_evaluation_path[s + 1 : -2]):
-                    if isinstance(p, ConstraintComponent):
-                        if p.shape is shape and p.__class__ == self.__class__:
-                            try:
-                                next_shape = _evaluation_path[s + 1 + i + 1]
-                                maybe_recursive.append(next_shape)
-                            except IndexError:
-                                pass
-                        break
+        _shape, _self = _evaluation_path[eval_length - 2 :]
+        if _shape is not shape or _self is not self:
+            raise RuntimeError("Bad evaluation path construction")
+        prev_shape, prev_constraint = _evaluation_path[eval_length - 4 : eval_length - 2]
+        lookback_len = trigger_depth * 2
+        if isinstance(prev_constraint, ConstraintComponent):
+            if (
+                self.shacl_constraint_component is SH_PropertyConstraintComponent
+                and prev_constraint.shacl_constraint_component is SH_NodeConstraintComponent
+            ) or (
+                self.shacl_constraint_component is SH_NodeConstraintComponent
+                and prev_constraint.shacl_constraint_component is SH_PropertyConstraintComponent
+            ):
+                lookback_len = trigger_depth * 4
+        if eval_length < lookback_len:
+            return None
+        seen_before = [i for i, x in enumerate(_evaluation_path[: eval_length - 2]) if x is shape]
+        for s in seen_before:
+            for i, p in enumerate(_evaluation_path[s + 1 : -2]):
+                if isinstance(p, ConstraintComponent):
+                    if p.shape is shape and p.__class__ == self.__class__:
+                        try:
+                            next_shape = _evaluation_path[s + 1 + i + 1]
+                            maybe_recursive.append(next_shape)
+                        except IndexError:
+                            pass
+                    break
         return maybe_recursive
 
     def make_v_result_description(
         self,
         datagraph: GraphLike,
-        focus_node: 'Identifier',
+        focus_node: 'RDFNode',
         severity: URIRef,
-        value_node: Optional['Identifier'],
+        value_node: Optional['RDFNode'],
         messages: List[str],
         result_path=None,
         constraint_component=None,
@@ -127,7 +143,7 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
         :param datagraph:
         :type datagraph: rdflib.Graph | rdflib.ConjunctiveGraph | rdflib.Dataset
         :param focus_node:
-        :type focus_node: rdflib.term.Identifier
+        :type focus_node: RDFNode
         :param severity:
         :type value_node: rdflib.URIRef
         :param value_node:
@@ -151,7 +167,11 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
             severity_desc = "Validation Result"
         source_shape_text = stringify_node(sg, self.shape.node)
         severity_node_text = stringify_node(sg, severity)
-        focus_node_text = stringify_node(datagraph or sg, focus_node)
+        try:
+            focus_node_text = stringify_node(datagraph or sg, focus_node)
+        except (LookupError, ValueError):
+            # focus node doesn't exist in the datagraph. We can deal.
+            focus_node_text = str(focus_node)
         desc = "{} in {} ({}):\n\tSeverity: {}\n\tSource Shape: {}\n\tFocus Node: {}\n".format(
             severity_desc,
             constraint_name,
@@ -161,7 +181,11 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
             focus_node_text,
         )
         if value_node is not None:
-            val_node_string = stringify_node(datagraph or sg, value_node)
+            try:
+                val_node_string = stringify_node(datagraph or sg, value_node)
+            except (LookupError, ValueError):
+                # value node doesn't exist in the datagraph.
+                val_node_string = str(value_node)
             desc += "\tValue Node: {}\n".format(val_node_string)
         if result_path is None and self.shape.is_property_shape:
             result_path = self.shape.path()
@@ -195,11 +219,11 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
     def make_v_result(
         self,
         datagraph: GraphLike,
-        focus_node: 'Identifier',
-        value_node: Optional['Identifier'] = None,
-        result_path: Optional['Identifier'] = None,
-        constraint_component: Optional['Identifier'] = None,
-        source_constraint: Optional['Identifier'] = None,
+        focus_node: 'RDFNode',
+        value_node: Optional['RDFNode'] = None,
+        result_path: Optional['RDFNode'] = None,
+        constraint_component: Optional['RDFNode'] = None,
+        source_constraint: Optional['RDFNode'] = None,
         extra_messages: Optional[Iterable] = None,
         bound_vars=None,
     ):
@@ -207,11 +231,11 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
         :param datagraph:
         :type datagraph: rdflib.Graph | rdflib.ConjunctiveGraph | rdflib.Dataset
         :param focus_node:
-        :type focus_node: Identifier
+        :type focus_node: RDFNode
         :param value_node:
-        :type value_node: Identifier | None
+        :type value_node: RDFNode | None
         :param result_path:
-        :type result_path: Identifier | None
+        :type result_path: RDFNode | None
         :param constraint_component:
         :param source_constraint:
         :param extra_messages:
@@ -222,7 +246,7 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
         constraint_component = constraint_component or self.shacl_constraint_component
         severity = self.shape.severity
         sg = self.shape.sg.graph
-        r_triples = list()
+        r_triples: List[Tuple[RDFNode, RDFNode, Any]] = list()
         r_node = BNode()
         r_triples.append((r_node, RDF_type, SH_ValidationResult))
         r_triples.append((r_node, SH_sourceConstraintComponent, (sg, constraint_component)))
@@ -269,15 +293,31 @@ class ConstraintComponent(object, metaclass=abc.ABCMeta):
             extra_messages=extra_messages,
             bound_vars=bound_vars,
         )
-        self.shape.logger.debug(desc)
         return desc, r_node, r_triples
 
     def _format_sparql_based_result_message(self, msg, bound_vars):
         if bound_vars is None:
             return msg
-        msg = re.sub('{[?$]this}', str(bound_vars[0]), msg)
-        msg = re.sub('{[?$]path}', str(bound_vars[1]), msg)
-        msg = re.sub('{[?$]value}', str(bound_vars[2]), msg)
+        fdict = {}
+        if isinstance(bound_vars, (tuple, list)):
+            if len(bound_vars) == 4:
+                fdict.update(bound_vars[3])
+                bound_vars = bound_vars[:3]
+            if len(bound_vars) == 3:
+                if bound_vars[0] is not None:
+                    fdict['this'] = bound_vars[0]
+                if bound_vars[1] is not None:
+                    fdict['path'] = bound_vars[1]
+                if bound_vars[2] is not None:
+                    fdict['value'] = bound_vars[2]
+
+        elif isinstance(bound_vars, dict):
+            fdict.update(bound_vars)
+        else:
+            return msg
+        for var, val in fdict.items():
+            substring = "{{[?$]{}}}".format(var)
+            msg = re.sub(substring, str(val), msg)
         return msg
 
 
@@ -362,7 +402,7 @@ class CustomConstraintComponentFactory(object):
                     break
                 if is_sparql_constraint_component:
                     raise ConstraintLoadError(
-                        "Found a mix of SPARQL-based validators and non-SPARQL validators on a SPARQLConstraintComponent.",
+                        "Found a mix of SPARQL-based validators and non-SPARQL validators on a SPARQLConstraintComponent.",  # noqa
                         'https://www.w3.org/TR/shacl/#constraint-components-validators',
                     )
                 elif is_js_constraint_component:
@@ -404,4 +444,7 @@ class CustomConstraintComponent(object):
         return self
 
     def make_validator_for_shape(self, shape: 'Shape'):
-        raise NotImplementedError()
+        raise ConstraintLoadError(
+            "A Custom Constraint must include one of a SPARQLConstraintComponent validator or a JSConstraint validator.",
+            "https://www.w3.org/TR/shacl/#constraint-components-validators",
+        )

@@ -4,18 +4,17 @@
 SHACL-AF Advanced Constraints
 https://www.w3.org/TR/shacl-af/#ExpressionConstraintComponent
 """
-import typing
 
+import typing
 from typing import Dict, List
 
-from rdflib import Literal
+from rdflib import Literal, URIRef
 
 from pyshacl.constraints.constraint_component import ConstraintComponent
 from pyshacl.consts import SH, SH_message
 from pyshacl.errors import ConstraintLoadError
 from pyshacl.helper.expression_helper import nodes_from_node_expression
-from pyshacl.pytypes import GraphLike
-
+from pyshacl.pytypes import GraphLike, SHACLExecutor
 
 SH_expression = SH.expression
 SH_ExpressionConstraintComponent = SH.ExpressionConstraintComponent
@@ -25,10 +24,9 @@ if typing.TYPE_CHECKING:
 
 
 class ExpressionConstraint(ConstraintComponent):
-
     shacl_constraint_component = SH_ExpressionConstraintComponent
 
-    def __init__(self, shape: 'Shape'):
+    def __init__(self, shape: 'Shape') -> None:
         super(ExpressionConstraint, self).__init__(shape)
         self.expr_nodes = list(self.shape.objects(SH_expression))
         if len(self.expr_nodes) < 1:
@@ -38,18 +36,21 @@ class ExpressionConstraint(ConstraintComponent):
             )
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_expression]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "ExpressionConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
         return [Literal("Expression evaluation generated constraint did not return true.")]
 
-    def evaluate(self, data_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, data_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type data_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import itertools
-
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional, Sequence, Tuple, Union, cast
 
 import rdflib
 
@@ -10,24 +9,28 @@ from pyshacl.errors import ReportableRuntimeError
 from pyshacl.helper.expression_helper import nodes_from_node_expression
 from pyshacl.rules.shacl_rule import SHACLRule
 
-
 if TYPE_CHECKING:
-    from pyshacl.pytypes import GraphLike
+    from rdflib.term import URIRef
+
+    from pyshacl.pytypes import GraphLike, RDFNode, SHACLExecutor
     from pyshacl.shape import Shape
+
+TRIPLE_RULE_ITERATE_LIMIT = 100
 
 
 class TripleRule(SHACLRule):
     __slots__ = ("s", "p", "o")
 
-    def __init__(self, shape: 'Shape', rule_node: 'rdflib.term.Identifier', **kwargs):
+    def __init__(self, executor: 'SHACLExecutor', shape: 'Shape', rule_node: 'rdflib.term.Identifier', **kwargs):
         """
-
+        :param executor:
+        :type executor: SHACLExecutor
         :param shape:
         :type shape: Shape
         :param rule_node:
         :type rule_node: rdflib.term.Identifier
         """
-        super(TripleRule, self).__init__(shape, rule_node, **kwargs)
+        super(TripleRule, self).__init__(executor, shape, rule_node, **kwargs)
         my_subject_nodes = set(self.shape.sg.objects(self.node, SH_subject))
         if len(my_subject_nodes) < 1:
             raise RuntimeError("No sh:subject")
@@ -49,14 +52,35 @@ class TripleRule(SHACLRule):
             raise RuntimeError("Too many sh:object")
         self.o = next(iter(my_object_nodes))
 
-    def apply(self, data_graph: 'GraphLike') -> int:
-        focus_nodes = self.shape.focus_nodes(data_graph)  # uses target nodes to find focus nodes
-        applicable_nodes = self.filter_conditions(focus_nodes, data_graph)
+    def apply(
+        self,
+        data_graph: 'GraphLike',
+        focus_nodes: Optional[Sequence['RDFNode']] = None,
+        target_graph_identifier: Optional['URIRef'] = None,
+    ) -> int:
+        focus_list: Sequence['RDFNode']
+        if focus_nodes is not None:
+            focus_list = list(focus_nodes)
+        else:
+            focus_list = list(self.shape.focus_nodes(data_graph))
+        if self.executor.focus_nodes is not None and len(self.executor.focus_nodes) > 0:
+            filtered_focus_nodes: List[Union[rdflib.URIRef]] = []
+            for _fo in focus_list:  # type: RDFNode
+                if isinstance(_fo, rdflib.URIRef) and _fo in self.executor.focus_nodes:
+                    filtered_focus_nodes.append(_fo)
+            len_filtered_focus = len(filtered_focus_nodes)
+            if len_filtered_focus < 1:
+                return 0
+            focus_list = filtered_focus_nodes
+        # uses target nodes to find focus nodes
+        applicable_nodes = self.filter_conditions(focus_list, data_graph)
         all_added = 0
-        iterate_limit = 100
+        iterate_limit = int(TRIPLE_RULE_ITERATE_LIMIT)
         while True:
             if iterate_limit < 1:
-                raise ReportableRuntimeError("sh:rule iteration exceeded iteration limit of 100.")
+                raise ReportableRuntimeError(
+                    f"sh:rule iteration exceeded iteration limit of {TRIPLE_RULE_ITERATE_LIMIT}."
+                )
             iterate_limit -= 1
             added = 0
             to_add = []
@@ -73,8 +97,15 @@ class TripleRule(SHACLRule):
                 if this_added:
                     added += 1
             if added > 0:
+                if isinstance(data_graph, (rdflib.Dataset, rdflib.ConjunctiveGraph)):
+                    if target_graph_identifier is not None:
+                        target_graph = data_graph.get_context(target_graph_identifier)
+                    else:
+                        target_graph = data_graph.default_context
+                else:
+                    target_graph = data_graph
                 for i in to_add:
-                    data_graph.add(i)
+                    target_graph.add(cast(Tuple['RDFNode', 'RDFNode', 'RDFNode'], i))
                 all_added += added
                 if self.iterate:
                     continue  # Jump up to iterate

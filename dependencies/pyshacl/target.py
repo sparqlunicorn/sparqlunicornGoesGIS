@@ -1,15 +1,15 @@
 import typing
-
 from typing import List, Sequence, Type, Union
 from warnings import warn
+
+from rdflib import URIRef
 
 from .constraints import ConstraintComponent
 from .consts import SH, RDF_type, RDFS_subClassOf, SH_parameter, SH_select, SH_SPARQLTargetType
 from .errors import ConstraintLoadError, ShapeLoadError
 from .helper import get_query_helper_cls
 from .parameter import SHACLParameter
-from .pytypes import GraphLike
-
+from .pytypes import GraphLike, SHACLExecutor
 
 if typing.TYPE_CHECKING:
     from .shapes_graph import ShapesGraph
@@ -107,18 +107,26 @@ class BoundSHACLTargetType(ConstraintComponent):
         self.param_vals = param_vals
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return []
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "SPARQLTargetType"
 
     @classmethod
     def shacl_constraint_class(cls):
         return SH_SPARQLTargetType
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: typing.Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: typing.Dict, _evaluation_path: List
+    ):
+        """
+        :type executor: SHACLExecutor
+        :type target_graph: rdflib.Graph
+        :type focus_value_nodes: dict
+        :type _evaluation_path: list
+        """
         raise NotImplementedError()
 
     def find_targets(self, data_graph):

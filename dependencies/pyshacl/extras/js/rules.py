@@ -1,6 +1,8 @@
 #
 #
-import typing
+from typing import TYPE_CHECKING, List, Optional, Sequence, Union
+
+import rdflib
 
 from pyshacl.consts import SH
 from pyshacl.errors import ReportableRuntimeError
@@ -8,33 +10,54 @@ from pyshacl.rules.shacl_rule import SHACLRule
 
 from .js_executable import JSExecutable
 
+if TYPE_CHECKING:
+    from rdflib.term import URIRef
 
-if typing.TYPE_CHECKING:
-    from pyshacl.pytypes import GraphLike
+    from pyshacl.pytypes import GraphLike, RDFNode, SHACLExecutor
     from pyshacl.shape import Shape
     from pyshacl.shapes_graph import ShapesGraph
 
 SH_JSRule = SH.JSRule
 
+JS_RULE_ITERATE_LIMIT = 100
+
 
 class JSRule(SHACLRule):
     __slots__ = ('js_exe',)
 
-    def __init__(self, shape: 'Shape', rule_node, **kwargs):
-        super(JSRule, self).__init__(shape, rule_node, **kwargs)
-        shapes_graph = shape.sg  # type: ShapesGraph
+    def __init__(self, executor: 'SHACLExecutor', shape: 'Shape', rule_node, **kwargs):
+        super(JSRule, self).__init__(executor, shape, rule_node, **kwargs)
+        shapes_graph: 'ShapesGraph' = shape.sg
         self.js_exe = JSExecutable(shapes_graph, rule_node)
 
-    def apply(self, data_graph: 'GraphLike') -> int:
-        focus_nodes = self.shape.focus_nodes(data_graph)  # uses target nodes to find focus nodes
+    def apply(
+        self,
+        data_graph: 'GraphLike',
+        focus_nodes: Union[Sequence['RDFNode'], None] = None,
+        target_graph_identifier: Optional['URIRef'] = None,
+    ) -> int:
+        focus_list: Sequence['RDFNode']
+        if focus_nodes is not None:
+            focus_list = list(focus_nodes)
+        else:
+            focus_list = list(self.shape.focus_nodes(data_graph))
+        if self.executor.focus_nodes is not None and len(self.executor.focus_nodes) > 0:
+            filtered_focus_nodes: List[Union[rdflib.URIRef]] = []
+            for _fo in focus_list:  # type: RDFNode
+                if isinstance(_fo, rdflib.URIRef) and _fo in self.executor.focus_nodes:
+                    filtered_focus_nodes.append(_fo)
+            len_filtered_focus = len(filtered_focus_nodes)
+            if len_filtered_focus < 1:
+                return 0
+            focus_list = filtered_focus_nodes
         all_added = 0
-        iterate_limit = 100
+        iterate_limit = int(JS_RULE_ITERATE_LIMIT)
         while True:
             if iterate_limit < 1:
-                raise ReportableRuntimeError("Local rule iteration exceeded iteration limit of 100.")
+                raise ReportableRuntimeError(f"JS rule iteration exceeded iteration limit of {JS_RULE_ITERATE_LIMIT}.")
             iterate_limit -= 1
             added = 0
-            applicable_nodes = self.filter_conditions(focus_nodes, data_graph)
+            applicable_nodes = self.filter_conditions(focus_list, data_graph)
             sets_to_add = []
             for a in applicable_nodes:
                 args_map = {"this": a}
@@ -52,10 +75,17 @@ class JSRule(SHACLRule):
                 if this_added:
                     added += 1
             if added > 0:
-                all_added += added
+                if isinstance(data_graph, (rdflib.Dataset, rdflib.ConjunctiveGraph)):
+                    if target_graph_identifier is not None:
+                        target_graph = data_graph.get_context(target_graph_identifier)
+                    else:
+                        target_graph = data_graph.default_context
+                else:
+                    target_graph = data_graph
                 for s in sets_to_add:
                     for t in s:
-                        data_graph.add(t)
+                        target_graph.add(t)
+                all_added += added
                 if self.iterate:
                     continue  # Jump up to iterate
                 else:

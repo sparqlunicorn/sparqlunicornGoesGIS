@@ -2,17 +2,18 @@
 """
 https://www.w3.org/TR/shacl/#core-components-count
 """
-from typing import Dict, List
+
+from typing import Dict, List, Optional
 
 from rdflib.namespace import XSD
-from rdflib.term import Literal
+from rdflib.term import Literal, URIRef
 
 from pyshacl.constraints.constraint_component import ConstraintComponent
 from pyshacl.consts import SH
 from pyshacl.errors import ConstraintLoadError
-from pyshacl.pytypes import GraphLike
+from pyshacl.pytypes import GraphLike, RDFNode, SHACLExecutor
 from pyshacl.rdfutil import stringify_node
-
+from pyshacl.shape import Shape
 
 XSD_integer = XSD.integer
 SH_minCount = SH.minCount
@@ -33,9 +34,12 @@ class MinCountConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MinCountConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape, min_count_objects: Optional[List[RDFNode]] = None) -> None:
         super(MinCountConstraintComponent, self).__init__(shape)
-        min_count = list(self.shape.objects(SH_minCount))
+        if min_count_objects is None:
+            min_count = list(self.shape.objects(SH_minCount))
+        else:
+            min_count = min_count_objects
         if len(min_count) < 1:
             raise ConstraintLoadError(
                 "MinCountConstraintComponent must have at least one sh:minCount predicate.",
@@ -64,26 +68,32 @@ class MinCountConstraintComponent(ConstraintComponent):
             )
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_minCount]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MinCountConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
         p = self.shape.path()
         if p:
             p = stringify_node(self.shape.sg.graph, p)
-            m = "Less than {} values on {}->{}".format(
-                str(self.min_count.value), stringify_node(datagraph, focus_node), p
-            )
+            try:
+                focus_string = stringify_node(datagraph, focus_node)
+            except (LookupError, ValueError):
+                # focus node doesn't exist in the datagraph. We can deal.
+                focus_string = str(focus_node)
+            m = "Less than {} values on {}->{}".format(str(self.min_count.value), focus_string, p)
         else:
             m = "Less than {} values on {}".format(str(self.min_count.value), stringify_node(datagraph, focus_node))
         return [Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -113,9 +123,13 @@ class MaxCountConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_MaxCountConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape, max_count_objects: Optional[List[RDFNode]] = None) -> None:
         super(MaxCountConstraintComponent, self).__init__(shape)
-        max_count = list(self.shape.objects(SH_maxCount))
+        if max_count_objects is None:
+            max_count = list(self.shape.objects(SH_maxCount))
+        else:
+            max_count = max_count_objects
+
         if len(max_count) < 1:
             raise ConstraintLoadError(
                 "MaxCountConstraintComponent must have at least one sh:maxCount predicate.",
@@ -144,11 +158,11 @@ class MaxCountConstraintComponent(ConstraintComponent):
             )
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_maxCount]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MaxCountConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
@@ -162,8 +176,11 @@ class MaxCountConstraintComponent(ConstraintComponent):
             m = "More than {} values on {}".format(str(self.max_count.value), stringify_node(datagraph, focus_node))
         return [Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list

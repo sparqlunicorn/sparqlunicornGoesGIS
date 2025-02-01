@@ -1,11 +1,9 @@
 import itertools
 import operator
-
 from typing import TYPE_CHECKING, List, Set, Union
 from warnings import warn
 
 import rdflib
-
 from rdflib import Literal, URIRef
 
 from pyshacl.consts import (
@@ -23,20 +21,25 @@ from pyshacl.consts import (
     SH_zeroOrMorePath,
     SH_zeroOrOnePath,
 )
-from pyshacl.errors import ReportableRuntimeError
-
+from pyshacl.errors import ReportableRuntimeError, ShapeLoadError
 
 if TYPE_CHECKING:
     from pyshacl.pytypes import GraphLike, RDFNode
     from pyshacl.shapes_graph import ShapesGraph
 
 
-def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
+def value_nodes_from_path(sg, focus, path_val, target_graph, inverse: bool = False, recursion: int = 0) -> Set:
     # Link: https://www.w3.org/TR/shacl/#property-paths
     if isinstance(path_val, URIRef):
-        return set(target_graph.objects(focus, path_val))
+        if inverse:
+            return set(target_graph.subjects(path_val, focus))
+        else:
+            return set(target_graph.objects(focus, path_val))
     elif isinstance(path_val, Literal):
-        raise ReportableRuntimeError("Values of a property path cannot be a Literal.")
+        raise ShapeLoadError(
+            "Values of a property path cannot be a Literal.",
+            "https://www.w3.org/TR/shacl/#property-paths",
+        )
     # At this point, path_val _must_ be a BNode
     # TODO, the path_val BNode must be value of exactly one sh:path subject in the SG.
     if recursion >= 10:
@@ -57,19 +60,25 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
                 raise ReportableRuntimeError("A list of SHACL Paths must contain at least two path items.")
             else:
                 go_deeper = False
-        this_level_nodes = value_nodes_from_path(sg, focus, first_node, target_graph, recursion=recursion + 1)
+        this_level_nodes = value_nodes_from_path(
+            sg, focus, first_node, target_graph, inverse=inverse, recursion=recursion + 1
+        )
         if not go_deeper:
             return this_level_nodes
         found_value_nodes = set()
         for tln in iter(this_level_nodes):
-            value_nodes = value_nodes_from_path(sg, tln, rest_node, target_graph, recursion=recursion + 1)
+            value_nodes = value_nodes_from_path(
+                sg, tln, rest_node, target_graph, inverse=inverse, recursion=recursion + 1
+            )
             found_value_nodes.update(value_nodes)
         return found_value_nodes
 
     find_inverse = set(sg.graph.objects(path_val, SH_inversePath))
     if len(find_inverse) > 0:
         inverse_path = next(iter(find_inverse))
-        return set(target_graph.subjects(inverse_path, focus))
+        return value_nodes_from_path(
+            sg, focus, inverse_path, target_graph, inverse=not inverse, recursion=recursion + 1
+        )
 
     find_alternatives = set(sg.graph.objects(path_val, SH_alternativePath))
     if len(find_alternatives) > 0:
@@ -77,7 +86,7 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
         all_collected = set()
         visited_alternatives = 0
         for a in sg.graph.items(alternatives_list):
-            found_nodes = value_nodes_from_path(sg, focus, a, target_graph, recursion=recursion + 1)
+            found_nodes = value_nodes_from_path(sg, focus, a, target_graph, inverse=inverse, recursion=recursion + 1)
             visited_alternatives += 1
             all_collected.update(found_nodes)
         if visited_alternatives < 2:
@@ -90,14 +99,16 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
         collection_set = set()
         # Note, the zero-or-more path always includes the current subject too!
         collection_set.add(focus)
-        found_nodes = value_nodes_from_path(sg, focus, zm_path, target_graph, recursion=recursion + 1)
+        found_nodes = value_nodes_from_path(sg, focus, zm_path, target_graph, inverse=inverse, recursion=recursion + 1)
         search_deeper_nodes = set(iter(found_nodes))
         while len(search_deeper_nodes) > 0:
             current_node = search_deeper_nodes.pop()
             if current_node in collection_set:
                 continue
             collection_set.add(current_node)
-            found_more_nodes = value_nodes_from_path(sg, current_node, zm_path, target_graph, recursion=recursion + 1)
+            found_more_nodes = value_nodes_from_path(
+                sg, current_node, zm_path, target_graph, inverse=inverse, recursion=recursion + 1
+            )
             search_deeper_nodes.update(found_more_nodes)
         return collection_set
 
@@ -105,7 +116,9 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
     if len(find_one_or_more) > 0:
         one_or_more_path = next(iter(find_one_or_more))
         collection_set = set()
-        found_nodes = value_nodes_from_path(sg, focus, one_or_more_path, target_graph, recursion=recursion + 1)
+        found_nodes = value_nodes_from_path(
+            sg, focus, one_or_more_path, target_graph, inverse=inverse, recursion=recursion + 1
+        )
         # Note, the one-or-more path should _not_ include the current focus
         search_deeper_nodes = set(iter(found_nodes))
         while len(search_deeper_nodes) > 0:
@@ -114,7 +127,7 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
                 continue
             collection_set.add(current_node)
             found_more_nodes = value_nodes_from_path(
-                sg, current_node, one_or_more_path, target_graph, recursion=recursion + 1
+                sg, current_node, one_or_more_path, target_graph, inverse=inverse, recursion=recursion + 1
             )
             search_deeper_nodes.update(found_more_nodes)
         return collection_set
@@ -125,16 +138,26 @@ def value_nodes_from_path(sg, focus, path_val, target_graph, recursion=0):
         collection_set = set()
         # Note, the zero-or-one path always includes the current subject too!
         collection_set.add(focus)
-        found_nodes = value_nodes_from_path(sg, focus, zero_or_one_path, target_graph, recursion=recursion + 1)
+        found_nodes = value_nodes_from_path(
+            sg, focus, zero_or_one_path, target_graph, inverse=inverse, recursion=recursion + 1
+        )
         collection_set.update(found_nodes)
         return collection_set
+    remaining = set(sg.graph.predicate_objects(path_val))
+    if len(remaining) > 0:
+        raise ShapeLoadError(
+            "{} is not a known property for a sh:path. Malformed shape?".format(str(next(iter(remaining))[0])),
+            "https://www.w3.org/TR/shacl/#property-paths",
+        )
 
-    raise NotImplementedError("That path method to get value nodes of property shapes is not yet implemented.")
+    raise ShapeLoadError(
+        "Cannot get any values from sh:path property. Malformed shape?", "https://www.w3.org/TR/shacl/#property-paths"
+    )
 
 
 def nodes_from_node_expression(
     expr, focus_node, data_graph: 'GraphLike', sg: 'ShapesGraph', recurse_depth=0
-) -> Union[Set['RDFNode'], List['RDFNode']]:
+) -> Union[Set[Union['RDFNode', None]], List[Union['RDFNode', None]]]:
     # https://www.w3.org/TR/shacl-af/#node-expressions
     if expr == SH_this:
         return [focus_node]
@@ -151,7 +174,7 @@ def nodes_from_node_expression(
         if len(unions):
             union_list = next(iter(unions))
             parts = list(sg.graph.items(union_list))
-            all_nodes: Set['RDFNode'] = set()
+            all_nodes: Set[Union['RDFNode', None]] = set()
             for p in parts:
                 new_parts = nodes_from_node_expression(p, focus_node, data_graph, sg, recurse_depth=recurse_depth + 1)
                 all_nodes = all_nodes.union(new_parts)
@@ -159,7 +182,7 @@ def nodes_from_node_expression(
         if len(intersections):
             inter_list = next(iter(intersections))
             parts = list(data_graph.items(inter_list))
-            inter_nodes: Set[RDFNode] = set()
+            inter_nodes: Set[Union['RDFNode', None]] = set()
             new = True
             for p in parts:
                 new_parts = nodes_from_node_expression(p, focus_node, data_graph, sg, recurse_depth=recurse_depth + 1)
@@ -171,15 +194,15 @@ def nodes_from_node_expression(
             return inter_nodes
         path_nodes = set(sg.objects(expr, SH_path))
         if len(path_nodes) > 0:
-            path_results = []
+            path_results: Set[Union['RDFNode', None]] = set()
             for p in path_nodes:
                 vals = value_nodes_from_path(sg, focus_node, p, data_graph)
-                path_results.extend(vals)
+                path_results.update(vals)
             return path_results
         filter_shapes = set(sg.objects(expr, SH_filterShape))
         nodes_nodes = set(sg.objects(expr, SH_nodes))
         if len(filter_shapes) > 0:  # pragma: no cover
-            # Note: Theres no tests for this whole filterShapes feature!
+            # Note: There's no tests for this whole filterShapes feature!
             if len(nodes_nodes) > 1:
                 warn(Warning("More than one sh:nodes found. Using the first one."))
             elif len(nodes_nodes) < 1:
@@ -221,7 +244,7 @@ def nodes_from_node_expression(
                 "The SHACLFunction {} was not defined in this SHACL Shapes file.".format(fnexpr)
             )
         argslist_parts = list(sg.graph.items(fnargslist))
-        args_sets = [
+        args_sets: List[Union[List[Union['RDFNode', None]], Set[Union['RDFNode', None]]]] = [
             nodes_from_node_expression(p, focus_node, data_graph, sg, recurse_depth=recurse_depth + 1)
             for p in argslist_parts
         ]
@@ -254,8 +277,8 @@ def nodes_from_node_expression(
             args_sets[i] = [None]
         args_permutations = list(itertools.product(*args_sets))
         responses = set()
-        for p in args_permutations:
-            result = function(data_graph, *p)
+        for permus in args_permutations:
+            result = function(data_graph, *permus)
             responses.add(result)
         return responses
     else:

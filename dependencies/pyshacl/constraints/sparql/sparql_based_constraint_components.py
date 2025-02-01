@@ -2,8 +2,8 @@
 """
 https://www.w3.org/TR/shacl/#sparql-constraint-components
 """
-import typing
 
+import typing
 from typing import Dict, List, Tuple, Type, Union
 
 import rdflib
@@ -12,8 +12,7 @@ from pyshacl.constraints.constraint_component import ConstraintComponent, Custom
 from pyshacl.consts import SH, RDF_type, SH_ask, SH_ConstraintComponent, SH_message, SH_select
 from pyshacl.errors import ConstraintLoadError, ValidationFailure
 from pyshacl.helper import get_query_helper_cls
-from pyshacl.pytypes import GraphLike
-
+from pyshacl.pytypes import GraphLike, SHACLExecutor
 
 if typing.TYPE_CHECKING:
     from pyshacl.shape import Shape
@@ -25,7 +24,6 @@ SH_SPARQLAskValidator = SH.SPARQLAskValidator
 
 
 class BoundShapeValidatorComponent(ConstraintComponent):
-
     shacl_constraint_component = SH_ConstraintComponent
 
     def __init__(self, constraint, shape: 'Shape', validator):
@@ -50,21 +48,25 @@ class BoundShapeValidatorComponent(ConstraintComponent):
         self.query_helper.collect_prefixes()
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         # TODO:coverage: this is never used for this constraint?
         return []
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "ConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
         return [rdflib.Literal("Parameterised SHACL Query generated constraint validation reports.")]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
-        :type focus_value_nodes: dict
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
+        :type focus_value_nodes: dict
+        :type _evaluation_path: list
         """
         reports = []
         non_conformant = False
@@ -79,7 +81,7 @@ class BoundShapeValidatorComponent(ConstraintComponent):
             # we don't use value_nodes in the sparql constraint
             # All queries are done on the corresponding focus node.
             try:
-                violations = self.validator.validate(f, value_nodes, target_graph, self.query_helper)
+                violations = self.validator.validate(executor, f, value_nodes, target_graph, self.query_helper)
             except ValidationFailure as e:
                 raise e
             for val, vio in violations:
@@ -242,9 +244,12 @@ class AskConstraintValidator(SPARQLConstraintComponentValidator):
             )
         self.query_text = ask_val.value
 
-    def validate(self, focus, value_nodes, target_graph, query_helper=None, new_bind_vals=None):
+    def validate(
+        self, executor: SHACLExecutor, focus, value_nodes, target_graph, query_helper=None, new_bind_vals=None
+    ):
         """
-
+        :param executor:
+        :type executor: SHACLExecutor
         :param focus:
         :param value_nodes:
         :param query_helper:
@@ -303,9 +308,10 @@ class SelectConstraintValidator(SPARQLConstraintComponentValidator):
             )
         self.query_text = select_val.value
 
-    def validate(self, focus, value_nodes, target_graph, query_helper=None, new_bind_vals=None):
+    def validate(self, executor, focus, value_nodes, target_graph, query_helper=None, new_bind_vals=None):
         """
-
+        :param executor:
+        :type executor: SHACLExecutor
         :param focus:
         :param value_nodes:
         :param query_helper:

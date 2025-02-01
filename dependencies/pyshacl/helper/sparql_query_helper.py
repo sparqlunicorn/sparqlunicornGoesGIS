@@ -2,31 +2,25 @@
 """
 https://www.w3.org/TR/shacl/#sparql-constraints
 """
+
 import re
 
 import rdflib
-
 from rdflib import XSD
 
 from ..consts import (
     OWL_PFX,
-    RDF,
     RDF_PFX,
     RDFS_PFX,
     SH,
     OWL_Ontology,
     RDF_type,
-    SH_alternativePath,
-    SH_inversePath,
     SH_namespace,
-    SH_oneOrMorePath,
     SH_prefix,
     SH_prefixes,
-    SH_zeroOrMorePath,
-    SH_zeroOrOnePath,
 )
 from ..errors import ConstraintLoadError, ReportableRuntimeError, ValidationFailure
-
+from .path_helper import shacl_path_to_sparql_path
 
 SH_declare = SH.declare
 invalid_parameter_names = {'this', 'shapesGraph', 'currentShape', 'path', 'PATH', 'value'}
@@ -38,14 +32,14 @@ class SPARQLQueryHelper(object):
     bind_path_regex = re.compile(r"([\s{}()])[\$\?]PATH", flags=re.M)
     bind_sg_regex = re.compile(r"([\s{}()])[\$\?]shapesGraph", flags=re.M)
     bind_cs_regex = re.compile(r"([\s{}()])[\$\?]currentShape", flags=re.M)
-    has_minus_regex = re.compile(r"[^\?\$]MINUS[\s\{]", flags=re.M | re.I)
-    has_values_regex = re.compile(r"[^\?\$]VALUES[\s\{]", flags=re.M | re.I)
-    has_service_regex = re.compile(r"[^\?\$]SERVICE[\s\<]", flags=re.M | re.I)
+    has_minus_regex = re.compile(r"^(?:[^#]*|M)(?!#)#?[^\?\$\#]M?INUS[\s\{]", flags=re.M | re.I)
+    has_values_regex = re.compile(r"^(?:[^#]*|V)(?!#)#?[^\?\$\#]V?ALUES[\s\{]", flags=re.M | re.I)
+    has_service_regex = re.compile(r"^(?:[^#]*|S)(?!#)#?[^\?\$\#]S?ERVICE[\s\<]", flags=re.M | re.I)
     has_nested_select_regex = re.compile(
         r"SELECT[\s\(\)\$\?\a-z]*\{[^\}]*SELECT\s+((?:(?:[\?\$]\w+\s+)|(?:\*\s+))+)", flags=re.M | re.I
     )
     has_as_var_regex = re.compile(r"[^\w]+AS[\s]+[\$\?](\w+)", flags=re.M | re.I)
-    find_msg_subs = re.compile(r"({[\$\?](.+)})", flags=re.M)
+    find_msg_subs = re.compile(r"({[\$\?]([^{}]+)})", flags=re.M)
 
     def __init__(self, shape, node, select_text, parameters=None, messages=None, deactivated=False):
         self._shape = None
@@ -122,7 +116,7 @@ class SPARQLQueryHelper(object):
                 except KeyError:
                     replacer = re.compile(r"{[\$\?]" + variable + r"}", flags=re.M)
                     var_replacers[variable] = replacer
-                m_val = replacer.sub(str(param_map[variable].value), m_val, 1)
+                m_val = replacer.sub(str(param_map[variable]), m_val, 1)
             bound_messages.add(rdflib.Literal(m_val, lang=m.language, datatype=m.datatype))
         self.bound_messages = bound_messages
 
@@ -144,7 +138,10 @@ class SPARQLQueryHelper(object):
 
         for prefixes_val in iter(prefixes_vals):
             pfx_declares = set(sg.objects(prefixes_val, SH_declare))
-            all_declares = global_declares.union(pfx_declares)
+            if pfx_declares and prefixes_val in onts:
+                all_declares = pfx_declares.union(ng_declares)
+            else:
+                all_declares = global_declares.union(pfx_declares)
             for dec in iter(all_declares):
                 if isinstance(dec, rdflib.Literal):
                     raise ConstraintLoadError(
@@ -197,78 +194,6 @@ class SPARQLQueryHelper(object):
         for p, ns in self.prefixes.items():
             prefix_string += "PREFIX {}: <{}>\n".format(str(p), str(ns))
         return "{}\n{}".format(prefix_string, sparql)
-
-    def _shacl_path_to_sparql_path(self, path_val, recursion=0):
-        """
-
-        :param path_val:
-        :type path_val: rdflib.term.Node
-        :param recursion:
-        :type recursion: int
-        :returns: string
-        :rtype: str
-        """
-        sg = self.shape.sg
-        # Link: https://www.w3.org/TR/shacl/#property-paths
-        if isinstance(path_val, rdflib.URIRef):
-            string_uri = str(path_val)
-            for p, ns in self.prefixes.items():
-                if string_uri.startswith(ns):
-                    string_uri = ':'.join([p, string_uri.replace(ns, '')])
-                    return string_uri
-            return "<{}>".format(string_uri)
-        elif isinstance(path_val, rdflib.Literal):
-            raise ReportableRuntimeError("Values of a property path cannot be a Literal.")
-        # At this point, path_val _must_ be a BNode
-        # TODO, the path_val BNode must be value of exactly one sh:path subject in the SG.
-        if recursion >= 10:
-            raise ReportableRuntimeError("Path traversal depth is too much!")
-        sequence_list = set(sg.objects(path_val, RDF.first))
-        if len(sequence_list) > 0:
-            all_collected = []
-            for s in sg.items(sequence_list):
-                seq1_string = self._shacl_path_to_sparql_path(s, recursion=recursion + 1)
-                all_collected.append(seq1_string)
-            if len(all_collected) < 2:
-                raise ReportableRuntimeError("List of SHACL sequence paths must have alt least two path items.")
-            return "/".join(all_collected)
-
-        find_inverse = set(sg.objects(path_val, SH_inversePath))
-        if len(find_inverse) > 0:
-            inverse_path = next(iter(find_inverse))
-            inverse_path_string = self._shacl_path_to_sparql_path(inverse_path, recursion=recursion + 1)
-            return "^{}".format(inverse_path_string)
-
-        find_alternatives = set(sg.objects(path_val, SH_alternativePath))
-        if len(find_alternatives) > 0:
-            alternatives_list = next(iter(find_alternatives))
-            all_collected = []
-            for a in sg.items(alternatives_list):
-                alt1_string = self._shacl_path_to_sparql_path(a, recursion=recursion + 1)
-                all_collected.append(alt1_string)
-            if len(all_collected) < 2:
-                raise ReportableRuntimeError("List of SHACL alternate paths must have alt least two path items.")
-            return "|".join(all_collected)
-
-        find_zero_or_more = set(sg.objects(path_val, SH_zeroOrMorePath))
-        if len(find_zero_or_more) > 0:
-            zero_or_more_path = next(iter(find_zero_or_more))
-            zom_path_string = self._shacl_path_to_sparql_path(zero_or_more_path, recursion=recursion + 1)
-            return "{}*".format(zom_path_string)
-
-        find_zero_or_one = set(sg.objects(path_val, SH_zeroOrOnePath))
-        if len(find_zero_or_one) > 0:
-            zero_or_one_path = next(iter(find_zero_or_one))
-            zoo_path_string = self._shacl_path_to_sparql_path(zero_or_one_path, recursion=recursion + 1)
-            return "{}?".format(zoo_path_string)
-
-        find_one_or_more = set(sg.objects(path_val, SH_oneOrMorePath))
-        if len(find_one_or_more) > 0:
-            one_or_more_path = next(iter(find_one_or_more))
-            oom_path_string = self._shacl_path_to_sparql_path(one_or_more_path, recursion=recursion + 1)
-            return "{}+".format(oom_path_string)
-
-        raise NotImplementedError("That path method to get value nodes of property shapes is not yet implemented.")
 
     @classmethod
     def _node_to_sparql_text(cls, node):
@@ -323,12 +248,18 @@ class SPARQLQueryHelper(object):
                     # these are optional:
                     if p == "shapesGraph" or p == "currentShape":
                         continue
-                    raise ValidationFailure(
-                        "All potentially pre-bound variables must be selected from a nested SELECT query.\n"
-                        "Potentially pre-bound variables for this query are: {}.".format(
-                            ", ".join(potentially_prebound_variables)
+                    elif p == "this":
+                        raise ValidationFailure(
+                            "All potentially pre-bound variables must be selected from a nested SELECT query.\n"
+                            "Don't forget to include variable `$this` in your SELECT arguments."
                         )
-                    )
+                    else:
+                        raise ValidationFailure(
+                            "All potentially pre-bound variables must be selected from a nested SELECT query.\n"
+                            "Potentially pre-bound variables for this query are: {}.".format(
+                                ", ".join(potentially_prebound_variables)
+                            )
+                        )
         has_as_var = self.has_as_var_regex.search(sparql_text)
         if has_as_var:
             var_name = has_as_var.group(1)
@@ -356,7 +287,7 @@ class SPARQLQueryHelper(object):
             init_bindings['currentShape'] = self.shape.node
         path = self.shape.path()
         if path:
-            path_string = self._shacl_path_to_sparql_path(path)
+            path_string = shacl_path_to_sparql_path(self.shape.sg, path, prefixes=self.prefixes)
             new_query_text = self.bind_path_regex.sub(r"\g<1>{}".format(path_string), new_query_text)
         else:
             found_path = self.bind_path_regex.search(new_query_text)

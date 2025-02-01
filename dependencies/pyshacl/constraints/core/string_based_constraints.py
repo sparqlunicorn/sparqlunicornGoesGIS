@@ -2,18 +2,23 @@
 """
 https://www.w3.org/TR/shacl/#core-components-string
 """
-import re
 
-from typing import Dict, List
+import logging
+import re
+from typing import Dict, List, cast
 
 import rdflib
+from rdflib.namespace import XSD
 
 from pyshacl.constraints.constraint_component import ConstraintComponent
-from pyshacl.consts import SH
+from pyshacl.consts import RDF, SH, XSD_WHOLE_INTEGERS
 from pyshacl.errors import ConstraintLoadError, ReportableRuntimeError
-from pyshacl.pytypes import GraphLike
+from pyshacl.pytypes import GraphLike, RDFNode, SHACLExecutor
 from pyshacl.rdfutil import stringify_node
+from pyshacl.shape import Shape
 
+RDF_langString = RDF.langString
+XSD_string = XSD.string
 
 SH_PatternConstraintComponent = SH.PatternConstraintComponent
 SH_MinLengthConstraintComponent = SH.MinLengthConstraintComponent
@@ -33,25 +38,28 @@ class StringBasedConstraintBase(ConstraintComponent):
     https://www.w3.org/TR/shacl/#core-components-string
     """
 
-    shacl_constraint_component = NotImplemented
+    shacl_constraint_component = rdflib.URIRef("urn:notimplemented")
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(StringBasedConstraintBase, self).__init__(shape)
-        self.string_rules = []
+        self.string_rules: List[RDFNode] = []
         self.allow_multi_rules = True
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         raise NotImplementedError()
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         raise NotImplementedError()
 
     @classmethod
     def value_node_to_string(cls, v):
         if isinstance(v, rdflib.Literal):
-            v_string = str(v.value)
+            if v.value is not None and (v.datatype in (None, RDF_langString, XSD_string)):
+                v_string = str(v.value)
+            else:
+                v_string = str(v)
         elif isinstance(v, rdflib.URIRef):
             v_string = str(v)
         else:
@@ -61,8 +69,11 @@ class StringBasedConstraintBase(ConstraintComponent):
     def _evaluate_string_rule(self, r, target_graph, f_v_dict):
         raise NotImplementedError()
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -90,7 +101,7 @@ class MinLengthConstraintComponent(StringBasedConstraintBase):
 
     shacl_constraint_component = SH_MinLengthConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MinLengthConstraintComponent, self).__init__(shape)
         self.allow_multi_rules = False
         patterns_found = list(self.shape.objects(SH_minLength))
@@ -104,14 +115,31 @@ class MinLengthConstraintComponent(StringBasedConstraintBase):
                 "MinLengthConstraintComponent must have at most one sh:minLength predicate.",
                 "https://www.w3.org/TR/shacl/#MinLengthConstraintComponent",
             )
+        for s_r in patterns_found:
+            if (
+                (not isinstance(s_r, rdflib.Literal))
+                or getattr(s_r, "ill_typed", False)
+                or s_r.datatype is None
+                or s_r.datatype not in XSD_WHOLE_INTEGERS
+            ):
+                raise ConstraintLoadError(
+                    "sh:minLength value must be a literal value with an integer.",
+                    "https://www.w3.org/TR/shacl/#MinLengthConstraintComponent",
+                )
+            elif s_r.datatype in (XSD.negativeInteger, XSD.nonPositiveInteger) or s_r.value < 0:
+                raise ConstraintLoadError(
+                    "sh:minLength value must be a positive integer.",
+                    "https://www.w3.org/TR/shacl/#MinLengthConstraintComponent",
+                )
+
         self.string_rules = patterns_found
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_minLength]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MinLengthConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -122,7 +150,7 @@ class MinLengthConstraintComponent(StringBasedConstraintBase):
         reports = []
         non_conformant = False
         assert isinstance(r, rdflib.Literal)
-        min_len = int(r.value)
+        min_len = r.value
         if min_len < 0:
             raise ReportableRuntimeError("Minimum length cannot be less than zero!")
         for f, value_nodes in f_v_dict.items():
@@ -154,7 +182,7 @@ class MaxLengthConstraintComponent(StringBasedConstraintBase):
 
     shacl_constraint_component = SH_MaxLengthConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(MaxLengthConstraintComponent, self).__init__(shape)
         self.allow_multi_rules = False
         patterns_found = list(self.shape.objects(SH_maxLength))
@@ -168,14 +196,30 @@ class MaxLengthConstraintComponent(StringBasedConstraintBase):
                 "MaxLengthConstraintComponent must have at most one sh:maxLength predicate.",
                 "https://www.w3.org/TR/shacl/#MaxLengthConstraintComponent",
             )
+        for s_r in patterns_found:
+            if (
+                (not isinstance(s_r, rdflib.Literal))
+                or getattr(s_r, "ill_typed", False)
+                or s_r.datatype is None
+                or s_r.datatype not in XSD_WHOLE_INTEGERS
+            ):
+                raise ConstraintLoadError(
+                    "sh:maxLength value must be a literal value with an integer.",
+                    "https://www.w3.org/TR/shacl/#MaxLengthConstraintComponent",
+                )
+            elif s_r.datatype in (XSD.negativeInteger, XSD.nonPositiveInteger) or s_r.value < 0:
+                raise ConstraintLoadError(
+                    "sh:maxLength value must be a positive integer.",
+                    "https://www.w3.org/TR/shacl/#MaxLengthConstraintComponent",
+                )
         self.string_rules = patterns_found
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_maxLength]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "MaxLengthConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
@@ -186,7 +230,7 @@ class MaxLengthConstraintComponent(StringBasedConstraintBase):
         reports = []
         non_conformant = False
         assert isinstance(r, rdflib.Literal)
-        max_len = int(r.value)
+        max_len = r.value
         if max_len < 0:
             raise ReportableRuntimeError("Maximum length cannot be less than zero!")
         for f, value_nodes in f_v_dict.items():
@@ -216,21 +260,22 @@ class PatternConstraintComponent(StringBasedConstraintBase):
 
     shacl_constraint_component = SH_PatternConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(PatternConstraintComponent, self).__init__(shape)
-        patterns_found = list(self.shape.objects(SH_pattern))
+        patterns_found: List[rdflib.Literal] = []
+        for pattern_found in self.shape.objects(SH_pattern):
+            if not isinstance(pattern_found, rdflib.Literal):
+                raise ConstraintLoadError(
+                    "PatternConstraintComponent sh:pattern must be a RDF Literal node.",
+                    "https://www.w3.org/TR/shacl/#PatternConstraintComponent",
+                )
+            patterns_found.append(pattern_found)
         if len(patterns_found) < 1:
             raise ConstraintLoadError(
                 "PatternConstraintComponent must have at least one sh:pattern predicate.",
                 "https://www.w3.org/TR/shacl/#PatternConstraintComponent",
             )
-        for p in patterns_found:
-            if not isinstance(p, rdflib.Literal):
-                raise ConstraintLoadError(
-                    "PatternConstraintComponent sh:pattern must be a RDF Literal node.",
-                    "https://www.w3.org/TR/shacl/#PatternConstraintComponent",
-                )
-        self.string_rules = patterns_found
+        self.string_rules = cast(List[RDFNode], patterns_found)
         flags_found = set(self.shape.objects(SH_flags))
         if len(flags_found) > 0:
             # Just get the first found flags
@@ -238,26 +283,6 @@ class PatternConstraintComponent(StringBasedConstraintBase):
         else:
             self.flags = None
 
-    @classmethod
-    def constraint_parameters(cls):
-        return [SH_pattern]
-
-    @classmethod
-    def constraint_name(cls):
-        return "PatternConstraintComponent"
-
-    def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
-        if len(self.string_rules) < 2:
-            m = "Value does not match pattern '{}'".format(str(self.string_rules[0].value))
-        else:
-            rules = "', '".join(str(c.value) for c in self.string_rules)
-            m = "Value does not match every pattern in ('{}')".format(rules)
-        return [rdflib.Literal(m)]
-
-    def _evaluate_string_rule(self, r, target_graph, f_v_dict):
-        reports = []
-        non_conformant = False
-        assert isinstance(r, rdflib.Literal)
         re_flags = 0
         if self.flags:
             flags = str(self.flags.value).lower()
@@ -267,8 +292,47 @@ class PatternConstraintComponent(StringBasedConstraintBase):
             m = 'm' in flags
             if m:
                 re_flags |= re.M
-        re_pattern = str(r.value)
-        re_matcher = re.compile(re_pattern, re_flags)
+        self.compiled_cache = {}
+        for p in patterns_found:
+            if p.value is not None and len(p.value) > 1:
+                re_pattern = str(p.value)
+            else:
+                re_pattern = str(p)
+            re_matcher = re.compile(re_pattern, re_flags)
+            self.compiled_cache[p] = re_matcher
+
+    @classmethod
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
+        return [SH_pattern]
+
+    @classmethod
+    def constraint_name(cls) -> str:
+        return "PatternConstraintComponent"
+
+    def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
+        if len(self.string_rules) < 2:
+            string_rule = self.string_rules[0]
+            assert isinstance(string_rule, rdflib.Literal)
+            m = "Value does not match pattern '{}'".format(str(string_rule.value))
+        else:
+            # Inform type system that all the string rules are Literals.
+            _string_rules: List[rdflib.Literal] = []
+            for string_rule in self.string_rules:
+                if not isinstance(string_rule, rdflib.Literal):
+                    logging.debug("string_rule = %r.", string_rule)
+                    logging.debug("type(string_rule) = %r.", type(string_rule))
+                    raise TypeError("Non-Literal entered string_rules list.")
+                _string_rules.append(string_rule)
+            rules = "', '".join(str(c.value) for c in _string_rules)
+            m = "Value does not match every pattern in ('{}')".format(rules)
+        return [rdflib.Literal(m)]
+
+    def _evaluate_string_rule(self, r, target_graph, f_v_dict):
+        reports = []
+        non_conformant = False
+        re_matcher = self.compiled_cache.get(r, None)
+        if re_matcher is None:
+            raise RuntimeError(f"No compiled regex for {r}")
         for f, value_nodes in f_v_dict.items():
             for v in value_nodes:
                 match = False
@@ -300,7 +364,7 @@ class LanguageInConstraintComponent(StringBasedConstraintBase):
     shape_expecting = False
     list_taking = True
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(LanguageInConstraintComponent, self).__init__(shape)
         self.allow_multi_rules = False
         language_ins_found = list(self.shape.objects(SH_languageIn))
@@ -317,15 +381,15 @@ class LanguageInConstraintComponent(StringBasedConstraintBase):
         self.string_rules = language_ins_found
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_languageIn]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "LanguageInConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:
-        m = "String language is not in {}".format(stringify_node(datagraph, self.string_rules[0]))
+        m = "String language is not in {}".format(stringify_node(self.shape.sg.graph, self.string_rules[0]))
         return [rdflib.Literal(m)]
 
     def _evaluate_string_rule(self, r, target_graph, f_v_dict):
@@ -338,15 +402,15 @@ class LanguageInConstraintComponent(StringBasedConstraintBase):
                 try:
                     if not isinstance(lang_in, rdflib.Literal) or not isinstance(lang_in.value, str):
                         raise ReportableRuntimeError(
-                            "All languages in sh:LanugageIn must be a Literal with type xsd:string"
+                            "All languages in sh:lanugageIn must be a Literal with type xsd:string"
                         )
                 except (AssertionError, AttributeError):
                     raise ReportableRuntimeError(
-                        "All languages in sh:LanugageIn must be a Literal with type xsd:string"
+                        "All languages in sh:lanugageIn must be a Literal with type xsd:string"
                     )
                 languages_need.add(str(lang_in.value).lower())
         except (KeyError, AttributeError, ValueError):
-            raise ReportableRuntimeError("Value of sh:LanguageIn must be a RDF List")
+            raise ReportableRuntimeError("Value of sh:languageIn must be a RDF List")
         wildcard = False
         if '*' in languages_need:
             wildcard = True
@@ -383,7 +447,7 @@ class UniqueLangConstraintComponent(StringBasedConstraintBase):
 
     shacl_constraint_component = SH_UniqueLangConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(UniqueLangConstraintComponent, self).__init__(shape)
         self.allow_multi_rules = False
         is_unique_lang = set(self.shape.objects(SH_uniqueLang))
@@ -411,11 +475,11 @@ class UniqueLangConstraintComponent(StringBasedConstraintBase):
         self.string_rules = {is_unique_lang.value}
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[rdflib.URIRef]:
         return [SH_uniqueLang]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "UniqueLangConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[rdflib.Literal]:

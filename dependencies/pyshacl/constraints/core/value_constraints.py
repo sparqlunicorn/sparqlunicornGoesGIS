@@ -2,17 +2,19 @@
 """
 https://www.w3.org/TR/shacl/#core-components-value-type
 """
+
 from datetime import date, datetime, time
+from decimal import Decimal
 from typing import Dict, List
 
 import rdflib
-
 from rdflib.namespace import XSD
-from rdflib.term import Literal
+from rdflib.term import Literal, URIRef
 
 from pyshacl.constraints.constraint_component import ConstraintComponent
 from pyshacl.consts import (
     RDF,
+    RDFS,
     SH,
     SH_IRI,
     RDF_type,
@@ -26,11 +28,13 @@ from pyshacl.consts import (
     SH_nodeKind,
 )
 from pyshacl.errors import ConstraintLoadError
-from pyshacl.pytypes import GraphLike
+from pyshacl.pytypes import GraphLike, SHACLExecutor
 from pyshacl.rdfutil import stringify_node
-
+from pyshacl.shape import Shape
 
 RDF_langString = RDF.langString
+RDFS_Datatype = RDFS.Datatype
+RDFS_Literal = RDFS.Literal
 XSD_string = XSD.string
 XSD_integer = XSD.integer
 XSD_float = XSD.float
@@ -38,6 +42,7 @@ XSD_boolean = XSD.boolean
 XSD_date = XSD.date
 XSD_time = XSD.time
 XSD_dateTime = XSD.dateTime
+XSD_decimal = XSD.decimal
 
 SH_class = SH["class"]
 SH_ClassConstraintComponent = SH.ClassConstraintComponent
@@ -56,7 +61,7 @@ class ClassConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_ClassConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(ClassConstraintComponent, self).__init__(shape)
         class_rules = list(self.shape.objects(SH_class))
         if len(class_rules) < 1:
@@ -67,11 +72,11 @@ class ClassConstraintComponent(ConstraintComponent):
         self.class_rules = class_rules
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_class]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "ClassConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
@@ -82,21 +87,51 @@ class ClassConstraintComponent(ConstraintComponent):
             m = "Value class is not in classes ({})".format(rules)
         return [Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
         """
         reports = []
         non_conformant = False
-        for c in self.class_rules:
-            _n, _r = self._evaluate_class_rules(target_graph, focus_value_nodes, c)
-            non_conformant = non_conformant or _n
-            reports.extend(_r)
+        if executor.sparql_mode:
+            for c in self.class_rules:
+                _n, _r = self._evaluate_class_rules_sparql(target_graph, focus_value_nodes, c)
+                non_conformant = non_conformant or _n
+                reports.extend(_r)
+        else:
+            for c in self.class_rules:
+                _n, _r = self._evaluate_class_rules_rdflib(target_graph, focus_value_nodes, c)
+                non_conformant = non_conformant or _n
+                reports.extend(_r)
         return (not non_conformant), reports
 
-    def _evaluate_class_rules(self, target_graph, f_v_dict, class_rule):
+    def _evaluate_class_rules_sparql(self, target_graph, f_v_dict, class_rule):
+        reports = []
+        non_conformant = False
+        sparql_ask = """ASK {$value rdf:type/rdfs:subClassOf* $class .}"""
+        for f, value_nodes in f_v_dict.items():
+            for v in value_nodes:
+                found = False
+                if isinstance(v, Literal):
+                    self.shape.logger.debug(
+                        "Class Constraint won't work with Literals. "
+                        "Attempting to match Literal node {} to class of {} will fail.".format(v, class_rule)
+                    )
+                else:
+                    resp = target_graph.query(sparql_ask, initBindings={"value": v, "class": class_rule})
+                    found = resp.askAnswer
+                if not found:
+                    non_conformant = True
+                    rept = self.make_v_result(target_graph, f, value_node=v)
+                    reports.append(rept)
+        return non_conformant, reports
+
+    def _evaluate_class_rules_rdflib(self, target_graph, f_v_dict, class_rule):
         reports = []
         non_conformant = False
         for f, value_nodes in f_v_dict.items():
@@ -135,7 +170,7 @@ class DatatypeConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_DatatypeConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(DatatypeConstraintComponent, self).__init__(shape)
         datatype_rules = list(self.shape.objects(SH_datatype))
         if len(datatype_rules) < 1:
@@ -151,19 +186,22 @@ class DatatypeConstraintComponent(ConstraintComponent):
         self.datatype_rule = datatype_rules[0]
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_datatype]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "DatatypeConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
         m = "Value is not Literal with datatype {}".format(stringify_node(self.shape.sg.graph, self.datatype_rule))
         return [Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -178,7 +216,19 @@ class DatatypeConstraintComponent(ConstraintComponent):
                     datatype = v.datatype
                     lang = v.language
                     if datatype == dtype_rule:
-                        matches = self._assert_actual_datatype(v, dtype_rule)
+                        ill_formed = getattr(v, "ill_typed", None)
+                        if ill_formed is True:
+                            matches = False
+                        else:
+                            matches = self._assert_actual_datatype(v, dtype_rule)
+                    elif dtype_rule == RDFS_Literal:
+                        # Special case. All literals are instance of RDFS.Literal
+                        # and all literals have datatype of RDFS.Literal
+                        matches = True
+                    elif dtype_rule == RDFS_Datatype and datatype:
+                        # Special case. All literals with a datatype are instances of RDFS.Datatype
+                        # and all literals with datatype have datatype of RDFS.Datatype
+                        matches = True
                     elif datatype is None and lang is None and dtype_rule == XSD_string:
                         matches = self._assert_actual_datatype(v, dtype_rule)
                     elif dtype_rule == RDF_langString and lang:
@@ -202,6 +252,8 @@ class DatatypeConstraintComponent(ConstraintComponent):
             return isinstance(value, int)
         elif datatype_rule == XSD_float:
             return isinstance(value, float)
+        elif datatype_rule == XSD_decimal:
+            return isinstance(value, Decimal)
         elif datatype_rule == XSD_boolean:
             return isinstance(value, bool)
         elif datatype_rule == XSD_date:
@@ -226,7 +278,7 @@ class NodeKindConstraintComponent(ConstraintComponent):
 
     shacl_constraint_component = SH_NodeKindConstraintComponent
 
-    def __init__(self, shape):
+    def __init__(self, shape: Shape) -> None:
         super(NodeKindConstraintComponent, self).__init__(shape)
         nodekind_rules = list(self.shape.objects(SH_nodeKind))
         if len(nodekind_rules) < 1:
@@ -242,19 +294,22 @@ class NodeKindConstraintComponent(ConstraintComponent):
         self.nodekind_rule = nodekind_rules[0]
 
     @classmethod
-    def constraint_parameters(cls):
+    def constraint_parameters(cls) -> List[URIRef]:
         return [SH_nodeKind]
 
     @classmethod
-    def constraint_name(cls):
+    def constraint_name(cls) -> str:
         return "NodeKindConstraintComponent"
 
     def make_generic_messages(self, datagraph: GraphLike, focus_node, value_node) -> List[Literal]:
         m = "Value is not of Node Kind {}".format(stringify_node(self.shape.sg.graph, self.nodekind_rule))
         return [Literal(m)]
 
-    def evaluate(self, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List):
+    def evaluate(
+        self, executor: SHACLExecutor, target_graph: GraphLike, focus_value_nodes: Dict, _evaluation_path: List
+    ):
         """
+        :type executor: SHACLExecutor
         :type target_graph: rdflib.Graph
         :type focus_value_nodes: dict
         :type _evaluation_path: list
@@ -279,9 +334,3 @@ class NodeKindConstraintComponent(ConstraintComponent):
                     rept = self.make_v_result(target_graph, f, value_node=v)
                     reports.append(rept)
         return (not non_conformant), reports
-
-    def _evaluate_nodekind_rules(self, target_graph, f_v_pairs, nodekind_rule):
-        reports = []
-        non_conformant = False
-
-        return non_conformant, reports

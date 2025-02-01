@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
+from typing import TYPE_CHECKING, Optional, Sequence
 
 from rdflib import RDF, Literal
 
 from pyshacl.consts import SH_condition, SH_deactivated, SH_order
 from pyshacl.errors import RuleLoadError
+from pyshacl.pytypes import RDFNode, SHACLExecutor
 
+if TYPE_CHECKING:
+    from rdflib.term import URIRef
+
+    from pyshacl.pytypes import GraphLike
 
 RDF_first = RDF.first
 
@@ -20,25 +26,27 @@ class SHACLRuleCondition(object):
     def get_focus_nodes(self, data_graph):
         return self.cond_shape.focus_nodes(data_graph)
 
-    def validate_condition(self, data_graph, focus_node):
-        return self.cond_shape.validate(data_graph, focus=focus_node)
+    def validate_condition(self, executor, data_graph, focus_node):
+        return self.cond_shape.validate(executor, data_graph, focus=focus_node)
 
 
 class SHACLRule(object):
-    __slots__ = ("shape", "node", "iterate", "_deactivated")
+    __slots__ = ("executor", "shape", "node", "iterate", "_deactivated")
 
-    def __init__(self, shape, rule_node, iterate=False):
+    def __init__(self, executor: SHACLExecutor, shape, rule_node, iterate=False):
         """
-
+        :param executor:
+        :type executor: SHACLExecutor
         :param shape:
         :type shape: Shape
         :param rule_node:
         :type rule_node: rdflib.Identifier
         """
         super(SHACLRule, self).__init__()
+        self.executor = executor
         self.shape = shape
         self.node = rule_node
-        self.iterate = False
+        self.iterate = iterate
 
         deactivated_nodes = list(self.shape.sg.objects(self.node, SH_deactivated))
         self._deactivated = len(deactivated_nodes) > 0 and bool(deactivated_nodes[0])
@@ -48,7 +56,7 @@ class SHACLRule(object):
         return self._deactivated
 
     @property
-    def order(self):
+    def order(self) -> Decimal:
         order_nodes = list(self.shape.sg.objects(self.node, SH_order))
         if len(order_nodes) < 1:
             return Decimal("0.0")
@@ -64,14 +72,15 @@ class SHACLRule(object):
         return Decimal(order_node.value)
 
     def get_conditions(self):
-        cond_nodes = list(self.shape.sg.graph.objects(self.node, SH_condition))
+        shapes_graph_g = self.shape.sg.graph
+        cond_nodes = list(shapes_graph_g.objects(self.node, SH_condition))
         conditions = []
         for c in cond_nodes:
             # test_me = list(self.shape.sg.graph.predicate_objects(c))
             # check if this is a rdf:list
-            first_nodes = list(self.shape.sg.graph.objects(c, RDF_first))
+            first_nodes = list(shapes_graph_g.objects(c, RDF_first))
             if len(first_nodes) > 0:
-                for c_item in self.shape.sg.graph.items(c):
+                for c_item in shapes_graph_g.items(c):
                     try:
                         cond_shape = self.shape.sg.lookup_shape_from_node(c_item)
                     except (AttributeError, KeyError):
@@ -93,17 +102,22 @@ class SHACLRule(object):
                 conditions.append(condition)
         return conditions
 
-    def filter_conditions(self, focus_nodes, data_graph):
+    def filter_conditions(self, focus_nodes: Sequence[RDFNode], data_graph):
         conditions = self.get_conditions()
         applicable_focus_nodes = []
         for f in focus_nodes:
             not_applicable = False
             for c in conditions:
-                _conforms, _reports = c.validate_condition(data_graph, f)
+                _conforms, _reports = c.validate_condition(self.executor, data_graph, f)
                 not_applicable = not_applicable or not (_conforms)
             if not not_applicable:
                 applicable_focus_nodes.append(f)
         return applicable_focus_nodes
 
-    def apply(self, data_graph):
+    def apply(
+        self,
+        data_graph: 'GraphLike',
+        focus_nodes: Optional[Sequence[RDFNode]] = None,
+        target_graph_identifier: Optional['URIRef'] = None,
+    ):
         raise NotImplementedError()
