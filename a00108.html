@@ -290,29 +290,29 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  350</span>    <span class="keyword">def </span>detectGeoLiteralType(literal):</div>
-<div class="line"><span class="lineno">  351</span>        <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  352</span>            geom = QgsGeometry.fromWkt(literal)</div>
-<div class="line"><span class="lineno">  353</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkt&quot;</span></div>
-<div class="line"><span class="lineno">  354</span>        <span class="keywordflow">except</span>:</div>
-<div class="line"><span class="lineno">  355</span>            print(<span class="stringliteral">&quot;no wkt&quot;</span>)</div>
-<div class="line"><span class="lineno">  356</span>        <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  357</span>            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
-<div class="line"><span class="lineno">  358</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkb&quot;</span></div>
-<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">except</span>:</div>
-<div class="line"><span class="lineno">  360</span>            print(<span class="stringliteral">&quot;no wkb&quot;</span>)</div>
-<div class="line"><span class="lineno">  361</span>        <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  362</span>            json.loads(literal)</div>
-<div class="line"><span class="lineno">  363</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;geojson&quot;</span></div>
-<div class="line"><span class="lineno">  364</span>        <span class="keywordflow">except</span>:</div>
-<div class="line"><span class="lineno">  365</span>            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
-<div class="line"><span class="lineno">  366</span>        <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  367</span>            ogr.CreateGeometryFromGML(literal)</div>
-<div class="line"><span class="lineno">  368</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;gml&quot;</span></div>
-<div class="line"><span class="lineno">  369</span>        <span class="keywordflow">except</span>:</div>
-<div class="line"><span class="lineno">  370</span>            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
-<div class="line"><span class="lineno">  371</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  372</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  351</span>    <span class="keyword">def </span>detectGeoLiteralType(literal):</div>
+<div class="line"><span class="lineno">  352</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  353</span>            geom = QgsGeometry.fromWkt(literal)</div>
+<div class="line"><span class="lineno">  354</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkt&quot;</span></div>
+<div class="line"><span class="lineno">  355</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  356</span>            print(<span class="stringliteral">&quot;no wkt&quot;</span>)</div>
+<div class="line"><span class="lineno">  357</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  358</span>            geom = QgsGeometry.fromWkb(bytes.fromhex(literal))</div>
+<div class="line"><span class="lineno">  359</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;wkb&quot;</span></div>
+<div class="line"><span class="lineno">  360</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  361</span>            print(<span class="stringliteral">&quot;no wkb&quot;</span>)</div>
+<div class="line"><span class="lineno">  362</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  363</span>            json.loads(literal)</div>
+<div class="line"><span class="lineno">  364</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;geojson&quot;</span></div>
+<div class="line"><span class="lineno">  365</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  366</span>            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
+<div class="line"><span class="lineno">  367</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  368</span>            ogr.CreateGeometryFromGML(literal)</div>
+<div class="line"><span class="lineno">  369</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;gml&quot;</span></div>
+<div class="line"><span class="lineno">  370</span>        <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  371</span>            print(<span class="stringliteral">&quot;no geojson&quot;</span>)</div>
+<div class="line"><span class="lineno">  372</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  373</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -339,9 +339,9 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  346</span>    <span class="keyword">def </span>detectLiteralTypeByURI(literal):</div>
-<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  348</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  347</span>    <span class="keyword">def </span>detectLiteralTypeByURI(literal):</div>
+<div class="line"><span class="lineno">  348</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  349</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -423,63 +423,64 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  172</span>                    <span class="keywordflow">raise</span> Exception</div>
 <div class="line"><span class="lineno">  173</span>                results = sparql.queryAndConvert()</div>
 <div class="line"><span class="lineno">  174</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: QUERY FINISHED WITH RESULTS&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  175</span>                <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  175</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(results), MESSAGE_CATEGORY, Qgis.Info)</div>
 <div class="line"><span class="lineno">  176</span>                <span class="keywordflow">if</span> isinstance(results,dict) <span class="keywordflow">and</span> <span class="stringliteral">&quot;status_code&quot;</span> <span class="keywordflow">in</span> results:</div>
-<div class="line"><span class="lineno">  177</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  178</span>                    <span class="keywordflow">raise</span> Exception</div>
-<div class="line"><span class="lineno">  179</span>            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  180</span>                <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  181</span>                    sparql = SPARQLWrapper(triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>],agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
-<div class="line"><span class="lineno">  182</span>                    sparql.setQuery(query)</div>
-<div class="line"><span class="lineno">  183</span>                    <span class="keywordflow">if</span> triplestoreconf <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;auth&quot;</span> <span class="keywordflow">in</span> triplestoreconf <span class="keywordflow">and</span> <span class="stringliteral">&quot;userCredential&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] \</div>
-<div class="line"><span class="lineno">  184</span>                            <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userCredential&quot;</span>] != <span class="stringliteral">&quot;&quot;</span> \</div>
-<div class="line"><span class="lineno">  185</span>                            <span class="keywordflow">and</span> <span class="stringliteral">&quot;userPassword&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] \</div>
-<div class="line"><span class="lineno">  186</span>                            <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userPassword&quot;</span>] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  187</span>                        <span class="comment">#QgsMessageLog.logMessage(</span></div>
-<div class="line"><span class="lineno">  188</span>                        <span class="comment">#    &#39;Credentials? &#39; + str(triplestoreconf[&quot;auth&quot;][&quot;userCredential&quot;]) + &quot; &quot; + str(</span></div>
-<div class="line"><span class="lineno">  189</span>                        <span class="comment">#       triplestoreconf[&quot;auth&quot;][&quot;userPassword&quot;]), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  190</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;method&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][</div>
-<div class="line"><span class="lineno">  191</span>                            <span class="stringliteral">&quot;method&quot;</span>] <span class="keywordflow">in</span> SPARQLUtils.authmethods:</div>
-<div class="line"><span class="lineno">  192</span>                            sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;method&quot;</span>]])</div>
-<div class="line"><span class="lineno">  193</span>                        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  194</span>                            sparql.setHTTPAuth(BASIC)</div>
-<div class="line"><span class="lineno">  195</span>                        sparql.setCredentials(triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userCredential&quot;</span>],</div>
-<div class="line"><span class="lineno">  196</span>                                              triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userPassword&quot;</span>])</div>
-<div class="line"><span class="lineno">  197</span>                    sparql.setMethod(POST)</div>
-<div class="line"><span class="lineno">  198</span>                    sparql.setReturnFormat(JSON)</div>
-<div class="line"><span class="lineno">  199</span>                    results = sparql.queryAndConvert()</div>
-<div class="line"><span class="lineno">  200</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: QUERY FINISHED WITH RESULTS&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  201</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  202</span>                    <span class="keywordflow">if</span> isinstance(results,dict) <span class="keywordflow">and</span> <span class="stringliteral">&quot;status_code&quot;</span> <span class="keywordflow">in</span> results:</div>
-<div class="line"><span class="lineno">  203</span>                        SPARQLUtils.exception = str(results)</div>
-<div class="line"><span class="lineno">  204</span>                        <span class="keywordflow">raise</span> Exception</div>
-<div class="line"><span class="lineno">  205</span>                <span class="keywordflow">except</span>:</div>
-<div class="line"><span class="lineno">  206</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Exception: &quot;</span> + str(e), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  207</span>                    SPARQLUtils.exception=str(e)</div>
-<div class="line"><span class="lineno">  208</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;OntopUnsupportedInputQueryException: The expression Exists&quot;</span> <span class="keywordflow">in</span> str(e):</div>
-<div class="line"><span class="lineno">  209</span>                        <span class="keywordflow">return</span> <span class="stringliteral">&quot;Exists error&quot;</span></div>
-<div class="line"><span class="lineno">  210</span>                    <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><span class="lineno">  211</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  212</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">in</span> triplestoreurl:</div>
-<div class="line"><span class="lineno">  213</span>                graph=triplestoreurl[<span class="stringliteral">&quot;instance&quot;</span>]</div>
-<div class="line"><span class="lineno">  214</span>            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  215</span>                graph=SPARQLUtils.loadGraph(str(triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>]))</div>
-<div class="line"><span class="lineno">  216</span>                triplestoreurl[<span class="stringliteral">&quot;instance&quot;</span>]=graph</div>
-<div class="line"><span class="lineno">  217</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Graph: &quot; + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  218</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;Query: &quot;</span> + str(query).replace(<span class="stringliteral">&quot;&lt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;&gt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  219</span>            <span class="keywordflow">if</span> graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  220</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;CONSTRUCT&quot;</span> <span class="keywordflow">in</span> str(query):</div>
-<div class="line"><span class="lineno">  221</span>                    results = graph.query(query)</div>
-<div class="line"><span class="lineno">  222</span>                    resg = Graph()</div>
-<div class="line"><span class="lineno">  223</span>                    <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results:</div>
-<div class="line"><span class="lineno">  224</span>                        resg.add(res)</div>
-<div class="line"><span class="lineno">  225</span>                    results=resg</div>
-<div class="line"><span class="lineno">  226</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  227</span>                    results=json.loads(graph.query(query).serialize(format=<span class="stringliteral">&quot;json&quot;</span>))</div>
-<div class="line"><span class="lineno">  228</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  229</span>        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">return</span> results</div>
-<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  177</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(results), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  178</span>                    SPARQLUtils.exception = str(results)</div>
+<div class="line"><span class="lineno">  179</span>                    <span class="keywordflow">raise</span> Exception</div>
+<div class="line"><span class="lineno">  180</span>            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  181</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  182</span>                    sparql = SPARQLWrapper(triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>],agent=<span class="stringliteral">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11&quot;</span>)</div>
+<div class="line"><span class="lineno">  183</span>                    sparql.setQuery(query)</div>
+<div class="line"><span class="lineno">  184</span>                    <span class="keywordflow">if</span> triplestoreconf <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="stringliteral">&quot;auth&quot;</span> <span class="keywordflow">in</span> triplestoreconf <span class="keywordflow">and</span> <span class="stringliteral">&quot;userCredential&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] \</div>
+<div class="line"><span class="lineno">  185</span>                            <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userCredential&quot;</span>] != <span class="stringliteral">&quot;&quot;</span> \</div>
+<div class="line"><span class="lineno">  186</span>                            <span class="keywordflow">and</span> <span class="stringliteral">&quot;userPassword&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] \</div>
+<div class="line"><span class="lineno">  187</span>                            <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userPassword&quot;</span>] <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  188</span>                        <span class="comment">#QgsMessageLog.logMessage(</span></div>
+<div class="line"><span class="lineno">  189</span>                        <span class="comment">#    &#39;Credentials? &#39; + str(triplestoreconf[&quot;auth&quot;][&quot;userCredential&quot;]) + &quot; &quot; + str(</span></div>
+<div class="line"><span class="lineno">  190</span>                        <span class="comment">#       triplestoreconf[&quot;auth&quot;][&quot;userPassword&quot;]), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  191</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;method&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>] <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][</div>
+<div class="line"><span class="lineno">  192</span>                            <span class="stringliteral">&quot;method&quot;</span>] <span class="keywordflow">in</span> SPARQLUtils.authmethods:</div>
+<div class="line"><span class="lineno">  193</span>                            sparql.setHTTPAuth(SPARQLUtils.authmethods[triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;method&quot;</span>]])</div>
+<div class="line"><span class="lineno">  194</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  195</span>                            sparql.setHTTPAuth(BASIC)</div>
+<div class="line"><span class="lineno">  196</span>                        sparql.setCredentials(triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userCredential&quot;</span>],</div>
+<div class="line"><span class="lineno">  197</span>                                              triplestoreconf[<span class="stringliteral">&quot;auth&quot;</span>][<span class="stringliteral">&quot;userPassword&quot;</span>])</div>
+<div class="line"><span class="lineno">  198</span>                    sparql.setMethod(POST)</div>
+<div class="line"><span class="lineno">  199</span>                    sparql.setReturnFormat(JSON)</div>
+<div class="line"><span class="lineno">  200</span>                    results = sparql.queryAndConvert()</div>
+<div class="line"><span class="lineno">  201</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: QUERY FINISHED WITH RESULTS&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  202</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(results), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  203</span>                    <span class="keywordflow">if</span> isinstance(results,dict) <span class="keywordflow">and</span> <span class="stringliteral">&quot;status_code&quot;</span> <span class="keywordflow">in</span> results:</div>
+<div class="line"><span class="lineno">  204</span>                        SPARQLUtils.exception = str(results)</div>
+<div class="line"><span class="lineno">  205</span>                        <span class="keywordflow">raise</span> Exception</div>
+<div class="line"><span class="lineno">  206</span>                <span class="keywordflow">except</span>:</div>
+<div class="line"><span class="lineno">  207</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Exception: &quot;</span> + str(e), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  208</span>                    SPARQLUtils.exception=str(e)</div>
+<div class="line"><span class="lineno">  209</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;OntopUnsupportedInputQueryException: The expression Exists&quot;</span> <span class="keywordflow">in</span> str(e):</div>
+<div class="line"><span class="lineno">  210</span>                        <span class="keywordflow">return</span> <span class="stringliteral">&quot;Exists error&quot;</span></div>
+<div class="line"><span class="lineno">  211</span>                    <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  212</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  213</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;instance&quot;</span> <span class="keywordflow">in</span> triplestoreurl:</div>
+<div class="line"><span class="lineno">  214</span>                graph=triplestoreurl[<span class="stringliteral">&quot;instance&quot;</span>]</div>
+<div class="line"><span class="lineno">  215</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  216</span>                graph=SPARQLUtils.loadGraph(str(triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>]))</div>
+<div class="line"><span class="lineno">  217</span>                triplestoreurl[<span class="stringliteral">&quot;instance&quot;</span>]=graph</div>
+<div class="line"><span class="lineno">  218</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Graph: &quot; + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  219</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;Query: &quot;</span> + str(query).replace(<span class="stringliteral">&quot;&lt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;&gt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  220</span>            <span class="keywordflow">if</span> graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  221</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;CONSTRUCT&quot;</span> <span class="keywordflow">in</span> str(query):</div>
+<div class="line"><span class="lineno">  222</span>                    results = graph.query(query)</div>
+<div class="line"><span class="lineno">  223</span>                    resg = Graph()</div>
+<div class="line"><span class="lineno">  224</span>                    <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results:</div>
+<div class="line"><span class="lineno">  225</span>                        resg.add(res)</div>
+<div class="line"><span class="lineno">  226</span>                    results=resg</div>
+<div class="line"><span class="lineno">  227</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  228</span>                    results=json.loads(graph.query(query).serialize(format=<span class="stringliteral">&quot;json&quot;</span>))</div>
+<div class="line"><span class="lineno">  229</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  230</span>        QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(results))+<span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  231</span>        <span class="keywordflow">return</span> results</div>
+<div class="line"><span class="lineno">  232</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -516,25 +517,25 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  285</span>    <span class="keyword">def </span>expandRelValToAmount(query,amount):</div>
-<div class="line"><span class="lineno">  286</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ExpandQuery &#39;</span>+str(amount)+<span class="stringliteral">&quot;_&quot;</span> + str(query), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  287</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;?rel&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> query <span class="keywordflow">and</span> <span class="stringliteral">&quot;?val&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> query:</div>
-<div class="line"><span class="lineno">  288</span>            <span class="keywordflow">return</span> query</div>
-<div class="line"><span class="lineno">  289</span>        selectpart=query[0:query.find(<span class="stringliteral">&quot;WHERE&quot;</span>)]</div>
-<div class="line"><span class="lineno">  290</span>        optionals=<span class="stringliteral">&quot;?item ?rel ?val . &quot;</span></div>
-<div class="line"><span class="lineno">  291</span>        <span class="keywordflow">if</span> amount&gt;1:</div>
-<div class="line"><span class="lineno">  292</span>            <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(1,amount+1):</div>
-<div class="line"><span class="lineno">  293</span>                selectpart+=<span class="stringliteral">&quot; ?rel&quot;</span>+str(i)+<span class="stringliteral">&quot; ?val&quot;</span>+str(i)+<span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><span class="lineno">  294</span>                <span class="keywordflow">if</span> i==1:</div>
-<div class="line"><span class="lineno">  295</span>                    optionals += <span class="stringliteral">&quot;OPTIONAL { ?val ?rel&quot;</span> + str(i) + <span class="stringliteral">&quot; ?val&quot;</span> + str(i) + <span class="stringliteral">&quot; . &quot;</span></div>
-<div class="line"><span class="lineno">  296</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  297</span>                    optionals+=<span class="stringliteral">&quot;OPTIONAL { ?val&quot;</span>+str(i-1)+<span class="stringliteral">&quot; ?rel&quot;</span>+str(i)+<span class="stringliteral">&quot; ?val&quot;</span>+str(i)+<span class="stringliteral">&quot; . &quot;</span></div>
-<div class="line"><span class="lineno">  298</span>            <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(1,amount+1):</div>
-<div class="line"><span class="lineno">  299</span>                optionals+=<span class="stringliteral">&quot;}&quot;</span></div>
-<div class="line"><span class="lineno">  300</span>        query=query.replace(query[0:query.find(<span class="stringliteral">&quot;WHERE&quot;</span>)],selectpart).replace(<span class="stringliteral">&quot;?item ?rel ?val . &quot;</span>,optionals)</div>
-<div class="line"><span class="lineno">  301</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ExpandQuery &#39;</span>+str(query), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  302</span>        <span class="keywordflow">return</span> query</div>
-<div class="line"><span class="lineno">  303</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  286</span>    <span class="keyword">def </span>expandRelValToAmount(query,amount):</div>
+<div class="line"><span class="lineno">  287</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ExpandQuery &#39;</span>+str(amount)+<span class="stringliteral">&quot;_&quot;</span> + str(query), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  288</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;?rel&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> query <span class="keywordflow">and</span> <span class="stringliteral">&quot;?val&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> query:</div>
+<div class="line"><span class="lineno">  289</span>            <span class="keywordflow">return</span> query</div>
+<div class="line"><span class="lineno">  290</span>        selectpart=query[0:query.find(<span class="stringliteral">&quot;WHERE&quot;</span>)]</div>
+<div class="line"><span class="lineno">  291</span>        optionals=<span class="stringliteral">&quot;?item ?rel ?val . &quot;</span></div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">if</span> amount&gt;1:</div>
+<div class="line"><span class="lineno">  293</span>            <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(1,amount+1):</div>
+<div class="line"><span class="lineno">  294</span>                selectpart+=<span class="stringliteral">&quot; ?rel&quot;</span>+str(i)+<span class="stringliteral">&quot; ?val&quot;</span>+str(i)+<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><span class="lineno">  295</span>                <span class="keywordflow">if</span> i==1:</div>
+<div class="line"><span class="lineno">  296</span>                    optionals += <span class="stringliteral">&quot;OPTIONAL { ?val ?rel&quot;</span> + str(i) + <span class="stringliteral">&quot; ?val&quot;</span> + str(i) + <span class="stringliteral">&quot; . &quot;</span></div>
+<div class="line"><span class="lineno">  297</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  298</span>                    optionals+=<span class="stringliteral">&quot;OPTIONAL { ?val&quot;</span>+str(i-1)+<span class="stringliteral">&quot; ?rel&quot;</span>+str(i)+<span class="stringliteral">&quot; ?val&quot;</span>+str(i)+<span class="stringliteral">&quot; . &quot;</span></div>
+<div class="line"><span class="lineno">  299</span>            <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(1,amount+1):</div>
+<div class="line"><span class="lineno">  300</span>                optionals+=<span class="stringliteral">&quot;}&quot;</span></div>
+<div class="line"><span class="lineno">  301</span>        query=query.replace(query[0:query.find(<span class="stringliteral">&quot;WHERE&quot;</span>)],selectpart).replace(<span class="stringliteral">&quot;?item ?rel ?val . &quot;</span>,optionals)</div>
+<div class="line"><span class="lineno">  302</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;ExpandQuery &#39;</span>+str(query), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  303</span>        <span class="keywordflow">return</span> query</div>
+<div class="line"><span class="lineno">  304</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,98 +606,98 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><span class="lineno">  450</span>    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang=&quot;en&quot;,typeindicator=&quot;class&quot;):</div>
-<div class="line"><span class="lineno">  451</span>        <span class="comment"># url=&quot;https://www.wikidata.org/w/api.php?action=wbgetentities&amp;props=labels&amp;ids=&quot;</span></div>
-<div class="line"><span class="lineno">  452</span>        result = classes</div>
-<div class="line"><span class="lineno">  453</span>        <span class="keywordflow">if</span> query <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  454</span>            <span class="keywordflow">if</span> typeindicator==<span class="stringliteral">&quot;class&quot;</span>:</div>
-<div class="line"><span class="lineno">  455</span>                query=<span class="stringliteral">&quot;SELECT ?class ?label\n WHERE { %%concepts%%  \n &quot;</span>+SPARQLUtils.resolvePropertyToTriplePattern(<span class="stringliteral">&quot;%%labelproperty%%&quot;</span>,<span class="stringliteral">&quot;?label&quot;</span>,<span class="stringliteral">&quot;?class&quot;</span>,triplestoreconf,<span class="stringliteral">&quot;OPTIONAL&quot;</span>,<span class="stringliteral">&quot;FILTER(LANG(?label) = \&quot;&quot;</span>+str(preferredlang)+<span class="stringliteral">&quot;\&quot;) &quot;</span>)+<span class="stringliteral">&quot; \n} &quot;</span></div>
-<div class="line"><span class="lineno">  456</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query <span class="keywordflow">and</span> <span class="stringliteral">&quot;resource&quot;</span> <span class="keywordflow">in</span> triplestoreconf \</div>
-<div class="line"><span class="lineno">  457</span>                <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] \</div>
-<div class="line"><span class="lineno">  458</span>                <span class="keywordflow">and</span> ((triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>]==<span class="stringliteral">&quot;endpoint&quot;</span></div>
-<div class="line"><span class="lineno">  459</span>                <span class="keywordflow">and</span> <span class="stringliteral">&quot;sparql11&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>]</div>
-<div class="line"><span class="lineno">  460</span>                <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;sparql11&quot;</span>]==<span class="keyword">True</span>)</div>
-<div class="line"><span class="lineno">  461</span>                <span class="keywordflow">or</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>]!=<span class="stringliteral">&quot;endpoint&quot;</span>):</div>
-<div class="line"><span class="lineno">  462</span>            vals = <span class="stringliteral">&quot;VALUES ?class {\n &quot;</span></div>
-<div class="line"><span class="lineno">  463</span>            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes.keys():</div>
-<div class="line"><span class="lineno">  464</span>                vals += <span class="stringliteral">&quot;&lt;&quot;</span>+qid + <span class="stringliteral">&quot;&gt; \n&quot;</span></div>
-<div class="line"><span class="lineno">  465</span>            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><span class="lineno">  466</span>            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
-<div class="line"><span class="lineno">  467</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Querying for &quot;+str(len(vals))+&quot; concepts&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  468</span>            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
-<div class="line"><span class="lineno">  469</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> results:</div>
-<div class="line"><span class="lineno">  470</span>                <span class="keywordflow">return</span> result</div>
-<div class="line"><span class="lineno">  471</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Got &quot; + str(len(results)) + &quot; labels&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  472</span>            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
-<div class="line"><span class="lineno">  473</span>                <span class="keywordflow">if</span> res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] <span class="keywordflow">in</span> classes <span class="keywordflow">and</span> <span class="stringliteral">&quot;label&quot;</span> <span class="keywordflow">in</span> res:</div>
-<div class="line"><span class="lineno">  474</span>                    classes[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]][<span class="stringliteral">&quot;label&quot;</span>]=res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><span class="lineno">  475</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  476</span>                    classes[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  477</span>        <span class="keywordflow">elif</span> query.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><span class="lineno">  478</span>            url = query</div>
-<div class="line"><span class="lineno">  479</span>            i = 0</div>
-<div class="line"><span class="lineno">  480</span>            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  481</span>            wdprefix = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  482</span>            firstkey=next(iter(classes))</div>
-<div class="line"><span class="lineno">  483</span>            <span class="comment">#QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  484</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> firstkey:</div>
-<div class="line"><span class="lineno">  485</span>                wdprefix = <span class="stringliteral">&quot;http://www.wikidata.org/entity/&quot;</span></div>
-<div class="line"><span class="lineno">  486</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;P&quot;</span> <span class="keywordflow">in</span> firstkey:</div>
-<div class="line"><span class="lineno">  487</span>                wdprefix = <span class="stringliteral">&quot;http://www.wikidata.org/prop/direct/&quot;</span></div>
-<div class="line"><span class="lineno">  488</span>            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes.keys():</div>
-<div class="line"><span class="lineno">  489</span>                <span class="comment">#QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  490</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">and</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
-<div class="line"><span class="lineno">  491</span>                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
-<div class="line"><span class="lineno">  492</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">and</span> <span class="stringliteral">&quot;P&quot;</span> <span class="keywordflow">in</span> qid:</div>
-<div class="line"><span class="lineno">  493</span>                    qidquery += <span class="stringliteral">&quot;P&quot;</span> + qid.split(<span class="stringliteral">&quot;P&quot;</span>)[1]</div>
-<div class="line"><span class="lineno">  494</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>]:</div>
-<div class="line"><span class="lineno">  495</span>                    result[qid][<span class="stringliteral">&quot;label&quot;</span>] = qid</div>
-<div class="line"><span class="lineno">  496</span>                    <span class="keywordflow">continue</span></div>
-<div class="line"><span class="lineno">  497</span>                <span class="keywordflow">if</span> (i % 50) == 0:</div>
-<div class="line"><span class="lineno">  498</span>                    <span class="keywordflow">while</span> qidquery.endswith(<span class="stringliteral">&quot;|&quot;</span>):</div>
-<div class="line"><span class="lineno">  499</span>                        qidquery=qidquery[:-1]</div>
-<div class="line"><span class="lineno">  500</span>                    <span class="comment">#QgsMessageLog.logMessage(str(url.replace(&quot;%%concepts%%&quot;, qidquery)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  501</span>                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery).replace(<span class="stringliteral">&quot;%%language%%&quot;</span>,preferredlang)).text)</div>
-<div class="line"><span class="lineno">  502</span>                    <span class="comment">#QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  503</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Entities: &quot;+str(len(myResponse[&quot;entities&quot;])), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  504</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;entities&quot;</span> <span class="keywordflow">in</span> myResponse:</div>
-<div class="line"><span class="lineno">  505</span>                        <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
-<div class="line"><span class="lineno">  506</span>                            <span class="comment">#QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  507</span>                            <span class="keywordflow">if</span> ent.startswith(<span class="stringliteral">&quot;P&quot;</span>):</div>
-<div class="line"><span class="lineno">  508</span>                                wdprefix=<span class="stringliteral">&quot;http://www.wikidata.org/prop/direct/&quot;</span></div>
-<div class="line"><span class="lineno">  509</span>                            <span class="keywordflow">elif</span> ent.startswith(<span class="stringliteral">&quot;Q&quot;</span>):</div>
-<div class="line"><span class="lineno">  510</span>                                wdprefix=<span class="stringliteral">&quot;http://www.wikidata.org/entity/&quot;</span></div>
-<div class="line"><span class="lineno">  511</span>                            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  512</span>                                wdprefix=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  513</span>                            <span class="comment">#QgsMessageLog.logMessage(str(result), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  514</span>                            <span class="keywordflow">if</span> preferredlang <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><span class="lineno">  515</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][preferredlang][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><span class="lineno">  516</span>                            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><span class="lineno">  517</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><span class="lineno">  518</span>                            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  519</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>]=qid</div>
-<div class="line"><span class="lineno">  520</span>                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  521</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  522</span>                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
-<div class="line"><span class="lineno">  523</span>                i = i + 1</div>
-<div class="line"><span class="lineno">  524</span>            <span class="keywordflow">if</span> qidquery!=<span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><span class="lineno">  525</span>                <span class="keywordflow">while</span> qidquery.endswith(<span class="stringliteral">&quot;|&quot;</span>):</div>
-<div class="line"><span class="lineno">  526</span>                    qidquery = qidquery[:-1]</div>
-<div class="line"><span class="lineno">  527</span>                <span class="comment">#QgsMessageLog.logMessage(str(url.replace(&quot;%%concepts%%&quot;, qidquery)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  528</span>                myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
-<div class="line"><span class="lineno">  529</span>                <span class="comment">#QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  530</span>                <span class="comment">#QgsMessageLog.logMessage(&quot;Entities: &quot;+str(len(myResponse[&quot;entities&quot;])), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  531</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;entities&quot;</span> <span class="keywordflow">in</span> myResponse:</div>
-<div class="line"><span class="lineno">  532</span>                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
-<div class="line"><span class="lineno">  533</span>                        print(ent)</div>
-<div class="line"><span class="lineno">  534</span>                        <span class="keywordflow">if</span> preferredlang <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><span class="lineno">  535</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][preferredlang][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><span class="lineno">  536</span>                        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
-<div class="line"><span class="lineno">  537</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
-<div class="line"><span class="lineno">  538</span>                        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  539</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  540</span>        <span class="keywordflow">return</span> result</div>
-<div class="line"><span class="lineno">  541</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  451</span>    <span class="keyword">def </span>getLabelsForClasses(classes, query, triplestoreconf, triplestoreurl,preferredlang=&quot;en&quot;,typeindicator=&quot;class&quot;):</div>
+<div class="line"><span class="lineno">  452</span>        <span class="comment"># url=&quot;https://www.wikidata.org/w/api.php?action=wbgetentities&amp;props=labels&amp;ids=&quot;</span></div>
+<div class="line"><span class="lineno">  453</span>        result = classes</div>
+<div class="line"><span class="lineno">  454</span>        <span class="keywordflow">if</span> query <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  455</span>            <span class="keywordflow">if</span> typeindicator==<span class="stringliteral">&quot;class&quot;</span>:</div>
+<div class="line"><span class="lineno">  456</span>                query=<span class="stringliteral">&quot;SELECT ?class ?label\n WHERE { %%concepts%%  \n &quot;</span>+SPARQLUtils.resolvePropertyToTriplePattern(<span class="stringliteral">&quot;%%labelproperty%%&quot;</span>,<span class="stringliteral">&quot;?label&quot;</span>,<span class="stringliteral">&quot;?class&quot;</span>,triplestoreconf,<span class="stringliteral">&quot;OPTIONAL&quot;</span>,<span class="stringliteral">&quot;FILTER(LANG(?label) = \&quot;&quot;</span>+str(preferredlang)+<span class="stringliteral">&quot;\&quot;) &quot;</span>)+<span class="stringliteral">&quot; \n} &quot;</span></div>
+<div class="line"><span class="lineno">  457</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;SELECT&quot;</span> <span class="keywordflow">in</span> query <span class="keywordflow">and</span> <span class="stringliteral">&quot;resource&quot;</span> <span class="keywordflow">in</span> triplestoreconf \</div>
+<div class="line"><span class="lineno">  458</span>                <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] \</div>
+<div class="line"><span class="lineno">  459</span>                <span class="keywordflow">and</span> ((triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>]==<span class="stringliteral">&quot;endpoint&quot;</span></div>
+<div class="line"><span class="lineno">  460</span>                <span class="keywordflow">and</span> <span class="stringliteral">&quot;sparql11&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>]</div>
+<div class="line"><span class="lineno">  461</span>                <span class="keywordflow">and</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;sparql11&quot;</span>]==<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">  462</span>                <span class="keywordflow">or</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>]!=<span class="stringliteral">&quot;endpoint&quot;</span>):</div>
+<div class="line"><span class="lineno">  463</span>            vals = <span class="stringliteral">&quot;VALUES ?class {\n &quot;</span></div>
+<div class="line"><span class="lineno">  464</span>            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes.keys():</div>
+<div class="line"><span class="lineno">  465</span>                vals += <span class="stringliteral">&quot;&lt;&quot;</span>+qid + <span class="stringliteral">&quot;&gt; \n&quot;</span></div>
+<div class="line"><span class="lineno">  466</span>            vals += <span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><span class="lineno">  467</span>            query = query.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, vals)</div>
+<div class="line"><span class="lineno">  468</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Querying for &quot;+str(len(vals))+&quot; concepts&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  469</span>            results = SPARQLUtils.executeQuery(triplestoreurl, query)</div>
+<div class="line"><span class="lineno">  470</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> results:</div>
+<div class="line"><span class="lineno">  471</span>                <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  472</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Got &quot; + str(len(results)) + &quot; labels&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  473</span>            <span class="keywordflow">for</span> res <span class="keywordflow">in</span> results[<span class="stringliteral">&quot;results&quot;</span>][<span class="stringliteral">&quot;bindings&quot;</span>]:</div>
+<div class="line"><span class="lineno">  474</span>                <span class="keywordflow">if</span> res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>] <span class="keywordflow">in</span> classes <span class="keywordflow">and</span> <span class="stringliteral">&quot;label&quot;</span> <span class="keywordflow">in</span> res:</div>
+<div class="line"><span class="lineno">  475</span>                    classes[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]][<span class="stringliteral">&quot;label&quot;</span>]=res[<span class="stringliteral">&quot;label&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  476</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  477</span>                    classes[res[<span class="stringliteral">&quot;class&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  478</span>        <span class="keywordflow">elif</span> query.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  479</span>            url = query</div>
+<div class="line"><span class="lineno">  480</span>            i = 0</div>
+<div class="line"><span class="lineno">  481</span>            qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  482</span>            wdprefix = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  483</span>            firstkey=next(iter(classes))</div>
+<div class="line"><span class="lineno">  484</span>            <span class="comment">#QgsMessageLog.logMessage(str(firstkey), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  485</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> firstkey:</div>
+<div class="line"><span class="lineno">  486</span>                wdprefix = <span class="stringliteral">&quot;http://www.wikidata.org/entity/&quot;</span></div>
+<div class="line"><span class="lineno">  487</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;P&quot;</span> <span class="keywordflow">in</span> firstkey:</div>
+<div class="line"><span class="lineno">  488</span>                wdprefix = <span class="stringliteral">&quot;http://www.wikidata.org/prop/direct/&quot;</span></div>
+<div class="line"><span class="lineno">  489</span>            <span class="keywordflow">for</span> qid <span class="keywordflow">in</span> classes.keys():</div>
+<div class="line"><span class="lineno">  490</span>                <span class="comment">#QgsMessageLog.logMessage(str(qid), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  491</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">and</span> <span class="stringliteral">&quot;Q&quot;</span> <span class="keywordflow">in</span> qid:</div>
+<div class="line"><span class="lineno">  492</span>                    qidquery += <span class="stringliteral">&quot;Q&quot;</span> + qid.split(<span class="stringliteral">&quot;Q&quot;</span>)[1]</div>
+<div class="line"><span class="lineno">  493</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">and</span> <span class="stringliteral">&quot;P&quot;</span> <span class="keywordflow">in</span> qid:</div>
+<div class="line"><span class="lineno">  494</span>                    qidquery += <span class="stringliteral">&quot;P&quot;</span> + qid.split(<span class="stringliteral">&quot;P&quot;</span>)[1]</div>
+<div class="line"><span class="lineno">  495</span>                <span class="keywordflow">elif</span> <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>]:</div>
+<div class="line"><span class="lineno">  496</span>                    result[qid][<span class="stringliteral">&quot;label&quot;</span>] = qid</div>
+<div class="line"><span class="lineno">  497</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  498</span>                <span class="keywordflow">if</span> (i % 50) == 0:</div>
+<div class="line"><span class="lineno">  499</span>                    <span class="keywordflow">while</span> qidquery.endswith(<span class="stringliteral">&quot;|&quot;</span>):</div>
+<div class="line"><span class="lineno">  500</span>                        qidquery=qidquery[:-1]</div>
+<div class="line"><span class="lineno">  501</span>                    <span class="comment">#QgsMessageLog.logMessage(str(url.replace(&quot;%%concepts%%&quot;, qidquery)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  502</span>                    myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery).replace(<span class="stringliteral">&quot;%%language%%&quot;</span>,preferredlang)).text)</div>
+<div class="line"><span class="lineno">  503</span>                    <span class="comment">#QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  504</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Entities: &quot;+str(len(myResponse[&quot;entities&quot;])), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  505</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;entities&quot;</span> <span class="keywordflow">in</span> myResponse:</div>
+<div class="line"><span class="lineno">  506</span>                        <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
+<div class="line"><span class="lineno">  507</span>                            <span class="comment">#QgsMessageLog.logMessage(str(ent), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  508</span>                            <span class="keywordflow">if</span> ent.startswith(<span class="stringliteral">&quot;P&quot;</span>):</div>
+<div class="line"><span class="lineno">  509</span>                                wdprefix=<span class="stringliteral">&quot;http://www.wikidata.org/prop/direct/&quot;</span></div>
+<div class="line"><span class="lineno">  510</span>                            <span class="keywordflow">elif</span> ent.startswith(<span class="stringliteral">&quot;Q&quot;</span>):</div>
+<div class="line"><span class="lineno">  511</span>                                wdprefix=<span class="stringliteral">&quot;http://www.wikidata.org/entity/&quot;</span></div>
+<div class="line"><span class="lineno">  512</span>                            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  513</span>                                wdprefix=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  514</span>                            <span class="comment">#QgsMessageLog.logMessage(str(result), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  515</span>                            <span class="keywordflow">if</span> preferredlang <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><span class="lineno">  516</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][preferredlang][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  517</span>                            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><span class="lineno">  518</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  519</span>                            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  520</span>                                result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>]=qid</div>
+<div class="line"><span class="lineno">  521</span>                    qidquery = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  522</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  523</span>                    qidquery += <span class="stringliteral">&quot;|&quot;</span></div>
+<div class="line"><span class="lineno">  524</span>                i = i + 1</div>
+<div class="line"><span class="lineno">  525</span>            <span class="keywordflow">if</span> qidquery!=<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  526</span>                <span class="keywordflow">while</span> qidquery.endswith(<span class="stringliteral">&quot;|&quot;</span>):</div>
+<div class="line"><span class="lineno">  527</span>                    qidquery = qidquery[:-1]</div>
+<div class="line"><span class="lineno">  528</span>                <span class="comment">#QgsMessageLog.logMessage(str(url.replace(&quot;%%concepts%%&quot;, qidquery)), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  529</span>                myResponse = json.loads(requests.get(url.replace(<span class="stringliteral">&quot;%%concepts%%&quot;</span>, qidquery)).text)</div>
+<div class="line"><span class="lineno">  530</span>                <span class="comment">#QgsMessageLog.logMessage(str(myResponse), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  531</span>                <span class="comment">#QgsMessageLog.logMessage(&quot;Entities: &quot;+str(len(myResponse[&quot;entities&quot;])), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  532</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;entities&quot;</span> <span class="keywordflow">in</span> myResponse:</div>
+<div class="line"><span class="lineno">  533</span>                    <span class="keywordflow">for</span> ent <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>]:</div>
+<div class="line"><span class="lineno">  534</span>                        print(ent)</div>
+<div class="line"><span class="lineno">  535</span>                        <span class="keywordflow">if</span> preferredlang <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><span class="lineno">  536</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][preferredlang][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  537</span>                        <span class="keywordflow">elif</span> <span class="stringliteral">&quot;en&quot;</span> <span class="keywordflow">in</span> myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>]:</div>
+<div class="line"><span class="lineno">  538</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = myResponse[<span class="stringliteral">&quot;entities&quot;</span>][ent][<span class="stringliteral">&quot;labels&quot;</span>][<span class="stringliteral">&quot;en&quot;</span>][<span class="stringliteral">&quot;value&quot;</span>]</div>
+<div class="line"><span class="lineno">  539</span>                        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  540</span>                            result[wdprefix+ent][<span class="stringliteral">&quot;label&quot;</span>] = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  541</span>        <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  542</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -739,15 +740,15 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  239</span>    <span class="keyword">def </span>handleException(callingtask=&quot;&quot;,title=None,text=None):</div>
-<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span> SPARQLUtils.exception <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  241</span>            ErrorMessageBox(callingtask+<span class="stringliteral">&quot; An error occurred!&quot;</span>,<span class="stringliteral">&quot;&lt;html&gt;&quot;</span>+str(SPARQLUtils.exception).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&lt;br/&gt;&quot;</span>)+<span class="stringliteral">&quot;&lt;/html&gt;&quot;</span>).exec_()</div>
-<div class="line"><span class="lineno">  242</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><span class="lineno">  243</span>        <span class="keywordflow">if</span> title <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> text <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  244</span>            ErrorMessageBox(callingtask+<span class="stringliteral">&quot; &quot;</span>+title,<span class="stringliteral">&quot;&lt;html&gt;&quot;</span>+text.replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&lt;br/&gt;&quot;</span>)+<span class="stringliteral">&quot;&lt;/html&gt;&quot;</span>).exec_()</div>
-<div class="line"><span class="lineno">  245</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><span class="lineno">  246</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><span class="lineno">  247</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  240</span>    <span class="keyword">def </span>handleException(callingtask=&quot;&quot;,title=None,text=None):</div>
+<div class="line"><span class="lineno">  241</span>        <span class="keywordflow">if</span> SPARQLUtils.exception <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  242</span>            ErrorMessageBox(callingtask+<span class="stringliteral">&quot; An error occurred!&quot;</span>,<span class="stringliteral">&quot;&lt;html&gt;&quot;</span>+str(SPARQLUtils.exception).replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&lt;br/&gt;&quot;</span>)+<span class="stringliteral">&quot;&lt;/html&gt;&quot;</span>).exec_()</div>
+<div class="line"><span class="lineno">  243</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  244</span>        <span class="keywordflow">if</span> title <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> text <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  245</span>            ErrorMessageBox(callingtask+<span class="stringliteral">&quot; &quot;</span>+title,<span class="stringliteral">&quot;&lt;html&gt;&quot;</span>+text.replace(<span class="stringliteral">&quot;\n&quot;</span>,<span class="stringliteral">&quot;&lt;br/&gt;&quot;</span>)+<span class="stringliteral">&quot;&lt;/html&gt;&quot;</span>).exec_()</div>
+<div class="line"><span class="lineno">  246</span>            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  247</span>        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  248</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -790,27 +791,27 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  390</span>    <span class="keyword">def </span>handleGeoJSONFile(myjson,currentlayergeojson,onlygeo):</div>
-<div class="line"><span class="lineno">  391</span>        result=[]</div>
-<div class="line"><span class="lineno">  392</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;data&quot;</span> <span class="keywordflow">in</span> myjson <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> myjson[<span class="stringliteral">&quot;data&quot;</span>] <span class="keywordflow">and</span> myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;FeatureCollection&quot;</span>:</div>
-<div class="line"><span class="lineno">  393</span>            features = myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;features&quot;</span>]</div>
-<div class="line"><span class="lineno">  394</span>            curcounter = 0</div>
-<div class="line"><span class="lineno">  395</span>            <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
-<div class="line"><span class="lineno">  396</span>                <span class="keywordflow">if</span> currentlayergeojson <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  397</span>                    result.append(feat[<span class="stringliteral">&quot;geometry&quot;</span>])</div>
-<div class="line"><span class="lineno">  398</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  399</span>                    <span class="keywordflow">if</span> onlygeo <span class="keywordflow">and</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> feat:</div>
-<div class="line"><span class="lineno">  400</span>                        del feat[<span class="stringliteral">&quot;properties&quot;</span>]</div>
-<div class="line"><span class="lineno">  401</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;id&quot;</span> <span class="keywordflow">in</span> feat <span class="keywordflow">and</span> curcounter &gt; 0:</div>
-<div class="line"><span class="lineno">  402</span>                        feat[<span class="stringliteral">&quot;id&quot;</span>] = feat[<span class="stringliteral">&quot;id&quot;</span>] + <span class="stringliteral">&quot;_&quot;</span> + str(curcounter)</div>
-<div class="line"><span class="lineno">  403</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> currentlayergeojson:</div>
-<div class="line"><span class="lineno">  404</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> feat:</div>
-<div class="line"><span class="lineno">  405</span>                            feat[<span class="stringliteral">&quot;properties&quot;</span>] = {}</div>
-<div class="line"><span class="lineno">  406</span>                        <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> currentlayergeojson[<span class="stringliteral">&quot;properties&quot;</span>]:</div>
-<div class="line"><span class="lineno">  407</span>                            feat[<span class="stringliteral">&quot;properties&quot;</span>][prop] = currentlayergeojson[<span class="stringliteral">&quot;properties&quot;</span>][prop]</div>
-<div class="line"><span class="lineno">  408</span>                    result.append(feat)</div>
-<div class="line"><span class="lineno">  409</span>                curcounter = 1</div>
-<div class="line"><span class="lineno">  410</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  391</span>    <span class="keyword">def </span>handleGeoJSONFile(myjson,currentlayergeojson,onlygeo):</div>
+<div class="line"><span class="lineno">  392</span>        result=[]</div>
+<div class="line"><span class="lineno">  393</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;data&quot;</span> <span class="keywordflow">in</span> myjson <span class="keywordflow">and</span> <span class="stringliteral">&quot;type&quot;</span> <span class="keywordflow">in</span> myjson[<span class="stringliteral">&quot;data&quot;</span>] <span class="keywordflow">and</span> myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;FeatureCollection&quot;</span>:</div>
+<div class="line"><span class="lineno">  394</span>            features = myjson[<span class="stringliteral">&quot;data&quot;</span>][<span class="stringliteral">&quot;features&quot;</span>]</div>
+<div class="line"><span class="lineno">  395</span>            curcounter = 0</div>
+<div class="line"><span class="lineno">  396</span>            <span class="keywordflow">for</span> feat <span class="keywordflow">in</span> features:</div>
+<div class="line"><span class="lineno">  397</span>                <span class="keywordflow">if</span> currentlayergeojson <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  398</span>                    result.append(feat[<span class="stringliteral">&quot;geometry&quot;</span>])</div>
+<div class="line"><span class="lineno">  399</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  400</span>                    <span class="keywordflow">if</span> onlygeo <span class="keywordflow">and</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> feat:</div>
+<div class="line"><span class="lineno">  401</span>                        del feat[<span class="stringliteral">&quot;properties&quot;</span>]</div>
+<div class="line"><span class="lineno">  402</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;id&quot;</span> <span class="keywordflow">in</span> feat <span class="keywordflow">and</span> curcounter &gt; 0:</div>
+<div class="line"><span class="lineno">  403</span>                        feat[<span class="stringliteral">&quot;id&quot;</span>] = feat[<span class="stringliteral">&quot;id&quot;</span>] + <span class="stringliteral">&quot;_&quot;</span> + str(curcounter)</div>
+<div class="line"><span class="lineno">  404</span>                    <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> currentlayergeojson:</div>
+<div class="line"><span class="lineno">  405</span>                        <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> feat:</div>
+<div class="line"><span class="lineno">  406</span>                            feat[<span class="stringliteral">&quot;properties&quot;</span>] = {}</div>
+<div class="line"><span class="lineno">  407</span>                        <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> currentlayergeojson[<span class="stringliteral">&quot;properties&quot;</span>]:</div>
+<div class="line"><span class="lineno">  408</span>                            feat[<span class="stringliteral">&quot;properties&quot;</span>][prop] = currentlayergeojson[<span class="stringliteral">&quot;properties&quot;</span>][prop]</div>
+<div class="line"><span class="lineno">  409</span>                    result.append(feat)</div>
+<div class="line"><span class="lineno">  410</span>                curcounter = 1</div>
+<div class="line"><span class="lineno">  411</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -853,39 +854,39 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  412</span>    <span class="keyword">def </span>handleURILiteral(uri,currentlayergeojson,onlygeo=True):</div>
-<div class="line"><span class="lineno">  413</span>        <span class="keywordflow">if</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><span class="lineno">  414</span>            <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;.map&quot;</span>) <span class="keywordflow">or</span> uri.endswith(<span class="stringliteral">&quot;geojson&quot;</span>):</div>
-<div class="line"><span class="lineno">  415</span>                <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  416</span>                    f = urlopen(uri)</div>
-<div class="line"><span class="lineno">  417</span>                    myjson = json.loads(f.read())</div>
-<div class="line"><span class="lineno">  418</span>                    <span class="keywordflow">return</span> SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)</div>
-<div class="line"><span class="lineno">  419</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  420</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting geoshape &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
-<div class="line"><span class="lineno">  421</span>            <span class="keywordflow">elif</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.kml&quot;</span>):</div>
-<div class="line"><span class="lineno">  422</span>                <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  423</span>                    f = urlopen(uri)</div>
-<div class="line"><span class="lineno">  424</span>                    kmlfile=f.read()</div>
-<div class="line"><span class="lineno">  425</span>                    f=open(<span class="stringliteral">&quot;temp.kml&quot;</span>,<span class="stringliteral">&quot;w&quot;</span>)</div>
-<div class="line"><span class="lineno">  426</span>                    f.write(kmlfile)</div>
-<div class="line"><span class="lineno">  427</span>                    f.close()</div>
-<div class="line"><span class="lineno">  428</span>                    vlayer = QgsVectorLayer(<span class="stringliteral">&quot;temp.kml&quot;</span>, <span class="stringliteral">&quot;layer&quot;</span>, <span class="stringliteral">&quot;ogr&quot;</span>)</div>
-<div class="line"><span class="lineno">  429</span>                    <span class="keywordflow">return</span> SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)</div>
-<div class="line"><span class="lineno">  430</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  431</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting kml &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
-<div class="line"><span class="lineno">  432</span>            <span class="keywordflow">elif</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.gml&quot;</span>):</div>
-<div class="line"><span class="lineno">  433</span>                <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  434</span>                    f = urlopen(uri)</div>
-<div class="line"><span class="lineno">  435</span>                    gmlfile=f.read()</div>
-<div class="line"><span class="lineno">  436</span>                    f=open(<span class="stringliteral">&quot;temp.gml&quot;</span>,<span class="stringliteral">&quot;w&quot;</span>)</div>
-<div class="line"><span class="lineno">  437</span>                    f.write(gmlfile)</div>
-<div class="line"><span class="lineno">  438</span>                    f.close()</div>
-<div class="line"><span class="lineno">  439</span>                    vlayer = QgsVectorLayer(<span class="stringliteral">&quot;temp.gml&quot;</span>, <span class="stringliteral">&quot;layer&quot;</span>, <span class="stringliteral">&quot;ogr&quot;</span>)</div>
-<div class="line"><span class="lineno">  440</span>                    <span class="keywordflow">return</span> SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)</div>
-<div class="line"><span class="lineno">  441</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  442</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting gml &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
-<div class="line"><span class="lineno">  443</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">  444</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  413</span>    <span class="keyword">def </span>handleURILiteral(uri,currentlayergeojson,onlygeo=True):</div>
+<div class="line"><span class="lineno">  414</span>        <span class="keywordflow">if</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  415</span>            <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;.map&quot;</span>) <span class="keywordflow">or</span> uri.endswith(<span class="stringliteral">&quot;geojson&quot;</span>):</div>
+<div class="line"><span class="lineno">  416</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  417</span>                    f = urlopen(uri)</div>
+<div class="line"><span class="lineno">  418</span>                    myjson = json.loads(f.read())</div>
+<div class="line"><span class="lineno">  419</span>                    <span class="keywordflow">return</span> SPARQLUtils.handleGeoJSONFile(myjson,currentlayergeojson,onlygeo)</div>
+<div class="line"><span class="lineno">  420</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  421</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting geoshape &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
+<div class="line"><span class="lineno">  422</span>            <span class="keywordflow">elif</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.kml&quot;</span>):</div>
+<div class="line"><span class="lineno">  423</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  424</span>                    f = urlopen(uri)</div>
+<div class="line"><span class="lineno">  425</span>                    kmlfile=f.read()</div>
+<div class="line"><span class="lineno">  426</span>                    f=open(<span class="stringliteral">&quot;temp.kml&quot;</span>,<span class="stringliteral">&quot;w&quot;</span>)</div>
+<div class="line"><span class="lineno">  427</span>                    f.write(kmlfile)</div>
+<div class="line"><span class="lineno">  428</span>                    f.close()</div>
+<div class="line"><span class="lineno">  429</span>                    vlayer = QgsVectorLayer(<span class="stringliteral">&quot;temp.kml&quot;</span>, <span class="stringliteral">&quot;layer&quot;</span>, <span class="stringliteral">&quot;ogr&quot;</span>)</div>
+<div class="line"><span class="lineno">  430</span>                    <span class="keywordflow">return</span> SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)</div>
+<div class="line"><span class="lineno">  431</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  432</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting kml &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
+<div class="line"><span class="lineno">  433</span>            <span class="keywordflow">elif</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>) <span class="keywordflow">and</span> uri.endswith(<span class="stringliteral">&quot;.gml&quot;</span>):</div>
+<div class="line"><span class="lineno">  434</span>                <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  435</span>                    f = urlopen(uri)</div>
+<div class="line"><span class="lineno">  436</span>                    gmlfile=f.read()</div>
+<div class="line"><span class="lineno">  437</span>                    f=open(<span class="stringliteral">&quot;temp.gml&quot;</span>,<span class="stringliteral">&quot;w&quot;</span>)</div>
+<div class="line"><span class="lineno">  438</span>                    f.write(gmlfile)</div>
+<div class="line"><span class="lineno">  439</span>                    f.close()</div>
+<div class="line"><span class="lineno">  440</span>                    vlayer = QgsVectorLayer(<span class="stringliteral">&quot;temp.gml&quot;</span>, <span class="stringliteral">&quot;layer&quot;</span>, <span class="stringliteral">&quot;ogr&quot;</span>)</div>
+<div class="line"><span class="lineno">  441</span>                    <span class="keywordflow">return</span> SPARQLUtils.mergeLayers(vlayer,currentlayergeojson)</div>
+<div class="line"><span class="lineno">  442</span>                <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  443</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Error getting gml &quot;</span> + str(uri) + <span class="stringliteral">&quot; - &quot;</span> + str(e))</div>
+<div class="line"><span class="lineno">  444</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  445</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -912,15 +913,15 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  249</span>    <span class="keyword">def </span>instanceToNS(uri):</div>
-<div class="line"><span class="lineno">  250</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><span class="lineno">  251</span>            <span class="keywordflow">return</span> uri</div>
-<div class="line"><span class="lineno">  252</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;#&quot;</span> <span class="keywordflow">in</span> uri:</div>
-<div class="line"><span class="lineno">  253</span>            <span class="keywordflow">return</span> uri[:uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1]</div>
-<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">in</span> uri:</div>
-<div class="line"><span class="lineno">  255</span>            <span class="keywordflow">return</span> uri[:uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1]</div>
-<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">return</span> uri</div>
-<div class="line"><span class="lineno">  257</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  250</span>    <span class="keyword">def </span>instanceToNS(uri):</div>
+<div class="line"><span class="lineno">  251</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  252</span>            <span class="keywordflow">return</span> uri</div>
+<div class="line"><span class="lineno">  253</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;#&quot;</span> <span class="keywordflow">in</span> uri:</div>
+<div class="line"><span class="lineno">  254</span>            <span class="keywordflow">return</span> uri[:uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1]</div>
+<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">in</span> uri:</div>
+<div class="line"><span class="lineno">  256</span>            <span class="keywordflow">return</span> uri[:uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1]</div>
+<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">return</span> uri</div>
+<div class="line"><span class="lineno">  258</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -947,11 +948,11 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  233</span>    <span class="keyword">def </span>invertPrefixes(prefixes):</div>
-<div class="line"><span class="lineno">  234</span>        <span class="comment">#QgsMessageLog.logMessage(&quot;Invert Prefixes: &quot; + str(prefixes), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  235</span>        inv_map = {v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> prefixes.items()}</div>
-<div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> inv_map</div>
-<div class="line"><span class="lineno">  237</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  234</span>    <span class="keyword">def </span>invertPrefixes(prefixes):</div>
+<div class="line"><span class="lineno">  235</span>        <span class="comment">#QgsMessageLog.logMessage(&quot;Invert Prefixes: &quot; + str(prefixes), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  236</span>        inv_map = {v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> prefixes.items()}</div>
+<div class="line"><span class="lineno">  237</span>        <span class="keywordflow">return</span> inv_map</div>
+<div class="line"><span class="lineno">  238</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -988,25 +989,25 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  259</span>    <span class="keyword">def </span>labelFromURI(uri,prefixlist=None):</div>
-<div class="line"><span class="lineno">  260</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><span class="lineno">  261</span>            <span class="keywordflow">return</span> uri</div>
-<div class="line"><span class="lineno">  262</span>        <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;#&quot;</span>):</div>
-<div class="line"><span class="lineno">  263</span>            uri=uri[0:-1]</div>
-<div class="line"><span class="lineno">  264</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;#&quot;</span> <span class="keywordflow">in</span> uri:</div>
-<div class="line"><span class="lineno">  265</span>            prefix=uri[:uri.rfind(<span class="stringliteral">&quot;#&quot;</span>)+1]</div>
-<div class="line"><span class="lineno">  266</span>            <span class="keywordflow">if</span> prefixlist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> prefix <span class="keywordflow">in</span> prefixlist:</div>
-<div class="line"><span class="lineno">  267</span>                <span class="keywordflow">return</span> str(prefixlist[prefix])+<span class="stringliteral">&quot;:&quot;</span>+str(uri[uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1:])</div>
-<div class="line"><span class="lineno">  268</span>            <span class="keywordflow">return</span> uri[uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1:]</div>
-<div class="line"><span class="lineno">  269</span>        <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;/&quot;</span>):</div>
-<div class="line"><span class="lineno">  270</span>            uri=uri[0:-1]</div>
-<div class="line"><span class="lineno">  271</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">in</span> uri:</div>
-<div class="line"><span class="lineno">  272</span>            prefix=uri[:uri.rfind(<span class="stringliteral">&quot;/&quot;</span>)+1]</div>
-<div class="line"><span class="lineno">  273</span>            <span class="keywordflow">if</span> prefixlist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> prefix <span class="keywordflow">in</span> prefixlist:</div>
-<div class="line"><span class="lineno">  274</span>                <span class="keywordflow">return</span> str(prefixlist[prefix])+<span class="stringliteral">&quot;:&quot;</span>+str(uri[uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1:])</div>
-<div class="line"><span class="lineno">  275</span>            <span class="keywordflow">return</span> uri[uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1:]</div>
-<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">return</span> uri</div>
-<div class="line"><span class="lineno">  277</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  260</span>    <span class="keyword">def </span>labelFromURI(uri,prefixlist=None):</div>
+<div class="line"><span class="lineno">  261</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> uri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  262</span>            <span class="keywordflow">return</span> uri</div>
+<div class="line"><span class="lineno">  263</span>        <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;#&quot;</span>):</div>
+<div class="line"><span class="lineno">  264</span>            uri=uri[0:-1]</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;#&quot;</span> <span class="keywordflow">in</span> uri:</div>
+<div class="line"><span class="lineno">  266</span>            prefix=uri[:uri.rfind(<span class="stringliteral">&quot;#&quot;</span>)+1]</div>
+<div class="line"><span class="lineno">  267</span>            <span class="keywordflow">if</span> prefixlist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> prefix <span class="keywordflow">in</span> prefixlist:</div>
+<div class="line"><span class="lineno">  268</span>                <span class="keywordflow">return</span> str(prefixlist[prefix])+<span class="stringliteral">&quot;:&quot;</span>+str(uri[uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1:])</div>
+<div class="line"><span class="lineno">  269</span>            <span class="keywordflow">return</span> uri[uri.rfind(<span class="stringliteral">&quot;#&quot;</span>) + 1:]</div>
+<div class="line"><span class="lineno">  270</span>        <span class="keywordflow">if</span> uri.endswith(<span class="stringliteral">&quot;/&quot;</span>):</div>
+<div class="line"><span class="lineno">  271</span>            uri=uri[0:-1]</div>
+<div class="line"><span class="lineno">  272</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;/&quot;</span> <span class="keywordflow">in</span> uri:</div>
+<div class="line"><span class="lineno">  273</span>            prefix=uri[:uri.rfind(<span class="stringliteral">&quot;/&quot;</span>)+1]</div>
+<div class="line"><span class="lineno">  274</span>            <span class="keywordflow">if</span> prefixlist <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> prefix <span class="keywordflow">in</span> prefixlist:</div>
+<div class="line"><span class="lineno">  275</span>                <span class="keywordflow">return</span> str(prefixlist[prefix])+<span class="stringliteral">&quot;:&quot;</span>+str(uri[uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1:])</div>
+<div class="line"><span class="lineno">  276</span>            <span class="keywordflow">return</span> uri[uri.rfind(<span class="stringliteral">&quot;/&quot;</span>) + 1:]</div>
+<div class="line"><span class="lineno">  277</span>        <span class="keywordflow">return</span> uri</div>
+<div class="line"><span class="lineno">  278</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1043,10 +1044,10 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  305</span>    <span class="keyword">def </span>loadAdditionalGraphResources(existinggraph,graphuri):</div>
-<div class="line"><span class="lineno">  306</span>        <span class="keywordflow">if</span> graphuri <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><span class="lineno">  307</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">  308</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  306</span>    <span class="keyword">def </span>loadAdditionalGraphResources(existinggraph,graphuri):</div>
+<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">if</span> graphuri <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  308</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  309</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1083,41 +1084,41 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  310</span>    <span class="keyword">def </span>loadGraph(graphuri,graph=None):</div>
-<div class="line"><span class="lineno">  311</span>        <span class="keywordflow">if</span> graphuri <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><span class="lineno">  312</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">  313</span>        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
-<div class="line"><span class="lineno">  314</span>        proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
-<div class="line"><span class="lineno">  315</span>        proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
-<div class="line"><span class="lineno">  316</span>        proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
-<div class="line"><span class="lineno">  317</span>        proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
-<div class="line"><span class="lineno">  318</span>        proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
-<div class="line"><span class="lineno">  319</span>        proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
-<div class="line"><span class="lineno">  320</span>        <span class="keywordflow">if</span> proxyHost <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> proxyPort <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
-<div class="line"><span class="lineno">  321</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Proxy? &#39; + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  322</span>            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: proxyHost})</div>
-<div class="line"><span class="lineno">  323</span>            opener = urllib.request.build_opener(proxy)</div>
-<div class="line"><span class="lineno">  324</span>            urllib.request.install_opener(opener)</div>
-<div class="line"><span class="lineno">  325</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Load Graph&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  326</span>        <span class="keywordflow">if</span> graph <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  327</span>            graph = Graph()</div>
-<div class="line"><span class="lineno">  328</span>        <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  329</span>            <span class="keywordflow">if</span> graphuri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
-<div class="line"><span class="lineno">  330</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot; Data: &quot;</span> + str(graphuri) + <span class="stringliteral">&quot;&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  331</span>                <span class="keyword">with</span> urllib.request.urlopen(graphuri) <span class="keyword">as</span> data:</div>
-<div class="line"><span class="lineno">  332</span>                    readit=data.read().decode()</div>
-<div class="line"><span class="lineno">  333</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot; Data: &quot;+str(readit)+&quot;&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
-<div class="line"><span class="lineno">  334</span>                    filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><span class="lineno">  335</span>                    graph.parse(data=readit,format=filepath[len(filepath) - 1])</div>
-<div class="line"><span class="lineno">  336</span>            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  337</span>                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
-<div class="line"><span class="lineno">  338</span>                graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
-<div class="line"><span class="lineno">  339</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  340</span>            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  341</span>            <span class="comment">#self.exception = str(e)</span></div>
-<div class="line"><span class="lineno">  342</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">  343</span>        <span class="keywordflow">return</span> graph</div>
-<div class="line"><span class="lineno">  344</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  311</span>    <span class="keyword">def </span>loadGraph(graphuri,graph=None):</div>
+<div class="line"><span class="lineno">  312</span>        <span class="keywordflow">if</span> graphuri <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> graphuri==<span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  313</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  314</span>        s = QSettings()  <span class="comment"># getting proxy from qgis options settings</span></div>
+<div class="line"><span class="lineno">  315</span>        proxyEnabled = s.value(<span class="stringliteral">&quot;proxy/proxyEnabled&quot;</span>)</div>
+<div class="line"><span class="lineno">  316</span>        proxyType = s.value(<span class="stringliteral">&quot;proxy/proxyType&quot;</span>)</div>
+<div class="line"><span class="lineno">  317</span>        proxyHost = s.value(<span class="stringliteral">&quot;proxy/proxyHost&quot;</span>)</div>
+<div class="line"><span class="lineno">  318</span>        proxyPort = s.value(<span class="stringliteral">&quot;proxy/proxyPort&quot;</span>)</div>
+<div class="line"><span class="lineno">  319</span>        proxyUser = s.value(<span class="stringliteral">&quot;proxy/proxyUser&quot;</span>)</div>
+<div class="line"><span class="lineno">  320</span>        proxyPassword = s.value(<span class="stringliteral">&quot;proxy/proxyPassword&quot;</span>)</div>
+<div class="line"><span class="lineno">  321</span>        <span class="keywordflow">if</span> proxyHost <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyHost != <span class="stringliteral">&quot;&quot;</span> <span class="keywordflow">and</span> proxyPort <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> proxyPort != <span class="stringliteral">&quot;&quot;</span>:</div>
+<div class="line"><span class="lineno">  322</span>            <span class="comment">#QgsMessageLog.logMessage(&#39;Proxy? &#39; + str(proxyHost), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  323</span>            proxy = urllib.request.ProxyHandler({<span class="stringliteral">&#39;http&#39;</span>: proxyHost})</div>
+<div class="line"><span class="lineno">  324</span>            opener = urllib.request.build_opener(proxy)</div>
+<div class="line"><span class="lineno">  325</span>            urllib.request.install_opener(opener)</div>
+<div class="line"><span class="lineno">  326</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &quot;{}&quot;&#39;.format(&quot;Load Graph&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">if</span> graph <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  328</span>            graph = Graph()</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  330</span>            <span class="keywordflow">if</span> graphuri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
+<div class="line"><span class="lineno">  331</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot; Data: &quot;</span> + str(graphuri) + <span class="stringliteral">&quot;&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  332</span>                <span class="keyword">with</span> urllib.request.urlopen(graphuri) <span class="keyword">as</span> data:</div>
+<div class="line"><span class="lineno">  333</span>                    readit=data.read().decode()</div>
+<div class="line"><span class="lineno">  334</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot; Data: &quot;+str(readit)+&quot;&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  335</span>                    filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><span class="lineno">  336</span>                    graph.parse(data=readit,format=filepath[len(filepath) - 1])</div>
+<div class="line"><span class="lineno">  337</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  338</span>                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
+<div class="line"><span class="lineno">  339</span>                graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
+<div class="line"><span class="lineno">  340</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  341</span>            QgsMessageLog.logMessage(<span class="stringliteral">&#39;Failed &quot;{}&quot;&#39;</span>.format(str(e)), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  342</span>            <span class="comment">#self.exception = str(e)</span></div>
+<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">return</span> graph</div>
+<div class="line"><span class="lineno">  345</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1154,21 +1155,21 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  374</span>    <span class="keyword">def </span>mergeLayers(layer1,geojson):</div>
-<div class="line"><span class="lineno">  375</span>        result=[]</div>
-<div class="line"><span class="lineno">  376</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> geojson:</div>
-<div class="line"><span class="lineno">  377</span>            geojson[<span class="stringliteral">&quot;properties&quot;</span>]={}</div>
-<div class="line"><span class="lineno">  378</span>        feats1 = layer1.getFeatures()</div>
-<div class="line"><span class="lineno">  379</span>        <span class="keywordflow">for</span> feature <span class="keywordflow">in</span> feats1:</div>
-<div class="line"><span class="lineno">  380</span>            curfeature={<span class="stringliteral">&quot;type&quot;</span>:<span class="stringliteral">&quot;Feature&quot;</span>,<span class="stringliteral">&quot;id&quot;</span>:feature.id,<span class="stringliteral">&quot;properties&quot;</span>:{},<span class="stringliteral">&quot;geometry&quot;</span>:feature.geometry().asJson()}</div>
-<div class="line"><span class="lineno">  381</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> geojson:</div>
-<div class="line"><span class="lineno">  382</span>                <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> geojson[<span class="stringliteral">&quot;properties&quot;</span>]:</div>
-<div class="line"><span class="lineno">  383</span>                    curfeature[<span class="stringliteral">&quot;properties&quot;</span>][prop]=geojson[<span class="stringliteral">&quot;properties&quot;</span>][prop]</div>
-<div class="line"><span class="lineno">  384</span>            <span class="keywordflow">for</span> attr <span class="keywordflow">in</span> feature:</div>
-<div class="line"><span class="lineno">  385</span>                curfeature[<span class="stringliteral">&quot;properties&quot;</span>][attr] = feature[attr]</div>
-<div class="line"><span class="lineno">  386</span>            result.append(curfeature)</div>
-<div class="line"><span class="lineno">  387</span>        <span class="keywordflow">return</span> result</div>
-<div class="line"><span class="lineno">  388</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  375</span>    <span class="keyword">def </span>mergeLayers(layer1,geojson):</div>
+<div class="line"><span class="lineno">  376</span>        result=[]</div>
+<div class="line"><span class="lineno">  377</span>        <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> geojson:</div>
+<div class="line"><span class="lineno">  378</span>            geojson[<span class="stringliteral">&quot;properties&quot;</span>]={}</div>
+<div class="line"><span class="lineno">  379</span>        feats1 = layer1.getFeatures()</div>
+<div class="line"><span class="lineno">  380</span>        <span class="keywordflow">for</span> feature <span class="keywordflow">in</span> feats1:</div>
+<div class="line"><span class="lineno">  381</span>            curfeature={<span class="stringliteral">&quot;type&quot;</span>:<span class="stringliteral">&quot;Feature&quot;</span>,<span class="stringliteral">&quot;id&quot;</span>:feature.id,<span class="stringliteral">&quot;properties&quot;</span>:{},<span class="stringliteral">&quot;geometry&quot;</span>:feature.geometry().asJson()}</div>
+<div class="line"><span class="lineno">  382</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;properties&quot;</span> <span class="keywordflow">in</span> geojson:</div>
+<div class="line"><span class="lineno">  383</span>                <span class="keywordflow">for</span> prop <span class="keywordflow">in</span> geojson[<span class="stringliteral">&quot;properties&quot;</span>]:</div>
+<div class="line"><span class="lineno">  384</span>                    curfeature[<span class="stringliteral">&quot;properties&quot;</span>][prop]=geojson[<span class="stringliteral">&quot;properties&quot;</span>][prop]</div>
+<div class="line"><span class="lineno">  385</span>            <span class="keywordflow">for</span> attr <span class="keywordflow">in</span> feature:</div>
+<div class="line"><span class="lineno">  386</span>                curfeature[<span class="stringliteral">&quot;properties&quot;</span>][attr] = feature[attr]</div>
+<div class="line"><span class="lineno">  387</span>            result.append(curfeature)</div>
+<div class="line"><span class="lineno">  388</span>        <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  389</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1211,21 +1212,21 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  543</span>    <span class="keyword">def </span>patternsToUnion(patternarray,propvar,itemvar):</div>
-<div class="line"><span class="lineno">  544</span>        res=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  545</span>        <span class="keywordflow">if</span> len(patternarray)==1:</div>
-<div class="line"><span class="lineno">  546</span>            <span class="keywordflow">return</span> patternarray[0]</div>
-<div class="line"><span class="lineno">  547</span>        <span class="keywordflow">if</span> patternarray&gt;1:</div>
-<div class="line"><span class="lineno">  548</span>            first=<span class="keyword">True</span></div>
-<div class="line"><span class="lineno">  549</span>            <span class="keywordflow">for</span> pat <span class="keywordflow">in</span> patternarray:</div>
-<div class="line"><span class="lineno">  550</span>                <span class="keywordflow">if</span> first:</div>
-<div class="line"><span class="lineno">  551</span>                    first=<span class="keyword">False</span></div>
-<div class="line"><span class="lineno">  552</span>                    res+=<span class="stringliteral">&quot;{ &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
-<div class="line"><span class="lineno">  553</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  554</span>                    res+=<span class="stringliteral">&quot;UNION { &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
-<div class="line"><span class="lineno">  555</span>            <span class="keywordflow">return</span> res</div>
-<div class="line"><span class="lineno">  556</span>        <span class="keywordflow">return</span> res</div>
-<div class="line"><span class="lineno">  557</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  544</span>    <span class="keyword">def </span>patternsToUnion(patternarray,propvar,itemvar):</div>
+<div class="line"><span class="lineno">  545</span>        res=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  546</span>        <span class="keywordflow">if</span> len(patternarray)==1:</div>
+<div class="line"><span class="lineno">  547</span>            <span class="keywordflow">return</span> patternarray[0]</div>
+<div class="line"><span class="lineno">  548</span>        <span class="keywordflow">if</span> patternarray&gt;1:</div>
+<div class="line"><span class="lineno">  549</span>            first=<span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  550</span>            <span class="keywordflow">for</span> pat <span class="keywordflow">in</span> patternarray:</div>
+<div class="line"><span class="lineno">  551</span>                <span class="keywordflow">if</span> first:</div>
+<div class="line"><span class="lineno">  552</span>                    first=<span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  553</span>                    res+=<span class="stringliteral">&quot;{ &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
+<div class="line"><span class="lineno">  554</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  555</span>                    res+=<span class="stringliteral">&quot;UNION { &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(pat)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; . } &quot;</span></div>
+<div class="line"><span class="lineno">  556</span>            <span class="keywordflow">return</span> res</div>
+<div class="line"><span class="lineno">  557</span>        <span class="keywordflow">return</span> res</div>
+<div class="line"><span class="lineno">  558</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1274,12 +1275,12 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  559</span>    <span class="keyword">def </span>propertyVarPatternToUnion(propertyid,triplestoreconf,propvar,itemvar):</div>
-<div class="line"><span class="lineno">  560</span>        propidcleaned = propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  561</span>        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
-<div class="line"><span class="lineno">  562</span>            <span class="keywordflow">return</span> SPARQLUtils.patternsToUnion(triplestoreconf[propidcleaned],propvar,itemvar)</div>
-<div class="line"><span class="lineno">  563</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  564</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  560</span>    <span class="keyword">def </span>propertyVarPatternToUnion(propertyid,triplestoreconf,propvar,itemvar):</div>
+<div class="line"><span class="lineno">  561</span>        propidcleaned = propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>, <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  562</span>        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><span class="lineno">  563</span>            <span class="keywordflow">return</span> SPARQLUtils.patternsToUnion(triplestoreconf[propidcleaned],propvar,itemvar)</div>
+<div class="line"><span class="lineno">  564</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  565</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1430,39 +1431,39 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  582</span>    <span class="keyword">def </span>resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False,asUnion=True):</div>
-<div class="line"><span class="lineno">  583</span>        <span class="keywordflow">if</span> filterstatement==<span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  584</span>            filterstatement=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  585</span>        propidcleaned=propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  586</span>        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
-<div class="line"><span class="lineno">  587</span>            res=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  588</span>            first=<span class="keyword">True</span></div>
-<div class="line"><span class="lineno">  589</span>            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
-<div class="line"><span class="lineno">  590</span>                res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span></div>
-<div class="line"><span class="lineno">  591</span>            <span class="keywordflow">for</span> propid <span class="keywordflow">in</span> triplestoreconf[propidcleaned]:</div>
-<div class="line"><span class="lineno">  592</span>                thepattern=str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n &quot;</span>+filterstatement</div>
-<div class="line"><span class="lineno">  593</span>                <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
-<div class="line"><span class="lineno">  594</span>                        <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][</div>
-<div class="line"><span class="lineno">  595</span>                    <span class="stringliteral">&quot;url&quot;</span>]):</div>
-<div class="line"><span class="lineno">  596</span>                    thepattern=<span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span>+filterstatement</div>
-<div class="line"><span class="lineno">  597</span>                <span class="keywordflow">if</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> asUnion:</div>
-<div class="line"><span class="lineno">  598</span>                    res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+thepattern+<span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><span class="lineno">  599</span>                <span class="keywordflow">elif</span> patterntype == <span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span>  asUnion:</div>
-<div class="line"><span class="lineno">  600</span>                    <span class="keywordflow">if</span> first:</div>
-<div class="line"><span class="lineno">  601</span>                        first=<span class="keyword">False</span></div>
-<div class="line"><span class="lineno">  602</span>                        res+=<span class="stringliteral">&quot; { &quot;</span>+thepattern+<span class="stringliteral">&quot; } &quot;</span></div>
-<div class="line"><span class="lineno">  603</span>                    <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  604</span>                        res += <span class="stringliteral">&quot; UNION { &quot;</span> + thepattern + <span class="stringliteral">&quot;}\n&quot;</span></div>
-<div class="line"><span class="lineno">  605</span>                <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  606</span>                    res+=thepattern</div>
-<div class="line"><span class="lineno">  607</span>            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
-<div class="line"><span class="lineno">  608</span>                res+=<span class="stringliteral">&quot;} &quot;</span></div>
-<div class="line"><span class="lineno">  609</span>            <span class="keywordflow">return</span> res</div>
-<div class="line"><span class="lineno">  610</span>        <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
-<div class="line"><span class="lineno">  611</span>                <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]):</div>
-<div class="line"><span class="lineno">  612</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
-<div class="line"><span class="lineno">  613</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  614</span>            <span class="keywordflow">return</span> str(itemvar)+<span class="stringliteral">&quot; &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
+<div class="fragment"><div class="line"><span class="lineno">  583</span>    <span class="keyword">def </span>resolvePropertyToTriplePattern(propertyid,propvar,itemvar,triplestoreconf,patterntype,filterstatement,proplabel=False,asUnion=True):</div>
+<div class="line"><span class="lineno">  584</span>        <span class="keywordflow">if</span> filterstatement==<span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  585</span>            filterstatement=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  586</span>        propidcleaned=propertyid.replace(<span class="stringliteral">&quot;%&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  587</span>        <span class="keywordflow">if</span> propidcleaned <span class="keywordflow">in</span> triplestoreconf:</div>
+<div class="line"><span class="lineno">  588</span>            res=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  589</span>            first=<span class="keyword">True</span></div>
+<div class="line"><span class="lineno">  590</span>            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
+<div class="line"><span class="lineno">  591</span>                res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span></div>
+<div class="line"><span class="lineno">  592</span>            <span class="keywordflow">for</span> propid <span class="keywordflow">in</span> triplestoreconf[propidcleaned]:</div>
+<div class="line"><span class="lineno">  593</span>                thepattern=str(itemvar)+<span class="stringliteral">&quot; &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n &quot;</span>+filterstatement</div>
+<div class="line"><span class="lineno">  594</span>                <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
+<div class="line"><span class="lineno">  595</span>                        <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][</div>
+<div class="line"><span class="lineno">  596</span>                    <span class="stringliteral">&quot;url&quot;</span>]):</div>
+<div class="line"><span class="lineno">  597</span>                    thepattern=<span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &lt;&quot;</span>+str(propid)+<span class="stringliteral">&quot;&gt; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span>+filterstatement</div>
+<div class="line"><span class="lineno">  598</span>                <span class="keywordflow">if</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> asUnion:</div>
+<div class="line"><span class="lineno">  599</span>                    res+=<span class="stringliteral">&quot;OPTIONAL { &quot;</span>+thepattern+<span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><span class="lineno">  600</span>                <span class="keywordflow">elif</span> patterntype == <span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">and</span>  asUnion:</div>
+<div class="line"><span class="lineno">  601</span>                    <span class="keywordflow">if</span> first:</div>
+<div class="line"><span class="lineno">  602</span>                        first=<span class="keyword">False</span></div>
+<div class="line"><span class="lineno">  603</span>                        res+=<span class="stringliteral">&quot; { &quot;</span>+thepattern+<span class="stringliteral">&quot; } &quot;</span></div>
+<div class="line"><span class="lineno">  604</span>                    <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  605</span>                        res += <span class="stringliteral">&quot; UNION { &quot;</span> + thepattern + <span class="stringliteral">&quot;}\n&quot;</span></div>
+<div class="line"><span class="lineno">  606</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  607</span>                    res+=thepattern</div>
+<div class="line"><span class="lineno">  608</span>            <span class="keywordflow">if</span> asUnion <span class="keywordflow">and</span> patterntype==<span class="stringliteral">&quot;OPTIONAL&quot;</span>:</div>
+<div class="line"><span class="lineno">  609</span>                res+=<span class="stringliteral">&quot;} &quot;</span></div>
+<div class="line"><span class="lineno">  610</span>            <span class="keywordflow">return</span> res</div>
+<div class="line"><span class="lineno">  611</span>        <span class="keywordflow">if</span> proplabel <span class="keywordflow">and</span> <span class="stringliteral">&quot;url&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>] <span class="keywordflow">and</span> (</div>
+<div class="line"><span class="lineno">  612</span>                <span class="stringliteral">&quot;wikidata&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>] <span class="keywordflow">or</span> <span class="stringliteral">&quot;factgrid&quot;</span> <span class="keywordflow">in</span> triplestoreconf[<span class="stringliteral">&quot;resource&quot;</span>][<span class="stringliteral">&quot;url&quot;</span>]):</div>
+<div class="line"><span class="lineno">  613</span>            <span class="keywordflow">return</span> <span class="stringliteral">&quot;?prop &lt;http://wikiba.se/ontology#directClaim&gt; &quot;</span>+str(itemvar)+<span class="stringliteral">&quot; . ?prop &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
+<div class="line"><span class="lineno">  614</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  615</span>            <span class="keywordflow">return</span> str(itemvar)+<span class="stringliteral">&quot; &quot;</span>+str(propertyid)+<span class="stringliteral">&quot; &quot;</span>+str(propvar)+<span class="stringliteral">&quot; .\n&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1489,21 +1490,21 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  566</span>    <span class="keyword">def </span>selectQueryToConstructQuery(query):</div>
-<div class="line"><span class="lineno">  567</span>        mquery=query[query.find(<span class="stringliteral">&quot;WHERE&quot;</span>):query.rfind(<span class="stringliteral">&quot;}&quot;</span>)+1]</div>
-<div class="line"><span class="lineno">  568</span>        query=query[query.find(<span class="stringliteral">&quot;WHERE&quot;</span>):]</div>
-<div class="line"><span class="lineno">  569</span>        constructpart=<span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  570</span>        <span class="keywordflow">for</span> line <span class="keywordflow">in</span> mquery.split(<span class="stringliteral">&quot;\n&quot;</span>):</div>
-<div class="line"><span class="lineno">  571</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;BIND&quot;</span> <span class="keywordflow">in</span> line <span class="keywordflow">or</span> <span class="stringliteral">&quot;FILTER&quot;</span> <span class="keywordflow">in</span> line <span class="keywordflow">or</span> <span class="stringliteral">&quot;EXISTS&quot;</span> <span class="keywordflow">in</span> line:</div>
-<div class="line"><span class="lineno">  572</span>                <span class="keywordflow">continue</span></div>
-<div class="line"><span class="lineno">  573</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">in</span> line:</div>
-<div class="line"><span class="lineno">  574</span>                constructpart += line[0:line.rfind(<span class="stringliteral">&quot;}&quot;</span>)].replace(<span class="stringliteral">&quot;OPTIONAL {&quot;</span>,<span class="stringliteral">&quot;&quot;</span>) + <span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><span class="lineno">  575</span>            <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  576</span>                constructpart+=line+<span class="stringliteral">&quot;\n&quot;</span></div>
-<div class="line"><span class="lineno">  577</span>        result=<span class="stringliteral">&quot;CONSTRUCT \n&quot;</span>+constructpart.replace(<span class="stringliteral">&quot;WHERE&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)+<span class="stringliteral">&quot;\n&quot;</span>+query</div>
-<div class="line"><span class="lineno">  578</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;SELECT TO CONSTRUCT &#39;</span>+str(result), MESSAGE_CATEGORY,Qgis.Info)</div>
-<div class="line"><span class="lineno">  579</span>        <span class="keywordflow">return</span> result</div>
-<div class="line"><span class="lineno">  580</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  567</span>    <span class="keyword">def </span>selectQueryToConstructQuery(query):</div>
+<div class="line"><span class="lineno">  568</span>        mquery=query[query.find(<span class="stringliteral">&quot;WHERE&quot;</span>):query.rfind(<span class="stringliteral">&quot;}&quot;</span>)+1]</div>
+<div class="line"><span class="lineno">  569</span>        query=query[query.find(<span class="stringliteral">&quot;WHERE&quot;</span>):]</div>
+<div class="line"><span class="lineno">  570</span>        constructpart=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  571</span>        <span class="keywordflow">for</span> line <span class="keywordflow">in</span> mquery.split(<span class="stringliteral">&quot;\n&quot;</span>):</div>
+<div class="line"><span class="lineno">  572</span>            <span class="keywordflow">if</span> <span class="stringliteral">&quot;BIND&quot;</span> <span class="keywordflow">in</span> line <span class="keywordflow">or</span> <span class="stringliteral">&quot;FILTER&quot;</span> <span class="keywordflow">in</span> line <span class="keywordflow">or</span> <span class="stringliteral">&quot;EXISTS&quot;</span> <span class="keywordflow">in</span> line:</div>
+<div class="line"><span class="lineno">  573</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">  574</span>            <span class="keywordflow">elif</span> <span class="stringliteral">&quot;OPTIONAL&quot;</span> <span class="keywordflow">in</span> line:</div>
+<div class="line"><span class="lineno">  575</span>                constructpart += line[0:line.rfind(<span class="stringliteral">&quot;}&quot;</span>)].replace(<span class="stringliteral">&quot;OPTIONAL {&quot;</span>,<span class="stringliteral">&quot;&quot;</span>) + <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><span class="lineno">  576</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  577</span>                constructpart+=line+<span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><span class="lineno">  578</span>        result=<span class="stringliteral">&quot;CONSTRUCT \n&quot;</span>+constructpart.replace(<span class="stringliteral">&quot;WHERE&quot;</span>,<span class="stringliteral">&quot;&quot;</span>)+<span class="stringliteral">&quot;\n&quot;</span>+query</div>
+<div class="line"><span class="lineno">  579</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;SELECT TO CONSTRUCT &#39;</span>+str(result), MESSAGE_CATEGORY,Qgis.Info)</div>
+<div class="line"><span class="lineno">  580</span>        <span class="keywordflow">return</span> result</div>
+<div class="line"><span class="lineno">  581</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1540,11 +1541,11 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  279</span>    <span class="keyword">def </span>shortenLiteral(literal,numchars):</div>
-<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">return</span> literal[numchars:]</div>
-<div class="line"><span class="lineno">  281</span> </div>
+<div class="fragment"><div class="line"><span class="lineno">  280</span>    <span class="keyword">def </span>shortenLiteral(literal,numchars):</div>
+<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">return</span> literal[numchars:]</div>
 <div class="line"><span class="lineno">  282</span> </div>
 <div class="line"><span class="lineno">  283</span> </div>
+<div class="line"><span class="lineno">  284</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
