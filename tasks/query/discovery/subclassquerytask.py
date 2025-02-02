@@ -23,7 +23,7 @@ class SubClassQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.amountoflabels = -1
         self.resultlist = {}
-        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf,None,False,True)
+        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf,None,False,triplestoreurl["type"]=="file")
 
 
     def run(self):

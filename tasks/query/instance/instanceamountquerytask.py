@@ -18,7 +18,7 @@ class InstanceAmountQueryTask(QgsTask):
         self.treeNode=treeNode
         self.amount=-1
         self.thequery=SPARQLUtils.queryPreProcessing("SELECT (COUNT(?con) as ?amount) WHERE { ?con %%typeproperty%% %%concept%% . }",self.triplestoreconf,str(
-                self.treeNode.data(256)),self.nodetype==SPARQLUtils.collectionclassnode,True)
+                self.treeNode.data(256)),self.nodetype==SPARQLUtils.collectionclassnode,triplestoreurl["type"]=="file")
 
     def run(self):
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.thequery,self.triplestoreconf)

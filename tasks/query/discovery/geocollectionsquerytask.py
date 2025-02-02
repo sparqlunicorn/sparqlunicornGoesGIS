@@ -18,7 +18,7 @@ class GeoCollectionsQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
-        self.query = SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,True)
+        self.query = SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,triplestoreurl["type"]=="file")
         self.dlg = dlg
         self.layercount = layercount
         self.labelvar = labelvar

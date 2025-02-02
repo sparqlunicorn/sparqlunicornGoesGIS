@@ -36,7 +36,7 @@ class GeoConceptsQueryTask(QgsTask):
         self.examplequery = examplequery
         self.resultlist = {}
         self.loadfromfile=False
-        self.query =SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,True)
+        self.query =SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,triplestoreurl["type"]=="file")
 
     def run(self):
         if os.path.exists(os.path.join(__location__,"../../../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):

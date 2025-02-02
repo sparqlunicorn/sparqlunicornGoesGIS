@@ -46,7 +46,10 @@ class InstanceSampleQueryTask(QgsTask):
                     self.query+="OPTIONAL {"+geotriplepat.replace("?geo","?val").replace("?item","?con")+" }\n"
                 #+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")\
                 self.query+=" } GROUP BY ?con LIMIT 10"
-        self.pquery=prepareQuery(self.query)
+        if triplestoreurl["type"]=="file":
+            self.pquery=prepareQuery(self.query)
+        else:
+            self.pquery=self.query
 
     def run(self):
 

@@ -81,10 +81,7 @@ class DataSchemaQueryTask(QgsTask):
             self.sortedatt=SPARQLUtils.getLabelsForClasses(self.sortedatt, self.triplestoreconf["propertylabelquery"], self.triplestoreconf,
                                         self.triplestoreurl)
         else:
-            self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt,
-                                                          None,
-                                                          self.triplestoreconf,
-                                                          self.triplestoreurl)
+            self.sortedatt = SPARQLUtils.getLabelsForClasses(self.sortedatt,None,self.triplestoreconf,self.triplestoreurl)
         return True
 
     def finished(self, result):

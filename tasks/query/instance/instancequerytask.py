@@ -25,18 +25,19 @@ class InstanceQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.parentwindow=parentwindow
         self.queryresult={}
-        thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
+        self.thequery="SELECT ?rel ?val WHERE { <" + str(self.searchTerm) + ">  ?rel ?val . }"
         if "geotriplepattern" in self.triplestoreconf:
-            thequery = "SELECT ?rel ?val "
+            self.thequery = "SELECT ?rel ?val "
             if "mandatoryvariables" in self.triplestoreconf and len(self.triplestoreconf["mandatoryvariables"])>0:
-                thequery+="?"
-                thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
-            thequery+=" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "
+                self.thequery+="?"
+                self.thequery+="?".join(self.triplestoreconf["mandatoryvariables"][1:])
+            self.thequery+=" WHERE { <" + str(self.searchTerm) + "> ?rel ?val . "
             if "geotriplepattern" in self.triplestoreconf and len(self.triplestoreconf["geotriplepattern"])>0:
                 for geopat in self.triplestoreconf["geotriplepattern"]:
-                    thequery += "OPTIONAL { " + str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ") + " } "
-            thequery+="}"
-        self.thequery=prepareQuery(thequery)
+                    self.thequery += "OPTIONAL { " + str(geopat).replace("?item ","<" + str(self.searchTerm) + "> ") + " } "
+            self.thequery+="}"
+        if triplestoreurl["type"]=="file":
+            self.thequery=prepareQuery(self.thequery)
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
