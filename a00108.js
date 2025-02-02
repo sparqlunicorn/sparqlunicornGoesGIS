@@ -17,7 +17,7 @@ var a00108 =
     [ "mergeLayers", "a00108.html#ac188768aa88661f1f6a30bea9f4fbece", null ],
     [ "patternsToUnion", "a00108.html#a79761c1fc64f42f48d1d28d68c2cfa44", null ],
     [ "propertyVarPatternToUnion", "a00108.html#a7d444a1bcfd3a509253c108a7c19f0ed", null ],
-    [ "queryPreProcessing", "a00108.html#af9bc34e5efee51bffb51d163a4c1a195", null ],
+    [ "queryPreProcessing", "a00108.html#a22c10ec7a0f1a3725773e4f9060f1385", null ],
     [ "resolvePropertyToTriplePattern", "a00108.html#a3979aaca9cd8c1b20830aeb6fdca916c", null ],
     [ "selectQueryToConstructQuery", "a00108.html#a48d7bc541dfc30c2e5af9ef70a3db6cd", null ],
     [ "shortenLiteral", "a00108.html#ad02d9cf049ff6e840c98736b199b0bb2", null ],
