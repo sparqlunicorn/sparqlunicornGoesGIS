@@ -155,7 +155,7 @@ class SPARQLUtils:
                 proxy = urllib.request.ProxyHandler({'http': proxyHost})
                 opener = urllib.request.build_opener(proxy)
                 urllib.request.install_opener(opener)
-            QgsMessageLog.logMessage('Started task "{}"'.format(query.replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")), MESSAGE_CATEGORY, Qgis.Info)
             sparql = SPARQLWrapper(triplestoreurl["url"])
             if triplestoreconf is not None and "auth" in triplestoreconf and "userCredential" in triplestoreconf["auth"] \
                     and triplestoreconf["auth"]["userCredential"]!="" \
