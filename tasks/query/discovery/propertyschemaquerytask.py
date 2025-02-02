@@ -36,12 +36,6 @@ class PropertySchemaQueryTask(QgsTask):
         self.sortedatt = None
         self.searchTerm = searchTerm
         self.results = None
-
-    def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
-        if self.searchTerm == "":
-            return False
         whattoenrichquery="""SELECT (COUNT(distinct ?val) AS ?countval) (COUNT(?rel) AS ?countrel) ?reltype ?valtype
             WHERE { 
             ?rel %%concept%% ?val .
@@ -52,6 +46,13 @@ class PropertySchemaQueryTask(QgsTask):
             ORDER BY DESC(?countrel)"""
         if self.query is None:
             self.query=whattoenrichquery
+
+    def run(self):
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
+        if self.searchTerm == "":
+            return False
+
         if isinstance(self.prefixes, Iterable):
             results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
         else:

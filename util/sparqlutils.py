@@ -9,6 +9,7 @@ from osgeo import ogr
 from qgis.core import Qgis, QgsGeometry,QgsVectorLayer, QgsMessageLog
 from qgis.PyQt.QtCore import QSettings
 from rdflib import Graph
+from rdflib.plugins.sparql import prepareQuery
 
 MESSAGE_CATEGORY = "SPARQLUtils"
 
@@ -65,7 +66,7 @@ class SPARQLUtils:
     exception=""
 
     @staticmethod
-    def queryPreProcessing(query,triplestoreconf,concept=None,convertToCollectionForm=False):
+    def queryPreProcessing(query,triplestoreconf,concept=None,convertToCollectionForm=False,pquery=False):
         QgsMessageLog.logMessage('Preprocessing"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
                                  Qgis.Info)
         if convertToCollectionForm:
@@ -93,6 +94,8 @@ class SPARQLUtils:
             .replace("%%collectionmemberproperty%%","<"+collectionmemberproperty+">").replace("<<","<").replace(">>",">")
         QgsMessageLog.logMessage('Preprocessing finished"{}"'.format(query.replace("<", "").replace(">", "")), MESSAGE_CATEGORY,
                              Qgis.Info)
+        if pquery:
+            return prepareQuery(query)
         return query
 
     @staticmethod
@@ -172,7 +175,7 @@ class SPARQLUtils:
                     raise Exception
                 results = sparql.queryAndConvert()
                 QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
-                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(results,dict) and "status_code" in results:
                     QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     SPARQLUtils.exception = str(results)
@@ -203,7 +206,7 @@ class SPARQLUtils:
                     if isinstance(results,dict) and "status_code" in results:
                         SPARQLUtils.exception = str(results)
                         raise Exception
-                except:
+                except Exception as e:
                     QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
                     SPARQLUtils.exception=str(e)
                     if "OntopUnsupportedInputQueryException: The expression Exists" in str(e):
@@ -215,7 +218,7 @@ class SPARQLUtils:
             else:
                 graph=SPARQLUtils.loadGraph(str(triplestoreurl["url"]))
                 triplestoreurl["instance"]=graph
-            #QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
             QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph is not None:
                 if "CONSTRUCT" in str(query):
@@ -225,9 +228,12 @@ class SPARQLUtils:
                         resg.add(res)
                     results=resg
                 else:
-                    results=json.loads(graph.query(query).serialize(format="json"))
-                QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
-        QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+                    res=graph.query(query)
+                    QgsMessageLog.logMessage("Result: " + str(len(res)) + " triples", MESSAGE_CATEGORY, Qgis.Info)
+                    results=json.loads(res.serialize(format="json"))
+                #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
+        if results!=False:
+            QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         return results
 
     @staticmethod
@@ -329,11 +335,7 @@ class SPARQLUtils:
         try:
             if graphuri.startswith("http"):
                 QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
-                with urllib.request.urlopen(graphuri) as data:
-                    readit=data.read().decode()
-                    #QgsMessageLog.logMessage(" Data: "+str(readit)+"", MESSAGE_CATEGORY, Qgis.Info)
-                    filepath = graphuri.split(".")
-                    graph.parse(data=readit,format=filepath[len(filepath) - 1])
+                graph.parse(graphuri)
             else:
                 filepath = graphuri.split(".")
                 graph.parse(graphuri, format=filepath[len(filepath) - 1])

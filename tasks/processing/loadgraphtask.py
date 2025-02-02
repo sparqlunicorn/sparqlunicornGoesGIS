@@ -1,9 +1,12 @@
+from ...dialogs.info.errormessagebox import ErrorMessageBox
 from ...util.sparqlutils import SPARQLUtils
 from ...util.graphutils import GraphUtils
 from ...util.ui.uiutils import UIUtils
-from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsTask
 from rdflib import Graph
+import os
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 MESSAGE_CATEGORY = 'LoadGraphTask'
 
@@ -30,16 +33,29 @@ class LoadGraphTask(QgsTask):
         self.gutils=GraphUtils("")
 
     def run(self):
+        path = os.path.join(__location__, "../../tmp/graphcache/" + str(
+            str(self.filenames).replace("/", "_").replace("['", "").replace("']", "").replace(
+                "\\", "_").replace(":", "_")) + ".ttl")
+
         if isinstance(self.filenames,str):
-            self.graph=SPARQLUtils.loadGraph(self.filenames)
+            if os.path.isfile(path):
+                self.graph.parse(path)
+            else:
+                self.graph=SPARQLUtils.loadGraph(self.filenames)
+                self.graph.serialize(path, format="ttl")
         else:
             self.graph=Graph()
             for file in self.filenames:
                 SPARQLUtils.loadGraph(file,self.graph)
+            self.graph.serialize(path,format="ttl")
         self.geoconcepts = []
         if self.graph is not None:
             self.gutils.detectTripleStoreConfiguration(self.graphname, self.graph, self.detectnamespaces,
                                                        {"normal": {}, "reversed": {}}, self.progress)
+            if "typeproperty" in self.gutils.missingproperties:
+                self.gutils.configuration["typeproperty"]="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+            if "subclassproperty" in self.gutils.missingproperties:
+                self.gutils.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
             #results = self.graph.query(self.query)
             #for row in results:
             #    self.geoconcepts.append(str(row[0]))
@@ -59,7 +75,7 @@ class LoadGraphTask(QgsTask):
             if self.closedlg:
                 self.loadgraphdlg.close()
         else:
-            msgBox = QMessageBox()
+            msgBox = ErrorMessageBox("LoadGraph Error","")
             msgBox.setText(self.exception)
             msgBox.exec()
         self.progress.close()

@@ -17,11 +17,11 @@ class InstanceAmountQueryTask(QgsTask):
         self.dlg=dlg
         self.treeNode=treeNode
         self.amount=-1
+        self.thequery=SPARQLUtils.queryPreProcessing("SELECT (COUNT(?con) as ?amount) WHERE { ?con %%typeproperty%% %%concept%% . }",self.triplestoreconf,str(
+                self.treeNode.data(256)),self.nodetype==SPARQLUtils.collectionclassnode,True)
 
     def run(self):
-        thequery=SPARQLUtils.queryPreProcessing("SELECT (COUNT(?con) as ?amount) WHERE { ?con %%typeproperty%% %%concept%% . }",self.triplestoreconf,str(
-                self.treeNode.data(256)),self.nodetype==SPARQLUtils.collectionclassnode)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.thequery,self.triplestoreconf)
         if results != False:
             self.amount = results["results"]["bindings"][0]["amount"]["value"]
         else:

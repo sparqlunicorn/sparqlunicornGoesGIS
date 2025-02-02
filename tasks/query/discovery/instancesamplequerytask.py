@@ -5,6 +5,7 @@ from qgis.PyQt.QtGui import QStandardItem
 from qgis.core import Qgis, QgsFeature, QgsVectorLayer, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt, QSize
 import json
+from rdflib.plugins.sparql import prepareQuery
 
 MESSAGE_CATEGORY = 'InstanceSampleQueryTask'
 
@@ -27,8 +28,6 @@ class InstanceSampleQueryTask(QgsTask):
         self.relation=relation
         self.queryresult=[]
         self.encounteredtypes=set()
-
-    def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
@@ -37,18 +36,22 @@ class InstanceSampleQueryTask(QgsTask):
         typepattern="?con <"+typeproperty+"> <" + str(self.concept) + "> ."
         if self.nodetype==SPARQLUtils.collectionclassnode:
             typepattern="<" + str(self.concept) + ">  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
-        query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?con LIMIT 10"
+        self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?con LIMIT 10"
         if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
-                query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con ?con2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?con LIMIT 100"
+                self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con ?con2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?con LIMIT 100"
             elif "geotriplepattern" in self.triplestoreconf:
-                query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" "
+                self.query = "SELECT DISTINCT (COUNT(?con) as ?amount) ?con WHERE { "+str(typepattern)+" "
                 for geotriplepat in self.triplestoreconf["geotriplepattern"]:
-                    query+="OPTIONAL {"+geotriplepat.replace("?geo","?val").replace("?item","?con")+" }\n"
+                    self.query+="OPTIONAL {"+geotriplepat.replace("?geo","?val").replace("?item","?con")+" }\n"
                 #+self.triplestoreconf["geotriplepattern"][0].replace("?geo","?val").replace("?item","?con")\
-                query+=" } GROUP BY ?con LIMIT 10"
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,query,self.triplestoreconf)
+                self.query+=" } GROUP BY ?con LIMIT 10"
+        self.pquery=prepareQuery(self.query)
+
+    def run(self):
+
+        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.query).replace("<","").replace(">","")),MESSAGE_CATEGORY, Qgis.Info)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.pquery,self.triplestoreconf)
         counter=0
         if results!=False:
             #QgsMessageLog.logMessage('Started task "{}"'.format(results), MESSAGE_CATEGORY, Qgis.Info)

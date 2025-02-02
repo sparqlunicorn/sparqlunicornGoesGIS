@@ -31,6 +31,7 @@ class DataSampleQueryTask(QgsTask):
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
+        #""""SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"""
         typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         if "typeproperty" in self.triplestoreconf:
             typeproperty=self.triplestoreconf["typeproperty"]

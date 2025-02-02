@@ -21,11 +21,11 @@ class TripleStoreRepositoryTask(QgsTask):
         self.results = None
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
         try:
             self.results = json.loads(requests.get(self.triplestorerepourl).text)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(self.results)), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.results)), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             return True
         except Exception as e:
             self.exception=e
@@ -34,7 +34,7 @@ class TripleStoreRepositoryTask(QgsTask):
     def finished(self, result):
         if self.exception is not None:
             msgBox = ErrorMessageBox("Error while accessing the triple store repository", "")
-            msgBox.setText("An error occured while accessing the triple store repository:\n" + str(self.exception))
+            msgBox.setText("An error occurred while accessing the triple store repository:\n" + str(self.exception))
             msgBox.exec()
         if self.results is not None:
             model=QStandardItemModel()

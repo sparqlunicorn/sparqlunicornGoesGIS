@@ -1,6 +1,6 @@
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox
+from qgis.PyQt.QtWidgets import QProgressDialog, QFileDialog,QMessageBox, QDialog
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QRegExp
@@ -17,7 +17,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 ##
 #  @brief The main dialog window of the SPARQLUnicorn QGIS Plugin.
-class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
+class TripleStoreRepoDialog(QtWidgets.QDialog, FORM_CLASS):
     ## The triple store configuration file
     triplestoreconf = None
     ## Prefix map
@@ -27,5 +27,6 @@ class ConvertCRSDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def __init__(self, triplestoreconf={}, maindlg=None, parent=None,title="Convert CRS"):
         """Constructor."""
-        super(ConvertCRSDialog, self).__init__(parent)
+        super(QDialog, self).__init__()
         self.setupUi(self)
+

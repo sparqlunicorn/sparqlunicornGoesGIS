@@ -1,5 +1,6 @@
 
 from ...util.export.layer.layerexporter import LayerExporter
+from ...dialogs.info.errormessagebox import ErrorMessageBox
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
@@ -49,7 +50,7 @@ class ConvertLayerTask(QgsTask):
             msgBox.setText("Layer converted to and saved as "+str(self.filename[0]))
             msgBox.exec()
         else:
-            msgBox = QMessageBox()
+            msgBox = ErrorMessageBox("ConvertLayerTask Error","")
             msgBox.setText("An error occurred while converting the layer converted to "+str(self.filename[0]))
             msgBox.exec()
 

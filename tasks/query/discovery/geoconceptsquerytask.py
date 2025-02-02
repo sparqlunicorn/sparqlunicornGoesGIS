@@ -7,6 +7,7 @@ from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
 from os.path import exists
 import json
+from rdflib.plugins.sparql import prepareQuery
 
 MESSAGE_CATEGORY = 'GeoConceptsQueryTask'
 
@@ -20,7 +21,6 @@ class GeoConceptsQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
-        self.query = query
         self.dlg = dlg
         self.layercount = layercount
         self.getlabels = getlabels
@@ -36,12 +36,12 @@ class GeoConceptsQueryTask(QgsTask):
         self.examplequery = examplequery
         self.resultlist = {}
         self.loadfromfile=False
+        self.query =SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,True)
 
     def run(self):
         if os.path.exists(os.path.join(__location__,"../../../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.loadfromfile=True
         else:
-            self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
             if results==False:
                 return False

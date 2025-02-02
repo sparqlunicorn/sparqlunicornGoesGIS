@@ -320,9 +320,9 @@ class SPARQLunicorn:
         if self.first_start:
             self.first_start = False
             self.manageTripleStoreConfFiles()
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn",
-                                     Qgis.Info)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn", Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn",
+            #                         Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.triplestoreconf))), "SPARQL Unicorn", Qgis.Info)
             self.dlg = SPARQLunicornDialog(self.languagemap,self.triplestoreconf, self.prefixes, self.addVocabConf, self.autocomplete,
                                            self.prefixstore, self.savedQueriesJSON, self)
             self.dlg.comboBox.clear()
@@ -333,6 +333,6 @@ class SPARQLunicorn:
             self.dlg.oauthTestButton.hide()
             self.dlg.oauthTestButton.clicked.connect(lambda: LoginWindowDialog(self).exec())
             self.dlg.tabchanged(self.dlg.tabWidget.currentIndex())
-            self.dlg.endpointselectaction()
+            #self.dlg.endpointselectaction()
         else:
             self.dlg.show()

@@ -6,6 +6,7 @@ from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.core import (
     QgsTask, QgsMessageLog,
 )
+from rdflib.plugins.sparql import prepareQuery
 
 MESSAGE_CATEGORY = 'GeoCollectionsQueryTask'
 
@@ -17,7 +18,7 @@ class GeoCollectionsQueryTask(QgsTask):
         self.exception = None
         self.triplestoreurl = triplestoreurl
         self.triplestoreconf = triplestoreconf
-        self.query = query
+        self.query = SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,True)
         self.dlg = dlg
         self.layercount = layercount
         self.labelvar = labelvar
@@ -38,8 +39,9 @@ class GeoCollectionsQueryTask(QgsTask):
         self.resultlist = []
         self.viewlist = []
 
+
     def run(self):
-        self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
+        #self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
             return False

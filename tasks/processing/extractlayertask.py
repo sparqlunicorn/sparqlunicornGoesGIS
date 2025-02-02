@@ -1,4 +1,4 @@
-
+from ...dialogs.info.errormessagebox import ErrorMessageBox
 from ...util.export.layer.layerexporter import LayerExporter
 from qgis.utils import iface
 from qgis.core import Qgis,QgsTask, QgsMessageLog
@@ -49,7 +49,7 @@ class ExtractLayerTask(QgsTask):
         #    QgsMessageLog.logMessage(str(e),
         #                             MESSAGE_CATEGORY, Qgis.Info)
         #    return False
-        return True
+        #return True
 
     def finished(self, result):
         if self.progress!=None:
@@ -64,7 +64,7 @@ class ExtractLayerTask(QgsTask):
             msgBox.setText("Layer extracted from "+str(self.graphname))
             msgBox.exec()
         else:
-            msgBox = QMessageBox()
+            msgBox = ErrorMessageBox("Layer Extraction Error","")
             msgBox.setText("An error occurred while extracting layers from  "+str(self.graphname))
             msgBox.exec()
 

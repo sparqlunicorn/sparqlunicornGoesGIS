@@ -9,6 +9,12 @@ MESSAGE_CATEGORY = 'GraphUtils'
 
 class GraphUtils:
 
+    labelToPropertyTypes={
+        "instance of":"typeproperty",
+        "subclass of": "subclassproperty",
+        "coordinate": "geoproperty",
+    }
+
     testQueries = {
         "geosparql": "PREFIX geof:<http://www.opengis.net/def/function/geosparql/> SELECT ?a ?b ?c WHERE { BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?a) BIND( \"POINT(1 1)\"^^<http://www.opengis.net/ont/geosparql#wktLiteral> AS ?b) FILTER(geof:sfIntersects(?a,?b))}",
         "sparql11": "SELECT ?a ?b ?c WHERE { BIND( <http://www.opengis.net/ont/geosparql#test> AS ?b)  ?a ?b ?c . } LIMIT 1",
@@ -18,6 +24,7 @@ class GraphUtils:
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
         "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
+        "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION { ?prop rdfs:label ?propLabel .}}",
         "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
         "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
@@ -222,10 +229,19 @@ class GraphUtils:
     def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
         QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
+        QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if configuration is not None:
                 configuration["typeProperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
             return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        else:
+            results = SPARQLUtils.executeQuery(triplestoreurl,
+                    self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en"),
+                    {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
+            if results!=False:
+                for res in results["results"]["bindings"]:
+                    if "prop" in res:
+                        return res["prop"]
         return ""
 
     def detectSubClassOfProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
@@ -366,6 +382,11 @@ class GraphUtils:
             self.feasibleConfiguration = True
             return True
         return results
+
+    def detectPropertiesByName(self,triplestoreurl, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",credentialUserName=None,credentialPassword=None,authmethod=None):
+        query="SELECT DISTINCT ?prop ?propLabel WHERE {?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION {?prop rdfs:label ?propLabel .} FILTER(lang(?propLabel)=\"en\"))}"
+        results = SPARQLUtils.executeQuery(triplestoreurl, query, {"auth": {"method": authmethod, "userCredential": credentialUserName, "userPassword": credentialPassword}})
+
 
     ## Detects default configurations of common geospatial triple stores.
     #  @param self The object pointer.

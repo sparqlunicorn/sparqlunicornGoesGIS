@@ -25,10 +25,10 @@ class TripleStoreRepositorySyncTask(QgsTask):
         self.results = None
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.triplestorerepourl)), MESSAGE_CATEGORY, Qgis.Info)
         try:
             self.results = json.loads(requests.get(self.triplestorerepourl).text)
-            QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.results))), MESSAGE_CATEGORY,Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format(str(len(self.results))), MESSAGE_CATEGORY,Qgis.Info)
             return True
         except Exception as e:
             self.exception=e
@@ -39,7 +39,7 @@ class TripleStoreRepositorySyncTask(QgsTask):
             QgsMessageLog.logMessage("An error occured while accessing the triple store repository:\n" + str(self.exception), MESSAGE_CATEGORY,Qgis.Info)
             ErrorMessageBox("Error syncing triple stores","An error occured while accessing the triple store repository:\n" + str(self.exception)).exec()
         if self.results is not None:
-           QgsMessageLog.logMessage("Updating triplestoreconf:",MESSAGE_CATEGORY, Qgis.Info)
+           #QgsMessageLog.logMessage("Updating triplestoreconf:",MESSAGE_CATEGORY, Qgis.Info)
            self.dlg.triplestoreconf=ConfigUtils.updateTripleStoreConf(self.triplestoreconf,self.results,self.removeOldConfig)
            if self.dlg.comboBox is not None:
                 self.dlg.comboBox.clear()

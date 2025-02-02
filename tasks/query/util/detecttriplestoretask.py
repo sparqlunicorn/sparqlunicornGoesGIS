@@ -53,37 +53,6 @@ class DetectTripleStoreTask(QgsTask):
         if self.gutils.feasibleConfiguration and self.testConfiguration:
             DetectTripleStoreResultDialog(self.parentdialog,self.triplestoreconf,self.triplestorename,self.tripleStoreChooser,self.prefixes,self.gutils.configuration,
                                               self.permanentAdd,self.gutils.message,self.gutils.missingproperties).exec()
-            """
-            msgBox = QMessageBox()
-            msgBox.setStandardButtons(QMessageBox.Yes)
-            msgBox.addButton(QMessageBox.No)
-            msgBox.setWindowTitle("Automatic Detection Successful")
-            msgBox.setText(self.gutils.message)
-            if msgBox.exec() != QMessageBox.Yes:
-                return
-            else:
-                if "type" in self.gutils.configuration and self.gutils.configuration["type"]=="geosparqlendpoint":
-                    self.tripleStoreChooser.addItem(UIUtils.geoendpointicon, self.triplestorename + " [GeoSPARQL Endpoint]")
-                else:
-                    self.tripleStoreChooser.addItem(UIUtils.linkeddataicon,self.triplestorename+" [SPARQL Endpoint]")
-                index = len(self.triplestoreconf)
-                self.triplestoreconf.append({})
-                self.triplestoreconf[index] = self.gutils.configuration
-                self.addTripleStore = False
-                self.prefixes.append("")
-                for prefix in self.gutils.configuration["prefixes"]:
-                    self.prefixes[len(self.prefixes)-1] += "PREFIX " + prefix + ":<" + self.gutils.configuration["prefixes"][prefix] + ">\n"
-                if self.permanentAdd is not None and self.permanentAdd:
-                    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-                    f = open(os.path.join(__location__, 'triplestoreconf_personal.json'), "w")
-                    f.write(json.dumps(self.triplestoreconf, indent=2))
-                    f.close()
-                if self.tripleStoreChooser is not None:
-                    #self.tripleStoreChooser.addItem(self.triplestorename)
-                    self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
-                if self.parentdialog is not None:
-                    self.parentdialog.close()
-                """
         elif self.gutils.feasibleConfiguration:
             msgBox = QMessageBox()
             msgBox.setText("Automatic Detection Successful")
