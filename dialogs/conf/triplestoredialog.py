@@ -82,8 +82,7 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.removePrefixButton.clicked.connect(self.removePrefixFromList)
         self.detectConfiguration.clicked.connect(self.detectTripleStoreConfiguration)
         self.varInfoButton.clicked.connect(self.createVarInfoDialog)
-        self.varInfoButton.setIcon(
-            QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
+        self.varInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.loadTripleStoreConfig()
 
     def saveConfigurationAsJSON(self):
@@ -270,7 +269,16 @@ class TripleStoreDialog(QDialog,FORM_CLASS):
         self.tripleStoreChooser.setCurrentIndex(self.tripleStoreChooser.count()-1)
         self.tripleStoreNameEdit.setText("New triple store")
         self.tripleStoreEdit.setText("")		
-				
+
+
+    def deleteGraphCache(self):
+        __location__ = os.path.realpath(os.path.join(os.getcwd(),"tmp/classtree/"))
+        for file_object in os.listdir(__location__):
+            file_object_path = os.path.join(__location__, file_object)
+            if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
+                os.remove(file_object_path)
+
+
     def restoreFactory(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         with open(os.path.join(__location__, 'triplestoreconf.json'),'r') as myfile:
