@@ -70,6 +70,7 @@ class GraphUtils:
             self.configuration["auth"]["method"]=authmethod
         self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.configuration["labelproperty"] = ["http://www.w3.org/2000/01/rdf-schema#label"]
+        self.configuration["collectionnmemberproperty"] = ["http://www.w3.org/2000/01/rdf-schema#member"]
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         self.configuration["whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
         self.configuration["staticconcepts"] = []

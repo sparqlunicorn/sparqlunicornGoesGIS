@@ -32,11 +32,13 @@ class DataSampleQueryTask(QgsTask):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.concept+" "+self.relation+" "+str(self.nodetype)),MESSAGE_CATEGORY, Qgis.Info)
         #""""SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"""
-        typepattern="?con %%typeproperty%% <" + str(self.concept) + "> ."
+        typeproperty="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        if "typeproperty" in self.triplestoreconf:
+            typeproperty=self.triplestoreconf["typeproperty"]
+        typepattern="?con <"+typeproperty+"> <" + str(self.concept) + "> ."
         if self.nodetype==SPARQLUtils.collectionclassnode:
-            typepattern="<" + str(self.concept) + ">  %%collectionmemberproperty%% ?con . "
+            typepattern="<" + str(self.concept) + ">  <http://www.w3.org/2000/01/rdf-schema#member> ?con . "
         query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val WHERE { "+str(typepattern)+" ?con <" + str(self.relation)+ "> ?val } GROUP BY ?val LIMIT 100"
-        SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,self.concept,self.nodetype==SPARQLUtils.collectionclassnode,False)
         if "geometryproperty" in self.triplestoreconf and self.relation in self.triplestoreconf["geometryproperty"]:
             if type(self.triplestoreconf["geometryproperty"]) is list and len(self.triplestoreconf["geometryproperty"])==2:
                 query = "SELECT DISTINCT (COUNT(?val) as ?amount) ?val ?val2 WHERE { "+str(typepattern)+" ?con <" + str(self.triplestoreconf["geometryproperty"][0]) + "> ?val . ?con <" + str(self.triplestoreconf["geometryproperty"][1]) + "> ?val2 . } GROUP BY ?val ?val2 LIMIT 100"
