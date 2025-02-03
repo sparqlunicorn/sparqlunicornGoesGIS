@@ -98,6 +98,7 @@ class GraphUtils:
         configuration["geotriplepattern"]=[]
         configuration["querytemplate"] = []
         gottype=False
+        mandvardef=" ?item ?geo "
         geomobjprop="?item ?rel ?item_geom . "
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasGeometry"],
                                           credentialUserName, credentialPassword, authmethod):
@@ -147,6 +148,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasWgs84LatLon"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("WGS84 Lat/Lon")
+            mandvardef = " ?item ?lat ?lon "
             configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#long",
                                                       "http://www.w3.org/2003/01/geo/wgs84_pos#lat"]
             configuration["mandatoryvariables"] = ["item", "lat","lon"]
@@ -155,6 +157,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTPS"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
+            mandvardef = " ?item ?lat ?lon "
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["https://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item <https://schema.org/latitude> ?lat . ?item <https://schema.org/longitude> ?lon . ")
@@ -162,6 +165,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTP"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
+            mandvardef = " ?item ?lat ?lon "
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["http://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon . ")
@@ -191,8 +195,11 @@ class GraphUtils:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:
                         if configuration is not None:
+                            mandvardef = " ?item ?geo "
+                            capabilitylist.append("Custom Geometry Property")
+                            configuration["mandatoryvariables"] = ["item", "geo"]
                             configuration["geometryproperty"] = [res["prop"]["value"]]
-                            configuration["geotriplepattern"].append(" ?item <https://schema.org/polygon> ?geo . ")
+                            configuration["geotriplepattern"].append(" ?item <"+str(res["prop"]["value"])+"> ?geo . ")
                             gottype=True
                         break
         #self.detectGeometryLiteralRelations(configuration, credentialUserName, credentialPassword, authmethod) #Does not terminate on most triple stores
@@ -212,7 +219,7 @@ class GraphUtils:
         if "geotriplepattern" in self.configuration and len(self.configuration["geotriplepattern"])>0:
             self.configuration["querytemplate"].append(
                 {"label": "10 Random Geometries",
-                 "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n "+str(self.configuration["geotriplepattern"][0])+"\n } LIMIT 10"})
+                 "query": "SELECT "+str(mandvardef)+" WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n "+str(self.configuration["geotriplepattern"][0])+"\n } LIMIT 10"})
             self.configuration[
                 "subclassquery"] = "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . " + str(
                 configuration["geotriplepattern"][
