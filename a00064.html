@@ -1099,7 +1099,7 @@ Static Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">  419</span>    <span class="keyword">def </span>endpointselectaction(self,endpointIndex,fromtask=False):</div>
 <div class="line"><span class="lineno">  420</span>        self.queryTemplates.clear()</div>
 <div class="line"><span class="lineno">  421</span>        self.filterConcepts.setText(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">  422</span>        QgsMessageLog.logMessage(<span class="stringliteral">&#39;Started task &#39;</span>+str(endpointIndex), <span class="stringliteral">&quot;SPARQLUnicorn&quot;</span>, Qgis.Info)</div>
+<div class="line"><span class="lineno">  422</span>        <span class="comment">#QgsMessageLog.logMessage(&#39;Started task &#39;+str(endpointIndex), &quot;SPARQLUnicorn&quot;, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  423</span>        self.geoTreeViewModel.clear()</div>
 <div class="line"><span class="lineno">  424</span>        self.classTreeViewModel.clear()</div>
 <div class="line"><span class="lineno">  425</span>        self.geometryCollectionClassListModel.clear()</div>
