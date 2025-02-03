@@ -218,8 +218,8 @@ class SPARQLUtils:
             else:
                 graph=SPARQLUtils.loadGraph(str(triplestoreurl["url"]))
                 triplestoreurl["instance"]=graph
-            QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
-            QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Graph: " + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage("Query: " + str(query).replace("<", "").replace(">", ""), MESSAGE_CATEGORY, Qgis.Info)
             if graph is not None:
                 if "CONSTRUCT" in str(query):
                     results = graph.query(query)
@@ -229,7 +229,7 @@ class SPARQLUtils:
                     results=resg
                 else:
                     res=graph.query(query)
-                    QgsMessageLog.logMessage("Result: " + str(len(res)) + " triples", MESSAGE_CATEGORY, Qgis.Info)
+                    #QgsMessageLog.logMessage("Result: " + str(len(res)) + " triples", MESSAGE_CATEGORY, Qgis.Info)
                     results=json.loads(res.serialize(format="json"))
                 #QgsMessageLog.logMessage("Result: " + str(len(results))+" triples", MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:

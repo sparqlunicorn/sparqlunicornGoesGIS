@@ -10,9 +10,10 @@ MESSAGE_CATEGORY = 'LoadTripleStoreTask'
 ## Loads a graph from an RDF file either by providing an internet address or a file path.
 class LoadTripleStoreTask(QgsTask):
 
-    def __init__(self, description, curtriplestoreconf,dlg):
+    def __init__(self, description, curtriplestoreconf,endpointIndex,dlg):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
+        self.endpointIndex=endpointIndex
         self.curtriplestoreconf = curtriplestoreconf
         self.dlg=dlg
 
@@ -28,11 +29,15 @@ class LoadTripleStoreTask(QgsTask):
                 str(self.curtriplestoreconf["resource"]["url"]).replace("/", "_").replace("['", "")
                 .replace("']","").replace("\\", "_").replace(":", "_")) + ".ttl")
             if os.path.isfile(path):
-                QgsMessageLog.logMessage('Started task: Loading graph from '.format(self.description()) + str(path),MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage('Started task: Loading graph from file '.format(self.description()) + str(path),MESSAGE_CATEGORY, Qgis.Info)
                 self.graph.parse(path)
                 self.curtriplestoreconf["instance"]=self.graph
             else:
+                QgsMessageLog.logMessage('Started task: Loading graph from URI '.format(self.description()) +self.curtriplestoreconf["resource"]["url"],
+                                         MESSAGE_CATEGORY, Qgis.Info)
                 SPARQLUtils.loadGraph(self.curtriplestoreconf["resource"]["url"],self.graph)
+                QgsMessageLog.logMessage('Started task: Loaded graph from URI '.format(self.description()) + self.curtriplestoreconf["resource"]["url"],
+                                         MESSAGE_CATEGORY, Qgis.Info)
                 self.curtriplestoreconf["instance"]=self.graph
                 QgsMessageLog.logMessage('Started task: Serializing loaded graph to '.format(self.description())+str(path), MESSAGE_CATEGORY, Qgis.Info)
                 self.graph.serialize(path, format="ttl")
@@ -41,4 +46,4 @@ class LoadTripleStoreTask(QgsTask):
 
     def finished(self, result):
         if result == True:
-            self.dlg.endpointselectaction(True)
+            self.dlg.endpointselectaction(self.endpointIndex,True)

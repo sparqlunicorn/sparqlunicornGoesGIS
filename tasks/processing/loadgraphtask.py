@@ -37,7 +37,6 @@ class LoadGraphTask(QgsTask):
             str(self.filenames).replace("/", "_").replace("['", "").replace("']", "").replace(
                 "\\", "_").replace(":", "_")) + ".ttl")
         if isinstance(self.filenames,str):
-
             if os.path.isfile(path):
                 self.graph.parse(path)
             else:

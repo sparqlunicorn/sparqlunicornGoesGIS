@@ -208,6 +208,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             thetext += "<tr><td>GeoSPARQL 1.0</td><td>Not Supported</td></tr>"
         thetext+="<tr><td>Endpoint</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]["url"])+"</a></td></tr>"
         thetext+="<tr><td>Type Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["typeproperty"])+"</a></td></tr>"
+        thetext += "<tr><td>SubClass Property</td><td><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"]) + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["subclassproperty"]) + "</a></td></tr>"
         thetext+="<tr><td>Label Property</td><td><a href=\""+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"\">"+str(self.triplestoreconf[self.comboBox.currentIndex()]["labelproperty"])+"</a></td></tr>"
         if "geometryproperty" in self.triplestoreconf[self.comboBox.currentIndex()]:
             thetext+= "<tr><td>Geometry Property</td><td style=\"word-wrap: break-word\"><a href=\"" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]).replace("[","").replace("]","") + "\">" + str(self.triplestoreconf[self.comboBox.currentIndex()]["geometryproperty"]).replace(" ","<br/>") + "</a></td></tr>"
@@ -415,8 +416,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
 
     ## Selects a SPARQL endpoint and changes its configuration accordingly.
     #  @param self The object pointer.
-    def endpointselectaction(self,fromtask=False):
-        endpointIndex = self.comboBox.currentIndex()
+    def endpointselectaction(self,endpointIndex,fromtask=False):
         self.queryTemplates.clear()
         self.filterConcepts.setText("")
         QgsMessageLog.logMessage('Started task '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
@@ -459,10 +459,24 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if "examplequery" in self.triplestoreconf[endpointIndex]:
                 self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
                 self.inp_sparql2.columnvars = {}
-        QgsMessageLog.logMessage('LoadTriple Store Before Started task ' + str(endpointIndex), "SPARQLUnicorn",Qgis.Info)
-        if not fromtask and "resource" in self.triplestoreconf[endpointIndex] and "type" in self.triplestoreconf[endpointIndex]["resource"] and self.triplestoreconf[endpointIndex]["resource"]["type"]=="file" and "instance" not in self.triplestoreconf[endpointIndex]["resource"]:
-            QgsMessageLog.logMessage('LoadTriple Store Before Started task ' + str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
-            self.qtaskctree=LoadTripleStoreTask("Loading triple store from uri", self.triplestoreconf[endpointIndex],self)
+        #QgsMessageLog.logMessage('463: LoadTriple Store Before Started task ' + str(endpointIndex)+" "+str(fromtask), "SPARQLUnicorn",Qgis.Info)
+        #QgsMessageLog.logMessage(
+        #    '463: LoadTriple Store Before Started task ' + str(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn",
+        #    Qgis.Info)
+        #QgsMessageLog.logMessage(
+        #    '463: LoadTriple If ' + str(fromtask==False)
+        #    +" "+str("resource" in self.triplestoreconf[endpointIndex])
+        #    +" "+str("type" in self.triplestoreconf[endpointIndex]["resource"])
+        #    +" "+str(self.triplestoreconf[endpointIndex]["resource"]["type"]=="file")
+        #    +" "+str("instance" not in self.triplestoreconf[endpointIndex]["resource"]), "SPARQLUnicorn",
+        #    Qgis.Info)
+        if (fromtask==False
+                and "resource" in self.triplestoreconf[endpointIndex]
+                and "type" in self.triplestoreconf[endpointIndex]["resource"]
+                and self.triplestoreconf[endpointIndex]["resource"]["type"]=="file"
+                and "instance" not in self.triplestoreconf[endpointIndex]["resource"]):
+            #QgsMessageLog.logMessage('LoadTriple Store Before Started task ' + str(endpointIndex)+" "+str(self.comboBox.currentIndex()), "SPARQLUnicorn", Qgis.Info)
+            self.qtaskctree=LoadTripleStoreTask("Loading triple store from uri", self.triplestoreconf[self.comboBox.currentIndex()],self.comboBox.currentIndex(),self)
             QgsApplication.taskManager().addTask(self.qtaskctree)
         else:
             if "resource" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
@@ -642,8 +656,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                         self.queryTemplates.itemData(self.queryTemplates.currentIndex()).replace("wd:Q%%concept%% .", "wd:" + concept + " .")
             else:
                 querytext = self.queryTemplates.itemData(self.queryTemplates.currentIndex())#.replace("%%concept%%", concept)
-            QgsMessageLog.logMessage('Started task "{}"'.format("Concept: " + str(concept)), MESSAGE_CATEGORY,
-                                     Qgis.Info)
+            #QgsMessageLog.logMessage('Started task "{}"'.format("Concept: " + str(concept)), MESSAGE_CATEGORY,
+            #                         Qgis.Info)
             querytext=SPARQLUtils.queryPreProcessing(querytext,self.triplestoreconf[endpointIndex],concept)
             self.inp_sparql2.setPlainText(querytext)
             self.inp_sparql2.columnvars = {}
