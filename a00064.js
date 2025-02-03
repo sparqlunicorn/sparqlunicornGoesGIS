@@ -12,7 +12,7 @@ var a00064 =
     [ "createMenu", "a00064.html#a34182ed155a2611f2df9112ff50f2ad7", null ],
     [ "dataAllInstancesAsLayer", "a00064.html#adab0cda44548df35e3e7dd3049580865", null ],
     [ "dataInstanceAsLayer", "a00064.html#a80cfcaa85177e2170e6e64b8c3e062ad", null ],
-    [ "endpointselectaction", "a00064.html#a81663facbe8bbeecacded4b8e23d498f", null ],
+    [ "endpointselectaction", "a00064.html#a59f6e6b65a1e6932f071d4a6d7e82704", null ],
     [ "getClassTree", "a00064.html#a735ba8a407edd44f0e0664d083bf34f1", null ],
     [ "getGeoCollectionInstances", "a00064.html#a987e4b7d2290cf3a6202fc6b905db689", null ],
     [ "getGeoConcepts", "a00064.html#a5f47fed089eefda414b6cbc628573625", null ],

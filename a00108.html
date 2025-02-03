@@ -466,8 +466,8 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  218</span>            <span class="keywordflow">else</span>:</div>
 <div class="line"><span class="lineno">  219</span>                graph=SPARQLUtils.loadGraph(str(triplestoreurl[<span class="stringliteral">&quot;url&quot;</span>]))</div>
 <div class="line"><span class="lineno">  220</span>                triplestoreurl[<span class="stringliteral">&quot;instance&quot;</span>]=graph</div>
-<div class="line"><span class="lineno">  221</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;Graph: &quot;</span> + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  222</span>            QgsMessageLog.logMessage(<span class="stringliteral">&quot;Query: &quot;</span> + str(query).replace(<span class="stringliteral">&quot;&lt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>).replace(<span class="stringliteral">&quot;&gt;&quot;</span>, <span class="stringliteral">&quot;&quot;</span>), MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  221</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Graph: &quot; + str(triplestoreurl), MESSAGE_CATEGORY, Qgis.Info)</span></div>
+<div class="line"><span class="lineno">  222</span>            <span class="comment">#QgsMessageLog.logMessage(&quot;Query: &quot; + str(query).replace(&quot;&lt;&quot;, &quot;&quot;).replace(&quot;&gt;&quot;, &quot;&quot;), MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  223</span>            <span class="keywordflow">if</span> graph <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><span class="lineno">  224</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;CONSTRUCT&quot;</span> <span class="keywordflow">in</span> str(query):</div>
 <div class="line"><span class="lineno">  225</span>                    results = graph.query(query)</div>
@@ -477,7 +477,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  229</span>                    results=resg</div>
 <div class="line"><span class="lineno">  230</span>                <span class="keywordflow">else</span>:</div>
 <div class="line"><span class="lineno">  231</span>                    res=graph.query(query)</div>
-<div class="line"><span class="lineno">  232</span>                    QgsMessageLog.logMessage(<span class="stringliteral">&quot;Result: &quot;</span> + str(len(res)) + <span class="stringliteral">&quot; triples&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
+<div class="line"><span class="lineno">  232</span>                    <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(len(res)) + &quot; triples&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  233</span>                    results=json.loads(res.serialize(format=<span class="stringliteral">&quot;json&quot;</span>))</div>
 <div class="line"><span class="lineno">  234</span>                <span class="comment">#QgsMessageLog.logMessage(&quot;Result: &quot; + str(len(results))+&quot; triples&quot;, MESSAGE_CATEGORY, Qgis.Info)</span></div>
 <div class="line"><span class="lineno">  235</span>        <span class="keywordflow">if</span> results!=<span class="keyword">False</span>:</div>
