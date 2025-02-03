@@ -390,7 +390,8 @@ class UIUtils:
             jsontree = json.load(f)
         #QgsMessageLog.logMessage("JSONTREE: " + str(jsontree), MESSAGE_CATEGORY, Qgis.Info)
         elemcount=0
-        elemcount=UIUtils.iterateTree(rootNode,jsontree["children"],elemcount)
+        if "children" in jsontree:
+            elemcount=UIUtils.iterateTree(rootNode,jsontree["children"],elemcount)
         return elemcount
 
     @staticmethod

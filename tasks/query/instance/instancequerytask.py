@@ -42,7 +42,6 @@ class InstanceQueryTask(QgsTask):
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Started task "{}"'.format("SELECT ?con ?rel ?val WHERE { "+ str(self.searchTerm) + " ?rel ?val . }"), MESSAGE_CATEGORY, Qgis.Info)
-
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.thequery,self.triplestoreconf)
         if results!=False:
             #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)

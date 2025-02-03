@@ -227,43 +227,54 @@ class GraphUtils:
         return reslist
 
     def detectTypeProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
-        QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hasRDFType"]), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hasRDFType"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
-        if results!=False:
+        #QgsMessageLog.logMessage("Execute query RDFTYPE RESULT: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+        if results==True or isinstance(results,dict) and "boolean" in results and results["boolean"]==True:
+            #QgsMessageLog.logMessage("Detected RDFTYPE PROPERTY", MESSAGE_CATEGORY, Qgis.Info)
             if configuration is not None:
-                configuration["typeProperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
+                configuration["typeproperty"]="http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
             return "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type"
         else:
             results = SPARQLUtils.executeQuery(triplestoreurl,
-                    self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en"),
+                    self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"instance of\"@en \"Instance of\"@en \"Instance Of\"@en"),
                     {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
+            #QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
             if results!=False:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:
+                        if configuration is not None:
+                            configuration["typeproperty"] = res["prop"]["value"]
                         return res["prop"]
         return ""
 
     def detectSubClassOfProperty(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None):
-        QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hassubClassOf"].replace("<"," ").replace(">"," ")), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Execute query: "+str(self.testQueries["hassubClassOf"].replace("<"," ").replace(">"," ")), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,self.testQueries["hassubClassOf"],{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
-                                 Qgis.Info)
+        #QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
+        #                         Qgis.Info)
         if "boolean" in results and results["boolean"]:
             if configuration is not None:
                 configuration["subclassproperty"]="http://www.w3.org/2000/01/rdf-schema#subClassOf"
             return "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-        QgsMessageLog.logMessage(
-            "Execute query: " + str(self.testQueries["hasSKOSTopConcept"].replace("<", " ").replace(">", " ")),
-            MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage(
+        #    "Execute query: " + str(self.testQueries["hasSKOSTopConcept"].replace("<", " ").replace(">", " ")),
+        #    MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(triplestoreurl, self.testQueries["hasSKOSTopConcept"], {
             "auth": {"method": authmethod, "userCredential": credentialUserName, "userPassword": credentialPassword}})
-        QgsMessageLog.logMessage("Execute query: " + str(results), MESSAGE_CATEGORY,
-                                 Qgis.Info)
         if "boolean" in results and results["boolean"]:
             if configuration is not None:
                 configuration["subclassproperty"]="http://www.w3.org/2004/02/skos/core#hasTopConcept"
             return "http://www.w3.org/2004/02/skos/core#hasTopConcept"
+        results = SPARQLUtils.executeQuery(triplestoreurl,
+                self.testQueries["hasPropEquivalent"].replace("%%proplabels%%","\"subclass of\"@en \"Subclass of\"@en \"SubClass Of\"@en"),
+                {"auth": {"method": authmethod, "userCredential": credentialUserName,"userPassword": credentialPassword}})
+        if results!=False:
+            for res in results["results"]["bindings"]:
+                if "prop" in res:
+                    if configuration is not None:
+                        configuration["subclassproperty"] = res["prop"]["value"]
+                    return res["prop"]["value"]
         return ""
 
     def detectEquivalentProperties(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentPropProperty="http://www.w3.org/2002/07/owl#equivalentProperty",query="SELECT DISTINCT ?prop ?equivprop ?label WHERE { ?prop %%equivprop%% ?equivprop . OPTIONAL { ?equivprop %%labelproperty%% ?label .} }"):
@@ -370,7 +381,7 @@ class GraphUtils:
     def testTripleStoreConnection(self, triplestoreurl, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",credentialUserName=None,credentialPassword=None,authmethod=None):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
-        QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage("Query results: "+str(results), MESSAGE_CATEGORY, Qgis.Info)
         if results!=False:
             if self.testURL and not self.testConfiguration:
                 self.message = "URL depicts a valid SPARQL Endpoint!"
@@ -433,8 +444,7 @@ class GraphUtils:
             if self.testTripleStoreConnection(self.configuration["resource"],self.testQueries["hasSKOSPrefLabel"]):
                 self.configuration["labelproperty"].append("http://www.w3.org/2004/02/skos/core#prefLabel")
             self.configuration["classfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
-            self.configuration[
-                "propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
+            self.configuration["propertyfromlabelquery"] = "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \n"+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?class",self.configuration,"OPTIONAL","")+" FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 "
             #QgsMessageLog.logMessage(str("SELECT DISTINCT ?acon ?rel WHERE { ?a a ?acon . ?a ?rel ?item. "+str(self.configuration["geotriplepattern"][0])+" }"))
             if not isinstance(triplestoreurl,Graph):
                 self.detectGeometryObjectRelations()
