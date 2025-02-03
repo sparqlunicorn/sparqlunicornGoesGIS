@@ -18,8 +18,8 @@ class LoadTripleStoreTask(QgsTask):
         self.dlg=dlg
 
     def run(self):
-        QgsMessageLog.logMessage('Started task: Serializing loaded graph to '.format(self.description()) + str(self.curtriplestoreconf["resource"]["url"]),
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task: Serializing loaded graph to '.format(self.description()) + str(self.curtriplestoreconf["resource"]["url"]),
+        #                         MESSAGE_CATEGORY, Qgis.Info)
         if ("resource" in self.curtriplestoreconf and "url" in self.curtriplestoreconf["resource"]
                 and "type" in self.curtriplestoreconf["resource"]
                 and self.curtriplestoreconf["resource"]["type"]=="file"
@@ -29,17 +29,17 @@ class LoadTripleStoreTask(QgsTask):
                 str(self.curtriplestoreconf["resource"]["url"]).replace("/", "_").replace("['", "")
                 .replace("']","").replace("\\", "_").replace(":", "_")) + ".ttl")
             if os.path.isfile(path):
-                QgsMessageLog.logMessage('Started task: Loading graph from file '.format(self.description()) + str(path),MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage('Started task: Loading graph from file '.format(self.description()) + str(path),MESSAGE_CATEGORY, Qgis.Info)
                 self.graph.parse(path)
                 self.curtriplestoreconf["instance"]=self.graph
             else:
-                QgsMessageLog.logMessage('Started task: Loading graph from URI '.format(self.description()) +self.curtriplestoreconf["resource"]["url"],
-                                         MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage('Started task: Loading graph from URI '.format(self.description()) +self.curtriplestoreconf["resource"]["url"],
+                #                         MESSAGE_CATEGORY, Qgis.Info)
                 SPARQLUtils.loadGraph(self.curtriplestoreconf["resource"]["url"],self.graph)
-                QgsMessageLog.logMessage('Started task: Loaded graph from URI '.format(self.description()) + self.curtriplestoreconf["resource"]["url"],
-                                         MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage('Started task: Loaded graph from URI '.format(self.description()) + self.curtriplestoreconf["resource"]["url"],
+                #                         MESSAGE_CATEGORY, Qgis.Info)
                 self.curtriplestoreconf["instance"]=self.graph
-                QgsMessageLog.logMessage('Started task: Serializing loaded graph to '.format(self.description())+str(path), MESSAGE_CATEGORY, Qgis.Info)
+                #QgsMessageLog.logMessage('Started task: Serializing loaded graph to '.format(self.description())+str(path), MESSAGE_CATEGORY, Qgis.Info)
                 self.graph.serialize(path, format="ttl")
             return True
         return False

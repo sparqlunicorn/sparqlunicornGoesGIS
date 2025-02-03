@@ -45,7 +45,7 @@ class ClassTreeQueryTask(QgsTask):
         self.query += """OPTIONAL { ?subject <""" + str(self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()]["subclassproperty"]) + """> ?supertype . }\n""" + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?subject",self.dlg.triplestoreconf[self.dlg.comboBox.currentIndex()],"OPTIONAL", "")+ """ }"""
 
     def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.classtreemap=None
             self.subclassmap=None
@@ -60,7 +60,7 @@ class ClassTreeQueryTask(QgsTask):
                     SPARQLUtils.exception="No results"
                 return False
             hasparent={}
-            QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
+            #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
             #QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
             for result in results["results"]["bindings"]:
                 subval=result["subject"]["value"]
@@ -76,7 +76,7 @@ class ClassTreeQueryTask(QgsTask):
                         self.classtreemap[subval].setText(
                             SPARQLUtils.labelFromURI(subval, self.triplestoreconf["prefixesrev"]))
                     if "hgeo" in result and (result["hgeo"]["value"]=="true" or result["hgeo"]["value"]==True or result["hgeo"]["value"]==1):
-                        QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),MESSAGE_CATEGORY, Qgis.Info)
+                        #QgsMessageLog.logMessage("HGEO: "+str(result["hgeo"])+" "+str(subval),MESSAGE_CATEGORY, Qgis.Info)
                         self.classtreemap[subval].setIcon(UIUtils.geoclassicon)
                         self.classtreemap[subval].setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
                         self.classtreemap[subval].setToolTip(

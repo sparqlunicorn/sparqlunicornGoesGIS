@@ -419,7 +419,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def endpointselectaction(self,endpointIndex,fromtask=False):
         self.queryTemplates.clear()
         self.filterConcepts.setText("")
-        QgsMessageLog.logMessage('Started task '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
+        #QgsMessageLog.logMessage('Started task '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
         self.geoTreeViewModel.clear()
         self.classTreeViewModel.clear()
         self.geometryCollectionClassListModel.clear()

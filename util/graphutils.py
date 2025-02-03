@@ -180,6 +180,21 @@ class GraphUtils:
             configuration["geometryproperty"] = ["http://schema.org/polygon"]
             configuration["geotriplepattern"].append(" ?item <http://schema.org/polygon> ?geo . ")
             gottype = True
+        if not gottype:
+            results = SPARQLUtils.executeQuery(configuration["resource"],
+                                               self.testQueries["hasPropEquivalent"].replace("%%proplabels%%",
+                                                                                             "\"coordinate\"@en \"coordinate location\"@en \"has coordinate\"@en"),
+                                               {"auth": {"method": authmethod, "userCredential": credentialUserName,
+                                                         "userPassword": credentialPassword}})
+            # QgsMessageLog.logMessage("ASK FOR LABEL OF RDFTYPE PROPERTY " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+            if results != False:
+                for res in results["results"]["bindings"]:
+                    if "prop" in res:
+                        if configuration is not None:
+                            configuration["geometryproperty"] = [res["prop"]["value"]]
+                            configuration["geotriplepattern"].append(" ?item <https://schema.org/polygon> ?geo . ")
+                            gottype=True
+                        break
         #self.detectGeometryLiteralRelations(configuration, credentialUserName, credentialPassword, authmethod) #Does not terminate on most triple stores
         geoconceptquery="SELECT DISTINCT ?class WHERE {\n"
         if len(configuration["geotriplepattern"])==1:
