@@ -37,7 +37,7 @@ class ClassTreeQueryTask(QgsTask):
         self.classtreemap=None
         self.subclassmap=None
         self.query="""PREFIX owl: <http://www.w3.org/2002/07/owl#>\n
-                    PREFIX data: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n
                     SELECT DISTINCT ?subject ?label ?supertype \n
                     WHERE {\n"""
@@ -46,7 +46,7 @@ class ClassTreeQueryTask(QgsTask):
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
+        if "url" in self.triplestoreconf["resource"] and os.path.exists(os.path.join(__location__,"../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.classtreemap=None
             self.subclassmap=None
         else:
@@ -61,7 +61,7 @@ class ClassTreeQueryTask(QgsTask):
                 return False
             hasparent={}
             #QgsMessageLog.logMessage('Got results! '+str(len(results["results"]["bindings"])), MESSAGE_CATEGORY, Qgis.Info)
-            #QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
+            QgsMessageLog.logMessage('Got results! ' + str(results), MESSAGE_CATEGORY,Qgis.Info)
             for result in results["results"]["bindings"]:
                 subval=result["subject"]["value"]
                 if subval is None or subval=="" or subval in notforclasstree:
@@ -105,11 +105,13 @@ class ClassTreeQueryTask(QgsTask):
             for cls in self.classtreemap:
                 if cls not in hasparent and cls!="root":
                     self.subclassmap["root"].add(cls)
-        #QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
-        #QgsMessageLog.logMessage('Started task "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Finished generating tree structure', MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Resulting ClassTreeMap "{}"'.format(str(self.classtreemap)), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Resulting SubClassMap "{}"'.format(str(self.subclassmap)), MESSAGE_CATEGORY,Qgis.Info)
         return True
 
     def buildTree(self,curNode,classtreemap,subclassmap,mypath):
+        QgsMessageLog.logMessage("CurNode: "+str(curNode)+" "+str(self.alreadyprocessed), MESSAGE_CATEGORY, Qgis.Info)
         if curNode not in self.alreadyprocessed:
             for item in subclassmap[curNode]:
                 if item in classtreemap and item not in self.alreadyprocessed:
@@ -122,32 +124,35 @@ class ClassTreeQueryTask(QgsTask):
 
 
     def finished(self, result):
-        #QgsMessageLog.logMessage('Started task "{}"'.format(
-        #    "Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format("Recursive tree building"), MESSAGE_CATEGORY, Qgis.Info)
         self.classTreeViewModel.clear()
         self.rootNode=self.dlg.classTreeViewModel.invisibleRootItem()
         path=os.path.join(__location__, "../../../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")
-        if SPARQLUtils.exception is not None:
-            SPARQLUtils.handleException(MESSAGE_CATEGORY, str(self.description)+": An error occurred!")
-        elif self.classtreemap is None and self.subclassmap is None and exists(path):
-            elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
-            self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
-        elif self.classtreemap is not None and self.subclassmap is not None:
-            self.alreadyprocessed=set()
-            self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
-            self.classtreemap["root"]=self.rootNode
-            self.buildTree("root",self.classtreemap,self.subclassmap,[])
-            #QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
-            #             "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
-            f = open(os.path.join(__location__,"../../../tmp/classtree/"+str(str(self.triplestoreconf["resource"]["url"]).replace("/","_").replace("['","").replace("']","").replace("\\","_").replace(":","_"))+".json"), "w")
-            res={"text": "root"}
-            UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-            #QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
-            f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
-            f.close()
-        self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.dlg.classTreeView.header().setStretchLastSection(True)
-        self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
-        self.dlg.classTreeView.setSortingEnabled(True)
-        self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
-        self.dlg.classTreeView.setSortingEnabled(False)
+        QgsMessageLog.logMessage('THE PATH: ' + str(path), MESSAGE_CATEGORY, Qgis.Info)
+        if result==True:
+            if SPARQLUtils.exception is not None and SPARQLUtils.exception!="":
+                SPARQLUtils.handleException(MESSAGE_CATEGORY, str(self.description)+": An error occurred!")
+            if self.classtreemap is None and self.subclassmap is None and exists(path):
+                QgsMessageLog.logMessage('CLASSTREE EXISTS: '+str(path), MESSAGE_CATEGORY, Qgis.Info)
+                elemcount=UIUtils.loadTreeFromJSONFile(self.rootNode,path)
+                self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(elemcount) + ")")
+            elif self.classtreemap is not None and self.subclassmap is not None:
+                self.alreadyprocessed=set()
+                self.dlg.conceptViewTabWidget.setTabText(3, "ClassTree (" + str(len(self.classtreemap)) + ")")
+                self.classtreemap["root"]=self.rootNode
+                self.buildTree("root",self.classtreemap,self.subclassmap,[])
+                #QgsMessageLog.logMessage('Started task "{}"'.format(os.path.join(__location__,
+                #             "../tmp/classtree/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")), MESSAGE_CATEGORY, Qgis.Info)
+                if not os.path.exists(path):
+                    f = open(path, "w")
+                    res={"text": "root"}
+                    UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
+                    QgsMessageLog.logMessage("SAVING CLASS TREE "+str(path), MESSAGE_CATEGORY, Qgis.Info)
+                    f.write(json.dumps(res,indent=2,default=ConfigUtils.dumper,sort_keys=True))
+                    f.close()
+            self.dlg.classTreeView.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+            self.dlg.classTreeView.header().setStretchLastSection(True)
+            self.dlg.classTreeView.header().setMinimumSectionSize(self.dlg.classTreeView.width())
+            self.dlg.classTreeView.setSortingEnabled(True)
+            self.dlg.classTreeView.sortByColumn(0, Qt.AscendingOrder)
+            self.dlg.classTreeView.setSortingEnabled(False)
