@@ -3,7 +3,7 @@ var a00088 =
     [ "__init__", "a00088.html#a5b10f45a466f988b469f5bd73878c3ba", null ],
     [ "addDefaultConfigurationParameters", "a00088.html#a3af4c47071a5b5cd12913903ea6277e5", null ],
     [ "createCapabilityMessage", "a00088.html#ac53ab0be43660b586919731e663f997b", null ],
-    [ "detectEquivalentClasses", "a00088.html#a687557892f64da7d97a92f882608ee33", null ],
+    [ "detectEquivalentClasses", "a00088.html#a2916cd9e8208ce3f7312769f1f8f017d", null ],
     [ "detectEquivalentProperties", "a00088.html#ae21ec4798a4d20b3fcb8678a3a664af8", null ],
     [ "detectGeometryLiteralRelations", "a00088.html#a7a0e9362380d87bc99fdd2855b34a452", null ],
     [ "detectGeometryObjectRelations", "a00088.html#af0e387cfbb4fda4096ad937cd05b99bb", null ],
