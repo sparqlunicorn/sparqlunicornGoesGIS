@@ -24,7 +24,7 @@ class GraphUtils:
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
         "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
-        "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION { ?prop rdfs:label ?propLabel .}}",
+        "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab <http://wikiba.se/ontology#directClaim> ?prop . ?ab <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .} UNION { ?prop <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .}}",
         "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
         "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
@@ -70,6 +70,7 @@ class GraphUtils:
             self.configuration["auth"]["method"]=authmethod
         self.configuration["typeproperty"] = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
         self.configuration["labelproperty"] = ["http://www.w3.org/2000/01/rdf-schema#label"]
+        self.configuration["collectionnmemberproperty"] = ["http://www.w3.org/2000/01/rdf-schema#member"]
         self.configuration["subclassproperty"] = "http://www.w3.org/2000/01/rdf-schema#subClassOf"
         self.configuration["whattoenrichquery"] = "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE { ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype\n ORDER BY DESC(?countrel)"
         self.configuration["staticconcepts"] = []
@@ -148,7 +149,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasWgs84LatLon"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("WGS84 Lat/Lon")
-            mandvardef=" ?item ?lat ?lon"
+            mandvardef = " ?item ?lat ?lon "
             configuration["geometryproperty"] = ["http://www.w3.org/2003/01/geo/wgs84_pos#long",
                                                       "http://www.w3.org/2003/01/geo/wgs84_pos#lat"]
             configuration["mandatoryvariables"] = ["item", "lat","lon"]
@@ -157,7 +158,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTPS"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
-            mandvardef = " ?item ?lat ?lon"
+            mandvardef = " ?item ?lat ?lon "
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["https://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item <https://schema.org/latitude> ?lat . ?item <https://schema.org/longitude> ?lon . ")
@@ -165,7 +166,7 @@ class GraphUtils:
         if self.testTripleStoreConnection(configuration["resource"], self.testQueries["hasSchemaOrgGeoLatLonHTTP"],
                                        credentialUserName, credentialPassword, authmethod):
             capabilitylist.append("Schema.org Lat/Lon")
-            mandvardef = " ?item ?lat ?lon"
+            mandvardef = " ?item ?lat ?lon "
             configuration["mandatoryvariables"] = ["item", "lat", "lon"]
             configuration["geometryproperty"] = ["http://schema.org/geo"]
             configuration["geotriplepattern"].append(" ?item <http://schema.org/latitude> ?lat . ?item <http://schema.org/longitude> ?lon . ")
@@ -195,6 +196,7 @@ class GraphUtils:
                 for res in results["results"]["bindings"]:
                     if "prop" in res:
                         if configuration is not None:
+                            mandvardef = " ?item ?geo "
                             capabilitylist.append("Custom Geometry Property")
                             configuration["mandatoryvariables"] = ["item", "geo"]
                             configuration["geometryproperty"] = [res["prop"]["value"]]
@@ -313,7 +315,7 @@ class GraphUtils:
             configuration["equivalentProperties"] = res
         return res
 
-    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
+    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         query=query.replace("%%equivprop%%","<"+equivalentClassProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
