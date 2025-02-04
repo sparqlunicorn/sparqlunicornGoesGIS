@@ -24,7 +24,7 @@ class GraphUtils:
         "hasSKOSPrefLabel": "PREFIX skos:<http://www.w3.org/2004/02/skos/core#> ASK { ?a skos:prefLabel ?c . }",
         "hasDCTermsTitleLabel": "PREFIX dc:<http://purl.org/dc/terms/> ASK { ?a dc:title ?c . }",
         "hasRDFType": "ASK { ?a <http:/www.w3.org/1999/02/22-rdf-syntax-ns#type> ?c . }",
-        "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION { ?prop rdfs:label ?propLabel .}}",
+        "hasPropEquivalent":"SELECT DISTINCT ?prop ?propLabel WHERE { VALUES ?propLabel { %%proplabels%% } . ?a ?prop ?b .{ ?ab <http://wikiba.se/ontology#directClaim> ?prop . ?ab <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .} UNION { ?prop <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .}}",
         "hassubClassOf": "ASK { ?a <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?c . }",
         "hasSKOSTopConcept": "ASK { ?a <http://www.w3.org/2004/02/skos/core#hasTopConcept> ?c . }",
         "hasWKT": "PREFIX geosparql:<http://www.opengis.net/ont/geosparql#> ASK { ?a geosparql:asWKT ?c .}",
@@ -315,7 +315,7 @@ class GraphUtils:
             configuration["equivalentProperties"] = res
         return res
 
-    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> owl:Class } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
+    def detectEquivalentClasses(self,triplestoreurl,credentialUserName,credentialPassword, authmethod,configuration=None,equivalentClassProperty="http://www.w3.org/2002/07/owl#equivalentClass",query="SELECT DISTINCT ?cls ?equivcls ?label WHERE { { ?cls <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> } UNION { ?ind <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?cls } ?cls %%equivprop%% ?equivcls . OPTIONAL { ?equivcls %%labelproperty%% ?label .} }"):
         #QgsMessageLog.logMessage("Execute query: "+str(query), MESSAGE_CATEGORY, Qgis.Info)
         query=query.replace("%%equivprop%%","<"+equivalentClassProperty+">").replace("%%labelproperty%%","<http://www.w3.org/2000/01/rdf-schema#label>")
         results=SPARQLUtils.executeQuery(triplestoreurl,query,{"auth":{"method":authmethod,"userCredential":credentialUserName,"userPassword":credentialPassword}})
