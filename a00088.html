@@ -906,7 +906,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">  420</span>    <span class="keyword">def </span>detectPropertiesByName(self,triplestoreurl, query=&quot;SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1&quot;,credentialUserName=None,credentialPassword=None,authmethod=None):</div>
-<div class="line"><span class="lineno">  421</span>        query=<span class="stringliteral">&quot;SELECT DISTINCT ?prop ?propLabel WHERE {?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION {?prop rdfs:label ?propLabel .} FILTER(lang(?propLabel)=\&quot;en\&quot;))}&quot;</span></div>
+<div class="line"><span class="lineno">  421</span>        query=<span class="stringliteral">&quot;SELECT DISTINCT ?prop ?propLabel WHERE {?a ?prop ?b .{ ?ab &lt;http://wikiba.se/ontology#directClaim&gt; ?prop . ?ab &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?propLabel .}UNION {?prop &lt;&lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?propLabel .} FILTER(lang(?propLabel)=\&quot;en\&quot;))}&quot;</span></div>
 <div class="line"><span class="lineno">  422</span>        results = SPARQLUtils.executeQuery(triplestoreurl, query, {<span class="stringliteral">&quot;auth&quot;</span>: {<span class="stringliteral">&quot;method&quot;</span>: authmethod, <span class="stringliteral">&quot;userCredential&quot;</span>: credentialUserName, <span class="stringliteral">&quot;userPassword&quot;</span>: credentialPassword}})</div>
 <div class="line"><span class="lineno">  423</span> </div>
 <div class="line"><span class="lineno">  424</span> </div>
