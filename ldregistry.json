@@ -112,7 +112,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -248,7 +248,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -379,7 +379,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -1922,7 +1922,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -2062,7 +2062,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -2169,7 +2169,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -2366,7 +2366,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
@@ -2583,7 +2583,7 @@
         "querytemplate": [
             {
                 "label": "10 Random Geometries",
-                "query": "SELECT ?item ?lat ?lon WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+                "query": "SELECT ?item ?geo WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
             }
         ],
         "resource": {
