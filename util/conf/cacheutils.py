@@ -12,18 +12,15 @@ class CacheUtils:
         graphcachesize=0
         thepath=os.path.join(__location__,"../../tmp/graphcache/")
         if os.path.exists(thepath):
-            graphcachesize=len([name for name in os.listdir(thepath) if os.path.isfile(name)])
+            graphcachesize= len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return graphcachesize
 
     @staticmethod
     def classTreeCacheSize():
         classtreesize = 0
         thepath = os.path.join(__location__, "../../tmp/classtree/")
-        QgsMessageLog.logMessage("Path: " + str(thepath), "CacheUtils", Qgis.Info)
         if os.path.exists(thepath):
-            QgsMessageLog.logMessage("Path Exists: " + str(thepath), "CacheUtils", Qgis.Info)
-            classtreesize = len([name for name in os.listdir(thepath) if os.path.isfile(name)])
-            QgsMessageLog.logMessage("Path Exists: " + str(classtreesize), "CacheUtils", Qgis.Info)
+            classtreesize = len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return classtreesize
 
     @staticmethod
@@ -31,7 +28,7 @@ class CacheUtils:
         geoconceptssize = 0
         thepath = os.path.join(__location__, "../../tmp/geoconcepts/")
         if os.path.exists(thepath):
-            geoconceptssize = len([name for name in os.listdir(thepath) if os.path.isfile(name)])
+            geoconceptssize = len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return geoconceptssize
 
     @staticmethod

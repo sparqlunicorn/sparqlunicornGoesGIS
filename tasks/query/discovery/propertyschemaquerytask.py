@@ -46,18 +46,18 @@ class PropertySchemaQueryTask(QgsTask):
             ORDER BY DESC(?countrel)"""
         if self.query is None:
             self.query=whattoenrichquery
+        if isinstance(self.prefixes, Iterable):
+            self.query="".join(self.prefixes) + self.query
+        else:
+            str(self.prefixes).replace("None", "") + self.query
+        self.query=SPARQLUtils.queryPreProcessing(query,triplestoreconf,None,False,self.triplestoreurl["type"]=="file")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
         QgsMessageLog.logMessage('Started task "{}"'.format(self.searchTerm), MESSAGE_CATEGORY, Qgis.Info)
         if self.searchTerm == "":
             return False
-
-        if isinstance(self.prefixes, Iterable):
-            results = SPARQLUtils.executeQuery(self.triplestoreurl,"".join(self.prefixes) + self.query,self.triplestoreconf)
-        else:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None","") + self.query,
-                                                   self.triplestoreconf)
+        results=SPARQLUtils.executeQuery(self.triplestoreurl, self.query, self.triplestoreconf)
         if results == False or len(results["results"]["bindings"]) == 0:
             return False
         #self.searchResult.model().clear()
