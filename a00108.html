@@ -1109,7 +1109,7 @@ Static Public Attributes</h2></td></tr>
 <div class="line"><span class="lineno">  336</span>        <span class="keywordflow">try</span>:</div>
 <div class="line"><span class="lineno">  337</span>            <span class="keywordflow">if</span> graphuri.startswith(<span class="stringliteral">&quot;http&quot;</span>):</div>
 <div class="line"><span class="lineno">  338</span>                QgsMessageLog.logMessage(<span class="stringliteral">&quot; Data: &quot;</span> + str(graphuri) + <span class="stringliteral">&quot;&quot;</span>, MESSAGE_CATEGORY, Qgis.Info)</div>
-<div class="line"><span class="lineno">  339</span>                graph.parse(graphuri)</div>
+<div class="line"><span class="lineno">  339</span>                graph.parse(graphuri, format=graphuri[graphuri.rfind(<span class="stringliteral">&quot;.&quot;</span>)+1:])</div>
 <div class="line"><span class="lineno">  340</span>            <span class="keywordflow">else</span>:</div>
 <div class="line"><span class="lineno">  341</span>                filepath = graphuri.split(<span class="stringliteral">&quot;.&quot;</span>)</div>
 <div class="line"><span class="lineno">  342</span>                graph.parse(graphuri, format=filepath[len(filepath) - 1])</div>
