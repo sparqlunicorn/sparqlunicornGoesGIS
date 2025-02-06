@@ -336,7 +336,7 @@ class SPARQLUtils:
         try:
             if graphuri.startswith("http"):
                 QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
-                graph.parse(graphuri)
+                graph.parse(graphuri, format=graphuri[graphuri.rfind(".")+1:])
             else:
                 filepath = graphuri.split(".")
                 graph.parse(graphuri, format=filepath[len(filepath) - 1])

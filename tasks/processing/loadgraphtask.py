@@ -32,6 +32,12 @@ class LoadGraphTask(QgsTask):
         self.geojson = None
         self.gutils=GraphUtils("")
 
+    @staticmethod
+    def fileNameToExtension(filename):
+        ext=filename[filename.rfind(".")+1:]
+        return ext
+
+
     def run(self):
         path = os.path.join(__location__, "../../tmp/graphcache/" + str(
             str(self.filenames).replace("/", "_").replace("['", "").replace("']", "").replace(
@@ -39,7 +45,7 @@ class LoadGraphTask(QgsTask):
         self.graph = Graph()
         if isinstance(self.filenames,str):
             if os.path.isfile(path):
-                self.graph.parse(path)
+                self.graph.parse(path, format="ttl")
             else:
                 self.graph=SPARQLUtils.loadGraph(self.filenames)
                 self.graph.serialize(path, format="ttl")
