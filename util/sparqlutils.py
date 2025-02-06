@@ -315,6 +315,7 @@ class SPARQLUtils:
 
     @staticmethod
     def loadGraph(graphuri,graph=None):
+        QgsMessageLog.logMessage('GraphURI: ' + str(graphuri), MESSAGE_CATEGORY, Qgis.Info)
         if graphuri is None or graphuri=="":
             return None
         s = QSettings()  # getting proxy from qgis options settings
@@ -329,7 +330,7 @@ class SPARQLUtils:
             proxy = urllib.request.ProxyHandler({'http': proxyHost})
             opener = urllib.request.build_opener(proxy)
             urllib.request.install_opener(opener)
-        #QgsMessageLog.logMessage('Started task "{}"'.format("Load Graph"), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Started task "{}"'.format("Load Graph"), MESSAGE_CATEGORY, Qgis.Info)
         if graph is None:
             graph = Graph()
         try:
