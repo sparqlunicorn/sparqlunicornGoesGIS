@@ -124,8 +124,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -260,8 +260,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -391,8 +391,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -1934,8 +1934,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -1976,7 +1976,7 @@
             "item",
             "geo"
         ],
-        "name": "CIGS",
+        "name": "Cuneiform Site Index (CIGS)",
         "prefixes": {
             "ap": "http://www.ancientports.com/ont#",
             "bibo": "http://purl.org/ontology/bibo/",
@@ -2209,8 +2209,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -2316,8 +2316,8 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
-        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
     {
@@ -2448,7 +2448,122 @@
         "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
         "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
         "type": "geosparqlendpoint",
+        "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "typeProperty": "http:/www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
+    },
+    {
+        "active": true,
+        "bboxquery": {
+            "query": "FILTER(<http://www.opengis.net/def/function/geosparql/sfIntersects>(?geo,\"POLYGON((%%x1%% %%y1%%, %%x1%% %%y2%%, %%x2%% %%y2%%, %%x2%% %%y1%%, %%x1%% %%y1%%))\"^^<http://www.opengis.net/ont/geosparql#wktLiteral>))",
+            "type": "geosparql"
+        },
+        "classfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#Class> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "collectionnmemberproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#member"
+        ],
+        "crs": 4326,
+        "equivalentClasses": {
+        },
+        "equivalentProperties": {
+        },
+        "featurecollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#FeatureCollection"
+        ],
+        "geoclasses": {
+            "http://www.cidoc-crm.org/cidoc-crm/E41_Appellation": [
+                "http://www.cidoc-crm.org/cidoc-crm/P1i_identifies"
+            ],
+            "http://www.cidoc-crm.org/cidoc-crm/E42_Identifier": [
+                "http://www.cidoc-crm.org/cidoc-crm/P1i_identifies"
+            ],
+            "http://www.cidoc-crm.org/cidoc-crm/E53_Place": [
+                "http://www.cidoc-crm.org/cidoc-crm/P189i_is_approximated_by",
+                "http://www.cidoc-crm.org/cidoc-crm/P89_falls_within"
+            ],
+            "http://www.cidoc-crm.org/cidoc-crm/E93_Presence": [
+                "https://pleiades.stoa.org/places/vocab#hasLocation"
+            ],
+            "https://pleiades.stoa.org/places/vocab#Place": [
+                "https://pleiades.stoa.org/places/vocab#hasLocation"
+            ]
+        },
+        "geocollectionquery": "SELECT DISTINCT ?colinstance ?label WHERE { ?colinstance %%typeproperty%% %%concept%% . OPTIONAL { ?colinstance %%labelproperty%% ?label . } }",
+        "geoconceptlimit": 500,
+        "geoconceptquery": "SELECT DISTINCT ?class WHERE {\n{ ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . }  UNION { ?item %%typeproperty%% ?class . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . }  UNION { ?item %%typeproperty%% ?class .  ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . } } ORDER BY ?class",
+        "geometrycollectionclasses": [
+            "http://www.opengis.net/ont/geosparql#GeometryCollection"
+        ],
+        "geometryproperty": [
+            "http://www.opengis.net/ont/geosparql#hasGeometry"
+        ],
+        "geoobjproperty": [
+            "https://pleiades.stoa.org/places/vocab#hasLocation",
+            "http://www.cidoc-crm.org/cidoc-crm/P189i_is_approximated_by",
+            "http://www.cidoc-crm.org/cidoc-crm/P1i_identifies",
+            "http://www.cidoc-crm.org/cidoc-crm/P89_falls_within"
+        ],
+        "geotriplepattern": [
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asWKT> ?geo . ",
+            "?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . ",
+            " ?item <http://www.opengis.net/ont/geosparql#asGeoJSON> ?geo . "
+        ],
+        "labelproperty": [
+            "http://www.w3.org/2000/01/rdf-schema#label"
+        ],
+        "mandatoryvariables": [
+            "item",
+            "geo"
+        ],
+        "name": "Cuneiform Digital Library Initiative (CDLI)",
+        "prefixes": {
+            "bibtex": "http://purl.org/net/nknouf/ns/bibtex#",
+            "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+            "frbroo": "http://iflastandards.info/ns/fr/frbr/frbroo/",
+            "geof": "http://www.opengis.net/def/function/geosparql/",
+            "geor": "http://www.opengis.net/def/rule/geosparql/",
+            "geosparql": "http://www.opengis.net/ont/geosparql#",
+            "gsp": "http://www.opengis.net/ont/geosparql#",
+            "ns0": "http://www.cidoc-crm.org/extensions/crmarchaeo/",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "sf": "http://www.opengis.net/ont/sf#",
+            "wgs84_pos": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        "prefixesrev": {
+            "http://iflastandards.info/ns/fr/frbr/frbroo/": "frbroo",
+            "http://purl.org/net/nknouf/ns/bibtex#": "bibtex",
+            "http://www.cidoc-crm.org/cidoc-crm/": "crm",
+            "http://www.cidoc-crm.org/extensions/crmarchaeo/": "ns0",
+            "http://www.opengis.net/def/function/geosparql/": "geof",
+            "http://www.opengis.net/def/rule/geosparql/": "geor",
+            "http://www.opengis.net/ont/geosparql#": "gsp",
+            "http://www.opengis.net/ont/sf#": "sf",
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+            "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+            "http://www.w3.org/2002/07/owl#": "owl",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#": "wgs84_pos"
+        },
+        "propertyfromlabelquery": "SELECT DISTINCT ?class ?label { ?class %%typeproperty%% <http://www.w3.org/2002/07/owl#ObjectProperty> . \nOPTIONAL {  { ?class <http://www.w3.org/2000/01/rdf-schema#label> ?label .\n  } }  FILTER(CONTAINS(?label,\"%%label%%\"))} LIMIT 100 ",
+        "querytemplate": [
+            {
+                "label": "10 Random Geometries",
+                "query": "SELECT  ?item ?geo  WHERE {\n ?item %%typeproperty%% <%%concept%%> .\n ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo . \n } LIMIT 10"
+            }
+        ],
+        "resource": {
+            "geosparql10": true,
+            "sparql11": true,
+            "type": "endpoint",
+            "url": "https://cdli.utoronto.ca/sparql"
+        },
+        "staticconcepts": [
+        ],
+        "subclassproperty": "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+        "subclassquery": "SELECT DISTINCT ?subclass ?label WHERE { ?item %%typeproperty%% ?subclass . ?item ?rel ?item_geom . ?item <http://www.opengis.net/ont/geosparql#hasGeometry> ?item_geom .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?geo .  ?item_geom <http://www.opengis.net/ont/geosparql#asWKT> ?wkt . OPTIONAL { ?subclass %%labelproperty%% ?label . } ?subclass %%subclassproperty%% %%concept%% . }",
+        "type": "geosparqlendpoint",
         "typeproperty": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
         "whattoenrichquery": "SELECT DISTINCT (COUNT(distinct ?con) AS ?countcon) (COUNT(?rel) AS ?countrel) ?rel ?valtype\n WHERE {\n ?con %%typeproperty%% %%concept%% .\n ?con ?rel ?val .\n BIND( datatype(?val) AS ?valtype )\n } GROUP BY ?rel ?valtype \n ORDER BY DESC(?countrel)"
     },
