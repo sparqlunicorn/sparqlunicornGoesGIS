@@ -53,8 +53,7 @@ class QueryLayerTask(QgsTask):
         if self.progress is not None:
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Processing results (2/2)")
-        res = self.processResults(results,
-                                           (self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
+        res = self.processResults(results,(self.triplestoreconf["crs"] if "crs" in self.triplestoreconf else ""),
                                            self.triplestoreconf["mandatoryvariables"][1:], self.allownongeo)
         self.geojson=res[0]
         self.nongeojson=res[1]

@@ -363,18 +363,21 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         item2.setText("Loading...")
         self.classTreeViewModel.appendRow(item2)
         if self.triplestoreconf[self.comboBox.currentIndex()]["type"] == "sparlendpoint":
+            QgsMessageLog.logMessage("GETCLASS TREE SPARQLENDPOINT", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree for " + str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]),
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
                 self, self.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.comboBox.currentIndex()])
         elif self.triplestoreconf[self.comboBox.currentIndex()]["type"] == "file":
+            QgsMessageLog.logMessage("GETCLASS TREE FILE", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree...",
                 self.currentgraph,
                 self, self.classTreeViewModel.invisibleRootItem(),
                 self.triplestoreconf[self.comboBox.currentIndex()])
         else:
+            QgsMessageLog.logMessage("GETCLASS TREE ELSE", "SPARQL Unicorn", Qgis.Info)
             self.qtaskctree = ClassTreeQueryTask(
                 "Getting classtree for " + str(self.triplestoreconf[self.comboBox.currentIndex()]["resource"]),
                 self.triplestoreconf[self.comboBox.currentIndex()]["resource"],
@@ -419,7 +422,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
     def endpointselectaction(self,endpointIndex,fromtask=False):
         self.queryTemplates.clear()
         self.filterConcepts.setText("")
-        #QgsMessageLog.logMessage('Started task '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
+        QgsMessageLog.logMessage('ENDPOINTSELECT INDEX '+str(endpointIndex), "SPARQLUnicorn", Qgis.Info)
+        QgsMessageLog.logMessage('ENDPOINTSELECT CONF ' + str(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn", Qgis.Info)
         self.geoTreeViewModel.clear()
         self.classTreeViewModel.clear()
         self.geometryCollectionClassListModel.clear()
@@ -441,24 +445,24 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             "resource"]["url"] in self.savedQueriesJSON:
             for item in self.savedQueriesJSON[self.triplestoreconf[endpointIndex]["resource"]["url"]]:
                 self.savedQueries.addItem(item["label"])
-        if "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"] != []:
-            conceptlist = self.triplestoreconf[endpointIndex]["staticconcepts"]
-            self.autocomplete["completerClassList"] = {}
-            self.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(conceptlist)) + ")")
-            for concept in conceptlist:
-                item = QStandardItem()
-                item.setData(concept, UIUtils.dataslot_conceptURI)
-                item.setText(SPARQLUtils.labelFromURI(concept, self.triplestoreconf[endpointIndex]["prefixesrev"]))
-                item.setIcon(UIUtils.geoclassicon)
-                item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
-                self.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
-                self.geoTreeViewModel.appendRow(item)
-            self.inp_sparql2.updateNewClassList()
-            if len(conceptlist) > 0:
-                self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)
-            if "examplequery" in self.triplestoreconf[endpointIndex]:
-                self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
-                self.inp_sparql2.columnvars = {}
+        #if "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex]["staticconcepts"] != []:
+        #    conceptlist = self.triplestoreconf[endpointIndex]["staticconcepts"]
+        #    self.autocomplete["completerClassList"] = {}
+        #    self.conceptViewTabWidget.setTabText(0, "GeoConcepts (" + str(len(conceptlist)) + ")")
+        #    for concept in conceptlist:
+        #        item = QStandardItem()
+        #        item.setData(concept, UIUtils.dataslot_conceptURI)
+        #        item.setText(SPARQLUtils.labelFromURI(concept, self.triplestoreconf[endpointIndex]["prefixesrev"]))
+        #        item.setIcon(UIUtils.geoclassicon)
+        #        item.setData(SPARQLUtils.geoclassnode, UIUtils.dataslot_nodetype)
+        #        self.autocomplete["completerClassList"][SPARQLUtils.labelFromURI(concept)] = "<" + concept + ">"
+        #        self.geoTreeViewModel.appendRow(item)
+        #    self.inp_sparql2.updateNewClassList()
+        #    if len(conceptlist) > 0:
+        #        self.geoTreeView.selectionModel().setCurrentIndex(self.geoTreeView.model().index(0, 0),QItemSelectionModel.SelectCurrent)
+        #    if "examplequery" in self.triplestoreconf[endpointIndex]:
+        #        self.inp_sparql2.setPlainText(self.triplestoreconf[endpointIndex]["examplequery"])
+        #        self.inp_sparql2.columnvars = {}
         #QgsMessageLog.logMessage('463: LoadTriple Store Before Started task ' + str(endpointIndex)+" "+str(fromtask), "SPARQLUnicorn",Qgis.Info)
         #QgsMessageLog.logMessage(
         #    '463: LoadTriple Store Before Started task ' + str(self.triplestoreconf[endpointIndex]), "SPARQLUnicorn",
@@ -475,10 +479,11 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 and "type" in self.triplestoreconf[endpointIndex]["resource"]
                 and self.triplestoreconf[endpointIndex]["resource"]["type"]=="file"
                 and "instance" not in self.triplestoreconf[endpointIndex]["resource"]):
-            #QgsMessageLog.logMessage('LoadTriple Store Before Started task ' + str(endpointIndex)+" "+str(self.comboBox.currentIndex()), "SPARQLUnicorn", Qgis.Info)
-            self.qtaskctree=LoadTripleStoreTask("Loading triple store from uri", self.triplestoreconf[self.comboBox.currentIndex()],self.comboBox.currentIndex(),self)
+            self.qtaskctree=LoadTripleStoreTask("Loading triple store from uri", self.triplestoreconf[endpointIndex],endpointIndex,self)
             QgsApplication.taskManager().addTask(self.qtaskctree)
         else:
+            # QgsMessageLog.logMessage('463: LoadTriple Store Before Started task ' + str(endpointIndex)+" "+str(fromtask), "SPARQLUnicorn",Qgis.Info)
+
             if "resource" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
                 "resource"] != "" and (
                     not "staticconcepts" in self.triplestoreconf[endpointIndex] or "staticconcepts" in self.triplestoreconf[
@@ -490,14 +495,14 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
                 item2 = QStandardItem()
                 item2.setText("Loading...")
                 self.classTreeViewModel.appendRow(item)
-                if "examplequery" in self.triplestoreconf[endpointIndex]:
-                    self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
-                                        self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
-                                        True, self.triplestoreconf[endpointIndex]["examplequery"])
-                elif "geoconceptquery" in self.triplestoreconf[endpointIndex]:
+                if "geoconceptquery" in self.triplestoreconf[endpointIndex]:
                     self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
                                         self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
                                         True, None)
+                elif "examplequery" in self.triplestoreconf[endpointIndex]:
+                    self.getGeoConcepts(self.triplestoreconf[endpointIndex]["resource"],
+                                        self.triplestoreconf[endpointIndex]["geoconceptquery"], "class", None,
+                                        True, self.triplestoreconf[endpointIndex]["examplequery"])
             elif "staticconcepts" in self.triplestoreconf[endpointIndex] and self.triplestoreconf[endpointIndex][
                 "staticconcepts"] != []:
                 conceptlist = self.triplestoreconf[endpointIndex]["staticconcepts"]
@@ -520,6 +525,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
             if (isinstance(self.triplestoreconf[endpointIndex]["resource"]["url"], str) and "wikidata" not in
                 self.triplestoreconf[endpointIndex]["resource"]["url"]) or (not isinstance(
                 self.triplestoreconf[endpointIndex]["resource"]["url"], str) and "instance" in self.triplestoreconf[endpointIndex]["resource"]):
+                QgsMessageLog.logMessage("THE SECOND TIME GET NEW TREE", "ClassTreeQueryTask", Qgis.Info)
                 self.getClassTree()
             if "geocollectionquery" in self.triplestoreconf[endpointIndex]:
                 query = str(self.triplestoreconf[endpointIndex]["geocollectionquery"])
