@@ -36,6 +36,7 @@ class LoadGraphTask(QgsTask):
         path = os.path.join(__location__, "../../tmp/graphcache/" + str(
             str(self.filenames).replace("/", "_").replace("['", "").replace("']", "").replace(
                 "\\", "_").replace(":", "_")) + ".ttl")
+        self.graph = Graph()
         if isinstance(self.filenames,str):
             if os.path.isfile(path):
                 self.graph.parse(path)
@@ -43,7 +44,6 @@ class LoadGraphTask(QgsTask):
                 self.graph=SPARQLUtils.loadGraph(self.filenames)
                 self.graph.serialize(path, format="ttl")
         else:
-            self.graph=Graph()
             for file in self.filenames:
                 SPARQLUtils.loadGraph(file,self.graph)
             self.graph.serialize(path,format="ttl")

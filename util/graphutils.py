@@ -418,7 +418,7 @@ class GraphUtils:
         return results
 
     def detectPropertiesByName(self,triplestoreurl, query="SELECT ?a ?b ?c WHERE { ?a ?b ?c .} LIMIT 1",credentialUserName=None,credentialPassword=None,authmethod=None):
-        query="SELECT DISTINCT ?prop ?propLabel WHERE {?a ?prop ?b .{ ?ab wikibase:directClaim ?prop . ?ab rdfs:label ?propLabel .}UNION {?prop rdfs:label ?propLabel .} FILTER(lang(?propLabel)=\"en\"))}"
+        query="SELECT DISTINCT ?prop ?propLabel WHERE {?a ?prop ?b .{ ?ab <http://wikiba.se/ontology#directClaim> ?prop . ?ab <http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .}UNION {?prop <<http://www.w3.org/2000/01/rdf-schema#label> ?propLabel .} FILTER(lang(?propLabel)=\"en\"))}"
         results = SPARQLUtils.executeQuery(triplestoreurl, query, {"auth": {"method": authmethod, "userCredential": credentialUserName, "userPassword": credentialPassword}})
 
 
