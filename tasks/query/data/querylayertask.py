@@ -283,8 +283,8 @@ class QueryLayerTask(QgsTask):
         #        self.geojson) + " non-geometry query results. You can retrieve them by allowing non-geometry queries!")
         #    msgBox.exec()
         #    return
-        #QgsMessageLog.logMessage('Adding vlayer ' + str(self.geojson),
-        #                         MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Adding vlayer ' + str(self.geojson),
+                                 MESSAGE_CATEGORY, Qgis.Info)
         if self.progress is not None:
             self.progress.close()
         if self.vlayer is not None:

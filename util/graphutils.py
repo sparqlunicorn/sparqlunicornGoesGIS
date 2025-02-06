@@ -95,6 +95,7 @@ class GraphUtils:
         capabilitymessage+="</ul>"
         return capabilitymessage
 
+
     def detectLiteralType(self,configuration,credentialUserName,credentialPassword, authmethod,capabilitylist):
         configuration["geotriplepattern"]=[]
         configuration["querytemplate"] = []

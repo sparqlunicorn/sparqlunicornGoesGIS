@@ -799,6 +799,7 @@ SELECT ?label ?geo ?item WHERE {
     </property>
     <addaction name="actionRDF_Resource_Settings"/>
     <addaction name="actionPreferences"/>
+    <addaction name="actionCache_Settings"/>
    </widget>
    <addaction name="menuLinked_Data_Processing"/>
    <addaction name="menuQuery_Helpers"/>
@@ -909,6 +910,11 @@ SELECT ?label ?geo ?item WHERE {
    </property>
    <property name="text">
     <string>Import RDF Layer</string>
+   </property>
+  </action>
+  <action name="actionCache_Settings">
+   <property name="text">
+    <string>Cache Settings</string>
    </property>
   </action>
  </widget>

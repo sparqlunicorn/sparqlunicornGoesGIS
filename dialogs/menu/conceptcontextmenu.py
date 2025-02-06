@@ -79,6 +79,7 @@ class ConceptContextMenu(QMenu):
             actionAdvancedQuery = QAction("Advanced Query")
             actionAdvancedQuery.setIcon(UIUtils.addfeaturecollectionicon)
             actionAdvancedQuery.triggered.connect(self.advancedQueryDialog)
+            actionAdvancedQuery.setVisible(False)
             menu.addAction(actionAdvancedQuery)
             actionrelgeo.triggered.connect(self.relatedGeoConcepts)
             actionqueryinstances = QAction("Query all instances")
