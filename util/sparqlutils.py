@@ -175,12 +175,13 @@ class SPARQLUtils:
                     raise Exception
                 results = sparql.queryAndConvert()
                 QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
-                #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                 if isinstance(results,dict) and "status_code" in results:
                     QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     SPARQLUtils.exception = str(results)
                     raise Exception
             except Exception as e:
+                QgsMessageLog.logMessage("Exception: " + str(e), MESSAGE_CATEGORY, Qgis.Info)
                 try:
                     sparql = SPARQLWrapper(triplestoreurl["url"],agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
                     sparql.setQuery(query)
@@ -202,7 +203,7 @@ class SPARQLUtils:
                     sparql.setReturnFormat(JSON)
                     results = sparql.queryAndConvert()
                     QgsMessageLog.logMessage("Result: QUERY FINISHED WITH RESULTS", MESSAGE_CATEGORY, Qgis.Info)
-                    #QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage("Result: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
                     if isinstance(results,dict) and "status_code" in results:
                         SPARQLUtils.exception = str(results)
                         raise Exception
@@ -334,7 +335,7 @@ class SPARQLUtils:
             graph = Graph()
         try:
             if graphuri.startswith("http"):
-                QgsMessageLog.logMessage(" Data: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
+                QgsMessageLog.logMessage("Load Graph From URI: " + str(graphuri) + "", MESSAGE_CATEGORY, Qgis.Info)
                 graph.parse(graphuri)
             else:
                 filepath = graphuri.split(".")
