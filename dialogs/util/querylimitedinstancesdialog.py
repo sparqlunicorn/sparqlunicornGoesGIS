@@ -56,7 +56,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
         else:
             self.thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                     self.triplestoreconf["typeproperty"]) + "> <" + str(
-                    self.concept) + "> . } "+limitstatement+"} ?item ?rel ?val .\n }"
+                    self.concept) + "> . } "+limitstatement+" } ?item ?rel ?val .\n }"
             self.qlayerinstance = QueryLayerTask(
                 "All Instances to Layer: " + str(self.concept),
                 self.concept,

@@ -32,11 +32,6 @@ class LoadGraphTask(QgsTask):
         self.geojson = None
         self.gutils=GraphUtils("")
 
-    @staticmethod
-    def fileNameToExtension(filename):
-        ext=filename[filename.rfind(".")+1:]
-        return ext
-
 
     def run(self):
         path = os.path.join(__location__, "../../tmp/graphcache/" + str(

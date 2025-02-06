@@ -42,6 +42,7 @@ from .tool.ontdocdialog import OntDocDialog
 from ..util.ui.uiutils import UIUtils
 from .info.aboutdialog import AboutDialog
 from .conf.preferencesdialog import PreferencesDialog
+from .conf.settingsdialog import SettingsDialog
 from ..tasks.query.discovery.classtreequerytask import ClassTreeQueryTask
 from ..tasks.processing.loadtriplestoretask import LoadTripleStoreTask
 from ..tasks.query.discovery.geocollectionsquerytask import GeoCollectionsQueryTask
@@ -162,6 +163,8 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionRDF_Resource_Settings.triggered.connect(lambda: TripleStoreDialog(self.triplestoreconf, self.prefixes, self.prefixstore,self.comboBox).exec())
         self.actionPreferences.triggered.connect(lambda: PreferencesDialog().exec())
         self.actionPreferences.setVisible(False)
+        self.actionCache_Settings.triggered.connect(lambda: SettingsDialog().exec())
+        self.actionCache_Settings.setVisible(True)
         self.actionCreate_Ontology_Documentation.triggered.connect(lambda: OntDocDialog(self.languagemap,self.triplestoreconf,self.prefixstore).exec())
         self.actionSearch_Concept_for_Query.triggered.connect(lambda: self.buildSearchDialog(-1, -1, -1, self.inp_sparql2, True, True))
         self.actionConvert_RDF_Data.triggered.connect(lambda: ConvertCRSDialog(self.triplestoreconf, self.maindlg, self).exec())
@@ -172,6 +175,7 @@ class SPARQLunicornDialog(QtWidgets.QMainWindow, FORM_CLASS):
         self.actionValidate_RDF_Data.triggered.connect(lambda: GraphValidationDialog(self.triplestoreconf, self.maindlg, self).exec())
         self.actionConstraint_By_BBOX.triggered.connect(lambda: BBOXDialog(self.inp_sparql2, self.triplestoreconf[self.comboBox.currentIndex()]).exec())
         self.actionPreferences.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
+        self.actionCache_Settings.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
         self.actionAbout.setIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_MessageBoxInformation'))))
         self.actionAbout.triggered.connect(lambda: AboutDialog().exec())
         self.tripleStoreInfoButton.setIcon(QIcon(self.style().standardIcon(getattr(QStyle,'SP_MessageBoxInformation'))))

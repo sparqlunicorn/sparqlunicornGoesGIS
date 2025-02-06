@@ -48,6 +48,8 @@ class ConfigUtils:
         except:
             return obj.__dict__
 
+
+
     @staticmethod
     def updateTripleStoreConf(triplestoreconf,newtriplestoreconf,removeold=False):
         triplestoreconfindex={}
