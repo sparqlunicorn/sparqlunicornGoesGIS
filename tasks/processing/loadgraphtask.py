@@ -23,7 +23,7 @@ class LoadGraphTask(QgsTask):
         self.triplestoreconf = triplestoreconf
         self.loadgraphdlg = loadgraphdlg
         self.query = query
-        self.graph = None
+        self.graph = Graph()
         self.geoconcepts = None
         self.closedlg = closedlg
         self.exception = None
@@ -36,7 +36,6 @@ class LoadGraphTask(QgsTask):
         path = os.path.join(__location__, "../../tmp/graphcache/" + str(
             str(self.filenames).replace("/", "_").replace("['", "").replace("']", "").replace(
                 "\\", "_").replace(":", "_")) + ".ttl")
-        self.graph = Graph()
         if isinstance(self.filenames,str):
             if os.path.isfile(path):
                 self.graph.parse(path)
