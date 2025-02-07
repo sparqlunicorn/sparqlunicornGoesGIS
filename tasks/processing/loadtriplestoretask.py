@@ -19,6 +19,7 @@ class LoadTripleStoreTask(QgsTask):
         self.endpointIndex=endpointIndex
         self.curtriplestoreconf = curtriplestoreconf
         self.dlg=dlg
+        self.graph = Graph()
 
     @staticmethod
     def is_file_older_than_x_days(path, days=1):
@@ -32,7 +33,6 @@ class LoadTripleStoreTask(QgsTask):
                 and "type" in self.curtriplestoreconf["resource"]
                 and self.curtriplestoreconf["resource"]["type"]=="file"
                 and "instance" not in self.curtriplestoreconf["resource"]):
-            self.graph=Graph()
             path = os.path.join(__location__, "../../tmp/graphcache/" + str(
                 str(self.curtriplestoreconf["resource"]["url"]).replace("/", "_").replace("['", "")
                 .replace("']","").replace("\\", "_").replace(":", "_")) + ".ttl")
@@ -44,7 +44,7 @@ class LoadTripleStoreTask(QgsTask):
                 QgsMessageLog.logMessage('FILE IS NOT PRESENT OR OLDER THAN '+str(CACHEDAYS),MESSAGE_CATEGORY, Qgis.Info)
                 #QgsMessageLog.logMessage('Started task: Loading graph from URI '.format(self.description()) +self.curtriplestoreconf["resource"]["url"],
                 #                         MESSAGE_CATEGORY, Qgis.Info)
-                SPARQLUtils.loadGraph(self.curtriplestoreconf["resource"]["url"],self.graph)
+                self.graph=SPARQLUtils.loadGraph(self.curtriplestoreconf["resource"]["url"])
                 #QgsMessageLog.logMessage('Started task: Loaded graph from URI '.format(self.description()) + self.curtriplestoreconf["resource"]["url"],
                 #                         MESSAGE_CATEGORY, Qgis.Info)
                 self.curtriplestoreconf["instance"]=self.graph
