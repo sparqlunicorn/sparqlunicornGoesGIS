@@ -42,7 +42,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.concept,
                     self.triplestoreconf["resource"],
                     self.thequery,
-                    self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None)
+                    self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self)
             else:
                 self.thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                         self.triplestoreconf["typeproperty"]) + "> <" + str(
@@ -52,7 +52,7 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                     self.concept,
                     self.triplestoreconf["resource"],
                     self.thequery,
-                    self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
+                    self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None,self)
         else:
             self.thequery="SELECT ?item ?rel ?val\n WHERE\n {\n { SELECT ?item WHERE { ?item <" + str(
                     self.triplestoreconf["typeproperty"]) + "> <" + str(
@@ -62,6 +62,5 @@ class QueryLimitedInstancesDialog(QDialog, FORM_CLASS):
                 self.concept,
                 self.triplestoreconf["resource"],
                 self.thequery,
-                self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None)
+                self.triplestoreconf, True, SPARQLUtils.labelFromURI(self.concept), None,self)
         QgsApplication.taskManager().addTask(self.qlayerinstance)
-        self.accept()

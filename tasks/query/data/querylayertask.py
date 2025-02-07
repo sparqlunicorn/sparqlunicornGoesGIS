@@ -16,11 +16,12 @@ MESSAGE_CATEGORY = 'QueryLayerTask'
 class QueryLayerTask(QgsTask):
     """This shows how to subclass QgsTask"""
 
-    def __init__(self, description,concept, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress=None,querydepth=0,shortenURIs=False,styleuri=None,preferredlang="en"):
+    def __init__(self, description,concept, triplestoreurl, query, triplestoreconf, allownongeo, filename, progress=None,dlgtoclose=None,querydepth=0,shortenURIs=False,styleuri=None,preferredlang="en"):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.progress = progress
         self.concept=concept
+        self.dlgtoclose=dlgtoclose
         self.querydepth=querydepth
         self.preferredlang=preferredlang
         self.triplestoreurl = triplestoreurl
@@ -44,7 +45,7 @@ class QueryLayerTask(QgsTask):
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(
-            self.query.replace("<","_").replace(">","_")),
+            str(self.query).replace("<","_").replace(">","_")),
             MESSAGE_CATEGORY, Qgis.Info)
         results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
         if results==False:
@@ -297,3 +298,5 @@ class QueryLayerTask(QgsTask):
             iface.messageBar().pushMessage("Add layer", "OK", level=Qgis.Success)
         if self.vlayernongeo is not None:
             QgsProject.instance().addMapLayer(self.vlayernongeo)
+        if self.dlgtoclose is not None:
+            self.dlgtoclose.close()

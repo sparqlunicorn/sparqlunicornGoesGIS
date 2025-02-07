@@ -39,10 +39,12 @@ class GeoConceptsQueryTask(QgsTask):
         self.query =SPARQLUtils.queryPreProcessing(query,self.triplestoreconf,None,False,triplestoreurl["type"]=="file")
 
     def run(self):
+        #QgsMessageLog.logMessage('Started task "{}"'.format(self.query.replace("<"," ").replace(">"," ")), MESSAGE_CATEGORY, Qgis.Info)
         if os.path.exists(os.path.join(__location__,"../../../tmp/geoconcepts/" + str(str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("['","").replace("']","").replace("\\","_").replace(":","_")) + ".json")):
             self.loadfromfile=True
         else:
             results = SPARQLUtils.executeQuery(self.triplestoreurl,self.query,self.triplestoreconf)
+            QgsMessageLog.logMessage('Started task "{}"'.format(results),MESSAGE_CATEGORY, Qgis.Info)
             if results==False:
                 return False
             for result in results["results"]["bindings"]:
@@ -105,6 +107,6 @@ class GeoConceptsQueryTask(QgsTask):
                 str(self.triplestoreconf["resource"]["url"]).replace("/", "_").replace("\\","_").replace("['","").replace("']","").replace(":", "_")) + ".json"), "w")
             res = {"text": "root"}
             UIUtils.iterateTreeToJSON(self.rootNode, res, False, True, self.triplestoreconf, None)
-            #QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Started task "{}"'.format(res), MESSAGE_CATEGORY, Qgis.Info)
             f.write(json.dumps(res, indent=2, default=ConfigUtils.dumper, sort_keys=True))
             f.close()
