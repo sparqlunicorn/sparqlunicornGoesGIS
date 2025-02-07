@@ -1,11 +1,23 @@
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
+import time
 
 MESSAGE_CATEGORY = 'CacheUtils'
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 class CacheUtils:
+
+    CLASSTREECACHE_EXPIRY=14
+
+    GEOCONCEPTS_EXPIRY=14
+
+    GRAPHCACHE_EXPIRY=30
+
+    @staticmethod
+    def is_file_older_than_x_days(path, days=1):
+        modtime=os.path.getmtime(path)
+        return ((time.time() - modtime) / 3600 > 24 * days)
 
     @staticmethod
     def graphCacheSize():

@@ -38,6 +38,11 @@ class WhatToEnrichQueryTask(QgsTask):
         item.setText("Loading...")
         self.searchResult.setItem(0,0,item)
         self.searchResult.setMouseTracking(True)
+        if isinstance(self.prefixes, Iterable):
+            self.query="".join(self.prefixes) + self.query
+        else:
+            self.query=str(self.prefixes).replace("None", "") + self.query
+        self.query=SPARQLUtils.queryPreProcessing(self.query, triplestoreconf,None,False,triplestoreurl["type"]=="file")
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
@@ -45,12 +50,7 @@ class WhatToEnrichQueryTask(QgsTask):
         self.query=SPARQLUtils.queryPreProcessing(self.query,self.triplestoreconf)
         if self.searchTerm == "":
             return False
-        if isinstance(self.prefixes, Iterable):
-            results = SPARQLUtils.executeQuery(self.triplestoreurl, "".join(self.prefixes) + self.query,
-                                               self.triplestoreconf)
-        else:
-            results = SPARQLUtils.executeQuery(self.triplestoreurl, str(self.prefixes).replace("None", "") + self.query,
-                                               self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl, self.query, self.triplestoreconf)
         if results == False:
             return False
         if len(results["results"]["bindings"]) == 0:
