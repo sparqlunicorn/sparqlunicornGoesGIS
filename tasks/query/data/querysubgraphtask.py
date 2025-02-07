@@ -1,4 +1,5 @@
 from rdflib import Graph
+from rdflib.plugins.sparql import prepareQuery
 
 from ....util.export.exporterutils import ExporterUtils
 from ....util.sparqlutils import SPARQLUtils
@@ -24,6 +25,9 @@ class QuerySubGraphTask(QgsTask):
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
         self.query = query
+        if triplestoreurl["type"]=="file":
+            self.query=prepareQuery(self.query)
+
 
     def run(self):
         QgsMessageLog.logMessage('Started task "{}"'.format(

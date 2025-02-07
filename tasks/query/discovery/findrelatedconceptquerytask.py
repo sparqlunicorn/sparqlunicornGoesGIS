@@ -28,18 +28,70 @@ class FindRelatedConceptQueryTask(QgsTask):
         curitem = QStandardItem()
         curitem.setText("Loading...")
         self.searchResultModel.setItem(0, 0, curitem)
+        if self.nodetype == SPARQLUtils.classnode or self.nodetype == SPARQLUtils.geoclassnode:
+            self.rightsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE {\n ?con <" + str(
+                self.triplestoreconf["typeproperty"]) + "> <" + str(
+                self.concept) + "> .\n ?con ?rel ?item .\n ?item  <" + str(
+                self.triplestoreconf["typeproperty"]) + "> ?val .\n " + \
+                             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val",
+                                                                        self.triplestoreconf, "OPTIONAL",
+                                                                        "FILTER(LANG(?label) = \"" + str(
+                                                                            self.preferredlang) + "\")") + "\n " + \
+                             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val",
+                                                                        self.triplestoreconf, "OPTIONAL", "") + "\n " + \
+                             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
+                                                                        self.triplestoreconf, "OPTIONAL",
+                                                                        "FILTER(LANG(?rellabel) = \"" + str(
+                                                                            self.preferredlang) + "\")", True) + "\n " + \
+                             SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
+                                                                        self.triplestoreconf, "OPTIONAL", "",
+                                                                        True) + "\n }"
+            self.leftsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE {\n ?tocon <" + str(
+                self.triplestoreconf["typeproperty"]) + "> ?val .\n ?tocon ?rel ?con .\n ?con <" + str(
+                self.triplestoreconf["typeproperty"]) + "> <" + str(
+                self.concept) + "> .\n " + \
+                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val",
+                                                                       self.triplestoreconf, "OPTIONAL",
+                                                                       "FILTER(LANG(?label) = \"" + str(
+                                                                           self.preferredlang) + "\")") + "\n " + \
+                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val",
+                                                                       self.triplestoreconf, "OPTIONAL", "") + "\n " + \
+                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
+                                                                       self.triplestoreconf, "OPTIONAL",
+                                                                       "FILTER(LANG(?rellabel) = \"" + str(
+                                                                           self.preferredlang) + "\")", True) + "\n " + \
+                            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel",
+                                                                       self.triplestoreconf, "OPTIONAL", "",
+                                                                       True) + "\n }"
+        else:
+            self.leftsidequery = "SELECT DISTINCT ?val ?label WHERE { ?sub <" + str(self.concept) + "> ?obj .\n" \
+                            + " OPTIONAL { ?sub <" + str(self.triplestoreconf["typeproperty"]) + "> ?val . \n" \
+                            + " OPTIONAL { " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label",
+                                                                                          "?val", self.triplestoreconf,
+                                                                                          None,
+                                                                                          None) + "  FILTER(LANG(?label)=\"" + str(
+                self.preferredlang) + "\")}\n" \
+                            + " OPTIONAL { " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label",
+                                                                                          "?val", self.triplestoreconf,
+                                                                                          None, None) + " }\n } }"
+            self.rightsidequery = "SELECT DISTINCT ?val ?label WHERE { ?sub <" + str(self.concept) + "> ?obj .\n" \
+                             + " OPTIONAL { ?obj <" + str(self.triplestoreconf["typeproperty"]) + "> ?val .\n" \
+                             + " OPTIONAL { " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%",
+                                                                                           "?label", "?val",
+                                                                                           self.triplestoreconf, None,
+                                                                                           None) + "  FILTER(LANG(?label)=\"" + str(
+                self.preferredlang) + "\")}\n" \
+                             + " OPTIONAL { " + SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%",
+                                                                                           "?label", "?val",
+                                                                                           self.triplestoreconf, None,
+                                                                                           None) + " }\n } }"
+        self.leftsidequery=SPARQLUtils.queryPreProcessing(self.leftsidequery,triplestoreconf, None,None,triplestoreurl["type"]=="file")
+        self.rightsidequery=SPARQLUtils.queryPreProcessing(self.rightsidequery, triplestoreconf, None, None,
+                                       triplestoreurl["type"] == "file")
 
     def findConnectedConceptsFromProperty(self):
-        leftsidequery="SELECT DISTINCT ?val ?label WHERE { ?sub <"+str(self.concept)+"> ?obj .\n"\
-               +" OPTIONAL { ?sub <"+str(self.triplestoreconf["typeproperty"])+"> ?val . \n"\
-               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\""+str(self.preferredlang)+"\")}\n" \
-               +" OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+" }\n } }"
-        rightsidequery="SELECT DISTINCT ?val ?label WHERE { ?sub <"+str(self.concept)+"> ?obj .\n"\
-               + " OPTIONAL { ?obj <" + str(self.triplestoreconf["typeproperty"]) + "> ?val .\n" \
-               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+"  FILTER(LANG(?label)=\"" + str(self.preferredlang) + "\")}\n" \
-               + " OPTIONAL { "+SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,None,None)+" }\n } }"
-        results = SPARQLUtils.executeQuery(self.triplestoreurl, leftsidequery, self.triplestoreconf)
-        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, rightsidequery, self.triplestoreconf)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl, self.leftsidequery, self.triplestoreconf)
+        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
         self.queryresult={}
         self.queryresult2 = {}
         if results!=False:
@@ -62,22 +114,9 @@ class FindRelatedConceptQueryTask(QgsTask):
                         self.queryresult2[result["val"]["value"]] = SPARQLUtils.labelFromURI(result["val"]["value"])
 
     def findConnectedConceptsFromClass(self):
-        rightsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE {\n ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
-            self.concept) + "> .\n ?con ?rel ?item .\n ?item  <" + str(
-            self.triplestoreconf["typeproperty"]) + "> ?val .\n "+\
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%","?label","?val",self.triplestoreconf,"OPTIONAL","FILTER(LANG(?label) = \""+str(self.preferredlang)+"\")")+"\n "+\
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val", self.triplestoreconf, "OPTIONAL","") + "\n " +\
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf, "OPTIONAL","FILTER(LANG(?rellabel) = \"" + str(self.preferredlang) + "\")",True) + "\n " +\
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf, "OPTIONAL","",True) + "\n }"
-        leftsidequery = "SELECT DISTINCT ?rel ?val ?label ?rellabel WHERE {\n ?tocon <" + str(self.triplestoreconf["typeproperty"]) + "> ?val .\n ?tocon ?rel ?con .\n ?con <" + str(self.triplestoreconf["typeproperty"]) + "> <" + str(
-            self.concept) + "> .\n "+\
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val", self.triplestoreconf,"OPTIONAL", "FILTER(LANG(?label) = \"" + str(self.preferredlang) + "\")") + "\n " + \
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?label", "?val", self.triplestoreconf,"OPTIONAL", "") + "\n " + \
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf,"OPTIONAL", "FILTER(LANG(?rellabel) = \"" + str(self.preferredlang) + "\")",True) + "\n " + \
-            SPARQLUtils.resolvePropertyToTriplePattern("%%labelproperty%%", "?rellabel", "?rel", self.triplestoreconf,"OPTIONAL", "",True) + "\n }"
-        #QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,leftsidequery,self.triplestoreconf)
-        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, rightsidequery, self.triplestoreconf)
+               #QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.leftsidequery,self.triplestoreconf)
+        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.queryresult={}
         self.queryresult2 = {}

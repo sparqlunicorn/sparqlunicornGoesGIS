@@ -20,10 +20,23 @@ class SettingsDialog(QDialog, FORM_CLASS):
         self.setWindowTitle("Cache Settings")
         self.setWindowIcon(QIcon(self.style().standardIcon(getattr(QStyle, 'SP_ComputerIcon'))))
         self.closeButton.clicked.connect(self.close)
-        self.clearGraphCacheButton.clicked.connect(CacheUtils.deleteGraphCache)
-        self.clearClassTreeCacheButton.clicked.connect(CacheUtils.deleteClassTreeCache)
-        self.clearGeoConceptsCacheButton.clicked.connect(CacheUtils.deleteGeoConceptsCache)
+        self.clearGraphCacheButton.clicked.connect(self.delGraphCache)
+        self.clearClassTreeCacheButton.clicked.connect(self.delClassTreeCache)
+        self.clearGeoConceptsCacheButton.clicked.connect(self.delGeoConceptsCache)
         self.graphCacheLabel.setText(self.graphCacheLabel.text()+" "+str(CacheUtils.graphCacheSize()))
         self.classTreeCacheLabel.setText(self.classTreeCacheLabel.text() + " " + str(CacheUtils.classTreeCacheSize()))
         self.geoConceptsCacheLabel.setText(self.geoConceptsCacheLabel.text() + " " + str(CacheUtils.geoconceptsCacheSize()))
         self.show()
+
+    def delGeoConceptsCache(self):
+        CacheUtils.deleteGeoConceptsCache()
+        self.geoConceptsCacheLabel.setText(self.geoConceptsCacheLabel.text()[0:self.geoConceptsCacheLabel.text().rfind(" ")+1]+" 0")
+
+    def delClassTreeCache(self):
+        CacheUtils.deleteClassTreeCache()
+        self.classTreeCacheLabel.setText(self.classTreeCacheLabel.text()[0:self.classTreeCacheLabel.text().rfind(" ")+1]+" 0")
+
+    def delGraphCache(self):
+        CacheUtils.deleteGraphCache()
+        self.graphCacheLabel.setText(
+            self.graphCacheLabel.text()[0:self.graphCacheLabel.text().rfind(" ") + 1] + " 0")

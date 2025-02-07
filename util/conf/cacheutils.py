@@ -1,5 +1,6 @@
 from qgis.core import Qgis,QgsTask, QgsMessageLog
 import os
+import time
 
 MESSAGE_CATEGORY = 'CacheUtils'
 
@@ -7,23 +8,31 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file
 
 class CacheUtils:
 
+    CLASSTREECACHE_EXPIRY=14
+
+    GEOCONCEPTS_EXPIRY=14
+
+    GRAPHCACHE_EXPIRY=30
+
+    @staticmethod
+    def is_file_older_than_x_days(path, days=1):
+        modtime=os.path.getmtime(path)
+        return ((time.time() - modtime) / 3600 > 24 * days)
+
     @staticmethod
     def graphCacheSize():
         graphcachesize=0
         thepath=os.path.join(__location__,"../../tmp/graphcache/")
         if os.path.exists(thepath):
-            graphcachesize=len([name for name in os.listdir(thepath) if os.path.isfile(name)])
+            graphcachesize= len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return graphcachesize
 
     @staticmethod
     def classTreeCacheSize():
         classtreesize = 0
         thepath = os.path.join(__location__, "../../tmp/classtree/")
-        QgsMessageLog.logMessage("Path: " + str(thepath), "CacheUtils", Qgis.Info)
         if os.path.exists(thepath):
-            QgsMessageLog.logMessage("Path Exists: " + str(thepath), "CacheUtils", Qgis.Info)
-            classtreesize = len([name for name in os.listdir(thepath) if os.path.isfile(name)])
-            QgsMessageLog.logMessage("Path Exists: " + str(classtreesize), "CacheUtils", Qgis.Info)
+            classtreesize = len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return classtreesize
 
     @staticmethod
@@ -31,7 +40,7 @@ class CacheUtils:
         geoconceptssize = 0
         thepath = os.path.join(__location__, "../../tmp/geoconcepts/")
         if os.path.exists(thepath):
-            geoconceptssize = len([name for name in os.listdir(thepath) if os.path.isfile(name)])
+            geoconceptssize = len([name for name in os.listdir(thepath) if os.path.isfile(os.path.join(thepath,name))])
         return geoconceptssize
 
     @staticmethod

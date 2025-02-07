@@ -1,4 +1,5 @@
 import json
+from rdflib.plugins.sparql import prepareQuery
 
 from ....dialogs.info.errormessagebox import ErrorMessageBox
 from ....util.style.styleutils import StyleUtils
@@ -31,6 +32,8 @@ class QueryLayerTask(QgsTask):
             newtext = "\n".join(self.progress.labelText().split("\n")[0:-1])
             self.progress.setLabelText(newtext + "\nCurrent Task: Query execution (1/2)")
         self.query = query
+        if triplestoreurl["type"]=="file":
+            self.query=prepareQuery(self.query)
         self.shortenURIs=shortenURIs
         self.allownongeo = allownongeo
         self.filename = filename

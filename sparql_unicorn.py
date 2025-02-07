@@ -39,7 +39,7 @@ import os.path
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "dependencies")))
 from .util.ui.uiutils import UIUtils
-from .util.layerutils import LayerUtils
+from .util.conf.cacheutils import CacheUtils
 from .util.export.layer.layerexporter import LayerExporter
 from .util.conf.configutils import ConfigUtils
 from .tasks.query.util.triplestorereposynctask import TripleStoreRepositorySyncTask
@@ -268,13 +268,15 @@ class SPARQLunicorn:
         else:
             dir = os.path.join(__location__, "tmp/classtree")
             for f in os.listdir(dir):
-                os.remove(os.path.join(dir, f))
+                if CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.CLASSTREECACHE_EXPIRY):
+                    os.remove(os.path.join(dir, f))
         if not os.path.exists(os.path.join(__location__, "tmp/geoconcepts")):
             os.mkdir(os.path.join(__location__, "tmp/geoconcepts"))
         else:
             dir = os.path.join(__location__, "tmp/geoconcepts")
             for f in os.listdir(dir):
-                os.remove(os.path.join(dir, f))
+                if CacheUtils.is_file_older_than_x_days(os.path.join(dir,f),CacheUtils.GEOCONCEPTS_EXPIRY):
+                    os.remove(os.path.join(dir, f))
         if not os.path.exists(os.path.join(__location__, "tmp/graphcache")):
             os.mkdir(os.path.join(__location__, "tmp/graphcache"))
         if os.path.isfile(os.path.join(__location__, 'conf/triplestoreconf_personal.json')):
