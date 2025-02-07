@@ -1,3 +1,4 @@
+from dependencies.rdflib.plugins.sparql import prepareQuery
 from ....util.sparqlutils import SPARQLUtils
 from util.style.styleobject import StyleObject
 from qgis.core import Qgis, QgsTask, QgsMessageLog
@@ -15,11 +16,8 @@ class GetStyleQueryTask(QgsTask):
         self.styleuri=styleuri
         self.treeNode=treeNode
         self.amount=-1
-
-    def run(self):
-        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
-        con=self.treeNode.data(256)
-        thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> <http://www.opengis.net/ont/geosparql#style> <"+str(self.styleuri)+"> . "+ \
+        con = self.treeNode.data(256)
+        self.thequery="SELECT ?style ?pointstyle ?polygonstyle ?linestyle ?img ?linestringImageStyle ?lineStringImage ?hatch WHERE { <"+str(con)+"> <http://www.opengis.net/ont/geosparql#style> <"+str(self.styleuri)+"> . "+ \
                      "OPTIONAL { ?style geost:pointStyle ?pointstyle. }\n"+\
                      "OPTIONAL { ?style geost:linestringStyle ?linestyle. }\n"+\
                      "OPTIONAL { ?style geost:polygonStyle ?polygonstyle. }\n"+\
@@ -28,7 +26,12 @@ class GetStyleQueryTask(QgsTask):
                      "OPTIONAL { ?style geost:linestringImage ?linestringImage. }\n"+\
                      "OPTIONAL { ?style geost:hatch  ?hatch. }\n"+\
                      "}"
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,thequery,self.triplestoreconf)
+        if triplestoreurl["type"]=="file":
+            self.thequery=prepareQuery(self.thequery)
+
+    def run(self):
+        QgsMessageLog.logMessage('Started task "{}"'.format(self.description()), MESSAGE_CATEGORY, Qgis.Info)
+        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.thequery,self.triplestoreconf)
         QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.resultstyles=[]
         self.resultstyles.append(StyleObject())
