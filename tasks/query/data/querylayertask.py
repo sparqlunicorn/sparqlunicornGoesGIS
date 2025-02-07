@@ -115,6 +115,8 @@ class QueryLayerTask(QgsTask):
         if feature is not None and "crs" in feature:
             crsset.add(feature["crs"])
             del feature["crs"]
+        QgsMessageLog.logMessage(str(features), MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage(str(nongeofeatures), MESSAGE_CATEGORY, Qgis.Info)
 
 
 
@@ -135,6 +137,7 @@ class QueryLayerTask(QgsTask):
         QgsMessageLog.logMessage('Processing results....',MESSAGE_CATEGORY, Qgis.Info)
         lastaddeditem=""
         for result in results["results"]["bindings"]:
+            QgsMessageLog.logMessage('CurResult Row' + str(result),MESSAGE_CATEGORY, Qgis.Info)
             if self.concept is not None and "item" not in result:
                 result["item"]={"value":self.concept}
             if "item" in result and "rel" in result and "val" in result:
@@ -143,6 +146,7 @@ class QueryLayerTask(QgsTask):
                     #QgsMessageLog.logMessage('rel val + geo' + str(len(features)),
                     #                         MESSAGE_CATEGORY, Qgis.Info)
                     if item != "":
+                        QgsMessageLog.logMessage('Add New Feature Geo ' + str(item),MESSAGE_CATEGORY, Qgis.Info)
                         self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                             result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
                             {'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),'geometry': {}},
@@ -154,6 +158,7 @@ class QueryLayerTask(QgsTask):
                     item == "" or result["item"]["value"] != item) and "lat" in mandatoryvars and "lon" in mandatoryvars:
                     #QgsMessageLog.logMessage('rel val + lat lon' + str(len(features)),
                     #                         MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage('Add New Feature Lat/Lon ' + str(item), MESSAGE_CATEGORY, Qgis.Info)
                     if item != "":
                         self.addFeatureToCorrectCollection(LayerUtils.processLiteral(
                             "POINT(" + str(float(result[lonval]["value"])) + " " + str(
@@ -165,6 +170,7 @@ class QueryLayerTask(QgsTask):
                 elif geooptional and (item == "" or result["item"]["value"] != item):
                     #QgsMessageLog.logMessage('rel val + no geo' + str(len(features)),
                     #                         MESSAGE_CATEGORY, Qgis.Info)
+                    QgsMessageLog.logMessage('Add New Feature Else ' + str(item), MESSAGE_CATEGORY, Qgis.Info)
                     if item != "":
                         self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties),
                                    'geometry': {}},features,nongeofeatures,crsset)
@@ -230,7 +236,8 @@ class QueryLayerTask(QgsTask):
                     #                         MESSAGE_CATEGORY, Qgis.Info)
                     self.addFeatureToCorrectCollection({'id':result["item"]["value"],'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
                     lastaddeditem = result["item"]["value"]
-        if len(results)>0 and lastaddeditem!=item:
+        QgsMessageLog.logMessage('Last Item '+str(item),MESSAGE_CATEGORY, Qgis.Info)
+        if len(results)>=0 and lastaddeditem!=item:
             if "geo" in properties:
                 self.addFeatureToCorrectCollection(LayerUtils.processLiteral(result["geo"]["value"], (
                 result["geo"]["datatype"] if "datatype" in result["geo"] else ""), reproject,
@@ -242,8 +249,7 @@ class QueryLayerTask(QgsTask):
                 "wkt", reproject,{'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},self.triplestoreconf),features,nongeofeatures,crsset)
             else:
                 self.addFeatureToCorrectCollection({'id':result["item"]["value"], 'type': 'Feature', 'properties': self.dropUnwantedKeys(properties), 'geometry': {}},features,nongeofeatures,crsset)
-            #QgsMessageLog.logMessage('Number of features '+str(len(features)),
-            #MESSAGE_CATEGORY, Qgis.Info)
+            QgsMessageLog.logMessage('Number of features '+str(len(features)),MESSAGE_CATEGORY, Qgis.Info)
         if features == [] and len(results["results"]["bindings"]) == 0:
             return [None,None,None]
         #if features == [] and len(results["results"]["bindings"]) > 0:
@@ -260,8 +266,7 @@ class QueryLayerTask(QgsTask):
         return [geojson,geojsonnongeo,None]
 
     def finished(self, result):
-        QgsMessageLog.logMessage('Finishing up..... ',
-                                 MESSAGE_CATEGORY, Qgis.Info)
+        QgsMessageLog.logMessage('Finishing up..... ',MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Adding vlayer ' + str(self.vlayer),
         #                         MESSAGE_CATEGORY, Qgis.Info)
         #QgsMessageLog.logMessage('Adding vlayernongeo ' + str(self.vlayernongeo),
