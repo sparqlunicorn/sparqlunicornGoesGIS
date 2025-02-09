@@ -146,7 +146,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
             self.concept,
             self.triplestoreconf["resource"],
             query,
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None, self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None, self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
         else:
             self.qlayerinstance = QueryLayerTask(
             "Instance to Layer: " + str(self.concept),
@@ -156,7 +156,7 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                                        "mandatoryvariables"]) + " ?rel ?val\n WHERE\n {\n ?item <"+self.triplestoreconf["typeproperty"]+"> <" + str(
                 self.concept) + "> .\n "+str(relstatement)+" "+
             self.triplestoreconf["geotriplepattern"][0] + "\n }",
-            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
+            self.triplestoreconf, False, SPARQLUtils.labelFromURI(self.concept), None,None,self.graphQueryDepthBox.value(),self.shortenURICheckBox.isChecked(),self.styleprop)
 
         QgsApplication.taskManager().addTask(self.qlayerinstance)
 
@@ -182,14 +182,6 @@ class DataSchemaDialog(QWidget, FORM_CLASS):
                                             self.map_canvas,self.concepttype)
             QgsApplication.taskManager().addTask(self.qtask2)
             self.alreadyloadedSample.append(row)
-        #elif column==2 and row==self.dataSchemaTableView.model().rowCount()-1 and row not in self.alreadyloadedSample:
-        #    relation = str(self.dataSchemaTableView.model().index(row, column-1).data(256))
-        #    self.qtask3 = FindStyleQueryTask("Querying styles for dataset.... (" + self.label + ")",
-        #                                     self.triplestoreurl,
-        #                                     self,
-        #                                     self.concept,
-        #                                     column,row,self.triplestoreconf)
-        #    QgsApplication.taskManager().addTask(self.qtask3)
 
     ##
     #  @brief Gives statistics about most commonly occuring properties from a certain class in a given triple store.

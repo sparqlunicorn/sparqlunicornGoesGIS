@@ -9,7 +9,7 @@ MESSAGE_CATEGORY = 'FindRelatedConceptQueryTask'
 
 class FindRelatedConceptQueryTask(QgsTask):
 
-    def __init__(self, description, triplestoreurl,dlg,concept,label,nodetype,triplestoreconf,searchResult,preferredlang="en"):
+    def __init__(self, description, triplestoreurl,dlg,concept,label,nodetype,triplestoreconf,searchResult,preferredlang="en",onlyleft=False,onlyright=False):
         super().__init__(description, QgsTask.CanCancel)
         self.exception = None
         self.triplestoreurl = triplestoreurl
@@ -20,6 +20,8 @@ class FindRelatedConceptQueryTask(QgsTask):
         self.triplestoreconf=triplestoreconf
         self.concept=concept
         self.label=label
+        self.onlyleft=onlyleft
+        self.onlyright=onlyright
         self.queryresult={}
         self.queryresult2 = {}
         while self.searchResultModel.rowCount()>0:
@@ -90,64 +92,68 @@ class FindRelatedConceptQueryTask(QgsTask):
                                        triplestoreurl["type"] == "file")
 
     def findConnectedConceptsFromProperty(self):
-        results = SPARQLUtils.executeQuery(self.triplestoreurl, self.leftsidequery, self.triplestoreconf)
-        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
         self.queryresult={}
         self.queryresult2 = {}
-        if results!=False:
-            for result in results["results"]["bindings"]:
-                if "val" in result and result["val"]["value"]!="":
-                    if result["val"]["value"] not in self.queryresult:
-                        self.queryresult[result["val"]["value"]]={}
-                    if "label" in result:
-                        self.queryresult[result["val"]["value"]] = result["label"]["value"]
-                    else:
-                        self.queryresult[result["val"]["value"]] = SPARQLUtils.labelFromURI(result["val"]["value"])
-        if results2!=False:
-            for result in results2["results"]["bindings"]:
-                if "val" in result and result["val"]["value"]!="":
-                    if result["val"]["value"] not in self.queryresult2:
-                        self.queryresult2[result["val"]["value"]]={}
-                    if "label" in result:
-                        self.queryresult2[result["val"]["value"]] = result["label"]["value"]
-                    else:
-                        self.queryresult2[result["val"]["value"]] = SPARQLUtils.labelFromURI(result["val"]["value"])
+        if self.onlyleft or (self.onlyleft==False and self.onlyright==False):
+            results = SPARQLUtils.executeQuery(self.triplestoreurl, self.leftsidequery, self.triplestoreconf)
+            if results!=False:
+                for result in results["results"]["bindings"]:
+                    if "val" in result and result["val"]["value"]!="":
+                        if result["val"]["value"] not in self.queryresult:
+                            self.queryresult[result["val"]["value"]]={}
+                        if "label" in result:
+                            self.queryresult[result["val"]["value"]] = result["label"]["value"]
+                        else:
+                            self.queryresult[result["val"]["value"]] = SPARQLUtils.labelFromURI(result["val"]["value"])
+        if self.onlyright or (self.onlyleft==False and self.onlyright==False):
+            results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
+            if results2!=False:
+                for result in results2["results"]["bindings"]:
+                    if "val" in result and result["val"]["value"]!="":
+                        if result["val"]["value"] not in self.queryresult2:
+                            self.queryresult2[result["val"]["value"]]={}
+                        if "label" in result:
+                            self.queryresult2[result["val"]["value"]] = result["label"]["value"]
+                        else:
+                            self.queryresult2[result["val"]["value"]] = SPARQLUtils.labelFromURI(result["val"]["value"])
 
     def findConnectedConceptsFromClass(self):
                #QgsMessageLog.logMessage("SELECT ?rel WHERE { ?con "+str(self.triplestoreconf["typeproperty"])+" "+str(self.concept)+" . ?con ?rel ?item . OPTIONAL { ?item "+str(self.triplestoreconf["typeproperty"])+" ?val . } }", MESSAGE_CATEGORY, Qgis.Info)
-        results = SPARQLUtils.executeQuery(self.triplestoreurl,self.leftsidequery,self.triplestoreconf)
-        results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
         #QgsMessageLog.logMessage("Query results: " + str(results), MESSAGE_CATEGORY, Qgis.Info)
         self.queryresult={}
         self.queryresult2 = {}
-        for result in results["results"]["bindings"]:
-            if "rel" in result and "val" in result and result["rel"]["value"]!="":
-                if result["rel"]["value"] not in self.queryresult:
-                    self.queryresult[result["rel"]["value"]]={}
-                self.queryresult[result["rel"]["value"]][result["val"]["value"]]={}
-                if "rellabel" in result:
-                    self.queryresult[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = result["rellabel"][
-                        "value"]
-                else:
-                    self.queryresult[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = ""
-                if "label" in result:
-                    self.queryresult[result["rel"]["value"]][result["val"]["value"]]["label"]=result["label"]["value"]
-                else:
-                    self.queryresult[result["rel"]["value"]][result["val"]["value"]]["label"]=""
-        for result in results2["results"]["bindings"]:
-            if "rel" in result and "val" in result and result["rel"]["value"]!="":
-                if result["rel"]["value"] not in self.queryresult:
-                    self.queryresult2[result["rel"]["value"]]={}
-                self.queryresult2[result["rel"]["value"]][result["val"]["value"]]={}
-                if "rellabel" in result:
-                    self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = result["rellabel"][
-                        "value"]
-                else:
-                    self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = ""
-                if "label" in result:
-                    self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["label"]=result["label"]["value"]
-                else:
-                    self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["label"] = ""
+        if self.onlyleft or (not self.onlyleft and not self.onlyright):
+            results = SPARQLUtils.executeQuery(self.triplestoreurl, self.leftsidequery, self.triplestoreconf)
+            for result in results["results"]["bindings"]:
+                if "rel" in result and "val" in result and result["rel"]["value"]!="":
+                    if result["rel"]["value"] not in self.queryresult:
+                        self.queryresult[result["rel"]["value"]]={}
+                    self.queryresult[result["rel"]["value"]][result["val"]["value"]]={}
+                    if "rellabel" in result:
+                        self.queryresult[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = result["rellabel"][
+                            "value"]
+                    else:
+                        self.queryresult[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = ""
+                    if "label" in result:
+                        self.queryresult[result["rel"]["value"]][result["val"]["value"]]["label"]=result["label"]["value"]
+                    else:
+                        self.queryresult[result["rel"]["value"]][result["val"]["value"]]["label"]=""
+        if self.onlyright or (not self.onlyleft and not self.onlyright):
+            results2 = SPARQLUtils.executeQuery(self.triplestoreurl, self.rightsidequery, self.triplestoreconf)
+            for result in results2["results"]["bindings"]:
+                if "rel" in result and "val" in result and result["rel"]["value"]!="":
+                    if result["rel"]["value"] not in self.queryresult:
+                        self.queryresult2[result["rel"]["value"]]={}
+                    self.queryresult2[result["rel"]["value"]][result["val"]["value"]]={}
+                    if "rellabel" in result:
+                        self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = result["rellabel"][
+                            "value"]
+                    else:
+                        self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["rellabel"] = ""
+                    if "label" in result:
+                        self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["label"]=result["label"]["value"]
+                    else:
+                        self.queryresult2[result["rel"]["value"]][result["val"]["value"]]["label"] = ""
 
     def run(self):
         #QgsMessageLog.logMessage('Started task "{}"'.format(self.description), MESSAGE_CATEGORY, Qgis.Info)

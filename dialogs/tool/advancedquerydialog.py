@@ -25,14 +25,16 @@ class AdvancedQueryDialog(QtWidgets.QDialog, FORM_CLASS):
     ## LoadGraphTask for loading a graph from a file or uri
     qtask = None
 
-    def __init__(self, triplestoreconf={}, concept="",title="Convert CRS"):
+    def __init__(self, triplestoreconf={}, concept="",title=""):
         """Constructor."""
         super(QWidget, self).__init__()
         self.setupUi(self)
         self.setWindowTitle(title)
         self.setWindowIcon(UIUtils.rdffileicon)
+        self.title=title
         self.triplestoreconf = triplestoreconf
         self.tablemodel = QStandardItemModel()
+        self.concept=concept
         self.tablemodel.setHeaderData(0, Qt.Horizontal, "Ingoing Concept")
         self.tablemodel.setHeaderData(1, Qt.Horizontal, "Ingoing Relation")
         self.tablemodel.setHeaderData(2, Qt.Horizontal, "Outgoing Relation")
@@ -51,6 +53,7 @@ class AdvancedQueryDialog(QtWidgets.QDialog, FORM_CLASS):
         #self.filterTableEdit.textChanged.connect(self.filter_proxy_model.setFilterRegExp)
         #self.filterTableComboBox.currentIndexChanged.connect(lambda: self.filter_proxy_model.setFilterKeyColumn(self.filterTableComboBox.currentIndex()))
         self.show()
+        self.getRelatedClassStatistics()
 
 
     def getRelatedClassStatistics(self):
@@ -60,9 +63,9 @@ class AdvancedQueryDialog(QtWidgets.QDialog, FORM_CLASS):
                                self.triplestoreconf["resource"],
                                self.tablemodel,
                                self.concept,
-                               self.label,
+                               self.title,
                                self.nodetype,
-                               self.triplestoreconf,self.tableView)
+                               self.triplestoreconf,self.tableView,"en",False,True)
         QgsApplication.taskManager().addTask(self.qtask)
 
 

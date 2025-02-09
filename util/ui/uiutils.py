@@ -3,10 +3,9 @@ from ..doc.docconfig import DocConfig
 from qgis.PyQt.QtCore import QRegExp
 from qgis.PyQt.QtGui import QRegExpValidator, QValidator, QIcon
 from qgis.PyQt.QtCore import Qt, QUrl, QEvent
-from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel
-from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtGui import QDesktopServices, QStandardItemModel, QStandardItem, QIntValidator, QDoubleValidator
 from qgis.PyQt.QtCore import Qt, QSize
-from qgis.PyQt.QtWidgets import QCompleter
+from qgis.PyQt.QtWidgets import QCompleter, QLineEdit
 from qgis.core import QgsMessageLog
 from qgis.core import Qgis
 import json
@@ -309,6 +308,17 @@ class UIUtils:
                 itembutton.setText(queryresult[att]["val"])
                 itembutton.setData(queryresult[att]["valtype"], UIUtils.dataslot_conceptURI)
             searchResultModel.setItem(counter, 2, itembutton)
+            #itembutton = QStandardItem()
+            #if "valtype" in queryresult[att]:
+            #    if queryresult[att]["valtype"] in DocConfig.integertypes:
+            #        itembutton=QLineEdit()
+            #        itembutton.setValidator(QIntValidator(-1000000,1000000,itembutton))
+            #    elif queryresult[att]["valtype"] in DocConfig.floattypes:
+            #        itembutton=QLineEdit()
+            #        itembutton.setValidator(QDoubleValidator(-1000000,1000000,itembutton))
+            #    else:
+            #        itembutton = QLineEdit()
+            #searchResultModel.setItem(counter, 3, itembutton)
             counter += 1
 
     @staticmethod
